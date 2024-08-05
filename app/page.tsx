@@ -1,6 +1,33 @@
+"use client"
+
+import {useAuth0} from "@auth0/auth0-react";
 import Image from "next/image";
 
 export default function Home() {
+
+  const {
+    isAuthenticated,
+    user,
+    isLoading,
+    error,
+      loginWithRedirect
+  } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  if (!isAuthenticated) {
+    loginWithRedirect();
+    return <div>Redirecting to login...</div>;
+  }
+
+  console.log({user})
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
