@@ -8,7 +8,7 @@ const { COLORS, kebabToPascal, kebabToCamel, defaultPromptName } = require("./gl
 async function createComponent({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { T${PascalName} } from "./${name}.types";
 
@@ -24,7 +24,7 @@ async function createComponent({ name, path, PascalName }) {
 async function createTypes({ name, path, PascalName, camelName, options: { variants } }) {
   await fs.appendFile(
     `${path}/${name}.types.ts`,
-    prettier.format(
+    await prettier.format(
       `
         import { PropsWithChildren } from "react";
         ${
@@ -49,7 +49,7 @@ async function createTypes({ name, path, PascalName, camelName, options: { varia
 async function createVariants({ name, path, camelName }) {
   await fs.appendFile(
     `${path}/${name}.variants.ts`,
-    prettier.format(
+    await prettier.format(
       `
         import { tv } from "tailwind-variants";
 
@@ -67,7 +67,7 @@ async function createVariants({ name, path, camelName }) {
 async function createStories({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.stories.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import type { Meta, StoryObj } from "@storybook/react";
 

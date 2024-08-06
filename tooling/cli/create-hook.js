@@ -7,7 +7,7 @@ const { COLORS, kebabToPascal, kebabToCamel, defaultPromptName } = require("./gl
 async function createComponent({ name, path, PascalName, camelName }) {
   await fs.appendFile(
     `${path}/${name}.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { T${PascalName} } from "./${name}.types";
 
@@ -23,7 +23,7 @@ async function createComponent({ name, path, PascalName, camelName }) {
 async function createTypes({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.types.ts`,
-    prettier.format(
+    await prettier.format(
       `
         export namespace T${PascalName} {
           export interface Return {}

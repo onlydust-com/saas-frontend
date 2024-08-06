@@ -13,7 +13,7 @@ const MOCK_API_PATH = "@/core/infrastructure/marketplace-api-client-adapter/mock
 async function createContract({ PascalName, files }) {
   await fs.appendFile(
     files.contract,
-    prettier.format(
+    await prettier.format(
       `
       import {
         HttpClientParameters,
@@ -37,7 +37,7 @@ async function createContract({ PascalName, files }) {
 async function createInput({ PascalName, files, filesNoExtension }) {
   await fs.appendFile(
     files.input,
-    prettier.format(
+    await prettier.format(
       `
     import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "${filesNoExtension.contract}";
 
@@ -53,7 +53,7 @@ async function createInput({ PascalName, files, filesNoExtension }) {
 async function createOutput({ PascalName, files, filesNoExtension }) {
   await fs.appendFile(
     files.outputs,
-    prettier.format(
+    await prettier.format(
       `
 
       import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "${filesNoExtension.contract}";
@@ -71,7 +71,7 @@ async function createOutput({ PascalName, files, filesNoExtension }) {
 async function createModel({ PascalName, files }) {
   await fs.appendFile(
     files.models,
-    prettier.format(
+    await prettier.format(
       `
     import { components } from "src/__generated/api";
 
@@ -94,7 +94,7 @@ async function createModel({ PascalName, files }) {
 async function createClientAdapter({ PascalName, files, camelName, filesNoExtension }) {
   await fs.appendFile(
     files.clientAdapter,
-    prettier.format(
+    await prettier.format(
       `
       import { Get${PascalName}Response } from "${filesNoExtension.contract}";
       import { ${PascalName} } from "${filesNoExtension.models}";
@@ -138,7 +138,7 @@ async function createClientAdapter({ PascalName, files, camelName, filesNoExtens
 async function createMockClientAdapter({ PascalName, files, filesNoExtension }) {
   await fs.appendFile(
     files.clientMockAdapter,
-    prettier.format(
+    await prettier.format(
       `
       import { ${PascalName}StoragePort } from "${filesNoExtension.outputs}";
       import { mockHttpStorageResponse } from "@/core/infrastructure/marketplace-api-client-adapter/http/mock-http-client/mock-http-storage-response";

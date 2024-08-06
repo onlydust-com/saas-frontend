@@ -9,7 +9,7 @@ async function createAdapter({ name, path, PascalName, PascalAdapterName, camelA
   await fs.mkdir(`${path}/adapters/${camelAdapterName}`);
   await fs.appendFile(
     `${path}/adapters/${adapterName}/${adapterName}.adapter.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { ElementType } from "react";
 
@@ -33,7 +33,7 @@ async function createAdapter({ name, path, PascalName, PascalAdapterName, camelA
   );
   await fs.appendFile(
     `${path}/adapters/${adapterName}/${adapterName}.variants.ts`,
-    prettier.format(
+    await prettier.format(
       `
         import { tv } from "tailwind-variants";
         import { ${PascalName}CoreVariants } from "../../${name}.variants";

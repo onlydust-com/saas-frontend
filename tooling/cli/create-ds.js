@@ -9,7 +9,7 @@ const { exec } = require("node:child_process");
 async function createCoreComponent({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.core.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { ElementType } from "react";
         import { PropsWithAdapter } from "components/types/props-with-adapter";
@@ -34,7 +34,7 @@ async function createVariants({ name, path, PascalName }) {
   await fs.mkdir(`${path}/variants`);
   await fs.appendFile(
     `${path}/variants/${name}-default.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { ElementType } from "react";
 
@@ -57,7 +57,7 @@ async function createAdapter({ name, path, PascalName }) {
   await fs.mkdir(`${path}/adapters/default`);
   await fs.appendFile(
     `${path}/adapters/default/default.adapter.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { ElementType } from "react";
 
@@ -80,7 +80,7 @@ async function createAdapter({ name, path, PascalName }) {
   );
   await fs.appendFile(
     `${path}/adapters/default/default.variants.ts`,
-    prettier.format(
+    await prettier.format(
       `
         import { tv } from "tailwind-variants";
 
@@ -100,7 +100,7 @@ async function createAdapter({ name, path, PascalName }) {
 async function createTypes({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.types.ts`,
-    prettier.format(
+    await prettier.format(
       `
         import { ComponentPropsWithoutRef, ElementType } from "react";
 
@@ -124,7 +124,7 @@ async function createTypes({ name, path, PascalName }) {
 async function createLoading({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.loading.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         export function ${PascalName}Loading() {
           return <div />;
@@ -138,7 +138,7 @@ async function createLoading({ name, path, PascalName }) {
 async function createIndex({ name, path }) {
   await fs.appendFile(
     `${path}/index.ts`,
-    prettier.format(
+    await prettier.format(
       `
         export * from "./variants/${name}-default";
         export * from "./${name}.types";
@@ -152,7 +152,7 @@ async function createIndex({ name, path }) {
 async function createStories({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.stories.tsx`,
-    prettier.format(
+    await prettier.format(
       `
         import { Meta, StoryObj } from "@storybook/react";
         import { ${PascalName}Port } from "./${name}.types";
@@ -169,10 +169,10 @@ async function createStories({ name, path, PascalName }) {
             path.includes("atoms")
               ? "Atoms"
               : path.includes("molecules")
-              ? "Molecules"
-              : path.includes("organisms")
-              ? "Organisms"
-              : "Local"
+                ? "Molecules"
+                : path.includes("organisms")
+                  ? "Organisms"
+                  : "Local"
           }/${PascalName}",
           tags: ["autodocs"],
           parameters: {
