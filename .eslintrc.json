@@ -1,3 +1,41 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": ["prettier", "unused-imports"],
+  "rules": {
+    "quotes": [
+      "warn",
+      "double",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "endOfLine": "auto",
+        "trailingComma": "es5",
+        "tabWidth": 2,
+        "semi": true,
+        "singleQuote": false,
+        "printWidth": 120
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "unused-imports/no-unused-imports": "error",
+    "object-shorthand": ["error", "always"],
+    "no-trailing-spaces": "error",
+    "@next/next/no-img-element": "off"
+  },
+  "ignorePatterns": ["**/node_modules/*", "**/__generated/*", "**/.next/*", "tooling/*"]
 }
