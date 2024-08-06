@@ -1,13 +1,9 @@
-import { TestTranslate } from "@/app/test/test.translate";
-
-import { Translate } from "@/shared/i18n/translate";
+import { Translate } from "@/shared/translation/components/translate";
 
 export default function TestPage() {
   return (
-    <TestTranslate>
-      <div>
-        <Translate i18nKey={"very.deep.trad"} ns={"test"} />
-      </div>
-    </TestTranslate>
+    <div>
+      <Translate i18nKey={"very.deep.trad"} ns={"test"} /> <Translate i18nKey={"test:very.deep.trad"} />
+    </div>
   );
 }

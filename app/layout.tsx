@@ -5,8 +5,6 @@ import { ReactNode } from "react";
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 
-import { CommonTranslate } from "@/shared/i18n/common.translate";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <CommonTranslate>{children}</CommonTranslate>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
