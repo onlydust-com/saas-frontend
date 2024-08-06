@@ -1,4 +1,4 @@
-import { Translate } from "@/shared/translation/components/translate";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function TestPage() {
   return (

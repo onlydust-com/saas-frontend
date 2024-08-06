@@ -14,7 +14,7 @@ async function createCoreComponent({ name, path, PascalName }) {
         import { ElementType } from "react";
         import { PropsWithAdapter } from "components/types/props-with-adapter";
 
-        import { cn } from "src/utils/cn";
+        import { cn } from "@/shared/helpers/cn";
 
         import { ${PascalName}Port } from "./${name}.types";
 
@@ -38,8 +38,9 @@ async function createVariants({ name, path, PascalName }) {
       `
         import { ElementType } from "react";
 
+        import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
+        
         import { ${PascalName}DefaultAdapter} from "../adapters/default/default.adapter";
-        import { withComponentAdapter } from "components/hocs/with-component-adapter";
 
         import { ${PascalName}Port } from "../${name}.types";
 
@@ -61,7 +62,7 @@ async function createAdapter({ name, path, PascalName }) {
       `
         import { ElementType } from "react";
 
-        import { cn } from "src/utils/cn";
+        import { cn } from "@/shared/helpers/cn";
 
         import { ${PascalName}Port } from "../../${name}.types";
         import { ${PascalName}DefaultVariants } from "./default.variants";

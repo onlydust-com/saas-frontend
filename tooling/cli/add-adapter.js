@@ -13,7 +13,7 @@ async function createAdapter({ name, path, PascalName, PascalAdapterName, camelA
       `
         import { ElementType } from "react";
 
-        import { cn } from "src/utils/cn";
+        import { cn } from "@/shared/helpers/cn";
 
         import { ${PascalName}Port } from "../../${name}.types";
         import { ${PascalName}${PascalAdapterName}Variants } from "./${adapterName}.variants";
