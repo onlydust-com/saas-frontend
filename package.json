@@ -10,7 +10,12 @@
     "test": "vitest",
     "coverage": "vitest --coverage",
     "gen:types": "tooling/scripts/generate-api-types.sh",
-    "postbuild": "tooling/scripts/upload-sourcemaps.sh"
+    "postbuild": "tooling/scripts/upload-sourcemaps.sh",
+    "component": "ts-node tooling/cli/create-component.js",
+    "ds": "ts-node tooling/cli/create-ds.js",
+    "ds:adapter": "ts-node tooling/cli/add-adapter.js",
+    "core:domain": "ts-node tooling/cli/create-domain.js",
+    "hook": "ts-node tooling/cli/create-hook.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
@@ -41,6 +46,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.7",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   }
