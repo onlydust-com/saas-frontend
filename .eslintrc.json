@@ -2,13 +2,15 @@
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:@next/next/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:@next/next/recommended",
     "plugin:storybook/recommended"
   ],
-  "plugins": ["prettier", "unused-imports"],
+  "plugins": ["@typescript-eslint", "prettier", "unused-imports"],
   "rules": {
     "quotes": [
       "warn",
@@ -35,6 +37,14 @@
     "unused-imports/no-unused-imports": "error",
     "object-shorthand": ["error", "always"],
     "no-trailing-spaces": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
     "@next/next/no-img-element": "off"
   },
   "ignorePatterns": ["**/node_modules/*", "**/__generated/*", "**/.next/*", "tooling/*"]
