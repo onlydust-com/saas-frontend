@@ -6,9 +6,9 @@ const prettier = require("prettier");
 const { COLORS, kebabToPascal, kebabToCamel, defaultPromptName, exists } = require("./global");
 const { exec } = require("node:child_process");
 
-const DOMAIN_PATH = "core/domain";
-const API_PATH = "core/infrastructure/marketplace-api-client-adapter/adapters";
-const MOCK_API_PATH = "core/infrastructure/marketplace-api-client-adapter/mock-adapters";
+const DOMAIN_PATH = "@/core/domain";
+const API_PATH = "@/core/infrastructure/marketplace-api-client-adapter/adapters";
+const MOCK_API_PATH = "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters";
 
 async function createContract({ PascalName, files }) {
   await fs.appendFile(
@@ -18,7 +18,7 @@ async function createContract({ PascalName, files }) {
       import {
         HttpClientParameters,
         HttpStorageResponse,
-      } from "core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+      } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
       import { components } from "src/__generated/api";
 
@@ -99,7 +99,7 @@ async function createClientAdapter({ PascalName, files, camelName, filesNoExtens
       import { Get${PascalName}Response } from "${filesNoExtension.contract}";
       import { ${PascalName} } from "${filesNoExtension.models}";
       import { ${PascalName}StoragePort } from "${filesNoExtension.outputs}";
-      import { HttpClient } from "core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
+      import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 
       export class ${PascalName}ClientAdapter implements ${PascalName}StoragePort {
         constructor(private readonly client: HttpClient) {}
@@ -141,7 +141,7 @@ async function createMockClientAdapter({ PascalName, files, filesNoExtension }) 
     prettier.format(
       `
       import { ${PascalName}StoragePort } from "${filesNoExtension.outputs}";
-      import { mockHttpStorageResponse } from "core/infrastructure/marketplace-api-client-adapter/http/mock-http-client/mock-http-storage-response";
+      import { mockHttpStorageResponse } from "@/core/infrastructure/marketplace-api-client-adapter/http/mock-http-client/mock-http-storage-response";
 
       export class ${PascalName}ClientAdapterMock implements ${PascalName}StoragePort {
         constructor() {}
