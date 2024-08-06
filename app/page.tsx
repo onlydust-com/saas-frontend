@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Image from "next/image";
 
 export default function Home() {
-  const { isAuthenticated, user, isLoading, error, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading, error, loginWithRedirect } = useAuth0();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,8 +18,6 @@ export default function Home() {
     loginWithRedirect();
     return <div>Redirecting to login...</div>;
   }
-
-  console.log({ user });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

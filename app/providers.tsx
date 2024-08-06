@@ -2,6 +2,9 @@
 
 import { Auth0Provider } from "@auth0/auth0-react";
 import { PropsWithChildren } from "react";
+import { I18nextProvider } from "react-i18next";
+
+import i18n from "@/shared/i18n/i18n";
 
 const domain = process.env.NEXT_PUBLIC_AUTH0_PROVIDER_DOMAIN;
 const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID;
@@ -28,7 +31,7 @@ export function Providers({ children }: PropsWithChildren) {
       useRefreshTokens={true}
       // onRedirectCallback={onRedirectCallback}
     >
-      {children}
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
     </Auth0Provider>
   );
 }
