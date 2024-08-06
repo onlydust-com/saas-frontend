@@ -1,10 +1,9 @@
 import { Spinner } from "@nextui-org/react";
-import { Typo } from "components/atoms/typo/variants/typo-default";
-import { RenderWithProps } from "components/layout/components-utils/render-with-props/render-with-props";
-import { Show } from "components/layout/components-utils/show/show";
+// import { RenderWithProps } from "components/layout/components-utils/render-with-props/render-with-props";
 import { ComponentProps, ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -64,11 +63,11 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
           props={startIcon}
           overrideProps={{ className: cn(slots.startIcon(), classNames?.startIcon, startIcon?.className) }}
         />
-        <Show show={showChildren}>
+        {showChildren && (
           <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
             {children || <RenderWithProps Component={Translate} props={translate} />}
           </Typo>
-        </Show>
+        )}
         <RenderWithProps
           Component={Icon}
           props={endIcon}

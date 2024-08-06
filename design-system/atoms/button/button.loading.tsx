@@ -1,6 +1,6 @@
 import { ElementType } from "react";
 
-import { SkeletonEl } from "components/ds/skeleton/skeleton";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ButtonPort } from "./button.types";
 
@@ -28,5 +28,5 @@ export function ButtonLoading<C extends ElementType = "button">({ size, hideText
     return [136, 32];
   })();
 
-  return <SkeletonEl variant="rounded" width={w} height={h} className="rounded-md" />;
+  return <Skeleton width={w} height={h} />;
 }
