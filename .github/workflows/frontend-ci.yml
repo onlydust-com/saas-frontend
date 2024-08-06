@@ -1,0 +1,54 @@
+name: Frontend CI
+
+on:
+  pull_request: ~
+
+  push:
+    branches:
+      - "main"
+      - "hotfix/**"
+
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
+        required: false
+        default: false
+
+env:
+  NEXT_PUBLIC_ENV: local
+  NODE_OPTIONS: --max_old_space_size=4096
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Run unit/integration test
+        run: npm run coverage
+      - name: Setup tmate session for debugging
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() && inputs.debug_enabled }}
+      - name: Upload unit/integration tests coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/clover.xml
+          token: ${{ secrets.CODECOV_TOKEN  }}
+      - name: Clean coverage
+        run: rm -rf coverage
