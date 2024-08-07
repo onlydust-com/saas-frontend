@@ -2,6 +2,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
 import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/fetch-http-client/fetch-http-client";
+import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
@@ -11,6 +12,7 @@ export interface BootstrapConstructor {
 export class Bootstrap {
   static #instance: Bootstrap;
   private authProvider?: AuthProvider;
+  private impersonationProvider?: ImpersonationProvider | null = null;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
 
@@ -25,6 +27,14 @@ export class Bootstrap {
 
   setAuthProvider(authProvider: AuthProvider) {
     this.authProvider = authProvider;
+  }
+
+  getImpersonationProvider() {
+    return this.impersonationProvider;
+  }
+
+  setImpersonationProvider(impersonationProvider: ImpersonationProvider | null) {
+    this.impersonationProvider = impersonationProvider;
   }
 
   getUserStoragePortForClient() {

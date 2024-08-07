@@ -1,14 +1,19 @@
+"use client";
+
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useState } from "react";
 
 import { bootstrap } from "@/core/bootstrap/index";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
+import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 
 interface ClientBootstrap {
   authProvider?: AuthProvider;
+  impersonationProvider?: ImpersonationProvider | null;
 }
 
 const initialClientBootstrap: ClientBootstrap = {
   authProvider: bootstrap.getAuthProvider(),
+  impersonationProvider: bootstrap.getImpersonationProvider(),
 };
 
 const ClientBootstrapContext = createContext<{

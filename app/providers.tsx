@@ -1,37 +1,22 @@
-"use client";
-
-import { Auth0Provider } from "@auth0/auth0-react";
 import { PropsWithChildren } from "react";
-import { I18nextProvider } from "react-i18next";
 
-import i18n from "@/shared/translation/init-i18n";
+import { Auth0Provider } from "@/core/application/auth0-client-adapter/auth0-provider";
+import { ClientBootstrapProvider } from "@/core/bootstrap/client-bootstrap-context";
+import { InitBootstrapAuth } from "@/core/bootstrap/init-bootstrap-auth";
+import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impersonation";
 
-const domain = process.env.NEXT_PUBLIC_AUTH0_PROVIDER_DOMAIN;
-const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID;
-const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL;
-const connectionName = process.env.NEXT_PUBLIC_AUTH0_DEFAULT_CONNECTION_NAME;
-const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE;
+import { TranslationProvider } from "@/shared/translation/components/translation-provider/translation-provider";
 
 export function Providers({ children }: PropsWithChildren) {
-  if (!(domain && clientId && redirectUri && audience)) {
-    return null;
-  }
-
   return (
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      authorizationParams={{
-        redirect_uri: redirectUri,
-        connection: connectionName,
-        audience,
-        // connection_scope: scopeStorage,
-      }}
-      cacheLocation="localstorage"
-      useRefreshTokens={true}
-      // onRedirectCallback={onRedirectCallback}
-    >
-      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
-    </Auth0Provider>
+    <ClientBootstrapProvider>
+      <Auth0Provider>
+        <TranslationProvider>
+          <InitBootstrapAuth />
+          <InitBootstrapImpersonation />
+          {children}
+        </TranslationProvider>
+      </Auth0Provider>
+    </ClientBootstrapProvider>
   );
 }
