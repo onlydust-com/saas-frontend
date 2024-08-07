@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { Button } from "components/atoms/button/variants/button-default";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { Toaster, toast } from "./variants/toaster-default";
 

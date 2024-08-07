@@ -12,6 +12,8 @@ import { Providers } from "@/app/providers";
 import { InitBootstrapAuth } from "@/core/bootstrap/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impersonation";
 
+import { Toaster } from "@/design-system/atoms/toaster";
+
 import { sharedMetadata } from "./shared-metadata";
 
 const PosthogPageview = dynamic(
@@ -35,6 +37,7 @@ export default function RootLayout({
           <InitBootstrapAuth />
           <InitBootstrapImpersonation />
           <PosthogPageview />
+          <Toaster />
           {children}
         </Providers>
       </body>

@@ -1,7 +1,7 @@
 import { Toaster, toast } from "sonner";
 
-import { Typo } from "components/atoms/typo";
-import { Icon } from "components/layout/icon/icon";
+import { Icon } from "@/design-system/atoms/icon";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { ToastPort, ToastProps, ToasterPort } from "../../toaster.types";
 import { ToasterSonnerVariants } from "./sonner.variants";
@@ -22,7 +22,7 @@ function handleToast({ children, variants, iconProps }: ToastProps) {
       </div>
 
       <button type={"button"} onClick={() => toast.dismiss(t)} className={slots.closeButton()}>
-        <Icon remixName={"ri-close-circle-line"} />
+        <Icon name={"ri-close-circle-line"} />
       </button>
     </div>
   ));
@@ -31,5 +31,5 @@ function handleToast({ children, variants, iconProps }: ToastProps) {
 export const toastSonnerAdapter: ToastPort = {
   default: children => handleToast({ children, variants: { variant: "default" } }),
   error: children =>
-    handleToast({ children, variants: { variant: "error" }, iconProps: { remixName: "ri-error-warning-line" } }),
+    handleToast({ children, variants: { variant: "error" }, iconProps: { name: "ri-error-warning-line" } }),
 };
