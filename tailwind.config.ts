@@ -1,4 +1,6 @@
 import { nextui } from "@nextui-org/react";
+import typography from "@tailwindcss/typography";
+import scrollbar from "tailwind-scrollbar";
 import { withTV } from "tailwind-variants/transformer";
 import type { Config } from "tailwindcss";
 
@@ -64,26 +66,27 @@ const config: Config = withTV({
     },
   },
   plugins: [
-    nextui(),
-    // {
-    // defaultTheme: "dark",
-    // themes: {
-    //   dark: {
-    //     colors: {
-    //       background: "transparent",
-    //       primary: "#AE00FF", // Space Purple 500
-    //     },
-    //     layout: {
-    //       radius: {
-    //         large: "10px",
-    //       },
-    //       boxShadow: {
-    //         medium: "0px 8px 64px 0px rgba(0, 0, 0, 0.32)",
-    //       },
-    //     },
-    //   },
-    // },
-    // }
+    typography,
+    scrollbar,
+    nextui({
+      defaultTheme: "dark",
+      // themes: {
+      //   dark: {
+      //     colors: {
+      //       background: "transparent",
+      //       primary: "#AE00FF", // Space Purple 500
+      //     },
+      //     layout: {
+      //       radius: {
+      //         large: "10px",
+      //       },
+      //       boxShadow: {
+      //         medium: "0px 8px 64px 0px rgba(0, 0, 0, 0.32)",
+      //       },
+      //     },
+      //   },
+      // },
+    }),
   ],
 });
 
