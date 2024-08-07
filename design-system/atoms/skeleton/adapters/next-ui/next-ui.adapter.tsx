@@ -5,7 +5,7 @@ import { cn } from "@/shared/helpers/cn";
 import { SkeletonPort } from "../../skeleton.types";
 import { SkeletonNextUiVariants } from "./next-ui.variants";
 
-export function SkeletonNextUiAdapter({ classNames, shape }: SkeletonPort) {
+export function SkeletonNextUiAdapter({ classNames, shape, ...restProps }: SkeletonPort) {
   const slots = SkeletonNextUiVariants({ shape });
 
   return (
@@ -13,6 +13,7 @@ export function SkeletonNextUiAdapter({ classNames, shape }: SkeletonPort) {
       classNames={{
         base: cn(slots.base(), classNames?.base),
       }}
+      {...restProps}
     />
   );
 }
