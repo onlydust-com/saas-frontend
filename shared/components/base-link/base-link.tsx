@@ -6,7 +6,7 @@ import { MouseEvent } from "react";
 import { cn } from "@/shared/helpers/cn";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 
-import { TBaseLink } from "./base-link.types";
+import { BaseLinkProps } from "./base-link.types";
 
 export function BaseLink({
   href,
@@ -17,7 +17,7 @@ export function BaseLink({
   matchPathOptions,
   onClick,
   ...props
-}: TBaseLink.Props) {
+}: BaseLinkProps) {
   // const { block } = useNavigationState();
   // const [shouldBlock] = block.state;
   // const [, setConfirmation] = block.confirmation;
