@@ -1,6 +1,5 @@
 "use client";
 
-// import { useImpersonation } from "components/features/impersonation/use-impersonation";
 import { useEffect } from "react";
 
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
@@ -12,6 +11,7 @@ import { ImpersonationClaim } from "@/core/infrastructure/marketplace-api-client
 export function InitBootstrapImpersonation() {
   // const { isImpersonating, getImpersonateClaim } = useImpersonation();
 
+  // TODO @impersonation
   // MOCK
   const isImpersonating = false;
 

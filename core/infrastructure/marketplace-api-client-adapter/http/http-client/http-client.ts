@@ -27,6 +27,7 @@ export class HttpClient {
   }
 
   async getHeaders() {
+    // TODO, @impersonation
     // const impersonationProvider = bootstrap.getImpersonationProvider();
     // const impersonationHeaders = impersonationProvider?.getHeaders() ?? {};
 
