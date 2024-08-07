@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { usePostHog } from "posthog-js/react";
 
-import { getGithubUserIdFromSub } from "@/core/application/auth0-client-adapter/helpers/get-github-user-id-from-sub";
+import { Auth0ClientAdapter } from "@/core/application/auth0-client-adapter";
 
 export function usePosthog() {
   const posthog = usePostHog();
@@ -12,7 +12,7 @@ export function usePosthog() {
   const isImpersonating = false;
 
   const { user } = useAuth0();
-  const impersonated_by = getGithubUserIdFromSub(user?.sub) ?? "UNKNOWN";
+  const impersonated_by = Auth0ClientAdapter.helpers.getGithubUserIdFromSub(user?.sub) ?? "UNKNOWN";
 
   function identify(userId: string, properties?: Record<string, unknown>) {
     posthog.identify(userId, properties);
