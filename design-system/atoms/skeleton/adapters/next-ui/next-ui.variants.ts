@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const SkeletonNextUiVariants = tv({
   slots: {
-    base: "",
+    base: "w-full",
   },
   variants: {
     shape: {
