@@ -1,6 +1,6 @@
-import { components } from "@/core/__generated/api";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
+import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
   HttpStorageResponse,

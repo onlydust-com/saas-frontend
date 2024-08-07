@@ -6,7 +6,7 @@ production_swagger_doc_url="https://api.onlydust.com/v3/api-docs"
 
 function generate_code_from_swagger_doc_url() {
     echo "⚙️  Generating types using default API BASEPATH = ${1}"
-    yarn openapi-typescript $1 --output ./core/__generated/api.d.ts
+    yarn openapi-typescript $1 --output ./core/infrastructure/marketplace-api-client-adapter/__generated/api.d.ts
 }
 
 echo "Starting to generate code from REST API contract on branch ${VERCEL_GIT_COMMIT_REF} ..."

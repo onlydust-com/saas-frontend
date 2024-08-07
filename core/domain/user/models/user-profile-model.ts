@@ -1,6 +1,6 @@
-import { components } from "@/core/__generated/api";
 import { UserJoiningReason, UserProfileContact, UserProfileContactChannel } from "@/core/domain/user/models/user.types";
 import { USER_PROFILE_JOINING_REASON } from "@/core/domain/user/user-constants";
+import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 type UserProfileResponse = components["schemas"]["PrivateUserProfileResponse"];
 
