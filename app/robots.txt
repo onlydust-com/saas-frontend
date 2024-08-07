@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://admin.onlydust.com/sitemap.xml
