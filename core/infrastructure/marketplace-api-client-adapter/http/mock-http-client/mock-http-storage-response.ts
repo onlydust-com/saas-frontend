@@ -1,4 +1,4 @@
-import { FirstParameter, GenericFunction } from "@/core/helpers/types";
+import { FirstParameter, GenericFunction } from "@/core/kernel/types";
 
 export const mockHttpStorageResponse = <O extends GenericFunction>() => {
   return {

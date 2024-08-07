@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { AnyType, FirstParameter, GenericFunction } from "@/core/helpers/types";
+import { AnyType, FirstParameter, GenericFunction } from "@/core/kernel/types";
 
 interface BaseResponse {
   hasMore: boolean;

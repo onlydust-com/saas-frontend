@@ -1,11 +1,11 @@
 import type { DefaultError } from "@tanstack/query-core";
 import { useMutation } from "@tanstack/react-query";
 
-import { FirstParameter, GenericFunction } from "@/core/helpers/types";
 import {
   HttpClientParameters,
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+import { FirstParameter, GenericFunction } from "@/core/kernel/types";
 
 type UseMutationOptions<Response, Body> = FirstParameter<typeof useMutation<Response, DefaultError, Body>>;
 

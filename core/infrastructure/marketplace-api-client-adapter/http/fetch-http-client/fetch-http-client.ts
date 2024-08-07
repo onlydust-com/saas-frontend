@@ -1,5 +1,5 @@
-import { FirstParameter } from "@/core/helpers/types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
+import { FirstParameter } from "@/core/kernel/types";
 
 interface FetchHttpClientInterface extends HttpClient {}
 

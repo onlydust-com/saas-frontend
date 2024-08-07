@@ -1,4 +1,4 @@
-import { AnyType } from "@/core/helpers/types";
+import { AnyType } from "@/core/kernel/types";
 
 export interface AuthProvider {
   isAuthenticated: boolean;

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { FirstParameter, GenericFunction } from "@/core/helpers/types";
 import { HttpStorageResponse } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+import { FirstParameter, GenericFunction } from "@/core/kernel/types";
 
 type UseQueryOptions<Response> = FirstParameter<typeof useQuery<Response>>;
 
