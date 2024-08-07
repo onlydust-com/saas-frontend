@@ -24,6 +24,6 @@ export const SkeletonNextUiVariants = tv({
   },
   defaultVariants: {
     shape: "square",
-    container: "1",
+    container: "4",
   },
 });

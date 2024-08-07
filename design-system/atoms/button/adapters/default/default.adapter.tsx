@@ -1,5 +1,4 @@
 import { Spinner } from "@nextui-org/react";
-// import { RenderWithProps } from "components/layout/components-utils/render-with-props/render-with-props";
 import { ComponentProps, ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -58,21 +57,27 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
-        <RenderWithProps
-          Component={Icon}
-          props={startIcon}
-          overrideProps={{ className: cn(slots.startIcon(), classNames?.startIcon, startIcon?.className) }}
-        />
+        {!!startIcon && (
+          <Icon
+            {...startIcon}
+            classNames={{
+              base: cn(slots.startIcon(), classNames?.startIcon, startIcon?.classNames?.base),
+            }}
+          />
+        )}
         {showChildren && (
           <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
-            {children || <RenderWithProps Component={Translate} props={translate} />}
+            {children || <Translate {...translate} />}
           </Typo>
         )}
-        <RenderWithProps
-          Component={Icon}
-          props={endIcon}
-          overrideProps={{ className: cn(slots.endIcon(), classNames?.endIcon, endIcon?.className) }}
-        />
+        {!!endIcon && (
+          <Icon
+            {...endIcon}
+            classNames={{
+              base: cn(slots.endIcon(), classNames?.endIcon, endIcon?.classNames?.base),
+            }}
+          />
+        )}
         {endContent}
       </div>
       {isLoading && (

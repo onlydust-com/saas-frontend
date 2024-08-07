@@ -4,10 +4,10 @@ import { IconPort } from "../../icon.types";
 import { IconRemixIconVariants } from "./remix-icon.variants";
 
 export function IconRemixIconAdapter({ classNames, name, size, color, ...props }: IconPort) {
-  const slots = IconRemixIconVariants();
+  const { base } = IconRemixIconVariants();
 
   return (
-    <span className={cn(slots.base(), classNames?.base)} {...props}>
+    <span className={cn(base(), classNames?.base)} {...props}>
       <i
         className={cn(name)}
         style={{

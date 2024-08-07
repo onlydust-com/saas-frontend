@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import "../../../index.css";
 import { TypoPort } from "./typo.types";
 import { Typo } from "./variants/typo-default";
 

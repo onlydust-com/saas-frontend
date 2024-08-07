@@ -1,12 +1,12 @@
+import "@/public/fonts/Alfreda/stylesheet.css";
+import "@/public/fonts/Belwe/stylesheet.css";
+import "@/public/fonts/GTWalsheimPro/stylesheet.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import "remixicon/fonts/remixicon.css";
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

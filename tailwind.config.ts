@@ -13,6 +13,7 @@ const config: Config = withTV({
   ],
   theme: {
     extend: {
+      fontFamily: { alfreda: ["Alfreda"], walsheim: ["GT Walsheim"], belwe: ["Belwe"] },
       colors: {
         /** CONTAINER */
         "container-1": "var(--container-1)",

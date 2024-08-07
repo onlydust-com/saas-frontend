@@ -1,3 +1,6 @@
+import "@/public/fonts/Alfreda/stylesheet.css";
+import "@/public/fonts/Belwe/stylesheet.css";
+import "@/public/fonts/GTWalsheimPro/stylesheet.css";
 import type { Preview } from "@storybook/react";
 import "remixicon/fonts/remixicon.css";
 

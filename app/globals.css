@@ -131,9 +131,9 @@
 
   /*DOM STYLES*/
 
-  /*body {*/
-  /*  @apply font-walsheim;*/
-  /*}*/
+  body {
+    @apply font-walsheim;
+  }
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;

@@ -12,8 +12,8 @@ const defaultProps: ButtonPort<"button"> = {
   children: "Button core",
   startIcon: { name: "ri-square-line" },
   endIcon: { name: "ri-square-line" },
-  startContent: <Icon name={"ri-square-line"} size={16} className="text-inherit" />,
-  endContent: <Icon name={"ri-square-line"} size={16} className="text-inherit" />,
+  startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+  endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
 };
 
 const meta: Meta<typeof Button> = {
