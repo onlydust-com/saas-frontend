@@ -1,13 +1,14 @@
-"use client";
-
 import { FilloutStandardEmbed } from "@fillout/react";
 
 import { Drawer } from "@/design-system/molecules/drawer";
 
 import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
+import { useCurrentUser } from "@/shared/hooks/user/use-current-user";
 
 export function FeedbackDrawer({ state }: { state: ReturnType<typeof useFeedbackDrawerState> }) {
   const [isOpen, setIsOpen] = state;
+
+  const { user } = useCurrentUser();
 
   return (
     <Drawer
@@ -21,14 +22,14 @@ export function FeedbackDrawer({ state }: { state: ReturnType<typeof useFeedback
       <FilloutStandardEmbed
         filloutId="uUS6ESXXcjus"
         inheritParameters
-        // parameters={{
-        //   user_id: user?.id,
-        //   first_name: user?.firstName || undefined,
-        //   last_name: user?.lastName || undefined,
-        //   email: user?.email || undefined,
-        //   github_id: `${user?.githubUserId}` || undefined,
-        //   github_login: user?.login || undefined,
-        // }}
+        parameters={{
+          user_id: user?.id,
+          first_name: user?.firstName || undefined,
+          last_name: user?.lastName || undefined,
+          email: user?.email || undefined,
+          github_id: `${user?.githubUserId}` || undefined,
+          github_login: user?.login || undefined,
+        }}
       />
     </Drawer>
   );
