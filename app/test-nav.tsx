@@ -17,7 +17,7 @@ export function TestNav() {
   }
   return (
     <AnimatedColumn
-      controlled={true}
+      autoWidth={false}
       width={navSize}
       initialWidth={200}
       className="h-full bg-green-900"
