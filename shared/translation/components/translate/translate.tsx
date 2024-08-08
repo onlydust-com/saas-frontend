@@ -1,10 +1,9 @@
 "use client";
 
-import { ComponentProps } from "react";
 import { Trans } from "react-i18next";
 
-export function Translate(props: ComponentProps<typeof Trans>) {
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
+
+export function Translate(props: TranslateProps) {
   return <Trans {...props} />;
 }
-
-export type TranlateProps = ComponentProps<typeof Translate>;
