@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import { AnimatedColumn } from "@/shared/components/animated-columns/animated-column/animated-column";
-
 export function TestNav() {
   const [navSize, setNavSize] = useState(200);
   function onNavSizeChange() {
@@ -16,16 +14,16 @@ export function TestNav() {
     }
   }
   return (
-    <AnimatedColumn>
-      <div
-        className="h-screen bg-red-900"
-        style={{
-          width: navSize,
-        }}
-        onClick={onNavSizeChange}
-      >
-        NAV
-      </div>
-    </AnimatedColumn>
+    // <AnimatedColumn>
+    <div
+      className="h-screen bg-red-900"
+      style={{
+        width: navSize,
+      }}
+      onClick={onNavSizeChange}
+    >
+      NAV
+    </div>
+    // </AnimatedColumn>
   );
 }

@@ -1,12 +1,20 @@
 "use client";
 
-import { motion, spring } from "framer-motion";
+import { motion } from "framer-motion";
 
-import { TAnimatedColumn } from "./animated-column.types";
+import { AnimatedColumnProps } from "./animated-column.types";
 
-export function AnimatedColumn({ children }: TAnimatedColumn.Props) {
+export function AnimatedColumn({ width, controlled, initialWidth, children, className, onClick }: AnimatedColumnProps) {
+  if (!controlled) {
+    return (
+      <motion.div onClick={onClick} layout="position" className={className}>
+        {children}
+      </motion.div>
+    );
+  }
+
   return (
-    <motion.div layout className="origin-top" transition={spring}>
+    <motion.div onClick={onClick} className={className} style={{ width: initialWidth }} animate={{ width }}>
       {children}
     </motion.div>
   );

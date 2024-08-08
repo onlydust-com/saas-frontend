@@ -1,5 +1,19 @@
 import { PropsWithChildren } from "react";
 
-export namespace TAnimatedColumn {
-  export interface Props extends PropsWithChildren {}
+interface BaseProps extends PropsWithChildren {
+  className?: string;
+  onClick?: () => void;
 }
+interface ControlledProps {
+  controlled: true;
+  width: number;
+  initialWidth: number;
+}
+
+interface UncontrolledProps {
+  controlled: false;
+  width?: never;
+  initialWidth?: never;
+}
+
+export type AnimatedColumnProps = BaseProps & (ControlledProps | UncontrolledProps);
