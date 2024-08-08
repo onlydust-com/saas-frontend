@@ -2,6 +2,6 @@ import { PrimaryNavigationDesktop } from "@/shared/features/navigation/primary-n
 
 import { PrimaryNavigationProps } from "./primary-navigation.types";
 
-export function PrimaryNavigation({ children }: PrimaryNavigationProps) {
+export function PrimaryNavigation(_: PrimaryNavigationProps) {
   return <PrimaryNavigationDesktop />;
 }

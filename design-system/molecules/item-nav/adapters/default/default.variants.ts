@@ -2,8 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const ItemNavDefaultVariants = tv({
   slots: {
-    base: "flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-container-stroke-separator p-2 text-text-1 transition-all hover:bg-transparent data-[active=true]:bg-container-stroke-separator",
-    label: "text-inherit",
+    base: "flex h-10 w-full items-center justify-center rounded-xl border border-transparent p-2 text-text-1 transition-all data-[active=true]:border-container-stroke-separator data-[active=true]:bg-container-stroke-separator hover:border-container-stroke-separator hover:bg-transparent",
+    label: "whitespace-nowrap text-inherit",
   },
   variants: {
     isDisabled: {

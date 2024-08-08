@@ -1,3 +1,3 @@
-import { PropsWithChildren } from "react";
-
-export interface PrimaryMenuProps extends PropsWithChildren {}
+export interface PrimaryMenuProps {
+  isFolded?: boolean;
+}
