@@ -4,15 +4,16 @@ const i = require("@inquirer/prompts");
 const fs = require("fs/promises");
 const prettier = require("prettier");
 const { COLORS, kebabToPascal, kebabToCamel, defaultPromptName } = require("./global");
+const { exec } = require("node:child_process");
 
 async function createComponent({ name, path, PascalName }) {
   await fs.appendFile(
     `${path}/${name}.tsx`,
     await prettier.format(
       `
-        import { T${PascalName} } from "./${name}.types";
+        import { ${PascalName}Props  } from "./${name}.types";
 
-        export function ${PascalName}({ children }: T${PascalName}.Props) {
+        export function ${PascalName}({ children }: ${PascalName}Props ) {
           return <div>{children}</div>;
         }
   `,
@@ -27,37 +28,8 @@ async function createTypes({ name, path, PascalName, camelName, options: { varia
     await prettier.format(
       `
         import { PropsWithChildren } from "react";
-        ${
-          variants
-            ? `
-        import { VariantProps } from "tailwind-variants";
-        import { ${camelName}Variants } from "./${name}.variants";`
-            : ""
-        }
-
-        export namespace T${PascalName} {
-          ${variants ? `export type Variants = VariantProps<typeof ${camelName}Variants>;` : ""}
-
-          export interface Props extends PropsWithChildren${variants ? ", Variants" : ""} {}
-        }
-  `,
-      { parser: "typescript" }
-    )
-  );
-}
-
-async function createVariants({ name, path, camelName }) {
-  await fs.appendFile(
-    `${path}/${name}.variants.ts`,
-    await prettier.format(
-      `
-        import { tv } from "tailwind-variants";
-
-        export const ${camelName}Variants = tv({
-          base: "",
-          variants: {},
-          defaultVariants: {},
-        });
+        
+        export interface ${PascalName}Props extends PropsWithChildren {}
   `,
       { parser: "typescript" }
     )
@@ -72,11 +44,11 @@ async function createStories({ name, path, PascalName }) {
         import type { Meta, StoryObj } from "@storybook/react";
 
         import { ${PascalName} } from "./${name}";
-        import { T${PascalName} } from "./${name}.types";
+        import { ${PascalName}Props } from "./${name}.types";
 
         type Story = StoryObj<typeof ${PascalName}>;
 
-        const defaultProps: T${PascalName}.Props = {
+        const defaultProps: ${PascalName}Props = {
           children: <div>${PascalName}</div>
         };
 
@@ -109,26 +81,23 @@ async function createFiles(informations) {
   await createComponent(informations);
   await createTypes(informations);
 
-  if (informations.options.variants) {
-    await createVariants(informations);
-  }
-
   if (informations.options.stories) {
     await createStories(informations);
   }
+
+  await exec(`eslint '${informations.path}/*.{js,jsx,json,ts,tsx}' --max-warnings=0 --fix`);
 }
 
 async function promptName() {
   const { name, folder, path } = await defaultPromptName();
 
-  const variants = await i.confirm({ message: "Do you want variants?" });
   const stories = await i.confirm({ message: "Do you want stories?" });
 
-  return { folder, name, path, variants, stories };
+  return { folder, name, path, stories };
 }
 
 async function createMainComponent() {
-  const { folder, name, path, variants, stories } = await promptName();
+  const { folder, name, path, stories } = await promptName();
 
   await fs.mkdir(path);
 
@@ -138,7 +107,7 @@ async function createMainComponent() {
     path,
     PascalName: kebabToPascal(name),
     camelName: kebabToCamel(name),
-    options: { variants, stories },
+    options: { stories },
   });
 
   console.log(`\n${COLORS.GREEN}✅ Component created${COLORS.NC}`);
