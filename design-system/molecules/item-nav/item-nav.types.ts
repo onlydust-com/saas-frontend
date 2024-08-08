@@ -4,7 +4,7 @@ import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 import { BaseLinkProps } from "@/shared/components/base-link/base-link.types";
-import { TranslateProps } from "@/shared/translation/components/translate/translate";
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 type _BaseLinkProps = Omit<BaseLinkProps, "children" | "style">;
 
@@ -18,6 +18,6 @@ export interface ItemNavPort extends _BaseLinkProps, PropsWithChildren {
   labelProps?: Partial<TypoPort<"span">>;
   icon: IconPort;
   translate?: TranslateProps;
-  isDisabled?: boolean;
+  isDisabled: boolean;
   isFolded: boolean;
 }
