@@ -4,9 +4,9 @@ import { motion, spring } from "framer-motion";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { AnimatedColumnsGroupProps } from "./animated-columns-group.types";
+import { AnimatedColumnGroupProps } from "./animated-column-group.types";
 
-export function AnimatedColumnsGroup({ children, className }: AnimatedColumnsGroupProps) {
+export function AnimatedColumnGroup({ children, className }: AnimatedColumnGroupProps) {
   return (
     <motion.div
       layout="position"
