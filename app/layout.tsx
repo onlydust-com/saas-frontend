@@ -15,8 +15,8 @@ import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impe
 
 import { Toaster } from "@/design-system/atoms/toaster";
 
-import { AnimatedColumnGroup } from "@/shared/components/animated-columns-group/animated-column-group";
-import { AnimatedColumn } from "@/shared/components/animated-columns-group/animated-column/animated-column";
+import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
+import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 
 import { sharedMetadata } from "./shared-metadata";
 
@@ -45,7 +45,7 @@ export default function RootLayout({
           <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
             <AnimatedColumnGroup>
               <TestNav />
-              <AnimatedColumn controlled={false} className="size-full">
+              <AnimatedColumn autoWidth={false} className="size-full">
                 {children}
               </AnimatedColumn>
             </AnimatedColumnGroup>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { AnimatedColumn } from "@/shared/components/animated-columns-group/animated-column/animated-column";
+import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 
 export function TestSidePanel() {
   const [panelSize, setPanelSIze] = useState(200);
@@ -17,7 +17,7 @@ export function TestSidePanel() {
   }
   return (
     <AnimatedColumn
-      controlled={true}
+      autoWidth={false}
       width={panelSize}
       initialWidth={200}
       className="h-full bg-pink-900"

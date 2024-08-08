@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 import { AnimatedColumnProps } from "./animated-column.types";
 
-export function AnimatedColumn({ width, controlled, initialWidth, children, className, onClick }: AnimatedColumnProps) {
-  if (!controlled) {
+export function AnimatedColumn({ width, autoWidth, initialWidth, children, className, onClick }: AnimatedColumnProps) {
+  if (autoWidth) {
     return (
       <motion.div onClick={onClick} layout="position" className={className}>
         {children}

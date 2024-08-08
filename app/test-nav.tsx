@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { AnimatedColumn } from "@/shared/components/animated-columns-group/animated-column/animated-column";
+import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 
 export function TestNav() {
   const [navSize, setNavSize] = useState(200);
