@@ -15,8 +15,9 @@ import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impe
 
 import { Toaster } from "@/design-system/atoms/toaster";
 
-import { AnimatedColumn } from "@/shared/components/animated-columns/animated-column/animated-column";
-import { AnimatedColumns } from "@/shared/components/animated-columns/animated-columns";
+import { AnimatedColumn } from "@/shared/components/animated-columns-group/animated-column/animated-column";
+import { AnimatedColumnsGroup } from "@/shared/components/animated-columns-group/animated-columns";
+import { AppContainers } from "@/shared/components/containers/app-containers/app-containers";
 
 import { sharedMetadata } from "./shared-metadata";
 
@@ -42,12 +43,14 @@ export default function RootLayout({
           <InitBootstrapImpersonation />
           <PosthogPageview />
           <Toaster />
-          <AnimatedColumns>
-            <TestNav />
-            <AnimatedColumn>
-              <div className="h-screen w-full bg-blue-900">{children}</div>
-            </AnimatedColumn>
-          </AnimatedColumns>
+          <AppContainers className={"h-screen w-screen overflow-hidden p-3"}>
+            <AnimatedColumnsGroup>
+              <TestNav />
+              <AnimatedColumn controlled={false} className="h-full w-full">
+                {children}
+              </AnimatedColumn>
+            </AnimatedColumnsGroup>
+          </AppContainers>
         </Providers>
       </body>
     </html>
