@@ -6,7 +6,7 @@ import { ItemNav } from "@/design-system/molecules/item-nav/variants/item-nav-de
 type Story = StoryObj<typeof ItemNav>;
 
 const defaultProps: ItemNavPort = {
-  href: "/test",
+  href: "https://www.google.com",
   icon: {
     name: "ri-home-4-line",
   },
@@ -35,23 +35,8 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="flex w-[236px]">
         <ItemNav {...defaultProps} {...args} />
-      </div>
-    );
-  },
-};
-
-export const Active: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<ItemNav />" },
-    },
-  },
-  render: () => {
-    return (
-      <div className="flex w-full">
-        <ItemNav {...defaultProps} isDisabled={false} />
       </div>
     );
   },
@@ -65,7 +50,7 @@ export const Disabled: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-full">
+      <div className="flex w-[236px]">
         <ItemNav {...defaultProps} isDisabled />
       </div>
     );
@@ -80,7 +65,7 @@ export const Folded: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-full">
+      <div className="flex w-[40px]">
         <ItemNav {...defaultProps} isFolded />
       </div>
     );

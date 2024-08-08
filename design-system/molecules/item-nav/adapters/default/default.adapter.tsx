@@ -20,8 +20,9 @@ export function ItemNavDefaultAdapter({ classNames, children, translate, ...prop
       {({ isExternal }) => (
         <>
           <Icon size={18} {...icon} />
+
           {!isFolded && (
-            <>
+            <div className="flex-1">
               {showChildren && (
                 <Typo
                   size={"m"}
@@ -40,7 +41,7 @@ export function ItemNavDefaultAdapter({ classNames, children, translate, ...prop
                   }}
                 />
               ) : null}
-            </>
+            </div>
           )}
         </>
       )}
