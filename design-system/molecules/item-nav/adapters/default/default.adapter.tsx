@@ -5,7 +5,6 @@ import { ItemNavPort } from "@/design-system/molecules/item-nav/item-nav.types";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ItemNavDefaultAdapter({ classNames, children, translate, ...props }: ItemNavPort) {
   const { isDisabled, isFolded, icon, labelProps = {}, ...linkProps } = props;
@@ -28,9 +27,10 @@ export function ItemNavDefaultAdapter({ classNames, children, translate, ...prop
                   size={"m"}
                   as={"span"}
                   {...labelProps}
+                  translate={translate}
                   classNames={{ base: cn(slots.label(), classNames?.label) }}
                 >
-                  {children || <Translate {...translate} />}
+                  {children}
                 </Typo>
               )}
               {isExternal ? (
