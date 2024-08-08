@@ -8,12 +8,14 @@ import "remixicon/fonts/remixicon.css";
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
+import { TestNav } from "@/app/test-nav";
 
 import { InitBootstrapAuth } from "@/core/bootstrap/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impersonation";
 
 import { Toaster } from "@/design-system/atoms/toaster";
 
+import { AnimatedColumn } from "@/shared/components/animated-columns/animated-column/animated-column";
 import { AnimatedColumns } from "@/shared/components/animated-columns/animated-columns";
 
 import { sharedMetadata } from "./shared-metadata";
@@ -41,8 +43,10 @@ export default function RootLayout({
           <PosthogPageview />
           <Toaster />
           <AnimatedColumns>
-            <div className="h-screen w-[200px] bg-red-900">NAV</div>
-            <div className="h-screen w-full bg-blue-900">{children}</div>
+            <TestNav />
+            <AnimatedColumn>
+              <div className="h-screen w-full bg-blue-900">{children}</div>
+            </AnimatedColumn>
           </AnimatedColumns>
         </Providers>
       </body>
