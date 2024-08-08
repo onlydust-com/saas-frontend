@@ -85,7 +85,7 @@ async function createFiles(informations) {
     await createStories(informations);
   }
 
-  await exec(`eslint '${informations.path}/*.{js,jsx,json,ts,tsx}' --max-warnings=0 --fix`);
+  exec(`eslint '${informations.path}/*.{js,jsx,json,ts,tsx}' --max-warnings=0 --fix`);
 }
 
 async function promptName() {
@@ -114,4 +114,4 @@ async function createMainComponent() {
   console.log(`Component path: ${COLORS.BLUE}${path}${COLORS.NC}\n`);
 }
 
-createMainComponent();
+module.exports = { createMainComponent };

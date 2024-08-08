@@ -7,4 +7,4 @@ export function Translate(props: ComponentProps<typeof Trans>) {
   return <Trans {...props} />;
 }
 
-export type TranlateProps = ComponentProps<typeof Translate>;
+export type TranslateProps = ComponentProps<typeof Translate>;
