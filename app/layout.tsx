@@ -45,7 +45,7 @@ export default function RootLayout({
           <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
             <AnimatedColumnGroup>
               <TestNav />
-              <AnimatedColumn autoWidth={false} className="size-full">
+              <AnimatedColumn autoWidth={true} className="size-full">
                 {children}
               </AnimatedColumn>
             </AnimatedColumnGroup>
