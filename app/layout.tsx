@@ -14,6 +14,8 @@ import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impe
 
 import { Toaster } from "@/design-system/atoms/toaster";
 
+import { AnimatedColumns } from "@/shared/components/animated-columns/animated-columns";
+
 import { sharedMetadata } from "./shared-metadata";
 
 const PosthogPageview = dynamic(
@@ -38,7 +40,10 @@ export default function RootLayout({
           <InitBootstrapImpersonation />
           <PosthogPageview />
           <Toaster />
-          {children}
+          <AnimatedColumns>
+            <div className="h-screen w-[200px] bg-red-900">NAV</div>
+            <div className="h-screen w-full bg-blue-900">{children}</div>
+          </AnimatedColumns>
         </Providers>
       </body>
     </html>
