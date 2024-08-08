@@ -4,16 +4,16 @@ interface BaseProps extends PropsWithChildren {
   className?: string;
   onClick?: () => void;
 }
-interface ControlledWidthProps {
-  autoWidth: false;
-  width?: number;
-  initialWidth?: number;
+interface ControlledWidthProps extends BaseProps {
+  autoWidth?: false;
+  width: number;
+  initialWidth: number;
 }
 
-interface AutoWidthProps {
+interface AutoWidthProps extends BaseProps {
   autoWidth: true;
   width?: never;
   initialWidth?: never;
 }
 
-export type AnimatedColumnProps = BaseProps & (ControlledWidthProps | AutoWidthProps);
+export type AnimatedColumnProps = ControlledWidthProps | AutoWidthProps;
