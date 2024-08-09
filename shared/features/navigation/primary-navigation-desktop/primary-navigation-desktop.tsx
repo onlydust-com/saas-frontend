@@ -16,13 +16,19 @@ function MenuContainer({ children }: { children: React.ReactNode }) {
     </Paper>
   );
 }
+
+const SIZES = {
+  folded: 64.7,
+  unfolded: 260,
+};
+
 export function PrimaryNavigationDesktop() {
   const [folded, setFolded] = useState(false);
   function onFold() {
     setFolded(!folded);
   }
 
-  const navSize = folded ? 64.7 : 260;
+  const navSize = folded ? SIZES.folded : SIZES.unfolded;
 
   return (
     <AnimatedColumn
