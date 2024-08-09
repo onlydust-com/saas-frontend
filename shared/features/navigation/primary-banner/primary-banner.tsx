@@ -25,18 +25,20 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
   }
 
   if (isFolded || !bannerData || !bannerData.text || isError) {
-    return null;
+    return <div className="flex-1" />;
   }
 
   return (
-    <div className="flex-1">
-      <PlgBanner
-        title={"title"}
-        subTitle={"subtitle"}
-        date={"10.06.2024"}
-        description={bannerData.text}
-        cta={getCta()}
-      />
+    <div className="flex flex-1 overflow-hidden">
+      <div className="h-full w-[260px] min-w-[260px]">
+        <PlgBanner
+          title={"title"}
+          subTitle={"subtitle"}
+          date={"10.06.2024"}
+          description={bannerData.text}
+          cta={getCta()}
+        />
+      </div>
     </div>
   );
 }
