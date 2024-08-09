@@ -6,8 +6,15 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 
 import { SecondaryNavigationTypes } from "@/shared/features/navigation/secondary-navigation/secondary-navigation.types";
+import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 export function SecondaryNavigation({ iconName, breadcrumbs, onBack }: SecondaryNavigationTypes) {
+  const isTablet = useIsTablet("lower");
+
+  if (isTablet) {
+    return null;
+  }
+
   return (
     <Paper
       as={"header"}
