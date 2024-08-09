@@ -6,9 +6,9 @@ const prettier = require("prettier");
 const { COLORS, kebabToPascal, kebabToCamel, defaultPromptName, exists } = require("./global");
 const { exec } = require("node:child_process");
 
-const DOMAIN_PATH = "@/core/domain";
-const API_PATH = "@/core/infrastructure/marketplace-api-client-adapter/adapters";
-const MOCK_API_PATH = "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters";
+const DOMAIN_PATH = "core/domain";
+const API_PATH = "core/infrastructure/marketplace-api-client-adapter/adapters";
+const MOCK_API_PATH = "core/infrastructure/marketplace-api-client-adapter/mock-adapters";
 
 async function createContract({ PascalName, files }) {
   await fs.appendFile(
@@ -20,7 +20,7 @@ async function createContract({ PascalName, files }) {
         HttpStorageResponse,
       } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-      import { components } from "src/__generated/api";
+      import { components } from "core/__generated/api.d.ts";
 
       export type Get${PascalName}Response = components["schemas"]["${PascalName}Response"];
 

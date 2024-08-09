@@ -1,5 +1,5 @@
+import PlgMarketing from "@/public/images/banners/plg-marketing.png";
 import Image from "next/image";
-import PlgMarketing from "public/images/banners/plg-marketing.png";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -30,7 +30,11 @@ function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
 
 export function PlgBanner({ title, subTitle, date, description, cta }: PlgBannerProps) {
   return (
-    <div className={"relative flex w-full flex-col overflow-hidden rounded-xl p-6"}>
+    <div
+      className={
+        "relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-container-stroke-separator p-6"
+      }
+    >
       <Image
         src={PlgMarketing}
         alt={title}

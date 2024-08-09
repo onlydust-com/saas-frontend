@@ -4,7 +4,7 @@ interface Cta {
   text: string;
   href: string;
   isExternal?: boolean;
-  avatar: AvatarPort;
+  avatar?: AvatarPort;
 }
 
 export interface PlgBannerProps {
