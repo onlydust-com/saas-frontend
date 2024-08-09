@@ -20,4 +20,5 @@ export interface ItemNavPort extends _BaseLinkProps, PropsWithChildren {
   translate?: TranslateProps;
   isDisabled?: boolean;
   isFolded?: boolean;
+  onClick?: () => void;
 }

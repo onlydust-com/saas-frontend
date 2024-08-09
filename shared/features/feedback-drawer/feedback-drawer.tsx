@@ -3,12 +3,12 @@ import { FilloutStandardEmbed } from "@fillout/react";
 import { Drawer } from "@/design-system/molecules/drawer";
 
 import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
-import { useCurrentUser } from "@/shared/hooks/user/use-current-user";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export function FeedbackDrawer({ state }: { state: ReturnType<typeof useFeedbackDrawerState> }) {
   const [isOpen, setIsOpen] = state;
 
-  const { user } = useCurrentUser();
+  const { user } = useAuthUser();
 
   return (
     <Drawer
