@@ -8,6 +8,7 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
+import { HeaderMenu } from "@/shared/features/navigation/primary-navigation-desktop/header-menu/header-menu";
 
 function MenuContainer({ children }: { children: React.ReactNode }) {
   return (
@@ -24,8 +25,9 @@ const SIZES = {
 
 export function PrimaryNavigationDesktop() {
   const [folded, setFolded] = useState(false);
-  function onFold() {
-    setFolded(!folded);
+
+  function onFold(value: boolean) {
+    setFolded(value);
   }
 
   const navSize = folded ? SIZES.folded : SIZES.unfolded;
@@ -36,9 +38,10 @@ export function PrimaryNavigationDesktop() {
       width={navSize}
       initialWidth={260}
       className="flex h-full flex-col justify-between gap-3"
-      onClick={onFold}
     >
-      <div />
+      <MenuContainer>
+        <HeaderMenu isFolded={folded} onFoldChange={onFold} />
+      </MenuContainer>
       <MenuContainer>
         <PrimaryMenu isFolded={folded} />
       </MenuContainer>
