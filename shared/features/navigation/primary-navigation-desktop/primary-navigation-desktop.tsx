@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 import { Paper } from "@/design-system/atoms/paper";
 
