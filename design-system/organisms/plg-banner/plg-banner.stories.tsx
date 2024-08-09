@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
-import { PlgBannerProps } from "@/design-system/organisms/plg-banner/plg-banner.types";
+import { PlgBanner } from "./plg-banner";
+import { PlgBannerProps } from "./plg-banner.types";
 
 type Story = StoryObj<typeof PlgBanner>;
 

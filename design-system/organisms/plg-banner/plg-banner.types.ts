@@ -1,4 +1,4 @@
-import { AvatarPort } from "@/design-system/atoms/avatar";
+import { AvatarPort } from "../../atoms/avatar";
 
 interface Cta {
   text: string;

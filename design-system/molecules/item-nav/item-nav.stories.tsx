@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { ItemNavPort } from "@/design-system/molecules/item-nav/item-nav.types";
-import { ItemNav } from "@/design-system/molecules/item-nav/variants/item-nav-default";
+import { ItemNavPort } from "./item-nav.types";
+import { ItemNav } from "./variants/item-nav-default";
 
 type Story = StoryObj<typeof ItemNav>;
 

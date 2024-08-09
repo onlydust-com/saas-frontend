@@ -1,10 +1,11 @@
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
-import { ItemNavDefaultVariants } from "@/design-system/molecules/item-nav/adapters/default/default.variants";
-import { ItemNavPort } from "@/design-system/molecules/item-nav/item-nav.types";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
+
+import { ItemNavPort } from "../../item-nav.types";
+import { ItemNavDefaultVariants } from "./default.variants";
 
 function Content({
   classNames,
