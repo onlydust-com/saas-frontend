@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 
 import { Paper } from "@/design-system/atoms/paper";
 
@@ -8,10 +8,11 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
+import { PrimaryBanner } from "@/shared/features/navigation/primary-banner/primary-banner";
 import { HeaderMenu } from "@/shared/features/navigation/primary-navigation-desktop/header-menu/header-menu";
 import { useIsLaptop } from "@/shared/hooks/ui/use-media-query";
 
-function MenuContainer({ children }: { children: React.ReactNode }) {
+function MenuContainer({ children }: { children: ReactNode }) {
   return (
     <Paper size={"s"} classNames={{ base: "flex w-full flex-col gap-2" }} container={"2"} border={"none"}>
       {children}
@@ -63,7 +64,7 @@ export function PrimaryNavigationDesktop() {
       <MenuContainer>
         <PrimaryMenu isFolded={folded} />
       </MenuContainer>
-      <div className="flex-1" />
+      <PrimaryBanner isFolded={folded} />
       <MenuContainer>
         <SecondaryMenu isFolded={folded} />
       </MenuContainer>

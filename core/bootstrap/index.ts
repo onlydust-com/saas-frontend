@@ -1,4 +1,6 @@
+import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
+import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
 import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/fetch-http-client/fetch-http-client";
@@ -7,6 +9,8 @@ import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-cli
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
+  bannerStoragePortForClient: BannerStoragePort;
+  bannerStoragePortForServer: BannerStoragePort;
 }
 
 export class Bootstrap {
@@ -15,10 +19,14 @@ export class Bootstrap {
   private impersonationProvider?: ImpersonationProvider | null = null;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
+  bannerStoragePortForClient: BannerStoragePort;
+  bannerStoragePortForServer: BannerStoragePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
     this.userStoragePortForServer = constructor.userStoragePortForServer;
+    this.bannerStoragePortForClient = constructor.bannerStoragePortForClient;
+    this.bannerStoragePortForServer = constructor.bannerStoragePortForServer;
   }
 
   getAuthProvider() {
@@ -45,11 +53,21 @@ export class Bootstrap {
     return this.userStoragePortForServer;
   }
 
+  getBannerStoragePortForClient() {
+    return this.bannerStoragePortForClient;
+  }
+
+  getBannerStoragePortForServer() {
+    return this.bannerStoragePortForServer;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
         userStoragePortForClient: new UserClientAdapter(new FetchHttpClient()),
         userStoragePortForServer: new UserClientAdapter(new FetchHttpClient()),
+        bannerStoragePortForClient: new BannerClientAdapter(new FetchHttpClient()),
+        bannerStoragePortForServer: new BannerClientAdapter(new FetchHttpClient()),
       });
     }
 
