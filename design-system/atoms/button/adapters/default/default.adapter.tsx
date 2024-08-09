@@ -67,7 +67,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
         )}
         {showChildren && (
           <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
-            {children || <Translate {...translate} />}
+            {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
         {!!endIcon && (

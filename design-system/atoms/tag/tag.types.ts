@@ -1,10 +1,10 @@
-import { ComponentProps, ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
 import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 interface Variants {
   size: "xs" | "s" | "m";
@@ -27,7 +27,7 @@ export interface TagBasePort<C extends ElementType> extends Partial<Variants>, P
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  translate?: ComponentProps<typeof Translate>;
+  translate?: TranslateProps;
   startContent?: ReactNode;
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
