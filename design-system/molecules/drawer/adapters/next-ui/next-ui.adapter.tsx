@@ -7,7 +7,7 @@ import { DrawerNextUiVariants } from "@/design-system/molecules/drawer/adapters/
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { cn } from "@/shared/helpers/cn";
-import { useMediaQuery } from "@/shared/hooks/ui/use-media-query";
+import { useIsMobile } from "@/shared/hooks/ui/use-media-query";
 
 export function DrawerNextUiAdapter<C extends ElementType = "div">({
   htmlProps,
@@ -23,9 +23,9 @@ export function DrawerNextUiAdapter<C extends ElementType = "div">({
 }: DrawerPort<C>) {
   const Inner = as || "div";
   const slots = DrawerNextUiVariants({ size });
-  const isDesktop = useMediaQuery({ breakpoint: "sm" });
+  const isGreaterThanMobile = useIsMobile("greater");
   const motionProps = useMemo(() => {
-    if (!isDesktop) return undefined;
+    if (!isGreaterThanMobile) return undefined;
 
     return {
       variants: {
@@ -46,7 +46,7 @@ export function DrawerNextUiAdapter<C extends ElementType = "div">({
         },
       },
     };
-  }, [isDesktop]);
+  }, [isGreaterThanMobile]);
 
   return (
     <Modal

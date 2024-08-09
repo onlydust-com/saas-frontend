@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 import { Paper } from "@/design-system/atoms/paper";
 
@@ -10,6 +10,7 @@ import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
 import { PrimaryBanner } from "@/shared/features/navigation/primary-banner/primary-banner";
 import { HeaderMenu } from "@/shared/features/navigation/primary-navigation-desktop/header-menu/header-menu";
+import { useIsLaptop } from "@/shared/hooks/ui/use-media-query";
 
 function MenuContainer({ children }: { children: ReactNode }) {
   return (
@@ -25,11 +26,28 @@ const SIZES = {
 };
 
 export function PrimaryNavigationDesktop() {
-  const [folded, setFolded] = useState(false);
+  const mounted = useRef(false);
+  const isLowerThanLaptop = useIsLaptop("lower");
+  const isLargerThanLaptop = useIsLaptop("greater");
+  const [folded, setFolded] = useState(true);
 
   function onFold(value: boolean) {
     setFolded(value);
   }
+
+  useEffect(() => {
+    if (isLowerThanLaptop) {
+      mounted.current = true;
+      setFolded(true);
+    }
+  }, [isLowerThanLaptop]);
+
+  useEffect(() => {
+    if (isLargerThanLaptop && !mounted.current) {
+      mounted.current = true;
+      setFolded(false);
+    }
+  }, [isLargerThanLaptop]);
 
   const navSize = folded ? SIZES.folded : SIZES.unfolded;
 
@@ -37,7 +55,7 @@ export function PrimaryNavigationDesktop() {
     <AnimatedColumn
       autoWidth={false}
       width={navSize}
-      initialWidth={260}
+      initialWidth={SIZES.folded}
       className="flex h-full flex-col justify-between gap-3"
     >
       <MenuContainer>

@@ -4,6 +4,8 @@ import scrollbar from "tailwind-scrollbar";
 import { withTV } from "tailwind-variants/transformer";
 import type { Config } from "tailwindcss";
 
+import { BREAKPOINTS } from "./shared/constants/breakpoints";
+
 const config: Config = withTV({
   darkMode: "class",
   content: [
@@ -62,6 +64,13 @@ const config: Config = withTV({
         "brand-2": "var(--_Brand2)",
         "brand-3": "var(--_Brand3)",
         "brand-4": "var(--_Brand4)",
+      },
+      screens: {
+        mobile: `${BREAKPOINTS.mobile}px`,
+        tablet: `${BREAKPOINTS.tablet}px`,
+        laptop: `${BREAKPOINTS.laptop}px`,
+        desktop: `${BREAKPOINTS.desktop}px`,
+        wide: `${BREAKPOINTS.wide}px`,
       },
     },
   },

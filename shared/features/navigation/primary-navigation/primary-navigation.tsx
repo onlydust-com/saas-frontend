@@ -1,7 +1,14 @@
+"use client";
+
 import { PrimaryNavigationDesktop } from "@/shared/features/navigation/primary-navigation-desktop/primary-navigation-desktop";
+import { PrimaryNavigationMobile } from "@/shared/features/navigation/primary-navigation-mobile/primary-navigation-mobile";
+import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
-import { PrimaryNavigationProps } from "./primary-navigation.types";
+export function PrimaryNavigation() {
+  const isTablet = useIsTablet("lower");
 
-export function PrimaryNavigation(_: PrimaryNavigationProps) {
+  if (isTablet) {
+    return <PrimaryNavigationMobile />;
+  }
   return <PrimaryNavigationDesktop />;
 }
