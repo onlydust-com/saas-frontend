@@ -37,7 +37,7 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
 
         {showChildren && (
           <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }}>
-            {children || <Translate {...translate} />}
+            {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
 
