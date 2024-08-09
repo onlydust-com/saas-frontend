@@ -31,7 +31,7 @@ function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
 
 export function PlgBanner({ title, subTitle, date, description, cta }: PlgBannerProps) {
   return (
-    <div className={"relative flex w-full flex-col rounded-xl p-6"}>
+    <div className={"relative flex w-full flex-col overflow-hidden rounded-xl p-6"}>
       <Image
         src={PlgMarketing}
         alt={title}
@@ -40,14 +40,14 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
         priority
       />
 
-      <div className="relative flex w-full flex-col gap-2">
-        <div />
+      <div className="relative flex h-full w-full flex-col gap-2">
+        <div className="flex-1" />
 
-        <div className={"flex flex-col gap-4"}>
-          <Typo size={"m"} weight={"medium"} color={"text-1"}>
+        <div className={"flex flex-col gap-2"}>
+          <Typo size={"s"} weight={"regular"} color={"text-1"}>
             {title}
           </Typo>
-          <Typo size={"m"} weight={"medium"} color={"text-1"}>
+          <Typo size={"s"} weight={"regular"} variant={"brand"} color={"text-1"}>
             {subTitle}
           </Typo>
 

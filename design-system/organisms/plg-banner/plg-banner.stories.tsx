@@ -40,7 +40,7 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-[236px]">
+      <div className="flex h-[600px] w-[236px]">
         <PlgBanner {...defaultPort} {...args} />
       </div>
     );
