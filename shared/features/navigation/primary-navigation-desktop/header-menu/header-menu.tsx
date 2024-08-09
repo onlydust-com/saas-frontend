@@ -7,11 +7,11 @@ import { HeaderMenuProps } from "./header-menu.types";
 
 export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
   function onUnFold() {
-    onFoldChange(false);
+    onFoldChange?.(false);
   }
 
   function onFold() {
-    onFoldChange(true);
+    onFoldChange?.(true);
   }
 
   return (

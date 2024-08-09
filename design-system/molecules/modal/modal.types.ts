@@ -16,6 +16,8 @@ interface ClassNames {
   footer: string;
 }
 
+type placement = "bottom" | "center";
+
 export interface ModalPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
   htmlProps?: ComponentPropsWithoutRef<C>;
   as?: C;
@@ -24,6 +26,8 @@ export interface ModalPort<C extends ElementType> extends Partial<Variants>, Pro
   classNames?: Partial<ClassNames>;
   titleProps?: Partial<TypoPort<"h6">>;
   closeButtonProps?: ButtonDefaultPort<"button">;
+  hideHeader?: boolean;
+  placement?: placement;
   footer?: {
     startContent?: ReactNode;
     endContent?: ReactNode;
