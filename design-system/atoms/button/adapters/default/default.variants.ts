@@ -2,12 +2,12 @@ import { tv } from "tailwind-variants";
 
 export const ButtonDefaultVariants = tv({
   slots: {
-    base: "bg-container-1 group relative flex h-fit w-fit cursor-pointer overflow-hidden rounded-lg transition-colors",
+    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden rounded-lg bg-container-1 transition-colors",
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-color text-inherit",
     endIcon: "transition-color text-inherit",
     label: "transition-color leading-none text-inherit",
-    loaderContainer: "bg-container-1 absolute inset-0 flex h-full w-full flex-row items-center justify-center",
+    loaderContainer: "absolute inset-0 flex h-full w-full flex-row items-center justify-center bg-container-1",
     spinnerCircle: "h-4 w-4 border-b-white",
   },
   variants: {
@@ -65,7 +65,8 @@ export const ButtonDefaultVariants = tv({
       hideText: true,
       size: "l",
       class: {
-        base: "px-3 py-3",
+        // remove the border width in the padding size
+        base: "px-[11px] py-[11px]",
       },
     },
     {

@@ -7,6 +7,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { PrimaryMenu } from "@/shared/features/navigation/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/secondary-menu/secondary-menu";
+import { UserMenu } from "@/shared/features/navigation/user-menu/user-menu";
 
 function MenuContainer({ children }: { children: React.ReactNode }) {
   return (
@@ -31,11 +32,16 @@ export function PrimaryNavigationDesktop() {
       className="flex h-full flex-col justify-between gap-3"
       onClick={onFold}
     >
+      <div />
       <MenuContainer>
         <PrimaryMenu isFolded={folded} />
       </MenuContainer>
+      <div className="flex-1" />
       <MenuContainer>
         <SecondaryMenu isFolded={folded} />
+      </MenuContainer>
+      <MenuContainer>
+        <UserMenu isFolded={folded} />
       </MenuContainer>
     </AnimatedColumn>
   );

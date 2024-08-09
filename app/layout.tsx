@@ -43,7 +43,7 @@ export default function RootLayout({
           <PosthogPageview />
           <Toaster />
           <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
-            <AnimatedColumnGroup>
+            <AnimatedColumnGroup className="gap-3">
               <PrimaryNavigation />
               <AnimatedColumn autoWidth={true} className="size-full">
                 {children}
