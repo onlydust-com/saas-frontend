@@ -8,7 +8,6 @@ import "remixicon/fonts/remixicon.css";
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
-import { TestNav } from "@/app/test-nav";
 
 import { InitBootstrapAuth } from "@/core/bootstrap/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impersonation";
@@ -17,6 +16,7 @@ import { Toaster } from "@/design-system/atoms/toaster";
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
+import { PrimaryNavigation } from "@/shared/features/navigation/primary-navigation/primary-navigation";
 
 import { sharedMetadata } from "./shared-metadata";
 
@@ -43,8 +43,8 @@ export default function RootLayout({
           <PosthogPageview />
           <Toaster />
           <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
-            <AnimatedColumnGroup>
-              <TestNav />
+            <AnimatedColumnGroup className="gap-3">
+              <PrimaryNavigation />
               <AnimatedColumn autoWidth={true} className="size-full">
                 {children}
               </AnimatedColumn>

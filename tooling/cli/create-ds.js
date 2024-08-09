@@ -230,7 +230,7 @@ async function promptName() {
   return { folder, name, path };
 }
 
-async function createMainComponent() {
+async function createDS() {
   const { folder, name, path } = await promptName();
 
   const withCore = await i.confirm({ message: "Do you want core?" });
@@ -250,4 +250,4 @@ async function createMainComponent() {
   console.log(`Component path: ${COLORS.BLUE}${path}${COLORS.NC}\n`);
 }
 
-createMainComponent();
+module.exports = { createDS };

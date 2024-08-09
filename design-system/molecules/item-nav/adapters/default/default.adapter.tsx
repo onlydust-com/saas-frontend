@@ -17,33 +17,30 @@ export function ItemNavDefaultAdapter({ classNames, children, translate, ...prop
   return (
     <BaseLink className={cn(slots.base(), classNames?.base)} {...linkProps}>
       {({ isExternal }) => (
-        <>
+        <div className={"flex w-full items-center justify-start gap-2 overflow-hidden"}>
           <Icon size={18} {...icon} />
-
-          {!isFolded && (
-            <div className="flex-1">
-              {showChildren && (
-                <Typo
-                  size={"m"}
-                  as={"span"}
-                  {...labelProps}
-                  translate={translate}
-                  classNames={{ base: cn(slots.label(), classNames?.label) }}
-                >
-                  {children}
-                </Typo>
-              )}
-              {isExternal ? (
-                <Icon
-                  name="ri-external-link-line"
-                  classNames={{
-                    base: "invisible ml-1 text-inherit group-hover/link:visible",
-                  }}
-                />
-              ) : null}
-            </div>
-          )}
-        </>
+          <div className="flex-1">
+            {showChildren && (
+              <Typo
+                size={"m"}
+                as={"span"}
+                {...labelProps}
+                translate={translate}
+                classNames={{ base: cn(slots.label(), classNames?.label) }}
+              >
+                {children}
+              </Typo>
+            )}
+            {isExternal ? (
+              <Icon
+                name="ri-external-link-line"
+                classNames={{
+                  base: cn("invisible ml-1 text-inherit group-hover/link:visible", { "!invisible": isFolded }),
+                }}
+              />
+            ) : null}
+          </div>
+        </div>
       )}
     </BaseLink>
   );

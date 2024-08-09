@@ -18,6 +18,6 @@ export interface ItemNavPort extends _BaseLinkProps, PropsWithChildren {
   labelProps?: Partial<TypoPort<"span">>;
   icon: IconPort;
   translate?: TranslateProps;
-  isDisabled: boolean;
-  isFolded: boolean;
+  isDisabled?: boolean;
+  isFolded?: boolean;
 }

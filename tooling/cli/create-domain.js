@@ -238,4 +238,4 @@ async function createDomain() {
   console.log(`Component path: ${COLORS.BLUE}${path}${COLORS.NC}\n`);
 }
 
-createDomain();
+module.exports = { createDomain };

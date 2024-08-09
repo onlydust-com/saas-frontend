@@ -1,0 +1,12 @@
+{
+  "primaryMenu": {
+    "data": "Data",
+    "financial": "Financial",
+    "program": "Program",
+    "projects": "Explore Project"
+  },
+  "secondaryMenu": {
+    "support": "Support",
+    "settings": "Settings"
+  }
+}
