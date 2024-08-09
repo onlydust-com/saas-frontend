@@ -2,13 +2,13 @@ import { TestSidePanel } from "@/app/test/_components/side-panel/test-side-panel
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
-import { PageHeader } from "@/shared/features/page-header/page-header";
+import { SecondaryNavigation } from "@/shared/features/navigation/secondary-navigation/secondary-navigation";
 
 export default function TestPage() {
   // TODO UPDATE THIS TO MAKE A COMPONENT
   return (
     <div className={"flex h-full w-full flex-col overflow-hidden bg-orange-900"}>
-      <PageHeader
+      <SecondaryNavigation
         iconName={"ri-rocket-line"}
         breadcrumbs={[
           { id: "root", label: "OnlyDust app", href: "https://app.onlydust.com" },

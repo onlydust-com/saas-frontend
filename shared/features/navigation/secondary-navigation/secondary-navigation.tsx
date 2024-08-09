@@ -5,9 +5,9 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 
-import { PageHeaderTypes } from "@/shared/features/page-header/page-header.types";
+import { SecondaryNavigationTypes } from "@/shared/features/navigation/secondary-navigation/secondary-navigation.types";
 
-export function PageHeader({ iconName, breadcrumbs, onBack }: PageHeaderTypes) {
+export function SecondaryNavigation({ iconName, breadcrumbs, onBack }: SecondaryNavigationTypes) {
   return (
     <Paper
       as={"header"}

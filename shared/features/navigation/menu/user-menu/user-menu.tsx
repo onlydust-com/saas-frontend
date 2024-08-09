@@ -1,3 +1,5 @@
+import { UserMenuProps } from "shared/features/navigation/menu/user-menu/user-menu.types";
+
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -7,8 +9,6 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-
-import { UserMenuProps } from "./user-menu.types";
 
 export function UserMenu({ isFolded }: UserMenuProps) {
   const { user, isLoading } = useAuthUser();
