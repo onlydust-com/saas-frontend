@@ -46,7 +46,6 @@ async function createFiles(informations) {
 
 async function promptName() {
   const path = await i.input({ message: "Folder path::" });
-  console.log("path", path);
 
   const isPathExist = await exists(path);
 
