@@ -13,7 +13,7 @@ import { UserMenuProps } from "./user-menu.types";
 export function UserMenu({ isFolded }: UserMenuProps) {
   const { user, isLoading } = useAuthUser();
   const login = user?.login;
-  const email = `${user?.email} ${user?.email}`;
+  const email = user?.email;
   const {
     clientBootstrap: { authProvider },
   } = useClientBootstrapContext();
