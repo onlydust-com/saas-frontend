@@ -1,7 +1,5 @@
 "use client";
 
-import { useAuth0 } from "@auth0/auth0-react";
-
 import { TestSidePanel } from "@/app/test/_components/side-panel/test-side-panel";
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
@@ -9,21 +7,6 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { SecondaryNavigation } from "@/shared/features/navigation/secondary-navigation/secondary-navigation";
 
 export default function Home() {
-  const { isAuthenticated, isLoading, error, loginWithRedirect } = useAuth0();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
-
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return <div>Redirecting to login...</div>;
-  }
-
   return (
     <div className={"flex h-full w-full flex-col gap-3 overflow-hidden"}>
       <SecondaryNavigation
