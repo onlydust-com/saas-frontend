@@ -41,8 +41,6 @@ async function runCli() {
   } else if (action === "translation") {
     await createTranslation();
   }
-
-  console.log("path", action);
 }
 
 runCli();
