@@ -28,7 +28,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-compass-3-line" }}
-        href={"/test2"}
+        href={process.env.NEXT_PUBLIC_MARKETPLACE_URL ?? ""}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />
     </>
