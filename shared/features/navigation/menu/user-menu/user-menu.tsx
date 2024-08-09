@@ -20,11 +20,13 @@ export function UserMenu({ isFolded }: UserMenuProps) {
   const { logout } = authProvider ?? {};
 
   function onLogout() {
-    logout?.({
-      logoutParams: {
-        returnTo: "/",
-      },
-    });
+    if (process.env.NEXT_PUBLIC_MARKETPLACE_URL) {
+      logout?.({
+        logoutParams: {
+          returnTo: process.env.NEXT_PUBLIC_MARKETPLACE_URL,
+        },
+      });
+    }
   }
 
   if (isLoading) {
