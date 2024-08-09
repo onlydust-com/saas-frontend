@@ -1,6 +1,6 @@
-import { ItemNav } from "@/design-system/molecules/item-nav";
+import { PrimaryMenuProps } from "shared/features/navigation/menu/primary-menu/primary-menu.types";
 
-import { PrimaryMenuProps } from "./primary-menu.types";
+import { ItemNav } from "@/design-system/molecules/item-nav";
 
 export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
   return (

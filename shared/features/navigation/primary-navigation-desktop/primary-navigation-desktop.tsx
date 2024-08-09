@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Paper } from "@/design-system/atoms/paper";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
-import { PrimaryMenu } from "@/shared/features/navigation/primary-menu/primary-menu";
-import { SecondaryMenu } from "@/shared/features/navigation/secondary-menu/secondary-menu";
-import { UserMenu } from "@/shared/features/navigation/user-menu/user-menu";
+import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
+import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
+import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
 
 function MenuContainer({ children }: { children: React.ReactNode }) {
   return (

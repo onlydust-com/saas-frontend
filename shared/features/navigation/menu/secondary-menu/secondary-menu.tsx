@@ -1,6 +1,6 @@
-import { ItemNav } from "@/design-system/molecules/item-nav";
+import { SecondaryMenuProps } from "shared/features/navigation/menu/secondary-menu/secondary-menu.types";
 
-import { SecondaryMenuProps } from "./secondary-menu.types";
+import { ItemNav } from "@/design-system/molecules/item-nav";
 
 export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
   return (
