@@ -20,7 +20,7 @@ export function TestSidePanel() {
       autoWidth={false}
       width={panelSize}
       initialWidth={200}
-      className="h-full bg-pink-900"
+      className="h-full bg-container-4"
       onClick={onSizeChange}
     >
       SIDE PANEL

@@ -47,7 +47,7 @@ function Content({
   );
 }
 
-export function ItemNavDefaultAdapter({ ...props }: ItemNavPort) {
+export function ItemNavDefaultAdapter({ isFolded, ...props }: ItemNavPort) {
   const { isDisabled, classNames, onClick, ...linkProps } = props;
   const slots = ItemNavDefaultVariants({
     isDisabled,
@@ -56,14 +56,14 @@ export function ItemNavDefaultAdapter({ ...props }: ItemNavPort) {
   if (onClick) {
     return (
       <button className={cn(slots.base(), classNames?.base)} onClick={onClick} disabled={isDisabled}>
-        <Content {...props} isExternal={false} />
+        <Content {...props} isExternal={false} isFolded={isFolded} />
       </button>
     );
   }
 
   return (
     <BaseLink className={cn(slots.base(), classNames?.base)} {...linkProps}>
-      {({ isExternal }) => <Content {...props} isExternal={isExternal} />}
+      {({ isExternal }) => <Content {...props} isFolded={isFolded} isExternal={isExternal} />}
     </BaseLink>
   );
 }
