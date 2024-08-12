@@ -8,12 +8,14 @@ import { bootstrap } from "@/core/bootstrap";
 import { ProgramFacadePort } from "@/core/domain/program/input/program-facade-port";
 import { ProgramInterface } from "@/core/domain/program/models/program-model";
 
-export function useGetProgram({ options }: UseQueryFacadeParams<ProgramFacadePort["getProgram"], ProgramInterface>) {
+export function useGetProgramById({
+  options,
+}: UseQueryFacadeParams<ProgramFacadePort["getProgramById"], ProgramInterface>) {
   const programStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...programStoragePort.getProgram({}),
+      ...programStoragePort.getProgramById({}),
       options,
     })
   );

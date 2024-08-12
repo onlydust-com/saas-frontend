@@ -1,5 +1,11 @@
-import { GetProgramPortParams, GetProgramPortResponse } from "../program-contract.types";
+import {
+  GetProgramByIdPortParams,
+  GetProgramByIdPortResponse,
+  GetProgramsPortParams,
+  GetProgramsPortResponse,
+} from "../program-contract.types";
 
 export interface ProgramFacadePort {
-  getProgram(p: GetProgramPortParams): GetProgramPortResponse;
+  getPrograms(p: GetProgramsPortParams): GetProgramsPortResponse;
+  getProgramById(p: GetProgramByIdPortParams): GetProgramByIdPortResponse;
 }

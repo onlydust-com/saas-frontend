@@ -1,6 +1,7 @@
+import { ProgramListItem } from "@/core/domain/program/models/program-list-item-model";
 import { Program } from "@/core/domain/program/models/program-model";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
-import { GetProgramResponse } from "@/core/domain/program/program-contract.types";
+import { GetProgramResponse, GetProgramsResponse } from "@/core/domain/program/program-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -8,11 +9,12 @@ export class ProgramClientAdapter implements ProgramStoragePort {
   constructor(private readonly client: HttpClient) {}
 
   routes = {
-    getProgram: "program",
+    getPrograms: "me/programs",
+    getProgramById: "programs/:programId",
   } as const;
 
-  getProgram = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgram"]>) => {
-    const path = this.routes["getProgram"];
+  getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
+    const path = this.routes["getProgramById"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams });
     const request = async () => {
@@ -24,6 +26,30 @@ export class ProgramClientAdapter implements ProgramStoragePort {
       });
 
       return new Program(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getPrograms = ({ queryParams }: FirstParameter<ProgramStoragePort["getPrograms"]>) => {
+    const path = this.routes["getPrograms"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProgramsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        notifications: data.programs.map(program => new ProgramListItem(program)),
+      };
     };
 
     return {
