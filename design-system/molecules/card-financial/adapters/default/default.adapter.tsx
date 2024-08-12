@@ -24,47 +24,54 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   const Component = as || "div";
   const slots = CardFinancialDefaultVariants({ size });
 
+  const isSizeM = size === "m";
+
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      <Paper size={"s"} classNames={{ base: cn(slots.paper(), classNames?.paper) }} container={"2"} border={"none"}>
-        <div className="flex flex-col gap-2">
-          <Typo size={size === "m" ? "xxs" : "m"} color={"text-1"}>
-            {title}
+    <Paper
+      size={"s"}
+      classNames={{ base: cn(slots.base(), classNames?.base) }}
+      container={"2"}
+      border={"none"}
+      as={Component}
+      {...htmlProps}
+    >
+      <div className="flex flex-col gap-2">
+        <Typo size={isSizeM ? "xxs" : "m"} color={"text-1"}>
+          {title}
+        </Typo>
+        <div className="flex gap-1">
+          <Typo size={isSizeM ? "s" : "xl"} color={"text-1"}>
+            {amount}
           </Typo>
-          <div className="flex gap-1">
-            <Typo size={size === "m" ? "s" : "xl"} color={"text-1"}>
-              {amount}
-            </Typo>
-            <Typo size={size === "m" ? "s" : "xl"} color={"text-2"}>
-              {currency}
-            </Typo>
-          </div>
+          <Typo size={isSizeM ? "s" : "xl"} color={"text-2"}>
+            {currency}
+          </Typo>
         </div>
-        <div className="flex items-center gap-2">
-          {avatarGroup ? (
-            <AvatarGroup
-              classNames={{
-                base: "flex-1",
-              }}
-              {...avatarGroup}
-              size={size === "m" ? "s" : "l"}
-              shape="round"
-            />
-          ) : null}
-          {cta ? (
-            <Button
-              size={size === "m" ? "s" : "l"}
-              variant="secondary-light"
-              canInteract={false}
-              classNames={{
-                label: "leading-4",
-              }}
-              startIcon={{ name: "ri-arrow-right-s-line" }}
-              {...cta}
-            />
-          ) : null}
-        </div>
-      </Paper>
-    </Component>
+      </div>
+      <div className="flex items-center gap-2">
+        {avatarGroup ? (
+          <AvatarGroup
+            classNames={{
+              base: "flex-1",
+            }}
+            {...avatarGroup}
+            size={isSizeM ? "s" : "l"}
+            shape="round"
+          />
+        ) : null}
+        {cta ? (
+          <Button
+            size={isSizeM ? "s" : "l"}
+            variant="secondary-light"
+            canInteract={false}
+            classNames={{
+              label: "leading-4",
+            }}
+            startIcon={{ name: "ri-arrow-right-s-line" }}
+            {...cta}
+          />
+        ) : null}
+      </div>
+    </Paper>
   );
 }

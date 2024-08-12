@@ -7,7 +7,6 @@ interface Variants {}
 
 interface ClassNames {
   base: string;
-  paper: string;
 }
 
 export interface CardFinancialPort<C extends ElementType> extends Partial<Variants> {
