@@ -52,7 +52,7 @@ export function BreadcrumbsDefaultAdapter({ classNames, items }: BreadcrumbsPort
   const slots = BreadcrumbsDefaultVariants();
 
   return (
-    <Typo as={"div"} size={"m"} color={"text-3"} classNames={{ base: cn(slots.base(), classNames?.base) }}>
+    <Typo as={"div"} size={"m"} color={"text-2"} classNames={{ base: cn(slots.base(), classNames?.base) }}>
       <Breadcrumbs items={items} />
     </Typo>
   );
