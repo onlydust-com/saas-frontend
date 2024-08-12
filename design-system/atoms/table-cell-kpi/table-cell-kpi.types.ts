@@ -6,9 +6,9 @@ interface ClassNames {
   base: string;
 }
 
-type State = "positive" | "negative";
+type State = "positive" | "negative" | "neutral";
 
-export interface TableKpiPort extends Partial<Variants>, PropsWithChildren {
+export interface TableCellKpiPort extends Partial<Variants>, PropsWithChildren {
   classNames?: Partial<ClassNames>;
   state?: State;
 }

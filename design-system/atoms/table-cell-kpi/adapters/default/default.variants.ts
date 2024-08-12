@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-export const TableKpiDefaultVariants = tv({
+export const TableCellKpiDefaultVariants = tv({
   slots: {
     base: "flex items-center justify-between gap-2 rounded border border-container-stroke-separator p-1",
     icon: "text-text-2",
@@ -12,6 +12,9 @@ export const TableKpiDefaultVariants = tv({
       },
       negative: {
         icon: "text-label-red",
+      },
+      neutral: {
+        icon: "text-text-2",
       },
     },
   },
