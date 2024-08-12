@@ -1,5 +1,6 @@
 import { FilloutStandardEmbed } from "@fillout/react";
 
+import { Typo } from "@/design-system/atoms/typo";
 import { Drawer } from "@/design-system/molecules/drawer";
 
 import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
@@ -14,8 +15,11 @@ export function FeedbackDrawer({ state }: { state: ReturnType<typeof useFeedback
     <Drawer
       isOpen={isOpen}
       onOpenChange={setIsOpen}
-      hideHeader
+      header={{
+        startContent: <Typo size={"2xl"} variant="brand" translate={{ token: "feedbackDrawer:title" }} />,
+      }}
       classNames={{
+        base: "bg-[#181818]",
         body: "p-0 h-full",
       }}
     >
