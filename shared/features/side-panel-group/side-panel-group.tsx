@@ -4,11 +4,12 @@ import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 
 import { SidePanelGroupProvider, useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel-group.context";
+import { cn } from "@/shared/helpers/cn";
 
 import { SidePanelGroupProps, SidePanelGroupRef } from "./side-panel-group.types";
 
 export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
-  { children }: SidePanelGroupProps,
+  { children, className }: SidePanelGroupProps,
   ref: ForwardedRef<SidePanelGroupRef>
 ) {
   const { openPanel, closePanel, panelWidth, getOpendPanelIndex, onBack, onNext } = useSidePanelGroup();
@@ -23,9 +24,9 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
   }, [openPanel, closePanel, onNext, onBack]);
 
   return (
-    <div className={"h-full w-full overflow-hidden"}>
+    <div className={cn("h-full w-full overflow-hidden", className?.wrapper)}>
       <motion.div
-        className={"flex h-full justify-start"}
+        className={cn("flex h-full justify-start", className?.mover)}
         style={{ transform: "translateX(0)" }}
         animate={{ transform: `translateX(-${panelWidth * getOpendPanelIndex()}px)` }}
       >

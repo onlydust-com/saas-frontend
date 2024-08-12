@@ -20,11 +20,17 @@ export interface SidePanelGroupContextProps extends PropsWithChildren {
   };
 }
 
+interface classNames {
+  wrapper: string;
+  mover: string;
+}
+
 export interface SidePanelGroupProps extends PropsWithChildren {
   defaultPanelName: SidePanelGroupContextProps["defaultPanelName"];
   defaultOpen?: SidePanelGroupContextProps["defaultOpen"];
   panels: SidePanelGroupContextProps["panels"];
   config: SidePanelGroupContextProps["config"];
+  className?: Partial<classNames>;
 }
 
 export interface SidePanelGroupRef {

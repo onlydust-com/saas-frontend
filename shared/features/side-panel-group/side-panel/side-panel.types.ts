@@ -12,4 +12,5 @@ interface RenderProps {
 export interface SidePanelProps {
   name: string;
   children: ((props: RenderProps) => ReactNode) | ReactNode;
+  className?: string;
 }
