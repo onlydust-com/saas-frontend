@@ -21,7 +21,7 @@ function MenuContainer({ children }: { children: ReactNode }) {
 }
 
 const SIZES = {
-  folded: 64.7,
+  folded: 66,
   unfolded: 260,
 };
 
