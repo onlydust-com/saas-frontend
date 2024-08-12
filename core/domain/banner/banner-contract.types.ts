@@ -1,5 +1,5 @@
 import { BannerInterface } from "@/core/domain/banner/models/banner-model";
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
   HttpStorageResponse,
@@ -9,6 +9,10 @@ import {
 
 export type GetBannerResponse = components["schemas"]["BannerResponse"];
 
-export type GetBannerPortParams = HttpClientParameters<object>;
+export type GetBannerQueryParams = operations["getBanner"]["parameters"]["query"];
+
+export type GetBannerPortParams = HttpClientParameters<{
+  QueryParams: GetBannerQueryParams;
+}>;
 
 export type GetBannerPortResponse = HttpStorageResponse<BannerInterface>;

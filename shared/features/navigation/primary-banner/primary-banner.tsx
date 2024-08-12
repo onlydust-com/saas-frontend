@@ -1,13 +1,16 @@
 import { ComponentProps } from "react";
 
 import { BannerReactQueryAdapter } from "@/core/application/react-query-adapter/banner";
+import { bootstrap } from "@/core/bootstrap";
 
+import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
 
 import { PrimaryBannerProps } from "@/shared/features/navigation/primary-banner/primary-banner.types";
 
 export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
+  const { format } = bootstrap.getDateHelperPort();
   const { data: bannerData, isLoading, isError } = BannerReactQueryAdapter.client.useGetBanner({});
 
   function getCta(): ComponentProps<typeof PlgBanner>["cta"] {
@@ -16,7 +19,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     return {
       text: bannerData.buttonText,
       href: bannerData.buttonLinkUrl,
-      // TODO @Mehdi @Backend add Banner avatar URL to bannerData response and show avatar in CTA
+      icon: (bannerData.buttonIconSlug as RemixIconsName) || undefined,
     };
   }
 
@@ -24,7 +27,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     return <Skeleton className={"h-full w-full"} />;
   }
 
-  if (isFolded || !bannerData || !bannerData.text || isError) {
+  if (isFolded || !bannerData || !bannerData.longDescription || isError) {
     return <div className="flex-1" />;
   }
 
@@ -32,10 +35,10 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     <div className="flex flex-1 overflow-hidden">
       <div className="h-full w-[260px] min-w-[260px]">
         <PlgBanner
-          title={"title"}
-          subTitle={"subtitle"}
-          date={"10.06.2024"}
-          description={bannerData.text}
+          title={bannerData.title}
+          subTitle={bannerData.subTitle}
+          date={bannerData.date ? format(new Date(bannerData.date), "MM.dd.yyyy") : undefined}
+          description={bannerData.longDescription}
           cta={getCta()}
         />
       </div>

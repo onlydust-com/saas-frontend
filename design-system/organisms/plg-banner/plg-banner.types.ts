@@ -1,16 +1,16 @@
-import { AvatarPort } from "../../atoms/avatar";
+import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 
 interface Cta {
   text: string;
   href: string;
   isExternal?: boolean;
-  avatar?: AvatarPort;
+  icon?: RemixIconsName;
 }
 
 export interface PlgBannerProps {
   title: string;
   subTitle: string;
-  date: string;
+  date?: string;
   description: string;
   cta?: Cta;
 }

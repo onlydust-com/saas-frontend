@@ -13,10 +13,7 @@ const defaultPort: PlgBannerProps = {
   cta: {
     text: "CTA",
     href: "https://app.onlydust.com",
-    avatar: {
-      name: "OD",
-      shape: "square",
-    },
+    icon: "ri-fire-line",
   },
 };
 
