@@ -1,3 +1,4 @@
+import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enTestTranslation } from "@/app/test/_translations/test.translate";
 
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
@@ -9,4 +10,5 @@ export const en = {
   ...enTestTranslation,
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
+  ...enProgramsTranslation,
 };
