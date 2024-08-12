@@ -1,5 +1,6 @@
-import { format } from "date-fns";
 import { ElementType } from "react";
+
+import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
@@ -22,6 +23,8 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
   const { icon, statusName } = getComponentsVariants(status);
+
+  const { format } = bootstrap.getDateKernelPort();
 
   return (
     <CardTemplate
@@ -52,7 +55,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
           },
         },
       ]}
-      endContent={buttonProps && <Button size="l" variant="secondary-light" {...buttonProps} />}
+      endContent={buttonProps && <Button {...buttonProps} size="l" variant="secondary-light" />}
     />
   );
 }

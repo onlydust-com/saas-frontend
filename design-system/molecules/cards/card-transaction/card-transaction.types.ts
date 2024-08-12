@@ -31,5 +31,5 @@ export interface CardTransactionPort<C extends ElementType> extends Partial<Vari
   status: CardTransactionStatus;
   date: Date;
   amount: Amount;
-  buttonProps?: Partial<ButtonPort<"a" | "button">>;
+  buttonProps?: ButtonPort<"a" | "button">;
 }

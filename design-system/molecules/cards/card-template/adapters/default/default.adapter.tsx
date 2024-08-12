@@ -32,18 +32,18 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
       classNames={{ base: cn(slots.base(), classNames?.base) }}
       {...htmlProps}
     >
-      <Avatar size="l" {...avatarProps} />
+      <Avatar {...avatarProps} size="l" />
 
       <div className="flex w-full flex-col gap-3">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
-              {titleProps && <Typo size="s" weight="medium" {...titleProps} />}
+              {titleProps && <Typo {...titleProps} size="s" weight="medium" />}
 
               {iconProps && <Icon {...iconProps} />}
             </div>
 
-            {descriptionProps && <Typo size="xxs" color="text-2" {...descriptionProps} />}
+            {descriptionProps && <Typo {...descriptionProps} size="xxs" color="text-2" />}
           </div>
 
           {endContent}
@@ -51,7 +51,9 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
 
         {tags?.length && (
           <div className="flex w-full flex-wrap gap-1">
-            {tags?.map((t, key) => <Tag key={key} color="grey" size="xs" style="outline" {...t} />)}
+            {tags.map((t, key) => (
+              <Tag key={key} color="grey" size="xs" style="outline" {...t} />
+            ))}
           </div>
         )}
       </div>

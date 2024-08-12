@@ -15,10 +15,10 @@ export interface CardTemplatePort<C extends ElementType> extends Partial<Variant
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  avatarProps?: Partial<AvatarPort>;
-  titleProps?: Partial<TypoPort<"p">>;
+  avatarProps?: AvatarPort;
+  titleProps?: TypoPort<"p">;
   iconProps?: IconPort;
-  descriptionProps?: Partial<TypoPort<"p">>;
+  descriptionProps?: TypoPort<"p">;
   tags?: Array<TagPort<"div">>;
   endContent?: ReactNode;
 }
