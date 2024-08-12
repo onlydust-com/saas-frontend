@@ -33,9 +33,7 @@ export const Default: Story = {
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <TableSort {...defaultProps} {...args}>
-          Other sort options
-        </TableSort>
+        <TableSort {...defaultProps} {...args} />
       </div>
     );
   },

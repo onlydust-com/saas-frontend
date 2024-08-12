@@ -1,5 +1,3 @@
-import { PropsWithChildren } from "react";
-
 interface Variants {}
 
 interface ClassNames {
@@ -11,7 +9,7 @@ export enum SortDirection {
   DESC = "DESC",
 }
 
-export interface TableSortPort extends Partial<Variants>, PropsWithChildren {
+export interface TableSortPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   direction: SortDirection;
   onDirectionChange: (direction: SortDirection) => void;

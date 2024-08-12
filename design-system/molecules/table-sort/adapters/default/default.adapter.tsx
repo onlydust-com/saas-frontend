@@ -13,7 +13,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { SortDirection, TableSortPort } from "../../table-sort.types";
 import { TableSortDefaultVariants } from "./default.variants";
 
-export function TableSortDefaultAdapter({ children, classNames, direction, onDirectionChange }: TableSortPort) {
+export function TableSortDefaultAdapter({ classNames, direction, onDirectionChange }: TableSortPort) {
   const slots = TableSortDefaultVariants();
   const { t } = useTranslation("tableSort");
 
@@ -26,11 +26,11 @@ export function TableSortDefaultAdapter({ children, classNames, direction, onDir
     <Popover>
       <Popover.Trigger>
         {() => (
-          <Tooltip content={<Translate token={"tableSort:title"} />}>
-            <div className={cn(slots.base(), classNames?.base)}>
+          <div className={cn(slots.base(), classNames?.base)}>
+            <Tooltip content={<Translate token={"tableSort:title"} />}>
               <ButtonSecondaryLight size="l" hideText startIcon={{ name: sortIcons[direction] }} />
-            </div>
-          </Tooltip>
+            </Tooltip>
+          </div>
         )}
       </Popover.Trigger>
 
@@ -58,8 +58,6 @@ export function TableSortDefaultAdapter({ children, classNames, direction, onDir
                 onChange={onDirectionChange}
               />
             </div>
-
-            {children}
           </div>
         )}
       </Popover.Content>

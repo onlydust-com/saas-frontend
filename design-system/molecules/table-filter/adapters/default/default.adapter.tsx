@@ -17,8 +17,8 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
     <Popover>
       <Popover.Trigger>
         {() => (
-          <Tooltip content={<Translate token={"tableFilter:title"} />}>
-            <div className={cn(slots.base(), classNames?.base)}>
+          <div className={cn(slots.base(), classNames?.base)}>
+            <Tooltip content={<Translate token={"tableFilter:title"} />}>
               <ButtonSecondaryLight
                 size="l"
                 hideText
@@ -31,8 +31,8 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
                   ) : null
                 }
               />
-            </div>
-          </Tooltip>
+            </Tooltip>
+          </div>
         )}
       </Popover.Trigger>
 
