@@ -13,14 +13,14 @@ export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-chat-4-line" }}
-        href={"/test"}
+        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:secondaryMenu.support" }}
         onClick={() => setIsOpen(true)}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-settings-line" }}
-        href={"/test"}
+        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:secondaryMenu.settings" }}
         isDisabled={true}
       />

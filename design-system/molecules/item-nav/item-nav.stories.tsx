@@ -6,7 +6,9 @@ import { ItemNav } from "./variants/item-nav-default";
 type Story = StoryObj<typeof ItemNav>;
 
 const defaultProps: ItemNavPort = {
-  href: "https://www.google.com",
+  linkProps: {
+    href: "https://www.google.com",
+  },
   icon: {
     name: "ri-home-4-line",
   },
