@@ -56,7 +56,7 @@ export default function TestPage() {
           </SidePanel>
           <SidePanel name={"panel2"}>
             {({ onClose, onBack }) => (
-              <div className={"h-full bg-blue-500"}>
+              <div className={"h-full bg-red-500"}>
                 <div>PANEL 2</div>
                 <button onClick={() => onClose()}>Close Panel 2</button>
                 <button onClick={() => onBack()}>Back</button>
