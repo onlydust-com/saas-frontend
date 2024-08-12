@@ -20,6 +20,7 @@ const defaultProps: CardFinancialPort<"div"> = {
   cta: {
     onClick: () => {},
   },
+  size: "xl",
 };
 
 const meta: Meta<typeof CardFinancial> = {

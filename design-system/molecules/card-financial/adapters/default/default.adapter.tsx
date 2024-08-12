@@ -19,7 +19,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   currency,
   avatarGroup,
   cta,
-  size,
+  size = "xl",
 }: CardFinancialPort<C>) {
   const Component = as || "div";
   const slots = CardFinancialDefaultVariants({ size });
