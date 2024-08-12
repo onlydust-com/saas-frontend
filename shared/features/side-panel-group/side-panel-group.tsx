@@ -9,10 +9,11 @@ import { cn } from "@/shared/helpers/cn";
 import { SidePanelGroupProps, SidePanelGroupRef } from "./side-panel-group.types";
 
 export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
-  { children, className }: SidePanelGroupProps,
+  { children, classNames }: SidePanelGroupProps,
   ref: ForwardedRef<SidePanelGroupRef>
 ) {
-  const { openPanel, closePanel, panelWidth, getOpenedPanelIndex, onBack, onNext } = useSidePanelGroup();
+  const { openPanel, closePanel, panelWidth, isPanelOpen, getOpenedPanelIndex, onBack, onNext, panelGap } =
+    useSidePanelGroup();
 
   useImperativeHandle(ref, () => {
     return {
@@ -20,15 +21,23 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
       closePanel,
       onBack,
       onNext,
+      isPanelOpen,
     };
-  }, [openPanel, closePanel, onNext, onBack]);
+  }, [openPanel, closePanel, onNext, onBack, isPanelOpen]);
+
+  const translationGap = getOpenedPanelIndex() ? panelGap || 0 : 0;
 
   return (
-    <div className={cn("h-full w-full overflow-hidden", className?.wrapper)}>
+    <div
+      className={cn("h-full w-full overflow-hidden", classNames?.wrapper)}
+      style={{
+        paddingLeft: panelGap || 0,
+      }}
+    >
       <motion.div
-        className={cn("flex h-full justify-start", className?.mover)}
-        style={{ transform: "translateX(0)" }}
-        animate={{ transform: `translateX(-${panelWidth * getOpenedPanelIndex()}px)` }}
+        className={cn("flex h-full justify-start", classNames?.mover)}
+        style={{ transform: "translateX(0)", gap: `${panelGap || 0}px` }}
+        animate={{ transform: `translateX(-${panelWidth * getOpenedPanelIndex() + translationGap}px)` }}
       >
         {children}
       </motion.div>

@@ -1,10 +1,11 @@
 import { PropsWithChildren } from "react";
 
 export interface SidePanelGroupContextInterface {
-  isPanelOpen: (name: string) => boolean;
+  isPanelOpen: (name?: string) => boolean;
   openPanel: (name?: string) => void;
   closePanel: (name?: string) => void;
   panelWidth: number;
+  panelGap?: number;
   getOpenedPanelIndex: () => number;
   onBack: () => void;
   onNext: () => void;
@@ -17,6 +18,7 @@ export interface SidePanelGroupContextProps extends PropsWithChildren {
   config: {
     closedWidth: number;
     openedWidth: number;
+    gap?: number;
   };
 }
 
@@ -30,10 +32,11 @@ export interface SidePanelGroupProps extends PropsWithChildren {
   defaultOpen?: SidePanelGroupContextProps["defaultOpen"];
   panels: SidePanelGroupContextProps["panels"];
   config: SidePanelGroupContextProps["config"];
-  className?: Partial<classNames>;
+  classNames?: Partial<classNames>;
 }
 
 export interface SidePanelGroupRef {
+  isPanelOpen: SidePanelGroupContextInterface["isPanelOpen"];
   openPanel: SidePanelGroupContextInterface["openPanel"];
   closePanel: SidePanelGroupContextInterface["closePanel"];
   onBack: SidePanelGroupContextInterface["onBack"];
