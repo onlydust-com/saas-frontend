@@ -2,6 +2,7 @@ import { enProgramsTranslation } from "@/app/programs/_translations/programs.tra
 import { enTestTranslation } from "@/app/test/_translations/test.translate";
 
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
+import { enTableColumnListTranslation } from "@/design-system/molecules/table-column-list/translations/table-column-list.translate";
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
 import { enTableGroupByTranslation } from "@/design-system/molecules/table-group-by/translations/table-group-by.translate";
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
@@ -20,6 +21,7 @@ export const en = {
     ...enCardTransactionTranslation,
   },
   table: {
+    ...enTableColumnListTranslation,
     ...enTableFilterTranslation,
     ...enTableGroupByTranslation,
     ...enTableSortTranslation,
