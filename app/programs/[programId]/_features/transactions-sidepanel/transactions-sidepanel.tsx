@@ -21,6 +21,7 @@ export function TransactionsSidepanel() {
       defaultPanelName={TransactionsSidepanels.TRANSACTIONS}
       config={{ closedWidth: 0, openedWidth: SIDE_PANEL_SIZE.m, gap: SIDE_PANEL_GAP.m }}
     >
+      {/* @INFO THIS TWO PANELS COULD BE SPLIT IN TWO FILE */}
       <SidePanel name={TransactionsSidepanels.TRANSACTIONS}>
         <SidePanelHeader asCloseButton={true} title={{ token: "programs:transactionPanel.transaction.title" }} />
         <Button variant={"secondary-light"} onClick={() => transactionPanel.current?.onNext()}>
