@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { PropsWithChildren } from "react";
 
 interface Variants {}
 
@@ -6,9 +6,13 @@ interface ClassNames {
   base: string;
 }
 
-export interface TableSortPort<C extends ElementType>
-  extends Partial<Variants> {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export enum SortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+export interface TableSortPort extends Partial<Variants>, PropsWithChildren {
   classNames?: Partial<ClassNames>;
+  direction: SortDirection;
+  onDirectionChange: (direction: SortDirection) => void;
 }

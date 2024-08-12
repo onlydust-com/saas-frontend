@@ -1,11 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { TableSortPort } from "./table-sort.types";
 
+import { TableSortLoading } from "@/design-system/molecules/table-sort/table-sort.loading";
+
+import { SortDirection, TableSortPort } from "./table-sort.types";
 import { TableSort } from "./variants/table-sort-default";
 
 type Story = StoryObj<typeof TableSort>;
 
-const defaultProps: TableSortPort<"div"> = {};
+const defaultProps: TableSortPort = {
+  direction: SortDirection.DESC,
+  onDirectionChange: () => {},
+};
 
 const meta: Meta<typeof TableSort> = {
   component: TableSort,
@@ -25,10 +30,27 @@ export const Default: Story = {
       source: { code: "<TableSort />" },
     },
   },
-  render: (args) => {
+  render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <TableSort {...defaultProps} {...args} />
+        <TableSort {...defaultProps} {...args}>
+          Other sort options
+        </TableSort>
+      </div>
+    );
+  },
+};
+
+export const Loading: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<TableSortLoading />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full items-center gap-2">
+        <TableSortLoading />
       </div>
     );
   },

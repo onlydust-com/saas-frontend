@@ -1,0 +1,8 @@
+{
+  "title": "Sort by",
+  "direction": {
+    "title": "Direction",
+    "ascending": "Ascending",
+    "descending": "Descending"
+  }
+}
