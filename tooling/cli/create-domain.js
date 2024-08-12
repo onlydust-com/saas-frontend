@@ -20,7 +20,7 @@ async function createContract({ PascalName, files }) {
         HttpStorageResponse,
       } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-      import { components } from "core/__generated/api.d.ts";
+      import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
       export type Get${PascalName}Response = components["schemas"]["${PascalName}Response"];
 
@@ -39,7 +39,7 @@ async function createInput({ PascalName, files, filesNoExtension }) {
     files.input,
     await prettier.format(
       `
-    import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "${filesNoExtension.contract}";
+    import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "@/${filesNoExtension.contract}";
 
     export interface ${PascalName}FacadePort {
       get${PascalName}(p: Get${PascalName}PortParams): Get${PascalName}PortResponse;
@@ -56,7 +56,7 @@ async function createOutput({ PascalName, files, filesNoExtension }) {
     await prettier.format(
       `
 
-      import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "${filesNoExtension.contract}";
+      import { Get${PascalName}PortParams, Get${PascalName}PortResponse } from "@/${filesNoExtension.contract}";
 
       export interface ${PascalName}StoragePort {
         routes: Record<string, string>;
@@ -73,7 +73,7 @@ async function createModel({ PascalName, files }) {
     files.models,
     await prettier.format(
       `
-    import { components } from "src/__generated/api";
+    import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
     export type ${PascalName}Response = components["schemas"]["${PascalName}Response"];
 
@@ -96,9 +96,9 @@ async function createClientAdapter({ PascalName, files, camelName, filesNoExtens
     files.clientAdapter,
     await prettier.format(
       `
-      import { Get${PascalName}Response } from "${filesNoExtension.contract}";
-      import { ${PascalName} } from "${filesNoExtension.models}";
-      import { ${PascalName}StoragePort } from "${filesNoExtension.outputs}";
+      import { Get${PascalName}Response } from "@/${filesNoExtension.contract}";
+      import { ${PascalName} } from "@/${filesNoExtension.models}";
+      import { ${PascalName}StoragePort } from "@/${filesNoExtension.outputs}";
       import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 
       export class ${PascalName}ClientAdapter implements ${PascalName}StoragePort {

@@ -1385,6 +1385,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/programs/{programId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get program details
+         * @description Get program details. Only program leaders can access this information.
+         */
+        get: operations["getProgram"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/programs/{programId}/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get program transactions
+         * @description Get program transactions. Use Accept: text/csv header to get the response in CSV format. Only program leaders can access this information.
+         */
+        get: operations["getProgramTransactions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/programs/{programId}/stats/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get program transactions stats
+         * @description Get program transactions stats grouped by month.  Only program leaders can access this information.
+         */
+        get: operations["getProgramTransactionsStats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/me/rewards": {
         parameters: {
             query?: never;
@@ -4023,6 +4083,68 @@ export interface components {
         };
         ProjectCategoriesResponse: {
             categories: components["schemas"]["ProjectCategoryResponse"][];
+        };
+        ProgramDetailsResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust program ID
+             */
+            id: string;
+            /**
+             * @description Program name
+             * @example Starkware Exploration Team
+             */
+            name: string;
+            totalAvailable: components["schemas"]["DetailedTotalMoney"];
+            totalGranted: components["schemas"]["DetailedTotalMoney"];
+            totalRewarded: components["schemas"]["DetailedTotalMoney"];
+        };
+        ProgramTransactionPageItemResponse: {
+            /**
+             * Format: uuid
+             * @description Sponsor account transaction ID
+             */
+            id: string;
+            /** Format: date-time */
+            date: string;
+            /** @enum {string} */
+            type: "TRANSFER" | "REFUND";
+            from?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
+            to?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
+            amount: components["schemas"]["Money"];
+        };
+        ProgramTransactionPageItemResponseFrom: Record<string, never>;
+        ProgramTransactionPageResponse: {
+            /** Format: int32 */
+            totalPageNumber: number;
+            /** Format: int32 */
+            totalItemNumber: number;
+            hasMore: boolean;
+            /**
+             * Format: int32
+             * @description if there is no next page, it will be equals to the last page
+             */
+            nextPageIndex: number;
+            transactions: components["schemas"]["ProgramTransactionPageItemResponse"][];
+        };
+        ProgramTransactionStatsListResponse: {
+            stats: components["schemas"]["ProgramTransactionStatsResponse"][];
+        };
+        ProgramTransactionStatsResponse: {
+            /**
+             * Format: date
+             * @description Date of the transactions
+             */
+            date: string;
+            totalAvailable: components["schemas"]["DetailedTotalMoney"];
+            totalGranted: components["schemas"]["DetailedTotalMoney"];
+            totalRewarded: components["schemas"]["DetailedTotalMoney"];
+            /**
+             * Format: int32
+             * @description Number of transactions for this month
+             * @example 42
+             */
+            transactionCount: number;
         };
         GetMeResponse: {
             /**
@@ -9328,6 +9450,145 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProjectCategoriesResponse"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
+    getProgram: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                programId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Program details */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProgramDetailsResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
+    getProgramTransactions: {
+        parameters: {
+            query?: {
+                pageIndex?: number;
+                pageSize?: number;
+                fromDate?: string;
+                toDate?: string;
+                /** @description Transaction types filter */
+                types?: ("TRANSFER" | "REFUND")[];
+                /** @description Search by project or sponsor name */
+                search?: string;
+            };
+            header?: never;
+            path: {
+                programId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The program transactions */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProgramTransactionPageResponse"];
+                    "text/csv": components["schemas"]["ProgramTransactionPageResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                    "text/csv": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                    "text/csv": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
+    getProgramTransactionsStats: {
+        parameters: {
+            query?: {
+                fromDate?: string;
+                toDate?: string;
+                /** @description Transaction types filter */
+                types?: ("TRANSFER" | "REFUND")[];
+                /** @description Search by project or sponsor name */
+                search?: string;
+            };
+            header?: never;
+            path: {
+                programId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Program transactions stats grouped by month */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProgramTransactionStatsListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
                 };
             };
             /** @description Internal Server Error */
