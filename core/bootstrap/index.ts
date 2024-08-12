@@ -9,6 +9,8 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
+import { MoneyAdapter } from "@/core/kernel/money/money-fns-adapter";
 
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
@@ -18,6 +20,7 @@ export interface BootstrapConstructor {
   programStoragePortForClient: ProgramStoragePort;
   programStoragePortForServer: ProgramStoragePort;
   dateKernelPort: DateFacadePort;
+  moneyKernelPort: MoneyFacadePort;
 }
 
 export class Bootstrap {
@@ -31,6 +34,7 @@ export class Bootstrap {
   programStoragePortForClient: ProgramStoragePort;
   programStoragePortForServer: ProgramStoragePort;
   dateKernelPort: DateFacadePort;
+  moneyKernelPort: MoneyFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
@@ -40,6 +44,7 @@ export class Bootstrap {
     this.programStoragePortForClient = constructor.programStoragePortForClient;
     this.programStoragePortForServer = constructor.programStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
+    this.moneyKernelPort = constructor.moneyKernelPort;
   }
 
   getAuthProvider() {
@@ -86,6 +91,10 @@ export class Bootstrap {
     return this.dateKernelPort;
   }
 
+  getMoneyKernelPort() {
+    return this.moneyKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -96,6 +105,7 @@ export class Bootstrap {
         programStoragePortForClient: new ProgramClientAdapter(new FetchHttpClient()),
         programStoragePortForServer: new ProgramClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
+        moneyKernelPort: MoneyAdapter,
       });
     }
 

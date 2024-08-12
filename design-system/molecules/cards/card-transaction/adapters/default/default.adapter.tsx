@@ -6,7 +6,6 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { cn } from "@/shared/helpers/cn";
-import { USD_CURRENCY, formatCrypto } from "@/shared/helpers/format-crypto";
 
 import { CardTransactionPort } from "../../card-transaction.types";
 import { getComponentsVariants } from "../../card-transaction.utils";
@@ -24,7 +23,8 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   const slots = CardTransactionDefaultVariants();
   const { icon, statusName } = getComponentsVariants(status);
 
-  const { format } = bootstrap.getDateKernelPort();
+  const { format: formatDate } = bootstrap.getDateKernelPort();
+  const { format: formatMoney, getUSDCurrency } = bootstrap.getMoneyKernelPort();
 
   return (
     <CardTemplate
@@ -33,23 +33,23 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
       htmlProps={htmlProps}
       avatarProps={{ src: currency.logoUrl }}
       titleProps={{
-        children: formatCrypto({
+        children: formatMoney({
           value,
           currency,
         }),
       }}
       iconProps={icon}
       descriptionProps={{
-        children: formatCrypto({
+        children: formatMoney({
           value: usdEquivalent,
-          currency: USD_CURRENCY,
+          currency: getUSDCurrency(),
           showTilde: true,
         }),
       }}
       tags={[
         { children: statusName },
         {
-          children: format(date, "dd.MM.yyyy"),
+          children: formatDate(date, "dd.MM.yyyy"),
           icon: {
             name: "ri-time-line",
           },

@@ -1,10 +1,11 @@
 import { ElementType } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { Tag } from "@/design-system/atoms/tag";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { cn } from "@/shared/helpers/cn";
-import { USD_CURRENCY, formatCrypto } from "@/shared/helpers/format-crypto";
 
 import { CardBudgetPort } from "../../card-budget.types";
 import { CardBudgetDefaultVariants } from "./default.variants";
@@ -18,6 +19,8 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
 }: CardBudgetPort<C>) {
   const slots = CardBudgetDefaultVariants();
 
+  const { format: formatMoney, getUSDCurrency } = bootstrap.getMoneyKernelPort();
+
   return (
     <CardTemplate
       as={as}
@@ -25,15 +28,15 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
       htmlProps={htmlProps}
       avatarProps={{ src: currency.logoUrl }}
       titleProps={{
-        children: formatCrypto({
+        children: formatMoney({
           value,
           currency,
         }),
       }}
       descriptionProps={{
-        children: formatCrypto({
+        children: formatMoney({
           value: usdEquivalent,
-          currency: USD_CURRENCY,
+          currency: getUSDCurrency(),
           showTilde: true,
         }),
       }}
