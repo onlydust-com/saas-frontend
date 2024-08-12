@@ -10,12 +10,13 @@ import { ProgramInterface } from "@/core/domain/program/models/program-model";
 
 export function useGetProgramById({
   options,
+  pathParams,
 }: UseQueryFacadeParams<ProgramFacadePort["getProgramById"], ProgramInterface>) {
   const programStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...programStoragePort.getProgramById({}),
+      ...programStoragePort.getProgramById({ pathParams }),
       options,
     })
   );
