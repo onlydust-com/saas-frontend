@@ -8,27 +8,27 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-line-chart-line" }}
-        href={"/test"}
+        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-wallet-3-line" }}
-        href={"/test2"}
+        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-clipboard-line" }}
-        href={"/test2"}
+        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-compass-3-line" }}
-        href={process.env.NEXT_PUBLIC_MARKETPLACE_URL ?? ""}
+        linkProps={{ href: process.env.NEXT_PUBLIC_MARKETPLACE_URL ?? "" }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />
     </>

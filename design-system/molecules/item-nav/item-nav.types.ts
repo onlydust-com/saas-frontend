@@ -13,7 +13,8 @@ interface ClassNames {
   label: string;
 }
 
-export interface ItemNavPort extends _BaseLinkProps, PropsWithChildren {
+export interface ItemNavPort extends PropsWithChildren {
+  linkProps?: _BaseLinkProps;
   classNames?: Partial<ClassNames>;
   labelProps?: Partial<TypoPort<"span">>;
   icon: IconPort;
