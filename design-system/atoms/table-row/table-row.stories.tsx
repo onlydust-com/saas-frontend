@@ -2,11 +2,14 @@ import { Meta, StoryObj } from "@storybook/react";
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 
-import { TableHeaderLoading } from "@/design-system/atoms/table-header/table-header.loading";
+import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { TableRowLoading } from "@/design-system/atoms/table-row/table-row.loading";
+import { AvatarDescription } from "@/design-system/molecules/avatar-description";
+import { AvatarGroupDescription } from "@/design-system/molecules/avatar-group-description";
 
-import { TableHeader } from "./variants/table-header-default";
+import { TableRow } from "./variants/table-row-default";
 
-type Story = StoryObj<typeof TableHeader>;
+type Story = StoryObj<typeof TableRow>;
 
 type Person = {
   firstName: string;
@@ -47,28 +50,53 @@ const defaultData: Person[] = [
 const columnHelper = createColumnHelper<Person>();
 
 const columns = [
-  columnHelper.accessor("firstName", {}),
+  columnHelper.accessor("firstName", {
+    cell: info => (
+      <AvatarDescription
+        avatarProps={{}}
+        labelProps={{
+          children: info.getValue(),
+        }}
+      />
+    ),
+  }),
   columnHelper.accessor(row => row.lastName, {
     id: "lastName",
-    header: () => <span>Last Name</span>,
+    cell: info => (
+      <AvatarDescription
+        avatarProps={{}}
+        labelProps={{
+          children: info.getValue(),
+        }}
+      />
+    ),
   }),
   columnHelper.accessor("age", {
-    header: () => "Age",
+    cell: info => (
+      <AvatarGroupDescription
+        avatarGroupProps={{
+          avatars: [{}, {}, {}],
+        }}
+        labelProps={{
+          children: info.getValue(),
+        }}
+      />
+    ),
   }),
   columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
+    cell: info => <TableCellKpi>{info.getValue()}</TableCellKpi>,
   }),
   columnHelper.accessor("status", {
-    header: "Status",
+    cell: info => <TableCellKpi state={"positive"}>{info.getValue()}</TableCellKpi>,
   }),
   columnHelper.accessor("progress", {
-    header: "Profile Progress",
+    cell: info => <TableCellKpi state={"negative"}>{info.getValue()}</TableCellKpi>,
   }),
 ];
 
-const meta: Meta<typeof TableHeader> = {
-  component: TableHeader,
-  title: "Atoms/TableHeader",
+const meta: Meta<typeof TableRow> = {
+  component: TableRow,
+  title: "Atoms/TableRow",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
@@ -81,7 +109,7 @@ const meta: Meta<typeof TableHeader> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<TableHeader />" },
+      source: { code: "<TableRow />" },
     },
   },
   render: args => {
@@ -95,8 +123,12 @@ export const Default: Story = {
 
     return (
       <div className="flex w-full items-center gap-2">
-        <table className={"w-full"}>
-          <TableHeader {...args} headerGroups={table.getHeaderGroups()} />
+        <table className={"w-full border-separate border-spacing-y-3"}>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <TableRow key={row.id} {...args} row={row} />
+            ))}
+          </tbody>
         </table>
       </div>
     );
@@ -106,13 +138,13 @@ export const Default: Story = {
 export const Loading: Story = {
   parameters: {
     docs: {
-      source: { code: "<TableHeader />" },
+      source: { code: "<TableRowLoading />" },
     },
   },
   render: () => {
     return (
       <div className="flex w-full items-center gap-2">
-        <TableHeaderLoading />
+        <TableRowLoading />
       </div>
     );
   },

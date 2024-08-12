@@ -1,4 +1,4 @@
-import { useReactTable } from "@tanstack/react-table";
+import { HeaderGroup as ReactTableHeaderGroup } from "@tanstack/react-table";
 
 interface Variants {}
 
@@ -8,7 +8,7 @@ interface ClassNames {
   header: string;
 }
 
-interface HeaderGroups extends ReturnType<ReturnType<typeof useReactTable>["getHeaderGroups"]> {
+interface HeaderGroup<H> extends ReactTableHeaderGroup<H> {
   // Includes the following
   // id: string;
   // headers: {
@@ -17,7 +17,7 @@ interface HeaderGroups extends ReturnType<ReturnType<typeof useReactTable>["getH
   // }[];
 }
 
-export interface TableHeaderPort extends Partial<Variants> {
-  headerGroups: HeaderGroups;
+export interface TableHeaderPort<H> extends Partial<Variants> {
+  headerGroups: HeaderGroup<H>[];
   classNames?: Partial<ClassNames>;
 }

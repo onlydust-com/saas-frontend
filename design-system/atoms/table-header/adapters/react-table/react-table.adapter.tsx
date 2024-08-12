@@ -7,7 +7,7 @@ import { cn } from "@/shared/helpers/cn";
 import { TableHeaderPort } from "../../table-header.types";
 import { TableHeaderReactTableVariants } from "./react-table.variants";
 
-export function TableHeaderReactTableAdapter({ headerGroups, classNames }: TableHeaderPort) {
+export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: TableHeaderPort<H>) {
   const slots = TableHeaderReactTableVariants();
 
   return (
