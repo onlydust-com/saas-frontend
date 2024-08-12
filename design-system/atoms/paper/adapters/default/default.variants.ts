@@ -18,10 +18,11 @@ export const PaperDefaultVariants = tv({
       action: { base: "bg-container-action" },
       inverse: { base: "bg-container-inverse" },
       transparent: { base: "bg-container-transparent" },
+      "interactions-black": { base: "bg-interactions-black-default" },
     },
     border: {
       none: "border-0",
-      "container-stroke-separator": "border-container-stroke-separator border",
+      "container-stroke-separator": "border border-container-stroke-separator",
     },
   },
   defaultVariants: {
