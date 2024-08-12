@@ -12,7 +12,7 @@ export const CardFinancialDefaultVariants = tv({
         paper: "h-fit",
       },
       xl: {
-        base: "h-full w-full",
+        base: "size-full",
         paper: "h-full",
       },
     },
