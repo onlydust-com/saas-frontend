@@ -13,7 +13,7 @@ export interface BootstrapConstructor {
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
   bannerStoragePortForServer: BannerStoragePort;
-  dateHelperPort: DateFacadePort;
+  dateKernelPort: DateFacadePort;
 }
 
 export class Bootstrap {
@@ -24,14 +24,14 @@ export class Bootstrap {
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
   bannerStoragePortForServer: BannerStoragePort;
-  dateHelperPort: DateFacadePort;
+  dateKernelPort: DateFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
     this.userStoragePortForServer = constructor.userStoragePortForServer;
     this.bannerStoragePortForClient = constructor.bannerStoragePortForClient;
     this.bannerStoragePortForServer = constructor.bannerStoragePortForServer;
-    this.dateHelperPort = constructor.dateHelperPort;
+    this.dateKernelPort = constructor.dateKernelPort;
   }
 
   getAuthProvider() {
@@ -66,8 +66,8 @@ export class Bootstrap {
     return this.bannerStoragePortForServer;
   }
 
-  getDateHelperPort() {
-    return this.dateHelperPort;
+  getDateKernelPort() {
+    return this.dateKernelPort;
   }
 
   public static get getBootstrap(): Bootstrap {
@@ -77,7 +77,7 @@ export class Bootstrap {
         userStoragePortForServer: new UserClientAdapter(new FetchHttpClient()),
         bannerStoragePortForClient: new BannerClientAdapter(new FetchHttpClient()),
         bannerStoragePortForServer: new BannerClientAdapter(new FetchHttpClient()),
-        dateHelperPort: DateFnsAdapter,
+        dateKernelPort: DateFnsAdapter,
       });
     }
 

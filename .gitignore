@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # API generated types
-core/__generated/api.d.ts
+core/infrastructure/marketplace-api-client-adapter/__generated/api.d.ts

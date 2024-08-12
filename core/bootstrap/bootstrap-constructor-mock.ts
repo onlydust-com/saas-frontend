@@ -8,5 +8,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   userStoragePortForServer: new UserClientAdapterMock(),
   bannerStoragePortForClient: new BannerClientAdapterMock(),
   bannerStoragePortForServer: new BannerClientAdapterMock(),
-  dateHelperPort: DateAdapterMock,
+  dateKernelPort: DateAdapterMock,
 };

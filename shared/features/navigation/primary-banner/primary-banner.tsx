@@ -10,7 +10,7 @@ import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
 import { PrimaryBannerProps } from "@/shared/features/navigation/primary-banner/primary-banner.types";
 
 export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
-  const { format } = bootstrap.getDateHelperPort();
+  const { format } = bootstrap.getDateKernelPort();
   const { data: bannerData, isLoading, isError } = BannerReactQueryAdapter.client.useGetBanner({});
 
   function getCta(): ComponentProps<typeof PlgBanner>["cta"] {
