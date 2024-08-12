@@ -1,1 +1,2 @@
-export * from "core/application/react-query-adapter/program/client/use-get-program";
+export * from "./use-get-program-by-id";
+export * from "./use-get-programs";
