@@ -42,9 +42,7 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
             <div className="flex items-center justify-between gap-2">
               <Typo translate={{ token: "table:tableFilter.title" }} />
 
-              {onClear ? (
-                <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableFilter.clear" }} />
-              ) : null}
+              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableFilter.clear" }} />
             </div>
 
             {children}
