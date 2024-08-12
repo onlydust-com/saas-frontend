@@ -19,7 +19,7 @@ export function AvatarGroupDescriptionDefaultAdapter<C extends ElementType = "di
   return (
     <div className={cn(slots.base(), classNames?.base)}>
       <AvatarGroup {...avatarGroupProps} size={"m"} />
-      <div className={"grid place-content-center"}>
+      <div className={"grid place-content-center content-between"}>
         <Typo {...labelProps} size={"xs"} weight={"medium"} color={"text-1"} />
         {descriptionProps ? <Typo {...descriptionProps} size={"xxs"} weight={"regular"} color={"text-2"} /> : null}
       </div>
