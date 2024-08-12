@@ -21,13 +21,10 @@ export interface SidePanelGroupContextProps extends PropsWithChildren {
 }
 
 export interface SidePanelGroupProps extends PropsWithChildren {
-  defaultPanelName: string;
-  defaultOpen?: boolean;
-  panels: string[];
-  config: {
-    closedWidth: number;
-    openedWidth: number;
-  };
+  defaultPanelName: SidePanelGroupContextProps["defaultPanelName"];
+  defaultOpen?: SidePanelGroupContextProps["defaultOpen"];
+  panels: SidePanelGroupContextProps["panels"];
+  config: SidePanelGroupContextProps["config"];
 }
 
 export interface SidePanelGroupRef {

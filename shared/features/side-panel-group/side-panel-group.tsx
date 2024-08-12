@@ -23,9 +23,9 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
   }, [openPanel, closePanel, onNext, onBack]);
 
   return (
-    <div className={"h-full w-full overflow-hidden bg-green-500"}>
+    <div className={"h-full w-full overflow-hidden"}>
       <motion.div
-        className={"flex h-full justify-start bg-blue-500"}
+        className={"flex h-full justify-start"}
         style={{ transform: "translateX(0)" }}
         animate={{ transform: `translateX(-${panelWidth * getOpendPanelIndex()}px)` }}
       >

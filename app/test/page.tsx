@@ -43,10 +43,26 @@ export default function TestPage() {
           ref={sidePanelRef}
           panels={["panel1", "panel2"]}
           defaultPanelName={"panel1"}
-          config={{ closedWidth: 10, openedWidth: 200 }}
+          config={{ closedWidth: 0, openedWidth: 370 }}
         >
-          <SidePanel name={"panel1"}>panel 1</SidePanel>
-          <SidePanel name={"panel2"}>panel 2</SidePanel>
+          <SidePanel name={"panel1"}>
+            {({ onClose, onNext }) => (
+              <div className={"h-full bg-blue-500"}>
+                <div>PANEL 1</div>
+                <button onClick={() => onNext()}>Next</button>
+                <button onClick={() => onClose()}>Close</button>
+              </div>
+            )}
+          </SidePanel>
+          <SidePanel name={"panel2"}>
+            {({ onClose, onBack }) => (
+              <div className={"h-full bg-blue-500"}>
+                <div>PANEL 2</div>
+                <button onClick={() => onClose()}>Close Panel 2</button>
+                <button onClick={() => onBack()}>Back</button>
+              </div>
+            )}
+          </SidePanel>
         </SidePanelGroup>
       </AnimatedColumnGroup>
     </div>
