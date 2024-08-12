@@ -44,7 +44,7 @@ export const Default: Story = {
 export const Loading: Story = {
   parameters: {
     docs: {
-      source: { code: "<TableFilter />" },
+      source: { code: "<TableFilterLoading />" },
     },
   },
   render: () => {
