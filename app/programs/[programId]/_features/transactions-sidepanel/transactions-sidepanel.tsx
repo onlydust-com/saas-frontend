@@ -23,17 +23,13 @@ export function TransactionsSidepanel() {
     >
       {/* @INFO THIS TWO PANELS COULD BE SPLIT IN TWO FILE */}
       <SidePanel name={TransactionsSidepanels.TRANSACTIONS}>
-        <SidePanelHeader asCloseButton={true} title={{ token: "programs:transactionPanel.transaction.title" }} />
+        <SidePanelHeader canClose={true} title={{ token: "programs:transactionPanel.transaction.title" }} />
         <Button variant={"secondary-light"} onClick={() => transactionPanel.current?.onNext()}>
           Export CSV
         </Button>
       </SidePanel>
       <SidePanel name={TransactionsSidepanels.EXPORT}>
-        <SidePanelHeader
-          asBackButton={true}
-          asCloseButton={true}
-          title={{ token: "programs:transactionPanel.export.title" }}
-        />
+        <SidePanelHeader canGoBack={true} canClose={true} title={{ token: "programs:transactionPanel.export.title" }} />
       </SidePanel>
     </SidePanelGroup>
   );

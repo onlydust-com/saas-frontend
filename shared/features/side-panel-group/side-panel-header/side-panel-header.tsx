@@ -5,22 +5,16 @@ import { useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel
 
 import { SidePanelHeaderProps } from "./side-panel-header.types";
 
-export function SidePanelHeader({
-  asBackButton,
-  asCloseButton,
-  title,
-  startContent,
-  endContent,
-}: SidePanelHeaderProps) {
+export function SidePanelHeader({ canGoBack, canClose, title, startContent, endContent }: SidePanelHeaderProps) {
   const { onBack, closePanel } = useSidePanelGroup();
-  const showStartContent = asBackButton || !!startContent;
-  const showEndContent = asCloseButton || !!endContent;
+  const showStartContent = canGoBack || !!startContent;
+  const showEndContent = canClose || !!endContent;
 
   return (
     <div className={"flex w-full flex-row items-center justify-between gap-1"}>
       {showStartContent && (
         <div className={"flex w-full flex-row items-center justify-start gap-1"}>
-          {asBackButton && (
+          {canGoBack && (
             <Button
               hideText={true}
               variant={"secondary-light"}
@@ -35,7 +29,7 @@ export function SidePanelHeader({
       {showEndContent && (
         <div className={"flex w-full flex-row items-center justify-end gap-1"}>
           {endContent}
-          {asCloseButton && (
+          {canClose && (
             <Button
               hideText={true}
               variant={"secondary-light"}
