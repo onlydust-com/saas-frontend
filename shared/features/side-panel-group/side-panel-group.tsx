@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 
 import { SidePanelGroupProvider, useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel-group.context";
@@ -10,16 +11,28 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
   { children }: SidePanelGroupProps,
   ref: ForwardedRef<SidePanelGroupRef>
 ) {
-  const { openPanel, closePanel } = useSidePanelGroup();
+  const { openPanel, closePanel, panelWidth, getOpendPanelIndex, onBack, onNext } = useSidePanelGroup();
 
   useImperativeHandle(ref, () => {
     return {
       openPanel,
       closePanel,
+      onBack,
+      onNext,
     };
-  }, [openPanel, closePanel]);
+  }, [openPanel, closePanel, onNext, onBack]);
 
-  return <div>{children}</div>;
+  return (
+    <div className={"h-full w-full overflow-hidden bg-green-500"}>
+      <motion.div
+        className={"flex h-full justify-start bg-blue-500"}
+        style={{ transform: "translateX(0)" }}
+        animate={{ transform: `translateX(-${panelWidth * getOpendPanelIndex()}px)` }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
 });
 
 export const SidePanelGroup = forwardRef(function SidePanelGroup(

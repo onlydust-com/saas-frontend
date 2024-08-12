@@ -4,11 +4,16 @@ export interface SidePanelGroupContextInterface {
   isPanelOpen: (name: string) => boolean;
   openPanel: (name?: string) => void;
   closePanel: (name?: string) => void;
+  panelWidth: number;
+  getOpendPanelIndex: () => number;
+  onBack: () => void;
+  onNext: () => void;
 }
 
 export interface SidePanelGroupContextProps extends PropsWithChildren {
   defaultPanelName: string;
   defaultOpen?: boolean;
+  panels: string[];
   config: {
     closedWidth: number;
     openedWidth: number;
@@ -18,6 +23,7 @@ export interface SidePanelGroupContextProps extends PropsWithChildren {
 export interface SidePanelGroupProps extends PropsWithChildren {
   defaultPanelName: string;
   defaultOpen?: boolean;
+  panels: string[];
   config: {
     closedWidth: number;
     openedWidth: number;
@@ -27,4 +33,6 @@ export interface SidePanelGroupProps extends PropsWithChildren {
 export interface SidePanelGroupRef {
   openPanel: SidePanelGroupContextInterface["openPanel"];
   closePanel: SidePanelGroupContextInterface["closePanel"];
+  onBack: SidePanelGroupContextInterface["onBack"];
+  onNext: SidePanelGroupContextInterface["onNext"];
 }

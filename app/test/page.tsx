@@ -23,11 +23,28 @@ export default function TestPage() {
       <AnimatedColumnGroup>
         <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
           <div className={"h-[5000px]"}>
-            <button onClick={() => sidePanelRef.current?.openPanel()}>OPEN PANEL 1</button>
-            <button onClick={() => sidePanelRef.current?.closePanel()}>Close Panels</button>
+            <div>
+              <button onClick={() => sidePanelRef.current?.onBack()}>Back</button>
+              <button onClick={() => sidePanelRef.current?.onNext()}>Next</button>
+            </div>
+
+            <div>
+              <button onClick={() => sidePanelRef.current?.openPanel()}>OPEN PANEL 1</button>
+              <button onClick={() => sidePanelRef.current?.closePanel()}>Close Panels</button>
+            </div>
+
+            <div>
+              <button onClick={() => sidePanelRef.current?.openPanel("panel2")}>Open PANEL 2</button>
+              <button onClick={() => sidePanelRef.current?.closePanel("panel2")}>Close PANEL 2</button>
+            </div>
           </div>
         </AnimatedColumn>
-        <SidePanelGroup ref={sidePanelRef} defaultPanelName={"panel1"} config={{ closedWidth: 10, openedWidth: 200 }}>
+        <SidePanelGroup
+          ref={sidePanelRef}
+          panels={["panel1", "panel2"]}
+          defaultPanelName={"panel1"}
+          config={{ closedWidth: 10, openedWidth: 200 }}
+        >
           <SidePanel name={"panel1"}>panel 1</SidePanel>
           <SidePanel name={"panel2"}>panel 2</SidePanel>
         </SidePanelGroup>

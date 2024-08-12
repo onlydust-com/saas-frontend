@@ -5,7 +5,13 @@ import { useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel
 import { SidePanelProps } from "./side-panel.types";
 
 export function SidePanel({ children, name }: SidePanelProps) {
-  const context = useSidePanelGroup();
-  console.log("NAME", name);
-  return <div>{children}</div>;
+  const { panelWidth } = useSidePanelGroup();
+
+  const renderChildren = typeof children === "function" ? children({ name }) : children;
+
+  return (
+    <div className="h-full bg-red-500" style={{ minWidth: panelWidth, width: panelWidth }}>
+      {renderChildren}
+    </div>
+  );
 }

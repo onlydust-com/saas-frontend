@@ -12,6 +12,10 @@ export const SidePanelGroupContext = createContext<SidePanelGroupContextInterfac
   isPanelOpen: () => false,
   openPanel: () => {},
   closePanel: () => {},
+  getOpendPanelIndex: () => 0,
+  panelWidth: 0,
+  onBack: () => {},
+  onNext: () => {},
 });
 
 export function SidePanelGroupProvider({
@@ -19,6 +23,7 @@ export function SidePanelGroupProvider({
   defaultPanelName,
   defaultOpen,
   config,
+  panels,
 }: SidePanelGroupContextProps) {
   const [openedPanels, setOpenedPanels] = useState<string[]>(defaultOpen ? [defaultPanelName] : []);
 
@@ -28,7 +33,7 @@ export function SidePanelGroupProvider({
 
   function openPanel(name?: string) {
     if (name) {
-      setOpenedPanels(prev => [...prev, name]);
+      setOpenedPanels(panels?.slice(0, panels.indexOf(name) + 1));
     } else {
       setOpenedPanels([defaultPanelName]);
     }
@@ -36,10 +41,29 @@ export function SidePanelGroupProvider({
 
   function closePanel(name?: string) {
     if (name) {
-      setOpenedPanels(prev => prev.filter(panelName => panelName !== name));
+      setOpenedPanels(panels?.slice(0, panels.indexOf(name)));
     } else {
       setOpenedPanels([]);
     }
+  }
+
+  function getOpendPanelIndex() {
+    return (openedPanels?.length || 0) - 1;
+  }
+
+  function onBack() {
+    if (openedPanels.length === 1) {
+      return;
+    }
+    setOpenedPanels(prev => prev.slice(0, prev.length - 1));
+  }
+
+  function onNext() {
+    console.log("openedPanels", openedPanels.length, panels.length);
+    if (openedPanels.length > panels.length - 1) {
+      return;
+    }
+    setOpenedPanels(prev => [...prev, panels[panels.indexOf(prev[prev.length - 1]) + 1]]);
   }
 
   const panelSize = useMemo(() => {
@@ -56,6 +80,10 @@ export function SidePanelGroupProvider({
         isPanelOpen,
         openPanel,
         closePanel,
+        getOpendPanelIndex,
+        onBack,
+        onNext,
+        panelWidth: config.openedWidth,
       }}
     >
       <AnimatedColumn autoWidth={false} width={panelSize} initialWidth={config.closedWidth} className="h-full">

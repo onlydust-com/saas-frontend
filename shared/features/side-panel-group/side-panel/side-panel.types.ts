@@ -1,5 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 
-export interface SidePanelProps extends PropsWithChildren {
+export interface SidePanelProps {
   name: string;
+  children: (({ name }: { name: string }) => ReactNode) | ReactNode;
 }
