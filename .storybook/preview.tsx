@@ -6,7 +6,16 @@ import "remixicon/fonts/remixicon.css";
 
 import "@/app/globals.css";
 
+import { TranslationProvider } from "../shared/translation/components/translation-provider/translation-provider";
+
 const preview: Preview = {
+  decorators: [
+    Story => (
+      <TranslationProvider>
+        <Story />
+      </TranslationProvider>
+    ),
+  ],
   parameters: {
     docs: {
       canvas: {

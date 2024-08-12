@@ -12,16 +12,16 @@ const skeletonVariants = tv({
   variants: {
     size: {
       s: {
-        base: "size-8",
+        base: "h-[26px] w-[152px]",
       },
       m: {
-        base: "size-10",
+        base: "h-[34px] w-[194px]",
       },
       l: {
-        base: "size-12",
+        base: "h-10 w-[202px]",
       },
       xl: {
-        base: "size-14",
+        base: "h-[50px] w-[228px]",
       },
     },
     hideText: {
@@ -33,28 +33,28 @@ const skeletonVariants = tv({
       size: "s",
       hideText: true,
       className: {
-        base: "w-[150px]",
+        base: "size-[26px]",
       },
     },
     {
       size: "m",
       hideText: true,
       className: {
-        base: "w-[192px]",
+        base: "size-[34px]",
       },
     },
     {
       size: "l",
       hideText: true,
       className: {
-        base: "w-[200px]",
+        base: "size-10",
       },
     },
     {
       size: "xl",
       hideText: true,
       className: {
-        base: "w-[226px]",
+        base: "size-[50px]",
       },
     },
   ],
