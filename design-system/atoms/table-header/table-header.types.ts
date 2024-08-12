@@ -8,7 +8,7 @@ interface ClassNames {
   header: string;
 }
 
-interface HeaderGroup extends ReactTableHeaderGroup<unknown> {
+interface HeaderGroup<H> extends ReactTableHeaderGroup<H> {
   // Includes the following
   // id: string;
   // headers: {
@@ -17,7 +17,7 @@ interface HeaderGroup extends ReactTableHeaderGroup<unknown> {
   // }[];
 }
 
-export interface TableHeaderPort extends Partial<Variants> {
-  headerGroups: HeaderGroup[];
+export interface TableHeaderPort<H> extends Partial<Variants> {
+  headerGroups: HeaderGroup<H>[];
   classNames?: Partial<ClassNames>;
 }
