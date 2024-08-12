@@ -12,7 +12,7 @@ export const SidePanelGroupContext = createContext<SidePanelGroupContextInterfac
   isPanelOpen: () => false,
   openPanel: () => {},
   closePanel: () => {},
-  getOpendPanelIndex: () => 0,
+  getOpenedPanelIndex: () => 0,
   panelWidth: 0,
   onBack: () => {},
   onNext: () => {},
@@ -47,7 +47,7 @@ export function SidePanelGroupProvider({
     }
   }
 
-  function getOpendPanelIndex() {
+  function getOpenedPanelIndex() {
     return (openedPanels?.length || 0) - 1;
   }
 
@@ -59,7 +59,6 @@ export function SidePanelGroupProvider({
   }
 
   function onNext() {
-    console.log("openedPanels", openedPanels.length, panels.length);
     if (openedPanels.length > panels.length - 1) {
       return;
     }
@@ -80,7 +79,7 @@ export function SidePanelGroupProvider({
         isPanelOpen,
         openPanel,
         closePanel,
-        getOpendPanelIndex,
+        getOpenedPanelIndex,
         onBack,
         onNext,
         panelWidth: config.openedWidth,

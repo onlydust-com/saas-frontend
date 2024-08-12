@@ -5,7 +5,7 @@ export interface SidePanelGroupContextInterface {
   openPanel: (name?: string) => void;
   closePanel: (name?: string) => void;
   panelWidth: number;
-  getOpendPanelIndex: () => number;
+  getOpenedPanelIndex: () => number;
   onBack: () => void;
   onNext: () => void;
 }

@@ -12,7 +12,7 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
   { children, className }: SidePanelGroupProps,
   ref: ForwardedRef<SidePanelGroupRef>
 ) {
-  const { openPanel, closePanel, panelWidth, getOpendPanelIndex, onBack, onNext } = useSidePanelGroup();
+  const { openPanel, closePanel, panelWidth, getOpenedPanelIndex, onBack, onNext } = useSidePanelGroup();
 
   useImperativeHandle(ref, () => {
     return {
@@ -28,7 +28,7 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
       <motion.div
         className={cn("flex h-full justify-start", className?.mover)}
         style={{ transform: "translateX(0)" }}
-        animate={{ transform: `translateX(-${panelWidth * getOpendPanelIndex()}px)` }}
+        animate={{ transform: `translateX(-${panelWidth * getOpenedPanelIndex()}px)` }}
       >
         {children}
       </motion.div>
