@@ -123,10 +123,7 @@ export const Default: Story = {
 
     return (
       <div className="flex w-full items-center gap-2">
-        <table
-          className={"w-full border-separate border-spacing-y-3"}
-          //className={"w-full"}
-        >
+        <table className={"w-full border-separate border-spacing-y-3"}>
           <tbody>
             {table.getRowModel().rows.map(row => (
               <TableRow key={row.id} {...args} row={row} />
