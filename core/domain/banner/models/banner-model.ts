@@ -9,7 +9,11 @@ export class Banner implements BannerInterface {
   buttonLinkUrl!: BannerResponse["buttonLinkUrl"];
   buttonText!: BannerResponse["buttonText"];
   id!: BannerResponse["id"];
-  text!: BannerResponse["text"];
+  date!: BannerResponse["date"];
+  longDescription!: BannerResponse["longDescription"];
+  shortDescription!: BannerResponse["shortDescription"];
+  subTitle!: BannerResponse["subTitle"];
+  title!: BannerResponse["title"];
 
   constructor(props: BannerResponse) {
     Object.assign(this, props);

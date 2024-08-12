@@ -1040,6 +1040,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/projects/{projectId}/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get project stats
+         * @description Get some KPIs for the project
+         */
+        get: operations["getProjectStats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/projects/{projectId}/rewards/{rewardId}": {
         parameters: {
             query?: never;
@@ -1477,6 +1497,26 @@ export interface paths {
          * @description Get a paginated list of recommended projects for the caller
          */
         get: operations["getRecommendedProjects"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/programs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get my leaded programs
+         * @description Get the list of programs the user is leading
+         */
+        get: operations["getMyPrograms"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2244,6 +2284,11 @@ export interface components {
             aptosAddress?: string;
             /** @example 2439033442758812591743487931341975388992437896497635559722035508737856161688 */
             starknetAddress?: string;
+            /**
+             * @description Stellar account public key, base-32 encoded
+             * @example GBAIA5U6E3FSRUW55AXACIVGX2QR5JYAS74OWLED3S22EGXVYEHPLGPA
+             */
+            stellarAccountId?: string;
         };
         BillingProfilePayoutInfoResponseBankAccount: {
             /** @example DAAEFRPPCCT */
@@ -2436,106 +2481,12 @@ export interface components {
             /** @description The applicant's approach to solving the issue */
             problemSolvingApproach?: string;
         };
-        BillingProfileCoworkerInvitation: {
-            invitedBy?: components["schemas"]["ContributorResponse"];
-            /** Format: date-time */
-            invitedAt?: string;
-            /** @enum {string} */
-            role?: "ADMIN" | "MEMBER";
-        };
-        BillingProfileResponse: {
+        BillingProfileCreateResponse: {
             /**
              * Format: uuid
              * @description Billing profile ID
              */
             id: string;
-            /** @enum {string} */
-            type: "INDIVIDUAL" | "COMPANY" | "SELF_EMPLOYED";
-            /** @enum {string} */
-            status: "NOT_STARTED" | "STARTED" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED" | "CLOSED";
-            name: string;
-            /** @description The payment limit for the current year (typically, $5000 for individuals) */
-            currentYearPaymentLimit?: number;
-            /** @description The total payments amount for the current year so far. */
-            currentYearPaymentAmount?: number;
-            /** @description True if the (individual) billing profile has reached the yearly limit. */
-            individualLimitReached?: boolean;
-            /** @description True if the billing profile can be switched from company to self-employed type (eg. no other coworkers) */
-            isSwitchableToSelfEmployed?: boolean;
-            enabled: boolean;
-            invoiceMandateAccepted: boolean;
-            /** Format: int32 */
-            rewardCount?: number;
-            /** Format: int32 */
-            invoiceableRewardCount?: number;
-            /** @description True if any reward that is included in an invoice in this billing profile requires some payout info to be set in order to be payable. Always false when no pending rewards. */
-            missingPayoutInfo: boolean;
-            /** @description True if there is any reward belonging to this billing profile and its status is not VERIFIED. Always false when no pending rewards. */
-            missingVerification: boolean;
-            /** @description True if the billing profile verification process is blocked. */
-            verificationBlocked: boolean;
-            me: components["schemas"]["BillingProfileResponseMe"];
-            kyc?: components["schemas"]["KYCResponse"];
-            kyb?: components["schemas"]["KYBResponse"];
-        };
-        BillingProfileResponseMe: {
-            invitation?: components["schemas"]["BillingProfileCoworkerInvitation"];
-            /** @enum {string} */
-            role?: "ADMIN" | "MEMBER";
-            /** @description True if the billing profile can be deleted by the caller (eg. no invoice linked to it so far and the caller is admin) */
-            canDelete: boolean;
-            /** @description True if the caller can leave the billing profile (eg. no invoice linked to it so far and caller is not the last admin) */
-            canLeave: boolean;
-        };
-        ContributorResponse: {
-            /**
-             * Format: int64
-             * @description Github user ID (databaseId)
-             * @example 595505
-             */
-            githubUserId: number;
-            /**
-             * @description User's Github login
-             * @example ofux
-             */
-            login: string;
-            /**
-             * @description Direct URL to user's avatar image
-             * @example https://avatars.githubusercontent.com/u/595505?v=4
-             */
-            avatarUrl: string;
-            /** @description True if the user is registered on OnlyDust */
-            isRegistered: boolean;
-        };
-        KYBResponse: {
-            /** Format: uuid */
-            id: string;
-            name?: string;
-            registrationNumber?: string;
-            /** Format: date-time */
-            registrationDate?: string;
-            address?: string;
-            country?: string;
-            usEntity?: boolean;
-            subjectToEuropeVAT?: boolean;
-            euVATNumber?: string;
-        };
-        KYCResponse: {
-            /** Format: uuid */
-            id: string;
-            firstName?: string;
-            lastName?: string;
-            /** Format: date-time */
-            birthdate?: string;
-            address?: string;
-            country?: string;
-            usCitizen?: boolean;
-            /** @enum {string} */
-            idDocumentType?: "PASSPORT" | "ID_CARD" | "RESIDENCE_PERMIT" | "DRIVER_LICENSE";
-            idDocumentNumber?: string;
-            /** Format: date-time */
-            validUntil?: string;
-            idDocumentCountryCode?: string;
         };
         BillingProfileRequest: {
             name: string;
@@ -2668,6 +2619,26 @@ export interface components {
              */
             nextPageIndex: number;
             contributions: components["schemas"]["ContributionPageItemResponse"][];
+        };
+        ContributorResponse: {
+            /**
+             * Format: int64
+             * @description Github user ID (databaseId)
+             * @example 595505
+             */
+            githubUserId: number;
+            /**
+             * @description User's Github login
+             * @example ofux
+             */
+            login: string;
+            /**
+             * @description Direct URL to user's avatar image
+             * @example https://avatars.githubusercontent.com/u/595505?v=4
+             */
+            avatarUrl: string;
+            /** @description True if the user is registered on OnlyDust */
+            isRegistered: boolean;
         };
         LanguageResponse: {
             /**
@@ -3161,15 +3132,15 @@ export interface components {
              */
             name: string;
             /**
-             * @description URL of sponsor's website
-             * @example https://ethereum.org
-             */
-            url: string;
-            /**
              * @description Direct URL to sponsor's logo image
              * @example https://onlydust-app-images.s3.eu-west-1.amazonaws.com/8506434858363286425.png
              */
             logoUrl: string;
+            /**
+             * @description URL of sponsor's website
+             * @example https://ethereum.org
+             */
+            url: string;
             availableBudgets: components["schemas"]["Money"][];
             projects: components["schemas"]["ProjectWithBudgetResponse"][];
         };
@@ -3491,15 +3462,15 @@ export interface components {
              */
             name: string;
             /**
-             * @description URL of sponsor's website
-             * @example https://ethereum.org
-             */
-            url: string;
-            /**
              * @description Direct URL to sponsor's logo image
              * @example https://onlydust-app-images.s3.eu-west-1.amazonaws.com/8506434858363286425.png
              */
             logoUrl: string;
+            /**
+             * @description URL of sponsor's website
+             * @example https://ethereum.org
+             */
+            url: string;
         };
         /** @description Detailed total money value object */
         DetailedTotalMoney: {
@@ -3510,6 +3481,16 @@ export interface components {
             totalUsdEquivalent: number;
             /** @description Total amount by currency */
             totalPerCurrency?: components["schemas"]["Money"][];
+        };
+        ProjectStatsResponse: {
+            /** Format: int32 */
+            activeContributorCount: number;
+            /** Format: int32 */
+            mergedPrCount: number;
+            /** Format: int32 */
+            rewardCount: number;
+            totalGranted: components["schemas"]["DetailedTotalMoney"];
+            totalRewarded: components["schemas"]["DetailedTotalMoney"];
         };
         RewardPageItemResponse: {
             /** Format: date-time */
@@ -4118,7 +4099,7 @@ export interface components {
              * @description OnlyDust reward ID
              */
             id: string;
-            networks?: ("SEPA" | "ETHEREUM" | "OPTIMISM" | "APTOS" | "STARKNET")[];
+            networks?: ("SEPA" | "ETHEREUM" | "OPTIMISM" | "APTOS" | "STARKNET" | "STELLAR")[];
         };
         MyRewardsPageResponse: {
             /** Format: int32 */
@@ -4190,6 +4171,31 @@ export interface components {
              */
             nextPageIndex: number;
             projects: components["schemas"]["ProjectLinkWithDescriptionResponse"][];
+        };
+        ProgramPageItemResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust program ID
+             */
+            id: string;
+            /**
+             * @description Program name
+             * @example Starkware Exploration Team
+             */
+            name: string;
+        };
+        ProgramsPageResponse: {
+            /** Format: int32 */
+            totalPageNumber: number;
+            /** Format: int32 */
+            totalItemNumber: number;
+            hasMore: boolean;
+            /**
+             * Format: int32
+             * @description if there is no next page, it will be equals to the last page
+             */
+            nextPageIndex: number;
+            programs: components["schemas"]["ProgramPageItemResponse"][];
         };
         PrivateUserProfileResponse: {
             /**
@@ -4866,6 +4872,87 @@ export interface components {
             status: "OPEN_TO_APPLICATIONS" | "OPEN_TO_VOTES" | "CLOSED";
             hasStartedApplication: boolean;
         };
+        BillingProfileCoworkerInvitation: {
+            invitedBy?: components["schemas"]["ContributorResponse"];
+            /** Format: date-time */
+            invitedAt?: string;
+            /** @enum {string} */
+            role?: "ADMIN" | "MEMBER";
+        };
+        BillingProfileResponse: {
+            /**
+             * Format: uuid
+             * @description Billing profile ID
+             */
+            id: string;
+            /** @enum {string} */
+            type: "INDIVIDUAL" | "COMPANY" | "SELF_EMPLOYED";
+            /** @enum {string} */
+            status: "NOT_STARTED" | "STARTED" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED" | "CLOSED";
+            name: string;
+            /** @description The payment limit for the current year (typically, $5000 for individuals) */
+            currentYearPaymentLimit?: number;
+            /** @description The total payments amount for the current year so far. */
+            currentYearPaymentAmount?: number;
+            /** @description True if the (individual) billing profile has reached the yearly limit. */
+            individualLimitReached?: boolean;
+            /** @description True if the billing profile can be switched from company to self-employed type (eg. no other coworkers) */
+            isSwitchableToSelfEmployed?: boolean;
+            enabled: boolean;
+            invoiceMandateAccepted: boolean;
+            /** Format: int32 */
+            rewardCount?: number;
+            /** Format: int32 */
+            invoiceableRewardCount?: number;
+            /** @description True if any reward that is included in an invoice in this billing profile requires some payout info to be set in order to be payable. Always false when no pending rewards. */
+            missingPayoutInfo: boolean;
+            /** @description True if there is any reward belonging to this billing profile and its status is not VERIFIED. Always false when no pending rewards. */
+            missingVerification: boolean;
+            /** @description True if the billing profile verification process is blocked. */
+            verificationBlocked: boolean;
+            me: components["schemas"]["BillingProfileResponseMe"];
+            kyc?: components["schemas"]["KYCResponse"];
+            kyb?: components["schemas"]["KYBResponse"];
+        };
+        BillingProfileResponseMe: {
+            invitation?: components["schemas"]["BillingProfileCoworkerInvitation"];
+            /** @enum {string} */
+            role?: "ADMIN" | "MEMBER";
+            /** @description True if the billing profile can be deleted by the caller (eg. no invoice linked to it so far and the caller is admin) */
+            canDelete: boolean;
+            /** @description True if the caller can leave the billing profile (eg. no invoice linked to it so far and caller is not the last admin) */
+            canLeave: boolean;
+        };
+        KYBResponse: {
+            /** Format: uuid */
+            id: string;
+            name?: string;
+            registrationNumber?: string;
+            /** Format: date-time */
+            registrationDate?: string;
+            address?: string;
+            country?: string;
+            usEntity?: boolean;
+            subjectToEuropeVAT?: boolean;
+            euVATNumber?: string;
+        };
+        KYCResponse: {
+            /** Format: uuid */
+            id: string;
+            firstName?: string;
+            lastName?: string;
+            /** Format: date-time */
+            birthdate?: string;
+            address?: string;
+            country?: string;
+            usCitizen?: boolean;
+            /** @enum {string} */
+            idDocumentType?: "PASSPORT" | "ID_CARD" | "RESIDENCE_PERMIT" | "DRIVER_LICENSE";
+            idDocumentNumber?: string;
+            /** Format: date-time */
+            validUntil?: string;
+            idDocumentCountryCode?: string;
+        };
         BillingProfilePayoutInfoResponse: {
             hasValidPayoutSettings?: boolean;
             bankAccount?: components["schemas"]["BillingProfilePayoutInfoResponseBankAccount"];
@@ -4885,6 +4972,12 @@ export interface components {
             /** @example 2439033442758812591743487931341975388992437896497635559722035508737856161688 */
             starknetAddress?: string;
             missingStarknetWallet?: boolean;
+            /**
+             * @description Stellar account public key, base-32 encoded
+             * @example GBAIA5U6E3FSRUW55AXACIVGX2QR5JYAS74OWLED3S22EGXVYEHPLGPA
+             */
+            stellarAccountId?: string;
+            missingStellarWallet?: boolean;
         };
         BillingProfileInvoicesPageItemResponse: {
             /** Format: uuid */
@@ -5040,7 +5133,12 @@ export interface components {
         BannerResponse: {
             /** Format: uuid */
             id: string;
-            text: string;
+            shortDescription: string;
+            longDescription: string;
+            title: string;
+            subTitle: string;
+            /** Format: date-time */
+            date?: string;
             buttonIconSlug?: string;
             buttonText?: string;
             /** Format: uri */
@@ -7101,13 +7199,13 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Billing profile */
-            200: {
+            /** @description Billing profile created */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BillingProfileResponse"];
+                    "application/json": components["schemas"]["BillingProfileCreateResponse"];
                 };
             };
             /** @description Unauthorized */
@@ -8230,6 +8328,69 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PublicActivityPageResponse"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
+    getProjectStats: {
+        parameters: {
+            query?: {
+                /** @description Date filter */
+                fromDate?: string;
+                /** @description Date filter */
+                toDate?: string;
+            };
+            header?: never;
+            path: {
+                projectId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Project stats */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProjectStatsResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Forbidden. The project is not visible to the caller. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Requested resource not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
                 };
             };
             /** @description Internal Server Error */
@@ -9467,6 +9628,47 @@ export interface operations {
             };
         };
     };
+    getMyPrograms: {
+        parameters: {
+            query: {
+                pageIndex: number;
+                pageSize: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Programs */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProgramsPageResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
     updateMyGithubProfileData: {
         parameters: {
             query?: never;
@@ -10593,7 +10795,9 @@ export interface operations {
     };
     getBanner: {
         parameters: {
-            query?: never;
+            query?: {
+                hiddenIgnoredByMe?: boolean;
+            };
             header?: never;
             path?: never;
             cookie?: never;

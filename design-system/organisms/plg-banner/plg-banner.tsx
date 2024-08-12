@@ -1,7 +1,6 @@
 import PlgMarketing from "@/public/images/banners/plg-marketing.png";
 import Image from "next/image";
 
-import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -10,7 +9,11 @@ import { PlgBannerProps } from "./plg-banner.types";
 function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
   if (!cta) return null;
 
-  const avatar = cta.avatar ? <Avatar {...cta.avatar} /> : undefined;
+  const startIcon = cta.icon
+    ? {
+        name: cta.icon,
+      }
+    : undefined;
 
   return (
     <Button
@@ -20,7 +23,7 @@ function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
         target: cta.isExternal ? "_blank" : undefined,
         rel: cta.isExternal ? "noopener noreferrer" : undefined,
       }}
-      startContent={avatar}
+      startIcon={startIcon}
       variant={"secondary-light"}
     >
       {cta.text}
@@ -48,20 +51,28 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
 
         <div className={"flex flex-col gap-8"}>
           <div className={"flex flex-col gap-2"}>
-            <Typo size={"s"} weight={"regular"} color={"text-1"}>
-              {title}
-            </Typo>
-            <Typo size={"3xl"} weight={"regular"} variant={"brand"} color={"text-1"}>
-              {subTitle}
-            </Typo>
+            {title ? (
+              <Typo size={"s"} weight={"regular"} color={"text-1"}>
+                {title}
+              </Typo>
+            ) : null}
+            {subTitle ? (
+              <Typo size={"3xl"} weight={"regular"} variant={"brand"} color={"text-1"}>
+                {subTitle}
+              </Typo>
+            ) : null}
 
-            <Typo size={"m"} weight={"regular"} color={"text-1"}>
-              {date}
-            </Typo>
+            {date ? (
+              <Typo size={"m"} weight={"regular"} color={"text-1"}>
+                {date}
+              </Typo>
+            ) : null}
 
-            <Typo size={"s"} weight={"regular"} color={"text-2"}>
-              {description}
-            </Typo>
+            {description ? (
+              <Typo size={"s"} weight={"regular"} color={"text-2"}>
+                {description}
+              </Typo>
+            ) : null}
           </div>
 
           <Cta cta={cta} />

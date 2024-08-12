@@ -5,12 +5,15 @@ import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
 import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/fetch-http-client/fetch-http-client";
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
+import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
+import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
 
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
   bannerStoragePortForServer: BannerStoragePort;
+  dateKernelPort: DateFacadePort;
 }
 
 export class Bootstrap {
@@ -21,12 +24,14 @@ export class Bootstrap {
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
   bannerStoragePortForServer: BannerStoragePort;
+  dateKernelPort: DateFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
     this.userStoragePortForServer = constructor.userStoragePortForServer;
     this.bannerStoragePortForClient = constructor.bannerStoragePortForClient;
     this.bannerStoragePortForServer = constructor.bannerStoragePortForServer;
+    this.dateKernelPort = constructor.dateKernelPort;
   }
 
   getAuthProvider() {
@@ -61,6 +66,10 @@ export class Bootstrap {
     return this.bannerStoragePortForServer;
   }
 
+  getDateKernelPort() {
+    return this.dateKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -68,6 +77,7 @@ export class Bootstrap {
         userStoragePortForServer: new UserClientAdapter(new FetchHttpClient()),
         bannerStoragePortForClient: new BannerClientAdapter(new FetchHttpClient()),
         bannerStoragePortForServer: new BannerClientAdapter(new FetchHttpClient()),
+        dateKernelPort: DateFnsAdapter,
       });
     }
 
