@@ -5,15 +5,15 @@ import {
   useQueryAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { BannerFacadePort } from "@/core/domain/banner/input/banner-facade-port";
-import { BannerInterface } from "@/core/domain/banner/models/banner-model";
+import { ProgramFacadePort } from "@/core/domain/program/input/program-facade-port";
+import { ProgramInterface } from "@/core/domain/program/models/program-model";
 
-export function useGetProgram({ options }: UseQueryFacadeParams<BannerFacadePort["getBanner"], BannerInterface>) {
-  const bannerStoragePort = bootstrap.getBannerStoragePortForClient();
+export function useGetProgram({ options }: UseQueryFacadeParams<ProgramFacadePort["getProgram"], ProgramInterface>) {
+  const programStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...bannerStoragePort.getBanner({}),
+      ...programStoragePort.getProgram({}),
       options,
     })
   );
