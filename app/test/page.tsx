@@ -1,12 +1,16 @@
 "use client";
 
+import { useRef } from "react";
+
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { SecondaryNavigation } from "@/shared/features/navigation/secondary-navigation/secondary-navigation";
 import { SidePanelGroup } from "@/shared/features/side-panel-group/side-panel-group";
+import { SidePanelGroupRef } from "@/shared/features/side-panel-group/side-panel-group.types";
 import { SidePanel } from "@/shared/features/side-panel-group/side-panel/side-panel";
 
 export default function TestPage() {
+  const sidePanelRef = useRef<SidePanelGroupRef>(null);
   return (
     <div className={"flex h-full w-full flex-col gap-3 overflow-hidden"}>
       <SecondaryNavigation
@@ -18,9 +22,12 @@ export default function TestPage() {
       />
       <AnimatedColumnGroup>
         <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
-          <div className={"h-[5000px]"}>CONTENT</div>
+          <div className={"h-[5000px]"}>
+            <button onClick={() => sidePanelRef.current?.openPanel()}>OPEN PANEL 1</button>
+            <button onClick={() => sidePanelRef.current?.closePanel()}>Close Panels</button>
+          </div>
         </AnimatedColumn>
-        <SidePanelGroup defaultPanelName={"panel1"} defaultOpen={true} config={{ closedWidth: 10, openedWidth: 200 }}>
+        <SidePanelGroup ref={sidePanelRef} defaultPanelName={"panel1"} config={{ closedWidth: 10, openedWidth: 200 }}>
           <SidePanel name={"panel1"}>panel 1</SidePanel>
           <SidePanel name={"panel2"}>panel 2</SidePanel>
         </SidePanelGroup>

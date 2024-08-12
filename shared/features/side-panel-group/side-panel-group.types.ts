@@ -23,3 +23,8 @@ export interface SidePanelGroupProps extends PropsWithChildren {
     openedWidth: number;
   };
 }
+
+export interface SidePanelGroupRef {
+  openPanel: SidePanelGroupContextInterface["openPanel"];
+  closePanel: SidePanelGroupContextInterface["closePanel"];
+}

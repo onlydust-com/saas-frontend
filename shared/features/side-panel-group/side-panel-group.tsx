@@ -1,19 +1,37 @@
 "use client";
 
-import { SidePanelGroupProvider } from "@/shared/features/side-panel-group/side-panel-group.context";
+import { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 
-import { SidePanelGroupProps } from "./side-panel-group.types";
+import { SidePanelGroupProvider, useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel-group.context";
 
-function SafeSidePanelGroup({ children, defaultPanelName }: SidePanelGroupProps) {
-  console.log("DEFAULT KEY", defaultPanelName);
+import { SidePanelGroupProps, SidePanelGroupRef } from "./side-panel-group.types";
+
+export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
+  { children }: SidePanelGroupProps,
+  ref: ForwardedRef<SidePanelGroupRef>
+) {
+  const { openPanel, closePanel } = useSidePanelGroup();
+
+  useImperativeHandle(ref, () => {
+    return {
+      openPanel,
+      closePanel,
+    };
+  }, [openPanel, closePanel]);
+
   return <div>{children}</div>;
-}
+});
 
-export function SidePanelGroup(props: SidePanelGroupProps) {
+export const SidePanelGroup = forwardRef(function SidePanelGroup(
+  props: SidePanelGroupProps,
+  ref: ForwardedRef<SidePanelGroupRef>
+) {
   const { children, ...contextProps } = props;
   return (
     <SidePanelGroupProvider {...contextProps}>
-      <SafeSidePanelGroup {...props}>{children}</SafeSidePanelGroup>
+      <SafeSidePanelGroup {...props} ref={ref}>
+        {children}
+      </SafeSidePanelGroup>
     </SidePanelGroupProvider>
   );
-}
+});
