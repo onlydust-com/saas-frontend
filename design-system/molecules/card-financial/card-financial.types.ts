@@ -17,7 +17,7 @@ export interface CardFinancialPort<C extends ElementType> extends Partial<Varian
   title: "Available" | "Granted" | "Rewarded";
   amount: string;
   currency: string;
-  avatarGroup?: AvatarGroupPort<C>;
+  avatarGroup?: AvatarGroupPort<"div">;
   cta?: ButtonPort<"button">;
   size: "m" | "xl";
 }
