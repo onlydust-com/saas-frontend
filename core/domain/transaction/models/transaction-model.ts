@@ -2,7 +2,7 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 import { TransactionListItem } from "./transaction-list-item-model";
 
-export type TransactionResponse = components["schemas"]["TransactionResponse"];
+export type TransactionResponse = components["schemas"]["ProgramTransactionPageItemResponse"];
 
 export interface TransactionInterface extends TransactionResponse {}
 

@@ -6,5 +6,5 @@ export class TransactionClientAdapterMock implements TransactionStoragePort {
 
   routes = {};
 
-  getTransaction = mockHttpStorageResponse<TransactionStoragePort["getTransaction"]>;
+  getTransactions = mockHttpStorageResponse<TransactionStoragePort["getTransactions"]>;
 }

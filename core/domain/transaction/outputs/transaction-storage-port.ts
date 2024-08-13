@@ -1,9 +1,9 @@
 import {
-  GetTransactionPortParams,
-  GetTransactionPortResponse,
+  GetTransactionsPortParams,
+  GetTransactionsPortResponse,
 } from "@/core/domain/transaction/transaction-contract.types";
 
 export interface TransactionStoragePort {
   routes: Record<string, string>;
-  getTransaction(p: GetTransactionPortParams): GetTransactionPortResponse;
+  getTransactions(p: GetTransactionsPortParams): GetTransactionsPortResponse;
 }

@@ -4,19 +4,15 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-export type GetTransactionResponse = components["schemas"]["TransactionResponse"];
-
-export type GetTransactionPortResponse = HttpStorageResponse<GetTransactionResponse>;
-
-export type GetTransactionPortParams = HttpClientParameters<object>;
+import { TransactionListItemInterface } from "./models/transaction-list-item-model";
 
 /* ---------------------------- Get Transactions ---------------------------- */
 export type GetTransactionsResponse = components["schemas"]["TransactionPageResponse"];
-export type GetTransactionsModel = Omit<GetTransactionsResponse, "programs"> & {
-  programs: ProgramListItemInterface[];
+export type GetTransactionsModel = Omit<GetTransactionsResponse, "transactions"> & {
+  transactions: TransactionListItemInterface[];
 };
 
-type GetTransactionsQueryParams = operations["getMyPrograms"]["parameters"]["query"];
+type GetTransactionsQueryParams = operations["getProgramTransactions"]["parameters"]["query"];
 
 export type GetTransactionsPortResponse = HttpStorageResponse<GetTransactionsModel>;
 

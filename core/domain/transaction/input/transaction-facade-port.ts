@@ -1,8 +1,8 @@
 import {
-  GetTransactionPortParams,
-  GetTransactionPortResponse,
+  GetTransactionsPortParams,
+  GetTransactionsPortResponse,
 } from "@/core/domain/transaction/transaction-contract.types";
 
 export interface TransactionFacadePort {
-  getTransaction(p: GetTransactionPortParams): GetTransactionPortResponse;
+  getTransactions(p: GetTransactionsPortParams): GetTransactionsPortResponse;
 }
