@@ -18,7 +18,7 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
-            <Tooltip content={<Translate token={"tableFilter:title"} />}>
+            <Tooltip content={<Translate token={"table:tableFilter.title"} />}>
               <ButtonSecondaryLight
                 size="l"
                 hideText
@@ -40,10 +40,10 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
         {() => (
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "tableFilter:title" }} />
+              <Typo translate={{ token: "table:tableFilter.title" }} />
 
               {onClear ? (
-                <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "tableFilter:clear" }} />
+                <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableFilter.clear" }} />
               ) : null}
             </div>
 

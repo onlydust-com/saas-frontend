@@ -15,7 +15,7 @@ import { TableSortDefaultVariants } from "./default.variants";
 
 export function TableSortDefaultAdapter({ classNames, direction, onDirectionChange }: TableSortPort) {
   const slots = TableSortDefaultVariants();
-  const { t } = useTranslation("tableSort");
+  const { t } = useTranslation("table");
 
   const sortIcons: Record<SortDirection, RemixIconsName> = {
     ASC: "ri-sort-asc",
@@ -27,7 +27,7 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
-            <Tooltip content={<Translate token={"tableSort:title"} />}>
+            <Tooltip content={<Translate token={"table:tableSort.title"} />}>
               <ButtonSecondaryLight size="l" hideText startIcon={{ name: sortIcons[direction] }} />
             </Tooltip>
           </div>
@@ -37,10 +37,10 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
       <Popover.Content>
         {() => (
           <div className="grid max-w-[360px] gap-3">
-            <Typo translate={{ token: "tableSort:title" }} />
+            <Typo translate={{ token: "table:tableSort.title" }} />
 
             <div className="grid gap-2">
-              <Typo size="xs" color="text-2" translate={{ token: "tableSort:direction.title" }} />
+              <Typo size="xs" color="text-2" translate={{ token: "table:tableSort.direction.title" }} />
 
               <RadioButtonGroup
                 variant={"secondary-light"}
@@ -48,11 +48,11 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
                 items={[
                   {
                     value: SortDirection.ASC,
-                    label: t("direction.ascending"),
+                    label: t("tableSort.direction.ascending"),
                   },
                   {
                     value: SortDirection.DESC,
-                    label: t("direction.descending"),
+                    label: t("tableSort.direction.descending"),
                   },
                 ]}
                 onChange={onDirectionChange}
