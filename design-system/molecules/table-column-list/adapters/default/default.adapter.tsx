@@ -18,7 +18,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
-            <Tooltip content={<Translate token={"tableColumnList:title"} />}>
+            <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
               <ButtonSecondaryLight size="l" hideText startIcon={{ name: "ri-layout-column-line" }} />
             </Tooltip>
           </div>
@@ -29,9 +29,9 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "tableColumnList:title" }} />
+              <Typo translate={{ token: "table:tableColumnList.title" }} />
 
-              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "tableColumnList:clear" }} />
+              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableColumnList.clear" }} />
             </div>
 
             <div className="flex flex-col gap-2">
