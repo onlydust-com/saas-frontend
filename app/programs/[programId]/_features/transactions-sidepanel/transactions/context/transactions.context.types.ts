@@ -1,12 +1,12 @@
 import { PropsWithChildren } from "react";
 
-import { GetTransactionsPortParams } from "@/core/domain/program/program-contract.types";
+import { GetProgramTransactionsPortParams } from "@/core/domain/program/program-contract.types";
 
 export interface TransactionsContextProps extends PropsWithChildren {
   programId: string;
 }
 
-export type TransactionsContextQueryParams = GetTransactionsPortParams["queryParams"];
+export type TransactionsContextQueryParams = GetProgramTransactionsPortParams["queryParams"];
 
 export interface TransactionsContextReturn {
   programId: string;

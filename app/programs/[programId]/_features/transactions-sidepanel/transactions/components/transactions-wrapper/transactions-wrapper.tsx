@@ -7,7 +7,7 @@ import { CardTransaction, CardTransactionLoading } from "@/design-system/molecul
 import { TransactionsWrapperProps } from "./transactions-wrapper.types";
 
 export function TransactionsWrapper({ programId, queryParams }: TransactionsWrapperProps) {
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramsByIdTransactions({
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramsTransactions({
     pathParams: { programId },
     queryParams: {
       ...queryParams,

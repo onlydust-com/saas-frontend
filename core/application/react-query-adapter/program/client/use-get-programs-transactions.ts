@@ -5,18 +5,18 @@ import {
   useInfiniteQueryAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-infinite-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { GetTransactionsModel } from "@/core/domain/program/program-contract.types";
-import { TransactionFacadePort } from "@/core/domain/transaction/input/transaction-facade-port";
+import { ProgramFacadePort } from "@/core/domain/program/input/program-facade-port";
+import { GetProgramTransactionsModel } from "@/core/domain/program/program-contract.types";
 
-export function useGetProgramsByIdTransactions({
+export function useGetProgramsTransactions({
   pathParams,
   queryParams,
   options,
-}: UseInfiniteQueryFacadeParams<TransactionFacadePort["getTransactions"], GetTransactionsModel>) {
+}: UseInfiniteQueryFacadeParams<ProgramFacadePort["getProgramTransactions"], GetProgramTransactionsModel>) {
   const transactionStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useInfiniteQuery(
-    useInfiniteQueryAdapter<TransactionFacadePort["getTransactions"], GetTransactionsModel>({
+    useInfiniteQueryAdapter<ProgramFacadePort["getProgramTransactions"], GetProgramTransactionsModel>({
       pathParams,
       queryParams,
       options,

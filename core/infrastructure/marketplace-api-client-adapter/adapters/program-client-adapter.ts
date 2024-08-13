@@ -4,8 +4,8 @@ import { ProgramTransactionsStats } from "@/core/domain/program/models/program-t
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
   GetProgramResponse,
+  GetProgramTransactionsResponse,
   GetProgramsResponse,
-  GetTransactionsResponse,
   ProgramTransactionsStatsResponse,
 } from "@/core/domain/program/program-contract.types";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
@@ -72,7 +72,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     const method = "GET";
     const tag = HttpClient.buildTag({ path, queryParams });
     const request = async () => {
-      const data = await this.client.request<GetTransactionsResponse>({
+      const data = await this.client.request<GetProgramTransactionsResponse>({
         path,
         method,
         tag,
