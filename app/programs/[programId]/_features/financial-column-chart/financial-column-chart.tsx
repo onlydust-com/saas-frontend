@@ -1,3 +1,5 @@
+import { Paper } from "@/design-system/atoms/paper";
+
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
 
@@ -201,5 +203,12 @@ export function FinancialColumnChart() {
       },
     ],
   });
-  return <ColumnChart options={options} />;
+
+  return (
+    <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
+      <ColumnChart options={options} />
+      {/*TODO @Mehdi add footer*/}
+      <div>footer & range picker</div>
+    </Paper>
+  );
 }
