@@ -16,7 +16,6 @@ export const en = {
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
-  ...enTableFilterTranslation,
   cards: {
     ...enCardTransactionTranslation,
   },
