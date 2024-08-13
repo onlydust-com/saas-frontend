@@ -7,7 +7,6 @@ import strk from "@/public/images/money/currencies/strk.png";
 import usd from "@/public/images/money/currencies/usd.png";
 import usdc from "@/public/images/money/currencies/usdc.png";
 
-import { FormatParams } from "@/core/kernel/money/money-facade-port";
 import { Currency } from "@/core/kernel/money/money.types";
 
 import { MoneyFacadePort } from "./money-facade-port";
@@ -106,7 +105,7 @@ export class MoneyAdapter implements MoneyFacadePort {
       .toLowerCase();
   }
 
-  _format({
+  format({
     amount,
     currency,
     options,
@@ -128,28 +127,6 @@ export class MoneyAdapter implements MoneyFacadePort {
       amount: this.formatAmount({ amount, decimals: currency.decimals, options, locale }),
       code: currency.code,
     };
-  }
-
-  format({
-    value,
-    currency,
-    locale = "en-US",
-    showCurrency = true,
-    notation = "standard",
-    showTilde = false,
-  }: FormatParams) {
-    let formattedValue = new Intl.NumberFormat(locale, {
-      style: "decimal",
-      minimumFractionDigits: currency.decimals,
-      maximumFractionDigits: currency.decimals,
-      notation,
-    }).format(value);
-
-    if (showTilde) {
-      formattedValue = `~${formattedValue}`;
-    }
-
-    return showCurrency ? `${formattedValue} ${currency.code}` : formattedValue;
   }
 
   getCurrency(code: Currency["code"]) {

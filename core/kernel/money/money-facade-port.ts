@@ -2,18 +2,13 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type Currency = components["schemas"]["ShortCurrencyResponse"];
 
-export interface FormatParams {
-  value: number;
-  currency: Currency;
-  locale?: string;
-  showCurrency?: boolean;
-  notation?: "standard" | "scientific" | "engineering" | "compact";
-  showTilde?: boolean;
-}
-
 export interface MoneyFacadePort {
   isFiat(currency?: Currency): boolean;
-  format(params: FormatParams): string;
-  _format(): { amount: string; code: Currency["code"] | undefined };
+  format(params: {
+    amount: number;
+    currency?: Currency;
+    options?: Intl.NumberFormatOptions;
+    locale?: Intl.LocalesArgument;
+  }): { amount: string; code: Currency["code"] | undefined };
   getCurrency(code: Currency["code"]): Currency;
 }

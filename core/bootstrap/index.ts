@@ -105,7 +105,7 @@ export class Bootstrap {
         programStoragePortForClient: new ProgramClientAdapter(new FetchHttpClient()),
         programStoragePortForServer: new ProgramClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
-        moneyKernelPort: MoneyAdapter,
+        moneyKernelPort: new MoneyAdapter(),
       });
     }
 
