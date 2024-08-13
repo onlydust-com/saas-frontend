@@ -45,3 +45,17 @@ export type GetTransactionsPortResponse = HttpStorageResponse<GetTransactionsMod
 export type GetTransactionsPortParams = HttpClientParameters<{
   QueryParams: GetTransactionsQueryParams;
 }>;
+
+/* --------------------- Get Program Transactions Stats --------------------- */
+export type ProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
+
+type ProgramTransactionsStatsQueryParams = operations["getProgramTransactionsStats"]["parameters"]["query"];
+
+type ProgramTransactionsStatsPathParams = operations["getProgramTransactionsStats"]["parameters"]["path"];
+
+export type ProgramTransactionsStatsPortParams = HttpClientParameters<{
+  QueryParams: ProgramTransactionsStatsQueryParams;
+  PathParams: ProgramTransactionsStatsPathParams;
+}>;
+
+export type ProgramTransactionsStatsPortResponse = HttpStorageResponse<ProgramTransactionsStatsResponse>;
