@@ -5,7 +5,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-// Get programs
+/* ------------------------------ Get Programs ------------------------------ */
 export type GetProgramsResponse = components["schemas"]["ProgramPageResponse"];
 export type GetProgramsModel = Omit<GetProgramsResponse, "programs"> & {
   programs: ProgramListItemInterface[];
@@ -19,7 +19,7 @@ export type GetProgramsPortParams = HttpClientParameters<{
   QueryParams: GetProgramsQueryParams;
 }>;
 
-// Get Program
+/* ------------------------------- Get Program ------------------------------ */
 export type GetProgramResponse = components["schemas"]["ProgramResponse"];
 
 export type GetProgramByIdPortResponse = HttpStorageResponse<GetProgramResponse>;
