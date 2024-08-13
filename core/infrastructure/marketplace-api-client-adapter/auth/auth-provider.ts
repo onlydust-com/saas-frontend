@@ -6,4 +6,5 @@ export interface AuthProvider {
   logout: (params: { logoutParams: { returnTo: string } }) => void;
   loginWithRedirect: (...args: AnyType) => Promise<void>;
   loginWithPopup: (...args: AnyType) => Promise<void>;
+  isLoading: boolean;
 }

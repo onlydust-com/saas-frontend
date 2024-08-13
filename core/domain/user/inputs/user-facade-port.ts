@@ -3,6 +3,8 @@ import {
   GetMeResponsePortResponse,
   GetMyProfilePortParams,
   GetMyProfilePortResponse,
+  LogoutMeResponsePortParams,
+  LogoutMeResponsePortResponse,
   ReplaceMyProfilePortParams,
   ReplaceMyProfilePortResponse,
   SetMePortParams,
@@ -12,6 +14,7 @@ import {
 } from "@/core/domain/user/user-contract.types";
 
 export interface UserFacadePort {
+  logoutMe(params: LogoutMeResponsePortParams): LogoutMeResponsePortResponse;
   getMe(params: GetMeResponsePortParams): GetMeResponsePortResponse;
   setMe(params: SetMePortParams): SetMePortResponse;
   getMyProfile(params: GetMyProfilePortParams): GetMyProfilePortResponse;

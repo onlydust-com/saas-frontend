@@ -17,8 +17,9 @@ export function InitBootstrapAuth() {
       logout,
       loginWithRedirect,
       loginWithPopup,
+      isLoading,
     } = auth0;
-    const authProvider = { isAuthenticated, getAccessToken, logout, loginWithRedirect, loginWithPopup };
+    const authProvider = { isAuthenticated, getAccessToken, logout, loginWithRedirect, loginWithPopup, isLoading };
 
     bootstrap.setAuthProvider(authProvider);
 

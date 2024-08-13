@@ -1,4 +1,5 @@
 export const NEXT_ROUTER = {
+  notFound: "/not-found",
   home: {
     root: "/",
   },

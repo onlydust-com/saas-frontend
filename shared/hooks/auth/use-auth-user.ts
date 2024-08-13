@@ -1,21 +1,16 @@
-import { useAuth0 } from "@auth0/auth0-react";
-
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
-import { UserInterface } from "@/core/domain/user/models/user-model";
+import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
 
-export interface useAuthUserInterface {
-  user?: UserInterface;
-  githubUserId?: number;
-  isLoading: boolean;
-  isError: boolean;
-}
+export function useAuthUser() {
+  const {
+    clientBootstrap: { authProvider },
+  } = useClientBootstrapContext();
+  const { isAuthenticated = false, isLoading: isLoadingAuth = false } = authProvider ?? {};
 
-export const useAuthUser = (): useAuthUserInterface => {
-  const { isAuthenticated, isLoading: isLoadingAuth } = useAuth0();
   const {
     data: user,
     isLoading,
-    isError,
+    ...restUser
   } = UserReactQueryAdapter.client.useGetMe({
     options: {
       enabled: isAuthenticated,
@@ -26,6 +21,6 @@ export const useAuthUser = (): useAuthUserInterface => {
     user,
     githubUserId: user?.githubUserId,
     isLoading: isLoading || isLoadingAuth,
-    isError,
+    ...restUser,
   };
-};
+}
