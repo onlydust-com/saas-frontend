@@ -18,8 +18,17 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   budgetPercentage,
 }: CardBudgetPort<C>) {
   const slots = CardBudgetDefaultVariants();
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const { format: formatMoney, getUSDCurrency } = bootstrap.getMoneyKernelPort();
+  const titleMoney = moneyKernelPort.format({
+    amount: value,
+    currency,
+  });
+
+  const descriptionMoney = moneyKernelPort.format({
+    amount: usdEquivalent,
+    currency: moneyKernelPort.getCurrency("USD"),
+  });
 
   return (
     <CardTemplate
@@ -28,17 +37,10 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
       htmlProps={htmlProps}
       avatarProps={{ src: currency.logoUrl }}
       titleProps={{
-        children: formatMoney({
-          value,
-          currency,
-        }),
+        children: `${titleMoney.amount} ${titleMoney.code}`,
       }}
       descriptionProps={{
-        children: formatMoney({
-          value: usdEquivalent,
-          currency: getUSDCurrency(),
-          showTilde: true,
-        }),
+        children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
       endContent={
         budgetPercentage && (
