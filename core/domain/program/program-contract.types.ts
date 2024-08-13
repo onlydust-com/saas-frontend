@@ -6,7 +6,7 @@ import {
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
 // Get programs
-export type GetProgramsResponse = components["schemas"]["ProgramsPageResponse"];
+export type GetProgramsResponse = components["schemas"]["ProgramPageResponse"];
 export type GetProgramsModel = Omit<GetProgramsResponse, "programs"> & {
   programs: ProgramListItemInterface[];
 };
@@ -20,7 +20,7 @@ export type GetProgramsPortParams = HttpClientParameters<{
 }>;
 
 // Get Program
-export type GetProgramResponse = components["schemas"]["ProgramDetailsResponse"];
+export type GetProgramResponse = components["schemas"]["ProgramResponse"];
 
 export type GetProgramByIdPortResponse = HttpStorageResponse<GetProgramResponse>;
 

@@ -4084,7 +4084,7 @@ export interface components {
         ProjectCategoriesResponse: {
             categories: components["schemas"]["ProjectCategoryResponse"][];
         };
-        ProgramDetailsResponse: {
+        ProgramResponse: {
             /**
              * Format: uuid
              * @description OnlyDust program ID
@@ -4114,7 +4114,7 @@ export interface components {
             amount: components["schemas"]["Money"];
         };
         ProgramTransactionPageItemResponseFrom: Record<string, never>;
-        ProgramTransactionPageResponse: {
+        TransactionPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
             /** Format: int32 */
@@ -4127,10 +4127,10 @@ export interface components {
             nextPageIndex: number;
             transactions: components["schemas"]["ProgramTransactionPageItemResponse"][];
         };
-        ProgramTransactionStatsListResponse: {
-            stats: components["schemas"]["ProgramTransactionStatsResponse"][];
+        ProgramTransactionStatListResponse: {
+            stats: components["schemas"]["ProgramTransactionStatResponse"][];
         };
-        ProgramTransactionStatsResponse: {
+        ProgramTransactionStatResponse: {
             /**
              * Format: date
              * @description Date of the transactions
@@ -4294,19 +4294,7 @@ export interface components {
             nextPageIndex: number;
             projects: components["schemas"]["ProjectLinkWithDescriptionResponse"][];
         };
-        ProgramPageItemResponse: {
-            /**
-             * Format: uuid
-             * @description OnlyDust program ID
-             */
-            id: string;
-            /**
-             * @description Program name
-             * @example Starkware Exploration Team
-             */
-            name: string;
-        };
-        ProgramsPageResponse: {
+        ProgramPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
             /** Format: int32 */
@@ -4317,7 +4305,19 @@ export interface components {
              * @description if there is no next page, it will be equals to the last page
              */
             nextPageIndex: number;
-            programs: components["schemas"]["ProgramPageItemResponse"][];
+            programs: components["schemas"]["ProgramShortResponse"][];
+        };
+        ProgramShortResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust program ID
+             */
+            id: string;
+            /**
+             * @description Program name
+             * @example Starkware Exploration Team
+             */
+            name: string;
         };
         PrivateUserProfileResponse: {
             /**
@@ -9480,7 +9480,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProgramDetailsResponse"];
+                    "application/json": components["schemas"]["ProgramResponse"];
                 };
             };
             /** @description Unauthorized */
@@ -9529,8 +9529,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProgramTransactionPageResponse"];
-                    "text/csv": components["schemas"]["ProgramTransactionPageResponse"];
+                    "application/json": components["schemas"]["TransactionPageResponse"];
+                    "text/csv": components["schemas"]["TransactionPageResponse"];
                 };
             };
             /** @description Unauthorized */
@@ -9579,7 +9579,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProgramTransactionStatsListResponse"];
+                    "application/json": components["schemas"]["ProgramTransactionStatListResponse"];
                 };
             };
             /** @description Unauthorized */
@@ -9907,7 +9907,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProgramsPageResponse"];
+                    "application/json": components["schemas"]["ProgramPageResponse"];
                 };
             };
             /** @description Unauthorized */
