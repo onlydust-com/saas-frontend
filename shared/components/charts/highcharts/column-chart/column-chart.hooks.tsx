@@ -35,10 +35,10 @@ export function useColumnChartOptions({
         categories,
         title: {
           text: xAxisTitle,
-          style: { ...xAxisStyle },
+          style: xAxisStyle,
         },
         labels: {
-          style: { ...yAxisStyle },
+          style: yAxisStyle,
         },
         crosshair: true,
       },
@@ -46,20 +46,16 @@ export function useColumnChartOptions({
         min: 0,
         title: {
           text: yAxisTitle,
-          style: { ...yAxisStyle },
+          style: yAxisStyle,
         },
         labels: {
-          style: { ...yAxisStyle },
+          style: yAxisStyle,
         },
         gridLineColor: "#4C4C5C",
       },
       legend: {
-        itemStyle: {
-          ...legendStyle,
-        },
-        itemHoverStyle: {
-          ...legendStyle,
-        },
+        itemStyle: legendStyle,
+        itemHoverStyle: legendStyle,
       },
       tooltip: {
         pointFormat: tooltipFormat,

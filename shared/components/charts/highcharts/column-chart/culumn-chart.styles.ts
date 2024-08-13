@@ -1,6 +1,6 @@
 const titleStyle = {
   fontSize: "12px",
-  color: "#fff",
+  color: "var(--text-1)",
   fontFamily: "GT Walsheim",
 };
 
@@ -10,7 +10,7 @@ const xAxisStyle = {
   fontWeight: "400",
   lineHeight: "16px",
   letterSpacing: "-0.12px",
-  color: "#fff",
+  color: "var(--text-1)",
   fontFamily: "GT Walsheim",
 };
 
@@ -20,7 +20,7 @@ const yAxisStyle = {
   fontWeight: "400",
   lineHeight: "16px",
   letterSpacing: "-0.12px",
-  color: "#fff",
+  color: "var(--text-1)",
   fontFamily: "GT Walsheim",
 };
 
