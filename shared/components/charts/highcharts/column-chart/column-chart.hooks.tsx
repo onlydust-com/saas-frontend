@@ -4,13 +4,13 @@ import { useMemo } from "react";
 import {
   UseColumnChartOptionsParams,
   UseColumnChartOptionsReturn,
-} from "@/shared/components/charts/column-chart/column-chart.types";
+} from "@/shared/components/charts/highcharts/column-chart/column-chart.types";
 import {
   legendStyle,
   titleStyle,
   xAxisStyle,
   yAxisStyle,
-} from "@/shared/components/charts/column-chart/culumn-chart.styles";
+} from "@/shared/components/charts/highcharts/column-chart/culumn-chart.styles";
 
 export function useColumnChartOptions({
   title,
@@ -29,7 +29,7 @@ export function useColumnChartOptions({
       },
       title: {
         text: title,
-        style: { ...titleStyle },
+        style: titleStyle,
       },
       xAxis: {
         categories,

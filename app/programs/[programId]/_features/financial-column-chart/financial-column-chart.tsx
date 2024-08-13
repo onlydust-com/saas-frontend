@@ -1,5 +1,5 @@
-import { ColumnChart } from "@/shared/components/charts/column-chart/column-chart";
-import { useColumnChartOptions } from "@/shared/components/charts/column-chart/column-chart.hooks";
+import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
+import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
 
 export function FinancialColumnChart() {
   const statsMock = [
