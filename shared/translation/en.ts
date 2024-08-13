@@ -3,6 +3,7 @@ import { enTestTranslation } from "@/app/test/_translations/test.translate";
 
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
+import { enTableGroupByTranslation } from "@/design-system/molecules/table-group-by/translations/table-group-by.translate";
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
@@ -15,12 +16,12 @@ export const en = {
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
-  ...enTableFilterTranslation,
   cards: {
     ...enCardTransactionTranslation,
   },
   table: {
     ...enTableFilterTranslation,
+    ...enTableGroupByTranslation,
     ...enTableSortTranslation,
   },
 };

@@ -9,5 +9,5 @@ interface ClassNames {
 export interface TableFilterPort extends Partial<Variants>, PropsWithChildren {
   classNames?: Partial<ClassNames>;
   filterCount?: number;
-  onClear?: () => void;
+  onClear: () => void;
 }
