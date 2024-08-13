@@ -12,8 +12,8 @@ const defaultProps: ModalPort<"div"> = {
   isOpen: false,
   titleProps: { children: "Modal title" },
   footer: {
-    startContent: "Footer start",
-    endContent: "Footer end",
+    startContent: "ChartFooter start",
+    endContent: "ChartFooter end",
   },
   children: "Modal content",
   classNames: {},

@@ -1,3 +1,5 @@
+import { ChartFooter } from "@/app/programs/[programId]/_features/financial-column-chart/components/chart-footer/chart-footer";
+
 import { Paper } from "@/design-system/atoms/paper";
 
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
@@ -207,8 +209,7 @@ export function FinancialColumnChart() {
   return (
     <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
       <ColumnChart options={options} />
-      {/*TODO @Mehdi add footer*/}
-      <div>footer & range picker</div>
+      <ChartFooter />
     </Paper>
   );
 }
