@@ -6,6 +6,7 @@ import {
   ProgramDetailsPanelContext,
   ProgramDetailsPanelProvider,
 } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -61,6 +62,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
           <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
             <div className="h-auto">
               <h1>Content of Program Page : {data?.name}</h1>
+              <FinancialColumnChart />
               <TransactionButtonMock />
             </div>
           </AnimatedColumn>
