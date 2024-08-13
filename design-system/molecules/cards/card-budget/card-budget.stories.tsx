@@ -48,7 +48,7 @@ export const Default: Story = {
   },
 };
 
-export const Skeleton: Story = {
+export const Loading: Story = {
   parameters: {
     docs: {
       source: { code: "<CardBudgetLoading />" },

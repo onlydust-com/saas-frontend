@@ -22,9 +22,18 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
   const { icon, statusName } = getComponentsVariants(status);
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const { format: formatDate } = bootstrap.getDateKernelPort();
-  const { format: formatMoney, getUSDCurrency } = bootstrap.getMoneyKernelPort();
+  const titleMoney = moneyKernelPort.format({
+    amount: value,
+    currency,
+  });
+
+  const descriptionMoney = moneyKernelPort.format({
+    amount: usdEquivalent,
+    currency: moneyKernelPort.getCurrency("USD"),
+  });
 
   return (
     <CardTemplate
@@ -33,23 +42,16 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
       htmlProps={htmlProps}
       avatarProps={{ src: currency.logoUrl }}
       titleProps={{
-        children: formatMoney({
-          value,
-          currency,
-        }),
+        children: `${titleMoney.amount} ${titleMoney.code}`,
+      }}
+      descriptionProps={{
+        children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
       iconProps={icon}
-      descriptionProps={{
-        children: formatMoney({
-          value: usdEquivalent,
-          currency: getUSDCurrency(),
-          showTilde: true,
-        }),
-      }}
       tags={[
         { children: statusName },
         {
-          children: formatDate(date, "dd.MM.yyyy"),
+          children: dateKernelPort.format(date, "dd.MM.yyyy"),
           icon: {
             name: "ri-time-line",
           },

@@ -127,7 +127,7 @@ export const WithCustomTags: Story = {
   },
 };
 
-export const Skeleton: Story = {
+export const Loading: Story = {
   parameters: {
     docs: {
       source: { code: "<CardTemplateLoading />" },

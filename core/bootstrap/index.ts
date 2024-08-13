@@ -11,8 +11,8 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
-import { MoneyAdapter } from "@/core/kernel/money/money-fns-adapter";
 
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
@@ -123,7 +123,7 @@ export class Bootstrap {
         transactionStoragePortForClient: new TransactionClientAdapter(new FetchHttpClient()),
         transactionStoragePortForServer: new TransactionClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
-        moneyKernelPort: MoneyAdapter,
+        moneyKernelPort: new MoneyAdapter(),
       });
     }
 
