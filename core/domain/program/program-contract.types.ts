@@ -29,3 +29,18 @@ type GetProgramByIdPathParams = operations["getProgram"]["parameters"]["path"];
 export type GetProgramByIdPortParams = HttpClientParameters<{
   PathParams: GetProgramByIdPathParams;
 }>;
+
+/* --------------------- Get Program Transactions Stats -------------------- */
+
+export type ProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
+
+type ProgramTransactionsStatsQueryParams = operations["getProgramTransactionsStats"]["parameters"]["query"];
+
+type ProgramTransactionsStatsPathParams = operations["getProgramTransactionsStats"]["parameters"]["path"];
+
+export type ProgramTransactionsStatsPortParams = HttpClientParameters<{
+  QueryParams: ProgramTransactionsStatsQueryParams;
+  PathParams: ProgramTransactionsStatsPathParams;
+}>;
+
+export type ProgramTransactionsStatsPortResponse = HttpStorageResponse<ProgramTransactionsStatsResponse>;
