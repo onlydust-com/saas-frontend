@@ -1,18 +1,18 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-export type TransactionResponse = components["schemas"]["ProgramTransactionPageItemResponse"];
+export type TransactionListItemResponse = components["schemas"]["ProgramTransactionPageItemResponse"];
 
-export interface TransactionListItemInterface extends TransactionResponse {}
+export interface TransactionListItemInterface extends TransactionListItemResponse {}
 
 export class TransactionListItem implements TransactionListItemInterface {
-  id!: TransactionResponse["id"];
-  date!: TransactionResponse["date"];
-  type!: TransactionResponse["type"];
-  from!: TransactionResponse["from"];
-  to!: TransactionResponse["to"];
-  amount!: TransactionResponse["amount"];
+  id!: TransactionListItemResponse["id"];
+  date!: TransactionListItemResponse["date"];
+  type!: TransactionListItemResponse["type"];
+  from!: TransactionListItemResponse["from"];
+  to!: TransactionListItemResponse["to"];
+  amount!: TransactionListItemResponse["amount"];
 
-  constructor(props: TransactionResponse) {
+  constructor(props: TransactionListItemResponse) {
     Object.assign(this, props);
   }
 }
