@@ -28,6 +28,7 @@ export function TransactionsSidepanel() {
           Export CSV
         </Button>
       </SidePanel>
+
       <SidePanel name={TransactionsSidepanels.EXPORT}>
         <SidePanelHeader canGoBack={true} canClose={true} title={{ token: "programs:transactionPanel.export.title" }} />
       </SidePanel>

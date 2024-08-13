@@ -8,7 +8,11 @@ import { Input } from "@/design-system/atoms/input";
 import { Popover } from "@/design-system/atoms/popover";
 import { Typo } from "@/design-system/atoms/typo";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
-import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
+
+import { Translate } from "@/shared/translation/components/translate/translate";
+
+import { TransactionsContext } from "../../context/transactions.context";
+import { TransactionContextFilterStatus } from "../../context/transactions.context.types";
 
 export function Header() {
   const { t } = useTranslation("");
@@ -18,25 +22,21 @@ export function Header() {
       count,
       set,
       clear,
-      values: { search, availability, languageIds },
-      options: { languages },
+      values: { search, status },
+      options: { status: statusOptions },
     },
-  } = useContext(HackathonIssuesContext);
+  } = useContext(TransactionsContext);
 
   function handleSearch(value: string) {
     set({ search: value });
   }
 
-  function handleLanguages(languageId: string, checked: boolean) {
+  function handleStatus(statusId: TransactionContextFilterStatus, checked: boolean) {
     if (checked) {
-      set({ languageIds: [...languageIds, languageId] });
+      set({ status: [...status, statusId] });
     } else {
-      set({ languageIds: languageIds.filter(id => id !== languageId) });
+      set({ status: status.filter(s => s !== statusId) });
     }
-  }
-
-  function handleAvailability(value: THackathonIssuesContext.FilterAvailability) {
-    set({ availability: value });
   }
 
   function handleClose() {
@@ -87,13 +87,9 @@ export function Header() {
                   translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.languages" }}
                 />
                 <div className="flex flex-wrap gap-1">
-                  {languages.map(language => (
-                    <CheckboxButton
-                      key={language.id}
-                      value={languageIds.includes(language.id)}
-                      onChange={checked => handleLanguages(language.id, checked)}
-                    >
-                      {language.name}
+                  {statusOptions.map(s => (
+                    <CheckboxButton key={s} value={status.includes(s)} onChange={checked => handleStatus(s, checked)}>
+                      <Translate token={`v2.pages.hackathons.details.issues.filters.modal.status.${s}`} />
                     </CheckboxButton>
                   ))}
                 </div>
@@ -104,21 +100,6 @@ export function Header() {
                   size="xs"
                   color="text-2"
                   translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.issuesStates.label" }}
-                />
-                <RadioButtonGroup
-                  items={[
-                    { label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.all"), value: "all" },
-                    {
-                      label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.available"),
-                      value: "available",
-                    },
-                    {
-                      label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.notAvailable"),
-                      value: "notAvailable",
-                    },
-                  ]}
-                  value={availability}
-                  onChange={handleAvailability}
                 />
               </div>
             </div>

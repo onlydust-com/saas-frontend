@@ -16,7 +16,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
   routes = {
     getPrograms: "me/programs",
     getProgramById: "programs/:programId",
-    getProgramByIdTransactions: "programs/:programId/transactions",
+    getProgramTransactions: "programs/:programId/transactions",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -64,8 +64,8 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     };
   };
 
-  getProgramByIdTransactions = ({ queryParams }: FirstParameter<ProgramStoragePort["getProgramByIdTransactions"]>) => {
-    const path = this.routes["getProgramByIdTransactions"];
+  getProgramTransactions = ({ queryParams }: FirstParameter<ProgramStoragePort["getProgramTransactions"]>) => {
+    const path = this.routes["getProgramTransactions"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, queryParams });
     const request = async () => {
