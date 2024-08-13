@@ -2,8 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const TagDefaultVariants = tv({
   slots: {
-    base: "border-1 border-container-stroke-separator bg-container-4 group block transition-colors data-[clickable=true]:cursor-pointer",
-    content: "text-text-1 flex flex-row items-center justify-center",
+    base: "group block border-1 border-container-stroke-separator bg-container-4 transition-colors data-[clickable=true]:cursor-pointer",
+    content: "flex flex-row items-center justify-center text-text-1",
     label: "text-inherit",
     deletableIcon: "text-inherit",
     dropDownIcon: "text-inherit",

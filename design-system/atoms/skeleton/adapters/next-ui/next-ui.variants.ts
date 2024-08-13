@@ -20,6 +20,7 @@ export const SkeletonNextUiVariants = tv({
       "4": { base: "bg-container-4" },
       action: { base: "bg-container-action" },
       inverse: { base: "bg-container-inverse" },
+      "interactions-black": { base: "bg-interactions-black-default" },
     },
   },
   defaultVariants: {

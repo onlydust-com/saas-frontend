@@ -2,7 +2,7 @@ import { BaseHTMLAttributes } from "react";
 
 interface Variants {
   shape: "square" | "circle";
-  container: "1" | "2" | "3" | "4" | "action" | "inverse";
+  container: "1" | "2" | "3" | "4" | "action" | "inverse" | "interactions-black";
 }
 
 interface ClassNames {

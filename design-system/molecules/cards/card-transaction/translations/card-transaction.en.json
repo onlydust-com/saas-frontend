@@ -1,0 +1,7 @@
+{
+  "status": {
+    "granted": "Granted",
+    "allocated": "Allocated",
+    "returned": "Returned"
+  }
+}
