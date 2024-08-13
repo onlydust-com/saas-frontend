@@ -11,13 +11,13 @@ import { TableNavDefaultVariants } from "./default.variants";
 
 export function TableNavDefaultAdapter({ classNames }: TableNavPort) {
   const slots = TableNavDefaultVariants();
-  const { t } = useTranslation("tableNav");
+  const { t } = useTranslation("table");
 
   return (
     <nav className={cn(slots.base(), classNames?.base)}>
-      <TableFilter />
+      <TableFilter onClear={() => {}} />
       <Input
-        placeholder={t("search.placeholder")}
+        placeholder={t("tableNav.search.placeholder")}
         startContent={<Icon name={"ri-search-line"} classNames={{ base: "text-text-2" }} />}
         classNames={{ base: "flex-1" }}
       />
