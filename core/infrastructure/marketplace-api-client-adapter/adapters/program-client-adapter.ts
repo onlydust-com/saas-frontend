@@ -16,7 +16,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
   routes = {
     getPrograms: "me/programs",
     getProgramById: "programs/:programId",
-    getProgramTransactionsStats: "programs/:programId/stats/transactions/",
+    getProgramTransactionsStats: "programs/:programId/stats/transactions",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
