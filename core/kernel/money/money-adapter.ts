@@ -6,6 +6,8 @@ import op from "@/public/images/money/currencies/op.png";
 import strk from "@/public/images/money/currencies/strk.png";
 import usd from "@/public/images/money/currencies/usd.png";
 import usdc from "@/public/images/money/currencies/usdc.png";
+import wld from "@/public/images/money/currencies/wld.png";
+import xlm from "@/public/images/money/currencies/xlm.png";
 
 import { Currency } from "@/core/kernel/money/money.types";
 
@@ -68,6 +70,20 @@ export class MoneyAdapter implements MoneyFacadePort {
       decimals: 6,
       logoUrl: usdc.src,
       name: "USD Coin",
+    },
+    WLD: {
+      code: "WLD",
+      id: "",
+      decimals: 18,
+      logoUrl: wld.src,
+      name: "Worldcoin",
+    },
+    XLM: {
+      code: "XLM",
+      id: "",
+      decimals: 7,
+      logoUrl: xlm.src,
+      name: "Stellar",
     },
   };
 
