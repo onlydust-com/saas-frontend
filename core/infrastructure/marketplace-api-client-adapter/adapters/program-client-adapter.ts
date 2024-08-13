@@ -5,8 +5,8 @@ import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storag
 import {
   GetProgramResponse,
   GetProgramTransactionsResponse,
+  GetProgramTransactionsStatsResponse,
   GetProgramsResponse,
-  ProgramTransactionsStatsResponse,
 } from "@/core/domain/program/program-contract.types";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -99,7 +99,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () => {
-      const data = await this.client.request<ProgramTransactionsStatsResponse>({
+      const data = await this.client.request<GetProgramTransactionsStatsResponse>({
         path,
         method,
         tag,

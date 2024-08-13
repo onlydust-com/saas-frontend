@@ -12,18 +12,18 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TransactionsContext } from "../../context/transactions.context";
-import { TransactionContextFilterStatus } from "../../context/transactions.context.types";
+import { TransactionContextFilterTypes } from "../../context/transactions.context.types";
 
 export function Header() {
-  const { t } = useTranslation("");
+  const { t } = useTranslation("programs");
 
   const {
     filters: {
       count,
       set,
       clear,
-      values: { search, status },
-      options: { status: statusOptions },
+      values: { search, types },
+      options: { types: typesOptions },
     },
   } = useContext(TransactionsContext);
 
@@ -31,14 +31,15 @@ export function Header() {
     set({ search: value });
   }
 
-  function handleStatus(statusId: TransactionContextFilterStatus, checked: boolean) {
+  function handleTypes(newType: TransactionContextFilterTypes, checked: boolean) {
     if (checked) {
-      set({ status: [...status, statusId] });
+      set({ types: [...types, newType] });
     } else {
-      set({ status: status.filter(s => s !== statusId) });
+      set({ types: types.filter(type => type !== newType) });
     }
   }
 
+  // TODO: @NeoxAzrot move and add clear on panel close with header crose
   function handleClose() {
     clear();
     close();
@@ -53,8 +54,8 @@ export function Header() {
               <Button
                 size="l"
                 variant="secondary-light"
+                hideText
                 startIcon={{ name: "ri-filter-3-line" }}
-                translate={{ token: "v2.pages.hackathons.details.issues.filters.button" }}
                 endContent={
                   count ? (
                     <Badge size="s" style="outline">
@@ -71,12 +72,13 @@ export function Header() {
           {() => (
             <div className="flex max-w-[360px] flex-col gap-3">
               <div className="flex items-center justify-between gap-2">
-                <Typo translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.title" }} />
+                <Typo translate={{ token: "programs:transactionPanel.filters.title" }} />
+
                 <Button
                   onClick={clear}
                   size="s"
                   variant="secondary-light"
-                  translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.clear" }}
+                  translate={{ token: "programs:transactionPanel.filters.clear" }}
                 />
               </div>
 
@@ -84,12 +86,17 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="text-2"
-                  translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.languages" }}
+                  translate={{ token: "programs:transactionPanel.filters.options.types.title" }}
                 />
+
                 <div className="flex flex-wrap gap-1">
-                  {statusOptions.map(s => (
-                    <CheckboxButton key={s} value={status.includes(s)} onChange={checked => handleStatus(s, checked)}>
-                      <Translate token={`v2.pages.hackathons.details.issues.filters.modal.status.${s}`} />
+                  {typesOptions.map(type => (
+                    <CheckboxButton
+                      key={type}
+                      value={types.includes(type)}
+                      onChange={checked => handleTypes(type, checked)}
+                    >
+                      <Translate token={`programs:transactionPanel.filters.options.types.choices.${type}`} />
                     </CheckboxButton>
                   ))}
                 </div>
@@ -99,7 +106,7 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="text-2"
-                  translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.issuesStates.label" }}
+                  translate={{ token: "programs:transactionPanel.filters.options.period.title" }}
                 />
               </div>
             </div>
@@ -111,20 +118,8 @@ export function Header() {
         value={search}
         onChange={e => handleSearch(e.target.value)}
         startContent={<Icon name="ri-search-line" className="text-text-2" />}
-        placeholder={t("v2.pages.hackathons.details.issues.filters.search")}
+        placeholder={t("transactionPanel.transactions.search.placeholder")}
       />
-
-      <div>
-        <Button
-          onClick={handleClose}
-          size="l"
-          variant="secondary-light"
-          hideText
-          startIcon={{
-            name: "ri-close-line",
-          }}
-        />
-      </div>
     </div>
   );
 }

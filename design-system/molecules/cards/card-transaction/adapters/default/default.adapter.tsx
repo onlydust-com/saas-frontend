@@ -15,13 +15,13 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   as,
   classNames,
   htmlProps,
-  status,
+  type,
   date,
   amount: { value, currency, usdEquivalent },
   buttonProps,
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
-  const { icon, statusName } = getComponentsVariants(status);
+  const { icon, typeName } = getComponentsVariants(type);
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -50,9 +50,8 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
       }}
       iconProps={icon}
       tags={[
-        { children: statusName },
+        { children: typeName },
         {
-          // TODO: @NeoxAzrot check if no better solution
           children: dateKernelPort.format(new Date(date), "dd.MM.yyyy"),
           icon: {
             name: "ri-time-line",

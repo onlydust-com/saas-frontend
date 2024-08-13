@@ -11,8 +11,6 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
     pathParams: { programId },
     queryParams: {
       ...queryParams,
-      sort: "CREATED_AT",
-      direction: "DESC",
       pageSize: 100,
     },
   });
@@ -32,13 +30,13 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
     return null;
   }
 
-  // TODO: @NeoxAzrot change status
+  // TODO: @NeoxAzrot check for buttonProps with third party
   return (
     <div className="flex flex-col gap-3">
       {flatTransactions.map(transaction => (
         <CardTransaction
           key={transaction.id}
-          status="allocated"
+          type={transaction.type}
           date={transaction.date}
           amount={{
             value: transaction.amount.amount,

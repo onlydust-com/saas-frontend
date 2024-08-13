@@ -13,14 +13,14 @@ export function useGetProgramsTransactions({
   queryParams,
   options,
 }: UseInfiniteQueryFacadeParams<ProgramFacadePort["getProgramTransactions"], GetProgramTransactionsModel>) {
-  const transactionStoragePort = bootstrap.getProgramStoragePortForClient();
+  const programStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useInfiniteQuery(
     useInfiniteQueryAdapter<ProgramFacadePort["getProgramTransactions"], GetProgramTransactionsModel>({
       pathParams,
       queryParams,
       options,
-      httpStorage: transactionStoragePort.getProgramTransactions,
+      httpStorage: programStoragePort.getProgramTransactions,
     })
   );
 }

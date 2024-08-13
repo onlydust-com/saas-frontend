@@ -8,7 +8,7 @@ interface ClassNames {
   base: string;
 }
 
-export type CardTransactionStatus = "granted" | "allocated" | "returned";
+export type CardTransactionTypes = "GRANTED" | "RECEIVED" | "RETURNED";
 
 interface Currency {
   id: string;
@@ -28,7 +28,7 @@ export interface CardTransactionPort<C extends ElementType> extends Partial<Vari
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  status: CardTransactionStatus;
+  type: CardTransactionTypes;
   date: string;
   amount: Amount;
   buttonProps?: ButtonPort<"a" | "button">;

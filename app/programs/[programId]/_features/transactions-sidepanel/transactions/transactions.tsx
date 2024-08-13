@@ -14,15 +14,15 @@ import { TransactionsContext } from "./context/transactions.context";
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const { programId, transactionStats, queryParams } = useContext(TransactionsContext);
+  const { programId, transactionsStats, queryParams } = useContext(TransactionsContext);
 
   const items: AccordionItemWithBadgeProps[] = useMemo(() => {
     return (
-      transactionStats?.map(t => {
+      transactionsStats?.map((t, index) => {
         return {
-          id: t.id,
+          id: `transaction-stats-${index}`,
           titleProps: {
-            children: dateKernelPort.format(t.date, "MMMM YYYY"),
+            children: dateKernelPort.format(new Date(t.date), "MMMM YYYY"),
           },
           badgeProps: {
             children: t.transactionCount,
@@ -31,7 +31,7 @@ export function Transactions() {
         };
       }) || []
     );
-  }, [transactionStats]);
+  }, [transactionsStats]);
 
   return (
     <>
@@ -39,8 +39,8 @@ export function Transactions() {
 
       {!items.length ? (
         <div className="flex flex-col items-center gap-1 py-4">
-          <Typo variant="brand" translate={{ token: "v2.pages.hackathons.details.issues.filters.empty.title" }} />
-          <Typo size="s" translate={{ token: "v2.pages.hackathons.details.issues.filters.empty.description" }} />
+          <Typo variant="brand" translate={{ token: "programs:transactionPanel.transactions.empty.title" }} />
+          <Typo size="s" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
         </div>
       ) : (
         <AccordionWithBadge classNames={{ base: "gap-3" }} items={items} />

@@ -1,16 +1,20 @@
 import { PropsWithChildren } from "react";
 
-import { GetProgramTransactionsPortParams } from "@/core/domain/program/program-contract.types";
+import {
+  GetProgramTransactionsPortParams,
+  GetProgramTransactionsStatsResponse,
+} from "@/core/domain/program/program-contract.types";
 
 export interface TransactionsContextProps extends PropsWithChildren {
   programId: string;
 }
 
+type TransactionsStats = GetProgramTransactionsStatsResponse["stats"];
 export type TransactionsContextQueryParams = GetProgramTransactionsPortParams["queryParams"];
 
 export interface TransactionsContextReturn {
   programId: string;
-  transactionStats?: any;
+  transactionsStats?: TransactionsStats;
   queryParams: TransactionsContextQueryParams;
   filters: {
     values: TransactionsContextFilter;
@@ -22,18 +26,18 @@ export interface TransactionsContextReturn {
   };
 }
 
-export type TransactionContextFilterStatus = "granted" | "received" | "returned";
+export type TransactionContextFilterTypes = "GRANTED" | "RECEIVED" | "RETURNED";
 
 export interface TransactionsContextFilter {
   search: string;
-  status: TransactionContextFilterStatus[];
+  types: TransactionContextFilterTypes[];
 }
 
 export interface TransactionsContextFiltersOptions {
-  status: TransactionContextFilterStatus[];
+  types: TransactionContextFilterTypes[];
 }
 
 export const DEFAULT_FILTER: TransactionsContextFilter = {
   search: "",
-  status: ["granted", "received", "returned"],
+  types: ["GRANTED", "RECEIVED", "RETURNED"],
 };

@@ -4108,12 +4108,11 @@ export interface components {
             /** Format: date-time */
             date: string;
             /** @enum {string} */
-            type: "TRANSFER" | "REFUND";
-            from?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
-            to?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
+            type: "GRANTED" | "RECEIVED" | "RETURNED";
+            thirdParty: components["schemas"]["ProgramTransactionPageItemResponseThirdParty"];
             amount: components["schemas"]["Money"];
         };
-        ProgramTransactionPageItemResponseFrom: Record<string, never>;
+        ProgramTransactionPageItemResponseThirdParty: Record<string, never>;
         TransactionPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
@@ -9511,7 +9510,7 @@ export interface operations {
                 fromDate?: string;
                 toDate?: string;
                 /** @description Transaction types filter */
-                types?: ("TRANSFER" | "REFUND")[];
+                types?: ("GRANTED" | "RECEIVED" | "RETURNED")[];
                 /** @description Search by project or sponsor name */
                 search?: string;
             };
@@ -9561,7 +9560,7 @@ export interface operations {
                 fromDate?: string;
                 toDate?: string;
                 /** @description Transaction types filter */
-                types?: ("TRANSFER" | "REFUND")[];
+                types?: ("GRANTED" | "RECEIVED" | "RETURNED")[];
                 /** @description Search by project or sponsor name */
                 search?: string;
             };

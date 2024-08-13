@@ -1,7 +1,8 @@
 import { keepPreviousData } from "@tanstack/react-query";
-import { HackathonReactQueryAdapter } from "core/application/react-query-adapter/hackathon";
 import { createContext, useEffect, useMemo, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
+
+import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
 import {
   DEFAULT_FILTER,
@@ -15,7 +16,7 @@ import {
 // TODO: @NeoxAzrot add range date picker
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   programId: "",
-  transactionStats: [],
+  transactionsStats: [],
   queryParams: {},
   filters: {
     values: DEFAULT_FILTER,
@@ -24,7 +25,7 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
     clear: () => null,
     count: 0,
     options: {
-      status: [],
+      types: [],
     },
   },
 });
@@ -32,12 +33,12 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
 export function TransactionsContextProvider({ children, programId }: TransactionsContextProps) {
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
-    status: ["granted", "received", "returned"],
+    types: ["GRANTED", "RECEIVED", "RETURNED"],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
   const [debouncedQueryParams] = useDebounceValue(queryParams, 300);
 
-  const { data: projectIssues } = HackathonReactQueryAdapter.client.useGetHackathonByIdProjectIssues({
+  const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
     pathParams: { programId },
     queryParams: debouncedQueryParams,
     options: {
@@ -48,14 +49,14 @@ export function TransactionsContextProvider({ children, programId }: Transaction
   useEffect(() => {
     setQueryParams({
       search: filters.search || undefined,
-      types: filters.status.length ? filters.status : undefined,
+      types: filters.types.length ? filters.types : undefined,
     });
   }, [filters]);
 
   const isCleared = useMemo(() => JSON.stringify(filters) == JSON.stringify(DEFAULT_FILTER), [filters]);
 
   const filtersCount = useMemo(() => {
-    return filters.status.length;
+    return filters.types.length;
   }, [filters]);
 
   const setFilter = (filter: Partial<TransactionsContextFilter>) => {
@@ -71,7 +72,7 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     <TransactionsContext.Provider
       value={{
         programId,
-        transactionStats: projectIssues?.projects,
+        transactionsStats: transactionsStats?.stats,
         queryParams,
         filters: {
           values: filters,

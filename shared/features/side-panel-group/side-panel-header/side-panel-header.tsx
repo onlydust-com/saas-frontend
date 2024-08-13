@@ -17,7 +17,8 @@ export function SidePanelHeader({ canGoBack, canClose, title, startContent, endC
           {canGoBack && (
             <Button
               hideText={true}
-              variant={"secondary-light"}
+              variant="secondary-light"
+              size="l"
               startIcon={{ name: "ri-arrow-left-s-line" }}
               onClick={() => onBack()}
             />
@@ -32,7 +33,8 @@ export function SidePanelHeader({ canGoBack, canClose, title, startContent, endC
           {canClose && (
             <Button
               hideText={true}
-              variant={"secondary-light"}
+              variant="secondary-light"
+              size="l"
               startIcon={{ name: "ri-close-line" }}
               onClick={() => closePanel()}
             />

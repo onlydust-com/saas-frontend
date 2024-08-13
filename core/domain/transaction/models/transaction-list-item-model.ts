@@ -8,8 +8,7 @@ export class TransactionListItem implements TransactionListItemInterface {
   id!: TransactionListItemResponse["id"];
   date!: TransactionListItemResponse["date"];
   type!: TransactionListItemResponse["type"];
-  from!: TransactionListItemResponse["from"];
-  to!: TransactionListItemResponse["to"];
+  thirdParty!: TransactionListItemResponse["thirdParty"];
   amount!: TransactionListItemResponse["amount"];
 
   constructor(props: TransactionListItemResponse) {

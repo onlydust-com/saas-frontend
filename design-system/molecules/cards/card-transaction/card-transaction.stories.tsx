@@ -9,7 +9,7 @@ import { CardTransactionPort } from "./card-transaction.types";
 type Story = StoryObj<typeof CardTransactionDefaultAdapter>;
 
 const defaultProps: CardTransactionPort<"div"> = {
-  status: "granted",
+  type: "GRANTED",
   date: "2024-06-11",
   amount: {
     value: 120000,
@@ -55,52 +55,52 @@ export const Default: Story = {
   },
 };
 
-export const GrantedStatus: Story = {
+export const GrantedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='granted' />",
+        code: "<CardTransactionDefaultAdapter type='GRANTED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="granted" />
+        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="GRANTED" />
       </div>
     );
   },
 };
 
-export const AllocatedStatus: Story = {
+export const AllocatedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='allocated' />",
+        code: "<CardTransactionDefaultAdapter type='RECEIVED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="allocated" />
+        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="RECEIVED" />
       </div>
     );
   },
 };
 
-export const ReturnedStatus: Story = {
+export const ReturnedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='returned' />",
+        code: "<CardTransactionDefaultAdapter type='RETURNED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="returned" />
+        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="RETURNED" />
       </div>
     );
   },
