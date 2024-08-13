@@ -14,6 +14,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
+import { ColumnChart } from "@/shared/components/charts/column-chart/column-chart";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -61,6 +62,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
           <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
             <div className="h-auto">
               <h1>Content of Program Page : {data?.name}</h1>
+              <ColumnChart />
               <TransactionButtonMock />
             </div>
           </AnimatedColumn>
