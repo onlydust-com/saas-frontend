@@ -25,6 +25,6 @@ const yAxisStyle = {
 };
 
 const legendStyle = {
-  color: "#fff",
+  color: "var(--text-1)",
 };
 export { titleStyle, xAxisStyle, yAxisStyle, legendStyle };
