@@ -13,5 +13,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   programStoragePortForClient: new ProgramClientAdapterMock(),
   programStoragePortForServer: new ProgramClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
-  moneyKernelPort: MoneyAdapterMock,
+  moneyKernelPort: new MoneyAdapterMock(),
 };
