@@ -3,6 +3,7 @@ import { enTestTranslation } from "@/app/test/_translations/test.translate";
 
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
+import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
@@ -17,5 +18,9 @@ export const en = {
   ...enTableFilterTranslation,
   cards: {
     ...enCardTransactionTranslation,
+  },
+  table: {
+    ...enTableFilterTranslation,
+    ...enTableSortTranslation,
   },
 };

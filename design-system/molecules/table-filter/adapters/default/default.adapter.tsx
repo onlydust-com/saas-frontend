@@ -1,9 +1,11 @@
 import { Badge } from "@/design-system/atoms/badge";
 import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
 import { Popover } from "@/design-system/atoms/popover";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableFilterPort } from "../../table-filter.types";
 import { TableFilterDefaultVariants } from "./default.variants";
@@ -16,18 +18,20 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
-            <ButtonSecondaryLight
-              size="l"
-              hideText
-              startIcon={{ name: "ri-filter-3-line" }}
-              endContent={
-                filterCount ? (
-                  <Badge size="s" style="outline">
-                    {filterCount}
-                  </Badge>
-                ) : null
-              }
-            />
+            <Tooltip content={<Translate token={"table:tableFilter.title"} />}>
+              <ButtonSecondaryLight
+                size="l"
+                hideText
+                startIcon={{ name: "ri-filter-3-line" }}
+                endContent={
+                  filterCount ? (
+                    <Badge size="s" style="outline">
+                      {filterCount}
+                    </Badge>
+                  ) : null
+                }
+              />
+            </Tooltip>
           </div>
         )}
       </Popover.Trigger>
@@ -36,10 +40,10 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
         {() => (
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "tableFilter:title" }} />
+              <Typo translate={{ token: "table:tableFilter.title" }} />
 
               {onClear ? (
-                <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "tableFilter:clear" }} />
+                <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableFilter.clear" }} />
               ) : null}
             </div>
 
