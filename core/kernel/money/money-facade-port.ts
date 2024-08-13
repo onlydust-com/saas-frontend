@@ -12,6 +12,8 @@ export interface FormatParams {
 }
 
 export interface MoneyFacadePort {
-  getUSDCurrency: () => Currency;
+  isFiat(currency?: Currency): boolean;
   format(params: FormatParams): string;
+  _format(): { amount: string; code: Currency["code"] | undefined };
+  getCurrency(code: Currency["code"]): Currency;
 }
