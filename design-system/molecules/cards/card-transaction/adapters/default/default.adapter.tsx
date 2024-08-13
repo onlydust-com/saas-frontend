@@ -30,6 +30,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
     currency,
   });
 
+  // TODO: @NeoxAzrot check for undefined
   const descriptionMoney = moneyKernelPort.format({
     amount: usdEquivalent,
     currency: moneyKernelPort.getCurrency("USD"),
@@ -51,7 +52,8 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
       tags={[
         { children: statusName },
         {
-          children: dateKernelPort.format(date, "dd.MM.yyyy"),
+          // TODO: @NeoxAzrot check if no better solution
+          children: dateKernelPort.format(new Date(date), "dd.MM.yyyy"),
           icon: {
             name: "ri-time-line",
           },

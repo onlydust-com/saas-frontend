@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Popover } from "@/design-system/atoms/popover";
@@ -12,10 +12,6 @@ import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 
 export function Header() {
   const { t } = useTranslation("");
-
-  const {
-    issues: { close },
-  } = useContext(HackathonContext);
 
   const {
     filters: {
@@ -54,9 +50,10 @@ export function Header() {
         <Popover.Trigger>
           {() => (
             <div>
-              <ButtonSecondaryLight
+              <Button
                 size="l"
-                startIcon={{ remixName: "ri-filter-3-line" }}
+                variant="secondary-light"
+                startIcon={{ name: "ri-filter-3-line" }}
                 translate={{ token: "v2.pages.hackathons.details.issues.filters.button" }}
                 endContent={
                   count ? (
@@ -75,9 +72,10 @@ export function Header() {
             <div className="flex max-w-[360px] flex-col gap-3">
               <div className="flex items-center justify-between gap-2">
                 <Typo translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.title" }} />
-                <ButtonSecondaryLight
+                <Button
                   onClick={clear}
                   size="s"
+                  variant="secondary-light"
                   translate={{ token: "v2.pages.hackathons.details.issues.filters.modal.clear" }}
                 />
               </div>
@@ -109,13 +107,13 @@ export function Header() {
                 />
                 <RadioButtonGroup
                   items={[
-                    { label: T("v2.pages.hackathons.details.issues.filters.modal.issuesStates.all"), value: "all" },
+                    { label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.all"), value: "all" },
                     {
-                      label: T("v2.pages.hackathons.details.issues.filters.modal.issuesStates.available"),
+                      label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.available"),
                       value: "available",
                     },
                     {
-                      label: T("v2.pages.hackathons.details.issues.filters.modal.issuesStates.notAvailable"),
+                      label: t("v2.pages.hackathons.details.issues.filters.modal.issuesStates.notAvailable"),
                       value: "notAvailable",
                     },
                   ]}
@@ -131,17 +129,18 @@ export function Header() {
       <Input
         value={search}
         onChange={e => handleSearch(e.target.value)}
-        startContent={<Icon remixName="ri-search-line" className="text-text-2" />}
-        placeholder={T("v2.pages.hackathons.details.issues.filters.search")}
+        startContent={<Icon name="ri-search-line" className="text-text-2" />}
+        placeholder={t("v2.pages.hackathons.details.issues.filters.search")}
       />
 
       <div>
-        <ButtonSecondaryLight
+        <Button
           onClick={handleClose}
           size="l"
+          variant="secondary-light"
           hideText
           startIcon={{
-            remixName: "ri-close-line",
+            name: "ri-close-line",
           }}
         />
       </div>

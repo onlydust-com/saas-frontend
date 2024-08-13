@@ -5,6 +5,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { TransactionListItemInterface } from "../transaction/models/transaction-list-item-model";
+
 /* ------------------------------ Get Programs ------------------------------ */
 export type GetProgramsResponse = components["schemas"]["ProgramPageResponse"];
 export type GetProgramsModel = Omit<GetProgramsResponse, "programs"> & {
@@ -28,4 +30,18 @@ type GetProgramByIdPathParams = operations["getProgram"]["parameters"]["path"];
 
 export type GetProgramByIdPortParams = HttpClientParameters<{
   PathParams: GetProgramByIdPathParams;
+}>;
+
+/* ------------------------ Get Program Transactions ------------------------ */
+export type GetTransactionsResponse = components["schemas"]["TransactionPageResponse"];
+export type GetTransactionsModel = Omit<GetTransactionsResponse, "transactions"> & {
+  transactions: TransactionListItemInterface[];
+};
+
+type GetTransactionsQueryParams = operations["getProgramTransactions"]["parameters"]["query"];
+
+export type GetTransactionsPortResponse = HttpStorageResponse<GetTransactionsModel>;
+
+export type GetTransactionsPortParams = HttpClientParameters<{
+  QueryParams: GetTransactionsQueryParams;
 }>;

@@ -10,7 +10,7 @@ type Story = StoryObj<typeof CardTransactionDefaultAdapter>;
 
 const defaultProps: CardTransactionPort<"div"> = {
   status: "granted",
-  date: new Date(),
+  date: "2024-06-11",
   amount: {
     value: 120000,
     currency: {

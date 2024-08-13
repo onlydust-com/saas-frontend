@@ -1,37 +1,44 @@
-"use client";
-
 import { keepPreviousData } from "@tanstack/react-query";
 import { HackathonReactQueryAdapter } from "core/application/react-query-adapter/hackathon";
 import { createContext, useEffect, useMemo, useState } from "react";
-import { useDebounce } from "usehooks-ts";
+import { useDebounceValue } from "usehooks-ts";
 
-import { THackathonIssuesContext } from "./hackathon-issues.context.types";
+import {
+  DEFAULT_FILTER,
+  TransactionsContextFilter,
+  TransactionsContextFiltersOptions,
+  TransactionsContextProps,
+  TransactionsContextQueryParams,
+  TransactionsContextReturn,
+} from "./transactions.context.types";
 
-export const HackathonIssuesContext = createContext<THackathonIssuesContext.Return>({
-  hackathonId: "",
-  projectIssues: [],
+// TODO: @NeoxAzrot add range date picker
+export const TransactionsContext = createContext<TransactionsContextReturn>({
+  programId: "",
+  transactionStats: [],
   queryParams: {},
   filters: {
-    values: THackathonIssuesContext.DEFAULT_FILTER,
+    values: DEFAULT_FILTER,
     isCleared: true,
     set: () => null,
     clear: () => null,
     count: 0,
     options: {
-      languages: [],
+      status: [],
     },
   },
 });
 
-export function HackathonIssuesContextProvider({ children, hackathonId }: THackathonIssuesContext.Props) {
-  const [filters, setFilters] = useState<THackathonIssuesContext.Filter>(THackathonIssuesContext.DEFAULT_FILTER);
-  const [filtersOptions, setFiltersOptions] = useState<THackathonIssuesContext.FiltersOptions>({ languages: [] });
-  const [queryParams, setQueryParams] = useState<THackathonIssuesContext.QueryParams>({});
-
-  const debouncedQueryParams = useDebounce(queryParams, 300);
+export function TransactionsContextProvider({ children, programId }: TransactionsContextProps) {
+  const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
+  const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
+    status: ["granted", "received", "returned"],
+  });
+  const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
+  const [debouncedQueryParams] = useDebounceValue(queryParams, 300);
 
   const { data: projectIssues } = HackathonReactQueryAdapter.client.useGetHackathonByIdProjectIssues({
-    pathParams: { hackathonId },
+    pathParams: { programId },
     queryParams: debouncedQueryParams,
     options: {
       placeholderData: keepPreviousData,
@@ -41,45 +48,30 @@ export function HackathonIssuesContextProvider({ children, hackathonId }: THacka
   useEffect(() => {
     setQueryParams({
       search: filters.search || undefined,
-      languageIds: filters.languageIds.length ? filters.languageIds : undefined,
-      isAssigned: filters.availability === "all" ? undefined : filters.availability === "available" ? false : true,
-      statuses: ["OPEN"],
+      types: filters.status.length ? filters.status : undefined,
     });
   }, [filters]);
 
-  const isCleared = useMemo(
-    () => JSON.stringify(filters) == JSON.stringify(THackathonIssuesContext.DEFAULT_FILTER),
-    [filters]
-  );
+  const isCleared = useMemo(() => JSON.stringify(filters) == JSON.stringify(DEFAULT_FILTER), [filters]);
+
   const filtersCount = useMemo(() => {
-    return filters.languageIds.length + (filters.availability !== "all" ? 1 : 0);
+    return filters.status.length;
   }, [filters]);
 
-  const setFilter = (filter: Partial<THackathonIssuesContext.Filter>) => {
+  const setFilter = (filter: Partial<TransactionsContextFilter>) => {
     const newFilters = { ...filters, ...filter };
     setFilters(newFilters);
   };
 
   const clearFilters = () => {
-    setFilters(THackathonIssuesContext.DEFAULT_FILTER);
+    setFilters(DEFAULT_FILTER);
   };
 
-  useEffect(() => {
-    if (projectIssues?.languages?.length) {
-      const newLanguages = projectIssues.languages.map(lang => ({
-        id: lang.id,
-        name: lang.name,
-      }));
-
-      setFiltersOptions({ languages: newLanguages });
-    }
-  }, [projectIssues?.languages]);
-
   return (
-    <HackathonIssuesContext.Provider
+    <TransactionsContext.Provider
       value={{
-        hackathonId,
-        projectIssues: projectIssues?.projects,
+        programId,
+        transactionStats: projectIssues?.projects,
         queryParams,
         filters: {
           values: filters,
@@ -92,6 +84,6 @@ export function HackathonIssuesContextProvider({ children, hackathonId }: THacka
       }}
     >
       {children}
-    </HackathonIssuesContext.Provider>
+    </TransactionsContext.Provider>
   );
 }

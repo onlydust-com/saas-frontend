@@ -21,7 +21,7 @@ interface Currency {
 interface Amount {
   value: number;
   currency: Currency;
-  usdEquivalent: number;
+  usdEquivalent?: number;
 }
 
 export interface CardTransactionPort<C extends ElementType> extends Partial<Variants> {
@@ -29,7 +29,7 @@ export interface CardTransactionPort<C extends ElementType> extends Partial<Vari
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   status: CardTransactionStatus;
-  date: Date;
+  date: string;
   amount: Amount;
   buttonProps?: ButtonPort<"a" | "button">;
 }

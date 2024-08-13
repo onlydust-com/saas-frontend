@@ -37,7 +37,8 @@
     "remixicon": "^4.3.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.2.1",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@inquirer/prompts": "^5.3.8",
