@@ -20,6 +20,8 @@ export function useColumnChartOptions({
   xAxisTitle,
   tooltipFormat = "{point.y}",
   colors = ["#0B0CCB", "#CDCDDC", "#1E2551"],
+  legend,
+  tooltip,
 }: UseColumnChartOptionsParams): UseColumnChartOptionsReturn {
   const options = useMemo<Options>(
     () => ({
@@ -54,10 +56,12 @@ export function useColumnChartOptions({
         gridLineColor: "#4C4C5C",
       },
       legend: {
+        ...legend,
         itemStyle: legendStyle,
         itemHoverStyle: legendStyle,
       },
       tooltip: {
+        ...tooltip,
         pointFormat: tooltipFormat,
       },
       plotOptions: {
@@ -73,7 +77,7 @@ export function useColumnChartOptions({
         color: colors[index % colors.length],
       })),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors]
+    [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]
   );
 
   return { options };

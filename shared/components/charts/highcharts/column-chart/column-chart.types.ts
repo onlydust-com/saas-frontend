@@ -11,6 +11,8 @@ export interface UseColumnChartOptionsParams {
   xAxisTitle?: string;
   tooltipFormat?: string;
   colors?: string[];
+  legend?: Options["legend"];
+  tooltip?: Options["tooltip"];
 }
 
 export interface UseColumnChartOptionsReturn {
