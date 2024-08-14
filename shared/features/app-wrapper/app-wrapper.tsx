@@ -3,6 +3,7 @@
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
@@ -29,13 +30,32 @@ function ImpersonationBanner() {
   );
 }
 
+function AppSkeleton() {
+  return (
+    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
+      <div className="flex size-full gap-3">
+        <div className="flex h-full w-[260px] flex-col gap-3">
+          <Skeleton classNames={{ base: "h-[64px]" }} />
+          <Skeleton classNames={{ base: "h-[216px]" }} />
+          <div className="flex-1"></div>
+          <Skeleton classNames={{ base: "h-[116px]" }} />
+          <Skeleton classNames={{ base: "h-[64px]" }} />
+        </div>
+        <div className="flex h-full flex-1 flex-col gap-3">
+          <Skeleton classNames={{ base: "h-[64px]" }} />
+          <Skeleton classNames={{ base: "flex-1" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
   const { isAuthenticated, isLoading, error, loginWithRedirect } = useClientBootstrapAuth();
 
-  // TODO add page skeleton
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <AppSkeleton />;
   }
 
   // TODO redirect to error page
@@ -45,7 +65,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   if (!isAuthenticated && loginWithRedirect) {
     loginWithRedirect();
-    return <div>Redirecting to login...</div>;
+    return <AppSkeleton />;
   }
 
   if (isTablet) {
