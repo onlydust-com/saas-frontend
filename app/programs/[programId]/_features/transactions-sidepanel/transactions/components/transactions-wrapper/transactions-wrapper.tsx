@@ -4,7 +4,11 @@ import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { CardTransaction, CardTransactionLoading } from "@/design-system/molecules/cards/card-transaction";
+import {
+  CardTransaction,
+  CardTransactionLoading,
+  CardTransactionPort,
+} from "@/design-system/molecules/cards/card-transaction";
 
 import { TransactionsWrapperProps } from "./transactions-wrapper.types";
 
@@ -112,13 +116,15 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
     return null;
   }
 
-  // TODO: Add the link when we have the router
-  function getButtonProps(transaction: TransactionListItem) {
+  // TODO: Open panel project on click
+  function getButtonProps(transaction: TransactionListItem): CardTransactionPort<"div">["buttonProps"] {
     if (transaction.thirdParty.project) {
       return {
         startContent: <Avatar src={transaction.thirdParty.project.logoUrl} size="xs" shape="square" />,
         children: transaction.thirdParty.project.name,
-        // htmlProps: { href: transaction.thirdParty.project.slug },
+        onClick: () => {
+          console.log("Open project");
+        },
       };
     }
 
@@ -126,7 +132,7 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
       return {
         startContent: <Avatar src={transaction.thirdParty.sponsor.logoUrl} size="xs" shape="square" />,
         children: transaction.thirdParty.sponsor.name,
-        // htmlProps: { href: transaction.thirdParty.sponsor.slug },
+        canInteract: false,
       };
     }
 
