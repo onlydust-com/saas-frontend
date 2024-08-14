@@ -27,14 +27,13 @@ export class HttpClient {
   }
 
   async getHeaders() {
-    // TODO, @impersonation
-    // const impersonationProvider = bootstrap.getImpersonationProvider();
-    // const impersonationHeaders = impersonationProvider?.getHeaders() ?? {};
+    const impersonationProvider = bootstrap.getImpersonationProvider();
+    const impersonationHeaders = impersonationProvider?.getHeaders() ?? {};
 
     const defaultHeaders = {
       "Content-Type": "application/json",
       accept: "application/json",
-      // ...impersonationHeaders,
+      ...impersonationHeaders,
     };
 
     try {

@@ -35,5 +35,11 @@ export function ClientBootstrapProvider({ children }: PropsWithChildren) {
 }
 
 export function useClientBootstrapContext() {
-  return useContext(ClientBootstrapContext);
+  const context = useContext(ClientBootstrapContext);
+
+  if (context === undefined) {
+    throw new Error("useClientBootstrapContext must be used within an ClientBootstrapProvider");
+  }
+
+  return context;
 }

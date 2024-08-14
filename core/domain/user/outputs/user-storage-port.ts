@@ -3,6 +3,8 @@ import {
   GetMeResponsePortResponse,
   GetMyProfilePortParams,
   GetMyProfilePortResponse,
+  LogoutMeResponsePortParams,
+  LogoutMeResponsePortResponse,
   ReplaceMyProfilePortParams,
   ReplaceMyProfilePortResponse,
   SetMePortParams,
@@ -13,6 +15,7 @@ import {
 
 export interface UserStoragePort {
   routes: Record<string, string>;
+  logoutMe(params: LogoutMeResponsePortParams): LogoutMeResponsePortResponse;
   getMe(params: GetMeResponsePortParams): GetMeResponsePortResponse;
   setMe(params: SetMePortParams): SetMePortResponse;
   getMyProfile(params: GetMyProfilePortParams): GetMyProfilePortResponse;
