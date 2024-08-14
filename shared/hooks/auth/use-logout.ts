@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
-import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
@@ -11,10 +11,7 @@ const MARKETPLACE_URL = process.env.NEXT_PUBLIC_MARKETPLACE_URL;
 export function useLogout() {
   const { capture, reset } = usePosthog();
   const { isImpersonating, clearClaim } = useClientBootstrapImpersonation();
-  const {
-    clientBootstrap: { authProvider },
-  } = useClientBootstrapContext();
-  const { logout } = authProvider ?? {};
+  const { logout } = useClientBootstrapAuth();
   const { mutateAsync: logoutUser } = UserReactQueryAdapter.client.useLogoutMe({});
   const queryClient = useQueryClient();
 

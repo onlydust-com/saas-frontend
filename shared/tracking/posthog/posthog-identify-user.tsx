@@ -3,16 +3,13 @@
 import { useEffect } from "react";
 
 import { Auth0ClientAdapter } from "@/core/application/auth0-client-adapter";
-import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
 export function PosthogIdentifyUser() {
-  const {
-    clientBootstrap: { authProvider },
-  } = useClientBootstrapContext();
-  const { isAuthenticated = false, user: authProviderUser } = authProvider ?? {};
+  const { isAuthenticated, user: authProviderUser } = useClientBootstrapAuth();
 
   const authProviderGithubUserId = Auth0ClientAdapter.helpers.getGithubUserIdFromSub(authProviderUser?.sub);
   const { identify, capture } = usePosthog();

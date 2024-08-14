@@ -1,6 +1,6 @@
 "use client";
 
-import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
 import { Typo } from "@/design-system/atoms/typo";
@@ -31,11 +31,7 @@ function ImpersonationBanner() {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
-
-  const {
-    clientBootstrap: { authProvider },
-  } = useClientBootstrapContext();
-  const { isAuthenticated = false, isLoading = true, error, loginWithRedirect } = authProvider ?? {};
+  const { isAuthenticated, isLoading, error, loginWithRedirect } = useClientBootstrapAuth();
 
   // TODO add page skeleton
   if (isLoading) {
