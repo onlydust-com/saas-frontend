@@ -3355,7 +3355,7 @@ export interface components {
              * Format: uuid
              * @description OnlyDust user ID
              */
-            id: string;
+            id?: string;
         };
         GithubOrganizationResponse: {
             /**
@@ -4186,7 +4186,7 @@ export interface components {
              * Format: uuid
              * @description OnlyDust user ID
              */
-            id: string;
+            id?: string;
             /** @description True if the user has accepted the latest version of terms and conditions */
             hasAcceptedLatestTermsAndConditions: boolean;
             /** @description True if the user is authorized to apply on Github issues */
@@ -4313,6 +4313,28 @@ export interface components {
             nextPageIndex: number;
             projects: components["schemas"]["ProjectLinkWithDescriptionResponse"][];
         };
+        ProgramPageItemResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust program ID
+             */
+            id: string;
+            /**
+             * @description Program name
+             * @example Starkware Exploration Team
+             */
+            name: string;
+            leads: components["schemas"]["RegisteredUserResponse"][];
+            /**
+             * Format: int32
+             * @description Number of projects in the program
+             * @example 42
+             */
+            projectCount: number;
+            totalAvailable: components["schemas"]["DetailedTotalMoney"];
+            totalGranted: components["schemas"]["DetailedTotalMoney"];
+            totalRewarded: components["schemas"]["DetailedTotalMoney"];
+        };
         ProgramPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
@@ -4324,19 +4346,7 @@ export interface components {
              * @description if there is no next page, it will be equals to the last page
              */
             nextPageIndex: number;
-            programs: components["schemas"]["ProgramShortResponse"][];
-        };
-        ProgramShortResponse: {
-            /**
-             * Format: uuid
-             * @description OnlyDust program ID
-             */
-            id: string;
-            /**
-             * @description Program name
-             * @example Starkware Exploration Team
-             */
-            name: string;
+            programs: components["schemas"]["ProgramPageItemResponse"][];
         };
         PrivateUserProfileResponse: {
             /**
