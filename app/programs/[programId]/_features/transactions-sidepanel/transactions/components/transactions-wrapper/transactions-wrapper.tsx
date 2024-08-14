@@ -2,6 +2,7 @@ import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
+import { Avatar } from "@/design-system/atoms/avatar";
 import { CardTransaction, CardTransactionLoading } from "@/design-system/molecules/cards/card-transaction";
 
 import { TransactionsWrapperProps } from "./transactions-wrapper.types";
@@ -30,7 +31,7 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
     return null;
   }
 
-  // TODO: @NeoxAzrot check for buttonProps with third party
+  // TODO: Add the link when we have the router
   return (
     <div className="flex flex-col gap-3">
       {flatTransactions.map(transaction => (
@@ -43,7 +44,11 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
             currency: transaction.amount.currency,
             usdEquivalent: transaction.amount.usdEquivalent,
           }}
-          // buttonProps={{}}
+          buttonProps={{
+            startContent: <Avatar src={transaction.thirdParty.logoUrl} size="xs" shape="square" />,
+            children: transaction.thirdParty.name,
+            // htmlProps: { href: transaction.thirdParty.slug },
+          }}
         />
       ))}
     </div>

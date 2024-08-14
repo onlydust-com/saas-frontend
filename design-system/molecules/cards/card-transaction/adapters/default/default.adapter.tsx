@@ -30,7 +30,6 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
     currency,
   });
 
-  // TODO: @NeoxAzrot check for undefined
   const descriptionMoney = moneyKernelPort.format({
     amount: usdEquivalent,
     currency: moneyKernelPort.getCurrency("USD"),

@@ -10,7 +10,6 @@ import { Header } from "./components/header/header";
 import { TransactionsWrapper } from "./components/transactions-wrapper/transactions-wrapper";
 import { TransactionsContext } from "./context/transactions.context";
 
-// TODO: @NeoxAzrot translate all
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();
 

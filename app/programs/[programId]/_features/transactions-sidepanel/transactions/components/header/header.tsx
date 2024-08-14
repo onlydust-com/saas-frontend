@@ -39,12 +39,6 @@ export function Header() {
     }
   }
 
-  // TODO: @NeoxAzrot move and add clear on panel close with header crose
-  function handleClose() {
-    clear();
-    close();
-  }
-
   return (
     <div className="flex items-center justify-between gap-2">
       <Popover>
