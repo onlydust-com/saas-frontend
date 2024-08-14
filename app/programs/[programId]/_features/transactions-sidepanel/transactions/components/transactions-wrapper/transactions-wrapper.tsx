@@ -130,7 +130,7 @@ export function TransactionsWrapper({ programId, queryParams }: TransactionsWrap
       };
     }
 
-    return {};
+    return undefined;
   }
 
   return (
