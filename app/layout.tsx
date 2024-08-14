@@ -18,6 +18,13 @@ import { AppWrapper } from "@/shared/features/app-wrapper/app-wrapper";
 
 import { sharedMetadata } from "./shared-metadata";
 
+const PosthogIdentifyUser = dynamic(
+  () => import("@/shared/tracking/posthog/posthog-identify-user").then(mod => mod.PosthogIdentifyUser),
+  {
+    ssr: false,
+  }
+);
+
 const PosthogPageview = dynamic(
   () => import("@/shared/tracking/posthog/posthog-pageview").then(mod => mod.PosthogPageview),
   {
@@ -38,9 +45,10 @@ export default function RootLayout({
         <Providers>
           <InitBootstrapAuth />
           <InitBootstrapImpersonation />
-          <PosthogPageview />
-          <Toaster />
           <AppWrapper>{children}</AppWrapper>
+          <Toaster />
+          <PosthogIdentifyUser />
+          <PosthogPageview />
         </Providers>
       </body>
     </html>

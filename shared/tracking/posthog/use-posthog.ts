@@ -1,7 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { usePostHog } from "posthog-js/react";
 
 import { Auth0ClientAdapter } from "@/core/application/auth0-client-adapter";
+import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
 
 import { useImpersonation } from "@/shared/providers/impersonation/impersonation-provider";
 
@@ -9,26 +9,22 @@ export function usePosthog() {
   const posthog = usePostHog();
   const { isImpersonating } = useImpersonation();
 
-  const { user } = useAuth0();
-  const impersonated_by = Auth0ClientAdapter.helpers.getGithubUserIdFromSub(user?.sub) ?? "UNKNOWN";
+  const {
+    clientBootstrap: { authProvider },
+  } = useClientBootstrapContext();
+  const { user } = authProvider ?? {};
 
-  function identify(userId: string, properties?: Record<string, unknown>) {
-    posthog.identify(userId, properties);
-  }
+  const impersonated_by = Auth0ClientAdapter.helpers.getGithubUserIdFromSub(user?.sub) ?? "UNKNOWN";
 
   function capture(eventName: string, properties?: Record<string, unknown>) {
     const props = isImpersonating ? { ...properties, impersonated_by } : properties;
     posthog.capture(eventName, props);
   }
 
-  function reset() {
-    posthog.reset();
-  }
-
   return {
     posthog,
-    identify,
+    identify: posthog.identify,
     capture,
-    reset,
+    reset: posthog.reset,
   };
 }
