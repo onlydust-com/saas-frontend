@@ -7,4 +7,8 @@ export interface AuthProvider {
   loginWithRedirect: (...args: AnyType) => Promise<void>;
   loginWithPopup: (...args: AnyType) => Promise<void>;
   isLoading: boolean;
+  error?: Error;
+  user?: {
+    sub?: string;
+  };
 }

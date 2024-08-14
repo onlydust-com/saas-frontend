@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth0 } from "@auth0/auth0-react";
+import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -31,18 +31,23 @@ function ImpersonationBanner() {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
-  const { isAuthenticated, isLoading, error, loginWithRedirect } = useAuth0();
+
+  const {
+    clientBootstrap: { authProvider },
+  } = useClientBootstrapContext();
+  const { isAuthenticated = false, isLoading = true, error, loginWithRedirect } = authProvider ?? {};
 
   // TODO add page skeleton
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  // TODO redirect to error page
   if (error) {
     return <div>Oops... {error.message}</div>;
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && loginWithRedirect) {
     loginWithRedirect();
     return <div>Redirecting to login...</div>;
   }
