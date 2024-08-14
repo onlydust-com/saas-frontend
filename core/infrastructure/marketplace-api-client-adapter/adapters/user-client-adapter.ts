@@ -4,6 +4,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import {
   GetMeResponse,
   GetMyProfileResponse,
+  LogoutMeResponse,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyProfileBody,
@@ -14,12 +15,31 @@ export class UserClientAdapter implements UserStoragePort {
   constructor(private readonly client: HttpClient) {}
 
   routes = {
+    logoutMe: "me/logout",
     getMe: "me",
     setMe: "me",
     getMyProfile: "me/profile",
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
   } as const;
+
+  logoutMe = () => {
+    const path = this.routes["logoutMe"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = () =>
+      this.client.request<LogoutMeResponse>({
+        path,
+        method,
+        tag,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
 
   getMe = () => {
     const path = this.routes["getMe"];

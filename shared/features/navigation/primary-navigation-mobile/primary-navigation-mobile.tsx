@@ -4,7 +4,9 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Modal } from "@/design-system/molecules/modal";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Logo } from "@/shared/components/logo/logo";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
@@ -29,9 +31,9 @@ export function PrimaryNavigationMobile() {
         border={"none"}
         classNames={{ base: "flex justify-between items-center gap-2" }}
       >
-        <div className={"flex items-center gap-2"}>
+        <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo />
-        </div>
+        </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
           <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />

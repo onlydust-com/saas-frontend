@@ -1,6 +1,8 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Logo } from "@/shared/components/logo/logo";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 
 import { HeaderMenuProps } from "./header-menu.types";
@@ -17,11 +19,13 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
   return (
     <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
       <div className={"group/header w-fit"}>
-        <Logo
-          classNames={{
-            base: cn({ "group-hover/header:!opacity-0 transition-all": isFolded }),
-          }}
-        />
+        <BaseLink href={NEXT_ROUTER.home.root}>
+          <Logo
+            classNames={{
+              base: cn({ "group-hover/header:!opacity-0 transition-all": isFolded }),
+            }}
+          />
+        </BaseLink>
         {isFolded && (
           <Button
             variant={"secondary-light"}
