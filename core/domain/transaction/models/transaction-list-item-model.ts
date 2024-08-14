@@ -5,12 +5,11 @@ export type TransactionListItemResponse = components["schemas"]["ProgramTransact
 export interface TransactionListItemInterface extends TransactionListItemResponse {}
 
 export class TransactionListItem implements TransactionListItemInterface {
-  id!: TransactionListItemResponse["id"];
-  date!: TransactionListItemResponse["date"];
-  type!: TransactionListItemResponse["type"];
-  from!: TransactionListItemResponse["from"];
-  to!: TransactionListItemResponse["to"];
   amount!: TransactionListItemResponse["amount"];
+  date!: TransactionListItemResponse["date"];
+  id!: TransactionListItemResponse["id"];
+  thirdParty!: TransactionListItemResponse["thirdParty"];
+  type!: TransactionListItemResponse["type"];
 
   constructor(props: TransactionListItemResponse) {
     Object.assign(this, props);
