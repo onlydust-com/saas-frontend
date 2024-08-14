@@ -15,13 +15,40 @@ export function Transactions() {
 
   const { programId, transactionsStats, queryParams } = useContext(TransactionsContext);
 
+  const mockData = [
+    {
+      date: "2024-01-01",
+      transactionCount: 34,
+    },
+    {
+      date: "2024-02-01",
+      transactionCount: 56,
+    },
+    {
+      date: "2024-03-01",
+      transactionCount: 78,
+    },
+    {
+      date: "2024-04-01",
+      transactionCount: 23,
+    },
+    {
+      date: "2024-05-01",
+      transactionCount: 67,
+    },
+    {
+      date: "2024-06-01",
+      transactionCount: 45,
+    },
+  ];
+
   const items: AccordionItemWithBadgeProps[] = useMemo(() => {
     return (
-      transactionsStats?.map((t, index) => {
+      mockData?.map((t, index) => {
         return {
           id: `transaction-stats-${index}`,
           titleProps: {
-            children: dateKernelPort.format(new Date(t.date), "MMMM YYYY"),
+            children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },
           badgeProps: {
             children: t.transactionCount,
@@ -30,7 +57,7 @@ export function Transactions() {
         };
       }) || []
     );
-  }, [transactionsStats]);
+  }, [mockData]);
 
   return (
     <>

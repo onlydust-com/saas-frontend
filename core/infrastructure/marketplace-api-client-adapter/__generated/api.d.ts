@@ -4112,7 +4112,27 @@ export interface components {
             thirdParty: components["schemas"]["ProgramTransactionPageItemResponseThirdParty"];
             amount: components["schemas"]["Money"];
         };
-        ProgramTransactionPageItemResponseThirdParty: Record<string, never>;
+        ProgramTransactionPageItemResponseThirdParty: {
+            project?: components["schemas"]["ProjectLinkResponse"];
+            sponsor?: components["schemas"]["SponsorLinkResponse"];
+        };
+        SponsorLinkResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust sponsor ID
+             */
+            id: string;
+            /**
+             * @description Sponsor name
+             * @example Ethereum Foundation
+             */
+            name: string;
+            /**
+             * @description Direct URL to sponsor's logo image
+             * @example https://onlydust-app-images.s3.eu-west-1.amazonaws.com/8506434858363286425.png
+             */
+            logoUrl: string;
+        };
         TransactionPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
