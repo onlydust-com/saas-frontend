@@ -6,6 +6,7 @@ import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter
 
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
 import { Paper } from "@/design-system/atoms/paper";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
@@ -14,7 +15,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const { programId = "" } = useParams<{ programId: string }>();
-  const { data } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
     pathParams: { programId },
   });
 
@@ -41,6 +42,16 @@ export function FinancialColumnChart() {
     tooltip: { valueSuffix: " USD" },
   });
 
+  if (isLoading) {
+    return (
+      <Skeleton
+        classNames={{
+          base: "w-full h-[400px]",
+        }}
+      />
+    );
+  }
+
   if (!receivedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
@@ -51,7 +62,7 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
+    <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4 h-[400px]" }}>
       <ColumnChart options={options} />
       <div className="grid grid-cols-5 items-center gap-4">
         <Paper size={"s"} classNames={{ base: "col-span-4 grid grid-cols-3 items-center gap-3" }}>
