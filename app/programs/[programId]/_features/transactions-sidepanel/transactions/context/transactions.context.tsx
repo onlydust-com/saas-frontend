@@ -1,6 +1,6 @@
 import { keepPreviousData } from "@tanstack/react-query";
 import { createContext, useEffect, useMemo, useState } from "react";
-import { useDebounceValue } from "usehooks-ts";
+import { useDebounce } from "react-use";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
@@ -36,7 +36,17 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     types: ["GRANTED", "RECEIVED", "RETURNED"],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
-  const [debouncedQueryParams] = useDebounceValue(queryParams, 300);
+  const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
+
+  useDebounce(
+    () => {
+      setDebouncedQueryParams(queryParams);
+    },
+    300,
+    [queryParams]
+  );
+
+  console.log(debouncedQueryParams);
 
   const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
     pathParams: { programId },
