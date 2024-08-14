@@ -1,5 +1,7 @@
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
 import { PrimaryMenuProps } from "./primary-menu.types";
 
 export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
@@ -8,22 +10,20 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-line-chart-line" }}
-        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
+        isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-wallet-3-line" }}
-        linkProps={{ href: "/test" }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
         icon={{ name: "ri-clipboard-line" }}
-        linkProps={{ href: "/test" }}
+        linkProps={{ href: NEXT_ROUTER.programs.root }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
-        isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}

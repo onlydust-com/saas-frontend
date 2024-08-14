@@ -30,7 +30,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   if (isTablet) {
     return (
-      <div className={"mx-auto h-dvh w-dvw overflow-hidden p-3"}>
+      <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-3"}>
         <PrimaryNavigation />
         {children}
       </div>
