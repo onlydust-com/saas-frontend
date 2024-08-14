@@ -12,12 +12,11 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
   classNames,
   htmlProps,
   children,
-  ...props
+  colors,
+  size = "m",
 }: ChartLegendPort<C>) {
   const Component = as || "div";
-  const { size, colors } = props;
   const slots = ChartLegendDefaultVariants({ size, colors });
-
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.square(), classNames?.square)}></div>
