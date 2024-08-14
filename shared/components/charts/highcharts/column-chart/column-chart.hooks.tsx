@@ -8,6 +8,8 @@ import {
 import {
   legendStyle,
   titleStyle,
+  tooltipInnerStyle,
+  tooltipWrapperStyle,
   xAxisStyle,
   yAxisStyle,
 } from "@/shared/components/charts/highcharts/column-chart/culumn-chart.styles";
@@ -63,6 +65,8 @@ export function useColumnChartOptions({
       tooltip: {
         ...tooltip,
         pointFormat: tooltipFormat,
+        ...tooltipWrapperStyle,
+        style: tooltipInnerStyle,
       },
       plotOptions: {
         column: {
