@@ -9,8 +9,8 @@ import "remixicon/fonts/remixicon.css";
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 
-import { InitBootstrapAuth } from "@/core/bootstrap/init-bootstrap-auth";
-import { InitBootstrapImpersonation } from "@/core/bootstrap/init-bootstrap-impersonation";
+import { InitBootstrapAuth } from "@/core/bootstrap/auth/init-bootstrap-auth";
+import { InitBootstrapImpersonation } from "@/core/bootstrap/impersonation/init-bootstrap-impersonation";
 
 import { Toaster } from "@/design-system/atoms/toaster";
 

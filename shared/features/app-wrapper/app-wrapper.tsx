@@ -1,6 +1,7 @@
 "use client";
 
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -8,12 +9,11 @@ import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/a
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { PrimaryNavigation } from "@/shared/features/navigation/primary-navigation/primary-navigation";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
-import { useImpersonation } from "@/shared/providers/impersonation/impersonation-provider";
 
 import { AppWrapperProps } from "./app-wrapper.types";
 
 function ImpersonationBanner() {
-  const { isImpersonating } = useImpersonation();
+  const { isImpersonating } = useClientBootstrapImpersonation();
 
   if (!isImpersonating) return null;
 

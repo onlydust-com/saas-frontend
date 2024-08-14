@@ -3,8 +3,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
-import { bootstrap } from "@/core/bootstrap/index";
+import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
 
 export function InitBootstrapAuth() {
   const auth0 = useAuth0();
@@ -22,7 +23,7 @@ export function InitBootstrapAuth() {
       user,
     } = auth0;
 
-    const authProvider = {
+    const authProvider: AuthProvider = {
       isAuthenticated,
       getAccessToken,
       logout,
@@ -36,7 +37,7 @@ export function InitBootstrapAuth() {
     bootstrap.setAuthProvider(authProvider);
 
     setClientBootstrap(prevState => ({ ...prevState, authProvider }));
-  }, [auth0]);
+  }, [auth0, setClientBootstrap]);
 
   return null;
 }

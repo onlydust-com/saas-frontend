@@ -2,12 +2,11 @@ import { usePostHog } from "posthog-js/react";
 
 import { Auth0ClientAdapter } from "@/core/application/auth0-client-adapter";
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
-
-import { useImpersonation } from "@/shared/providers/impersonation/impersonation-provider";
+import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
 export function usePosthog() {
   const posthog = usePostHog();
-  const { isImpersonating } = useImpersonation();
+  const { isImpersonating } = useClientBootstrapImpersonation();
 
   const {
     clientBootstrap: { authProvider },

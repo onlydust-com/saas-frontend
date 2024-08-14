@@ -1,5 +1,12 @@
-import { ImpersonationHeaders } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation.types";
+import {
+  ImpersonationClaim,
+  ImpersonationHeaders,
+} from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation.types";
 
 export interface ImpersonationProvider {
-  getHeaders: () => ImpersonationHeaders;
+  getClaim: () => ImpersonationClaim | undefined;
+  setClaim: (claim: ImpersonationClaim) => void;
+  clearClaim: () => void;
+  getHeaders: () => ImpersonationHeaders | undefined;
+  isImpersonating: boolean;
 }

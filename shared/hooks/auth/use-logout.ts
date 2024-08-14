@@ -2,15 +2,15 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
-import { useImpersonation } from "@/shared/providers/impersonation/impersonation-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
 const MARKETPLACE_URL = process.env.NEXT_PUBLIC_MARKETPLACE_URL;
 
 export function useLogout() {
   const { capture, reset } = usePosthog();
-  const { isImpersonating, clearImpersonationClaim } = useImpersonation();
+  const { isImpersonating, clearClaim } = useClientBootstrapImpersonation();
   const {
     clientBootstrap: { authProvider },
   } = useClientBootstrapContext();
@@ -23,7 +23,7 @@ export function useLogout() {
     reset();
 
     if (isImpersonating) {
-      clearImpersonationClaim();
+      clearClaim();
       await queryClient.invalidateQueries();
       window.location.reload();
     } else {
