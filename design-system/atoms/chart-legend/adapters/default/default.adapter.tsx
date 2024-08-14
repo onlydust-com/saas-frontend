@@ -22,7 +22,12 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.square(), classNames?.square)}></div>
 
-      <Typo as={"div"} size={"xs"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+      <Typo
+        as={"div"}
+        size={size === "m" ? "xs" : "xxs"}
+        weight={"medium"}
+        classNames={{ base: cn(slots.label(), classNames?.label) }}
+      >
         {children}
       </Typo>
     </Component>

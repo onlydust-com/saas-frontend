@@ -2,28 +2,28 @@ import { tv } from "tailwind-variants";
 
 export const ChartLegendDefaultVariants = tv({
   slots: {
-    base: "group flex items-center justify-center overflow-hidden rounded",
-    square: "flex items-center justify-center text-inherit",
-    label: "text-inherit",
+    base: "group flex items-center justify-center gap-2 overflow-hidden",
+    square: "rounded",
+    label: "text-text-1",
   },
   variants: {
     colors: {
       "brand-4": {
-        base: "bg-brand-4 text-text-1",
+        square: "bg-brand-4",
       },
       "text-2": {
-        base: "bg-text-2 text-text-1",
+        square: "bg-text-2",
       },
       "container-3": {
-        base: "bg-container-3 text-text-1",
+        square: "bg-container-3",
       },
     },
     size: {
       s: {
-        square: "h-4 min-h-4 w-4 min-w-4",
+        square: "roundedSm h-2.5 min-h-2.5 w-2.5 min-w-2.5",
       },
       m: {
-        square: "h-6 min-h-6 w-6 min-w-6",
+        square: "h-3 min-h-3 w-3 min-w-3",
       },
     },
   },

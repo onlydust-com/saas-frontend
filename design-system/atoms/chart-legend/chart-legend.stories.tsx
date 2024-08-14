@@ -5,7 +5,11 @@ import { ChartLegend } from "./variants/chart-legend-default";
 
 type Story = StoryObj<typeof ChartLegend>;
 
-const defaultProps: ChartLegendPort<"div"> = {};
+const defaultProps: ChartLegendPort<"div"> = {
+  size: "m",
+  colors: "brand-4",
+  children: "Legend Label",
+};
 
 const meta: Meta<typeof ChartLegend> = {
   component: ChartLegend,
