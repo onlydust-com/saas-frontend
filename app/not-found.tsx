@@ -12,6 +12,7 @@ export default function NotFound() {
         <Typo
           variant={"brand"}
           size={"4xl"}
+          classNames={{ base: "capitalize" }}
           translate={{
             token: "notFound:title",
           }}
@@ -27,7 +28,7 @@ export default function NotFound() {
             name: "ri-arrow-left-s-line",
           }}
         >
-          <Translate token={"notFound:button"} />
+          <Translate token={"notFound:back"} />
         </Button>
       </div>
     </div>
