@@ -3,9 +3,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useImpersonation } from "@/shared/providers/impersonation/impersonation-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
+
+const MARKETPLACE_URL = process.env.NEXT_PUBLIC_MARKETPLACE_URL;
 
 export function useLogout() {
   const { capture, reset } = usePosthog();
@@ -27,11 +28,14 @@ export function useLogout() {
       window.location.reload();
     } else {
       await logoutUser({});
-      logout?.({
-        logoutParams: {
-          returnTo: process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL || NEXT_ROUTER.home.root,
-        },
-      });
+
+      if (logout && MARKETPLACE_URL) {
+        logout({
+          logoutParams: {
+            returnTo: MARKETPLACE_URL,
+          },
+        });
+      }
     }
   }
 
