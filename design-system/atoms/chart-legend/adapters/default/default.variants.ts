@@ -30,15 +30,9 @@ export const ChartLegendDefaultVariants = tv({
   compoundVariants: [
     {
       size: "m",
-      class: {
-        base: "px-2",
-      },
     },
     {
       size: "s",
-      class: {
-        base: "px-1",
-      },
     },
   ],
   defaultVariants: {

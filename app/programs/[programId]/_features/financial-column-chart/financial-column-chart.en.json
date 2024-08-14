@@ -1,0 +1,12 @@
+{
+  "series": {
+    "received": "Received",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  },
+  "legends": {
+    "received": "Received",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  }
+}
