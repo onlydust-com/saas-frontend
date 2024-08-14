@@ -4108,12 +4108,31 @@ export interface components {
             /** Format: date-time */
             date: string;
             /** @enum {string} */
-            type: "TRANSFER" | "REFUND";
-            from?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
-            to?: components["schemas"]["ProgramTransactionPageItemResponseFrom"];
+            type: "GRANTED" | "RECEIVED" | "RETURNED";
+            thirdParty: components["schemas"]["ProgramTransactionPageItemResponseThirdParty"];
             amount: components["schemas"]["Money"];
         };
-        ProgramTransactionPageItemResponseFrom: Record<string, never>;
+        ProgramTransactionPageItemResponseThirdParty: {
+            project?: components["schemas"]["ProjectLinkResponse"];
+            sponsor?: components["schemas"]["SponsorLinkResponse"];
+        };
+        SponsorLinkResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust sponsor ID
+             */
+            id: string;
+            /**
+             * @description Sponsor name
+             * @example Ethereum Foundation
+             */
+            name: string;
+            /**
+             * @description Direct URL to sponsor's logo image
+             * @example https://onlydust-app-images.s3.eu-west-1.amazonaws.com/8506434858363286425.png
+             */
+            logoUrl: string;
+        };
         TransactionPageResponse: {
             /** Format: int32 */
             totalPageNumber: number;
@@ -9511,7 +9530,7 @@ export interface operations {
                 fromDate?: string;
                 toDate?: string;
                 /** @description Transaction types filter */
-                types?: ("TRANSFER" | "REFUND")[];
+                types?: ("GRANTED" | "RECEIVED" | "RETURNED")[];
                 /** @description Search by project or sponsor name */
                 search?: string;
             };
@@ -9561,7 +9580,7 @@ export interface operations {
                 fromDate?: string;
                 toDate?: string;
                 /** @description Transaction types filter */
-                types?: ("TRANSFER" | "REFUND")[];
+                types?: ("GRANTED" | "RECEIVED" | "RETURNED")[];
                 /** @description Search by project or sponsor name */
                 search?: string;
             };

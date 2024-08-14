@@ -1,13 +1,14 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { usePostHog } from "posthog-js/react";
 import { useEffect } from "react";
+
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
 export function PosthogPageview(): null {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const posthog = usePostHog();
+  const { posthog, capture } = usePosthog();
 
   useEffect(() => {
     // Track pageviews
@@ -16,7 +17,7 @@ export function PosthogPageview(): null {
       if (searchParams.toString()) {
         url = url + `?${searchParams.toString()}`;
       }
-      posthog.capture("$pageview", {
+      capture("$pageview", {
         $current_url: url,
       });
     }

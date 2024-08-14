@@ -6,6 +6,14 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+/* --------------------------------- Logout me -------------------------------- */
+
+export type LogoutMeResponse = never;
+
+export type LogoutMeResponsePortParams = HttpClientParameters<object>;
+
+export type LogoutMeResponsePortResponse = HttpStorageResponse;
+
 /* --------------------------------- Get me -------------------------------- */
 
 export type GetMeResponse = components["schemas"]["GetMeResponse"];

@@ -59,7 +59,7 @@ export class Bootstrap {
     return this.impersonationProvider;
   }
 
-  setImpersonationProvider(impersonationProvider: ImpersonationProvider | null) {
+  setImpersonationProvider(impersonationProvider: ImpersonationProvider) {
     this.impersonationProvider = impersonationProvider;
   }
 

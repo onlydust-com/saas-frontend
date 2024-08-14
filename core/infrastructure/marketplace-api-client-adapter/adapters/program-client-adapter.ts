@@ -54,7 +54,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
 
       return {
         ...data,
-        notifications: data.programs.map(program => new ProgramListItem(program)),
+        programs: data.programs.map(program => new ProgramListItem(program)),
       };
     };
 
