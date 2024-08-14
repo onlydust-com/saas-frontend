@@ -16,15 +16,23 @@ export function usePosthog() {
 
   const impersonated_by = Auth0ClientAdapter.helpers.getGithubUserIdFromSub(user?.sub) ?? "UNKNOWN";
 
+  function identify(userId: string, properties?: Record<string, unknown>) {
+    posthog.identify(userId, properties);
+  }
+
   function capture(eventName: string, properties?: Record<string, unknown>) {
     const props = isImpersonating ? { ...properties, impersonated_by } : properties;
     posthog.capture(eventName, props);
   }
 
+  function reset() {
+    posthog.reset();
+  }
+
   return {
     posthog,
-    identify: posthog.identify,
+    identify,
     capture,
-    reset: posthog.reset,
+    reset,
   };
 }
