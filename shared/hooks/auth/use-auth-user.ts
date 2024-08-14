@@ -1,11 +1,8 @@
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
-import { useClientBootstrapContext } from "@/core/bootstrap/client-bootstrap-context";
+import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 
 export function useAuthUser() {
-  const {
-    clientBootstrap: { authProvider },
-  } = useClientBootstrapContext();
-  const { isAuthenticated = false, isLoading: isLoadingAuth = false } = authProvider ?? {};
+  const { isAuthenticated, isLoading: isLoadingAuth } = useClientBootstrapAuth();
 
   const {
     data: user,
