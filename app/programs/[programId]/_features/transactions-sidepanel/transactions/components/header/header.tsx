@@ -21,6 +21,7 @@ export function Header() {
       count,
       set,
       clear,
+      isCleared,
       values: { search, types },
       options: { types: typesOptions },
     },
@@ -67,12 +68,14 @@ export function Header() {
               <div className="flex items-center justify-between gap-2">
                 <Typo translate={{ token: "programs:transactionPanel.filters.title" }} />
 
-                <Button
-                  onClick={clear}
-                  size="s"
-                  variant="secondary-light"
-                  translate={{ token: "programs:transactionPanel.filters.clear" }}
-                />
+                {!isCleared ? (
+                  <Button
+                    onClick={clear}
+                    size="s"
+                    variant="secondary-light"
+                    translate={{ token: "programs:transactionPanel.filters.clear" }}
+                  />
+                ) : null}
               </div>
 
               <div className="flex flex-col gap-3">
@@ -110,7 +113,14 @@ export function Header() {
       <Input
         value={search}
         onChange={e => handleSearch(e.target.value)}
-        startContent={<Icon name="ri-search-line" className="text-text-2" />}
+        startContent={
+          <Icon
+            name="ri-search-line"
+            classNames={{
+              base: "text-text-2",
+            }}
+          />
+        }
         placeholder={t("transactionPanel.transactions.search.placeholder")}
       />
     </div>

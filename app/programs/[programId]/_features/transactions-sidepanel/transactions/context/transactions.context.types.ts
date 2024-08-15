@@ -45,9 +45,5 @@ export interface TransactionsContextFiltersOptions {
 
 export const DEFAULT_FILTER: TransactionsContextFilter = {
   search: "",
-  types: [
-    TransactionsContextFilterType.GRANTED,
-    TransactionsContextFilterType.RECEIVED,
-    TransactionsContextFilterType.RETURNED,
-  ],
+  types: [],
 };

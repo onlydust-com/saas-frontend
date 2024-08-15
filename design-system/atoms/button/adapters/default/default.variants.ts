@@ -65,8 +65,7 @@ export const ButtonDefaultVariants = tv({
       hideText: true,
       size: "l",
       class: {
-        // remove the border width in the padding size
-        base: "px-[11px] py-[11px]",
+        base: "px-3 py-3",
       },
     },
     {
