@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -8,12 +8,12 @@ import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants
 
 import { Header } from "./components/header/header";
 import { TransactionsWrapper } from "./components/transactions-wrapper/transactions-wrapper";
-import { TransactionsContext } from "./context/transactions.context";
+import { useTransactionsContext } from "./context/transactions.context";
 
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const { programId, transactionsStats, queryParams } = useContext(TransactionsContext);
+  const { transactionsStats } = useTransactionsContext();
 
   const mockData = [
     {
@@ -53,7 +53,7 @@ export function Transactions() {
           badgeProps: {
             children: t.transactionCount,
           },
-          content: <TransactionsWrapper queryParams={queryParams} programId={programId} />,
+          content: <TransactionsWrapper />,
         };
       }) || []
     );

@@ -10,10 +10,12 @@ import {
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
 
-import { TransactionsWrapperProps } from "./transactions-wrapper.types";
+import { useTransactionsContext } from "../../context/transactions.context";
 
-export function TransactionsWrapper({ programId, queryParams }: TransactionsWrapperProps) {
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramsTransactions({
+export function TransactionsWrapper() {
+  const { programId, queryParams } = useTransactionsContext();
+
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactions({
     pathParams: { programId },
     queryParams: {
       ...queryParams,

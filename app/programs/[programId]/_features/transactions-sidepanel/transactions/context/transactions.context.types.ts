@@ -26,18 +26,28 @@ export interface TransactionsContextReturn {
   };
 }
 
-export type TransactionContextFilterTypes = "GRANTED" | "RECEIVED" | "RETURNED";
+export enum TransactionsContextFilterType {
+  GRANTED = "GRANTED",
+  RECEIVED = "RECEIVED",
+  RETURNED = "RETURNED",
+}
+
+export type TransactionsContextFilterTypes = `${TransactionsContextFilterType}`;
 
 export interface TransactionsContextFilter {
   search: string;
-  types: TransactionContextFilterTypes[];
+  types: TransactionsContextFilterTypes[];
 }
 
 export interface TransactionsContextFiltersOptions {
-  types: TransactionContextFilterTypes[];
+  types: TransactionsContextFilterTypes[];
 }
 
 export const DEFAULT_FILTER: TransactionsContextFilter = {
   search: "",
-  types: ["GRANTED", "RECEIVED", "RETURNED"],
+  types: [
+    TransactionsContextFilterType.GRANTED,
+    TransactionsContextFilterType.RECEIVED,
+    TransactionsContextFilterType.RETURNED,
+  ],
 };

@@ -1,5 +1,5 @@
 import { keepPreviousData } from "@tanstack/react-query";
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -7,6 +7,7 @@ import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
+  TransactionsContextFilterType,
   TransactionsContextFiltersOptions,
   TransactionsContextProps,
   TransactionsContextQueryParams,
@@ -33,7 +34,11 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
 export function TransactionsContextProvider({ children, programId }: TransactionsContextProps) {
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
-    types: ["GRANTED", "RECEIVED", "RETURNED"],
+    types: [
+      TransactionsContextFilterType.GRANTED,
+      TransactionsContextFilterType.RECEIVED,
+      TransactionsContextFilterType.RETURNED,
+    ],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
@@ -46,13 +51,12 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     [queryParams]
   );
 
-  console.log(debouncedQueryParams);
-
-  const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
+  const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
     pathParams: { programId },
     queryParams: debouncedQueryParams,
     options: {
       placeholderData: keepPreviousData,
+      enabled: !!programId,
     },
   });
 
@@ -97,4 +101,14 @@ export function TransactionsContextProvider({ children, programId }: Transaction
       {children}
     </TransactionsContext.Provider>
   );
+}
+
+export function useTransactionsContext() {
+  const context = useContext(TransactionsContext);
+
+  if (!context) {
+    throw new Error("TransactionsContext must be used inside a TransactionsContextProvider");
+  }
+
+  return context;
 }

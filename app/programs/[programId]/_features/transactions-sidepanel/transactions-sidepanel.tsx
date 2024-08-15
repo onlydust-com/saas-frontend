@@ -10,7 +10,7 @@ import { SidePanelHeader } from "@/shared/features/side-panel-group/side-panel-h
 import { SidePanel } from "@/shared/features/side-panel-group/side-panel/side-panel";
 
 import { TransactionsSidepanels } from "./transactions-sidepanel.types";
-import { TransactionsContext } from "./transactions/context/transactions.context";
+import { useTransactionsContext } from "./transactions/context/transactions.context";
 import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
@@ -18,7 +18,7 @@ export function TransactionsSidepanel() {
 
   const {
     filters: { clear },
-  } = useContext(TransactionsContext);
+  } = useTransactionsContext();
 
   return (
     <SidePanelGroup

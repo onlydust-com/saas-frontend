@@ -8,7 +8,13 @@ interface ClassNames {
   base: string;
 }
 
-export type CardTransactionTypes = "GRANTED" | "RECEIVED" | "RETURNED";
+enum CardTransactionType {
+  GRANTED = "GRANTED",
+  RECEIVED = "RECEIVED",
+  RETURNED = "RETURNED",
+}
+
+export type CardTransactionTypes = `${CardTransactionType}`;
 
 interface Currency {
   id: string;

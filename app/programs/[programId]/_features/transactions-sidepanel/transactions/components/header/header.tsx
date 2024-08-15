@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -11,8 +10,8 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { TransactionsContext } from "../../context/transactions.context";
-import { TransactionContextFilterTypes } from "../../context/transactions.context.types";
+import { useTransactionsContext } from "../../context/transactions.context";
+import { TransactionsContextFilterTypes } from "../../context/transactions.context.types";
 
 export function Header() {
   const { t } = useTranslation("programs");
@@ -25,13 +24,13 @@ export function Header() {
       values: { search, types },
       options: { types: typesOptions },
     },
-  } = useContext(TransactionsContext);
+  } = useTransactionsContext();
 
   function handleSearch(value: string) {
     set({ search: value });
   }
 
-  function handleTypes(newType: TransactionContextFilterTypes, checked: boolean) {
+  function handleTypes(newType: TransactionsContextFilterTypes, checked: boolean) {
     if (checked) {
       set({ types: [...types, newType] });
     } else {
