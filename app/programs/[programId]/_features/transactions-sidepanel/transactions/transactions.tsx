@@ -52,7 +52,7 @@ export function Transactions() {
           },
           badgeProps: {
             children: t.transactionCount,
-            fitContent: true,
+            fitContent: t.transactionCount > 9,
           },
           content: <TransactionsWrapper />,
         };
