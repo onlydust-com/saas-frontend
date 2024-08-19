@@ -18,7 +18,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetPrograms({});
+  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetPrograms({});
   const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -188,10 +188,21 @@ export function ProgramsTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // TODO @hayden handle error
-
   if (isLoading) {
     return <TableLoading />;
+  }
+
+  if (isError) {
+    return (
+      <div className={"py-24 text-center"}>
+        <Typo
+          translate={{
+            token: "common:state.error.title",
+          }}
+          color={"text-2"}
+        />
+      </div>
+    );
   }
 
   return (

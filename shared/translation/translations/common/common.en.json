@@ -1,3 +1,8 @@
 {
-  "submit": "Submit"
+  "submit": "Submit",
+  "state": {
+    "error": {
+      "title": "An error occurred, please try again later."
+    }
+  }
 }

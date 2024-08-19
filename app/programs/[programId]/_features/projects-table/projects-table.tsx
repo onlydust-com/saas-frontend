@@ -16,7 +16,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramProjects({
+  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramProjects({
     pathParams: {
       programId,
     },
@@ -257,10 +257,21 @@ export function ProjectsTable({ programId }: { programId: string }) {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // TODO @hayden handle error
-
   if (isLoading) {
     return <TableLoading />;
+  }
+
+  if (isError) {
+    return (
+      <div className={"py-24 text-center"}>
+        <Typo
+          translate={{
+            token: "common:state.error.title",
+          }}
+          color={"text-2"}
+        />
+      </div>
+    );
   }
 
   return (
