@@ -22,7 +22,8 @@ export function TransactionsTrigger({ programId }: { programId: string }) {
         variant="secondary-light"
         translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
-      size="l"/>
+        size="l"
+      />
       <Panel>
         <TransactionsContextProvider programId={programId}>
           <TransactionsSidepanel />

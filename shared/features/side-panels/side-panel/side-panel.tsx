@@ -55,7 +55,7 @@ export const SidePanel = forwardRef(function SidePanel(
           variants={isTablet ? animateTablet : animate}
           animate={animateKey}
           transition={{ type: "ease", duration: 0.25 }}
-          initial="isClosed"
+          initial={false}
           className={cn(
             "absolute right-0 translate-x-full opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
