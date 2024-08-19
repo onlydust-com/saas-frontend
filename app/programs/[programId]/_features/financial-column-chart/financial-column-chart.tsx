@@ -62,7 +62,7 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4 h-[400px]" }}>
+    <div className="flex h-[400px] flex-col gap-4">
       <ColumnChart options={options} />
       <div className="grid grid-cols-5 items-center gap-4">
         <Paper size={"s"} classNames={{ base: "col-span-4 grid grid-cols-3 items-center gap-3" }}>
@@ -88,6 +88,6 @@ export function FinancialColumnChart() {
         {/*TODO @Mehdi handle date range change*/}
         <div>Date Range popover trigger</div>
       </div>
-    </Paper>
+    </div>
   );
 }
