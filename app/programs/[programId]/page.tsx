@@ -21,9 +21,12 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TransactionsContextProvider } from "./_features/transactions-sidepanel/transactions/context/transactions.context";
 
+const BUDGET_AVAILABLE = "budgetAvailable";
+const BUDGET_CHART = "budgetChart";
+
 export default function ProgramPage({ params: { programId } }: { params: { programId: string } }) {
-  const [toggleFinancialViews, setToggleFinancialViews] = useState<"budgetAvailable" | "budgetChart">(
-    "budgetAvailable"
+  const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof BUDGET_AVAILABLE | typeof BUDGET_CHART>(
+    BUDGET_AVAILABLE
   );
   const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
@@ -32,13 +35,17 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   });
 
   const renderFinancialView = useMemo(() => {
-    if (toggleFinancialViews === "budgetChart") {
+    if (toggleFinancialViews === BUDGET_CHART) {
       return <FinancialColumnChart />;
     }
 
     // TODO @Mehdi - Implement the cards view
     return <div>cards</div>;
   }, [toggleFinancialViews]);
+
+  function handleToggleFinancialViews(view: typeof BUDGET_AVAILABLE | typeof BUDGET_CHART) {
+    setToggleFinancialViews(view);
+  }
 
   return (
     <ProgramDetailsPanelProvider>
@@ -69,15 +76,15 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                       variant="secondary-light"
                       startIcon={{ name: "ri-money-dollar-circle-line" }}
                       translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-                      onClick={() => setToggleFinancialViews("budgetAvailable")}
-                      isDisabled={toggleFinancialViews === "budgetAvailable"}
+                      onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
+                      isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
                     />
                     <Button
                       variant="secondary-light"
                       startIcon={{ name: "ri-bar-chart-2-line" }}
                       translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-                      onClick={() => setToggleFinancialViews("budgetChart")}
-                      isDisabled={toggleFinancialViews === "budgetChart"}
+                      onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
+                      isDisabled={toggleFinancialViews === BUDGET_CHART}
                     />
                   </div>
                   <TransactionsTrigger />
