@@ -1,4 +1,5 @@
 import { ProgramListItemInterface } from "@/core/domain/program/models/program-list-item-model";
+import { ProgramProjectInterface } from "@/core/domain/program/models/program-project-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -62,3 +63,21 @@ export type GetProgramTransactionsStatsPortParams = HttpClientParameters<{
 }>;
 
 export type GetProgramTransactionsStatsPortResponse = HttpStorageResponse<GetProgramTransactionsStatsResponse>;
+
+/* ------------------------ Get Program Projects ------------------------ */
+
+export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];
+export type GetProgramProjectsModel = Omit<GetProgramProjectsResponse, "projects"> & {
+  projects: ProgramProjectInterface[];
+};
+
+type GetProgramProjectsQueryParams = operations["getProgramProjects"]["parameters"]["query"];
+
+type GetProgramProjectsPathParams = operations["getProgramProjects"]["parameters"]["path"];
+
+export type GetProgramProjectsPortParams = HttpClientParameters<{
+  QueryParams: GetProgramProjectsQueryParams;
+  PathParams: GetProgramProjectsPathParams;
+}>;
+
+export type GetProgramProjectsPortResponse = HttpStorageResponse<GetProgramProjectsResponse>;
