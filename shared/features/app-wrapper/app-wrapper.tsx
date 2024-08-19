@@ -32,7 +32,7 @@ function ImpersonationBanner() {
 
 function AppSkeleton() {
   return (
-    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
+    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] p-3"}>
       <div className="flex size-full gap-3">
         <div className="flex h-full w-[260px] flex-col gap-3">
           <Skeleton classNames={{ base: "h-[64px]" }} />
@@ -70,7 +70,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   if (isTablet) {
     return (
-      <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-3"}>
+      <div className={"mx-auto flex size-full flex-col gap-3 p-3"}>
         <ImpersonationBanner />
         <PrimaryNavigation />
         {children}
@@ -79,11 +79,11 @@ export function AppWrapper({ children }: AppWrapperProps) {
   }
 
   return (
-    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
+    <div className={"mx-auto size-full max-w-[2560px] p-3"}>
       <ImpersonationBanner />
-      <AnimatedColumnGroup className="gap-3">
+      <AnimatedColumnGroup className="size-full gap-3">
         <PrimaryNavigation />
-        <AnimatedColumn className="size-full overflow-hidden">{children}</AnimatedColumn>
+        <AnimatedColumn className="size-full">{children}</AnimatedColumn>
       </AnimatedColumnGroup>
     </div>
   );

@@ -15,7 +15,7 @@ export function Providers({ children }: PropsWithChildren) {
         <Auth0Provider>
           <TranslationProvider>
             <QueryProvider>
-              <NextUIProvider>{children}</NextUIProvider>
+              <NextUIProvider className={"size-full"}>{children}</NextUIProvider>
             </QueryProvider>
           </TranslationProvider>
         </Auth0Provider>

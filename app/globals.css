@@ -145,4 +145,12 @@
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   }
+
+  .od-sticky-nav {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 10;
+    box-shadow: 0 0 0 0.75rem var(--container-1);
+    background-color: var(--container-1);
+  }
 }

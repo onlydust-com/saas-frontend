@@ -16,30 +16,32 @@ export function SecondaryNavigation({ iconName, breadcrumbs, onBack }: Secondary
   }
 
   return (
-    <Paper
-      as={"header"}
-      size={"s"}
-      container={"2"}
-      border={"none"}
-      classNames={{ base: "flex justify-between items-center gap-3" }}
-    >
-      <div className={"flex items-center gap-2"}>
-        {onBack ? (
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ name: "ri-arrow-left-s-line" }}
-            hideText
-            onClick={onBack}
-          />
-        ) : null}
-        <Icon name={iconName} size={24} />
-        <Breadcrumbs items={breadcrumbs} />
-      </div>
+    <div className={"od-sticky-nav"}>
+      <Paper
+        as={"header"}
+        size={"s"}
+        container={"2"}
+        border={"none"}
+        classNames={{ base: "flex justify-between items-center gap-3" }}
+      >
+        <div className={"flex items-center gap-2"}>
+          {onBack ? (
+            <Button
+              variant={"secondary-light"}
+              size={"l"}
+              startIcon={{ name: "ri-arrow-left-s-line" }}
+              hideText
+              onClick={onBack}
+            />
+          ) : null}
+          <Icon name={iconName} size={24} />
+          <Breadcrumbs items={breadcrumbs} />
+        </div>
 
-      <div>
-        <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
-      </div>
-    </Paper>
+        <div>
+          <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
+        </div>
+      </Paper>
+    </div>
   );
 }

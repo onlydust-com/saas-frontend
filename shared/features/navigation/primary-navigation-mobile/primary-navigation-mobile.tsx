@@ -24,28 +24,30 @@ export function PrimaryNavigationMobile() {
 
   return (
     <>
-      <Paper
-        as={"header"}
-        size={"s"}
-        container={"2"}
-        border={"none"}
-        classNames={{ base: "flex justify-between items-center gap-2" }}
-      >
-        <BaseLink href={NEXT_ROUTER.home.root}>
-          <Logo />
-        </BaseLink>
+      <div className={"od-sticky-nav"}>
+        <Paper
+          as={"header"}
+          size={"s"}
+          container={"2"}
+          border={"none"}
+          classNames={{ base: "flex justify-between items-center gap-2" }}
+        >
+          <BaseLink href={NEXT_ROUTER.home.root}>
+            <Logo />
+          </BaseLink>
 
-        <div className={"flex flex-row gap-3"}>
-          <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ name: "ri-menu-fill" }}
-            hideText
-            onClick={handleOpen}
-          />
-        </div>
-      </Paper>
+          <div className={"flex flex-row gap-3"}>
+            <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
+            <Button
+              variant={"secondary-light"}
+              size={"l"}
+              startIcon={{ name: "ri-menu-fill" }}
+              hideText
+              onClick={handleOpen}
+            />
+          </div>
+        </Paper>
+      </div>
       <Modal
         isOpen={isOpen}
         onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}

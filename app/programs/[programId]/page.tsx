@@ -83,7 +83,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         ],
       }}
     >
-      <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
+      <AnimatedColumn className="flex h-full flex-1 flex-col gap-3">
         <div className="h-auto">
           <PageContent>
             <div className="flex flex-col gap-4">
