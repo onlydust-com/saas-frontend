@@ -18,7 +18,7 @@ export interface CardFinancialPort<C extends ElementType> extends Partial<Varian
   classNames?: Partial<ClassNames>;
   htmlProps?: ComponentPropsWithoutRef<C>;
   title: TranslateProps;
-  amount: number;
+  amount: string;
   currency: string;
   avatarGroup?: AvatarGroupPort<"div">;
   cta?: ButtonPort<"button">;

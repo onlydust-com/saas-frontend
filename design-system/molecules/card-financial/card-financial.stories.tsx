@@ -8,7 +8,7 @@ type Story = StoryObj<typeof CardFinancial>;
 
 const defaultProps: CardFinancialPort<"div"> = {
   title: { token: "programs:budgetAvailable.available.title" },
-  amount: 1000,
+  amount: "1000",
   currency: "USD",
   avatarGroup: {
     avatars: [
