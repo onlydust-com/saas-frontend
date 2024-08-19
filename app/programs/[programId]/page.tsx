@@ -22,7 +22,9 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { TransactionsContextProvider } from "./_features/transactions-sidepanel/transactions/context/transactions.context";
 
 export default function ProgramPage({ params: { programId } }: { params: { programId: string } }) {
-  const [toggleFinancialViews, setToggleFinancialViews] = useState<"cards" | "chart">("cards");
+  const [toggleFinancialViews, setToggleFinancialViews] = useState<"budgetAvailable" | "budgetChart">(
+    "budgetAvailable"
+  );
   const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -30,7 +32,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   });
 
   const renderFinancialView = useMemo(() => {
-    if (toggleFinancialViews === "chart") {
+    if (toggleFinancialViews === "budgetChart") {
       return <FinancialColumnChart />;
     }
 
@@ -67,15 +69,15 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                       variant="secondary-light"
                       startIcon={{ name: "ri-money-dollar-circle-line" }}
                       translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-                      onClick={() => setToggleFinancialViews("cards")}
-                      isDisabled={toggleFinancialViews === "cards"}
+                      onClick={() => setToggleFinancialViews("budgetAvailable")}
+                      isDisabled={toggleFinancialViews === "budgetAvailable"}
                     />
                     <Button
                       variant="secondary-light"
                       startIcon={{ name: "ri-bar-chart-2-line" }}
                       translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-                      onClick={() => setToggleFinancialViews("chart")}
-                      isDisabled={toggleFinancialViews === "chart"}
+                      onClick={() => setToggleFinancialViews("budgetChart")}
+                      isDisabled={toggleFinancialViews === "budgetChart"}
                     />
                   </div>
                   <TransactionsTrigger />
