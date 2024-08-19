@@ -6,6 +6,7 @@ import {
 } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
 
 import { CardFinancial, CardFinancialLoading } from "@/design-system/molecules/card-financial";
 
@@ -21,12 +22,16 @@ function createAvatarGroup({ total }: CreateAvatarGroupProps) {
 
 function FinancialCardItem({ title, total, color }: FinancialCardItemProps) {
   const avatarGroup = createAvatarGroup({ total });
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   return (
     <CardFinancial
       title={{ token: title }}
-      amount={total.totalUsdEquivalent}
-      currency="USD"
+      amount={
+        moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
+          .amount
+      }
+      currency={moneyKernelPort.getCurrency("USD").code}
       avatarGroup={avatarGroup}
       color={color}
       cta={{
