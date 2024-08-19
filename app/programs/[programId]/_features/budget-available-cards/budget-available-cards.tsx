@@ -1,13 +1,15 @@
 import { useParams } from "next/navigation";
 
+import {
+  CreateAvatarGroupProps,
+  FinancialCardItemProps,
+} from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards.types";
+
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-import { ProgramResponse } from "@/core/domain/program/models/program-model";
 
 import { CardFinancial, CardFinancialLoading } from "@/design-system/molecules/card-financial";
 
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
-
-function createAvatarGroup(total: ProgramResponse["totalAvailable" | "totalGranted" | "totalRewarded"]) {
+function createAvatarGroup({ total }: CreateAvatarGroupProps) {
   return {
     avatars:
       total.totalPerCurrency?.map(currency => ({
@@ -17,16 +19,8 @@ function createAvatarGroup(total: ProgramResponse["totalAvailable" | "totalGrant
   };
 }
 
-function FinancialCardItem({
-  title,
-  total,
-  color,
-}: {
-  title: TranslateProps["token"];
-  total: ProgramResponse["totalAvailable" | "totalGranted" | "totalRewarded"];
-  color: "chart-1" | "chart-2" | "chart-3" | "chart-4";
-}) {
-  const avatarGroup = createAvatarGroup(total);
+function FinancialCardItem({ title, total, color }: FinancialCardItemProps) {
+  const avatarGroup = createAvatarGroup({ total });
 
   return (
     <CardFinancial
