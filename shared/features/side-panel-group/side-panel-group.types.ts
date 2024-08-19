@@ -1,8 +1,20 @@
 import { PropsWithChildren } from "react";
 
+export interface openPanelParams<T> {
+  name?: string;
+  data?: T;
+}
+
+export interface watchPanel<T> {
+  isOpen: boolean;
+  data?: T;
+}
+
 export interface SidePanelGroupContextInterface {
   isPanelOpen: (name?: string) => boolean;
-  openPanel: (name?: string) => void;
+  openPanel: <T>(p?: openPanelParams<T>) => void;
+  getPanelData: <T>(name?: string) => T;
+  watch: <T>(name: string) => watchPanel<T>;
   closePanel: (name?: string) => void;
   panelWidth: number;
   panelGap?: number;
@@ -41,4 +53,6 @@ export interface SidePanelGroupRef {
   closePanel: SidePanelGroupContextInterface["closePanel"];
   onBack: SidePanelGroupContextInterface["onBack"];
   onNext: SidePanelGroupContextInterface["onNext"];
+  getPanelData: SidePanelGroupContextInterface["getPanelData"];
+  watch: SidePanelGroupContextInterface["watch"];
 }

@@ -12,8 +12,18 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
   { children, classNames }: SidePanelGroupProps,
   ref: ForwardedRef<SidePanelGroupRef>
 ) {
-  const { openPanel, closePanel, panelWidth, isPanelOpen, getOpenedPanelIndex, onBack, onNext, panelGap } =
-    useSidePanelGroup();
+  const {
+    openPanel,
+    closePanel,
+    getPanelData,
+    panelWidth,
+    isPanelOpen,
+    getOpenedPanelIndex,
+    onBack,
+    onNext,
+    panelGap,
+    watch,
+  } = useSidePanelGroup();
 
   useImperativeHandle(ref, () => {
     return {
@@ -22,8 +32,10 @@ export const SafeSidePanelGroup = forwardRef(function SafeSidePanelGroup(
       onBack,
       onNext,
       isPanelOpen,
+      getPanelData,
+      watch,
     };
-  }, [openPanel, closePanel, onNext, onBack, isPanelOpen]);
+  }, [openPanel, closePanel, onNext, onBack, isPanelOpen, getPanelData, watch]);
 
   const translationGap = getOpenedPanelIndex() ? panelGap || 0 : 0;
 

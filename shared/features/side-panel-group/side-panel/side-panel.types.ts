@@ -13,6 +13,8 @@ interface RenderProps {
   onOpen: SidePanelGroupRef["openPanel"];
   onNext: SidePanelGroupRef["onNext"];
   onBack: SidePanelGroupRef["onBack"];
+  getPanelData: SidePanelGroupRef["getPanelData"];
+  watch: SidePanelGroupRef["watch"];
 }
 
 export interface SidePanelProps {

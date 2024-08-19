@@ -1,18 +1,26 @@
 "use client";
 
+import { AnyType } from "ast-types";
 import { createContext, useContext, useMemo, useState } from "react";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import {
   SidePanelGroupContextInterface,
   SidePanelGroupContextProps,
+  openPanelParams,
 } from "@/shared/features/side-panel-group/side-panel-group.types";
+
+function mockGetPannelData<T>() {
+  return {} as T;
+}
 
 export const SidePanelGroupContext = createContext<SidePanelGroupContextInterface>({
   isPanelOpen: () => false,
   openPanel: () => {},
   closePanel: () => {},
   getOpenedPanelIndex: () => 0,
+  getPanelData: mockGetPannelData,
+  watch: () => ({ isOpen: false }),
   panelWidth: 0,
   panelGap: 0,
   onBack: () => {},
@@ -27,6 +35,7 @@ export function SidePanelGroupProvider({
   panels,
 }: SidePanelGroupContextProps) {
   const [openedPanels, setOpenedPanels] = useState<string[]>(defaultOpen ? [defaultPanelName] : []);
+  const [panelsData, setPanelsData] = useState<Record<string, AnyType>>({});
 
   function isPanelOpen(name?: string) {
     if (!name) {
@@ -36,12 +45,20 @@ export function SidePanelGroupProvider({
     return openedPanels.includes(name);
   }
 
-  function openPanel(name?: string) {
-    if (name) {
-      setOpenedPanels(panels?.slice(0, panels.indexOf(name) + 1));
+  function openPanel<T>(p?: openPanelParams<T>) {
+    if (p?.name) {
+      setOpenedPanels(panels?.slice(0, panels.indexOf(p.name) + 1));
     } else {
       setOpenedPanels([defaultPanelName]);
     }
+
+    if (p?.data) {
+      setPanelsData(prev => ({ ...prev, [p.name || defaultPanelName]: p.data as AnyType }));
+    }
+  }
+
+  function getPanelData<T>(name?: string) {
+    return panelsData[name || defaultPanelName] as T;
   }
 
   function closePanel(name?: string) {
@@ -79,6 +96,16 @@ export function SidePanelGroupProvider({
     return config.openedWidth + (config.gap || 0);
   }, [openedPanels, config]);
 
+  function useWatch<T>(name: string) {
+    return useMemo(() => {
+      return {
+        isOpen: isPanelOpen(name),
+        data: getPanelData<T>(name),
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openedPanels, panelsData]);
+  }
+
   return (
     <SidePanelGroupContext.Provider
       value={{
@@ -86,10 +113,12 @@ export function SidePanelGroupProvider({
         openPanel,
         closePanel,
         getOpenedPanelIndex,
+        getPanelData,
         onBack,
         onNext,
         panelGap: config.gap,
         panelWidth: config.openedWidth,
+        watch: useWatch,
       }}
     >
       <AnimatedColumn width={panelSize} initialWidth={config.closedWidth} className="h-full">

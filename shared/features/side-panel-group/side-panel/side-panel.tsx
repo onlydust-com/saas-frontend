@@ -8,11 +8,11 @@ import { cn } from "@/shared/helpers/cn";
 import { SidePanelProps } from "./side-panel.types";
 
 export function SidePanel({ children, name, classNames }: SidePanelProps) {
-  const { panelWidth, openPanel, closePanel, onBack, onNext } = useSidePanelGroup();
+  const { panelWidth, openPanel, closePanel, onBack, onNext, getPanelData, watch } = useSidePanelGroup();
 
   const renderChildren =
     typeof children === "function"
-      ? children({ name, onClose: () => closePanel(name), onOpen: openPanel, onBack, onNext })
+      ? children({ name, onClose: () => closePanel(name), onOpen: openPanel, onBack, onNext, getPanelData, watch })
       : children;
 
   return (

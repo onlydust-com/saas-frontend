@@ -7,6 +7,7 @@ import {
   ProgramDetailsPanelProvider,
 } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
+import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -33,6 +34,20 @@ function TransactionButtonMock() {
     }
   }
   return <Button onClick={togglePanel}>Open Transactions</Button>;
+}
+
+function ProjectButtonMock() {
+  const { projectPanel } = useContext(ProgramDetailsPanelContext);
+  const mockProjectId = "coucou";
+  function togglePanel() {
+    const isPanelOpen = projectPanel.current?.isPanelOpen();
+    if (isPanelOpen) {
+      projectPanel.current?.openPanel<{ projectId: string }>({ data: { projectId: "voucou2" } });
+    } else {
+      projectPanel.current?.openPanel<{ projectId: string }>({ data: { projectId: mockProjectId } });
+    }
+  }
+  return <Button onClick={togglePanel}>Open project</Button>;
 }
 
 export default function ProgramPage({ params: { programId } }: { params: { programId: string } }) {
@@ -66,12 +81,14 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
               <h1>Content of Program Page : {data?.name}</h1>
               <FinancialColumnChart />
               <TransactionButtonMock />
+              <ProjectButtonMock />
             </div>
           </AnimatedColumn>
 
           <TransactionsContextProvider programId={programId}>
             <TransactionsSidepanel />
           </TransactionsContextProvider>
+          <ProjectSidepanel />
         </AnimatedColumnGroup>
       </PageWrapper>
     </ProgramDetailsPanelProvider>
