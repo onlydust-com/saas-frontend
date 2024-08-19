@@ -72,20 +72,22 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center justify-start gap-2">
                     <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
-                    <Button
-                      variant="secondary-light"
-                      startIcon={{ name: "ri-money-dollar-circle-line" }}
-                      translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-                      onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
-                      isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
-                    />
-                    <Button
-                      variant="secondary-light"
-                      startIcon={{ name: "ri-bar-chart-2-line" }}
-                      translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-                      onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
-                      isDisabled={toggleFinancialViews === BUDGET_CHART}
-                    />
+                    <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
+                      <Button
+                        variant="secondary-light"
+                        startIcon={{ name: "ri-money-dollar-circle-line" }}
+                        translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
+                        onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
+                        isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
+                      />
+                      <Button
+                        variant="secondary-light"
+                        startIcon={{ name: "ri-bar-chart-2-line" }}
+                        translate={{ token: "programs:details.financial.buttons.budgetChart" }}
+                        onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
+                        isDisabled={toggleFinancialViews === BUDGET_CHART}
+                      />
+                    </Paper>
                   </div>
                   <TransactionsTrigger />
                 </div>

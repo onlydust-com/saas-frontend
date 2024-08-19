@@ -20,6 +20,7 @@ export function TransactionsTrigger() {
       variant="secondary-light"
       translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
       onClick={togglePanel}
+      size="l"
     />
   );
 }
