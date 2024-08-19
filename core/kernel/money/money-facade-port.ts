@@ -9,6 +9,7 @@ export interface MoneyFacadePort {
     currency?: Currency;
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
+    uppercase?: boolean;
   }): { amount: string; code: Currency["code"] | undefined };
   getCurrency(code: Currency["code"]): Currency;
 }

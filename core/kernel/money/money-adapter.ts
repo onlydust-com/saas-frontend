@@ -126,11 +126,13 @@ export class MoneyAdapter implements MoneyFacadePort {
     currency,
     options,
     locale,
+    uppercase = false,
   }: {
     amount?: number | null;
     currency?: Currency;
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
+    uppercase?: boolean;
   }) => {
     if (amount === null || amount === undefined || !currency) {
       return {
@@ -139,8 +141,10 @@ export class MoneyAdapter implements MoneyFacadePort {
       };
     }
 
+    const formattedAmount = this.formatAmount({ amount, decimals: currency.decimals, options, locale });
+
     return {
-      amount: this.formatAmount({ amount, decimals: currency.decimals, options, locale }),
+      amount: uppercase ? formattedAmount.toUpperCase() : formattedAmount,
       code: currency.code,
     };
   };
