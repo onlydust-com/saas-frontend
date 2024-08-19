@@ -1,8 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 
-import { ProgramDetailsPanelProvider } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import {
+  ProgramDetailsPanelContext,
+  ProgramDetailsPanelProvider,
+} from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
 import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
@@ -109,7 +112,6 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
               </Paper>
               <h1>Content of Program Page : {data?.name}</h1>
               <FinancialColumnChart />
-              <TransactionButtonMock />
               <ProjectButtonMock />
             </div>
           </AnimatedColumn>
