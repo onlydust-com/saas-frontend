@@ -31,12 +31,20 @@ export function EmptyState<C extends ElementType = "div">({
       <div className="w-20">
         <Image src={Categories} width={80} height={80} alt={"emptyStatePictureFallback"} />
       </div>
-      <div className="flex flex-col gap-2">
-        {titleTranslate ? (
-          <Typo variant="brand" size={"xl"} color={"text-1"} classNames={{ base: "mb-1" }} translate={titleTranslate} />
-        ) : null}
-        {descriptionTranslate ? <Typo size={"m"} color={"text-2"} translate={descriptionTranslate} /> : null}
-      </div>
+      {titleTranslate || descriptionTranslate ? (
+        <div className="flex flex-col gap-2">
+          {titleTranslate ? (
+            <Typo
+              variant="brand"
+              size={"xl"}
+              color={"text-1"}
+              classNames={{ base: "mb-1" }}
+              translate={titleTranslate}
+            />
+          ) : null}
+          {descriptionTranslate ? <Typo size={"m"} color={"text-2"} translate={descriptionTranslate} /> : null}
+        </div>
+      ) : null}
       {actionLabelTranslate ? (
         <Button
           size="m"

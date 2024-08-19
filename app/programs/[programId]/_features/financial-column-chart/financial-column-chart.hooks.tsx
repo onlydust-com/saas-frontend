@@ -6,10 +6,10 @@ import { GetProgramTransactionsStatsResponse } from "@/core/domain/program/progr
 import { Typo } from "@/design-system/atoms/typo";
 
 export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsResponse["stats"]) {
-  const { format: formatDate } = bootstrap.getDateKernelPort();
-  const { format, getCurrency } = bootstrap.getMoneyKernelPort();
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const categories = stats?.map(stat => formatDate(new Date(stat.date), "MMMM yyyy")) ?? [];
+  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
   const calculateSeries = (key: keyof GetProgramTransactionsStatsResponse["stats"][number]) => {
     return (
@@ -32,15 +32,15 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
       return (
         <div className="flex gap-1">
           <Typo size={"xs"} color={"text-1"}>
-            {format({ amount: amountSum, currency: getCurrency("USD") }).amount}
+            {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).amount}
           </Typo>
           <Typo size={"xs"} color={"text-2"}>
-            {format({ amount: amountSum, currency: getCurrency("USD") }).code}
+            {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).code}
           </Typo>
         </div>
       );
     },
-    [format, getCurrency]
+    [moneyKernelPort]
   );
 
   const renderReceivedAmount = useMemo(

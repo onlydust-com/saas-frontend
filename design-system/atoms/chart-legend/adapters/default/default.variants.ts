@@ -20,7 +20,7 @@ export const ChartLegendDefaultVariants = tv({
     },
     size: {
       s: {
-        square: "roundedSm h-2.5 min-h-2.5 w-2.5 min-w-2.5",
+        square: "h-2.5 min-h-2.5 w-2.5 min-w-2.5 rounded-sm",
       },
       m: {
         square: "h-3 min-h-3 w-3 min-w-3",
