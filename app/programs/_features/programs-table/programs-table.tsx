@@ -14,11 +14,13 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
-  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetPrograms({});
+  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    ProgramReactQueryAdapter.client.useGetPrograms({});
   const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -216,6 +218,7 @@ export function ProgramsTable() {
           base: "min-w-[1200px]",
         }}
       />
+      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </ScrollView>
   );
 }
