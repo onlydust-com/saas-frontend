@@ -61,7 +61,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         }}
       >
         <AnimatedColumnGroup>
-          <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
+          <AnimatedColumn className="h-full flex-1 overflow-auto bg-container-2">
             <div className="h-auto">
               <h1>Content of Program Page : {data?.name}</h1>
               <FinancialColumnChart />

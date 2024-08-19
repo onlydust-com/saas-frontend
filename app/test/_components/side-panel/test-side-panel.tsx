@@ -16,13 +16,7 @@ export function TestSidePanel() {
     }
   }
   return (
-    <AnimatedColumn
-      autoWidth={false}
-      width={panelSize}
-      initialWidth={200}
-      className="h-full bg-container-4"
-      onClick={onSizeChange}
-    >
+    <AnimatedColumn width={panelSize} initialWidth={200} className="h-full bg-container-4" onClick={onSizeChange}>
       SIDE PANEL
     </AnimatedColumn>
   );
