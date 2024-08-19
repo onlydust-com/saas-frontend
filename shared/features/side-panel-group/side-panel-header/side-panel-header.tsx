@@ -5,10 +5,22 @@ import { useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel
 
 import { SidePanelHeaderProps } from "./side-panel-header.types";
 
-export function SidePanelHeader({ canGoBack, canClose, title, startContent, endContent }: SidePanelHeaderProps) {
+export function SidePanelHeader({
+  canGoBack,
+  canClose,
+  title,
+  startContent,
+  endContent,
+  onClose,
+}: SidePanelHeaderProps) {
   const { onBack, closePanel } = useSidePanelGroup();
   const showStartContent = canGoBack || !!startContent;
   const showEndContent = canClose || !!endContent;
+
+  function handleClose() {
+    closePanel();
+    onClose?.();
+  }
 
   return (
     <div className={"flex w-full flex-row items-center justify-between gap-1"}>
@@ -17,7 +29,8 @@ export function SidePanelHeader({ canGoBack, canClose, title, startContent, endC
           {canGoBack && (
             <Button
               hideText={true}
-              variant={"secondary-light"}
+              variant="secondary-light"
+              size="l"
               startIcon={{ name: "ri-arrow-left-s-line" }}
               onClick={() => onBack()}
             />
@@ -32,9 +45,10 @@ export function SidePanelHeader({ canGoBack, canClose, title, startContent, endC
           {canClose && (
             <Button
               hideText={true}
-              variant={"secondary-light"}
+              variant="secondary-light"
+              size="l"
               startIcon={{ name: "ri-close-line" }}
-              onClick={() => closePanel()}
+              onClick={handleClose}
             />
           )}
         </div>

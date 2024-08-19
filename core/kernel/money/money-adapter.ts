@@ -127,7 +127,7 @@ export class MoneyAdapter implements MoneyFacadePort {
     options,
     locale,
   }: {
-    amount: number;
+    amount?: number | null;
     currency?: Currency;
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;

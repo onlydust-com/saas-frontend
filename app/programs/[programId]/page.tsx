@@ -19,6 +19,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { TransactionsContextProvider } from "./_features/transactions-sidepanel/transactions/context/transactions.context";
+
 function TransactionButtonMock() {
   const { transactionPanel } = useContext(ProgramDetailsPanelContext);
 
@@ -66,7 +68,10 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
               <TransactionButtonMock />
             </div>
           </AnimatedColumn>
-          <TransactionsSidepanel />
+
+          <TransactionsContextProvider programId={programId}>
+            <TransactionsSidepanel />
+          </TransactionsContextProvider>
         </AnimatedColumnGroup>
       </PageWrapper>
     </ProgramDetailsPanelProvider>

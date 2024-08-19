@@ -4,9 +4,11 @@ import { ProgramTransactionsStats } from "@/core/domain/program/models/program-t
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
   GetProgramResponse,
+  GetProgramTransactionsResponse,
   GetProgramTransactionsStatsResponse,
   GetProgramsResponse,
 } from "@/core/domain/program/program-contract.types";
+import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -16,6 +18,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
   routes = {
     getPrograms: "me/programs",
     getProgramById: "programs/:programId",
+    getProgramTransactions: "programs/:programId/transactions",
     getProgramTransactionsStats: "programs/:programId/stats/transactions",
   } as const;
 
@@ -55,6 +58,30 @@ export class ProgramClientAdapter implements ProgramStoragePort {
       return {
         ...data,
         programs: data.programs.map(program => new ProgramListItem(program)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProgramTransactions = ({ queryParams }: FirstParameter<ProgramStoragePort["getProgramTransactions"]>) => {
+    const path = this.routes["getProgramTransactions"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProgramTransactionsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        transactions: data.transactions.map(transaction => new TransactionListItem(transaction)),
       };
     };
 

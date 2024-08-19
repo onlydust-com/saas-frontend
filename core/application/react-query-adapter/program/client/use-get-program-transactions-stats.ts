@@ -8,7 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { ProgramFacadePort } from "@/core/domain/program/input/program-facade-port";
 import { GetProgramTransactionsStatsResponse } from "@/core/domain/program/program-contract.types";
 
-export function useGetProgramsTransactionsStats({
+export function useGetProgramTransactionsStats({
   pathParams,
   queryParams,
   options,

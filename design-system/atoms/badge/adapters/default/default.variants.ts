@@ -9,19 +9,19 @@ export const BadgeDefaultVariants = tv({
   variants: {
     colors: {
       default: {
-        base: "border-container-stroke-separator bg-container-stroke-separator border",
+        base: "border border-container-stroke-separator bg-container-stroke-separator",
       },
       "brand-1": {
-        base: "border-brand-1 bg-brand-1 text-text-1 border",
+        base: "border border-brand-1 bg-brand-1 text-text-1",
       },
       "brand-2": {
-        base: "border-brand-2 bg-brand-2 text-text-1 border",
+        base: "border border-brand-2 bg-brand-2 text-text-1",
       },
       "brand-3": {
-        base: "border-brand-3 bg-brand-3 text-text-1 border",
+        base: "border border-brand-3 bg-brand-3 text-text-1",
       },
       "brand-4": {
-        base: "border-brand-4 bg-brand-4 text-text-1 border",
+        base: "border border-brand-4 bg-brand-4 text-text-1",
       },
     },
     size: {

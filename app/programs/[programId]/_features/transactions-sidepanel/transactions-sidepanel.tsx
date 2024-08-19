@@ -10,9 +10,15 @@ import { SidePanelHeader } from "@/shared/features/side-panel-group/side-panel-h
 import { SidePanel } from "@/shared/features/side-panel-group/side-panel/side-panel";
 
 import { TransactionsSidepanels } from "./transactions-sidepanel.types";
+import { useTransactionsContext } from "./transactions/context/transactions.context";
+import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
   const { transactionPanel } = useContext(ProgramDetailsPanelContext);
+
+  const {
+    filters: { clear },
+  } = useTransactionsContext();
 
   return (
     <SidePanelGroup
@@ -21,15 +27,33 @@ export function TransactionsSidepanel() {
       defaultPanelName={TransactionsSidepanels.TRANSACTIONS}
       config={{ closedWidth: 0, openedWidth: SIDE_PANEL_SIZE.m, gap: SIDE_PANEL_GAP.m }}
     >
-      {/* @INFO THIS TWO PANELS COULD BE SPLIT IN TWO FILE */}
       <SidePanel name={TransactionsSidepanels.TRANSACTIONS}>
-        <SidePanelHeader canClose={true} title={{ token: "programs:transactionPanel.transaction.title" }} />
-        <Button variant={"secondary-light"} onClick={() => transactionPanel.current?.onNext()}>
-          Export CSV
-        </Button>
+        <SidePanelHeader
+          canClose={true}
+          title={{ token: "programs:transactionPanel.transactions.title" }}
+          endContent={
+            <Button
+              variant="secondary-light"
+              size="l"
+              onClick={() => transactionPanel.current?.onNext()}
+              translate={{
+                token: "programs:transactionPanel.transactions.export",
+              }}
+            />
+          }
+          onClose={clear}
+        />
+
+        <Transactions />
       </SidePanel>
+
       <SidePanel name={TransactionsSidepanels.EXPORT}>
-        <SidePanelHeader canGoBack={true} canClose={true} title={{ token: "programs:transactionPanel.export.title" }} />
+        <SidePanelHeader
+          canGoBack={true}
+          canClose={true}
+          title={{ token: "programs:transactionPanel.export.title" }}
+          onClose={clear}
+        />
       </SidePanel>
     </SidePanelGroup>
   );
