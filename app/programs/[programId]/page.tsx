@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { ProgramDetailsPanelProvider } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
+import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
 
@@ -16,6 +17,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -66,7 +68,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         }}
       >
         <AnimatedColumnGroup>
-          <AnimatedColumn className="h-full flex-1 overflow-auto">
+          <AnimatedColumn className="flex h-full flex-1 flex-col overflow-auto">
             <div className="h-auto">
               <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
                 <div className="flex items-center justify-between gap-2">
@@ -93,6 +95,27 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                 {renderFinancialView}
               </Paper>
             </div>
+
+            <PageContent>
+              <div className="grid gap-3">
+                <header className={"flex items-center justify-between"}>
+                  <Typo
+                    variant={"brand"}
+                    size={"2xl"}
+                    translate={{
+                      token: "programs:details.projects.title",
+                    }}
+                    color={"text-1"}
+                  />
+
+                  <Button variant={"secondary-light"} size={"l"}>
+                    <Translate token={"programs:details.projects.grantProject"} />
+                  </Button>
+                </header>
+
+                <ProjectsTable />
+              </div>
+            </PageContent>
           </AnimatedColumn>
 
           <TransactionsContextProvider programId={programId}>
