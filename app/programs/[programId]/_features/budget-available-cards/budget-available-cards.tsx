@@ -31,7 +31,7 @@ function FinancialCardItem({ title, total, color }: FinancialCardItemProps) {
         moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
           .amount
       }
-      currency="USD"
+      currency={moneyKernelPort.getCurrency("USD").code}
       avatarGroup={avatarGroup}
       color={color}
       cta={{
