@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from "react";
 
+import { ProgramDetailsPanelProvider } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
+import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
 
@@ -14,6 +17,7 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -52,12 +56,11 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   });
 
   const renderFinancialView = useMemo(() => {
-    if (toggleFinancialViews === BUDGET_CHART) {
-      return <FinancialColumnChart />;
+    if (toggleFinancialViews === BUDGET_AVAILABLE) {
+      return <BudgetAvailableCards />;
     }
 
-    // TODO @Mehdi - Implement the cards view
-    return <div>cards</div>;
+    return <FinancialColumnChart />;
   }, [toggleFinancialViews]);
 
   function handleToggleFinancialViews(view: typeof BUDGET_AVAILABLE | typeof BUDGET_CHART) {
@@ -81,12 +84,12 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         ],
       }}
     >
-      <AnimatedColumn className="h-full flex-1 overflow-auto">
+      <AnimatedColumn className="flex h-full flex-1 flex-coloverflow-auto">
         <div className="h-auto">
           <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center justify-start gap-2">
-                <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
+                <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} /><Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
                 <Button
                   variant="secondary-light"
                   startIcon={{ name: "ri-money-dollar-circle-line" }}
@@ -100,7 +103,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                   translate={{ token: "programs:details.financial.buttons.budgetChart" }}
                   onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
                   isDisabled={toggleFinancialViews === BUDGET_CHART}
-                />
+                /></Paper>
               </div>
               <TransactionsTrigger programId={programId} />
             </div>
@@ -108,6 +111,27 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
             {renderFinancialView}
           </Paper>
           <h1>Content of Program Page : {data?.name}</h1>
+
+            <PageContent>
+              <div className="grid gap-3">
+                <header className={"flex items-center justify-between"}>
+                  <Typo
+                    variant={"brand"}
+                    size={"2xl"}
+                    translate={{
+                      token: "programs:details.projects.title",
+                    }}
+                    color={"text-1"}
+                  />
+
+                  <Button variant={"secondary-light"} size={"l"}>
+                    <Translate token={"programs:details.projects.grantProject"} />
+                  </Button>
+                </header>
+
+                <ProjectsTable programId={programId} />
+              </div>
+            </PageContent>
           <FinancialColumnChart />
           <ProjectButtonMock />
         </div>

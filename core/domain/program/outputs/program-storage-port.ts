@@ -1,6 +1,8 @@
 import {
   GetProgramByIdPortParams,
   GetProgramByIdPortResponse,
+  GetProgramProjectsPortParams,
+  GetProgramProjectsPortResponse,
   GetProgramTransactionsPortParams,
   GetProgramTransactionsPortResponse,
   GetProgramTransactionsStatsPortParams,
@@ -15,4 +17,5 @@ export interface ProgramStoragePort {
   getProgramById(p: GetProgramByIdPortParams): GetProgramByIdPortResponse;
   getProgramTransactions(p: GetProgramTransactionsPortParams): GetProgramTransactionsPortResponse;
   getProgramTransactionsStats(p: GetProgramTransactionsStatsPortParams): GetProgramTransactionsStatsPortResponse;
+  getProgramProjects(p: GetProgramProjectsPortParams): GetProgramProjectsPortResponse;
 }

@@ -9,5 +9,28 @@
       "budgetChart": "Budget chart",
       "seeTransactions": "See transactions"
     }
+  },
+  "projects": {
+    "title": "Projects",
+    "grantProject": "Grant project",
+    "table": {
+      "columns": {
+        "projectName": "Project name",
+        "projectLead": "Project lead",
+        "availableBudgets": "Available budgets",
+        "averageRewardAmount": "Average reward amount",
+        "totalGrantedAmount": "Total granted amount",
+        "totalRewardedAmount": "Total rewarded amount",
+        "budgetUsed": "Budget used",
+        "prsMerged": "PRs merged",
+        "onboardedDevs": "Onboarded devs",
+        "activeDevs": "Active devs",
+        "actions": "Actions"
+      },
+      "rows": {
+        "grant": "Grant",
+        "seeDetail": "See detail"
+      }
+    }
   }
 }
