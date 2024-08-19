@@ -2,8 +2,8 @@
 
 import { TestSidePanel } from "@/app/test/_components/side-panel/test-side-panel";
 
-import { AnimatedColumnGroup } from "@/shared/components/animated-column-group-v0/animated-column-group";
-import { AnimatedColumn } from "@/shared/components/animated-column-group-v0/animated-column/animated-column";
+import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
+import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { SecondaryNavigation } from "@/shared/features/navigation/secondary-navigation/secondary-navigation";
 
 export default function Home() {
