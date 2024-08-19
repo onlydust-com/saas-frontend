@@ -1,5 +1,4 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -16,12 +15,10 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProjectsTable() {
-  const { programId } = useParams();
-
+export function ProjectsTable({ programId }: { programId: string }) {
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramProjects({
     pathParams: {
-      programId: typeof programId === "string" ? programId : "",
+      programId,
     },
     options: {
       enabled: Boolean(programId),

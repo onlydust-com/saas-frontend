@@ -113,7 +113,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                   </Button>
                 </header>
 
-                <ProjectsTable />
+                <ProjectsTable programId={programId} />
               </div>
             </PageContent>
           </AnimatedColumn>
