@@ -64,6 +64,12 @@ const config: Config = withTV({
         "brand-2": "var(--_Brand2)",
         "brand-3": "var(--_Brand3)",
         "brand-4": "var(--_Brand4)",
+
+        /**CHART */
+        "chart-1": "var(--_Chart1)",
+        "chart-2": "var(--_Chart2)",
+        "chart-3": "var(--_Chart3)",
+        "chart-4": "var(--_Chart4)",
       },
       screens: {
         mobile: `${BREAKPOINTS.mobile}px`,

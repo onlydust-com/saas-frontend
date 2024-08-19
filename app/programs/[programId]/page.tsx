@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { ProgramDetailsPanelProvider } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
@@ -37,12 +38,11 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   });
 
   const renderFinancialView = useMemo(() => {
-    if (toggleFinancialViews === BUDGET_CHART) {
-      return <FinancialColumnChart />;
+    if (toggleFinancialViews === BUDGET_AVAILABLE) {
+      return <BudgetAvailableCards />;
     }
 
-    // TODO @Mehdi - Implement the cards view
-    return <div>cards</div>;
+    return <FinancialColumnChart />;
   }, [toggleFinancialViews]);
 
   function handleToggleFinancialViews(view: typeof BUDGET_AVAILABLE | typeof BUDGET_CHART) {
@@ -74,20 +74,22 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center justify-start gap-2">
                     <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
-                    <Button
-                      variant="secondary-light"
-                      startIcon={{ name: "ri-money-dollar-circle-line" }}
-                      translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-                      onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
-                      isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
-                    />
-                    <Button
-                      variant="secondary-light"
-                      startIcon={{ name: "ri-bar-chart-2-line" }}
-                      translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-                      onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
-                      isDisabled={toggleFinancialViews === BUDGET_CHART}
-                    />
+                    <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
+                      <Button
+                        variant="secondary-light"
+                        startIcon={{ name: "ri-money-dollar-circle-line" }}
+                        translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
+                        onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
+                        isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
+                      />
+                      <Button
+                        variant="secondary-light"
+                        startIcon={{ name: "ri-bar-chart-2-line" }}
+                        translate={{ token: "programs:details.financial.buttons.budgetChart" }}
+                        onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
+                        isDisabled={toggleFinancialViews === BUDGET_CHART}
+                      />
+                    </Paper>
                   </div>
                   <TransactionsTrigger />
                 </div>

@@ -67,19 +67,19 @@ export function FinancialColumnChart() {
       <div className="grid grid-cols-5 items-center gap-4">
         <Paper size={"s"} classNames={{ base: "col-span-4 grid grid-cols-3 items-center gap-3" }}>
           <div className="flex items-center justify-between gap-4">
-            <ChartLegend colors="brand-4">
+            <ChartLegend color="chart-1">
               <Translate token={"programs:financialColumnChart.legends.received"} />
             </ChartLegend>
             {renderReceivedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend colors="text-2">
+            <ChartLegend color="chart-4">
               <Translate token={"programs:financialColumnChart.legends.granted"} />
             </ChartLegend>
             {renderGrantedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend colors="container-3">
+            <ChartLegend color="chart-3">
               <Translate token={"programs:financialColumnChart.legends.rewarded"} />
             </ChartLegend>
             {renderRewardedAmount}

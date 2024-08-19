@@ -7,15 +7,18 @@ export const ChartLegendDefaultVariants = tv({
     label: "text-text-1",
   },
   variants: {
-    colors: {
-      "brand-4": {
-        square: "bg-brand-4",
+    color: {
+      "chart-1": {
+        square: "bg-chart-1",
       },
-      "text-2": {
-        square: "bg-text-2",
+      "chart-2": {
+        square: "bg-chart-2",
       },
-      "container-3": {
-        square: "bg-container-3",
+      "chart-3": {
+        square: "bg-chart-3",
+      },
+      "chart-4": {
+        square: "bg-chart-4",
       },
     },
     size: {
@@ -37,6 +40,6 @@ export const ChartLegendDefaultVariants = tv({
   ],
   defaultVariants: {
     size: "m",
-    colors: "brand-4",
+    colors: "chart-1",
   },
 });
