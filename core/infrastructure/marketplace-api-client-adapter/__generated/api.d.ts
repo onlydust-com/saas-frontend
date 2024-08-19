@@ -1445,6 +1445,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/programs/{programId}/projects": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get program projects
+         * @description Get the list of all projects granted by the program. Only program leaders can access this information.
+         */
+        get: operations["getProgramProjects"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/me/rewards": {
         parameters: {
             query?: never;
@@ -3355,7 +3375,7 @@ export interface components {
              * Format: uuid
              * @description OnlyDust user ID
              */
-            id?: string;
+            id: string;
         };
         GithubOrganizationResponse: {
             /**
@@ -4165,6 +4185,50 @@ export interface components {
              */
             transactionCount: number;
         };
+        /** @description A KPI that represents a number with its trend compared to last period. */
+        NumberKpi: {
+            /** Format: int32 */
+            value: number;
+            /** @enum {string} */
+            trend: "UP" | "DOWN" | "STABLE";
+        };
+        ProgramProjectsPageItemResponse: {
+            /**
+             * Format: uuid
+             * @description OnlyDust project ID
+             */
+            id: string;
+            /**
+             * @description OnlyDust project pretty ID that is computed from its name. This ID CAN change over time.
+             * @example my-awesome-project
+             */
+            slug: string;
+            name: string;
+            logoUrl?: string;
+            leads: components["schemas"]["RegisteredUserResponse"][];
+            totalAvailable: components["schemas"]["DetailedTotalMoney"];
+            totalGranted: components["schemas"]["DetailedTotalMoney"];
+            totalRewarded: components["schemas"]["DetailedTotalMoney"];
+            /** @description The percentage of the total granted budget that has been rewarded. */
+            percentUsedBudget: number;
+            averageRewardUsdAmount: number;
+            mergedPrCount?: components["schemas"]["NumberKpi"];
+            newContributorsCount?: components["schemas"]["NumberKpi"];
+            activeContributorsCount?: components["schemas"]["NumberKpi"];
+        };
+        ProgramProjectsPageResponse: {
+            /** Format: int32 */
+            totalPageNumber: number;
+            /** Format: int32 */
+            totalItemNumber: number;
+            hasMore: boolean;
+            /**
+             * Format: int32
+             * @description if there is no next page, it will be equals to the last page
+             */
+            nextPageIndex: number;
+            projects: components["schemas"]["ProgramProjectsPageItemResponse"][];
+        };
         GetMeResponse: {
             /**
              * Format: int64
@@ -4186,7 +4250,7 @@ export interface components {
              * Format: uuid
              * @description OnlyDust user ID
              */
-            id?: string;
+            id: string;
             /** @description True if the user has accepted the latest version of terms and conditions */
             hasAcceptedLatestTermsAndConditions: boolean;
             /** @description True if the user is authorized to apply on Github issues */
@@ -4505,15 +4569,30 @@ export interface components {
             numberOfRewardPaid: number;
             totalAmountDollarsEquivalent: number;
         };
-        NotificationGlobalBillingProfileVerificationFailed: {
+        NotificationGlobalBillingProfileReminder: {
             /**
              * Format: uuid
              * @description Billing profile ID
              */
             billingProfileId: string;
             billingProfileName: string;
-            /** @enum {string} */
-            verificationStatus: "NOT_STARTED" | "STARTED" | "UNDER_REVIEW" | "VERIFIED" | "REJECTED" | "CLOSED";
+        };
+        NotificationGlobalBillingProfileVerificationClosed: {
+            /**
+             * Format: uuid
+             * @description Billing profile ID
+             */
+            billingProfileId: string;
+            billingProfileName: string;
+        };
+        NotificationGlobalBillingProfileVerificationRejected: {
+            /**
+             * Format: uuid
+             * @description Billing profile ID
+             */
+            billingProfileId: string;
+            billingProfileName: string;
+            reason: string;
         };
         NotificationMaintainerApplicationToReview: {
             /**
@@ -4556,7 +4635,7 @@ export interface components {
             /** @enum {string} */
             status: "UNREAD" | "READ";
             /** @enum {string} */
-            type: "MAINTAINER_APPLICATION_TO_REVIEW" | "MAINTAINER_COMMITTEE_APPLICATION_CREATED" | "CONTRIBUTOR_INVOICE_REJECTED" | "CONTRIBUTOR_REWARD_CANCELED" | "CONTRIBUTOR_REWARD_RECEIVED" | "CONTRIBUTOR_REWARDS_PAID" | "CONTRIBUTOR_PROJECT_APPLICATION_ACCEPTED" | "GLOBAL_BILLING_PROFILE_VERIFICATION_FAILED";
+            type: "MAINTAINER_APPLICATION_TO_REVIEW" | "MAINTAINER_COMMITTEE_APPLICATION_CREATED" | "CONTRIBUTOR_INVOICE_REJECTED" | "CONTRIBUTOR_REWARD_CANCELED" | "CONTRIBUTOR_REWARD_RECEIVED" | "CONTRIBUTOR_REWARDS_PAID" | "CONTRIBUTOR_PROJECT_APPLICATION_ACCEPTED" | "GLOBAL_BILLING_PROFILE_REMINDER" | "GLOBAL_BILLING_PROFILE_VERIFICATION_REJECTED" | "GLOBAL_BILLING_PROFILE_VERIFICATION_CLOSED";
             data: components["schemas"]["NotificationPageItemResponseData"];
         };
         NotificationPageItemResponseData: {
@@ -4567,7 +4646,9 @@ export interface components {
             contributorRewardReceived?: components["schemas"]["NotificationContributorRewardReceived"];
             contributorRewardsPaid?: components["schemas"]["NotificationContributorRewardsPaid"];
             contributorProjectApplicationAccepted?: components["schemas"]["NotificationContributorProjectApplicationAccepted"];
-            globalBillingProfileVerificationFailed?: components["schemas"]["NotificationGlobalBillingProfileVerificationFailed"];
+            globalBillingProfileReminder?: components["schemas"]["NotificationGlobalBillingProfileReminder"];
+            globalBillingProfileVerificationRejected?: components["schemas"]["NotificationGlobalBillingProfileVerificationRejected"];
+            globalBillingProfileVerificationClosed?: components["schemas"]["NotificationGlobalBillingProfileVerificationClosed"];
         };
         NotificationPageResponse: {
             /** Format: int32 */
@@ -9609,6 +9690,49 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProgramTransactionStatListResponse"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnlyDustError"];
+                };
+            };
+        };
+    };
+    getProgramProjects: {
+        parameters: {
+            query?: {
+                pageIndex?: number;
+                pageSize?: number;
+            };
+            header?: never;
+            path: {
+                programId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Program projects page */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProgramProjectsPageResponse"];
                 };
             };
             /** @description Unauthorized */
