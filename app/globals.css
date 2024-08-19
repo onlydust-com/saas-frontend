@@ -125,6 +125,12 @@
     --interactions-black-active: var(--_Black);
     --interactions-black-disabled: var(--_Black100);
 
+    /*  --- Chart ---  */
+    --_Chart1: #0B0CCB;
+    --_Chart2: var(--_Blue500);
+    --_Chart3: var(--_Blue600);
+    --_Chart4: var(--_Grey300);
+
 
     /* --------------- Business --------------- */
   }

@@ -8,7 +8,7 @@ type Story = StoryObj<typeof CardFinancial>;
 
 const defaultProps: CardFinancialPort<"div"> = {
   title: "Available",
-  amount: "1,000",
+  amount: 1000,
   currency: "USD",
   avatarGroup: {
     avatars: [
@@ -43,8 +43,11 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex h-[164px] w-[242px] items-center gap-2">
-        <CardFinancial {...defaultProps} {...args} />
+      <div className="flex h-[164px] w-full items-center gap-2">
+        <CardFinancial {...defaultProps} {...args} color={"chart-1"} />
+        <CardFinancial {...defaultProps} {...args} color={"chart-2"} />
+        <CardFinancial {...defaultProps} {...args} color={"chart-3"} />
+        <CardFinancial {...defaultProps} {...args} color={"chart-4"} />
       </div>
     );
   },

@@ -3,7 +3,9 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
 import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
 
-interface Variants {}
+interface Variants {
+  color: "chart-1" | "chart-2" | "chart-3" | "chart-4";
+}
 
 interface ClassNames {
   base: string;
@@ -14,9 +16,9 @@ export interface CardFinancialPort<C extends ElementType> extends Partial<Varian
   classNames?: Partial<ClassNames>;
   htmlProps?: ComponentPropsWithoutRef<C>;
   title: "Available" | "Granted" | "Rewarded";
-  amount: string;
+  amount: number;
   currency: string;
   avatarGroup?: AvatarGroupPort<"div">;
   cta?: ButtonPort<"button">;
-  size: "m" | "xl";
+  size?: "m" | "xl";
 }

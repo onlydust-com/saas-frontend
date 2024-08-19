@@ -20,9 +20,10 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   avatarGroup,
   cta,
   size = "xl",
+  color = "chart-1",
 }: CardFinancialPort<C>) {
   const Component = as || "div";
-  const slots = CardFinancialDefaultVariants({ size });
+  const slots = CardFinancialDefaultVariants({ size, color });
 
   const isSizeM = size === "m";
 
@@ -63,7 +64,6 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
           <Button
             size={isSizeM ? "s" : "l"}
             variant="secondary-light"
-            canInteract={false}
             classNames={{
               label: "leading-4",
             }}

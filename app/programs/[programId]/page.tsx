@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { ProgramDetailsPanelProvider } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
@@ -35,12 +36,11 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   });
 
   const renderFinancialView = useMemo(() => {
-    if (toggleFinancialViews === BUDGET_CHART) {
-      return <FinancialColumnChart />;
+    if (toggleFinancialViews === BUDGET_AVAILABLE) {
+      return <BudgetAvailableCards />;
     }
 
-    // TODO @Mehdi - Implement the cards view
-    return <div>cards</div>;
+    return <FinancialColumnChart />;
   }, [toggleFinancialViews]);
 
   function handleToggleFinancialViews(view: typeof BUDGET_AVAILABLE | typeof BUDGET_CHART) {
