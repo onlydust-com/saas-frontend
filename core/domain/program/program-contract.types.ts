@@ -62,3 +62,21 @@ export type GetProgramTransactionsStatsPortParams = HttpClientParameters<{
 }>;
 
 export type GetProgramTransactionsStatsPortResponse = HttpStorageResponse<GetProgramTransactionsStatsResponse>;
+
+/* ------------------------ Get Program Projects ------------------------ */
+
+export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];
+export type GetProgramProjectsModel = Omit<GetProgramProjectsResponse, "projects"> & {
+  projects: ProgramListItemInterface[];
+};
+
+type GetProgramProjectsQueryParams = operations["getProgramProjects"]["parameters"]["query"];
+
+type GetProgramProjectsPathParams = operations["getProgramProjects"]["parameters"]["path"];
+
+export type GetProgramProjectsPortParams = HttpClientParameters<{
+  QueryParams: GetProgramProjectsQueryParams;
+  PathParams: GetProgramProjectsPathParams;
+}>;
+
+export type GetProgramProjectsPortResponse = HttpStorageResponse<GetProgramProjectsResponse>;
