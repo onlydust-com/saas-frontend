@@ -17,12 +17,14 @@ export interface UseSidePanel {
   name: string;
   isOpen: boolean;
   open: () => void;
-  close: () => void;
+  close: (current?: boolean) => void;
+  back: () => void;
   Panel: (p: PropsWithChildren) => JSX.Element;
 }
 
 export interface SidePanelRef {
   open: (config?: SidePanelConfig) => void;
-  close: () => void;
+  close: (current?: boolean) => void;
+  back: () => void;
   isOpen: boolean;
 }

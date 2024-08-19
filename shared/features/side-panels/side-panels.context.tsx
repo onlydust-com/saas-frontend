@@ -36,8 +36,10 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
   const container = useRef(null);
   const isTablet = useIsTablet("lower");
 
-  function closePanel(name: string) {
+  function closePanel(name?: string) {
     if (name) {
+      setOpenedPanels(openedPanels.filter(panel => panel !== name));
+    } else {
       setOpenedPanels([]);
     }
   }

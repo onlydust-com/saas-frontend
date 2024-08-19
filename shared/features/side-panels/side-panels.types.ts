@@ -10,8 +10,8 @@ export interface SidePanelsContextInterface {
   isOpen: (name: string) => boolean;
   isOpenLast: (name: string) => boolean;
   open: (name: string, config?: SidePanelConfig) => void;
-  close: (name: string) => void;
-  back: (name: string) => void;
+  close: (name?: string) => void;
+  back: () => void;
   container: RefObject<Element>;
   getPanelIndex: (name: string) => number;
   config: SidePanelConfig;

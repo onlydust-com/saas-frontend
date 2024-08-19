@@ -1,7 +1,7 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { useSidePanelGroup } from "@/shared/features/side-panel-group/side-panel-group.context";
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 
 import { SidePanelHeaderProps } from "./side-panel-header.types";
 
@@ -13,12 +13,12 @@ export function SidePanelHeader({
   endContent,
   onClose,
 }: SidePanelHeaderProps) {
-  const { onBack, closePanel } = useSidePanelGroup();
+  const { back, close } = useSidePanelsContext();
   const showStartContent = canGoBack || !!startContent;
   const showEndContent = canClose || !!endContent;
 
   function handleClose() {
-    closePanel();
+    close();
     onClose?.();
   }
 
@@ -32,7 +32,7 @@ export function SidePanelHeader({
               variant="secondary-light"
               size="l"
               startIcon={{ name: "ri-arrow-left-s-line" }}
-              onClick={() => onBack()}
+              onClick={() => back()}
             />
           )}
           {startContent}

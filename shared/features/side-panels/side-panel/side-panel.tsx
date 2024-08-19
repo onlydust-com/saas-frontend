@@ -17,7 +17,7 @@ export const SidePanel = forwardRef(function SidePanel(
   { children, name, classNames }: SidePanelProps,
   ref: ForwardedRef<SidePanelRef>
 ) {
-  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config } = useSidePanelsContext();
+  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back } = useSidePanelsContext();
 
   const isTablet = useIsTablet("lower");
 
@@ -35,9 +35,10 @@ export const SidePanel = forwardRef(function SidePanel(
     return {
       open: (config?: SidePanelConfig) => open(name, config),
       isOpen: isOpen(name),
-      close: () => close(name),
+      close: current => close(current ? name : undefined),
+      back: () => back(),
     };
-  }, [open, close, isOpen, name]);
+  }, [open, close, isOpen, name, back]);
 
   const animateKey = isOpenLast(name) ? "isOpen" : "isClosed";
 
@@ -98,7 +99,8 @@ export const useSidePanel = (props: Omit<SidePanelProps, "children">, config?: S
       </SidePanel>
     ),
     open: () => ref.current?.open(config),
-    close: () => ref.current?.close(),
+    close: current => ref.current?.close(current),
+    back: () => ref.current?.back(),
     isOpen: ref.current?.isOpen || false,
     name: props.name,
   };
