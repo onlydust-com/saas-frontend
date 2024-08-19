@@ -29,7 +29,7 @@ export function PrimaryNavigationDesktop() {
   const mounted = useRef(false);
   const isLowerThanLaptop = useIsLaptop("lower");
   const isLargerThanLaptop = useIsLaptop("greater");
-  const [folded, setFolded] = useState(true);
+  const [folded, setFolded] = useState(false);
 
   function onFold(value: boolean) {
     setFolded(value);
@@ -52,7 +52,11 @@ export function PrimaryNavigationDesktop() {
   const navSize = folded ? SIZES.folded : SIZES.unfolded;
 
   return (
-    <AnimatedColumn width={navSize} initialWidth={SIZES.folded} className="flex h-full flex-col justify-between gap-3">
+    <AnimatedColumn
+      width={navSize}
+      initialWidth={SIZES.unfolded}
+      className="flex h-full flex-col justify-between gap-3"
+    >
       <MenuContainer>
         <HeaderMenu isFolded={folded} onFoldChange={onFold} />
       </MenuContainer>

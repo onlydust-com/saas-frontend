@@ -14,7 +14,7 @@ export function AnimatedColumn({ width, initialWidth, children, className, onCli
     onChangeWidth();
   }, [width, onChangeWidth]);
 
-  if (width) {
+  if (!width && width !== 0) {
     return (
       <div
         onClick={onClick}
