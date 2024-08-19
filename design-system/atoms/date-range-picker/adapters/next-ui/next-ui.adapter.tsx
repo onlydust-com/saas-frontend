@@ -1,5 +1,10 @@
-import { DateRangePicker } from "@nextui-org/react";
-import { ForwardedRef, forwardRef } from "react";
+"use client";
+
+import { getLocalTimeZone, parseDate } from "@internationalized/date";
+import { DateRangePicker, DateValue, RangeValue } from "@nextui-org/react";
+import { ForwardedRef, forwardRef, useEffect, useState } from "react";
+
+import { bootstrap } from "@/core/bootstrap";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -7,16 +12,37 @@ import { DateRangePickerPort } from "../../date-range-picker.types";
 import { DateRangePickerNextUiVariants } from "./next-ui.variants";
 
 export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
-  { id, name, classNames, isError, isDisabled, value, onChange, label, placeholder }: DateRangePickerPort,
+  { id, classNames, isError, isDisabled, value, onChange, label }: DateRangePickerPort,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const slots = DateRangePickerNextUiVariants({ isDisabled, isError });
+
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
+  const [formattedValue, setFormattedValue] = useState<RangeValue<DateValue>>();
+
+  useEffect(() => {
+    if (!value) return;
+
+    setFormattedValue({
+      start: parseDate(dateKernelPort.format(value?.start, "yyyy-MM-dd")),
+      end: parseDate(dateKernelPort.format(value?.end, "yyyy-MM-dd")),
+    });
+  }, [dateKernelPort, value]);
+
+  function handleChange(value: RangeValue<DateValue>) {
+    if (!onChange) return;
+
+    onChange({
+      start: value.start.toDate(getLocalTimeZone()),
+      end: value.end.toDate(getLocalTimeZone()),
+    });
+  }
 
   return (
     <DateRangePicker
       ref={ref}
       id={id}
-      name={name}
       classNames={{
         base: cn(slots.base(), classNames?.base),
         mainWrapper: cn(slots.mainWrapper()),
@@ -32,11 +58,9 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       variant="bordered"
       labelPlacement="outside-left"
       isDisabled={isDisabled}
-      disabled={isDisabled}
       isInvalid={isError}
-      onChange={onChange}
-      value={value}
-      placeholder={placeholder}
+      onChange={handleChange}
+      value={formattedValue}
     />
   );
 });

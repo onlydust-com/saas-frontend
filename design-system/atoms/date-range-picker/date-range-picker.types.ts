@@ -1,6 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
-
-type htmlInputProps = ComponentPropsWithoutRef<"input">;
+import { ReactNode } from "react";
 
 interface Variants {
   isDisabled: boolean;
@@ -13,11 +11,15 @@ interface ClassNames {
   label: string;
 }
 
-export interface DateRangePickerPort extends htmlInputProps, Partial<Variants> {
+interface DateRangePickerValue {
+  start: Date;
+  end: Date;
+}
+
+export interface DateRangePickerPort extends Partial<Variants> {
+  id?: string;
   classNames?: Partial<ClassNames>;
-  value?: string;
-  isError?: boolean;
-  isDisabled?: boolean;
+  onChange?: (value: DateRangePickerValue) => void;
+  value?: DateRangePickerValue;
   label?: ReactNode;
-  placeholder?: string;
 }

@@ -5,7 +5,7 @@ import { DateRangePicker } from "./variants/date-range-picker-default";
 
 type Story = StoryObj<typeof DateRangePicker>;
 
-const defaultProps: DateRangePickerPort<"div"> = {};
+const defaultProps: DateRangePickerPort = {};
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
