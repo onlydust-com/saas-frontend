@@ -1,26 +1,34 @@
-import { useContext } from "react";
-
-import { ProgramDetailsPanelContext } from "@/app/programs/[programId]/_context/program-details-panels/program-details-panels.context";
+import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
+import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions/context/transactions.context";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-export function TransactionsTrigger() {
-  const { transactionPanel } = useContext(ProgramDetailsPanelContext);
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+
+export function TransactionsTrigger({ programId }: { programId: string }) {
+  const { Panel, open, close, isOpen } = useSidePanel({ name: "transaction" });
 
   function togglePanel() {
-    const isPanelOpen = transactionPanel.current?.isPanelOpen();
-    if (isPanelOpen) {
-      transactionPanel.current?.closePanel();
+    if (!isOpen) {
+      open();
     } else {
-      transactionPanel.current?.openPanel();
+      close();
     }
   }
+
   return (
-    <Button
-      variant="secondary-light"
-      translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
-      onClick={togglePanel}
-      size="l"
-    />
+    <>
+      <Button
+        variant="secondary-light"
+        translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
+        onClick={togglePanel}
+        size="l"
+      />
+      <Panel>
+        <TransactionsContextProvider programId={programId}>
+          <TransactionsSidepanel />
+        </TransactionsContextProvider>
+      </Panel>
+    </>
   );
 }
