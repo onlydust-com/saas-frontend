@@ -28,11 +28,11 @@ export function AnimatedColumnGroupProvider({ children, className }: AnimatedCol
         }
       });
 
-      const autoWidthElements = child.filter(([_, width]) => width === "auto");
-      const fixedWidthElements = child.filter(([_, width]) => width !== "auto");
-      const totalFixedWidth = fixedWidthElements.reduce((acc, [_, width]) => acc + (width as number), 0);
+      const autoWidthElements = child.filter(([, width]) => width === "auto");
+      const fixedWidthElements = child.filter(([, width]) => width !== "auto");
+      const totalFixedWidth = fixedWidthElements.reduce((acc, [, width]) => acc + (width as number), 0);
 
-      autoWidthElements.forEach(([el, _]) => {
+      autoWidthElements.forEach(([el]) => {
         el.setAttribute("style", `width: ${containerWidth - totalFixedWidth}px`);
       });
 

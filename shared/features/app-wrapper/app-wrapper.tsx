@@ -83,9 +83,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
       <ImpersonationBanner />
       <AnimatedColumnGroup className="gap-3">
         <PrimaryNavigation />
-        <AnimatedColumn autoWidth={true} className="size-full overflow-hidden">
-          {children}
-        </AnimatedColumn>
+        <AnimatedColumn className="size-full overflow-hidden">{children}</AnimatedColumn>
       </AnimatedColumnGroup>
     </div>
   );

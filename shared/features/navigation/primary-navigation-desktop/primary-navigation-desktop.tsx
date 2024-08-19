@@ -52,12 +52,7 @@ export function PrimaryNavigationDesktop() {
   const navSize = folded ? SIZES.folded : SIZES.unfolded;
 
   return (
-    <AnimatedColumn
-      autoWidth={false}
-      width={navSize}
-      initialWidth={SIZES.folded}
-      className="flex h-full flex-col justify-between gap-3"
-    >
+    <AnimatedColumn width={navSize} initialWidth={SIZES.folded} className="flex h-full flex-col justify-between gap-3">
       <MenuContainer>
         <HeaderMenu isFolded={folded} onFoldChange={onFold} />
       </MenuContainer>

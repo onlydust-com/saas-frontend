@@ -92,7 +92,7 @@ export function SidePanelGroupProvider({
         panelWidth: config.openedWidth,
       }}
     >
-      <AnimatedColumn autoWidth={false} width={panelSize} initialWidth={config.closedWidth} className="h-full">
+      <AnimatedColumn width={panelSize} initialWidth={config.closedWidth} className="h-full">
         {children}
       </AnimatedColumn>
     </SidePanelGroupContext.Provider>

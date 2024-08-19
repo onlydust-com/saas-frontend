@@ -20,16 +20,10 @@ export default function TestPage() {
   return (
     <div className={"flex h-full w-full flex-col gap-3 overflow-hidden"}>
       <AnimatedColumnGroup>
-        <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
+        <AnimatedColumn className="h-full flex-1 overflow-auto bg-container-2">
           <div className={"h-[5000px] bg-pink-900"}></div>
         </AnimatedColumn>
-        <AnimatedColumn
-          autoWidth={false}
-          width={panelSize}
-          initialWidth={200}
-          className="h-full bg-green-900"
-          onClick={onSizeChange}
-        >
+        <AnimatedColumn width={panelSize} initialWidth={200} className="h-full bg-green-900" onClick={onSizeChange}>
           SIDE PANEL
         </AnimatedColumn>
       </AnimatedColumnGroup>

@@ -7,14 +7,14 @@ import { cn } from "@/shared/helpers/cn";
 
 import { AnimatedColumnProps } from "./animated-column.types";
 
-export function AnimatedColumn({ width, autoWidth, initialWidth, children, className, onClick }: AnimatedColumnProps) {
+export function AnimatedColumn({ width, initialWidth, children, className, onClick }: AnimatedColumnProps) {
   const { onChangeWidth } = useAnimatedColumnGroup();
 
   useEffect(() => {
     onChangeWidth();
   }, [width, onChangeWidth]);
 
-  if (autoWidth) {
+  if (width) {
     return (
       <div
         onClick={onClick}
