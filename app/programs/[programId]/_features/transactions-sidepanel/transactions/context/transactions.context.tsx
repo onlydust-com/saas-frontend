@@ -87,7 +87,7 @@ export function TransactionsContextProvider({ children, programId }: Transaction
       value={{
         programId,
         transactionsStats: transactionsStats?.stats,
-        queryParams,
+        queryParams: debouncedQueryParams,
         filters: {
           values: filters,
           isCleared,
