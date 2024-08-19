@@ -1,5 +1,13 @@
 {
   "header": {
     "title": "Program"
+  },
+  "financial": {
+    "title": "Financials",
+    "buttons": {
+      "budgetAvailable": "Budget available",
+      "budgetChart": "Budget chart",
+      "seeTransactions": "See transactions"
+    }
   }
 }
