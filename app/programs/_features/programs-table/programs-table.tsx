@@ -1,10 +1,9 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
-import { ProgramProjectInterface } from "@/core/domain/program/models/program-project-model";
+import { ProgramListItemInterface } from "@/core/domain/program/models/program-list-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -13,46 +12,30 @@ import { AvatarDescription } from "@/design-system/molecules/avatar-description"
 import { AvatarGroupDescription } from "@/design-system/molecules/avatar-group-description";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProjectsTable() {
-  const { programId } = useParams();
-
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramProjects({
-    pathParams: {
-      programId: typeof programId === "string" ? programId : "",
-    },
-    options: {
-      enabled: Boolean(programId),
-    },
-  });
-  const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
+export function ProgramsTable() {
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetPrograms({});
+  const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const columnHelper = createColumnHelper<ProgramProjectInterface>();
+  const columnHelper = createColumnHelper<ProgramListItemInterface>();
 
   const columns = [
     columnHelper.accessor("name", {
-      header: () => <Translate token={"programs:details.projects.table.columns.projectName"} />,
-      cell: info => (
-        <AvatarDescription
-          avatarProps={{
-            src: info.row.original.logoUrl,
-            shape: "square",
-          }}
-          labelProps={{ children: info.getValue() }}
-        />
-      ),
+      header: () => <Translate token={"programs:list.content.table.columns.programName"} />,
+      cell: info => <Typo size={"s"}>{info.getValue()}</Typo>,
     }),
-
     columnHelper.accessor("leads", {
-      header: () => <Translate token={"programs:details.projects.table.columns.projectLead"} />,
+      header: () => <Translate token={"programs:list.content.table.columns.programLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
 
         if (!leads.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return "N/A";
         }
 
         if (leads.length === 1) {
@@ -85,9 +68,8 @@ export function ProjectsTable() {
         );
       },
     }),
-
     columnHelper.accessor("totalAvailable", {
-      header: () => <Translate token={"programs:details.projects.table.columns.availableBudgets"} />,
+      header: () => <Translate token={"programs:list.content.table.columns.budgetsAvailable"} />,
       cell: info => {
         const value = info.getValue();
 
@@ -99,7 +81,7 @@ export function ProjectsTable() {
         const totalPerCurrency = value.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return "N/A";
         }
 
         if (totalPerCurrency.length === 1) {
@@ -141,29 +123,14 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("averageRewardUsdAmount", {
-      header: () => <Translate token={"programs:details.projects.table.columns.averageRewardAmount"} />,
+    columnHelper.accessor("projectCount", {
+      header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
-        const { amount, code } = moneyKernelPort.format({
-          amount: info.getValue(),
-          currency: moneyKernelPort.getCurrency("USD"),
-          options: {
-            notation: "compact",
-          },
-          uppercase: true,
-        });
-
-        return (
-          <TableCellKpi>
-            {amount} {code}
-          </TableCellKpi>
-        );
+        return <TableCellKpi>{info.getValue()}</TableCellKpi>;
       },
     }),
-
     columnHelper.accessor("totalGranted", {
-      header: () => <Translate token={"programs:details.projects.table.columns.totalGrantedAmount"} />,
+      header: () => <Translate token={"programs:list.content.table.columns.granted"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
           amount: info.getValue().totalUsdEquivalent,
@@ -181,9 +148,8 @@ export function ProjectsTable() {
         );
       },
     }),
-
     columnHelper.accessor("totalRewarded", {
-      header: () => <Translate token={"programs:details.projects.table.columns.totalRewardedAmount"} />,
+      header: () => <Translate token={"programs:list.content.table.columns.rewarded"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
           amount: info.getValue().totalUsdEquivalent,
@@ -201,61 +167,23 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("percentUsedBudget", {
-      header: () => <Translate token={"programs:details.projects.table.columns.budgetUsed"} />,
-      cell: info => {
-        const value = info.getValue() ?? 0;
-
-        return <TableCellKpi>{value} %</TableCellKpi>;
-      },
-    }),
-
-    columnHelper.accessor("mergedPrCount", {
-      header: () => <Translate token={"programs:details.projects.table.columns.prsMerged"} />,
-      cell: info => {
-        const { value, trend } = info.getValue() ?? {};
-
-        return <TableCellKpi trend={trend}>{value}</TableCellKpi>;
-      },
-    }),
-
-    columnHelper.accessor("newContributorsCount", {
-      header: () => <Translate token={"programs:details.projects.table.columns.onboardedDevs"} />,
-      cell: info => {
-        const { value, trend } = info.getValue() ?? {};
-
-        return <TableCellKpi trend={trend}>{value}</TableCellKpi>;
-      },
-    }),
-    columnHelper.accessor("activeContributorsCount", {
-      header: () => <Translate token={"programs:details.projects.table.columns.activeDevs"} />,
-      cell: info => {
-        const { value, trend } = info.getValue() ?? {};
-
-        return <TableCellKpi trend={trend}>{value}</TableCellKpi>;
-      },
-    }),
-
     columnHelper.display({
       id: "actions",
-      header: () => <Translate token={"programs:details.projects.table.columns.actions"} />,
-      cell: () => (
-        <div className={"flex gap-1"}>
-          <Button variant={"secondary-light"}>
-            <Translate token={"programs:details.projects.table.rows.grant"} />
-          </Button>
-
-          <Button variant={"secondary-light"}>
-            <Translate token={"programs:details.projects.table.rows.seeDetail"} />
-          </Button>
-        </div>
+      header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
+      cell: info => (
+        <Button
+          as={BaseLink}
+          htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
+          variant={"secondary-light"}
+        >
+          <Translate token={"programs:list.content.table.rows.seeProgram"} />
+        </Button>
       ),
     }),
   ];
 
   const table = useReactTable({
-    data: projects,
+    data: programs,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -274,7 +202,7 @@ export function ProjectsTable() {
         }}
         rows={table.getRowModel().rows}
         classNames={{
-          base: "min-w-[1620px]",
+          base: "min-w-[1200px]",
         }}
       />
     </ScrollView>
