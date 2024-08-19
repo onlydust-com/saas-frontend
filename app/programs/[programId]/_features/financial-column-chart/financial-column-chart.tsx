@@ -15,7 +15,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const { programId = "" } = useParams<{ programId: string }>();
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramsTransactionsStats({
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
     pathParams: { programId },
   });
 
