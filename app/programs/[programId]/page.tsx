@@ -83,58 +83,58 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         ],
       }}
     >
-      <AnimatedColumn className="flex h-full flex-1 flex-col overflow-auto">
+      <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
         <div className="h-auto">
-          <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center justify-start gap-2">
-                <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
-                <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
-                  <Button
-                    variant="secondary-light"
-                    startIcon={{ name: "ri-money-dollar-circle-line" }}
-                    translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-                    onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
-                    isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
-                  />
-                  <Button
-                    variant="secondary-light"
-                    startIcon={{ name: "ri-bar-chart-2-line" }}
-                    translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-                    onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
-                    isDisabled={toggleFinancialViews === BUDGET_CHART}
-                  />
-                </Paper>
-              </div>
-              <TransactionsTrigger programId={programId} />
-            </div>
-
-            {renderFinancialView}
-          </Paper>
-          <h1>Content of Program Page : {data?.name}</h1>
-
           <PageContent>
-            <div className="grid gap-3">
-              <header className={"flex items-center justify-between"}>
-                <Typo
-                  variant={"brand"}
-                  size={"2xl"}
-                  translate={{
-                    token: "programs:details.projects.title",
-                  }}
-                  color={"text-1"}
-                />
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center justify-start gap-2">
+                  <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
+                  <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
+                    <Button
+                      variant="secondary-light"
+                      startIcon={{ name: "ri-money-dollar-circle-line" }}
+                      translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
+                      onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
+                      isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
+                    />
+                    <Button
+                      variant="secondary-light"
+                      startIcon={{ name: "ri-bar-chart-2-line" }}
+                      translate={{ token: "programs:details.financial.buttons.budgetChart" }}
+                      onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
+                      isDisabled={toggleFinancialViews === BUDGET_CHART}
+                    />
+                  </Paper>
+                </div>
+                <TransactionsTrigger programId={programId} />
+              </div>
 
-                <Button variant={"secondary-light"} size={"l"}>
-                  <Translate token={"programs:details.projects.grantProject"} />
-                </Button>
-              </header>
-
-              <ProjectsTable programId={programId} />
+              {renderFinancialView}
             </div>
           </PageContent>
-          <ProjectButtonMock />
         </div>
+        <PageContent>
+          <div className="grid gap-3">
+            <header className={"flex items-center justify-between"}>
+              <Typo
+                variant={"brand"}
+                size={"2xl"}
+                translate={{
+                  token: "programs:details.projects.title",
+                }}
+                color={"text-1"}
+              />
+
+              <Button variant={"secondary-light"} size={"l"}>
+                <Translate token={"programs:details.projects.grantProject"} />
+              </Button>
+            </header>
+
+            <ProjectsTable programId={programId} />
+          </div>
+        </PageContent>
+        <ProjectButtonMock />
       </AnimatedColumn>
     </PageWrapper>
   );
