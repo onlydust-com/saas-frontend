@@ -32,15 +32,15 @@ export type GetProgramByIdPortParams = HttpClientParameters<{
 
 /* --------------------- Get Program Transactions Stats -------------------- */
 
-export type ProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
+export type GetProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
 
-type ProgramTransactionsStatsQueryParams = operations["getProgramTransactionsStats"]["parameters"]["query"];
+type GetProgramTransactionsStatsQueryParams = operations["getProgramTransactionsStats"]["parameters"]["query"];
 
-type ProgramTransactionsStatsPathParams = operations["getProgramTransactionsStats"]["parameters"]["path"];
+type GetProgramTransactionsStatsPathParams = operations["getProgramTransactionsStats"]["parameters"]["path"];
 
-export type ProgramTransactionsStatsPortParams = HttpClientParameters<{
-  QueryParams: ProgramTransactionsStatsQueryParams;
-  PathParams: ProgramTransactionsStatsPathParams;
+export type GetProgramTransactionsStatsPortParams = HttpClientParameters<{
+  QueryParams: GetProgramTransactionsStatsQueryParams;
+  PathParams: GetProgramTransactionsStatsPathParams;
 }>;
 
-export type ProgramTransactionsStatsPortResponse = HttpStorageResponse<ProgramTransactionsStatsResponse>;
+export type GetProgramTransactionsStatsPortResponse = HttpStorageResponse<GetProgramTransactionsStatsResponse>;

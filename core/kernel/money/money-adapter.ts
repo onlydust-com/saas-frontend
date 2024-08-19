@@ -91,13 +91,13 @@ export class MoneyAdapter implements MoneyFacadePort {
     FIAT: ["USD", "EUR"],
   };
 
-  isFiat(currency?: Currency) {
+  isFiat = (currency?: Currency) => {
     if (!currency) return false;
 
     return this.currencyCodeMapping.FIAT.includes(currency.code);
-  }
+  };
 
-  private formatAmount({
+  private formatAmount = ({
     amount,
     decimals = 0,
     options = {},
@@ -107,7 +107,7 @@ export class MoneyAdapter implements MoneyFacadePort {
     decimals?: number;
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
-  }) {
+  }) => {
     const { notation } = options;
 
     // Need this to have fixed decimal places for compact notation
@@ -119,9 +119,9 @@ export class MoneyAdapter implements MoneyFacadePort {
     })
       .format(amount)
       .toLowerCase();
-  }
+  };
 
-  format({
+  format = ({
     amount,
     currency,
     options,
@@ -131,7 +131,7 @@ export class MoneyAdapter implements MoneyFacadePort {
     currency?: Currency;
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
-  }) {
+  }) => {
     if (amount === null || amount === undefined || !currency) {
       return {
         amount: "N/A",
@@ -143,9 +143,9 @@ export class MoneyAdapter implements MoneyFacadePort {
       amount: this.formatAmount({ amount, decimals: currency.decimals, options, locale }),
       code: currency.code,
     };
-  }
+  };
 
-  getCurrency(code: Currency["code"]) {
+  getCurrency = (code: Currency["code"]) => {
     return this.currencies[code];
-  }
+  };
 }
