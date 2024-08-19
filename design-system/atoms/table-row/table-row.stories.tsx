@@ -87,10 +87,10 @@ const columns = [
     cell: info => <TableCellKpi>{info.getValue()}</TableCellKpi>,
   }),
   columnHelper.accessor("status", {
-    cell: info => <TableCellKpi state={"positive"}>{info.getValue()}</TableCellKpi>,
+    cell: info => <TableCellKpi trend={"UP"}>{info.getValue()}</TableCellKpi>,
   }),
   columnHelper.accessor("progress", {
-    cell: info => <TableCellKpi state={"negative"}>{info.getValue()}</TableCellKpi>,
+    cell: info => <TableCellKpi trend={"DOWN"}>{info.getValue()}</TableCellKpi>,
   }),
 ];
 
