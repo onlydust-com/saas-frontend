@@ -7,7 +7,7 @@ import { CardFinancial } from "./variants/card-financial-default";
 type Story = StoryObj<typeof CardFinancial>;
 
 const defaultProps: CardFinancialPort<"div"> = {
-  title: "Available",
+  title: { token: "programs:budgetAvailable.available.title" },
   amount: 1000,
   currency: "USD",
   avatarGroup: {
