@@ -11,7 +11,7 @@ interface ClassNames {
   label: string;
 }
 
-interface DateRangePickerValue {
+export interface DateRangePickerValue {
   start: Date;
   end: Date;
 }

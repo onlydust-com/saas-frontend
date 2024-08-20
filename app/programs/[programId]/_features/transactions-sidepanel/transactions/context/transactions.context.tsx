@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
 
 import {
   DEFAULT_FILTER,
@@ -13,7 +14,6 @@ import {
   TransactionsContextReturn,
 } from "./transactions.context.types";
 
-// TODO: @NeoxAzrot add range date picker
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   programId: "",
   transactionsStats: [],
@@ -42,6 +42,8 @@ export function TransactionsContextProvider({ children, programId }: Transaction
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
 
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
   useDebounce(
     () => {
       setDebouncedQueryParams(queryParams);
@@ -62,13 +64,15 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     setQueryParams({
       search: filters.search || undefined,
       types: filters.types.length ? filters.types : undefined,
+      fromDate: filters.dateRange?.start ? dateKernelPort.format(filters.dateRange.start, "yyyy-MM-dd") : undefined,
+      toDate: filters.dateRange?.end ? dateKernelPort.format(filters.dateRange.end, "yyyy-MM-dd") : undefined,
     });
-  }, [filters]);
+  }, [dateKernelPort, filters]);
 
   const isCleared = useMemo(() => JSON.stringify(filters) == JSON.stringify(DEFAULT_FILTER), [filters]);
 
   const filtersCount = useMemo(() => {
-    return filters.types.length;
+    return filters.types.length + (filters.dateRange ? 1 : 0);
   }, [filters]);
 
   const setFilter = (filter: Partial<TransactionsContextFilter>) => {
