@@ -23,9 +23,6 @@ export class ProgramProject implements ProgramProjectInterface {
   totalAvailable!: ProgramProjectResponse["totalAvailable"];
   totalGranted!: ProgramProjectResponse["totalGranted"];
   totalRewarded!: ProgramProjectResponse["totalRewarded"];
-  categories!: ProgramProjectResponse["categories"];
-  languages!: ProgramProjectResponse["languages"];
-  shortDescription!: ProgramProjectResponse["shortDescription"];
 
   constructor(props: ProgramProjectResponse) {
     Object.assign(this, props);
