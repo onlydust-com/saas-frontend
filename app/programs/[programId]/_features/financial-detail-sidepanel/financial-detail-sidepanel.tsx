@@ -47,8 +47,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               currency: currency.currency,
               usdEquivalent: total.totalUsdEquivalent,
             }}
-            // TODO @Mehdi use budgetPercentage once backend ready
-            budgetPercentage={10}
+            budgetPercentage={currency.ratio * 100}
           />
         ))}
       </div>
