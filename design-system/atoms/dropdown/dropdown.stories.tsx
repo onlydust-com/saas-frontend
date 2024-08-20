@@ -1,25 +1,31 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 
 import { DropdownPort } from "./dropdown.types";
 import { Dropdown } from "./variants/dropdown-default";
 
 type Story = StoryObj<typeof Dropdown>;
 
-const defaultProps: DropdownPort<"div"> = {
+const defaultProps: DropdownPort = {
   items: [
     {
       key: "item1",
-      children: "item1",
+      label: "item1",
+      startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+      endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
     },
     {
       key: "item2",
-      children: "item2",
+      label: "item2",
+      startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+      endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
     },
     {
       key: "item3",
-      children: "item3",
+      label: "item3",
     },
   ],
 };
@@ -43,10 +49,18 @@ export const Default: Story = {
     },
   },
   render: args => {
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
     return (
       <div className="flex w-full items-center gap-2">
-        <Dropdown {...defaultProps} {...args}>
-          <Button>Open dropdown</Button>
+        <Dropdown
+          {...defaultProps}
+          {...args}
+          isMultipleSelection={false}
+          selectedKeys={selectedKeys}
+          onChange={keys => setSelectedKeys(keys)}
+          multipleSelectionCountLabel={"items selected"}
+        >
+          {({ label }) => <Button>{label || "Open dropdown"}</Button>}
         </Dropdown>
       </div>
     );

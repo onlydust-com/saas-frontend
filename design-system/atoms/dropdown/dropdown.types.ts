@@ -1,5 +1,4 @@
-import { DropdownItemProps, DropdownMenuProps, DropdownProps } from "@nextui-org/react";
-import { ElementType, PropsWithChildren } from "react";
+import { ReactNode } from "react";
 
 interface Variants {}
 
@@ -8,16 +7,22 @@ interface ClassNames {
   content: string;
 }
 
-type Base = Partial<Omit<DropdownProps, "children">>;
-type MenuProps = Partial<Omit<DropdownMenuProps, "children">>;
-export interface DropdownItemType extends DropdownItemProps {
+export interface DropdownItemType {
   isError?: boolean;
   isWarning?: boolean;
+  key: string;
+  label: ReactNode;
+  startContent?: ReactNode;
+  endContent?: ReactNode;
+  className?: string;
 }
 
-export interface DropdownPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren, Base {
-  as?: C;
+export interface DropdownPort extends Partial<Variants> {
   items: DropdownItemType[];
-  MenuProps?: MenuProps;
   classNames?: Partial<ClassNames>;
+  selectedKeys?: string[];
+  onChange?: (keys: string[], data: DropdownItemType[]) => void;
+  children?: (p: { label?: string }) => ReactNode;
+  isMultipleSelection?: boolean;
+  multipleSelectionCountLabel?: string;
 }
