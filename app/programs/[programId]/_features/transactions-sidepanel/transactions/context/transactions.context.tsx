@@ -1,4 +1,3 @@
-import { keepPreviousData } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
@@ -55,7 +54,6 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     pathParams: { programId },
     queryParams: debouncedQueryParams,
     options: {
-      placeholderData: keepPreviousData,
       enabled: !!programId,
     },
   });
