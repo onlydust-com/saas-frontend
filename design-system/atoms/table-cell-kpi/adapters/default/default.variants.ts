@@ -6,17 +6,38 @@ export const TableCellKpiDefaultVariants = tv({
     icon: "text-text-2",
   },
   variants: {
-    state: {
-      positive: {
+    inverted: {
+      true: "",
+    },
+    trend: {
+      UP: {
         icon: "text-label-green",
       },
-      negative: {
+      DOWN: {
         icon: "text-label-red",
       },
-      neutral: {
+      STABLE: {
         icon: "text-text-2",
       },
     },
   },
-  defaultVariants: {},
+  compoundVariants: [
+    {
+      inverted: true,
+      trend: "UP",
+      class: {
+        icon: "text-label-red",
+      },
+    },
+    {
+      inverted: true,
+      trend: "DOWN",
+      class: {
+        icon: "text-label-green",
+      },
+    },
+  ],
+  defaultVariants: {
+    inverted: false,
+  },
 });

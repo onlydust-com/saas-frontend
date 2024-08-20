@@ -17,7 +17,7 @@ export default function Home() {
         ]}
       />
       <AnimatedColumnGroup>
-        <AnimatedColumn autoWidth={true} className="h-full flex-1 overflow-auto bg-container-2">
+        <AnimatedColumn className="h-full flex-1 overflow-auto bg-container-2">
           <div className={"h-[5000px]"}>CONTENT</div>
         </AnimatedColumn>
         <TestSidePanel />

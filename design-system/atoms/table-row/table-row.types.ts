@@ -7,7 +7,7 @@ interface ClassNames {
   cell: string;
 }
 
-interface Row extends ReactTableRow<unknown> {
+export interface Row extends ReactTableRow<unknown> {
   // Includes the following
   // id: string;
 }

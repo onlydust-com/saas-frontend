@@ -4,35 +4,35 @@ import { IconPort } from "@/design-system/atoms/icon";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { CardTransactionStatus } from "./card-transaction.types";
+import { CardTransactionTypes } from "./card-transaction.types";
 
-export function getComponentsVariants(status: CardTransactionStatus): {
+export function getComponentsVariants(type: CardTransactionTypes): {
   icon: IconPort;
-  statusName: ReactNode;
+  typeName: ReactNode;
 } {
-  const map: Record<CardTransactionStatus, { icon: IconPort; statusName: ReactNode }> = {
-    granted: {
+  const map: Record<CardTransactionTypes, { icon: IconPort }> = {
+    GRANTED: {
       icon: {
         name: "ri-arrow-right-line",
         className: "text-label-blue",
       },
-      statusName: <Translate token="cards:cardTransaction.status.granted" />,
     },
-    allocated: {
+    RECEIVED: {
       icon: {
         name: "ri-arrow-down-line",
         className: "text-label-green",
       },
-      statusName: <Translate token="cards:cardTransaction.status.allocated" />,
     },
-    returned: {
+    RETURNED: {
       icon: {
         name: "ri-arrow-turn-forward-line",
         className: "text-label-red",
       },
-      statusName: <Translate token="cards:cardTransaction.status.returned" />,
     },
   };
 
-  return map[status];
+  return {
+    icon: map[type].icon,
+    typeName: <Translate token={`cards:cardTransaction.types.${type}`} />,
+  };
 }

@@ -1,5 +1,25 @@
 {
   "header": {
     "title": "Program"
+  },
+  "content": {
+    "title": "Program list",
+    "table": {
+      "columns": {
+        "programName": "Program name",
+        "programLeads": "Program leads",
+        "budgetsAvailable": "Budgets available",
+        "projects": "Projects",
+        "granted": "Granted",
+        "rewarded": "Rewarded",
+        "actions": "Actions"
+      },
+      "rows": {
+        "programLead": "Program lead",
+        "leads": "{{count}} leads",
+        "currencies": "{{count}} currencies",
+        "seeProgram": "See program"
+      }
+    }
   }
 }

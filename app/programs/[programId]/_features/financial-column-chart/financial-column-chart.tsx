@@ -1,215 +1,93 @@
-import { ChartFooter } from "@/app/programs/[programId]/_features/financial-column-chart/components/chart-footer/chart-footer";
+import { useParams } from "next/navigation";
 
+import { useFinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart.hooks";
+
+import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+
+import { ChartLegend } from "@/design-system/atoms/chart-legend";
 import { Paper } from "@/design-system/atoms/paper";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
+import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
-  const statsMock = [
-    {
-      date: "August 2024",
-      totalAvailable: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalGranted: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalRewarded: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      transactionCount: 42,
-    },
-    {
-      date: "September 2024",
-      totalAvailable: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalGranted: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalRewarded: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      transactionCount: 42,
-    },
-    {
-      date: "October 2024",
-      totalAvailable: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalGranted: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-      totalRewarded: {
-        totalUsdEquivalent: 100,
-        totalPerCurrency: [
-          {
-            amount: 100,
-            prettyAmount: 0,
-            currency: {
-              id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              code: "USDC",
-              name: "USD Coin",
-              logoUrl: "string",
-              decimals: 0,
-            },
-            usdEquivalent: 100,
-            usdConversionRate: 1.5,
-          },
-        ],
-      },
-    },
-  ];
+  const { programId = "" } = useParams<{ programId: string }>();
+  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
+    pathParams: { programId },
+  });
 
-  const categories = statsMock.map(stat => stat.date);
+  const { stats } = data ?? {};
 
-  const receivedSeries = statsMock.map(stat => stat.totalAvailable.totalUsdEquivalent);
-  const grantedSeries = statsMock.map(stat => stat.totalGranted.totalUsdEquivalent);
-  const rewardedSeries = statsMock.map(stat => stat.totalRewarded.totalUsdEquivalent);
+  const {
+    categories,
+    receivedSeries,
+    grantedSeries,
+    rewardedSeries,
+    renderReceivedAmount,
+    renderGrantedAmount,
+    renderRewardedAmount,
+  } = useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      {
-        name: "Received",
-        data: receivedSeries,
-      },
-      {
-        name: "Granted",
-        data: grantedSeries,
-      },
-      {
-        name: "Rewarded",
-        data: rewardedSeries,
-      },
+      { name: "Received", data: receivedSeries },
+      { name: "Granted", data: grantedSeries },
+      { name: "Rewarded", data: rewardedSeries },
     ],
+    legend: { enabled: false },
+    tooltip: { valueSuffix: " USD" },
   });
 
+  if (isLoading) {
+    return (
+      <Skeleton
+        classNames={{
+          base: "w-full h-[400px]",
+        }}
+      />
+    );
+  }
+
+  if (!receivedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
+    return (
+      <EmptyState
+        titleTranslate={{ token: "programs:financialColumnChart.emptyState.title" }}
+        descriptionTranslate={{ token: "programs:financialColumnChart.emptyState.description" }}
+      />
+    );
+  }
+
   return (
-    <Paper size={"s"} container={"2"} border={"none"} classNames={{ base: "flex flex-col gap-4" }}>
+    <div className="flex h-[400px] flex-col gap-4">
       <ColumnChart options={options} />
-      <ChartFooter />
-    </Paper>
+      <div className="grid grid-cols-5 items-center gap-4">
+        <Paper size={"s"} classNames={{ base: "col-span-4 grid grid-cols-3 items-center gap-3" }}>
+          <div className="flex items-center justify-between gap-4">
+            <ChartLegend color="chart-1">
+              <Translate token={"programs:financialColumnChart.legends.received"} />
+            </ChartLegend>
+            {renderReceivedAmount}
+          </div>
+          <div className="flex justify-between gap-4">
+            <ChartLegend color="chart-4">
+              <Translate token={"programs:financialColumnChart.legends.granted"} />
+            </ChartLegend>
+            {renderGrantedAmount}
+          </div>
+          <div className="flex justify-between gap-4">
+            <ChartLegend color="chart-3">
+              <Translate token={"programs:financialColumnChart.legends.rewarded"} />
+            </ChartLegend>
+            {renderRewardedAmount}
+          </div>
+        </Paper>
+        {/*TODO @Mehdi handle date range change*/}
+        <div>Date Range popover trigger</div>
+      </div>
+    </div>
   );
 }

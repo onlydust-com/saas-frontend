@@ -6,6 +6,8 @@ export class UserClientAdapterMock implements UserStoragePort {
 
   routes = {};
 
+  logoutMe = mockHttpStorageResponse<UserStoragePort["logoutMe"]>;
+
   getMe = mockHttpStorageResponse<UserStoragePort["getMe"]>;
 
   setMe = mockHttpStorageResponse<UserStoragePort["setMe"]>;

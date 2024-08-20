@@ -27,4 +27,12 @@ const yAxisStyle = {
 const legendStyle = {
   color: "var(--text-1)",
 };
-export { titleStyle, xAxisStyle, yAxisStyle, legendStyle };
+
+const tooltipWrapperStyle = {
+  backgroundColor: "var(--container-2)",
+};
+const tooltipInnerStyle = {
+  color: "var(--text-1)",
+  fontFamily: "GT Walsheim",
+};
+export { titleStyle, xAxisStyle, yAxisStyle, legendStyle, tooltipWrapperStyle, tooltipInnerStyle };

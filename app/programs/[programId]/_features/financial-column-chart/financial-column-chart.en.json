@@ -1,0 +1,16 @@
+{
+  "series": {
+    "received": "Received",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  },
+  "legends": {
+    "received": "Received",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available for this program."
+  }
+}

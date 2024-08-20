@@ -31,8 +31,14 @@ export const Default: Story = {
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <TableCellKpi {...defaultProps} {...args} state={"positive"} />
-        <TableCellKpi {...defaultProps} {...args} state={"negative"} />
+        <TableCellKpi {...defaultProps} {...args} />
+
+        <TableCellKpi {...defaultProps} {...args} trend={"UP"} />
+        <TableCellKpi {...defaultProps} {...args} trend={"DOWN"} />
+        <TableCellKpi {...defaultProps} {...args} trend={"STABLE"} />
+
+        <TableCellKpi {...defaultProps} {...args} trend={"UP"} inverted />
+        <TableCellKpi {...defaultProps} {...args} trend={"DOWN"} inverted />
       </div>
     );
   },

@@ -1,14 +1,19 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-export type ProgramResponse = components["schemas"]["ProgramShortResponse"];
+export type ProgramListItemResponse = components["schemas"]["ProgramPageItemResponse"];
 
-export interface ProgramListItemInterface extends ProgramResponse {}
+export interface ProgramListItemInterface extends ProgramListItemResponse {}
 
 export class ProgramListItem implements ProgramListItemInterface {
-  id!: ProgramResponse["id"];
-  name!: ProgramResponse["name"];
+  id!: ProgramListItemResponse["id"];
+  leads!: ProgramListItemResponse["leads"];
+  name!: ProgramListItemResponse["name"];
+  projectCount!: ProgramListItemResponse["projectCount"];
+  totalAvailable!: ProgramListItemResponse["totalAvailable"];
+  totalGranted!: ProgramListItemResponse["totalGranted"];
+  totalRewarded!: ProgramListItemResponse["totalRewarded"];
 
-  constructor(props: ProgramResponse) {
+  constructor(props: ProgramListItemResponse) {
     Object.assign(this, props);
   }
 }
