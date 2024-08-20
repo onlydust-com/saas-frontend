@@ -8,6 +8,7 @@ import {
 import { bootstrap } from "@/core/bootstrap";
 
 import { CardFinancial } from "@/design-system/molecules/card-financial";
+import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
@@ -15,39 +16,45 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const renderCardFinancial = useMemo(() => {
-    if (!program) {
-      return null;
-    }
-
     const total = program[panelType];
 
     return (
-      <CardFinancial
-        title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
-        amount={
-          moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
-            .amount
-        }
-        currency="USD"
-        avatarGroup={{
-          avatars:
-            total.totalPerCurrency?.map(currency => ({
-              src: currency.currency.logoUrl,
-              name: currency.currency.name,
-            })) ?? [],
-        }}
-        color={colorMapping[panelType]}
-      />
+      <div className="flex flex-col gap-2">
+        <CardFinancial
+          title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
+          amount={
+            moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
+              .amount
+          }
+          currency="USD"
+          avatarGroup={{
+            avatars:
+              total.totalPerCurrency?.map(currency => ({
+                src: currency.currency.logoUrl,
+                name: currency.currency.name,
+              })) ?? [],
+          }}
+          color={colorMapping[panelType]}
+        />
+        {total.totalPerCurrency?.map(currency => (
+          <CardBudget
+            key={currency.currency.id}
+            amount={{
+              value: currency.prettyAmount,
+              currency: currency.currency,
+              usdEquivalent: total.totalUsdEquivalent,
+            }}
+            // TODO @Mehdi use budgetPercentage once backend ready
+            budgetPercentage={0}
+          />
+        ))}
+      </div>
     );
   }, [panelType, program, moneyKernelPort]);
 
   return (
     <>
-      <SidePanelHeader
-        canGoBack={false}
-        canClose={true}
-        title={{ token: "programs:details.financial.detailSidePanel.title" }}
-      />
+      <SidePanelHeader canGoBack={false} canClose={true} title={{ token: "programs:financialDetailSidePanel.title" }} />
       <div>{renderCardFinancial}</div>
     </>
   );

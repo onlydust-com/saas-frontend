@@ -6,6 +6,7 @@ import {
   FinancialCardItemProps,
 } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards.types";
 import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel";
+import { PanelType } from "@/app/programs/[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -48,7 +49,7 @@ function FinancialCardItem({ title, total, color, onClick }: FinancialCardItemPr
 export function BudgetAvailableCards() {
   const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");
   const { programId = "" } = useParams<{ programId: string }>();
-  const { Panel, open, close, isOpen } = useSidePanel({ name: "financial-detail" });
+  const { Panel, open, isOpen } = useSidePanel({ name: "financial-detail" });
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -72,7 +73,7 @@ export function BudgetAvailableCards() {
     return null;
   }
 
-  function openPanel(panelType: "totalAvailable" | "totalGranted" | "totalRewarded") {
+  function openPanel(panelType: PanelType) {
     setPanelType(panelType);
     if (!isOpen) {
       open();

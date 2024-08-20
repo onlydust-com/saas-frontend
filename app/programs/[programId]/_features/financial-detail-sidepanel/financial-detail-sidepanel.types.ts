@@ -1,6 +1,6 @@
 import { ProgramResponse } from "@/core/domain/program/models/program-model";
 
-type PanelType = "totalAvailable" | "totalGranted" | "totalRewarded";
+export type PanelType = "totalAvailable" | "totalGranted" | "totalRewarded";
 
 export interface FinancialDetailSidepanelProps {
   panelType: PanelType;
