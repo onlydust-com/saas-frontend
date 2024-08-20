@@ -15,10 +15,13 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 export function FinancialDetailSidepanel({ panelType, program }: FinancialDetailSidepanelProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const renderCardFinancial = useMemo(() => {
-    const total = program[panelType];
+  const total = useMemo(() => {
+    return program[panelType];
+  }, [panelType, program]);
 
-    return (
+  return (
+    <>
+      <SidePanelHeader canGoBack={false} canClose={true} title={{ token: "programs:financialDetailSidePanel.title" }} />
       <div className="flex flex-col gap-3">
         <CardFinancial
           title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
@@ -49,13 +52,6 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
           />
         ))}
       </div>
-    );
-  }, [panelType, program, moneyKernelPort]);
-
-  return (
-    <>
-      <SidePanelHeader canGoBack={false} canClose={true} title={{ token: "programs:financialDetailSidePanel.title" }} />
-      <div>{renderCardFinancial}</div>
     </>
   );
 }
