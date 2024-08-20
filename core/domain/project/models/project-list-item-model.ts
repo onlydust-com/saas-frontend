@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type ProjectListItemResponse = components["schemas"]["ProjectPageItemResponse"];
 
-export interface ProjectListItemInterface extends ProjectListItemResponse {}
+export interface ProjectListItemInterface extends ProjectListItemResponse {
+  truncateDescription(max: number): string;
+}
 
 export class ProjectListItem implements ProjectListItemInterface {
   contributorCount!: ProjectListItemResponse["contributorCount"];
@@ -24,5 +26,9 @@ export class ProjectListItem implements ProjectListItemInterface {
 
   constructor(props: ProjectListItemResponse) {
     Object.assign(this, props);
+  }
+
+  truncateDescription(max: number) {
+    return this.shortDescription.length > max ? `${this.shortDescription.slice(0, max)}...` : this.shortDescription;
   }
 }

@@ -1,33 +1,20 @@
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
+import { AllProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects";
+import { AllProjectsBadge } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects-badge";
+import { AlreadyGrantedBadge } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-badge";
 import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-projects";
-
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-function Badge({ programId }: { programId: string }) {
-  const { data: alreadyGrantedData } = ProgramReactQueryAdapter.client.useGetProgramProjects({
-    pathParams: {
-      programId,
-    },
-    options: {
-      enabled: false,
-    },
-  });
-  const alreadyGrantedCount = useMemo(() => alreadyGrantedData?.pages[0].totalItemNumber ?? null, [alreadyGrantedData]);
-
-  return alreadyGrantedCount ?? "-";
-}
 
 export function GrantListSidepanel() {
   const { programId } = useParams();
@@ -50,29 +37,27 @@ export function GrantListSidepanel() {
         {/* TODO @hayden handle search */}
         <Input placeholder={T("programs:grantList.search")} startContent={<Icon name={"ri-search-line"} />} />
 
-        <AccordionWithBadge
-          items={[
-            {
-              id: "alreadyGranted",
-              titleProps: { translate: { token: "programs:grantList.alreadyGranted" } },
-              content: <AlreadyGrantedProjects programId={typeof programId === "string" ? programId : ""} />,
-              badgeProps: {
-                children: <Badge programId={typeof programId === "string" ? programId : ""} />,
+        <ScrollView>
+          <AccordionWithBadge
+            items={[
+              {
+                id: "alreadyGranted",
+                titleProps: { translate: { token: "programs:grantList.alreadyGranted" } },
+                content: <AlreadyGrantedProjects programId={typeof programId === "string" ? programId : ""} />,
+                badgeProps: {
+                  children: <AlreadyGrantedBadge programId={typeof programId === "string" ? programId : ""} />,
+                  fitContent: true,
+                },
               },
-            },
-            {
-              id: "allProjects",
-              titleProps: { translate: { token: "programs:grantList.allProjects" } },
-              content: (
-                <div className="flex flex-col gap-1">
-                  <p>Accordion content 1</p>
-                  <p>Accordion content 2</p>
-                </div>
-              ),
-              badgeProps: { children: "2" },
-            },
-          ]}
-        />
+              {
+                id: "allProjects",
+                titleProps: { translate: { token: "programs:grantList.allProjects" } },
+                content: <AllProjects />,
+                badgeProps: { children: <AllProjectsBadge />, fitContent: true },
+              },
+            ]}
+          />
+        </ScrollView>
       </Panel>
     </>
   );
