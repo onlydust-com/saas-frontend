@@ -1,6 +1,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDebounce } from "react-use";
 
 import { AllProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects";
 import { AllProjectsBadge } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects-badge";
@@ -22,6 +23,15 @@ export function GrantListSidepanel() {
   const [T] = useTranslation();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "grant-list" });
   const [search, setSearch] = useState<string | undefined>();
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useDebounce(
+    () => {
+      setDebouncedSearch(search);
+    },
+    300,
+    [search]
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -64,8 +74,11 @@ export function GrantListSidepanel() {
               {
                 id: "allProjects",
                 titleProps: { translate: { token: "programs:grantList.allProjects" } },
-                content: <AllProjects queryParams={{ search }} />,
-                badgeProps: { children: <AllProjectsBadge queryParams={{ search }} />, fitContent: true },
+                content: <AllProjects queryParams={{ search: debouncedSearch }} />,
+                badgeProps: {
+                  children: <AllProjectsBadge queryParams={{ search: debouncedSearch }} />,
+                  fitContent: true,
+                },
               },
             ]}
           />
