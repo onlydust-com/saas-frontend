@@ -15,7 +15,9 @@ export function AllProjects({
   queryParams: FirstParameter<typeof ProjectReactQueryAdapter.client.useGetProjects>["queryParams"];
 }) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    ProjectReactQueryAdapter.client.useGetProjects({ queryParams });
+    ProjectReactQueryAdapter.client.useGetProjects({
+      queryParams,
+    });
   const allProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   if (isLoading) {

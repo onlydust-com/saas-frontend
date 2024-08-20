@@ -1,4 +1,3 @@
-import { Selection } from "@nextui-org/react";
 import { ReactNode } from "react";
 
 import { BadgePort } from "@/design-system/atoms/badge";
@@ -28,7 +27,6 @@ export interface AccordionPort {
   items: AccordionItemProps[];
   multiple?: boolean;
   defaultSelected?: string[];
-  onSelectionChange?: (selectedKeys: Selection) => void;
 }
 
 export interface AccordionWithBadgePort extends Omit<AccordionPort, "items"> {

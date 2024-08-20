@@ -18,14 +18,14 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantListSidepanel() {
-  const { programId } = useParams();
+  const { programId } = useParams<{ programId: string }>();
   const [T] = useTranslation();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "grant-list" });
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string | undefined>();
 
   useEffect(() => {
     if (isOpen) {
-      setSearch("");
+      setSearch(undefined);
     }
   }, [isOpen]);
 
@@ -55,9 +55,9 @@ export function GrantListSidepanel() {
               {
                 id: "alreadyGranted",
                 titleProps: { translate: { token: "programs:grantList.alreadyGranted" } },
-                content: <AlreadyGrantedProjects programId={typeof programId === "string" ? programId : ""} />,
+                content: <AlreadyGrantedProjects programId={programId} />,
                 badgeProps: {
-                  children: <AlreadyGrantedBadge programId={typeof programId === "string" ? programId : ""} />,
+                  children: <AlreadyGrantedBadge programId={programId} />,
                   fitContent: true,
                 },
               },
