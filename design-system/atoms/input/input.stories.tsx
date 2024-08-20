@@ -64,7 +64,7 @@ export const Disabled: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-[348px] items-center gap-2">
+      <div className="flex w-full items-center gap-2">
         <Input {...defaultProps} isDisabled={true} />
       </div>
     );
@@ -79,7 +79,7 @@ export const Invalid: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-[348px] items-center gap-2">
+      <div className="flex w-full items-center gap-2">
         <Input {...defaultProps} isError={true} />
       </div>
     );

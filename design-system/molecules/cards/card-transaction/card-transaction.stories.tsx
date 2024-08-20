@@ -2,11 +2,11 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 
-import { CardTransactionDefaultAdapter } from "./adapters/default/default.adapter";
 import { CardTransactionLoading } from "./card-transaction.loading";
 import { CardTransactionPort } from "./card-transaction.types";
+import { CardTransaction } from "./variants/card-transaction-default";
 
-type Story = StoryObj<typeof CardTransactionDefaultAdapter>;
+type Story = StoryObj<typeof CardTransaction>;
 
 const defaultProps: CardTransactionPort<"div"> = {
   status: "granted",
@@ -28,8 +28,8 @@ const defaultProps: CardTransactionPort<"div"> = {
   },
 };
 
-const meta: Meta<typeof CardTransactionDefaultAdapter> = {
-  component: CardTransactionDefaultAdapter,
+const meta: Meta<typeof CardTransaction> = {
+  component: CardTransaction,
   title: "Molecules/Cards/CardTransaction",
   tags: ["autodocs"],
   parameters: {
@@ -43,13 +43,13 @@ const meta: Meta<typeof CardTransactionDefaultAdapter> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardTransactionDefaultAdapter />" },
+      source: { code: "<CardTransaction />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} />
+        <CardTransaction {...defaultProps} {...args} />
       </div>
     );
   },
@@ -59,14 +59,14 @@ export const GrantedStatus: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='granted' />",
+        code: "<CardTransaction status='granted' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="granted" />
+        <CardTransaction {...defaultProps} {...args} status="granted" />
       </div>
     );
   },
@@ -76,14 +76,14 @@ export const AllocatedStatus: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='allocated' />",
+        code: "<CardTransaction status='allocated' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="allocated" />
+        <CardTransaction {...defaultProps} {...args} status="allocated" />
       </div>
     );
   },
@@ -93,14 +93,14 @@ export const ReturnedStatus: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter status='returned' />",
+        code: "<CardTransaction status='returned' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} status="returned" />
+        <CardTransaction {...defaultProps} {...args} status="returned" />
       </div>
     );
   },
