@@ -17,13 +17,16 @@ export const DateRangePickerNextUiVariants = tv({
       true: {
         base: "!opacity-100",
         inputWrapper: "bg-interactions-white-disabled",
+        selectorButton: "text-text-3 !opacity-100",
       },
     },
     isError: {
       true: {
         inputWrapper: "!border-interactions-error-active !text-interactions-error-active",
-        input: "!text-interactions-error-active",
+        innerWrapper: "!text-interactions-error-active",
+        segment: "!text-interactions-error-active data-[invalid=true]:focus:bg-interactions-error-default",
         label: "!text-interactions-error-active",
+        selectorButton: "!text-interactions-error-active data-[hover=true]:bg-interactions-error-default",
       },
     },
   },

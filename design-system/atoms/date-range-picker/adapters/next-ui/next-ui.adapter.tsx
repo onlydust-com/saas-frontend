@@ -13,7 +13,6 @@ import { DateRangePickerNextUiVariants } from "./next-ui.variants";
 
 const DEFAULT_TZ = "Europe/Paris";
 
-// TODO: Do error colors and disabled (variants)
 export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
   { classNames, isError, isDisabled, value, onChange, label, minValue, maxValue }: DateRangePickerPort,
   ref: ForwardedRef<HTMLDivElement>
