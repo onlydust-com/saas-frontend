@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { FirstParameter } from "@/core/kernel/types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
@@ -8,9 +9,13 @@ import { CardProject } from "@/design-system/molecules/cards/card-project";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
 
-export function AllProjects() {
+export function AllProjects({
+  queryParams,
+}: {
+  queryParams: FirstParameter<typeof ProjectReactQueryAdapter.client.useGetProjects>["queryParams"];
+}) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    ProjectReactQueryAdapter.client.useGetProjects({});
+    ProjectReactQueryAdapter.client.useGetProjects({ queryParams });
   const allProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   if (isLoading) {

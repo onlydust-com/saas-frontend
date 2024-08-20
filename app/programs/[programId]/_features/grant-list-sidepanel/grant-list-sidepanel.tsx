@@ -1,4 +1,5 @@
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AllProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects";
@@ -20,6 +21,13 @@ export function GrantListSidepanel() {
   const { programId } = useParams();
   const [T] = useTranslation();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "grant-list" });
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setSearch("");
+    }
+  }, [isOpen]);
 
   function togglePanel() {
     (isOpen ? close : open)();
@@ -34,8 +42,12 @@ export function GrantListSidepanel() {
       <Panel>
         <SidePanelHeader canClose={true} title={{ token: "programs:grantList.title" }} />
 
-        {/* TODO @hayden handle search */}
-        <Input placeholder={T("programs:grantList.search")} startContent={<Icon name={"ri-search-line"} />} />
+        <Input
+          placeholder={T("programs:grantList.search")}
+          startContent={<Icon name={"ri-search-line"} />}
+          value={search}
+          onChange={e => setSearch(e.currentTarget.value)}
+        />
 
         <ScrollView>
           <AccordionWithBadge
@@ -52,8 +64,8 @@ export function GrantListSidepanel() {
               {
                 id: "allProjects",
                 titleProps: { translate: { token: "programs:grantList.allProjects" } },
-                content: <AllProjects />,
-                badgeProps: { children: <AllProjectsBadge />, fitContent: true },
+                content: <AllProjects queryParams={{ search }} />,
+                badgeProps: { children: <AllProjectsBadge queryParams={{ search }} />, fitContent: true },
               },
             ]}
           />
