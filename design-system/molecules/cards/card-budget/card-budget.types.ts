@@ -25,5 +25,5 @@ export interface CardBudgetPort<C extends ElementType> extends Partial<Variants>
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   amount: Amount;
-  budgetPercentage?: number;
+  tag?: string;
 }
