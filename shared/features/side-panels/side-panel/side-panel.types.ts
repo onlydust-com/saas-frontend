@@ -27,4 +27,5 @@ export interface SidePanelRef {
   close: (current?: boolean) => void;
   back: () => void;
   isOpen: boolean;
+  name: string;
 }

@@ -37,6 +37,7 @@ export const SidePanel = forwardRef(function SidePanel(
       isOpen: isOpen(name),
       close: current => close(current ? name : undefined),
       back: () => back(),
+      name,
     };
   }, [open, close, isOpen, name, back]);
 
@@ -92,6 +93,8 @@ export const SidePanel = forwardRef(function SidePanel(
 export const useSidePanel = (props: Omit<SidePanelProps, "children">, config?: SidePanelConfig): UseSidePanel => {
   const ref = useRef<SidePanelRef>(null);
 
+  const { isOpen } = useSidePanelsContext();
+
   return {
     Panel: ({ children }) => (
       <SidePanel ref={ref} {...props}>
@@ -101,7 +104,7 @@ export const useSidePanel = (props: Omit<SidePanelProps, "children">, config?: S
     open: () => ref.current?.open(config),
     close: current => ref.current?.close(current),
     back: () => ref.current?.back(),
-    isOpen: ref.current?.isOpen || false,
+    isOpen: ref.current?.name ? isOpen(ref.current?.name) : false,
     name: props.name,
   };
 };
