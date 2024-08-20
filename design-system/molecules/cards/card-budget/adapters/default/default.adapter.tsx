@@ -43,11 +43,11 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
         children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
       endContent={
-        budgetPercentage && (
+        budgetPercentage ? (
           <Tag color="white" size="s" style="outline">
             {budgetPercentage}%
           </Tag>
-        )
+        ) : null
       }
     />
   );

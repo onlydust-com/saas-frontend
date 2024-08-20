@@ -52,6 +52,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
             shape: "square",
           }}
           labelProps={{ children: info.getValue() }}
+          descriptionProps={{ children: info.row.original.truncateDescription(25) }}
         />
       ),
     }),

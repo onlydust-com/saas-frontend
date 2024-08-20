@@ -1,7 +1,9 @@
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
+import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { GetProjectByidResponse, GetProjectStatsResponse } from "@/core/domain/project/project-contract.types";
+import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -11,6 +13,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
   routes = {
     getProjectById: "projects/:projectId",
     getProjectStats: "projects/:projectId/stats",
+    getProjects: "projects",
   } as const;
 
   getProjectByid = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectByid"]>) => {
@@ -49,6 +52,30 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       });
 
       return new ProjectStats(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjects = ({ queryParams }: FirstParameter<ProjectStoragePort["getProjects"]>) => {
+    const path = this.routes["getProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new ProjectListItem(project)),
+      };
     };
 
     return {

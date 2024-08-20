@@ -5,6 +5,8 @@ import {
   GetProgramTransactionsStatsResponse,
 } from "@/core/domain/program/program-contract.types";
 
+import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
+
 export interface TransactionsContextProps extends PropsWithChildren {
   programId: string;
 }
@@ -37,6 +39,7 @@ export type TransactionsContextFilterTypes = `${TransactionsContextFilterType}`;
 export interface TransactionsContextFilter {
   search: string;
   types: TransactionsContextFilterTypes[];
+  dateRange?: DateRangePickerValue;
 }
 
 export interface TransactionsContextFiltersOptions {
@@ -46,4 +49,5 @@ export interface TransactionsContextFiltersOptions {
 export const DEFAULT_FILTER: TransactionsContextFilter = {
   search: "",
   types: [],
+  dateRange: undefined,
 };

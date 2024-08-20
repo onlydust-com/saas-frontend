@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Popover } from "@/design-system/atoms/popover";
@@ -22,7 +23,7 @@ export function Header() {
       set,
       clear,
       isCleared,
-      values: { search, types },
+      values: { search, types, dateRange },
       options: { types: typesOptions },
     },
   } = useTransactionsContext();
@@ -37,6 +38,10 @@ export function Header() {
     } else {
       set({ types: types.filter(type => type !== newType) });
     }
+  }
+
+  function handleDateRange(value: DateRangePickerValue) {
+    set({ dateRange: value });
   }
 
   return (
@@ -104,6 +109,8 @@ export function Header() {
                   color="text-2"
                   translate={{ token: "programs:transactionPanel.filters.options.period.title" }}
                 />
+
+                <DateRangePicker value={dateRange} onChange={handleDateRange} />
               </div>
             </div>
           )}
