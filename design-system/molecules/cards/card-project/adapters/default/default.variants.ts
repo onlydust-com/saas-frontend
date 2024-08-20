@@ -4,6 +4,10 @@ export const CardProjectDefaultVariants = tv({
   slots: {
     base: "",
   },
-  variants: {},
+  variants: {
+    clickable: {
+      true: "cursor-pointer",
+    },
+  },
   defaultVariants: {},
 });

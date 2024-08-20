@@ -19,4 +19,5 @@ export interface CardProjectPort<C extends ElementType> extends Partial<Variants
   languages?: Array<TagPort<"div">>;
   categories?: Array<TagPort<"div">>;
   buttonProps?: ButtonPort<"a">;
+  onClick?: () => void;
 }

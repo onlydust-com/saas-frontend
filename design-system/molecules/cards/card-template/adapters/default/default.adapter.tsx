@@ -21,16 +21,18 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
   descriptionProps,
   tags,
   endContent,
+  onClick,
 }: CardTemplatePort<C>) {
   const slots = CardTemplateDefaultVariants();
 
   return (
     <Paper
       as={as}
+      htmlProps={htmlProps}
       container="interactions-black"
       size="s"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
-      {...htmlProps}
+      onClick={onClick}
     >
       <Avatar {...avatarProps} size="l" />
 

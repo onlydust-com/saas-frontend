@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -19,6 +21,16 @@ export function AllProjects({
       queryParams,
     });
   const allProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
+
+  const {
+    sidePanel: { open: openGrantForm },
+    projectIdState: [, setSelectedGrantProjectId],
+  } = useGrantFormContext();
+
+  function handleOpenProjectGrant(projectId: string) {
+    setSelectedGrantProjectId(projectId);
+    openGrantForm();
+  }
 
   if (isLoading) {
     return (
@@ -53,6 +65,7 @@ export function AllProjects({
               base: "pointer-events-none whitespace-nowrap",
             },
           }}
+          onClick={() => handleOpenProjectGrant(project.id)}
         />
       ))}
 

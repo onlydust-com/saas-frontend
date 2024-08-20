@@ -1,6 +1,7 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
+import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -22,6 +23,12 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function ProjectsTable({ programId }: { programId: string }) {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const { Panel, open } = useSidePanel({ name: "project-detail" });
+
+  const {
+    sidePanel: { open: openGrantForm },
+    projectIdState: [, setSelectedGrantProjectId],
+  } = useGrantFormContext();
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
       pathParams: {
@@ -36,6 +43,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const columnHelper = createColumnHelper<ProgramProjectInterface>();
+
+  function handleOpenProjectGrant(projectId: string) {
+    setSelectedGrantProjectId(projectId);
+    openGrantForm();
+  }
 
   function handleOpenProjectDetail(projectId: string) {
     setSelectedProjectId(projectId);
@@ -256,7 +268,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary-light"}>
+            <Button variant={"secondary-light"} onClick={() => handleOpenProjectGrant(projectId)}>
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 

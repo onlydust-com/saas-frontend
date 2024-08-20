@@ -1,5 +1,7 @@
 "use client";
 
+import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
+import { GrantFormContextProvider } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { FinancialSection } from "@/app/programs/[programId]/_sections/financial-section/financial-section";
@@ -59,7 +61,10 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
               <GrantListSidepanel />
             </header>
 
-            <ProjectsTable programId={programId} />
+            <GrantFormContextProvider>
+              <ProjectsTable programId={programId} />
+              <GrantFormSidepanel />
+            </GrantFormContextProvider>
           </div>
         </PageContent>
       </AnimatedColumn>
