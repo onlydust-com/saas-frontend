@@ -45,15 +45,21 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const columns = [
     columnHelper.accessor("name", {
       header: () => <Translate token={"programs:details.projects.table.columns.projectName"} />,
-      cell: info => (
-        <AvatarDescription
-          avatarProps={{
-            src: info.row.original.logoUrl,
-            shape: "square",
-          }}
-          labelProps={{ children: info.getValue() }}
-        />
-      ),
+      cell: info => {
+        const description = info.row.original.shortDescription ?? "";
+        const formattedDescription = description.length > 25 ? `${description.slice(0, 25)}...` : description;
+
+        return (
+          <AvatarDescription
+            avatarProps={{
+              src: info.row.original.logoUrl,
+              shape: "square",
+            }}
+            labelProps={{ children: info.getValue() }}
+            descriptionProps={{ children: formattedDescription }}
+          />
+        );
+      },
     }),
 
     columnHelper.accessor("leads", {

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
+import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
 
@@ -104,9 +105,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
                 color={"text-1"}
               />
 
-              <Button variant={"secondary-light"} size={"l"}>
-                <Translate token={"programs:details.projects.grantProject"} />
-              </Button>
+              <GrantListSidepanel />
             </header>
 
             <ProjectsTable programId={programId} />

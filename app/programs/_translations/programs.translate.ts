@@ -1,4 +1,5 @@
-import enTransactionPanel from "@/app/programs/[programId]/_features/transactions-sidepanel//_translations/transaction-sidepanel.en.json";
+import enGrantList from "@/app/programs/[programId]/_features/grant-list-sidepanel/_translations/grant-list.en.json";
+import enTransactionPanel from "@/app/programs/[programId]/_features/transactions-sidepanel/_translations/transaction-sidepanel.en.json";
 import enProgramsDetails from "@/app/programs/[programId]/_translations/programs-detail.en.json";
 
 import enBudgetAvailable from "../[programId]/_features/budget-available-cards/budget-available.en.json";
@@ -16,5 +17,6 @@ export const enProgramsTranslation = {
     budgetAvailable: enBudgetAvailable,
     financialDetailSidePanel: enFinancialDetailSidePanel,
     projectDetail: enProjectDetail,
+    grantList: enGrantList,
   },
 };
