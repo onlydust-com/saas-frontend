@@ -65,7 +65,7 @@ export function DropdownNextUiAdapter({
             {...item}
             key={item.value}
             className={cn(
-              "text-1 data-[hover=true]:bg-card-background-medium data-[hover=true]:text-greyscale-50 flex flex-row items-center justify-start gap-1 rounded-[6px] px-2 py-3",
+              "data-[hover=true]:bg-card-background-medium data-[hover=true]:text-greyscale-50 flex flex-row items-center justify-start gap-1 rounded-[6px] px-2 py-3 text-text-1",
               {
                 "text-orange-500 data-[hover=true]:text-orange-500": item.isWarning,
                 "text-github-red data-[hover=true]:text-github-red": item.isError,
