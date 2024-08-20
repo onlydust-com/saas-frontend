@@ -7,3 +7,13 @@ export enum SOCIAL_PLATFORM {
   WHATSAPP = "WHATSAPP",
   WEB = "WEB",
 }
+
+export const SOCIAL_PLATFORM_MAP: { [key: string]: SOCIAL_PLATFORM } = {
+  ["t.me/"]: SOCIAL_PLATFORM.TELEGRAM,
+  ["discord.com/"]: SOCIAL_PLATFORM.DISCORD,
+  ["x.com/"]: SOCIAL_PLATFORM.TWITTER,
+  ["twitter.com/"]: SOCIAL_PLATFORM.TWITTER,
+  ["github.com/"]: SOCIAL_PLATFORM.GITHUB,
+  ["linkedin.com/"]: SOCIAL_PLATFORM.LINKEDIN,
+  ["wa.me/"]: SOCIAL_PLATFORM.WHATSAPP,
+} as const;

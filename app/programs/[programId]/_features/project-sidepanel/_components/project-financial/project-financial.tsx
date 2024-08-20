@@ -63,7 +63,7 @@ export function ProjectFinancial({ data }: ProjectFinancialProps) {
       </div>
       <div className={"flex w-full flex-row gap-3"}>
         <Card type={"granted"} values={data.totalGranted} />
-        <Card type={"rewarded"} values={data.totalGranted} />
+        <Card type={"rewarded"} values={data.totalRewarded} />
       </div>
     </Paper>
   );
