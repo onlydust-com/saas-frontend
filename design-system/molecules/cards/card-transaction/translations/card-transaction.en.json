@@ -1,7 +1,7 @@
 {
-  "status": {
-    "granted": "Granted",
-    "allocated": "Allocated",
-    "returned": "Returned"
+  "types": {
+    "GRANTED": "Granted",
+    "RECEIVED": "Received",
+    "RETURNED": "Returned"
   }
 }

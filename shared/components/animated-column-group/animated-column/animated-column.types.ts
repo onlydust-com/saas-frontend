@@ -5,13 +5,11 @@ interface BaseProps extends PropsWithChildren {
   onClick?: () => void;
 }
 interface ControlledWidthProps extends BaseProps {
-  autoWidth?: false;
   width: number;
   initialWidth: number;
 }
 
 interface AutoWidthProps extends BaseProps {
-  autoWidth: true;
   width?: never;
   initialWidth?: never;
 }

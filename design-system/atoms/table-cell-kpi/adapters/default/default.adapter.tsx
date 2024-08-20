@@ -6,13 +6,13 @@ import { cn } from "@/shared/helpers/cn";
 
 import { TableCellKpiDefaultVariants } from "./default.variants";
 
-export function TableCellKpiDefaultAdapter({ classNames, state = "neutral", children }: TableCellKpiPort) {
-  const slots = TableCellKpiDefaultVariants({ state });
+export function TableCellKpiDefaultAdapter({ classNames, trend, inverted, children }: TableCellKpiPort) {
+  const slots = TableCellKpiDefaultVariants({ trend, inverted });
 
-  const iconNames: Record<typeof state, IconPort["name"]> = {
-    positive: "ri-arrow-up-line",
-    negative: "ri-arrow-down-line",
-    neutral: "ri-arrow-right-line",
+  const iconNames: Record<NonNullable<typeof trend>, IconPort["name"]> = {
+    UP: "ri-arrow-up-line",
+    DOWN: "ri-arrow-down-line",
+    STABLE: "ri-arrow-right-line",
   };
 
   return (
@@ -20,7 +20,7 @@ export function TableCellKpiDefaultAdapter({ classNames, state = "neutral", chil
       <Typo size={"s"} weight={"medium"} color={"text-2"}>
         {children}
       </Typo>
-      <Icon name={iconNames[state]} className={cn(slots.icon())} />
+      {trend ? <Icon name={iconNames[trend]} className={cn(slots.icon())} /> : null}
     </div>
   );
 }

@@ -20,9 +20,10 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   avatarGroup,
   cta,
   size = "xl",
+  color = "chart-1",
 }: CardFinancialPort<C>) {
   const Component = as || "div";
-  const slots = CardFinancialDefaultVariants({ size });
+  const slots = CardFinancialDefaultVariants({ size, color });
 
   const isSizeM = size === "m";
 
@@ -36,9 +37,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
       {...htmlProps}
     >
       <div className="flex flex-col gap-2">
-        <Typo size={isSizeM ? "xxs" : "m"} color={"text-1"}>
-          {title}
-        </Typo>
+        <Typo size={isSizeM ? "xxs" : "m"} color={"text-1"} translate={title} />
         <div className="flex gap-1">
           <Typo size={isSizeM ? "s" : "xl"} color={"text-1"}>
             {amount}
@@ -63,7 +62,6 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
           <Button
             size={isSizeM ? "s" : "l"}
             variant="secondary-light"
-            canInteract={false}
             classNames={{
               label: "leading-4",
             }}

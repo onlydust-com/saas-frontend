@@ -9,8 +9,8 @@ import { CardTransaction } from "./variants/card-transaction-default";
 type Story = StoryObj<typeof CardTransaction>;
 
 const defaultProps: CardTransactionPort<"div"> = {
-  status: "granted",
-  date: new Date(),
+  type: "GRANTED",
+  date: "2024-06-11",
   amount: {
     value: 120000,
     currency: {
@@ -55,52 +55,52 @@ export const Default: Story = {
   },
 };
 
-export const GrantedStatus: Story = {
+export const GrantedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransaction status='granted' />",
+        code: "<CardTransaction type='GRANTED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransaction {...defaultProps} {...args} status="granted" />
+        <CardTransaction {...defaultProps} {...args} type="GRANTED" />
       </div>
     );
   },
 };
 
-export const AllocatedStatus: Story = {
+export const ReceivedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransaction status='allocated' />",
+        code: "<CardTransaction type='RECEIVED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransaction {...defaultProps} {...args} status="allocated" />
+        <CardTransaction {...defaultProps} {...args} type="RECEIVED" />
       </div>
     );
   },
 };
 
-export const ReturnedStatus: Story = {
+export const ReturnedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransaction status='returned' />",
+        code: "<CardTransaction type='RETURNED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransaction {...defaultProps} {...args} status="returned" />
+        <CardTransaction {...defaultProps} {...args} type="RETURNED" />
       </div>
     );
   },
