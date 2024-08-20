@@ -1,5 +1,4 @@
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
-import { enTestTranslation } from "@/app/test/_translations/test.translate";
 
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
 import { enTableColumnListTranslation } from "@/design-system/molecules/table-column-list/translations/table-column-list.translate";
@@ -18,7 +17,6 @@ export const en = {
   common,
   notFound,
   error,
-  ...enTestTranslation,
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
