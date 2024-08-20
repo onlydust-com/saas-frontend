@@ -1,4 +1,17 @@
 {
   "title": "Grant a project",
+  "amountSelector": {
+    "title": "Amount"
+  },
+  "summary": {
+    "title": "Summary",
+    "budget": {
+      "balance": "{{budget}} balance",
+      "grant": "{{budget}} grant"
+    },
+    "project": {
+      "balance": "{{project}} balance"
+    }
+  },
   "submit": "Grant the project"
 }
