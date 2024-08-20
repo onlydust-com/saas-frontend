@@ -39,9 +39,9 @@ export type GetProgramTransactionsModel = Omit<GetProgramTransactionsResponse, "
   transactions: TransactionListItemInterface[];
 };
 
-type GetProgramTransactionsQueryParams = operations["getProgramTransactions"]["parameters"]["query"];
+type GetProgramTransactionsQueryParams = operations["getProgramTransactions_1"]["parameters"]["query"];
 
-type GetProgramTransactionsPathParams = operations["getProgramTransactions"]["parameters"]["path"];
+type GetProgramTransactionsPathParams = operations["getProgramTransactions_1"]["parameters"]["path"];
 
 export type GetProgramTransactionsPortParams = HttpClientParameters<{
   QueryParams: GetProgramTransactionsQueryParams;
