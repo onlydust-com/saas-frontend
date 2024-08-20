@@ -13,17 +13,19 @@ import { AvatarGroupDescription } from "@/design-system/molecules/avatar-group-d
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramProjects({
-    pathParams: {
-      programId,
-    },
-    options: {
-      enabled: Boolean(programId),
-    },
-  });
+  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    ProgramReactQueryAdapter.client.useGetProgramProjects({
+      pathParams: {
+        programId,
+      },
+      options: {
+        enabled: Boolean(programId),
+      },
+    });
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -257,10 +259,21 @@ export function ProjectsTable({ programId }: { programId: string }) {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // TODO @hayden handle error
-
   if (isLoading) {
     return <TableLoading />;
+  }
+
+  if (isError) {
+    return (
+      <div className={"py-24 text-center"}>
+        <Typo
+          translate={{
+            token: "common:state.error.title",
+          }}
+          color={"text-2"}
+        />
+      </div>
+    );
   }
 
   return (
@@ -274,6 +287,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
           base: "min-w-[1620px]",
         }}
       />
+      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </ScrollView>
   );
 }
