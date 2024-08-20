@@ -47,25 +47,26 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
           </PageContent>
         </div>
         <PageContent>
-          <div className="grid gap-3">
-            <header className={"flex items-center justify-between"}>
-              <Typo
-                variant={"brand"}
-                size={"2xl"}
-                translate={{
-                  token: "programs:details.projects.title",
-                }}
-                color={"text-1"}
-              />
+          <GrantFormContextProvider>
+            <div className="grid gap-3">
+              <header className={"flex items-center justify-between"}>
+                <Typo
+                  variant={"brand"}
+                  size={"2xl"}
+                  translate={{
+                    token: "programs:details.projects.title",
+                  }}
+                  color={"text-1"}
+                />
 
-              <GrantListSidepanel />
-            </header>
+                <GrantListSidepanel />
+              </header>
 
-            <GrantFormContextProvider>
               <ProjectsTable programId={programId} />
+
               <GrantFormSidepanel />
-            </GrantFormContextProvider>
-          </div>
+            </div>
+          </GrantFormContextProvider>
         </PageContent>
       </AnimatedColumn>
     </PageWrapper>

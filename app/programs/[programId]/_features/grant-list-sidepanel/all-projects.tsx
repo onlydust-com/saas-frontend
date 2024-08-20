@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 
-import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import {
+  GrantProject,
+  useGrantFormContext,
+} from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { FirstParameter } from "@/core/kernel/types";
@@ -24,11 +27,11 @@ export function AllProjects({
 
   const {
     sidePanel: { open: openGrantForm },
-    projectIdState: [, setSelectedGrantProjectId],
+    projectState: [, setGrantProject],
   } = useGrantFormContext();
 
-  function handleOpenProjectGrant(projectId: string) {
-    setSelectedGrantProjectId(projectId);
+  function handleOpenProjectGrant(project: GrantProject) {
+    setGrantProject(project);
     openGrantForm();
   }
 
@@ -52,22 +55,34 @@ export function AllProjects({
 
   return (
     <div className={"grid gap-2"}>
-      {allProjects.map(project => (
-        <CardProject
-          key={project.id}
-          title={project.name}
-          description={project.truncateDescription(25)}
-          logoUrl={project.logoUrl}
-          languages={project.languages?.map(language => ({ children: language.name }))}
-          buttonProps={{
-            children: "0 USD",
-            classNames: {
-              base: "pointer-events-none whitespace-nowrap",
-            },
-          }}
-          onClick={() => handleOpenProjectGrant(project.id)}
-        />
-      ))}
+      {allProjects.map(project => {
+        const description = project.truncateDescription(25);
+        const grantedAmount = "0 USD";
+
+        return (
+          <CardProject
+            key={project.id}
+            title={project.name}
+            description={description}
+            logoUrl={project.logoUrl}
+            languages={project.languages?.map(language => ({ children: language.name }))}
+            buttonProps={{
+              children: "0 USD",
+              classNames: {
+                base: "pointer-events-none whitespace-nowrap",
+              },
+            }}
+            onClick={() =>
+              handleOpenProjectGrant({
+                name: project.name,
+                logoUrl: project.logoUrl,
+                description,
+                grantedAmount,
+              })
+            }
+          />
+        );
+      })}
 
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </div>

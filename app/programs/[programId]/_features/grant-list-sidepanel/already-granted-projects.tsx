@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 
-import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import {
+  GrantProject,
+  useGrantFormContext,
+} from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -27,11 +30,11 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
 
   const {
     sidePanel: { open: openGrantForm },
-    projectIdState: [, setSelectedGrantProjectId],
+    projectState: [, setGrantProject],
   } = useGrantFormContext();
 
-  function handleOpenProjectGrant(projectId: string) {
-    setSelectedGrantProjectId(projectId);
+  function handleOpenProjectGrant(project: GrantProject) {
+    setGrantProject(project);
     openGrantForm();
   }
 
@@ -61,21 +64,31 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
+        const description = project.truncateDescription(25);
+        const grantedAmount = `${amount} ${code}`;
+
         return (
           <CardProject
             key={project.id}
             title={project.name}
-            description={project.truncateDescription(25)}
+            description={description}
             logoUrl={project.logoUrl}
             languages={project.languages.map(language => ({ children: language.name }))}
             categories={project.categories.map(category => ({ children: category.name }))}
             buttonProps={{
-              children: `${amount} ${code}`,
+              children: grantedAmount,
               classNames: {
                 base: "pointer-events-none whitespace-nowrap",
               },
             }}
-            onClick={() => handleOpenProjectGrant(project.id)}
+            onClick={() =>
+              handleOpenProjectGrant({
+                name: project.name,
+                logoUrl: project.logoUrl,
+                description,
+                grantedAmount,
+              })
+            }
           />
         );
       })}
