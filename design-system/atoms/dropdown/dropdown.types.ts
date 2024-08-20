@@ -10,7 +10,7 @@ interface ClassNames {
 export interface DropdownItemType {
   isError?: boolean;
   isWarning?: boolean;
-  key: string;
+  value: string;
   label: ReactNode;
   startContent?: ReactNode;
   endContent?: ReactNode;

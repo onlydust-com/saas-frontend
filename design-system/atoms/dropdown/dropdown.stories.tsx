@@ -12,19 +12,19 @@ type Story = StoryObj<typeof Dropdown>;
 const defaultProps: DropdownPort = {
   items: [
     {
-      key: "item1",
+      value: "item1",
       label: "item1",
       startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
       endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
     },
     {
-      key: "item2",
+      value: "item2",
       label: "item2",
       startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
       endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
     },
     {
-      key: "item3",
+      value: "item3",
       label: "item3",
     },
   ],

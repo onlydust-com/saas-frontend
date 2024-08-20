@@ -18,16 +18,16 @@ export function DropdownNextUiAdapter({
   onChange,
 }: DropdownPort) {
   const slots = DropdownNextUiVariants();
-  function onSelectionChange(keys: SharedSelection) {
-    if (keys === "all") {
+  function onSelectionChange(values: SharedSelection) {
+    if (values === "all") {
       return;
     }
 
-    const keyArray = Array.from(keys).map(key => key.toString());
+    const valuesArray = Array.from(values).map(val => val.toString());
 
     onChange?.(
-      keyArray,
-      items.filter(item => keyArray.includes(item.key))
+      valuesArray,
+      items.filter(item => valuesArray.includes(item.value))
     );
   }
 
@@ -64,7 +64,7 @@ export function DropdownNextUiAdapter({
         {item => (
           <DropdownItem
             {...item}
-            key={item.key}
+            key={item.value}
             className={cn(
               "text-1 data-[hover=true]:bg-card-background-medium data-[hover=true]:text-greyscale-50 flex flex-row items-center justify-start gap-1 rounded-[6px] px-2 py-3",
               {
