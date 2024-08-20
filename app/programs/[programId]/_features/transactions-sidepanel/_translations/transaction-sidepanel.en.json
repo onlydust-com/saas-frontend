@@ -28,6 +28,6 @@
     }
   },
   "export": {
-    "title": "Export"
+    "title": "Export CSV"
   }
 }

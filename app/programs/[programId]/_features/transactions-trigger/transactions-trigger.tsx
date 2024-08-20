@@ -1,5 +1,5 @@
+import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/context/transactions.context";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
-import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions/context/transactions.context";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 

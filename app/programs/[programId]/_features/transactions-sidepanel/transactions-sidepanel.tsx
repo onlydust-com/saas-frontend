@@ -3,7 +3,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
-import { useTransactionsContext } from "./transactions/context/transactions.context";
+import { useTransactionsContext } from "./context/transactions.context";
+import { ExportCsv } from "./export-csv/export-csv";
 import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
@@ -31,6 +32,7 @@ export function TransactionsSidepanel() {
       />
 
       <Transactions />
+
       <Panel>
         <SidePanelHeader
           canGoBack={true}
@@ -38,6 +40,8 @@ export function TransactionsSidepanel() {
           title={{ token: "programs:transactionPanel.export.title" }}
           onClose={clear}
         />
+
+        <ExportCsv />
       </Panel>
     </>
   );

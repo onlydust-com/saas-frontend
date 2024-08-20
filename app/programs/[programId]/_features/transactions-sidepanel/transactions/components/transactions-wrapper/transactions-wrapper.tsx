@@ -10,7 +10,7 @@ import {
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
 
-import { useTransactionsContext } from "../../context/transactions.context";
+import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper() {
   const { programId, queryParams } = useTransactionsContext();

@@ -10,8 +10,8 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useTransactionsContext } from "../../context/transactions.context";
-import { TransactionsContextFilterTypes } from "../../context/transactions.context.types";
+import { useTransactionsContext } from "../../../context/transactions.context";
+import { TransactionsContextFilterTypes } from "../../../context/transactions.context.types";
 
 export function Header() {
   const { t } = useTranslation("programs");
