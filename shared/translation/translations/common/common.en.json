@@ -5,5 +5,12 @@
       "title": "An error occurred, please try again later."
     }
   },
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "dateRangeType": {
+    "LAST_WEEK": "Last week",
+    "LAST_MONTH": "Last month",
+    "LAST_SEMESTER": "Last semester",
+    "LAST_YEAR": "Last year",
+    "ALL_TIME": "All time"
+  }
 }
