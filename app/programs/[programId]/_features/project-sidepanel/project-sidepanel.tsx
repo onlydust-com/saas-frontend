@@ -21,6 +21,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
 export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
@@ -86,25 +87,30 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
         canGoBack={false}
         canClose={true}
       />
-      {!!stats && (
-        <>
-          <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-          <ProjectFinancial data={stats} />
-        </>
-      )}
-      <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-        <ProjectDescription description={data.shortDescription} />
-        <ProjectLinks moreInfo={data.moreInfos} />
-      </Paper>
-      <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
-        <ProjectLeads leaders={data.leaders} />
-        <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-        <ProjectSponsors sponsors={data.sponsors} />
-      </Paper>
-      <div className={"flex w-full flex-row gap-4"}>
-        <ProjectLanguages languages={data.languages} />
-        <ProjectCategories categories={data.categories} />
-      </div>
+
+      <ScrollView>
+        <div className={"flex w-full flex-col gap-3"}>
+          {!!stats && (
+            <>
+              <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
+              <ProjectFinancial data={stats} />
+            </>
+          )}
+          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
+            <ProjectDescription description={data.shortDescription} />
+            <ProjectLinks moreInfo={data.moreInfos} />
+          </Paper>
+          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
+            <ProjectLeads leaders={data.leaders} />
+            <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+            <ProjectSponsors sponsors={data.sponsors} />
+          </Paper>
+          <div className={"flex w-full flex-row gap-4"}>
+            <ProjectLanguages languages={data.languages} />
+            <ProjectCategories categories={data.categories} />
+          </div>
+        </div>
+      </ScrollView>
     </>
   );
 }
