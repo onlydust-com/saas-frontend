@@ -26,6 +26,21 @@ export const CardFinancialDefaultVariants = tv({
       "chart-4": {
         base: "bg-chart-4",
       },
+      "brand-1": {
+        base: "bg-brand-1",
+      },
+      "brand-2": {
+        base: "bg-brand-2",
+      },
+      "brand-3": {
+        base: "bg-brand-3",
+      },
+      "brand-4": {
+        base: "bg-brand-4",
+      },
+      "container-3": {
+        base: "bg-container-3",
+      },
     },
   },
   defaultVariants: {

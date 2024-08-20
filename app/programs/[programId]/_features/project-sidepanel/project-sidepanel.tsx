@@ -1,8 +1,11 @@
 import { ProjectCategories } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-categories/project-categories";
+import { ProjectContributors } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-contributors/project-contributors";
 import { ProjectDescription } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-description/project-description";
+import { ProjectFinancial } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-financial/project-financial";
 import { ProjectLanguages } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-languages/project-languages";
 import { ProjectLeads } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-leads/project-leads";
 import { ProjectLinks } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-links/project-links";
+import { ProjectSponsors } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-sponsors/project-sponsors";
 import { ProjectStats } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-stats/project-stats";
 import { ProjectSidepanelProps } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel.types";
 
@@ -15,7 +18,6 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { UserGroup } from "@/shared/features/user/user-group/user-group";
 
 function ProjectHeader({ logoUrl, name, loading }: { logoUrl?: string; name?: string; loading: boolean }) {
   if (loading) {
@@ -40,6 +42,13 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
     },
   });
 
+  const { data: stats, isLoading: loadingStats } = ProjectReactQueryAdapter.client.useGetProjectStats({
+    pathParams: { projectId: projectId ?? "" },
+    options: {
+      enabled: !!projectId,
+    },
+  });
+
   if (!data) {
     return "loading";
   }
@@ -47,20 +56,24 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
   return (
     <>
       <SidePanelHeader
-        startContent={<ProjectHeader name={data?.name} loading={isLoading} logoUrl={data?.logoUrl} />}
+        startContent={<ProjectHeader name={data?.name} loading={isLoading || loadingStats} logoUrl={data?.logoUrl} />}
         canGoBack={false}
         canClose={true}
       />
-      <ProjectStats />
+      {!!stats && (
+        <>
+          <ProjectStats data={stats} />
+          <ProjectFinancial data={stats} />
+        </>
+      )}
       <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
         <ProjectDescription description={data.shortDescription} />
         <ProjectLinks moreInfo={data.moreInfos} />
       </Paper>
-      <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-4" }}>
+      <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
         <ProjectLeads leaders={data.leaders} />
-        <div className={"flex-1"}>
-          <UserGroup users={data.topContributors} totalUsersCount={data.contributorCount} />
-        </div>
+        <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+        <ProjectSponsors sponsors={data.sponsors} />
       </Paper>
       <div className={"flex w-full flex-row gap-4"}>
         <ProjectLanguages languages={data.languages} />

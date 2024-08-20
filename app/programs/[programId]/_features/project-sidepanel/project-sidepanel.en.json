@@ -9,7 +9,16 @@
     "title": "Categories"
   },
   "kpi": {
-    "title": "KPI"
+    "title": "KPI",
+    "activeDev": {
+      "title": "Active dev"
+    },
+    "prMerged": {
+      "title": "PR Merged"
+    },
+    "rewards": {
+      "title": "Rewards"
+    }
   },
   "lead": {
     "title": "Project lead"
@@ -19,5 +28,14 @@
   },
   "sponsors": {
     "title": "Sponsors"
+  },
+  "financials": {
+    "title": "Financials",
+    "granted": {
+      "title": "Granted"
+    },
+    "rewarded": {
+      "title": "Rewarded"
+    }
   }
 }

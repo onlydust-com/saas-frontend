@@ -3,7 +3,7 @@ import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 
 import { UserGroupProps } from "./user-group.types";
 
-export function UserGroup({ users, avatarProps = {} }: UserGroupProps) {
+export function UserGroup({ users, avatarProps = {}, maxUsers }: UserGroupProps) {
   if (users.length === 1) {
     return (
       <AvatarDescription
@@ -24,7 +24,7 @@ export function UserGroup({ users, avatarProps = {} }: UserGroupProps) {
           name: login,
         })) ?? []
       }
-      maxAvatars={4}
+      maxAvatars={maxUsers || 4}
     />
   );
 }

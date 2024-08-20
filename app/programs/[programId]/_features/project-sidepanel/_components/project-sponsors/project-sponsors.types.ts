@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { ProjectInterface } from "@/core/domain/project/models/project-model";
 
-export interface ProjectSponsorsProps extends PropsWithChildren {}
+export interface ProjectSponsorsProps {
+  sponsors: ProjectInterface["sponsors"];
+}

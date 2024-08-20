@@ -15,7 +15,7 @@ export function ProjectLanguages({ languages }: ProjectLanguagesProps) {
         <Icon name={"ri-code-line"} />
         <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:projectDetail.language.title" }} />
       </div>
-      <LanguageGroup languages={languages} maxLanguages={2} />
+      <LanguageGroup languages={languages} maxLanguages={1} />
     </Paper>
   );
 }

@@ -7,7 +7,7 @@ import { SocialIconLinkProps } from "./social-icon-link.types";
 
 export function SocialIconLink({ url }: SocialIconLinkProps) {
   const platform = useSocialPlatform(url);
-  console.log("platform", platform);
+
   switch (platform) {
     case SOCIAL_PLATFORM.DISCORD:
       return <Icon name="ri-discord-fill" />;

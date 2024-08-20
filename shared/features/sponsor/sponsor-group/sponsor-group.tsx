@@ -3,28 +3,28 @@ import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { LanguageGroupProps } from "./language-group.types";
+import { SponsorGroupProps } from "./sponsor-group.types";
 
-export function LanguageGroup({
-  languages,
-  maxLanguages,
-  maxLanguagesAvatar,
+export function SponsorGroup({
+  sponsors,
+  maxSponsors,
+  maxSponsorsAvatar,
   tagProps = {},
   className,
-}: LanguageGroupProps) {
-  if (!maxLanguages || languages.length <= maxLanguages) {
+}: SponsorGroupProps) {
+  if (!maxSponsors || sponsors.length <= maxSponsors) {
     return (
       <div className={cn("flex flex-row flex-wrap gap-1", className)}>
-        {languages?.map(({ logoUrl, name }) => (
+        {sponsors?.map(({ logoUrl, name }) => (
           <Tag
             key={name}
-            size={"s"}
-            style={"outline"}
-            color={"white"}
             classNames={{
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",
             }}
+            size={"s"}
+            style={"outline"}
+            color={"white"}
             {...tagProps}
             avatar={{ src: logoUrl, alt: name }}
           >
@@ -46,17 +46,17 @@ export function LanguageGroup({
         startContent={
           <AvatarGroup
             avatars={
-              languages?.map(({ logoUrl, name }) => ({
+              sponsors?.map(({ logoUrl, name }) => ({
                 src: logoUrl,
                 name,
               })) ?? []
             }
             size={"xs"}
-            maxAvatars={maxLanguagesAvatar || 3}
+            maxAvatars={maxSponsorsAvatar || 3}
           />
         }
       >
-        {languages?.map(({ name }) => name).join(", ")}
+        {sponsors?.map(({ name }) => name).join(", ")}
       </Tag>
     </div>
   );

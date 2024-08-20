@@ -20,6 +20,10 @@ export function ProjectCategoriesGroup({
             size={"s"}
             style={"outline"}
             color={"white"}
+            classNames={{
+              base: "max-w-full overflow-hidden",
+              label: "whitespace-nowrap text-ellipsis overflow-hidden",
+            }}
             icon={{ name: iconSlug as RemixIconsName }}
             {...tagProps}
           >

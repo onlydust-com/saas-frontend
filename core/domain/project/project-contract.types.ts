@@ -9,9 +9,21 @@ export type GetProjectByidResponse = components["schemas"]["ProjectResponse"];
 export type GetProjectByidPortResponse = HttpStorageResponse<GetProjectByidResponse>;
 
 type GetProjectByIdQueryParams = operations["getProject"]["parameters"]["query"];
-type GetProgramByIdPathParams = operations["getProject"]["parameters"]["path"];
+type GetProjectByIdPathParams = operations["getProject"]["parameters"]["path"];
 
 export type GetProjectByidPortParams = HttpClientParameters<{
   QueryParams: GetProjectByIdQueryParams;
-  PathParams: GetProgramByIdPathParams;
+  PathParams: GetProjectByIdPathParams;
+}>;
+
+export type GetProjectStatsResponse = components["schemas"]["ProjectStatsResponse"];
+
+export type GetProjectStatsPortResponse = HttpStorageResponse<GetProjectStatsResponse>;
+
+type GetProjectStatsQueryParams = operations["getProjectStats"]["parameters"]["query"];
+type GetProjectStatsPathParams = operations["getProjectStats"]["parameters"]["path"];
+
+export type GetProjectStatsPortParams = HttpClientParameters<{
+  QueryParams: GetProjectStatsQueryParams;
+  PathParams: GetProjectStatsPathParams;
 }>;

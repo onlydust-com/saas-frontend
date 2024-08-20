@@ -9,4 +9,5 @@ export interface UserGroupProps {
   users: User[];
   avatarProps?: AvatarPort;
   totalUsersCount?: number;
+  maxUsers?: number;
 }

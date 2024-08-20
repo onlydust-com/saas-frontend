@@ -1,3 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ProjectInterface } from "@/core/domain/project/models/project-model";
 
-export interface ProjectContributorsProps extends PropsWithChildren {}
+export interface ProjectContributorsProps {
+  topContributors: ProjectInterface["topContributors"];
+  contributorCount: ProjectInterface["contributorCount"];
+}
