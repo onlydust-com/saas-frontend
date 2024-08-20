@@ -44,9 +44,6 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
   return (
     <div className={"grid gap-2"}>
       {alreadyGrantedProjects.map(project => {
-        const description = project.shortDescription ?? "";
-        const formattedDescription = description.length > 25 ? `${description.slice(0, 25)}...` : description;
-
         const { amount, code } = moneyKernelPort.format({
           amount: project.totalGranted.totalUsdEquivalent,
           currency: moneyKernelPort.getCurrency("USD"),
@@ -56,7 +53,7 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
           <CardProject
             key={project.id}
             title={project.name}
-            description={formattedDescription}
+            description={project.truncateDescription(25)}
             logoUrl={project.logoUrl}
             languages={project.languages.map(language => ({ children: language.name }))}
             categories={project.categories.map(category => ({ children: category.name }))}

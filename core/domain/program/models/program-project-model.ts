@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 type ProgramProjectResponse = components["schemas"]["ProgramProjectsPageItemResponse"];
 
-export interface ProgramProjectInterface extends ProgramProjectResponse {}
+export interface ProgramProjectInterface extends ProgramProjectResponse {
+  truncateDescription(max: number): string;
+}
 
 export class ProgramProject implements ProgramProjectInterface {
   activeContributorsCount!: ProgramProjectResponse["activeContributorsCount"];
@@ -27,5 +29,9 @@ export class ProgramProject implements ProgramProjectInterface {
 
   constructor(props: ProgramProjectResponse) {
     Object.assign(this, props);
+  }
+
+  truncateDescription(max: number) {
+    return this.shortDescription.length > max ? `${this.shortDescription.slice(0, max)}...` : this.shortDescription;
   }
 }
