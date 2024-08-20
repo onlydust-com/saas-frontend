@@ -1,3 +1,5 @@
+import { useMemo, useState } from "react";
+
 import { ProjectCategories } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-categories/project-categories";
 import { ProjectContributors } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-contributors/project-contributors";
 import { ProjectDescription } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-description/project-description";
@@ -10,6 +12,8 @@ import { ProjectStats } from "@/app/programs/[programId]/_features/project-sidep
 import { ProjectSidepanelProps } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel.types";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { bootstrap } from "@/core/bootstrap";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
@@ -35,6 +39,18 @@ function ProjectHeader({ logoUrl, name, loading }: { logoUrl?: string; name?: st
   );
 }
 export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+
+  const { fromDate, toDate } = useMemo(() => {
+    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
+
+    return {
+      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+    };
+  }, [rangeType, dateKernelPort]);
+
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: { projectId: projectId ?? "" },
     options: {
@@ -44,10 +60,18 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
 
   const { data: stats, isLoading: loadingStats } = ProjectReactQueryAdapter.client.useGetProjectStats({
     pathParams: { projectId: projectId ?? "" },
+    queryParams: {
+      fromDate,
+      toDate,
+    },
     options: {
       enabled: !!projectId,
     },
   });
+
+  function onChangeRangeType(type: DateRangeType) {
+    setRangeType(type);
+  }
 
   if (!data) {
     return "loading";
@@ -62,7 +86,7 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
       />
       {!!stats && (
         <>
-          <ProjectStats data={stats} />
+          <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
           <ProjectFinancial data={stats} />
         </>
       )}
