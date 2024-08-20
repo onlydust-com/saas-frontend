@@ -4,16 +4,13 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { ProjectStatsProps } from "./project-stats.types";
 
-export function ProjectStats({ children }: ProjectStatsProps) {
+export function ProjectStats(_: ProjectStatsProps) {
   return (
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
           <Icon name={"ri-pie-chart-line"} />
-          {/*// TODO TRAD*/}
-          <Typo size={"xs"} weight={"medium"}>
-            KPI
-          </Typo>
+          <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:projectDetail.kpi.title" }} />
         </div>
       </div>
       <div className="flex flex-row gap-2">

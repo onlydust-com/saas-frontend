@@ -1,0 +1,23 @@
+{
+  "link": {
+    "title": "Links"
+  },
+  "language": {
+    "title": "Language"
+  },
+  "categories": {
+    "title": "Categories"
+  },
+  "kpi": {
+    "title": "KPI"
+  },
+  "lead": {
+    "title": "Project lead"
+  },
+  "contributors": {
+    "title": "Contributors"
+  },
+  "sponsors": {
+    "title": "Sponsors"
+  }
+}

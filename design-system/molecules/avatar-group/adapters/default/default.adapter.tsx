@@ -13,6 +13,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
   classNames,
   avatars,
   maxAvatars,
+  totalAvatarsCount,
   size,
   shape,
   container,
@@ -25,6 +26,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
   });
 
   const slicedAvatars = maxAvatars ? avatars.slice(0, maxAvatars) : avatars;
+  const totalAvatars = totalAvatarsCount || avatars.length;
 
   const avatarAnimation = {
     base: "transition-transform hover:-translate-x-1/4 hover:last:translate-x-0",
@@ -46,7 +48,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
 
       {maxAvatars && avatars.length > maxAvatars ? (
         <Avatar
-          name={`+${avatars.length - maxAvatars}`}
+          name={`+${totalAvatars - maxAvatars}`}
           size={size}
           shape={shape}
           container={container}
