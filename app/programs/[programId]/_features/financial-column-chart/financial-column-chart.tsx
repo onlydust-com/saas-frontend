@@ -1,10 +1,11 @@
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useFinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
@@ -19,13 +20,23 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const { programId = "" } = useParams<{ programId: string }>();
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+
+  const { fromDate, toDate } = useMemo(() => {
+    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
+
+    return {
+      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+    };
+  }, [rangeType, dateKernelPort]);
+
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
     pathParams: { programId },
     queryParams: {
-      fromDate: selectedKeys[0],
-      toDate: dateKernelPort.format(new Date(), "yyyy-MM-dd"),
+      fromDate,
+      toDate,
     },
   });
 
@@ -52,28 +63,9 @@ export function FinancialColumnChart() {
     tooltip: { valueSuffix: " USD" },
   });
 
-  const dateRangeItems = [
-    {
-      value: dateKernelPort.format(dateKernelPort.subWeeks(new Date(), 1), "yyyy-MM-dd"),
-      label: "Last week",
-    },
-    {
-      value: dateKernelPort.format(dateKernelPort.subMonths(new Date(), 1), "yyyy-MM-dd"),
-      label: "Last month",
-    },
-    {
-      value: dateKernelPort.format(dateKernelPort.subMonths(new Date(), 6), "yyyy-MM-dd"),
-      label: "Last semester",
-    },
-    {
-      value: dateKernelPort.format(dateKernelPort.subYears(new Date(), 1), "yyyy-MM-dd"),
-      label: "Last year",
-    },
-    {
-      value: dateKernelPort.format(new Date(0), "yyyy-MM-dd"),
-      label: "All time",
-    },
-  ];
+  function onChangeRangeType(value: string[]) {
+    setRangeType(value[0] as DateRangeType);
+  }
 
   if (isLoading) {
     return (
@@ -120,13 +112,19 @@ export function FinancialColumnChart() {
         </Paper>
         <Dropdown
           isMultipleSelection={false}
-          selectedKeys={selectedKeys}
-          onChange={keys => setSelectedKeys(keys)}
-          items={dateRangeItems}
+          selectedKeys={[rangeType]}
+          onChange={onChangeRangeType}
+          items={[
+            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, value: DateRangeType.LAST_WEEK },
+            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, value: DateRangeType.LAST_MONTH },
+            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, value: DateRangeType.LAST_SEMESTER },
+            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, value: DateRangeType.LAST_YEAR },
+            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, value: DateRangeType.ALL_TIME },
+          ]}
         >
           {({ label }) => (
             <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-calendar-line" }}>
-              {label}
+              {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}
         </Dropdown>
