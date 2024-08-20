@@ -17,9 +17,10 @@ interface DateRangePickerValue {
 }
 
 export interface DateRangePickerPort extends Partial<Variants> {
-  id?: string;
   classNames?: Partial<ClassNames>;
   onChange?: (value: DateRangePickerValue) => void;
   value?: DateRangePickerValue;
   label?: ReactNode;
+  minValue?: Date;
+  maxValue?: Date;
 }
