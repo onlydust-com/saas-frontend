@@ -50,6 +50,9 @@ export type GetProgramTransactionsPortParams = HttpClientParameters<{
 
 export type GetProgramTransactionsPortResponse = HttpStorageResponse<GetProgramTransactionsModel>;
 
+/* ---------------------- Get Program Transactions CSV ---------------------- */
+export type GetProgramTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
+
 /* --------------------- Get Program Transactions Stats --------------------- */
 export type GetProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
 

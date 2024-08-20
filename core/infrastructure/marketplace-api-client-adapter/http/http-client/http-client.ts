@@ -20,6 +20,7 @@ export class HttpClient {
     version?: MarketplaceApiVersion;
     body?: HttpClientBody;
     next?: NextFetchRequestConfig;
+    headers?: HeadersInit;
   }): Promise<R>;
 
   request<R>(): Promise<R> {
@@ -154,6 +155,14 @@ export class HttpClient {
   async formatResponse<R>(res: Response): Promise<R> {
     if (res.ok) {
       if (res.headers.get("Content-Type") === "application/pdf") {
+        return (await res.blob()) as R;
+      }
+
+      if (res.headers.get("Content-Type") === "text/csv;charset=UTF-8") {
+        return (await res.blob()) as R;
+      }
+
+      if (res.headers.get("Content-Type") === "application/octet-stream") {
         return (await res.blob()) as R;
       }
 

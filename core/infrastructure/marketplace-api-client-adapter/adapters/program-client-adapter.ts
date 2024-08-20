@@ -98,6 +98,34 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     };
   };
 
+  getProgramTransactionsCsv = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProgramStoragePort["getProgramTransactionsCsv"]>) => {
+    const path = this.routes["getProgramTransactions"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
+
+      return data;
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
   getProgramTransactionsStats = ({
     pathParams,
     queryParams,
