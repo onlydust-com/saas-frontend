@@ -1,0 +1,11 @@
+{
+  "totalAvailable": {
+    "title": "Available"
+  },
+  "totalGranted": {
+    "title": "Granted"
+  },
+  "totalRewarded": {
+    "title": "Rewarded"
+  }
+}

@@ -10,4 +10,5 @@ export interface FinancialCardItemProps {
   title: TranslateProps["token"];
   total: ProgramResponse["totalAvailable" | "totalGranted" | "totalRewarded"];
   color: "chart-1" | "chart-2" | "chart-3" | "chart-4";
+  onClick?: () => void;
 }

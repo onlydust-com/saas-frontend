@@ -3,6 +3,7 @@ import enProgramsDetails from "@/app/programs/[programId]/_translations/programs
 
 import enBudgetAvailable from "../[programId]/_features/budget-available-cards/budget-available.en.json";
 import enFinancialColumnChart from "../[programId]/_features/financial-column-chart/financial-column-chart.en.json";
+import enFinancialDetailSidePanel from "../[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel.en.json";
 import enPrograms from "./programs.en.json";
 
 export const enProgramsTranslation = {
@@ -12,5 +13,6 @@ export const enProgramsTranslation = {
     transactionPanel: enTransactionPanel,
     financialColumnChart: enFinancialColumnChart,
     budgetAvailable: enBudgetAvailable,
+    financialDetailSidePanel: enFinancialDetailSidePanel,
   },
 };

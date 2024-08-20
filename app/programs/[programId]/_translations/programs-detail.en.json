@@ -8,6 +8,9 @@
       "budgetAvailable": "Budget available",
       "budgetChart": "Budget chart",
       "seeTransactions": "See transactions"
+    },
+    "detailSidePanel": {
+      "title": "Financial detail"
     }
   },
   "projects": {
