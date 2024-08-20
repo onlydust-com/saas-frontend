@@ -2,11 +2,11 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-import { CardTemplateDefaultAdapter } from "./adapters/default/default.adapter";
 import { CardTemplateLoading } from "./card-template.loading";
 import { CardTemplatePort } from "./card-template.types";
+import { CardTemplate } from "./variants/card-template-default";
 
-type Story = StoryObj<typeof CardTemplateDefaultAdapter>;
+type Story = StoryObj<typeof CardTemplate>;
 
 const defaultProps: CardTemplatePort<"div"> = {
   avatarProps: {
@@ -39,8 +39,8 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
   ],
 };
 
-const meta: Meta<typeof CardTemplateDefaultAdapter> = {
-  component: CardTemplateDefaultAdapter,
+const meta: Meta<typeof CardTemplate> = {
+  component: CardTemplate,
   title: "Molecules/Cards/CardTemplate",
   tags: ["autodocs"],
   parameters: {
@@ -54,13 +54,13 @@ const meta: Meta<typeof CardTemplateDefaultAdapter> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardTemplateDefaultAdapter />" },
+      source: { code: "<CardTemplate />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplateDefaultAdapter {...defaultProps} {...args} />
+        <CardTemplate {...defaultProps} {...args} />
       </div>
     );
   },
@@ -70,14 +70,14 @@ export const WithIcon: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplateDefaultAdapter iconProps={{ name: 'ri-arrow-up-line', className: 'text-label-red' }} />",
+        code: "<CardTemplate iconProps={{ name: 'ri-arrow-up-line', className: 'text-label-red' }} />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplateDefaultAdapter
+        <CardTemplate
           {...defaultProps}
           {...args}
           iconProps={{ name: "ri-arrow-up-line", className: "text-label-red" }}
@@ -90,13 +90,13 @@ export const WithIcon: Story = {
 export const WithEndContent: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardTemplateDefaultAdapter endContent={<Button>Click me</Button>} />" },
+      source: { code: "<CardTemplate endContent={<Button>Click me</Button>} />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplateDefaultAdapter
+        <CardTemplate
           {...defaultProps}
           {...args}
           endContent={
@@ -114,14 +114,14 @@ export const WithCustomTags: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplateDefaultAdapter tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'ri-time-line' } }, { children: 'Tag 3', icon: { name: 'ri-time-line' } }]} />",
+        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'ri-time-line' } }, { children: 'Tag 3', icon: { name: 'ri-time-line' } }]} />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplateDefaultAdapter {...defaultPropsWithTags} {...args} />
+        <CardTemplate {...defaultPropsWithTags} {...args} />
       </div>
     );
   },

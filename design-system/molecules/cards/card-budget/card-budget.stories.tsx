@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { CardBudgetDefaultAdapter } from "./adapters/default/default.adapter";
 import { CardBudgetLoading } from "./card-budget.loading";
 import { CardBudgetPort } from "./card-budget.types";
+import { CardBudget } from "./variants/card-budget-default";
 
-type Story = StoryObj<typeof CardBudgetDefaultAdapter>;
+type Story = StoryObj<typeof CardBudget>;
 
 const defaultProps: CardBudgetPort<"div"> = {
   amount: {
@@ -21,8 +21,8 @@ const defaultProps: CardBudgetPort<"div"> = {
   budgetPercentage: 75,
 };
 
-const meta: Meta<typeof CardBudgetDefaultAdapter> = {
-  component: CardBudgetDefaultAdapter,
+const meta: Meta<typeof CardBudget> = {
+  component: CardBudget,
   title: "Molecules/Cards/CardBudget",
   tags: ["autodocs"],
   parameters: {
@@ -36,13 +36,13 @@ const meta: Meta<typeof CardBudgetDefaultAdapter> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardBudgetDefaultAdapter />" },
+      source: { code: "<CardBudget />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardBudgetDefaultAdapter {...defaultProps} {...args} />
+        <CardBudget {...defaultProps} {...args} />
       </div>
     );
   },
