@@ -46,7 +46,6 @@ export function DropdownNextUiAdapter({
         base: cn(slots.base(), classNames?.base),
         content: cn(slots.content(), classNames?.content),
       }}
-      disableAnimation
     >
       <DropdownTrigger className="z-[1] cursor-pointer">
         <div className="w-fit">{children?.({ label: buildLabel() })}</div>
