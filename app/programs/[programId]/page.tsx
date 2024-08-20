@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart";
-import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
 
@@ -18,31 +17,10 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const BUDGET_AVAILABLE = "budgetAvailable";
 const BUDGET_CHART = "budgetChart";
-
-function ProjectButtonMock() {
-  const { Panel, open, close, isOpen } = useSidePanel({ name: "project-detail" });
-  function togglePanel() {
-    if (!isOpen) {
-      open();
-    } else {
-      close();
-    }
-  }
-
-  return (
-    <>
-      <Button onClick={togglePanel}>Open project</Button>
-      <Panel>
-        <ProjectSidepanel />
-      </Panel>
-    </>
-  );
-}
 
 export default function ProgramPage({ params: { programId } }: { params: { programId: string } }) {
   const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof BUDGET_AVAILABLE | typeof BUDGET_CHART>(
@@ -134,7 +112,6 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
             <ProjectsTable programId={programId} />
           </div>
         </PageContent>
-        <ProjectButtonMock />
       </AnimatedColumn>
     </PageWrapper>
   );
