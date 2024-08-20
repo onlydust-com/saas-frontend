@@ -2,11 +2,11 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 
-import { CardTransactionDefaultAdapter } from "./adapters/default/default.adapter";
 import { CardTransactionLoading } from "./card-transaction.loading";
 import { CardTransactionPort } from "./card-transaction.types";
+import { CardTransaction } from "./variants/card-transaction-default";
 
-type Story = StoryObj<typeof CardTransactionDefaultAdapter>;
+type Story = StoryObj<typeof CardTransaction>;
 
 const defaultProps: CardTransactionPort<"div"> = {
   type: "GRANTED",
@@ -28,8 +28,8 @@ const defaultProps: CardTransactionPort<"div"> = {
   },
 };
 
-const meta: Meta<typeof CardTransactionDefaultAdapter> = {
-  component: CardTransactionDefaultAdapter,
+const meta: Meta<typeof CardTransaction> = {
+  component: CardTransaction,
   title: "Molecules/Cards/CardTransaction",
   tags: ["autodocs"],
   parameters: {
@@ -43,13 +43,13 @@ const meta: Meta<typeof CardTransactionDefaultAdapter> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardTransactionDefaultAdapter />" },
+      source: { code: "<CardTransaction />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} />
+        <CardTransaction {...defaultProps} {...args} />
       </div>
     );
   },
@@ -59,31 +59,31 @@ export const GrantedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter type='GRANTED' />",
+        code: "<CardTransaction type='GRANTED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="GRANTED" />
+        <CardTransaction {...defaultProps} {...args} type="GRANTED" />
       </div>
     );
   },
 };
 
-export const AllocatedType: Story = {
+export const ReceivedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter type='RECEIVED' />",
+        code: "<CardTransaction type='RECEIVED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="RECEIVED" />
+        <CardTransaction {...defaultProps} {...args} type="RECEIVED" />
       </div>
     );
   },
@@ -93,14 +93,14 @@ export const ReturnedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransactionDefaultAdapter type='RETURNED' />",
+        code: "<CardTransaction type='RETURNED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransactionDefaultAdapter {...defaultProps} {...args} type="RETURNED" />
+        <CardTransaction {...defaultProps} {...args} type="RETURNED" />
       </div>
     );
   },

@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { CardProjectDefaultAdapter } from "./adapters/default/default.adapter";
 import { CardProjectLoading } from "./card-project.loading";
 import { CardProjectPort } from "./card-project.types";
+import { CardProject } from "./variants/card-project-default";
 
-type Story = StoryObj<typeof CardProjectDefaultAdapter>;
+type Story = StoryObj<typeof CardProject>;
 
 const defaultProps: CardProjectPort<"div"> = {
   title: "Project Title",
@@ -17,8 +17,8 @@ const defaultProps: CardProjectPort<"div"> = {
   },
 };
 
-const meta: Meta<typeof CardProjectDefaultAdapter> = {
-  component: CardProjectDefaultAdapter,
+const meta: Meta<typeof CardProject> = {
+  component: CardProject,
   title: "Molecules/Cards/CardProject",
   tags: ["autodocs"],
   parameters: {
@@ -32,13 +32,13 @@ const meta: Meta<typeof CardProjectDefaultAdapter> = {
 export const Default: Story = {
   parameters: {
     docs: {
-      source: { code: "<CardProjectDefaultAdapter />" },
+      source: { code: "<CardProject />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardProjectDefaultAdapter {...defaultProps} {...args} />
+        <CardProject {...defaultProps} {...args} />
       </div>
     );
   },
