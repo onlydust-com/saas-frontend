@@ -9,6 +9,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { cn } from "@/shared/helpers/cn";
 
 import { DateRangePickerPort } from "../../date-range-picker.types";
+import { getErrorMessage } from "../../date-range-picker.utils";
 import { DateRangePickerNextUiVariants } from "./next-ui.variants";
 
 const DEFAULT_TZ = "Europe/Paris";
@@ -50,6 +51,7 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
         label: cn(slots.label(), classNames?.label),
         segment: slots.segment(),
         selectorButton: slots.selectorButton(),
+        errorMessage: slots.errorMessage(),
       }}
       calendarProps={{
         classNames: {
@@ -80,6 +82,7 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       value={formattedValue}
       minValue={minValue ? parseAbsolute(minValue.toISOString(), DEFAULT_TZ) : undefined}
       maxValue={maxValue ? parseAbsolute(maxValue.toISOString(), DEFAULT_TZ) : undefined}
+      errorMessage={validation => getErrorMessage({ validation, minValue, maxValue })}
     />
   );
 });

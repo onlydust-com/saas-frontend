@@ -12,6 +12,7 @@ export const DateRangePickerNextUiVariants = tv({
       "my-0 text-text-3 data-[editable=true]:data-[placeholder=true]:text-text-3 data-[editable=true]:text-text-1 data-[invalid=true]:data-[editable=true]:text-interactions-error-active data-[invalid=true]:text-interactions-error-active focus:bg-white/20 data-[invalid=true]:focus:bg-interactions-error-default data-[editable=true]:focus:text-text-1 data-[invalid=true]:data-[editable=true]:focus:text-interactions-error-active",
     selectorButton:
       "text-text-1 data-[hover=true]:bg-white/20 group-data-[invalid=true]:text-interactions-error-active group-data-[invalid=true]:data-[hover=true]:bg-interactions-error-default",
+    errorMessage: "text-xs text-interactions-error-active",
   },
   variants: {
     isDisabled: {
