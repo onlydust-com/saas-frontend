@@ -47,6 +47,7 @@ export function GrantListSidepanel() {
       <Panel>
         <SidePanelHeader canClose={true} title={{ token: "programs:grantList.title" }} />
 
+        {/* TODO @hayden handle search */}
         <Input placeholder={T("programs:grantList.search")} startContent={<Icon name={"ri-search-line"} />} />
 
         <AccordionWithBadge

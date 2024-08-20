@@ -7,17 +7,20 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
 
+import { ShowMore } from "@/shared/components/show-more/show-more";
+
 export function AlreadyGrantedProjects({ programId }: { programId: string }) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramProjects({
-    pathParams: {
-      programId,
-    },
-    options: {
-      enabled: Boolean(programId),
-    },
-  });
+  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    ProgramReactQueryAdapter.client.useGetProgramProjects({
+      pathParams: {
+        programId,
+      },
+      options: {
+        enabled: Boolean(programId),
+      },
+    });
   const alreadyGrantedProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   if (isLoading) {
@@ -67,7 +70,7 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
         );
       })}
 
-      {/* TODO @hayden add show more */}
+      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </div>
   );
 }
