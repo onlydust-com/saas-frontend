@@ -1,5 +1,7 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+
+import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -14,9 +16,12 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const { Panel, open } = useSidePanel({ name: "project-detail" });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
       pathParams: {
@@ -26,10 +31,16 @@ export function ProjectsTable({ programId }: { programId: string }) {
         enabled: Boolean(programId),
       },
     });
+
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const columnHelper = createColumnHelper<ProgramProjectInterface>();
+
+  function handleOpenProjectDetail(projectId: string) {
+    setSelectedProjectId(projectId);
+    open();
+  }
 
   const columns = [
     columnHelper.accessor("name", {
@@ -239,17 +250,21 @@ export function ProjectsTable({ programId }: { programId: string }) {
     columnHelper.display({
       id: "actions",
       header: () => <Translate token={"programs:details.projects.table.columns.actions"} />,
-      cell: () => (
-        <div className={"flex gap-1"}>
-          <Button variant={"secondary-light"}>
-            <Translate token={"programs:details.projects.table.rows.grant"} />
-          </Button>
+      cell: info => {
+        const projectId = info.row.original.id;
 
-          <Button variant={"secondary-light"}>
-            <Translate token={"programs:details.projects.table.rows.seeDetail"} />
-          </Button>
-        </div>
-      ),
+        return (
+          <div className={"flex gap-1"}>
+            <Button variant={"secondary-light"}>
+              <Translate token={"programs:details.projects.table.rows.grant"} />
+            </Button>
+
+            <Button variant={"secondary-light"} onClick={() => handleOpenProjectDetail(projectId)}>
+              <Translate token={"programs:details.projects.table.rows.seeDetail"} />
+            </Button>
+          </div>
+        );
+      },
     }),
   ];
 
@@ -277,17 +292,22 @@ export function ProjectsTable({ programId }: { programId: string }) {
   }
 
   return (
-    <ScrollView direction={"x"}>
-      <Table
-        header={{
-          headerGroups: table.getHeaderGroups(),
-        }}
-        rows={table.getRowModel().rows}
-        classNames={{
-          base: "min-w-[1620px]",
-        }}
-      />
-      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-    </ScrollView>
+    <>
+      <ScrollView direction={"x"}>
+        <Table
+          header={{
+            headerGroups: table.getHeaderGroups(),
+          }}
+          rows={table.getRowModel().rows}
+          classNames={{
+            base: "min-w-[1620px]",
+          }}
+        />
+        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+      </ScrollView>
+      <Panel>
+        <ProjectSidepanel projectId={selectedProjectId} />
+      </Panel>
+    </>
   );
 }
