@@ -14,7 +14,6 @@ import {
   TransactionsContextReturn,
 } from "./transactions.context.types";
 
-// TODO: @NeoxAzrot add range date picker
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   programId: "",
   transactionsStats: [],
@@ -64,13 +63,15 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     setQueryParams({
       search: filters.search || undefined,
       types: filters.types.length ? filters.types : undefined,
+      fromDate: filters.dateRange?.start?.toISOString() || undefined,
+      toDate: filters.dateRange?.end?.toISOString() || undefined,
     });
   }, [filters]);
 
   const isCleared = useMemo(() => JSON.stringify(filters) == JSON.stringify(DEFAULT_FILTER), [filters]);
 
   const filtersCount = useMemo(() => {
-    return filters.types.length;
+    return filters.types.length + (filters.dateRange ? 1 : 0);
   }, [filters]);
 
   const setFilter = (filter: Partial<TransactionsContextFilter>) => {

@@ -55,8 +55,8 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
         classNames: {
           base: "rounded-xl bg-container-1",
           headerWrapper: "bg-container-1 px-3 pt-3 pb-2",
-          prevButton: "text-text-1 h-4 w-4 min-w-4 data-[hover=true]:bg-transparent",
-          nextButton: "text-text-1 h-4 w-4 min-w-4 data-[hover=true]:bg-transparent",
+          prevButton: "text-text-1 data-[hover=true]:bg-white/20",
+          nextButton: "text-text-1 data-[hover=true]:bg-white/20",
           title: "text-text-1 text-sm font-medium",
           gridHeader: "bg-container-1",
           gridHeaderRow: "px-3 pb-2",
