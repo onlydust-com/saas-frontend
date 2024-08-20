@@ -7,7 +7,7 @@ import { AccordionNextUiAdapter } from "../adapters/next-ui/next-ui.adapter";
 export function AccordionWithBadge({ items, ...props }: AccordionWithBadgePort) {
   const itemsWithBadge: AccordionItemProps[] = items.map(({ badgeProps, ...item }) => ({
     ...item,
-    endContent: <Badge style="outline" size="s" {...badgeProps} />,
+    endContent: badgeProps ? <Badge style="outline" size="s" {...badgeProps} /> : undefined,
   }));
 
   return withComponentAdapter<AccordionWithBadgePort>(AccordionNextUiAdapter)({ ...props, items: itemsWithBadge });

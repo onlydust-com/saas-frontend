@@ -7,6 +7,7 @@ interface Variants {}
 
 interface ClassNames {
   base: string;
+  label: string;
 }
 
 export interface AvatarDescriptionPort extends Partial<Variants> {

@@ -16,9 +16,15 @@ export function AvatarDescriptionDefaultAdapter({
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      <Avatar {...avatarProps} size={"m"} />
+      <Avatar size={"m"} {...avatarProps} />
       <div className={"grid place-content-center"}>
-        <Typo {...labelProps} size={"xs"} weight={"medium"} color={"text-1"} />
+        <Typo
+          {...labelProps}
+          size={"xs"}
+          weight={"medium"}
+          color={"text-1"}
+          classNames={{ base: cn(slots.label(), classNames?.label) }}
+        />
         {descriptionProps ? <Typo {...descriptionProps} size={"xxs"} weight={"regular"} color={"text-2"} /> : null}
       </div>
     </div>

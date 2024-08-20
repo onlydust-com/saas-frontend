@@ -1,5 +1,6 @@
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
+import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
 import { enTableColumnListTranslation } from "@/design-system/molecules/table-column-list/translations/table-column-list.translate";
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
@@ -20,6 +21,7 @@ export const en = {
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
+  ...enDateRangePickerTranslation,
   cards: {
     ...enCardTransactionTranslation,
   },

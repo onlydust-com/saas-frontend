@@ -1,7 +1,7 @@
 "use client";
 
 import { Variants, motion } from "framer-motion";
-import { ForwardedRef, forwardRef, useImperativeHandle, useRef } from "react";
+import { ForwardedRef, forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { Paper } from "@/design-system/atoms/paper";
@@ -37,6 +37,7 @@ export const SidePanel = forwardRef(function SidePanel(
       isOpen: isOpen(name),
       close: current => close(current ? name : undefined),
       back: () => back(),
+      name,
     };
   }, [open, close, isOpen, name, back]);
 
@@ -89,19 +90,26 @@ export const SidePanel = forwardRef(function SidePanel(
   );
 });
 
-export const useSidePanel = (props: Omit<SidePanelProps, "children">, config?: SidePanelConfig): UseSidePanel => {
+export const useSidePanel = (
+  { name, classNames }: Omit<SidePanelProps, "children">,
+  config?: SidePanelConfig
+): UseSidePanel => {
   const ref = useRef<SidePanelRef>(null);
 
-  return {
-    Panel: ({ children }) => (
-      <SidePanel ref={ref} {...props}>
-        {children}
-      </SidePanel>
-    ),
-    open: () => ref.current?.open(config),
-    close: current => ref.current?.close(current),
-    back: () => ref.current?.back(),
-    isOpen: ref.current?.isOpen || false,
-    name: props.name,
-  };
+  const { isOpen } = useSidePanelsContext();
+
+  return useMemo(() => {
+    return {
+      Panel: ({ children }) => (
+        <SidePanel ref={ref} name={name} classNames={classNames}>
+          {children}
+        </SidePanel>
+      ),
+      open: () => ref.current?.open(config),
+      close: current => ref.current?.close(current),
+      back: () => ref.current?.back(),
+      isOpen: ref.current?.name ? isOpen(ref.current?.name) : false,
+      name,
+    };
+  }, [ref, name, classNames, config, isOpen]);
 };

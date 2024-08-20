@@ -36,7 +36,9 @@ export function DropdownNextUiAdapter({
       return undefined;
     }
 
-    return selectedKeys?.length > 1 ? `${selectedKeys?.length} ${multipleSelectionCountLabel || ""}` : selectedKeys[0];
+    return selectedKeys?.length > 1
+      ? `${selectedKeys?.length} ${multipleSelectionCountLabel || ""}`
+      : items.find(item => item.value === selectedKeys[0])?.label || selectedKeys[0];
   }
 
   return (
@@ -65,7 +67,7 @@ export function DropdownNextUiAdapter({
             {...item}
             key={item.value}
             className={cn(
-              "data-[hover=true]:bg-card-background-medium data-[hover=true]:text-greyscale-50 flex flex-row items-center justify-start gap-1 rounded-[6px] px-2 py-3 text-text-1",
+              "flex flex-row items-center justify-start gap-1 rounded-[6px] px-2 py-3 text-text-1 data-[hover=true]:bg-container-2 data-[selected=true]:bg-container-3 data-[hover=true]:focus:bg-container-2 data-[selected=true]:focus:bg-container-3",
               {
                 "text-orange-500 data-[hover=true]:text-orange-500": item.isWarning,
                 "text-github-red data-[hover=true]:text-github-red": item.isError,
@@ -73,7 +75,9 @@ export function DropdownNextUiAdapter({
               item.className
             )}
           >
-            <Typo as="div">{item.label}</Typo>
+            <Typo as="div" size={"xs"}>
+              {item.label}
+            </Typo>
           </DropdownItem>
         )}
       </DropdownMenu>

@@ -46,7 +46,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
         />
       ))}
 
-      {maxAvatars && avatars.length > maxAvatars ? (
+      {maxAvatars && (avatars.length > maxAvatars || totalAvatars > avatars.length) ? (
         <Avatar
           name={`+${totalAvatars - maxAvatars}`}
           size={size}

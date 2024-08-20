@@ -1,4 +1,4 @@
-import { DateFacadePort } from "./date-facade-port";
+import { DateFacadePort, DateRangeType } from "./date-facade-port";
 
 export const DateAdapterMock: DateFacadePort = {
   eachDayOfInterval: (_start: Date, _end: Date) => [_start, _end],
@@ -11,4 +11,5 @@ export const DateAdapterMock: DateFacadePort = {
   format: (_date: Date, _pattern: string) => "",
   formatDistanceToNow: (_date: Date) => "",
   formatInEuropeTimeZone: (_date: Date, _pattern: string) => "",
+  getRangeOfDates: (_range: DateRangeType) => ({ from: null, to: null }),
 };
