@@ -1,3 +1,4 @@
+import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -27,3 +28,15 @@ export type GetProjectStatsPortParams = HttpClientParameters<{
   QueryParams: GetProjectStatsQueryParams;
   PathParams: GetProjectStatsPathParams;
 }>;
+
+/* ------------------------------ Get Projects ------------------------------ */
+export type GetProjectsResponse = components["schemas"]["ProjectPageResponse"];
+export type GetProjectsModel = Omit<GetProjectsResponse, "projects"> & {
+  projects: ProjectListItemInterface[];
+};
+
+type GetProjectsQueryParams = operations["getProjects"]["parameters"]["query"];
+
+export type GetProjectsPortResponse = HttpStorageResponse<GetProjectsModel>;
+
+export type GetProjectsPortParams = HttpClientParameters<{ QueryParams: GetProjectsQueryParams }>;

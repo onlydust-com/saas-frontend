@@ -102,6 +102,14 @@ export class Bootstrap {
     return this.projectStoragePortForServer;
   }
 
+  getProjectStoragePortForClient() {
+    return this.projectStoragePortForClient;
+  }
+
+  getProjectStoragePortForServer() {
+    return this.projectStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
