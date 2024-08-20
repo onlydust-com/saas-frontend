@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type ProjectResponse = components["schemas"]["ProjectResponse"];
 
-export interface ProjectInterface extends ProjectResponse {}
+export interface ProjectInterface extends ProjectResponse {
+  truncateDescription(max: number): string;
+}
 
 export class Project implements ProjectInterface {
   id!: ProjectResponse["id"];
@@ -35,5 +37,9 @@ export class Project implements ProjectInterface {
 
   constructor(props: ProjectResponse) {
     Object.assign(this, props);
+  }
+
+  truncateDescription(max: number) {
+    return this.shortDescription.length > max ? `${this.shortDescription.slice(0, max)}...` : this.shortDescription;
   }
 }

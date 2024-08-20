@@ -1,15 +1,14 @@
 import {
-  GetProjectByidPortParams,
-  GetProjectByidPortResponse,
+  GetProjectByIdPortParams,
+  GetProjectByIdPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
 } from "@/core/domain/project/project-contract.types";
 
-
 export interface ProjectFacadePort {
-  getProjectByid(p: GetProjectByidPortParams): GetProjectByidPortResponse;
+  getProjectById(p: GetProjectByIdPortParams): GetProjectByIdPortResponse;
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
 }
