@@ -40,7 +40,7 @@ export function SidePanelHeader({
       )}
       {title && <Typo size={"2xl"} variant={"brand"} translate={title} />}
       {showEndContent && (
-        <div className={"flex w-full flex-row items-center justify-end gap-1"}>
+        <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
             <Button

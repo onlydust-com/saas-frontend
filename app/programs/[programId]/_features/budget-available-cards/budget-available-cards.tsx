@@ -1,14 +1,19 @@
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 import {
   CreateAvatarGroupProps,
   FinancialCardItemProps,
 } from "@/app/programs/[programId]/_features/budget-available-cards/budget-available-cards.types";
+import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel";
+import { PanelType } from "@/app/programs/[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
 
 import { CardFinancial, CardFinancialLoading } from "@/design-system/molecules/card-financial";
+
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
 function createAvatarGroup({ total }: CreateAvatarGroupProps) {
   return {
@@ -20,7 +25,7 @@ function createAvatarGroup({ total }: CreateAvatarGroupProps) {
   };
 }
 
-function FinancialCardItem({ title, total, color }: FinancialCardItemProps) {
+function FinancialCardItem({ title, total, color, onClick }: FinancialCardItemProps) {
   const avatarGroup = createAvatarGroup({ total });
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -35,16 +40,16 @@ function FinancialCardItem({ title, total, color }: FinancialCardItemProps) {
       avatarGroup={avatarGroup}
       color={color}
       cta={{
-        onClick: () => {
-          console.log("Open detail panel");
-        },
+        onClick,
       }}
     />
   );
 }
 
 export function BudgetAvailableCards() {
+  const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");
   const { programId = "" } = useParams<{ programId: string }>();
+  const { Panel, open, isOpen } = useSidePanel({ name: "financial-detail" });
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -56,7 +61,7 @@ export function BudgetAvailableCards() {
 
   if (isLoading) {
     return (
-      <div className="flex h-[220px] gap-2">
+      <div className="grid min-h-[220px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
         <CardFinancialLoading />
         <CardFinancialLoading />
         <CardFinancialLoading />
@@ -68,11 +73,38 @@ export function BudgetAvailableCards() {
     return null;
   }
 
+  function openPanel(panelType: PanelType) {
+    setPanelType(panelType);
+    if (!isOpen) {
+      open();
+    }
+  }
+
   return (
-    <div className="flex h-[220px] gap-2">
-      <FinancialCardItem title="programs:budgetAvailable.available.title" total={data.totalAvailable} color="chart-1" />
-      <FinancialCardItem title="programs:budgetAvailable.granted.title" total={data.totalGranted} color="chart-2" />
-      <FinancialCardItem title="programs:budgetAvailable.rewarded.title" total={data.totalRewarded} color="chart-3" />
-    </div>
+    <>
+      <div className="grid min-h-[220px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+        <FinancialCardItem
+          title="programs:budgetAvailable.available.title"
+          total={data.totalAvailable}
+          color="chart-1"
+          onClick={() => openPanel("totalAvailable")}
+        />
+        <FinancialCardItem
+          title="programs:budgetAvailable.granted.title"
+          total={data.totalGranted}
+          color="chart-2"
+          onClick={() => openPanel("totalGranted")}
+        />
+        <FinancialCardItem
+          title="programs:budgetAvailable.rewarded.title"
+          total={data.totalRewarded}
+          color="chart-3"
+          onClick={() => openPanel("totalRewarded")}
+        />
+      </div>
+      <Panel>
+        <FinancialDetailSidepanel panelType={panelType} program={data} />
+      </Panel>
+    </>
   );
 }
