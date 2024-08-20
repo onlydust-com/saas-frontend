@@ -3,7 +3,7 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 export function ProjectSidepanel() {
   return (
     <>
-      <SidePanelHeader canGoBack={false} canClose={true} title={{ children: "Project", token: "" }} />
+      <SidePanelHeader canGoBack={false} canClose={true} />
       <div></div>
     </>
   );
