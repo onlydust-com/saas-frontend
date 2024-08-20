@@ -19,7 +19,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
     const total = program[panelType];
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         <CardFinancial
           title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
           amount={
@@ -45,7 +45,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               usdEquivalent: total.totalUsdEquivalent,
             }}
             // TODO @Mehdi use budgetPercentage once backend ready
-            budgetPercentage={0}
+            budgetPercentage={10}
           />
         ))}
       </div>
