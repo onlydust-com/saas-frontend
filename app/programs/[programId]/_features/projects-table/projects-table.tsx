@@ -1,7 +1,5 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
-
-import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
+import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -16,12 +14,11 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useProjectSidePanel } from "@/shared/features/panels/project-sidepanel/project-sidepanel.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const { Panel, open } = useSidePanel({ name: "project-detail" });
+  const { open } = useProjectSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
       pathParams: {
@@ -38,8 +35,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const columnHelper = createColumnHelper<ProgramProjectInterface>();
 
   function handleOpenProjectDetail(projectId: string) {
-    setSelectedProjectId(projectId);
-    open();
+    open(projectId);
   }
 
   const columns = [
@@ -306,9 +302,6 @@ export function ProjectsTable({ programId }: { programId: string }) {
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>
-      <Panel>
-        <ProjectSidepanel projectId={selectedProjectId} />
-      </Panel>
     </>
   );
 }
