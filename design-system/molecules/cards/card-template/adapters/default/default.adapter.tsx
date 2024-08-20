@@ -49,13 +49,13 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
           {endContent}
         </div>
 
-        {tags?.length && (
+        {tags?.length ? (
           <div className="flex w-full flex-wrap gap-1">
             {tags.map((t, key) => (
               <Tag key={key} color="grey" size="xs" style="outline" {...t} />
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     </Paper>
   );
