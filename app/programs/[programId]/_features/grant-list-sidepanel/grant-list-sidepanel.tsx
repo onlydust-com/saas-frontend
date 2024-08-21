@@ -20,7 +20,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantListSidepanel() {
   const { programId } = useParams<{ programId: string }>();
-  const [T] = useTranslation();
+  const { t } = useTranslation();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "grant-list" });
   const [search, setSearch] = useState<string | undefined>();
   const [debouncedSearch, setDebouncedSearch] = useState(search);
@@ -53,7 +53,7 @@ export function GrantListSidepanel() {
         <SidePanelHeader canClose={true} title={{ token: "programs:grantList.title" }} />
 
         <Input
-          placeholder={T("programs:grantList.search")}
+          placeholder={t("programs:grantList.search")}
           startContent={<Icon name={"ri-search-line"} />}
           value={search}
           onChange={e => setSearch(e.currentTarget.value)}

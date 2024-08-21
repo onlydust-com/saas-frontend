@@ -22,7 +22,7 @@ export interface DropdownPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   selectedKeys?: string[];
   onChange?: (keys: string[], data: DropdownItemType[]) => void;
-  children?: (p: { label?: string }) => ReactNode;
+  children?: (p: { label?: ReactNode }) => ReactNode;
   isMultipleSelection?: boolean;
   multipleSelectionCountLabel?: string;
 }

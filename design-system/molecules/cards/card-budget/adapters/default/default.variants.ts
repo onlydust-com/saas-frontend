@@ -4,6 +4,8 @@ export const CardBudgetDefaultVariants = tv({
   slots: {
     base: "",
   },
-  variants: {},
+  variants: {
+    clickable: { true: { base: "cursor-pointer" } },
+  },
   defaultVariants: {},
 });

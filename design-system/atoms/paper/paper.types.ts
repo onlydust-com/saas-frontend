@@ -14,4 +14,5 @@ export interface PaperPort<C extends ElementType> extends Partial<Variants>, Pro
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
+  onClick?: () => void;
 }

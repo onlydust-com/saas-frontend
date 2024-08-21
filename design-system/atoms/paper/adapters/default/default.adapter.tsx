@@ -13,12 +13,13 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
   size,
   container,
   border,
+  onClick,
 }: PaperPort<C>) {
   const Component = as || "article";
   const slots = PaperDefaultVariants({ size, container, border });
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
+    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={onClick}>
       {children}
     </Component>
   );

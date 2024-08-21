@@ -21,4 +21,5 @@ export interface CardTemplatePort<C extends ElementType> extends Partial<Variant
   descriptionProps?: TypoPort<"p">;
   tags?: Array<TagPort<"div">>;
   endContent?: ReactNode;
+  onClick?: () => void;
 }

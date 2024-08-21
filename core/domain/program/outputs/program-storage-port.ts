@@ -9,6 +9,8 @@ import {
   GetProgramTransactionsStatsPortResponse,
   GetProgramsPortParams,
   GetProgramsPortResponse,
+  GrantBudgetToProjectPortParams,
+  GrantBudgetToProjectPortResponse,
 } from "../program-contract.types";
 
 export interface ProgramStoragePort {
@@ -18,4 +20,5 @@ export interface ProgramStoragePort {
   getProgramTransactions(p: GetProgramTransactionsPortParams): GetProgramTransactionsPortResponse;
   getProgramTransactionsStats(p: GetProgramTransactionsStatsPortParams): GetProgramTransactionsStatsPortResponse;
   getProgramProjects(p: GetProgramProjectsPortParams): GetProgramProjectsPortResponse;
+  grantBudgetToProject(p: GrantBudgetToProjectPortParams): GrantBudgetToProjectPortResponse;
 }

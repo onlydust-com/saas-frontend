@@ -1,4 +1,11 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+
+import {
+  GrantProject,
+  useGrantFormContext,
+} from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { ProjectSidepanel } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -19,6 +26,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
   const { open } = useProjectSidePanel();
+
+  const {
+    sidePanel: { open: openGrantForm },
+    projectState: [, setGrantProject],
+  } = useGrantFormContext();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
       pathParams: {
@@ -33,6 +45,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const columnHelper = createColumnHelper<ProgramProjectInterface>();
+
+  function handleOpenProjectGrant(project: GrantProject) {
+    setGrantProject(project);
+    openGrantForm();
+  }
 
   function handleOpenProjectDetail(projectId: string) {
     open(projectId);
@@ -248,15 +265,26 @@ export function ProjectsTable({ programId }: { programId: string }) {
       id: "actions",
       header: () => <Translate token={"programs:details.projects.table.columns.actions"} />,
       cell: info => {
-        const projectId = info.row.original.id;
+        const project = info.row.original;
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary-light"}>
+            <Button
+              variant={"secondary-light"}
+              onClick={() =>
+                handleOpenProjectGrant({
+                  id: project.id,
+                  name: project.name,
+                  logoUrl: project.logoUrl,
+                  description: project.truncateDescription(25),
+                  totalAvailable: project.totalAvailable,
+                })
+              }
+            >
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
-            <Button variant={"secondary-light"} onClick={() => handleOpenProjectDetail(projectId)}>
+            <Button variant={"secondary-light"} onClick={() => handleOpenProjectDetail(project.id)}>
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
             </Button>
           </div>

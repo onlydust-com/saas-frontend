@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { useFinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
