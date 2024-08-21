@@ -23,6 +23,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -80,6 +81,11 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
             startContent={<Avatar shape={"square"} src={data.logoUrl} alt={data.name} />}
             endContent={<Icon name={"ri-external-link-line"} />}
             size={"l"}
+            as={"a"}
+            htmlProps={{
+              href: marketplaceRouting(`/p/${data.slug}`),
+              target: "_blank",
+            }}
           >
             {data.name}
           </Button>
