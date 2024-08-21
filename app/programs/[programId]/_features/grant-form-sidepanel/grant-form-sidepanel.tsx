@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AmountSelector } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector";
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
 import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { GrantFormSidepanelLoading } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.loading";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -11,6 +12,7 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { toast } from "@/design-system/atoms/toaster";
+import { Typo } from "@/design-system/atoms/typo";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -21,12 +23,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { sidePanel, projectState } = useGrantFormContext();
-  const { Panel } = sidePanel;
+  const { Panel, close: closeSidepanel } = sidePanel;
   const [project] = projectState;
   const amountSelectorPortalRef = useRef(null);
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
-  // TODO @hayden handle NaN and decimals
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("0");
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
@@ -50,9 +51,14 @@ export function GrantFormSidepanel() {
     }
   }, [data]);
 
-  const { mutate } = ProgramReactQueryAdapter.client.useGrantBudgetToProject({
+  const { mutate, isPending } = ProgramReactQueryAdapter.client.useGrantBudgetToProject({
+    pathParams: {
+      programId,
+    },
     options: {
       onSuccess: () => {
+        closeSidepanel();
+
         toast.success(
           <Translate
             token={"programs:grantForm.success.toast"}
@@ -70,7 +76,7 @@ export function GrantFormSidepanel() {
     },
   });
 
-  function handleAmountChange(amount: number) {
+  function handleAmountChange(amount: string) {
     setAmount(amount);
   }
 
@@ -84,27 +90,32 @@ export function GrantFormSidepanel() {
 
     if (!projectId || !currencyId) return;
 
-    // TODO @hayden validate balance is not negative
-
     mutate({
       projectId,
-      amount,
+      amount: parseFloat(amount),
       currencyId,
     });
   }
 
-  // TODO @hayden
-  if (isLoading) return "LOADING";
+  function renderContent() {
+    if (isLoading) return <GrantFormSidepanelLoading />;
 
-  // TODO @hayden
-  if (isError) return "ERROR";
+    if (isError) {
+      return (
+        <div className={"py-24 text-center"}>
+          <Typo
+            translate={{
+              token: "common:state.error.title",
+            }}
+            color={"text-2"}
+          />
+        </div>
+      );
+    }
 
-  if (!data || !project || !selectedBudget || !data.totalAvailable.totalPerCurrency) return null;
+    if (!data || !project || !selectedBudget || !data.totalAvailable.totalPerCurrency) return null;
 
-  return (
-    <Panel>
-      <SidePanelHeader canClose={true} canGoBack title={{ token: "programs:grantForm.title" }} />
-
+    return (
       <div ref={amountSelectorPortalRef} className={"h-full"}>
         <ScrollView>
           <div className="flex h-full flex-col gap-3">
@@ -135,9 +146,25 @@ export function GrantFormSidepanel() {
           </div>
         </ScrollView>
       </div>
+    );
+  }
+
+  return (
+    <Panel>
+      <SidePanelHeader canClose={true} canGoBack title={{ token: "programs:grantForm.title" }} />
+
+      <div ref={amountSelectorPortalRef} className={"h-full"}>
+        {renderContent()}
+      </div>
 
       <SidePanelFooter>
-        <Button size={"l"} classNames={{ base: "w-full" }} onClick={handleGrantProject}>
+        <Button
+          size={"l"}
+          classNames={{ base: "w-full" }}
+          onClick={handleGrantProject}
+          isLoading={isPending}
+          isDisabled={!amount}
+        >
           <Translate token={"programs:grantForm.submit"} />
         </Button>
       </SidePanelFooter>

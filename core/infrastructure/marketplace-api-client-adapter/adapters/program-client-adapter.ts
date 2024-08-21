@@ -160,6 +160,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
         path,
         method,
         tag,
+        pathParams,
         body: JSON.stringify(body),
       });
 

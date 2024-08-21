@@ -10,6 +10,7 @@ import { ProgramFacadePort } from "@/core/domain/program/input/program-facade-po
 import { GrantBudgetToProjectBody } from "@/core/domain/program/program-contract.types";
 
 export function useGrantBudgetToProject({
+  pathParams,
   options,
 }: UseMutationFacadeParams<
   ProgramFacadePort["grantBudgetToProject"],
@@ -23,7 +24,7 @@ export function useGrantBudgetToProject({
 
   return useMutation(
     useMutationAdapter({
-      ...programStoragePort.grantBudgetToProject({}),
+      ...programStoragePort.grantBudgetToProject({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
