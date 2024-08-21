@@ -4,6 +4,7 @@ import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
+import { FileAdapterMock } from "@/core/kernel/file/file-adapter-mock";
 import { MoneyAdapterMock } from "@/core/kernel/money/money-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
@@ -17,4 +18,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   projectStoragePortForServer: new ProjectClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
+  fileKernelPort: new FileAdapterMock(),
 };
