@@ -14,6 +14,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectCategories } from "./_components/project-categories/project-categories";
@@ -76,6 +77,14 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
 
   return (
     <>
+      <PosthogCaptureOnMount
+        eventName={"project_viewed"}
+        params={{
+          project_id: projectId,
+          type: "panel_sponsor",
+        }}
+        paramsReady={Boolean(projectId && data)}
+      />
       <SidePanelHeader
         startContent={
           <Button
@@ -95,7 +104,6 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         canGoBack={false}
         canClose={true}
       />
-
       <ScrollView>
         <div className={"flex w-full flex-col gap-3"}>
           {!!stats && (

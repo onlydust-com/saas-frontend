@@ -21,6 +21,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ProjectSidePanelProvider } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function WithProjectPanelProvider({ children }: PropsWithChildren) {
@@ -70,6 +71,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
         ],
       }}
     >
+      <PosthogCaptureOnMount eventName={"program_viewed"} />
       <GrantFormContextProvider>
         <WithProjectPanelProvider>
           <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
