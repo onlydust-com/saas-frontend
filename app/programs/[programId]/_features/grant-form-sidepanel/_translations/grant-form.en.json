@@ -13,5 +13,8 @@
       "balance": "{{project}} balance"
     }
   },
-  "submit": "Grant the project"
+  "submit": "Grant the project",
+  "success": {
+    "toast": "{{project}} as been granted {{amount}} {{code}}"
+  }
 }
