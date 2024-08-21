@@ -1,3 +1,5 @@
+import { useParams } from "next/navigation";
+
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
 import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions/context/transactions.context";
 
@@ -5,7 +7,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
-export function TransactionsTrigger({ programId }: { programId: string }) {
+export function TransactionsTrigger() {
+  const { programId = "" } = useParams<{ programId: string }>();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "transaction" });
 
   function togglePanel() {
