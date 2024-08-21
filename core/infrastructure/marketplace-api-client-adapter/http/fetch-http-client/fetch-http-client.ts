@@ -17,15 +17,19 @@ export class FetchHttpClient extends HttpClient implements FetchHttpClientInterf
     version,
     body,
     next: nextParams = {},
+    headers,
   }: FirstParameter<FetchHttpClientInterface["request"]>): Promise<R> {
     const url = this.buildUrl({ path, pathParams, queryParams, version });
-    const headers = await this.getHeaders();
+    const defaultHeaders = await this.getHeaders();
     const next = { ...nextParams, tags };
     const cache = !nextParams?.revalidate ? "no-cache" : undefined;
 
     const response = await fetch(url, {
       method,
-      headers,
+      headers: {
+        ...defaultHeaders,
+        ...headers,
+      },
       body,
       next,
       cache,

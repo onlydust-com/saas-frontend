@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 
+import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/context/transactions.context";
 import { TransactionsSidepanel } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions-sidepanel";
-import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions/context/transactions.context";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -27,11 +27,12 @@ export function TransactionsTrigger() {
         onClick={togglePanel}
         size="l"
       />
-      <Panel>
-        <TransactionsContextProvider programId={programId}>
+
+      <TransactionsContextProvider programId={programId}>
+        <Panel>
           <TransactionsSidepanel />
-        </TransactionsContextProvider>
-      </Panel>
+        </Panel>
+      </TransactionsContextProvider>
     </>
   );
 }

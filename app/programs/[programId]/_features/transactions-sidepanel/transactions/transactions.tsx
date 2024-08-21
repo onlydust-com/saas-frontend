@@ -6,9 +6,9 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AccordionItemWithBadgeProps } from "@/design-system/molecules/accordion";
 import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
 
+import { useTransactionsContext } from "../context/transactions.context";
 import { Header } from "./components/header/header";
 import { TransactionsWrapper } from "./components/transactions-wrapper/transactions-wrapper";
-import { useTransactionsContext } from "./context/transactions.context";
 
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();

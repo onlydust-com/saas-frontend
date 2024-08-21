@@ -14,6 +14,9 @@ import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 
+import { FileAdapter } from "../kernel/file/file-adapter";
+import { FileFacadePort } from "../kernel/file/file-facade-port";
+
 export interface BootstrapConstructor {
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
@@ -25,6 +28,7 @@ export interface BootstrapConstructor {
   projectStoragePortForServer: ProjectStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
+  fileKernelPort: FileFacadePort;
 }
 
 export class Bootstrap {
@@ -41,6 +45,7 @@ export class Bootstrap {
   projectStoragePortForServer: ProjectStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
+  fileKernelPort: FileFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
@@ -53,6 +58,7 @@ export class Bootstrap {
     this.projectStoragePortForServer = constructor.projectStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
+    this.fileKernelPort = constructor.fileKernelPort;
   }
 
   getAuthProvider() {
@@ -110,6 +116,10 @@ export class Bootstrap {
     return this.moneyKernelPort;
   }
 
+  getFileKernelPort() {
+    return this.fileKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -123,6 +133,7 @@ export class Bootstrap {
         projectStoragePortForServer: new ProjectClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
+        fileKernelPort: new FileAdapter(),
       });
     }
 
