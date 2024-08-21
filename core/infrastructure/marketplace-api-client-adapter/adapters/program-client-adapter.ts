@@ -1,9 +1,11 @@
 import { ProgramListItem } from "@/core/domain/program/models/program-list-item-model";
 import { Program } from "@/core/domain/program/models/program-model";
+import { ProgramProjectListItem } from "@/core/domain/program/models/program-project-list-item-model";
 import { ProgramProject } from "@/core/domain/program/models/program-project-model";
 import { ProgramTransactionsStats } from "@/core/domain/program/models/program-transactions-stats-model";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
+  GetProgramProjectResponse,
   GetProgramProjectsResponse,
   GetProgramResponse,
   GetProgramTransactionsResponse,
@@ -25,6 +27,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     getProgramTransactionsStats: "programs/:programId/stats/transactions",
     getProgramProjects: "programs/:programId/projects",
     grantBudgetToProject: "programs/:programId/grant",
+    getProgramProject: "programs/:programId/projects/:projectId",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -168,7 +171,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
 
       return {
         ...data,
-        projects: data.projects.map(project => new ProgramProject(project)),
+        projects: data.projects.map(project => new ProgramProjectListItem(project)),
       };
     };
 
@@ -191,6 +194,27 @@ export class ProgramClientAdapter implements ProgramStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProgramProject = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramProject"]>) => {
+    const path = this.routes["getProgramProject"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProgramProjectResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProgramProject(data);
+    };
 
     return {
       request,

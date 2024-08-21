@@ -1,6 +1,8 @@
 import {
   GetProgramByIdPortParams,
   GetProgramByIdPortResponse,
+  GetProgramProjectPortParams,
+  GetProgramProjectPortResponse,
   GetProgramProjectsPortParams,
   GetProgramProjectsPortResponse,
   GetProgramTransactionsCsvPortResponse,
@@ -22,4 +24,5 @@ export interface ProgramFacadePort {
   getProgramTransactionsStats(p: GetProgramTransactionsStatsPortParams): GetProgramTransactionsStatsPortResponse;
   getProgramProjects(p: GetProgramProjectsPortParams): GetProgramProjectsPortResponse;
   grantBudgetToProject(p: GrantBudgetToProjectPortParams): GrantBudgetToProjectPortResponse;
+  getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;
 }

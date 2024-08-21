@@ -4,3 +4,4 @@ export * from "./use-get-programs";
 export * from "./use-get-program-transactions-stats";
 export * from "./use-get-program-projects";
 export * from "./use-grant-budget-to-project";
+export * from "./use-get-program-project";

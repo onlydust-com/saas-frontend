@@ -1,5 +1,5 @@
 import { ProgramListItemInterface } from "@/core/domain/program/models/program-list-item-model";
-import { ProgramProjectInterface } from "@/core/domain/program/models/program-project-model";
+import { ProgramProjectListItemInterface } from "@/core/domain/program/models/program-project-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -71,7 +71,7 @@ export type GetProgramTransactionsStatsPortResponse = HttpStorageResponse<GetPro
 
 export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];
 export type GetProgramProjectsModel = Omit<GetProgramProjectsResponse, "projects"> & {
-  projects: ProgramProjectInterface[];
+  projects: ProgramProjectListItemInterface[];
 };
 
 type GetProgramProjectsQueryParams = operations["getProgramProjects"]["parameters"]["query"];
@@ -94,3 +94,15 @@ type GrantBudgetToProjectPathParams = operations["grantBudgetToProject"]["parame
 export type GrantBudgetToProjectPortParams = HttpClientParameters<{ PathParams: GrantBudgetToProjectPathParams }>;
 
 export type GrantBudgetToProjectPortResponse = HttpStorageResponse;
+
+/* ------------------------------- Get Program Project ------------------------------ */
+
+export type GetProgramProjectResponse = components["schemas"]["ProgramProjectResponse"];
+
+export type GetProgramProjectPortResponse = HttpStorageResponse<GetProgramProjectResponse>;
+
+type GetProgramProjectPathParams = operations["getProgramProject"]["parameters"]["path"];
+
+export type GetProgramProjectPortParams = HttpClientParameters<{
+  PathParams: GetProgramProjectPathParams;
+}>;
