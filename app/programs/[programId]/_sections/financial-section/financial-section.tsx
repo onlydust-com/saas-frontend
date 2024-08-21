@@ -33,9 +33,9 @@ export function FinancialSection() {
   }
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center justify-start gap-2">
-          <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
+        <div className="flex max-w-full flex-1 items-center justify-between gap-2">
           <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
             <Button
               variant="secondary-light"
@@ -52,8 +52,8 @@ export function FinancialSection() {
               isDisabled={toggleFinancialViews === BUDGET_CHART}
             />
           </Paper>
+          <TransactionsTrigger />
         </div>
-        <TransactionsTrigger />
       </div>
 
       {renderFinancialView}
