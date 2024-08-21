@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const AvatarNextUiVariants = tv({
   slots: {
     base: "group relative box-border flex flex-shrink-0 items-center justify-center overflow-hidden border-1 border-container-stroke-separator",
-    img: "h-full w-full object-cover object-center",
+    img: "h-full w-full object-cover object-center !opacity-100",
     fallback: "h-full w-full",
     name: "font-walsheim text-xs text-text-1",
     icon: "",
