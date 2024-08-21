@@ -69,7 +69,6 @@ export function AmountSelector({
           <input
             ref={inputRef}
             type="text"
-            pattern={"[0-9]*"}
             className={"flex bg-transparent text-right text-5xl font-medium text-text-1 outline-none"}
             value={amount}
             onChange={handleChangeAmount}
