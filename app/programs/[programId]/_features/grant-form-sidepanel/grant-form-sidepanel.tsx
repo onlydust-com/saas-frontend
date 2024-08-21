@@ -18,10 +18,12 @@ import { CardProject } from "@/design-system/molecules/cards/card-project";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
+  const { capture } = usePosthog();
   const { sidePanel, projectState } = useGrantFormContext();
   const { Panel, close: closeSidepanel } = sidePanel;
   const [project] = projectState;
@@ -69,6 +71,8 @@ export function GrantFormSidepanel() {
             }}
           />
         );
+
+        capture("project_granted", { project_id: project?.id ?? "" });
       },
       onError: () => {
         toast.error(<Translate token={"programs:grantForm.error.toast"} />);
