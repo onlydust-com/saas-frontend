@@ -1,5 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
-import { ChangeEvent, RefObject, useState } from "react";
+import { ChangeEvent, RefObject, useRef, useState } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
@@ -25,6 +25,7 @@ export function AmountSelector({
   onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: formattedBudgetAmount } = moneyKernelPort.format({
@@ -44,6 +45,10 @@ export function AmountSelector({
     setIsOpen(false);
   }
 
+  function handleFocusInput() {
+    inputRef.current?.focus();
+  }
+
   function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
     onAmountChange(Number(e.target.value));
   }
@@ -58,19 +63,17 @@ export function AmountSelector({
       <div className={"grid gap-2"}>
         <div className={"grid grid-cols-2 items-center"}>
           <input
+            ref={inputRef}
             type="text"
             className={"flex bg-transparent text-right text-5xl font-medium text-text-1 outline-none"}
             value={amount}
             onChange={handleChangeAmount}
           />
-          <Typo
-            size={"5xl"}
-            weight={"medium"}
-            color={"text-1"}
-            classNames={{ base: "border-l-2 border-brand-2 pl-1 ml-1" }}
-          >
-            {budget.currency.code}
-          </Typo>
+          <div onClick={handleFocusInput}>
+            <Typo size={"5xl"} weight={"medium"} color={"text-1"}>
+              {budget.currency.code}
+            </Typo>
+          </div>
         </div>
         <Typo size={"m"} color={"text-2"} classNames={{ base: "text-center" }}>
           {formattedUsdAmount} USD
