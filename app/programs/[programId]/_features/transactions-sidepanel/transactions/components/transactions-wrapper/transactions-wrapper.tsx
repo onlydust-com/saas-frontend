@@ -12,7 +12,7 @@ import {
 
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 
-import { useTransactionsContext } from "../../context/transactions.context";
+import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper() {
   const { programId, queryParams } = useTransactionsContext();

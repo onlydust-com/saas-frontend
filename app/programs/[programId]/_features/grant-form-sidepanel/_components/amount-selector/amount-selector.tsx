@@ -1,5 +1,7 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
-import { ChangeEvent, RefObject, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+
+import { AmountSelectorProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector.types";
 
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
@@ -16,14 +18,7 @@ export function AmountSelector({
   budget,
   allBudgets,
   onBudgetChange,
-}: {
-  portalRef: RefObject<HTMLDivElement>;
-  amount: number;
-  onAmountChange: (amount: number) => void;
-  budget: DetailedTotalMoneyTotalPerCurrency;
-  allBudgets: DetailedTotalMoneyTotalPerCurrency[];
-  onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency) => void;
-}) {
+}: AmountSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,7 +28,7 @@ export function AmountSelector({
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: amount * (budget?.ratio ?? 0),
+    amount: parseFloat(amount) * (budget?.ratio ?? 0),
     currency: budget.currency,
   });
 
@@ -50,7 +45,16 @@ export function AmountSelector({
   }
 
   function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
-    onAmountChange(Number(e.target.value));
+    let value = e.target.value;
+
+    // Only allow numbers and one dot
+    value = value.replace(/[^\d.]/g, "");
+
+    if (value.length > 1 && value.startsWith("0")) {
+      value = value.slice(1);
+    }
+
+    onAmountChange(value || "0");
   }
 
   function handleChangeBudget(budget: DetailedTotalMoneyTotalPerCurrency) {

@@ -28,6 +28,20 @@
     }
   },
   "export": {
-    "title": "Export"
+    "title": "Export CSV",
+    "data": {
+      "title": "Data",
+      "columns": {
+        "id": "ID",
+        "timestamp": "Timestamp",
+        "transactionType": "Transaction type",
+        "projectId": "Project ID",
+        "sponsorId": "Sponsor ID",
+        "amount": "Amount",
+        "currency": "Currency",
+        "usdAmount": "USD Amount"
+      }
+    },
+    "button": "Export"
   }
 }

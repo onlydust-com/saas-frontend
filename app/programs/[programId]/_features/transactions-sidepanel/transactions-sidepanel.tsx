@@ -4,7 +4,8 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
-import { useTransactionsContext } from "./transactions/context/transactions.context";
+import { useTransactionsContext } from "./context/transactions.context";
+import { ExportCsv } from "./export-csv/export-csv";
 import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
@@ -43,6 +44,8 @@ export function TransactionsSidepanel() {
           title={{ token: "programs:transactionPanel.export.title" }}
           onClose={clear}
         />
+
+        <ExportCsv />
       </Panel>
     </>
   );
