@@ -43,7 +43,11 @@ export function Transactions() {
           <Typo size="s" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
         </div>
       ) : (
-        <AccordionWithBadge classNames={{ base: "gap-3" }} items={items} />
+        <AccordionWithBadge
+          classNames={{ base: "gap-3" }}
+          items={items}
+          defaultSelected={items?.[0] ? [items?.[0].id] : undefined}
+        />
       )}
     </>
   );
