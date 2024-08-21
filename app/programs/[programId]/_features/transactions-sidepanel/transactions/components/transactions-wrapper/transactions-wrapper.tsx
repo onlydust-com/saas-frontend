@@ -10,7 +10,7 @@ import {
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
 
-import { useProjectSidePanel } from "@/shared/features/panels/project-sidepanel/project-sidepanel.context";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 
 import { useTransactionsContext } from "../../context/transactions.context";
 

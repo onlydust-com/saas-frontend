@@ -19,7 +19,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useProjectSidePanel } from "@/shared/features/panels/project-sidepanel/project-sidepanel.context";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {

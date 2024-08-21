@@ -10,6 +10,7 @@ import { enTableNavTranslation } from "@/design-system/organisms/table-nav/trans
 
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
+import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
 import common from "@/shared/translation/translations/common/common.en.json";
 import error from "@/shared/translation/translations/error/error.en.json";
 import notFound from "@/shared/translation/translations/not-found/not-found.en.json";
@@ -32,4 +33,5 @@ export const en = {
     ...enTableNavTranslation,
     ...enTableSortTranslation,
   },
+  ...enPanelsTranslation,
 };

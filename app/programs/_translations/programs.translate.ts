@@ -6,7 +6,6 @@ import enFinancialColumnChart from "@/app/programs/[programId]/_sections/financi
 import enFinancialDetailSidePanel from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.en.json";
 import enProgramsDetails from "@/app/programs/[programId]/_translations/programs-detail.en.json";
 
-import enProjectDetail from "../[programId]/_features/project-sidepanel/project-sidepanel.en.json";
 import enPrograms from "./programs.en.json";
 
 export const enProgramsTranslation = {
@@ -17,7 +16,6 @@ export const enProgramsTranslation = {
     financialColumnChart: enFinancialColumnChart,
     budgetAvailable: enBudgetAvailable,
     financialDetailSidePanel: enFinancialDetailSidePanel,
-    projectDetail: enProjectDetail,
     grantList: enGrantList,
     grantForm: enGrantForm,
   },
