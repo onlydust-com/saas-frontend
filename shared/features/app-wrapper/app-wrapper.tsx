@@ -32,21 +32,30 @@ function ImpersonationBanner() {
 
 function AppSkeleton() {
   return (
-    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
-      <div className="flex size-full gap-3">
-        <div className="flex h-full w-[260px] flex-col gap-3">
-          <Skeleton classNames={{ base: "h-[64px]" }} />
-          <Skeleton classNames={{ base: "h-[216px]" }} />
-          <div className="flex-1"></div>
-          <Skeleton classNames={{ base: "h-[116px]" }} />
-          <Skeleton classNames={{ base: "h-[64px]" }} />
-        </div>
-        <div className="flex h-full flex-1 flex-col gap-3">
-          <Skeleton classNames={{ base: "h-[64px]" }} />
+    <>
+      <div className={"h-dvh p-3 tablet:hidden"}>
+        <div className="flex h-full flex-col gap-3">
+          <Skeleton classNames={{ base: "h-[66px]" }} />
           <Skeleton classNames={{ base: "flex-1" }} />
         </div>
       </div>
-    </div>
+
+      <div className={"mx-auto hidden h-dvh w-dvw max-w-[2560px] overflow-hidden p-3 tablet:block"}>
+        <div className="flex size-full gap-3">
+          <div className="flex h-full w-[260px] flex-col gap-3">
+            <Skeleton classNames={{ base: "h-[66px]" }} />
+            <Skeleton classNames={{ base: "h-[216px]" }} />
+            <div className="flex-1"></div>
+            <Skeleton classNames={{ base: "h-[116px]" }} />
+            <Skeleton classNames={{ base: "h-[66px]" }} />
+          </div>
+          <div className="flex h-full flex-1 flex-col gap-3">
+            <Skeleton classNames={{ base: "h-[66px]" }} />
+            <Skeleton classNames={{ base: "flex-1" }} />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
