@@ -15,6 +15,7 @@ export interface SidePanelsContextInterface {
   container: RefObject<Element>;
   getPanelIndex: (name: string) => number;
   config: SidePanelConfig;
+  openedPanels: string[];
 }
 
 export interface SidePanelsContextProps extends PropsWithChildren {

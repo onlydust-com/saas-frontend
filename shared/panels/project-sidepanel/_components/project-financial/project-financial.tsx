@@ -16,9 +16,9 @@ function Card({ type, values }: ProjectFinancialCardProps) {
 
   function buildTitle(): TranslateProps["token"] {
     if (type === "granted") {
-      return "programs:projectDetail.financials.granted.title";
+      return "panels:projectDetail.financials.granted.title";
     }
-    return "programs:projectDetail.financials.rewarded.title";
+    return "panels:projectDetail.financials.rewarded.title";
   }
 
   function buildAvatars(): AvatarGroupPort<AnyType>["avatars"] {
@@ -58,7 +58,7 @@ export function ProjectFinancial({ data }: ProjectFinancialProps) {
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
           <Icon name={"ri-money-dollar-circle-line"} />
-          <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:projectDetail.financials.title" }} />
+          <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.financials.title" }} />
         </div>
       </div>
       <div className={"flex w-full flex-row gap-3"}>

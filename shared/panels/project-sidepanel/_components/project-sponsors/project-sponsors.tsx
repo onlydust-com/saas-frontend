@@ -9,7 +9,7 @@ export function ProjectSponsors({ sponsors }: ProjectSponsorsProps) {
 
   return (
     <div className={"flex flex-1 flex-col gap-1 overflow-hidden"}>
-      <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "programs:projectDetail.sponsors.title" }} />
+      <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "panels:projectDetail.sponsors.title" }} />
       <SponsorGroup sponsors={sponsors} maxSponsors={1} />
     </div>
   );

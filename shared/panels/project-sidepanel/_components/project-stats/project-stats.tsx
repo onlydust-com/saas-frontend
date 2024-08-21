@@ -14,17 +14,17 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
   const map = [
     {
       key: "activeContributorCount",
-      title: <Translate token={"programs:projectDetail.kpi.activeDev.title"} />,
+      title: <Translate token={"panels:projectDetail.kpi.activeDev.title"} />,
       value: data.activeContributorCount,
     },
     {
       key: "mergedPrCount",
-      title: <Translate token={"programs:projectDetail.kpi.prMerged.title"} />,
+      title: <Translate token={"panels:projectDetail.kpi.prMerged.title"} />,
       value: data.mergedPrCount,
     },
     {
       key: "rewardCount",
-      title: <Translate token={"programs:projectDetail.kpi.rewards.title"} />,
+      title: <Translate token={"panels:projectDetail.kpi.rewards.title"} />,
       value: data.rewardCount,
     },
   ];
@@ -38,7 +38,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
           <Icon name={"ri-pie-chart-line"} />
-          <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:projectDetail.kpi.title" }} />
+          <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
         </div>
         <Dropdown
           selectedKeys={[rangeType]}

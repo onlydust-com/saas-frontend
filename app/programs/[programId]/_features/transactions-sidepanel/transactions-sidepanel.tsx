@@ -1,5 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
@@ -31,8 +32,11 @@ export function TransactionsSidepanel() {
         onClose={clear}
       />
 
-      <Transactions />
-
+      <ScrollView>
+        <div className={"flex flex-col gap-3"}>
+          <Transactions />
+        </div>
+      </ScrollView>
       <Panel>
         <SidePanelHeader
           canGoBack={true}

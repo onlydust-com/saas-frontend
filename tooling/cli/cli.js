@@ -4,6 +4,7 @@ const createComponent = require("./create-component").createMainComponent;
 const createDS = require("./create-ds").createDS;
 const createDomain = require("./create-domain").createDomain;
 const createTranslation = require("./create-translation").createTranslation;
+const createContext = require("./create-context").createContext;
 
 async function runCli() {
   const action = await i.select({
@@ -29,6 +30,11 @@ async function runCli() {
         value: "translation",
         description: "Add a translation to a page or features",
       },
+      {
+        name: "Component context",
+        value: "component-context",
+        description: "Add a minimal component context",
+      },
     ],
   });
 
@@ -40,6 +46,8 @@ async function runCli() {
     await createDomain();
   } else if (action === "translation") {
     await createTranslation();
+  } else if (action === "component-context") {
+    await createContext();
   }
 }
 

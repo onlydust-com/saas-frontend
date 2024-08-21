@@ -17,7 +17,8 @@ export const SidePanel = forwardRef(function SidePanel(
   { children, name, classNames }: SidePanelProps,
   ref: ForwardedRef<SidePanelRef>
 ) {
-  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back } = useSidePanelsContext();
+  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back, openedPanels } =
+    useSidePanelsContext();
 
   const isTablet = useIsTablet("lower");
 
@@ -42,6 +43,14 @@ export const SidePanel = forwardRef(function SidePanel(
   }, [open, close, isOpen, name, back]);
 
   const animateKey = isOpenLast(name) ? "isOpen" : "isClosed";
+
+  const panelContent = useMemo(() => {
+    if (openedPanels.length && isOpen(name)) {
+      return children;
+    }
+
+    return null;
+  }, [openedPanels, isOpen, name, children]);
 
   return (
     <>
@@ -81,7 +90,7 @@ export const SidePanel = forwardRef(function SidePanel(
             }}
             container={"2"}
           >
-            {children}
+            {panelContent}
           </Paper>
         </motion.div>,
         !isTablet ? container.current || document.body : document.body

@@ -9,7 +9,7 @@ export function ProjectLinks({ moreInfo }: ProjectLinksProps) {
 
   return (
     <div className={"flex flex-col gap-1"}>
-      <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "programs:projectDetail.link.title" }} />
+      <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "panels:projectDetail.link.title" }} />
       <div className={"flex flex-row flex-wrap gap-1"}>
         {moreInfo?.map(({ url, value }) => <SocialLinkTag key={url} url={url} value={value} />)}
       </div>

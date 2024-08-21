@@ -28,6 +28,7 @@ export const SidePanelsContext = createContext<SidePanelsContextInterface>({
   getPanelIndex: () => 0,
   isOpenLast: () => false,
   config: defaultConfig,
+  openedPanels: [],
 });
 
 export function SidePanelsProvider({ children, classNames }: SidePanelsContextProps) {
@@ -94,6 +95,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
         container,
         getPanelIndex,
         isOpenLast,
+        openedPanels,
       }}
     >
       <AnimatedColumnGroup className={classNames?.columnGroup}>

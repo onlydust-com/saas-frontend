@@ -10,10 +10,13 @@ import {
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
 
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
+
 import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper() {
   const { programId, queryParams } = useTransactionsContext();
+  const projectSidePanel = useProjectSidePanel();
 
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactions({
     pathParams: { programId },
@@ -45,7 +48,9 @@ export function TransactionsWrapper() {
         startContent: <Avatar src={transaction.thirdParty.project.logoUrl} size="xs" shape="square" />,
         children: transaction.thirdParty.project.name,
         onClick: () => {
-          console.log("Open project");
+          if (transaction.thirdParty.project?.id) {
+            projectSidePanel.open(transaction.thirdParty.project.id);
+          }
         },
       };
     }

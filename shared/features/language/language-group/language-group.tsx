@@ -42,7 +42,7 @@ export function LanguageGroup({
       <Popover>
         <Popover.Trigger>
           {() => (
-            <div className={"max-w-full overflow-hidden"}>
+            <div className={"max-w-full cursor-pointer overflow-hidden"}>
               <Tag
                 size={"s"}
                 style={"outline"}

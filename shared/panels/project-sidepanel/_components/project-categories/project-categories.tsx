@@ -13,7 +13,7 @@ export function ProjectCategories({ categories }: ProjectCategoriesProps) {
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-2 flex-1" }}>
       <div className="flex flex-row gap-1">
         <Icon name={"ri-price-tag-3-line"} />
-        <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:projectDetail.categories.title" }} />
+        <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.categories.title" }} />
       </div>
       <ProjectCategoriesGroup categories={categories} maxCategories={1} />
     </Paper>
