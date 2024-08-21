@@ -1,24 +1,40 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
-import { useParams } from "next/navigation";
-import { RefObject, useState } from "react";
+import { ChangeEvent, RefObject, useState } from "react";
+
+import { bootstrap } from "@/core/bootstrap";
+import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarDescription } from "@/design-system/molecules/avatar-description";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
-export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElement> }) {
-  const { programId } = useParams<{ programId: string }>();
+export function AmountSelector({
+  portalRef,
+  amount,
+  onAmountChange,
+  budget,
+  allBudgets,
+  onBudgetChange,
+}: {
+  portalRef: RefObject<HTMLDivElement>;
+  amount: number;
+  onAmountChange: (amount: number) => void;
+  budget: DetailedTotalMoneyTotalPerCurrency;
+  allBudgets: DetailedTotalMoneyTotalPerCurrency[];
+  onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
-  //   pathParams: {
-  //     programId,
-  //   },
-  //   options: {
-  //     enabled: Boolean(programId),
-  //   },
-  // });
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const { amount: formattedBudgetAmount } = moneyKernelPort.format({
+    amount: budget.amount,
+    currency: budget.currency,
+  });
+  const { amount: formattedUsdAmount } = moneyKernelPort.format({
+    amount: amount * (budget?.ratio ?? 0),
+    currency: budget.currency,
+  });
 
   function handleOpen() {
     setIsOpen(true);
@@ -28,11 +44,14 @@ export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElem
     setIsOpen(false);
   }
 
-  // if (isLoading) return "LOADING";
-  //
-  // if (isError) return "ERROR";
-  //
-  // if (!data) return null;
+  function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
+    onAmountChange(Number(e.target.value));
+  }
+
+  function handleChangeBudget(budget: DetailedTotalMoneyTotalPerCurrency) {
+    onBudgetChange(budget);
+    handleClose();
+  }
 
   return (
     <div className={"grid gap-4 py-4"}>
@@ -41,7 +60,8 @@ export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElem
           <input
             type="text"
             className={"flex bg-transparent text-right text-5xl font-medium text-text-1 outline-none"}
-            value={0}
+            value={amount}
+            onChange={handleChangeAmount}
           />
           <Typo
             size={"5xl"}
@@ -49,11 +69,11 @@ export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElem
             color={"text-1"}
             classNames={{ base: "border-l-2 border-brand-2 pl-1 ml-1" }}
           >
-            STRK
+            {budget.currency.code}
           </Typo>
         </div>
         <Typo size={"m"} color={"text-2"} classNames={{ base: "text-center" }}>
-          2435235 USD
+          {formattedUsdAmount} USD
         </Typo>
       </div>
 
@@ -66,9 +86,9 @@ export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElem
             endIcon={{ name: "ri-arrow-down-s-line" }}
           >
             <AvatarDescription
-              avatarProps={{ src: "", size: "s" }}
+              avatarProps={{ src: budget.currency.logoUrl, alt: budget.currency.name, size: "s" }}
               labelProps={{
-                children: "Starknet • 1000 STRK",
+                children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
               }}
             />
           </Button>
@@ -109,34 +129,19 @@ export function AmountSelector({ portalRef }: { portalRef: RefObject<HTMLDivElem
 
                 <ModalBody>
                   <div className="grid gap-2">
-                    {/*{data.totalAvailable.totalPerCurrency?.map(currency => {*/}
-                    {/*  return (*/}
-                    {/*    <CardBudget*/}
-                    {/*      key={currency.currency.id}*/}
-                    {/*      amount={{*/}
-                    {/*        value: currency.amount,*/}
-                    {/*        currency: currency.currency,*/}
-                    {/*        usdEquivalent: currency.usdEquivalent,*/}
-                    {/*      }}*/}
-                    {/*    />*/}
-                    {/*  );*/}
-                    {/*})}*/}
-                    <CardBudget
-                      {...{
-                        amount: {
-                          value: 100000,
-                          currency: {
-                            id: "",
-                            code: "USDC",
-                            name: "USD Coin",
-                            logoUrl: undefined,
-                            decimals: 2,
-                          },
-                          usdEquivalent: 100000,
-                        },
-                        tag: "Starknet",
-                      }}
-                    />
+                    {allBudgets?.map(budget => {
+                      return (
+                        <CardBudget
+                          key={budget.currency.id}
+                          amount={{
+                            value: budget.amount,
+                            currency: budget.currency,
+                            usdEquivalent: budget.usdEquivalent ?? 0,
+                          }}
+                          onClick={() => handleChangeBudget(budget)}
+                        />
+                      );
+                    })}
                   </div>
                 </ModalBody>
               </>

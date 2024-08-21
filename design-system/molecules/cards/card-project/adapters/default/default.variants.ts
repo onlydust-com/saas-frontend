@@ -5,9 +5,7 @@ export const CardProjectDefaultVariants = tv({
     base: "",
   },
   variants: {
-    clickable: {
-      true: "cursor-pointer",
-    },
+    clickable: { true: { base: "cursor-pointer" } },
   },
   defaultVariants: {},
 });

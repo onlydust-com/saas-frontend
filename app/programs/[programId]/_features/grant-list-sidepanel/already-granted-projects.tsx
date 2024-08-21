@@ -83,10 +83,11 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
             }}
             onClick={() =>
               handleOpenProjectGrant({
+                id: project.id,
                 name: project.name,
                 logoUrl: project.logoUrl,
                 description,
-                grantedAmount,
+                totalAvailable: project.totalAvailable,
               })
             }
           />

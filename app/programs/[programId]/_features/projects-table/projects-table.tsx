@@ -269,21 +269,17 @@ export function ProjectsTable({ programId }: { programId: string }) {
       cell: info => {
         const project = info.row.original;
 
-        const { amount, code } = moneyKernelPort.format({
-          amount: project.totalGranted.totalUsdEquivalent,
-          currency: moneyKernelPort.getCurrency("USD"),
-        });
-
         return (
           <div className={"flex gap-1"}>
             <Button
               variant={"secondary-light"}
               onClick={() =>
                 handleOpenProjectGrant({
+                  id: project.id,
                   name: project.name,
                   logoUrl: project.logoUrl,
                   description: project.truncateDescription(25),
-                  grantedAmount: `${amount} ${code}`,
+                  totalAvailable: project.totalAvailable,
                 })
               }
             >

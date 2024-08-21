@@ -57,7 +57,6 @@ export function AllProjects({
     <div className={"grid gap-2"}>
       {allProjects.map(project => {
         const description = project.truncateDescription(25);
-        const grantedAmount = "0 USD";
 
         return (
           <CardProject
@@ -74,10 +73,13 @@ export function AllProjects({
             }}
             onClick={() =>
               handleOpenProjectGrant({
+                id: project.id,
                 name: project.name,
                 logoUrl: project.logoUrl,
                 description,
-                grantedAmount,
+                totalAvailable: {
+                  totalUsdEquivalent: 0,
+                },
               })
             }
           />

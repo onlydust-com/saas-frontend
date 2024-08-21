@@ -16,5 +16,8 @@
   "submit": "Grant the project",
   "success": {
     "toast": "{{project}} as been granted {{amount}} {{code}}"
+  },
+  "error": {
+    "toast": "An error occurred while granting the project"
   }
 }

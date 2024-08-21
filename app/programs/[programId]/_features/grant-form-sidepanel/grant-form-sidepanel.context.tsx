@@ -1,13 +1,16 @@
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
+import { DetailedTotalMoney } from "@/core/kernel/money/money.types";
+
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-panel.types";
 
 export interface GrantProject {
+  id: string;
   name: string;
   logoUrl?: string;
   description: string;
-  grantedAmount: string;
+  totalAvailable: DetailedTotalMoney;
 }
 
 export const GrantFormContext = createContext<{

@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
-interface Variants {}
+interface Variants {
+  clickable: boolean;
+}
 
 interface ClassNames {
   base: string;
@@ -26,4 +28,5 @@ export interface CardBudgetPort<C extends ElementType> extends Partial<Variants>
   classNames?: Partial<ClassNames>;
   amount: Amount;
   tag?: string;
+  onClick?: () => void;
 }

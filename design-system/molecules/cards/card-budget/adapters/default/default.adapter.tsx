@@ -16,8 +16,9 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   htmlProps,
   amount: { value, currency, usdEquivalent },
   tag,
+  onClick,
 }: CardBudgetPort<C>) {
-  const slots = CardBudgetDefaultVariants();
+  const slots = CardBudgetDefaultVariants({ clickable: Boolean(onClick) });
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const titleMoney = moneyKernelPort.format({
@@ -49,6 +50,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
           </Tag>
         ) : null
       }
+      onClick={onClick}
     />
   );
 }
