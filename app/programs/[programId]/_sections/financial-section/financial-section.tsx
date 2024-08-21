@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 
-import { BudgetAvailableCards } from "@/app/programs/[programId]/_features/financial-section/components/budget-available-cards/budget-available-cards";
-import { FinancialColumnChart } from "@/app/programs/[programId]/_features/financial-section/components/financial-column-chart/financial-column-chart";
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
+import { BudgetAvailableCards } from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
+import { FinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";

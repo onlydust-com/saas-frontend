@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
   FinancialDetailSidepanelProps,
   colorMapping,
-} from "@/app/programs/[programId]/_features/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
+} from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { bootstrap } from "@/core/bootstrap";
 

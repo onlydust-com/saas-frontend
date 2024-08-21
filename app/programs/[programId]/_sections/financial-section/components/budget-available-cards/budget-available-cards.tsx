@@ -4,9 +4,9 @@ import { useState } from "react";
 import {
   CreateAvatarGroupProps,
   FinancialCardItemProps,
-} from "@/app/programs/[programId]/_features/financial-section/components/budget-available-cards/budget-available-cards.types";
-import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_features/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
-import { PanelType } from "@/app/programs/[programId]/_features/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
+} from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available-cards.types";
+import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
+import { PanelType } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";

@@ -1,8 +1,8 @@
 "use client";
 
-import { FinancialSection } from "@/app/programs/[programId]/_features/financial-section/financial-section";
 import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
+import { FinancialSection } from "@/app/programs/[programId]/_sections/financial-section/financial-section";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
