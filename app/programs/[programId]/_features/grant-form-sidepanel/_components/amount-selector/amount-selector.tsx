@@ -65,20 +65,21 @@ export function AmountSelector({
   }
 
   return (
-    <div className={"grid gap-4 py-4"}>
+    <div className={"grid w-full gap-4 py-4"}>
       <div className={"grid gap-2"}>
         <div
-          className={cn("grid grid-cols-2 items-center", {
-            "text-xl": amount.length < 15,
-            "text-2xl": amount.length < 12,
-            "text-3xl": amount.length < 10,
-            "text-4xl": amount.length < 9,
+          className={cn("mx-auto flex items-center gap-1 text-lg", {
+            "text-xl": amount.length < 22,
+            "text-2xl": amount.length < 18,
+            "text-3xl": amount.length < 13,
+            "text-4xl": amount.length < 10,
             "text-5xl": amount.length < 7,
           })}
         >
           <input
             ref={inputRef}
             type="text"
+            style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
             className={"flex bg-transparent text-right font-medium text-text-1 outline-none"}
             value={amount}
             onChange={handleChangeAmount}
