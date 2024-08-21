@@ -11,7 +11,7 @@ import { AvatarDescription } from "@/design-system/molecules/avatar-description"
 
 function Section({ children }: PropsWithChildren) {
   return (
-    <section className="rounded-lg border border-container-stroke-separator bg-container-3 px-4 py-3">
+    <section className="overflow-hidden rounded-lg border border-container-stroke-separator bg-container-3 px-4 py-3">
       {children}
     </section>
   );
@@ -60,7 +60,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
         </header>
 
         <Section>
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between gap-4">
             <AvatarDescription
               avatarProps={{
                 src: budget.currency.logoUrl,
@@ -77,12 +77,19 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <Typo size={"s"} color={"text-2"}>
-              {currentBudgetBalance} {budget.currency.code}
+            <Typo
+              as={"div"}
+              htmlProps={{ title: currentBudgetBalance }}
+              size={"s"}
+              color={"text-2"}
+              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
+            >
+              <span className={"truncate"}>{currentBudgetBalance}</span>
+              <span>{budget.currency.code}</span>
             </Typo>
           </div>
 
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-2 flex items-center justify-between gap-4">
             <AvatarDescription
               avatarProps={{
                 src: budget.currency.logoUrl,
@@ -99,15 +106,22 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <div className={"flex items-center gap-1"}>
+            <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
               <Icon name={"ri-arrow-right-line"} className={"text-label-blue"} />
-              <Typo size={"s"}>
-                {formattedAmount} {budget.currency.code}
+
+              <Typo
+                as={"div"}
+                htmlProps={{ title: formattedAmount }}
+                size={"s"}
+                classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
+              >
+                <span className={"truncate"}>{formattedAmount}</span>
+                <span>{budget.currency.code}</span>
               </Typo>
             </div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-container-stroke-separator pt-2">
+          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
             <AvatarDescription
               avatarProps={{
                 src: budget.currency.logoUrl,
@@ -124,14 +138,21 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <Typo size={"s"} color={"text-2"}>
-              {newBudgetBalance} {budget.currency.code}
+            <Typo
+              as={"div"}
+              htmlProps={{ title: newBudgetBalance }}
+              size={"s"}
+              color={"text-2"}
+              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
+            >
+              <span className={"truncate"}>{newBudgetBalance}</span>
+              <span>{budget.currency.code}</span>
             </Typo>
           </div>
         </Section>
 
         <Section>
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between gap-4">
             <AvatarDescription
               avatarProps={{
                 src: project.logoUrl,
@@ -149,12 +170,19 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <Typo size={"s"} color={"text-2"}>
-              {currentProjectBalance} {budget.currency.code}
+            <Typo
+              as={"div"}
+              htmlProps={{ title: currentProjectBalance }}
+              size={"s"}
+              color={"text-2"}
+              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
+            >
+              <span className={"truncate"}>{currentProjectBalance}</span>
+              <span>{budget.currency.code}</span>
             </Typo>
           </div>
 
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-2 flex items-center justify-between gap-4">
             <AvatarDescription
               avatarProps={{
                 src: project.logoUrl,
@@ -172,15 +200,22 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <div className={"flex items-center gap-1"}>
+            <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
               <Icon name={"ri-arrow-down-line"} className={"text-label-green"} />
-              <Typo size={"s"}>
-                {formattedAmount} {budget.currency.code}
+
+              <Typo
+                as={"div"}
+                htmlProps={{ title: formattedAmount }}
+                size={"s"}
+                classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
+              >
+                <span className={"truncate"}>{formattedAmount}</span>
+                <span>{budget.currency.code}</span>
               </Typo>
             </div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-container-stroke-separator pt-2">
+          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
             <AvatarDescription
               avatarProps={{
                 src: project.logoUrl,
@@ -198,8 +233,15 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               }}
             />
 
-            <Typo size={"s"} color={"text-2"}>
-              {newProjectBalance} {budget.currency.code}
+            <Typo
+              as={"div"}
+              htmlProps={{ title: newProjectBalance }}
+              size={"s"}
+              color={"text-2"}
+              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
+            >
+              <span className={"truncate"}>{newProjectBalance}</span>
+              <span>{budget.currency.code}</span>
             </Typo>
           </div>
         </Section>
