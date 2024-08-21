@@ -11,6 +11,8 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarDescription } from "@/design-system/molecules/avatar-description";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
+import { cn } from "@/shared/helpers/cn";
+
 export function AmountSelector({
   portalRef,
   amount,
@@ -65,18 +67,24 @@ export function AmountSelector({
   return (
     <div className={"grid gap-4 py-4"}>
       <div className={"grid gap-2"}>
-        <div className={"grid grid-cols-2 items-center"}>
+        <div
+          className={cn("grid grid-cols-2 items-center", {
+            "text-xl": amount.length < 15,
+            "text-2xl": amount.length < 12,
+            "text-3xl": amount.length < 10,
+            "text-4xl": amount.length < 9,
+            "text-5xl": amount.length < 7,
+          })}
+        >
           <input
             ref={inputRef}
             type="text"
-            className={"flex bg-transparent text-right text-5xl font-medium text-text-1 outline-none"}
+            className={"flex bg-transparent text-right font-medium text-text-1 outline-none"}
             value={amount}
             onChange={handleChangeAmount}
           />
           <div onClick={handleFocusInput}>
-            <Typo size={"5xl"} weight={"medium"} color={"text-1"}>
-              {budget.currency.code}
-            </Typo>
+            <span className={"font-medium text-text-1"}>{budget.currency.code}</span>
           </div>
         </div>
         <Typo size={"m"} color={"text-2"} classNames={{ base: "text-center" }}>
