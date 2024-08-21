@@ -1,3 +1,4 @@
+import enGrantForm from "@/app/programs/[programId]/_features/grant-form-sidepanel/_translations/grant-form.en.json";
 import enGrantList from "@/app/programs/[programId]/_features/grant-list-sidepanel/_translations/grant-list.en.json";
 import enTransactionPanel from "@/app/programs/[programId]/_features/transactions-sidepanel/_translations/transaction-sidepanel.en.json";
 import enBudgetAvailable from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available.en.json";
@@ -18,5 +19,6 @@ export const enProgramsTranslation = {
     financialDetailSidePanel: enFinancialDetailSidePanel,
     projectDetail: enProjectDetail,
     grantList: enGrantList,
+    grantForm: enGrantForm,
   },
 };

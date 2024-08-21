@@ -1,5 +1,7 @@
 "use client";
 
+import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
+import { GrantFormContextProvider } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { FinancialSection } from "@/app/programs/[programId]/_sections/financial-section/financial-section";
@@ -45,22 +47,26 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
           </PageContent>
         </div>
         <PageContent>
-          <div className="grid gap-3">
-            <header className={"flex items-center justify-between"}>
-              <Typo
-                variant={"brand"}
-                size={"2xl"}
-                translate={{
-                  token: "programs:details.projects.title",
-                }}
-                color={"text-1"}
-              />
+          <GrantFormContextProvider>
+            <div className="grid gap-3">
+              <header className={"flex items-center justify-between"}>
+                <Typo
+                  variant={"brand"}
+                  size={"2xl"}
+                  translate={{
+                    token: "programs:details.projects.title",
+                  }}
+                  color={"text-1"}
+                />
 
-              <GrantListSidepanel />
-            </header>
+                <GrantListSidepanel />
+              </header>
 
-            <ProjectsTable programId={programId} />
-          </div>
+              <ProjectsTable programId={programId} />
+
+              <GrantFormSidepanel />
+            </div>
+          </GrantFormContextProvider>
         </PageContent>
       </AnimatedColumn>
     </PageWrapper>

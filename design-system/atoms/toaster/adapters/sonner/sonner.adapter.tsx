@@ -30,6 +30,8 @@ function handleToast({ children, variants, iconProps }: ToastProps) {
 
 export const toastSonnerAdapter: ToastPort = {
   default: children => handleToast({ children, variants: { variant: "default" } }),
+  success: children =>
+    handleToast({ children, variants: { variant: "default" }, iconProps: { name: "ri-check-line" } }),
   error: children =>
     handleToast({ children, variants: { variant: "error" }, iconProps: { name: "ri-error-warning-line" } }),
 };

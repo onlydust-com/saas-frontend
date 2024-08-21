@@ -18,7 +18,7 @@ const defaultProps: CardBudgetPort<"div"> = {
     },
     usdEquivalent: 100000,
   },
-  budgetPercentage: 75,
+  tag: "75%",
 };
 
 const meta: Meta<typeof CardBudget> = {

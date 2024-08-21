@@ -9,6 +9,7 @@ import {
   GetProgramTransactionsResponse,
   GetProgramTransactionsStatsResponse,
   GetProgramsResponse,
+  GrantBudgetToProjectBody,
 } from "@/core/domain/program/program-contract.types";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -23,6 +24,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     getProgramTransactions: "programs/:programId/transactions",
     getProgramTransactionsStats: "programs/:programId/stats/transactions",
     getProgramProjects: "programs/:programId/projects",
+    grantBudgetToProject: "programs/:programId/grant",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -141,6 +143,25 @@ export class ProgramClientAdapter implements ProgramStoragePort {
         projects: data.projects.map(project => new ProgramProject(project)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  grantBudgetToProject = ({ pathParams }: FirstParameter<ProgramStoragePort["grantBudgetToProject"]>) => {
+    const path = this.routes["grantBudgetToProject"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: GrantBudgetToProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

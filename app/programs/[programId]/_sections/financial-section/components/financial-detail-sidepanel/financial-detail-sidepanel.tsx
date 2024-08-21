@@ -47,7 +47,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               currency: currency.currency,
               usdEquivalent: total.totalUsdEquivalent,
             }}
-            budgetPercentage={currency.ratio ? currency.ratio * 100 : 0}
+            tag={`${(currency.ratio ?? 0) * 100}%`}
           />
         ))}
       </div>

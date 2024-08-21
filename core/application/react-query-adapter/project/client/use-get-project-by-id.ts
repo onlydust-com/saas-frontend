@@ -12,12 +12,12 @@ export function useGetProjectById({
   options,
   pathParams,
   queryParams,
-}: UseQueryFacadeParams<ProjectFacadePort["getProjectByid"], ProjectInterface>) {
+}: UseQueryFacadeParams<ProjectFacadePort["getProjectById"], ProjectInterface>) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...projectStoragePort.getProjectByid({ pathParams, queryParams }),
+      ...projectStoragePort.getProjectById({ pathParams, queryParams }),
       options,
     })
   );

@@ -17,5 +17,6 @@ export interface ToastProps extends PropsWithChildren {
 
 export interface ToastPort {
   default: (children: ReactNode) => void;
+  success: (children: ReactNode) => void;
   error: (children: ReactNode) => void;
 }

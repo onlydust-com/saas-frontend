@@ -15,9 +15,10 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   classNames,
   htmlProps,
   amount: { value, currency, usdEquivalent },
-  budgetPercentage,
+  tag,
+  onClick,
 }: CardBudgetPort<C>) {
-  const slots = CardBudgetDefaultVariants();
+  const slots = CardBudgetDefaultVariants({ clickable: Boolean(onClick) });
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const titleMoney = moneyKernelPort.format({
@@ -43,12 +44,13 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
         children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
       endContent={
-        budgetPercentage ? (
+        tag ? (
           <Tag color="white" size="s" style="outline">
-            {budgetPercentage}%
+            {tag}
           </Tag>
         ) : null
       }
+      onClick={onClick}
     />
   );
 }

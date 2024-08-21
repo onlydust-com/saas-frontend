@@ -25,7 +25,7 @@ export function SidePanelHeader({
   return (
     <div className={"flex w-full flex-row items-center justify-between gap-1"}>
       {showStartContent && (
-        <div className={"flex w-full flex-row items-center justify-start gap-1"}>
+        <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
             <Button
               hideText={true}
