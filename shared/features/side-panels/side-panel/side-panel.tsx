@@ -1,7 +1,7 @@
 "use client";
 
 import { Variants, motion } from "framer-motion";
-import { ForwardedRef, forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import { ForwardedRef, PropsWithChildren, forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { Paper } from "@/design-system/atoms/paper";
@@ -57,7 +57,7 @@ export const SidePanel = forwardRef(function SidePanel(
       {isOpenLast(name) &&
         isTablet &&
         createPortal(
-          <div className={"fixed inset-0 size-full bg-transparent"} onClick={() => close(name)} />,
+          <div className={"fixed inset-0 size-full bg-container-backdrop"} onClick={() => close(name)} />,
           document.body
         )}
       {createPortal(
@@ -69,7 +69,7 @@ export const SidePanel = forwardRef(function SidePanel(
           className={cn(
             "absolute right-0 translate-x-full opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
-            { "fixed bottom-0 h-auto translate-y-full p-3": isTablet },
+            { "fixed bottom-0 h-[calc(100%_-_36px)] translate-y-full p-3": isTablet },
             classNames?.container
           )}
           style={{
@@ -84,7 +84,7 @@ export const SidePanel = forwardRef(function SidePanel(
             classNames={{
               base: cn(
                 "h-full w-full flex flex-col gap-3",
-                { "h-auto max-h-dvh overflow-auto": isTablet },
+                { "h-full max-h-dvh overflow-auto": isTablet },
                 classNames?.content
               ),
             }}
@@ -107,13 +107,20 @@ export const useSidePanel = (
 
   const { isOpen } = useSidePanelsContext();
 
-  return useMemo(() => {
-    return {
-      Panel: ({ children }) => (
+  const Panel = useCallback(
+    ({ children }: PropsWithChildren) => {
+      return (
         <SidePanel ref={ref} name={name} classNames={classNames}>
           {children}
         </SidePanel>
-      ),
+      );
+    },
+    [name, classNames]
+  );
+
+  return useMemo(() => {
+    return {
+      Panel,
       open: () => ref.current?.open(config),
       close: current => ref.current?.close(current),
       back: () => ref.current?.back(),
