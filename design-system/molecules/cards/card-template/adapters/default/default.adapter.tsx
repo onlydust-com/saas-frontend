@@ -36,7 +36,7 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
     >
       <Avatar {...avatarProps} size="l" />
 
-      <div className="flex w-full flex-col gap-3">
+      <div className="flex w-full flex-col gap-3 overflow-hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
