@@ -27,12 +27,11 @@ export function TransactionsTrigger() {
         onClick={togglePanel}
         size="l"
       />
-
-      <Panel>
-        <TransactionsContextProvider programId={programId}>
+      <TransactionsContextProvider programId={programId}>
+        <Panel>
           <TransactionsSidepanel />
-        </TransactionsContextProvider>
-      </Panel>
+        </Panel>
+      </TransactionsContextProvider>
     </>
   );
 }
