@@ -26,6 +26,10 @@ export function TransactionsTrigger() {
         translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
         size="l"
+        classNames={{
+          base: "max-w-full overflow-hidden",
+          label: "whitespace-nowrap text-ellipsis overflow-hidden",
+        }}
       />
       <TransactionsContextProvider programId={programId}>
         <Panel>
