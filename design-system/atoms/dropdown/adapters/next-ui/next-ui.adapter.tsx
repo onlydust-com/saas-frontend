@@ -38,7 +38,7 @@ export function DropdownNextUiAdapter({
 
     return selectedKeys?.length > 1
       ? `${selectedKeys?.length} ${multipleSelectionCountLabel || ""}`
-      : String(items.find(item => item.value === selectedKeys[0])?.label || selectedKeys[0]);
+      : items.find(item => item.value === selectedKeys[0])?.label || selectedKeys[0];
   }
 
   return (
