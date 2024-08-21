@@ -4,8 +4,8 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 export interface AmountSelectorProps {
   portalRef: RefObject<HTMLDivElement>;
-  amount: number;
-  onAmountChange: (amount: number) => void;
+  amount: string;
+  onAmountChange: (amount: string) => void;
   budget: DetailedTotalMoneyTotalPerCurrency;
   allBudgets: DetailedTotalMoneyTotalPerCurrency[];
   onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency) => void;

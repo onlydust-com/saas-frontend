@@ -28,7 +28,7 @@ export function AmountSelector({
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: amount * (budget?.ratio ?? 0),
+    amount: parseFloat(amount) * (budget?.ratio ?? 0),
     currency: budget.currency,
   });
 
@@ -45,7 +45,16 @@ export function AmountSelector({
   }
 
   function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
-    onAmountChange(Number(e.target.value));
+    let value = e.target.value;
+
+    // Only allow numbers and one dot
+    value = value.replace(/[^\d.]/g, "");
+
+    if (value.length > 1 && value.startsWith("0")) {
+      value = value.slice(1);
+    }
+
+    onAmountChange(value || "0");
   }
 
   function handleChangeBudget(budget: DetailedTotalMoneyTotalPerCurrency) {
@@ -60,6 +69,7 @@ export function AmountSelector({
           <input
             ref={inputRef}
             type="text"
+            pattern={"[0-9]*"}
             className={"flex bg-transparent text-right text-5xl font-medium text-text-1 outline-none"}
             value={amount}
             onChange={handleChangeAmount}

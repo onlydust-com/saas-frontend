@@ -26,12 +26,12 @@ export function Summary({ amount, budget, project }: SummaryProps) {
   });
 
   const { amount: formattedAmount } = moneyKernelPort.format({
-    amount,
+    amount: parseFloat(amount),
     currency: budget.currency,
   });
 
   const { amount: newBudgetBalance } = moneyKernelPort.format({
-    amount: budget.amount - amount,
+    amount: budget.amount - parseFloat(amount),
     currency: budget.currency,
   });
 
@@ -47,7 +47,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
   });
 
   const { amount: newProjectBalance } = moneyKernelPort.format({
-    amount: rawCurrentProjectBalance + amount,
+    amount: rawCurrentProjectBalance + parseFloat(amount),
     currency: budget.currency,
   });
 
