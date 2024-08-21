@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 
-import {
-  GrantProject,
-  useGrantFormContext,
-} from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -30,11 +27,11 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
 
   const {
     sidePanel: { open: openGrantForm },
-    projectState: [, setGrantProject],
+    projectIdState: [, setGrantProjectId],
   } = useGrantFormContext();
 
-  function handleOpenProjectGrant(project: GrantProject) {
-    setGrantProject(project);
+  function handleOpenProjectGrant(projectId: string) {
+    setGrantProjectId(projectId);
     openGrantForm();
   }
 
@@ -81,15 +78,7 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
                 base: "pointer-events-none whitespace-nowrap",
               },
             }}
-            onClick={() =>
-              handleOpenProjectGrant({
-                id: project.id,
-                name: project.name,
-                logoUrl: project.logoUrl,
-                description,
-                totalAvailable: project.totalAvailable,
-              })
-            }
+            onClick={() => handleOpenProjectGrant(project.id)}
           />
         );
       })}

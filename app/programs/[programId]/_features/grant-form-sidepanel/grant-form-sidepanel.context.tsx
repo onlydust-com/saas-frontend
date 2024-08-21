@@ -1,21 +1,11 @@
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
-import { DetailedTotalMoney } from "@/core/kernel/money/money.types";
-
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-panel.types";
 
-export interface GrantProject {
-  id: string;
-  name: string;
-  logoUrl?: string;
-  description: string;
-  totalAvailable: DetailedTotalMoney;
-}
-
 export const GrantFormContext = createContext<{
   sidePanel: UseSidePanel;
-  projectState: ReturnType<typeof useState<GrantProject | undefined>>;
+  projectIdState: ReturnType<typeof useState<string | undefined>>;
 }>({
   sidePanel: {
     Panel: () => <div />,
@@ -25,18 +15,18 @@ export const GrantFormContext = createContext<{
     back: () => {},
     name: "",
   },
-  projectState: [undefined, () => {}],
+  projectIdState: [undefined, () => {}],
 });
 
 export function GrantFormContextProvider({ children }: PropsWithChildren) {
   const grantFormSidepanel = useSidePanel({ name: "grant-form" });
-  const projectState = useState<GrantProject | undefined>();
+  const projectIdState = useState<string | undefined>();
 
   return (
     <GrantFormContext.Provider
       value={{
         sidePanel: grantFormSidepanel,
-        projectState,
+        projectIdState,
       }}
     >
       {children}

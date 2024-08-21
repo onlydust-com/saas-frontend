@@ -12,7 +12,6 @@ import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-tab
 import { FinancialSection } from "@/app/programs/[programId]/_sections/financial-section/financial-section";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-import { AnyType } from "@/core/kernel/types";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -27,20 +26,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 function WithProjectPanelProvider({ children }: PropsWithChildren) {
   const {
     sidePanel: { open: openGrantForm },
-    projectState: [, setGrantProject],
+    projectIdState: [, setGrantProjectId],
   } = useGrantFormContext();
 
   function handleOpenProjectGrant(projectId: string) {
-    setGrantProject({
-      id: projectId,
-      name: "",
-      logoUrl: undefined,
-      description: "",
-      totalAvailable: {
-        totalUsdEquivalent: 0,
-        totalPerCurrency: [],
-      },
-    } as AnyType);
+    setGrantProjectId(projectId);
     openGrantForm();
   }
 

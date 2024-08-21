@@ -24,25 +24,29 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
-  const { sidePanel, projectState } = useGrantFormContext();
+  const { sidePanel, projectIdState } = useGrantFormContext();
   const { Panel, close: closeSidepanel } = sidePanel;
-  const [project] = projectState;
+  const [projectId] = projectIdState;
   const amountSelectorPortalRef = useRef(null);
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
-
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
-    amount: project?.totalAvailable.totalUsdEquivalent,
-    currency: moneyKernelPort.getCurrency("USD"),
-  });
 
   const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
     },
     options: {
-      enabled: Boolean(programId) && Boolean(project),
+      enabled: Boolean(programId),
+    },
+  });
+
+  const { data: project } = ProgramReactQueryAdapter.client.useGetProgramProject({
+    pathParams: {
+      programId,
+      projectId: projectId ?? "",
+    },
+    options: {
+      enabled: Boolean(programId) && Boolean(projectId),
     },
   });
 
@@ -52,6 +56,12 @@ export function GrantFormSidepanel() {
       setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
     }
   }, [data]);
+
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
+    amount: project?.totalAvailable.totalUsdEquivalent,
+    currency: moneyKernelPort.getCurrency("USD"),
+  });
 
   const { mutate, isPending } = ProgramReactQueryAdapter.client.useGrantBudgetToProject({
     pathParams: {
@@ -125,7 +135,6 @@ export function GrantFormSidepanel() {
           <div className="flex h-full flex-col gap-3">
             <CardProject
               title={project.name}
-              description={project.description}
               logoUrl={project.logoUrl}
               buttonProps={{
                 children: `${projectUsdAmount} ${projectUsdCode}`,

@@ -1,14 +1,11 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import {
-  GrantProject,
-  useGrantFormContext,
-} from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
-import { ProgramProjectInterface } from "@/core/domain/program/models/program-project-model";
+import { ProgramProjectListItemInterface } from "@/core/domain/program/models/program-project-list-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -27,7 +24,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
   const {
     sidePanel: { open: openGrantForm },
-    projectState: [, setGrantProject],
+    projectIdState: [, setGrantProjectId],
   } = useGrantFormContext();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
@@ -42,10 +39,10 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const columnHelper = createColumnHelper<ProgramProjectInterface>();
+  const columnHelper = createColumnHelper<ProgramProjectListItemInterface>();
 
-  function handleOpenProjectGrant(project: GrantProject) {
-    setGrantProject(project);
+  function handleOpenProjectGrant(projectId: string) {
+    setGrantProjectId(projectId);
     openGrantForm();
   }
 
@@ -267,18 +264,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button
-              variant={"secondary-light"}
-              onClick={() =>
-                handleOpenProjectGrant({
-                  id: project.id,
-                  name: project.name,
-                  logoUrl: project.logoUrl,
-                  description: project.truncateDescription(25),
-                  totalAvailable: project.totalAvailable,
-                })
-              }
-            >
+            <Button variant={"secondary-light"} onClick={() => handleOpenProjectGrant(project.id)}>
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
