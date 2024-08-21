@@ -1,9 +1,8 @@
 import { PropsWithChildren } from "react";
 
-import { GrantProject } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
 
 import { bootstrap } from "@/core/bootstrap";
-import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
@@ -18,15 +17,7 @@ function Section({ children }: PropsWithChildren) {
   );
 }
 
-export function Summary({
-  amount,
-  budget,
-  project,
-}: {
-  amount: number;
-  budget: DetailedTotalMoneyTotalPerCurrency;
-  project: GrantProject;
-}) {
+export function Summary({ amount, budget, project }: SummaryProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const { amount: currentBudgetBalance } = moneyKernelPort.format({
