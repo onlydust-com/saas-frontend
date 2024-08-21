@@ -1,15 +1,15 @@
 import {
-  GetProjectByidPortParams,
-  GetProjectByidPortResponse,
+  GetProjectByIdPortParams,
+  GetProjectByIdPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectsPortParams,
-  GetProjectsPortResponse
+  GetProjectsPortResponse,
 } from "@/core/domain/project/project-contract.types";
 
 export interface ProjectStoragePort {
   routes: Record<string, string>;
-  getProjectByid(p: GetProjectByidPortParams): GetProjectByidPortResponse;
+  getProjectById(p: GetProjectByIdPortParams): GetProjectByIdPortResponse;
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
 }

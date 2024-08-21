@@ -1,10 +1,15 @@
 import { useParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
-import { useFinancialColumnChart } from "@/app/programs/[programId]/_features/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
+import { Dropdown } from "@/design-system/atoms/dropdown";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
@@ -14,9 +19,25 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
+  const dateKernelPort = bootstrap.getDateKernelPort();
   const { programId = "" } = useParams<{ programId: string }>();
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+
+  const { fromDate, toDate } = useMemo(() => {
+    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
+
+    return {
+      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+    };
+  }, [rangeType, dateKernelPort]);
+
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
     pathParams: { programId },
+    queryParams: {
+      fromDate,
+      toDate,
+    },
   });
 
   const { stats } = data ?? {};
@@ -42,11 +63,15 @@ export function FinancialColumnChart() {
     tooltip: { valueSuffix: " USD" },
   });
 
+  function onChangeRangeType(value: string[]) {
+    setRangeType(value[0] as DateRangeType);
+  }
+
   if (isLoading) {
     return (
       <Skeleton
         classNames={{
-          base: "w-full h-[400px]",
+          base: "w-full min-h-[400px]",
         }}
       />
     );
@@ -62,10 +87,10 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <div className="flex h-[400px] flex-col gap-4">
+    <div className="flex min-h-[400px] flex-col gap-4">
       <ColumnChart options={options} />
-      <div className="grid grid-cols-5 items-center gap-4">
-        <Paper size={"s"} classNames={{ base: "col-span-4 grid grid-cols-3 items-center gap-3" }}>
+      <div className="flex items-center gap-4">
+        <Paper size={"s"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="chart-1">
               <Translate token={"programs:financialColumnChart.legends.received"} />
@@ -85,8 +110,24 @@ export function FinancialColumnChart() {
             {renderRewardedAmount}
           </div>
         </Paper>
-        {/*TODO @Mehdi handle date range change*/}
-        <div>Date Range popover trigger</div>
+        <Dropdown
+          isMultipleSelection={false}
+          selectedKeys={[rangeType]}
+          onChange={onChangeRangeType}
+          items={[
+            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, value: DateRangeType.LAST_WEEK },
+            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, value: DateRangeType.LAST_MONTH },
+            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, value: DateRangeType.LAST_SEMESTER },
+            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, value: DateRangeType.LAST_YEAR },
+            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, value: DateRangeType.ALL_TIME },
+          ]}
+        >
+          {({ label }) => (
+            <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-calendar-line" }}>
+              {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
+            </Button>
+          )}
+        </Dropdown>
       </div>
     </div>
   );

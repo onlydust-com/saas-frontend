@@ -1,3 +1,5 @@
+import { useMemo, useState } from "react";
+
 import { ProjectCategories } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-categories/project-categories";
 import { ProjectContributors } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-contributors/project-contributors";
 import { ProjectDescription } from "@/app/programs/[programId]/_features/project-sidepanel/_components/project-description/project-description";
@@ -10,31 +12,30 @@ import { ProjectStats } from "@/app/programs/[programId]/_features/project-sidep
 import { ProjectSidepanelProps } from "@/app/programs/[programId]/_features/project-sidepanel/project-sidepanel.types";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { bootstrap } from "@/core/bootstrap";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
-function ProjectHeader({ logoUrl, name, loading }: { logoUrl?: string; name?: string; loading: boolean }) {
-  if (loading) {
-    return <ButtonLoading size={"l"} />;
-  }
-  return (
-    <Button
-      variant={"secondary-light"}
-      startContent={<Avatar shape={"square"} src={logoUrl} alt={name} />}
-      endContent={<Icon name={"ri-external-link-line"} />}
-      size={"l"}
-    >
-      {name}
-    </Button>
-  );
-}
 export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+
+  const { fromDate, toDate } = useMemo(() => {
+    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
+
+    return {
+      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+    };
+  }, [rangeType, dateKernelPort]);
+
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: { projectId: projectId ?? "" },
     options: {
@@ -44,25 +45,50 @@ export function ProjectSidepanel({ projectId }: ProjectSidepanelProps) {
 
   const { data: stats, isLoading: loadingStats } = ProjectReactQueryAdapter.client.useGetProjectStats({
     pathParams: { projectId: projectId ?? "" },
+    queryParams: {
+      fromDate,
+      toDate,
+    },
     options: {
       enabled: !!projectId,
     },
   });
 
-  if (!data) {
-    return "loading";
+  function onChangeRangeType(type: DateRangeType) {
+    setRangeType(type);
+  }
+
+  if (isLoading || loadingStats || !data) {
+    return (
+      <>
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-36 w-full" />
+        <Skeleton className="h-20 w-full" />
+        <Skeleton className="h-20 w-full" />
+      </>
+    );
   }
 
   return (
     <>
       <SidePanelHeader
-        startContent={<ProjectHeader name={data?.name} loading={isLoading || loadingStats} logoUrl={data?.logoUrl} />}
+        startContent={
+          <Button
+            variant={"secondary-light"}
+            startContent={<Avatar shape={"square"} src={data.logoUrl} alt={data.name} />}
+            endContent={<Icon name={"ri-external-link-line"} />}
+            size={"l"}
+          >
+            {data.name}
+          </Button>
+        }
         canGoBack={false}
         canClose={true}
       />
       {!!stats && (
         <>
-          <ProjectStats data={stats} />
+          <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
           <ProjectFinancial data={stats} />
         </>
       )}

@@ -1,8 +1,8 @@
+import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
-import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
-import { GetProjectByidResponse, GetProjectStatsResponse } from "@/core/domain/project/project-contract.types";
+import { GetProjectByIdResponse, GetProjectStatsResponse } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -16,12 +16,12 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjects: "projects",
   } as const;
 
-  getProjectByid = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectByid"]>) => {
+  getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
     const path = this.routes["getProjectById"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, queryParams, pathParams });
     const request = async () => {
-      const data = await this.client.request<GetProjectByidResponse>({
+      const data = await this.client.request<GetProjectByIdResponse>({
         path,
         method,
         tag,

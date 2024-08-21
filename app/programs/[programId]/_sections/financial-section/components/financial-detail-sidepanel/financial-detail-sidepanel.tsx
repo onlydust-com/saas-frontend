@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
   FinancialDetailSidepanelProps,
   colorMapping,
-} from "@/app/programs/[programId]/_features/financial-detail-sidepanel/financial-detail-sidepanel.types";
+} from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -47,8 +47,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               currency: currency.currency,
               usdEquivalent: total.totalUsdEquivalent,
             }}
-            // TODO @Mehdi use budgetPercentage once backend ready
-            budgetPercentage={10}
+            tag={`${(currency.ratio ?? 0) * 100}%`}
           />
         ))}
       </div>

@@ -18,8 +18,9 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   languages = [],
   categories = [],
   buttonProps,
+  onClick,
 }: CardProjectPort<C>) {
-  const slots = CardProjectDefaultVariants();
+  const slots = CardProjectDefaultVariants({ clickable: Boolean(onClick) });
 
   const formattedLanguages = languages.map(language => ({
     ...language,
@@ -34,8 +35,8 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   return (
     <CardTemplate
       as={as}
-      classNames={{ base: cn(slots.base(), classNames?.base) }}
       htmlProps={htmlProps}
+      classNames={{ base: cn(slots.base(), classNames?.base) }}
       avatarProps={{ src: logoUrl, shape: "square" }}
       titleProps={{
         children: title,
@@ -45,6 +46,7 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
       }}
       tags={[...formattedLanguages, ...formattedCategories]}
       endContent={buttonProps && <Button {...buttonProps} size="l" variant="secondary-light" />}
+      onClick={onClick}
     />
   );
 }
