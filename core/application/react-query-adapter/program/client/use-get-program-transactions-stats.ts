@@ -16,6 +16,12 @@ export function useGetProgramTransactionsStats({
   const programStoragePort = bootstrap.getProgramStoragePortForClient();
 
   return useQuery(
-    useQueryAdapter({ ...programStoragePort.getProgramTransactionsStats({ pathParams, queryParams }), options })
+    useQueryAdapter({
+      ...programStoragePort.getProgramTransactionsStats({ pathParams, queryParams }),
+      options: {
+        staleTime: 10000,
+        ...options,
+      },
+    })
   );
 }
