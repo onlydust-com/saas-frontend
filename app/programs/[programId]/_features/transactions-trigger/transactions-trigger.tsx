@@ -28,11 +28,11 @@ export function TransactionsTrigger() {
         size="l"
       />
 
-      <TransactionsContextProvider programId={programId}>
-        <Panel>
+      <Panel>
+        <TransactionsContextProvider programId={programId}>
           <TransactionsSidepanel />
-        </Panel>
-      </TransactionsContextProvider>
+        </TransactionsContextProvider>
+      </Panel>
     </>
   );
 }
