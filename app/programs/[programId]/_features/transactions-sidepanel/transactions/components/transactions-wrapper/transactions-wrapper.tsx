@@ -41,7 +41,6 @@ export function TransactionsWrapper() {
     return null;
   }
 
-  // TODO: Open panel project on click
   function getButtonProps(transaction: TransactionListItem): CardTransactionPort<"div">["buttonProps"] {
     if (transaction.thirdParty.project) {
       return {
