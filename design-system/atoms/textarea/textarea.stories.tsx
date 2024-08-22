@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-
-import { Icon } from "@/design-system/atoms/icon";
+import { Square } from "lucide-react";
 
 import { Textarea, TextareaPort } from "./index";
 
@@ -8,8 +7,8 @@ type Story = StoryObj<typeof Textarea>;
 
 const defaultProps: TextareaPort = {
   name: "textarea",
-  startContent: <Icon name="ri-square-line" classNames={{ base: "text-inherit" }} />,
-  endContent: <Icon name="ri-square-line" classNames={{ base: "text-inherit" }} />,
+  startContent: <Square size={16} />,
+  endContent: <Square size={16} />,
   value: "Input text",
 };
 

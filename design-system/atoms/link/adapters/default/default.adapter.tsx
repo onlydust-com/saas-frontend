@@ -1,4 +1,5 @@
-import { Icon } from "@/design-system/atoms/icon";
+import { SquareArrowOutUpRight } from "lucide-react";
+
 import { LinkDefaultVariants } from "@/design-system/atoms/link/adapters/default/default.variants";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -16,12 +17,9 @@ export function LinkDefaultAdapter({ classNames, children, ...props }: LinkPort)
         <>
           {children}
           {isExternal ? (
-            <Icon
-              name="ri-external-link-line"
-              classNames={{
-                base: "invisible ml-1 text-inherit group-hover/link:visible",
-              }}
-            />
+            <div className={"invisible ml-1 text-inherit group-hover/link:visible"}>
+              <SquareArrowOutUpRight name="square-arrow-out-up-right" size={16} />
+            </div>
           ) : null}
         </>
       )}

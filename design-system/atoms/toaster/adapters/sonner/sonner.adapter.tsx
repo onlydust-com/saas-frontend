@@ -1,6 +1,6 @@
+import { Check, CircleAlert, CircleX } from "lucide-react";
 import { Toaster, toast } from "sonner";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ToastPort, ToastProps, ToasterPort } from "../../toaster.types";
@@ -10,19 +10,19 @@ export function ToasterSonnerAdapter({ position = "bottom-left" }: ToasterPort) 
   return <Toaster position={position} />;
 }
 
-function handleToast({ children, variants, iconProps }: ToastProps) {
+function handleToast({ children, variants, iconContent }: ToastProps) {
   const slots = ToasterSonnerVariants(variants);
 
   toast.custom(t => (
     <div className={slots.base()}>
       <div className={slots.messageWrapper()}>
-        {iconProps ? <Icon {...iconProps} /> : null}
+        {iconContent}
 
         <Typo size={"s"}>{children}</Typo>
       </div>
 
       <button type={"button"} onClick={() => toast.dismiss(t)} className={slots.closeButton()}>
-        <Icon name={"ri-close-circle-line"} />
+        <CircleX size={16} />
       </button>
     </div>
   ));
@@ -30,8 +30,6 @@ function handleToast({ children, variants, iconProps }: ToastProps) {
 
 export const toastSonnerAdapter: ToastPort = {
   default: children => handleToast({ children, variants: { variant: "default" } }),
-  success: children =>
-    handleToast({ children, variants: { variant: "default" }, iconProps: { name: "ri-check-line" } }),
-  error: children =>
-    handleToast({ children, variants: { variant: "error" }, iconProps: { name: "ri-error-warning-line" } }),
+  success: children => handleToast({ children, variants: { variant: "default" }, iconContent: <Check size={16} /> }),
+  error: children => handleToast({ children, variants: { variant: "error" }, iconContent: <CircleAlert size={16} /> }),
 };

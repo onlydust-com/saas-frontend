@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon } from "@/design-system/atoms/icon";
 
 import { DropdownPort } from "./dropdown.types";
 import { Dropdown } from "./variants/dropdown-default";
@@ -14,14 +14,14 @@ const defaultProps: DropdownPort = {
     {
       value: "item1",
       label: "item1",
-      startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
-      endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+      startContent: <Square size={16} />,
+      endContent: <Square size={16} />,
     },
     {
       value: "item2",
       label: "item2",
-      startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
-      endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+      startContent: <Square size={16} />,
+      endContent: <Square size={16} />,
     },
     {
       value: "item3",

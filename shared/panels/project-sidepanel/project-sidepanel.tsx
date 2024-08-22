@@ -1,3 +1,4 @@
+import { SquareArrowOutUpRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -6,7 +7,6 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
@@ -90,7 +90,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
           <Button
             variant={"secondary-light"}
             startContent={<Avatar shape={"square"} size={"xs"} src={data.logoUrl} alt={data.name} />}
-            endContent={<Icon name={"ri-external-link-line"} />}
+            endContent={<SquareArrowOutUpRight size={16} />}
             size={"l"}
             as={"a"}
             htmlProps={{
@@ -135,7 +135,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
             </Button>
             <Button
               variant={"secondary-light"}
-              endContent={<Icon name={"ri-external-link-line"} />}
+              endContent={<SquareArrowOutUpRight size={16} />}
               size={"l"}
               as={"a"}
               htmlProps={{

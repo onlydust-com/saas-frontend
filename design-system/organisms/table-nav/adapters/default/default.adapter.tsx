@@ -1,6 +1,6 @@
+import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 import { TableFilter } from "@/design-system/molecules/table-filter";
@@ -24,7 +24,11 @@ export function TableNavDefaultAdapter({ classNames, filter, sort, groupBy, sear
       {search ? (
         <Input
           placeholder={t("tableNav.search.placeholder")}
-          startContent={<Icon name={"ri-search-line"} classNames={{ base: "text-text-2" }} />}
+          startContent={
+            <div className={"text-text-2"}>
+              <Search size={16} />
+            </div>
+          }
           classNames={{ base: "flex-1" }}
           {...search}
         />

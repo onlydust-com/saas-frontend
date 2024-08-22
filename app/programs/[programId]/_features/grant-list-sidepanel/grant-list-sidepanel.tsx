@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,7 +10,6 @@ import { AlreadyGrantedBadge } from "@/app/programs/[programId]/_features/grant-
 import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-projects";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
 
@@ -54,7 +54,7 @@ export function GrantListSidepanel() {
 
         <Input
           placeholder={t("programs:grantList.search")}
-          startContent={<Icon name={"ri-search-line"} />}
+          startContent={<Search size={16} />}
           value={search}
           onChange={e => setSearch(e.currentTarget.value)}
         />

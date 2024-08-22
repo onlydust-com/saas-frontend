@@ -2,9 +2,8 @@
 
 import { parseAbsolute } from "@internationalized/date";
 import { DateRangePicker, DateValue, RangeValue } from "@nextui-org/react";
+import { Calendar } from "lucide-react";
 import { ForwardedRef, forwardRef, useEffect, useState } from "react";
-
-import { Icon } from "@/design-system/atoms/icon";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -75,7 +74,7 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       variant="bordered"
       labelPlacement="outside-left"
       granularity="day"
-      selectorIcon={<Icon name="ri-calendar-line" />}
+      selectorIcon={<Calendar size={16} />}
       isDisabled={isDisabled}
       isInvalid={isError}
       onChange={handleChange}

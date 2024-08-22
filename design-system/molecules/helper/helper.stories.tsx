@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-
-import { Icon } from "@/design-system/atoms/icon";
+import { Square } from "lucide-react";
 
 import { HelperPort } from "./helper.types";
 import { Helper } from "./variants/helper-default";
@@ -91,16 +90,12 @@ export const StartEndContent: Story = {
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
-        <Helper
-          {...defaultPort}
-          startContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-          endContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-        />
+        <Helper {...defaultPort} startContent={<Square size={16} />} endContent={<Square size={16} />} />
         <Helper
           {...defaultPort}
           layout={"vertical"}
-          startContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-          endContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
+          startContent={<Square size={16} />}
+          endContent={<Square size={16} />}
         />
       </div>
     );
