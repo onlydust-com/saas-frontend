@@ -8,7 +8,6 @@ import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
 
 const config: Config = withTV({
-  darkMode: "selector",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./design-system/**/*.{js,ts,jsx,tsx,mdx}",
