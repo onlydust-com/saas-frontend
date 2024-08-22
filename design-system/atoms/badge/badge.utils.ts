@@ -6,6 +6,6 @@ export function isBadgeAvatar<C extends ElementType>(badge: BadgePort<C>): badge
   return (badge as BadgeAvatarPort<C>).avatar !== undefined;
 }
 
-export function isBadgeIcon<C extends ElementType>(badge: BadgePort<C>): badge is BadgeAvatarPort<C> {
+export function isBadgeIcon<C extends ElementType>(badge: BadgePort<C>): badge is BadgeIconPort<C> {
   return (badge as BadgeIconPort<C>).icon !== undefined;
 }
