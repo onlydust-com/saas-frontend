@@ -10,7 +10,7 @@ const defaultProps: ItemNavPort = {
     href: "https://www.google.com",
   },
   icon: {
-    name: "ri-home-4-line",
+    name: "house",
   },
   children: "Item Nav",
   isDisabled: false,

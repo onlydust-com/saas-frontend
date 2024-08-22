@@ -38,7 +38,7 @@ function Content({
         </Typo>
         {isExternal ? (
           <Icon
-            name="ri-external-link-line"
+            name="square-arrow-out-up-right"
             classNames={{
               base: cn("invisible ml-1 text-inherit group-hover/link:visible", { "!invisible": isFolded }),
             }}

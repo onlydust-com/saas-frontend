@@ -1,7 +1,8 @@
+import { ArrowDownWideNarrow, ArrowUpNarrowWide } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { ButtonPort } from "@/design-system/atoms/button/button.types";
 import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
-import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -17,9 +18,9 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
   const slots = TableSortDefaultVariants();
   const { t } = useTranslation("table");
 
-  const sortIcons: Record<SortDirection, RemixIconsName> = {
-    ASC: "ri-sort-asc",
-    DESC: "ri-sort-desc",
+  const sortIcons: Record<SortDirection, ButtonPort<"button">["startIcon"]> = {
+    ASC: ArrowUpNarrowWide,
+    DESC: ArrowDownWideNarrow,
   };
 
   return (
@@ -28,7 +29,7 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableSort.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ name: sortIcons[direction] }} />
+              <ButtonSecondaryLight size="l" hideText startIcon={sortIcons[direction]} />
             </Tooltip>
           </div>
         )}

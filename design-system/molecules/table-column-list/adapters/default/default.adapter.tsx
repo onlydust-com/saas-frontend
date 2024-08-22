@@ -1,3 +1,5 @@
+import { Columns2 } from "lucide-react";
+
 import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
@@ -19,7 +21,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ name: "ri-layout-column-line" }} />
+              <ButtonSecondaryLight size="l" hideText startIcon={Columns2} />
             </Tooltip>
           </div>
         )}

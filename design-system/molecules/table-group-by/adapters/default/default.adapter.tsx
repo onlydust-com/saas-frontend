@@ -1,3 +1,5 @@
+import { Layers } from "lucide-react";
+
 import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
@@ -19,7 +21,7 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableGroupBy.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ name: "ri-stack-line" }} />
+              <ButtonSecondaryLight size="l" hideText startIcon={Layers} />
             </Tooltip>
           </div>
         )}

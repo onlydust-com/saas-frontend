@@ -1,4 +1,4 @@
-import { ChartPie } from "lucide-react";
+import { Calendar, ChartPie } from "lucide-react";
 
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
@@ -53,7 +53,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
           ]}
         >
           {({ label }) => (
-            <Button size={"s"} variant={"secondary-light"} startIcon={{ name: "calendar" }}>
+            <Button size={"s"} variant={"secondary-light"} startIcon={Calendar}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}

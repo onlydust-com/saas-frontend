@@ -47,7 +47,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   return (
     <PageWrapper
       navigation={{
-        iconName: "ri-clipboard-line",
+        iconName: "clipboard",
         breadcrumbs: [
           {
             id: "root",

@@ -1,3 +1,4 @@
+import { Calendar } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -123,7 +124,7 @@ export function FinancialColumnChart() {
           ]}
         >
           {({ label }) => (
-            <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-calendar-line" }}>
+            <Button variant={"secondary-light"} size={"l"} startIcon={Calendar}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}

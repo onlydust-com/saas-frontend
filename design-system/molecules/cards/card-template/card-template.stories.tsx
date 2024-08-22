@@ -27,13 +27,13 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
     {
       children: "Tag 2",
       icon: {
-        name: "ri-time-line",
+        name: "clock",
       },
     },
     {
       children: "Tag 3",
       icon: {
-        name: "ri-time-line",
+        name: "clock",
       },
     },
   ],
@@ -70,18 +70,14 @@ export const WithIcon: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplate iconProps={{ name: 'ri-arrow-up-line', className: 'text-label-red' }} />",
+        code: "<CardTemplate iconProps={{ name: 'arrow-up', className: 'text-label-red' }} />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplate
-          {...defaultProps}
-          {...args}
-          iconProps={{ name: "ri-arrow-up-line", className: "text-label-red" }}
-        />
+        <CardTemplate {...defaultProps} {...args} iconProps={{ name: "arrow-up", className: "text-label-red" }} />
       </div>
     );
   },
@@ -114,7 +110,7 @@ export const WithCustomTags: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'ri-time-line' } }, { children: 'Tag 3', icon: { name: 'ri-time-line' } }]} />",
+        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'clock' } }, { children: 'Tag 3', icon: { name: 'clock' } }]} />",
       },
     },
   },

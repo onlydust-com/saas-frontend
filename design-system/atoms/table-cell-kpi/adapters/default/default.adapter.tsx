@@ -10,9 +10,9 @@ export function TableCellKpiDefaultAdapter({ classNames, trend, inverted, childr
   const slots = TableCellKpiDefaultVariants({ trend, inverted });
 
   const iconNames: Record<NonNullable<typeof trend>, IconPort["name"]> = {
-    UP: "ri-arrow-up-line",
-    DOWN: "ri-arrow-down-line",
-    STABLE: "ri-arrow-right-line",
+    UP: "arrow-up",
+    DOWN: "arrow-down",
+    STABLE: "arrow-right",
   };
 
   return (

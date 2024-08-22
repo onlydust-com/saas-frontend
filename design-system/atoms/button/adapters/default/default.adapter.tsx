@@ -1,7 +1,6 @@
 import { Spinner } from "@nextui-org/react";
 import { ComponentProps, ElementType } from "react";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -13,8 +12,8 @@ import { ButtonDefaultVariants } from "./default.variants";
 export function ButtonDefaultAdapter<C extends ElementType = "button">({
   classNames,
   as,
-  startIcon,
-  endIcon,
+  startIcon: StartIcon,
+  endIcon: EndIcon,
   startContent,
   endContent,
   children,
@@ -57,26 +56,20 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
-        {!!startIcon && (
-          <Icon
-            {...startIcon}
-            classNames={{
-              base: cn(slots.startIcon(), classNames?.startIcon, startIcon?.classNames?.base),
-            }}
-          />
+        {!!StartIcon && (
+          <div className={cn(slots.startIcon(), classNames?.startIcon)}>
+            <StartIcon size={16} />
+          </div>
         )}
         {showChildren && (
           <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
-        {!!endIcon && (
-          <Icon
-            {...endIcon}
-            classNames={{
-              base: cn(slots.endIcon(), classNames?.endIcon, endIcon?.classNames?.base),
-            }}
-          />
+        {!!EndIcon && (
+          <div className={cn(slots.endIcon(), classNames?.endIcon)}>
+            <EndIcon size={16} />
+          </div>
         )}
         {endContent}
       </div>

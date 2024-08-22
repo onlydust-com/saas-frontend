@@ -1,3 +1,5 @@
+import { ChevronLeft, X } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -27,13 +29,7 @@ export function SidePanelHeader({
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button
-              hideText={true}
-              variant="secondary-light"
-              size="l"
-              startIcon={{ name: "ri-arrow-left-s-line" }}
-              onClick={() => back()}
-            />
+            <Button hideText={true} variant="secondary-light" size="l" startIcon={ChevronLeft} onClick={() => back()} />
           )}
           {startContent}
         </div>
@@ -43,13 +39,7 @@ export function SidePanelHeader({
         <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
-            <Button
-              hideText={true}
-              variant="secondary-light"
-              size="l"
-              startIcon={{ name: "ri-close-line" }}
-              onClick={handleClose}
-            />
+            <Button hideText={true} variant="secondary-light" size="l" startIcon={X} onClick={handleClose} />
           )}
         </div>
       )}

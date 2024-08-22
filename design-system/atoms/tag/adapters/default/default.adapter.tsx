@@ -45,7 +45,7 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
 
         {hasDropdown && (
           <Icon
-            name="ri-arrow-down-s-line"
+            name="chevron-down"
             size={16}
             {...deletableIconProps}
             classNames={{
@@ -56,7 +56,7 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
 
         {!!isDeletable && (
           <Icon
-            name="ri-close-circle-line"
+            name="circle-x"
             size={16}
             {...deletableIconProps}
             classNames={{ base: cn(slots.deletableIcon(), classNames?.deletableIcon) }}

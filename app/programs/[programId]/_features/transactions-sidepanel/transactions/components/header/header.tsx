@@ -1,9 +1,9 @@
+import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
-import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Popover } from "@/design-system/atoms/popover";
 import { Typo } from "@/design-system/atoms/typo";
@@ -54,7 +54,7 @@ export function Header() {
                 size="l"
                 variant="secondary-light"
                 hideText
-                startIcon={{ name: "ri-filter-3-line" }}
+                startIcon={Filter}
                 endContent={
                   count ? (
                     <Badge size="s" style="outline">
@@ -121,12 +121,9 @@ export function Header() {
         value={search}
         onChange={e => handleSearch(e.target.value)}
         startContent={
-          <Icon
-            name="ri-search-line"
-            classNames={{
-              base: "text-text-2",
-            }}
-          />
+          <div className={"text-text-2"}>
+            <Search size={16} />
+          </div>
         }
         placeholder={t("transactionPanel.transactions.search.placeholder")}
       />

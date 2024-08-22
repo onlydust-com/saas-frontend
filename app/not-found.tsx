@@ -1,3 +1,5 @@
+import { ChevronLeft } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -24,9 +26,7 @@ export default function NotFound() {
             href: NEXT_ROUTER.home.root,
           }}
           size={"l"}
-          startIcon={{
-            name: "ri-arrow-left-s-line",
-          }}
+          startIcon={ChevronLeft}
         >
           <Translate token={"notFound:back"} />
         </Button>

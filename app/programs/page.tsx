@@ -13,7 +13,7 @@ export default function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        iconName: "ri-clipboard-line",
+        iconName: "clipboard",
         breadcrumbs: [
           {
             id: "root",

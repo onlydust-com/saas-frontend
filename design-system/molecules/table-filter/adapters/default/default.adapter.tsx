@@ -1,3 +1,5 @@
+import { Filter } from "lucide-react";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
 import { Popover } from "@/design-system/atoms/popover";
@@ -22,7 +24,7 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
               <ButtonSecondaryLight
                 size="l"
                 hideText
-                startIcon={{ name: "ri-filter-3-line" }}
+                startIcon={Filter}
                 endContent={
                   filterCount ? (
                     <Badge size="s" style="outline">

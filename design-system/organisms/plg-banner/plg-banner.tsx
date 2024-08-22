@@ -2,6 +2,7 @@ import PlgMarketing from "@/public/images/banners/plg-marketing.png";
 import Image from "next/image";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { PlgBannerProps } from "./plg-banner.types";
@@ -9,11 +10,7 @@ import { PlgBannerProps } from "./plg-banner.types";
 function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
   if (!cta) return null;
 
-  const startIcon = cta.icon
-    ? {
-        name: cta.icon,
-      }
-    : undefined;
+  const startIcon = cta.icon ? <Icon name={cta.icon} /> : undefined;
 
   return (
     <Button
@@ -23,7 +20,7 @@ function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
         target: cta.isExternal ? "_blank" : undefined,
         rel: cta.isExternal ? "noopener noreferrer" : undefined,
       }}
-      startIcon={startIcon}
+      startContent={startIcon}
       variant={"secondary-light"}
     >
       {cta.text}

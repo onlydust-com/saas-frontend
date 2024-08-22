@@ -17,13 +17,13 @@ export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
     <>
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-chat-4-line" }}
+        icon={{ name: "message-square" }}
         translate={{ token: "primaryNavigation:secondaryMenu.support" }}
         onClick={handleOpenFeedbackDrawer}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-settings-line" }}
+        icon={{ name: "settings" }}
         translate={{ token: "primaryNavigation:secondaryMenu.settings" }}
         isDisabled={true}
       />

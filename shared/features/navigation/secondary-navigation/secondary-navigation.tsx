@@ -1,5 +1,7 @@
 "use client";
 
+import { Bell, ChevronLeft } from "lucide-react";
+
 import { Breadcrumbs } from "@/design-system/atoms/breadcrumbs";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -25,20 +27,14 @@ export function SecondaryNavigation({ iconName, breadcrumbs, onBack }: Secondary
     >
       <div className={"flex items-center gap-2"}>
         {onBack ? (
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ name: "ri-arrow-left-s-line" }}
-            hideText
-            onClick={onBack}
-          />
+          <Button variant={"secondary-light"} size={"l"} startIcon={ChevronLeft} hideText onClick={onBack} />
         ) : null}
         <Icon name={iconName} size={24} />
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
       <div>
-        <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
+        <Button variant={"secondary-light"} size={"l"} startIcon={Bell} hideText />
       </div>
     </Paper>
   );

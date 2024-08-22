@@ -9,25 +9,25 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
     <>
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-line-chart-line" }}
+        icon={{ name: "chart-line" }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-wallet-3-line" }}
+        icon={{ name: "wallet" }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-clipboard-line" }}
+        icon={{ name: "clipboard" }}
         linkProps={{ href: NEXT_ROUTER.programs.root }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-compass-3-line" }}
+        icon={{ name: "compass" }}
         linkProps={{ href: `${process.env.NEXT_PUBLIC_MARKETPLACE_URL}/projects` ?? "" }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />

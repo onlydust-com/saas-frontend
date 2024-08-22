@@ -1,3 +1,5 @@
+import { PanelLeftClose, PanelRightClose } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -29,7 +31,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         {isFolded && (
           <Button
             variant={"secondary-light"}
-            startIcon={{ name: "ri-sidebar-unfold-line" }}
+            startIcon={PanelRightClose}
             hideText={true}
             size={"l"}
             onClick={onUnFold}
@@ -39,13 +41,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
           />
         )}
       </div>
-      <Button
-        variant={"secondary-light"}
-        startIcon={{ name: "ri-sidebar-fold-line" }}
-        hideText={true}
-        size={"l"}
-        onClick={onFold}
-      />
+      <Button variant={"secondary-light"} startIcon={PanelLeftClose} hideText={true} size={"l"} onClick={onFold} />
     </div>
   );
 }

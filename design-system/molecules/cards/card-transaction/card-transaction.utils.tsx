@@ -13,19 +13,19 @@ export function getComponentsVariants(type: CardTransactionTypes): {
   const map: Record<CardTransactionTypes, { icon: IconPort }> = {
     GRANTED: {
       icon: {
-        name: "ri-arrow-right-line",
+        name: "arrow-right",
         className: "text-label-blue",
       },
     },
     RECEIVED: {
       icon: {
-        name: "ri-arrow-down-line",
+        name: "arrow-down",
         className: "text-label-green",
       },
     },
     RETURNED: {
       icon: {
-        name: "ri-arrow-turn-forward-line",
+        name: "corner-right-up",
         className: "text-label-red",
       },
     },
