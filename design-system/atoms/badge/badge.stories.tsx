@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
+import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
+import { BadgeIcon } from "@/design-system/atoms/badge/variants/badge-icon";
 import { Icon } from "@/design-system/atoms/icon";
 
 import { BadgeAvatarPort, BadgeIconPort, BadgePort } from "./badge.types";
@@ -43,6 +45,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   title: "Atoms/Badge",
   tags: ["autodocs"],
+  // TODO delete this block
   parameters: {
     backgrounds: {
       default: "black",
@@ -105,10 +108,10 @@ export const Squared: Story = {
           {sizes.map(s => {
             return (
               <div key={s} className="flex flex-col items-start gap-2">
-                <Badge {...defaultProps} {...args} size={"xxs"} shape="squared" />
-                <Badge {...defaultProps} {...args} size={"xs"} shape="squared" />
-                <Badge {...defaultProps} {...args} size={"sm"} shape="squared" isDeletable={false} />
-                <Badge {...defaultProps} {...args} size={"md"} shape="squared" isDeletable={false} />
+                <Badge {...defaultProps} {...args} size={s} shape="squared" />
+                <Badge {...defaultProps} {...args} size={s} shape="squared" />
+                <Badge {...defaultProps} {...args} size={s} shape="squared" isDeletable={false} />
+                <Badge {...defaultProps} {...args} size={s} shape="squared" isDeletable={false} />
               </div>
             );
           })}
@@ -117,6 +120,69 @@ export const Squared: Story = {
     );
   },
 };
+
+export const WithIcon: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<BadgeIcon icon={{ remixName: 'ri-fire-line' }} />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full flex-col items-center gap-2">
+        <div className="flex w-full items-start gap-2">
+          {shape.map(d => {
+            return (
+              <div key={d} className="flex w-full items-start gap-8">
+                {sizes.map(s => {
+                  return (
+                    <div key={s} className="flex flex-col items-start gap-2">
+                      <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} />
+                      <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} />
+                      <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} isDeletable={false} />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithAvatar: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<BadgeAvatar avatar={{ }} />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full flex-col items-center gap-2">
+        <div className="flex w-full items-start gap-2">
+          {shape.map(d => {
+            return (
+              <div key={d} className="flex w-full items-start gap-8">
+                {sizes.map(s => {
+                  return (
+                    <div key={s} className="flex flex-col items-start gap-2">
+                      <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} />
+                      <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} />
+                      <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} isDeletable={false} />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  },
+};
+
 //
 // export const Size: Story = {
 //   parameters: {
