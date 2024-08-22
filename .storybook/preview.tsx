@@ -20,11 +20,8 @@ const preview: Preview = {
   ],
   parameters: {
     darkMode: {
-      // Override the default dark theme
       dark: { ...ThemeDark },
       light: { ...ThemeLight },
-      // Override the default light theme
-      // light: { ...themes.normal, appBg: "red" },
       darkClass: "dark",
       lightClass: "light",
       classTarget: "html",
