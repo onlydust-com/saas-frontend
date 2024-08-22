@@ -2,69 +2,98 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group flex items-center justify-center overflow-hidden rounded",
-    contentWrapper: "flex items-center justify-center text-inherit",
-    content: "text-inherit",
+    base: "group block border-1 border-container-stroke-separator bg-container-4 transition-colors data-[clickable=true]:cursor-pointer",
+    content: "flex flex-row items-center justify-center text-text-1",
+    label: "text-inherit",
+    deletableIcon: "text-inherit",
   },
   variants: {
-    colors: {
-      default: {
-        base: "border border-container-stroke-separator bg-container-stroke-separator",
-      },
-      "brand-1": {
-        base: "border border-brand-1 bg-brand-1 text-text-1",
-      },
-      "brand-2": {
-        base: "border border-brand-2 bg-brand-2 text-text-1",
-      },
-      "brand-3": {
-        base: "border border-brand-3 bg-brand-3 text-text-1",
-      },
-      "brand-4": {
-        base: "border border-brand-4 bg-brand-4 text-text-1",
-      },
-    },
     size: {
-      s: {
-        base: "h-4 min-h-4 w-4 min-w-4",
+      xxs: {
+        base: "px-0.5 py-1.5",
+        content: "gap-1",
       },
-      m: {
-        base: "h-6 min-h-6 w-6 min-w-6",
+      xs: {
+        base: "px-1 py-2",
+        content: "gap-2",
+      },
+      sm: {
+        base: "px-1.5 py-2",
+        content: "gap-2",
+      },
+      md: {
+        base: "px-2 py-3",
+        content: "gap-2",
       },
     },
-    fitContent: {
-      true: {
-        base: "w-fit",
+    isDeletable: {
+      true: "",
+    },
+    colors: {
+      // TODO @Mehdi once config colors ready
+      grey: {
+        base: "",
+      },
+      brand: {
+        base: "",
+      },
+      error: {
+        base: "",
+      },
+      warning: {
+        base: "",
+      },
+      success: {
+        base: "",
       },
     },
-    style: {
-      fill: {
-        base: "border-none",
+    shape: {
+      rounded: {
+        base: "rounded-full",
       },
-      outline: {
-        base: "bg-transparent",
+      squared: {
+        base: "rounded-lg",
       },
     },
   },
   compoundVariants: [
     {
-      fitContent: true,
-      size: "m",
+      size: "xxs",
+      shape: "rounded",
+      colors: "grey",
       class: {
-        base: "px-2",
+        base: "px-0.5 py-1.5",
       },
     },
     {
-      fitContent: true,
-      size: "s",
+      size: "xs",
+      shape: "rounded",
+      colors: "grey",
       class: {
-        base: "px-1",
+        base: "px-1 py-2",
+      },
+    },
+    {
+      size: "sm",
+      shape: "rounded",
+      colors: "grey",
+      class: {
+        base: "px-1.5 py-2",
+      },
+    },
+    {
+      size: "md",
+      shape: "rounded",
+      colors: "grey",
+      class: {
+        base: "px-2 py-3",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
-    colors: "default",
-    style: "fill",
+    size: "xxs",
+    shape: "rounded",
+    colors: "grey",
+    deletable: false,
   },
 });
