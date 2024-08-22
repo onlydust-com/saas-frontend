@@ -6,21 +6,20 @@ import Logo from "./static/logo.svg";
 export default create({
   base: "dark",
 
-  colorPrimary: "#A2ABDA",
+  colorPrimary: "#FCEAFF",
   colorSecondary: "rgba(255, 255, 255, 0.2)",
 
   appPreviewBg: "#1A1A33",
-  textMutedColor: "#A2ABDA",
+  textMutedColor: "#FCEAFF",
   barHoverColor: "rgba(255, 255, 255, 0.6)",
   buttonBg: "rgba(255, 255, 255, 0.2)",
   buttonBorder: "rgba(255, 255, 255, 0.2)",
-  booleanBg: "#A2ABDA",
-  booleanSelectedBg: "#A2ABDA",
-
+  booleanBg: "#FCEAFF",
+  booleanSelectedBg: "#FCEAFF",
   // UI
-  appBg: "#05051E",
-  appContentBg: "#05051E",
-  appBorderColor: "#A2ABDA",
+  appBg: "#0D121C",
+  appContentBg: "#0D121C",
+  appBorderColor: "#FCEAFF",
   appBorderRadius: 4,
 
   // Typography
@@ -28,18 +27,18 @@ export default create({
   fontCode: "monospace",
 
   // Text colors
-  textColor: "#FFF",
+  textColor: "#F8FAFC",
   textInverseColor: "rgba(255, 255, 255, 0.9)",
 
   // Toolbar default and active colors
-  barTextColor: "#FFF",
-  barSelectedColor: "#FFF",
-  barBg: "#05051E",
+  barTextColor: "#F8FAFC",
+  barSelectedColor: "#F8FAFC",
+  barBg: "#0D121C",
 
   // Form colors
-  inputBg: "#FFF",
+  inputBg: "#F8FAFC",
   inputBorder: "rgba(255, 255, 255, 0.2)",
-  inputTextColor: "#FFF",
+  inputTextColor: "#F8FAFC",
   inputBorderRadius: 4,
 
   brandTitle: "Onlydust - Design System",
