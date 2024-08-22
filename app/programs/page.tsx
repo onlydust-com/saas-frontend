@@ -1,5 +1,7 @@
 "use client";
 
+import { Clipboard } from "lucide-react";
+
 import { ProgramsTable } from "@/app/programs/_features/programs-table/programs-table";
 
 import { Typo } from "@/design-system/atoms/typo";
@@ -13,7 +15,7 @@ export default function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        iconName: "clipboard",
+        icon: Clipboard,
         breadcrumbs: [
           {
             id: "root",

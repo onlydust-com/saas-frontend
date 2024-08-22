@@ -1,3 +1,5 @@
+import { ChartLine, Clipboard, Compass, Wallet } from "lucide-react";
+
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -9,25 +11,25 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
     <>
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "chart-line" }}
+        icon={ChartLine}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "wallet" }}
+        icon={Wallet}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={true}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "clipboard" }}
+        icon={Clipboard}
         linkProps={{ href: NEXT_ROUTER.programs.root }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "compass" }}
+        icon={Compass}
         linkProps={{ href: `${process.env.NEXT_PUBLIC_MARKETPLACE_URL}/projects` ?? "" }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />

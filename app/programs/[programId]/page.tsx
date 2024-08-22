@@ -1,5 +1,6 @@
 "use client";
 
+import { Clipboard } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
@@ -47,7 +48,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   return (
     <PageWrapper
       navigation={{
-        iconName: "clipboard",
+        icon: Clipboard,
         breadcrumbs: [
           {
             id: "root",
