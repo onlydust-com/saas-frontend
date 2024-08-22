@@ -51,10 +51,6 @@ const meta: Meta<typeof Tag> = {
     docs: {
       source: { language: "tsx" },
     },
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
   },
 };
 
