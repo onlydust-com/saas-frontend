@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Square } from "lucide-react";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { InputLoading } from "@/design-system/atoms/input/input.loading";
 
 import { InputPort } from "./input.types";
@@ -9,8 +10,8 @@ import { Input } from "./variants/input-default";
 type Story = StoryObj<typeof Input>;
 
 const defaultProps: InputPort = {
-  startContent: <Square size={16} />,
-  endContent: <Square size={16} />,
+  startContent: <Icon component={Square} />,
+  endContent: <Icon component={Square} />,
   value: "Input text",
 };
 

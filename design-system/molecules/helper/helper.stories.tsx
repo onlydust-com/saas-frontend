@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Square } from "lucide-react";
 
+import { Icon } from "@/design-system/atoms/icon";
+
 import { HelperPort } from "./helper.types";
 import { Helper } from "./variants/helper-default";
 
@@ -94,8 +96,8 @@ export const StartEndContent: Story = {
         <Helper
           {...defaultPort}
           layout={"vertical"}
-          startContent={<Square size={16} />}
-          endContent={<Square size={16} />}
+          startContent={<Icon component={Square} />}
+          endContent={<Icon component={Square} />}
         />
       </div>
     );

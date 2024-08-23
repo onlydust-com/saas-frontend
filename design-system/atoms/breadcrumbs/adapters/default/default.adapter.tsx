@@ -3,6 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import { Fragment } from "react";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -42,7 +43,7 @@ function Breadcrumbs({ items }: { items: Item[] }) {
     return (
       <Fragment key={item.id}>
         <Segment {...item} />
-        <ChevronRight size={16} />
+        <Icon component={ChevronRight} />
       </Fragment>
     );
   });

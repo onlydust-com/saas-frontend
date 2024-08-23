@@ -3,6 +3,7 @@ import { Square } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { DrawerPort } from "./drawer.types";
@@ -15,11 +16,11 @@ const defaultProps: DrawerPort<"div"> = {
 
   header: {
     startContent: <Typo size={"l"}>Header</Typo>,
-    endContent: <Square size={16} />,
+    endContent: <Icon component={Square} />,
   },
   footer: {
-    startContent: <Square size={16} />,
-    endContent: <Square size={16} />,
+    startContent: <Icon component={Square} />,
+    endContent: <Icon component={Square} />,
   },
 };
 

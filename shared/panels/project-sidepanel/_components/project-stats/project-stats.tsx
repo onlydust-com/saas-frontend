@@ -4,6 +4,7 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Dropdown } from "@/design-system/atoms/dropdown";
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -38,7 +39,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
-          <ChartPie size={16} />
+          <Icon component={ChartPie} />
           <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
         </div>
         <Dropdown

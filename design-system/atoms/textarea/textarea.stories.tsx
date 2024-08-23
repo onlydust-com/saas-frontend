@@ -1,14 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Square } from "lucide-react";
 
+import { Icon } from "@/design-system/atoms/icon";
+
 import { Textarea, TextareaPort } from "./index";
 
 type Story = StoryObj<typeof Textarea>;
 
 const defaultProps: TextareaPort = {
   name: "textarea",
-  startContent: <Square size={16} />,
-  endContent: <Square size={16} />,
+  startContent: <Icon component={Square} />,
+  endContent: <Icon component={Square} />,
   value: "Input text",
 };
 

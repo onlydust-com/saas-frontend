@@ -3,6 +3,7 @@ import { Square } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 
 import { DropdownPort } from "./dropdown.types";
 import { Dropdown } from "./variants/dropdown-default";
@@ -14,14 +15,14 @@ const defaultProps: DropdownPort = {
     {
       value: "item1",
       label: "item1",
-      startContent: <Square size={16} />,
-      endContent: <Square size={16} />,
+      startContent: <Icon component={Square} />,
+      endContent: <Icon component={Square} />,
     },
     {
       value: "item2",
       label: "item2",
-      startContent: <Square size={16} />,
-      endContent: <Square size={16} />,
+      startContent: <Icon component={Square} />,
+      endContent: <Icon component={Square} />,
     },
     {
       value: "item3",

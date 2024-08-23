@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
+import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Popover } from "@/design-system/atoms/popover";
 import { Typo } from "@/design-system/atoms/typo";
@@ -122,7 +123,7 @@ export function Header() {
         onChange={e => handleSearch(e.target.value)}
         startContent={
           <div className={"text-text-2"}>
-            <Search size={16} />
+            <Icon component={Search} />
           </div>
         }
         placeholder={t("transactionPanel.transactions.search.placeholder")}

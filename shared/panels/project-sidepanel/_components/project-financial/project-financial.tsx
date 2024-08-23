@@ -3,6 +3,7 @@ import { CircleDollarSign } from "lucide-react";
 import { bootstrap } from "@/core/bootstrap";
 import { AnyType } from "@/core/kernel/types";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
@@ -58,7 +59,7 @@ export function ProjectFinancial({ data }: ProjectFinancialProps) {
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
-          <CircleDollarSign size={16} />
+          <Icon component={CircleDollarSign} />
           <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.financials.title" }} />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { Check, CircleAlert, CircleX } from "lucide-react";
 import { Toaster, toast } from "sonner";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ToastPort, ToastProps, ToasterPort } from "../../toaster.types";
@@ -22,7 +23,7 @@ function handleToast({ children, variants, iconContent }: ToastProps) {
       </div>
 
       <button type={"button"} onClick={() => toast.dismiss(t)} className={slots.closeButton()}>
-        <CircleX size={16} />
+        <Icon component={CircleX} />
       </button>
     </div>
   ));
@@ -30,6 +31,8 @@ function handleToast({ children, variants, iconContent }: ToastProps) {
 
 export const toastSonnerAdapter: ToastPort = {
   default: children => handleToast({ children, variants: { variant: "default" } }),
-  success: children => handleToast({ children, variants: { variant: "default" }, iconContent: <Check size={16} /> }),
-  error: children => handleToast({ children, variants: { variant: "error" }, iconContent: <CircleAlert size={16} /> }),
+  success: children =>
+    handleToast({ children, variants: { variant: "default" }, iconContent: <Icon component={Check} /> }),
+  error: children =>
+    handleToast({ children, variants: { variant: "error" }, iconContent: <Icon component={CircleAlert} /> }),
 };

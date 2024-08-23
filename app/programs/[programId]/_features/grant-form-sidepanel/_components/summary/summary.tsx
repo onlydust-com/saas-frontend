@@ -5,6 +5,7 @@ import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-si
 
 import { bootstrap } from "@/core/bootstrap";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarDescription } from "@/design-system/molecules/avatar-description";
@@ -55,7 +56,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
     <Paper size={"s"} container={"transparent"}>
       <div className="grid gap-3">
         <header className={"flex items-center gap-1"}>
-          <ChartPie size={16} />
+          <Icon component={ChartPie} />
           <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:grantForm.summary.title" }} />
         </header>
 
@@ -108,7 +109,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
               <div className={"text-label-blue"}>
-                <ArrowRight size={16} />
+                <Icon component={ArrowRight} />
               </div>
 
               <Typo
@@ -204,7 +205,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
               <div className="text-label-green">
-                <ArrowDown size={16} />
+                <Icon component={ArrowDown} />
               </div>
 
               <Typo

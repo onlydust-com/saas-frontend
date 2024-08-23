@@ -39,9 +39,12 @@ function Content({
           {children}
         </Typo>
         {isExternal ? (
-          <div className={cn("invisible ml-1 text-inherit group-hover/link:visible", { "!invisible": isFolded })}>
-            <Icon component={SquareArrowOutUpRight} />
-          </div>
+          <Icon
+            component={SquareArrowOutUpRight}
+            classNames={{
+              base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
+            }}
+          />
         ) : null}
       </div>
     </div>

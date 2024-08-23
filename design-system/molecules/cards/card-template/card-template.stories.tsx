@@ -114,7 +114,7 @@ export const WithCustomTags: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'clock' } }, { children: 'Tag 3', icon: { name: 'clock' } }]} />",
+        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { component: Clock } }, { children: 'Tag 3', icon: { component: Clock } }]} />",
       },
     },
   },

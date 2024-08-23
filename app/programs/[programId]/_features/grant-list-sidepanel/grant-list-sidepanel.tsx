@@ -10,6 +10,7 @@ import { AlreadyGrantedBadge } from "@/app/programs/[programId]/_features/grant-
 import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-projects";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
 
@@ -54,7 +55,7 @@ export function GrantListSidepanel() {
 
         <Input
           placeholder={t("programs:grantList.search")}
-          startContent={<Search size={16} />}
+          startContent={<Icon component={Search} />}
           value={search}
           onChange={e => setSearch(e.currentTarget.value)}
         />
