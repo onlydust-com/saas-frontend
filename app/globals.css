@@ -326,10 +326,10 @@
     --background-warning_alt: var(--_warning-50);
     --background-warning-solid: var(--_warning-600);
     --background-warning-solid_hover: var(--_warning-700);
-    --background-sucess: var(--_success-50);
-    --background-sucess_alt: var(--_success-50);
-    --background-sucess-solid: var(--_success-600);
-    --background-sucess-solid_hover: var(--_success-700);
+    --background-success: var(--_success-50);
+    --background-success_alt: var(--_success-50);
+    --background-success-solid: var(--_success-600);
+    --background-success-solid_hover: var(--_success-700);
 
     /* EFFECTS */
     --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
@@ -675,10 +675,10 @@
     --background-warning_alt: var(--_warning-950);
     --background-warning-solid: var(--_warning-600);
     --background-warning-solid_hover: var(--_warning-500-primary);
-    --background-sucess: var(--_success-500-primary);
-    --background-sucess_alt: var(--_success-950);
-    --background-sucess-solid: var(--_success-600);
-    --background-sucess-solid_hover: var(--_success-500-primary);
+    --background-success: var(--_success-500-primary);
+    --background-success_alt: var(--_success-950);
+    --background-success-solid: var(--_success-600);
+    --background-success-solid_hover: var(--_success-500-primary);
 
     /* EFFECTS */
     --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);

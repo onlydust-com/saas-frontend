@@ -35,7 +35,7 @@ export const Default: Story = {
         {sizes.map(size => (
           <div key={size} className="flex w-full flex-row gap-2">
             <Typo size={size}>{size} - </Typo>
-            <Typo {...defaultProps} size={size} color={"warning"} />
+            <Typo {...defaultProps} size={size} />
           </div>
         ))}
       </div>
