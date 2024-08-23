@@ -5,8 +5,7 @@ import { IconPort } from "@/design-system/atoms/icon";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 interface Variants {
-  size: "s" | "m" | "l" | "xl";
-  isLoading: boolean;
+  size: "xs" | "sm" | "md" | "lg";
   isDisabled: boolean;
   hideText: boolean;
 }
@@ -33,8 +32,9 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   onClick?: () => void;
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
+  variant: "primary" | "secondary" | "tertiary";
 }
 
 export type ButtonDefaultPort<C extends ElementType> = ButtonPort<C> & {
-  variant?: "primary" | "danger" | "secondary-light" | "secondary-dark";
+  color?: "default" | "destructive";
 };

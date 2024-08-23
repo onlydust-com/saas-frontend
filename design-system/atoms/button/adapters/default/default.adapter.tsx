@@ -1,4 +1,3 @@
-import { Spinner } from "@nextui-org/react";
 import { ComponentProps, ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -22,7 +21,6 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   translate,
   type = "button",
   htmlProps,
-  isLoading,
   isDisabled,
   size,
   hideText,
@@ -30,7 +28,6 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
 }: ButtonPort<C>) {
   const Component = as || "button";
   const slots = ButtonDefaultVariants({
-    isLoading,
     isDisabled,
     hideText,
     size,
@@ -40,16 +37,15 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   const showChildren = !hideText && (!!children || !!translate);
 
   const typoSize: Record<NonNullable<typeof size>, ComponentProps<typeof Typo>["size"]> = {
-    s: "xs",
-    m: "s",
-    l: "s",
-    xl: "m",
+    xs: "xs",
+    sm: "sm",
+    md: "md",
+    lg: "md",
   };
 
   return (
     <Component
       {...(htmlProps || {})}
-      data-loading={isLoading}
       data-disabled={isDisabled}
       className={cn(slots.base(), classNames?.base)}
       onClick={onClick}
@@ -66,25 +62,13 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
           />
         )}
         {showChildren && (
-          <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+          <Typo size={typoSize[size || "md"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
         {!!endIcon && <Icon {...endIcon} classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }} />}
         {endContent}
       </div>
-      {isLoading && (
-        <div className={cn(slots.loaderContainer(), classNames?.loaderContainer)}>
-          <Spinner
-            size={"sm"}
-            classNames={{
-              wrapper: "flex-row items-center justify-center flex",
-              circle1: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
-              circle2: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
-            }}
-          />
-        </div>
-      )}
     </Component>
   );
 }

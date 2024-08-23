@@ -2,41 +2,33 @@ import { tv } from "tailwind-variants";
 
 export const ButtonDefaultVariants = tv({
   slots: {
-    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden rounded-lg bg-container-1 transition-colors",
+    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden bg-red-500 transition-colors",
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
-    loaderContainer: "absolute inset-0 flex h-full w-full flex-row items-center justify-center bg-container-1",
-    spinnerCircle: "h-4 w-4 border-b-white",
   },
   variants: {
     size: {
-      xl: {
-        base: "px-6 py-4",
-        content: "gap-2",
+      xs: {
+        base: "py-xs px-md rounded-xs",
+        content: "gap-xs",
       },
-      l: {
-        base: "px-4 py-3",
-        content: "gap-2",
+      sm: {
+        base: "py-md px-lg rounded-md",
+        content: "gap-md",
       },
-      m: {
-        base: "px-3 py-2",
-        content: "gap-2",
+      md: {
+        base: "py-2md px-xl rounded-md",
+        content: "gap-md",
       },
-      s: {
-        base: "rounded px-1 py-1",
-        content: "gap-1",
+      lg: {
+        base: "py-lg px-2xl rounded-lg",
+        content: "gap-2md",
       },
     },
     hideText: {
       true: "",
-    },
-    isLoading: {
-      true: {
-        base: "pointer-events-none cursor-not-allowed",
-        content: "opacity-0",
-      },
     },
     isDisabled: {
       true: {
@@ -56,35 +48,35 @@ export const ButtonDefaultVariants = tv({
   compoundVariants: [
     {
       hideText: true,
-      size: "xl",
+      size: "xs",
       class: {
-        base: "px-4 py-4",
+        base: "px-xs py-xs",
       },
     },
     {
       hideText: true,
-      size: "l",
+      size: "sm",
       class: {
-        base: "px-3 py-3",
+        base: "px-md py-md",
       },
     },
     {
       hideText: true,
-      size: "m",
+      size: "md",
       class: {
-        base: "px-2 py-2",
+        base: "px-2md py-2md",
       },
     },
     {
       hideText: true,
-      size: "s",
+      size: "sm",
       class: {
         base: "px-1 py-1",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
+    size: "md",
     isDisabled: false,
     isLoading: false,
     canInteract: true,
