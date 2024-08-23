@@ -28,7 +28,7 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
         height={40}
         alt="OnlyDust"
         loading="lazy"
-        className={"h-full w-full object-cover object-center"}
+        className="h-full w-full object-cover object-center"
       />
     );
   })();
@@ -38,6 +38,7 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
       if (name) {
         return <div className={cn(slots.name(), classNames?.name)}>{name}</div>;
       }
+
       return fallback || defaultFallback;
     }
 
@@ -46,7 +47,7 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
         src={imageSrc}
         className={cn(slots.img(), classNames?.img)}
         alt={alt}
-        loading={"lazy"}
+        loading="lazy"
         onError={() => {
           setIsError(true);
         }}

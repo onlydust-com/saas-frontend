@@ -4,22 +4,25 @@ import { AvatarPort } from "@/design-system/atoms/avatar/avatar.types";
 
 export function getAvatarImageSize(size: AvatarPort["size"]): [number, number] {
   switch (size) {
-    case "xxl":
+    case "3xl":
       return [96, 96];
+    case "2xl":
+      return [64, 64];
     case "xl":
       return [48, 48];
-    case "l":
-      return [44, 44];
-    case "ml":
-      return [36, 36];
-    case "m":
+    case "lg":
+      return [40, 40];
+    case "md":
       return [32, 32];
     case "s":
       return [24, 24];
     case "xs":
+      return [20, 20];
+    case "xxs":
       return [16, 16];
+
     default:
-      return [24, 24];
+      return [32, 32];
   }
 }
 export function getAvatarSrc([w, h]: [number, number], src?: string) {

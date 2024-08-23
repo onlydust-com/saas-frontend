@@ -2,107 +2,106 @@ import { tv } from "tailwind-variants";
 
 export const AvatarDefaultVariants = tv({
   slots: {
-    base: "group relative box-border flex flex-shrink-0 items-center justify-center overflow-hidden border-1 border-container-stroke-separator",
+    base: "border-components-avatar-contrast-border relative flex items-center justify-center border",
     img: "h-full w-full object-cover object-center",
     name: "font-walsheim text-xs text-text-1",
   },
   variants: {
     size: {
-      xxl: {
+      "3xl": {
         base: "h-24 w-24",
+      },
+      "2xl": {
+        base: "h-16 w-16",
       },
       xl: {
         base: "h-12 w-12",
       },
-      l: {
+      lg: {
         base: "h-10 w-10",
       },
-      ml: {
-        base: "h-9 w-9",
-      },
-      m: {
+      md: {
         base: "h-8 w-8",
       },
       s: {
         base: "h-6 w-6",
       },
       xs: {
+        base: "h-5 w-5",
+      },
+      xxs: {
         base: "h-4 w-4",
       },
     },
     shape: {
-      round: {
+      rounded: {
         base: "rounded-full",
       },
-      square: {
-        base: "rounded-md",
-      },
-    },
-    container: {
-      light: {
-        base: "bg-container-4",
-      },
-      brand: {
-        // for later
-        base: "bg-container-3",
+      squared: {
+        base: "rounded-lg",
       },
     },
   },
   compoundVariants: [
-    // HIDE TEXT VARIANTS
     {
-      size: "xxl",
-      shape: "square",
+      size: "3xl",
+      shape: "squared",
+      class: {
+        base: "rounded-2xl",
+      },
+    },
+    {
+      size: "2xl",
+      shape: "squared",
       class: {
         base: "rounded-xl",
       },
     },
     {
       size: "xl",
-      shape: "square",
+      shape: "squared",
+      class: {
+        base: "rounded-xl",
+      },
+    },
+    {
+      size: "lg",
+      shape: "squared",
       class: {
         base: "rounded-lg",
       },
     },
     {
-      size: "l",
-      shape: "square",
+      size: "md",
+      shape: "squared",
       class: {
         base: "rounded-lg",
-      },
-    },
-    {
-      size: "ml",
-      shape: "square",
-      class: {
-        base: "rounded-md",
-      },
-    },
-    {
-      size: "m",
-      shape: "square",
-      class: {
-        base: "rounded-md",
       },
     },
     {
       size: "s",
-      shape: "square",
+      shape: "squared",
       class: {
-        base: "rounded",
+        base: "rounded-md",
       },
     },
     {
       size: "xs",
-      shape: "square",
+      shape: "squared",
+      class: {
+        base: "rounded-md",
+      },
+    },
+    {
+      size: "xxs",
+      shape: "squared",
       class: {
         base: "rounded",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
-    shape: "round",
-    container: "light",
+    size: "md",
+    shape: "rounded",
   },
 });
