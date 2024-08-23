@@ -10,19 +10,19 @@ export const BadgeDefaultVariants = tv({
   variants: {
     size: {
       xxs: {
-        base: "px-1 py-0.5",
+        base: "px-1.5 py-0.5",
         content: "gap-1",
       },
       xs: {
-        base: "px-1 py-1.5",
-        content: "gap-1",
-      },
-      sm: {
         base: "px-2 py-1.5",
         content: "gap-1",
       },
-      md: {
+      sm: {
         base: "px-2 py-2",
+        content: "gap-1",
+      },
+      md: {
+        base: "px-3 py-3",
         content: "gap-2",
       },
     },
@@ -61,38 +61,135 @@ export const BadgeDefaultVariants = tv({
     },
   },
   compoundVariants: [
-    // {
-    //   size: "xxs",
-    //   shape: "rounded",
-    //   color: "grey",
-    //   class: {
-    //     base: "px-0.5 py-1.5",
-    //   },
-    // },
-    // {
-    //   size: "xs",
-    //   shape: "rounded",
-    //   color: "grey",
-    //   class: {
-    //     base: "px-1 py-2",
-    //   },
-    // },
-    // {
-    //   size: "sm",
-    //   shape: "rounded",
-    //   color: "grey",
-    //   class: {
-    //     base: "px-1.5 py-2",
-    //   },
-    // },
-    // {
-    //   size: "md",
-    //   shape: "rounded",
-    //   color: "grey",
-    //   class: {
-    //     base: "px-2 py-3",
-    //   },
-    // },
+    {
+      size: "xxs",
+      shape: "rounded",
+      isDeletable: false,
+      class: {
+        base: "px-1.5 py-0.5",
+      },
+    },
+    {
+      size: "xxs",
+      shape: "squared",
+      isDeletable: false,
+      class: {
+        base: "px-1.5 py-0.5",
+      },
+    },
+    {
+      size: "xs",
+      shape: "rounded",
+      isDeletable: false,
+      class: {
+        base: "px-2 py-1.5",
+      },
+    },
+    {
+      size: "xs",
+      shape: "squared",
+      isDeletable: false,
+      class: {
+        base: "px-2 py-1.5",
+      },
+    },
+    {
+      size: "sm",
+      shape: "rounded",
+      isDeletable: false,
+      class: {
+        base: "px-2 py-2",
+      },
+    },
+    {
+      size: "sm",
+      shape: "squared",
+      isDeletable: false,
+      class: {
+        base: "px-2 py-2",
+      },
+    },
+    {
+      size: "md",
+      shape: "rounded",
+      isDeletable: false,
+      class: {
+        base: "px-3 py-3",
+      },
+    },
+    {
+      size: "md",
+      shape: "squared",
+      isDeletable: false,
+      class: {
+        base: "px-3 py-3",
+      },
+    },
+    {
+      size: "xxs",
+      shape: "rounded",
+      isDeletable: true,
+      class: {
+        base: "py-0.5 pl-1.5 pr-0.5",
+      },
+    },
+    {
+      size: "xxs",
+      shape: "squared",
+      isDeletable: true,
+      class: {
+        base: "py-0.5 pl-1.5 pr-0.5",
+      },
+    },
+    {
+      size: "xs",
+      shape: "rounded",
+      isDeletable: true,
+      class: {
+        base: "py-1.5 pl-2 pr-1",
+      },
+    },
+    {
+      size: "xs",
+      shape: "squared",
+      isDeletable: true,
+      base: "py-1.5 pl-2 pr-1",
+      class: {
+        base: "py-1.5 pl-2 pr-1",
+      },
+    },
+    {
+      size: "sm",
+      shape: "rounded",
+      isDeletable: true,
+      class: {
+        base: "py-2 pl-2 pr-1.5",
+      },
+    },
+    {
+      size: "sm",
+      shape: "squared",
+      isDeletable: true,
+      class: {
+        base: "py-2 pl-2 pr-1.5",
+      },
+    },
+    {
+      size: "md",
+      shape: "rounded",
+      isDeletable: true,
+      class: {
+        base: "px-2 py-3",
+      },
+    },
+    {
+      size: "md",
+      shape: "squared",
+      isDeletable: true,
+      class: {
+        base: "px-2 py-3",
+      },
+    },
   ],
   defaultVariants: {
     size: "sm",

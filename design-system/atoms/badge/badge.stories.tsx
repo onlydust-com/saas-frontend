@@ -77,7 +77,7 @@ export const Rounded: Story = {
   render: args => {
     return (
       <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-8">
+        <div className="flex w-full items-start gap-2">
           {sizes.map(s => {
             return (
               <div key={s} className="flex flex-col items-start gap-2">
@@ -103,13 +103,11 @@ export const Squared: Story = {
   render: args => {
     return (
       <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-8">
+        <div className="flex w-full items-start gap-2">
           {sizes.map(s => {
             return (
               <div key={s} className="flex flex-col items-start gap-2">
                 <Badge {...defaultProps} {...args} size={s} shape="squared" />
-                <Badge {...defaultProps} {...args} size={s} shape="squared" />
-                <Badge {...defaultProps} {...args} size={s} shape="squared" isDeletable={false} />
                 <Badge {...defaultProps} {...args} size={s} shape="squared" isDeletable={false} />
               </div>
             );
@@ -132,11 +130,10 @@ export const WithIcon: Story = {
         <div className="flex w-full items-start gap-2">
           {shape.map(d => {
             return (
-              <div key={d} className="flex w-full items-start gap-8">
+              <div key={d} className="flex w-full items-start gap-2">
                 {sizes.map(s => {
                   return (
                     <div key={s} className="flex flex-col items-start gap-2">
-                      <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} />
                       <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} />
                       <BadgeIcon {...defaultBadgeIconProps} {...args} size={s} shape={d} isDeletable={false} />
                     </div>
@@ -163,11 +160,10 @@ export const WithAvatar: Story = {
         <div className="flex w-full items-start gap-2">
           {shape.map(d => {
             return (
-              <div key={d} className="flex w-full items-start gap-8">
+              <div key={d} className="flex w-full items-start gap-2">
                 {sizes.map(s => {
                   return (
                     <div key={s} className="flex flex-col items-start gap-2">
-                      <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} />
                       <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} />
                       <BadgeAvatar {...defaultBadgeAvatarProps} {...args} size={s} shape={d} isDeletable={false} />
                     </div>
@@ -194,12 +190,10 @@ export const Close: Story = {
         <div className="flex w-full items-start gap-2">
           {shape.map(d => {
             return (
-              <div key={d} className="flex w-full items-start gap-8">
+              <div key={d} className="flex w-full items-start gap-2">
                 {sizes.map(s => {
                   return (
                     <div key={s} className="flex flex-col items-start gap-2">
-                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
-                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
                       <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
                     </div>
                   );
@@ -271,24 +265,16 @@ export const Skeleton: Story = {
         <div className="flex flex-col gap-2">
           <BadgeLoading size={"md"} />
           <BadgeLoading size={"md"} shape={"squared"} />
-          <BadgeLoading size={"md"} />
-          <BadgeLoading size={"md"} shape={"squared"} />
         </div>
         <div className="flex flex-col gap-2">
-          <BadgeLoading size={"sm"} />
-          <BadgeLoading size={"sm"} shape={"squared"} />
           <BadgeLoading size={"sm"} />
           <BadgeLoading size={"sm"} shape={"squared"} />
         </div>
         <div className="flex flex-col gap-2">
           <BadgeLoading size={"xs"} />
           <BadgeLoading size={"xs"} shape={"squared"} />
-          <BadgeLoading size={"xs"} />
-          <BadgeLoading size={"xs"} shape={"squared"} />
         </div>
         <div className="flex flex-col gap-2">
-          <BadgeLoading size={"xxs"} />
-          <BadgeLoading size={"xxs"} shape={"squared"} />
           <BadgeLoading size={"xxs"} />
           <BadgeLoading size={"xxs"} shape={"squared"} />
         </div>
