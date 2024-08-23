@@ -17,7 +17,10 @@ const config: Config = withTV({
   ],
   theme: {
     extend: {
-      fontFamily: { alfreda: ["Alfreda"], walsheim: ["GT Walsheim"], belwe: ["Belwe"] },
+      fontFamily: {
+        clash: "Clash Display",
+        inter: "Inter 24pt",
+      },
       colors: {
         ...COLORS,
       },

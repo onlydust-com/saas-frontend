@@ -928,7 +928,7 @@
   /*DOM STYLES*/
 
   body {
-    @apply font-walsheim;
+    @apply font-inter;
     background: var(--background-quaternary);
   }
 
