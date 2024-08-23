@@ -1,7 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
 
-import { IconPort } from "@/design-system/atoms/icon";
-
 interface Variants {
   variant: "default" | "error";
 }
@@ -12,7 +10,7 @@ export interface ToasterPort {
 
 export interface ToastProps extends PropsWithChildren {
   variants: Partial<Variants>;
-  iconProps?: IconPort;
+  iconContent?: ReactNode;
 }
 
 export interface ToastPort {

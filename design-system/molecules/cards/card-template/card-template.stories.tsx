@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { ArrowUp, Clock } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -26,15 +27,11 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
     { children: "Tag 1" },
     {
       children: "Tag 2",
-      icon: {
-        name: "ri-time-line",
-      },
+      icon: { component: Clock },
     },
     {
       children: "Tag 3",
-      icon: {
-        name: "ri-time-line",
-      },
+      icon: { component: Clock },
     },
   ],
 };
@@ -70,7 +67,7 @@ export const WithIcon: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplate iconProps={{ name: 'ri-arrow-up-line', className: 'text-label-red' }} />",
+        code: "<CardTemplate iconProps={{ name: 'arrow-up', className: 'text-label-red' }} />",
       },
     },
   },
@@ -80,7 +77,10 @@ export const WithIcon: Story = {
         <CardTemplate
           {...defaultProps}
           {...args}
-          iconProps={{ name: "ri-arrow-up-line", className: "text-label-red" }}
+          iconProps={{
+            component: ArrowUp,
+            classNames: { base: "text-label-red" },
+          }}
         />
       </div>
     );
@@ -114,7 +114,7 @@ export const WithCustomTags: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { name: 'ri-time-line' } }, { children: 'Tag 3', icon: { name: 'ri-time-line' } }]} />",
+        code: "<CardTemplate tags={[{ children: 'Tag 1' }, { children: 'Tag 2', icon: { component: Clock } }, { children: 'Tag 3', icon: { component: Clock } }]} />",
       },
     },
   },

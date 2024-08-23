@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ElementType } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -28,7 +29,7 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
         onClick={onPrev}
         isDisabled={disablePrev}
         hideText
-        startIcon={{ name: "ri-arrow-left-s-line" }}
+        startIcon={{ component: ChevronLeft }}
         variant="secondary-light"
       />
       <Button
@@ -48,7 +49,7 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
         variant="secondary-light"
         isDisabled={disableNext}
         hideText
-        startIcon={{ name: "ri-arrow-right-s-line" }}
+        startIcon={{ component: ChevronRight }}
       />
     </Component>
   );

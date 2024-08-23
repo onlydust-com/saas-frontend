@@ -1,4 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { X } from "lucide-react";
 import { ElementType } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -52,7 +53,7 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
                 <ModalHeader className={"empty:hidden"}>
                   {hasTitle ? <Typo {...titleProps} classNames={{ base: "truncate" }} /> : null}
                   {canDismiss ? (
-                    <Button {...closeButtonProps} hideText startIcon={{ name: "ri-close-line" }} onClick={onClose} />
+                    <Button {...closeButtonProps} hideText startIcon={{ component: X }} onClick={onClose} />
                   ) : null}
                 </ModalHeader>
               )}

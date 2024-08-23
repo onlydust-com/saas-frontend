@@ -1,5 +1,6 @@
 import { RadioGroup as NextRadioGroup } from "@nextui-org/radio";
 import { VisuallyHidden, useRadio } from "@nextui-org/react";
+import { Check } from "lucide-react";
 import { ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -32,8 +33,7 @@ function Radio<V extends string, C extends ElementType = "div">({
         </VisuallyHidden>
         <div className={cn(slots.indicator(), classNames?.indicator)}>
           <Icon
-            name={"ri-check-fill"}
-            size={16}
+            component={Check}
             classNames={{
               base: cn(
                 slots.indicatorIcon(),

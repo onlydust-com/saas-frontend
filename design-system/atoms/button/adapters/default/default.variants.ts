@@ -4,8 +4,8 @@ export const ButtonDefaultVariants = tv({
   slots: {
     base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden rounded-lg bg-container-1 transition-colors",
     content: "flex w-full flex-row items-center justify-center",
-    startIcon: "transition-color text-inherit",
-    endIcon: "transition-color text-inherit",
+    startIcon: "transition-color",
+    endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
     loaderContainer: "absolute inset-0 flex h-full w-full flex-row items-center justify-center bg-container-1",
     spinnerCircle: "h-4 w-4 border-b-white",

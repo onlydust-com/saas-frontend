@@ -1,3 +1,5 @@
+import { MessageSquare, Settings } from "lucide-react";
+
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
 import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawer";
@@ -17,13 +19,13 @@ export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
     <>
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-chat-4-line" }}
+        iconProps={{ component: MessageSquare }}
         translate={{ token: "primaryNavigation:secondaryMenu.support" }}
         onClick={handleOpenFeedbackDrawer}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={{ name: "ri-settings-line" }}
+        iconProps={{ component: Settings }}
         translate={{ token: "primaryNavigation:secondaryMenu.settings" }}
         isDisabled={true}
       />

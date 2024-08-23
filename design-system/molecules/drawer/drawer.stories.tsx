@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -15,11 +16,11 @@ const defaultProps: DrawerPort<"div"> = {
 
   header: {
     startContent: <Typo size={"l"}>Header</Typo>,
-    endContent: <Icon name={"ri-square-line"} size={16} />,
+    endContent: <Icon component={Square} />,
   },
   footer: {
-    startContent: <Icon name={"ri-square-line"} size={16} />,
-    endContent: <Icon name={"ri-square-line"} size={16} />,
+    startContent: <Icon component={Square} />,
+    endContent: <Icon component={Square} />,
   },
 };
 

@@ -5,8 +5,8 @@ export const TagDefaultVariants = tv({
     base: "group block border-1 border-container-stroke-separator bg-container-4 transition-colors data-[clickable=true]:cursor-pointer",
     content: "flex flex-row items-center justify-center text-text-1",
     label: "text-inherit",
-    deletableIcon: "text-inherit",
-    dropDownIcon: "text-inherit",
+    deletableIcon: "",
+    dropDownIcon: "",
   },
   variants: {
     size: {

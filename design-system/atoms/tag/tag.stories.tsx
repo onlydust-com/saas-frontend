@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Flame, Square as SquareIcon } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { TagAvatar } from "@/design-system/atoms/tag/variants/tag-avatar";
@@ -15,21 +16,13 @@ const defaultProps: TagPort<"div"> = {
   classNames: {},
   htmlProps: {},
   isDeletable: true,
-  startContent: (
-    <Icon
-      name="ri-square-line"
-      size={16}
-      classNames={{
-        base: "text-inherit",
-      }}
-    />
-  ),
+  startContent: <Icon component={SquareIcon} />,
 };
 
 const defaultTagIconProps: TagIconPort<"div"> = {
   ...defaultProps,
   startContent: undefined,
-  icon: { name: "ri-fire-line" },
+  icon: { component: Flame },
 };
 
 const defaultTagAvatarProps: TagAvatarPort<"div"> = {
@@ -118,7 +111,7 @@ export const Square: Story = {
 export const WithIcon: Story = {
   parameters: {
     docs: {
-      source: { code: "<TagIcon icon={{ remixName: 'ri-fire-line' }} />" },
+      source: { code: "<TagIcon icon={{ remixName: 'flame' }} />" },
     },
   },
   render: args => {

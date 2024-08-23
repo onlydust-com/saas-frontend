@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 
@@ -57,8 +58,8 @@ const defaultPortWithStartAndEndContent: AccordionPort = {
       id: "id-1",
       titleProps: { children: "Accordion 1" },
       content: "Accordion content 1",
-      startContent: <Icon name="ri-square-line" />,
-      endContent: <Icon name="ri-square-line" />,
+      startContent: <Icon component={Square} />,
+      endContent: <Icon component={Square} />,
     },
     {
       id: "id-2",
@@ -69,8 +70,8 @@ const defaultPortWithStartAndEndContent: AccordionPort = {
           <p>Accordion content 2</p>
         </div>
       ),
-      startContent: <Icon name="ri-square-line" />,
-      endContent: <Icon name="ri-square-line" />,
+      startContent: <Icon component={Square} />,
+      endContent: <Icon component={Square} />,
     },
   ],
 };

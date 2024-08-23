@@ -61,7 +61,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
           <Icon
             {...startIcon}
             classNames={{
-              base: cn(slots.startIcon(), classNames?.startIcon, startIcon?.classNames?.base),
+              base: cn(slots.startIcon(), classNames?.startIcon),
             }}
           />
         )}
@@ -70,14 +70,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
-        {!!endIcon && (
-          <Icon
-            {...endIcon}
-            classNames={{
-              base: cn(slots.endIcon(), classNames?.endIcon, endIcon?.classNames?.base),
-            }}
-          />
-        )}
+        {!!endIcon && <Icon {...endIcon} classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }} />}
         {endContent}
       </div>
       {isLoading && (

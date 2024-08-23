@@ -4,8 +4,12 @@ import scrollbar from "tailwind-scrollbar";
 import { withTV } from "tailwind-variants/transformer";
 import type { Config } from "tailwindcss";
 
+import GradientsPreset from "@/shared/theme/tailwind/gradients-preset";
+
 import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
+import RingsPreset from "./shared/theme/tailwind/rings-preset";
+import ShadowPreset from "./shared/theme/tailwind/shadow-preset";
 
 const config: Config = withTV({
   content: [
@@ -15,6 +19,7 @@ const config: Config = withTV({
     "./.storybook/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+  presets: [ShadowPreset, RingsPreset, GradientsPreset],
   theme: {
     extend: {
       fontFamily: {
@@ -38,22 +43,6 @@ const config: Config = withTV({
     scrollbar,
     nextui({
       defaultTheme: "dark",
-      // themes: {
-      //   dark: {
-      //     colors: {
-      //       background: "transparent",
-      //       primary: "#AE00FF", // Space Purple 500
-      //     },
-      //     layout: {
-      //       radius: {
-      //         large: "10px",
-      //       },
-      //       boxShadow: {
-      //         medium: "0px 8px 64px 0px rgba(0, 0, 0, 0.32)",
-      //       },
-      //     },
-      //   },
-      // },
     }),
   ],
 });

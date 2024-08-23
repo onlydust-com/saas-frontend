@@ -1,4 +1,5 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import { ChevronLeft } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
@@ -35,7 +36,7 @@ export function AccordionNextUiAdapter({ classNames, items, multiple = false, de
               {item.endContent}
             </div>
           }
-          indicator={<Icon name="ri-arrow-left-s-line" classNames={{ base: "text-text-1" }} />}
+          indicator={<Icon component={ChevronLeft} classNames={{ base: "text-text-1" }} />}
         >
           {item.content}
         </AccordionItem>
