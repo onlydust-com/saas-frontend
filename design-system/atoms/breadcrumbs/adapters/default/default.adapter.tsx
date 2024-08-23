@@ -35,10 +35,10 @@ function BreadcrumbItem({ label, href, onClick, selected = false, iconProps, ico
       size={"xs"}
       color={selected ? "primary" : "tertiary"}
       classNames={{
-        base: cn("py-1 px-2 rounded-md flex items-center gap-2", {
+        base: cn("px-md py-xs rounded-md flex items-center gap-md", {
           "hover:bg-background-primary-alt-hover focus:effect-ring-brand-spaced outline-none": canHover,
-          "pl-1.5": iconProps,
-          "p-1": showIconOnly,
+          "pl-sm": iconProps && !showIconOnly,
+          "px-xs py-xs": showIconOnly,
         }),
       }}
     >
