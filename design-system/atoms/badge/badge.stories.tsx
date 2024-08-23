@@ -48,13 +48,6 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   title: "Atoms/Badge",
   tags: ["autodocs"],
-  // TODO delete this block
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -75,7 +68,7 @@ export const Default: Story = {
 export const Rounded: Story = {
   parameters: {
     docs: {
-      source: { code: "<Tag shape'rounded' />" },
+      source: { code: "<Badge size='s' />" },
     },
   },
   render: args => {
@@ -101,7 +94,7 @@ export const Rounded: Story = {
 export const Squared: Story = {
   parameters: {
     docs: {
-      source: { code: "<Tag shape'squared' />" },
+      source: { code: "<Badge />" },
     },
   },
   render: args => {
@@ -235,7 +228,7 @@ export const Clickable: Story = {
 export const Skeleton: Story = {
   parameters: {
     docs: {
-      source: { code: "<TagLoading  />" },
+      source: { code: "<BadgeLoading />" },
     },
   },
   render: () => {

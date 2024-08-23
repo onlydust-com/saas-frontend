@@ -17,12 +17,6 @@ const meta: Meta<typeof Avatar> = {
   component: Avatar,
   title: "Atoms/Avatar",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {
