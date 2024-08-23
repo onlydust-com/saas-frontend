@@ -36,11 +36,7 @@ export function AccordionNextUiAdapter({ classNames, items, multiple = false, de
               {item.endContent}
             </div>
           }
-          indicator={
-            <div className={"text-text-1"}>
-              <Icon component={ChevronLeft} />
-            </div>
-          }
+          indicator={<Icon component={ChevronLeft} classNames={{ base: "text-text-1" }} />}
         >
           {item.content}
         </AccordionItem>

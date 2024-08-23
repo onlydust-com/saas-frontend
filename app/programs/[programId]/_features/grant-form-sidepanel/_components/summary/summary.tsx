@@ -108,9 +108,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             />
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <div className={"text-label-blue"}>
-                <Icon component={ArrowRight} />
-              </div>
+              <Icon component={ArrowRight} classNames={{ base: "text-label-blue" }} />
 
               <Typo
                 as={"div"}
@@ -204,9 +202,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             />
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <div className="text-label-green">
-                <Icon component={ArrowDown} />
-              </div>
+              <Icon component={ArrowDown} classNames={{ base: "text-label-green" }} />
 
               <Typo
                 as={"div"}

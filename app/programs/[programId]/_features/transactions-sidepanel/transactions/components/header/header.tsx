@@ -121,11 +121,7 @@ export function Header() {
       <Input
         value={search}
         onChange={e => handleSearch(e.target.value)}
-        startContent={
-          <div className={"text-text-2"}>
-            <Icon component={Search} />
-          </div>
-        }
+        startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}
         placeholder={t("transactionPanel.transactions.search.placeholder")}
       />
     </div>
