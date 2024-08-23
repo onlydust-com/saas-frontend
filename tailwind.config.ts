@@ -7,7 +7,7 @@ import type { Config } from "tailwindcss";
 import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
 import GradientsPreset from "./shared/theme/tailwind/gradients-preset";
-import { RadiusSet } from "./shared/theme/tailwind/radius-preset";
+import RadiusPreset from "./shared/theme/tailwind/radius-preset";
 import RingsPreset from "./shared/theme/tailwind/rings-preset";
 import ShadowPreset from "./shared/theme/tailwind/shadow-preset";
 import SizePreset from "./shared/theme/tailwind/size-preset";
@@ -21,7 +21,7 @@ const config: Config = withTV({
     "./.storybook/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusSet],
+  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusPreset],
   theme: {
     extend: {
       fontFamily: {
