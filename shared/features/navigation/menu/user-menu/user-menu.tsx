@@ -38,7 +38,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           {isFolded && (
             <Button
               variant={"secondary-light"}
-              startIcon={LogIn}
+              startIcon={{ component: LogIn }}
               hideText={true}
               size={"l"}
               onClick={handleLogout}
@@ -57,7 +57,13 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           </Typo>
         </div>
       </div>
-      <Button variant={"secondary-light"} startIcon={LogIn} hideText={true} size={"l"} onClick={handleLogout} />
+      <Button
+        variant={"secondary-light"}
+        startIcon={{ component: LogIn }}
+        hideText={true}
+        size={"l"}
+        onClick={handleLogout}
+      />
     </div>
   );
 }

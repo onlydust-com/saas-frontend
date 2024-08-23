@@ -19,13 +19,13 @@ export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
     <>
       <ItemNav
         isFolded={isFolded}
-        icon={MessageSquare}
+        iconProps={{ component: MessageSquare }}
         translate={{ token: "primaryNavigation:secondaryMenu.support" }}
         onClick={handleOpenFeedbackDrawer}
       />
       <ItemNav
         isFolded={isFolded}
-        icon={Settings}
+        iconProps={{ component: Settings }}
         translate={{ token: "primaryNavigation:secondaryMenu.settings" }}
         isDisabled={true}
       />

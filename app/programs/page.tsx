@@ -15,7 +15,7 @@ export default function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        icon: Clipboard,
+        iconProps: { component: Clipboard },
         breadcrumbs: [
           {
             id: "root",

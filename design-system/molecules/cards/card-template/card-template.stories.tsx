@@ -27,11 +27,11 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
     { children: "Tag 1" },
     {
       children: "Tag 2",
-      icon: Clock,
+      icon: { component: Clock },
     },
     {
       children: "Tag 3",
-      icon: Clock,
+      icon: { component: Clock },
     },
   ],
 };
@@ -74,7 +74,14 @@ export const WithIcon: Story = {
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplate {...defaultProps} {...args} icon={ArrowUp} iconProps={{ className: "text-label-red" }} />
+        <CardTemplate
+          {...defaultProps}
+          {...args}
+          iconProps={{
+            component: ArrowUp,
+            classNames: { base: "text-label-red" },
+          }}
+        />
       </div>
     );
   },

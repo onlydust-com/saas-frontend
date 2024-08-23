@@ -96,7 +96,7 @@ export function AmountSelector({
 
       <div>
         <div className={"flex w-full justify-center"}>
-          <Button variant={"secondary-light"} size={"l"} onClick={handleOpen} endIcon={ChevronDown}>
+          <Button variant={"secondary-light"} size={"l"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
             <AvatarDescription
               avatarProps={{ src: budget.currency.logoUrl, alt: budget.currency.name, size: "s" }}
               labelProps={{
@@ -130,7 +130,13 @@ export function AmountSelector({
                     translate={{ token: "programs:grantForm.amountSelector.title" }}
                   />
 
-                  <Button variant={"secondary-light"} size={"l"} hideText startIcon={X} onClick={onClose} />
+                  <Button
+                    variant={"secondary-light"}
+                    size={"l"}
+                    hideText
+                    startIcon={{ component: X }}
+                    onClick={onClose}
+                  />
                 </ModalHeader>
 
                 <ModalBody>

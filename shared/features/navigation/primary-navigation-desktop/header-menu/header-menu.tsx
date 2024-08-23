@@ -31,7 +31,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         {isFolded && (
           <Button
             variant={"secondary-light"}
-            startIcon={PanelRightClose}
+            startIcon={{ component: PanelRightClose }}
             hideText={true}
             size={"l"}
             onClick={onUnFold}
@@ -41,7 +41,13 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
           />
         )}
       </div>
-      <Button variant={"secondary-light"} startIcon={PanelLeftClose} hideText={true} size={"l"} onClick={onFold} />
+      <Button
+        variant={"secondary-light"}
+        startIcon={{ component: PanelLeftClose }}
+        hideText={true}
+        size={"l"}
+        onClick={onFold}
+      />
     </div>
   );
 }

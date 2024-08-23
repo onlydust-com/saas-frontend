@@ -10,7 +10,7 @@ const defaultProps: ItemNavPort = {
   linkProps: {
     href: "https://www.google.com",
   },
-  icon: House,
+  iconProps: { component: House },
   children: "Item Nav",
   isDisabled: false,
   isFolded: false,

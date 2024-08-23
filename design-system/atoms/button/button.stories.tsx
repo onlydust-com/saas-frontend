@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Square } from "lucide-react";
 
 import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
+import { Icon } from "@/design-system/atoms/icon";
 
 import { ButtonPort } from "./button.types";
 import { Button } from "./variants/button-default";
@@ -10,10 +11,10 @@ type Story = StoryObj<typeof Button>;
 
 const defaultProps: ButtonPort<"button"> = {
   children: "Button core",
-  startIcon: Square,
-  endIcon: Square,
-  startContent: <Square size={16} />,
-  endContent: <Square size={16} />,
+  startIcon: { component: Square },
+  endIcon: { component: Square },
+  startContent: <Icon component={Square} size={16} />,
+  endContent: <Icon component={Square} size={16} />,
 };
 
 const meta: Meta<typeof Button> = {
@@ -39,9 +40,7 @@ export const Size: Story = {
     docs: {
       source: {
         code: `
-<Button
-  startIcon={Square}
->
+<Button startIcon={{component: Square}}>
   Button core
 </Button>
         `,
@@ -85,25 +84,25 @@ export const Primary: Story = {
           <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={Square} hideText size={"xl"} />
+          <Button variant={"primary"} {...args} startIcon={{ component: Square }} hideText size={"xl"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"primary"} {...defaultProps} {...args} size={"l"} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={Square} hideText size={"l"} />
+          <Button variant={"primary"} {...args} startIcon={{ component: Square }} hideText size={"l"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"primary"} {...defaultProps} {...args} />
           <Button variant={"primary"} {...defaultProps} {...args} isDisabled={true} />
           <Button variant={"primary"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={Square} hideText />
+          <Button variant={"primary"} {...args} startIcon={{ component: Square }} hideText />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"primary"} {...defaultProps} {...args} size={"s"} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
           <Button variant={"primary"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={Square} hideText size={"s"} />
+          <Button variant={"primary"} {...args} startIcon={{ component: Square }} hideText size={"s"} />
         </div>
       </div>
     );
@@ -127,25 +126,25 @@ export const SecondaryLight: Story = {
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={Square} hideText size={"xl"} />
+          <Button variant={"secondary-light"} {...args} startIcon={{ component: Square }} hideText size={"xl"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={Square} hideText size={"l"} />
+          <Button variant={"secondary-light"} {...args} startIcon={{ component: Square }} hideText size={"l"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-light"} {...defaultProps} {...args} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} isDisabled={true} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={Square} hideText />
+          <Button variant={"secondary-light"} {...args} startIcon={{ component: Square }} hideText />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
           <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={Square} hideText size={"s"} />
+          <Button variant={"secondary-light"} {...args} startIcon={{ component: Square }} hideText size={"s"} />
         </div>
       </div>
     );
@@ -168,25 +167,25 @@ export const SecondaryDark: Story = {
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={Square} hideText size={"xl"} />
+          <Button variant={"secondary-dark"} {...args} startIcon={{ component: Square }} hideText size={"xl"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={Square} hideText size={"l"} />
+          <Button variant={"secondary-dark"} {...args} startIcon={{ component: Square }} hideText size={"l"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-dark"} {...defaultProps} {...args} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} isDisabled={true} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={Square} hideText />
+          <Button variant={"secondary-dark"} {...args} startIcon={{ component: Square }} hideText />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
           <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={Square} hideText size={"s"} />
+          <Button variant={"secondary-dark"} {...args} startIcon={{ component: Square }} hideText size={"s"} />
         </div>
       </div>
     );
@@ -206,25 +205,25 @@ export const Danger: Story = {
           <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={Square} hideText size={"xl"} />
+          <Button variant={"danger"} {...args} startIcon={{ component: Square }} hideText size={"xl"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"danger"} {...defaultProps} {...args} size={"l"} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={Square} hideText size={"l"} />
+          <Button variant={"danger"} {...args} startIcon={{ component: Square }} hideText size={"l"} />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"danger"} {...defaultProps} {...args} />
           <Button variant={"danger"} {...defaultProps} {...args} isDisabled={true} />
           <Button variant={"danger"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={Square} hideText />
+          <Button variant={"danger"} {...args} startIcon={{ component: Square }} hideText />
         </div>
         <div className="flex flex-col gap-2">
           <Button variant={"danger"} {...defaultProps} {...args} size={"s"} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
           <Button variant={"danger"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={Square} hideText size={"s"} />
+          <Button variant={"danger"} {...args} startIcon={{ component: Square }} hideText size={"s"} />
         </div>
       </div>
     );

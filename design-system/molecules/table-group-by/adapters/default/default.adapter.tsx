@@ -21,7 +21,7 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableGroupBy.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={Layers} />
+              <ButtonSecondaryLight size="l" hideText startIcon={{ component: Layers }} />
             </Tooltip>
           </div>
         )}

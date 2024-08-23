@@ -29,7 +29,13 @@ export function SidePanelHeader({
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button hideText={true} variant="secondary-light" size="l" startIcon={ChevronLeft} onClick={() => back()} />
+            <Button
+              hideText={true}
+              variant="secondary-light"
+              size="l"
+              startIcon={{ component: ChevronLeft }}
+              onClick={() => back()}
+            />
           )}
           {startContent}
         </div>
@@ -39,7 +45,13 @@ export function SidePanelHeader({
         <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
-            <Button hideText={true} variant="secondary-light" size="l" startIcon={X} onClick={handleClose} />
+            <Button
+              hideText={true}
+              variant="secondary-light"
+              size="l"
+              startIcon={{ component: X }}
+              onClick={handleClose}
+            />
           )}
         </div>
       )}

@@ -66,7 +66,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
             classNames={{
               label: "leading-4",
             }}
-            startIcon={ChevronRight}
+            startIcon={{ component: ChevronRight }}
             {...cta}
           />
         ) : null}

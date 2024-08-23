@@ -1,7 +1,7 @@
-import { LucideIcon, LucideProps } from "lucide-react";
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
+import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
@@ -36,8 +36,7 @@ export interface TagBasePort<C extends ElementType> extends Partial<Variants>, P
 }
 
 export interface TagIconPort<C extends ElementType> extends TagBasePort<C> {
-  icon: LucideIcon;
-  iconProps?: LucideProps;
+  icon: IconPort;
 }
 
 export interface TagAvatarPort<C extends ElementType> extends TagBasePort<C> {

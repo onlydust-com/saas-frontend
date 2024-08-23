@@ -40,14 +40,14 @@ export function FinancialSection() {
           <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
             <Button
               variant="secondary-light"
-              startIcon={CircleDollarSign}
+              startIcon={{ component: CircleDollarSign }}
               translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
               onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
               isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
             />
             <Button
               variant="secondary-light"
-              startIcon={ChartColumn}
+              startIcon={{ component: ChartColumn }}
               translate={{ token: "programs:details.financial.buttons.budgetChart" }}
               onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
               isDisabled={toggleFinancialViews === BUDGET_CHART}

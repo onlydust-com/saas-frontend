@@ -13,21 +13,21 @@ export function getComponentsVariants(type: CardTransactionTypes): {
 } {
   const map: Record<CardTransactionTypes, { icon: IconPort }> = {
     GRANTED: {
-      icon: ArrowRight,
-      iconProps: {
-        className: "text-label-blue",
+      icon: {
+        component: ArrowRight,
+        classNames: { base: "text-label-blue" },
       },
     },
     RECEIVED: {
-      icon: ArrowDown,
-      iconProps: {
-        className: "text-label-green",
+      icon: {
+        component: ArrowDown,
+        classNames: { base: "text-label-green" },
       },
     },
     RETURNED: {
-      icon: CornerRightUp,
-      iconProps: {
-        className: "text-label-red",
+      icon: {
+        component: CornerRightUp,
+        classNames: { base: "text-label-red" },
       },
     },
   };

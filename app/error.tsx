@@ -35,12 +35,12 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             }}
             variant={"secondary-light"}
             size={"l"}
-            startIcon={ChevronLeft}
+            startIcon={{ component: ChevronLeft }}
           >
             <Translate token={"error:back"} />
           </Button>
 
-          <Button size={"l"} startIcon={RefreshCw} onClick={reset}>
+          <Button size={"l"} startIcon={{ component: RefreshCw }} onClick={reset}>
             <Translate token={"error:refresh"} />
           </Button>
         </div>

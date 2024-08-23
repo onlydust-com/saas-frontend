@@ -19,8 +19,8 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
   const { t } = useTranslation("table");
 
   const sortIcons: Record<SortDirection, ButtonPort<"button">["startIcon"]> = {
-    ASC: ArrowUpNarrowWide,
-    DESC: ArrowDownWideNarrow,
+    ASC: { component: ArrowUpNarrowWide },
+    DESC: { component: ArrowDownWideNarrow },
   };
 
   return (

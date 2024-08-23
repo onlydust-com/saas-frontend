@@ -53,7 +53,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
           ]}
         >
           {({ label }) => (
-            <Button size={"s"} variant={"secondary-light"} startIcon={Calendar}>
+            <Button size={"s"} variant={"secondary-light"} startIcon={{ component: Calendar }}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}

@@ -48,7 +48,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
   return (
     <PageWrapper
       navigation={{
-        icon: Clipboard,
+        iconProps: { component: Clipboard },
         breadcrumbs: [
           {
             id: "root",

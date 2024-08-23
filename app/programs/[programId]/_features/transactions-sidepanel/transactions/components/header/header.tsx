@@ -54,7 +54,7 @@ export function Header() {
                 size="l"
                 variant="secondary-light"
                 hideText
-                startIcon={Filter}
+                startIcon={{ component: Filter }}
                 endContent={
                   count ? (
                     <Badge size="s" style="outline">

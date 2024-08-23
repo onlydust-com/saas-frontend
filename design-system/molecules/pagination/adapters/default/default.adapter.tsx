@@ -29,7 +29,7 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
         onClick={onPrev}
         isDisabled={disablePrev}
         hideText
-        startIcon={ChevronLeft}
+        startIcon={{ component: ChevronLeft }}
         variant="secondary-light"
       />
       <Button
@@ -49,7 +49,7 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
         variant="secondary-light"
         isDisabled={disableNext}
         hideText
-        startIcon={ChevronRight}
+        startIcon={{ component: ChevronRight }}
       />
     </Component>
   );

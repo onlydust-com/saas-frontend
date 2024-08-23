@@ -52,7 +52,9 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
               {!hideHeader && (
                 <ModalHeader className={"empty:hidden"}>
                   {hasTitle ? <Typo {...titleProps} classNames={{ base: "truncate" }} /> : null}
-                  {canDismiss ? <Button {...closeButtonProps} hideText startIcon={X} onClick={onClose} /> : null}
+                  {canDismiss ? (
+                    <Button {...closeButtonProps} hideText startIcon={{ component: X }} onClick={onClose} />
+                  ) : null}
                 </ModalHeader>
               )}
               <ModalBody>{children}</ModalBody>

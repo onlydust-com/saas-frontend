@@ -21,7 +21,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={Columns2} />
+              <ButtonSecondaryLight size="l" hideText startIcon={{ component: Columns2 }} />
             </Tooltip>
           </div>
         )}

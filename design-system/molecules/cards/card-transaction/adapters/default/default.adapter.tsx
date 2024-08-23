@@ -53,7 +53,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
         { children: typeName },
         {
           children: dateKernelPort.format(new Date(date), "dd.MM.yyyy"),
-          icon: Clock,
+          icon: { component: Clock },
         },
       ]}
       endContent={

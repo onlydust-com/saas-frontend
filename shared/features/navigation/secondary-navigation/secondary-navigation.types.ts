@@ -1,9 +1,8 @@
-import { LucideIcon } from "lucide-react";
-
 import { BreadcrumbsPort } from "@/design-system/atoms/breadcrumbs";
+import { IconPort } from "@/design-system/atoms/icon";
 
 export interface SecondaryNavigationProps {
-  icon: LucideIcon;
+  iconProps: IconPort;
   breadcrumbs: BreadcrumbsPort["items"];
   onBack?: () => void;
 }

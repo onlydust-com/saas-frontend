@@ -1,5 +1,6 @@
-import { LucideIcon } from "lucide-react";
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
+
+import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
@@ -25,8 +26,8 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   classNames?: Partial<ClassNames>;
   translate?: TranslateProps;
   as?: C;
-  startIcon?: LucideIcon;
-  endIcon?: LucideIcon;
+  startIcon?: IconPort;
+  endIcon?: IconPort;
   startContent?: ReactNode;
   endContent?: ReactNode;
   onClick?: () => void;

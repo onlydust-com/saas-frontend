@@ -26,7 +26,7 @@ export default function NotFound() {
             href: NEXT_ROUTER.home.root,
           }}
           size={"l"}
-          startIcon={ChevronLeft}
+          startIcon={{ component: ChevronLeft }}
         >
           <Translate token={"notFound:back"} />
         </Button>

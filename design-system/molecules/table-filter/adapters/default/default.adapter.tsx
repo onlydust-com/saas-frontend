@@ -24,7 +24,7 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
               <ButtonSecondaryLight
                 size="l"
                 hideText
-                startIcon={Filter}
+                startIcon={{ component: Filter }}
                 endContent={
                   filterCount ? (
                     <Badge size="s" style="outline">

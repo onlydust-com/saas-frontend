@@ -1,6 +1,6 @@
-import { LucideIcon } from "lucide-react";
 import { PropsWithChildren } from "react";
 
+import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 import { BaseLinkProps } from "@/shared/components/base-link/base-link.types";
@@ -17,7 +17,7 @@ export interface ItemNavPort extends PropsWithChildren {
   linkProps?: _BaseLinkProps;
   classNames?: Partial<ClassNames>;
   labelProps?: Partial<TypoPort<"span">>;
-  icon: LucideIcon;
+  iconProps: IconPort;
   translate?: TranslateProps;
   isDisabled?: boolean;
   isFolded?: boolean;
