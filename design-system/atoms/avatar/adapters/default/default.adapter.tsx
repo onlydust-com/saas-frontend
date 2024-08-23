@@ -2,11 +2,11 @@ import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import Image from "next/image";
 
 import { AvatarDefaultVariants } from "@/design-system/atoms/avatar/adapters/default/default.variants";
+import { useImageWithFallback } from "@/design-system/atoms/avatar/avatar.hooks";
 import { getAvatarImageSize, getAvatarItemImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { useImageWithFallback } from "../../avatar.hooks";
 import { AvatarPort } from "../../avatar.types";
 
 function AvatarItem({ classNames, size, icon, onlineIcon }: AvatarPort) {

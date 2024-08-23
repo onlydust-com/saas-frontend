@@ -247,5 +247,7 @@ export const AvatarDefaultVariants = tv({
   defaultVariants: {
     size: "md",
     shape: "rounded",
+    name: false,
+    onlineIcon: false,
   },
 });

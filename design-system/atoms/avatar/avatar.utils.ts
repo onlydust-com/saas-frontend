@@ -1,6 +1,6 @@
 import process from "process";
 
-import { AvatarPort } from "@/design-system/atoms/avatar/avatar.types";
+import { AvatarPort } from "./avatar.types";
 
 export function getAvatarItemImageSize(size: AvatarPort["size"]): [number, number] {
   switch (size) {
