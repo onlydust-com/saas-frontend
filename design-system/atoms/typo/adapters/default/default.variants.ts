@@ -37,14 +37,97 @@ export const TypoDefaultVariants = tv({
     weight: {
       regular: { base: "font-normal" },
       medium: { base: "font-medium" },
-      semibold: { base: "font-medium" },
-      bold: { base: "font-medium" },
+      semibold: { base: "font-semibold" },
+      bold: { base: "font-bold" },
     },
     variant: {
       text: { base: "font-inter" },
       heading: { base: "font-clash" },
     },
   },
+  compoundVariants: [
+    // VARIANT TEXT
+    {
+      variant: "text",
+      size: "xs",
+      class: {
+        base: "text-[0.75rem] leading-[1rem]",
+      },
+    },
+    {
+      variant: "text",
+      size: "sm",
+      class: {
+        base: "text-[0.875rem] leading-[1.25rem]",
+      },
+    },
+    {
+      variant: "text",
+      size: "md",
+      class: {
+        base: "text-[1rem] leading-[1.5rem]",
+      },
+    },
+    {
+      variant: "text",
+      size: "lg",
+      class: {
+        base: "text-[1.125rem] leading-[1.75rem]",
+      },
+    },
+    {
+      variant: "text",
+      size: "xl",
+      class: {
+        base: "text-[1.25rem] leading-[1.875rem]",
+      },
+    },
+
+    // HEADING
+
+    {
+      variant: "heading",
+      size: "xs",
+      class: {
+        base: "text-[1.5rem] leading-[32px]",
+      },
+    },
+    {
+      variant: "heading",
+      size: "sm",
+      class: {
+        base: "text-[1.875rem] leading-[2rem]",
+      },
+    },
+    {
+      variant: "heading",
+      size: "md",
+      class: {
+        base: "text-[2.25rem] leading-[2.75rem]",
+      },
+    },
+    {
+      variant: "heading",
+      size: "lg",
+      class: {
+        base: "text-[3rem] leading-[3.75rem]",
+      },
+    },
+    {
+      variant: "heading",
+      size: "xl",
+      class: {
+        base: "text-[3.75rem] leading-[4.5rem]",
+      },
+    },
+    {
+      variant: "heading",
+      size: "2xl",
+      class: {
+        base: "text-[4.5rem] leading-[5.625rem]",
+      },
+    },
+  ],
   defaultVariants: {
     weight: "regular",
     color: "secondary",

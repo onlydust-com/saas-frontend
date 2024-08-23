@@ -24,6 +24,11 @@ const meta: Meta<typeof Typo> = {
 };
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Typo />" },
+    },
+  },
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
@@ -39,6 +44,11 @@ export const Default: Story = {
 };
 
 export const Heading: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Typo variant='heading' />" },
+    },
+  },
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
