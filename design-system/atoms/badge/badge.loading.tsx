@@ -10,10 +10,10 @@ export function BadgeLoading<C extends ElementType = "div">({ size }: BadgePort<
     <Skeleton
       classNames={{
         base: cn({
-          "size-2": size === "xxs",
-          "size-4": size !== "xs",
-          "size-6": size !== "sm",
-          "size-8": size !== "md",
+          "w-11 h-8": size === "xxs",
+          "w-12 h-9": size !== "xs",
+          "w-13 h-10": size !== "sm",
+          "w-14 h-11": size !== "md",
         }),
       }}
     />
