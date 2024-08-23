@@ -8,24 +8,24 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { CardTransactionTypes } from "./card-transaction.types";
 
 export function getComponentsVariants(type: CardTransactionTypes): {
-  icon: IconPort;
+  iconProps: IconPort;
   typeName: ReactNode;
 } {
-  const map: Record<CardTransactionTypes, { icon: IconPort }> = {
+  const map: Record<CardTransactionTypes, { iconProps: IconPort }> = {
     GRANTED: {
-      icon: {
+      iconProps: {
         component: ArrowRight,
         classNames: { base: "text-label-blue" },
       },
     },
     RECEIVED: {
-      icon: {
+      iconProps: {
         component: ArrowDown,
         classNames: { base: "text-label-green" },
       },
     },
     RETURNED: {
-      icon: {
+      iconProps: {
         component: CornerRightUp,
         classNames: { base: "text-label-red" },
       },
@@ -33,7 +33,7 @@ export function getComponentsVariants(type: CardTransactionTypes): {
   };
 
   return {
-    icon: map[type].icon,
+    iconProps: map[type].iconProps,
     typeName: <Translate token={`cards:cardTransaction.types.${type}`} />,
   };
 }

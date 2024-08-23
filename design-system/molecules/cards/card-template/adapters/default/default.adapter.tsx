@@ -40,9 +40,9 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
-              {titleProps && <Typo {...titleProps} size="s" weight="medium" />}
+              {!!titleProps && <Typo {...titleProps} size="s" weight="medium" />}
 
-              {iconProps && <Icon {...iconProps} />}
+              {!!iconProps && <Icon {...iconProps} />}
             </div>
 
             {descriptionProps && <Typo {...descriptionProps} size="xxs" color="text-2" />}
