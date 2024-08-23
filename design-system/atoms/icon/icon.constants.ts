@@ -10,9 +10,9 @@ const IconWidth: { [key in IconSize]: number } = {
 
 const IconStroke: { [key in IconSize]: number } = {
   xxs: 1,
-  xs: 1.1699999570846558,
-  sm: 1.350000023841858,
-  md: 1.7000000476837158,
+  xs: 1.17,
+  sm: 1.35,
+  md: 1.7,
   lg: 2,
 };
 
