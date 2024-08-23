@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group block border-1 transition-colors data-[clickable=true]:cursor-pointer",
+    base: "group block border-1 transition-colors",
     content: "flex flex-row items-center justify-center",
     label: "text-inherit",
     deletableIcon: "text-inherit",
@@ -99,6 +99,5 @@ export const BadgeDefaultVariants = tv({
     shape: "rounded",
     color: "grey",
     isDeletable: false,
-    isCloseItem: false,
   },
 });
