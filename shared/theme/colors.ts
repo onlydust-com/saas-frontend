@@ -247,6 +247,7 @@ export const COLORS = {
       grey: {
         "closexitem-bg": "var(--components-badge-grey-closexitem-bg)",
         "closexitem-bg-hover": "var(--components-badge-grey-closexitem-bg_hover)",
+        bg: "var(--components-badge-grey-bg)",
         fg: "var(--components-badge-grey-fg)",
         "fg-hover": "var(--components-badge-grey-closexitem-fg_hover)",
         typo: "var(--components-badge-grey-typo)",

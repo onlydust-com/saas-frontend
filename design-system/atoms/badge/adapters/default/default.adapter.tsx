@@ -45,7 +45,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
 
         {!!isDeletable && (
           <Icon
-            name="ri-close-circle-line"
+            name="ri-close-line"
             size={16}
             {...deletableIconProps}
             classNames={{ base: cn(slots.deletableIcon(), classNames?.deletableIcon) }}

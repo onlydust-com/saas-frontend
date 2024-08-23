@@ -40,4 +40,13 @@ export interface BadgeAvatarPort<C extends ElementType> extends BadgeBasePort<C>
   avatar: AvatarPort;
 }
 
-export type BadgePort<C extends ElementType> = BadgeBasePort<C> | BadgeIconPort<C> | BadgeAvatarPort<C>;
+export interface BadgeClosePort<C extends ElementType> extends BadgeBasePort<C> {
+  onClose: () => void;
+  isCloseItem: boolean;
+}
+
+export type BadgePort<C extends ElementType> =
+  | BadgeBasePort<C>
+  | BadgeIconPort<C>
+  | BadgeAvatarPort<C>
+  | BadgeClosePort<C>;
