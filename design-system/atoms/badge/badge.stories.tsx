@@ -16,12 +16,6 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   title: "Atoms/Badge",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {

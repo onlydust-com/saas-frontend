@@ -27,12 +27,6 @@ const meta: Meta<typeof Drawer> = {
   component: Drawer,
   title: "Molecules/Drawer",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {

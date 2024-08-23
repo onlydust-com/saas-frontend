@@ -39,20 +39,17 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
           }}
           color={colorMapping[panelType]}
         />
-        {total.totalPerCurrency?.map(currency => {
-          const percentage = (currency.ratio ?? 0) * 100;
-          return (
-            <CardBudget
-              key={currency.currency.id}
-              amount={{
-                value: currency.prettyAmount,
-                currency: currency.currency,
-                usdEquivalent: total.totalUsdEquivalent,
-              }}
-              tag={`${Number.isInteger(percentage) ? percentage : percentage?.toFixed(2)}%`}
-            />
-          );
-        })}
+        {total.totalPerCurrency?.map(currency => (
+          <CardBudget
+            key={currency.currency.id}
+            amount={{
+              value: currency.prettyAmount,
+              currency: currency.currency,
+              usdEquivalent: total.totalUsdEquivalent,
+            }}
+            tag={currency.ratio ? `${currency.ratio}%` : undefined}
+          />
+        ))}
       </div>
     </>
   );
