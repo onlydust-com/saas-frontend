@@ -12,17 +12,15 @@ interface ClassNames {
   icon: string;
 }
 
-interface Icon {
-  src: string;
-  alt?: string;
-}
-
-export interface AvatarPort extends Partial<Variants> {
-  classNames?: Partial<ClassNames>;
+interface Image {
   src?: string;
   alt?: string;
-  name?: string;
   fallback?: ReactNode;
-  icon?: Icon;
+}
+
+export interface AvatarPort extends Image, Partial<Variants> {
+  classNames?: Partial<ClassNames>;
+  name?: string;
+  icon?: Image;
   onlineIcon?: boolean;
 }

@@ -2,30 +2,6 @@ import process from "process";
 
 import { AvatarPort } from "@/design-system/atoms/avatar/avatar.types";
 
-export function getAvatarItemOnlineIconSize(size: AvatarPort["size"]): [number, number] {
-  switch (size) {
-    case "3xl":
-      return [20, 20];
-    case "2xl":
-      return [16, 16];
-    case "xl":
-      return [12, 12];
-    case "lg":
-      return [10, 10];
-    case "md":
-      return [8, 8];
-    case "s":
-      return [6, 6];
-    case "xs":
-      return [5, 5];
-    case "xxs":
-      return [6, 6];
-
-    default:
-      return [8, 8];
-  }
-}
-
 export function getAvatarItemImageSize(size: AvatarPort["size"]): [number, number] {
   switch (size) {
     case "3xl":

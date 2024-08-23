@@ -5,7 +5,7 @@ export const AvatarDefaultVariants = tv({
     base: "bg-components-avatar-bg relative flex items-center justify-center border",
     image: "h-full w-full object-cover object-center",
     name: "text-components-avatar-typo font-medium",
-    icon: "outline-background-primary-alt absolute bottom-0 right-0 rounded-full outline",
+    icon: "outline-background-primary-alt absolute -bottom-0.5 -right-0.5 rounded-full outline",
   },
   variants: {
     size: {
@@ -39,7 +39,7 @@ export const AvatarDefaultVariants = tv({
       },
       xxs: {
         base: "h-4 w-4",
-        icon: "h-2.5 w-2.5 outline-1",
+        icon: "-bottom-1 -right-1 h-2.5 w-2.5 outline-1",
       },
     },
     shape: {
@@ -59,10 +59,10 @@ export const AvatarDefaultVariants = tv({
     },
     onlineIcon: {
       true: {
-        base: "bg-foreground-success",
+        icon: "bg-foreground-success",
       },
       false: {
-        base: "bg-components-avatar-bg border-components-avatar-contrast-border",
+        icon: "bg-components-avatar-bg border-components-avatar-contrast-border",
       },
     },
   },
@@ -71,56 +71,56 @@ export const AvatarDefaultVariants = tv({
       size: "3xl",
       onlineIcon: true,
       class: {
-        icon: "h-5 w-5",
+        icon: "bottom-0 right-0 h-5 w-5",
       },
     },
     {
       size: "2xl",
       onlineIcon: true,
       class: {
-        icon: "h-4 w-4",
+        icon: "bottom-0 right-0 h-4 w-4",
       },
     },
     {
       size: "xl",
       onlineIcon: true,
       class: {
-        icon: "h-3 w-3",
+        icon: "bottom-0 right-0 h-3 w-3",
       },
     },
     {
       size: "lg",
       onlineIcon: true,
       class: {
-        icon: "h-2.5 w-2.5",
+        icon: "bottom-0 right-0 h-2.5 w-2.5",
       },
     },
     {
       size: "md",
       onlineIcon: true,
       class: {
-        icon: "h-2 w-2",
+        icon: "bottom-0 right-0 h-2 w-2",
       },
     },
     {
       size: "s",
       onlineIcon: true,
       class: {
-        icon: "h-1.5 w-1.5",
+        icon: "bottom-0 right-0 h-1.5 w-1.5",
       },
     },
     {
       size: "xs",
       onlineIcon: true,
       class: {
-        icon: "h-[5px] w-[5px]",
+        icon: "bottom-0 right-0 h-[5px] w-[5px]",
       },
     },
     {
       size: "xxs",
       onlineIcon: true,
       class: {
-        icon: "h-1.5 w-1.5",
+        icon: "-bottom-[1px] -right-[1px] h-1.5 w-1.5",
       },
     },
     {

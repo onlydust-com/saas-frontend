@@ -4,10 +4,9 @@ import scrollbar from "tailwind-scrollbar";
 import { withTV } from "tailwind-variants/transformer";
 import type { Config } from "tailwindcss";
 
-import GradientsPreset from "@/shared/theme/tailwind/gradients-preset";
-
 import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
+import GradientsPreset from "./shared/theme/tailwind/gradients-preset";
 import RingsPreset from "./shared/theme/tailwind/rings-preset";
 import ShadowPreset from "./shared/theme/tailwind/shadow-preset";
 

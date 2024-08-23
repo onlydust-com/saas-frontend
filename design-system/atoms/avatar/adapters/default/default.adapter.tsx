@@ -1,12 +1,12 @@
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import Image from "next/image";
-import { useMemo, useState } from "react";
 
 import { AvatarDefaultVariants } from "@/design-system/atoms/avatar/adapters/default/default.variants";
 import { getAvatarImageSize, getAvatarItemImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
+import { useImageWithFallback } from "../../avatar.hooks";
 import { AvatarPort } from "../../avatar.types";
 
 function AvatarItem({ classNames, size, icon, onlineIcon }: AvatarPort) {
@@ -15,17 +15,37 @@ function AvatarItem({ classNames, size, icon, onlineIcon }: AvatarPort) {
   const iconSize = getAvatarItemImageSize(size);
   const iconSrc = getAvatarSrc(iconSize, icon?.src);
 
-  const onlineIconSize = getAvatarImageSize(size);
+  const defaultFallback = (() => {
+    return (
+      <Image
+        src={onlydustLogoSpace}
+        className={cn(slots.icon(), classNames?.icon)}
+        width={iconSize[0]}
+        height={iconSize[1]}
+        alt="OnlyDust"
+        loading="lazy"
+      />
+    );
+  })();
+
+  const iconFallback = icon?.fallback || defaultFallback;
+
+  const renderIcon = useImageWithFallback({
+    src: iconSrc,
+    alt: icon?.alt,
+    fallback: iconFallback,
+    className: cn(slots.icon(), classNames?.icon),
+  });
 
   if (icon) {
-    return <img src={iconSrc} className={cn(slots.icon(), classNames?.icon)} alt={icon.alt} loading="lazy" />;
+    return renderIcon;
   }
 
-  if (onlineIconSize) {
+  if (onlineIcon) {
     return <div className={cn(slots.icon(), classNames?.icon)} />;
   }
 
-  return <div />;
+  return null;
 }
 
 export function AvatarDefaultAdapter({
@@ -39,18 +59,12 @@ export function AvatarDefaultAdapter({
   size,
   shape,
 }: AvatarPort) {
-  const [isError, setIsError] = useState(false);
-
   const slots = AvatarDefaultVariants({ size, shape, name: !!name });
 
   const imageSize = getAvatarImageSize(size);
   const imageSrc = getAvatarSrc(imageSize, src);
 
   const defaultFallback = (() => {
-    if (name) {
-      return undefined;
-    }
-
     return (
       <Image
         src={onlydustLogoSpace}
@@ -63,32 +77,16 @@ export function AvatarDefaultAdapter({
     );
   })();
 
-  const renderImage = useMemo(() => {
-    if (isError || !src) {
-      if (name) {
-        return <div className={cn(slots.name(), classNames?.name)}>{name}</div>;
-      }
-
-      return fallback || defaultFallback;
-    }
-
-    return (
-      <img
-        src={imageSrc}
-        className={cn(slots.image(), classNames?.image)}
-        alt={alt}
-        loading="lazy"
-        onError={() => {
-          setIsError(true);
-        }}
-      />
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, imageSrc, classNames, alt, fallback]);
+  const renderImage = useImageWithFallback({
+    src: imageSrc,
+    alt,
+    fallback: fallback || defaultFallback,
+    className: cn(slots.image(), classNames?.image),
+  });
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      {renderImage}
+      {name ? <div className={cn(slots.name(), classNames?.name)}>{name}</div> : renderImage}
 
       <AvatarItem classNames={classNames} size={size} icon={icon} onlineIcon={onlineIcon} />
     </div>
