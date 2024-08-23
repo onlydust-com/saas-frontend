@@ -6,11 +6,12 @@ interface ClassNames {
   base: string;
 }
 
+export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
+
 export interface IconPort {
   component: LucideIcon;
   classNames?: Partial<ClassNames>;
-  size?: number;
-  strokeWidth?: number;
+  size?: IconSize;
 }
 
 export interface RemixIconPort extends Omit<IconPort, "component"> {

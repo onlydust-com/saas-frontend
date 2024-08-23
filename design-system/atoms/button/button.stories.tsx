@@ -13,8 +13,8 @@ const defaultProps: ButtonPort<"button"> = {
   children: "Button core",
   startIcon: { component: Square },
   endIcon: { component: Square },
-  startContent: <Icon component={Square} size={16} />,
-  endContent: <Icon component={Square} size={16} />,
+  startContent: <Icon component={Square} size={"sm"} />,
+  endContent: <Icon component={Square} size={"sm"} />,
 };
 
 const meta: Meta<typeof Button> = {

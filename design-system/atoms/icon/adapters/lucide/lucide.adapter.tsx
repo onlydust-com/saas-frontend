@@ -1,10 +1,21 @@
+import { useMemo } from "react";
+
 import { cn } from "@/shared/helpers/cn";
 
+import { IconSizeMap } from "../../icon.constants";
 import { IconPort } from "../../icon.types";
 import { IconLucideVariants } from "./lucide.variants";
 
-export function IconLucideAdapter({ component: Icon, classNames, size = 16, strokeWidth = 2 }: IconPort) {
+export function IconLucideAdapter({ component: Icon, classNames, size = "sm" }: IconPort) {
   const { base } = IconLucideVariants();
 
-  return <Icon size={size} strokeWidth={strokeWidth} className={cn(base(), classNames?.base)} />;
+  const { stroke, width } = useMemo(
+    () => ({
+      stroke: IconSizeMap.stroke[size],
+      width: IconSizeMap.width[size],
+    }),
+    [size]
+  );
+
+  return <Icon size={width} strokeWidth={stroke} className={cn(base(), classNames?.base)} />;
 }

@@ -35,7 +35,7 @@ export function SecondaryNavigation({ iconProps, breadcrumbs, onBack }: Secondar
             onClick={onBack}
           />
         ) : null}
-        <Icon {...iconProps} size={24} />
+        <Icon {...iconProps} size={"md"} />
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
