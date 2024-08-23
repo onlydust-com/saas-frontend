@@ -1,4 +1,5 @@
-import { Icon, IconPort } from "@/design-system/atoms/icon";
+import { RemixIconPort } from "@/design-system/atoms/icon";
+import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
@@ -26,7 +27,7 @@ export function ProjectCategoriesGroup({
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",
             }}
-            icon={{ name: iconSlug as IconPort["name"] }}
+            startContent={<RemixIcon name={iconSlug as RemixIconPort["name"]} />}
             {...tagProps}
           >
             {name}
@@ -62,7 +63,7 @@ export function ProjectCategoriesGroup({
             <div className={"grid gap-3"}>
               {categories?.map(({ iconSlug, name }) => (
                 <div key={name} className={"flex flex-row items-center gap-2"}>
-                  <Icon name={iconSlug as IconPort["name"]} />
+                  <RemixIcon name={iconSlug as RemixIconPort["name"]} />
                   <Typo size={"xs"} weight={"medium"} color={"text-1"}>
                     {name}
                   </Typo>
