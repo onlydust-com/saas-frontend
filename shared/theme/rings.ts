@@ -1,6 +1,6 @@
 export const RINGS = {
-  BRAND_SPACED: "effect-ring-brand-spaced",
-  BRAND_GLUED: "effect-ring-brand-glued",
-  ERROR_SPACED: "effect-ring-error-spaced",
-  ERROR_GLUED: "effect-ring-error-glued",
-};
+  brand_spaced: "effect-ring-brand-spaced",
+  brand_glued: "effect-ring-brand-glued",
+  error_spaced: "effect-ring-error-spaced",
+  error_glued: "effect-ring-error-glued",
+} as const;

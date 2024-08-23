@@ -8,18 +8,18 @@ const RingsPreset: Config = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
-        [`.${RINGS.BRAND_SPACED}`]: {
+        [`.${RINGS.brand_spaced}`]: {
           boxShadow:
             "0px 0px 0px 2px var(--background-primary_alt), 0px 0px 0px 4px var(--effects-focusrings-brand-spaced)",
         },
-        [`.${RINGS.BRAND_GLUED}`]: {
+        [`.${RINGS.brand_glued}`]: {
           boxShadow: "0px 0px 0px 2px var(--effects-focusrings-brand-glued, rgba(172, 0, 255, 0.14))",
         },
-        [`.${RINGS.ERROR_SPACED}`]: {
+        [`.${RINGS.error_spaced}`]: {
           boxShadow:
             "0px 0px 0px 2px var(--background-primary_alt), 0px 0px 0px 4px var(--effects-focusrings-error-spaced)",
         },
-        [`.${RINGS.ERROR_GLUED}`]: {
+        [`.${RINGS.error_glued}`]: {
           boxShadow: "0px 0px 0px 2px var(--effects-focusrings-error-glued, rgba(172, 0, 255, 0.14))",
         },
       });

@@ -360,4 +360,4 @@ export const COLORS = {
       "avatargroup-separator-border": "var(--components-avatar-avatargroup-separator-border)",
     },
   },
-};
+} as const;

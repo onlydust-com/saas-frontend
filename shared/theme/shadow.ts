@@ -4,4 +4,4 @@ export const SHADOW = {
   md: "effect-shadow-md",
   lg: "effect-shadow-lg",
   xl: "effect-shadow-xl",
-};
+} as const;
