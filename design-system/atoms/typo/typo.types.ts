@@ -12,6 +12,7 @@ interface Variants {
   variant: TypoVariant;
   size: TypoSize;
   color: keyof typeof COLORS.typography;
+  canHover?: boolean;
 }
 
 interface ClassNames {
