@@ -2,11 +2,10 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
-import { BadgeClose } from "@/design-system/atoms/badge/variants/badge-close";
 import { BadgeIcon } from "@/design-system/atoms/badge/variants/badge-icon";
 import { Icon } from "@/design-system/atoms/icon";
 
-import { BadgeAvatarPort, BadgeClosePort, BadgeIconPort, BadgePort } from "./badge.types";
+import { BadgeAvatarPort, BadgeIconPort, BadgePort } from "./badge.types";
 import { Badge } from "./variants/badge-default";
 
 type Story = StoryObj<typeof Badge>;
@@ -15,12 +14,11 @@ const defaultProps: BadgePort<"div"> = {
   children: "Badge",
   classNames: {},
   htmlProps: {},
-  isDeletable: true,
-  isCloseItem: false,
+  isDeletable: false,
   startContent: (
     <Icon
       name="ri-circle-line"
-      size={12}
+      size={16}
       classNames={{
         base: "text-inherit",
       }}
@@ -40,10 +38,9 @@ const defaultBadgeAvatarProps: BadgeAvatarPort<"div"> = {
   avatar: { src: undefined },
 };
 
-const defaultBadgeCloseProps: BadgeClosePort<"div"> = {
+const defaultBadgeCloseProps: BadgePort<"div"> = {
   ...defaultProps,
-  onClose: () => {},
-  isCloseItem: true,
+  isDeletable: true,
 };
 
 const sizes = ["xxs", "xs", "sm", "md"] as const;
@@ -188,7 +185,7 @@ export const WithAvatar: Story = {
 export const Close: Story = {
   parameters: {
     docs: {
-      source: { code: "<BadgeClose onClose={() => {}} isCloseItem />" },
+      source: { code: "<BadgeClose onClose={() => {}} isDeletable />" },
     },
   },
   render: args => {
@@ -201,9 +198,9 @@ export const Close: Story = {
                 {sizes.map(s => {
                   return (
                     <div key={s} className="flex flex-col items-start gap-2">
-                      <BadgeClose {...defaultBadgeCloseProps} {...args} size={s} shape={d} onClose={() => {}} />
-                      <BadgeClose {...defaultBadgeCloseProps} {...args} size={s} shape={d} onClose={() => {}} />
-                      <BadgeClose {...defaultBadgeCloseProps} {...args} size={s} shape={d} onClose={() => {}} />
+                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
+                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
+                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
                     </div>
                   );
                 })}
@@ -239,7 +236,7 @@ export const Colors: Story = {
   },
 };
 
-export const Clickable: Story = {
+export const Deletable: Story = {
   parameters: {
     docs: {
       source: { code: "<Tag clickable={true} />" },
@@ -252,7 +249,7 @@ export const Clickable: Story = {
           return (
             <div key={c} className="flex w-full items-center gap-2">
               {shape.map(s => {
-                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} clickable={true} color={c} shape={s} />;
+                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} isDeletable color={c} shape={s} />;
               })}
             </div>
           );

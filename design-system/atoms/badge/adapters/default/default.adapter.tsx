@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 
+import { BadgeClose } from "@/design-system/atoms/badge-close/variants/badge-close-default";
 import { BadgeDefaultVariants } from "@/design-system/atoms/badge/adapters/default/default.variants";
-import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -16,10 +16,9 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   children,
   endContent,
   htmlProps,
-  clickable,
   translate,
   labelProps = {},
-  deletableIconProps = {},
+  closeProps,
   ...props
 }: BadgePort<C>) {
   const { isDeletable, shape, size, color } = props;
@@ -31,7 +30,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   const showChildren = !!children || !!translate;
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} data-clickable={clickable}>
+    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
 
@@ -43,14 +42,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
 
         {endContent}
 
-        {!!isDeletable && (
-          <Icon
-            name="ri-close-line"
-            size={16}
-            {...deletableIconProps}
-            classNames={{ base: cn(slots.deletableIcon(), classNames?.deletableIcon) }}
-          />
-        )}
+        {!!isDeletable && <BadgeClose {...closeProps} color={color} />}
       </div>
     </Component>
   );

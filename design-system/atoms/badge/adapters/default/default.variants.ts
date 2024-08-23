@@ -27,7 +27,7 @@ export const BadgeDefaultVariants = tv({
       },
     },
     isDeletable: {
-      true: "",
+      true: {},
     },
     color: {
       grey: {

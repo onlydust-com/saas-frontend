@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
+import { BadgeClosePort } from "@/design-system/atoms/badge-close";
 import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
@@ -28,8 +29,7 @@ export interface BadgeBasePort<C extends ElementType> extends Partial<Variants>,
   startContent?: ReactNode;
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
-  deletableIconProps?: Partial<IconPort>;
-  clickable?: boolean;
+  closeProps?: Partial<BadgeClosePort<"button">>;
 }
 
 export interface BadgeIconPort<C extends ElementType> extends BadgeBasePort<C> {
@@ -40,13 +40,4 @@ export interface BadgeAvatarPort<C extends ElementType> extends BadgeBasePort<C>
   avatar: AvatarPort;
 }
 
-export interface BadgeClosePort<C extends ElementType> extends BadgeBasePort<C> {
-  onClose: () => void;
-  isCloseItem: boolean;
-}
-
-export type BadgePort<C extends ElementType> =
-  | BadgeBasePort<C>
-  | BadgeIconPort<C>
-  | BadgeAvatarPort<C>
-  | BadgeClosePort<C>;
+export type BadgePort<C extends ElementType> = BadgeBasePort<C> | BadgeIconPort<C> | BadgeAvatarPort<C>;

@@ -14,5 +14,5 @@ export interface BadgeClosePort<C extends ElementType> extends Partial<Variants>
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  onClose: () => void;
+  onClose?: () => void;
 }
