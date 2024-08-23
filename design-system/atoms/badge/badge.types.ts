@@ -8,7 +8,7 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 interface Variants {
   size: "xxs" | "xs" | "sm" | "md";
-  colors: "grey" | "brand" | "error" | "warning" | "success";
+  color: "grey" | "brand" | "error" | "warning" | "success";
   shape: "rounded" | "squared";
   isDeletable: boolean;
 }

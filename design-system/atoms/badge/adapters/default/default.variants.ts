@@ -29,7 +29,7 @@ export const BadgeDefaultVariants = tv({
     isDeletable: {
       true: "",
     },
-    colors: {
+    color: {
       // TODO @Mehdi once config colors ready
       grey: {
         base: "",

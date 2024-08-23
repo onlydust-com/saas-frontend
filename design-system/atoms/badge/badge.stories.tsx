@@ -1,3 +1,6 @@
+import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
+import { Meta, StoryObj } from "@storybook/react";
+
 import { Meta, StoryObj } from "@storybook/react";
 
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
@@ -177,6 +180,90 @@ export const WithAvatar: Story = {
               </div>
             );
           })}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Badge color='grey' shape='rounded' />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full flex-col items-center gap-2">
+        {colors.map(c => {
+          return (
+            <div key={c} className="flex w-full items-center gap-2">
+              {shape.map(s => {
+                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} color={c} shape={s} />;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  },
+};
+
+export const Clickable: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Tag clickable={true} />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full flex-col items-center gap-2">
+        {colors.map(c => {
+          return (
+            <div key={c} className="flex w-full items-center gap-2">
+              {shape.map(s => {
+                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} clickable={true} color={c} shape={s} />;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  },
+};
+
+export const Skeleton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<TagLoading  />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full items-start gap-5">
+        <div className="flex flex-col gap-2">
+          <BadgeLoading size={"md"} />
+          <BadgeLoading size={"md"} shape={"squared"} />
+          <BadgeLoading size={"md"} />
+          <BadgeLoading size={"md"} shape={"squared"} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <BadgeLoading size={"sm"} />
+          <BadgeLoading size={"sm"} shape={"squared"} />
+          <BadgeLoading size={"sm"} />
+          <BadgeLoading size={"sm"} shape={"squared"} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <BadgeLoading size={"xs"} />
+          <BadgeLoading size={"xs"} shape={"squared"} />
+          <BadgeLoading size={"xs"} />
+          <BadgeLoading size={"xs"} shape={"squared"} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <BadgeLoading size={"xxs"} />
+          <BadgeLoading size={"xxs"} shape={"squared"} />
+          <BadgeLoading size={"xxs"} />
+          <BadgeLoading size={"xxs"} shape={"squared"} />
         </div>
       </div>
     );
