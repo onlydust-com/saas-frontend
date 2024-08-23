@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowRight, CornerRightUp } from "lucide-react";
 import { ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
@@ -12,20 +13,20 @@ export function getComponentsVariants(type: CardTransactionTypes): {
 } {
   const map: Record<CardTransactionTypes, { icon: IconPort }> = {
     GRANTED: {
-      icon: {
-        name: "arrow-right",
+      icon: ArrowRight,
+      iconProps: {
         className: "text-label-blue",
       },
     },
     RECEIVED: {
-      icon: {
-        name: "arrow-down",
+      icon: ArrowDown,
+      iconProps: {
         className: "text-label-green",
       },
     },
     RETURNED: {
-      icon: {
-        name: "corner-right-up",
+      icon: CornerRightUp,
+      iconProps: {
         className: "text-label-red",
       },
     },

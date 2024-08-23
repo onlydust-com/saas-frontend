@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { ArrowUp, Clock } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -26,15 +27,11 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
     { children: "Tag 1" },
     {
       children: "Tag 2",
-      icon: {
-        name: "clock",
-      },
+      icon: Clock,
     },
     {
       children: "Tag 3",
-      icon: {
-        name: "clock",
-      },
+      icon: Clock,
     },
   ],
 };
@@ -77,7 +74,7 @@ export const WithIcon: Story = {
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTemplate {...defaultProps} {...args} iconProps={{ name: "arrow-up", className: "text-label-red" }} />
+        <CardTemplate {...defaultProps} {...args} icon={ArrowUp} iconProps={{ className: "text-label-red" }} />
       </div>
     );
   },

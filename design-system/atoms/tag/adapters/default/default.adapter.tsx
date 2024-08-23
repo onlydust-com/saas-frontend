@@ -1,6 +1,6 @@
+import { ChevronDown, CircleX } from "lucide-react";
 import { ElementType } from "react";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -19,7 +19,6 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
   clickable,
   translate,
   labelProps = {},
-  deletableIconProps = {},
   hasDropdown,
   ...props
 }: TagPort<C>) {
@@ -43,25 +42,9 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
 
         {endContent}
 
-        {hasDropdown && (
-          <Icon
-            name="chevron-down"
-            size={16}
-            {...deletableIconProps}
-            classNames={{
-              base: cn(slots.dropDownIcon(), classNames?.dropDownIcon),
-            }}
-          />
-        )}
+        {hasDropdown && <ChevronDown size={16} className={cn(slots.dropDownIcon(), classNames?.dropDownIcon)} />}
 
-        {!!isDeletable && (
-          <Icon
-            name="circle-x"
-            size={16}
-            {...deletableIconProps}
-            classNames={{ base: cn(slots.deletableIcon(), classNames?.deletableIcon) }}
-          />
-        )}
+        {!!isDeletable && <CircleX size={16} className={cn(slots.deletableIcon(), classNames?.deletableIcon)} />}
       </div>
     </Component>
   );

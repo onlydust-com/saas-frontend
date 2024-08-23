@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -52,9 +53,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
         { children: typeName },
         {
           children: dateKernelPort.format(new Date(date), "dd.MM.yyyy"),
-          icon: {
-            name: "clock",
-          },
+          icon: Clock,
         },
       ]}
       endContent={

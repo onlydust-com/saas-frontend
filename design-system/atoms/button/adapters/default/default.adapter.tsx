@@ -56,21 +56,13 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
-        {!!StartIcon && (
-          <div className={cn(slots.startIcon(), classNames?.startIcon)}>
-            <StartIcon size={16} />
-          </div>
-        )}
+        {!!StartIcon && <StartIcon size={16} className={cn(slots.startIcon(), classNames?.startIcon)} />}
         {showChildren && (
           <Typo size={typoSize[size || "m"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
-        {!!EndIcon && (
-          <div className={cn(slots.endIcon(), classNames?.endIcon)}>
-            <EndIcon size={16} />
-          </div>
-        )}
+        {!!EndIcon && <EndIcon size={16} className={cn(slots.endIcon(), classNames?.endIcon)} />}
         {endContent}
       </div>
       {isLoading && (

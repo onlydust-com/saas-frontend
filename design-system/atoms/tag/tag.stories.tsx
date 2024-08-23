@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Flame, Square as SquareIcon } from "lucide-react";
 
 import { TagAvatar } from "@/design-system/atoms/tag/variants/tag-avatar";
 
@@ -7,8 +8,6 @@ import { TagAvatarPort, TagIconPort, TagPort } from "./tag.types";
 import { Tag } from "./variants/tag-default";
 import { TagIcon } from "./variants/tag-icon";
 
-import {Square} from "lucide-react"
-
 type Story = StoryObj<typeof Tag>;
 
 const defaultProps: TagPort<"div"> = {
@@ -16,13 +15,13 @@ const defaultProps: TagPort<"div"> = {
   classNames: {},
   htmlProps: {},
   isDeletable: true,
-  startContent: <Square size={16} />,
+  startContent: <SquareIcon size={16} />,
 };
 
 const defaultTagIconProps: TagIconPort<"div"> = {
   ...defaultProps,
   startContent: undefined,
-  icon: { name: "flame" },
+  icon: Flame,
 };
 
 const defaultTagAvatarProps: TagAvatarPort<"div"> = {
