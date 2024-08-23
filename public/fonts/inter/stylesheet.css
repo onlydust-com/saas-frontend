@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-Italic.woff2') format('woff2'),
         url('Inter24pt-Italic.woff') format('woff');
     font-weight: normal;
@@ -8,7 +8,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-BoldItalic.woff2') format('woff2'),
         url('Inter24pt-BoldItalic.woff') format('woff');
     font-weight: bold;
@@ -17,7 +17,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-Bold.woff2') format('woff2'),
         url('Inter24pt-Bold.woff') format('woff');
     font-weight: bold;
@@ -26,7 +26,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-SemiBoldItalic.woff2') format('woff2'),
         url('Inter24pt-SemiBoldItalic.woff') format('woff');
     font-weight: 600;
@@ -35,7 +35,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-Medium.woff2') format('woff2'),
         url('Inter24pt-Medium.woff') format('woff');
     font-weight: 500;
@@ -44,7 +44,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-SemiBold.woff2') format('woff2'),
         url('Inter24pt-SemiBold.woff') format('woff');
     font-weight: 600;
@@ -53,7 +53,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-MediumItalic.woff2') format('woff2'),
         url('Inter24pt-MediumItalic.woff') format('woff');
     font-weight: 500;
@@ -62,7 +62,7 @@
 }
 
 @font-face {
-    font-family: 'Inter 24pt';
+    font-family: 'Inter';
     src: url('Inter24pt-Regular.woff2') format('woff2'),
         url('Inter24pt-Regular.woff') format('woff');
     font-weight: normal;
