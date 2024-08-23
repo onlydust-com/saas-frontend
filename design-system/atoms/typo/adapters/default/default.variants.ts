@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const TypoDefaultVariants = tv({
   slots: {
-    base: "text-text-1",
+    base: "transition-colors",
   },
   variants: {
     size: {
@@ -17,7 +17,7 @@ export const TypoDefaultVariants = tv({
       primary: { base: "text-typography-primary" },
       "primary-on-brand": { base: "text-typography-primary-on-brand" },
       secondary: { base: "text-typography-secondary" },
-      "secondary-hover": { base: "text-typography-secondary-hove" },
+      "secondary-hover": { base: "text-typography-secondary-hover" },
       tertiary: { base: "text-typography-tertiary" },
       "tertiary-hover": { base: "text-typography-tertiary-hover" },
       quaternary: { base: "text-typography-quaternary" },
@@ -43,6 +43,9 @@ export const TypoDefaultVariants = tv({
     variant: {
       text: { base: "font-inter" },
       heading: { base: "font-clash" },
+    },
+    canHover: {
+      true: { base: "" },
     },
   },
   compoundVariants: [
@@ -125,6 +128,37 @@ export const TypoDefaultVariants = tv({
       size: "2xl",
       class: {
         base: "text-[4.5rem] leading-[5.625rem]",
+      },
+    },
+
+    // HOVER COLORS
+
+    {
+      color: "secondary",
+      canHover: true,
+      class: {
+        base: "hover:text-typography-secondary-hover",
+      },
+    },
+    {
+      color: "tertiary",
+      canHover: true,
+      class: {
+        base: "hover:text-typography-tertiary-hover",
+      },
+    },
+    {
+      color: "error",
+      canHover: true,
+      class: {
+        base: "hover:text-typography-error-hover",
+      },
+    },
+    {
+      color: "brand-secondary-alt",
+      canHover: true,
+      class: {
+        base: "hover:text-typography-brand-secondary-alt-hover",
       },
     },
   ],
