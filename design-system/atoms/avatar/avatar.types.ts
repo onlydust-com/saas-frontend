@@ -7,9 +7,14 @@ interface Variants {
 
 interface ClassNames {
   base: string;
-  img: string;
-  fallback: string;
+  image: string;
   name: string;
+  icon: string;
+}
+
+interface Icon {
+  src: string;
+  alt?: string;
 }
 
 export interface AvatarPort extends Partial<Variants> {
@@ -17,6 +22,7 @@ export interface AvatarPort extends Partial<Variants> {
   src?: string;
   alt?: string;
   name?: string;
-  showFallback?: boolean;
   fallback?: ReactNode;
+  icon?: Icon;
+  onlineIcon?: boolean;
 }

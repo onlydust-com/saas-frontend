@@ -3,17 +3,47 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import { AvatarDefaultVariants } from "@/design-system/atoms/avatar/adapters/default/default.variants";
-import { getAvatarImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
+import { getAvatarImageSize, getAvatarItemImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
 import { AvatarPort } from "../../avatar.types";
 
-export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...props }: AvatarPort) {
+function AvatarItem({ classNames, size, icon, onlineIcon }: AvatarPort) {
+  const slots = AvatarDefaultVariants({ size, onlineIcon });
+
+  const iconSize = getAvatarItemImageSize(size);
+  const iconSrc = getAvatarSrc(iconSize, icon?.src);
+
+  const onlineIconSize = getAvatarImageSize(size);
+
+  if (icon) {
+    return <img src={iconSrc} className={cn(slots.icon(), classNames?.icon)} alt={icon.alt} loading="lazy" />;
+  }
+
+  if (onlineIconSize) {
+    return <div className={cn(slots.icon(), classNames?.icon)} />;
+  }
+
+  return <div />;
+}
+
+export function AvatarDefaultAdapter({
+  classNames,
+  src,
+  alt,
+  name,
+  fallback,
+  icon,
+  onlineIcon,
+  size,
+  shape,
+}: AvatarPort) {
   const [isError, setIsError] = useState(false);
-  const { size, shape, container } = props;
-  const slots = AvatarDefaultVariants({ size, shape, container });
-  const imageSize = getAvatarImageSize(props.size);
+
+  const slots = AvatarDefaultVariants({ size, shape, name: !!name });
+
+  const imageSize = getAvatarImageSize(size);
   const imageSrc = getAvatarSrc(imageSize, src);
 
   const defaultFallback = (() => {
@@ -24,11 +54,11 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
     return (
       <Image
         src={onlydustLogoSpace}
-        width={40}
-        height={40}
+        className={cn(slots.image(), classNames?.image)}
+        width={imageSize[0]}
+        height={imageSize[1]}
         alt="OnlyDust"
         loading="lazy"
-        className="h-full w-full object-cover object-center"
       />
     );
   })();
@@ -45,7 +75,7 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
     return (
       <img
         src={imageSrc}
-        className={cn(slots.img(), classNames?.img)}
+        className={cn(slots.image(), classNames?.image)}
         alt={alt}
         loading="lazy"
         onError={() => {
@@ -56,5 +86,11 @@ export function AvatarDefaultAdapter({ classNames, src, alt, name, fallback, ...
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, imageSrc, classNames, alt, fallback]);
 
-  return <div className={cn(slots.base(), classNames?.base)}>{renderImage}</div>;
+  return (
+    <div className={cn(slots.base(), classNames?.base)}>
+      {renderImage}
+
+      <AvatarItem classNames={classNames} size={size} icon={icon} onlineIcon={onlineIcon} />
+    </div>
+  );
 }
