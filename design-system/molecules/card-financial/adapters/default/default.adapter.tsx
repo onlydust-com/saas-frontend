@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import { ElementType } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -65,7 +66,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
             classNames={{
               label: "leading-4",
             }}
-            startIcon={{ name: "ri-arrow-right-s-line" }}
+            startIcon={{ component: ChevronRight }}
             {...cta}
           />
         ) : null}

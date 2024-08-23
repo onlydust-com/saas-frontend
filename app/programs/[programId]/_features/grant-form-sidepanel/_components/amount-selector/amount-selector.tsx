@@ -1,4 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
+import { ChevronDown, X } from "lucide-react";
 import { ChangeEvent, useRef, useState } from "react";
 
 import { AmountSelectorProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector.types";
@@ -95,12 +96,7 @@ export function AmountSelector({
 
       <div>
         <div className={"flex w-full justify-center"}>
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            onClick={handleOpen}
-            endIcon={{ name: "ri-arrow-down-s-line" }}
-          >
+          <Button variant={"secondary-light"} size={"l"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
             <AvatarDescription
               avatarProps={{ src: budget.currency.logoUrl, alt: budget.currency.name, size: "s" }}
               labelProps={{
@@ -138,7 +134,7 @@ export function AmountSelector({
                     variant={"secondary-light"}
                     size={"l"}
                     hideText
-                    startIcon={{ name: "ri-close-line" }}
+                    startIcon={{ component: X }}
                     onClick={onClose}
                   />
                 </ModalHeader>

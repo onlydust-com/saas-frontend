@@ -1,3 +1,5 @@
+import { Calendar, ChartPie } from "lucide-react";
+
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -37,7 +39,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
       <div className="flex flex-row items-center justify-between gap-1">
         <div className="flex flex-row gap-1">
-          <Icon name={"ri-pie-chart-line"} />
+          <Icon component={ChartPie} />
           <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
         </div>
         <Dropdown
@@ -52,7 +54,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
           ]}
         >
           {({ label }) => (
-            <Button size={"s"} variant={"secondary-light"} startIcon={{ name: "ri-calendar-line" }}>
+            <Button size={"s"} variant={"secondary-light"} startIcon={{ component: Calendar }}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}

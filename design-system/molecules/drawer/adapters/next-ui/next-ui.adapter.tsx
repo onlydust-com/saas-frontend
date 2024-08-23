@@ -1,4 +1,5 @@
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { X } from "lucide-react";
 import { ElementType, useMemo } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -75,7 +76,7 @@ export function DrawerNextUiAdapter<C extends ElementType = "div">({
                     {header?.endContent ? <div>{header.endContent}</div> : null}
                     <Button
                       onClick={onClose}
-                      startIcon={{ name: "ri-close-line" }}
+                      startIcon={{ component: X }}
                       hideText
                       variant="secondary-light"
                       size={"l"}

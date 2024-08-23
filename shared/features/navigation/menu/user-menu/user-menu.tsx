@@ -1,3 +1,5 @@
+import { LogIn } from "lucide-react";
+
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -36,7 +38,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           {isFolded && (
             <Button
               variant={"secondary-light"}
-              startIcon={{ name: "ri-login-box-line" }}
+              startIcon={{ component: LogIn }}
               hideText={true}
               size={"l"}
               onClick={handleLogout}
@@ -57,7 +59,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
       </div>
       <Button
         variant={"secondary-light"}
-        startIcon={{ name: "ri-login-box-line" }}
+        startIcon={{ component: LogIn }}
         hideText={true}
         size={"l"}
         onClick={handleLogout}

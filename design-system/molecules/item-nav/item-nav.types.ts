@@ -17,7 +17,7 @@ export interface ItemNavPort extends PropsWithChildren {
   linkProps?: _BaseLinkProps;
   classNames?: Partial<ClassNames>;
   labelProps?: Partial<TypoPort<"span">>;
-  icon: IconPort;
+  iconProps: IconPort;
   translate?: TranslateProps;
   isDisabled?: boolean;
   isFolded?: boolean;

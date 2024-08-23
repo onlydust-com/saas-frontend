@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import { Fragment } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -42,7 +43,7 @@ function Breadcrumbs({ items }: { items: Item[] }) {
     return (
       <Fragment key={item.id}>
         <Segment {...item} />
-        <Icon name={"ri-arrow-right-s-line"} />
+        <Icon component={ChevronRight} />
       </Fragment>
     );
   });

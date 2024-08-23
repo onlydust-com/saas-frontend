@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -21,7 +22,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   buttonProps,
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
-  const { icon, typeName } = getComponentsVariants(type);
+  const { iconProps, typeName } = getComponentsVariants(type);
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -47,14 +48,12 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
       descriptionProps={{
         children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
-      iconProps={icon}
+      iconProps={iconProps}
       tags={[
         { children: typeName },
         {
           children: dateKernelPort.format(new Date(date), "dd.MM.yyyy"),
-          icon: {
-            name: "ri-time-line",
-          },
+          icon: { component: Clock },
         },
       ]}
       endContent={

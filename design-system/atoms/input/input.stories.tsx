@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { InputLoading } from "@/design-system/atoms/input/input.loading";
@@ -9,8 +10,8 @@ import { Input } from "./variants/input-default";
 type Story = StoryObj<typeof Input>;
 
 const defaultProps: InputPort = {
-  startContent: <Icon name="ri-square-line" classNames={{ base: "text-inherit" }} />,
-  endContent: <Icon name="ri-square-line" classNames={{ base: "text-inherit" }} />,
+  startContent: <Icon component={Square} />,
+  endContent: <Icon component={Square} />,
   value: "Input text",
 };
 

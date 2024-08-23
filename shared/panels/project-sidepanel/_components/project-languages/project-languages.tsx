@@ -1,3 +1,5 @@
+import { Code } from "lucide-react";
+
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
@@ -12,7 +14,7 @@ export function ProjectLanguages({ languages }: ProjectLanguagesProps) {
   return (
     <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-2 flex-1 overflow-hidden" }}>
       <div className="flex flex-row gap-1">
-        <Icon name={"ri-code-line"} />
+        <Icon component={Code} />
         <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.language.title" }} />
       </div>
       <LanguageGroup languages={languages} maxLanguages={1} />
