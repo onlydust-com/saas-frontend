@@ -14,12 +14,6 @@ const meta: Meta<typeof Paper> = {
   component: Paper,
   title: "Atoms/Paper",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#fff" }],
-    },
-  },
 };
 
 export const Default: Story = {

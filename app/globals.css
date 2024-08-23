@@ -222,15 +222,15 @@
 
 
     /*********** EFFECT ***************/
-    --effects-blur-xs: 2;
-    --effects-blur-sm_1: 3;
-    --effects-blur-sm_2: 2;
-    --effects-blur-md_1: 8;
-    --effects-blur-md_2: 4;
-    --effects-blur-lg_1: 16;
-    --effects-blur-lg_2: 6;
-    --effects-blur-xl_1: 24;
-    --effects-blur-xl_2: 8;
+    --effects-blur-xs: 2px;
+    --effects-blur-sm_1: 3px;
+    --effects-blur-sm_2: 2px;
+    --effects-blur-md_1: 8px;
+    --effects-blur-md_2: 4px;
+    --effects-blur-lg_1: 16px;
+    --effects-blur-lg_2: 6px;
+    --effects-blur-xl_1: 24px;
+    --effects-blur-xl_2: 8px;
   }
 
   :root.light {
