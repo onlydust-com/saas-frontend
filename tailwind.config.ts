@@ -4,12 +4,14 @@ import scrollbar from "tailwind-scrollbar";
 import { withTV } from "tailwind-variants/transformer";
 import type { Config } from "tailwindcss";
 
-import GradientsPreset from "@/shared/theme/tailwind/gradients-preset";
-
 import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
+import GradientsPreset from "./shared/theme/tailwind/gradients-preset";
+import { RadiusSet } from "./shared/theme/tailwind/radius-preset";
 import RingsPreset from "./shared/theme/tailwind/rings-preset";
 import ShadowPreset from "./shared/theme/tailwind/shadow-preset";
+import SizePreset from "./shared/theme/tailwind/size-preset";
+import SpacingPreset from "./shared/theme/tailwind/spacing-preset";
 
 const config: Config = withTV({
   content: [
@@ -19,7 +21,7 @@ const config: Config = withTV({
     "./.storybook/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  presets: [ShadowPreset, RingsPreset, GradientsPreset],
+  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusSet],
   theme: {
     extend: {
       fontFamily: {
