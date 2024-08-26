@@ -19,7 +19,7 @@ export const AvatarGroupDefaultVariants = tv({
     },
     outsideBorder: {
       true: {
-        image: "outline-components-avatar-avatargroup-separator-border outline outline-2",
+        image: "outline outline-2 outline-components-avatar-avatargroup-separator-border",
       },
     },
   },

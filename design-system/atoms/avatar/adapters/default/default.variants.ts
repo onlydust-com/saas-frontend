@@ -2,10 +2,10 @@ import { tv } from "tailwind-variants";
 
 export const AvatarDefaultVariants = tv({
   slots: {
-    base: "bg-components-avatar-bg relative flex items-center justify-center border",
+    base: "relative flex items-center justify-center border bg-components-avatar-bg",
     image: "h-full w-full object-cover object-center",
-    name: "text-components-avatar-typo font-medium",
-    icon: "outline-background-primary-alt absolute -bottom-0.5 -right-0.5 rounded-full outline",
+    name: "font-medium text-components-avatar-typo",
+    icon: "absolute -bottom-0.5 -right-0.5 rounded-full outline outline-background-primary-alt",
   },
   variants: {
     size: {
@@ -62,7 +62,7 @@ export const AvatarDefaultVariants = tv({
         icon: "bg-foreground-success",
       },
       false: {
-        icon: "bg-components-avatar-bg border-components-avatar-contrast-border",
+        icon: "border-components-avatar-contrast-border bg-components-avatar-bg",
       },
     },
   },
