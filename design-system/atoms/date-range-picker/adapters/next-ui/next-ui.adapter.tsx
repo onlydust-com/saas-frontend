@@ -15,6 +15,10 @@ import { DateRangePickerNextUiVariants } from "./next-ui.variants";
 
 const DEFAULT_TZ = "Europe/Paris";
 
+// TODO: fix size cell
+// TODO: check for header with 2 letters
+// TODO: check to add an extra line
+// TODO: do input design
 export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
   { classNames, isError, isDisabled, value, onChange, label, minValue, maxValue }: DateRangePickerPort,
   ref: ForwardedRef<HTMLDivElement>
@@ -59,21 +63,20 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
           base: "rounded-lg bg-background-primary",
           headerWrapper: "bg-background-primary px-3 pt-3 pb-2",
           prevButton:
-            "text-components-buttons-button-tertiary-fg bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover",
+            "h-6 w-6 min-w-6 text-components-buttons-button-tertiary-fg rounded-md bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[focus-visible=true]:effect-ring-brand-spaced data-[disabled=true]:text-foreground-disabled !outline-none",
           nextButton:
-            "text-components-buttons-button-tertiary-fg bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover",
-          title: "text-text-1 text-sm font-medium",
-          gridHeader: "bg-container-1",
-          gridHeaderRow: "px-3 pb-2",
-          gridHeaderCell: "text-text-1 text-xs font-medium w-12 px-1",
-          gridBody: "px-3",
+            "h-6 w-6 min-w-6 text-components-buttons-button-tertiary-fg rounded-md bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[focus-visible=true]:effect-ring-brand-spaced data-[disabled=true]:text-foreground-disabled !outline-none",
+          title: "text-typography-primary font-medium text-[1rem] leading-[1.5rem]",
+          gridHeader: "bg-background-primary",
+          gridHeaderRow: "px-3 pb-1",
+          gridHeaderCell: "text-typography-primary font-medium text-[0.75rem] leading-[1rem] flex-1 px-1",
+          gridBody: "bg-background-primary px-2",
           gridBodyRow: "first:mt-0",
           cell: "py-1 px-1",
           cellButton:
-            "h-10 w-10 text-text-1 data-[disabled=true]:text-text-3 data-[unavailable=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:before:bg-interactions-white-disabled data-[selected=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-text-1 data-[range-start=true]:before:rounded-full data-[selection-start=true]:before:rounded-full data-[range-end=true]:before:rounded-full data-[selection-end=true]:before:rounded-full before:rounded-full",
+            "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:data-[range-selection=true]:before:bg-background-brand-primary-alt data-[selected=true]:data-[range-selection=true]:text-typography-brand-primary data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:font-bold data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:font-bold before:!rounded-full",
         },
       }}
-      className="bg-components-buttons-button-tertiary-bg"
       calendarWidth={352}
       label={label}
       variant="bordered"
