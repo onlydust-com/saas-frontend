@@ -114,7 +114,7 @@ export const Squared: Story = {
 export const WithIcon: Story = {
   parameters: {
     docs: {
-      source: { code: "<BadgeIcon icon={{ remixName: 'ri-fire-line' }} />" },
+      source: { code: "<BadgeIcon icon={{ component: Flame }} />" },
     },
   },
   render: args => {
@@ -171,35 +171,6 @@ export const WithAvatar: Story = {
   },
 };
 
-export const Close: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<BadgeClose onClose={() => {}} isDeletable />" },
-    },
-  },
-  render: args => {
-    return (
-      <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-2">
-          {shape.map(d => {
-            return (
-              <div key={d} className="flex w-full items-start gap-2">
-                {sizes.map(s => {
-                  return (
-                    <div key={s} className="flex flex-col items-start gap-2">
-                      <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} isDeletable />
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  },
-};
-
 export const Colors: Story = {
   parameters: {
     docs: {
@@ -234,9 +205,19 @@ export const Deletable: Story = {
       <div className="flex w-full flex-col items-center gap-2">
         {colors.map(c => {
           return (
-            <div key={c} className="flex w-full items-center gap-2">
-              {shape.map(s => {
-                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} isDeletable color={c} shape={s} />;
+            <div key={c} className="flex w-full items-start gap-2">
+              {shape.map(d => {
+                return (
+                  <div key={d} className="flex w-full items-start gap-2">
+                    {sizes.map(s => {
+                      return (
+                        <div key={s} className="flex flex-col items-start gap-2">
+                          <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} color={c} isDeletable />
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
               })}
             </div>
           );
