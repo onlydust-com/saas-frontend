@@ -10,7 +10,7 @@ export const DateRangePickerNextUiVariants = tv({
     input: "flex items-center text-[0.875rem] leading-[1.25rem] text-typography-secondary",
     label: "text-[0.875rem] font-medium leading-[1.25rem] !text-typography-secondary",
     segment:
-      "my-0 text-typography-placeholder data-[editable=true]:data-[placeholder=true]:text-typography-placeholder data-[editable=true]:text-typography-secondary data-[invalid=true]:data-[editable=true]:text-typography-secondary data-[invalid=true]:text-typography-secondary focus:!bg-components-buttons-button-tertiary-bg-hover data-[editable=true]:focus:text-typography-secondary data-[invalid=true]:data-[editable=true]:focus:text-typography-secondary",
+      "my-0 text-typography-placeholder data-[editable=true]:data-[placeholder=true]:text-typography-placeholder data-[editable=true]:text-typography-secondary data-[invalid=true]:data-[editable=true]:text-typography-secondary data-[invalid=true]:text-typography-secondary focus:!bg-components-buttons-button-tertiary-bg-hover focus:effect-shadow-xs data-[editable=true]:focus:text-typography-secondary data-[invalid=true]:data-[editable=true]:focus:text-typography-secondary",
     separator: "text-typography-placeholder",
     selectorButton:
       "h-6 w-6 min-w-6 rounded-md bg-components-buttons-button-tertiary-bg text-components-buttons-button-tertiary-fg !outline-none data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[disabled=true]:text-foreground-disabled data-[focus-visible=true]:effect-ring-brand-spaced",
