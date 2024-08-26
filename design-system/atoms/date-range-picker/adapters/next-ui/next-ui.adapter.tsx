@@ -56,10 +56,12 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       }}
       calendarProps={{
         classNames: {
-          base: "rounded-xl bg-container-1",
-          headerWrapper: "bg-container-1 px-3 pt-3 pb-2",
-          prevButton: "text-text-1 data-[hover=true]:bg-white/20",
-          nextButton: "text-text-1 data-[hover=true]:bg-white/20",
+          base: "rounded-lg bg-background-primary",
+          headerWrapper: "bg-background-primary px-3 pt-3 pb-2",
+          prevButton:
+            "text-components-buttons-button-tertiary-fg bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover",
+          nextButton:
+            "text-components-buttons-button-tertiary-fg bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover",
           title: "text-text-1 text-sm font-medium",
           gridHeader: "bg-container-1",
           gridHeaderRow: "px-3 pb-2",
@@ -71,6 +73,7 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
             "h-10 w-10 text-text-1 data-[disabled=true]:text-text-3 data-[unavailable=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:before:bg-interactions-white-disabled data-[selected=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-text-1 data-[range-start=true]:before:rounded-full data-[selection-start=true]:before:rounded-full data-[range-end=true]:before:rounded-full data-[selection-end=true]:before:rounded-full before:rounded-full",
         },
       }}
+      className="bg-components-buttons-button-tertiary-bg"
       calendarWidth={352}
       label={label}
       variant="bordered"
