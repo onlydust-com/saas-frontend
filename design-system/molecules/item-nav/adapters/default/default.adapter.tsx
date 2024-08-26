@@ -26,7 +26,7 @@ function Content({
   return (
     <div className={"flex w-full items-center justify-start gap-2 overflow-hidden"}>
       <div className={"flex min-h-6 min-w-6 items-center justify-center"}>
-        <Icon {...iconProps} size={18} />
+        <Icon {...iconProps} size={"sm"} />
       </div>
       <div className="flex flex-1 justify-start">
         <Typo
