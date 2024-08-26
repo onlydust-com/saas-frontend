@@ -1,43 +1,26 @@
 import { ReactNode } from "react";
 
 interface Variants {
-  size: "xs" | "s" | "m" | "ml" | "l" | "xl" | "xxl";
-  shape: "round" | "square";
-  container: "light" | "brand";
+  size: "xxs" | "xs" | "s" | "md" | "lg" | "xl" | "2xl" | "3xl";
+  shape: "rounded" | "squared";
 }
 
 interface ClassNames {
   base: string;
-  img: string;
-  fallback: string;
+  image: string;
   name: string;
+  icon: string;
 }
 
-export interface AvatarPort extends Partial<Variants> {
-  /**
-   * Classname to change the classNames of the element. if className is passed, it will be added to the base slot.
-   * @default undefined
-   */
-  classNames?: Partial<ClassNames>;
-  /**
-   * the source of the image
-   * @default undefined
-   */
+interface AvatarImage {
   src?: string;
   alt?: string;
-  /**
-   * The name of the person in the avatar. - if src has loaded, the name will be used as the alt attribute of the img
-   * @default undefined
-   */
-  name?: string;
-  /**
-   * If false, the avatar will show the background color while loading.
-   * @default true
-   */
-  showFallback?: boolean;
-  /**
-   * Custom fallback component.
-   * @default undefined
-   */
   fallback?: ReactNode;
+}
+
+export interface AvatarPort extends AvatarImage, Partial<Variants> {
+  classNames?: Partial<ClassNames>;
+  name?: string;
+  icon?: AvatarImage;
+  onlineIcon?: boolean;
 }
