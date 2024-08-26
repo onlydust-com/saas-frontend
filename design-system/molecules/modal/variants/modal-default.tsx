@@ -24,7 +24,7 @@ export function Modal<C extends ElementType = "div">({ titleProps, closeButtonPr
       ...titleProps,
     },
     closeButtonProps: {
-      variant: "secondary-light",
+      variant: "secondary",
       size: "l",
       ...closeButtonProps,
     },

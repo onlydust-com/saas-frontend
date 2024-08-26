@@ -19,7 +19,7 @@ function handleToast({ children, variants, iconContent }: ToastProps) {
       <div className={slots.messageWrapper()}>
         {iconContent}
 
-        <Typo size={"s"}>{children}</Typo>
+        <Typo size={"sm"}>{children}</Typo>
       </div>
 
       <button type={"button"} onClick={() => toast.dismiss(t)} className={slots.closeButton()}>

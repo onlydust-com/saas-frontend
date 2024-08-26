@@ -21,8 +21,8 @@ export function TransactionsSidepanel() {
         title={{ token: "programs:transactionPanel.transactions.title" }}
         endContent={
           <Button
-            variant="secondary-light"
-            size="l"
+            variant="secondary"
+            size="md"
             onClick={() => open()}
             translate={{
               token: "programs:transactionPanel.transactions.export",

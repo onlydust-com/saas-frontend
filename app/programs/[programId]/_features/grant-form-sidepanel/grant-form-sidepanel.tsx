@@ -172,11 +172,10 @@ export function GrantFormSidepanel() {
 
       <SidePanelFooter>
         <Button
-          size={"l"}
+          size={"md"}
           classNames={{ base: "w-full" }}
           onClick={handleGrantProject}
-          isLoading={isPending}
-          isDisabled={!amount}
+          isDisabled={isPending || !amount}
         >
           <Translate token={"programs:grantForm.submit"} />
         </Button>

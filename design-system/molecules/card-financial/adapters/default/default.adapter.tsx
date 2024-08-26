@@ -62,7 +62,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
         {cta ? (
           <Button
             size={isSizeM ? "s" : "l"}
-            variant="secondary-light"
+            variant="secondary"
             classNames={{
               label: "leading-4",
             }}

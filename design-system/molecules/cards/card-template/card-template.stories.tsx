@@ -100,7 +100,7 @@ export const WithEndContent: Story = {
           {...defaultProps}
           {...args}
           endContent={
-            <Button variant="secondary-light" size="l">
+            <Button variant="secondary" size="lg">
               Click me
             </Button>
           }

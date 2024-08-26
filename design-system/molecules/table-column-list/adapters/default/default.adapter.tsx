@@ -41,7 +41,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
               {items.map(item => (
                 <CheckboxButton
                   key={item.id}
-                  variant={"secondary-light"}
+                  variant={"secondary"}
                   value={item.value}
                   onChange={value => onChange(item.id, value)}
                 >

@@ -7,7 +7,7 @@ export function getComponentsVariants(variant: ComponentProps<typeof Button>["va
   checkboxColor: ComponentProps<typeof Checkbox>["color"];
 } {
   const map = {
-    "secondary-light": {
+    secondary: {
       checkboxColor: "white",
     },
     "secondary-dark": {
@@ -21,5 +21,5 @@ export function getComponentsVariants(variant: ComponentProps<typeof Button>["va
     },
   } as const;
 
-  return map[variant || "secondary-light"];
+  return map[variant || "secondary"];
 }

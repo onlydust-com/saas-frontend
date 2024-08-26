@@ -45,7 +45,7 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
               <Typo size="xs" color="text-2" translate={{ token: "table:tableSort.direction.title" }} />
               {/*// TODO BUTTON*/}
               <RadioButtonGroup
-                variant={"secondary-light"}
+                variant={"secondary"}
                 value={direction}
                 items={[
                   {

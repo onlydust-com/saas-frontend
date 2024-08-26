@@ -89,10 +89,10 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
       <SidePanelHeader
         startContent={
           <Button
-            variant={"secondary-light"}
+            variant={"secondary"}
             startContent={<Avatar shape={"square"} size={"xs"} src={data.logoUrl} alt={data.name} />}
             endContent={<Icon component={SquareArrowOutUpRight} />}
-            size={"l"}
+            size={"md"}
             as={"a"}
             htmlProps={{
               href: marketplaceRouting(`/p/${data.slug}`),
@@ -131,13 +131,13 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
       {onGrantClick && (
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"l"} onClick={() => onGrantClick(data.id)}>
+            <Button size={"md"} onClick={() => onGrantClick(data.id)}>
               <Translate token={"panels:projectDetail.grant"} />
             </Button>
             <Button
-              variant={"secondary-light"}
+              variant={"secondary"}
               endContent={<SquareArrowOutUpRight size={16} />}
-              size={"l"}
+              size={"md"}
               as={"a"}
               htmlProps={{
                 href: marketplaceRouting(`/p/${data.slug}`),

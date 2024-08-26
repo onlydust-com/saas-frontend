@@ -37,14 +37,8 @@ export function PrimaryNavigationMobile() {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
-          <Button variant={"secondary-light"} size={"l"} startIcon={{ component: Bell }} hideText />
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ component: Menu }}
-            hideText
-            onClick={handleOpen}
-          />
+          <Button variant={"secondary"} size={"md"} startIcon={{ component: Bell }} iconOnly />
+          <Button variant={"secondary"} size={"md"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
       </Paper>
       <Modal
@@ -57,13 +51,7 @@ export function PrimaryNavigationMobile() {
         <div className={"flex w-full flex-col gap-3"}>
           <div className={"flex w-full flex-row gap-1"}>
             <UserMenu />
-            <Button
-              variant={"secondary-light"}
-              size={"l"}
-              startIcon={{ component: X }}
-              hideText
-              onClick={handleClose}
-            />
+            <Button variant={"secondary"} size={"md"} startIcon={{ component: X }} iconOnly onClick={handleClose} />
           </div>
           <Paper size={"s"} classNames={{ base: "flex w-full flex-col gap-3" }} container={"transparent"}>
             <PrimaryMenu />

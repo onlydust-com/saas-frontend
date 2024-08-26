@@ -37,7 +37,7 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
               <Button onClick={onClear} size="sm" translate={{ token: "table:tableGroupBy.clear" }} />
             </div>
             {/*// TODO BUTTON*/}
-            <RadioButtonGroup variant={"secondary-light"} value={value} items={items} onChange={onChange} />
+            <RadioButtonGroup variant={"secondary"} value={value} items={items} onChange={onChange} />
           </div>
         )}
       </Popover.Content>

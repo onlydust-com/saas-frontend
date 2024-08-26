@@ -1,16 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { BoxSelect, CircleDashed } from "lucide-react";
 
+import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
 import { Icon } from "@/design-system/atoms/icon";
 
-import {
-  ButtonDefaultPort,
-  ButtonPort,
-  ButtonSize,
-  ButtonTextSize,
-  ButtonTextVariant,
-  ButtonVariant,
-} from "./button.types";
+import { ButtonDefaultPort, ButtonPort, ButtonSize, ButtonTextVariant, ButtonVariant } from "./button.types";
 import { Button } from "./variants/button-default";
 
 type Story = StoryObj<typeof Button>;
@@ -33,7 +27,6 @@ const FIGMA_URL = "https://www.figma.com/design/J3hcQznLabA7oR9zTBOZs2/Design-Sy
 const sizes: ButtonSize[] = ["xs", "sm", "md", "lg"];
 const variants: ButtonVariant[] = ["primary", "secondary", "tertiary"];
 
-const sizesText: ButtonTextSize[] = ["sm", "md", "lg"];
 const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
 const underlineVariant: [false, true] = [false, true];
 
@@ -88,7 +81,7 @@ const ButtonsTextDoc = (_: Pick<ButtonDefaultPort<"button">, "theme">) => (
     {variantsText.map(variant =>
       underlineVariant.map(underline => (
         <div key={`${variant}-${underline}`} className="flex w-full items-start gap-5">
-          {sizesText.map(size => (
+          {sizes.map(size => (
             <div className="flex flex-col gap-3" key={size}>
               <div className="flex w-full justify-between gap-3">
                 <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} />
@@ -216,6 +209,36 @@ export const TextButton: Story = {
   },
   render: () => {
     return <ButtonsTextDoc theme={"destructive"} />;
+  },
+};
+
+export const Skeleton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<ButtonLoading  />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full items-start gap-5">
+        <div className="flex flex-col gap-2">
+          <ButtonLoading size={"lg"} />
+          <ButtonLoading size={"lg"} iconOnly />
+        </div>
+        <div className="flex flex-col gap-2">
+          <ButtonLoading size={"md"} />
+          <ButtonLoading size={"md"} iconOnly />
+        </div>
+        <div className="flex flex-col gap-2">
+          <ButtonLoading size={"sm"} />
+          <ButtonLoading size={"sm"} iconOnly />
+        </div>
+        <div className="flex flex-col gap-2">
+          <ButtonLoading size={"xs"} />
+          <ButtonLoading size={"xs"} iconOnly />
+        </div>
+      </div>
+    );
   },
 };
 

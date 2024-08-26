@@ -264,11 +264,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary-light"} onClick={() => handleOpenProjectGrant(project.id)}>
+            <Button variant={"secondary"} onClick={() => handleOpenProjectGrant(project.id)}>
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
-            <Button variant={"secondary-light"} onClick={() => handleOpenProjectDetail(project.id)}>
+            <Button variant={"secondary"} onClick={() => handleOpenProjectDetail(project.id)}>
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
             </Button>
           </div>

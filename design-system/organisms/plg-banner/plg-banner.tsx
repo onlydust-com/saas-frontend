@@ -21,7 +21,7 @@ function Cta({ cta }: { cta: PlgBannerProps["cta"] }) {
         rel: cta.isExternal ? "noopener noreferrer" : undefined,
       }}
       startContent={startIcon}
-      variant={"secondary-light"}
+      variant={"secondary"}
     >
       {cta.text}
     </Button>
@@ -32,7 +32,7 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
   return (
     <div
       className={
-        "relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-container-stroke-separator p-6"
+        "border-container-stroke-separator relative flex h-full w-full flex-col overflow-hidden rounded-xl border p-6"
       }
     >
       <Image

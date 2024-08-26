@@ -15,7 +15,7 @@ const defaultProps: DrawerPort<"div"> = {
   children: "DRAWER CONTENT",
 
   header: {
-    startContent: <Typo size={"l"}>Header</Typo>,
+    startContent: <Typo size={"lg"}>Header</Typo>,
     endContent: <Icon component={Square} />,
   },
   footer: {

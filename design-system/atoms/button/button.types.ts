@@ -7,7 +7,6 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
 export type ButtonVariant = "primary" | "secondary" | "tertiary";
 export type ButtonTextVariant = "primary" | "secondary";
-export type ButtonTextSize = "sm" | "md" | "lg";
 
 interface Variants {
   size: ButtonSize;
@@ -47,7 +46,7 @@ export type ButtonBaseDefaultPort<C extends ElementType> = ButtonPort<C> & {
 export interface ButtonTextPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
   isTextButton: true;
   underline: boolean;
-  size?: ButtonTextSize;
+  size?: ButtonSize;
   variant?: ButtonTextVariant;
 }
 

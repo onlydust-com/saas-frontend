@@ -12,7 +12,7 @@ export function ShowMore({ onNext, loading, skip = false }: ShowMoreProps) {
 
   return (
     <InView className={"flex justify-center"} onChange={handleEnterView} skip={skip}>
-      <Button variant={"secondary-light"} onClick={onNext} isLoading={loading}>
+      <Button variant={"secondary"} onClick={onNext} isLoading={loading}>
         <Translate token={"common:showMore"} />
       </Button>
     </InView>

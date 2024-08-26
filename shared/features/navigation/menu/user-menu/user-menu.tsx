@@ -37,10 +37,10 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           />
           {isFolded && (
             <Button
-              variant={"secondary-light"}
+              variant={"secondary"}
               startIcon={{ component: LogIn }}
-              hideText={true}
-              size={"l"}
+              iconOnly={true}
+              size={"lg"}
               onClick={handleLogout}
               classNames={{
                 base: "absolute top-0 left-0 transition-all opacity-0 group-hover/user:opacity-100 w-full",
@@ -49,19 +49,19 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           )}
         </div>
         <div className="flex w-[100px] flex-1 flex-col overflow-hidden">
-          <Typo size={"m"} weight={"medium"} classNames={{ base: "truncate" }}>
+          <Typo size={"md"} weight={"medium"} classNames={{ base: "truncate" }}>
             {login}
           </Typo>
-          <Typo size={"xxs"} color={"text-2"} classNames={{ base: "truncate" }}>
+          <Typo size={"xs"} color={"secondary"} classNames={{ base: "truncate" }}>
             {email}
           </Typo>
         </div>
       </div>
       <Button
-        variant={"secondary-light"}
+        variant={"secondary"}
         startIcon={{ component: LogIn }}
-        hideText={true}
-        size={"l"}
+        iconOnly={true}
+        size={"md"}
         onClick={handleLogout}
       />
     </div>
