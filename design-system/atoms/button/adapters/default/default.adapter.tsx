@@ -39,7 +39,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   const typoSize: Record<NonNullable<typeof size>, ComponentProps<typeof Typo>["size"]> = {
     xs: "xs",
     sm: "sm",
-    md: "md",
+    md: "sm",
     lg: "md",
   };
 
