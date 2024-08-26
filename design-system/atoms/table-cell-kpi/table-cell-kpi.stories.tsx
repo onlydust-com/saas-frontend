@@ -12,7 +12,7 @@ const defaultProps: TableCellKpiPort = {
 
 const meta: Meta<typeof TableCellKpi> = {
   component: TableCellKpi,
-  title: "Atoms/TableCellKpi",
+  title: "Deprecated/Atoms/TableCellKpi",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

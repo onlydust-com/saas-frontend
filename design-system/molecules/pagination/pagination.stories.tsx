@@ -9,7 +9,7 @@ const defaultProps: PaginationPort<"div"> = {};
 
 const meta: Meta<typeof Pagination> = {
   component: Pagination,
-  title: "Molecules/Pagination",
+  title: "Deprecated/Molecules/Pagination",
   tags: ["autodocs"],
 };
 

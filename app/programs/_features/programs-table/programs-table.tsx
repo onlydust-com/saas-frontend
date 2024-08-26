@@ -176,7 +176,7 @@ export function ProgramsTable() {
         <Button
           as={BaseLink}
           htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
-          variant={"secondary-light"}
+          variant={"secondary"}
         >
           <Translate token={"programs:list.content.table.rows.seeProgram"} />
         </Button>

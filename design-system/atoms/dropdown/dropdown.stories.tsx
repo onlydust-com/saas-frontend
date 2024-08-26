@@ -33,7 +33,7 @@ const defaultProps: DropdownPort = {
 
 const meta: Meta<typeof Dropdown> = {
   component: Dropdown,
-  title: "Atoms/Dropdown",
+  title: "Deprecated/Atoms/Dropdown",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

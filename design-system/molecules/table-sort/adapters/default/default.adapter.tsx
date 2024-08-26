@@ -2,7 +2,7 @@ import { ArrowDownWideNarrow, ArrowUpNarrowWide } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -29,7 +29,8 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableSort.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={sortIcons[direction]} />
+              {/*// TODO BUTTON*/}
+              <Button size="lg" hideText startIcon={sortIcons[direction]} />
             </Tooltip>
           </div>
         )}
@@ -42,9 +43,9 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
 
             <div className="grid gap-2">
               <Typo size="xs" color="text-2" translate={{ token: "table:tableSort.direction.title" }} />
-
+              {/*// TODO BUTTON*/}
               <RadioButtonGroup
-                variant={"secondary-light"}
+                variant={"secondary"}
                 value={direction}
                 items={[
                   {

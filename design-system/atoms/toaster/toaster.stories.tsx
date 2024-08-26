@@ -8,7 +8,7 @@ type Story = StoryObj<typeof Toaster>;
 
 const meta: Meta<typeof Toaster> = {
   component: Toaster,
-  title: "Atoms/Toaster",
+  title: "Deprecated/Atoms/Toaster",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

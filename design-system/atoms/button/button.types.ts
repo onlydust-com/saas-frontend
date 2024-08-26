@@ -4,11 +4,16 @@ import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+export type ButtonSize = "xs" | "sm" | "md" | "lg";
+export type ButtonVariant = "primary" | "secondary" | "tertiary";
+export type ButtonTextSize = "xs" | "md" | "lg";
+export type ButtonTextVariant = "primary" | "secondary";
+
 interface Variants {
-  size: "s" | "m" | "l" | "xl";
-  isLoading: boolean;
+  size: ButtonSize;
+  variant?: ButtonVariant;
   isDisabled: boolean;
-  hideText: boolean;
+  iconOnly: boolean;
 }
 
 interface ClassNames {
@@ -35,6 +40,15 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   canInteract?: boolean;
 }
 
-export type ButtonDefaultPort<C extends ElementType> = ButtonPort<C> & {
-  variant?: "primary" | "danger" | "secondary-light" | "secondary-dark";
+export type ButtonBaseDefaultPort<C extends ElementType> = ButtonPort<C> & {
+  theme?: "primary" | "destructive";
 };
+
+export interface ButtonTextPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
+  isTextButton: true;
+  underline: boolean;
+  size?: ButtonTextSize;
+  variant?: ButtonTextVariant;
+}
+
+export type ButtonDefaultPort<C extends ElementType> = ButtonBaseDefaultPort<C> | ButtonTextPort<C>;

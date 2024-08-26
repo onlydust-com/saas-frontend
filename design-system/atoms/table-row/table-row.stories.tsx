@@ -71,7 +71,7 @@ const columns = [
 
 const meta: Meta<typeof TableRow> = {
   component: TableRow,
-  title: "Atoms/TableRow",
+  title: "Deprecated/Atoms/TableRow",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

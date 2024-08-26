@@ -39,14 +39,14 @@ export function FinancialSection() {
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
           <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
             <Button
-              variant="secondary-light"
+              variant="secondary"
               startIcon={{ component: CircleDollarSign }}
               translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
               onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
               isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
             />
             <Button
-              variant="secondary-light"
+              variant="secondary"
               startIcon={{ component: ChartColumn }}
               translate={{ token: "programs:details.financial.buttons.budgetChart" }}
               onClick={() => handleToggleFinancialViews(BUDGET_CHART)}

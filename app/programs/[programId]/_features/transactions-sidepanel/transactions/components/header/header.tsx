@@ -52,9 +52,9 @@ export function Header() {
           {() => (
             <div>
               <Button
-                size="l"
-                variant="secondary-light"
-                hideText
+                size="md"
+                variant="secondary"
+                iconOnly
                 startIcon={{ component: Filter }}
                 endContent={
                   count ? (
@@ -77,8 +77,8 @@ export function Header() {
                 {!isCleared ? (
                   <Button
                     onClick={clear}
-                    size="s"
-                    variant="secondary-light"
+                    size="sm"
+                    variant="secondary"
                     translate={{ token: "programs:transactionPanel.filters.clear" }}
                   />
                 ) : null}

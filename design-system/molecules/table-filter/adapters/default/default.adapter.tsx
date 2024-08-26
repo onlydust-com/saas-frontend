@@ -1,7 +1,7 @@
 import { Filter } from "lucide-react";
 
 import { Badge } from "@/design-system/atoms/badge";
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -21,9 +21,9 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableFilter.title"} />}>
-              <ButtonSecondaryLight
-                size="l"
-                hideText
+              <Button
+                size="md"
+                iconOnly={true}
                 startIcon={{ component: Filter }}
                 endContent={
                   filterCount ? (
@@ -43,8 +43,7 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
               <Typo translate={{ token: "table:tableFilter.title" }} />
-
-              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableFilter.clear" }} />
+              <Button onClick={onClear} size="sm" translate={{ token: "table:tableFilter.clear" }} />
             </div>
 
             {children}

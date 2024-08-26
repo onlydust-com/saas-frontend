@@ -38,7 +38,7 @@ const colors = ["black", "white", "red", "pink", "grey", "green", "yellow", "ora
 
 const meta: Meta<typeof Tag> = {
   component: Tag,
-  title: "Atoms/Tag",
+  title: "Deprecated/Atoms/Tag",
   tags: ["autodocs"],
   parameters: {
     docs: {

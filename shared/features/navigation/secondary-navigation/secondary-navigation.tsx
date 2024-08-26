@@ -27,20 +27,14 @@ export function SecondaryNavigation({ iconProps, breadcrumbs, onBack }: Secondar
     >
       <div className={"flex items-center gap-2"}>
         {onBack ? (
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ component: ChevronLeft }}
-            hideText
-            onClick={onBack}
-          />
+          <Button variant={"secondary"} size={"md"} startIcon={{ component: ChevronLeft }} iconOnly onClick={onBack} />
         ) : null}
         <Icon {...iconProps} size={"md"} />
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
       <div>
-        <Button variant={"secondary-light"} size={"l"} startIcon={{ component: Bell }} hideText />
+        <Button variant={"secondary"} size={"md"} startIcon={{ component: Bell }} iconOnly />
       </div>
     </Paper>
   );

@@ -8,7 +8,7 @@ const defaultProps: CheckboxPort = {};
 
 const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
-  title: "Atoms/Checkbox",
+  title: "Deprecated/Atoms/Checkbox",
   tags: ["autodocs"],
 };
 

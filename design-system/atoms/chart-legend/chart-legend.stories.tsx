@@ -13,7 +13,7 @@ const defaultProps: ChartLegendPort<"div"> = {
 
 const meta: Meta<typeof ChartLegend> = {
   component: ChartLegend,
-  title: "Atoms/ChartLegend",
+  title: "Deprecated/Atoms/ChartLegend",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

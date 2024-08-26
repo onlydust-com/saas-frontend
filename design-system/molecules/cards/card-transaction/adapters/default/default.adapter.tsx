@@ -60,8 +60,8 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
         buttonProps && (
           <Button
             {...buttonProps}
-            size="l"
-            variant="secondary-light"
+            size="md"
+            variant="secondary"
             classNames={{
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",

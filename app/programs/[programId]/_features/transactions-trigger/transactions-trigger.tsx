@@ -22,7 +22,7 @@ export function TransactionsTrigger() {
   return (
     <>
       <Button
-        variant="secondary-light"
+        variant="secondary"
         translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
         size="l"

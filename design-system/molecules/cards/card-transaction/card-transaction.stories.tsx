@@ -30,7 +30,7 @@ const defaultProps: CardTransactionPort<"div"> = {
 
 const meta: Meta<typeof CardTransaction> = {
   component: CardTransaction,
-  title: "Molecules/Cards/CardTransaction",
+  title: "Deprecated/Molecules/Cards/CardTransaction",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

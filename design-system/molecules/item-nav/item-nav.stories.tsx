@@ -18,7 +18,7 @@ const defaultProps: ItemNavPort = {
 
 const meta: Meta<typeof ItemNav> = {
   component: ItemNav,
-  title: "Molecules/ItemNav",
+  title: "Deprecated/Molecules/ItemNav",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

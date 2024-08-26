@@ -2,49 +2,52 @@ import { tv } from "tailwind-variants";
 
 export const ButtonDefaultVariants = tv({
   slots: {
-    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden rounded-lg bg-container-1 transition-colors",
+    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden transition-all",
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
-    loaderContainer: "absolute inset-0 flex h-full w-full flex-row items-center justify-center bg-container-1",
-    spinnerCircle: "h-4 w-4 border-b-white",
   },
   variants: {
     size: {
-      xl: {
-        base: "px-6 py-4",
-        content: "gap-2",
+      xs: {
+        base: "rounded-sm px-md py-xs",
+        content: "gap-xs",
       },
-      l: {
-        base: "px-4 py-3",
-        content: "gap-2",
+      sm: {
+        base: "rounded-md px-lg py-md",
+        content: "gap-md",
       },
-      m: {
-        base: "px-3 py-2",
-        content: "gap-2",
+      md: {
+        base: "rounded-md px-xl py-2md",
+        content: "gap-md",
       },
-      s: {
-        base: "rounded px-1 py-1",
-        content: "gap-1",
+      lg: {
+        base: "rounded-lg px-2xl py-lg",
+        content: "gap-2md",
       },
     },
-    hideText: {
+    variant: {
+      primary: {
+        base: "",
+      },
+      secondary: {
+        base: "",
+      },
+      tertiary: {
+        base: "",
+      },
+    },
+    iconOnly: {
       true: "",
-    },
-    isLoading: {
-      true: {
-        base: "pointer-events-none cursor-not-allowed",
-        content: "opacity-0",
-      },
     },
     isDisabled: {
       true: {
         base: "pointer-events-none cursor-not-allowed",
-        startIcon: "text-text-3",
-        endIcon: "text-text-3",
-        content: "text-text-3",
-        label: "text-text-3",
+        startIcon: "text-typography-disabled",
+        endIcon: "text-typography-disabled",
+        content: "text-typography-disabled",
+        label: "text-typography-disabled",
       },
     },
     canInteract: {
@@ -55,36 +58,36 @@ export const ButtonDefaultVariants = tv({
   },
   compoundVariants: [
     {
-      hideText: true,
-      size: "xl",
+      iconOnly: true,
+      size: "xs",
       class: {
-        base: "px-4 py-4",
+        base: "px-xs py-xs",
       },
     },
     {
-      hideText: true,
-      size: "l",
+      iconOnly: true,
+      size: "sm",
       class: {
-        base: "px-3 py-3",
+        base: "px-md py-md",
       },
     },
     {
-      hideText: true,
-      size: "m",
+      iconOnly: true,
+      size: "md",
       class: {
-        base: "px-2 py-2",
+        base: "!px-2md py-2md",
       },
     },
     {
-      hideText: true,
-      size: "s",
+      iconOnly: true,
+      size: "lg",
       class: {
-        base: "px-1 py-1",
+        base: "px-lg py-lg",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
+    size: "md",
     isDisabled: false,
     isLoading: false,
     canInteract: true,

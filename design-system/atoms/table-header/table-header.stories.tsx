@@ -68,7 +68,7 @@ const columns = [
 
 const meta: Meta<typeof TableHeader> = {
   component: TableHeader,
-  title: "Atoms/TableHeader",
+  title: "Deprecated/Atoms/TableHeader",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
