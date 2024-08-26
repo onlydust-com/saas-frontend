@@ -21,10 +21,6 @@ const ButtonTextPrimaryColorVariants = tv({
         base: "!rounded-xxs !px-px !py-px",
         content: "gap-xs",
       },
-      sm: {
-        base: "!rounded-xxs !px-px !py-px",
-        content: "gap-md",
-      },
       md: {
         base: "!rounded-xs !px-px !py-px",
         content: "gap-md",
