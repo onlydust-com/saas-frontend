@@ -13,7 +13,7 @@ const sizes = ["xs", "sm", "md", "lg", "xl", "2xl"] as const;
 
 const meta: Meta<typeof Typo> = {
   component: Typo,
-  title: "Atoms/Typo",
+  title: "Deprecated/Atoms/Typo",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

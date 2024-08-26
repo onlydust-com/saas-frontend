@@ -8,7 +8,7 @@ type Story = StoryObj<typeof AvatarDescription>;
 
 const meta: Meta<typeof AvatarDescription> = {
   component: AvatarDescription,
-  title: "Molecules/AvatarDescription",
+  title: "Deprecated/Molecules/AvatarDescription",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

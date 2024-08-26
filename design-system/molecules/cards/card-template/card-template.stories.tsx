@@ -38,7 +38,7 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
 
 const meta: Meta<typeof CardTemplate> = {
   component: CardTemplate,
-  title: "Molecules/Cards/CardTemplate",
+  title: "Deprecated/Molecules/Cards/CardTemplate",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

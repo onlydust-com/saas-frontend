@@ -17,7 +17,7 @@ const defaultProps: InputPort = {
 
 const meta: Meta<typeof Input> = {
   component: Input,
-  title: "Atoms/Input",
+  title: "Deprecated/Atoms/Input",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -14,7 +14,7 @@ const defaultProps: LinkPort = {
 
 const meta: Meta<typeof Link> = {
   component: Link,
-  title: "Atoms/Link",
+  title: "Deprecated/Atoms/Link",
   tags: ["autodocs"],
 };
 

@@ -25,7 +25,7 @@ const sizes = ["xxl", "xl", "l", "ml", "m", "s", "xs"] as const;
 
 const meta: Meta<typeof AvatarGroup> = {
   component: AvatarGroup,
-  title: "Molecules/AvatarGroup",
+  title: "Deprecated/Molecules/AvatarGroup",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

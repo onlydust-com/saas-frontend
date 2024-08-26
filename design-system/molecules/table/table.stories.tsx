@@ -78,7 +78,7 @@ const columns = [
 
 const meta: Meta<typeof Table> = {
   component: Table,
-  title: "Molecules/Table",
+  title: "Deprecated/Molecules/Table",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

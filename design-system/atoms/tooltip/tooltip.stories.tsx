@@ -13,7 +13,7 @@ const defaultProps: TooltipPort<"div"> = {
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
-  title: "Atoms/Tooltip",
+  title: "Deprecated/Atoms/Tooltip",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -19,7 +19,7 @@ const defaultPort: PlgBannerProps = {
 
 const meta: Meta<typeof PlgBanner> = {
   component: PlgBanner,
-  title: "Organisms/PlgBanner",
+  title: "Deprecated/Organisms/PlgBanner",
   tags: ["autodocs"],
 };
 

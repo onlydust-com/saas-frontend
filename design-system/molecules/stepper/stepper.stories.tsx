@@ -16,7 +16,7 @@ const defaultProps: StepperPort = {
 
 const meta: Meta<typeof StepperDefaultAdapter> = {
   component: StepperDefaultAdapter,
-  title: "Molecules/Stepper",
+  title: "Deprecated/Molecules/Stepper",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -13,7 +13,7 @@ const defaultProps: SwitchPort = {
 
 const meta: Meta<typeof Switch> = {
   component: Switch,
-  title: "Atoms/Switch",
+  title: "Deprecated/Atoms/Switch",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

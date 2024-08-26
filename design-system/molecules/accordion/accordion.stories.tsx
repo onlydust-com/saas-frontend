@@ -78,7 +78,7 @@ const defaultPortWithStartAndEndContent: AccordionPort = {
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
-  title: "Molecules/Accordion",
+  title: "Deprecated/Molecules/Accordion",
   tags: ["autodocs"],
 };
 

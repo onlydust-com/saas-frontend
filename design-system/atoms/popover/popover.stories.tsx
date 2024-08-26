@@ -7,7 +7,7 @@ type Story = StoryObj<typeof Popover>;
 
 const meta: Meta<typeof Popover> = {
   component: Popover,
-  title: "Atoms/Popover",
+  title: "Deprecated/Atoms/Popover",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -55,7 +55,7 @@ const defaultProps: TableNavPort = {
 
 const meta: Meta<typeof TableNav> = {
   component: TableNav,
-  title: "Organisms/TableNav",
+  title: "Deprecated/Organisms/TableNav",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
