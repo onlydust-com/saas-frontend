@@ -42,7 +42,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
 
         {endContent}
 
-        {!!isDeletable && <BadgeClose {...closeProps} color={color} />}
+        {!!isDeletable && <BadgeClose {...closeProps} color={color} shape={shape} />}
       </div>
     </Component>
   );
