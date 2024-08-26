@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ButtonDefaultVariants = tv({
   slots: {
-    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden bg-red-500 transition-colors",
+    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden transition-all",
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-color",
     endIcon: "transition-color",
@@ -11,32 +11,43 @@ export const ButtonDefaultVariants = tv({
   variants: {
     size: {
       xs: {
-        base: "py-xs px-md rounded-xs",
+        base: "rounded-sm px-md py-xs",
         content: "gap-xs",
       },
       sm: {
-        base: "py-md px-lg rounded-md",
+        base: "rounded-md px-lg py-md",
         content: "gap-md",
       },
       md: {
-        base: "py-2md px-xl rounded-md",
+        base: "rounded-md px-xl py-2md",
         content: "gap-md",
       },
       lg: {
-        base: "py-lg px-2xl rounded-lg",
+        base: "rounded-lg px-2xl py-lg",
         content: "gap-2md",
       },
     },
-    hideText: {
+    variant: {
+      primary: {
+        base: "",
+      },
+      secondary: {
+        base: "",
+      },
+      tertiary: {
+        base: "",
+      },
+    },
+    iconOnly: {
       true: "",
     },
     isDisabled: {
       true: {
         base: "pointer-events-none cursor-not-allowed",
-        startIcon: "text-text-3",
-        endIcon: "text-text-3",
-        content: "text-text-3",
-        label: "text-text-3",
+        startIcon: "text-typography-disabled",
+        endIcon: "text-typography-disabled",
+        content: "text-typography-disabled",
+        label: "text-typography-disabled",
       },
     },
     canInteract: {
@@ -47,31 +58,31 @@ export const ButtonDefaultVariants = tv({
   },
   compoundVariants: [
     {
-      hideText: true,
+      iconOnly: true,
       size: "xs",
       class: {
         base: "px-xs py-xs",
       },
     },
     {
-      hideText: true,
+      iconOnly: true,
       size: "sm",
       class: {
         base: "px-md py-md",
       },
     },
     {
-      hideText: true,
+      iconOnly: true,
       size: "md",
       class: {
-        base: "px-2md py-2md",
+        base: "!px-2md py-2md",
       },
     },
     {
-      hideText: true,
-      size: "sm",
+      iconOnly: true,
+      size: "lg",
       class: {
-        base: "px-1 py-1",
+        base: "px-lg py-lg",
       },
     },
   ],

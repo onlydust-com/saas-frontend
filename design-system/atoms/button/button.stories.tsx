@@ -1,41 +1,146 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Square } from "lucide-react";
+import { BoxSelect, CircleDashed } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 
-import { ButtonPort } from "./button.types";
+import {
+  ButtonDefaultPort,
+  ButtonPort,
+  ButtonSize,
+  ButtonTextSize,
+  ButtonTextVariant,
+  ButtonVariant,
+} from "./button.types";
 import { Button } from "./variants/button-default";
 
 type Story = StoryObj<typeof Button>;
 
 const defaultProps: ButtonPort<"button"> = {
   children: "Button core",
-  startIcon: { component: Square },
-  endIcon: { component: Square },
-  startContent: <Icon component={Square} size={"sm"} />,
-  endContent: <Icon component={Square} size={"sm"} />,
+  startIcon: { component: CircleDashed },
+  endIcon: { component: CircleDashed },
+  startContent: <Icon component={BoxSelect} size={"sm"} />,
+  endContent: <Icon component={BoxSelect} size={"sm"} />,
 };
 
 const meta: Meta<typeof Button> = {
   component: Button,
   title: "Atoms/Button",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
+
+const FIGMA_URL = "https://www.figma.com/design/J3hcQznLabA7oR9zTBOZs2/Design-System-3.0?node-id=106-9827";
+const sizes: ButtonSize[] = ["xs", "sm", "md", "lg"];
+const variants: ButtonVariant[] = ["primary", "secondary", "tertiary"];
+
+const sizesText: ButtonTextSize[] = ["sm", "md", "lg"];
+const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
+const underlineVariant: [false, true] = [false, true];
+
+function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFocus?: boolean }) {
+  if (args.isHover) {
+    // Storybook doesn't support data attributes in the preview
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return <Button {...defaultProps} {...args} htmlProps={{ "data-hover": "true" }} />;
+  }
+
+  if (args.isFocus) {
+    // Storybook doesn't support data attributes in the preview
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return <Button {...defaultProps} {...args} htmlProps={{ "data-focus": "true" }} />;
+  }
+  return <Button {...defaultProps} {...args} />;
+}
+
+const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
+  <div className="flex w-full flex-col items-start gap-10">
+    {variants.map(variant => (
+      <div key={variant} className="flex w-full items-start gap-5">
+        {sizes.map(size => (
+          <div className="flex flex-col gap-3" key={size}>
+            <div className="flex w-full justify-between gap-3">
+              <ButtonDoc theme={theme} size={size} variant={variant} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isHover={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isHover={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isFocus={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isFocus={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isDisabled={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isDisabled={true} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+const ButtonsTextDoc = (_: Pick<ButtonDefaultPort<"button">, "theme">) => (
+  <div className="flex w-full flex-col items-start gap-10">
+    {variantsText.map(variant =>
+      underlineVariant.map(underline => (
+        <div key={`${variant}-${underline}`} className="flex w-full items-start gap-5">
+          {sizesText.map(size => (
+            <div className="flex flex-col gap-3" key={size}>
+              <div className="flex w-full justify-between gap-3">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} />
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} iconOnly={true} />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isHover={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isHover={true}
+                />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isFocus={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isFocus={true}
+                />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isDisabled={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isDisabled={true}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      ))
+    )}
+  </div>
+);
 
 export const Default: Story = {
-  render: args => {
-    return <Button {...defaultProps} endContent={undefined} startContent={undefined} endIcon={undefined} {...args} />;
-  },
-};
-
-export const Size: Story = {
   parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
     docs: {
       source: {
         code: `
@@ -47,53 +152,71 @@ export const Size: Story = {
     },
   },
   render: args => {
-    return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"xs"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"sm"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"lg"} />
-        </div>
-      </div>
-    );
+    return <Button {...defaultProps} {...args} />;
   },
 };
 
-// export const Skeleton: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<ButtonLoading  />" },
-//     },
-//   },
-//   render: () => {
-//     return (
-//       <div className="flex w-full items-start gap-5">
-//         <div className="flex flex-col gap-2">
-//           <ButtonLoading size={"xl"} />
-//           <ButtonLoading size={"xl"} hideText />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <ButtonLoading size={"l"} />
-//           <ButtonLoading size={"l"} hideText />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <ButtonLoading />
-//           <ButtonLoading hideText />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <ButtonLoading size={"s"} />
-//           <ButtonLoading size={"s"} hideText />
-//         </div>
-//       </div>
-//     );
-//   },
-// };
+export const PrimaryColor: Story = {
+  parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
+    docs: {
+      source: {
+        code: `
+<Button>
+  Button core
+</Button>
+        `,
+      },
+    },
+  },
+  render: () => {
+    return <ButtonsDoc theme={"primary"} />;
+  },
+};
+
+export const DestructiveColor: Story = {
+  parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
+    docs: {
+      source: {
+        code: `
+<Button theme={"destructive"}>
+  Button core
+</Button>
+        `,
+      },
+    },
+  },
+  render: () => {
+    return <ButtonsDoc theme={"destructive"} />;
+  },
+};
+
+export const TextButton: Story = {
+  parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
+    docs: {
+      source: {
+        code: `
+<Button isTextButton={true}>
+  Button core
+</Button>
+        `,
+      },
+    },
+  },
+  render: () => {
+    return <ButtonsTextDoc theme={"destructive"} />;
+  },
+};
 
 export default meta;

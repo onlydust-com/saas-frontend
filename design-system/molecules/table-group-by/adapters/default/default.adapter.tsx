@@ -1,6 +1,6 @@
 import { Layers } from "lucide-react";
 
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -21,7 +21,8 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableGroupBy.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ component: Layers }} />
+              {/*// TODO BUTTON*/}
+              <Button size="lg" hideText startIcon={{ component: Layers }} />
             </Tooltip>
           </div>
         )}
@@ -32,10 +33,10 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
               <Typo translate={{ token: "table:tableGroupBy.title" }} />
-
-              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableGroupBy.clear" }} />
+              {/*// TODO BUTTON*/}
+              <Button onClick={onClear} size="sm" translate={{ token: "table:tableGroupBy.clear" }} />
             </div>
-
+            {/*// TODO BUTTON*/}
             <RadioButtonGroup variant={"secondary-light"} value={value} items={items} onChange={onChange} />
           </div>
         )}

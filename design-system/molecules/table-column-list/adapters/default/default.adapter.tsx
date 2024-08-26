@@ -1,6 +1,6 @@
 import { Columns2 } from "lucide-react";
 
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -21,7 +21,8 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ component: Columns2 }} />
+              {/*// TODO BUTTON*/}
+              <Button size="lg" hideText startIcon={{ component: Columns2 }} />
             </Tooltip>
           </div>
         )}
@@ -32,8 +33,8 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
               <Typo translate={{ token: "table:tableColumnList.title" }} />
-
-              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableColumnList.clear" }} />
+              {/*// TODO BUTTON*/}
+              <Button onClick={onClear} size="lg" translate={{ token: "table:tableColumnList.clear" }} />
             </div>
 
             <div className="flex flex-col gap-2">

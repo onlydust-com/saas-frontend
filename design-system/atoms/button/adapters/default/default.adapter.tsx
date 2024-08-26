@@ -23,18 +23,18 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   htmlProps,
   isDisabled,
   size,
-  hideText,
+  iconOnly,
   canInteract,
 }: ButtonPort<C>) {
   const Component = as || "button";
   const slots = ButtonDefaultVariants({
     isDisabled,
-    hideText,
+    iconOnly,
     size,
     canInteract,
   });
 
-  const showChildren = !hideText && (!!children || !!translate);
+  const showChildren = !!children || !!translate;
 
   const typoSize: Record<NonNullable<typeof size>, ComponentProps<typeof Typo>["size"]> = {
     xs: "xs",
@@ -42,6 +42,33 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     md: "md",
     lg: "md",
   };
+
+  const iconSize: Record<NonNullable<typeof size>, ComponentProps<typeof Icon>["size"]> = {
+    xs: "xs",
+    sm: "sm",
+    md: "md",
+    lg: "lg",
+  };
+
+  if (iconOnly && startIcon) {
+    return (
+      <Component
+        {...(htmlProps || {})}
+        data-disabled={isDisabled}
+        className={cn(slots.base(), classNames?.base)}
+        onClick={onClick}
+        type={type}
+      >
+        <Icon
+          {...(startIcon || {})}
+          size={iconSize[size || "md"]}
+          classNames={{
+            base: cn(slots.startIcon(), classNames?.startIcon),
+          }}
+        />
+      </Component>
+    );
+  }
 
   return (
     <Component
@@ -56,6 +83,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
         {!!startIcon && (
           <Icon
             {...startIcon}
+            size={iconSize[size || "md"]}
             classNames={{
               base: cn(slots.startIcon(), classNames?.startIcon),
             }}
@@ -66,7 +94,13 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
-        {!!endIcon && <Icon {...endIcon} classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }} />}
+        {!!endIcon && (
+          <Icon
+            {...endIcon}
+            size={iconSize[size || "md"]}
+            classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }}
+          />
+        )}
         {endContent}
       </div>
     </Component>
