@@ -1,23 +1,43 @@
-import { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
+
+import { AvatarPort } from "@/design-system/atoms/avatar";
+import { BadgeClosePort } from "@/design-system/atoms/badge-close/badge-close.types";
+import { IconPort } from "@/design-system/atoms/icon";
+import { TypoPort } from "@/design-system/atoms/typo";
+
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 interface Variants {
-  size: "s" | "m";
-  colors: "default" | "brand-1" | "brand-2" | "brand-3" | "brand-4";
-  style: "fill" | "outline";
-  fitContent: boolean;
+  size: "xxs" | "xs" | "sm" | "md";
+  color: "grey" | "brand" | "error" | "warning" | "success";
+  shape: "rounded" | "squared";
+  isDeletable: boolean;
 }
 
 interface ClassNames {
   base: string;
-  contentWrapper: string;
   content: string;
+  label: string;
+  deletableIcon: string;
 }
 
-export interface BadgePort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
+export interface BadgeBasePort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  hideContent?: boolean;
+  translate?: TranslateProps;
+  startContent?: ReactNode;
+  endContent?: ReactNode;
+  labelProps?: Partial<TypoPort<"span">>;
+  closeProps?: Partial<BadgeClosePort<"button">>;
 }
 
-export interface BadgeDotPortDot<C extends ElementType> extends Omit<BadgePort<C>, "children"> {}
+export interface BadgeIconPort<C extends ElementType> extends BadgeBasePort<C> {
+  icon: IconPort;
+}
+
+export interface BadgeAvatarPort<C extends ElementType> extends BadgeBasePort<C> {
+  avatar: AvatarPort;
+}
+
+export type BadgePort<C extends ElementType> = BadgeBasePort<C> | BadgeIconPort<C> | BadgeAvatarPort<C>;
