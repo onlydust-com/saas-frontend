@@ -37,68 +37,6 @@ export const BadgeCloseDefaultVariants = tv({
       },
     },
   },
-  compoundVariants: [
-    {
-      color: "grey",
-      shape: "rounded",
-      base: "data-[clickable=true]:hover:bg-components-badge-grey-closexitem-bg",
-      closeIcon: "text-components-badge-grey-closexitem-fg",
-    },
-    {
-      color: "grey",
-      shape: "squared",
-      base: "data-[clickable=true]:hover:bg-components-badge-grey-closexitem-bg",
-      closeIcon: "text-components-badge-grey-closexitem-fg",
-    },
-    {
-      color: "brand",
-      shape: "rounded",
-      base: "data-[clickable=true]:hover:bg-components-badge-brand-closexitem-bg",
-      closeIcon: "text-components-badge-brand-closexitem-fg",
-    },
-    {
-      color: "brand",
-      shape: "squared",
-      base: "data-[clickable=true]:hover:bg-components-badge-brand-closexitem-bg",
-      closeIcon: "text-components-badge-brand-closexitem-fg",
-    },
-    {
-      color: "error",
-      shape: "rounded",
-      base: "data-[clickable=true]:hover:bg-components-badge-error-closexitem-bg",
-      closeIcon: "text-components-badge-error-closexitem-fg",
-    },
-    {
-      color: "error",
-      shape: "squared",
-      base: "data-[clickable=true]:hover:bg-components-badge-error-closexitem-bg",
-      closeIcon: "text-components-badge-error-closexitem-fg",
-    },
-    {
-      color: "warning",
-      shape: "rounded",
-      base: "data-[clickable=true]:hover:bg-components-badge-warning-closexitem-bg",
-      closeIcon: "text-components-badge-badge-warning-closexitem-fg",
-    },
-    {
-      color: "warning",
-      shape: "squared",
-      base: "data-[clickable=true]:hover:bg-components-badge-warning-closexitem-bg",
-      closeIcon: "text-components-badge-badge-warning-closexitem-fg",
-    },
-    {
-      color: "success",
-      shape: "rounded",
-      base: "data-[clickable=true]:hover:bg-components-badge-success-closexitem-bg",
-      closeIcon: "text-components-badge-success-closexitem-fg",
-    },
-    {
-      color: "success",
-      shape: "squared",
-      base: "data-[clickable=true]:hover:bg-components-badge-success-closexitem-bg",
-      closeIcon: "text-components-badge-success-closexitem-fg",
-    },
-  ],
   defaultVariants: {
     shape: "rounded",
     color: "grey",
