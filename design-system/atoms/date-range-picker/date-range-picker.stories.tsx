@@ -29,6 +29,7 @@ export const Default: Story = {
     return (
       <div className="flex w-full items-center gap-2">
         <DateRangePicker {...defaultProps} {...args} />
+        <DateRangePicker {...args} />
       </div>
     );
   },

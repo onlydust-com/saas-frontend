@@ -2,7 +2,7 @@
 
 import { parseAbsolute } from "@internationalized/date";
 import { DateRangePicker, DateValue, RangeValue } from "@nextui-org/react";
-import { Calendar } from "lucide-react";
+import { Calendar, CircleAlert } from "lucide-react";
 import { ForwardedRef, forwardRef, useEffect, useState } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -18,7 +18,6 @@ const DEFAULT_TZ = "Europe/Paris";
 // TODO: fix size cell
 // TODO: check for header with 2 letters
 // TODO: check to add an extra line
-// TODO: do input design
 export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
   { classNames, isError, isDisabled, value, onChange, label, minValue, maxValue }: DateRangePickerPort,
   ref: ForwardedRef<HTMLDivElement>
@@ -50,17 +49,19 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       ref={ref}
       classNames={{
         base: cn(slots.base(), classNames?.base),
+        popoverContent: slots.popoverContent(),
         inputWrapper: cn(slots.inputWrapper(), classNames?.input),
         innerWrapper: slots.innerWrapper(),
         input: slots.input(),
         label: cn(slots.label(), classNames?.label),
         segment: slots.segment(),
+        separator: slots.separator(),
         selectorButton: slots.selectorButton(),
         errorMessage: slots.errorMessage(),
       }}
       calendarProps={{
         classNames: {
-          base: "rounded-lg bg-background-primary",
+          base: "rounded-lg bg-background-primary border border-border-primary",
           headerWrapper: "bg-background-primary px-3 pt-3 pb-2",
           prevButton:
             "h-6 w-6 min-w-6 text-components-buttons-button-tertiary-fg rounded-md bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[focus-visible=true]:effect-ring-brand-spaced data-[disabled=true]:text-foreground-disabled !outline-none",
@@ -74,7 +75,7 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
           gridBodyRow: "first:mt-0",
           cell: "py-1 px-1",
           cellButton:
-            "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:data-[range-selection=true]:before:bg-background-brand-primary-alt data-[selected=true]:data-[range-selection=true]:text-typography-brand-primary data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:font-bold data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:font-bold before:!rounded-full",
+            "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[hover=true]:data-[selected=true]:bg-transparent data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:data-[range-selection=true]:before:bg-background-brand-primary-alt data-[selected=true]:data-[range-selection=true]:text-typography-brand-primary data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:font-bold data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:font-bold before:!rounded-full",
         },
       }}
       calendarWidth={352}
@@ -89,7 +90,12 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       value={formattedValue}
       minValue={minValue ? parseAbsolute(minValue.toISOString(), DEFAULT_TZ) : undefined}
       maxValue={maxValue ? parseAbsolute(maxValue.toISOString(), DEFAULT_TZ) : undefined}
-      errorMessage={validation => getErrorMessage({ validation, minValue, maxValue })}
+      errorMessage={validation => (
+        <div className="flex items-center gap-1.5">
+          <Icon component={CircleAlert} classNames={{ base: "text-foreground-error" }} />
+          {getErrorMessage({ validation, minValue, maxValue })}
+        </div>
+      )}
     />
   );
 });
