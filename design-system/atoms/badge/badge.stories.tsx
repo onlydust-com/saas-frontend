@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Flame } from "lucide-react";
 
 import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
@@ -15,15 +16,7 @@ const defaultProps: BadgePort<"div"> = {
   classNames: {},
   htmlProps: {},
   isDeletable: false,
-  startContent: (
-    <Icon
-      name="ri-circle-line"
-      size={16}
-      classNames={{
-        base: "text-inherit",
-      }}
-    />
-  ),
+  startContent: <Icon component={Flame} size={"xs"} classNames={{ base: "text-inherit" }} />,
 };
 
 const defaultBadgeIconProps: BadgeIconPort<"div"> = {

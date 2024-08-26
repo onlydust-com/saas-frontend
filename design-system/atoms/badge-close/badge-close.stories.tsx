@@ -1,8 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { BadgeClose } from "@/design-system/atoms/badge-close/variants/badge-close-default";
-
-import { BadgeClosePort } from "./badge.types";
+import { BadgeClosePort } from "./badge-close.types";
+import { BadgeClose } from "./variants/badge-close-default";
 
 type Story = StoryObj<typeof BadgeClose>;
 
@@ -90,43 +89,5 @@ export const Colors: Story = {
     );
   },
 };
-
-// export const Skeleton: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<BadgeLoading />" },
-//     },
-//   },
-//   render: () => {
-//     return (
-//       <div className="flex w-full items-start gap-5">
-//         <div className="flex flex-col gap-2">
-//           <BadgeLoading size={"md"} />
-//           <BadgeLoading size={"md"} shape={"squared"} />
-//           <BadgeLoading size={"md"} />
-//           <BadgeLoading size={"md"} shape={"squared"} />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <BadgeLoading size={"sm"} />
-//           <BadgeLoading size={"sm"} shape={"squared"} />
-//           <BadgeLoading size={"sm"} />
-//           <BadgeLoading size={"sm"} shape={"squared"} />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <BadgeLoading size={"xs"} />
-//           <BadgeLoading size={"xs"} shape={"squared"} />
-//           <BadgeLoading size={"xs"} />
-//           <BadgeLoading size={"xs"} shape={"squared"} />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <BadgeLoading size={"xxs"} />
-//           <BadgeLoading size={"xxs"} shape={"squared"} />
-//           <BadgeLoading size={"xxs"} />
-//           <BadgeLoading size={"xxs"} shape={"squared"} />
-//         </div>
-//       </div>
-//     );
-//   },
-// };
 
 export default meta;

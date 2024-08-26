@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -21,7 +22,7 @@ export function BadgeCloseDefaultAdapter<C extends ElementType = "button">({
 
   return (
     <Component {...htmlProps} onClick={onClose} className={cn(slots.base(), classNames?.base)} data-clickable={true}>
-      <Icon name="ri-close-line" size={12} classNames={{ base: cn(slots.closeIcon(), classNames?.closeIcon) }} />
+      <Icon component={X} size={"xs"} classNames={{ base: cn(slots.closeIcon(), classNames?.closeIcon) }} />
     </Component>
   );
 }
