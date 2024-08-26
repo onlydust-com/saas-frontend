@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 import { BannerReactQueryAdapter } from "@/core/application/react-query-adapter/banner";
 import { bootstrap } from "@/core/bootstrap";
 
-import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
+import { RemixIconPort } from "@/design-system/atoms/icon";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
 
@@ -19,7 +19,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     return {
       text: bannerData.buttonText,
       href: bannerData.buttonLinkUrl,
-      icon: (bannerData.buttonIconSlug as RemixIconsName) || undefined,
+      icon: (bannerData.buttonIconSlug as RemixIconPort["name"]) || undefined,
     };
   }
 

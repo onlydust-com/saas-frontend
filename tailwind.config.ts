@@ -6,6 +6,12 @@ import type { Config } from "tailwindcss";
 
 import { BREAKPOINTS } from "./shared/constants/breakpoints";
 import { COLORS } from "./shared/theme/colors";
+import GradientsPreset from "./shared/theme/tailwind/gradients-preset";
+import RadiusPreset from "./shared/theme/tailwind/radius-preset";
+import RingsPreset from "./shared/theme/tailwind/rings-preset";
+import ShadowPreset from "./shared/theme/tailwind/shadow-preset";
+import SizePreset from "./shared/theme/tailwind/size-preset";
+import SpacingPreset from "./shared/theme/tailwind/spacing-preset";
 
 const config: Config = withTV({
   content: [
@@ -15,9 +21,13 @@ const config: Config = withTV({
     "./.storybook/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusPreset],
   theme: {
     extend: {
-      fontFamily: { alfreda: ["Alfreda"], walsheim: ["GT Walsheim"], belwe: ["Belwe"] },
+      fontFamily: {
+        clash: "Clash Display",
+        inter: "Inter",
+      },
       colors: {
         ...COLORS,
       },
@@ -35,22 +45,6 @@ const config: Config = withTV({
     scrollbar,
     nextui({
       defaultTheme: "dark",
-      // themes: {
-      //   dark: {
-      //     colors: {
-      //       background: "transparent",
-      //       primary: "#AE00FF", // Space Purple 500
-      //     },
-      //     layout: {
-      //       radius: {
-      //         large: "10px",
-      //       },
-      //       boxShadow: {
-      //         medium: "0px 8px 64px 0px rgba(0, 0, 0, 0.32)",
-      //       },
-      //     },
-      //   },
-      // },
     }),
   ],
 });

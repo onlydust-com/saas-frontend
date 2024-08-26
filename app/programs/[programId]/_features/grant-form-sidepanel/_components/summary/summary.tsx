@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowRight, ChartPie } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
@@ -55,7 +56,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
     <Paper size={"s"} container={"transparent"}>
       <div className="grid gap-3">
         <header className={"flex items-center gap-1"}>
-          <Icon name={"ri-pie-chart-line"} size={16} />
+          <Icon component={ChartPie} />
           <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:grantForm.summary.title" }} />
         </header>
 
@@ -107,7 +108,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             />
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <Icon name={"ri-arrow-right-line"} className={"text-label-blue"} />
+              <Icon component={ArrowRight} classNames={{ base: "text-label-blue" }} />
 
               <Typo
                 as={"div"}
@@ -201,7 +202,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             />
 
             <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <Icon name={"ri-arrow-down-line"} className={"text-label-green"} />
+              <Icon component={ArrowDown} classNames={{ base: "text-label-green" }} />
 
               <Typo
                 as={"div"}

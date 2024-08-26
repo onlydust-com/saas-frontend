@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -54,7 +55,7 @@ export function GrantListSidepanel() {
 
         <Input
           placeholder={t("programs:grantList.search")}
-          startContent={<Icon name={"ri-search-line"} />}
+          startContent={<Icon component={Search} />}
           value={search}
           onChange={e => setSearch(e.currentTarget.value)}
         />

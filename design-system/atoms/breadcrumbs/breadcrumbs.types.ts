@@ -1,30 +1,32 @@
 import { ReactNode } from "react";
 
-interface Variants {}
+import { IconPort } from "@/design-system/atoms/icon";
 
 interface ClassNames {
   base: string;
 }
 
-interface ItemBase {
+interface BreadcrumbItemBase {
   id: string;
   label: ReactNode;
-  className?: string;
+  selected?: boolean;
+  iconProps?: IconPort;
+  iconOnly?: boolean;
 }
 
-interface ItemLink extends ItemBase {
+interface BreadcrumbItemLink extends BreadcrumbItemBase {
   href?: string;
   onClick?: never;
 }
 
-interface ItemButton extends ItemBase {
+interface BreadcrumbItemButton extends BreadcrumbItemBase {
   href?: never;
   onClick?: () => void;
 }
 
-export type Item = ItemLink | ItemButton;
+export type BreadcrumbItemPort = BreadcrumbItemLink | BreadcrumbItemButton;
 
-export interface BreadcrumbsPort extends Partial<Variants> {
+export interface BreadcrumbsPort {
+  items: BreadcrumbItemPort[];
   classNames?: Partial<ClassNames>;
-  items: Item[];
 }

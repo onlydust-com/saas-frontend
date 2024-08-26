@@ -222,15 +222,100 @@
 
 
     /*********** EFFECT ***************/
-    --effects-blur-xs: 2;
-    --effects-blur-sm_1: 3;
-    --effects-blur-sm_2: 2;
-    --effects-blur-md_1: 8;
-    --effects-blur-md_2: 4;
-    --effects-blur-lg_1: 16;
-    --effects-blur-lg_2: 6;
-    --effects-blur-xl_1: 24;
-    --effects-blur-xl_2: 8;
+    --effects-blur-xs: 2px;
+    --effects-blur-sm_1: 3px;
+    --effects-blur-sm_2: 2px;
+    --effects-blur-md_1: 8px;
+    --effects-blur-md_2: 4px;
+    --effects-blur-lg_1: 16px;
+    --effects-blur-lg_2: 6px;
+    --effects-blur-xl_1: 24px;
+    --effects-blur-xl_2: 8px;
+
+
+    /*********** SIZES **********/
+    --_sizes-0: 0;
+    --_sizes-0-5: 0.125rem; /** 2px **/
+    --_sizes-1: 0.25rem; /** 4px **/
+    --_sizes-1-5: 0.375rem; /** 6px **/
+    --_sizes-2: 0.5rem; /** 8px **/
+    --_sizes-2-5: 0.625rem; /** 10px **/
+    --_sizes-3: 0.75rem; /** 12px **/
+    --_sizes-3-5: 0.875rem; /** 14px **/
+    --_sizes-4: 1rem; /** 16px **/
+    --_sizes-5: 1.25rem; /** 20px **/
+    --_sizes-6: 1.5rem; /** 24px **/
+    --_sizes-8: 2rem; /** 32px **/
+    --_sizes-10: 2.5rem; /** 40px **/
+    --_sizes-12: 3rem; /** 48px **/
+    --_sizes-16: 4rem; /** 64px **/
+    --_sizes-20: 5rem; /** 80px **/
+    --_sizes-24: 6rem; /** 96px **/
+    --_sizes-32: 8rem; /** 128px **/
+    --_sizes-40: 10rem; /** 160px **/
+    --_sizes-48: 12rem; /** 192px **/
+    --_sizes-56: 14rem; /** 224px **/
+    --_sizes-64: 16rem; /** 256px **/
+    --_sizes-80: 20rem; /** 320px **/
+    --_sizes-96: 24rem; /** 384px **/
+    --_sizes-120: 30rem; /** 480px **/
+    --_sizes-140: 35rem; /** 560px **/
+    --_sizes-160: 40rem; /** 640px **/
+    --_sizes-180: 45rem; /** 720px **/
+    --_sizes-192: 48rem; /** 768px **/
+    --_sizes-256: 64rem; /** 1024px **/
+    --_sizes-320: 80rem; /** 1280px **/
+    --_sizes-360: 90rem; /** 1440px **/
+    --_sizes-400: 100rem; /** 1600px **/
+    --_sizes-480: 120rem; /** 1920px **/
+
+    --spacing-none: var(--_sizes-0);
+    --spacing-xxs: var(--_sizes-0-5);
+    --spacing-xs: var(--_sizes-1);
+    --spacing-sm: var(--_sizes-1-5);
+    --spacing-md: var(--_sizes-2);
+    --spacing-2md: var(--_sizes-2-5);
+    --spacing-lg: var(--_sizes-3);
+    --spacing-2lg: var(--_sizes-3-5);
+    --spacing-xl: var(--_sizes-4);
+    --spacing-2xl: var(--_sizes-5);
+    --spacing-3xl: var(--_sizes-6);
+    --spacing-4xl: var(--_sizes-8);
+    --spacing-5xl: var(--_sizes-10);
+    --spacing-6xl: var(--_sizes-12);
+    --spacing-7xl: var(--_sizes-16);
+    --spacing-8xl: var(--_sizes-20);
+    --spacing-9xl: var(--_sizes-24);
+    --spacing-10xl: var(--_sizes-32);
+    --spacing-11xl: var(--_sizes-40);
+
+
+    --widths-xxs: var(--_sizes-48);
+    --widths-xs: var(--_sizes-56);
+    --widths-sm: var(--_sizes-64);
+    --widths-md: var(--_sizes-80);
+    --widths-lg: var(--_sizes-96);
+    --widths-xl: var(--_sizes-120);
+    --widths-2xl: var(--_sizes-140);
+    --widths-3xl: var(--_sizes-160);
+    --widths-4xl: var(--_sizes-192);
+    --widths-5xl: var(--_sizes-256);
+    --widths-6xl: var(--_sizes-320);
+    --widths-7xl: var(--_sizes-360);
+    --widths-8xl: var(--_sizes-400);
+    --widths-9xl: var(--_sizes-480);
+
+    --radius-none: var(--_sizes-0);
+    --radius-xxs: var(--_sizes-0-5);
+    --radius-xs: var(--_sizes-1);
+    --radius-sm: var(--_sizes-1-5);
+    --radius-md: var(--_sizes-2);
+    --radius-lg: var(--_sizes-2-5);
+    --radius-xl: var(--_sizes-3);
+    --radius-2xl: var(--_sizes-4);
+    --radius-3xl: var(--_sizes-5);
+    --radius-4xl: var(--_sizes-6);
+    --radius-full: 999;
   }
 
   :root.light {
@@ -326,10 +411,10 @@
     --background-warning_alt: var(--_warning-50);
     --background-warning-solid: var(--_warning-600);
     --background-warning-solid_hover: var(--_warning-700);
-    --background-sucess: var(--_success-50);
-    --background-sucess_alt: var(--_success-50);
-    --background-sucess-solid: var(--_success-600);
-    --background-sucess-solid_hover: var(--_success-700);
+    --background-success: var(--_success-50);
+    --background-success_alt: var(--_success-50);
+    --background-success-solid: var(--_success-600);
+    --background-success-solid_hover: var(--_success-700);
 
     /* EFFECTS */
     --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
@@ -675,10 +760,10 @@
     --background-warning_alt: var(--_warning-950);
     --background-warning-solid: var(--_warning-600);
     --background-warning-solid_hover: var(--_warning-500-primary);
-    --background-sucess: var(--_success-500-primary);
-    --background-sucess_alt: var(--_success-950);
-    --background-sucess-solid: var(--_success-600);
-    --background-sucess-solid_hover: var(--_success-500-primary);
+    --background-success: var(--_success-500-primary);
+    --background-success_alt: var(--_success-950);
+    --background-success-solid: var(--_success-600);
+    --background-success-solid_hover: var(--_success-500-primary);
 
     /* EFFECTS */
     --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
@@ -928,7 +1013,7 @@
   /*DOM STYLES*/
 
   body {
-    @apply font-walsheim;
+    @apply font-inter;
     background: var(--background-quaternary);
   }
 

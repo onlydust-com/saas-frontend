@@ -1,4 +1,4 @@
-import { BaseHTMLAttributes } from "react";
+import { LucideIcon } from "lucide-react";
 
 import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 
@@ -6,9 +6,15 @@ interface ClassNames {
   base: string;
 }
 
-export interface IconPort extends BaseHTMLAttributes<HTMLSpanElement> {
+export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
+
+export interface IconPort {
+  component: LucideIcon;
   classNames?: Partial<ClassNames>;
-  size?: number;
-  color?: string;
+  size?: IconSize;
+}
+
+export interface RemixIconPort extends Omit<IconPort, "component"> {
   name: RemixIconsName;
+  color?: string;
 }

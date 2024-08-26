@@ -1,3 +1,4 @@
+import { ChartColumn, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
@@ -39,14 +40,14 @@ export function FinancialSection() {
           <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
             <Button
               variant="secondary-light"
-              startIcon={{ name: "ri-money-dollar-circle-line" }}
+              startIcon={{ component: CircleDollarSign }}
               translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
               onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
               isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
             />
             <Button
               variant="secondary-light"
-              startIcon={{ name: "ri-bar-chart-2-line" }}
+              startIcon={{ component: ChartColumn }}
               translate={{ token: "programs:details.financial.buttons.budgetChart" }}
               onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
               isDisabled={toggleFinancialViews === BUDGET_CHART}

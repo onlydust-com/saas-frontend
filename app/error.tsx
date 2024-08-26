@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -34,20 +35,12 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             }}
             variant={"secondary-light"}
             size={"l"}
-            startIcon={{
-              name: "ri-arrow-left-s-line",
-            }}
+            startIcon={{ component: ChevronLeft }}
           >
             <Translate token={"error:back"} />
           </Button>
 
-          <Button
-            size={"l"}
-            startIcon={{
-              name: "ri-refresh-line",
-            }}
-            onClick={reset}
-          >
+          <Button size={"l"} startIcon={{ component: RefreshCw }} onClick={reset}>
             <Translate token={"error:refresh"} />
           </Button>
         </div>

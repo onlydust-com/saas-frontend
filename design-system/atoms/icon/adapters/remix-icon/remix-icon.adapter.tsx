@@ -1,17 +1,28 @@
+import { useMemo } from "react";
+
+import { IconSizeMap } from "@/design-system/atoms/icon/icon.constants";
+
 import { cn } from "@/shared/helpers/cn";
 
-import { IconPort } from "../../icon.types";
+import { RemixIconPort } from "../../icon.types";
 import { IconRemixIconVariants } from "./remix-icon.variants";
 
-export function IconRemixIconAdapter({ classNames, name, size, color, ...props }: IconPort) {
+export function IconRemixIconAdapter({ classNames, name, size = "sm", color, ...props }: RemixIconPort) {
   const { base } = IconRemixIconVariants();
+
+  const { width } = useMemo(
+    () => ({
+      width: IconSizeMap.width[size],
+    }),
+    [size]
+  );
 
   return (
     <span className={cn(base(), classNames?.base)} {...props}>
       <i
-        className={cn(name)}
+        className={name}
         style={{
-          fontSize: `${size}px`,
+          fontSize: `${width}px`,
           lineHeight: 1,
           color,
         }}

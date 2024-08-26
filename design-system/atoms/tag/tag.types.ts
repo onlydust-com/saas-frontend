@@ -31,7 +31,6 @@ export interface TagBasePort<C extends ElementType> extends Partial<Variants>, P
   startContent?: ReactNode;
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
-  deletableIconProps?: Partial<IconPort>;
   clickable?: boolean;
   hasDropdown?: boolean;
 }

@@ -1,3 +1,4 @@
+import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -54,7 +55,7 @@ export function Header() {
                 size="l"
                 variant="secondary-light"
                 hideText
-                startIcon={{ name: "ri-filter-3-line" }}
+                startIcon={{ component: Filter }}
                 endContent={
                   count ? (
                     <Badge size="s" style="outline">
@@ -120,14 +121,7 @@ export function Header() {
       <Input
         value={search}
         onChange={e => handleSearch(e.target.value)}
-        startContent={
-          <Icon
-            name="ri-search-line"
-            classNames={{
-              base: "text-text-2",
-            }}
-          />
-        }
+        startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}
         placeholder={t("transactionPanel.transactions.search.placeholder")}
       />
     </div>

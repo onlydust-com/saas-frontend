@@ -1,3 +1,5 @@
+import { SquareArrowOutUpRight } from "lucide-react";
+
 import { Icon } from "@/design-system/atoms/icon";
 import { LinkDefaultVariants } from "@/design-system/atoms/link/adapters/default/default.variants";
 
@@ -16,12 +18,7 @@ export function LinkDefaultAdapter({ classNames, children, ...props }: LinkPort)
         <>
           {children}
           {isExternal ? (
-            <Icon
-              name="ri-external-link-line"
-              classNames={{
-                base: "invisible ml-1 text-inherit group-hover/link:visible",
-              }}
-            />
+            <Icon component={SquareArrowOutUpRight} classNames={{ base: "invisible ml-1 group-hover/link:visible" }} />
           ) : null}
         </>
       )}

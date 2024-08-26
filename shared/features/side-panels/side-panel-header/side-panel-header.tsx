@@ -1,3 +1,5 @@
+import { ChevronLeft, X } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -31,7 +33,7 @@ export function SidePanelHeader({
               hideText={true}
               variant="secondary-light"
               size="l"
-              startIcon={{ name: "ri-arrow-left-s-line" }}
+              startIcon={{ component: ChevronLeft }}
               onClick={() => back()}
             />
           )}
@@ -47,7 +49,7 @@ export function SidePanelHeader({
               hideText={true}
               variant="secondary-light"
               size="l"
-              startIcon={{ name: "ri-close-line" }}
+              startIcon={{ component: X }}
               onClick={handleClose}
             />
           )}

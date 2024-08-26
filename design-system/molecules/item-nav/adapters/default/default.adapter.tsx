@@ -1,3 +1,5 @@
+import { SquareArrowOutUpRight } from "lucide-react";
+
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -11,7 +13,7 @@ function Content({
   classNames,
   children,
   translate,
-  icon,
+  iconProps,
   labelProps = {},
   isExternal,
   isDisabled,
@@ -24,7 +26,7 @@ function Content({
   return (
     <div className={"flex w-full items-center justify-start gap-2 overflow-hidden"}>
       <div className={"flex min-h-6 min-w-6 items-center justify-center"}>
-        <Icon size={18} {...icon} />
+        <Icon {...iconProps} size={"sm"} />
       </div>
       <div className="flex flex-1 justify-start">
         <Typo
@@ -38,9 +40,9 @@ function Content({
         </Typo>
         {isExternal ? (
           <Icon
-            name="ri-external-link-line"
+            component={SquareArrowOutUpRight}
             classNames={{
-              base: cn("invisible ml-1 text-inherit group-hover/link:visible", { "!invisible": isFolded }),
+              base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
             }}
           />
         ) : null}

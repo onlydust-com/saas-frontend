@@ -1,14 +1,14 @@
-import "@/public/fonts/Alfreda/stylesheet.css";
-import "@/public/fonts/Belwe/stylesheet.css";
-import "@/public/fonts/GTWalsheimPro/stylesheet.css";
+import "@/public/fonts/clash/stylesheet.css";
+import "@/public/fonts/inter/stylesheet.css";
 import type { Preview } from "@storybook/react";
+import { themes } from "@storybook/theming";
 import "remixicon/fonts/remixicon.css";
 
 import "@/app/globals.css";
 
 import { TranslationProvider } from "../shared/translation/components/translation-provider/translation-provider";
-import ThemeDark from "./theme";
-import ThemeLight from "./theme-light";
+// @ts-ignore
+import Logo from "./static/logo.svg";
 
 const preview: Preview = {
   decorators: [
@@ -20,12 +20,40 @@ const preview: Preview = {
   ],
   parameters: {
     darkMode: {
-      dark: { ...ThemeDark },
-      light: { ...ThemeLight },
       darkClass: "dark",
       lightClass: "light",
       classTarget: "html",
+
+      dark: {
+        ...themes.dark,
+        fontBase: '"Inter", sans-serif',
+        fontCode: "monospace",
+        brandTitle: "Onlydust - Design System",
+        brandUrl: "https://onlydust.com",
+        brandImage: "https://cdn.prod.website-files.com/6526608bf8ef4218fa12c988/6526608bf8ef4218fa12ca2c_Left.png",
+      },
+      light: {
+        ...themes.normal,
+        fontBase: '"Inter", sans-serif',
+        fontCode: "monospace",
+        brandTitle: "Onlydust - Design System",
+        brandUrl: "https://onlydust.com",
+        brandImage: "https://cdn.prod.website-files.com/6526608bf8ef4218fa12c988/6526608bf8ef4218fa12ca2c_Left.png",
+      },
       stylePreview: true,
+      backgrounds: {
+        default: "dark",
+        values: [
+          {
+            name: "dark",
+            value: "red",
+          },
+          {
+            name: "light",
+            value: "green",
+          },
+        ],
+      },
     },
     docs: {
       canvas: {

@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -24,7 +25,7 @@ export function TableNavDefaultAdapter({ classNames, filter, sort, groupBy, sear
       {search ? (
         <Input
           placeholder={t("tableNav.search.placeholder")}
-          startContent={<Icon name={"ri-search-line"} classNames={{ base: "text-text-2" }} />}
+          startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}
           classNames={{ base: "flex-1" }}
           {...search}
         />

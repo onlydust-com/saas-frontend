@@ -24,12 +24,12 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
 
   const formattedLanguages = languages.map(language => ({
     ...language,
-    icon: { name: "ri-code-line" },
+    icon: { name: "code" },
   }));
 
   const formattedCategories = categories.map(category => ({
     ...category,
-    icon: { name: "ri-price-tag-3-line" },
+    icon: { name: "tag" },
   }));
 
   return (

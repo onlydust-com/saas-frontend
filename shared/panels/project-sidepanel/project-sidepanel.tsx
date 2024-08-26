@@ -1,3 +1,4 @@
+import { SquareArrowOutUpRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -90,7 +91,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
           <Button
             variant={"secondary-light"}
             startContent={<Avatar shape={"square"} size={"xs"} src={data.logoUrl} alt={data.name} />}
-            endContent={<Icon name={"ri-external-link-line"} />}
+            endContent={<Icon component={SquareArrowOutUpRight} />}
             size={"l"}
             as={"a"}
             htmlProps={{
@@ -135,7 +136,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
             </Button>
             <Button
               variant={"secondary-light"}
-              endContent={<Icon name={"ri-external-link-line"} />}
+              endContent={<SquareArrowOutUpRight size={16} />}
               size={"l"}
               as={"a"}
               htmlProps={{

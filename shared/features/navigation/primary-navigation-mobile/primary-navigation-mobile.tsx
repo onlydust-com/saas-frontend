@@ -1,3 +1,4 @@
+import { Bell, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -36,11 +37,11 @@ export function PrimaryNavigationMobile() {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
-          <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
+          <Button variant={"secondary-light"} size={"l"} startIcon={{ component: Bell }} hideText />
           <Button
             variant={"secondary-light"}
             size={"l"}
-            startIcon={{ name: "ri-menu-fill" }}
+            startIcon={{ component: Menu }}
             hideText
             onClick={handleOpen}
           />
@@ -59,7 +60,7 @@ export function PrimaryNavigationMobile() {
             <Button
               variant={"secondary-light"}
               size={"l"}
-              startIcon={{ name: "ri-close-line" }}
+              startIcon={{ component: X }}
               hideText
               onClick={handleClose}
             />
