@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { BoxSelect, CircleDashed } from "lucide-react";
+import { BoxSelect, CircleDashed, MessageCircleDashed } from "lucide-react";
 
 import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
+import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 
 import {
@@ -10,6 +11,7 @@ import {
   ButtonSize,
   ButtonTextSize,
   ButtonTextVariant,
+  ButtonTheme,
   ButtonVariant,
 } from "./button.types";
 import { Button } from "./variants/button-default";
@@ -33,6 +35,7 @@ const meta: Meta<typeof Button> = {
 const FIGMA_URL = "https://www.figma.com/design/J3hcQznLabA7oR9zTBOZs2/Design-System-3.0?node-id=106-9827";
 const sizes: ButtonSize[] = ["xs", "sm", "md", "lg"];
 const variants: ButtonVariant[] = ["primary", "secondary", "tertiary"];
+const theme: ButtonTheme[] = ["primary", "destructive"];
 
 const sizesText: ButtonTextSize[] = ["xs", "md", "lg"];
 const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
@@ -220,6 +223,43 @@ export const TextButton: Story = {
   },
 };
 
+export const Group: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<ButtonLoading  />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full flex-col items-start gap-10">
+        {theme.map(theme => (
+          <div key={theme} className="flex w-full flex-col items-start gap-5">
+            {sizes.map(size => (
+              <div key={size} className="flex w-full flex-col items-start gap-5">
+                <ButtonGroup
+                  theme={theme}
+                  key={`primary-${size}`}
+                  size={size}
+                  buttons={[{ children: "Button 1" }, { children: "Button 2" }, { children: "Button 3" }]}
+                />
+                <ButtonGroup
+                  theme={theme}
+                  key={`primary-${size}`}
+                  size={size}
+                  buttons={[
+                    { startIcon: { component: BoxSelect }, iconOnly: true },
+                    { startIcon: { component: CircleDashed }, iconOnly: true },
+                    { startIcon: { component: MessageCircleDashed }, iconOnly: true },
+                  ]}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  },
+};
 export const Skeleton: Story = {
   parameters: {
     docs: {

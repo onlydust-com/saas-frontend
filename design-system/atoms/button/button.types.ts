@@ -6,6 +6,7 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
 export type ButtonVariant = "primary" | "secondary" | "tertiary";
+export type ButtonTheme = "primary" | "destructive";
 export type ButtonTextSize = "xs" | "md" | "lg";
 export type ButtonTextVariant = "primary" | "secondary";
 
@@ -40,9 +41,9 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   canInteract?: boolean;
 }
 
-export type ButtonBaseDefaultPort<C extends ElementType> = ButtonPort<C> & {
-  theme?: "primary" | "destructive";
-};
+export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {
+  theme?: ButtonTheme;
+}
 
 export interface ButtonTextPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
   isTextButton: true;
@@ -52,3 +53,9 @@ export interface ButtonTextPort<C extends ElementType> extends ButtonBaseDefault
 }
 
 export type ButtonDefaultPort<C extends ElementType> = ButtonBaseDefaultPort<C> | ButtonTextPort<C>;
+
+export interface ButtonGroupPort
+  extends Pick<ButtonBaseDefaultPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
+  buttons: Omit<ButtonBaseDefaultPort<"button">[], "variant">;
+  onClick?: (index: number) => void;
+}
