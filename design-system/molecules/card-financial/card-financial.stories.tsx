@@ -25,7 +25,7 @@ const defaultProps: CardFinancialPort<"div"> = {
 
 const meta: Meta<typeof CardFinancial> = {
   component: CardFinancial,
-  title: "Molecules/CardFinancial",
+  title: "Deprecated/Molecules/CardFinancial",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

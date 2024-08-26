@@ -16,7 +16,7 @@ const defaultProps: TextareaPort = {
 
 const meta: Meta<typeof Textarea> = {
   component: Textarea,
-  title: "Atoms/Textarea",
+  title: "Deprecated/Atoms/Textarea",
   tags: ["autodocs"],
 };
 

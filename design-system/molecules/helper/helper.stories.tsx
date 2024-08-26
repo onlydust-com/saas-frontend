@@ -28,7 +28,7 @@ const defaultPort: HelperPort<"div"> = {
 
 const meta: Meta<typeof Helper> = {
   component: Helper,
-  title: "Molecules/Helper",
+  title: "Deprecated/Molecules/Helper",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

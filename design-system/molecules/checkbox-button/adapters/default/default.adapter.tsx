@@ -4,12 +4,7 @@ import { getComponentsVariants } from "@/design-system/molecules/checkbox-button
 
 import { CheckboxButtonPort } from "../../checkbox-button.types";
 
-export function CheckboxButtonDefaultAdapter({
-  variant = "secondary-light",
-  size,
-  children,
-  ...props
-}: CheckboxButtonPort) {
+export function CheckboxButtonDefaultAdapter({ variant = "secondary", size, children, ...props }: CheckboxButtonPort) {
   const { checkboxColor } = getComponentsVariants(variant);
   return (
     <Button as={"label"} variant={variant} size={size} startContent={<Checkbox color={checkboxColor} {...props} />}>

@@ -19,7 +19,7 @@ const defaultProps: CardProjectPort<"div"> = {
 
 const meta: Meta<typeof CardProject> = {
   component: CardProject,
-  title: "Molecules/Cards/CardProject",
+  title: "Deprecated/Molecules/Cards/CardProject",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

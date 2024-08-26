@@ -46,7 +46,7 @@ export function GrantListSidepanel() {
 
   return (
     <>
-      <Button variant={"secondary-light"} size={"l"} onClick={togglePanel}>
+      <Button variant={"secondary"} size={"md"} onClick={togglePanel}>
         <Translate token={"programs:details.projects.grantProject"} />
       </Button>
 

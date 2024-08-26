@@ -25,17 +25,17 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
   return (
     <Component className={cn(slots.base(), classNames?.base)}>
       <Button
-        size={"l"}
+        size={"md"}
         onClick={onPrev}
         isDisabled={disablePrev}
-        hideText
+        iconOnly
         startIcon={{ component: ChevronLeft }}
-        variant="secondary-light"
+        variant="secondary"
       />
       <Button
         as={"div"}
-        size={"l"}
-        variant="secondary-light"
+        size={"md"}
+        variant="secondary"
         canInteract={false}
         classNames={{
           label: "leading-4",
@@ -45,10 +45,10 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
       </Button>
       <Button
         onClick={onNext}
-        size={"l"}
-        variant="secondary-light"
+        size={"md"}
+        variant="secondary"
         isDisabled={disableNext}
-        hideText
+        iconOnly
         startIcon={{ component: ChevronRight }}
       />
     </Component>

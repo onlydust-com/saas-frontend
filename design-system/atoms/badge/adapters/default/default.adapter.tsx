@@ -1,33 +1,49 @@
 import { ElementType } from "react";
 
+import { BadgeClose } from "@/design-system/atoms/badge-close/variants/badge-close-default";
 import { BadgeDefaultVariants } from "@/design-system/atoms/badge/adapters/default/default.variants";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BadgePort } from "../../badge.types";
 
-export function BadgeDefaultAdapter<C extends ElementType = "div">({
+export function BadgeDefaultAdapter<C extends ElementType = "span">({
   classNames,
+  startContent,
   as,
-  htmlProps,
   children,
-  hideContent,
+  endContent,
+  htmlProps,
+  translate,
+  labelProps = {},
+  closeProps,
   ...props
 }: BadgePort<C>) {
-  const Component = as || "div";
-  const { fitContent, size, colors, style } = props;
-  const slots = BadgeDefaultVariants({ fitContent, size, colors, style });
+  const { isDeletable, shape = "rounded", size, color } = props;
+  const DefaultComponent = isDeletable ? "button" : "span";
+  const Component = as || DefaultComponent;
+
+  const slots = BadgeDefaultVariants({ isDeletable, size, color, shape });
+
+  const showChildren = !!children || !!translate;
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      {!hideContent && (
-        <div className={cn(slots.contentWrapper(), classNames?.contentWrapper)}>
-          <Typo as={"div"} size={"xs"} classNames={{ base: cn(slots.content(), classNames?.content) }}>
-            {children}
+      <div className={cn(slots.content(), classNames?.content)}>
+        {startContent}
+
+        {showChildren && (
+          <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+            {children || (translate && <Translate {...translate} />)}
           </Typo>
-        </div>
-      )}
+        )}
+
+        {endContent}
+
+        {!!isDeletable && <BadgeClose {...closeProps} color={color} shape={shape} />}
+      </div>
     </Component>
   );
 }

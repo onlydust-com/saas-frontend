@@ -21,7 +21,7 @@ const defaultProps: ModalPort<"div"> = {
 
 const meta: Meta<typeof Modal> = {
   component: Modal,
-  title: "Molecules/Modal",
+  title: "Deprecated/Molecules/Modal",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

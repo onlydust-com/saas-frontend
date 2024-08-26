@@ -30,10 +30,10 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         </BaseLink>
         {isFolded && (
           <Button
-            variant={"secondary-light"}
+            variant={"secondary"}
             startIcon={{ component: PanelRightClose }}
-            hideText={true}
-            size={"l"}
+            iconOnly={true}
+            size={"md"}
             onClick={onUnFold}
             classNames={{
               base: "absolute top-0 left-0 transition-all opacity-0 group-hover/header:opacity-100 !border-container-stroke-separator",
@@ -42,10 +42,10 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         )}
       </div>
       <Button
-        variant={"secondary-light"}
+        variant={"secondary"}
         startIcon={{ component: PanelLeftClose }}
-        hideText={true}
-        size={"l"}
+        iconOnly={true}
+        size={"md"}
         onClick={onFold}
       />
     </div>

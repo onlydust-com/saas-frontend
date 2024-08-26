@@ -81,22 +81,22 @@ export function AmountSelector({
             ref={inputRef}
             type="text"
             style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-text-1 outline-none"}
+            className={"text-text-1 flex bg-transparent text-right font-medium outline-none"}
             value={amount}
             onChange={handleChangeAmount}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-text-1"}>{budget.currency.code}</span>
+            <span className={"text-text-1 font-medium"}>{budget.currency.code}</span>
           </div>
         </div>
-        <Typo size={"m"} color={"text-2"} classNames={{ base: "text-center" }}>
+        <Typo size={"md"} color={"secondary"} classNames={{ base: "text-center" }}>
           {formattedUsdAmount} USD
         </Typo>
       </div>
 
       <div>
         <div className={"flex w-full justify-center"}>
-          <Button variant={"secondary-light"} size={"l"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
+          <Button variant={"secondary"} size={"md"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
             <AvatarDescription
               avatarProps={{ src: budget.currency.logoUrl, alt: budget.currency.name, size: "s" }}
               labelProps={{
@@ -125,18 +125,12 @@ export function AmountSelector({
               <>
                 <ModalHeader>
                   <Typo
-                    variant={"brand"}
+                    variant={"heading"}
                     size={"2xl"}
                     translate={{ token: "programs:grantForm.amountSelector.title" }}
                   />
 
-                  <Button
-                    variant={"secondary-light"}
-                    size={"l"}
-                    hideText
-                    startIcon={{ component: X }}
-                    onClick={onClose}
-                  />
+                  <Button variant={"secondary"} size={"md"} iconOnly startIcon={{ component: X }} onClick={onClose} />
                 </ModalHeader>
 
                 <ModalBody>

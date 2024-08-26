@@ -45,7 +45,7 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
         children: description,
       }}
       tags={[...formattedLanguages, ...formattedCategories]}
-      endContent={buttonProps && <Button {...buttonProps} size="l" variant="secondary-light" />}
+      endContent={buttonProps && <Button {...buttonProps} size="l" variant="secondary" />}
       onClick={onClick}
     />
   );

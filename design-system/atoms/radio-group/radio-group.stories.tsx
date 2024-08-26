@@ -29,7 +29,7 @@ const DefaultSingleProps: RadioGroupPort<string, "div"> = {
 
 const meta: Meta<typeof RadioGroup> = {
   component: RadioGroup,
-  title: "Atoms/RadioGroup",
+  title: "Deprecated/Atoms/RadioGroup",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

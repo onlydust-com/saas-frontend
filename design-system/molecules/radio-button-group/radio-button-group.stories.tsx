@@ -22,7 +22,7 @@ const defaultProps: RadioGroupButtonPort<string> = {
 
 const meta: Meta<typeof RadioButtonGroup> = {
   component: RadioButtonGroup,
-  title: "Molecules/RadioButtonGroup",
+  title: "Deprecated/Molecules/RadioButtonGroup",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

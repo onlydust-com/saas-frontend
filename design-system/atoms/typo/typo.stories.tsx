@@ -15,12 +15,6 @@ const meta: Meta<typeof Typo> = {
   component: Typo,
   title: "Atoms/Typo",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#0E0814" }],
-    },
-  },
 };
 
 export const Default: Story = {

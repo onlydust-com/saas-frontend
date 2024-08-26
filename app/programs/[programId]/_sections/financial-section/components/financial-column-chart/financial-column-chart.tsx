@@ -124,7 +124,7 @@ export function FinancialColumnChart() {
           ]}
         >
           {({ label }) => (
-            <Button variant={"secondary-light"} size={"l"} startIcon={{ component: Calendar }}>
+            <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}

@@ -23,7 +23,7 @@ const defaultProps: CardBudgetPort<"div"> = {
 
 const meta: Meta<typeof CardBudget> = {
   component: CardBudget,
-  title: "Molecules/Cards/CardBudget",
+  title: "Deprecated/Molecules/Cards/CardBudget",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

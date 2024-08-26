@@ -8,10 +8,10 @@ import { Avatar } from "./variants/avatar-default";
 type Story = StoryObj<typeof Avatar>;
 
 const defaultProps: AvatarPort = {
-  name: "OD",
+  src: "",
 };
 
-const sizes = ["xxl", "xl", "l", "ml", "m", "s", "xs"] as const;
+const sizes: AvatarPort["size"][] = ["xxs", "xs", "s", "md", "lg", "xl", "2xl", "3xl"];
 
 const meta: Meta<typeof Avatar> = {
   component: Avatar,
@@ -34,7 +34,7 @@ export const Default: Story = {
   },
 };
 
-export const Round: Story = {
+export const Rounded: Story = {
   parameters: {
     docs: {
       source: { code: "<Avatar />" },
@@ -42,20 +42,20 @@ export const Round: Story = {
   },
   render: () => {
     return (
-      <div className="flex flex-row items-center gap-2">
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} size={s} />
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} />
           ))}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} size={s} container="brand" />
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} icon={{ src: "" }} />
           ))}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} size={s} name={undefined} src={"a"} />
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} name="S" src={undefined} onlineIcon />
           ))}
         </div>
       </div>
@@ -63,28 +63,28 @@ export const Round: Story = {
   },
 };
 
-export const Square: Story = {
+export const Squared: Story = {
   parameters: {
     docs: {
-      source: { code: "<Avatar shape='square' />" },
+      source: { code: "<Avatar shape='squared' />" },
     },
   },
   render: () => {
     return (
-      <div className="flex flex-row items-center gap-2">
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} shape="square" size={s} />
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} shape="squared" />
           ))}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} shape="square" size={s} container="brand" />
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} shape="squared" icon={{ src: "" }} />
           ))}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <Avatar key={s} {...defaultProps} shape="square" size={s} name={undefined} src={"a"} />
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} shape="squared" name="S" src={undefined} onlineIcon />
           ))}
         </div>
       </div>
@@ -95,24 +95,25 @@ export const Square: Story = {
 export const Skeleton: Story = {
   parameters: {
     docs: {
-      source: { code: "<AvatarLoading  />" },
+      source: { code: "<AvatarLoading />" },
     },
   },
   render: () => {
     return (
-      <div className="flex w-full items-start gap-4">
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <AvatarLoading key={s} size={s} />
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <AvatarLoading key={size} size={size} shape="rounded" />
           ))}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {sizes.map(s => (
-            <AvatarLoading key={s} size={s} shape={"square"} />
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <AvatarLoading key={size} size={size} shape="squared" />
           ))}
         </div>
       </div>
     );
   },
 };
+
 export default meta;

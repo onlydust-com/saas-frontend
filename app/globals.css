@@ -703,15 +703,10 @@
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);
-    --background-primary: var(--_grey-950);
-    --background-primary_hover: var(--_grey-800);
-    --background-primary_alt: var(--_grey-800);
-    --background-primary_alt_hover: var(--_grey-700);
     --foreground-secondary: var(--_grey-300);
     --foreground-secondary_hover: var(--_grey-200);
     --foreground-tertiary: var(--_grey-400);
     --foreground-tertiary_hover: var(--_grey-300);
-    --background-primary-solid: var(--_grey-600);
     --foreground-quaternary: var(--_grey-400);
     --foreground-quaternary_hover: var(--_grey-300);
     --foreground-quinary: var(--_grey-500-primary);
@@ -728,6 +723,11 @@
     --foreground-success: var(--_success-400);
 
     /* BACKGROUND */
+    --background-primary: var(--_grey-950);
+    --background-primary_hover: var(--_grey-800);
+    --background-primary_alt: var(--_grey-800);
+    --background-primary_alt_hover: var(--_grey-700);
+    --background-primary-solid: var(--_grey-600);
     --background-secondary: var(--_grey-900);
     --background-secondary_hover: var(--_grey-800);
     --background-secondary_alt: var(--_grey-700);

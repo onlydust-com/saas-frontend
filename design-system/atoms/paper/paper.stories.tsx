@@ -12,7 +12,7 @@ const defaultProps: PaperPort<"div"> = {};
 
 const meta: Meta<typeof Paper> = {
   component: Paper,
-  title: "Atoms/Paper",
+  title: "Deprecated/Atoms/Paper",
   tags: ["autodocs"],
 };
 

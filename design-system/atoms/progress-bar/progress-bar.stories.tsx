@@ -14,7 +14,7 @@ const defaultProps: ProgressBarPort = {
 
 const meta: Meta<typeof ProgressBar> = {
   component: ProgressBar,
-  title: "Atoms/ProgressBar",
+  title: "Deprecated/Atoms/ProgressBar",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

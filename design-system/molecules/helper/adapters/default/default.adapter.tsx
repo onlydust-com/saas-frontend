@@ -31,12 +31,12 @@ export function HelperDefaultAdapter<C extends ElementType = "div">({
       {startContent}
       <Avatar {...avatar} size={"xl"} shape={"square"} />
       <div className="flex flex-col items-start justify-start gap-1">
-        <Typo {...title} size={"m"} variant={"brand"} />
-        <Typo {...text} size={"s"} />
+        <Typo {...title} size={"md"} variant={"heading"} />
+        <Typo {...text} size={"sm"} />
       </div>
       <div className={cn(slots.endContainer(), classNames?.endContainer)}>
-        <Button {...startButton} size={"l"} variant={"secondary-light"} />
-        <Button {...endButton} size={"l"} variant={"secondary-light"} />
+        <Button {...startButton} size={"md"} variant={"secondary"} />
+        <Button {...endButton} size={"md"} variant={"secondary"} />
         {endContent}
       </div>
     </Component>
