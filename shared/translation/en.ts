@@ -14,11 +14,13 @@ import { enPanelsTranslation } from "@/shared/panels/_translations/panels.transl
 import common from "@/shared/translation/translations/common/common.en.json";
 import error from "@/shared/translation/translations/error/error.en.json";
 import notFound from "@/shared/translation/translations/not-found/not-found.en.json";
+import stories from "@/shared/translation/translations/stories/stories.en.json";
 
 export const en = {
   common,
   notFound,
   error,
+  stories,
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,

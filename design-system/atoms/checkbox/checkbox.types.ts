@@ -1,11 +1,12 @@
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
+
 interface Variants {
-  color: "white" | "black";
+  variant?: "primary";
   isDisabled: boolean;
 }
 
 interface ClassNames {
   base: string;
-  label: string;
   wrapper: string;
   icon: string;
 }
@@ -16,4 +17,6 @@ export interface CheckboxPort extends Partial<Variants> {
   value?: boolean;
   isDisabled?: boolean;
   mixed?: boolean;
+  label?: TranslateProps;
+  description?: TranslateProps;
 }

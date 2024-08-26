@@ -2,63 +2,34 @@ import { tv } from "tailwind-variants";
 
 export const CheckboxNextUiVariants = tv({
   slots: {
-    base: "",
-    label: "",
-    wrapper: "m-0 h-4 w-4 rounded before:rounded after:rounded",
+    base: "flex items-start justify-start gap-2",
+    wrapper: "before:rounded-xs after:rounded-xs rounded-xs m-0 box-border h-4 w-4 transition-all",
     icon: "text-text-4",
   },
   variants: {
-    color: {
-      white: {
-        wrapper:
-          "before:border-interactions-white-default after:bg-interactions-white-active group-data-[hover=true]:before:bg-interactions-white-default",
-      },
-      black: {
-        wrapper:
-          "before:border-interactions-black-default after:bg-interactions-black-active group-data-[hover=true]:before:bg-interactions-black-default",
-        icon: "text-text-1",
+    variant: {
+      primary: {
+        wrapper: [
+          "before:border-border-primary-alt",
+          "after:bg-background-brand-primary-solid group-data-[hover=true]:after:bg-background-brand-primary-solid-hover",
+          "group-data-[hover=true]:before:bg-background-primary-alt-hover",
+          "effect-shadow-xs",
+          "group-data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+        ],
       },
     },
     isDisabled: {
-      true: "",
+      true: {
+        base: "pointer-events-none cursor-not-allowed",
+        wrapper: "after:border-border-primary-alt before:bg-background-disabled after:bg-transparent",
+        icon: "text-foreground-disabled",
+      },
     },
     mixed: {
       true: "",
     },
   },
-  compoundVariants: [
-    {
-      isDisabled: true,
-      color: "white",
-      class: {
-        wrapper: "group-data-[hover=true]:before:transparent before:border-interactions-white-disabled",
-      },
-    },
-    {
-      mixed: true,
-      color: "white",
-      class: {
-        wrapper: "before:border-interactions-white-active after:bg-transparent",
-        icon: "text-interactions-white-active",
-      },
-    },
-    {
-      isDisabled: true,
-      color: "black",
-      class: {
-        wrapper: "group-data-[hover=true]:before:transparent before:border-interactions-black-disabled",
-      },
-    },
-    {
-      mixed: true,
-      color: "black",
-      class: {
-        wrapper: "before:border-interactions-black-active after:bg-transparent",
-        icon: "text-interactions-black-active",
-      },
-    },
-  ],
   defaultVariants: {
-    color: "white",
+    isDisabled: false,
   },
 });
