@@ -19,7 +19,7 @@ const defaultProps: AvatarGroupDescriptionPort<"div"> = {
 
 const meta: Meta<typeof AvatarGroupDescription> = {
   component: AvatarGroupDescription,
-  title: "Deprecated/Molecules/AvatarGroupDescription",
+  title: "Molecules/AvatarGroupDescription",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
