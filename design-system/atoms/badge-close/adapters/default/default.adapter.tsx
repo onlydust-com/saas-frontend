@@ -1,11 +1,11 @@
 import { X } from "lucide-react";
 import { ElementType } from "react";
 
+import { BadgeClosePort } from "@/design-system/atoms/badge-close/badge-close.types";
 import { Icon } from "@/design-system/atoms/icon";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { BadgeClosePort } from "../../badge.types";
 import { BadgeCloseDefaultVariants } from "./default.variants";
 
 export function BadgeCloseDefaultAdapter<C extends ElementType = "button">({
