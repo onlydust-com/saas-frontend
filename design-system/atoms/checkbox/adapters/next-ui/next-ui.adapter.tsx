@@ -1,16 +1,17 @@
 import { Checkbox as NextUiCheckbox } from "@nextui-org/react";
 
+import { Typo } from "@/design-system/atoms/typo";
+
 import { cn } from "@/shared/helpers/cn";
 
 import { CheckboxPort } from "../../checkbox.types";
 import { CheckboxNextUiVariants } from "./next-ui.variants";
 
-export function CheckboxNextUiAdapter({ classNames, onChange, value, ...props }: CheckboxPort) {
-  const { color, isDisabled, mixed } = props;
+export function CheckboxNextUiAdapter({ classNames, onChange, value, label, description, ...props }: CheckboxPort) {
+  const { variant = "primary", isDisabled, mixed } = props;
   const slots = CheckboxNextUiVariants({
-    color,
+    variant,
     isDisabled,
-    mixed,
   });
 
   function handleChange(value: boolean) {
@@ -21,7 +22,6 @@ export function CheckboxNextUiAdapter({ classNames, onChange, value, ...props }:
     <NextUiCheckbox
       classNames={{
         base: cn(slots.base(), classNames?.base),
-        label: cn(slots.label(), classNames?.label),
         wrapper: cn(slots.wrapper(), classNames?.wrapper),
         icon: cn(slots.icon(), classNames?.icon),
       }}
@@ -30,6 +30,13 @@ export function CheckboxNextUiAdapter({ classNames, onChange, value, ...props }:
       isIndeterminate={mixed}
       isSelected={value}
       onValueChange={handleChange}
-    />
+    >
+      {label || description ? (
+        <div className="flex flex-col">
+          {label ? <Typo size={"sm"} weight={"medium"} translate={label} /> : null}
+          {description ? <Typo size={"sm"} translate={description} /> : null}
+        </div>
+      ) : null}
+    </NextUiCheckbox>
   );
 }
