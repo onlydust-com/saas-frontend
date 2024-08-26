@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
-import { BadgeClosePort } from "@/design-system/atoms/badge-close";
+import { BadgeClosePort } from "@/design-system/atoms/badge-close/badge-close.types";
 import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 

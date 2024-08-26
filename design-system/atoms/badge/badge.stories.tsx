@@ -22,7 +22,7 @@ const defaultProps: BadgePort<"div"> = {
 const defaultBadgeIconProps: BadgeIconPort<"div"> = {
   ...defaultProps,
   startContent: undefined,
-  icon: { name: "ri-fire-line" },
+  icon: { component: Flame },
 };
 
 const defaultBadgeAvatarProps: BadgeAvatarPort<"div"> = {
@@ -256,20 +256,20 @@ export const Skeleton: Story = {
     return (
       <div className="flex w-full items-start gap-5">
         <div className="flex flex-col gap-2">
-          <BadgeLoading size={"md"} />
-          <BadgeLoading size={"md"} shape={"squared"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <BadgeLoading size={"sm"} />
-          <BadgeLoading size={"sm"} shape={"squared"} />
+          <BadgeLoading size={"xxs"} />
+          <BadgeLoading size={"xxs"} shape={"squared"} />
         </div>
         <div className="flex flex-col gap-2">
           <BadgeLoading size={"xs"} />
           <BadgeLoading size={"xs"} shape={"squared"} />
         </div>
         <div className="flex flex-col gap-2">
-          <BadgeLoading size={"xxs"} />
-          <BadgeLoading size={"xxs"} shape={"squared"} />
+          <BadgeLoading size={"sm"} />
+          <BadgeLoading size={"sm"} shape={"squared"} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <BadgeLoading size={"md"} />
+          <BadgeLoading size={"md"} shape={"squared"} />
         </div>
       </div>
     );

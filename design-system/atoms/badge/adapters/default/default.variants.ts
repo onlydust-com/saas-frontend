@@ -56,7 +56,7 @@ export const BadgeDefaultVariants = tv({
         base: "rounded-full",
       },
       squared: {
-        base: "rounded-lg",
+        base: "rounded-sm",
       },
     },
   },
