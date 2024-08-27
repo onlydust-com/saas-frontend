@@ -2,10 +2,19 @@ import { tv } from "tailwind-variants";
 
 export const SwitchNextUiVariants = tv({
   slots: {
-    base: "h-4 w-[28px] min-w-[28px] max-w-[28px]",
-    wrapper: "group-data-[selected=true]:bg-brand-2 m-0 h-4 w-full p-0.5",
-    thumb:
-      "group-data-[selected=true]:bg-interactions-white-default h-3 w-3 max-w-3 group-data-[selected=true]:ml-3 group-data-[selected]:group-data-[pressed]:ml-3 group-data-[pressed=true]:w-3",
+    base: "opacity-1 inline-flex w-full items-start justify-between gap-2",
+    wrapper: [
+      "bg-background-tertiary m-0 box-border h-4 w-[28px] w-full min-w-[28px] max-w-[28px] p-0.5",
+      "group-data-[selected=true]:bg-background-brand-primary-solid",
+      "group-data-[hover=true]:bg-background-tertiary-hover",
+      "group-data-[selected]:group-data-[hover=true]:bg-background-brand-primary-solid-hover",
+      "group-data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+    ],
+    thumb: [
+      "effect-shadow-xs h-3 w-3 max-w-3",
+      "group-data-[selected=true]:bg-foreground-white group-data-[selected=true]:ml-3",
+      "group-data-[selected]:group-data-[pressed]:ml-3 group-data-[pressed=true]:w-3",
+    ],
     label: "",
     startContent: "",
     endContent: "",
@@ -13,8 +22,8 @@ export const SwitchNextUiVariants = tv({
   variants: {
     isDisabled: {
       true: {
-        wrapper: "bg-interactions-white-disabled group-data-[selected=true]:bg-interactions-white-disabled",
-        thumb: "bg-interactions-white-disabled group-data-[selected=true]:bg-interactions-white-disabled",
+        wrapper: "bg-background-disabled group-data-[selected=true]:bg-background-disabled",
+        thumb: "bg-components-switch-pill-disabled group-data-[selected=true]:bg-components-switch-pill-disabled",
       },
     },
   },
