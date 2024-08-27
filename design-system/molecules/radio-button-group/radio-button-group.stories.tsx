@@ -11,7 +11,7 @@ const defaultProps: RadioGroupButtonPort<string> = {
   items: [
     {
       value: "Option 1",
-      label: "Option 6",
+      label: "Option 1",
     },
     {
       value: "Option 2",
