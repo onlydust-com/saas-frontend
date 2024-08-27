@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-export const AlertSonnerVariants = tv({
+export const AlertDefaultVariants = tv({
   slots: {
     base: "effect-box-shadow-lg flex w-full gap-4 rounded-lg border p-4",
     icon: "",

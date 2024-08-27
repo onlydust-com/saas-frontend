@@ -1,10 +1,8 @@
 import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
 
-import { AlertSonnerAdapter, alertSonnerAdapter } from "../adapters/sonner/sonner.adapter";
+import { AlertDefaultAdapter } from "../adapters/default/default.adapter";
 import { AlertPort } from "../alert.types";
 
 export function Alert(props: AlertPort) {
-  return withComponentAdapter<AlertPort>(AlertSonnerAdapter)(props);
+  return withComponentAdapter<AlertPort>(AlertDefaultAdapter)(props);
 }
-
-export { alertSonnerAdapter as alert };
