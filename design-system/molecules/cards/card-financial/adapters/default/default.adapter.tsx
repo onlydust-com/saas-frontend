@@ -23,7 +23,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   size = "xl",
   color = "grey",
 }: CardFinancialPort<C>) {
-  const Component = as || "div";
+  const Component = as || cta ? "button" : "div";
   const slots = CardFinancialDefaultVariants({ size, color });
   const isSizeM = size === "m";
   const titleSize: TypoSize = isSizeM ? "xs" : "sm";
@@ -32,11 +32,11 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
 
   return (
     <Paper
-      size={"s"}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
-      container={"2"}
+      background={"transparent"}
       border={"none"}
       as={Component}
+      onClick={cta ? cta.onClick : undefined}
       {...htmlProps}
     >
       <div className="flex flex-col gap-2">
@@ -50,7 +50,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
           </Typo>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex w-full items-center gap-2">
         {avatarGroup ? (
           <AvatarGroup
             classNames={{
@@ -61,9 +61,9 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
           />
         ) : null}
         {cta ? (
-          <button className={cn(slots.cta(), classNames?.cta)}>
+          <div className={cn(slots.cta(), classNames?.cta)}>
             <Icon component={ChevronRight} size={"sm"} />
-          </button>
+          </div>
         ) : null}
       </div>
     </Paper>

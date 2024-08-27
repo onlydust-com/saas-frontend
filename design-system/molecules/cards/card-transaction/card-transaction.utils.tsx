@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, CornerRightUp } from "lucide-react";
+import { ArrowDown, ArrowRight, Undo2 } from "lucide-react";
 import { ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
@@ -15,19 +15,19 @@ export function getComponentsVariants(type: CardTransactionTypes): {
     GRANTED: {
       iconProps: {
         component: ArrowRight,
-        classNames: { base: "text-label-blue" },
+        classNames: { base: "text-utility-secondary-blue-500" },
       },
     },
     RECEIVED: {
       iconProps: {
         component: ArrowDown,
-        classNames: { base: "text-label-green" },
+        classNames: { base: "text-utility-secondary-green-500" },
       },
     },
     RETURNED: {
       iconProps: {
-        component: CornerRightUp,
-        classNames: { base: "text-label-red" },
+        component: Undo2,
+        classNames: { base: "text-foreground-error" },
       },
     },
   };

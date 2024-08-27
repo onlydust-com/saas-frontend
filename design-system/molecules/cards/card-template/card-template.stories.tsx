@@ -38,14 +38,8 @@ const defaultPropsWithTags: CardTemplatePort<"div"> = {
 
 const meta: Meta<typeof CardTemplate> = {
   component: CardTemplate,
-  title: "Deprecated/Molecules/Cards/CardTemplate",
+  title: "Molecules/Cards/CardTemplate",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
