@@ -4,6 +4,7 @@ import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
+import { FirstParameter } from "@/core/kernel/types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
@@ -11,7 +12,13 @@ import { CardProject } from "@/design-system/molecules/cards/card-project";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
 
-export function AlreadyGrantedProjects({ programId }: { programId: string }) {
+export function AlreadyGrantedProjects({
+  programId,
+  queryParams,
+}: {
+  programId: string;
+  queryParams: FirstParameter<typeof ProgramReactQueryAdapter.client.useGetProgramProjects>["queryParams"];
+}) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -19,6 +26,7 @@ export function AlreadyGrantedProjects({ programId }: { programId: string }) {
       pathParams: {
         programId,
       },
+      queryParams,
       options: {
         enabled: Boolean(programId),
       },
