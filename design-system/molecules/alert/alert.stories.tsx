@@ -1,21 +1,32 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { AlertPort } from "./alert.types";
-import { Alert } from "./variants/alert-default";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
+
+import { AlertComponent } from "./adapters/sonner/sonner.adapter";
+import { AlertProps } from "./alert.types";
+import { Alert, alert } from "./variants/alert-default";
 
 type Story = StoryObj<typeof Alert>;
 
-const defaultProps: AlertPort = {
+const defaultProps: AlertProps = {
   title: "Alert Title",
   description: "This is a description of the alert.",
 };
 
-const colors: AlertPort["color"][] = ["white", "grey", "brand", "error", "warning", "success"];
+const colors: AlertProps["color"][] = ["white", "grey", "brand", "error", "warning", "success"];
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
   title: "Molecules/Alert",
   tags: ["autodocs"],
+  decorators: [
+    Story => (
+      <>
+        <Story />
+        <Alert />
+      </>
+    ),
+  ],
 };
 
 export const Default: Story = {
@@ -24,11 +35,7 @@ export const Default: Story = {
       source: { code: "<Alert />" },
     },
   },
-  render: args => (
-    <div className="w-[480px]">
-      <Alert {...defaultProps} {...args} />
-    </div>
-  ),
+  render: () => <Button onClick={() => alert.white(defaultProps)}>Open default</Button>,
 };
 
 export const Colors: Story = {
@@ -40,7 +47,7 @@ export const Colors: Story = {
   render: args => (
     <div className="flex w-[480px] flex-col gap-4">
       {colors.map(color => (
-        <Alert key={color} {...defaultProps} {...args} color={color} />
+        <AlertComponent key={color} {...defaultProps} {...args} color={color} toastId="" />
       ))}
     </div>
   ),
@@ -49,17 +56,18 @@ export const Colors: Story = {
 export const WithButtons: Story = {
   parameters: {
     docs: {
-      source: { code: "<Alert with buttons />" },
+      source: { code: "<Alert />" },
     },
   },
   render: args => (
     <div className="flex w-[480px] flex-col gap-4">
       {colors.map(color => (
-        <Alert
+        <AlertComponent
           key={color}
           {...defaultProps}
           {...args}
           color={color}
+          toastId=""
           primaryButton={{
             children: "Primary Action",
           }}

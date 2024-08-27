@@ -11,7 +11,7 @@ import { Providers } from "@/app/providers";
 import { InitBootstrapAuth } from "@/core/bootstrap/auth/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/impersonation/init-bootstrap-impersonation";
 
-import { Toaster } from "@/design-system/atoms/toaster";
+import { Alert } from "@/design-system/molecules/alert";
 
 import { AppWrapper } from "@/shared/features/app-wrapper/app-wrapper";
 
@@ -45,7 +45,7 @@ export default function RootLayout({
           <InitBootstrapAuth />
           <InitBootstrapImpersonation />
           <AppWrapper>{children}</AppWrapper>
-          <Toaster />
+          <Alert />
           <PosthogIdentifyUser />
           <PosthogPageview />
         </Providers>

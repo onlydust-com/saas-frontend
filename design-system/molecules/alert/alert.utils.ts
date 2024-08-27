@@ -2,9 +2,9 @@ import { CircleDashed } from "lucide-react";
 
 import { IconPort } from "@/design-system/atoms/icon";
 
-import { AlertPort } from "./alert.types";
+import { AlertProps } from "./alert.types";
 
-export function getDefaultIcon(color: AlertPort["color"]): IconPort["component"] {
+export function getDefaultIcon(color: AlertProps["color"]): IconPort["component"] {
   const map = {
     white: CircleDashed,
     grey: CircleDashed,

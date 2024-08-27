@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { Toaster, toast } from "sonner";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -7,20 +8,24 @@ import { getDefaultIcon } from "@/design-system/molecules/alert/alert.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { AlertPort } from "../../alert.types";
-import { AlertDefaultVariants } from "./default.variants";
+import { AlertManagerPort, AlertPort, AlertProps } from "../../alert.types";
+import { AlertSonnerVariants } from "./sonner.variants";
 
-export function AlertDefaultAdapter({
+export function AlertSonnerAdapter({ position = "bottom-left" }: AlertPort) {
+  return <Toaster position={position} />;
+}
+
+export function AlertComponent({
   classNames,
-  onClose,
   title,
   description,
   icon,
   primaryButton,
   secondaryButton,
   color,
-}: AlertPort) {
-  const slots = AlertDefaultVariants({ color });
+  toastId,
+}: AlertProps & { toastId: string | number }) {
+  const slots = AlertSonnerVariants({ color });
 
   const iconComponent = icon?.component || getDefaultIcon(color);
 
@@ -48,7 +53,7 @@ export function AlertDefaultAdapter({
                 base: "text-components-buttons-button-tertiary-fg",
               },
             }}
-            onClick={onClose}
+            onClick={() => toast.dismiss(toastId)}
             classNames={{
               base: "-mr-1 -mt-1",
             }}
@@ -66,3 +71,40 @@ export function AlertDefaultAdapter({
     </div>
   );
 }
+
+function handleAlert(props: AlertProps) {
+  toast.custom(t => <AlertComponent {...props} toastId={t} />);
+}
+
+export const alertSonnerAdapter: AlertManagerPort = {
+  white: props =>
+    handleAlert({
+      color: "white",
+      ...props,
+    }),
+  grey: props =>
+    handleAlert({
+      color: "grey",
+      ...props,
+    }),
+  brand: props =>
+    handleAlert({
+      color: "brand",
+      ...props,
+    }),
+  error: props =>
+    handleAlert({
+      color: "error",
+      ...props,
+    }),
+  warning: props =>
+    handleAlert({
+      color: "warning",
+      ...props,
+    }),
+  success: props =>
+    handleAlert({
+      color: "success",
+      ...props,
+    }),
+};
