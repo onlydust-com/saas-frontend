@@ -2,7 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const CardFinancialDefaultVariants = tv({
   slots: {
-    base: "flex h-full w-full flex-col justify-between gap-2",
+    base: "flex h-full w-full flex-col justify-between gap-2 border-1 border-border-primary",
+    cta: "rounded-xs p-xs transition-all",
   },
   variants: {
     size: {
@@ -14,37 +15,18 @@ export const CardFinancialDefaultVariants = tv({
       },
     },
     color: {
-      "chart-1": {
-        base: "bg-chart-1",
+      grey: {
+        base: "bg-background-secondary text-typography-secondary",
+        cta: "text-foreground-secondary hover:bg-background-tertiary",
       },
-      "chart-2": {
-        base: "bg-chart-2",
-      },
-      "chart-3": {
-        base: "bg-chart-3",
-      },
-      "chart-4": {
-        base: "bg-chart-4",
-      },
-      "brand-1": {
-        base: "bg-brand-1",
-      },
-      "brand-2": {
-        base: "bg-brand-2",
-      },
-      "brand-3": {
-        base: "bg-brand-3",
-      },
-      "brand-4": {
-        base: "bg-brand-4",
-      },
-      "container-3": {
-        base: "bg-container-3",
+      gradient: {
+        base: "text-typography-white component-card-bg-gradient-1",
+        cta: "hover:bg-utility-alpha-white-20",
       },
     },
   },
   defaultVariants: {
     size: "xl",
-    color: "chart-1",
+    color: "grey",
   },
 });
