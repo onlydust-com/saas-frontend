@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
 
@@ -17,6 +17,6 @@ export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Var
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   avatars: AvatarItem[];
-  title?: string;
-  description?: string;
+  title?: ReactNode;
+  description?: ReactNode;
 }
