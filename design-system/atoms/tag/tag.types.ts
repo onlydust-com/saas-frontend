@@ -30,7 +30,7 @@ export interface TagBasePort<C extends ElementType> extends Partial<Variants>, P
   startIcon?: IconPort;
   onClose?: () => void;
   onSelect?: () => void;
-  selected?: boolean;
+  isSelected?: boolean;
 }
 
 export interface TagAvatarPort<C extends ElementType> extends TagBasePort<C> {

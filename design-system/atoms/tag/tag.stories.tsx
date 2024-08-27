@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { CircleDashed } from "lucide-react";
 
-import { TagAvatar } from "@/design-system/atoms/tag/variants/tag-avatar";
+import { TagLoading } from "@/design-system/atoms/tag/tag.loading";
 
 import { TagAvatarPort, TagPort, TagSize } from "./tag.types";
 import { Tag } from "./variants/tag-default";
@@ -11,13 +12,19 @@ const defaultProps: TagPort<"div"> = {
   children: "Tag",
   classNames: {},
   htmlProps: {},
-  onSelect: () => null,
-  onClose: () => null,
 };
 
-const defaultTagAvatarProps: TagAvatarPort<"div"> = {
+function mockFn() {
+  return null;
+}
+
+const defaultIconProps: TagPort<"div"> = {
   ...defaultProps,
-  startContent: undefined,
+  startIcon: { component: CircleDashed },
+};
+
+const defaultAvatarProps: TagAvatarPort<"div"> = {
+  ...defaultProps,
   avatar: { src: undefined },
 };
 
@@ -25,7 +32,7 @@ const sizes: TagSize[] = ["xxs", "xs", "sm", "md"];
 
 const meta: Meta<typeof Tag> = {
   component: Tag,
-  title: "Deprecated/Atoms/Tag",
+  title: "Atoms/Tag",
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -45,49 +52,25 @@ export const Default: Story = {
   },
 };
 
-export const Rounded: Story = {
+export const Sizes: Story = {
   parameters: {
     docs: {
-      source: { code: "<Tag shape'rounded' />" },
+      source: { code: "<Tag />" },
     },
   },
   render: args => {
     return (
-      <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-8">
-          {sizes.map(s => {
-            return (
-              <div key={s} className="flex flex-col items-start gap-2">
-                <Tag {...defaultProps} {...args} size={s} />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  },
-};
-
-export const Square: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<Tag shape'square' />" },
-    },
-  },
-  render: args => {
-    return (
-      <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-8">
-          {sizes.map(s => {
-            return (
-              <div key={s} className="flex flex-col items-start gap-2">
-                <Tag {...defaultProps} {...args} size={s} shape="square" />
-                <Tag {...defaultProps} {...args} size={s} shape="square" hideText />
-                <Tag {...defaultProps} {...args} size={s} shape="square" hideText isDeletable={false} />
-              </div>
-            );
-          })}
-        </div>
+      <div className="flex w-full flex-col items-start gap-5">
+        {sizes.map(s => {
+          return (
+            <div key={s} className="flex flex-row items-start gap-3">
+              <Tag {...defaultProps} {...args} size={s} />
+              <Tag {...defaultIconProps} {...args} size={s} />
+              <Tag {...defaultIconProps} {...args} size={s} onClose={mockFn} />
+              <Tag {...defaultProps} {...args} size={s} onClose={mockFn} />
+            </div>
+          );
+        })}
       </div>
     );
   },
@@ -96,135 +79,67 @@ export const Square: Story = {
 export const WithAvatar: Story = {
   parameters: {
     docs: {
-      source: { code: "<TagAvatar avatar={{ }} />" },
+      source: { code: "<Tag avatar={{ }} />" },
     },
   },
   render: args => {
     return (
-      <div className="flex w-full flex-col items-center gap-2">
-        <div className="flex w-full items-start gap-2">
-          <div className="flex w-full items-start gap-8">
-            {sizes.map(s => {
-              return (
-                <div key={s} className="flex flex-col items-start gap-2">
-                  <TagAvatar {...defaultTagAvatarProps} {...args} size={s} />
-                  <TagAvatar {...defaultTagAvatarProps} {...args} size={s} />
-                  <TagAvatar {...defaultTagAvatarProps} {...args} size={s} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="flex w-full flex-col items-start gap-5">
+        {sizes.map(s => {
+          return (
+            <div key={s} className="flex flex-row items-start gap-3">
+              <Tag {...defaultAvatarProps} {...args} size={s} />
+              <Tag {...defaultAvatarProps} {...args} size={s} onClose={mockFn} />
+              <Tag {...defaultIconProps} {...defaultAvatarProps} {...args} size={s} />
+              <Tag {...defaultIconProps} {...defaultAvatarProps} {...args} size={s} onClose={mockFn} />
+            </div>
+          );
+        })}
       </div>
     );
   },
 };
 
-// export const HasDropdown: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<TagAvatar hasDropdown={true} />" },
-//     },
-//   },
-//   render: args => {
-//     return (
-//       <div className="flex w-full flex-col items-center gap-2">
-//         <div className="flex w-full items-start gap-2">
-//           {display.map(d => {
-//             return (
-//               <div key={d} className="flex w-full items-start gap-8">
-//                 {sizes.map(s => {
-//                   return (
-//                     <div key={s} className="flex flex-col items-start gap-2">
-//                       <Tag {...defaultTagIconProps} {...args} hasDropdown={true} size={s} shape={d} />
-//                     </div>
-//                   );
-//                 })}
-//               </div>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     );
-//   },
-// };
+export const Selectable: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Tag onSelect={() => {}} isSelected={true} />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full flex-col items-start gap-5">
+        {sizes.map(s => {
+          return (
+            <div key={s} className="flex flex-row items-start gap-3">
+              <Tag {...defaultProps} {...args} size={s} onSelect={mockFn} />
+              <Tag {...defaultProps} {...args} size={s} onSelect={mockFn} isSelected={true} />
+              <Tag {...defaultIconProps} {...args} size={s} onSelect={mockFn} />
+              <Tag {...defaultIconProps} {...args} size={s} onClose={mockFn} onSelect={mockFn} />
+              <Tag {...defaultProps} {...args} size={s} onClose={mockFn} onSelect={mockFn} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  },
+};
 
-// export const Colors: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<Tag color='blue' style='fill' />" },
-//     },
-//   },
-//   render: args => {
-//     return (
-//       <div className="flex w-full flex-col items-center gap-2">
-//         {colors.map(c => {
-//           return (
-//             <div key={c} className="flex w-full items-center gap-2">
-//               {style.map(s => {
-//                 return <Tag key={`${c}-${s}`} {...defaultProps} {...args} color={c} style={s} />;
-//               })}
-//             </div>
-//           );
-//         })}
-//       </div>
-//     );
-//   },
-// };
-
-// export const Clickable: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<Tag clickable={true} />" },
-//     },
-//   },
-//   render: args => {
-//     return (
-//       <div className="flex w-full flex-col items-center gap-2">
-//         {colors.map(c => {
-//           return (
-//             <div key={c} className="flex w-full items-center gap-2">
-//               {style.map(s => {
-//                 return <Tag key={`${c}-${s}`} {...defaultProps} {...args} clickable={true} color={c} style={s} />;
-//               })}
-//             </div>
-//           );
-//         })}
-//       </div>
-//     );
-//   },
-// };
-
-// export const Skeleton: Story = {
-//   parameters: {
-//     docs: {
-//       source: { code: "<TagLoading  />" },
-//     },
-//   },
-//   render: () => {
-//     return (
-//       <div className="flex w-full items-start gap-5">
-//         <div className="flex flex-col gap-2">
-//           <TagLoading size={"m"} />
-//           <TagLoading size={"m"} shape={"square"} />
-//           <TagLoading size={"m"} hideText />
-//           <TagLoading size={"m"} hideText shape={"square"} />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <TagLoading size={"s"} />
-//           <TagLoading size={"s"} shape={"square"} />
-//           <TagLoading size={"s"} hideText />
-//           <TagLoading size={"s"} hideText shape={"square"} />
-//         </div>
-//         <div className="flex flex-col gap-2">
-//           <TagLoading size={"xs"} />
-//           <TagLoading size={"xs"} shape={"square"} />
-//           <TagLoading size={"xs"} hideText />
-//           <TagLoading size={"xs"} hideText shape={"square"} />
-//         </div>
-//       </div>
-//     );
-//   },
-// };
+export const Skeleton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<TagLoading  />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full flex-col items-start gap-5">
+        {sizes.map(s => {
+          return <TagLoading size={s} key={s} />;
+        })}
+      </div>
+    );
+  },
+};
 
 export default meta;

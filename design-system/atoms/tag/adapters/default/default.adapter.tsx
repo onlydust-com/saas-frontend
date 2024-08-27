@@ -21,12 +21,13 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
   labelProps = {},
   onClose,
   onSelect,
+  isSelected,
   startIcon,
   ...props
 }: TagPort<C>) {
   const { size } = props;
   const Component = as || "span";
-  const slots = TagDefaultVariants({ size });
+  const slots = TagDefaultVariants({ size, isSelected });
   const isSelectable = !!onSelect;
   const showChildren = !!children || !!translate;
 
@@ -51,7 +52,7 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
         {endContent}
 
         {!!onClose && (
-          <button className={cn(slots.closeButton(), classNames?.closeButton)}>
+          <button className={cn(slots.closeButton(), classNames?.closeButton)} onClick={onClose}>
             <Icon component={X} size={"xxs"} classNames={{ base: cn(slots.closeIcon(), classNames?.closeIcon) }} />
           </button>
         )}

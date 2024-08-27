@@ -10,54 +10,30 @@ const skeletonVariants = tv({
   },
   variants: {
     size: {
+      xxs: {
+        base: "h-[20px] w-[44px] rounded-xs",
+      },
       xs: {
-        base: "size-6",
+        base: "h-[24px] w-[48px] rounded-sm",
       },
-      s: {
-        base: "size-8",
+      sm: {
+        base: "h-[28px] w-[52px] rounded-sm",
       },
-      m: {
-        base: "size-10",
+      md: {
+        base: "h-[32px] w-[56px] rounded-md",
       },
-    },
-    hideText: {
-      true: "",
     },
   },
-  compoundVariants: [
-    {
-      size: "xs",
-      hideText: true,
-      className: {
-        base: "w-[59px]",
-      },
-    },
-    {
-      size: "s",
-      hideText: true,
-      className: {
-        base: "w-[69px]",
-      },
-    },
-    {
-      size: "m",
-      hideText: true,
-      className: {
-        base: "w-[69px]",
-      },
-    },
-  ],
   defaultVariants: {
-    size: "m",
+    size: "md",
   },
 });
 
-export function TagLoading<C extends ElementType = "span">({ size, hideText, shape }: TagPort<C>) {
-  const { base } = skeletonVariants({ size, hideText });
+export function TagLoading<C extends ElementType = "span">({ size }: TagPort<C>) {
+  const { base } = skeletonVariants({ size });
 
   return (
     <Skeleton
-      shape={shape === "square" ? "square" : "circle"}
       classNames={{
         base: base(),
       }}

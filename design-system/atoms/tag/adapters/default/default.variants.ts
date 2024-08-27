@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const TagDefaultVariants = tv({
   slots: {
     base: [
-      "group block w-fit border-1 border-border-primary bg-background-primary transition-all effect-shadow-xs",
+      "group block w-fit border-1 border-border-primary bg-background-primary transition-all effect-box-shadow-xs",
       "data-[clickable=true]:cursor-pointer data-[clickable=true]:hover:bg-background-primary-alt-hover",
     ],
     content: "flex flex-row items-center justify-center text-foreground-quaternary",
@@ -28,6 +28,11 @@ export const TagDefaultVariants = tv({
       md: {
         base: "rounded-md px-lg py-md",
         content: "gap-md",
+      },
+    },
+    isSelected: {
+      true: {
+        base: "border-border-active",
       },
     },
   },
