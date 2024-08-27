@@ -47,45 +47,47 @@ function Radio<V extends string, C extends ElementType = "div">({
               )}
             />
           </div>
-          <div className={"flex flex-col"}>
-            {!!title && (
-              <Typo
-                variant={"text"}
-                size={"sm"}
-                weight={"medium"}
-                color={"secondary"}
-                canHover={true}
-                {...title}
-                classNames={{
-                  ...(title.classNames || {}),
-                  base: cn(
-                    {
-                      "text-typography-disabled": isDisabled,
-                    },
-                    title.classNames?.base
-                  ),
-                }}
-              />
-            )}
-            {!!description && (
-              <Typo
-                variant={"text"}
-                size={"sm"}
-                color={"secondary"}
-                canHover={true}
-                {...description}
-                classNames={{
-                  ...(description.classNames || {}),
-                  base: cn(
-                    {
-                      "text-typography-disabled": isDisabled,
-                    },
-                    description.classNames?.base
-                  ),
-                }}
-              />
-            )}
-          </div>
+          {!!title || !!description ? (
+            <div className={"flex flex-col"}>
+              {!!title && (
+                <Typo
+                  variant={"text"}
+                  size={"sm"}
+                  weight={"medium"}
+                  color={"secondary"}
+                  canHover={true}
+                  {...title}
+                  classNames={{
+                    ...(title.classNames || {}),
+                    base: cn(
+                      {
+                        "text-typography-disabled": isDisabled,
+                      },
+                      title.classNames?.base
+                    ),
+                  }}
+                />
+              )}
+              {!!description && (
+                <Typo
+                  variant={"text"}
+                  size={"sm"}
+                  color={"secondary"}
+                  canHover={true}
+                  {...description}
+                  classNames={{
+                    ...(description.classNames || {}),
+                    base: cn(
+                      {
+                        "text-typography-disabled": isDisabled,
+                      },
+                      description.classNames?.base
+                    ),
+                  }}
+                />
+              )}
+            </div>
+          ) : null}
         </div>
       </InnerComponent>
     </Component>
