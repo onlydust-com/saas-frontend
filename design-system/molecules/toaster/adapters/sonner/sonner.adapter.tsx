@@ -18,18 +18,20 @@ function handleToast({ classNames, children, icon, type }: ToastProps) {
 
   toast.custom(t => (
     <div className={cn(slots.base(), classNames?.base)}>
-      {icon ? (
-        <Icon
-          {...icon}
-          classNames={{
-            base: "text-foreground-white",
-          }}
-        />
-      ) : null}
+      <div className="flex gap-2">
+        {icon ? (
+          <Icon
+            {...icon}
+            classNames={{
+              base: "text-foreground-white",
+            }}
+          />
+        ) : null}
 
-      <Typo size="xs" weight="medium" color="white">
-        {children}
-      </Typo>
+        <Typo size="xs" weight="medium" color="white">
+          {children}
+        </Typo>
+      </div>
 
       <button
         className="rounded p-0.5 transition-colors hover:bg-utility-alpha-white-10"

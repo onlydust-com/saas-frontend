@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ToasterSonnerVariants = tv({
   slots: {
-    base: "effect-box-shadow-lg flex gap-2 rounded-lg py-2 pl-3 pr-2",
+    base: "effect-box-shadow-lg flex min-w-64 justify-between gap-2 rounded-lg py-2 pl-3 pr-2",
   },
   variants: {
     type: {
