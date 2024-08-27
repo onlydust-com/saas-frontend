@@ -27,6 +27,19 @@ export const Default: Story = {
     },
   },
   render: args => (
+    <div className="w-full">
+      <AvatarLabelGroup {...defaultAvatars} {...args} />
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<AvatarLabelGroup />" },
+    },
+  },
+  render: args => (
     <div className="flex flex-col gap-4">
       {sizes.map(size => (
         <AvatarLabelGroup key={size} {...defaultAvatars} {...args} size={size} />

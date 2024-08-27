@@ -1,11 +1,17 @@
 import { Meta, StoryObj } from "@storybook/react";
 
+import { AlertLoading } from "./alert.loading";
 import { AlertPort } from "./alert.types";
 import { Alert } from "./variants/alert-default";
 
 type Story = StoryObj<typeof Alert>;
 
-const defaultProps: AlertPort = {};
+const defaultProps: AlertPort = {
+  title: "Alert Title",
+  description: "This is a description of the alert.",
+};
+
+const colors: AlertPort["color"][] = ["white", "grey", "brand", "error", "warning", "success"];
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
@@ -19,13 +25,65 @@ export const Default: Story = {
       source: { code: "<Alert />" },
     },
   },
-  render: args => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <Alert {...defaultProps} {...args} />
-      </div>
-    );
+  render: args => (
+    <div className="w-[480px]">
+      <Alert {...defaultProps} {...args} />
+    </div>
+  ),
+};
+
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Alert />" },
+    },
   },
+  render: args => (
+    <div className="flex w-[480px] flex-col gap-4">
+      {colors.map(color => (
+        <Alert key={color} {...defaultProps} {...args} color={color} />
+      ))}
+    </div>
+  ),
+};
+
+export const WithButtons: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Alert with buttons />" },
+    },
+  },
+  render: args => (
+    <div className="flex w-[480px] flex-col gap-4">
+      {colors.map(color => (
+        <Alert
+          key={color}
+          {...defaultProps}
+          {...args}
+          color={color}
+          primaryButton={{
+            children: "Primary Action",
+          }}
+          secondaryButton={{
+            children: "Secondary Action",
+          }}
+        />
+      ))}
+    </div>
+  ),
+};
+
+export const Skeleton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<AlertLoading />" },
+    },
+  },
+  render: () => (
+    <div className="w-[480px]">
+      <AlertLoading />
+    </div>
+  ),
 };
 
 export default meta;

@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
+import { getDefaultIcon } from "@/design-system/molecules/alert/alert.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -21,11 +22,13 @@ export function AlertDefaultAdapter({
 }: AlertPort) {
   const slots = AlertDefaultVariants({ color });
 
+  const iconComponent = icon?.component || getDefaultIcon(color);
+
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      {icon ? <Icon component={icon.component} size="md" classNames={{ base: slots.icon() }} /> : null}
+      <Icon component={iconComponent} size="md" classNames={{ base: slots.icon() }} />
 
-      <div className="relative flex flex-col gap-3">
+      <div className="relative flex w-full flex-col gap-3">
         <button className="absolute -right-1 -top-1" onClick={onClose}>
           <Icon
             component={X}

@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const AlertDefaultVariants = tv({
   slots: {
-    base: "flex gap-4 rounded-lg border p-4 effect-shadow-lg",
+    base: "effect-box-shadow-lg flex w-full gap-4 rounded-lg border p-4",
     icon: "",
   },
   variants: {

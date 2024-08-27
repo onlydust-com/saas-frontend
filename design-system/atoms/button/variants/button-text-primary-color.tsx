@@ -39,7 +39,6 @@ const ButtonTextPrimaryColorVariants = tv({
       primary: {
         base: [
           "text-components-textbutton-primary-fg",
-          "effect-shadow-xs",
           "data-[hover=true]:text-components-textbutton-primary-fg-hover hover:text-components-textbutton-primary-fg-hover",
           "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
         ],
@@ -47,7 +46,6 @@ const ButtonTextPrimaryColorVariants = tv({
       secondary: {
         base: [
           "text-components-textbutton-secondary-fg",
-          "effect-shadow-xs",
           "data-[hover=true]:text-components-textbutton-secondary-fg-hover hover:text-components-textbutton-secondary-fg-hover",
           "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
         ],

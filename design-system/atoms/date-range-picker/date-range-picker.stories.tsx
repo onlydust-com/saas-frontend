@@ -33,7 +33,7 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="w-[348px]">
         <DateRangePicker {...defaultProps} {...args} />
       </div>
     );
@@ -48,7 +48,7 @@ export const WithLabel: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="flex w-[348px] items-center gap-2">
         <DateRangePicker {...defaultProps} {...args} label="Select Date Range" />
       </div>
     );
@@ -63,7 +63,7 @@ export const Disabled: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="flex w-[348px] items-center gap-2">
         <DateRangePicker {...defaultProps} isDisabled={true} />
       </div>
     );
@@ -78,7 +78,7 @@ export const Invalid: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="flex w-[348px] items-center gap-2">
         <DateRangePicker {...defaultProps} isError={true} />
       </div>
     );
@@ -93,7 +93,7 @@ export const Skeleton: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-[348px] items-center gap-2">
+      <div className="w-[348px]">
         <DateRangePickerLoading />
       </div>
     );
