@@ -1,3 +1,5 @@
+import { CardFinancialDefaultVariants } from "design-system/molecules/cards/card-financial/adapters/default/default.variants";
+import { CardFinancialPort } from "design-system/molecules/cards/card-financial/card-financial.types";
 import { ChevronRight } from "lucide-react";
 import { ElementType } from "react";
 
@@ -7,9 +9,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 
 import { cn } from "@/shared/helpers/cn";
-
-import { CardFinancialPort } from "../../card-financial.types";
-import { CardFinancialDefaultVariants } from "./default.variants";
 
 export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   as,
