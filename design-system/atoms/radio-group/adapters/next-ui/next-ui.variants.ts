@@ -4,86 +4,55 @@ export const RadioGroupNextUiVariants = tv({
   slots: {
     base: "flex flex-row gap-1",
     item: "group cursor-pointer !select-all",
-    indicator: "relative h-4 w-4 rounded-full border-2 transition-colors",
+    indicator:
+      "relative h-4 w-4 rounded-full border-2 border-border-primary-alt transition-all group-data-[focus=true]:effect-ring-brand-spaced",
     indicatorIcon:
-      "pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity",
+      "pointer-events-none absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground-white opacity-0 transition-opacity",
   },
   variants: {
-    color: {
-      black: {
-        indicator:
-          "border-interactions-black-default group-hover:border-interactions-black-hover group-hover:bg-interactions-black-hover",
+    layout: {
+      vertical: {
+        base: "flex-col",
       },
-      white: {
-        indicator:
-          "border-interactions-white-default group-hover:border-interactions-white-hover group-hover:bg-interactions-white-hover",
+      horizontal: {
+        base: "flex-row",
       },
     },
-
     isDisabled: {
       true: "",
     },
-
     isActive: {
-      true: "",
-    },
-
-    mixed: {
-      true: "",
+      true: {
+        indicator: [
+          "border-background-brand-primary-solid",
+          "bg-background-brand-primary-solid",
+          "group-data-[hover=true]:border-background-brand-primary-solid-hover hover:border-background-brand-primary-solid-hover",
+          "group-data-[hover=true]:bg-background-brand-primary-solid-hover hover:bg-background-brand-primary-solid-hover",
+        ],
+      },
+      false: {
+        indicator: ["group-data-[hover=true]:bg-background-primary-alt-hover hover:bg-background-primary-alt-hover"],
+      },
     },
   },
   compoundVariants: [
     {
-      color: "white",
       isActive: true,
-      class: {
-        indicator:
-          "border-interactions-white-default bg-interactions-white-default group-hover:border-interactions-white-hover group-hover:bg-interactions-white-hover",
-        indicatorIcon: "text-interactions-black-active",
-      },
-    },
-    {
-      color: "white",
-      isMixed: true,
-      class: {
-        indicator:
-          "border-interactions-white-default bg-interactions-white-default group-hover:border-interactions-white-hover group-hover:bg-interactions-white-hover",
-      },
-    },
-    {
-      color: "white",
       isDisabled: true,
       class: {
-        indicator: "border-interactions-white-disabled",
-      },
-    },
-
-    {
-      color: "black",
-      isActive: true,
-      class: {
-        indicator:
-          "border-interactions-black-active bg-interactions-black-active group-hover:border-interactions-black-hover group-hover:bg-interactions-black-hover",
-        indicatorIcon: "text-interactions-white-active",
+        indicator: ["border-foreground-disabled", "bg-foreground-disabled"],
+        indicatorIcon: ["bg-background-disabled"],
       },
     },
     {
-      color: "black",
-      isMixed: true,
-      class: {
-        indicator:
-          "border-interactions-black-active bg-interactions-black-active group-hover:border-interactions-black-hover group-hover:bg-interactions-black-hover",
-      },
-    },
-    {
-      color: "black",
+      isActive: false,
       isDisabled: true,
       class: {
-        indicator: "border-interactions-black-disabled",
+        indicator: ["border-border-disabled", "bg-background-disabled"],
       },
     },
   ],
   defaultVariants: {
-    color: "white",
+    isDisabled: false,
   },
 });

@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const CheckboxNextUiVariants = tv({
   slots: {
     base: "flex items-start justify-start gap-2",
-    wrapper: "before:rounded-xs after:rounded-xs rounded-xs m-0 box-border h-4 w-4 transition-all",
+    wrapper: "m-0 box-border h-4 w-4 rounded-xs transition-all before:rounded-xs after:rounded-xs",
     icon: "text-text-4",
   },
   variants: {
@@ -13,7 +13,7 @@ export const CheckboxNextUiVariants = tv({
           "before:border-border-primary-alt",
           "after:bg-background-brand-primary-solid group-data-[hover=true]:after:bg-background-brand-primary-solid-hover",
           "group-data-[hover=true]:before:bg-background-primary-alt-hover",
-          "effect-shadow-xs",
+          "effect-box-shadow-xs",
           "group-data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
         ],
       },
@@ -21,7 +21,7 @@ export const CheckboxNextUiVariants = tv({
     isDisabled: {
       true: {
         base: "pointer-events-none cursor-not-allowed",
-        wrapper: "after:border-border-primary-alt before:bg-background-disabled after:bg-transparent",
+        wrapper: "before:bg-background-disabled after:border-border-primary-alt after:bg-transparent",
         icon: "text-foreground-disabled",
       },
     },

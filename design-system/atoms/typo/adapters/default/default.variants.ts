@@ -137,28 +137,28 @@ export const TypoDefaultVariants = tv({
       color: "secondary",
       canHover: true,
       class: {
-        base: "hover:text-typography-secondary-hover",
+        base: "group-hover:text-typography-secondary-hover hover:text-typography-secondary-hover",
       },
     },
     {
       color: "tertiary",
       canHover: true,
       class: {
-        base: "hover:text-typography-tertiary-hover",
+        base: "group-hover:text-typography-tertiary-hover hover:text-typography-tertiary-hover",
       },
     },
     {
       color: "error",
       canHover: true,
       class: {
-        base: "hover:text-typography-error-hover",
+        base: "group-hover:text-typography-error-hover hover:text-typography-error-hover",
       },
     },
     {
       color: "brand-secondary-alt",
       canHover: true,
       class: {
-        base: "hover:text-typography-brand-secondary-alt-hover",
+        base: "group-hover:text-typography-brand-secondary-alt-hover hover:text-typography-brand-secondary-alt-hover",
       },
     },
   ],

@@ -25,6 +25,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   size,
   iconOnly,
   canInteract,
+  ...restProps
 }: ButtonPort<C>) {
   const Component = as || "button";
   const slots = ButtonDefaultVariants({
@@ -53,6 +54,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   if (iconOnly && startIcon) {
     return (
       <Component
+        {...(restProps || {})}
         {...(htmlProps || {})}
         data-disabled={isDisabled}
         className={cn(slots.base(), classNames?.base)}
@@ -72,6 +74,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
 
   return (
     <Component
+      {...(restProps || {})}
       {...(htmlProps || {})}
       data-disabled={isDisabled}
       className={cn(slots.base(), classNames?.base)}
