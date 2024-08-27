@@ -35,7 +35,9 @@ export function AlertDefaultAdapter({
               {title}
             </Typo>
 
-            <Typo size="sm">{description}</Typo>
+            <Typo size="sm" color="secondary">
+              {description}
+            </Typo>
           </div>
 
           <Button
