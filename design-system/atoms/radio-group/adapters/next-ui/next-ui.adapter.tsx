@@ -31,7 +31,7 @@ function Radio<V extends string, C extends ElementType = "div">({
       className={cn(slots.item(), classNames?.item, { "pointer-events-none": isDisabled })}
       {...attr}
     >
-      <InnerComponent {...componentProps}>
+      <InnerComponent {...componentProps} data-focus={isFocus}>
         <VisuallyHidden>
           <input {...getInputProps()} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
         </VisuallyHidden>
