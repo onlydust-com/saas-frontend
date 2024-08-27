@@ -11,7 +11,7 @@ export const SwitchNextUiVariants = tv({
       "group-data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
     ],
     thumb: [
-      "effect-shadow-xs h-3 w-3 max-w-3",
+      "effect-box-shadow-sm h-3 w-3 max-w-3",
       "group-data-[selected=true]:bg-foreground-white group-data-[selected=true]:ml-3",
       "group-data-[selected]:group-data-[pressed]:ml-3 group-data-[pressed=true]:w-3",
     ],
