@@ -45,7 +45,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
             amount={{
               value: currency.prettyAmount,
               currency: currency.currency,
-              usdEquivalent: total.totalUsdEquivalent,
+              usdEquivalent: currency.usdEquivalent ?? 0,
             }}
             tag={currency.ratio ? `${currency.ratio}%` : undefined}
           />
