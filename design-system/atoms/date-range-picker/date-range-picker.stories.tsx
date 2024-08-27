@@ -15,7 +15,7 @@ const defaultProps: DateRangePickerPort = {
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
-  title: "Deprecated/Atoms/DateRangePicker",
+  title: "Atoms/DateRangePicker",
   tags: ["autodocs"],
 };
 
