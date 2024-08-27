@@ -7,7 +7,7 @@ interface ClassNames {
 }
 
 export type ButtonProps = Pick<ButtonDefaultPort<"div">, "variant" | "size" | "children">;
-export type CheckBoxProps = Omit<CheckboxPort, "classNames" | "color">;
+export type CheckBoxProps = Omit<CheckboxPort, "classNames" | "variant" | "mixed">;
 export interface CheckboxButtonPort extends ButtonProps, CheckBoxProps {
   classNames?: Partial<ClassNames>;
 }

@@ -5,8 +5,8 @@ import { cn } from "@/shared/helpers/cn";
 import { ProgressBarPort } from "../../progress-bar.types";
 import { ProgressBarNextUiVariants } from "./next-ui.variants";
 
-export function ProgressBarNextUiAdapter({ classNames, min = 0, max = 100, value, color }: ProgressBarPort) {
-  const slots = ProgressBarNextUiVariants({ color });
+export function ProgressBarNextUiAdapter({ classNames, min = 0, max = 100, value }: ProgressBarPort) {
+  const slots = ProgressBarNextUiVariants();
 
   return (
     <Progress

@@ -11,14 +11,8 @@ const defaultProps: CheckboxButtonPort = {
 
 const meta: Meta<typeof CheckboxButton> = {
   component: CheckboxButton,
-  title: "Deprecated/Molecules/CheckboxButton",
+  title: "Molecules/CheckboxButton",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {

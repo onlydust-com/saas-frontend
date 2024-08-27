@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
+
 interface ClassNames {
   base: string;
   wrapper: string;
@@ -13,8 +15,10 @@ interface ClassNames {
 export interface SwitchPort {
   classNames?: Partial<ClassNames>;
   onChange: (isActive: boolean) => void;
-  isActive: boolean;
+  isSelected: boolean;
   isDisabled?: boolean;
   startContent?: ReactNode;
   endContent?: ReactNode;
+  label?: TranslateProps;
+  description?: TranslateProps;
 }
