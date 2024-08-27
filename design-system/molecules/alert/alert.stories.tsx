@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
+import { AlertLoading } from "./alert.loading";
 import { AlertPort } from "./alert.types";
 import { Alert } from "./variants/alert-default";
 
@@ -70,6 +71,21 @@ export const WithButtons: Story = {
       ))}
     </div>
   ),
+};
+
+export const Skeleton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<AlertLoading />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="w-[480px]">
+        <AlertLoading />
+      </div>
+    );
+  },
 };
 
 export default meta;
