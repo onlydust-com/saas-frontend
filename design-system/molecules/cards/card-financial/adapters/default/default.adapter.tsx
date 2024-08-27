@@ -1,9 +1,9 @@
 import { ChevronRight } from "lucide-react";
 import { ElementType } from "react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
-import { Typo } from "@/design-system/atoms/typo";
+import { Typo, TypoSize } from "@/design-system/atoms/typo";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 
 import { cn } from "@/shared/helpers/cn";
@@ -21,54 +21,49 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   avatarGroup,
   cta,
   size = "xl",
-  color = "chart-1",
+  color = "grey",
 }: CardFinancialPort<C>) {
-  const Component = as || "div";
+  const Component = as || cta ? "button" : "div";
   const slots = CardFinancialDefaultVariants({ size, color });
-
   const isSizeM = size === "m";
+  const titleSize: TypoSize = isSizeM ? "xs" : "sm";
+  const contentSize: TypoSize = isSizeM ? "sm" : "md";
+  const avatarSize = isSizeM ? "xs" : "sm";
 
   return (
     <Paper
-      size={"s"}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
-      container={"2"}
+      background={"transparent"}
       border={"none"}
       as={Component}
+      onClick={cta ? cta.onClick : undefined}
       {...htmlProps}
     >
       <div className="flex flex-col gap-2">
-        <Typo size={isSizeM ? "xxs" : "m"} color={"text-1"} translate={title} />
+        <Typo size={titleSize} translate={title} classNames={{ base: "text-inherit" }} />
         <div className="flex gap-1">
-          <Typo size={isSizeM ? "s" : "xl"} color={"text-1"}>
+          <Typo size={contentSize} weight={"medium"} classNames={{ base: "text-inherit" }}>
             {amount}
           </Typo>
-          <Typo size={isSizeM ? "s" : "xl"} color={"text-2"}>
+          <Typo size={contentSize} weight={"medium"} classNames={{ base: "text-inherit" }}>
             {currency}
           </Typo>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex w-full items-center gap-2">
         {avatarGroup ? (
           <AvatarGroup
             classNames={{
               base: "flex-1",
             }}
             {...avatarGroup}
-            size={isSizeM ? "s" : "l"}
-            shape="round"
+            size={avatarSize}
           />
         ) : null}
         {cta ? (
-          <Button
-            size={isSizeM ? "s" : "l"}
-            variant="secondary"
-            classNames={{
-              label: "leading-4",
-            }}
-            startIcon={{ component: ChevronRight }}
-            {...cta}
-          />
+          <div className={cn(slots.cta(), classNames?.cta)}>
+            <Icon component={ChevronRight} size={"sm"} />
+          </div>
         ) : null}
       </div>
     </Paper>

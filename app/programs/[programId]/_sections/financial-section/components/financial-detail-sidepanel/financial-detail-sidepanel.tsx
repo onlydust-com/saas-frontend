@@ -7,8 +7,8 @@ import {
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { CardFinancial } from "@/design-system/molecules/card-financial";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
+import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
@@ -47,7 +47,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               currency: currency.currency,
               usdEquivalent: currency.usdEquivalent ?? 0,
             }}
-            tag={currency.ratio ? `${currency.ratio}%` : undefined}
+            badgeContent={currency.ratio ? `${currency.ratio}%` : undefined}
           />
         ))}
       </div>

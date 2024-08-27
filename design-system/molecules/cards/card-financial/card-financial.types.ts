@@ -5,12 +5,15 @@ import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+export type CardFinancialColors = "gradient" | "grey";
+
 interface Variants {
-  color: "chart-1" | "chart-2" | "chart-3" | "chart-4" | "brand-1" | "brand-2" | "brand-3" | "brand-4" | "container-3";
+  color: CardFinancialColors;
 }
 
 interface ClassNames {
   base: string;
+  cta: string;
 }
 
 export interface CardFinancialPort<C extends ElementType> extends Partial<Variants> {

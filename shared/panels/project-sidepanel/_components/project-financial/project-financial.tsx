@@ -7,7 +7,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
-import { CardFinancial } from "@/design-system/molecules/card-financial";
+import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 

@@ -11,11 +11,7 @@ const defaultProps: CardFinancialPort<"div"> = {
   amount: "1000",
   currency: "USD",
   avatarGroup: {
-    avatars: [
-      { src: "", name: undefined },
-      { src: "", name: undefined },
-      { src: "", name: undefined },
-    ],
+    avatars: [{ src: "" }, { src: "" }, { src: "" }],
   },
   cta: {
     onClick: () => {},
@@ -25,14 +21,8 @@ const defaultProps: CardFinancialPort<"div"> = {
 
 const meta: Meta<typeof CardFinancial> = {
   component: CardFinancial,
-  title: "Deprecated/Molecules/CardFinancial",
+  title: "Molecules/Cards/CardFinancial",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -44,10 +34,8 @@ export const Default: Story = {
   render: args => {
     return (
       <div className="flex h-[164px] w-full items-center gap-2">
-        <CardFinancial {...defaultProps} {...args} color={"chart-1"} />
-        <CardFinancial {...defaultProps} {...args} color={"chart-2"} />
-        <CardFinancial {...defaultProps} {...args} color={"chart-3"} />
-        <CardFinancial {...defaultProps} {...args} color={"chart-4"} />
+        <CardFinancial {...defaultProps} {...args} color={"grey"} />
+        <CardFinancial {...defaultProps} {...args} color={"gradient"} />
       </div>
     );
   },

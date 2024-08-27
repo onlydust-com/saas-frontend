@@ -27,6 +27,6 @@ export interface CardBudgetPort<C extends ElementType> extends Partial<Variants>
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   amount: Amount;
-  tag?: string;
+  badgeContent?: string;
   onClick?: () => void;
 }

@@ -2,8 +2,10 @@ import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { Tag } from "@/design-system/atoms/tag";
-import { CardTemplate } from "@/design-system/molecules/cards/card-template";
+import { Avatar } from "@/design-system/atoms/avatar";
+import { Badge } from "@/design-system/atoms/badge";
+import { Paper } from "@/design-system/atoms/paper";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -15,7 +17,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   classNames,
   htmlProps,
   amount: { value, currency, usdEquivalent },
-  tag,
+  badgeContent,
   onClick,
 }: CardBudgetPort<C>) {
   const slots = CardBudgetDefaultVariants({ clickable: Boolean(onClick) });
@@ -32,25 +34,35 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   });
 
   return (
-    <CardTemplate
+    <Paper
       as={as}
-      classNames={{ base: cn(slots.base(), classNames?.base) }}
       htmlProps={htmlProps}
-      avatarProps={{ src: currency.logoUrl }}
-      titleProps={{
-        children: `${titleMoney.amount} ${titleMoney.code}`,
-      }}
-      descriptionProps={{
-        children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
-      }}
-      endContent={
-        tag ? (
-          <Tag color="white" size="s" style="outline">
-            {tag}
-          </Tag>
-        ) : null
-      }
+      background={"secondary"}
+      border={"primary"}
+      classNames={{ base: cn(slots.base(), classNames?.base) }}
       onClick={onClick}
-    />
+    >
+      <Avatar src={currency.logoUrl} size="s" />
+
+      <div className="flex w-full flex-col gap-3 overflow-hidden">
+        <div className="flex items-start justify-between gap-md">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1">
+              <Typo size="sm" weight="medium" color={"primary"}>{`${titleMoney.amount} ${titleMoney.code}`}</Typo>
+            </div>
+
+            <Typo size="xs" color={"secondary"}>
+              {`~${descriptionMoney.amount} ${descriptionMoney.code}`}
+            </Typo>
+          </div>
+
+          {badgeContent ? (
+            <Badge size="md" color={"brand"}>
+              {badgeContent}
+            </Badge>
+          ) : null}
+        </div>
+      </div>
+    </Paper>
   );
 }

@@ -23,21 +23,15 @@ const defaultProps: CardTransactionPort<"div"> = {
     usdEquivalent: 120000,
   },
   buttonProps: {
-    startContent: <Avatar src={undefined} size="xs" shape="square" />,
+    startContent: <Avatar src={undefined} size="xs" shape="squared" />,
     children: "Project",
   },
 };
 
 const meta: Meta<typeof CardTransaction> = {
   component: CardTransaction,
-  title: "Deprecated/Molecules/Cards/CardTransaction",
+  title: "Molecules/Cards/CardTransaction",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
