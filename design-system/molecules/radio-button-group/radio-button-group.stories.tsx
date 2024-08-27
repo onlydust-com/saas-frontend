@@ -22,14 +22,8 @@ const defaultProps: RadioGroupButtonPort<string> = {
 
 const meta: Meta<typeof RadioButtonGroup> = {
   component: RadioButtonGroup,
-  title: "Deprecated/Molecules/RadioButtonGroup",
+  title: "Molecules/RadioButtonGroup",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
