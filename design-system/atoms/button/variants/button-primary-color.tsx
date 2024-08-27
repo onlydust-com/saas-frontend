@@ -20,7 +20,7 @@ const ButtonPrimaryColortVariants = tv({
         base: [
           "bg-components-buttons-button-primary-bg",
           "text-components-buttons-button-primary-fg",
-          "effect-shadow-xs",
+          "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-primary-bg-hover hover:bg-components-buttons-button-primary-bg-hover",
           "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
         ],
@@ -30,7 +30,7 @@ const ButtonPrimaryColortVariants = tv({
           "border-1 border-components-buttons-button-secondary-border",
           "bg-components-buttons-button-secondary-bg",
           "text-components-buttons-button-secondary-fg",
-          "effect-shadow-xs",
+          "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-secondary-bg-hover hover:bg-components-buttons-button-secondary-bg-hover",
           "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
         ],

@@ -1,7 +1,7 @@
 export const SHADOW = {
-  xs: "effect-shadow-xs",
-  sm: "effect-shadow-sm",
-  md: "effect-shadow-md",
-  lg: "effect-shadow-lg",
-  xl: "effect-shadow-xl",
+  xs: "effect-box-shadow-xs",
+  sm: "effect-box-shadow-sm",
+  md: "effect-box-shadow-md",
+  lg: "effect-box-shadow-lg",
+  xl: "effect-box-shadow-xl",
 } as const;
