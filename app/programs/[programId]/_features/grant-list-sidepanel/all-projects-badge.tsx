@@ -10,9 +10,6 @@ export function AllProjectsBadge({
 }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjects({
     queryParams,
-    options: {
-      enabled: false,
-    },
   });
 
   return useMemo(() => data?.pages[0].totalItemNumber ?? "-", [data]);
