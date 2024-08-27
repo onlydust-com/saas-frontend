@@ -28,22 +28,31 @@ export function AlertDefaultAdapter({
     <div className={cn(slots.base(), classNames?.base)}>
       <Icon component={iconComponent} size="md" classNames={{ base: slots.icon() }} />
 
-      <div className="relative flex w-full flex-col gap-3">
-        <button className="absolute -right-1 -top-1" onClick={onClose}>
-          <Icon
-            component={X}
+      <div className="flex w-full flex-col gap-3">
+        <div className="flex w-full justify-between gap-1">
+          <div className="flex flex-col gap-1">
+            <Typo size="sm" weight="medium">
+              {title}
+            </Typo>
+
+            <Typo size="sm">{description}</Typo>
+          </div>
+
+          <Button
+            variant="tertiary"
+            size="xs"
+            iconOnly
+            startIcon={{
+              component: X,
+              classNames: {
+                base: "text-components-buttons-button-tertiary-fg",
+              },
+            }}
+            onClick={onClose}
             classNames={{
-              base: "text-components-buttons-button-tertiary-fg",
+              base: "-mr-1 -mt-1",
             }}
           />
-        </button>
-
-        <div className="flex flex-col gap-1">
-          <Typo size="sm" weight="medium">
-            {title}
-          </Typo>
-
-          <Typo size="sm">{description}</Typo>
         </div>
 
         {primaryButton || secondaryButton ? (
