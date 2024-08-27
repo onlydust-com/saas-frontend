@@ -25,12 +25,6 @@ const meta: Meta<typeof CardBudget> = {
   component: CardBudget,
   title: "Molecules/Cards/CardBudget",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {

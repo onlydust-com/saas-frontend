@@ -1,5 +1,12 @@
-import { CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 export function CardProjectLoading() {
-  return <CardTemplateLoading />;
+  return (
+    <Skeleton
+      style={{
+        width: "100%",
+        height: 100,
+      }}
+    />
+  );
 }

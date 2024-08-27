@@ -31,7 +31,7 @@ export const BadgeDefaultVariants = tv({
     },
     color: {
       grey: {
-        base: "border-components-badge-border bg-components-badge-grey-bg",
+        base: "border-components-badge-grey-border bg-components-badge-grey-bg",
         content: "text-components-badge-grey-typo",
       },
       brand: {

@@ -32,12 +32,6 @@ const meta: Meta<typeof CardTransaction> = {
   component: CardTransaction,
   title: "Molecules/Cards/CardTransaction",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
