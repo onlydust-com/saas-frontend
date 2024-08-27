@@ -47,7 +47,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
               currency: currency.currency,
               usdEquivalent: currency.usdEquivalent ?? 0,
             }}
-            tag={currency.ratio ? `${currency.ratio}%` : undefined}
+            badgeContent={currency.ratio ? `${currency.ratio}%` : undefined}
           />
         ))}
       </div>

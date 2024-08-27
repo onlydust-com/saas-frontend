@@ -18,12 +18,12 @@ const defaultProps: CardBudgetPort<"div"> = {
     },
     usdEquivalent: 100000,
   },
-  tag: "75%",
+  badgeContent: "75%",
 };
 
 const meta: Meta<typeof CardBudget> = {
   component: CardBudget,
-  title: "Deprecated/Molecules/Cards/CardBudget",
+  title: "Molecules/Cards/CardBudget",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -144,7 +144,7 @@ export function AmountSelector({
                             currency: budget.currency,
                             usdEquivalent: budget.usdEquivalent ?? 0,
                           }}
-                          tag={budget.currency.name}
+                          badgeContent={budget.currency.name}
                           onClick={() => handleChangeBudget(budget)}
                         />
                       );
