@@ -20,7 +20,7 @@ const ButtonDestructiveColortVariants = tv({
         base: [
           "bg-components-buttons-destructive-primary-bg",
           "text-components-buttons-destructive-primary-fg",
-          "effect-shadow-xs",
+          "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-destructive-primary-bg-hover hover:bg-components-buttons-destructive-primary-bg-hover",
           "data-[focus=true]:effect-ring-error-spaced focus:effect-ring-error-spaced",
         ],
@@ -30,7 +30,7 @@ const ButtonDestructiveColortVariants = tv({
           "border-1 border-components-buttons-destructive-secondary-border",
           "bg-components-buttons-destructive-secondary-bg",
           "text-components-buttons-destructive-secondary-fg",
-          "effect-shadow-xs",
+          "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-destructive-secondary-bg-hover hover:bg-components-buttons-destructive-secondary-bg-hover",
           "data-[focus=true]:effect-ring-error-spaced focus:effect-ring-error-spaced",
         ],
