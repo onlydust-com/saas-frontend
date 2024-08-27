@@ -1,15 +1,20 @@
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { FirstParameter } from "@/core/kernel/types";
 
-export function AlreadyGrantedBadge({ programId }: { programId: string }) {
+export function AlreadyGrantedBadge({
+  programId,
+  queryParams,
+}: {
+  programId: string;
+  queryParams: FirstParameter<typeof ProgramReactQueryAdapter.client.useGetProgramProjects>["queryParams"];
+}) {
   const { data } = ProgramReactQueryAdapter.client.useGetProgramProjects({
     pathParams: {
       programId,
     },
-    options: {
-      enabled: false,
-    },
+    queryParams,
   });
 
   return useMemo(() => data?.pages[0].totalItemNumber ?? "-", [data]);
