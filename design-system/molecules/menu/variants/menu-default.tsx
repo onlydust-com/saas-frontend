@@ -2,10 +2,9 @@ import { ElementType } from "react";
 
 import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
 
-import { MenuDefaultAdapter } from "../adapters/default/default.adapter";
-
+import { MenuNextUiAdapter } from "../adapters/next-ui/next-ui.adapter";
 import { MenuPort } from "../menu.types";
 
 export function Menu<C extends ElementType = "div">(props: MenuPort<C>) {
-  return withComponentAdapter<MenuPort<C>>(MenuDefaultAdapter)(props);
+  return withComponentAdapter<MenuPort<C>>(MenuNextUiAdapter)(props);
 }
