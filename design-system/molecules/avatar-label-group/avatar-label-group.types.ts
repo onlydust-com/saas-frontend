@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
+import { TypoPort } from "@/design-system/atoms/typo";
 
 interface Variants {
   size: "md" | "lg";
@@ -17,6 +18,7 @@ export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Var
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   avatars: AvatarItem[];
-  title?: string;
-  description?: string;
+  title?: TypoPort<"span">;
+  description?: TypoPort<"span">;
+  quantity?: number;
 }
