@@ -1,7 +1,7 @@
 import { Popover } from "@/design-system/atoms/popover";
 import { Tag } from "@/design-system/atoms/tag";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -61,7 +61,7 @@ export function LanguageGroup({
                       })) ?? []
                     }
                     size={"xs"}
-                    maxAvatars={maxLanguagesAvatar || 3}
+                    quantity={maxLanguagesAvatar || 3}
                   />
                 }
               >
@@ -74,11 +74,7 @@ export function LanguageGroup({
           {() => (
             <div className={"grid gap-3"}>
               {languages?.map(({ logoUrl, name }) => (
-                <AvatarDescription
-                  key={name}
-                  avatarProps={{ src: logoUrl, size: "xs" }}
-                  labelProps={{ children: name }}
-                />
+                <AvatarLabelGroup size={"md"} key={name} avatars={[{ src: logoUrl }]} title={{ children: name }} />
               ))}
             </div>
           )}

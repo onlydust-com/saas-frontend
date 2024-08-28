@@ -8,8 +8,8 @@ type Story = StoryObj<typeof AvatarLabelGroup>;
 
 const defaultAvatars: AvatarLabelGroupPort<"div"> = {
   avatars: [{ src: "" }, { src: "" }, { src: "" }],
-  title: "Group Title",
-  description: "This is a description of the group.",
+  title: { children: "Group Title" },
+  description: { children: "This is a description of the group." },
 };
 
 const sizes: AvatarLabelGroupPort<"div">["size"][] = ["md", "lg"];
