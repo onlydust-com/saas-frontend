@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
+import { IconPort } from "@/design-system/atoms/icon";
 
 interface Variants {}
 
@@ -28,4 +29,21 @@ export interface MenuItemAvatarPort extends MenuItemBasePort {
   avatar: AvatarPort;
 }
 
-export type MenuItemPort = MenuItemBasePort | MenuItemAvatarPort;
+export interface MenuItemIconPort extends MenuItemBasePort {
+  icon: IconPort;
+}
+
+export interface MenuItemCheckboxPort extends MenuItemBasePort {
+  isCheckbox?: boolean;
+}
+
+export interface MenuItemRadioPort extends MenuItemBasePort {
+  isRadio?: boolean;
+}
+
+export type MenuItemPort =
+  | MenuItemBasePort
+  | MenuItemAvatarPort
+  | MenuItemIconPort
+  | MenuItemCheckboxPort
+  | MenuItemRadioPort;

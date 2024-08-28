@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { CircleDashed } from "lucide-react";
 
 import { MenuItemPort } from "./menu-item.types";
 import { MenuItem } from "./variants/menu-item-default";
@@ -22,6 +23,18 @@ function MenuItemTemplate(args: MenuItemPort) {
 
 function MenuItemAvatarTemplate(args: MenuItemPort) {
   return <MenuItemTemplate {...args} avatar={{ src: "" }} />;
+}
+
+function MenuItemIconTemplate(args: MenuItemPort) {
+  return <MenuItemTemplate {...args} icon={{ component: CircleDashed }} />;
+}
+
+function MenuItemCheckboxTemplate(args: MenuItemPort) {
+  return <MenuItemTemplate {...args} isCheckbox />;
+}
+
+function MenuItemRadioTemplate(args: MenuItemPort) {
+  return <MenuItemTemplate {...args} isRadio />;
 }
 
 export const Default: Story = {
@@ -71,10 +84,88 @@ export const Avatar: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full flex-col gap-2">
-        <MenuItemAvatarTemplate {...args} />
-        <MenuItemAvatarTemplate {...args} attr={{ "data-hover": true }} />
-        <MenuItemAvatarTemplate {...args} isDisabled />
+      <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemAvatarTemplate {...args} />
+          <MenuItemAvatarTemplate {...args} attr={{ "data-hover": true }} />
+          <MenuItemAvatarTemplate {...args} isDisabled />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemAvatarTemplate {...args} isSelected={true} />
+          <MenuItemAvatarTemplate {...args} isSelected={true} attr={{ "data-hover": true }} />
+          <MenuItemAvatarTemplate {...args} isSelected={true} isDisabled />
+        </div>
+      </div>
+    );
+  },
+};
+
+export const Icon: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<MenuItem />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemIconTemplate {...args} />
+          <MenuItemIconTemplate {...args} attr={{ "data-hover": true }} />
+          <MenuItemIconTemplate {...args} isDisabled />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemIconTemplate {...args} isSelected={true} />
+          <MenuItemIconTemplate {...args} isSelected={true} attr={{ "data-hover": true }} />
+          <MenuItemIconTemplate {...args} isSelected={true} isDisabled />
+        </div>
+      </div>
+    );
+  },
+};
+export const Checbox: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<MenuItem />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemCheckboxTemplate {...args} />
+          <MenuItemCheckboxTemplate {...args} attr={{ "data-hover": true }} />
+          <MenuItemCheckboxTemplate {...args} isDisabled />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemCheckboxTemplate {...args} isSelected={true} />
+          <MenuItemCheckboxTemplate {...args} isSelected={true} attr={{ "data-hover": true }} />
+          <MenuItemCheckboxTemplate {...args} isSelected={true} isDisabled />
+        </div>
+      </div>
+    );
+  },
+};
+
+export const Radio: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<MenuItem />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemRadioTemplate {...args} />
+          <MenuItemRadioTemplate {...args} attr={{ "data-hover": true }} />
+          <MenuItemRadioTemplate {...args} isDisabled />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <MenuItemRadioTemplate {...args} isSelected={true} />
+          <MenuItemRadioTemplate {...args} isSelected={true} attr={{ "data-hover": true }} />
+          <MenuItemRadioTemplate {...args} isSelected={true} isDisabled />
+        </div>
       </div>
     );
   },

@@ -12,4 +12,8 @@ interface ClassNames {
 export interface MenuPort extends Partial<Variants>, PropsWithChildren {
   classNames?: Partial<ClassNames>;
   items: MenuItemPort[];
+  closeOnSelect?: boolean;
+  onAction?: (actionId: string) => void;
+  selectedIds?: string[];
+  onSelect?: (ids: string[], data: MenuItemPort[]) => void;
 }

@@ -4,7 +4,7 @@ export const MenuItemNextUiVariants = tv({
   slots: {
     base: "group/menuItem w-full cursor-pointer px-1",
     inner: [
-      "flex w-full items-center justify-items-start gap-md p-md",
+      "flex w-full items-center justify-between gap-1 p-md",
       "rounded-xs bg-transparent",
       "transition-all",
       "text-typography-secondary transition-all",
