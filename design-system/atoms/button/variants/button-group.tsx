@@ -7,7 +7,7 @@ import { Button } from "./button-default";
 
 const ButtonGroupVariant = tv({
   slots: {
-    base: "effect-box-shadow-xs flex flex-row overflow-hidden border-1 border-border-primary-alt",
+    base: "flex flex-row overflow-hidden border-1 border-border-primary-alt effect-box-shadow-xs",
   },
   variants: {
     size: {
