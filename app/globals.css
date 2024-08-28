@@ -657,6 +657,9 @@
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-5);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
+
+    --scrollbar-thumb: var(--foreground-senary);
+    --scrollbar-track: transparent;
   }
 
   :root.dark {
@@ -998,6 +1001,9 @@
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-10);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
+/*--*/
+    --scrollbar-thumb: var(--foreground-senary);
+    --scrollbar-track: transparent;
   }
 
   /*DOM STYLES*/
@@ -1005,6 +1011,10 @@
   body {
     @apply font-inter;
     background: var(--background-quaternary);
+  }
+
+  .custom-scroll-bar {
+    --scrollbar-thumb: var(--foreground-senary);
   }
 
   code {

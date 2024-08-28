@@ -17,6 +17,10 @@ const defaultProps: MenuPort = {
     { id: "item3", label: "Item 3", avatar: { src: "" } },
     { id: "item4", label: "Item 4", isCheckbox: true },
     { id: "item5", label: "Item 4", isRadio: true },
+    { id: "item6", label: "Item 6" },
+    { id: "item7", label: "Item 7" },
+    { id: "item8", label: "Item 8" },
+    { id: "item9", label: "Item 9" },
   ],
 };
 
