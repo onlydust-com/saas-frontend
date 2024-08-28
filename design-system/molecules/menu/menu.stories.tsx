@@ -7,7 +7,7 @@ import { Menu } from "./variants/menu-default";
 
 type Story = StoryObj<typeof Menu>;
 
-const defaultProps: MenuPort<"div"> = {
+const defaultProps: MenuPort = {
   children: <Button>Open menu</Button>,
   items: [
     { id: "item1", label: "Item 1" },

@@ -1,4 +1,6 @@
-import { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
+
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 interface Variants {}
 
@@ -7,14 +9,7 @@ interface ClassNames {
   content: string;
 }
 
-export interface MenuItemPort {
-  id: string;
-  label: string;
-}
-
-export interface MenuPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export interface MenuPort extends Partial<Variants>, PropsWithChildren {
   classNames?: Partial<ClassNames>;
   items: MenuItemPort[];
 }
