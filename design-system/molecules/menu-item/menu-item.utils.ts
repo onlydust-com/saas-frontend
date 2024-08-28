@@ -6,18 +6,18 @@ import {
   MenuItemRadioPort,
 } from "@/design-system/molecules/menu-item/menu-item.types";
 
-export function isMenuItemAvatar(tag: MenuItemPort): tag is MenuItemAvatarPort {
-  return (tag as MenuItemAvatarPort).avatar !== undefined;
+export function isMenuItemAvatar(menuItem: MenuItemPort): menuItem is MenuItemAvatarPort {
+  return (menuItem as MenuItemAvatarPort).avatar !== undefined;
 }
 
-export function isMenuItemIcon(tag: MenuItemPort): tag is MenuItemIconPort {
-  return (tag as MenuItemIconPort).icon !== undefined;
+export function isMenuItemIcon(menuItem: MenuItemPort): menuItem is MenuItemIconPort {
+  return (menuItem as MenuItemIconPort).icon !== undefined;
 }
 
-export function isMenuItemCheckbox(tag: MenuItemPort): tag is MenuItemCheckboxPort {
-  return (tag as MenuItemCheckboxPort).isCheckbox !== undefined;
+export function isMenuItemCheckbox(menuItem: MenuItemPort): menuItem is MenuItemCheckboxPort {
+  return (menuItem as MenuItemCheckboxPort).isCheckbox !== undefined;
 }
 
-export function isMenuItemRadio(tag: MenuItemPort): tag is MenuItemRadioPort {
-  return (tag as MenuItemRadioPort).isRadio !== undefined;
+export function isMenuItemRadio(menuItem: MenuItemPort): menuItem is MenuItemRadioPort {
+  return (menuItem as MenuItemRadioPort).isRadio !== undefined;
 }
