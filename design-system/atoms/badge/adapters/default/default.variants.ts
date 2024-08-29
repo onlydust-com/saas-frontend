@@ -2,8 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group block border-1 transition-colors",
-    content: "flex flex-row items-center justify-center",
+    base: "group block border-1 transition-all",
+    content: "flex flex-row items-center justify-center transition-colors",
     label: "text-inherit",
     deletableIcon: "text-inherit",
   },

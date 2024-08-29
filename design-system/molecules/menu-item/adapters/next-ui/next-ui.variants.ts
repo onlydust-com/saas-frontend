@@ -7,28 +7,38 @@ export const MenuItemNextUiVariants = tv({
       "flex w-full items-center justify-between gap-1 p-md",
       "rounded-xs bg-transparent",
       "transition-all",
-      "text-typography-secondary transition-all",
-      "group-hover/menuItem:bg-background-primary-hover group-hover/menuItem:text-typography-secondary-hover",
-      "group-data-[hover=true]/menuItem:bg-background-primary-hover group-data-[hover=true]/menuItem:text-typography-secondary-hover",
+      "text-foreground-tertiary transition-all",
+      "group-hover/menuItem:bg-background-primary-hover group-hover/menuItem:text-foreground-brand-secondary-hover",
+      "group-data-[hover=true]/menuItem:bg-background-primary-hover group-data-[hover=true]/menuItem:text-foreground-brand-secondary-hover",
     ],
-    content: "text-inherit",
+    content: [
+      "text-typography-secondary transition-all",
+      "group-hover/menuItem:text-typography-secondary-hover",
+      "group-data-[hover=true]/menuItem:text-typography-secondary-hover",
+    ],
   },
   variants: {
     isSelected: {
       true: {
         inner: [
-          "text-typography-brand-primary",
+          "text-foreground-brand-primary",
           "bg-background-brand-primary-alt",
-          "group-hover/menuItem:bg-background-brand-primary-alt group-hover/menuItem:text-typography-brand-secondary-alt-hover",
-          "group-data-[hover=true]/menuItem:bg-background-brand-primary-alt group-data-[hover=true]/menuItem:text-typography-brand-secondary-alt-hover",
+          "group-hover/menuItem:bg-background-brand-primary-alt group-hover/menuItem:text-foreground-brand-secondary-hover",
+          "group-data-[hover=true]/menuItem:bg-background-brand-primary-alt group-data-[hover=true]/menuItem:text-foreground-brand-secondary-hover",
         ],
-        content: "font-medium",
+        content: [
+          "font-medium",
+          "text-typography-brand-secondary",
+          "group-hover/menuItem:text-typography-brand-secondary-alt-hover",
+          "group-data-[hover=true]/menuItem:text-typography-brand-secondary-alt-hover",
+        ],
       },
     },
     isDisabled: {
       true: {
         base: ["cursor-not-allowed", "pointer-events-none"],
-        inner: ["bg-transparent text-typography-disabled"],
+        inner: ["bg-transparent text-foreground-disabled"],
+        content: ["text-typography-disabled"],
       },
     },
   },
