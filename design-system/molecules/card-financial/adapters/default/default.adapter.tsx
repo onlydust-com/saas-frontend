@@ -30,11 +30,12 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   return (
     <Paper
       size={"s"}
-      classNames={{ base: cn(slots.base(), classNames?.base) }}
+      classNames={{ base: cn(slots.base(), classNames?.base, { "cursor-pointer": !!cta?.onClick }) }}
       container={"2"}
       border={"none"}
       as={Component}
       {...htmlProps}
+      onClick={cta?.onClick}
     >
       <div className="flex flex-col gap-2">
         <Typo size={isSizeM ? "xxs" : "m"} color={"text-1"} translate={title} />
@@ -53,6 +54,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
             classNames={{
               base: "flex-1",
             }}
+            maxAvatars={6}
             {...avatarGroup}
             size={isSizeM ? "s" : "l"}
             shape="round"
