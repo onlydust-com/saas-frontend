@@ -164,9 +164,6 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               labelProps={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
-                  values: {
-                    project: project.name,
-                  },
                 },
               }}
             />
@@ -227,9 +224,6 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               labelProps={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
-                  values: {
-                    project: project.name,
-                  },
                 },
               }}
             />
