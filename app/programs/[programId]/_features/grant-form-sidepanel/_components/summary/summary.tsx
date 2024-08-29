@@ -11,7 +11,7 @@ import { AvatarDescription } from "@/design-system/molecules/avatar-description"
 
 function Section({ children }: PropsWithChildren) {
   return (
-    <section className="overflow-hidden rounded-lg border border-container-stroke-separator bg-container-3 px-4 py-3">
+    <section className="border-container-stroke-separator bg-container-3 overflow-hidden rounded-lg border px-4 py-3">
       {children}
     </section>
   );
@@ -121,7 +121,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
+          <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
             <AvatarDescription
               avatarProps={{
                 src: budget.currency.logoUrl,
@@ -163,9 +163,6 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               labelProps={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
-                  values: {
-                    project: project.name,
-                  },
                 },
               }}
             />
@@ -215,7 +212,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
+          <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
             <AvatarDescription
               avatarProps={{
                 src: project.logoUrl,
@@ -226,9 +223,6 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               labelProps={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
-                  values: {
-                    project: project.name,
-                  },
                 },
               }}
             />
