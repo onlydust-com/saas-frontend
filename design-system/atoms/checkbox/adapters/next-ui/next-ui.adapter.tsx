@@ -7,7 +7,15 @@ import { cn } from "@/shared/helpers/cn";
 import { CheckboxPort } from "../../checkbox.types";
 import { CheckboxNextUiVariants } from "./next-ui.variants";
 
-export function CheckboxNextUiAdapter({ classNames, onChange, value, label, description, ...props }: CheckboxPort) {
+export function CheckboxNextUiAdapter({
+  classNames,
+  onChange,
+  value,
+  label,
+  description,
+  attr = {},
+  ...props
+}: CheckboxPort) {
   const { variant = "primary", isDisabled, mixed } = props;
   const slots = CheckboxNextUiVariants({
     variant,
@@ -30,6 +38,7 @@ export function CheckboxNextUiAdapter({ classNames, onChange, value, label, desc
       isIndeterminate={mixed}
       isSelected={value}
       onValueChange={handleChange}
+      {...attr}
     >
       {label || description ? (
         <div className="flex flex-col">
