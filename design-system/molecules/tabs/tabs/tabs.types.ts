@@ -1,13 +1,19 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { TabItemPort } from "@/design-system/molecules/tabs/tab-item";
 
 interface Variants {}
 
 interface ClassNames {
   base: string;
+  item: TabItemPort["classNames"];
 }
 
-export interface TabsPort<C extends ElementType> extends Partial<Variants> {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export interface TabsPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
+  variant?: TabItemPort["variant"];
+  size?: TabItemPort["size"];
+  tabs: TabItemPort[];
+  isFullWidth?: boolean;
+  layout?: "horizontal" | "vertical";
+  selectedId?: string;
+  onTabClick?: (id: string) => void;
 }
