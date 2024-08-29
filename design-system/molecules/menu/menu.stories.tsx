@@ -3,6 +3,7 @@ import { CircleDashed } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import * as MenuItemStories from "../menu-item/menu-item.stories";
 import { MenuPort } from "./menu.types";
 import { Menu } from "./variants/menu-default";
 
@@ -44,5 +45,7 @@ export const Default: Story = {
     );
   },
 };
+
+export const Item = MenuItemStories.Base;
 
 export default meta;
