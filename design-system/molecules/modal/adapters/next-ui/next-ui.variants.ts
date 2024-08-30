@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ModalNextUiVariants = tv({
   slots: {
-    modal: "group !my-1 max-h-full overflow-y-auto rounded-xl p-0",
+    modal: "group !my-1 max-h-full overflow-y-auto rounded-xl bg-background-secondary-alt p-0",
     body: "",
     backdrop: "bg-container-backdrop",
     header: "flex items-center justify-between gap-4 p-4 pb-0",
@@ -22,6 +22,5 @@ export const ModalNextUiVariants = tv({
   },
   defaultVariants: {
     size: "m",
-    container: "2",
   },
 });

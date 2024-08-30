@@ -2,8 +2,6 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 
-import { Paper } from "@/design-system/atoms/paper";
-
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
@@ -13,11 +11,7 @@ import { HeaderMenu } from "@/shared/features/navigation/primary-navigation-desk
 import { useIsLaptop } from "@/shared/hooks/ui/use-media-query";
 
 function MenuContainer({ children }: { children: ReactNode }) {
-  return (
-    <Paper size={"s"} classNames={{ base: "flex w-full flex-col gap-2" }} container={"2"} border={"none"}>
-      {children}
-    </Paper>
-  );
+  return <div className={"flex w-full flex-col gap-xs"}>{children}</div>;
 }
 
 const SIZES = {
@@ -63,10 +57,11 @@ export function PrimaryNavigationDesktop() {
       <MenuContainer>
         <PrimaryMenu isFolded={folded} />
       </MenuContainer>
-      <PrimaryBanner isFolded={folded} />
+      <div className={"flex-1"} />
       <MenuContainer>
         <SecondaryMenu isFolded={folded} />
       </MenuContainer>
+      <PrimaryBanner isFolded={folded} />
       <MenuContainer>
         <UserMenu isFolded={folded} />
       </MenuContainer>

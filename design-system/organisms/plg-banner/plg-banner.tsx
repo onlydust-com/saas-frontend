@@ -32,7 +32,7 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
   return (
     <div
       className={
-        "border-container-stroke-separator relative flex h-full w-full flex-col overflow-hidden rounded-xl border p-6"
+        "relative flex h-auto max-h-full w-full flex-col overflow-hidden rounded-xl border border-border-primary p-6"
       }
     >
       <Image
@@ -43,30 +43,29 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
         priority
       />
 
-      <div className="relative flex h-full w-full flex-col gap-2.5">
-        <div className="flex-1" />
-
+      <div className="relative flex h-auto max-h-full w-full flex-col gap-2.5">
         <div className={"flex flex-col gap-8"}>
           <div className={"flex flex-col gap-2"}>
-            {title ? (
-              <Typo size={"s"} weight={"regular"} color={"text-1"}>
-                {title}
-              </Typo>
-            ) : null}
+            <div className={"flex w-full items-center justify-between"}>
+              {title ? (
+                <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
+                  {title}
+                </Typo>
+              ) : null}
+              {date ? (
+                <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
+                  {date}
+                </Typo>
+              ) : null}
+            </div>
             {subTitle ? (
-              <Typo size={"3xl"} weight={"regular"} variant={"brand"} color={"text-1"}>
+              <Typo size={"md"} color={"secondary"}>
                 {subTitle}
               </Typo>
             ) : null}
 
-            {date ? (
-              <Typo size={"m"} weight={"regular"} color={"text-1"}>
-                {date}
-              </Typo>
-            ) : null}
-
             {description ? (
-              <Typo size={"s"} weight={"regular"} color={"text-2"}>
+              <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
                 {description}
               </Typo>
             ) : null}

@@ -39,14 +39,16 @@ export function TabItemDefaultAdapter({
           }}
         />
       )}
-      <Typo
-        size={"sm"}
-        classNames={{
-          base: cn(slots.label(), classNames?.label),
-        }}
-      >
-        {children}
-      </Typo>
+      {!!children && (
+        <Typo
+          size={"sm"}
+          classNames={{
+            base: cn(slots.label(), classNames?.label),
+          }}
+        >
+          {children}
+        </Typo>
+      )}
       {badge && (
         <Badge
           size={"xxs"}
