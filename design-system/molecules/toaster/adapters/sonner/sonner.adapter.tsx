@@ -50,6 +50,14 @@ function handleToast({ classNames, children, icon, type }: ToastProps) {
 }
 
 export const toastSonnerAdapter: ToastPort = {
+  success: children =>
+    handleToast({
+      children,
+      type: "default",
+      icon: {
+        component: CircleDashed,
+      },
+    }),
   default: children =>
     handleToast({
       children,

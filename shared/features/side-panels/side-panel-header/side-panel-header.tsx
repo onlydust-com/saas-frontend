@@ -1,4 +1,4 @@
-import { ChevronLeft, X } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -14,6 +14,7 @@ export function SidePanelHeader({
   startContent,
   endContent,
   onClose,
+  titleEndContent,
 }: SidePanelHeaderProps) {
   const { back, close } = useSidePanelsContext();
   const showStartContent = canGoBack || !!startContent;
@@ -25,30 +26,36 @@ export function SidePanelHeader({
   }
 
   return (
-    <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+    <div className={"relative flex w-full flex-row items-center justify-between gap-1 py-lg"}>
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
             <Button
               iconOnly={true}
-              variant="secondary"
-              size="md"
-              startIcon={{ component: ChevronLeft }}
+              variant="tertiary"
+              size="sm"
+              startIcon={{ component: ArrowLeft }}
               onClick={() => back()}
             />
           )}
           {startContent}
         </div>
       )}
-      {title && <Typo size={"2xl"} variant={"brand"} translate={title} />}
+      {title && (
+        <div className={"item-center flex flex-row justify-start gap-lg"}>
+          <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={title} />
+          {titleEndContent}
+        </div>
+      )}
       {showEndContent && (
         <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
-            <Button hideText={true} variant="secondary" size="l" startIcon={{ component: X }} onClick={handleClose} />
+            <Button iconOnly={true} variant="tertiary" size="sm" startIcon={{ component: X }} onClick={handleClose} />
           )}
         </div>
       )}
+      <hr className="absolute -left-lg -right-lg bottom-0 h-px border-border-primary" />
     </div>
   );
 }
