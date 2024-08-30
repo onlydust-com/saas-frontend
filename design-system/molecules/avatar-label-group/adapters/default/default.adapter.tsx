@@ -17,7 +17,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   avatars,
   title,
   description,
-  size,
+  size = "md",
   shape,
   quantity,
 }: AvatarLabelGroupPort<C>) {
