@@ -13,8 +13,6 @@ export const DateRangePickerNextUiVariants = tv({
       "my-0 text-typography-placeholder data-[editable=true]:data-[placeholder=true]:text-typography-placeholder data-[editable=true]:text-typography-secondary data-[invalid=true]:data-[editable=true]:text-typography-secondary data-[invalid=true]:text-typography-secondary focus:!bg-components-buttons-button-tertiary-bg-hover focus:effect-box-shadow-xs data-[editable=true]:focus:text-typography-secondary data-[invalid=true]:data-[editable=true]:focus:text-typography-secondary",
     separator: "text-typography-placeholder",
     selectorButton: "absolute left-0 flex w-full justify-end rounded-none !bg-transparent px-3",
-    // selectorButton:
-    //   "h-6 w-6 min-w-6 rounded-md bg-components-buttons-button-tertiary-bg text-components-buttons-button-tertiary-fg !outline-none data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[disabled=true]:text-foreground-disabled data-[focus-visible=true]:effect-ring-brand-spaced",
     errorMessage: "text-[0.875rem] leading-[1.25rem] text-typography-error",
   },
   variants: {
