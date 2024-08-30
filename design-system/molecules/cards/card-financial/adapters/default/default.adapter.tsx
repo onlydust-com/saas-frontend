@@ -39,7 +39,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
       onClick={cta ? cta.onClick : undefined}
       {...htmlProps}
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 text-left">
         <Typo size={titleSize} translate={title} classNames={{ base: "text-inherit" }} />
         <div className="flex gap-1">
           <Typo size={contentSize} weight={"medium"} classNames={{ base: "text-inherit" }}>
