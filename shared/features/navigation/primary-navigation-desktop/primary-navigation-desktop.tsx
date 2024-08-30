@@ -57,10 +57,11 @@ export function PrimaryNavigationDesktop() {
       <MenuContainer>
         <PrimaryMenu isFolded={folded} />
       </MenuContainer>
-      <PrimaryBanner isFolded={folded} />
+      <div className={"flex-1"} />
       <MenuContainer>
         <SecondaryMenu isFolded={folded} />
       </MenuContainer>
+      <PrimaryBanner isFolded={folded} />
       <MenuContainer>
         <UserMenu isFolded={folded} />
       </MenuContainer>
