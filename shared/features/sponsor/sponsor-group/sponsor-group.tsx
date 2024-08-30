@@ -1,7 +1,7 @@
 import { Popover } from "@/design-system/atoms/popover";
 import { Tag } from "@/design-system/atoms/tag";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -61,7 +61,7 @@ export function SponsorGroup({
                       })) ?? []
                     }
                     size={"xs"}
-                    maxAvatars={maxSponsorsAvatar || 3}
+                    quantity={maxSponsorsAvatar || 3}
                   />
                 }
               >
@@ -74,11 +74,7 @@ export function SponsorGroup({
           {() => (
             <div className={"grid gap-3"}>
               {sponsors?.map(({ logoUrl, name }) => (
-                <AvatarDescription
-                  key={name}
-                  avatarProps={{ src: logoUrl, size: "xs" }}
-                  labelProps={{ children: name }}
-                />
+                <AvatarLabelGroup key={name} avatars={[{ src: logoUrl }]} title={{ children: name }} />
               ))}
             </div>
           )}

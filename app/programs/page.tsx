@@ -28,12 +28,10 @@ export default function ProgramsPage() {
         <PageContent>
           <div className="grid h-full gap-3">
             <Typo
-              variant={"brand"}
               size={"2xl"}
               translate={{
                 token: "programs:list.content.title",
               }}
-              color={"text-1"}
             />
 
             <ProgramsTable />

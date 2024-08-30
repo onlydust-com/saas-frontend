@@ -3,8 +3,7 @@ import { useMemo } from "react";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Typo } from "@/design-system/atoms/typo";
-import { AccordionItemWithBadgeProps } from "@/design-system/molecules/accordion";
-import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
+import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
 import { useTransactionsContext } from "../context/transactions.context";
 import { Header } from "./components/header/header";
@@ -15,7 +14,7 @@ export function Transactions() {
 
   const { transactionsStats } = useTransactionsContext();
 
-  const items: AccordionItemWithBadgeProps[] = useMemo(() => {
+  const items: AccordionItemProps[] = useMemo(() => {
     return (
       transactionsStats?.map((t, index) => {
         return {
@@ -23,9 +22,8 @@ export function Transactions() {
           titleProps: {
             children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },
-          badgeProps: {
+          badge: {
             children: t.transactionCount,
-            fitContent: t.transactionCount > 9,
           },
           content: <TransactionsWrapper />,
         };
@@ -43,7 +41,7 @@ export function Transactions() {
           <Typo size="s" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
         </div>
       ) : (
-        <AccordionWithBadge
+        <Accordion
           classNames={{ base: "gap-3" }}
           items={items}
           defaultSelected={items?.[0] ? [items?.[0].id] : undefined}

@@ -9,7 +9,7 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
 import { cn } from "@/shared/helpers/cn";
@@ -97,9 +97,10 @@ export function AmountSelector({
       <div>
         <div className={"flex w-full justify-center"}>
           <Button variant={"secondary"} size={"md"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
-            <AvatarDescription
-              avatarProps={{ src: budget.currency.logoUrl, alt: budget.currency.name, size: "s" }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
+              size={"md"}
+              title={{
                 children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
               }}
             />
