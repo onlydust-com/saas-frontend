@@ -20,6 +20,7 @@ export interface ToastProps extends Partial<Variants>, PropsWithChildren {
 }
 
 export interface ToastPort {
+  success: (children: ReactNode) => void;
   default: (children: ReactNode) => void;
   error: (children: ReactNode) => void;
 }

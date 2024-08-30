@@ -2,8 +2,8 @@ import { PropsWithChildren } from "react";
 
 export function SidePanelFooter({ children }: PropsWithChildren) {
   return (
-    <footer className={"relative pt-3"}>
-      <hr className="absolute -left-3 -right-3 top-0 h-px border-container-stroke-separator" />
+    <footer className={"relative flex items-center justify-end py-lg"}>
+      <hr className="absolute -left-lg -right-lg top-0 h-px border-border-primary" />
 
       {children}
     </footer>

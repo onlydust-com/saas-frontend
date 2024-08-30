@@ -10,35 +10,35 @@ export const AvatarDefaultVariants = tv({
   variants: {
     size: {
       "3xl": {
-        base: "h-24 w-24",
+        base: "h-24 min-h-24 w-24 min-w-24",
         icon: "h-8 w-8 outline-4",
       },
       "2xl": {
-        base: "h-16 w-16",
+        base: "h-16 min-h-16 w-16 min-w-16",
         icon: "h-6 w-6 outline-[3px]",
       },
       xl: {
-        base: "h-12 w-12",
+        base: "h-12 min-h-12 w-12 min-w-12",
         icon: "h-5 w-5 outline-2",
       },
       lg: {
-        base: "h-10 w-10",
+        base: "h-10 min-h-10 w-10 min-w-10",
         icon: "h-4 w-4 outline-2",
       },
       md: {
-        base: "h-8 w-8",
+        base: "h-8 min-h-8 w-8 min-w-8",
         icon: "h-3.5 w-3.5 outline-2",
       },
       s: {
-        base: "h-6 w-6",
+        base: "h-6 min-h-6 w-6 min-w-6",
         icon: "h-3 w-3 outline-1",
       },
       xs: {
-        base: "h-5 w-5",
+        base: "h-5 min-h-5 w-5 min-w-5",
         icon: "h-3 w-3 outline-1",
       },
       xxs: {
-        base: "h-4 w-4",
+        base: "h-4 min-h-4 w-4 min-w-4",
         icon: "-bottom-1 -right-1 h-2.5 w-2.5 outline-1",
       },
     },
