@@ -20,7 +20,9 @@ export default function ProgramsPage() {
         <PageContent>
           <div className="grid h-full gap-3">
             <Typo
-              size={"2xl"}
+              size={"xs"}
+              weight={"medium"}
+              variant={"heading"}
               translate={{
                 token: "programs:list.content.title",
               }}

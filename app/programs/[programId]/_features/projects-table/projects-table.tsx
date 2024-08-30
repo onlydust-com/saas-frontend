@@ -266,11 +266,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary"} onClick={() => handleOpenProjectGrant(project.id)}>
+            <Button variant={"secondary"} size={"sm"} onClick={() => handleOpenProjectGrant(project.id)}>
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
-            <Button variant={"secondary"} onClick={() => handleOpenProjectDetail(project.id)}>
+            <Button variant={"secondary"} size={"sm"} onClick={() => handleOpenProjectDetail(project.id)}>
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
             </Button>
           </div>
@@ -296,7 +296,6 @@ export function ProjectsTable({ programId }: { programId: string }) {
           translate={{
             token: "common:state.error.title",
           }}
-          color={"text-2"}
         />
       </div>
     );

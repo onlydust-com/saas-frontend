@@ -73,12 +73,12 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
               <div className="grid gap-3">
                 <header className={"flex items-center justify-between"}>
                   <Typo
-                    variant={"brand"}
-                    size={"2xl"}
+                    variant={"heading"}
+                    size={"xs"}
+                    weight={"medium"}
                     translate={{
                       token: "programs:details.projects.title",
                     }}
-                    color={"text-1"}
                   />
 
                   <GrantListSidepanel />

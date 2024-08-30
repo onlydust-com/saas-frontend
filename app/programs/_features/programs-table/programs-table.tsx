@@ -28,7 +28,11 @@ export function ProgramsTable() {
   const columns = [
     columnHelper.accessor("name", {
       header: () => <Translate token={"programs:list.content.table.columns.programName"} />,
-      cell: info => <Typo size={"s"}>{info.getValue()}</Typo>,
+      cell: info => (
+        <Typo size={"sm"} weight={"medium"}>
+          {info.getValue()}
+        </Typo>
+      ),
     }),
     columnHelper.accessor("leads", {
       header: () => <Translate token={"programs:list.content.table.columns.programLeads"} />,
@@ -199,7 +203,6 @@ export function ProgramsTable() {
           translate={{
             token: "common:state.error.title",
           }}
-          color={"text-2"}
         />
       </div>
     );

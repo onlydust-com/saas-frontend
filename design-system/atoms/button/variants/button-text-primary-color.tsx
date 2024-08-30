@@ -12,7 +12,7 @@ import { ButtonPort, ButtonTextPort } from "../button.types";
 const ButtonTextPrimaryColorVariants = tv({
   extend: ButtonDefaultVariants,
   slots: {
-    base: "hover:underline hover:underline-offset-2",
+    base: "border-0 hover:underline hover:underline-offset-2",
     label: "",
   },
   variants: {
