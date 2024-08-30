@@ -21,4 +21,5 @@ export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Var
   title?: TypoPort<"span">;
   description?: TypoPort<"span">;
   quantity?: number;
+  shape?: AvatarPort["shape"];
 }

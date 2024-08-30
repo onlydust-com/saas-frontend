@@ -1,4 +1,4 @@
-import { PanelLeftClose, PanelRightClose } from "lucide-react";
+import { LogIn, PanelLeftClose } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -19,35 +19,40 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
   }
 
   return (
-    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
-      <div className={"group/header w-fit"}>
+    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden px-lg py-md"}>
+      <div className={cn("group/header w-fit", { "flex w-full items-center justify-center": isFolded })}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
-              base: cn({ "group-hover/header:!opacity-0 transition-all": isFolded }),
+              base: cn("h-6 w-auto justify-start gap-md", { "group-hover/header:!opacity-0 transition-all": isFolded }),
+              illustration: cn("min-w-6 h-6 w-auto"),
+              wordmark: cn("min-w-auto h-6 w-auto"),
             }}
+            type={isFolded ? "illustration" : undefined}
           />
         </BaseLink>
         {isFolded && (
           <Button
-            variant={"secondary"}
-            startIcon={{ component: PanelRightClose }}
+            variant={"tertiary"}
+            startIcon={{ component: LogIn }}
             iconOnly={true}
-            size={"md"}
+            size={"xs"}
             onClick={onUnFold}
             classNames={{
-              base: "absolute top-0 left-0 transition-all opacity-0 group-hover/header:opacity-100 !border-container-stroke-separator",
+              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 w-10 h-10 justify-center items-center",
             }}
           />
         )}
       </div>
-      <Button
-        variant={"secondary"}
-        startIcon={{ component: PanelLeftClose }}
-        iconOnly={true}
-        size={"md"}
-        onClick={onFold}
-      />
+      {!isFolded && (
+        <Button
+          variant={"tertiary"}
+          startIcon={{ component: PanelLeftClose }}
+          iconOnly={true}
+          size={"xs"}
+          onClick={onFold}
+        />
+      )}
     </div>
   );
 }
