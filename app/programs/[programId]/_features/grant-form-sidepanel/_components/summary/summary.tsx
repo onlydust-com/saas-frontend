@@ -8,7 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 function Section({ children }: PropsWithChildren) {
   return (
@@ -62,13 +62,14 @@ export function Summary({ amount, budget, project }: SummaryProps) {
 
         <Section>
           <div className="mb-4 flex items-center justify-between gap-4">
-            <AvatarDescription
-              avatarProps={{
-                src: budget.currency.logoUrl,
-                alt: budget.currency.name,
-                size: "s",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: budget.currency.logoUrl,
+                  alt: budget.currency.name,
+                },
+              ]}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.budget.balance",
                   values: {
@@ -91,13 +92,14 @@ export function Summary({ amount, budget, project }: SummaryProps) {
           </div>
 
           <div className="mb-2 flex items-center justify-between gap-4">
-            <AvatarDescription
-              avatarProps={{
-                src: budget.currency.logoUrl,
-                alt: budget.currency.name,
-                size: "s",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: budget.currency.logoUrl,
+                  alt: budget.currency.name,
+                },
+              ]}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.budget.grant",
                   values: {
@@ -123,13 +125,14 @@ export function Summary({ amount, budget, project }: SummaryProps) {
           </div>
 
           <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
-            <AvatarDescription
-              avatarProps={{
-                src: budget.currency.logoUrl,
-                alt: budget.currency.name,
-                size: "s",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: budget.currency.logoUrl,
+                  alt: budget.currency.name,
+                },
+              ]}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.budget.balance",
                   values: {
@@ -154,14 +157,15 @@ export function Summary({ amount, budget, project }: SummaryProps) {
 
         <Section>
           <div className="mb-4 flex items-center justify-between gap-4">
-            <AvatarDescription
-              avatarProps={{
-                src: project.logoUrl,
-                alt: project.name,
-                size: "s",
-                shape: "square",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: project.logoUrl,
+                  alt: project.name,
+                },
+              ]}
+              shape={"squared"}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
                 },
@@ -181,14 +185,15 @@ export function Summary({ amount, budget, project }: SummaryProps) {
           </div>
 
           <div className="mb-2 flex items-center justify-between gap-4">
-            <AvatarDescription
-              avatarProps={{
-                src: project.logoUrl,
-                alt: project.name,
-                size: "s",
-                shape: "square",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: project.logoUrl,
+                  alt: project.name,
+                },
+              ]}
+              shape={"squared"}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.budget.grant",
                   values: {
@@ -214,14 +219,15 @@ export function Summary({ amount, budget, project }: SummaryProps) {
           </div>
 
           <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
-            <AvatarDescription
-              avatarProps={{
-                src: project.logoUrl,
-                alt: project.name,
-                size: "s",
-                shape: "square",
-              }}
-              labelProps={{
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: project.logoUrl,
+                  alt: project.name,
+                },
+              ]}
+              shape={"squared"}
+              title={{
                 translate: {
                   token: "programs:grantForm.summary.project.balance",
                 },

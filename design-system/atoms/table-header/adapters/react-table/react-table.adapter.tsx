@@ -16,7 +16,7 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
         <tr key={headerGroup.id} className={cn(slots.row(), classNames?.row)}>
           {headerGroup.headers.map(header => (
             <th key={header.id} className={cn(slots.header(), classNames?.header)}>
-              <Typo size={"xs"} weight={"regular"} color={"text-1"}>
+              <Typo size={"xs"} weight={"regular"} color={"quaternary"}>
                 {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
               </Typo>
             </th>
