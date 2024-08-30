@@ -10,9 +10,9 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
-import { Dropdown } from "@/design-system/atoms/dropdown";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Menu } from "@/design-system/molecules/menu";
 
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
@@ -64,15 +64,15 @@ export function FinancialColumnChart() {
     tooltip: { valueSuffix: " USD" },
   });
 
-  function onChangeRangeType(value: string[]) {
-    setRangeType(value[0] as DateRangeType);
+  function onChangeRangeType(value: string) {
+    setRangeType(value as DateRangeType);
   }
 
   if (isLoading) {
     return (
       <Skeleton
         classNames={{
-          base: "w-full min-h-[400px]",
+          base: "w-full min-h-[300px]",
         }}
       />
     );
@@ -88,7 +88,7 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <div className="flex min-h-[400px] flex-col gap-4">
+    <div className="flex min-h-[300px] flex-col gap-4">
       <ColumnChart options={options} />
       <div className="flex items-center gap-4">
         <Paper size={"lg"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }} background={"secondary"}>
@@ -111,24 +111,21 @@ export function FinancialColumnChart() {
             {renderRewardedAmount}
           </div>
         </Paper>
-        <Dropdown
-          isMultipleSelection={false}
-          selectedKeys={[rangeType]}
-          onChange={onChangeRangeType}
+        <Menu
           items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, value: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, value: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, value: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, value: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, value: DateRangeType.ALL_TIME },
+            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
+            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
+            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
+            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
+            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
           ]}
+          selectedIds={[rangeType]}
+          onAction={onChangeRangeType}
         >
-          {({ label }) => (
-            <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
-              {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
-            </Button>
-          )}
-        </Dropdown>
+          <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
+            <Translate token={`common:dateRangeType.${rangeType}`} />
+          </Button>
+        </Menu>
       </div>
     </div>
   );

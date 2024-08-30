@@ -25,7 +25,7 @@ export function TransactionsTrigger() {
         variant="secondary"
         translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
-        size="l"
+        size="lg"
         classNames={{
           base: "max-w-full overflow-hidden",
           label: "whitespace-nowrap text-ellipsis overflow-hidden",
