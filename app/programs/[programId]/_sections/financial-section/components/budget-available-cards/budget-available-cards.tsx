@@ -11,7 +11,8 @@ import { PanelType } from "@/app/programs/[programId]/_sections/financial-sectio
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
 
-import { CardFinancial, CardFinancialLoading } from "@/design-system/molecules/card-financial";
+import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
+import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
@@ -86,19 +87,19 @@ export function BudgetAvailableCards() {
         <FinancialCardItem
           title="programs:budgetAvailable.available.title"
           total={data.totalAvailable}
-          color="chart-1"
+          color="gradient"
           onClick={() => openPanel("totalAvailable")}
         />
         <FinancialCardItem
           title="programs:budgetAvailable.granted.title"
           total={data.totalGranted}
-          color="chart-2"
+          color="grey"
           onClick={() => openPanel("totalGranted")}
         />
         <FinancialCardItem
           title="programs:budgetAvailable.rewarded.title"
           total={data.totalRewarded}
-          color="chart-3"
+          color="grey"
           onClick={() => openPanel("totalRewarded")}
         />
       </div>

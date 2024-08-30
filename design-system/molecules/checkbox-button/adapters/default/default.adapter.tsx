@@ -8,15 +8,30 @@ export function CheckboxButtonDefaultAdapter({
   size,
   children,
   isDisabled,
+  value,
   ...props
 }: CheckboxButtonPort) {
+  function onButtonClick() {
+    if (props.onChange) {
+      props.onChange(!value);
+    }
+  }
   return (
     <Button
-      as={"label"}
+      as={"button"}
       isDisabled={isDisabled}
       variant={variant}
       size={size}
-      startContent={<Checkbox isDisabled={isDisabled} {...props} />}
+      onClick={onButtonClick}
+      startContent={
+        <Checkbox
+          isDisabled={isDisabled}
+          {...props}
+          {...(value ? { attr: { "data-focus": true } } : {})}
+          value={value}
+          classNames={{ base: "pointer-events-none" }}
+        />
+      }
     >
       {children}
     </Button>

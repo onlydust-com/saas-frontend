@@ -10,13 +10,19 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
   htmlProps,
   children,
   classNames,
-  size,
-  container,
+  background,
   border,
   onClick,
+  hasBorderHover,
+  size = "xl",
+  px: _px,
+  py: _py,
 }: PaperPort<C>) {
+  const px = _px || size;
+  const py = _py || size;
   const Component = as || "article";
-  const slots = PaperDefaultVariants({ size, container, border });
+  const clickable = !!onClick;
+  const slots = PaperDefaultVariants({ px, py, background, border, clickable, hasBorderHover });
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={onClick}>

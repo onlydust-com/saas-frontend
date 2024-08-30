@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { SwitchPort } from "./switch.types";
 import { Switch } from "./variants/switch-default";
@@ -24,9 +25,10 @@ export const Default: Story = {
     },
   },
   render: args => {
+    const [isChecked, setIsChecked] = useState(false);
     return (
       <div className="flex w-full items-center gap-2">
-        <Switch {...defaultProps} {...args} />
+        <Switch {...defaultProps} {...args} isSelected={isChecked} onChange={setIsChecked} />
       </div>
     );
   },

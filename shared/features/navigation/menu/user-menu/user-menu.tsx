@@ -1,9 +1,8 @@
 import { LogIn } from "lucide-react";
 
-import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Typo } from "@/design-system/atoms/typo";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { cn } from "@/shared/helpers/cn";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
@@ -23,47 +22,42 @@ export function UserMenu({ isFolded }: UserMenuProps) {
   }
 
   return (
-    <div className={"group/user flex w-full items-center justify-between gap-1 overflow-hidden"}>
-      <div className="flex flex-1 flex-row gap-2">
-        <div className={"relative"}>
-          <Avatar
-            src={user?.avatarUrl}
-            alt={user?.login}
-            shape="square"
-            size={"l"}
+    <div className={"group/user flex w-full items-center justify-center gap-1 overflow-hidden px-lg py-md"}>
+      <div className={cn("relative flex-1", { "flex justify-center": isFolded })}>
+        <AvatarLabelGroup
+          avatars={[{ src: user?.avatarUrl, alt: user?.login }]}
+          size={"md"}
+          shape={"rounded"}
+          title={!isFolded ? { children: login } : {}}
+          description={!isFolded ? { children: email } : {}}
+          classNames={{
+            base: cn({
+              "flex justify-center gap-0 transition-all w-full group-hover/user:opacity-0": isFolded,
+            }),
+          }}
+        />
+        {isFolded && (
+          <Button
+            variant={"tertiary"}
+            startIcon={{ component: LogIn }}
+            iconOnly={true}
+            size={"xs"}
+            onClick={handleLogout}
             classNames={{
-              base: cn({ "group-hover/user:!opacity-0 transition-all": isFolded }),
+              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/user:opacity-100 w-full h-full justify-center items-center",
             }}
           />
-          {isFolded && (
-            <Button
-              variant={"secondary"}
-              startIcon={{ component: LogIn }}
-              iconOnly={true}
-              size={"lg"}
-              onClick={handleLogout}
-              classNames={{
-                base: "absolute top-0 left-0 transition-all opacity-0 group-hover/user:opacity-100 w-full",
-              }}
-            />
-          )}
-        </div>
-        <div className="flex w-[100px] flex-1 flex-col overflow-hidden">
-          <Typo size={"md"} weight={"medium"} classNames={{ base: "truncate" }}>
-            {login}
-          </Typo>
-          <Typo size={"xs"} color={"secondary"} classNames={{ base: "truncate" }}>
-            {email}
-          </Typo>
-        </div>
+        )}
       </div>
-      <Button
-        variant={"secondary"}
-        startIcon={{ component: LogIn }}
-        iconOnly={true}
-        size={"md"}
-        onClick={handleLogout}
-      />
+      {!isFolded && (
+        <Button
+          variant={"tertiary"}
+          startIcon={{ component: LogIn }}
+          iconOnly={true}
+          size={"xs"}
+          onClick={handleLogout}
+        />
+      )}
     </div>
   );
 }

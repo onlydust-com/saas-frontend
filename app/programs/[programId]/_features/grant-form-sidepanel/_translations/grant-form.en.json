@@ -10,7 +10,7 @@
       "grant": "{{budget}} grant"
     },
     "project": {
-      "balance": "{{project}} balance"
+      "balance": "balance"
     }
   },
   "submit": "Grant the project",

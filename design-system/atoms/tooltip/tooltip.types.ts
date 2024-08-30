@@ -12,5 +12,6 @@ export interface TooltipPort<C extends ElementType> extends PropsWithChildren {
   enabled?: boolean;
   canInteract?: boolean;
   content: ReactNode;
+  title?: ReactNode;
   placement?: "top" | "bottom" | "left" | "right";
 }

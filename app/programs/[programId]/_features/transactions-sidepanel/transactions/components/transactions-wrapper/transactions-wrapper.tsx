@@ -44,7 +44,7 @@ export function TransactionsWrapper() {
   function getButtonProps(transaction: TransactionListItem): CardTransactionPort<"div">["buttonProps"] {
     if (transaction.thirdParty.project) {
       return {
-        startContent: <Avatar src={transaction.thirdParty.project.logoUrl} size="xs" shape="square" />,
+        startContent: <Avatar src={transaction.thirdParty.project.logoUrl} size="xs" shape="squared" />,
         children: transaction.thirdParty.project.name,
         onClick: () => {
           if (transaction.thirdParty.project?.id) {
@@ -56,7 +56,7 @@ export function TransactionsWrapper() {
 
     if (transaction.thirdParty.sponsor) {
       return {
-        startContent: <Avatar src={transaction.thirdParty.sponsor.logoUrl} size="xs" shape="square" />,
+        startContent: <Avatar src={transaction.thirdParty.sponsor.logoUrl} size="xs" shape="squared" />,
         children: transaction.thirdParty.sponsor.name,
         canInteract: false,
       };

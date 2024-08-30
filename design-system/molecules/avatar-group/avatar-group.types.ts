@@ -20,4 +20,5 @@ export interface AvatarGroupPort<C extends ElementType> extends Partial<Variants
   avatars: AvatarItem[];
   quantity?: number;
   totalAvatarsCount?: number;
+  shape?: AvatarPort["shape"];
 }

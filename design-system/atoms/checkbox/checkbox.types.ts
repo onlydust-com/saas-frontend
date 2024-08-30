@@ -11,6 +11,10 @@ interface ClassNames {
   icon: string;
 }
 
+interface DataAttributes {
+  "data-focus"?: boolean;
+}
+
 export interface CheckboxPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   onChange?: (checked: boolean) => void;
@@ -19,4 +23,5 @@ export interface CheckboxPort extends Partial<Variants> {
   mixed?: boolean;
   label?: TranslateProps;
   description?: TranslateProps;
+  attr?: DataAttributes;
 }

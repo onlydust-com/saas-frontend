@@ -12,7 +12,7 @@ import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/gra
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
-import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
+import { Accordion } from "@/design-system/molecules/accordion";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -61,24 +61,22 @@ export function GrantListSidepanel() {
         />
 
         <ScrollView>
-          <AccordionWithBadge
+          <Accordion
             items={[
               {
                 id: "alreadyGranted",
                 titleProps: { translate: { token: "programs:grantList.alreadyGranted" } },
                 content: <AlreadyGrantedProjects programId={programId} queryParams={{ search: debouncedSearch }} />,
-                badgeProps: {
+                badge: {
                   children: <AlreadyGrantedBadge programId={programId} queryParams={{ search: debouncedSearch }} />,
-                  fitContent: true,
                 },
               },
               {
                 id: "allProjects",
                 titleProps: { translate: { token: "programs:grantList.allProjects" } },
                 content: <AllProjects queryParams={{ search: debouncedSearch }} />,
-                badgeProps: {
+                badge: {
                   children: <AllProjectsBadge queryParams={{ search: debouncedSearch }} />,
-                  fitContent: true,
                 },
               },
             ]}

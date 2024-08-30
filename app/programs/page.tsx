@@ -1,7 +1,5 @@
 "use client";
 
-import { Clipboard } from "lucide-react";
-
 import { ProgramsTable } from "@/app/programs/_features/programs-table/programs-table";
 
 import { Typo } from "@/design-system/atoms/typo";
@@ -15,25 +13,17 @@ export default function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        iconProps: { component: Clipboard },
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"programs:list.header.title"} />,
-          },
-        ],
+        title: <Translate token={"programs:list.header.title"} />,
       }}
     >
       <ScrollView>
         <PageContent>
           <div className="grid h-full gap-3">
             <Typo
-              variant={"brand"}
               size={"2xl"}
               translate={{
                 token: "programs:list.content.title",
               }}
-              color={"text-1"}
             />
 
             <ProgramsTable />

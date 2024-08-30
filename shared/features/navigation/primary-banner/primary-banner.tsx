@@ -28,12 +28,12 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
   }
 
   if (isFolded || !bannerData || !bannerData.longDescription || isError) {
-    return <div className="flex-1" />;
+    return null;
   }
 
   return (
-    <div className="flex flex-1 overflow-hidden">
-      <div className="h-full w-[260px] min-w-[260px]">
+    <div className="flex">
+      <div className="h-auto max-h-full w-[260px] min-w-[260px]">
         <PlgBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}

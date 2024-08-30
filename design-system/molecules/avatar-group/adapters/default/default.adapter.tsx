@@ -17,6 +17,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
   totalAvatarsCount,
   size,
   outsideBorder,
+  shape,
 }: AvatarGroupPort<C>) {
   const Component = as || "div";
 
@@ -34,6 +35,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
           key={`avatar-${index}`}
           src={avatar.src}
           size={imageSize}
+          shape={shape}
           classNames={{
             base: slots.image(),
           }}
@@ -44,6 +46,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
         <Avatar
           name={`+${totalAvatars - quantity}`}
           size={imageSize}
+          shape={shape}
           classNames={{
             base: slots.image(),
           }}

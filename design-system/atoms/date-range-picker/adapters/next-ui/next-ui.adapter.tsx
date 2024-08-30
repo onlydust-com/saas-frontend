@@ -78,10 +78,15 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       }}
       calendarWidth={352}
       label={label}
+      selectorButtonProps={{ disableRipple: true, disableAnimation: true }}
       variant="bordered"
       labelPlacement="outside-left"
       granularity="day"
-      selectorIcon={<Icon component={Calendar} />}
+      selectorIcon={
+        <>
+          <Icon component={Calendar} />
+        </>
+      }
       isDisabled={isDisabled}
       isInvalid={isError}
       onChange={handleChange}

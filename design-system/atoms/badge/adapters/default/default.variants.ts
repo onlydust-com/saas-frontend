@@ -2,27 +2,27 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group block border-1 transition-colors",
-    content: "flex flex-row items-center justify-center",
+    base: "group block border-1 transition-all",
+    content: "flex flex-row items-center justify-center transition-colors",
     label: "text-inherit",
     deletableIcon: "text-inherit",
   },
   variants: {
     size: {
       xxs: {
-        base: "px-1.5 py-0.5",
+        base: "px-sm py-xxs",
         content: "gap-1",
       },
       xs: {
-        base: "px-2 py-1.5",
+        base: "px-md py-xs",
         content: "gap-1",
       },
       sm: {
-        base: "px-2 py-2",
+        base: "px-md py-sm",
         content: "gap-1",
       },
       md: {
-        base: "px-3 py-3",
+        base: "px-lg py-md",
         content: "gap-2",
       },
     },
@@ -31,23 +31,23 @@ export const BadgeDefaultVariants = tv({
     },
     color: {
       grey: {
-        base: "bg-components-badge-grey-bg border-components-badge-border",
+        base: "border-components-badge-grey-border bg-components-badge-grey-bg",
         content: "text-components-badge-grey-typo",
       },
       brand: {
-        base: "bg-components-badge-brand-bg border-components-badge-brand-border",
+        base: "border-components-badge-brand-border bg-components-badge-brand-bg",
         content: "text-components-badge-brand-typo",
       },
       error: {
-        base: "bg-components-badge-error-bg border-components-badge-error-border",
+        base: "border-components-badge-error-border bg-components-badge-error-bg",
         content: "text-components-badge-error-typo",
       },
       warning: {
-        base: "bg-components-badge-badge-warning-bg border-components-badge-badge-warning-border",
+        base: "border-components-badge-badge-warning-border bg-components-badge-badge-warning-bg",
         content: "text-components-badge-badge-warning-typo",
       },
       success: {
-        base: "bg-components-badge-success-bg border-components-badge-success-border",
+        base: "border-components-badge-success-border bg-components-badge-success-bg",
         content: "text-components-badge-success-typo",
       },
     },

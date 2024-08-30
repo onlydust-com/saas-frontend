@@ -18,6 +18,8 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   title,
   description,
   size = "md",
+  shape,
+  quantity,
 }: AvatarLabelGroupPort<C>) {
   const Component = as || "div";
 
@@ -28,9 +30,9 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       {avatars.length === 1 ? (
-        <Avatar src={avatars[0].src} size={size} />
+        <Avatar src={avatars[0].src} size={size} shape={shape} />
       ) : (
-        <AvatarGroup avatars={avatars} size={imageSize} outsideBorder />
+        <AvatarGroup avatars={avatars} size={imageSize} outsideBorder quantity={quantity} shape={shape} />
       )}
 
       <div className="flex flex-col">
@@ -42,9 +44,8 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
             classNames={{
               base: slots.title(),
             }}
-          >
-            {title}
-          </Typo>
+            {...title}
+          />
         ) : null}
 
         {description ? (
@@ -54,9 +55,8 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
             classNames={{
               base: slots.description(),
             }}
-          >
-            {description}
-          </Typo>
+            {...description}
+          />
         ) : null}
       </div>
     </Component>
