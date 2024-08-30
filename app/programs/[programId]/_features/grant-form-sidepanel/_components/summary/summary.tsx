@@ -53,7 +53,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
   });
 
   return (
-    <Paper size={"s"} container={"transparent"}>
+    <Paper size={"sm"} container={"transparent"}>
       <div className="grid gap-3">
         <header className={"flex items-center gap-1"}>
           <Icon component={ChartPie} />

@@ -8,18 +8,9 @@ export const ChartLegendDefaultVariants = tv({
   },
   variants: {
     color: {
-      "chart-1": {
-        square: "bg-chart-1",
-      },
-      "chart-2": {
-        square: "bg-chart-2",
-      },
-      "chart-3": {
-        square: "bg-chart-3",
-      },
-      "chart-4": {
-        square: "bg-chart-4",
-      },
+      primary: { square: "bg-chart-primary" },
+      secondary: { square: "bg-chart-secondary" },
+      tertiary: { square: "bg-chart-tertiary" },
     },
     size: {
       s: {

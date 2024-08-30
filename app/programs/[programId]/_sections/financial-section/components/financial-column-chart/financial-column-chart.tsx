@@ -91,21 +91,21 @@ export function FinancialColumnChart() {
     <div className="flex min-h-[400px] flex-col gap-4">
       <ColumnChart options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"s"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }}>
+        <Paper size={"lg"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="chart-1">
+            <ChartLegend color="primary">
               <Translate token={"programs:financialColumnChart.legends.received"} />
             </ChartLegend>
             {renderReceivedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="chart-4">
+            <ChartLegend color="secondary">
               <Translate token={"programs:financialColumnChart.legends.granted"} />
             </ChartLegend>
             {renderGrantedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="chart-3">
+            <ChartLegend color="tertiary">
               <Translate token={"programs:financialColumnChart.legends.rewarded"} />
             </ChartLegend>
             {renderRewardedAmount}

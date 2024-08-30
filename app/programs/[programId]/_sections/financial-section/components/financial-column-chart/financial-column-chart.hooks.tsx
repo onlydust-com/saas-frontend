@@ -31,10 +31,10 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
     (amountSum: number) => {
       return (
         <div className="flex gap-1">
-          <Typo size={"xs"} color={"text-1"}>
+          <Typo size={"xs"} color={"primary"}>
             {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).amount}
           </Typo>
-          <Typo size={"xs"} color={"text-2"}>
+          <Typo size={"xs"} color={"primary"}>
             {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).code}
           </Typo>
         </div>
