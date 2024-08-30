@@ -1,8 +1,3 @@
-import { BreadcrumbsPort } from "@/design-system/atoms/breadcrumbs";
-import { IconPort } from "@/design-system/atoms/icon";
+import { PageHeaderPort } from "@/design-system/organisms/page-header";
 
-export interface SecondaryNavigationProps {
-  iconProps: IconPort;
-  breadcrumbs: BreadcrumbsPort["items"];
-  onBack?: () => void;
-}
+export interface SecondaryNavigationProps extends PageHeaderPort<"div"> {}
