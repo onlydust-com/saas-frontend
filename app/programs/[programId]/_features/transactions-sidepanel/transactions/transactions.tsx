@@ -37,8 +37,8 @@ export function Transactions() {
 
       {!items.length ? (
         <div className="flex flex-col items-center gap-1 py-4">
-          <Typo variant="brand" translate={{ token: "programs:transactionPanel.transactions.empty.title" }} />
-          <Typo size="s" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
+          <Typo variant="heading" translate={{ token: "programs:transactionPanel.transactions.empty.title" }} />
+          <Typo size="sm" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
         </div>
       ) : (
         <Accordion
