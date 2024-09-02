@@ -1,9 +1,9 @@
 export const SIDE_PANEL_SIZE = {
-  m: 370,
+  m: 384,
 } as const;
 
 export const SIDE_PANEL_TW_SIZE = {
-  m: "w-[370px]",
+  m: "w-[384px]",
 } as const;
 
 export const SIDE_PANEL_GAP = {

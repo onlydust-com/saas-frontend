@@ -25,7 +25,7 @@ export const Default: Story = {
     },
   },
   render: args => (
-    <div className="flex w-full items-center gap-2">
+    <div className="w-full">
       <AvatarGroup {...defaultAvatars} {...args} />
     </div>
   ),

@@ -26,8 +26,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   const Component = as || DefaultComponent;
 
   const slots = BadgeDefaultVariants({ isDeletable, size, color, shape });
-
-  const showChildren = !!children || !!translate;
+  const showChildren = !!children || children === 0 || !!translate;
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
@@ -36,7 +35,8 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
 
         {showChildren && (
           <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }}>
-            {children || (translate && <Translate {...translate} />)}
+            {children}
+            {translate && <Translate {...translate} />}
           </Typo>
         )}
 

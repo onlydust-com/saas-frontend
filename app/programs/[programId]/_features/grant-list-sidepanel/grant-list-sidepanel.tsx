@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { ChevronRight, Search } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -46,7 +46,7 @@ export function GrantListSidepanel() {
 
   return (
     <>
-      <Button variant={"secondary"} size={"md"} onClick={togglePanel}>
+      <Button variant={"primary"} endIcon={{ component: ChevronRight }} isTextButton size={"md"} onClick={togglePanel}>
         <Translate token={"programs:details.projects.grantProject"} />
       </Button>
 

@@ -11,19 +11,19 @@ export const ButtonDefaultVariants = tv({
   variants: {
     size: {
       xs: {
-        base: "rounded-sm px-md py-xs",
+        base: "px-md py-xs rounded-sm",
         content: "gap-xs",
       },
       sm: {
-        base: "rounded-md px-lg py-md",
+        base: "px-lg py-md rounded-md",
         content: "gap-md",
       },
       md: {
-        base: "rounded-md px-xl py-2md",
+        base: "px-xl py-2md rounded-md",
         content: "gap-md",
       },
       lg: {
-        base: "rounded-lg px-2xl py-lg",
+        base: "px-2xl py-lg rounded-lg",
         content: "gap-2md",
       },
     },

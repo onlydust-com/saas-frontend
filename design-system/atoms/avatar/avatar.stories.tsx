@@ -27,7 +27,7 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
+      <div className="w-full">
         <Avatar {...defaultProps} {...args} />
       </div>
     );

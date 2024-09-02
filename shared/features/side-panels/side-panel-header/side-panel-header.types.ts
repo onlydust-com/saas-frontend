@@ -8,5 +8,6 @@ export interface SidePanelHeaderProps {
   startContent?: ReactNode;
   endContent?: ReactNode;
   title?: TranslateProps;
+  titleEndContent?: ReactNode;
   onClose?: () => void;
 }

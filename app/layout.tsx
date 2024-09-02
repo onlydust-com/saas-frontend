@@ -11,7 +11,7 @@ import { Providers } from "@/app/providers";
 import { InitBootstrapAuth } from "@/core/bootstrap/auth/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/impersonation/init-bootstrap-impersonation";
 
-import { Toaster } from "@/design-system/atoms/toaster";
+import { Toaster } from "@/design-system/molecules/toaster";
 
 import { AppWrapper } from "@/shared/features/app-wrapper/app-wrapper";
 
