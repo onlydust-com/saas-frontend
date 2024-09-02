@@ -35,10 +35,7 @@ PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({ children, 
 
   return (
     <PopoverContent
-      className={cn(
-        "rounded-xl border border-border-primary bg-background-primary p-3 text-typography-primary shadow-none",
-        className
-      )}
+      className={cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg text-typography-primary", className)}
     >
       {children(context)}
     </PopoverContent>
