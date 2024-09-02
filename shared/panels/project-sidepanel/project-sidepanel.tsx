@@ -8,6 +8,7 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -99,12 +100,24 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
               <ProjectFinancial data={stats} />
             </>
           )}
+
           <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
-          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
-            <ProjectLeads leaders={data.leaders} />
-            <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-            <ProjectSponsors sponsors={data.sponsors} />
+
+          <Paper
+            size={"lg"}
+            background={"transparent"}
+            border={"primary"}
+            classNames={{ base: "flex flex-col gap-lg" }}
+          >
+            <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
+
+            <div className="flex gap-md">
+              <ProjectLeads leaders={data.leaders} />
+              <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+              <ProjectSponsors sponsors={data.sponsors} />
+            </div>
           </Paper>
+
           <div className={"flex w-full flex-row gap-4"}>
             <ProjectLanguages languages={data.languages} />
             <ProjectCategories categories={data.categories} />

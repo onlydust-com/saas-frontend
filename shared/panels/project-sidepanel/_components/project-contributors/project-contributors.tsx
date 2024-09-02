@@ -8,8 +8,13 @@ export function ProjectContributors({ topContributors, contributorCount }: Proje
   if (!topContributors.length) return null;
 
   return (
-    <div className={"flex flex-1 flex-col gap-1"}>
-      <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "panels:projectDetail.contributors.title" }} />
+    <div className={"flex flex-col gap-1"}>
+      <Typo
+        as={"div"}
+        size={"xs"}
+        color={"secondary"}
+        translate={{ token: "panels:projectDetail.contributors.title" }}
+      />
       <UserGroup avatarProps={{ size: "s" }} users={topContributors} totalUsersCount={contributorCount} />
     </div>
   );

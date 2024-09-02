@@ -1,6 +1,9 @@
 {
   "seeProject": "See project",
   "grant": "Grant",
+  "information": {
+    "title": "Information"
+  },
   "description": {
     "title": "Description"
   },
