@@ -29,7 +29,7 @@ export function ProgramsTable() {
     columnHelper.accessor("name", {
       header: () => <Translate token={"programs:list.content.table.columns.programName"} />,
       cell: info => (
-        <Typo size={"sm"} weight={"medium"}>
+        <Typo size={"sm"} weight={"medium"} color="secondary">
           {info.getValue()}
         </Typo>
       ),
@@ -179,6 +179,7 @@ export function ProgramsTable() {
           as={BaseLink}
           htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
           variant={"secondary"}
+          size={"sm"}
         >
           <Translate token={"programs:list.content.table.rows.seeProgram"} />
         </Button>
