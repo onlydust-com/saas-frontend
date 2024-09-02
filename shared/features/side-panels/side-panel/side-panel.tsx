@@ -80,8 +80,9 @@ export const SidePanel = forwardRef(function SidePanel(
         >
           <Paper
             border={"none"}
-            background={"primary-alt"}
+            background={"quaternary"}
             py={"none"}
+            px={"none"}
             classNames={{
               base: cn(
                 "h-full w-full flex flex-col gap-3",

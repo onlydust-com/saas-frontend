@@ -5,9 +5,7 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
-import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
@@ -86,69 +84,59 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         }}
         paramsReady={Boolean(projectId && data)}
       />
-      <SidePanelHeader
-        startContent={
-          <Button
-            variant={"secondary"}
-            startContent={<Avatar shape={"square"} size={"xs"} src={data.logoUrl} alt={data.name} />}
-            endContent={<Icon component={SquareArrowOutUpRight} />}
-            size={"md"}
-            as={"a"}
-            htmlProps={{
-              href: marketplaceRouting(`/p/${data.slug}`),
-              target: "_blank",
-            }}
-          >
-            {data.name}
-          </Button>
-        }
-        canGoBack={false}
-        canClose={true}
-      />
-      <ScrollView>
-        <div className={"flex w-full flex-col gap-3"}>
-          {!!stats && (
-            <>
-              <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-              <ProjectFinancial data={stats} />
-            </>
-          )}
-          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-            <ProjectDescription description={data.shortDescription} />
-            <ProjectLinks moreInfo={data.moreInfos} />
-          </Paper>
-          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
-            <ProjectLeads leaders={data.leaders} />
-            <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-            <ProjectSponsors sponsors={data.sponsors} />
-          </Paper>
-          <div className={"flex w-full flex-row gap-4"}>
-            <ProjectLanguages languages={data.languages} />
-            <ProjectCategories categories={data.categories} />
+      <div className={"flex h-full flex-col gap-px"}>
+        <SidePanelHeader
+          title={{
+            children: data.name,
+          }}
+          canGoBack={false}
+          canClose={true}
+        />
+        <ScrollView className={"h-full flex-1"}>
+          <div className={"flex w-full flex-col gap-3"}>
+            {!!stats && (
+              <>
+                <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
+                <ProjectFinancial data={stats} />
+              </>
+            )}
+            <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
+              <ProjectDescription description={data.shortDescription} />
+              <ProjectLinks moreInfo={data.moreInfos} />
+            </Paper>
+            <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
+              <ProjectLeads leaders={data.leaders} />
+              <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+              <ProjectSponsors sponsors={data.sponsors} />
+            </Paper>
+            <div className={"flex w-full flex-row gap-4"}>
+              <ProjectLanguages languages={data.languages} />
+              <ProjectCategories categories={data.categories} />
+            </div>
           </div>
-        </div>
-      </ScrollView>
-      {onGrantClick && (
-        <SidePanelFooter>
-          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"md"} onClick={() => onGrantClick(data.id)}>
-              <Translate token={"panels:projectDetail.grant"} />
-            </Button>
-            <Button
-              variant={"secondary"}
-              endContent={<SquareArrowOutUpRight size={16} />}
-              size={"md"}
-              as={"a"}
-              htmlProps={{
-                href: marketplaceRouting(`/p/${data.slug}`),
-                target: "_blank",
-              }}
-            >
-              <Translate token={"panels:projectDetail.seeProject"} />
-            </Button>
-          </div>
-        </SidePanelFooter>
-      )}
+        </ScrollView>
+        {onGrantClick && (
+          <SidePanelFooter>
+            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <Button size={"md"} onClick={() => onGrantClick(data.id)}>
+                <Translate token={"panels:projectDetail.grant"} />
+              </Button>
+              <Button
+                variant={"secondary"}
+                endContent={<SquareArrowOutUpRight size={16} />}
+                size={"md"}
+                as={"a"}
+                htmlProps={{
+                  href: marketplaceRouting(`/p/${data.slug}`),
+                  target: "_blank",
+                }}
+              >
+                <Translate token={"panels:projectDetail.seeProject"} />
+              </Button>
+            </div>
+          </SidePanelFooter>
+        )}
+      </div>
     </>
   );
 }
