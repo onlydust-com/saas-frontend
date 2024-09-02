@@ -35,7 +35,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
               <Button
                 onClick={onClear}
                 variant={"secondary"}
-                size="sm"
+                size="xs"
                 translate={{ token: "table:tableColumnList.clear" }}
               />
             </div>

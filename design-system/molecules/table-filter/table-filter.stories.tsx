@@ -14,7 +14,7 @@ const defaultProps: TableFilterPort = {
 
 const meta: Meta<typeof TableFilter> = {
   component: TableFilter,
-  title: "Deprecated/Molecules/TableFilter",
+  title: "Molecules/TableFilter",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
