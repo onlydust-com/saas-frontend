@@ -25,7 +25,7 @@ export function Transactions() {
           badge: {
             children: t.transactionCount,
           },
-          content: <TransactionsWrapper />,
+          content: <TransactionsWrapper date={new Date(t.date)} />,
         };
       }) || []
     );

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -14,14 +15,26 @@ import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-s
 
 import { useTransactionsContext } from "../../../context/transactions.context";
 
-export function TransactionsWrapper() {
+export function TransactionsWrapper({ date }: { date: Date }) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
   const { programId, queryParams } = useTransactionsContext();
   const projectSidePanel = useProjectSidePanel();
+
+  const { fromDate, toDate } = useMemo(() => {
+    const { from, to } = dateKernelPort.getMonthRange(date);
+
+    return {
+      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+    };
+  }, [date, dateKernelPort]);
 
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactions({
     pathParams: { programId },
     queryParams: {
       ...queryParams,
+      fromDate,
+      toDate,
       pageSize: 100,
     },
   });

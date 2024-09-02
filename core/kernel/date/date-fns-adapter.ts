@@ -50,6 +50,12 @@ function getRangeOfDates(range: DateRangeType): { from: Date | null; to: Date | 
   }
 }
 
+function getMonthRange(date: Date): { from: Date; to: Date } {
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return { from: firstDay, to: lastDay };
+}
+
 export const DateFnsAdapter: DateFacadePort = {
   eachDayOfInterval: (start: Date, end: Date) => eachDayOfIntervalDateFns({ start, end }),
   isToday: (date: Date) => isTodayDateFns(date),
@@ -61,6 +67,7 @@ export const DateFnsAdapter: DateFacadePort = {
   addMinutes: (date: Date, minutes: number) => addMinutesDateFns(date, minutes),
   formatDistanceToNow: (date: Date) => formatDistanceToNowStrict(date, { addSuffix: true }),
   getRangeOfDates,
+  getMonthRange,
   formatInEuropeTimeZone: (date: Date, pattern: string) =>
     formatInTimeZoneDateFns(date, "Europe/Paris", pattern, { locale: enGB }),
 };
