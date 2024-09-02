@@ -27,7 +27,7 @@ export function Transactions() {
             children: t.transactionCount,
             fitContent: t.transactionCount > 9,
           },
-          content: <TransactionsWrapper />,
+          content: <TransactionsWrapper date={new Date(t.date)} />,
         };
       }) || []
     );

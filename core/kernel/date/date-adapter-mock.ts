@@ -12,4 +12,5 @@ export const DateAdapterMock: DateFacadePort = {
   formatDistanceToNow: (_date: Date) => "",
   formatInEuropeTimeZone: (_date: Date, _pattern: string) => "",
   getRangeOfDates: (_range: DateRangeType) => ({ from: null, to: null }),
+  getMonthRange: (_date: Date) => ({ from: new Date(), to: new Date() }),
 };
