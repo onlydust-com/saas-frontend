@@ -1,8 +1,8 @@
 {
   "seeProject": "See project",
   "grant": "Grant",
-  "link": {
-    "title": "Links"
+  "description": {
+    "title": "Description"
   },
   "language": {
     "title": "Language"

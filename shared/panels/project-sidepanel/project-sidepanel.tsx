@@ -22,7 +22,6 @@ import { ProjectDescription } from "./_components/project-description/project-de
 import { ProjectFinancial } from "./_components/project-financial/project-financial";
 import { ProjectLanguages } from "./_components/project-languages/project-languages";
 import { ProjectLeads } from "./_components/project-leads/project-leads";
-import { ProjectLinks } from "./_components/project-links/project-links";
 import { ProjectSponsors } from "./_components/project-sponsors/project-sponsors";
 import { ProjectStats } from "./_components/project-stats/project-stats";
 import { ProjectSidepanelProps } from "./project-sidepanel.types";
@@ -100,10 +99,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
               <ProjectFinancial data={stats} />
             </>
           )}
-          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-            <ProjectDescription description={data.shortDescription} />
-            <ProjectLinks moreInfo={data.moreInfos} />
-          </Paper>
+          <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
           <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
             <ProjectLeads leaders={data.leaders} />
             <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
@@ -114,7 +110,6 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
             <ProjectCategories categories={data.categories} />
           </div>
         </SidePanelBody>
-
         {onGrantClick && (
           <SidePanelFooter>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
