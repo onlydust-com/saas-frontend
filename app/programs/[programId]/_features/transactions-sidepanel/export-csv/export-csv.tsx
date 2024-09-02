@@ -62,7 +62,7 @@ export function ExportCsv() {
   return (
     <div className="flex h-full flex-col gap-3">
       <div className="h-full">
-        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo
             size="xs"
             weight="medium"
@@ -78,7 +78,7 @@ export function ExportCsv() {
           </div>
         </Paper>
 
-        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo
             size="xs"
             weight="medium"
@@ -88,7 +88,7 @@ export function ExportCsv() {
           <DateRangePicker value={dateRange} onChange={handleDateRange} />
         </Paper>
 
-        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo size="xs" weight="medium" translate={{ token: "programs:transactionPanel.export.data.title" }} />
 
           <div className="flex flex-col gap-1">

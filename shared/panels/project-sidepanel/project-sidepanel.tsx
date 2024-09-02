@@ -90,7 +90,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         startContent={
           <Button
             variant={"secondary"}
-            startContent={<Avatar shape={"square"} size={"xs"} src={data.logoUrl} alt={data.name} />}
+            startContent={<Avatar shape={"squared"} size={"xs"} src={data.logoUrl} alt={data.name} />}
             endContent={<Icon component={SquareArrowOutUpRight} />}
             size={"md"}
             as={"a"}
@@ -113,11 +113,11 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
               <ProjectFinancial data={stats} />
             </>
           )}
-          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
+          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
             <ProjectDescription description={data.shortDescription} />
             <ProjectLinks moreInfo={data.moreInfos} />
           </Paper>
-          <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
+          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
             <ProjectLeads leaders={data.leaders} />
             <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
             <ProjectSponsors sponsors={data.sponsors} />
