@@ -1,10 +1,9 @@
-import { Calendar, ChartPie } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Dropdown } from "@/design-system/atoms/dropdown";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -36,12 +35,10 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
   }
 
   return (
-    <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
+    <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex flex-col gap-3" }}>
       <div className="flex flex-row items-center justify-between gap-1">
-        <div className="flex flex-row gap-1">
-          <Icon component={ChartPie} />
-          <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
-        </div>
+        <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
+
         <Dropdown
           selectedKeys={[rangeType]}
           onChange={onChangeRange}
@@ -54,7 +51,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
           ]}
         >
           {({ label }) => (
-            <Button size={"s"} variant={"secondary"} startIcon={{ component: Calendar }}>
+            <Button size={"xs"} variant={"secondary"} startIcon={{ component: Calendar }}>
               {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
             </Button>
           )}
@@ -62,9 +59,17 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
       </div>
       <div className="flex flex-row gap-2">
         {map.map(({ key, title, value }) => (
-          <Paper key={key} size={"s"} container={"1"} classNames={{ base: "flex flex-col gap-2 flex-1" }}>
-            <Typo size={"xxs"}>{title}</Typo>
-            <Typo size={"s"} weight={"medium"} color={"text-2"}>
+          <Paper
+            key={key}
+            size={"md"}
+            background={"primary"}
+            border={"primary"}
+            classNames={{ base: "flex flex-col gap-md flex-1" }}
+          >
+            <Typo size={"xs"} color={"secondary"}>
+              {title}
+            </Typo>
+            <Typo variant={"heading"} size={"xs"} color={"secondary"}>
               {value}
             </Typo>
           </Paper>
