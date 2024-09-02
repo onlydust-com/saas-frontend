@@ -39,6 +39,11 @@ function getRangeOfDates(range: DateRangeType): { from: Date | null; to: Date | 
       const lastSemester = subMonths(today, 6);
       return { from: lastSemester, to: today };
     }
+    case DateRangeType.ALL_TIME: {
+      const dateZero = new Date(0);
+      const today = new Date();
+      return { from: dateZero, to: today };
+    }
     default: {
       return { from: null, to: null };
     }

@@ -58,7 +58,7 @@ export function Header() {
                 startIcon={{ component: Filter }}
                 endContent={
                   count ? (
-                    <Badge size="s" style="outline">
+                    <Badge size="sm" shape="rounded">
                       {count}
                     </Badge>
                   ) : null
@@ -87,7 +87,7 @@ export function Header() {
               <div className="flex flex-col gap-3">
                 <Typo
                   size="xs"
-                  color="text-2"
+                  color="secondary"
                   translate={{ token: "programs:transactionPanel.filters.options.types.title" }}
                 />
 
@@ -107,7 +107,7 @@ export function Header() {
               <div className="flex flex-col gap-3">
                 <Typo
                   size="xs"
-                  color="text-2"
+                  color="secondary"
                   translate={{ token: "programs:transactionPanel.filters.options.period.title" }}
                 />
 

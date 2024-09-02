@@ -34,7 +34,9 @@ PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({ children, 
   const context = useContext(PopoverContext);
 
   return (
-    <PopoverContent className={cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg", className)}>
+    <PopoverContent
+      className={cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg text-typography-primary", className)}
+    >
       {children(context)}
     </PopoverContent>
   );

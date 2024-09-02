@@ -1,6 +1,6 @@
 const titleStyle = {
   fontSize: "12px",
-  color: "var(--text-1)",
+  color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
 
@@ -10,7 +10,7 @@ const xAxisStyle = {
   fontWeight: "400",
   lineHeight: "16px",
   letterSpacing: "-0.12px",
-  color: "var(--text-1)",
+  color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
 
@@ -20,19 +20,19 @@ const yAxisStyle = {
   fontWeight: "400",
   lineHeight: "16px",
   letterSpacing: "-0.12px",
-  color: "var(--text-1)",
+  color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
 
 const legendStyle = {
-  color: "var(--text-1)",
+  color: "var(--typography-primary)",
 };
 
 const tooltipWrapperStyle = {
-  backgroundColor: "var(--container-2)",
+  backgroundColor: "var(--background-secondary)",
 };
 const tooltipInnerStyle = {
-  color: "var(--text-1)",
+  color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
 export { titleStyle, xAxisStyle, yAxisStyle, legendStyle, tooltipWrapperStyle, tooltipInnerStyle };

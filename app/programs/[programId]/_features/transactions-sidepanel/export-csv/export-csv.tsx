@@ -62,7 +62,7 @@ export function ExportCsv() {
   return (
     <div className="flex h-full flex-col gap-3">
       <div className="h-full">
-        <Paper container="transparent" size="s" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo
             size="xs"
             weight="medium"
@@ -78,7 +78,7 @@ export function ExportCsv() {
           </div>
         </Paper>
 
-        <Paper container="transparent" size="s" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo
             size="xs"
             weight="medium"
@@ -88,44 +88,48 @@ export function ExportCsv() {
           <DateRangePicker value={dateRange} onChange={handleDateRange} />
         </Paper>
 
-        <Paper container="transparent" size="s" classNames={{ base: "flex flex-col gap-3" }}>
+        <Paper background="transparent" size="sm" classNames={{ base: "flex flex-col gap-3" }}>
           <Typo size="xs" weight="medium" translate={{ token: "programs:transactionPanel.export.data.title" }} />
 
           <div className="flex flex-col gap-1">
-            <Typo size="xxs" color="text-2" translate={{ token: "programs:transactionPanel.export.data.columns.id" }} />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
+              translate={{ token: "programs:transactionPanel.export.data.columns.id" }}
+            />
+            <Typo
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.timestamp" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.transactionType" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.projectId" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.sponsorId" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.amount" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.currency" }}
             />
             <Typo
-              size="xxs"
-              color="text-2"
+              size="xs"
+              color="secondary"
               translate={{ token: "programs:transactionPanel.export.data.columns.usdAmount" }}
             />
           </div>
@@ -138,7 +142,7 @@ export function ExportCsv() {
           translate={{
             token: "programs:transactionPanel.export.button",
           }}
-          size="l"
+          size="lg"
           classNames={{ base: "w-full" }}
         />
       </SidePanelFooter>

@@ -353,6 +353,11 @@
     --border-active: var(--_brand-crystalizedviolet-500-primary);
     --border-success-secondary: var(--_success-300);
 
+    /* Charts */
+    --chart-primary: var(--_brand-crystalizedviolet-700);
+    --chart-secondary: var(--_brand-crystalizedviolet-600);
+    --chart-tertiary: var(--_brand-brightorange-500-primary);
+
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
     --foreground-secondary: var(--_grey-600);
@@ -703,6 +708,11 @@
     --border-warning-secondary: var(--_warning-400);
     --border-success-primary: var(--_success-400);
     --border-success-secondary: var(--_success-400);
+
+    /* Chart */
+    --chart-primary: var(--_brand-crystalizedviolet-700);
+    --chart-secondary: var(--_brand-crystalizedviolet-600);
+    --chart-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);

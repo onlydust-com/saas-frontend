@@ -22,11 +22,12 @@ export function EmptyState<C extends ElementType = "div">({
 
   return (
     <Paper
-      size={"s"}
-      classNames={{ base: "flex flex-col items-center justify-center gap-6 p-6 text-center" }}
-      container={"1"}
+      size={"sm"}
+      classNames={{ base: "flex flex-col items-center justify-center gap-4 p-6 text-center" }}
+      background={"secondary"}
       as={Component}
       {...htmlProps}
+      py={"xl"}
     >
       <div className="w-20">
         <Image src={Categories} width={80} height={80} alt={"emptyStatePictureFallback"} />
@@ -35,19 +36,19 @@ export function EmptyState<C extends ElementType = "div">({
         <div className="flex flex-col gap-2">
           {titleTranslate ? (
             <Typo
-              variant="brand"
-              size={"xl"}
-              color={"text-1"}
+              variant="heading"
+              size={"md"}
+              color={"primary"}
               classNames={{ base: "mb-1" }}
               translate={titleTranslate}
             />
           ) : null}
-          {descriptionTranslate ? <Typo size={"m"} color={"text-2"} translate={descriptionTranslate} /> : null}
+          {descriptionTranslate ? <Typo size={"md"} color={"secondary"} translate={descriptionTranslate} /> : null}
         </div>
       ) : null}
       {actionLabelTranslate ? (
         <Button
-          size="m"
+          size="md"
           classNames={{ base: "hidden md:block" }}
           variant="primary"
           translate={actionLabelTranslate}

@@ -38,6 +38,11 @@ export const COLORS = {
     active: "var(--border-active)",
     "success-secondary": "var(--border-success-secondary)",
   },
+  chart: {
+    primary: "var(--chart-primary)",
+    secondary: "var(--chart-secondary)",
+    tertiary: "var(--chart-tertiary)",
+  },
   foreground: {
     primary: "var(--foreground-primary)",
     secondary: "var(--foreground-secondary)",

@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { TransactionsContextProvider } from "@/app/programs/[programId]/_features/transactions-sidepanel/context/transactions.context";
@@ -22,10 +23,12 @@ export function TransactionsTrigger() {
   return (
     <>
       <Button
-        variant="secondary"
+        variant={"primary"}
+        endIcon={{ component: ChevronRight }}
+        isTextButton
+        size={"md"}
         translate={{ token: "programs:details.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
-        size="l"
         classNames={{
           base: "max-w-full overflow-hidden",
           label: "whitespace-nowrap text-ellipsis overflow-hidden",

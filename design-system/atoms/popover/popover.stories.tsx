@@ -60,7 +60,7 @@ export const Default: Story = {
             {({ setIsOpen }) => (
               <div className={"grid gap-2"}>
                 <div>Sick popover🤘</div>
-                <Button variant={"secondary"} size={"s"} onClick={() => setIsOpen(false)}>
+                <Button variant={"secondary"} size={"sm"} onClick={() => setIsOpen(false)}>
                   Close me
                 </Button>
               </div>
