@@ -21,8 +21,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
-              {/*// TODO BUTTON*/}
-              <Button size="lg" hideText startIcon={{ component: Columns2 }} />
+              <Button variant={"secondary"} size="sm" startIcon={{ component: Columns2 }} iconOnly />
             </Tooltip>
           </div>
         )}
@@ -30,14 +29,18 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
 
       <Popover.Content>
         {() => (
-          <div className="grid max-w-[360px] gap-3">
-            <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "table:tableColumnList.title" }} />
-              {/*// TODO BUTTON*/}
-              <Button onClick={onClear} size="lg" translate={{ token: "table:tableColumnList.clear" }} />
+          <div className="grid max-w-[360px] gap-lg">
+            <div className="flex items-center justify-between gap-md">
+              <Typo size={"sm"} translate={{ token: "table:tableColumnList.title" }} color={"secondary"} />
+              <Button
+                onClick={onClear}
+                variant={"secondary"}
+                size="sm"
+                translate={{ token: "table:tableColumnList.clear" }}
+              />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-md">
               {items.map(item => (
                 <CheckboxButton
                   key={item.id}
