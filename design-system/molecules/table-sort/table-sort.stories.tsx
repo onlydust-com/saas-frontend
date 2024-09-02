@@ -14,7 +14,7 @@ const defaultProps: TableSortPort = {
 
 const meta: Meta<typeof TableSort> = {
   component: TableSort,
-  title: "Deprecated/Molecules/TableSort",
+  title: "Molecules/TableSort",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -29,8 +29,7 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableSort.title"} />}>
-              {/*// TODO BUTTON*/}
-              <Button size="lg" hideText startIcon={sortIcons[direction]} />
+              <Button variant={"secondary"} size="sm" startIcon={sortIcons[direction]} iconOnly />
             </Tooltip>
           </div>
         )}
@@ -39,11 +38,10 @@ export function TableSortDefaultAdapter({ classNames, direction, onDirectionChan
       <Popover.Content>
         {() => (
           <div className="grid max-w-[360px] gap-3">
-            <Typo translate={{ token: "table:tableSort.title" }} />
+            <Typo size={"sm"} color={"secondary"} translate={{ token: "table:tableSort.title" }} />
 
             <div className="grid gap-2">
-              <Typo size="xs" color="text-2" translate={{ token: "table:tableSort.direction.title" }} />
-              {/*// TODO BUTTON*/}
+              <Typo size="xs" color="secondary" translate={{ token: "table:tableSort.direction.title" }} />
               <RadioButtonGroup
                 variant={"secondary"}
                 value={direction}

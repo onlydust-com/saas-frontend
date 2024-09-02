@@ -39,7 +39,6 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
                 translate={{ token: "table:tableGroupBy.clear" }}
               />
             </div>
-            {/*// TODO BUTTON*/}
             <RadioButtonGroup variant={"secondary"} value={value} items={items} onChange={onChange} />
           </div>
         )}
