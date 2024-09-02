@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
+import { ArrowRight, TrendingDown, TrendingUp } from "lucide-react";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Icon, IconPort } from "@/design-system/atoms/icon";
@@ -12,8 +12,8 @@ export function TableCellKpiDefaultAdapter({ classNames, trend, inverted, childr
   const slots = TableCellKpiDefaultVariants({ trend, inverted });
 
   const iconNames: Record<NonNullable<typeof trend>, IconPort> = {
-    UP: { component: ArrowUp },
-    DOWN: { component: ArrowDown },
+    UP: { component: TrendingUp },
+    DOWN: { component: TrendingDown },
     STABLE: { component: ArrowRight },
   };
 

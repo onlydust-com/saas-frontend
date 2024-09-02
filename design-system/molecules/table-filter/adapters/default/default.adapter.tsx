@@ -22,16 +22,18 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableFilter.title"} />}>
               <Button
-                size="md"
-                iconOnly={true}
+                variant={"secondary"}
+                size="sm"
                 startIcon={{ component: Filter }}
                 endContent={
                   filterCount ? (
-                    <Badge size="s" style="outline">
+                    <Badge size="xxs" color={"grey"}>
                       {filterCount}
                     </Badge>
                   ) : null
                 }
+                iconOnly={!filterCount}
+                classNames={{ base: "h-[34px]", content: "self-center" }}
               />
             </Tooltip>
           </div>
@@ -42,8 +44,13 @@ export function TableFilterDefaultAdapter({ children, classNames, filterCount, o
         {() => (
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "table:tableFilter.title" }} />
-              <Button onClick={onClear} size="sm" translate={{ token: "table:tableFilter.clear" }} />
+              <Typo translate={{ token: "table:tableFilter.title" }} size={"sm"} color={"secondary"} />
+              <Button
+                onClick={onClear}
+                variant={"secondary"}
+                size="xs"
+                translate={{ token: "table:tableFilter.clear" }}
+              />
             </div>
 
             {children}
