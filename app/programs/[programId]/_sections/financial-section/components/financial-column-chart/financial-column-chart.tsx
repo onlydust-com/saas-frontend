@@ -122,6 +122,7 @@ export function FinancialColumnChart() {
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
         >
+          {/*TODO check commit status*/}
           <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />
           </Button>
