@@ -18,4 +18,5 @@ export interface DateFacadePort {
   formatDistanceToNow: (date: Date) => string;
   formatInEuropeTimeZone: (date: Date, pattern: string) => string;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
+  getMonthRange: (date: Date) => { from: Date; to: Date };
 }
