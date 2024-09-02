@@ -9,7 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -92,29 +92,29 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
           canGoBack={false}
           canClose={true}
         />
-        <ScrollView className={"h-full flex-1"}>
-          <div className={"flex w-full flex-col gap-3"}>
-            {!!stats && (
-              <>
-                <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-                <ProjectFinancial data={stats} />
-              </>
-            )}
-            <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-              <ProjectDescription description={data.shortDescription} />
-              <ProjectLinks moreInfo={data.moreInfos} />
-            </Paper>
-            <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
-              <ProjectLeads leaders={data.leaders} />
-              <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-              <ProjectSponsors sponsors={data.sponsors} />
-            </Paper>
-            <div className={"flex w-full flex-row gap-4"}>
-              <ProjectLanguages languages={data.languages} />
-              <ProjectCategories categories={data.categories} />
-            </div>
+
+        <SidePanelBody>
+          {!!stats && (
+            <>
+              <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
+              <ProjectFinancial data={stats} />
+            </>
+          )}
+          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
+            <ProjectDescription description={data.shortDescription} />
+            <ProjectLinks moreInfo={data.moreInfos} />
+          </Paper>
+          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
+            <ProjectLeads leaders={data.leaders} />
+            <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+            <ProjectSponsors sponsors={data.sponsors} />
+          </Paper>
+          <div className={"flex w-full flex-row gap-4"}>
+            <ProjectLanguages languages={data.languages} />
+            <ProjectCategories categories={data.categories} />
           </div>
-        </ScrollView>
+        </SidePanelBody>
+
         {onGrantClick && (
           <SidePanelFooter>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
