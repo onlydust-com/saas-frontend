@@ -26,7 +26,7 @@ const defaultProps: TableColumnListPort = {
 
 const meta: Meta<typeof TableColumnList> = {
   component: TableColumnList,
-  title: "Deprecated/Molecules/TableColumnList",
+  title: "Molecules/TableColumnList",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -25,7 +25,7 @@ const defaultProps: TableGroupByPort = {
 
 const meta: Meta<typeof TableGroupBy> = {
   component: TableGroupBy,
-  title: "Deprecated/Molecules/TableGroupBy",
+  title: "Molecules/TableGroupBy",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

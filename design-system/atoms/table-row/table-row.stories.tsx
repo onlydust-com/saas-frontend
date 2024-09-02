@@ -71,7 +71,7 @@ const columns = [
 
 const meta: Meta<typeof TableRow> = {
   component: TableRow,
-  title: "Deprecated/Atoms/TableRow",
+  title: "Atoms/TableRow",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
@@ -98,7 +98,7 @@ export const Default: Story = {
 
     return (
       <div className="flex w-full items-center gap-2">
-        <table className={"w-full border-separate border-spacing-y-3"}>
+        <table className={"w-full"}>
           <tbody>
             {table.getRowModel().rows.map(row => (
               <TableRow key={row.id} {...args} row={row} />

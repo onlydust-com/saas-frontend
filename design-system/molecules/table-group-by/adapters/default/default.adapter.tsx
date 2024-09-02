@@ -21,8 +21,7 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableGroupBy.title"} />}>
-              {/*// TODO BUTTON*/}
-              <Button size="lg" hideText startIcon={{ component: Layers }} />
+              <Button variant={"secondary"} size="sm" startIcon={{ component: Layers }} iconOnly />
             </Tooltip>
           </div>
         )}
@@ -32,11 +31,14 @@ export function TableGroupByDefaultAdapter({ classNames, onClear, items, value =
         {() => (
           <div className="grid max-w-[360px] gap-3">
             <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "table:tableGroupBy.title" }} />
-              {/*// TODO BUTTON*/}
-              <Button onClick={onClear} size="sm" translate={{ token: "table:tableGroupBy.clear" }} />
+              <Typo size={"sm"} color={"secondary"} translate={{ token: "table:tableGroupBy.title" }} />
+              <Button
+                onClick={onClear}
+                size="xs"
+                variant={"secondary"}
+                translate={{ token: "table:tableGroupBy.clear" }}
+              />
             </div>
-            {/*// TODO BUTTON*/}
             <RadioButtonGroup variant={"secondary"} value={value} items={items} onChange={onChange} />
           </div>
         )}
