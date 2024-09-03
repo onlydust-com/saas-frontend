@@ -1,6 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
@@ -32,11 +32,12 @@ export function TransactionsSidepanel() {
         onClose={clear}
       />
 
-      <ScrollView>
+      <SidePanelBody>
         <div className={"flex flex-col gap-3"}>
           <Transactions />
         </div>
-      </ScrollView>
+      </SidePanelBody>
+
       <Panel>
         <SidePanelHeader
           canGoBack={true}
@@ -44,8 +45,9 @@ export function TransactionsSidepanel() {
           title={{ translate: { token: "programs:transactionPanel.export.title" } }}
           onClose={clear}
         />
-
-        <ExportCsv />
+        <SidePanelBody>
+          <ExportCsv />
+        </SidePanelBody>
       </Panel>
     </>
   );
