@@ -4,17 +4,17 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { SponsorGroupProps } from "./sponsor-group.types";
+import { ProgramGroupProps } from "./program-group.types";
 
-export function SponsorGroup({ sponsors, maxSponsors, avatarProps, className }: SponsorGroupProps) {
-  const sponsorsCount = sponsors.length;
+export function ProgramGroup({ programs, maxPrograms, avatarProps, className }: ProgramGroupProps) {
+  const programsCount = programs.length;
 
-  if (!sponsorsCount) return null;
+  if (!programsCount) return null;
 
-  if (!maxSponsors || sponsorsCount <= maxSponsors) {
+  if (!maxPrograms || programsCount <= maxPrograms) {
     return (
       <AvatarGroup
-        avatars={sponsors.map(({ logoUrl, name }) => ({
+        avatars={programs.map(({ logoUrl, name }) => ({
           src: logoUrl,
           name,
         }))}
@@ -29,12 +29,12 @@ export function SponsorGroup({ sponsors, maxSponsors, avatarProps, className }: 
           {() => (
             <div className={"max-w-full cursor-pointer overflow-hidden"}>
               <AvatarGroup
-                avatars={sponsors.map(({ logoUrl, name }) => ({
+                avatars={programs.map(({ logoUrl, name }) => ({
                   src: logoUrl,
                   name,
                 }))}
-                quantity={maxSponsors || 4}
-                totalAvatarsCount={sponsorsCount}
+                quantity={maxPrograms || 4}
+                totalAvatarsCount={programsCount}
               />
             </div>
           )}
@@ -42,7 +42,7 @@ export function SponsorGroup({ sponsors, maxSponsors, avatarProps, className }: 
         <Popover.Content>
           {() => (
             <div className={"grid gap-3"}>
-              {sponsors.map(({ logoUrl, name }) => (
+              {programs.map(({ logoUrl, name }) => (
                 <AvatarLabelGroup key={name} avatars={[{ ...avatarProps, src: logoUrl }]} title={{ children: name }} />
               ))}
             </div>

@@ -14,6 +14,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { ProjectPrograms } from "@/shared/panels/project-sidepanel/_components/project-programs/project-programs";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -23,7 +24,6 @@ import { ProjectDescription } from "./_components/project-description/project-de
 import { ProjectFinancial } from "./_components/project-financial/project-financial";
 import { ProjectLanguages } from "./_components/project-languages/project-languages";
 import { ProjectLeads } from "./_components/project-leads/project-leads";
-import { ProjectSponsors } from "./_components/project-sponsors/project-sponsors";
 import { ProjectStats } from "./_components/project-stats/project-stats";
 import { ProjectSidepanelProps } from "./project-sidepanel.types";
 
@@ -115,7 +115,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
               <div className="grid grid-cols-3 gap-md">
                 <ProjectLeads leaders={data.leaders} />
                 <ProjectContributors topContributors={data.topContributors} />
-                <ProjectSponsors sponsors={data.programs} />
+                <ProjectPrograms programs={data.programs} />
               </div>
             </Paper>
           ) : null}

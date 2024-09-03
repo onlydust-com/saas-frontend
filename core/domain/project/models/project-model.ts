@@ -25,7 +25,7 @@ export class Project implements ProjectInterface {
   ecosystems!: ProjectResponse["ecosystems"];
   categories!: ProjectResponse["categories"];
   categorySuggestions!: ProjectResponse["categorySuggestions"];
-  sponsors!: ProjectResponse["sponsors"];
+  programs!: ProjectResponse["programs"];
   languages!: ProjectResponse["languages"];
   hasRemainingBudget!: ProjectResponse["hasRemainingBudget"];
   rewardSettings!: ProjectResponse["rewardSettings"];

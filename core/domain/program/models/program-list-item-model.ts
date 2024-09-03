@@ -7,6 +7,7 @@ export interface ProgramListItemInterface extends ProgramListItemResponse {}
 export class ProgramListItem implements ProgramListItemInterface {
   id!: ProgramListItemResponse["id"];
   leads!: ProgramListItemResponse["leads"];
+  logoUrl!: ProgramListItemResponse["logoUrl"];
   name!: ProgramListItemResponse["name"];
   projectCount!: ProgramListItemResponse["projectCount"];
   totalAvailable!: ProgramListItemResponse["totalAvailable"];
