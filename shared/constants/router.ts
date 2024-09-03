@@ -9,4 +9,10 @@ export const NEXT_ROUTER = {
       root: (id: string) => `/programs/${id}`,
     },
   },
+  financials: {
+    root: "/financials",
+    details: {
+      root: (id: string) => `/financials/${id}`,
+    },
+  },
 } as const;
