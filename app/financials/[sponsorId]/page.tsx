@@ -31,9 +31,12 @@ function WithProjectPanelProvider({ children }: PropsWithChildren) {
 }
 
 export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
-  const { data } = SponsorReactQueryAdapter.client.useGetSponsors({
+  const { data } = SponsorReactQueryAdapter.client.useGetSponsor({
     pathParams: {
       sponsorId,
+    },
+    options: {
+      enabled: !!sponsorId,
     },
   });
 
