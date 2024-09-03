@@ -1,7 +1,7 @@
 import { ChartColumn, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
+import { BudgetAvailableCards } from "@/app/financials/[sponsorId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -20,7 +20,7 @@ export function FinancialSection() {
 
   const renderFinancialView = useMemo(() => {
     if (toggleFinancialViews === BUDGET_AVAILABLE) {
-      return <div>cards</div>;
+      return <BudgetAvailableCards />;
     }
 
     return <div>chart</div>;
@@ -57,7 +57,8 @@ export function FinancialSection() {
             ]}
             selectedId={toggleFinancialViews}
           />
-          <TransactionsTrigger />
+          {/*TODO @Mehdi - Implement TransactionsTrigger*/}
+          {/*<TransactionsTrigger />*/}
         </div>
       </div>
 
