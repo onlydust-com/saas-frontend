@@ -118,10 +118,9 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
             </div>
           </Paper>
 
-          <div className={"flex w-full flex-row gap-4"}>
-            <ProjectLanguages languages={data.languages} />
-            <ProjectCategories categories={data.categories} />
-          </div>
+          <ProjectLanguages languages={data.languages} />
+
+          <ProjectCategories categories={data.categories} />
         </SidePanelBody>
         {onGrantClick && (
           <SidePanelFooter>

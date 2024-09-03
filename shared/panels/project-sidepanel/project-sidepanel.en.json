@@ -7,8 +7,8 @@
   "description": {
     "title": "Description"
   },
-  "language": {
-    "title": "Language"
+  "languages": {
+    "title": "Languages"
   },
   "categories": {
     "title": "Categories"
