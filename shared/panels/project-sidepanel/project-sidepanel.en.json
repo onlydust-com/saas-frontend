@@ -28,8 +28,8 @@
   "lead": {
     "title": "Project lead"
   },
-  "contributors": {
-    "title": "Contributors"
+  "topContributors": {
+    "title": "Top Contributors"
   },
   "sponsors": {
     "title": "Sponsors"
