@@ -7,7 +7,7 @@ import { withComponentAdapter } from "@/design-system/helpers/with-component-ada
 
 import { cn } from "@/shared/helpers/cn";
 
-import { ButtonPort, ButtonTextPort } from "../button.types";
+import { ButtonTextPort } from "../button.types";
 
 const ButtonTextPrimaryColorVariants = tv({
   extend: ButtonDefaultVariants,
@@ -77,7 +77,7 @@ export function ButtonTextPrimaryColor<C extends ElementType = "button">(props: 
     underline,
   });
 
-  return withComponentAdapter<ButtonPort<C>>(ButtonDefaultAdapter)({
+  return withComponentAdapter<ButtonTextPort<C>>(ButtonDefaultAdapter)({
     ...props,
     variant,
     size,

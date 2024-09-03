@@ -73,6 +73,7 @@ function ImpersonationPage() {
       htmlProps={{
         href: NEXT_ROUTER.home.root,
       }}
+      isTextButton
     >
       Not found, go home
     </Button>

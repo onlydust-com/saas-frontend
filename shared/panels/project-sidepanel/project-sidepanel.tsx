@@ -131,7 +131,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
       {onGrantClick && (
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"md"} onClick={() => onGrantClick(data.id)}>
+            <Button size={"md"} isTextButton underline onClick={() => onGrantClick(data.id)}>
               <Translate token={"panels:projectDetail.grant"} />
             </Button>
             <Button

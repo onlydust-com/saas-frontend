@@ -7,7 +7,7 @@ import { withComponentAdapter } from "@/design-system/helpers/with-component-ada
 
 import { cn } from "@/shared/helpers/cn";
 
-import { ButtonPort } from "../button.types";
+import { ButtonSolidPort } from "../button.types";
 
 const ButtonPrimaryColortVariants = tv({
   extend: ButtonDefaultVariants,
@@ -56,11 +56,11 @@ const ButtonPrimaryColortVariants = tv({
   },
 });
 
-export function ButtonPrimaryColor<C extends ElementType = "button">(props: ButtonPort<C>) {
+export function ButtonPrimaryColor<C extends ElementType = "button">(props: ButtonSolidPort<C>) {
   const { isDisabled, iconOnly, size, canInteract, variant = "primary" } = props;
   const slotsDefault = ButtonPrimaryColortVariants({ isDisabled, iconOnly, size, canInteract, variant });
 
-  return withComponentAdapter<ButtonPort<C>>(ButtonDefaultAdapter)({
+  return withComponentAdapter<ButtonSolidPort<C>>(ButtonDefaultAdapter)({
     ...props,
     variant,
     classNames: {

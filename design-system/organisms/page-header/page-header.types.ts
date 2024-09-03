@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { BreadcrumbsPort } from "@/design-system/atoms/breadcrumbs";
-import { ButtonPort } from "@/design-system/atoms/button/button.types";
+import { ButtonSolidPort } from "@/design-system/atoms/button/button.types";
 
 interface Variants {}
 
@@ -17,7 +17,7 @@ export interface PageHeaderPort<C extends ElementType> extends Partial<Variants>
   classNames?: Partial<ClassNames>;
   title?: ReactNode;
   breadcrumbs?: BreadcrumbsPort["items"];
-  action?: ButtonPort<"button">;
+  action?: ButtonSolidPort<"button">;
   endContent?: ReactNode;
   startContent?: ReactNode;
 }
