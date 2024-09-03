@@ -9,13 +9,8 @@ export function ProjectContributors({ topContributors, contributorCount }: Proje
 
   return (
     <div className={"flex flex-col gap-1"}>
-      <Typo
-        as={"div"}
-        size={"xs"}
-        color={"secondary"}
-        translate={{ token: "panels:projectDetail.contributors.title" }}
-      />
-      <UserGroup avatarProps={{ size: "s" }} users={topContributors} totalUsersCount={contributorCount} />
+      <Typo size={"xs"} color={"secondary"} translate={{ token: "panels:projectDetail.contributors.title" }} />
+      <UserGroup avatarProps={{ size: "s" }} users={topContributors} totalUsersCount={contributorCount} maxUsers={2} />
     </div>
   );
 }

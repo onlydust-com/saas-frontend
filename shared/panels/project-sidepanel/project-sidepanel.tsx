@@ -103,25 +103,28 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
 
           <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
 
-          <Paper
-            size={"lg"}
-            background={"transparent"}
-            border={"primary"}
-            classNames={{ base: "flex flex-col gap-lg" }}
-          >
-            <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
+          {data.leaders.length && data.topContributors.length && data.programs ? (
+            <Paper
+              size={"lg"}
+              background={"transparent"}
+              border={"primary"}
+              classNames={{ base: "flex flex-col gap-lg" }}
+            >
+              <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
 
-            <div className="flex gap-md">
-              <ProjectLeads leaders={data.leaders} />
-              <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-              <ProjectSponsors sponsors={data.sponsors} />
-            </div>
-          </Paper>
+              <div className="grid grid-cols-3 gap-md">
+                <ProjectLeads leaders={data.leaders} />
+                <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+                <ProjectSponsors sponsors={data.programs} />
+              </div>
+            </Paper>
+          ) : null}
 
           <ProjectLanguages languages={data.languages} />
 
           <ProjectCategories categories={data.categories} />
         </SidePanelBody>
+
         {onGrantClick && (
           <SidePanelFooter>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
