@@ -58,7 +58,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
             }}
             {...avatarGroup}
             size={avatarSize}
-            quantity={6}
+            quantity={5}
           />
         ) : null}
         {cta ? (

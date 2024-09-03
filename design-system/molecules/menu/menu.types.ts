@@ -16,4 +16,5 @@ export interface MenuPort extends Partial<Variants>, PropsWithChildren {
   onAction?: (actionId: string) => void;
   selectedIds?: string[];
   onSelect?: (ids: string[], data: MenuItemPort[]) => void;
+  placement?: "bottom-start" | "bottom-end";
 }

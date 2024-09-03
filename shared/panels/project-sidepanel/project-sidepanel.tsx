@@ -5,13 +5,12 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
-import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Typo } from "@/design-system/atoms/typo";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -24,7 +23,6 @@ import { ProjectDescription } from "./_components/project-description/project-de
 import { ProjectFinancial } from "./_components/project-financial/project-financial";
 import { ProjectLanguages } from "./_components/project-languages/project-languages";
 import { ProjectLeads } from "./_components/project-leads/project-leads";
-import { ProjectLinks } from "./_components/project-links/project-links";
 import { ProjectSponsors } from "./_components/project-sponsors/project-sponsors";
 import { ProjectStats } from "./_components/project-stats/project-stats";
 import { ProjectSidepanelProps } from "./project-sidepanel.types";
@@ -86,69 +84,69 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         }}
         paramsReady={Boolean(projectId && data)}
       />
-      <SidePanelHeader
-        startContent={
-          <Button
-            variant={"secondary"}
-            startContent={<Avatar shape={"squared"} size={"xs"} src={data.logoUrl} alt={data.name} />}
-            endContent={<Icon component={SquareArrowOutUpRight} />}
-            size={"md"}
-            as={"a"}
-            htmlProps={{
-              href: marketplaceRouting(`/p/${data.slug}`),
-              target: "_blank",
-            }}
-          >
-            {data.name}
-          </Button>
-        }
-        canGoBack={false}
-        canClose={true}
-      />
-      <ScrollView>
-        <div className={"flex w-full flex-col gap-3"}>
+      <div className={"flex h-full flex-col gap-px"}>
+        <SidePanelHeader
+          title={{
+            children: data.name,
+          }}
+          canGoBack={false}
+          canClose={true}
+        />
+
+        <SidePanelBody>
           {!!stats && (
             <>
               <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
               <ProjectFinancial data={stats} />
             </>
           )}
-          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-            <ProjectDescription description={data.shortDescription} />
-            <ProjectLinks moreInfo={data.moreInfos} />
-          </Paper>
-          <Paper size={"sm"} background={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
-            <ProjectLeads leaders={data.leaders} />
-            <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-            <ProjectSponsors sponsors={data.sponsors} />
-          </Paper>
-          <div className={"flex w-full flex-row gap-4"}>
-            <ProjectLanguages languages={data.languages} />
-            <ProjectCategories categories={data.categories} />
-          </div>
-        </div>
-      </ScrollView>
-      {onGrantClick && (
-        <SidePanelFooter>
-          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"md"} isTextButton underline onClick={() => onGrantClick(data.id)}>
-              <Translate token={"panels:projectDetail.grant"} />
-            </Button>
-            <Button
-              variant={"secondary"}
-              endContent={<SquareArrowOutUpRight size={16} />}
-              size={"md"}
-              as={"a"}
-              htmlProps={{
-                href: marketplaceRouting(`/p/${data.slug}`),
-                target: "_blank",
-              }}
+
+          <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
+
+          {data.leaders.length && data.topContributors.length && data.programs ? (
+            <Paper
+              size={"lg"}
+              background={"transparent"}
+              border={"primary"}
+              classNames={{ base: "flex flex-col gap-lg" }}
             >
-              <Translate token={"panels:projectDetail.seeProject"} />
-            </Button>
-          </div>
-        </SidePanelFooter>
-      )}
+              <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
+
+              <div className="grid grid-cols-3 gap-md">
+                <ProjectLeads leaders={data.leaders} />
+                <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+                <ProjectSponsors sponsors={data.programs} />
+              </div>
+            </Paper>
+          ) : null}
+
+          <ProjectLanguages languages={data.languages} />
+
+          <ProjectCategories categories={data.categories} />
+        </SidePanelBody>
+
+        {onGrantClick && (
+          <SidePanelFooter>
+            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <Button size={"md"} onClick={() => onGrantClick(data.id)}>
+                <Translate token={"panels:projectDetail.grant"} />
+              </Button>
+              <Button
+                variant={"secondary"}
+                endContent={<SquareArrowOutUpRight size={16} />}
+                size={"md"}
+                as={"a"}
+                htmlProps={{
+                  href: marketplaceRouting(`/p/${data.slug}`),
+                  target: "_blank",
+                }}
+              >
+                <Translate token={"panels:projectDetail.seeProject"} />
+              </Button>
+            </div>
+          </SidePanelFooter>
+        )}
+      </div>
     </>
   );
 }

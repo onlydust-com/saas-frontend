@@ -49,7 +49,7 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
                     src: avatarUrl,
                   },
                 ]}
-                description={{ children: login }}
+                title={{ children: login }}
               />
             ))}
           </div>
