@@ -53,7 +53,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
   });
 
   return (
-    <Paper size={"sm"} container={"transparent"}>
+    <Paper size={"sm"} background={"transparent"}>
       <div className="grid gap-3">
         <header className={"flex items-center gap-1"}>
           <Icon component={ChartPie} />
@@ -82,8 +82,8 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             <Typo
               as={"div"}
               htmlProps={{ title: currentBudgetBalance }}
-              size={"s"}
-              color={"text-2"}
+              size={"sm"}
+              color={"secondary"}
               classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
             >
               <span className={"truncate"}>{currentBudgetBalance}</span>
@@ -115,7 +115,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               <Typo
                 as={"div"}
                 htmlProps={{ title: formattedAmount }}
-                size={"s"}
+                size={"sm"}
                 classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
               >
                 <span className={"truncate"}>{formattedAmount}</span>
@@ -145,8 +145,8 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             <Typo
               as={"div"}
               htmlProps={{ title: newBudgetBalance }}
-              size={"s"}
-              color={"text-2"}
+              size={"sm"}
+              color={"secondary"}
               classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
             >
               <span className={"truncate"}>{newBudgetBalance}</span>
@@ -175,8 +175,8 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             <Typo
               as={"div"}
               htmlProps={{ title: currentProjectBalance }}
-              size={"s"}
-              color={"text-2"}
+              size={"sm"}
+              color={"secondary"}
               classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
             >
               <span className={"truncate"}>{currentProjectBalance}</span>
@@ -209,7 +209,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
               <Typo
                 as={"div"}
                 htmlProps={{ title: formattedAmount }}
-                size={"s"}
+                size={"sm"}
                 classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
               >
                 <span className={"truncate"}>{formattedAmount}</span>
@@ -237,8 +237,8 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             <Typo
               as={"div"}
               htmlProps={{ title: newProjectBalance }}
-              size={"s"}
-              color={"text-2"}
+              size={"sm"}
+              color={"secondary"}
               classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
             >
               <span className={"truncate"}>{newProjectBalance}</span>

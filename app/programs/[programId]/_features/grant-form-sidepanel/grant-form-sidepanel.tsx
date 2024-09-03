@@ -121,7 +121,7 @@ export function GrantFormSidepanel() {
             translate={{
               token: "common:state.error.title",
             }}
-            color={"text-2"}
+            color={"secondary"}
           />
         </div>
       );
