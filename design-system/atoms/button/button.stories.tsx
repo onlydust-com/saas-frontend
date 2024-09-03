@@ -9,10 +9,10 @@ import {
   ButtonDefaultPort,
   ButtonPort,
   ButtonSize,
+  ButtonSolidTheme,
+  ButtonSolidVariant,
   ButtonTextSize,
   ButtonTextVariant,
-  ButtonTheme,
-  ButtonVariant,
 } from "./button.types";
 import { Button } from "./variants/button-default";
 
@@ -34,8 +34,8 @@ const meta: Meta<typeof Button> = {
 
 const FIGMA_URL = "https://www.figma.com/design/J3hcQznLabA7oR9zTBOZs2/Design-System-3.0?node-id=106-9827";
 const sizes: ButtonSize[] = ["xs", "sm", "md", "lg"];
-const variants: ButtonVariant[] = ["primary", "secondary", "tertiary"];
-const theme: ButtonTheme[] = ["primary", "destructive"];
+const variants: ButtonSolidVariant[] = ["primary", "secondary", "tertiary"];
+const theme: ButtonSolidTheme[] = ["primary", "destructive"];
 
 const sizesText: ButtonTextSize[] = ["xs", "md", "lg"];
 const variantsText: ButtonTextVariant[] = ["primary", "secondary"];

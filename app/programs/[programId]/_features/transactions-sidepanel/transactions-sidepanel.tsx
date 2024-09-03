@@ -18,7 +18,7 @@ export function TransactionsSidepanel() {
     <>
       <SidePanelHeader
         canClose={true}
-        title={{ token: "programs:transactionPanel.transactions.title" }}
+        title={{ translate: { token: "programs:transactionPanel.transactions.title" } }}
         endContent={
           <Button
             variant="secondary"
@@ -41,7 +41,7 @@ export function TransactionsSidepanel() {
         <SidePanelHeader
           canGoBack={true}
           canClose={true}
-          title={{ token: "programs:transactionPanel.export.title" }}
+          title={{ translate: { token: "programs:transactionPanel.export.title" } }}
           onClose={clear}
         />
 

@@ -16,14 +16,14 @@ export function Modal<C extends ElementType = "div">({ titleProps, closeButtonPr
       ...restClassNames,
     },
     titleProps: {
-      variant: "brand",
+      variant: "heading",
       size: "xl",
       as: "h6",
       ...titleProps,
     },
     closeButtonProps: {
       variant: "secondary",
-      size: "l",
+      size: "lg",
       ...closeButtonProps,
     },
   });

@@ -5,16 +5,15 @@ import { IconPort } from "@/design-system/atoms/icon";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
-export type ButtonVariant = "primary" | "secondary" | "tertiary";
-export type ButtonTheme = "primary" | "destructive";
+export type ButtonSolidVariant = "primary" | "secondary" | "tertiary";
+export type ButtonSolidTheme = "primary" | "destructive";
 export type ButtonTextSize = "xs" | "md" | "lg";
 export type ButtonTextVariant = "primary" | "secondary";
 
 interface Variants {
-  size: ButtonSize;
-  variant?: ButtonVariant;
   isDisabled: boolean;
   iconOnly: boolean;
+  size: ButtonSize;
 }
 
 interface ClassNames {
@@ -42,20 +41,26 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
 }
 
 export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {
-  theme?: ButtonTheme;
+  theme?: ButtonSolidTheme;
 }
 
-export interface ButtonTextPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
+export interface ButtonSolidPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
+  variant?: ButtonSolidVariant;
+  isTextButton?: never;
+  underline?: never;
+}
+
+export interface ButtonTextPort<C extends ElementType>
+  extends Omit<ButtonBaseDefaultPort<C>, "isTextButton" | "underline"> {
   isTextButton: true;
-  underline: boolean;
-  size?: ButtonTextSize;
+  underline?: boolean;
   variant?: ButtonTextVariant;
 }
 
-export type ButtonDefaultPort<C extends ElementType> = ButtonBaseDefaultPort<C> | ButtonTextPort<C>;
+export type ButtonDefaultPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextPort<C>;
 
 export interface ButtonGroupPort
-  extends Pick<ButtonBaseDefaultPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
-  buttons: Omit<ButtonBaseDefaultPort<"button">[], "variant">;
+  extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
+  buttons: Omit<ButtonSolidPort<"button">[], "variant">;
   onClick?: (index: number) => void;
 }

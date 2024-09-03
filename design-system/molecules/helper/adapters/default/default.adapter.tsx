@@ -29,7 +29,7 @@ export function HelperDefaultAdapter<C extends ElementType = "div">({
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       {startContent}
-      <Avatar {...avatar} size={"xl"} shape={"square"} />
+      <Avatar {...avatar} size={"xl"} shape={"squared"} />
       <div className="flex flex-col items-start justify-start gap-1">
         <Typo {...title} size={"md"} variant={"heading"} />
         <Typo {...text} size={"sm"} />

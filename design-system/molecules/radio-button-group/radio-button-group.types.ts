@@ -1,13 +1,12 @@
-import { ComponentProps, FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode } from "react";
 
-import { ButtonDefaultPort } from "../../atoms/button/button.types";
-import { Button } from "../../atoms/button/variants/button-default";
+import { ButtonSolidPort } from "../../atoms/button/button.types";
 import { RadioGroupPort } from "../../atoms/radio-group";
 
 type Radio<V extends string> = RadioGroupPort<V, FunctionComponent<CustomButtonProps>>;
 
-export type CustomButtonProps = ComponentProps<typeof Button> & { label: ReactNode };
-export type ButtonProps = Pick<ButtonDefaultPort<"div">, "variant" | "size">;
+export type CustomButtonProps = ButtonSolidPort<"button"> & { label: ReactNode };
+export type ButtonProps = Pick<ButtonSolidPort<"div">, "variant" | "size">;
 export type RadioGroupProps<V extends string> = Omit<Radio<V>, "items" | "as" | "htmlProps">;
 
 interface ClassNames {

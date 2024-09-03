@@ -121,7 +121,7 @@ export function GrantFormSidepanel() {
             translate={{
               token: "common:state.error.title",
             }}
-            color={"text-2"}
+            color={"secondary"}
           />
         </div>
       );
@@ -164,7 +164,7 @@ export function GrantFormSidepanel() {
 
   return (
     <Panel>
-      <SidePanelHeader canClose={true} canGoBack title={{ token: "programs:grantForm.title" }} />
+      <SidePanelHeader canClose={true} canGoBack title={{ translate: { token: "programs:grantForm.title" } }} />
 
       <div ref={amountSelectorPortalRef} className={"h-full"}>
         {renderContent()}
