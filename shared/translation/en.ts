@@ -1,3 +1,4 @@
+import { enFinancialsTranslation } from "@/app/financial/_translations/financials.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
@@ -24,6 +25,7 @@ export const en = {
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
+  ...enFinancialsTranslation,
   ...enDateRangePickerTranslation,
   cards: {
     ...enCardTransactionTranslation,
