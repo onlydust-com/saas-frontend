@@ -14,7 +14,7 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
             src: users[0].avatarUrl,
           },
         ]}
-        description={{ children: users[0].login }}
+        title={{ children: users[0].login }}
       />
     );
   }
