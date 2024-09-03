@@ -23,6 +23,9 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   categories = [],
   buttonProps,
   onClick,
+  size = "xl",
+  background = "secondary",
+  border = "primary",
 }: CardProjectPort<C>) {
   const slots = CardProjectDefaultVariants({ clickable: Boolean(onClick) });
 
@@ -42,8 +45,9 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
     <Paper
       as={as}
       htmlProps={htmlProps}
-      background={"secondary"}
-      border={"primary"}
+      size={size}
+      background={background}
+      border={border}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
       onClick={onClick}
     >

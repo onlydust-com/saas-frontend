@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const AccordionNextUiVariants = tv({
   slots: {
-    base: "flex flex-col gap-4 p-0",
+    base: "flex flex-col gap-lg p-0",
     baseItem: "group/accordionItem bg-components-accordion-open-bg data-[open=true]:rounded-md",
     heading: [
       "transition-background",
@@ -13,7 +13,7 @@ export const AccordionNextUiVariants = tv({
       "group-data-[open=true]/accordionItem:rounded-t-md",
     ],
     trigger: "px-xl py-lg",
-    content: "p-lg text-typography-primary",
+    content: "divide-y divide-border-primary p-0 text-typography-primary *:p-lg",
     indicator: "text-foreground-primary",
     startIcon: "text-foreground-primary",
     label: "text-typography-secondary",
