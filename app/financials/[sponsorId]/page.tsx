@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from "react";
 
+import { FinancialSection } from "@/app/financials/[sponsorId]/sections/financial-section/financial-section";
 import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
@@ -61,7 +62,7 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
           <div className="h-auto">
             <PageContent>
-              <div>STATS SECTION</div>
+              <FinancialSection />
             </PageContent>
           </div>
           <PageContent>
