@@ -1,5 +1,5 @@
 {
-  "title": "Grant a project",
+  "title": "Grant",
   "amountSelector": {
     "title": "Amount"
   },
@@ -13,7 +13,7 @@
       "balance": "balance"
     }
   },
-  "submit": "Grant the project",
+  "submit": "Make allocation",
   "success": {
     "toast": "{{project}} as been granted {{amount}} {{code}}"
   },

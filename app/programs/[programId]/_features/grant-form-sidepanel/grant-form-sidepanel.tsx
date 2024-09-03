@@ -16,6 +16,7 @@ import { CardProject } from "@/design-system/molecules/cards/card-project";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
@@ -166,17 +167,14 @@ export function GrantFormSidepanel() {
     <Panel>
       <SidePanelHeader canClose={true} canGoBack title={{ translate: { token: "programs:grantForm.title" } }} />
 
-      <div ref={amountSelectorPortalRef} className={"h-full"}>
-        {renderContent()}
-      </div>
+      <SidePanelBody>
+        <div ref={amountSelectorPortalRef} className={"h-full"}>
+          {renderContent()}
+        </div>
+      </SidePanelBody>
 
       <SidePanelFooter>
-        <Button
-          size={"md"}
-          classNames={{ base: "w-full" }}
-          onClick={handleGrantProject}
-          isDisabled={isPending || !amount}
-        >
+        <Button variant={"secondary"} size={"md"} onClick={handleGrantProject} isDisabled={isPending || !amount}>
           <Translate token={"programs:grantForm.submit"} />
         </Button>
       </SidePanelFooter>

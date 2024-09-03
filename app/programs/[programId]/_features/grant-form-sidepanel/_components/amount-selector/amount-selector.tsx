@@ -69,24 +69,23 @@ export function AmountSelector({
     <div className={"grid w-full gap-4 py-4"}>
       <div className={"grid gap-2"}>
         <div
-          className={cn("mx-auto flex items-center gap-1 text-lg", {
+          className={cn("mx-auto flex items-center gap-1 font-clash text-lg", {
             "text-xl": amount.length < 22,
             "text-2xl": amount.length < 18,
-            "text-3xl": amount.length < 13,
-            "text-4xl": amount.length < 10,
-            "text-5xl": amount.length < 7,
+            "text-3xl": amount.length < 14,
+            "text-4xl": amount.length < 11,
           })}
         >
           <input
             ref={inputRef}
             type="text"
             style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-text-1 outline-none"}
+            className={"flex bg-transparent text-right font-medium text-typography-primary outline-none"}
             value={amount}
             onChange={handleChangeAmount}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-text-1"}>{budget.currency.code}</span>
+            <span className={"font-medium text-typography-primary"}>{budget.currency.code}</span>
           </div>
         </div>
         <Typo size={"md"} color={"secondary"} classNames={{ base: "text-center" }}>
@@ -110,7 +109,7 @@ export function AmountSelector({
         <Modal
           classNames={{
             wrapper: "w-full h-full",
-            base: "!rounded-b-none w-full max-w-full !mx-auto p-3 bg-container-4 border-container-stroke-separator rounded-xl",
+            base: "w-full max-w-full !mx-auto !my-0 p-3 bg-background-quaternary border border-border-primary rounded-md",
             header: "flex items-center justify-between gap-3 p-0",
             body: "py-3 px-0 gap-3",
           }}
@@ -127,11 +126,12 @@ export function AmountSelector({
                 <ModalHeader>
                   <Typo
                     variant={"heading"}
-                    size={"2xl"}
+                    size={"xs"}
+                    weight={"medium"}
                     translate={{ token: "programs:grantForm.amountSelector.title" }}
                   />
 
-                  <Button variant={"secondary"} size={"md"} iconOnly startIcon={{ component: X }} onClick={onClose} />
+                  <Button variant={"tertiary"} size={"sm"} iconOnly startIcon={{ component: X }} onClick={onClose} />
                 </ModalHeader>
 
                 <ModalBody>
@@ -139,6 +139,7 @@ export function AmountSelector({
                     {allBudgets?.map(budget => {
                       return (
                         <CardBudget
+                          as={"button"}
                           key={budget.currency.id}
                           amount={{
                             value: budget.amount,

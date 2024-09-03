@@ -57,7 +57,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
           </div>
 
           {badgeContent ? (
-            <Badge size="md" color={"brand"}>
+            <Badge size="md" color={"grey"}>
               {badgeContent}
             </Badge>
           ) : null}
