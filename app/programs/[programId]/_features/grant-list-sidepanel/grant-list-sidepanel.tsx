@@ -51,7 +51,7 @@ export function GrantListSidepanel() {
       </Button>
 
       <Panel>
-        <SidePanelHeader canClose={true} title={{ token: "programs:grantList.title" }} />
+        <SidePanelHeader canClose={true} title={{ translate: { token: "programs:grantList.title" } }} />
 
         <Input
           placeholder={t("programs:grantList.search")}

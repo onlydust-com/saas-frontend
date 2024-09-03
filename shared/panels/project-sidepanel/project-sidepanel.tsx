@@ -114,7 +114,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
 
               <div className="grid grid-cols-3 gap-md">
                 <ProjectLeads leaders={data.leaders} />
-                <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
+                <ProjectContributors topContributors={data.topContributors} />
                 <ProjectSponsors sponsors={data.programs} />
               </div>
             </Paper>
