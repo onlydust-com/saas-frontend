@@ -1,5 +1,4 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -19,21 +18,9 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
-  const router = useRouter();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetPrograms({});
-  const programs = useMemo(() => {
-    const flatPrograms = data?.pages.flatMap(page => page.programs);
-
-    if (!flatPrograms?.length) return [];
-
-    if (flatPrograms?.length && flatPrograms?.length === 1) {
-      router.push(NEXT_ROUTER.programs.details.root(flatPrograms[0].id));
-    }
-
-    return flatPrograms;
-  }, [data, router]);
-
+  const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const columnHelper = createColumnHelper<ProgramListItemInterface>();
