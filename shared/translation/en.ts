@@ -1,4 +1,4 @@
-import { enFinancialsTranslation } from "@/app/financial/_translations/financials.translate";
+import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";

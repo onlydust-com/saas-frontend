@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -30,10 +30,10 @@ function WithProjectPanelProvider({ children }: PropsWithChildren) {
   return <ProjectSidePanelProvider onGrantClick={handleOpenProjectGrant}>{children}</ProjectSidePanelProvider>;
 }
 
-export default function ProgramPage({ params: { programId } }: { params: { programId: string } }) {
-  const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
+export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
+  const { data } = SponsorReactQueryAdapter.client.useGetSponsors({
     pathParams: {
-      programId,
+      sponsorId,
     },
   });
 
