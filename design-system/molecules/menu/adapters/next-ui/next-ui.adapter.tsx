@@ -16,6 +16,7 @@ export function MenuNextUiAdapter({
   onAction,
   selectedIds,
   onSelect,
+  placement,
 }: MenuPort) {
   const slots = MenuNextUiVariants();
 
@@ -41,6 +42,7 @@ export function MenuNextUiAdapter({
         base: cn(slots.base(), classNames?.base),
         content: cn(slots.content(), classNames?.content),
       }}
+      placement={placement}
     >
       <DropdownTrigger>
         <div>{children}</div>
