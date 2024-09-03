@@ -5,14 +5,15 @@ import { IconPort } from "@/design-system/atoms/icon";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
-export type ButtonVariant = "primary" | "secondary" | "tertiary";
-export type ButtonTheme = "primary" | "destructive";
+export type ButtonSolidVariant = "primary" | "secondary" | "tertiary";
+export type ButtonSolidTheme = "primary" | "destructive";
 export type ButtonTextSize = "xs" | "md" | "lg";
 export type ButtonTextVariant = "primary" | "secondary";
 
 interface Variants {
   isDisabled: boolean;
   iconOnly: boolean;
+  size: ButtonSize;
 }
 
 interface ClassNames {
@@ -37,15 +38,14 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   onClick?: () => void;
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
-  size?: ButtonSize;
 }
 
 export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {
-  theme?: ButtonTheme;
+  theme?: ButtonSolidTheme;
 }
 
 export interface ButtonSolidPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
-  variant?: ButtonVariant;
+  variant?: ButtonSolidVariant;
   isTextButton?: never;
   underline?: never;
 }
