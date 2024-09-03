@@ -1,6 +1,7 @@
 import { ArrowLeft, X } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
@@ -26,24 +27,24 @@ export function SidePanelHeader({
   }
 
   return (
-    <div className={"relative flex w-full flex-row items-center justify-between gap-1 py-lg"}>
+    <Paper
+      as={"header"}
+      background={"primary-alt"}
+      classNames={{ base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-b-none" }}
+      py={"lg"}
+      px={"xl"}
+    >
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button
-              iconOnly={true}
-              variant="tertiary"
-              size="sm"
-              startIcon={{ component: ArrowLeft }}
-              onClick={() => back()}
-            />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={() => back()} />
           )}
           {startContent}
         </div>
       )}
       {title && (
         <div className={"item-center flex flex-row justify-start gap-lg"}>
-          <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={title} />
+          <Typo {...title} size={"xs"} weight={"medium"} variant={"heading"} />
           {titleEndContent}
         </div>
       )}
@@ -51,11 +52,10 @@ export function SidePanelHeader({
         <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
-            <Button iconOnly={true} variant="tertiary" size="sm" startIcon={{ component: X }} onClick={handleClose} />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: X }} onClick={handleClose} />
           )}
         </div>
       )}
-      <hr className="absolute -left-lg -right-lg bottom-0 h-px border-border-primary" />
-    </div>
+    </Paper>
   );
 }

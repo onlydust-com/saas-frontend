@@ -121,6 +121,7 @@ export function FinancialColumnChart() {
           ]}
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
+          placement={"bottom-end"}
         >
           <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />
