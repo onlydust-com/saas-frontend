@@ -8,16 +8,16 @@ import { cn } from "@/shared/helpers/cn";
 import { SponsorGroupProps } from "./sponsor-group.types";
 
 export function SponsorGroup({
-  sponsors,
+  programs,
   maxSponsors,
   maxSponsorsAvatar,
   tagProps = {},
   className,
 }: SponsorGroupProps) {
-  if (!maxSponsors || sponsors.length <= maxSponsors) {
+  if (!maxSponsors || programs.length <= maxSponsors) {
     return (
       <div className={cn("flex flex-row flex-wrap gap-1", className)}>
-        {sponsors?.map(({ logoUrl, name }) => (
+        {programs?.map(({ logoUrl, name }) => (
           <Tag
             key={name}
             classNames={{
@@ -55,7 +55,7 @@ export function SponsorGroup({
                 startContent={
                   <AvatarGroup
                     avatars={
-                      sponsors?.map(({ logoUrl, name }) => ({
+                      programs?.map(({ logoUrl, name }) => ({
                         src: logoUrl,
                         name,
                       })) ?? []
@@ -65,7 +65,7 @@ export function SponsorGroup({
                   />
                 }
               >
-                {sponsors?.map(({ name }) => name).join(", ")}
+                {programs?.map(({ name }) => name).join(", ")}
               </Tag>
             </div>
           )}
@@ -73,7 +73,7 @@ export function SponsorGroup({
         <Popover.Content>
           {() => (
             <div className={"grid gap-3"}>
-              {sponsors?.map(({ logoUrl, name }) => (
+              {programs?.map(({ logoUrl, name }) => (
                 <AvatarDescription
                   key={name}
                   avatarProps={{ src: logoUrl, size: "xs" }}
