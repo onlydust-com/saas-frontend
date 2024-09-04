@@ -12,7 +12,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 function Section({ children }: PropsWithChildren) {
   return (
-    <section className="border-container-stroke-separator bg-container-3 overflow-hidden rounded-lg border px-4 py-3">
+    <section className="overflow-hidden rounded-lg border border-container-stroke-separator bg-container-3 px-4 py-3">
       {children}
     </section>
   );
@@ -124,7 +124,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             </div>
           </div>
 
-          <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
+          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
             <AvatarLabelGroup
               avatars={[
                 {
@@ -218,7 +218,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
             </div>
           </div>
 
-          <div className="border-container-stroke-separator flex items-center justify-between gap-4 border-t pt-2">
+          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
             <AvatarLabelGroup
               avatars={[
                 {
