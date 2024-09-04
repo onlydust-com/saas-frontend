@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
+import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
+
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -37,7 +39,7 @@ function FinancialPage() {
   return (
     <PageWrapper
       navigation={{
-        title: <Translate token={"programs:list.header.title"} />,
+        title: <Translate token={"financials:list.header.title"} />,
       }}
     >
       <ScrollView>
@@ -48,11 +50,11 @@ function FinancialPage() {
               weight={"medium"}
               variant={"heading"}
               translate={{
-                token: "programs:list.content.title",
+                token: "financials:list.content.title",
               }}
             />
 
-            <div>SPONSOR TABLE</div>
+            <SponsorsTable />
           </div>
         </PageContent>
       </ScrollView>

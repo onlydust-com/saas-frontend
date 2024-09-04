@@ -1,5 +1,17 @@
 {
   "header": {
     "title": "Financials"
+  },
+  "content": {
+    "title": "Sponsors list",
+    "table": {
+      "columns": {
+        "sponsorName": "Sponsor name",
+        "actions": "Actions"
+      },
+      "rows": {
+        "seeSponsor": "See sponsor"
+      }
+    }
   }
 }
