@@ -14,7 +14,7 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 export function BudgetAvailableCards() {
   const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");
   const { programId = "" } = useParams<{ programId: string }>();
-  const { Panel, open, isOpen } = useSidePanel({ name: "financial-detail" });
+  const { Panel, open, isOpen } = useSidePanel({ name: "program-financial-detail" });
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,

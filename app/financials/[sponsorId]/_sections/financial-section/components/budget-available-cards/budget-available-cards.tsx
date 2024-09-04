@@ -65,13 +65,13 @@ export function BudgetAvailableCards() {
           onClick={() => openPanel("totalAvailable")}
         />
         <FinancialCardItem
-          title="programs:budgetAvailable.granted.title"
+          title="financials:budgetAvailable.granted.title"
           total={data.totalGranted}
           color="grey"
           onClick={() => openPanel("totalGranted")}
         />
         <FinancialCardItem
-          title="programs:budgetAvailable.rewarded.title"
+          title="financials:budgetAvailable.rewarded.title"
           total={data.totalRewarded}
           color="grey"
           onClick={() => openPanel("totalRewarded")}
