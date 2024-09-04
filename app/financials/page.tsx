@@ -1,6 +1,6 @@
 "use client";
 
-import { ProgramsTable } from "@/app/programs/_features/programs-table/programs-table";
+import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -13,7 +13,7 @@ export default function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        title: <Translate token={"programs:list.header.title"} />,
+        title: <Translate token={"financials:list.header.title"} />,
       }}
     >
       <ScrollView>
@@ -24,11 +24,11 @@ export default function ProgramsPage() {
               weight={"medium"}
               variant={"heading"}
               translate={{
-                token: "programs:list.content.title",
+                token: "financials:list.content.title",
               }}
             />
 
-            <ProgramsTable />
+            <SponsorsTable />
           </div>
         </PageContent>
       </ScrollView>
