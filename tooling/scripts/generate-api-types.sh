@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_swagger_doc_url="https://api.onlydust.com/v3/api-docs"
+default_swagger_doc_url="https://develop-api.onlydust.com/v3/api-docs"
 staging_swagger_doc_url="https://staging-api.onlydust.com/v3/api-docs"
 production_swagger_doc_url="https://api.onlydust.com/v3/api-docs"
 
