@@ -2,7 +2,7 @@ import { Calendar } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";

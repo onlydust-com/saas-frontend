@@ -1,17 +1,17 @@
 import { useCallback, useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
-import { GetProgramTransactionsStatsResponse } from "@/core/domain/program/program-contract.types";
+import { GetSponsorTransactionsStatsResponse } from "@/core/domain/sponsor/sponsor-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 
-export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsResponse["stats"]) {
+export function useFinancialColumnChart(stats?: GetSponsorTransactionsStatsResponse["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
-  const calculateSeries = (key: keyof GetProgramTransactionsStatsResponse["stats"][number]) => {
+  const calculateSeries = (key: keyof GetSponsorTransactionsStatsResponse["stats"][number]) => {
     return (
       stats?.map(stat => {
         const value = stat[key];
@@ -23,7 +23,8 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
     );
   };
 
-  const receivedSeries = calculateSeries("totalAvailable");
+  const availableSeries = calculateSeries("totalAvailable");
+  const allocatedSeries = calculateSeries("totalAllocated");
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
 
@@ -42,10 +43,13 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
     },
     [moneyKernelPort]
   );
-
-  const renderReceivedAmount = useMemo(
-    () => renderAmount(receivedSeries.reduce((a, c) => a + c, 0)),
-    [receivedSeries, renderAmount]
+  const renderAvailableAmount = useMemo(
+    () => renderAmount(availableSeries.reduce((a, c) => a + c, 0)),
+    [availableSeries, renderAmount]
+  );
+  const renderAllocatedAmount = useMemo(
+    () => renderAmount(allocatedSeries.reduce((a, c) => a + c, 0)),
+    [allocatedSeries, renderAmount]
   );
   const renderGrantedAmount = useMemo(
     () => renderAmount(grantedSeries.reduce((a, c) => a + c, 0)),
@@ -58,10 +62,12 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
 
   return {
     categories,
-    receivedSeries,
+    availableSeries,
+    allocatedSeries,
     grantedSeries,
     rewardedSeries,
-    renderReceivedAmount,
+    renderAvailableAmount,
+    renderAllocatedAmount,
     renderGrantedAmount,
     renderRewardedAmount,
   };
