@@ -13,6 +13,7 @@ export class ProgramListItem implements ProgramListItemInterface {
   totalAvailable!: ProgramListItemResponse["totalAvailable"];
   totalGranted!: ProgramListItemResponse["totalGranted"];
   totalRewarded!: ProgramListItemResponse["totalRewarded"];
+  logoUrl!: ProgramListItemResponse["logoUrl"];
 
   constructor(props: ProgramListItemResponse) {
     Object.assign(this, props);
