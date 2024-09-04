@@ -105,7 +105,7 @@ export function GrantFormSidepanel() {
     if (!projectId || !currencyId) return;
 
     mutate({
-      projectId,
+      programId,
       amount: parseFloat(amount),
       currencyId,
     });
