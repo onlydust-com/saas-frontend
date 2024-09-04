@@ -1,252 +1,129 @@
-import { ArrowDown, ArrowRight, ChartPie } from "lucide-react";
-import { PropsWithChildren } from "react";
-
 import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
 
-import { bootstrap } from "@/core/bootstrap";
+import { Accordion } from "@/design-system/molecules/accordion";
+import { CardBudget, CardBudgetType } from "@/design-system/molecules/cards/card-budget";
 
-import { Icon } from "@/design-system/atoms/icon";
-import { Paper } from "@/design-system/atoms/paper";
-import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
-
-function Section({ children }: PropsWithChildren) {
-  return (
-    <section className="overflow-hidden rounded-lg border border-container-stroke-separator bg-container-3 px-4 py-3">
-      {children}
-    </section>
-  );
-}
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function Summary({ amount, budget, project }: SummaryProps) {
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const usdConversionRate = budget.usdConversionRate ?? 0;
 
-  const { amount: currentBudgetBalance } = moneyKernelPort.format({
-    amount: budget.amount,
-    currency: budget.currency,
-  });
-
-  const { amount: formattedAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount),
-    currency: budget.currency,
-  });
-
-  const { amount: newBudgetBalance } = moneyKernelPort.format({
-    amount: budget.amount - parseFloat(amount),
-    currency: budget.currency,
-  });
+  const allocatedAmount = parseFloat(amount);
+  const newBudgetBalance = budget.amount - allocatedAmount;
 
   const projectBudget = project.totalAvailable.totalPerCurrency?.find(b => {
     return b.currency.id === budget.currency.id;
   });
 
-  const rawCurrentProjectBalance = projectBudget?.amount ?? 0;
-
-  const { amount: currentProjectBalance } = moneyKernelPort.format({
-    amount: rawCurrentProjectBalance,
-    currency: budget.currency,
-  });
-
-  const { amount: newProjectBalance } = moneyKernelPort.format({
-    amount: rawCurrentProjectBalance + parseFloat(amount),
-    currency: budget.currency,
-  });
+  const currentProjectBalance = projectBudget?.amount ?? 0;
+  const newProjectBalance = currentProjectBalance + allocatedAmount;
 
   return (
-    <Paper size={"sm"} background={"transparent"}>
-      <div className="grid gap-3">
-        <header className={"flex items-center gap-1"}>
-          <Icon component={ChartPie} />
-          <Typo size={"xs"} weight={"medium"} translate={{ token: "programs:grantForm.summary.title" }} />
-        </header>
-
-        <Section>
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: budget.currency.logoUrl,
-                  alt: budget.currency.name,
-                },
-              ]}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.budget.balance",
-                  values: {
-                    budget: budget.currency.name,
-                  },
-                },
-              }}
-            />
-
-            <Typo
-              as={"div"}
-              htmlProps={{ title: currentBudgetBalance }}
-              size={"sm"}
-              color={"secondary"}
-              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
-            >
-              <span className={"truncate"}>{currentBudgetBalance}</span>
-              <span>{budget.currency.code}</span>
-            </Typo>
-          </div>
-
-          <div className="mb-2 flex items-center justify-between gap-4">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: budget.currency.logoUrl,
-                  alt: budget.currency.name,
-                },
-              ]}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.budget.grant",
-                  values: {
-                    budget: budget.currency.name,
-                  },
-                },
-              }}
-            />
-
-            <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <Icon component={ArrowRight} classNames={{ base: "text-label-blue" }} />
-
-              <Typo
-                as={"div"}
-                htmlProps={{ title: formattedAmount }}
-                size={"sm"}
-                classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
-              >
-                <span className={"truncate"}>{formattedAmount}</span>
-                <span>{budget.currency.code}</span>
-              </Typo>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: budget.currency.logoUrl,
-                  alt: budget.currency.name,
-                },
-              ]}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.budget.balance",
-                  values: {
-                    budget: budget.currency.name,
-                  },
-                },
-              }}
-            />
-
-            <Typo
-              as={"div"}
-              htmlProps={{ title: newBudgetBalance }}
-              size={"sm"}
-              color={"secondary"}
-              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
-            >
-              <span className={"truncate"}>{newBudgetBalance}</span>
-              <span>{budget.currency.code}</span>
-            </Typo>
-          </div>
-        </Section>
-
-        <Section>
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: project.logoUrl,
-                  alt: project.name,
-                },
-              ]}
-              shape={"squared"}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.project.balance",
-                },
-              }}
-            />
-
-            <Typo
-              as={"div"}
-              htmlProps={{ title: currentProjectBalance }}
-              size={"sm"}
-              color={"secondary"}
-              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
-            >
-              <span className={"truncate"}>{currentProjectBalance}</span>
-              <span>{budget.currency.code}</span>
-            </Typo>
-          </div>
-
-          <div className="mb-2 flex items-center justify-between gap-4">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: project.logoUrl,
-                  alt: project.name,
-                },
-              ]}
-              shape={"squared"}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.budget.grant",
-                  values: {
-                    budget: budget.currency.name,
-                  },
-                },
-              }}
-            />
-
-            <div className={"flex w-full items-center justify-end gap-1 overflow-hidden"}>
-              <Icon component={ArrowDown} classNames={{ base: "text-label-green" }} />
-
-              <Typo
-                as={"div"}
-                htmlProps={{ title: formattedAmount }}
-                size={"sm"}
-                classNames={{ base: "flex gap-1 overflow-hidden justify-end" }}
-              >
-                <span className={"truncate"}>{formattedAmount}</span>
-                <span>{budget.currency.code}</span>
-              </Typo>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between gap-4 border-t border-container-stroke-separator pt-2">
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: project.logoUrl,
-                  alt: project.name,
-                },
-              ]}
-              shape={"squared"}
-              title={{
-                translate: {
-                  token: "programs:grantForm.summary.project.balance",
-                },
-              }}
-            />
-
-            <Typo
-              as={"div"}
-              htmlProps={{ title: newProjectBalance }}
-              size={"sm"}
-              color={"secondary"}
-              classNames={{ base: "flex gap-1 w-full overflow-hidden justify-end" }}
-            >
-              <span className={"truncate"}>{newProjectBalance}</span>
-              <span>{budget.currency.code}</span>
-            </Typo>
-          </div>
-        </Section>
-      </div>
-    </Paper>
+    <Accordion
+      multiple
+      items={[
+        {
+          id: "budgetBalance",
+          titleProps: {
+            translate: {
+              token: "programs:grantForm.summary.budgetBalance",
+              values: { budget: budget.currency.name },
+            },
+          },
+          content: (
+            <>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: budget.amount,
+                    currency: budget.currency,
+                    usdEquivalent: budget.usdEquivalent ?? 0,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.currentBalance"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                />
+              </div>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: allocatedAmount,
+                    currency: budget.currency,
+                    usdEquivalent: allocatedAmount * usdConversionRate,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.allocated"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                  type={CardBudgetType.GRANTED}
+                />
+              </div>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: newBudgetBalance,
+                    currency: budget.currency,
+                    usdEquivalent: newBudgetBalance * usdConversionRate,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.finalBalance"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                />
+              </div>
+            </>
+          ),
+        },
+        {
+          id: "projectBalance",
+          titleProps: { translate: { token: "programs:grantForm.summary.projectBalance" } },
+          content: (
+            <>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: currentProjectBalance,
+                    currency: budget.currency,
+                    usdEquivalent: currentProjectBalance * usdConversionRate,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.currentBalance"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                />
+              </div>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: allocatedAmount,
+                    currency: budget.currency,
+                    usdEquivalent: allocatedAmount * usdConversionRate,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.allocated"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                  type={CardBudgetType.RECEIVED}
+                />
+              </div>
+              <div>
+                <CardBudget
+                  amount={{
+                    value: newProjectBalance,
+                    currency: budget.currency,
+                    usdEquivalent: newProjectBalance * usdConversionRate,
+                  }}
+                  badgeProps={{ children: <Translate token={"programs:grantForm.summary.finalBalance"} /> }}
+                  size={"none"}
+                  background={"transparent"}
+                  border={"none"}
+                />
+              </div>
+            </>
+          ),
+        },
+      ]}
+    />
   );
 }

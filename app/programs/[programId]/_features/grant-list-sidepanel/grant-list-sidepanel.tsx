@@ -14,7 +14,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -53,14 +53,14 @@ export function GrantListSidepanel() {
       <Panel>
         <SidePanelHeader canClose={true} title={{ translate: { token: "programs:grantList.title" } }} />
 
-        <Input
-          placeholder={t("programs:grantList.search")}
-          startContent={<Icon component={Search} />}
-          value={search}
-          onChange={e => setSearch(e.currentTarget.value)}
-        />
+        <SidePanelBody>
+          <Input
+            placeholder={t("programs:grantList.search")}
+            startContent={<Icon component={Search} />}
+            value={search}
+            onChange={e => setSearch(e.currentTarget.value)}
+          />
 
-        <ScrollView>
           <Accordion
             items={[
               {
@@ -81,7 +81,7 @@ export function GrantListSidepanel() {
               },
             ]}
           />
-        </ScrollView>
+        </SidePanelBody>
       </Panel>
     </>
   );
