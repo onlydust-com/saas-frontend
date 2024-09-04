@@ -24,7 +24,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
   }
 
   if (isLoading) {
-    return <Skeleton className={"h-full w-full"} />;
+    return <Skeleton className={"h-[116px] w-full"} />;
   }
 
   if (isFolded || !bannerData || !bannerData.longDescription || isError) {
