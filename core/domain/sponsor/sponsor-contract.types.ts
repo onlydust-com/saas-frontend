@@ -13,7 +13,7 @@ export type GetSponsorPortParams = HttpClientParameters<{
   PathParams: GetSponsorPathParams;
 }>;
 
-/* --------------------- Get Program Transactions Stats --------------------- */
+/* --------------------- Get Sponsor Transactions Stats --------------------- */
 export type GetSponsorTransactionsStatsResponse = components["schemas"]["SponsorTransactionStatListResponse"];
 
 type GetSponsorTransactionsStatsQueryParams = operations["getSponsorTransactionsStats"]["parameters"]["query"];
