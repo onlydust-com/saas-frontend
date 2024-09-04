@@ -1,15 +1,40 @@
 "use client";
 
 import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
+import { useRouter } from "next/navigation";
+import { ComponentType, useEffect } from "react";
 
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ProgramsPage() {
+export function withSponsorList<P extends object>(Component: ComponentType<P>) {
+  return function WithSponsorList(props: P) {
+    const [showSponsorList] = useShowSponsorList();
+    const router = useRouter();
+
+    useEffect(() => {
+      if (showSponsorList.loading) return;
+
+      if (!showSponsorList.hasMultipleSponsors) {
+        router.push(NEXT_ROUTER.financials.details.root(showSponsorList.firstSponsor ?? ""));
+      }
+    }, [showSponsorList, router]);
+
+    if (showSponsorList.loading) {
+      return null;
+    }
+
+    return <Component {...props} />;
+  };
+}
+
+function FinancialPage() {
   return (
     <PageWrapper
       navigation={{
@@ -35,3 +60,5 @@ export default function ProgramsPage() {
     </PageWrapper>
   );
 }
+
+export default withSponsorList(FinancialPage);
