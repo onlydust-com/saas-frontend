@@ -1,5 +1,5 @@
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AmountSelector } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector";
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
@@ -28,7 +28,6 @@ export function GrantFormSidepanel() {
   const { sidePanel, projectIdState } = useGrantFormContext();
   const { Panel, close: closeSidepanel } = sidePanel;
   const [projectId] = projectIdState;
-  const amountSelectorPortalRef = useRef(null);
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
 
@@ -131,35 +130,32 @@ export function GrantFormSidepanel() {
     if (!data || !project || !selectedBudget || !data.totalAvailable.totalPerCurrency) return null;
 
     return (
-      <div ref={amountSelectorPortalRef} className={"h-full"}>
-        <ScrollView>
-          <div className="flex h-full flex-col gap-3">
-            <CardProject
-              title={project.name}
-              logoUrl={project.logoUrl}
-              buttonProps={{
-                children: `${projectUsdAmount} ${projectUsdCode}`,
-                classNames: {
-                  base: "pointer-events-none whitespace-nowrap",
-                },
-              }}
+      <ScrollView>
+        <div className="flex h-full flex-col gap-3">
+          <CardProject
+            title={project.name}
+            logoUrl={project.logoUrl}
+            buttonProps={{
+              children: `${projectUsdAmount} ${projectUsdCode}`,
+              classNames: {
+                base: "pointer-events-none whitespace-nowrap",
+              },
+            }}
+          />
+
+          <div className="flex max-h-72 flex-1 items-center">
+            <AmountSelector
+              amount={amount}
+              onAmountChange={handleAmountChange}
+              budget={selectedBudget}
+              allBudgets={data.totalAvailable.totalPerCurrency}
+              onBudgetChange={handleBudgetChange}
             />
-
-            <div className="flex max-h-72 flex-1 items-center">
-              <AmountSelector
-                portalRef={amountSelectorPortalRef}
-                amount={amount}
-                onAmountChange={handleAmountChange}
-                budget={selectedBudget}
-                allBudgets={data.totalAvailable.totalPerCurrency}
-                onBudgetChange={handleBudgetChange}
-              />
-            </div>
-
-            <Summary amount={amount} budget={selectedBudget} project={project} />
           </div>
-        </ScrollView>
-      </div>
+
+          <Summary amount={amount} budget={selectedBudget} project={project} />
+        </div>
+      </ScrollView>
     );
   }
 
@@ -167,11 +163,7 @@ export function GrantFormSidepanel() {
     <Panel>
       <SidePanelHeader canClose={true} canGoBack title={{ translate: { token: "programs:grantForm.title" } }} />
 
-      <SidePanelBody>
-        <div ref={amountSelectorPortalRef} className={"h-full"}>
-          {renderContent()}
-        </div>
-      </SidePanelBody>
+      <SidePanelBody>{renderContent()}</SidePanelBody>
 
       <SidePanelFooter>
         <Button variant={"secondary"} size={"md"} onClick={handleGrantProject} isDisabled={isPending || !amount}>

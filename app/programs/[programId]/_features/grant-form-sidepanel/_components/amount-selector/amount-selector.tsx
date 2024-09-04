@@ -1,6 +1,5 @@
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
-import { ChevronDown, X } from "lucide-react";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { ChangeEvent, useRef } from "react";
 
 import { AmountSelectorProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector.types";
 
@@ -12,18 +11,15 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { cn } from "@/shared/helpers/cn";
 
-export function AmountSelector({
-  portalRef,
-  amount,
-  onAmountChange,
-  budget,
-  allBudgets,
-  onBudgetChange,
-}: AmountSelectorProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onBudgetChange }: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: formattedBudgetAmount } = moneyKernelPort.format({
@@ -34,14 +30,6 @@ export function AmountSelector({
     amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
     currency: moneyKernelPort.getCurrency("USD"),
   });
-
-  function handleOpen() {
-    setIsOpen(true);
-  }
-
-  function handleClose() {
-    setIsOpen(false);
-  }
 
   function handleFocusInput() {
     inputRef.current?.focus();
@@ -62,7 +50,7 @@ export function AmountSelector({
 
   function handleChangeBudget(budget: DetailedTotalMoneyTotalPerCurrency) {
     onBudgetChange(budget);
-    handleClose();
+    back();
   }
 
   return (
@@ -95,7 +83,7 @@ export function AmountSelector({
 
       <div>
         <div className={"flex w-full justify-center"}>
-          <Button variant={"secondary"} size={"md"} onClick={handleOpen} endIcon={{ component: ChevronDown }}>
+          <Button variant={"secondary"} size={"md"} onClick={open} endIcon={{ component: ChevronDown }}>
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
               size={"md"}
@@ -106,57 +94,32 @@ export function AmountSelector({
           </Button>
         </div>
 
-        <Modal
-          classNames={{
-            wrapper: "w-full h-full",
-            base: "w-full max-w-full !mx-auto !my-0 p-3 bg-background-quaternary border border-border-primary rounded-md",
-            header: "flex items-center justify-between gap-3 p-0",
-            body: "py-3 px-0 gap-3",
-          }}
-          isOpen={isOpen}
-          onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}
-          hideCloseButton
-          placement={"bottom"}
-          backdrop={"transparent"}
-          portalContainer={portalRef?.current ?? document.body}
-        >
-          <ModalContent>
-            {onClose => (
-              <>
-                <ModalHeader>
-                  <Typo
-                    variant={"heading"}
-                    size={"xs"}
-                    weight={"medium"}
-                    translate={{ token: "programs:grantForm.amountSelector.title" }}
+        <Panel>
+          <SidePanelHeader
+            canGoBack={true}
+            canClose={true}
+            title={{ translate: { token: "programs:grantForm.amountSelector.title" } }}
+          />
+          <SidePanelBody>
+            <div className="grid gap-2">
+              {allBudgets?.map(budget => {
+                return (
+                  <CardBudget
+                    as={"button"}
+                    key={budget.currency.id}
+                    amount={{
+                      value: budget.amount,
+                      currency: budget.currency,
+                      usdEquivalent: budget.usdEquivalent ?? 0,
+                    }}
+                    badgeProps={{ children: budget.currency.name }}
+                    onClick={() => handleChangeBudget(budget)}
                   />
-
-                  <Button variant={"tertiary"} size={"sm"} iconOnly startIcon={{ component: X }} onClick={onClose} />
-                </ModalHeader>
-
-                <ModalBody>
-                  <div className="grid gap-2">
-                    {allBudgets?.map(budget => {
-                      return (
-                        <CardBudget
-                          as={"button"}
-                          key={budget.currency.id}
-                          amount={{
-                            value: budget.amount,
-                            currency: budget.currency,
-                            usdEquivalent: budget.usdEquivalent ?? 0,
-                          }}
-                          badgeProps={{ children: budget.currency.name }}
-                          onClick={() => handleChangeBudget(budget)}
-                        />
-                      );
-                    })}
-                  </div>
-                </ModalBody>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
+                );
+              })}
+            </div>
+          </SidePanelBody>
+        </Panel>
       </div>
     </div>
   );

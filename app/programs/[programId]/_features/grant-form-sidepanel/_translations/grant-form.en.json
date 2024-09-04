@@ -1,7 +1,7 @@
 {
   "title": "Grant",
   "amountSelector": {
-    "title": "Amount"
+    "title": "Currencies available"
   },
   "summary": {
     "budgetBalance": "{{budget}} balance",
