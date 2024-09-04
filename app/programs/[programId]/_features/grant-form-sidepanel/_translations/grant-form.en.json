@@ -4,14 +4,11 @@
     "title": "Amount"
   },
   "summary": {
-    "title": "Summary",
-    "budget": {
-      "balance": "{{budget}} balance",
-      "grant": "{{budget}} grant"
-    },
-    "project": {
-      "balance": "balance"
-    }
+    "budgetBalance": "{{budget}} balance",
+    "projectBalance": "Project balance",
+    "currentBalance": "Current balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final balance"
   },
   "submit": "Make allocation",
   "success": {
