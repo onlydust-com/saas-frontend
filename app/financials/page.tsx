@@ -1,8 +1,9 @@
 "use client";
 
-import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
+
+import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
 
 import { Typo } from "@/design-system/atoms/typo";
 
