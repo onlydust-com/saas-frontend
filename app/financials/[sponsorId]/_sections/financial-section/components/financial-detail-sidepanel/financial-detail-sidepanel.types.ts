@@ -4,7 +4,7 @@ export type PanelType = "totalDeposited" | "totalAvailable" | "totalGranted" | "
 
 export interface FinancialDetailSidepanelProps {
   panelType: PanelType;
-  program: SponsorInterface;
+  sponsor: SponsorInterface;
 }
 
 export const colorMapping: Record<PanelType, "gradient" | "grey"> = {

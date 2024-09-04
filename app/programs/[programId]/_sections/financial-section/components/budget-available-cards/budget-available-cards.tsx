@@ -1,51 +1,15 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import {
-  CreateAvatarGroupProps,
-  FinancialCardItemProps,
-} from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available-cards.types";
 import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PanelType } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-import { bootstrap } from "@/core/bootstrap";
 
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
-import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
+import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-function createAvatarGroup({ total }: CreateAvatarGroupProps) {
-  return {
-    avatars:
-      total.totalPerCurrency?.map(currency => ({
-        src: currency.currency.logoUrl,
-        name: currency.currency.name,
-      })) ?? [],
-  };
-}
-
-function FinancialCardItem({ title, total, color, onClick }: FinancialCardItemProps) {
-  const avatarGroup = createAvatarGroup({ total });
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
-  return (
-    <CardFinancial
-      title={{ token: title }}
-      amount={
-        moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
-          .amount
-      }
-      currency={moneyKernelPort.getCurrency("USD").code}
-      avatarGroup={avatarGroup}
-      color={color}
-      cta={{
-        onClick,
-      }}
-    />
-  );
-}
 
 export function BudgetAvailableCards() {
   const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");

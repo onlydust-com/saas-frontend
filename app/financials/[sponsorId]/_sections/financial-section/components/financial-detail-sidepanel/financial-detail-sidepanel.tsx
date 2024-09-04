@@ -12,12 +12,12 @@ import { CardFinancial } from "@/design-system/molecules/cards/card-financial/va
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
-export function FinancialDetailSidepanel({ panelType, program }: FinancialDetailSidepanelProps) {
+export function FinancialDetailSidepanel({ panelType, sponsor }: FinancialDetailSidepanelProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const total = useMemo(() => {
-    return program[panelType];
-  }, [panelType, program]);
+    return sponsor[panelType];
+  }, [panelType, sponsor]);
 
   return (
     <>
