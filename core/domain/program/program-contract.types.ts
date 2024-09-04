@@ -34,7 +34,7 @@ export type GetProgramByIdPortParams = HttpClientParameters<{
 }>;
 
 /* ------------------------ Get Program Transactions ------------------------ */
-export type GetProgramTransactionsResponse = components["schemas"]["TransactionPageResponse"];
+export type GetProgramTransactionsResponse = components["schemas"]["ProgramTransactionPageResponse"];
 export type GetProgramTransactionsModel = Omit<GetProgramTransactionsResponse, "transactions"> & {
   transactions: TransactionListItemInterface[];
 };
