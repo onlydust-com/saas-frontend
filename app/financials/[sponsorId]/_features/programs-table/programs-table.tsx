@@ -20,7 +20,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
   const { sponsorId } = useParams<{ sponsorId: string }>();
-
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
       pathParams: { sponsorId },
