@@ -11,6 +11,27 @@
     }
   },
   "programs": {
-    "title": "Programs"
+    "title": "Programs",
+    "actions": {
+      "allocate": "Allocate a Program",
+      "create": "Create a Program"
+    },
+    "table": {
+      "columns": {
+        "programName": "Program name",
+        "programLeads": "Program leads",
+        "budgetsAvailable": "Budgets available",
+        "projects": "Projects",
+        "granted": "Granted",
+        "actions": "Actions"
+      },
+      "rows": {
+        "programLead": "Program lead",
+        "leads": "{{count}} leads",
+        "currencies": "{{count}} currencies",
+        "seeProgram": "See program",
+        "allocate": "Allocate"
+      }
+    }
   }
 }
