@@ -30,7 +30,7 @@ export function AmountSelector({
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.ratio ?? 0),
+    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
     currency: budget.currency,
   });
 
@@ -80,12 +80,12 @@ export function AmountSelector({
             ref={inputRef}
             type="text"
             style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-text-1 outline-none"}
+            className={"text-text-1 flex bg-transparent text-right font-medium outline-none"}
             value={amount}
             onChange={handleChangeAmount}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-text-1"}>{budget.currency.code}</span>
+            <span className={"text-text-1 font-medium"}>{budget.currency.code}</span>
           </div>
         </div>
         <Typo size={"m"} color={"text-2"} classNames={{ base: "text-center" }}>
