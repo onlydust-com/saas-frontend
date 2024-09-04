@@ -31,7 +31,7 @@ export function AmountSelector({
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.ratio ?? 0),
+    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
     currency: budget.currency,
   });
 
