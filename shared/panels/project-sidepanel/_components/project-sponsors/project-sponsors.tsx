@@ -4,13 +4,13 @@ import { SponsorGroup } from "@/shared/features/sponsor/sponsor-group/sponsor-gr
 
 import { ProjectSponsorsProps } from "./project-sponsors.types";
 
-export function ProjectSponsors({ sponsors }: ProjectSponsorsProps) {
-  if (!sponsors?.length) return null;
+export function ProjectSponsors({ programs }: ProjectSponsorsProps) {
+  if (!programs?.length) return null;
 
   return (
     <div className={"flex flex-1 flex-col gap-1 overflow-hidden"}>
       <Typo as={"div"} size={"xs"} color={"text-2"} translate={{ token: "panels:projectDetail.sponsors.title" }} />
-      <SponsorGroup sponsors={sponsors} maxSponsors={1} />
+      <SponsorGroup programs={programs} maxSponsors={1} />
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import { TagPort } from "@/design-system/atoms/tag";
 
 interface sponsor {
-  logoUrl: string;
+  logoUrl?: string;
   name: string;
 }
 export interface SponsorGroupProps {
-  sponsors: sponsor[];
+  programs: sponsor[];
   maxSponsors?: number;
   maxSponsorsAvatar?: number;
   className?: string;

@@ -119,7 +119,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
           <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-row gap-2" }}>
             <ProjectLeads leaders={data.leaders} />
             <ProjectContributors topContributors={data.topContributors} contributorCount={data?.contributorCount} />
-            <ProjectSponsors sponsors={data.sponsors} />
+            <ProjectSponsors programs={data.programs} />
           </Paper>
           <div className={"flex w-full flex-row gap-4"}>
             <ProjectLanguages languages={data.languages} />
