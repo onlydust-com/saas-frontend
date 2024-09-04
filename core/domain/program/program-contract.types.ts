@@ -87,7 +87,7 @@ export type GetProgramProjectsPortResponse = HttpStorageResponse<GetProgramProje
 
 /* ------------------------ Grant Budget To Project ------------------------ */
 
-export type GrantBudgetToProjectBody = components["schemas"]["AllocateRequest"];
+export type GrantBudgetToProjectBody = components["schemas"]["GrantRequest"];
 
 type GrantBudgetToProjectPathParams = operations["grantBudgetToProject"]["parameters"]["path"];
 
