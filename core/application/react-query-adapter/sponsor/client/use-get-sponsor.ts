@@ -8,7 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { SponsorFacadePort } from "@/core/domain/sponsor/input/sponsor-facade-port";
 import { SponsorInterface } from "@/core/domain/sponsor/models/sponsor-model";
 
-export function useGetSponsors({
+export function useGetSponsor({
   options,
   pathParams,
 }: UseQueryFacadeParams<SponsorFacadePort["getSponsor"], SponsorInterface>) {

@@ -1,0 +1,14 @@
+{
+  "deposited": {
+    "title": "Deposited"
+  },
+  "allocated": {
+    "title": "Allocated"
+  },
+  "granted": {
+    "title": "Granted"
+  },
+  "rewarded": {
+    "title": "Rewarded"
+  }
+}
