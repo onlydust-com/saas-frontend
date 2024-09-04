@@ -1,6 +1,7 @@
 import { Calendar } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
@@ -20,6 +21,7 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
+  const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { programId = "" } = useParams<{ programId: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
@@ -56,9 +58,9 @@ export function FinancialColumnChart() {
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: "Received", data: receivedSeries },
-      { name: "Granted", data: grantedSeries },
-      { name: "Rewarded", data: rewardedSeries },
+      { name: t("programs:financialColumnChart.legends.received"), data: receivedSeries },
+      { name: t("programs:financialColumnChart.legends.granted"), data: grantedSeries },
+      { name: t("programs:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
     tooltip: { valueSuffix: " USD" },
