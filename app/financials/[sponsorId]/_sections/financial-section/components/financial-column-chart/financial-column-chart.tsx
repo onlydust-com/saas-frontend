@@ -45,6 +45,8 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
+  const series = data?.c;
+
   const {
     categories,
     availableSeries,
