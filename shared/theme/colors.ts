@@ -42,6 +42,7 @@ export const COLORS = {
     primary: "var(--chart-primary)",
     secondary: "var(--chart-secondary)",
     tertiary: "var(--chart-tertiary)",
+    quaternary: "var(--chart-quaternary)",
   },
   foreground: {
     primary: "var(--foreground-primary)",

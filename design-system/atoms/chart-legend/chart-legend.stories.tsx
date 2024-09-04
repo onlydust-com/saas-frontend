@@ -35,6 +35,7 @@ export const Default: Story = {
         <ChartLegend {...defaultProps} {...args} color={"primary"} />
         <ChartLegend {...defaultProps} {...args} color={"secondary"} />
         <ChartLegend {...defaultProps} {...args} color={"tertiary"} />
+        <ChartLegend {...defaultProps} {...args} color={"quaternary"} />
       </div>
     );
   },

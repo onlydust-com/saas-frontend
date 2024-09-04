@@ -12,3 +12,17 @@ type GetSponsorPathParams = operations["getSponsor"]["parameters"]["path"];
 export type GetSponsorPortParams = HttpClientParameters<{
   PathParams: GetSponsorPathParams;
 }>;
+
+/* --------------------- Get Program Transactions Stats --------------------- */
+export type GetSponsorTransactionsStatsResponse = components["schemas"]["SponsorTransactionStatListResponse"];
+
+type GetSponsorTransactionsStatsQueryParams = operations["getSponsorTransactionsStats"]["parameters"]["query"];
+
+type GetSponsorTransactionsStatsPathParams = operations["getSponsorTransactionsStats"]["parameters"]["path"];
+
+export type GetSponsorTransactionsStatsPortParams = HttpClientParameters<{
+  QueryParams: GetSponsorTransactionsStatsQueryParams;
+  PathParams: GetSponsorTransactionsStatsPathParams;
+}>;
+
+export type GetSponsorTransactionsStatsPortResponse = HttpStorageResponse<GetSponsorTransactionsStatsResponse>;

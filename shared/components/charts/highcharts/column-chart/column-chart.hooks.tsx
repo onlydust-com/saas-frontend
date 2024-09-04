@@ -21,7 +21,7 @@ export function useColumnChartOptions({
   yAxisTitle,
   xAxisTitle,
   tooltipFormat = "{point.y}",
-  colors = ["#8400b0", "#9a00d7", "#ff9000"],
+  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
 }: UseColumnChartOptionsParams): UseColumnChartOptionsReturn {

@@ -11,6 +11,7 @@ export const ChartLegendDefaultVariants = tv({
       primary: { square: "bg-chart-primary" },
       secondary: { square: "bg-chart-secondary" },
       tertiary: { square: "bg-chart-tertiary" },
+      quaternary: { square: "bg-chart-quaternary" },
     },
     size: {
       s: {

@@ -2,6 +2,7 @@ import { ChartColumn, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/financials/[sponsorId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
+import { FinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -23,7 +24,7 @@ export function FinancialSection() {
       return <BudgetAvailableCards />;
     }
 
-    return <div>chart</div>;
+    return <FinancialColumnChart />;
   }, [toggleFinancialViews]);
 
   function handleToggleFinancialViews(view: string) {
