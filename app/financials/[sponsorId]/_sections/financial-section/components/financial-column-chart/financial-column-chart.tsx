@@ -3,9 +3,9 @@ import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
@@ -23,7 +23,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function FinancialColumnChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const { programId = "" } = useParams<{ programId: string }>();
+  const { sponsorId = "" } = useParams<{ sponsorId: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
 
   const { fromDate, toDate } = useMemo(() => {
@@ -35,8 +35,8 @@ export function FinancialColumnChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
-    pathParams: { programId },
+  const { data, isLoading } = SponsorReactQueryAdapter.client.useGetSponsorTransactionsStats({
+    pathParams: { sponsorId },
     queryParams: {
       fromDate,
       toDate,
@@ -47,10 +47,12 @@ export function FinancialColumnChart() {
 
   const {
     categories,
-    receivedSeries,
+    availableSeries,
+    allocatedSeries,
     grantedSeries,
     rewardedSeries,
-    renderReceivedAmount,
+    renderAvailableAmount,
+    renderAllocatedAmount,
     renderGrantedAmount,
     renderRewardedAmount,
   } = useFinancialColumnChart(stats);
@@ -58,9 +60,10 @@ export function FinancialColumnChart() {
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: t("programs:financialColumnChart.legends.received"), data: receivedSeries },
-      { name: t("programs:financialColumnChart.legends.granted"), data: grantedSeries },
-      { name: t("programs:financialColumnChart.legends.rewarded"), data: rewardedSeries },
+      { name: t("financials:financialColumnChart.legends.deposit"), data: availableSeries },
+      { name: t("financials:financialColumnChart.legends.allocated"), data: allocatedSeries },
+      { name: t("financials:financialColumnChart.legends.granted"), data: grantedSeries },
+      { name: t("financials:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
     tooltip: { valueSuffix: " USD" },
@@ -80,11 +83,11 @@ export function FinancialColumnChart() {
     );
   }
 
-  if (!receivedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
+  if (!availableSeries.length && !allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
-        titleTranslate={{ token: "programs:financialColumnChart.emptyState.title" }}
-        descriptionTranslate={{ token: "programs:financialColumnChart.emptyState.description" }}
+        titleTranslate={{ token: "financials:financialColumnChart.emptyState.title" }}
+        descriptionTranslate={{ token: "financials:financialColumnChart.emptyState.description" }}
       />
     );
   }
@@ -93,22 +96,28 @@ export function FinancialColumnChart() {
     <div className="flex min-h-[300px] flex-col gap-4">
       <ColumnChart options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }} background={"secondary"}>
+        <Paper size={"lg"} classNames={{ base: "grid grid-cols-4 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
-              <Translate token={"programs:financialColumnChart.legends.received"} />
+              <Translate token={"financials:financialColumnChart.legends.deposit"} />
             </ChartLegend>
-            {renderReceivedAmount}
+            {renderAvailableAmount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="secondary">
-              <Translate token={"programs:financialColumnChart.legends.granted"} />
+              <Translate token={"financials:financialColumnChart.legends.allocated"} />
+            </ChartLegend>
+            {renderAllocatedAmount}
+          </div>
+          <div className="flex justify-between gap-4">
+            <ChartLegend color="tertiary">
+              <Translate token={"financials:financialColumnChart.legends.granted"} />
             </ChartLegend>
             {renderGrantedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"programs:financialColumnChart.legends.rewarded"} />
+            <ChartLegend color="quaternary">
+              <Translate token={"financials:financialColumnChart.legends.rewarded"} />
             </ChartLegend>
             {renderRewardedAmount}
           </div>

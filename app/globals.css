@@ -354,9 +354,10 @@
     --border-success-secondary: var(--_success-300);
 
     /* Charts */
-    --chart-primary: var(--_brand-crystalizedviolet-700);
-    --chart-secondary: var(--_brand-crystalizedviolet-600);
-    --chart-tertiary: var(--_brand-brightorange-500-primary);
+    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-secondary: var(--_brand-crystalizedviolet-700);
+    --chart-tertiary: var(--_brand-crystalizedviolet-600);
+    --chart-quaternary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
@@ -710,9 +711,10 @@
     --border-success-secondary: var(--_success-400);
 
     /* Chart */
-    --chart-primary: var(--_brand-crystalizedviolet-700);
-    --chart-secondary: var(--_brand-crystalizedviolet-600);
-    --chart-tertiary: var(--_brand-brightorange-500-primary);
+    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-secondary: var(--_brand-crystalizedviolet-700);
+    --chart-tertiary: var(--_brand-crystalizedviolet-600);
+    --chart-quaternary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);
