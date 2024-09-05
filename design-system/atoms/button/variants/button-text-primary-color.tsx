@@ -12,7 +12,7 @@ import { ButtonTextPort } from "../button.types";
 const ButtonTextPrimaryColorVariants = tv({
   extend: ButtonDefaultVariants,
   slots: {
-    base: "border-0 hover:underline hover:underline-offset-2",
+    base: "border-0 outline-none hover:underline hover:underline-offset-2",
     label: "",
   },
   variants: {
@@ -40,14 +40,14 @@ const ButtonTextPrimaryColorVariants = tv({
         base: [
           "text-components-textbutton-primary-fg",
           "data-[hover=true]:text-components-textbutton-primary-fg-hover hover:text-components-textbutton-primary-fg-hover",
-          "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       secondary: {
         base: [
           "text-components-textbutton-secondary-fg",
           "data-[hover=true]:text-components-textbutton-secondary-fg-hover hover:text-components-textbutton-secondary-fg-hover",
-          "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       tertiary: {

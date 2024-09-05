@@ -19,14 +19,16 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
   }
 
   return (
-    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden px-lg py-md"}>
+    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden pl-lg pt-md"}>
       <div className={cn("group/header w-fit", { "flex w-full items-center justify-center": isFolded })}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
-              base: cn("h-6 w-auto justify-start gap-md", { "group-hover/header:!opacity-0 transition-all": isFolded }),
+              base: cn("h-6 w-auto justify-start gap-md", {
+                "group-hover/header:!opacity-0 transition-all": isFolded,
+              }),
               illustration: cn("min-w-6 h-6 w-auto"),
-              wordmark: cn("min-w-auto h-6 w-auto"),
+              wordmark: cn("min-w-0 h-4 w-auto"),
             }}
             type={isFolded ? "illustration" : undefined}
           />

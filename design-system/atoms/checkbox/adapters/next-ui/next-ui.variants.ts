@@ -14,7 +14,7 @@ export const CheckboxNextUiVariants = tv({
           "after:bg-background-brand-primary-solid group-data-[hover=true]:after:bg-background-brand-primary-solid-hover",
           "group-data-[hover=true]:before:bg-background-primary-alt-hover",
           "effect-box-shadow-xs",
-          "group-data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "group-data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
     },
