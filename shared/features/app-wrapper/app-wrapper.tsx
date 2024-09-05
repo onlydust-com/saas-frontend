@@ -19,7 +19,7 @@ function ImpersonationBanner() {
   if (!isImpersonating) return null;
 
   return (
-    <div className={"pointer-events-none fixed bottom-4 left-0 right-0 z-10 text-center"}>
+    <div className={"pointer-events-none fixed bottom-md left-0 right-0 z-10 text-center"}>
       <div className={"relative inline-flex overflow-hidden rounded-xl bg-black p-3"}>
         <div className="absolute inset-0 animate-pulse bg-foreground-warning" />
         <Typo weight={"medium"} classNames={{ base: "relative z-10" }}>
@@ -33,14 +33,14 @@ function ImpersonationBanner() {
 function AppSkeleton() {
   return (
     <>
-      <div className={"h-dvh p-3 tablet:hidden"}>
-        <div className="flex h-full flex-col gap-3">
-          <Skeleton classNames={{ base: "h-[66px]" }} />
+      <div className={"h-dvh p-md tablet:hidden"}>
+        <div className="flex h-full flex-col gap-md">
+          <Skeleton classNames={{ base: "h-[32px]" }} />
           <Skeleton classNames={{ base: "flex-1" }} />
         </div>
       </div>
 
-      <div className={"mx-auto hidden h-dvh w-dvw max-w-[2560px] overflow-hidden p-3 tablet:block"}>
+      <div className={"mx-auto hidden h-dvh w-dvw max-w-[2560px] overflow-hidden p-md tablet:block"}>
         <div className="flex size-full gap-3">
           <div className="flex h-full w-[260px] flex-col gap-3">
             <Skeleton classNames={{ base: "h-[66px]" }} />
@@ -79,7 +79,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   if (isTablet) {
     return (
-      <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-3"}>
+      <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-md"}>
         <ImpersonationBanner />
         <PrimaryNavigation />
         {children}
@@ -88,9 +88,9 @@ export function AppWrapper({ children }: AppWrapperProps) {
   }
 
   return (
-    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-3"}>
+    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-md"}>
       <ImpersonationBanner />
-      <AnimatedColumnGroup className="gap-3">
+      <AnimatedColumnGroup className="gap-md">
         <PrimaryNavigation />
         <AnimatedColumn className="size-full overflow-hidden">{children}</AnimatedColumn>
       </AnimatedColumnGroup>

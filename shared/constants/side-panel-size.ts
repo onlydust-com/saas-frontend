@@ -7,9 +7,9 @@ export const SIDE_PANEL_TW_SIZE = {
 } as const;
 
 export const SIDE_PANEL_GAP = {
-  m: 12,
+  m: 8,
 } as const;
 
 export const SIDE_PANEL_TW_GAP = {
-  m: "gap-3",
+  m: "gap-md",
 } as const;

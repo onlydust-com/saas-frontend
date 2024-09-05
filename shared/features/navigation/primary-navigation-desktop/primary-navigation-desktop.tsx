@@ -49,7 +49,7 @@ export function PrimaryNavigationDesktop() {
     <AnimatedColumn
       width={navSize}
       initialWidth={SIZES.unfolded}
-      className="flex h-full flex-col justify-between gap-3"
+      className="flex h-full flex-col justify-between gap-md"
     >
       <MenuContainer>
         <HeaderMenu isFolded={folded} onFoldChange={onFold} />
