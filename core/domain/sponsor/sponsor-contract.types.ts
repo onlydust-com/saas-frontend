@@ -1,5 +1,5 @@
-import { SponsorTransactionsStatsInterface } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
 import { SponsorProgramsListItem } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
+import { SponsorTransactionsStatsInterface } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,

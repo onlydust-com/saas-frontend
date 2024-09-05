@@ -1,8 +1,12 @@
 import { Sponsor } from "@/core/domain/sponsor/models/sponsor-model";
-import { SponsorTransactionsStats } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
 import { SponsorProgramsListItem } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
+import { SponsorTransactionsStats } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
-import { GetSponsorProgramsResponse, GetSponsorResponse, GetSponsorTransactionsStatsResponse } from "@/core/domain/sponsor/sponsor-contract.types";
+import {
+  GetSponsorProgramsResponse,
+  GetSponsorResponse,
+  GetSponsorTransactionsStatsResponse,
+} from "@/core/domain/sponsor/sponsor-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
