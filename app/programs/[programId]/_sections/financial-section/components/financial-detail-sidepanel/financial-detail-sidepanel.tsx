@@ -53,7 +53,7 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
                 currency: currency.currency,
                 usdEquivalent: currency.usdEquivalent ?? 0,
               }}
-              badgeContent={currency.ratio ? `${currency.ratio}%` : undefined}
+              badgeProps={currency.ratio ? { children: `${currency.ratio}%` }: undefined}
             />
           ))}
         </div>

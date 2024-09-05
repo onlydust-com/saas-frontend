@@ -1,8 +1,10 @@
 import { BaseHTMLAttributes } from "react";
 
+import { COLORS } from "@/shared/theme/colors";
+
 interface Variants {
   shape: "square" | "circle";
-  container: "1" | "2" | "3" | "4" | "action" | "inverse" | "interactions-black";
+  background: keyof typeof COLORS.background;
 }
 
 interface ClassNames {

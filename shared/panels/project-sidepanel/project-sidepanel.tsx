@@ -84,69 +84,67 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         }}
         paramsReady={Boolean(projectId && data)}
       />
-      <div className={"flex h-full flex-col gap-px"}>
-        <SidePanelHeader
-          title={{
-            children: data.name,
-          }}
-          canGoBack={false}
-          canClose={true}
-        />
+      <SidePanelHeader
+        title={{
+          children: data.name,
+        }}
+        canGoBack={false}
+        canClose={true}
+      />
 
-        <SidePanelBody>
-          {!!stats && (
-            <>
-              <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-              <ProjectFinancial data={stats} />
-            </>
-          )}
-
-          <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
-
-          {data.leaders.length && data.topContributors.length && data.programs ? (
-            <Paper
-              size={"lg"}
-              background={"transparent"}
-              border={"primary"}
-              classNames={{ base: "flex flex-col gap-lg" }}
-            >
-              <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
-
-              <div className="grid grid-cols-3 gap-md">
-                <ProjectLeads leaders={data.leaders} />
-                <ProjectContributors topContributors={data.topContributors} />
-                <ProjectPrograms programs={data.programs} />
-              </div>
-            </Paper>
-          ) : null}
-
-          <ProjectLanguages languages={data.languages} />
-
-          <ProjectCategories categories={data.categories} />
-        </SidePanelBody>
-
-        {onGrantClick && (
-          <SidePanelFooter>
-            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-              <Button size={"md"} onClick={() => onGrantClick(data.id)}>
-                <Translate token={"panels:projectDetail.grant"} />
-              </Button>
-              <Button
-                variant={"secondary"}
-                endContent={<SquareArrowOutUpRight size={16} />}
-                size={"md"}
-                as={"a"}
-                htmlProps={{
-                  href: marketplaceRouting(`/p/${data.slug}`),
-                  target: "_blank",
-                }}
-              >
-                <Translate token={"panels:projectDetail.seeProject"} />
-              </Button>
-            </div>
-          </SidePanelFooter>
+      <SidePanelBody>
+        {!!stats && (
+          <>
+            <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
+            <ProjectFinancial data={stats} />
+          </>
         )}
-      </div>
+
+        <ProjectDescription description={data.shortDescription} moreInfo={data.moreInfos} />
+
+        {data.leaders.length && data.topContributors.length && data.programs ? (
+          <Paper
+            size={"lg"}
+            background={"transparent"}
+            border={"primary"}
+            classNames={{ base: "flex flex-col gap-lg" }}
+          >
+            <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.information.title" }} />
+
+            <div className="grid grid-cols-3 gap-md">
+              <ProjectLeads leaders={data.leaders} />
+              <ProjectContributors topContributors={data.topContributors} />
+              <ProjectPrograms programs={data.programs} />
+            </div>
+          </Paper>
+        ) : null}
+
+        <ProjectLanguages languages={data.languages} />
+
+        <ProjectCategories categories={data.categories} />
+      </SidePanelBody>
+
+      {onGrantClick && (
+        <SidePanelFooter>
+          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+            <Button size={"md"} onClick={() => onGrantClick(data.id)}>
+              <Translate token={"panels:projectDetail.grant"} />
+            </Button>
+            <Button
+              variant={"secondary"}
+              endContent={<SquareArrowOutUpRight size={16} />}
+              size={"md"}
+              as={"a"}
+              htmlProps={{
+                href: marketplaceRouting(`/p/${data.slug}`),
+                target: "_blank",
+              }}
+            >
+              <Translate token={"panels:projectDetail.seeProject"} />
+            </Button>
+          </div>
+        </SidePanelFooter>
+      )}
     </>
   );
 }

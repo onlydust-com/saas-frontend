@@ -85,8 +85,8 @@ export const SidePanel = forwardRef(function SidePanel(
             px={"none"}
             classNames={{
               base: cn(
-                "h-full w-full flex flex-col gap-3",
-                { "h-full max-h-dvh overflow-auto": isTablet },
+                "h-full w-full flex flex-col gap-px overflow-hidden",
+                { "max-h-dvh": isTablet },
                 classNames?.content
               ),
             }}

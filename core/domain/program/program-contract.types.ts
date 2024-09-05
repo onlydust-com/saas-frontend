@@ -34,7 +34,7 @@ export type GetProgramByIdPortParams = HttpClientParameters<{
 }>;
 
 /* ------------------------ Get Program Transactions ------------------------ */
-export type GetProgramTransactionsResponse = components["schemas"]["TransactionPageResponse"];
+export type GetProgramTransactionsResponse = components["schemas"]["ProgramTransactionPageResponse"];
 export type GetProgramTransactionsModel = Omit<GetProgramTransactionsResponse, "transactions"> & {
   transactions: TransactionListItemInterface[];
 };
@@ -87,7 +87,7 @@ export type GetProgramProjectsPortResponse = HttpStorageResponse<GetProgramProje
 
 /* ------------------------ Grant Budget To Project ------------------------ */
 
-export type GrantBudgetToProjectBody = components["schemas"]["AllocateRequest"];
+export type GrantBudgetToProjectBody = components["schemas"]["GrantRequest"];
 
 type GrantBudgetToProjectPathParams = operations["grantBudgetToProject"]["parameters"]["path"];
 

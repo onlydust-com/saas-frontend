@@ -1,4 +1,5 @@
 import { SponsorTransactionsStatsInterface } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
+import { SponsorProgramsListItem } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -30,3 +31,19 @@ export type GetSponsorTransactionsStatsPortParams = HttpClientParameters<{
 }>;
 
 export type GetSponsorTransactionsStatsPortResponse = HttpStorageResponse<GetSponsorTransactionsStatsModel>;
+
+/* --------------------- Get Sponsor Programs --------------------- */
+
+export type GetSponsorProgramsResponse = components["schemas"]["SponsorProgramPageResponse"];
+export type GetSponsorProgramsModel = Omit<GetSponsorProgramsResponse, "programs"> & {
+  programs: SponsorProgramsListItem[];
+};
+
+export type GetSponsorProgramsPortResponse = HttpStorageResponse<GetSponsorProgramsResponse>;
+
+type GetSponsorProgramsPathParams = operations["getSponsorPrograms"]["parameters"]["path"];
+type GetSponsorProgramsQueryParams = operations["getSponsorPrograms"]["parameters"]["query"];
+export type GetSponsorProgramsPortParams = HttpClientParameters<{
+  PathParams: GetSponsorProgramsPathParams;
+  QueryParams: GetSponsorProgramsQueryParams;
+}>;

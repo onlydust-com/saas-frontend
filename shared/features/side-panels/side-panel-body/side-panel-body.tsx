@@ -6,7 +6,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
 export function SidePanelBody({ children }: PropsWithChildren) {
   return (
-    <Paper as={ScrollView} size={"lg"} classNames={{ base: "flex flex-1 w-full flex-col gap-3 rounded-none h-full" }}>
+    <Paper as={ScrollView} size={"xl"} classNames={{ base: "flex flex-1 w-full flex-col gap-3 rounded-none h-full" }}>
       {children}
     </Paper>
   );

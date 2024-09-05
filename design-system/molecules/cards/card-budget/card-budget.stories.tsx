@@ -18,7 +18,9 @@ const defaultProps: CardBudgetPort<"div"> = {
     },
     usdEquivalent: 100000,
   },
-  badgeContent: "75%",
+  badgeProps: {
+    children: "75%",
+  },
 };
 
 const meta: Meta<typeof CardBudget> = {

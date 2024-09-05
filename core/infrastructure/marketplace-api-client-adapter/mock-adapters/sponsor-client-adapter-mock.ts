@@ -9,4 +9,6 @@ export class SponsorClientAdapterMock implements SponsorStoragePort {
   getSponsor = mockHttpStorageResponse<SponsorStoragePort["getSponsor"]>;
 
   getSponsorTransactionsStats = mockHttpStorageResponse<SponsorStoragePort["getSponsorTransactionsStats"]>;
+
+  getSponsorPrograms = mockHttpStorageResponse<SponsorStoragePort["getSponsorPrograms"]>;
 }
