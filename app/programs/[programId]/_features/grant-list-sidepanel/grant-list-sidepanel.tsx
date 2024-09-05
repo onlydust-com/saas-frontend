@@ -67,7 +67,7 @@ export function GrantListSidepanel() {
                 id: "alreadyGranted",
                 titleProps: { translate: { token: "programs:grantList.alreadyGranted" } },
                 content: <AlreadyGrantedProjects programId={programId} queryParams={{ search: debouncedSearch }} />,
-                badge: {
+                badgeProps: {
                   children: <AlreadyGrantedBadge programId={programId} queryParams={{ search: debouncedSearch }} />,
                 },
               },
@@ -75,7 +75,7 @@ export function GrantListSidepanel() {
                 id: "allProjects",
                 titleProps: { translate: { token: "programs:grantList.allProjects" } },
                 content: <AllProjects queryParams={{ search: debouncedSearch }} />,
-                badge: {
+                badgeProps: {
                   children: <AllProjectsBadge queryParams={{ search: debouncedSearch }} />,
                 },
               },
