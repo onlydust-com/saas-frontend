@@ -12,7 +12,7 @@ import { ButtonSolidPort } from "../button.types";
 const ButtonPrimaryColortVariants = tv({
   extend: ButtonDefaultVariants,
   slots: {
-    base: "",
+    base: "outline-none",
   },
   variants: {
     variant: {
@@ -22,7 +22,7 @@ const ButtonPrimaryColortVariants = tv({
           "text-components-buttons-button-primary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-primary-bg-hover hover:bg-components-buttons-button-primary-bg-hover",
-          "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       secondary: {
@@ -32,7 +32,7 @@ const ButtonPrimaryColortVariants = tv({
           "text-components-buttons-button-secondary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-secondary-bg-hover hover:bg-components-buttons-button-secondary-bg-hover",
-          "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       tertiary: {
@@ -40,7 +40,7 @@ const ButtonPrimaryColortVariants = tv({
           "bg-components-buttons-button-tertiary-bg",
           "text-components-buttons-button-tertiary-fg",
           "data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover hover:bg-components-buttons-button-tertiary-bg-hover",
-          "data-[focus=true]:effect-ring-brand-spaced focus:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
     },

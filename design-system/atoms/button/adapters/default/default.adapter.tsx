@@ -44,13 +44,6 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     lg: "md",
   };
 
-  const iconSize: Record<NonNullable<typeof size>, ComponentProps<typeof Icon>["size"]> = {
-    xs: "xs",
-    sm: "sm",
-    md: "md",
-    lg: "lg",
-  };
-
   if (iconOnly && startIcon) {
     return (
       <Component
@@ -63,7 +56,6 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
       >
         <Icon
           {...(startIcon || {})}
-          size={iconSize[size || "md"]}
           classNames={{
             base: cn(slots.startIcon(), classNames?.startIcon),
           }}
@@ -86,7 +78,6 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
         {!!startIcon && (
           <Icon
             {...startIcon}
-            size={iconSize[size || "md"]}
             classNames={{
               base: cn(slots.startIcon(), classNames?.startIcon),
             }}
@@ -97,13 +88,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
-        {!!endIcon && (
-          <Icon
-            {...endIcon}
-            size={iconSize[size || "md"]}
-            classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }}
-          />
-        )}
+        {!!endIcon && <Icon {...endIcon} classNames={{ base: cn(slots.endIcon(), classNames?.endIcon) }} />}
         {endContent}
       </div>
     </Component>

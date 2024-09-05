@@ -33,8 +33,8 @@ export const TabItemDefaultVariants = tv({
         base: [
           "hover:bg-background-primary-hover",
           "data-[hover=true]:bg-background-primary-hover",
-          "focus:effect-ring-brand-spaced",
-          "data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-tertiary",
@@ -56,8 +56,8 @@ export const TabItemDefaultVariants = tv({
           "bg-background-active",
           "hover:bg-background-primary-hover",
           "data-[hover=true]:bg-background-primary-hover",
-          "focus:effect-ring-brand-spaced",
-          "data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-secondary",
@@ -78,8 +78,8 @@ export const TabItemDefaultVariants = tv({
         base: [
           "hover:bg-background-brand-primary-alt",
           "data-[hover=true]:bg-background-brand-primary-alt",
-          "focus:effect-ring-brand-spaced",
-          "data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-tertiary",
@@ -109,8 +109,8 @@ export const TabItemDefaultVariants = tv({
           "bg-background-brand-primary-alt",
           "hover:bg-background-brand-primary-alt",
           "data-[hover=true]:bg-background-brand-primary-alt",
-          "focus:effect-ring-brand-spaced",
-          "data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-brand-secondary-alt",
@@ -130,7 +130,7 @@ export const TabItemDefaultVariants = tv({
       isSelected: false,
       variant: "solid",
       class: {
-        base: ["focus:effect-ring-brand-spaced", "data-[focus=true]:effect-ring-brand-spaced"],
+        base: ["focus-visible:effect-ring-brand-spaced", "data-[focus-visible=true]:effect-ring-brand-spaced"],
         label: [
           "text-typography-tertiary",
           "group-hover/tab:text-typography-tertiary-hover",
@@ -149,8 +149,8 @@ export const TabItemDefaultVariants = tv({
       class: {
         base: [
           "bg-background-primary effect-box-shadow-sm",
-          "focus:effect-ring-brand-spaced",
-          "data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-secondary",
@@ -170,8 +170,8 @@ export const TabItemDefaultVariants = tv({
       class: {
         base: [
           "border-b-2 border-transparent",
-          "focus:rounded-md focus:effect-ring-brand-spaced",
-          "data-[focus=true]:rounded-md data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:rounded-md focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:rounded-md data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-tertiary",
@@ -199,8 +199,8 @@ export const TabItemDefaultVariants = tv({
       class: {
         base: [
           "border-b-2 border-border-brand-primary",
-          "focus:rounded-md focus:effect-ring-brand-spaced",
-          "data-[focus=true]:rounded-md data-[focus=true]:effect-ring-brand-spaced",
+          "focus-visible:rounded-md focus-visible:effect-ring-brand-spaced",
+          "data-[focus-visible=true]:rounded-md data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
           "text-typography-brand-secondary-alt",

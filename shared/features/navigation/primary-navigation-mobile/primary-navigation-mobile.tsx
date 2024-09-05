@@ -1,4 +1,4 @@
-import { Bell, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -36,7 +36,7 @@ export function PrimaryNavigationMobile() {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
-          <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly />
+          {/*<Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly />*/}
           <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
       </Paper>
