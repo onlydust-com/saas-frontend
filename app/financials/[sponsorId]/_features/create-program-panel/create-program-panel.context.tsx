@@ -1,8 +1,9 @@
 "use client";
 
-import { PropsWithChildren, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 import { CreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel";
+import { CreateProgramPanelContextProps } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.types";
 
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-panel.types";
@@ -17,14 +18,14 @@ export const CreateProgramPanelContext = createContext<CreateProgramPanelContext
   name: "",
 });
 
-export function CreateProgramPanelProvider({ children }: PropsWithChildren) {
+export function CreateProgramPanelProvider({ children, sponsorId }: CreateProgramPanelContextProps) {
   const { Panel, ...rest } = useSidePanel({ name: "create-progam" });
 
   return (
     <CreateProgramPanelContext.Provider value={{ ...rest }}>
       {children}
       <Panel>
-        <CreateProgramPanel />
+        <CreateProgramPanel sponsorId={sponsorId} />
       </Panel>
     </CreateProgramPanelContext.Provider>
   );

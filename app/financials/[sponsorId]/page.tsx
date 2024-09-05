@@ -58,7 +58,7 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
       }}
     >
       <PosthogCaptureOnMount eventName={"financial_viewed"} />
-      <CreateProgramPanelProvider>
+      <CreateProgramPanelProvider sponsorId={sponsorId}>
         <WithProjectPanelProvider>
           <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
             <div className="h-auto">
