@@ -9,8 +9,10 @@ import {
   ButtonDefaultPort,
   ButtonPort,
   ButtonSize,
+  ButtonSolidPort,
   ButtonSolidTheme,
   ButtonSolidVariant,
+  ButtonTextPort,
   ButtonTextSize,
   ButtonTextVariant,
 } from "./button.types";
@@ -41,7 +43,9 @@ const sizesText: ButtonTextSize[] = ["xs", "md", "lg"];
 const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
 const underlineVariant: [false, true] = [false, true];
 
-function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFocus?: boolean }) {
+function ButtonDoc(
+  args: (ButtonSolidPort<"button"> | ButtonTextPort<"button">) & { isHover?: boolean; isFocus?: boolean }
+) {
   if (args.isHover) {
     // Storybook doesn't support data attributes in the preview
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -87,7 +91,7 @@ const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
   </div>
 );
 
-const ButtonsTextDoc = (_: Pick<ButtonDefaultPort<"button">, "theme">) => (
+const ButtonsTextDoc = (_: Pick<ButtonTextPort<"button">, "theme">) => (
   <div className="flex w-full flex-col items-start gap-10">
     {variantsText.map(variant =>
       underlineVariant.map(underline => (

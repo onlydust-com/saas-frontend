@@ -1,31 +1,73 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Square } from "lucide-react";
+import { CircleDashed } from "lucide-react";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { InputLoading } from "@/design-system/atoms/input/input.loading";
 
-import { InputPort } from "./input.types";
+import { InputPort, InputSize } from "./input.types";
 import { Input } from "./variants/input-default";
 
 type Story = StoryObj<typeof Input>;
-
+const inputSize: InputSize[] = ["sm", "md", "lg"];
 const defaultProps: InputPort = {
-  startContent: <Icon component={Square} />,
-  endContent: <Icon component={Square} />,
-  value: "Input text",
+  placeholder: "placeholder",
+};
+
+const value = "Input value";
+
+const withIconProps: InputPort = {
+  ...defaultProps,
+  startIcon: { component: CircleDashed },
+};
+
+const withAvatarProps: InputPort = {
+  ...defaultProps,
+  avatar: { src: "" },
+};
+
+const withInnerButton: InputPort = {
+  ...defaultProps,
+  button: { children: "Button", variant: "tertiary", startIcon: { component: CircleDashed } },
+};
+const withOuterButton: InputPort = {
+  ...defaultProps,
+  button: { children: "Button", variant: "secondary", startIcon: { component: CircleDashed } },
 };
 
 const meta: Meta<typeof Input> = {
   component: Input,
-  title: "Deprecated/Atoms/Input",
+  title: "Atoms/Input",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
+
+function InputTemplate(args: InputPort) {
+  return <Input {...defaultProps} {...args} />;
+}
+
+function InputsTemplate(args: InputPort) {
+  return (
+    <div className="flex flex-row items-start gap-6">
+      {inputSize.map(size => (
+        <div className="flex w-full flex-col items-center gap-5" key={size}>
+          <div className="flex w-full flex-col items-center gap-2">
+            <InputTemplate {...args} size={size} />
+            <InputTemplate {...args} size={size} value={value} />
+            <InputTemplate {...args} size={size} attr={{ "data-hover": true }} />
+            <InputTemplate {...args} size={size} isFocused={true} />
+          </div>
+          <div className="flex w-full flex-col items-center gap-2">
+            <InputTemplate {...args} size={size} isError={true} />
+            <InputTemplate {...args} size={size} isError={true} value={value} />
+            <InputTemplate {...args} size={size} isError={true} attr={{ "data-hover": true }} />
+            <InputTemplate {...args} size={size} isError={true} isFocused={true} />
+          </div>
+          <div className="flex w-full flex-col items-center gap-2">
+            <InputTemplate {...args} size={size} isDisabled={true} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export const Default: Story = {
   parameters: {
@@ -34,58 +76,80 @@ export const Default: Story = {
     },
   },
   render: args => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <Input {...defaultProps} {...args} />
-      </div>
-    );
+    return <InputsTemplate {...args} />;
   },
 };
 
-export const Label: Story = {
+export const WithIcon: Story = {
   parameters: {
     docs: {
       source: { code: "<Input label='Input label' />" },
     },
   },
-  render: args => {
+  render: () => {
+    return <InputsTemplate {...withIconProps} />;
+  },
+};
+
+export const withAvatar: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Input label='Input label' />" },
+    },
+  },
+  render: () => {
+    return <InputsTemplate {...withAvatarProps} />;
+  },
+};
+export const WithInnerButton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Input label='Input label' />" },
+    },
+  },
+  render: () => {
+    return <InputsTemplate {...withInnerButton} />;
+  },
+};
+
+export const WithOuterButton: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Input label='Input label' />" },
+    },
+  },
+  render: () => {
+    return <InputsTemplate {...withOuterButton} />;
+  },
+};
+
+export const withLabel: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Input label='Input label' />" },
+    },
+  },
+  render: () => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <Input {...defaultProps} {...args} label={"Input label"} />
+      <div className="flex flex-row items-start gap-6">
+        <InputTemplate
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+        />
+        <InputTemplate
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+          isError={true}
+        />
       </div>
     );
   },
 };
 
-export const Disabled: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<Input isDisabled={true} />" },
-    },
-  },
-  render: () => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <Input {...defaultProps} isDisabled={true} />
-      </div>
-    );
-  },
-};
-
-export const Invalid: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<Input isError={true} />" },
-    },
-  },
-  render: () => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <Input {...defaultProps} isError={true} />
-      </div>
-    );
-  },
-};
 export const Skeleton: Story = {
   parameters: {
     docs: {

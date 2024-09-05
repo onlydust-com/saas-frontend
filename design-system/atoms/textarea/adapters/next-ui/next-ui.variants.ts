@@ -2,29 +2,30 @@ import { tv } from "tailwind-variants";
 
 export const TextareaNextUiVariants = tv({
   slots: {
+    container: "flex w-full flex-col gap-sm",
     base: "flex h-fit flex-col items-start gap-2",
-    mainWrapper: "",
-    inputWrapper:
-      "border-container-stroke-separator text-text-1 group-data-[focus=true]:border-interactions-white-hover group-data-[hover=true]:border-interactions-white-hover rounded-md border !outline-none",
+    inputWrapper: [
+      "transition-all",
+      "flex w-full items-stretch justify-start gap-md rounded-md border-1 border-border-primary bg-background-primary-alt effect-box-shadow-xs",
+      "data-[hover=true]:border-border-primary-hover hover:border-border-primary-hover",
+      "px-xl py-lg",
+      "group-data-[focus=true]:border-border-active group-data-[focus=true]:effect-ring-brand-glued",
+    ],
     innerWrapper: "",
-    input: "text-text-1 text-sm",
-    errorMessage: "",
-    label: "text-text-1 text-xs",
-    helperWrapper: "",
-    description: "",
+    input: "text-typography-secondary placeholder:text-typography-placeholder",
   },
   variants: {
-    isDisabled: {
-      true: {
-        base: "!opacity-100",
-        inputWrapper: "bg-interactions-white-disabled",
-      },
-    },
     isError: {
       true: {
-        inputWrapper: "!border-interactions-error-active !text-interactions-error-active",
-        input: "!text-interactions-error-active",
-        label: "!text-interactions-error-active",
+        inputWrapper:
+          "border-border-error-secondary data-[hover=true]:border-border-error-secondary-hover hover:border-border-error-secondary-hover",
+      },
+    },
+
+    isDisabled: {
+      true: {
+        inputWrapper: ["pointer-events-none border-border-disabled bg-background-disabled-alt"],
+        input: ["text-typography-disabled", "placeholder:text-typography-disabled"],
       },
     },
   },
