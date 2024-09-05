@@ -12,7 +12,7 @@ export const InputDefaultVariants = tv({
     contentWrapper: "flex flex-col items-start justify-center text-foreground-tertiary",
     inputWrapper: "flex-1",
     input: [
-      "h-full w-full bg-transparent outline-none focus:outline-none",
+      "h-full w-full bg-transparent outline-none",
       "text-typography-secondary placeholder:text-typography-placeholder",
     ],
   },

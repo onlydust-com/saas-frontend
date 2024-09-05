@@ -14,14 +14,25 @@ import { InputDefaultVariants } from "./default.variants";
 
 const defaultSize = "md";
 
-function LabelsContainer({ label, description, classNames }: Pick<InputPort, "label" | "description" | "classNames">) {
-  if (!description && label) {
+function LabelsContainer({
+  label,
+  description,
+  classNames,
+  name,
+}: Pick<InputPort, "label" | "description" | "classNames" | "name">) {
+  if (!description && !label) {
     return null;
   }
   return (
     <div className="flex w-full flex-col">
       {label ? (
-        <Typo as={"label"} size={"sm"} weight={"medium"} classNames={{ base: classNames?.label }}>
+        <Typo
+          as={"label"}
+          htmlProps={{ htmlFor: name }}
+          size={"sm"}
+          weight={"medium"}
+          classNames={{ base: classNames?.label }}
+        >
           {label}
         </Typo>
       ) : null}
@@ -39,9 +50,9 @@ function InfoContainer({ error, info, isError }: Pick<InputPort, "info" | "error
     return (
       <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-error">
         <Icon size={"sm"} {...(error.icon || {})} component={error?.icon?.component || CircleAlert} />
-        {error?.text ? (
+        {error.text ? (
           <Typo as={"div"} size={"sm"} color={"error"}>
-            {error?.text}
+            {error.text}
           </Typo>
         ) : null}
       </div>
@@ -51,10 +62,10 @@ function InfoContainer({ error, info, isError }: Pick<InputPort, "info" | "error
   if (info) {
     return (
       <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-secondary">
-        {info?.icon ? <Icon size={"sm"} {...info.icon} /> : null}
-        {info?.text ? (
+        {info.icon ? <Icon size={"sm"} {...info.icon} /> : null}
+        {info.text ? (
           <Typo as={"div"} size={"sm"} color={"secondary"}>
-            {info?.text}
+            {info.text}
           </Typo>
         ) : null}
       </div>
@@ -157,7 +168,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
     endIcon,
     label,
     placeholder,
-    canInteract,
+    canInteract = true,
     button,
     attr = {},
     size = defaultSize,
@@ -209,7 +220,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
               onBlur={onBlur}
               value={value}
               placeholder={placeholder}
-              disabled={isDisabled || canInteract}
+              disabled={isDisabled || !canInteract}
               onChange={handleChanges}
             />
           </div>

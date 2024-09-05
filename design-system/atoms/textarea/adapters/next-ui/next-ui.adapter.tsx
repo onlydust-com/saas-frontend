@@ -14,14 +14,21 @@ function LabelsContainer({
   label,
   description,
   classNames,
-}: Pick<TextareaPort, "label" | "description" | "classNames">) {
-  if (!description && label) {
+  name,
+}: Pick<TextareaPort, "label" | "description" | "classNames" | "name">) {
+  if (!description && !label) {
     return null;
   }
   return (
     <div className="flex w-full flex-col">
       {label ? (
-        <Typo as={"label"} size={"sm"} weight={"medium"} classNames={{ base: classNames?.label }}>
+        <Typo
+          as={"label"}
+          htmlProps={{ htmlFor: name }}
+          size={"sm"}
+          weight={"medium"}
+          classNames={{ base: classNames?.label }}
+        >
           {label}
         </Typo>
       ) : null}
@@ -39,9 +46,9 @@ function InfoContainer({ error, info, isError }: Pick<TextareaPort, "info" | "er
     return (
       <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-error">
         <Icon size={"sm"} {...(error.icon || {})} component={error?.icon?.component || CircleAlert} />
-        {error?.text ? (
+        {error.text ? (
           <Typo as={"div"} size={"sm"} color={"error"}>
-            {error?.text}
+            {error.text}
           </Typo>
         ) : null}
       </div>
@@ -51,10 +58,10 @@ function InfoContainer({ error, info, isError }: Pick<TextareaPort, "info" | "er
   if (info) {
     return (
       <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-secondary">
-        {info?.icon ? <Icon size={"sm"} {...info.icon} /> : null}
-        {info?.text ? (
+        {info.icon ? <Icon size={"sm"} {...info.icon} /> : null}
+        {info.text ? (
           <Typo as={"div"} size={"sm"} color={"secondary"}>
-            {info?.text}
+            {info.text}
           </Typo>
         ) : null}
       </div>
