@@ -50,7 +50,10 @@ export class SponsorClientAdapter implements SponsorStoragePort {
         queryParams,
       });
 
-      return new SponsorTransactionsStats(data);
+      return {
+        ...data,
+        stats: data.stats.map(stat => new SponsorTransactionsStats(stat)),
+      };
     };
 
     return {

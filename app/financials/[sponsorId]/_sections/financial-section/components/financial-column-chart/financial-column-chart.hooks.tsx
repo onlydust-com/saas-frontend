@@ -1,26 +1,19 @@
 import { useCallback, useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
-import { GetSponsorTransactionsStatsResponse } from "@/core/domain/sponsor/sponsor-contract.types";
+import { SponsorTransactionsStatsResponse } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
+import { GetSponsorTransactionsStatsModel } from "@/core/domain/sponsor/sponsor-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 
-export function useFinancialColumnChart(stats?: GetSponsorTransactionsStatsResponse["stats"]) {
+export function useFinancialColumnChart(stats?: GetSponsorTransactionsStatsModel["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
-  const calculateSeries = (key: keyof GetSponsorTransactionsStatsResponse["stats"][number]) => {
-    return (
-      stats?.map(stat => {
-        const value = stat[key];
-        if (typeof value === "object" && value !== null && "totalUsdEquivalent" in value) {
-          return Number(value.totalUsdEquivalent.toFixed(2));
-        }
-        return 0;
-      }) ?? []
-    );
+  const calculateSeries = (key: keyof SponsorTransactionsStatsResponse) => {
+    return stats?.map(stat => stat?.getStatTotalUsdEquivalent(key)) ?? [];
   };
 
   const availableSeries = calculateSeries("totalAvailable");

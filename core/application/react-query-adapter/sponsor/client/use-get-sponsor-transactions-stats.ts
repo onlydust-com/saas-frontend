@@ -6,13 +6,13 @@ import {
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
 import { SponsorFacadePort } from "@/core/domain/sponsor/input/sponsor-facade-port";
-import { GetSponsorTransactionsStatsResponse } from "@/core/domain/sponsor/sponsor-contract.types";
+import { GetSponsorTransactionsStatsModel } from "@/core/domain/sponsor/sponsor-contract.types";
 
 export function useGetSponsorTransactionsStats({
   pathParams,
   queryParams,
   options,
-}: UseQueryFacadeParams<SponsorFacadePort["getSponsorTransactionsStats"], GetSponsorTransactionsStatsResponse>) {
+}: UseQueryFacadeParams<SponsorFacadePort["getSponsorTransactionsStats"], GetSponsorTransactionsStatsModel>) {
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
 
   return useQuery(
