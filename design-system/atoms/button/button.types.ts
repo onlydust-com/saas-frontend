@@ -38,6 +38,7 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   onClick?: () => void;
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
+  variant?: ButtonTextVariant | ButtonSolidVariant;
 }
 
 export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {

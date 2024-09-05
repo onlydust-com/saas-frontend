@@ -2,15 +2,16 @@ import { Meta, StoryObj } from "@storybook/react";
 import { BoxSelect, CircleDashed, MessageCircleDashed } from "lucide-react";
 
 import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
+import { isButtonSolid, isButtonText } from "@/design-system/atoms/button/button.utils";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 
 import {
   ButtonDefaultPort,
-  ButtonPort,
   ButtonSize,
   ButtonSolidTheme,
   ButtonSolidVariant,
+  ButtonTextPort,
   ButtonTextSize,
   ButtonTextVariant,
 } from "./button.types";
@@ -18,7 +19,7 @@ import { Button } from "./variants/button-default";
 
 type Story = StoryObj<typeof Button>;
 
-const defaultProps: ButtonPort<"button"> = {
+const defaultProps: ButtonDefaultPort<"button"> = {
   children: "Button core",
   startIcon: { component: CircleDashed },
   endIcon: { component: CircleDashed },
@@ -55,7 +56,16 @@ function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFo
     // @ts-ignore
     return <Button {...defaultProps} {...args} htmlProps={{ "data-focus": "true" }} />;
   }
-  return <Button {...defaultProps} {...args} />;
+
+  if (isButtonText(args) && isButtonText(defaultProps)) {
+    return <Button {...defaultProps} {...args} />;
+  }
+
+  if (isButtonSolid(args) && isButtonSolid(defaultProps)) {
+    return <Button {...defaultProps} {...args} />;
+  }
+
+  return null;
 }
 
 const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
@@ -87,7 +97,7 @@ const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
   </div>
 );
 
-const ButtonsTextDoc = (_: Pick<ButtonDefaultPort<"button">, "theme">) => (
+const ButtonsTextDoc = (_: Pick<ButtonTextPort<"button">, "theme">) => (
   <div className="flex w-full flex-col items-start gap-10">
     {variantsText.map(variant =>
       underlineVariant.map(underline => (
@@ -156,7 +166,18 @@ export const Default: Story = {
     },
   },
   render: args => {
-    return <Button {...defaultProps} {...args} />;
+    return (
+      <Button
+        {...{
+          children: "Button core",
+          startIcon: { component: CircleDashed },
+          endIcon: { component: CircleDashed },
+          startContent: <Icon component={BoxSelect} size={"sm"} />,
+          endContent: <Icon component={BoxSelect} size={"sm"} />,
+        }}
+        {...args}
+      />
+    );
   },
 };
 
