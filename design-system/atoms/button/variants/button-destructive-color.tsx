@@ -12,7 +12,7 @@ import { ButtonSolidPort } from "../button.types";
 const ButtonDestructiveColortVariants = tv({
   extend: ButtonDefaultVariants,
   slots: {
-    base: "",
+    base: "outline-none",
   },
   variants: {
     variant: {
@@ -22,7 +22,7 @@ const ButtonDestructiveColortVariants = tv({
           "text-components-buttons-destructive-primary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-destructive-primary-bg-hover hover:bg-components-buttons-destructive-primary-bg-hover",
-          "data-[focus=true]:effect-ring-error-spaced focus:effect-ring-error-spaced",
+          "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
       },
       secondary: {
@@ -32,7 +32,7 @@ const ButtonDestructiveColortVariants = tv({
           "text-components-buttons-destructive-secondary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-destructive-secondary-bg-hover hover:bg-components-buttons-destructive-secondary-bg-hover",
-          "data-[focus=true]:effect-ring-error-spaced focus:effect-ring-error-spaced",
+          "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
       },
       tertiary: {
@@ -40,7 +40,7 @@ const ButtonDestructiveColortVariants = tv({
           "bg-components-buttons-destructive-tertiary-bg",
           "text-components-buttons-destructive-tertiary-fg",
           "data-[hover=true]:bg-components-buttons-destructive-tertiary-bg-hover hover:bg-components-buttons-destructive-tertiary-bg-hover",
-          "data-[focus=true]:effect-ring-error-spaced focus:effect-ring-error-spaced",
+          "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
       },
     },
