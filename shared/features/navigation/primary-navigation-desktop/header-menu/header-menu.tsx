@@ -24,7 +24,9 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
-              base: cn("h-6 w-auto justify-start gap-md", { "group-hover/header:!opacity-0 transition-all": isFolded }),
+              base: cn("h-6 w-auto justify-start gap-md", {
+                "group-hover/header:!opacity-0 transition-all": isFolded,
+              }),
               illustration: cn("min-w-6 h-6 w-auto"),
               wordmark: cn("min-w-0 h-4 w-auto"),
             }}

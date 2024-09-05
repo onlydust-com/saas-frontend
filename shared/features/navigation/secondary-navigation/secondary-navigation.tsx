@@ -1,7 +1,5 @@
 "use client";
 
-import { Bell } from "lucide-react";
-
 import { PageHeader } from "@/design-system/organisms/page-header";
 
 import { SecondaryNavigationProps } from "@/shared/features/navigation/secondary-navigation/secondary-navigation.types";
@@ -16,12 +14,12 @@ export function SecondaryNavigation({ ...props }: SecondaryNavigationProps) {
 
   return (
     <PageHeader
-      action={{
-        variant: "tertiary",
-        size: "xs",
-        startIcon: { component: Bell },
-        iconOnly: true,
-      }}
+      // action={{
+      //   variant: "tertiary",
+      //   size: "xs",
+      //   startIcon: { component: Bell },
+      //   iconOnly: true,
+      // }}
       {...props}
     />
   );
