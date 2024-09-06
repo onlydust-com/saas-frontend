@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/financials/[sponsorId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
+import { TransactionsTrigger } from "@/app/financials/[sponsorId]/_sections/financial-section/components/transactions-trigger/transactions-trigger";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -58,8 +59,7 @@ export function FinancialSection() {
             ]}
             selectedId={toggleFinancialViews}
           />
-          {/*TODO @Mehdi - Implement TransactionsTrigger*/}
-          {/*<TransactionsTrigger />*/}
+          <TransactionsTrigger />
         </div>
       </div>
 
