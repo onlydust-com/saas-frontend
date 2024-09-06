@@ -6,9 +6,9 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { FirstParameter } from "@/core/kernel/types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Typo } from "@/design-system/atoms/typo";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
 
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 
 export function AllProjects({
@@ -43,11 +43,7 @@ export function AllProjects({
   }
 
   if (isError) {
-    return (
-      <div className={"py-16 text-center"}>
-        <Typo translate={{ token: "common:state.error.title" }} color={"secondary"} size={"sm"} />
-      </div>
-    );
+    return <ErrorState />;
   }
 
   return (
