@@ -32,6 +32,6 @@ export interface SelectPort<C extends ElementType> extends Partial<Variants>, Se
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  onNextPage?: () => void;
-  hasNextPage?: boolean;
+  isDisabled?: boolean;
+  isAutoComplete?: boolean;
 }

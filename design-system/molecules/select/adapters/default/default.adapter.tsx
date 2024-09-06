@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { ElementType, useMemo } from "react";
+import { ElementType, useMemo, useState } from "react";
 
 import { Input } from "@/design-system/atoms/input";
 import { Menu } from "@/design-system/molecules/menu";
@@ -19,10 +19,14 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   closeOnSelect,
   onNextPage,
   hasNextPage,
+  isDisabled,
+  isAutoComplete,
   ...inputProps
 }: SelectPort<C>) {
   const Component = as || "div";
   const slots = SelectDefaultVariants();
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const selectedValues = useMemo(() => {
     if (selectedIds?.length) {
@@ -43,6 +47,24 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     onSelect?.(args[0]);
   }
 
+  function onSearchChange(value: string) {
+    setSearch(value);
+  }
+
+  if (isDisabled) {
+    return (
+      <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
+        <Input
+          value={selectedValues}
+          isDisabled={isDisabled}
+          endIcon={{ component: ChevronDown }}
+          canInteract={false}
+          {...inputProps}
+        />
+      </Component>
+    );
+  }
+
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <Menu
@@ -52,9 +74,13 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
         closeOnSelect={closeOnSelect}
         onNextPage={onNextPage}
         hasNextPage={hasNextPage}
+        onOpenChange={setIsSelectOpen}
       >
-        <Input value={selectedValues} endIcon={{ component: ChevronDown }} canInteract={false} {...inputProps} />
+        <>
+          <Input value={selectedValues} endIcon={{ component: ChevronDown }} canInteract={true} {...inputProps} />
+        </>
       </Menu>
+      <Input value={selectedValues} endIcon={{ component: ChevronDown }} canInteract={true} {...inputProps} />
     </Component>
   );
 }

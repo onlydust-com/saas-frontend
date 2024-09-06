@@ -2,8 +2,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import { CircleDashed } from "lucide-react";
 import { useState } from "react";
 
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
-
 import { SelectPort } from "./select.types";
 import { Select } from "./variants/select-default";
 
@@ -46,50 +44,95 @@ export const Default: Story = {
   },
 };
 
-export const WithShowMore: Story = {
+// export const WithShowMore: Story = {
+//   parameters: {
+//     docs: {
+//       source: { code: "<Select />" },
+//     },
+//   },
+//   render: args => {
+//     const [selectedIds, setSelectedIds] = useState<string[]>([]);
+//     const [items, setItems] = useState<MenuItemPort[]>(defaultProps.items);
+//     const [fromIndex, setFromIndex] = useState(10);
+//     const [isLoading, setIsLoading] = useState(false);
+//
+//     function createFakeItems(fromIndex: number) {
+//       return Array.from({ length: 15 }, (_, index) => ({
+//         id: `item${index + fromIndex}`,
+//         label: `Item ${index + fromIndex}`,
+//       }));
+//     }
+//     function nextPage() {
+//       console.log("NEXT PAGE");
+//       setIsLoading(true);
+//       return new Promise<MenuItemPort[]>(resolve => {
+//         setTimeout(() => {
+//           const newItems = [...items, ...createFakeItems(fromIndex)];
+//           setFromIndex(fromIndex + 16);
+//           setItems(newItems);
+//           setIsLoading(false);
+//           resolve(newItems);
+//         }, 50);
+//       });
+//     }
+//
+//     return (
+//       <div className="flex w-full items-center gap-2">
+//         <Select
+//           {...defaultProps}
+//           {...args}
+//           items={items}
+//           selectedIds={selectedIds}
+//           onSelect={setSelectedIds}
+//           closeOnSelect={false}
+//           hasNextPage={true}
+//           onNextPage={nextPage}
+//           isLoading={isLoading}
+//         />
+//       </div>
+//     );
+//   },
+// };
+//
+// export const Disabled: Story = {
+//   parameters: {
+//     docs: {
+//       source: { code: "<Select />" },
+//     },
+//   },
+//   render: () => {
+//     const [selectedIds, setSelectedIds] = useState<string[]>([]);
+//     return (
+//       <div className="flex w-full items-center gap-2">
+//         <Select
+//           {...defaultProps}
+//           isDisabled={true}
+//           selectedIds={selectedIds}
+//           onSelect={setSelectedIds}
+//           closeOnSelect={false}
+//         />
+//       </div>
+//     );
+//   },
+// };
+
+export const AutoComplete: Story = {
   parameters: {
     docs: {
       source: { code: "<Select />" },
     },
   },
-  render: args => {
+  render: () => {
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
-    const [items, setItems] = useState<MenuItemPort[]>(defaultProps.items);
-    const [fromIndex, setFromIndex] = useState(10);
-    const [isLoading, setIsLoading] = useState(false);
-
-    function createFakeItems(fromIndex: number) {
-      return Array.from({ length: 15 }, (_, index) => ({
-        id: `item${index + fromIndex}`,
-        label: `Item ${index + fromIndex}`,
-      }));
-    }
-    function nextPage() {
-      console.log("NEXT PAGE");
-      setIsLoading(true);
-      return new Promise<MenuItemPort[]>(resolve => {
-        setTimeout(() => {
-          const newItems = [...items, ...createFakeItems(fromIndex)];
-          setFromIndex(fromIndex + 16);
-          setItems(newItems);
-          setIsLoading(false);
-          resolve(newItems);
-        }, 50);
-      });
-    }
-
     return (
       <div className="flex w-full items-center gap-2">
         <Select
           {...defaultProps}
-          {...args}
-          items={items}
+          placeholder={"Search for an item"}
+          isAutoComplete={true}
           selectedIds={selectedIds}
           onSelect={setSelectedIds}
           closeOnSelect={false}
-          hasNextPage={true}
-          onNextPage={nextPage}
-          isLoading={isLoading}
         />
       </div>
     );

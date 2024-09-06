@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-export const MenuItemNextUiVariants = tv({
+export const MenuItemDefaultVariants = tv({
   slots: {
     base: "group/menuItem w-full cursor-pointer px-1",
     inner: [

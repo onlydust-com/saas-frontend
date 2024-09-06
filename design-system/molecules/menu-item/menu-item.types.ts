@@ -23,6 +23,7 @@ export interface MenuItemBasePort extends Partial<Variants> {
   showIndicatorOnSelected?: boolean;
   attr?: DataAttributes;
   isSelected?: boolean;
+  onClick?: (id: string) => void;
 }
 
 export interface MenuItemAvatarPort extends MenuItemBasePort {
