@@ -1,10 +1,11 @@
 "use client";
 
-import { PropsWithChildren, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-panel.types";
 import { ProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel";
+import { ProgramListSidepanelContextProps } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.types";
 
 interface ProgramListSidepanelContextInterface extends Omit<UseSidePanel, "Panel"> {}
 
@@ -16,14 +17,23 @@ export const ProgramListSidepanelContext = createContext<ProgramListSidepanelCon
   name: "",
 });
 
-export function ProgramListSidepanelProvider({ children }: PropsWithChildren) {
+export function ProgramListSidepanelProvider({
+  children,
+  sponsorId,
+  onProgramClick,
+  onCreateProgramClick,
+}: ProgramListSidepanelContextProps) {
   const { Panel, ...rest } = useSidePanel({ name: "allocate-program" });
 
   return (
     <ProgramListSidepanelContext.Provider value={{ ...rest }}>
       {children}
       <Panel>
-        <ProgramListSidepanel />
+        <ProgramListSidepanel
+          sponsorId={sponsorId}
+          onProgramClick={onProgramClick}
+          onCreateProgramClick={onCreateProgramClick}
+        />
       </Panel>
     </ProgramListSidepanelContext.Provider>
   );

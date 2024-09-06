@@ -118,7 +118,7 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
       }}
     >
       <PosthogCaptureOnMount eventName={"financial_viewed"} />
-      <ProgramListSidepanelProvider>
+      <ProgramListSidepanelProvider sponsorId={sponsorId} onCreateProgramClick={() => alert("create program")}>
         <SafeFinancialPage />
       </ProgramListSidepanelProvider>
     </PageWrapper>

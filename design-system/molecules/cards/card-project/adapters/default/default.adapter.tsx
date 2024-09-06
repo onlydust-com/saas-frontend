@@ -41,11 +41,9 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
     icon: { component: Tag },
   }));
 
-  const formattedProjectCount =
-    typeof projectCount !== "undefined" ? [{ children: projectCount, icon: { component: Folder } }] : [];
+  const formattedProjectCount = projectCount ? [{ children: projectCount, icon: { component: Folder } }] : [];
 
-  const formattedUserCount =
-    typeof userCount !== "undefined" ? [{ children: userCount, icon: { component: User } }] : [];
+  const formattedUserCount = userCount ? [{ children: userCount, icon: { component: User } }] : [];
 
   const badges: ComponentProps<typeof Badge>[] = [
     ...formattedLanguages,
