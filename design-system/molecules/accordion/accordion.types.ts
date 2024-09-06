@@ -25,6 +25,7 @@ export interface AccordionItemProps {
 export interface AccordionBasePort {
   classNames?: ClassNames;
   defaultSelected?: string[];
+  items?: never | AccordionItemProps[];
 }
 
 export interface AccordionMultiplePort extends AccordionBasePort {

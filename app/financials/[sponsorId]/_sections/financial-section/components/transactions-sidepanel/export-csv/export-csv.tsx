@@ -5,8 +5,8 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
-import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
+import { Accordion } from "@/design-system/molecules/accordion";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -62,78 +62,107 @@ export function ExportCsv() {
   return (
     <div className="flex h-full flex-col gap-3">
       <div className="h-full">
-        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
-          <Typo
-            size="xs"
-            weight="medium"
-            translate={{ token: "financials:transactionPanel.filters.options.types.title" }}
-          />
+        <div className="flex flex-col gap-2">
+          <Accordion
+            classNames={{ base: "flex flex-col gap-3" }}
+            id={"types"}
+            titleProps={{
+              translate: { token: "financials:transactionPanel.filters.options.types.title" },
+              size: "xs",
+              weight: "medium",
+            }}
+            defaultSelected={["types"]}
+          >
+            <div className="flex flex-wrap gap-1">
+              {typesOptions.map(type => (
+                <CheckboxButton
+                  key={type}
+                  value={types.includes(type)}
+                  onChange={checked => handleTypes(type, checked)}
+                >
+                  <Translate token={`financials:transactionPanel.filters.options.types.choices.${type}`} />
+                </CheckboxButton>
+              ))}
+            </div>
+          </Accordion>
 
-          <div className="flex flex-wrap gap-1">
-            {typesOptions.map(type => (
-              <CheckboxButton key={type} value={types.includes(type)} onChange={checked => handleTypes(type, checked)}>
-                <Translate token={`financials:transactionPanel.filters.options.types.choices.${type}`} />
-              </CheckboxButton>
-            ))}
-          </div>
-        </Paper>
+          <Accordion
+            classNames={{ base: "flex flex-col gap-3" }}
+            id={"period"}
+            titleProps={{
+              translate: { token: "financials:transactionPanel.filters.options.period.title" },
+              size: "xs",
+              weight: "medium",
+            }}
+            defaultSelected={["period"]}
+          >
+            <DateRangePicker
+              label={
+                <Typo
+                  size="xs"
+                  color="secondary"
+                  translate={{ token: "financials:transactionPanel.filters.options.period.title" }}
+                />
+              }
+              value={dateRange}
+              onChange={handleDateRange}
+            />
+          </Accordion>
 
-        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
-          <Typo
-            size="xs"
-            weight="medium"
-            translate={{ token: "financials:transactionPanel.filters.options.period.title" }}
-          />
-
-          <DateRangePicker value={dateRange} onChange={handleDateRange} />
-        </Paper>
-
-        <Paper background={"transparent"} size="sm" classNames={{ base: "flex flex-col gap-3" }}>
-          <Typo size="xs" weight="medium" translate={{ token: "financials:transactionPanel.export.data.title" }} />
-
-          <div className="flex flex-col gap-1">
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.id" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.timestamp" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.transactionType" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.depositStatus" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.programId" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.amount" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.currency" }}
-            />
-            <Typo
-              size="xs"
-              color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.usdAmount" }}
-            />
-          </div>
-        </Paper>
+          <Accordion
+            classNames={{ base: "flex flex-col gap-1" }}
+            id={"data"}
+            titleProps={{
+              translate: { token: "financials:transactionPanel.export.data.title" },
+              size: "xs",
+              weight: "medium",
+            }}
+            defaultSelected={["data"]}
+          >
+            <div className="flex flex-col gap-1">
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.id" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.timestamp" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.transactionType" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.depositStatus" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.programId" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.amount" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.currency" }}
+              />
+              <Typo
+                size="xs"
+                color="secondary"
+                translate={{ token: "financials:transactionPanel.export.data.columns.usdAmount" }}
+              />
+            </div>
+          </Accordion>
+        </div>
       </div>
 
       <SidePanelFooter>
