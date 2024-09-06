@@ -110,12 +110,12 @@ export function ExportCsv() {
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.projectId" }}
+              translate={{ token: "financials:transactionPanel.export.data.columns.depositStatus" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "financials:transactionPanel.export.data.columns.sponsorId" }}
+              translate={{ token: "financials:transactionPanel.export.data.columns.programId" }}
             />
             <Typo
               size="xs"

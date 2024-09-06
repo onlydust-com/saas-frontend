@@ -3,7 +3,7 @@
     "title": "Transactions",
     "export": "Export CSV",
     "search": {
-      "placeholder": "Search program, sponsors ..."
+      "placeholder": "Search program..."
     },
     "empty": {
       "title": "No transactions found",
@@ -35,8 +35,8 @@
         "id": "ID",
         "timestamp": "Timestamp",
         "transactionType": "Transaction type",
-        "projectId": "Project ID",
-        "sponsorId": "Sponsor ID",
+        "depositStatus": "Deposit status",
+        "programId": "Program ID",
         "amount": "Amount",
         "currency": "Currency",
         "usdAmount": "USD Amount"
