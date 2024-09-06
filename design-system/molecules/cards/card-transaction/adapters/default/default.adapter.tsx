@@ -25,6 +25,9 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   amount: { value, currency, usdEquivalent },
   badgeProps,
   buttonProps,
+  size = "xl",
+  background = "secondary",
+  border = "primary",
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
   const { iconProps, typeName } = getComponentsVariants(type);
@@ -45,8 +48,9 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
     <Paper
       as={as}
       htmlProps={htmlProps}
-      background={"secondary"}
-      border={"primary"}
+      size={size}
+      background={background}
+      border={border}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
       <Avatar src={currency.logoUrl} size="s" />

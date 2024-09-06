@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const AccordionNextUiVariants = tv({
   slots: {
     base: "flex flex-col gap-lg p-0",
-    baseItem: "group/accordionItem bg-components-accordion-open-bg data-[open=true]:rounded-md",
+    baseItem: "group/accordionItem data-[open=true]:rounded-md data-[open=true]:bg-components-accordion-open-bg",
     heading: [
       "transition-background",
       "rounded-none border-b-1 border-border-primary",
