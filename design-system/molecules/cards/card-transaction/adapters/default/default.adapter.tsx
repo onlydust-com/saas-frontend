@@ -23,6 +23,7 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   type,
   date,
   amount: { value, currency, usdEquivalent },
+  badgeProps,
   buttonProps,
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
@@ -67,6 +68,18 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
               {...buttonProps}
               size="md"
               variant="secondary"
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+            />
+          )}
+
+          {badgeProps && (
+            <Badge
+              {...badgeProps}
+              size="md"
+              shape="squared"
               classNames={{
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
