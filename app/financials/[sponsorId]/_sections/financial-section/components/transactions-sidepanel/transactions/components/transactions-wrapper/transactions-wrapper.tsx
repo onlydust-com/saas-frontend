@@ -58,7 +58,7 @@ export function TransactionsWrapper({ date }: { date: Date }) {
     COMPLETED: <Icon component={Check} classNames={{ base: "text-text-2" }} />,
   };
 
-  function getButtonProps(transaction: SponsorTransactionListItemResponse): CardTransactionPort<"div">["badgeProps"] {
+  function getBadgeProps(transaction: SponsorTransactionListItemResponse): CardTransactionPort<"div">["badgeProps"] {
     if (transaction.depositStatus) {
       return {
         startContent: transactionIconMapping[transaction.depositStatus],
@@ -88,7 +88,7 @@ export function TransactionsWrapper({ date }: { date: Date }) {
               currency: transaction.amount.currency,
               usdEquivalent: transaction.amount.usdEquivalent,
             }}
-            badgeProps={getButtonProps(transaction)}
+            badgeProps={getBadgeProps(transaction)}
             size={"none"}
             background={"transparent"}
             border={"none"}
