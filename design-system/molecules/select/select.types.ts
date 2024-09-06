@@ -34,7 +34,7 @@ export interface SelectPort<C extends ElementType> extends Partial<Variants>, Se
   classNames?: Partial<ClassNames>;
   isDisabled?: boolean;
   isAutoComplete?: boolean;
-  autoComplete?: {
+  controlledAutoComplete?: {
     onChange?: (value: string) => void;
     value?: string;
   };

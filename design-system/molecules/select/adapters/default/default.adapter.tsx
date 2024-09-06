@@ -29,7 +29,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   onSelect,
   items,
   closeOnSelect,
-  autoComplete,
+  controlledAutoComplete,
   onNextPage,
   hasNextPage,
   isDisabled,
@@ -97,8 +97,8 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   }
 
   function onSearchChange(value: string) {
-    if (autoComplete?.onChange) {
-      autoComplete.onChange(value);
+    if (controlledAutoComplete?.onChange) {
+      controlledAutoComplete.onChange(value);
     } else {
       setInputValue(value);
     }
@@ -110,18 +110,18 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     }
 
     if (open && isAutoComplete) {
-      if (autoComplete) {
-        return autoComplete.value;
+      if (controlledAutoComplete) {
+        return controlledAutoComplete.value;
       }
 
       return inputValue;
     }
 
     return selectedValues;
-  }, [isAutoComplete, autoComplete, selectedValues, open, inputValue]);
+  }, [isAutoComplete, controlledAutoComplete, selectedValues, open, inputValue]);
 
   const formatedItems = useMemo(() => {
-    if (isAutoComplete && !autoComplete?.onChange) {
+    if (isAutoComplete && !controlledAutoComplete?.onChange) {
       return items.filter(item => {
         return (
           item.id.toLowerCase().includes(inputValue.toLowerCase()) ||
@@ -130,7 +130,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
       });
     }
     return items;
-  }, [isAutoComplete, autoComplete, inputValue, items]);
+  }, [isAutoComplete, controlledAutoComplete, inputValue, items]);
 
   useEffect(() => {
     setInputValue("");
