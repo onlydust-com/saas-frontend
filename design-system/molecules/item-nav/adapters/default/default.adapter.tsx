@@ -31,7 +31,7 @@ function Content({
       isSelected={isActive}
     >
       {!isFolded && (
-        <div className="flex flex-1 justify-start">
+        <div className="flex flex-1 items-center justify-start">
           {!!translate && <Translate {...translate} />}
           {children}
           {isExternal ? (
