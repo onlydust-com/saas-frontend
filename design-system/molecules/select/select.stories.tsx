@@ -117,6 +117,37 @@ export const Disabled: Story = {
   },
 };
 
+export const withLabel: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Input label='Input label' />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex flex-row items-start gap-6">
+        <Select
+          {...defaultProps}
+          closeOnSelect={false}
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+        />
+        <Select
+          {...defaultProps}
+          closeOnSelect={false}
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+          isError={true}
+        />
+      </div>
+    );
+  },
+};
+
 export const AutoComplete: Story = {
   parameters: {
     docs: {

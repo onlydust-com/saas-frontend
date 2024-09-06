@@ -3,6 +3,7 @@ import {
   FloatingPortal,
   autoUpdate,
   flip,
+  offset,
   size,
   useDismiss,
   useFloating,
@@ -50,6 +51,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     onOpenChange: setOpen,
     middleware: [
       flip({ padding: 0 }),
+      offset(8),
       size({
         apply({ rects, availableHeight, elements }) {
           Object.assign(elements.floating.style, {

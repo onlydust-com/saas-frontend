@@ -16,10 +16,11 @@ interface InputProps {
   error?: InputPort["error"];
   label?: InputPort["label"];
   description?: InputPort["description"];
+  isError?: InputPort["isError"];
 }
 
 interface SelectProps {
-  closeOnSelect?: string;
+  closeOnSelect?: boolean;
   selectedIds?: MenuPort["selectedIds"];
   onSelect?: (ids: string[]) => void;
   items: MenuItemPort[];

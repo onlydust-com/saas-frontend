@@ -5,7 +5,6 @@ import {
   autoUpdate,
   flip,
   offset,
-  shift,
   useClick,
   useDismiss,
   useFloating,
@@ -25,15 +24,7 @@ export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
-    middleware: [
-      offset(5),
-      flip({
-        crossAxis: true,
-        fallbackAxisSideDirection: "end",
-        padding: 5,
-      }),
-      shift({ padding: 5 }),
-    ],
+    middleware: [flip({ padding: 0 }), offset(8)],
     whileElementsMounted: autoUpdate,
   });
 
