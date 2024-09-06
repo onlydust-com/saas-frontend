@@ -15,6 +15,10 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import {
+  ProgramListSidepanelProvider,
+  useProgramListSidepanel,
+} from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { ProjectSidePanelProvider } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -33,6 +37,58 @@ function WithProjectPanelProvider({ children }: PropsWithChildren) {
   }
 
   return <ProjectSidePanelProvider onGrantClick={handleOpenProjectGrant}>{children}</ProjectSidePanelProvider>;
+}
+
+function SafeFinancialPage() {
+  const { open: openProgramList } = useProgramListSidepanel();
+
+  return (
+    <WithProjectPanelProvider>
+      <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
+        <div className="h-auto">
+          <PageContent>
+            <FinancialSection />
+          </PageContent>
+        </div>
+        <PageContent>
+          <div className="grid gap-3">
+            <header className={"flex items-center justify-between"}>
+              <Typo
+                variant={"heading"}
+                size={"xs"}
+                weight={"medium"}
+                translate={{
+                  token: "financials:details.programs.title",
+                }}
+              />
+              <div className={"flex flex-row items-center justify-end gap-lg"}>
+                <Button
+                  variant={"primary"}
+                  endIcon={{ component: ChevronRight }}
+                  isTextButton
+                  size={"md"}
+                  onClick={openProgramList}
+                >
+                  <Translate token={"financials:details.programs.actions.allocate"} />
+                </Button>
+                <Button
+                  variant={"primary"}
+                  endIcon={{ component: ChevronRight }}
+                  isTextButton
+                  size={"md"}
+                  onClick={() => {}}
+                >
+                  <Translate token={"financials:details.programs.actions.create"} />
+                </Button>
+              </div>
+            </header>
+
+            <ProgramsTable />
+          </div>
+        </PageContent>
+      </AnimatedColumn>
+    </WithProjectPanelProvider>
+  );
 }
 
 export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
@@ -62,51 +118,9 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
       }}
     >
       <PosthogCaptureOnMount eventName={"financial_viewed"} />
-      <WithProjectPanelProvider>
-        <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
-          <div className="h-auto">
-            <PageContent>
-              <FinancialSection />
-            </PageContent>
-          </div>
-          <PageContent>
-            <div className="grid gap-3">
-              <header className={"flex items-center justify-between"}>
-                <Typo
-                  variant={"heading"}
-                  size={"xs"}
-                  weight={"medium"}
-                  translate={{
-                    token: "financials:details.programs.title",
-                  }}
-                />
-                <div className={"flex flex-row items-center justify-end gap-lg"}>
-                  <Button
-                    variant={"primary"}
-                    endIcon={{ component: ChevronRight }}
-                    isTextButton
-                    size={"md"}
-                    onClick={() => {}}
-                  >
-                    <Translate token={"financials:details.programs.actions.allocate"} />
-                  </Button>
-                  <Button
-                    variant={"primary"}
-                    endIcon={{ component: ChevronRight }}
-                    isTextButton
-                    size={"md"}
-                    onClick={() => {}}
-                  >
-                    <Translate token={"financials:details.programs.actions.create"} />
-                  </Button>
-                </div>
-              </header>
-
-              <ProgramsTable />
-            </div>
-          </PageContent>
-        </AnimatedColumn>
-      </WithProjectPanelProvider>
+      <ProgramListSidepanelProvider sponsorId={sponsorId} onCreateProgramClick={() => alert("create program")}>
+        <SafeFinancialPage />
+      </ProgramListSidepanelProvider>
     </PageWrapper>
   );
 }

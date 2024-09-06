@@ -5,6 +5,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
@@ -58,15 +59,7 @@ export function SponsorsTable() {
   }
 
   if (isError) {
-    return (
-      <div className={"py-24 text-center"}>
-        <Typo
-          translate={{
-            token: "common:state.error.title",
-          }}
-        />
-      </div>
-    );
+    return <ErrorState />;
   }
 
   return (

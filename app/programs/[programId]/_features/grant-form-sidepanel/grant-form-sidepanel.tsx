@@ -10,10 +10,10 @@ import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -115,16 +115,7 @@ export function GrantFormSidepanel() {
     if (isLoading) return <GrantFormSidepanelLoading />;
 
     if (isError) {
-      return (
-        <div className={"py-24 text-center"}>
-          <Typo
-            translate={{
-              token: "common:state.error.title",
-            }}
-            color={"secondary"}
-          />
-        </div>
-      );
+      return <ErrorState />;
     }
 
     if (!data || !project || !selectedBudget || !data.totalAvailable.totalPerCurrency) return null;
