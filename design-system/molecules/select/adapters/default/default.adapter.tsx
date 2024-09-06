@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { ElementType } from "react";
+import { ElementType, useMemo } from "react";
 
 import { Input } from "@/design-system/atoms/input";
 import { Menu } from "@/design-system/molecules/menu";
@@ -13,15 +13,47 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   as,
   classNames,
   htmlProps,
-  ...props
+  selectedIds,
+  onSelect,
+  items,
+  closeOnSelect,
+  onNextPage,
+  hasNextPage,
+  ...inputProps
 }: SelectPort<C>) {
   const Component = as || "div";
   const slots = SelectDefaultVariants();
 
+  const selectedValues = useMemo(() => {
+    if (selectedIds?.length) {
+      return selectedIds
+        .map(id => {
+          const findInItems = items.find(item => item.id === id);
+          if (findInItems) {
+            return findInItems.label;
+          }
+
+          return id;
+        })
+        .join(", ");
+    }
+  }, [selectedIds, items]);
+
+  function handleSelect(...args: Parameters<NonNullable<SelectPort<C>["onSelect"]>>) {
+    onSelect?.(args[0]);
+  }
+
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      <Menu items={[{ id: "item1", label: "Item 1" }]}>
-        <Input placeholder={"coucou"} endIcon={{ component: ChevronDown }} canInteract={false} />
+      <Menu
+        items={items}
+        onSelect={handleSelect}
+        selectedIds={selectedIds}
+        closeOnSelect={closeOnSelect}
+        onNextPage={onNextPage}
+        hasNextPage={hasNextPage}
+      >
+        <Input value={selectedValues} endIcon={{ component: ChevronDown }} canInteract={false} {...inputProps} />
       </Menu>
     </Component>
   );
