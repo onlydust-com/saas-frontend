@@ -23,7 +23,11 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   type,
   date,
   amount: { value, currency, usdEquivalent },
+  badgeProps,
   buttonProps,
+  size = "xl",
+  background = "secondary",
+  border = "primary",
 }: CardTransactionPort<C>) {
   const slots = CardTransactionDefaultVariants();
   const { iconProps, typeName } = getComponentsVariants(type);
@@ -44,8 +48,9 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
     <Paper
       as={as}
       htmlProps={htmlProps}
-      background={"secondary"}
-      border={"primary"}
+      size={size}
+      background={background}
+      border={border}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
       <Avatar src={currency.logoUrl} size="s" />
@@ -67,6 +72,18 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
               {...buttonProps}
               size="md"
               variant="secondary"
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+            />
+          )}
+
+          {badgeProps && (
+            <Badge
+              {...badgeProps}
+              size="md"
+              shape="squared"
               classNames={{
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",

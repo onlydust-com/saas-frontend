@@ -21,7 +21,7 @@ function ImpersonationBanner() {
   return (
     <div className={"pointer-events-none fixed bottom-4 left-0 right-0 z-10 text-center"}>
       <div className={"relative inline-flex overflow-hidden rounded-xl bg-black p-3"}>
-        <div className="bg-label-red absolute inset-0 animate-pulse" />
+        <div className="absolute inset-0 animate-pulse bg-foreground-warning" />
         <Typo weight={"medium"} classNames={{ base: "relative z-10" }}>
           ⚠️ IMPERSONATING
         </Typo>

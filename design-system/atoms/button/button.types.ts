@@ -26,7 +26,7 @@ interface ClassNames {
   spinnerCircle: string;
 }
 
-export interface ButtonPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
+export interface ButtonDefaultPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
   htmlProps?: Omit<ComponentPropsWithoutRef<C>, "type">;
   classNames?: Partial<ClassNames>;
   translate?: TranslateProps;
@@ -41,7 +41,7 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   variant?: ButtonTextVariant | ButtonSolidVariant;
 }
 
-export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {
+export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonDefaultPort<C> {
   theme?: ButtonSolidTheme;
 }
 
@@ -58,7 +58,7 @@ export interface ButtonTextPort<C extends ElementType>
   variant?: ButtonTextVariant;
 }
 
-export type ButtonDefaultPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextPort<C>;
+export type ButtonPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextPort<C>;
 
 export interface ButtonGroupPort
   extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {

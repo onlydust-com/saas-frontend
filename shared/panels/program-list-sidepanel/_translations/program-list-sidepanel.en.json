@@ -1,0 +1,8 @@
+{
+  "title": "Programs",
+  "createProgram": "Create Program",
+  "empty": {
+    "title": "No Programs",
+    "description": "Create a program to get started."
+  }
+}

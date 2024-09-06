@@ -2,7 +2,7 @@ import { CircleAlert } from "lucide-react";
 import { ChangeEvent, ComponentProps, ForwardedRef, forwardRef, useMemo, useState } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { isButtonSolid } from "@/design-system/atoms/button/button.utils";
+import { isButtonSolid, isButtonText } from "@/design-system/atoms/button/button.utils";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { InputPort } from "@/design-system/atoms/input";
@@ -115,9 +115,7 @@ function EndContent({
 
   const isInnerButton = useMemo(() => {
     if (button) {
-      if (isButtonSolid(button)) {
-        return button.variant === "tertiary";
-      } else {
+      if (isButtonText(button)) {
         return true;
       }
     }
@@ -132,11 +130,7 @@ function EndContent({
   }
 
   if (isInnerButton) {
-    return (
-      <div className={"px-1"}>
-        <Button {...button} isDisabled={variants?.isDisabled} />
-      </div>
-    );
+    return <Button {...button} isDisabled={variants?.isDisabled} />;
   }
 
   return (
@@ -215,7 +209,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
               name={name}
               id={id}
               ref={ref}
-              className={cn(slots.input(), classNames?.input)}
+              className={cn(slots.input(), classNames?.input, { "pointer-events-none": isDisabled || !canInteract })}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value}
@@ -227,12 +221,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
           <EndContent endContent={endContent} endIcon={endIcon} button={button} {...variants} />
         </div>
         {isOuterButton && button ? (
-          <Button
-            {...button}
-            size={size}
-            classNames={{ base: "rounded-l-none !border-l-0 h-auto" }}
-            isDisabled={isDisabled}
-          />
+          <Button {...button} size={size} classNames={{ base: "rounded-l-none !border-l-0" }} isDisabled={isDisabled} />
         ) : null}
       </div>
       <InfoContainer isError={isError} info={info} error={error} />

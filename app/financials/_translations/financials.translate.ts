@@ -1,6 +1,7 @@
 import enBudgetAvailable from "@/app/financials/[sponsorId]/_sections/financial-section/components/budget-available-cards/budget-available.en.json";
 import enFinancialColumnChart from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.en.json";
 import enFinancialDetailSidePanel from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.en.json";
+import enTransactionPanel from "@/app/financials/[sponsorId]/_sections/financial-section/components/transactions-sidepanel/_translations/transaction-sidepanel.en.json";
 import enFinancialsDetails from "@/app/financials/[sponsorId]/_translations/financial-detail.en.json";
 
 import enCreateProgramPanel from "../[sponsorId]/_features/create-program-panel/create-program-panel.en.json";
@@ -14,5 +15,6 @@ export const enFinancialsTranslation = {
     financialDetailSidePanel: enFinancialDetailSidePanel,
     financialColumnChart: enFinancialColumnChart,
     createProgramPanel: enCreateProgramPanel,
+    transactionPanel: enTransactionPanel,
   },
 };

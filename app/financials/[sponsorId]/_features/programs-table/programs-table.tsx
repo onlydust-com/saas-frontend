@@ -13,6 +13,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -209,15 +210,7 @@ export function ProgramsTable() {
   }
 
   if (isError) {
-    return (
-      <div className={"py-24 text-center"}>
-        <Typo
-          translate={{
-            token: "common:state.error.title",
-          }}
-        />
-      </div>
-    );
+    return <ErrorState />;
   }
 
   return (

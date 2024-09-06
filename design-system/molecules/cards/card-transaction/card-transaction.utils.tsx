@@ -12,6 +12,18 @@ export function getComponentsVariants(type: CardTransactionTypes): {
   typeName: ReactNode;
 } {
   const map: Record<CardTransactionTypes, { iconProps: IconPort }> = {
+    DEPOSITED: {
+      iconProps: {
+        component: ArrowDown,
+        classNames: { base: "text-utility-secondary-blue-500" },
+      },
+    },
+    ALLOCATED: {
+      iconProps: {
+        component: ArrowRight,
+        classNames: { base: "text-utility-secondary-blue-500" },
+      },
+    },
     GRANTED: {
       iconProps: {
         component: ArrowRight,
