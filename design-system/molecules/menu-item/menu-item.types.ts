@@ -18,6 +18,7 @@ export interface MenuItemBasePort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   id: string;
   label: ReactNode;
+  searchValue?: string;
   isDisabled?: boolean;
   startContent?: ReactNode;
   showIndicatorOnSelected?: boolean;

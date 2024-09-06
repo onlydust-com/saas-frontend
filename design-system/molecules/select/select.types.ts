@@ -19,7 +19,7 @@ interface InputProps {
 }
 
 interface SelectProps {
-  closeOnSelect?: MenuPort["closeOnSelect"];
+  closeOnSelect?: string;
   selectedIds?: MenuPort["selectedIds"];
   onSelect?: (ids: string[]) => void;
   items: MenuItemPort[];
@@ -34,4 +34,8 @@ export interface SelectPort<C extends ElementType> extends Partial<Variants>, Se
   classNames?: Partial<ClassNames>;
   isDisabled?: boolean;
   isAutoComplete?: boolean;
+  autoComplete?: {
+    onChange?: (value: string) => void;
+    value?: string;
+  };
 }
