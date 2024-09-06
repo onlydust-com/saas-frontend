@@ -1,14 +1,15 @@
+import { ChartColumn, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { TransactionsTrigger } from "@/app/programs/[programId]/_features/transactions-trigger/transactions-trigger";
 import { BudgetAvailableCards } from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
+import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 const BUDGET_AVAILABLE = "budgetAvailable";
 const BUDGET_CHART = "budgetChart";
@@ -27,31 +28,37 @@ export function FinancialSection() {
     return <FinancialColumnChart />;
   }, [toggleFinancialViews]);
 
-  function handleToggleFinancialViews(view: typeof BUDGET_AVAILABLE | typeof BUDGET_CHART) {
+  function handleToggleFinancialViews(view: string) {
     close();
-    setToggleFinancialViews(view);
+    setToggleFinancialViews(view as typeof BUDGET_AVAILABLE | typeof BUDGET_CHART);
   }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <Typo size={"2xl"} variant={"brand"} translate={{ token: "programs:details.financial.title" }} />
+        <Typo
+          size={"xs"}
+          weight={"medium"}
+          variant={"heading"}
+          translate={{ token: "programs:details.financial.title" }}
+        />
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
-          <Paper size={"s"} container={"3"} border={"none"} classNames={{ base: "flex gap-2 w-fit p-1" }}>
-            <Button
-              variant="secondary-light"
-              startIcon={{ name: "ri-money-dollar-circle-line" }}
-              translate={{ token: "programs:details.financial.buttons.budgetAvailable" }}
-              onClick={() => handleToggleFinancialViews(BUDGET_AVAILABLE)}
-              isDisabled={toggleFinancialViews === BUDGET_AVAILABLE}
-            />
-            <Button
-              variant="secondary-light"
-              startIcon={{ name: "ri-bar-chart-2-line" }}
-              translate={{ token: "programs:details.financial.buttons.budgetChart" }}
-              onClick={() => handleToggleFinancialViews(BUDGET_CHART)}
-              isDisabled={toggleFinancialViews === BUDGET_CHART}
-            />
-          </Paper>
+          <Tabs
+            onTabClick={handleToggleFinancialViews}
+            variant={"solid"}
+            tabs={[
+              {
+                id: BUDGET_AVAILABLE,
+                children: <Translate token={"programs:details.financial.buttons.budgetAvailable"} />,
+                startIcon: { component: CircleDollarSign },
+              },
+              {
+                id: BUDGET_CHART,
+                children: <Translate token={"programs:details.financial.buttons.budgetChart"} />,
+                startIcon: { component: ChartColumn },
+              },
+            ]}
+            selectedId={toggleFinancialViews}
+          />
           <TransactionsTrigger />
         </div>
       </div>

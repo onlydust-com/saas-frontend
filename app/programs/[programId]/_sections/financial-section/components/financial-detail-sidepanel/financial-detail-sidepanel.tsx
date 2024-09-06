@@ -7,9 +7,10 @@ import {
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { CardFinancial } from "@/design-system/molecules/card-financial";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
+import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 
 export function FinancialDetailSidepanel({ panelType, program }: FinancialDetailSidepanelProps) {
@@ -21,36 +22,42 @@ export function FinancialDetailSidepanel({ panelType, program }: FinancialDetail
 
   return (
     <>
-      <SidePanelHeader canGoBack={false} canClose={true} title={{ token: "programs:financialDetailSidePanel.title" }} />
-      <div className="flex flex-col gap-3">
-        <CardFinancial
-          title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
-          amount={
-            moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
-              .amount
-          }
-          currency="USD"
-          avatarGroup={{
-            avatars:
-              total.totalPerCurrency?.map(currency => ({
-                src: currency.currency.logoUrl,
-                name: currency.currency.name,
-              })) ?? [],
-          }}
-          color={colorMapping[panelType]}
-        />
-        {total.totalPerCurrency?.map(currency => (
-          <CardBudget
-            key={currency.currency.id}
-            amount={{
-              value: currency.prettyAmount,
-              currency: currency.currency,
-              usdEquivalent: currency.usdEquivalent ?? 0,
+      <SidePanelHeader
+        canGoBack={false}
+        canClose={true}
+        title={{ translate: { token: "programs:financialDetailSidePanel.title" } }}
+      />
+      <SidePanelBody>
+        <div className="flex flex-col gap-3">
+          <CardFinancial
+            title={{ token: `programs:financialDetailSidePanel.${panelType}.title` }}
+            amount={
+              moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
+                .amount
+            }
+            currency="USD"
+            avatarGroup={{
+              avatars:
+                total.totalPerCurrency?.map(currency => ({
+                  src: currency.currency.logoUrl,
+                  name: currency.currency.name,
+                })) ?? [],
             }}
-            tag={currency.ratio ? `${currency.ratio}%` : undefined}
+            color={colorMapping[panelType]}
           />
-        ))}
-      </div>
+          {total.totalPerCurrency?.map(currency => (
+            <CardBudget
+              key={currency.currency.id}
+              amount={{
+                value: currency.prettyAmount,
+                currency: currency.currency,
+                usdEquivalent: currency.usdEquivalent ?? 0,
+              }}
+              badgeProps={currency.ratio ? { children: `${currency.ratio}%` } : undefined}
+            />
+          ))}
+        </div>
+      </SidePanelBody>
     </>
   );
 }

@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { TypoPort } from "@/design-system/atoms/typo";
+
 export interface Variants {
-  color: "white" | "black";
   isDisabled?: boolean;
-  mixed?: boolean;
 }
 
 interface ClassNames {
@@ -13,11 +13,19 @@ interface ClassNames {
   indicatorIcon: string;
 }
 
+interface DataAttributes {
+  "data-hover"?: boolean;
+  "data-focus"?: boolean;
+}
+
 export interface RadioPort<V extends string | null, C extends ElementType> extends Partial<Variants> {
   as?: C;
   classNames?: Partial<ClassNames>;
   componentProps?: ComponentPropsWithoutRef<C>;
   value: V;
+  attr?: DataAttributes;
+  title?: TypoPort<"span">;
+  description?: TypoPort<"span">;
 }
 
 export interface RadioGroupPort<V extends string, C extends ElementType> extends Partial<Variants> {
@@ -27,4 +35,5 @@ export interface RadioGroupPort<V extends string, C extends ElementType> extends
   as?: C;
   onChange?: (value: V) => void;
   items: RadioPort<V, C>[];
+  layout?: "horizontal" | "vertical";
 }

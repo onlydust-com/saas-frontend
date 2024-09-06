@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { CheckboxButtonPort } from "./checkbox-button.types";
 import { CheckboxButton } from "./variants/checkbox-button-default";
@@ -13,12 +14,6 @@ const meta: Meta<typeof CheckboxButton> = {
   component: CheckboxButton,
   title: "Molecules/CheckboxButton",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -28,9 +23,10 @@ export const Default: Story = {
     },
   },
   render: args => {
+    const [value, setValue] = useState(false);
     return (
       <div className="flex w-full items-center gap-2">
-        <CheckboxButton {...defaultProps} {...args} />
+        <CheckboxButton value={value} onChange={setValue} {...defaultProps} {...args} />
       </div>
     );
   },

@@ -1,13 +1,14 @@
 import { Switch as NextUiSwitch } from "@nextui-org/react";
 
 import { SwitchNextUiVariants } from "@/design-system/atoms/switch/adapters/next-ui/next-ui.variants";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
 import { SwitchPort } from "../../switch.types";
 
-export function SwitchNextUiAdapter({ classNames, onChange, ...props }: SwitchPort) {
-  const { isDisabled, isActive, startContent, endContent } = props;
+export function SwitchNextUiAdapter({ classNames, onChange, label, description, ...props }: SwitchPort) {
+  const { isDisabled, isSelected, startContent, endContent } = props;
   const slots = SwitchNextUiVariants({
     isDisabled,
   });
@@ -27,10 +28,17 @@ export function SwitchNextUiAdapter({ classNames, onChange, ...props }: SwitchPo
         endContent: cn(slots.endContent(), classNames?.endContent),
       }}
       isDisabled={isDisabled}
-      isSelected={isActive}
+      isSelected={isSelected}
       onValueChange={handleChange}
       startContent={startContent}
       endContent={endContent}
-    />
+    >
+      {label || description ? (
+        <div className="flex flex-col">
+          {label ? <Typo size={"sm"} weight={"medium"} translate={label} /> : null}
+          {description ? <Typo size={"sm"} translate={description} /> : null}
+        </div>
+      ) : null}
+    </NextUiSwitch>
   );
 }

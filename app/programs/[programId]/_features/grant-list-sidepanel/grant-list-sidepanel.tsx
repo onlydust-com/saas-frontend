@@ -1,3 +1,4 @@
+import { ChevronRight, Search } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,9 +12,9 @@ import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/gra
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
-import { AccordionWithBadge } from "@/design-system/molecules/accordion/variants/accordion-with-badge";
+import { Accordion } from "@/design-system/molecules/accordion";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -45,22 +46,22 @@ export function GrantListSidepanel() {
 
   return (
     <>
-      <Button variant={"secondary-light"} size={"l"} onClick={togglePanel}>
+      <Button variant={"primary"} endIcon={{ component: ChevronRight }} isTextButton size={"md"} onClick={togglePanel}>
         <Translate token={"programs:details.projects.grantProject"} />
       </Button>
 
       <Panel>
-        <SidePanelHeader canClose={true} title={{ token: "programs:grantList.title" }} />
+        <SidePanelHeader canClose={true} title={{ translate: { token: "programs:grantList.title" } }} />
 
-        <Input
-          placeholder={t("programs:grantList.search")}
-          startContent={<Icon name={"ri-search-line"} />}
-          value={search}
-          onChange={e => setSearch(e.currentTarget.value)}
-        />
+        <SidePanelBody>
+          <Input
+            placeholder={t("programs:grantList.search")}
+            startContent={<Icon component={Search} />}
+            value={search}
+            onChange={e => setSearch(e.currentTarget.value)}
+          />
 
-        <ScrollView>
-          <AccordionWithBadge
+          <Accordion
             items={[
               {
                 id: "alreadyGranted",
@@ -68,7 +69,6 @@ export function GrantListSidepanel() {
                 content: <AlreadyGrantedProjects programId={programId} queryParams={{ search: debouncedSearch }} />,
                 badgeProps: {
                   children: <AlreadyGrantedBadge programId={programId} queryParams={{ search: debouncedSearch }} />,
-                  fitContent: true,
                 },
               },
               {
@@ -77,12 +77,11 @@ export function GrantListSidepanel() {
                 content: <AllProjects queryParams={{ search: debouncedSearch }} />,
                 badgeProps: {
                   children: <AllProjectsBadge queryParams={{ search: debouncedSearch }} />,
-                  fitContent: true,
                 },
               },
             ]}
           />
-        </ScrollView>
+        </SidePanelBody>
       </Panel>
     </>
   );

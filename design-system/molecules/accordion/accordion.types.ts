@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { BadgePort } from "@/design-system/atoms/badge";
+import { IconPort } from "@/design-system/atoms/icon";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 type ClassNames = Partial<{
@@ -8,27 +9,34 @@ type ClassNames = Partial<{
   heading: string;
   trigger: string;
   content: string;
+  indicator: string;
+  label: string;
+  startIcon: string;
 }>;
 
 export interface AccordionItemProps {
   id: string;
   titleProps: Partial<TypoPort<"span">>;
   content: ReactNode;
-  startContent?: ReactNode;
-  endContent?: ReactNode;
-}
-
-export interface AccordionItemWithBadgeProps extends Omit<AccordionItemProps, "endContent"> {
   badgeProps?: BadgePort<"div">;
+  startIcon?: IconPort;
 }
 
-export interface AccordionPort {
+export interface AccordionBasePort {
   classNames?: ClassNames;
-  items: AccordionItemProps[];
-  multiple?: boolean;
   defaultSelected?: string[];
 }
 
-export interface AccordionWithBadgePort extends Omit<AccordionPort, "items"> {
-  items: AccordionItemWithBadgeProps[];
+export interface AccordionMultiplePort extends AccordionBasePort {
+  items: AccordionItemProps[];
+  multiple?: boolean;
 }
+
+export interface AccordionSinglePort extends AccordionBasePort, Omit<AccordionItemProps, "content"> {
+  classNames?: ClassNames;
+  items?: never;
+  children: ReactNode;
+  multiple?: never;
+}
+
+export type AccordionPort = AccordionMultiplePort | AccordionSinglePort;

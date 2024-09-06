@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Flame } from "lucide-react";
 
 import { IconPort } from "./icon.types";
 import { Icon } from "./variants/icon-default";
@@ -6,12 +7,12 @@ import { Icon } from "./variants/icon-default";
 type Story = StoryObj<typeof Icon>;
 
 const defaultProps: IconPort = {
-  name: "ri-fire-line",
+  component: Flame,
 };
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
-  title: "Atoms/Icon",
+  title: "Deprecated/Atoms/Icon",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

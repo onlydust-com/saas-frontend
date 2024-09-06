@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
+import { TypoPort } from "@/design-system/atoms/typo";
 
 export interface SidePanelHeaderProps {
   canClose?: boolean;
   canGoBack?: boolean;
   startContent?: ReactNode;
   endContent?: ReactNode;
-  title?: TranslateProps;
+  title?: TypoPort<"span">;
+  titleEndContent?: ReactNode;
   onClose?: () => void;
 }

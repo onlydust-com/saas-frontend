@@ -7,8 +7,8 @@ export interface FinancialDetailSidepanelProps {
   program: ProgramInterface;
 }
 
-export const colorMapping: Record<PanelType, "chart-1" | "chart-2" | "chart-3"> = {
-  totalAvailable: "chart-1",
-  totalGranted: "chart-2",
-  totalRewarded: "chart-3",
+export const colorMapping: Record<PanelType, "gradient" | "grey"> = {
+  totalAvailable: "gradient",
+  totalGranted: "grey",
+  totalRewarded: "grey",
 };

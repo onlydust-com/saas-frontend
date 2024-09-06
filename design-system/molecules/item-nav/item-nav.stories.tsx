@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { House } from "lucide-react";
 
 import { ItemNavPort } from "./item-nav.types";
 import { ItemNav } from "./variants/item-nav-default";
@@ -9,9 +10,7 @@ const defaultProps: ItemNavPort = {
   linkProps: {
     href: "https://www.google.com",
   },
-  icon: {
-    name: "ri-home-4-line",
-  },
+  iconProps: { component: House },
   children: "Item Nav",
   isDisabled: false,
   isFolded: false,
@@ -19,7 +18,7 @@ const defaultProps: ItemNavPort = {
 
 const meta: Meta<typeof ItemNav> = {
   component: ItemNav,
-  title: "Molecules/ItemNav",
+  title: "Deprecated/Molecules/ItemNav",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

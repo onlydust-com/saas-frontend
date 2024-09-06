@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment } from "react";
+import { Slash } from "lucide-react";
+import { ComponentProps, Fragment } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
@@ -8,52 +9,66 @@ import { Typo } from "@/design-system/atoms/typo";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
 
-import { BreadcrumbsPort, Item } from "../../breadcrumbs.types";
+import { BreadcrumbItemPort, BreadcrumbsPort } from "../../breadcrumbs.types";
 import { BreadcrumbsDefaultVariants } from "./default.variants";
 
-function Segment({ label, href, onClick, className }: Item) {
-  const styles = cn("text-inherit hover:underline", className);
+function BreadcrumbItem({ label, href, onClick, selected = false, iconProps, iconOnly }: BreadcrumbItemPort) {
+  const canHover = !selected;
+  const showIconOnly = iconProps && iconOnly;
+  const typoProps: Partial<ComponentProps<typeof Typo>> = {};
 
   if (href) {
-    return (
-      <BaseLink href={href} className={styles}>
-        {label}
-      </BaseLink>
-    );
+    typoProps.as = BaseLink;
+    typoProps.htmlProps = { href };
+    typoProps.canHover = canHover;
   }
 
   if (onClick) {
-    return (
-      <button type={"button"} onClick={onClick} className={styles}>
-        {label}
-      </button>
-    );
+    typoProps.as = "button";
+    typoProps.htmlProps = { type: "button", onClick };
+    typoProps.canHover = canHover;
   }
 
-  return <span className={styles}>{label}</span>;
+  return (
+    <Typo
+      {...typoProps}
+      size={"xs"}
+      color={selected ? "primary" : "tertiary"}
+      classNames={{
+        base: cn("px-md py-xs rounded-md flex items-center gap-md", {
+          "hover:bg-background-primary-alt-hover focus-visible:effect-ring-brand-spaced outline-none": canHover,
+          "pl-sm": iconProps && !showIconOnly,
+          "px-xs py-xs": showIconOnly,
+        }),
+      }}
+    >
+      {iconProps ? <Icon {...iconProps} /> : null}
+      {showIconOnly ? null : label}
+    </Typo>
+  );
 }
 
-function Breadcrumbs({ items }: { items: Item[] }) {
+function Breadcrumbs({ items }: { items: BreadcrumbItemPort[] }) {
   return items.map((item, index) => {
     if (index === items.length - 1) {
-      return <Segment key={item.id} {...item} className={"text-text-1 hover:no-underline"} />;
+      return <BreadcrumbItem key={item.id} {...item} selected />;
     }
 
     return (
       <Fragment key={item.id}>
-        <Segment {...item} />
-        <Icon name={"ri-arrow-right-s-line"} />
+        <BreadcrumbItem {...item} />
+        <Icon component={Slash} classNames={{ base: "scale-x-50 text-foreground-quinary" }} />
       </Fragment>
     );
   });
 }
 
-export function BreadcrumbsDefaultAdapter({ classNames, items }: BreadcrumbsPort) {
+export function BreadcrumbsDefaultAdapter({ items, classNames }: BreadcrumbsPort) {
   const slots = BreadcrumbsDefaultVariants();
 
   return (
-    <Typo as={"div"} size={"m"} color={"text-2"} classNames={{ base: cn(slots.base(), classNames?.base) }}>
+    <div className={cn(slots.base(), classNames?.base)}>
       <Breadcrumbs items={items} />
-    </Typo>
+    </div>
   );
 }

@@ -8,19 +8,15 @@ import { Tooltip } from "./variants/tooltip-default";
 type Story = StoryObj<typeof Tooltip>;
 
 const defaultProps: TooltipPort<"div"> = {
-  content: "Tooltip content",
+  title: "Tooltip title",
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
 };
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
   title: "Atoms/Tooltip",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {

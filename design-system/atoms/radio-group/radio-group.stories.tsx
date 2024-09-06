@@ -18,25 +18,60 @@ const defaultProps: RadioGroupPort<string, "div"> = {
   ],
 };
 
-const DefaultSingleProps: RadioGroupPort<string, "div"> = {
-  value: "",
+const contentProps: RadioGroupPort<string, "div"> = {
+  value: "Option 4",
+  layout: "vertical",
   items: [
     {
       value: "Option 1",
+      title: { children: "Placeholder" },
+      description: { children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    },
+    {
+      value: "Option 2",
+      attr: { "data-hover": true },
+      title: { children: "Placeholder" },
+      description: { children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    },
+    {
+      value: "Option 3",
+      attr: { "data-focus": true },
+      title: { children: "Placeholder" },
+      description: { children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    },
+    {
+      value: "Option 4",
+      title: { children: "Placeholder" },
+      description: { children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+    },
+    {
+      value: "Option 6",
+      title: { children: "Placeholder" },
+      isDisabled: true,
+      description: { children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
     },
   ],
+};
+
+const DefaultSingleProps = (
+  args?: Partial<RadioGroupPort<string, "div">["items"][0]>,
+  selected?: boolean
+): RadioGroupPort<string, "div"> => {
+  return {
+    value: selected ? "Option 1" : "",
+    items: [
+      {
+        value: "Option 1",
+        ...(args || {}),
+      },
+    ],
+  };
 };
 
 const meta: Meta<typeof RadioGroup> = {
   component: RadioGroup,
   title: "Atoms/RadioGroup",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -55,41 +90,46 @@ export const Default: Story = {
   },
 };
 
-export const White: Story = {
+export const States: Story = {
   parameters: {
     docs: {
-      source: { code: "<RadioGroup color='white' />" },
+      source: { code: "<RadioGroup />" },
     },
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <RadioGroup {...DefaultSingleProps} {...args} color={"white"} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"white"} value={"Option 1"} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"white"} value={"Option 1"} mixed={true} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"white"} isDisabled={true} />
+      <div className="flex w-full flex-col items-center gap-6">
+        <div className="flex w-full items-center gap-6">
+          <RadioGroup {...DefaultSingleProps()} {...args} />
+          <RadioGroup {...DefaultSingleProps({}, true)} {...args} />
+        </div>
+        <div className="flex w-full items-center gap-6">
+          <RadioGroup {...DefaultSingleProps({ attr: { "data-hover": true } })} {...args} />
+          <RadioGroup {...DefaultSingleProps({ attr: { "data-hover": true } }, true)} {...args} />
+        </div>
+        <div className="flex w-full items-center gap-6">
+          <RadioGroup {...DefaultSingleProps({ attr: { "data-focus": true } })} {...args} />
+          <RadioGroup {...DefaultSingleProps({ attr: { "data-focus": true } }, true)} {...args} />
+        </div>
+        <div className="flex w-full items-center gap-6">
+          <RadioGroup isDisabled={true} {...DefaultSingleProps()} {...args} />
+          <RadioGroup isDisabled={true} {...DefaultSingleProps({}, true)} {...args} />
+        </div>
       </div>
     );
   },
 };
 
-export const Black: Story = {
+export const WithContent: Story = {
   parameters: {
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#FFF" }],
-    },
     docs: {
-      source: { code: "<RadioGroup color='black' />" },
+      source: { code: "<RadioGroup />" },
     },
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <RadioGroup {...DefaultSingleProps} {...args} color={"black"} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"black"} value={"Option 1"} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"black"} value={"Option 1"} mixed={true} />
-        <RadioGroup {...DefaultSingleProps} {...args} color={"black"} isDisabled={true} />
+      <div className="flex w-full flex-col items-start gap-6">
+        <RadioGroup {...contentProps} {...args} />
       </div>
     );
   },

@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -18,8 +19,8 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
     <div className={"flex size-full items-center justify-center"}>
       <div className={"flex flex-col items-center justify-center gap-6"}>
         <Typo
-          variant={"brand"}
-          size={"4xl"}
+          variant={"heading"}
+          size={"xl"}
           classNames={{ base: "capitalize" }}
           translate={{
             token: "error:title",
@@ -32,22 +33,14 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             htmlProps={{
               href: NEXT_ROUTER.home.root,
             }}
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{
-              name: "ri-arrow-left-s-line",
-            }}
+            variant={"secondary"}
+            size={"md"}
+            startIcon={{ component: ChevronLeft }}
           >
             <Translate token={"error:back"} />
           </Button>
 
-          <Button
-            size={"l"}
-            startIcon={{
-              name: "ri-refresh-line",
-            }}
-            onClick={reset}
-          >
+          <Button size={"md"} startIcon={{ component: RefreshCw }} onClick={reset}>
             <Translate token={"error:refresh"} />
           </Button>
         </div>

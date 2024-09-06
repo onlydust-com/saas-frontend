@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 import { BannerReactQueryAdapter } from "@/core/application/react-query-adapter/banner";
 import { bootstrap } from "@/core/bootstrap";
 
-import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
+import { RemixIconPort } from "@/design-system/atoms/icon";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
 
@@ -19,21 +19,21 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     return {
       text: bannerData.buttonText,
       href: bannerData.buttonLinkUrl,
-      icon: (bannerData.buttonIconSlug as RemixIconsName) || undefined,
+      icon: (bannerData.buttonIconSlug as RemixIconPort["name"]) || undefined,
     };
   }
 
   if (isLoading) {
-    return <Skeleton className={"h-full w-full"} />;
+    return <Skeleton className={"h-[116px] w-full"} />;
   }
 
   if (isFolded || !bannerData || !bannerData.longDescription || isError) {
-    return <div className="flex-1" />;
+    return null;
   }
 
   return (
-    <div className="flex flex-1 overflow-hidden">
-      <div className="h-full w-[260px] min-w-[260px]">
+    <div className="flex">
+      <div className="h-auto max-h-full w-[260px] min-w-[260px]">
         <PlgBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}

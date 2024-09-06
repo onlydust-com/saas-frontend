@@ -28,6 +28,7 @@
     "highcharts": "^11.4.6",
     "highcharts-react-official": "^3.2.1",
     "i18next": "^23.12.2",
+    "lucide-react": "^0.429.0",
     "next": "14.2.5",
     "posthog-js": "^1.154.5",
     "react": "^18",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@inquirer/prompts": "^5.3.8",
     "@next/bundle-analyzer": "^14.2.5",
+    "@storybook/addon-designs": "^8.0.3",
     "@storybook/addon-essentials": "^8.1.7",
     "@storybook/addon-interactions": "^8.1.7",
     "@storybook/addon-links": "^8.1.7",
@@ -78,6 +80,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "storybook": "^8.2.7",
+    "storybook-dark-mode": "^4.0.2",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.7",
     "ts-node": "^10.9.2",

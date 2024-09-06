@@ -1,7 +1,10 @@
+import { Link } from "lucide-react";
+
 import { Icon } from "@/design-system/atoms/icon";
 
 import { SOCIAL_PLATFORM } from "@/shared/constants/social-platform";
 import { useSocialPlatform } from "@/shared/hooks/social-platform/use-social-platform";
+import { Discord, Github, Linkedin, Telegram, Twitter, Whatsapp } from "@/shared/icons";
 
 import { SocialIconLinkProps } from "./social-icon-link.types";
 
@@ -10,18 +13,18 @@ export function SocialIconLink({ url }: SocialIconLinkProps) {
 
   switch (platform) {
     case SOCIAL_PLATFORM.DISCORD:
-      return <Icon name="ri-discord-fill" />;
+      return <Icon component={Discord} />;
     case SOCIAL_PLATFORM.TELEGRAM:
-      return <Icon name="ri-telegram-2-fill" />;
+      return <Icon component={Telegram} />;
     case SOCIAL_PLATFORM.TWITTER:
-      return <Icon name="ri-twitter-x-fill" />;
+      return <Icon component={Twitter} />;
     case SOCIAL_PLATFORM.GITHUB:
-      return <Icon name="ri-github-fill" />;
+      return <Icon component={Github} />;
     case SOCIAL_PLATFORM.LINKEDIN:
-      return <Icon name="ri-linkedin-box-fill" />;
+      return <Icon component={Linkedin} />;
     case SOCIAL_PLATFORM.WHATSAPP:
-      return <Icon name="ri-whatsapp-fill" />;
+      return <Icon component={Whatsapp} />;
     default:
-      return <Icon name="ri-link" />;
+      return <Icon component={Link} />;
   }
 }

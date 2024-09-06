@@ -7,7 +7,7 @@ export function AvatarLoading({ size, shape }: AvatarPort) {
 
   return (
     <Skeleton
-      shape={shape === "square" ? "square" : "circle"}
+      shape={shape === "squared" ? "square" : "circle"}
       style={{
         width,
         height,

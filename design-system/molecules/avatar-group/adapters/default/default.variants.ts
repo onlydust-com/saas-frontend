@@ -3,33 +3,28 @@ import { tv } from "tailwind-variants";
 export const AvatarGroupDefaultVariants = tv({
   slots: {
     base: "flex",
+    image: "",
   },
   variants: {
     size: {
-      xxl: {
-        base: "-space-x-6",
-      },
-      xl: {
-        base: "-space-x-3.5",
-      },
-      l: {
-        base: "-space-x-3",
-      },
-      ml: {
-        base: "-space-x-2.5",
-      },
-      m: {
+      md: {
         base: "-space-x-2",
       },
-      s: {
+      sm: {
         base: "-space-x-1.5",
       },
       xs: {
         base: "-space-x-1",
       },
     },
+    outsideBorder: {
+      true: {
+        image: "outline outline-2 outline-components-avatar-avatargroup-separator-border",
+      },
+    },
   },
   defaultVariants: {
-    size: "m",
+    size: "sm",
+    outsideBorder: false,
   },
 });

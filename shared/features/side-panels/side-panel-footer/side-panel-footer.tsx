@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
 
+import { Paper } from "@/design-system/atoms/paper";
+
 export function SidePanelFooter({ children }: PropsWithChildren) {
   return (
-    <footer className={"relative pt-3"}>
-      <hr className="absolute -left-3 -right-3 top-0 h-px border-container-stroke-separator" />
-
+    <Paper as={"footer"} py={"lg"} classNames={{ base: "relative flex items-center justify-end rounded-t-none" }}>
       {children}
-    </footer>
+    </Paper>
   );
 }

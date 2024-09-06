@@ -1,11 +1,16 @@
 import { ProgressBarLoading } from "@/design-system/atoms/progress-bar";
 
+import { StepperDefaultVariants } from "./adapters/default/default.variants";
+
 export function StepperLoading({ height }: { height?: string | number }) {
+  const slots = StepperDefaultVariants();
+
   return (
-    <div className="flex w-full items-center gap-2">
-      <ProgressBarLoading width="33%" height={height} />
-      <ProgressBarLoading width="33%" height={height} />
-      <ProgressBarLoading width="33%" height={height} />
+    <div className={slots.base()}>
+      <ProgressBarLoading width="25%" height={height} />
+      <ProgressBarLoading width="25%" height={height} />
+      <ProgressBarLoading width="25%" height={height} />
+      <ProgressBarLoading width="25%" height={height} />
     </div>
   );
 }

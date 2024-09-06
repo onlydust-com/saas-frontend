@@ -8,8 +8,7 @@ import { ProgramListItemInterface } from "@/core/domain/program/models/program-l
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
-import { AvatarGroupDescription } from "@/design-system/molecules/avatar-group-description";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -29,7 +28,11 @@ export function ProgramsTable() {
   const columns = [
     columnHelper.accessor("name", {
       header: () => <Translate token={"programs:list.content.table.columns.programName"} />,
-      cell: info => <Typo size={"s"}>{info.getValue()}</Typo>,
+      cell: info => (
+        <Typo size={"sm"} weight={"medium"} color="secondary">
+          {info.getValue()}
+        </Typo>
+      ),
     }),
     columnHelper.accessor("leads", {
       header: () => <Translate token={"programs:list.content.table.columns.programLeads"} />,
@@ -44,26 +47,26 @@ export function ProgramsTable() {
           const lead = leads[0];
 
           return (
-            <AvatarDescription
-              avatarProps={{
-                src: lead.avatarUrl,
-              }}
-              labelProps={{ children: lead.login }}
-              descriptionProps={{ children: <Translate token={"programs:list.content.table.rows.programLead"} /> }}
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: lead.avatarUrl,
+                },
+              ]}
+              title={{ children: lead.login }}
+              description={{ children: <Translate token={"programs:list.content.table.rows.programLead"} /> }}
             />
           );
         }
 
         return (
-          <AvatarGroupDescription
-            avatarGroupProps={{
-              avatars: leads.map(lead => ({
-                src: lead.avatarUrl,
-                name: lead.login,
-              })),
-              maxAvatars: 3,
-            }}
-            labelProps={{
+          <AvatarLabelGroup
+            avatars={leads.map(lead => ({
+              src: lead.avatarUrl,
+              name: lead.login,
+            }))}
+            quantity={3}
+            title={{
               children: <Translate token={"programs:list.content.table.rows.leads"} count={leads?.length} />,
             }}
           />
@@ -95,28 +98,27 @@ export function ProgramsTable() {
           });
 
           return (
-            <AvatarDescription
-              avatarProps={{
-                src: firstCurrency.currency.logoUrl,
-              }}
-              labelProps={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
-              descriptionProps={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: firstCurrency.currency.logoUrl,
+                },
+              ]}
+              title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
+              description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
             />
           );
         }
 
         return (
-          <AvatarGroupDescription
-            avatarGroupProps={{
-              avatars:
-                totalPerCurrency?.map(({ currency }) => ({
-                  src: currency.logoUrl,
-                  name: currency.name,
-                })) ?? [],
-              maxAvatars: 3,
-            }}
-            labelProps={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            descriptionProps={{
+          <AvatarLabelGroup
+            avatars={totalPerCurrency?.map(({ currency }) => ({
+              src: currency.logoUrl,
+              name: currency.name,
+            }))}
+            quantity={3}
+            title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
+            description={{
               children: (
                 <Translate token={"programs:list.content.table.rows.currencies"} count={totalPerCurrency?.length} />
               ),
@@ -176,7 +178,8 @@ export function ProgramsTable() {
         <Button
           as={BaseLink}
           htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
-          variant={"secondary-light"}
+          variant={"secondary"}
+          size={"sm"}
         >
           <Translate token={"programs:list.content.table.rows.seeProgram"} />
         </Button>
@@ -201,7 +204,6 @@ export function ProgramsTable() {
           translate={{
             token: "common:state.error.title",
           }}
-          color={"text-2"}
         />
       </div>
     );

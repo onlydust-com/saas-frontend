@@ -9,21 +9,20 @@ const defaultProps: TypoPort<"span"> = {
   children: "Lorem ipsum dollor",
 };
 
-const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"] as const;
+const sizes = ["xs", "sm", "md", "lg", "xl", "2xl"] as const;
 
 const meta: Meta<typeof Typo> = {
   component: Typo,
   title: "Atoms/Typo",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#0E0814" }],
-    },
-  },
 };
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Typo />" },
+    },
+  },
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
@@ -38,33 +37,21 @@ export const Default: Story = {
   },
 };
 
-export const DefaultMedium: Story = {
-  render: () => {
-    return (
-      <div className="flex w-full flex-col gap-2">
-        {sizes.map(size => (
-          <div key={size} className="flex w-full flex-row gap-2">
-            <Typo size={size} weight="medium">
-              {size} -{" "}
-            </Typo>
-            <Typo {...defaultProps} weight="medium" size={size} />
-          </div>
-        ))}
-      </div>
-    );
+export const Heading: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Typo variant='heading' />" },
+    },
   },
-};
-
-export const Branding: Story = {
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
         {sizes.map(size => (
           <div key={size} className="flex w-full flex-row gap-2">
-            <Typo size={size} variant="brand">
+            <Typo size={size} variant="heading">
               {size} -{" "}
             </Typo>
-            <Typo {...defaultProps} variant="brand" size={size} />
+            <Typo {...defaultProps} variant="heading" size={size} />
           </div>
         ))}
       </div>

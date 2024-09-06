@@ -12,11 +12,12 @@ export function TypoDefaultAdapter<C extends ElementType = "span">({
   classNames,
   translate,
   children,
+  canHover = false,
   ...props
 }: TypoPort<C>) {
   const Component = as || "span";
   const { weight, variant, size, color } = props;
-  const slots = TypoDefaultVariants({ weight, variant, size, color });
+  const slots = TypoDefaultVariants({ weight, variant, size, color, canHover });
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>

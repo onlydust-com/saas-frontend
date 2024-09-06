@@ -13,7 +13,7 @@ const defaultProps: SkeletonPort = {
 
 const meta: Meta<typeof Skeleton> = {
   component: Skeleton,
-  title: "Atoms/Skeleton",
+  title: "Deprecated/Atoms/Skeleton",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

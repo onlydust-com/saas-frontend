@@ -1,14 +1,19 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
-import { IconPort } from "@/design-system/atoms/icon/icon.types";
+import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+export type ButtonSize = "xs" | "sm" | "md" | "lg";
+export type ButtonSolidVariant = "primary" | "secondary" | "tertiary";
+export type ButtonSolidTheme = "primary" | "destructive";
+export type ButtonTextSize = "xs" | "md" | "lg";
+export type ButtonTextVariant = "primary" | "secondary";
+
 interface Variants {
-  size: "s" | "m" | "l" | "xl";
-  isLoading: boolean;
   isDisabled: boolean;
-  hideText: boolean;
+  iconOnly: boolean;
+  size: ButtonSize;
 }
 
 interface ClassNames {
@@ -33,8 +38,30 @@ export interface ButtonPort<C extends ElementType> extends Partial<Variants>, Pr
   onClick?: () => void;
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
+  variant?: ButtonTextVariant | ButtonSolidVariant;
 }
 
-export type ButtonDefaultPort<C extends ElementType> = ButtonPort<C> & {
-  variant?: "primary" | "danger" | "secondary-light" | "secondary-dark";
-};
+export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonPort<C> {
+  theme?: ButtonSolidTheme;
+}
+
+export interface ButtonSolidPort<C extends ElementType> extends ButtonBaseDefaultPort<C> {
+  variant?: ButtonSolidVariant;
+  isTextButton?: never;
+  underline?: never;
+}
+
+export interface ButtonTextPort<C extends ElementType>
+  extends Omit<ButtonBaseDefaultPort<C>, "isTextButton" | "underline"> {
+  isTextButton: true;
+  underline?: boolean;
+  variant?: ButtonTextVariant;
+}
+
+export type ButtonDefaultPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextPort<C>;
+
+export interface ButtonGroupPort
+  extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
+  buttons: Omit<ButtonSolidPort<"button">[], "variant">;
+  onClick?: (index: number) => void;
+}

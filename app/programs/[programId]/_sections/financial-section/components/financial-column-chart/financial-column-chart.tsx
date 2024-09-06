@@ -1,5 +1,7 @@
+import { Calendar } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
@@ -9,9 +11,9 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
-import { Dropdown } from "@/design-system/atoms/dropdown";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Menu } from "@/design-system/molecules/menu";
 
 import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
@@ -19,6 +21,7 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
+  const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { programId = "" } = useParams<{ programId: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
@@ -55,23 +58,23 @@ export function FinancialColumnChart() {
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: "Received", data: receivedSeries },
-      { name: "Granted", data: grantedSeries },
-      { name: "Rewarded", data: rewardedSeries },
+      { name: t("programs:financialColumnChart.legends.received"), data: receivedSeries },
+      { name: t("programs:financialColumnChart.legends.granted"), data: grantedSeries },
+      { name: t("programs:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
     tooltip: { valueSuffix: " USD" },
   });
 
-  function onChangeRangeType(value: string[]) {
-    setRangeType(value[0] as DateRangeType);
+  function onChangeRangeType(value: string) {
+    setRangeType(value as DateRangeType);
   }
 
   if (isLoading) {
     return (
       <Skeleton
         classNames={{
-          base: "w-full min-h-[400px]",
+          base: "w-full min-h-[300px]",
         }}
       />
     );
@@ -87,47 +90,45 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <div className="flex min-h-[400px] flex-col gap-4">
+    <div className="flex min-h-[300px] flex-col gap-4">
       <ColumnChart options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"s"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }}>
+        <Paper size={"lg"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="chart-1">
+            <ChartLegend color="primary">
               <Translate token={"programs:financialColumnChart.legends.received"} />
             </ChartLegend>
             {renderReceivedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="chart-4">
+            <ChartLegend color="secondary">
               <Translate token={"programs:financialColumnChart.legends.granted"} />
             </ChartLegend>
             {renderGrantedAmount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="chart-3">
+            <ChartLegend color="tertiary">
               <Translate token={"programs:financialColumnChart.legends.rewarded"} />
             </ChartLegend>
             {renderRewardedAmount}
           </div>
         </Paper>
-        <Dropdown
-          isMultipleSelection={false}
-          selectedKeys={[rangeType]}
-          onChange={onChangeRangeType}
+        <Menu
           items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, value: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, value: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, value: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, value: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, value: DateRangeType.ALL_TIME },
+            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
+            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
+            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
+            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
+            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
           ]}
+          selectedIds={[rangeType]}
+          onAction={onChangeRangeType}
+          placement={"bottom-end"}
         >
-          {({ label }) => (
-            <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-calendar-line" }}>
-              {label || <Translate token={"common:dateRangeType.LAST_WEEK"} />}
-            </Button>
-          )}
-        </Dropdown>
+          <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
+            <Translate token={`common:dateRangeType.${rangeType}`} />
+          </Button>
+        </Menu>
       </div>
     </div>
   );

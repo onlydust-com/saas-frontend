@@ -9,14 +9,8 @@ const defaultProps: PaginationPort<"div"> = {};
 
 const meta: Meta<typeof Pagination> = {
   component: Pagination,
-  title: "Molecules/Pagination",
+  title: "Deprecated/Molecules/Pagination",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {

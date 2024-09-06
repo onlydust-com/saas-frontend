@@ -1,3 +1,4 @@
+import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
@@ -8,20 +9,24 @@ import { enTableGroupByTranslation } from "@/design-system/molecules/table-group
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 import { enTableNavTranslation } from "@/design-system/organisms/table-nav/translations/table-nav.translate";
 
+import { enAmountSelectorTranslation } from "@/shared/features/amount-selector/_translations/amount-selector.translate";
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
 import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
 import common from "@/shared/translation/translations/common/common.en.json";
 import error from "@/shared/translation/translations/error/error.en.json";
 import notFound from "@/shared/translation/translations/not-found/not-found.en.json";
+import stories from "@/shared/translation/translations/stories/stories.en.json";
 
 export const en = {
   common,
   notFound,
   error,
+  stories,
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
+  ...enFinancialsTranslation,
   ...enDateRangePickerTranslation,
   cards: {
     ...enCardTransactionTranslation,
@@ -32,6 +37,9 @@ export const en = {
     ...enTableGroupByTranslation,
     ...enTableNavTranslation,
     ...enTableSortTranslation,
+  },
+  features: {
+    ...enAmountSelectorTranslation,
   },
   ...enPanelsTranslation,
 };

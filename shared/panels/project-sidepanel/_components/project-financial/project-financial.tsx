@@ -1,11 +1,10 @@
 import { bootstrap } from "@/core/bootstrap";
 import { AnyType } from "@/core/kernel/types";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
-import { CardFinancial } from "@/design-system/molecules/card-financial";
+import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
@@ -43,25 +42,18 @@ function Card({ type, values }: ProjectFinancialCardProps) {
       title={{ token: buildTitle() }}
       amount={formatAmount()}
       currency={moneyKernelPort.getCurrency("USD").code}
-      avatarGroup={{
-        avatars: buildAvatars(),
-        maxAvatars: 3,
-      }}
+      avatarGroup={{ avatars: buildAvatars() }}
       size={"m"}
-      color={type === "granted" ? "brand-2" : "container-3"}
+      color={type === "granted" ? "gradient" : "grey"}
     />
   );
 }
 export function ProjectFinancial({ data }: ProjectFinancialProps) {
   return (
-    <Paper size={"s"} container={"transparent"} classNames={{ base: "flex flex-col gap-3" }}>
-      <div className="flex flex-row items-center justify-between gap-1">
-        <div className="flex flex-row gap-1">
-          <Icon name={"ri-money-dollar-circle-line"} />
-          <Typo size={"xs"} weight={"medium"} translate={{ token: "panels:projectDetail.financials.title" }} />
-        </div>
-      </div>
-      <div className={"flex w-full flex-row gap-3"}>
+    <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex flex-col gap-3" }}>
+      <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.financials.title" }} />
+
+      <div className={"flex w-full gap-md"}>
         <Card type={"granted"} values={data.totalGranted} />
         <Card type={"rewarded"} values={data.totalRewarded} />
       </div>

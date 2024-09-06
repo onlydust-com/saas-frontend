@@ -1,6 +1,5 @@
-import "@/public/fonts/Alfreda/stylesheet.css";
-import "@/public/fonts/Belwe/stylesheet.css";
-import "@/public/fonts/GTWalsheimPro/stylesheet.css";
+import "@/public/fonts/clash/stylesheet.css";
+import "@/public/fonts/inter/stylesheet.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
@@ -12,7 +11,7 @@ import { Providers } from "@/app/providers";
 import { InitBootstrapAuth } from "@/core/bootstrap/auth/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/impersonation/init-bootstrap-impersonation";
 
-import { Toaster } from "@/design-system/atoms/toaster";
+import { Toaster } from "@/design-system/molecules/toaster";
 
 import { AppWrapper } from "@/shared/features/app-wrapper/app-wrapper";
 
@@ -40,7 +39,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body>
         <Providers>
           <InitBootstrapAuth />

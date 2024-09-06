@@ -4,13 +4,14 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { RadioGroup } from "@/design-system/atoms/radio-group";
 import { CustomButtonProps, RadioGroupButtonPort } from "@/design-system/molecules/radio-button-group";
 
-export function CustomButton({ label, children, variant = "secondary-light", ...props }: CustomButtonProps): ReactNode {
+export function CustomButton({ label, children, variant = "secondary", ...props }: CustomButtonProps): ReactNode {
   return (
     <Button as={"div"} variant={variant} {...props} startContent={children}>
       {label}
     </Button>
   );
 }
+
 export function RadioButtonGroupDefaultAdapter<V extends string>({
   items,
   variant,

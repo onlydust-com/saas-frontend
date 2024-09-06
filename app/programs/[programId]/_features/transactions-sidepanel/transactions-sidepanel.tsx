@@ -1,6 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
@@ -18,11 +18,11 @@ export function TransactionsSidepanel() {
     <>
       <SidePanelHeader
         canClose={true}
-        title={{ token: "programs:transactionPanel.transactions.title" }}
+        title={{ translate: { token: "programs:transactionPanel.transactions.title" } }}
         endContent={
           <Button
-            variant="secondary-light"
-            size="l"
+            variant="secondary"
+            size="md"
             onClick={() => open()}
             translate={{
               token: "programs:transactionPanel.transactions.export",
@@ -32,20 +32,22 @@ export function TransactionsSidepanel() {
         onClose={clear}
       />
 
-      <ScrollView>
+      <SidePanelBody>
         <div className={"flex flex-col gap-3"}>
           <Transactions />
         </div>
-      </ScrollView>
+      </SidePanelBody>
+
       <Panel>
         <SidePanelHeader
           canGoBack={true}
           canClose={true}
-          title={{ token: "programs:transactionPanel.export.title" }}
+          title={{ translate: { token: "programs:transactionPanel.export.title" } }}
           onClose={clear}
         />
-
-        <ExportCsv />
+        <SidePanelBody>
+          <ExportCsv />
+        </SidePanelBody>
       </Panel>
     </>
   );

@@ -1,3 +1,4 @@
+import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -51,13 +52,13 @@ export function Header() {
           {() => (
             <div>
               <Button
-                size="l"
-                variant="secondary-light"
-                hideText
-                startIcon={{ name: "ri-filter-3-line" }}
+                size="md"
+                variant="secondary"
+                iconOnly
+                startIcon={{ component: Filter }}
                 endContent={
                   count ? (
-                    <Badge size="s" style="outline">
+                    <Badge size="sm" shape="rounded">
                       {count}
                     </Badge>
                   ) : null
@@ -76,8 +77,8 @@ export function Header() {
                 {!isCleared ? (
                   <Button
                     onClick={clear}
-                    size="s"
-                    variant="secondary-light"
+                    size="sm"
+                    variant="secondary"
                     translate={{ token: "programs:transactionPanel.filters.clear" }}
                   />
                 ) : null}
@@ -86,7 +87,7 @@ export function Header() {
               <div className="flex flex-col gap-3">
                 <Typo
                   size="xs"
-                  color="text-2"
+                  color="secondary"
                   translate={{ token: "programs:transactionPanel.filters.options.types.title" }}
                 />
 
@@ -106,7 +107,7 @@ export function Header() {
               <div className="flex flex-col gap-3">
                 <Typo
                   size="xs"
-                  color="text-2"
+                  color="secondary"
                   translate={{ token: "programs:transactionPanel.filters.options.period.title" }}
                 />
 
@@ -120,14 +121,7 @@ export function Header() {
       <Input
         value={search}
         onChange={e => handleSearch(e.target.value)}
-        startContent={
-          <Icon
-            name="ri-search-line"
-            classNames={{
-              base: "text-text-2",
-            }}
-          />
-        }
+        startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}
         placeholder={t("transactionPanel.transactions.search.placeholder")}
       />
     </div>

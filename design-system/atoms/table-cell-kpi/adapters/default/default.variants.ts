@@ -2,8 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const TableCellKpiDefaultVariants = tv({
   slots: {
-    base: "flex items-center justify-between gap-2 rounded border border-container-stroke-separator p-1",
-    icon: "text-text-2",
+    base: "flex items-center justify-between gap-2 p-1",
+    icon: "text-components-badge-grey-fg",
   },
   variants: {
     inverted: {
@@ -11,13 +11,13 @@ export const TableCellKpiDefaultVariants = tv({
     },
     trend: {
       UP: {
-        icon: "text-label-green",
+        icon: "text-utility-secondary-green-500",
       },
       DOWN: {
-        icon: "text-label-red",
+        icon: "text-foreground-error",
       },
       STABLE: {
-        icon: "text-text-2",
+        icon: "text-utility-secondary-blue-500",
       },
     },
   },
@@ -26,14 +26,14 @@ export const TableCellKpiDefaultVariants = tv({
       inverted: true,
       trend: "UP",
       class: {
-        icon: "text-label-red",
+        icon: "text-foreground-error",
       },
     },
     {
       inverted: true,
       trend: "DOWN",
       class: {
-        icon: "text-label-green",
+        icon: "text-utility-secondary-green-500",
       },
     },
   ],

@@ -1,11 +1,14 @@
 {
   "seeProject": "See project",
   "grant": "Grant",
-  "link": {
-    "title": "Links"
+  "information": {
+    "title": "Information"
   },
-  "language": {
-    "title": "Language"
+  "description": {
+    "title": "Description"
+  },
+  "languages": {
+    "title": "Languages"
   },
   "categories": {
     "title": "Categories"
@@ -25,11 +28,11 @@
   "lead": {
     "title": "Project lead"
   },
-  "contributors": {
-    "title": "Contributors"
+  "topContributors": {
+    "title": "Top Contributors"
   },
-  "sponsors": {
-    "title": "Sponsors"
+  "programs": {
+    "title": "Programs"
   },
   "financials": {
     "title": "Financials",

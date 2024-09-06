@@ -1,4 +1,7 @@
+import { ArrowLeft, X } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
@@ -12,6 +15,7 @@ export function SidePanelHeader({
   startContent,
   endContent,
   onClose,
+  titleEndContent,
 }: SidePanelHeaderProps) {
   const { back, close } = useSidePanelsContext();
   const showStartContent = canGoBack || !!startContent;
@@ -23,36 +27,35 @@ export function SidePanelHeader({
   }
 
   return (
-    <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+    <Paper
+      as={"header"}
+      background={"primary-alt"}
+      classNames={{ base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-b-none" }}
+      py={"lg"}
+      px={"xl"}
+    >
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button
-              hideText={true}
-              variant="secondary-light"
-              size="l"
-              startIcon={{ name: "ri-arrow-left-s-line" }}
-              onClick={() => back()}
-            />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={() => back()} />
           )}
           {startContent}
         </div>
       )}
-      {title && <Typo size={"2xl"} variant={"brand"} translate={title} />}
+      {title && (
+        <div className={"item-center flex flex-row justify-start gap-lg"}>
+          <Typo {...title} size={"xs"} weight={"medium"} variant={"heading"} />
+          {titleEndContent}
+        </div>
+      )}
       {showEndContent && (
         <div className={"flex flex-row items-center justify-end gap-1"}>
           {endContent}
           {canClose && (
-            <Button
-              hideText={true}
-              variant="secondary-light"
-              size="l"
-              startIcon={{ name: "ri-close-line" }}
-              onClick={handleClose}
-            />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: X }} onClick={handleClose} />
           )}
         </div>
       )}
-    </div>
+    </Paper>
   );
 }

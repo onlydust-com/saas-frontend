@@ -11,60 +11,60 @@ const skeletonVariants = tv({
   },
   variants: {
     size: {
-      s: {
-        base: "h-[26px] w-[152px]",
+      xs: {
+        base: "h-[24px] w-[95px]",
       },
-      m: {
-        base: "h-[34px] w-[194px]",
+      sm: {
+        base: "h-[32px] w-[117px]",
       },
-      l: {
-        base: "h-10 w-[202px]",
+      md: {
+        base: "h-[40px] w-[133px]",
       },
-      xl: {
-        base: "h-[50px] w-[228px]",
+      lg: {
+        base: "h-[48px] w-[160px]",
       },
     },
-    hideText: {
+    iconOnly: {
       true: "",
     },
   },
   compoundVariants: [
     {
-      size: "s",
-      hideText: true,
+      size: "xs",
+      iconOnly: true,
       className: {
-        base: "size-[26px]",
+        base: "size-[24px]",
       },
     },
     {
-      size: "m",
-      hideText: true,
+      size: "sm",
+      iconOnly: true,
       className: {
-        base: "size-[34px]",
+        base: "size-[32px]",
       },
     },
     {
-      size: "l",
-      hideText: true,
+      size: "md",
+      iconOnly: true,
       className: {
-        base: "size-10",
+        base: "size-[40px]",
       },
     },
     {
-      size: "xl",
-      hideText: true,
+      size: "lg",
+      iconOnly: true,
       className: {
-        base: "size-[50px]",
+        base: "size-[48px]",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
+    size: "md",
   },
 });
 
-export function ButtonLoading<C extends ElementType = "button">({ size, hideText }: ButtonPort<C>) {
-  const { base } = skeletonVariants({ size, hideText });
+export function ButtonLoading<C extends ElementType = "button">({ size, iconOnly }: ButtonPort<C>) {
+  const { base } = skeletonVariants({ size, iconOnly });
 
   return (
     <Skeleton

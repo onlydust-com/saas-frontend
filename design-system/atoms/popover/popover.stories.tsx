@@ -7,7 +7,7 @@ type Story = StoryObj<typeof Popover>;
 
 const meta: Meta<typeof Popover> = {
   component: Popover,
-  title: "Atoms/Popover",
+  title: "Deprecated/Atoms/Popover",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
@@ -34,7 +34,7 @@ export const Default: Story = {
     {({ setIsOpen }) => (
       <div className={"grid gap-2"}>
         <div>Sick popover🤘</div>
-        <Button variant={"secondary-light"} size={"s"} onClick={() => setIsOpen(false)}>
+        <Button variant={"secondary"} size={"s"} onClick={() => setIsOpen(false)}>
           Close me
         </Button>
       </div>
@@ -60,7 +60,7 @@ export const Default: Story = {
             {({ setIsOpen }) => (
               <div className={"grid gap-2"}>
                 <div>Sick popover🤘</div>
-                <Button variant={"secondary-light"} size={"s"} onClick={() => setIsOpen(false)}>
+                <Button variant={"secondary"} size={"sm"} onClick={() => setIsOpen(false)}>
                   Close me
                 </Button>
               </div>

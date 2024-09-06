@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -14,25 +15,19 @@ const defaultProps: DrawerPort<"div"> = {
   children: "DRAWER CONTENT",
 
   header: {
-    startContent: <Typo size={"l"}>Header</Typo>,
-    endContent: <Icon name={"ri-square-line"} size={16} />,
+    startContent: <Typo size={"lg"}>Header</Typo>,
+    endContent: <Icon component={Square} />,
   },
   footer: {
-    startContent: <Icon name={"ri-square-line"} size={16} />,
-    endContent: <Icon name={"ri-square-line"} size={16} />,
+    startContent: <Icon component={Square} />,
+    endContent: <Icon component={Square} />,
   },
 };
 
 const meta: Meta<typeof Drawer> = {
   component: Drawer,
-  title: "Molecules/Drawer",
+  title: "Deprecated/Molecules/Drawer",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {

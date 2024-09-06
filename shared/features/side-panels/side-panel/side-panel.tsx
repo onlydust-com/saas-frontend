@@ -57,7 +57,7 @@ export const SidePanel = forwardRef(function SidePanel(
       {isOpenLast(name) &&
         isTablet &&
         createPortal(
-          <div className={"fixed inset-0 size-full bg-container-backdrop"} onClick={() => close(name)} />,
+          <div className={"bg-container-backdrop fixed inset-0 size-full"} onClick={() => close(name)} />,
           document.body
         )}
       {createPortal(
@@ -79,16 +79,17 @@ export const SidePanel = forwardRef(function SidePanel(
           }}
         >
           <Paper
-            size={"s"}
             border={"none"}
+            background={"quaternary"}
+            py={"none"}
+            px={"none"}
             classNames={{
               base: cn(
-                "h-full w-full flex flex-col gap-3",
-                { "h-full max-h-dvh overflow-auto": isTablet },
+                "h-full w-full flex flex-col gap-px overflow-hidden",
+                { "max-h-dvh": isTablet },
                 classNames?.content
               ),
             }}
-            container={"2"}
           >
             {panelContent}
           </Paper>

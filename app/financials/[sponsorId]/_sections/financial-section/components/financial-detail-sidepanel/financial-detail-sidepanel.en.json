@@ -1,0 +1,19 @@
+{
+  "title": "Financial detail",
+  "totalDeposited": {
+    "title": "Deposited"
+  },
+  "totalAvailable": {
+    "title": "Allocated"
+  },
+  "totalGranted": {
+    "title": "Granted"
+  },
+  "totalRewarded": {
+    "title": "Rewarded"
+  },
+  "emptyState": {
+    "title": "No financial details available",
+    "description": "There are no financial details available for this sponsor."
+  }
+}

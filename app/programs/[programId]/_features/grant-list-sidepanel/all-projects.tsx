@@ -45,35 +45,39 @@ export function AllProjects({
   if (isError) {
     return (
       <div className={"py-16 text-center"}>
-        <Typo translate={{ token: "common:state.error.title" }} color={"text-2"} size={"s"} />
+        <Typo translate={{ token: "common:state.error.title" }} color={"secondary"} size={"sm"} />
       </div>
     );
   }
 
   return (
-    <div className={"grid gap-2"}>
+    <>
       {allProjects.map(project => {
         const description = project.truncateDescription(25);
 
         return (
-          <CardProject
-            key={project.id}
-            title={project.name}
-            description={description}
-            logoUrl={project.logoUrl}
-            languages={project.languages?.map(language => ({ children: language.name }))}
-            buttonProps={{
-              children: "0 USD",
-              classNames: {
-                base: "pointer-events-none whitespace-nowrap",
-              },
-            }}
-            onClick={() => handleOpenProjectGrant(project.id)}
-          />
+          <div key={project.id}>
+            <CardProject
+              title={project.name}
+              description={description}
+              logoUrl={project.logoUrl}
+              languages={project.languages?.map(language => ({ children: language.name }))}
+              buttonProps={{
+                children: "0 USD",
+                classNames: {
+                  base: "pointer-events-none whitespace-nowrap",
+                },
+              }}
+              onClick={() => handleOpenProjectGrant(project.id)}
+              size={"none"}
+              background={"transparent"}
+              border={"none"}
+            />
+          </div>
         );
       })}
 
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-    </div>
+    </>
   );
 }

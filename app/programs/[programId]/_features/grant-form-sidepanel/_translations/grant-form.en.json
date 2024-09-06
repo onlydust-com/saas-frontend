@@ -1,19 +1,13 @@
 {
-  "title": "Grant a project",
-  "amountSelector": {
-    "title": "Amount"
-  },
+  "title": "Grant",
   "summary": {
-    "title": "Summary",
-    "budget": {
-      "balance": "{{budget}} balance",
-      "grant": "{{budget}} grant"
-    },
-    "project": {
-      "balance": "balance"
-    }
+    "budgetBalance": "{{budget}} balance",
+    "projectBalance": "Project balance",
+    "currentBalance": "Current balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final balance"
   },
-  "submit": "Grant the project",
+  "submit": "Make allocation",
   "success": {
     "toast": "{{project}} as been granted {{amount}} {{code}}"
   },

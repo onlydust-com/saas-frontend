@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowRight, Undo2 } from "lucide-react";
 import { ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
@@ -7,32 +8,32 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { CardTransactionTypes } from "./card-transaction.types";
 
 export function getComponentsVariants(type: CardTransactionTypes): {
-  icon: IconPort;
+  iconProps: IconPort;
   typeName: ReactNode;
 } {
-  const map: Record<CardTransactionTypes, { icon: IconPort }> = {
+  const map: Record<CardTransactionTypes, { iconProps: IconPort }> = {
     GRANTED: {
-      icon: {
-        name: "ri-arrow-right-line",
-        className: "text-label-blue",
+      iconProps: {
+        component: ArrowRight,
+        classNames: { base: "text-utility-secondary-blue-500" },
       },
     },
     RECEIVED: {
-      icon: {
-        name: "ri-arrow-down-line",
-        className: "text-label-green",
+      iconProps: {
+        component: ArrowDown,
+        classNames: { base: "text-utility-secondary-green-500" },
       },
     },
     RETURNED: {
-      icon: {
-        name: "ri-arrow-turn-forward-line",
-        className: "text-label-red",
+      iconProps: {
+        component: Undo2,
+        classNames: { base: "text-foreground-error" },
       },
     },
   };
 
   return {
-    icon: map[type].icon,
+    iconProps: map[type].iconProps,
     typeName: <Translate token={`cards:cardTransaction.types.${type}`} />,
   };
 }

@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Square } from "lucide-react";
 
 import { Icon } from "@/design-system/atoms/icon";
 
@@ -27,7 +28,7 @@ const defaultPort: HelperPort<"div"> = {
 
 const meta: Meta<typeof Helper> = {
   component: Helper,
-  title: "Molecules/Helper",
+  title: "Deprecated/Molecules/Helper",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
@@ -91,16 +92,12 @@ export const StartEndContent: Story = {
   render: () => {
     return (
       <div className="flex w-full flex-col gap-2">
-        <Helper
-          {...defaultPort}
-          startContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-          endContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-        />
+        <Helper {...defaultPort} startContent={<Square size={16} />} endContent={<Square size={16} />} />
         <Helper
           {...defaultPort}
           layout={"vertical"}
-          startContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
-          endContent={<Icon name="ri-square-line" size={16} classNames={{ base: "text-inherit" }} />}
+          startContent={<Icon component={Square} />}
+          endContent={<Icon component={Square} />}
         />
       </div>
     );

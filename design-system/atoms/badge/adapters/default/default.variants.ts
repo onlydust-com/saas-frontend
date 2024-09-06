@@ -2,69 +2,98 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group flex items-center justify-center overflow-hidden rounded",
-    contentWrapper: "flex items-center justify-center text-inherit",
-    content: "text-inherit",
+    base: "group block border-1 transition-all",
+    content: "flex flex-row items-center justify-center transition-colors",
+    label: "text-inherit",
+    deletableIcon: "text-inherit",
   },
   variants: {
-    colors: {
-      default: {
-        base: "border border-container-stroke-separator bg-container-stroke-separator",
-      },
-      "brand-1": {
-        base: "border border-brand-1 bg-brand-1 text-text-1",
-      },
-      "brand-2": {
-        base: "border border-brand-2 bg-brand-2 text-text-1",
-      },
-      "brand-3": {
-        base: "border border-brand-3 bg-brand-3 text-text-1",
-      },
-      "brand-4": {
-        base: "border border-brand-4 bg-brand-4 text-text-1",
-      },
-    },
     size: {
-      s: {
-        base: "h-4 min-h-4 w-4 min-w-4",
+      xxs: {
+        base: "px-sm py-xxs",
+        content: "gap-1",
       },
-      m: {
-        base: "h-6 min-h-6 w-6 min-w-6",
+      xs: {
+        base: "px-md py-xs",
+        content: "gap-1",
+      },
+      sm: {
+        base: "px-md py-sm",
+        content: "gap-1",
+      },
+      md: {
+        base: "px-lg py-md",
+        content: "gap-2",
       },
     },
-    fitContent: {
-      true: {
-        base: "w-fit",
+    isDeletable: {
+      true: {},
+    },
+    color: {
+      grey: {
+        base: "border-components-badge-grey-border bg-components-badge-grey-bg",
+        content: "text-components-badge-grey-typo",
+      },
+      brand: {
+        base: "border-components-badge-brand-border bg-components-badge-brand-bg",
+        content: "text-components-badge-brand-typo",
+      },
+      error: {
+        base: "border-components-badge-error-border bg-components-badge-error-bg",
+        content: "text-components-badge-error-typo",
+      },
+      warning: {
+        base: "border-components-badge-badge-warning-border bg-components-badge-badge-warning-bg",
+        content: "text-components-badge-badge-warning-typo",
+      },
+      success: {
+        base: "border-components-badge-success-border bg-components-badge-success-bg",
+        content: "text-components-badge-success-typo",
       },
     },
-    style: {
-      fill: {
-        base: "border-none",
+    shape: {
+      rounded: {
+        base: "rounded-full",
       },
-      outline: {
-        base: "bg-transparent",
+      squared: {
+        base: "rounded-sm",
       },
     },
   },
   compoundVariants: [
     {
-      fitContent: true,
-      size: "m",
+      size: "xxs",
+      isDeletable: true,
       class: {
-        base: "px-2",
+        base: "py-0.5 pl-1.5 pr-0.5",
       },
     },
     {
-      fitContent: true,
-      size: "s",
+      size: "xs",
+      isDeletable: true,
       class: {
-        base: "px-1",
+        base: "py-1.5 pl-2 pr-1",
+      },
+    },
+    {
+      size: "sm",
+      isDeletable: true,
+      class: {
+        base: "py-2 pl-2 pr-1.5",
+      },
+    },
+    {
+      size: "md",
+      isDeletable: true,
+      class: {
+        base: "px-2 py-3",
       },
     },
   ],
   defaultVariants: {
-    size: "m",
-    colors: "default",
-    style: "fill",
+    size: "sm",
+    shape: "rounded",
+    color: "grey",
+    isDeletable: false,
   },
 });

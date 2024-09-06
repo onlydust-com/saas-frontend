@@ -1,18 +1,38 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
-import { getComponentsVariants } from "@/design-system/molecules/checkbox-button/checkbox-button.utils";
 
 import { CheckboxButtonPort } from "../../checkbox-button.types";
 
 export function CheckboxButtonDefaultAdapter({
-  variant = "secondary-light",
+  variant = "secondary",
   size,
   children,
+  isDisabled,
+  value,
   ...props
 }: CheckboxButtonPort) {
-  const { checkboxColor } = getComponentsVariants(variant);
+  function onButtonClick() {
+    if (props.onChange) {
+      props.onChange(!value);
+    }
+  }
   return (
-    <Button as={"label"} variant={variant} size={size} startContent={<Checkbox color={checkboxColor} {...props} />}>
+    <Button
+      as={"button"}
+      isDisabled={isDisabled}
+      variant={variant}
+      size={size}
+      onClick={onButtonClick}
+      startContent={
+        <Checkbox
+          isDisabled={isDisabled}
+          {...props}
+          {...(value ? { attr: { "data-focus": true } } : {})}
+          value={value}
+          classNames={{ base: "pointer-events-none" }}
+        />
+      }
+    >
       {children}
     </Button>
   );

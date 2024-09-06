@@ -1,14 +1,21 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import { ChevronLeft } from "lucide-react";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { AccordionPort } from "../../accordion.types";
+import { AccordionMultiplePort } from "../../accordion.types";
 import { AccordionNextUiVariants } from "./next-ui.variants";
 
-export function AccordionNextUiAdapter({ classNames, items, multiple = false, defaultSelected }: AccordionPort) {
+export function AccordionNextUiAdapter({
+  classNames,
+  items,
+  multiple = false,
+  defaultSelected,
+}: AccordionMultiplePort) {
   const slots = AccordionNextUiVariants();
 
   return (
@@ -22,20 +29,36 @@ export function AccordionNextUiAdapter({ classNames, items, multiple = false, de
         <AccordionItem
           key={item.id}
           classNames={{
+            base: slots.baseItem(),
             heading: cn(slots.heading(), classNames?.heading),
             trigger: cn(slots.trigger(), classNames?.trigger),
             content: cn(slots.content(), classNames?.content),
           }}
           title={
-            <div className="flex items-center gap-2">
-              {item.startContent}
+            <div className="flex items-center gap-md">
+              {!!item.startIcon && (
+                <Icon
+                  {...item.startIcon}
+                  classNames={{
+                    ...(item.startIcon.classNames || {}),
+                    base: cn(slots.startIcon(), classNames?.startIcon, item.startIcon.classNames?.base),
+                  }}
+                />
+              )}
 
-              <Typo {...item.titleProps} size="xs" weight="medium" />
+              <Typo
+                {...item.titleProps}
+                size="xs"
+                weight="medium"
+                classNames={{ base: cn(slots.label(), classNames?.label) }}
+              />
 
-              {item.endContent}
+              {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
             </div>
           }
-          indicator={<Icon name="ri-arrow-left-s-line" classNames={{ base: "text-text-1" }} />}
+          indicator={
+            <Icon component={ChevronLeft} classNames={{ base: cn(slots.indicator(), classNames?.indicator) }} />
+          }
         >
           {item.content}
         </AccordionItem>

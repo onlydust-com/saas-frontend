@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ElementType } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -24,17 +25,17 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
   return (
     <Component className={cn(slots.base(), classNames?.base)}>
       <Button
-        size={"l"}
+        size={"md"}
         onClick={onPrev}
         isDisabled={disablePrev}
-        hideText
-        startIcon={{ name: "ri-arrow-left-s-line" }}
-        variant="secondary-light"
+        iconOnly
+        startIcon={{ component: ChevronLeft }}
+        variant="secondary"
       />
       <Button
         as={"div"}
-        size={"l"}
-        variant="secondary-light"
+        size={"md"}
+        variant="secondary"
         canInteract={false}
         classNames={{
           label: "leading-4",
@@ -44,11 +45,11 @@ export function PaginationDefaultAdapter<C extends ElementType = "div">({
       </Button>
       <Button
         onClick={onNext}
-        size={"l"}
-        variant="secondary-light"
+        size={"md"}
+        variant="secondary"
         isDisabled={disableNext}
-        hideText
-        startIcon={{ name: "ri-arrow-right-s-line" }}
+        iconOnly
+        startIcon={{ component: ChevronRight }}
       />
     </Component>
   );

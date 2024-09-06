@@ -1,8 +1,11 @@
+import { SquareArrowOutUpRight } from "lucide-react";
+
 import { Icon } from "@/design-system/atoms/icon";
-import { Typo } from "@/design-system/atoms/typo";
+import { TabItem } from "@/design-system/molecules/tabs/tab-item";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ItemNavPort } from "../../item-nav.types";
 import { ItemNavDefaultVariants } from "./default.variants";
@@ -11,45 +14,41 @@ function Content({
   classNames,
   children,
   translate,
-  icon,
-  labelProps = {},
+  iconProps,
   isExternal,
-  isDisabled,
   isFolded,
-}: ItemNavPort & { isExternal: boolean }) {
-  const slots = ItemNavDefaultVariants({
-    isDisabled,
-  });
-
+  isActive,
+}: ItemNavPort & { isExternal: boolean; isActive: boolean }) {
   return (
-    <div className={"flex w-full items-center justify-start gap-2 overflow-hidden"}>
-      <div className={"flex min-h-6 min-w-6 items-center justify-center"}>
-        <Icon size={18} {...icon} />
-      </div>
-      <div className="flex flex-1 justify-start">
-        <Typo
-          size={"m"}
-          as={"span"}
-          {...labelProps}
-          translate={translate}
-          classNames={{ base: cn(slots.label(), classNames?.label) }}
-        >
+    <TabItem
+      id={""}
+      variant={"flat"}
+      startIcon={iconProps}
+      classNames={{
+        ...classNames?.item,
+        base: cn("w-full justify-start", { "justify-center": isFolded }, classNames?.item?.base),
+      }}
+      isSelected={isActive}
+    >
+      {!isFolded && (
+        <div className="flex flex-1 justify-start">
+          {!!translate && <Translate {...translate} />}
           {children}
-        </Typo>
-        {isExternal ? (
-          <Icon
-            name="ri-external-link-line"
-            classNames={{
-              base: cn("invisible ml-1 text-inherit group-hover/link:visible", { "!invisible": isFolded }),
-            }}
-          />
-        ) : null}
-      </div>
-    </div>
+          {isExternal ? (
+            <Icon
+              component={SquareArrowOutUpRight}
+              classNames={{
+                base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
+              }}
+            />
+          ) : null}
+        </div>
+      )}
+    </TabItem>
   );
 }
 
-export function ItemNavDefaultAdapter({ isFolded, ...props }: ItemNavPort) {
+export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavPort) {
   const { isDisabled, classNames, onClick, linkProps } = props;
   const slots = ItemNavDefaultVariants({
     isDisabled,
@@ -58,14 +57,16 @@ export function ItemNavDefaultAdapter({ isFolded, ...props }: ItemNavPort) {
   if (linkProps) {
     return (
       <BaseLink {...linkProps} className={cn(slots.base(), classNames?.base)}>
-        {({ isExternal }) => <Content {...props} isFolded={isFolded} isExternal={isExternal} />}
+        {({ isExternal, isActive: active }) => (
+          <Content {...props} isFolded={isFolded} isExternal={isExternal} isActive={active || isActive || false} />
+        )}
       </BaseLink>
     );
   }
 
   return (
     <button className={cn(slots.base(), classNames?.base)} onClick={onClick} disabled={isDisabled}>
-      <Content {...props} isExternal={false} isFolded={isFolded} />
+      <Content {...props} isExternal={false} isActive={isActive || false} isFolded={isFolded} />
     </button>
   );
 }

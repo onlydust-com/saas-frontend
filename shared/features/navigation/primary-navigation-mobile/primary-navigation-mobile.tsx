@@ -1,3 +1,4 @@
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -26,8 +27,7 @@ export function PrimaryNavigationMobile() {
     <>
       <Paper
         as={"header"}
-        size={"s"}
-        container={"2"}
+        background={"quaternary"}
         border={"none"}
         classNames={{ base: "flex justify-between items-center gap-2" }}
       >
@@ -36,14 +36,8 @@ export function PrimaryNavigationMobile() {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
-          <Button variant={"secondary-light"} size={"l"} startIcon={{ name: "ri-notification-3-line" }} hideText />
-          <Button
-            variant={"secondary-light"}
-            size={"l"}
-            startIcon={{ name: "ri-menu-fill" }}
-            hideText
-            onClick={handleOpen}
-          />
+          {/*<Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly />*/}
+          <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
       </Paper>
       <Modal
@@ -54,20 +48,13 @@ export function PrimaryNavigationMobile() {
         classNames={{ modal: "min-w-full max-w-full rounded-b-none !my-0" }}
       >
         <div className={"flex w-full flex-col gap-3"}>
-          <div className={"flex w-full flex-row gap-1"}>
+          <div className={"flex w-full flex-row items-center gap-1"}>
             <UserMenu />
-            <Button
-              variant={"secondary-light"}
-              size={"l"}
-              startIcon={{ name: "ri-close-line" }}
-              hideText
-              onClick={handleClose}
-            />
+            <Button variant={"tertiary"} size={"sm"} startIcon={{ component: X }} iconOnly onClick={handleClose} />
           </div>
-          <Paper size={"s"} classNames={{ base: "flex w-full flex-col gap-3" }} container={"transparent"}>
-            <PrimaryMenu />
-            <SecondaryMenu />
-          </Paper>
+
+          <PrimaryMenu />
+          <SecondaryMenu />
         </div>
       </Modal>
     </>

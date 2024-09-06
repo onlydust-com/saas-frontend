@@ -1,22 +1,26 @@
 import { ElementType } from "react";
 
-import { ButtonDanger } from "@/design-system/atoms/button/variants/button-danger";
+import { isButtonText } from "@/design-system/atoms/button/button.utils";
+import { ButtonDestructiveColor } from "@/design-system/atoms/button/variants/button-destructive-color";
+import { ButtonPrimaryColor } from "@/design-system/atoms/button/variants/button-primary-color";
+import { ButtonTextPrimaryColor } from "@/design-system/atoms/button/variants/button-text-primary-color";
 
 import { ButtonDefaultPort } from "../button.types";
-import { ButtonPrimary } from "./button-primary";
-import { ButtonSecondaryDark } from "./button-secondary-dark";
-import { ButtonSecondaryLight } from "./button-secondary-light";
 
 export function Button<C extends ElementType = "button">(props: ButtonDefaultPort<C>) {
-  switch (props.variant) {
-    case "secondary-light":
-      return <ButtonSecondaryLight {...props} />;
-    case "secondary-dark":
-      return <ButtonSecondaryDark {...props} />;
-    case "danger":
-      return <ButtonDanger {...props} />;
+  if (isButtonText(props)) {
+    switch (props.theme) {
+      case "primary":
+      default:
+        return <ButtonTextPrimaryColor {...props} />;
+    }
+  }
+
+  switch (props.theme) {
+    case "destructive":
+      return <ButtonDestructiveColor {...props} />;
     case "primary":
     default:
-      return <ButtonPrimary {...props} />;
+      return <ButtonPrimaryColor {...props} />;
   }
 }

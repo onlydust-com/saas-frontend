@@ -1,4 +1,6 @@
-import { ButtonSecondaryLight } from "@/design-system/atoms/button/variants/button-secondary-light";
+import { Columns2 } from "lucide-react";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -19,7 +21,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
             <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
-              <ButtonSecondaryLight size="l" hideText startIcon={{ name: "ri-layout-column-line" }} />
+              <Button variant={"secondary"} size="sm" startIcon={{ component: Columns2 }} iconOnly />
             </Tooltip>
           </div>
         )}
@@ -27,18 +29,22 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
 
       <Popover.Content>
         {() => (
-          <div className="grid max-w-[360px] gap-3">
-            <div className="flex items-center justify-between gap-2">
-              <Typo translate={{ token: "table:tableColumnList.title" }} />
-
-              <ButtonSecondaryLight onClick={onClear} size="s" translate={{ token: "table:tableColumnList.clear" }} />
+          <div className="grid max-w-[360px] gap-lg">
+            <div className="flex items-center justify-between gap-md">
+              <Typo size={"sm"} translate={{ token: "table:tableColumnList.title" }} color={"secondary"} />
+              <Button
+                onClick={onClear}
+                variant={"secondary"}
+                size="xs"
+                translate={{ token: "table:tableColumnList.clear" }}
+              />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-md">
               {items.map(item => (
                 <CheckboxButton
                   key={item.id}
-                  variant={"secondary-light"}
+                  variant={"secondary"}
                   value={item.value}
                   onChange={value => onChange(item.id, value)}
                 >

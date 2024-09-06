@@ -1,6 +1,7 @@
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
+import { getAvatarImageSize } from "@/design-system/molecules/avatar-group/avatar-group.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -12,48 +13,43 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
   htmlProps,
   classNames,
   avatars,
-  maxAvatars,
+  quantity,
   totalAvatarsCount,
   size,
+  outsideBorder,
   shape,
-  container,
-  disableAnimation = true,
-  showFallback = true,
 }: AvatarGroupPort<C>) {
   const Component = as || "div";
-  const slots = AvatarGroupDefaultVariants({
-    size,
-  });
 
-  const slicedAvatars = maxAvatars ? avatars.slice(0, maxAvatars) : avatars;
+  const slots = AvatarGroupDefaultVariants({ size, outsideBorder });
+
+  const imageSize = getAvatarImageSize(size);
+
+  const slicedAvatars = quantity ? avatars.slice(0, quantity) : avatars;
   const totalAvatars = totalAvatarsCount || avatars.length;
 
-  const avatarAnimation = {
-    base: "transition-transform hover:-translate-x-1/4 hover:last:translate-x-0",
-  };
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       {slicedAvatars.map((avatar, index) => (
         <Avatar
           key={`avatar-${index}`}
           src={avatar.src}
-          name={avatar.name}
-          size={size}
+          size={imageSize}
           shape={shape}
-          container={container}
-          showFallback={showFallback}
-          classNames={!disableAnimation ? avatarAnimation : undefined}
+          classNames={{
+            base: slots.image(),
+          }}
         />
       ))}
 
-      {maxAvatars && (avatars.length > maxAvatars || totalAvatars > avatars.length) ? (
+      {quantity && (avatars.length > quantity || totalAvatars > avatars.length) ? (
         <Avatar
-          name={`+${totalAvatars - maxAvatars}`}
-          size={size}
+          name={`+${totalAvatars - quantity}`}
+          size={imageSize}
           shape={shape}
-          container={container}
-          showFallback={showFallback}
-          classNames={!disableAnimation ? avatarAnimation : undefined}
+          classNames={{
+            base: slots.image(),
+          }}
         />
       ) : null}
     </Component>

@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { ElementType } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -16,51 +17,44 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
   children,
   endContent,
   htmlProps,
-  clickable,
   translate,
   labelProps = {},
-  deletableIconProps = {},
-  hasDropdown,
+  onClose,
+  onSelect,
+  isSelected,
+  startIcon,
   ...props
 }: TagPort<C>) {
-  const { isDeletable, hideText = false, shape, size, color, style } = props;
-  const DefaultComponent = isDeletable ? "button" : "span";
-  const Component = as || DefaultComponent;
-  const slots = TagDefaultVariants({ isDeletable, hideText, shape, size, color, style });
-
-  const showChildren = !hideText && (!!children || !!translate);
+  const { size } = props;
+  const Component = as || "span";
+  const slots = TagDefaultVariants({ size, isSelected });
+  const isSelectable = !!onSelect;
+  const showChildren = !!children || !!translate;
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} data-clickable={clickable || hasDropdown}>
+    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} data-clickable={isSelectable}>
       <div className={cn(slots.content(), classNames?.content)}>
+        {!!startIcon && <Icon size={"xxs"} {...startIcon} />}
         {startContent}
 
         {showChildren && (
-          <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+          <Typo
+            size={"xs"}
+            weight={"medium"}
+            as={"span"}
+            {...labelProps}
+            classNames={{ base: cn(slots.label(), classNames?.label) }}
+          >
             {children || (translate && <Translate {...translate} />)}
           </Typo>
         )}
 
         {endContent}
 
-        {hasDropdown && (
-          <Icon
-            name="ri-arrow-down-s-line"
-            size={16}
-            {...deletableIconProps}
-            classNames={{
-              base: cn(slots.dropDownIcon(), classNames?.dropDownIcon),
-            }}
-          />
-        )}
-
-        {!!isDeletable && (
-          <Icon
-            name="ri-close-circle-line"
-            size={16}
-            {...deletableIconProps}
-            classNames={{ base: cn(slots.deletableIcon(), classNames?.deletableIcon) }}
-          />
+        {!!onClose && (
+          <button className={cn(slots.closeButton(), classNames?.closeButton)} onClick={onClose}>
+            <Icon component={X} size={"xxs"} classNames={{ base: cn(slots.closeIcon(), classNames?.closeIcon) }} />
+          </button>
         )}
       </div>
     </Component>

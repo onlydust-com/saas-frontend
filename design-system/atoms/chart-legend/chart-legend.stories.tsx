@@ -7,13 +7,13 @@ type Story = StoryObj<typeof ChartLegend>;
 
 const defaultProps: ChartLegendPort<"div"> = {
   size: "m",
-  color: "chart-1",
+  color: "primary",
   children: "Legend Label",
 };
 
 const meta: Meta<typeof ChartLegend> = {
   component: ChartLegend,
-  title: "Atoms/ChartLegend",
+  title: "Deprecated/Atoms/ChartLegend",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
@@ -32,10 +32,10 @@ export const Default: Story = {
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <ChartLegend {...defaultProps} {...args} color={"chart-1"} />
-        <ChartLegend {...defaultProps} {...args} color={"chart-2"} />
-        <ChartLegend {...defaultProps} {...args} color={"chart-3"} />
-        <ChartLegend {...defaultProps} {...args} color={"chart-4"} />
+        <ChartLegend {...defaultProps} {...args} color={"primary"} />
+        <ChartLegend {...defaultProps} {...args} color={"secondary"} />
+        <ChartLegend {...defaultProps} {...args} color={"tertiary"} />
+        <ChartLegend {...defaultProps} {...args} color={"quaternary"} />
       </div>
     );
   },

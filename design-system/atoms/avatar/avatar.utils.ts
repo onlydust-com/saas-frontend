@@ -1,27 +1,55 @@
 import process from "process";
 
-import { AvatarPort } from "@/design-system/atoms/avatar/avatar.types";
+import { AvatarPort } from "./avatar.types";
+
+export function getAvatarItemImageSize(size: AvatarPort["size"]): [number, number] {
+  switch (size) {
+    case "3xl":
+      return [32, 32];
+    case "2xl":
+      return [24, 24];
+    case "xl":
+      return [20, 20];
+    case "lg":
+      return [16, 16];
+    case "md":
+      return [14, 14];
+    case "s":
+      return [12, 12];
+    case "xs":
+      return [12, 12];
+    case "xxs":
+      return [10, 10];
+
+    default:
+      return [14, 14];
+  }
+}
 
 export function getAvatarImageSize(size: AvatarPort["size"]): [number, number] {
   switch (size) {
-    case "xxl":
+    case "3xl":
       return [96, 96];
+    case "2xl":
+      return [64, 64];
     case "xl":
       return [48, 48];
-    case "l":
-      return [44, 44];
-    case "ml":
-      return [36, 36];
-    case "m":
+    case "lg":
+      return [40, 40];
+    case "md":
       return [32, 32];
     case "s":
       return [24, 24];
     case "xs":
+      return [20, 20];
+    case "xxs":
       return [16, 16];
+
     default:
-      return [24, 24];
+      return [32, 32];
   }
 }
+
 export function getAvatarSrc([w, h]: [number, number], src?: string) {
   if (!process.env.NEXT_PUBLIC_CLOUDFLARE_RESIZE_PREFIX || !src) {
     return src;

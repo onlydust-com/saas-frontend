@@ -1,10 +1,12 @@
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
+import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
+import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
 import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/fetch-http-client/fetch-http-client";
@@ -26,6 +28,8 @@ export interface BootstrapConstructor {
   programStoragePortForServer: ProgramStoragePort;
   projectStoragePortForClient: ProjectStoragePort;
   projectStoragePortForServer: ProjectStoragePort;
+  sponsorStoragePortForClient: SponsorStoragePort;
+  sponsorStoragePortForServer: SponsorStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -43,6 +47,8 @@ export class Bootstrap {
   programStoragePortForServer: ProgramStoragePort;
   projectStoragePortForClient: ProjectStoragePort;
   projectStoragePortForServer: ProjectStoragePort;
+  sponsorStoragePortForClient: SponsorStoragePort;
+  sponsorStoragePortForServer: SponsorStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -56,6 +62,8 @@ export class Bootstrap {
     this.programStoragePortForServer = constructor.programStoragePortForServer;
     this.projectStoragePortForClient = constructor.projectStoragePortForClient;
     this.projectStoragePortForServer = constructor.projectStoragePortForServer;
+    this.sponsorStoragePortForClient = constructor.sponsorStoragePortForClient;
+    this.sponsorStoragePortForServer = constructor.sponsorStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -100,12 +108,21 @@ export class Bootstrap {
   getProgramStoragePortForServer() {
     return this.programStoragePortForServer;
   }
+
   getProjectStoragePortForClient() {
     return this.projectStoragePortForClient;
   }
 
   getProjectStoragePortForServer() {
     return this.projectStoragePortForServer;
+  }
+
+  getSponsorStoragePortForClient() {
+    return this.sponsorStoragePortForClient;
+  }
+
+  getSponsorStoragePortForServer() {
+    return this.sponsorStoragePortForServer;
   }
 
   getDateKernelPort() {
@@ -131,6 +148,8 @@ export class Bootstrap {
         programStoragePortForServer: new ProgramClientAdapter(new FetchHttpClient()),
         projectStoragePortForClient: new ProjectClientAdapter(new FetchHttpClient()),
         projectStoragePortForServer: new ProjectClientAdapter(new FetchHttpClient()),
+        sponsorStoragePortForClient: new SponsorClientAdapter(new FetchHttpClient()),
+        sponsorStoragePortForServer: new SponsorClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),

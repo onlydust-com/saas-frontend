@@ -1,29 +1,19 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { StepperDefaultAdapter } from "./adapters/default/default.adapter";
 import { StepperLoading } from "./stepper.loading";
 import { StepperPort } from "./stepper.types";
+import { Stepper } from "./variants/stepper-default";
 
-type Story = StoryObj<typeof StepperDefaultAdapter>;
+type Story = StoryObj<typeof Stepper>;
 
 const defaultProps: StepperPort = {
-  steps: [
-    { min: 0, max: 100, value: 100 },
-    { min: 0, max: 100, value: 100 },
-    { min: 0, max: 100, value: 0 },
-  ],
+  steps: [{ value: 100 }, { value: 100 }, { value: 0 }, { value: 0 }],
 };
 
-const meta: Meta<typeof StepperDefaultAdapter> = {
-  component: StepperDefaultAdapter,
+const meta: Meta<typeof Stepper> = {
+  component: Stepper,
   title: "Molecules/Stepper",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -32,56 +22,13 @@ export const Default: Story = {
   },
   parameters: {
     docs: {
-      source: { code: "<StepperDefaultAdapter />" },
+      source: { code: "<Stepper />" },
     },
   },
   render: args => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <StepperDefaultAdapter {...args} />
-      </div>
-    );
-  },
-};
-
-export const HalfStep: Story = {
-  args: {
-    steps: [
-      { min: 0, max: 100, value: 100 },
-      { min: 0, max: 100, value: 50 },
-      { min: 0, max: 100, value: 0 },
-    ],
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: "<StepperDefaultAdapter steps={[{ min: 0, max: 100, value: 100 }, { min: 0, max: 100, value: 50 }, { min: 0, max: 100, value: 0 }]} />",
-      },
-    },
-  },
-  render: args => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <StepperDefaultAdapter {...args} />
-      </div>
-    );
-  },
-};
-
-export const CustomColor: Story = {
-  args: {
-    ...defaultProps,
-    color: "brand-1",
-  },
-  parameters: {
-    docs: {
-      source: { code: "<StepperDefaultAdapter color='brand-1' />" },
-    },
-  },
-  render: args => {
-    return (
-      <div className="flex w-full items-center gap-2">
-        <StepperDefaultAdapter {...args} />
+      <div className="w-[300px]">
+        <Stepper {...args} />
       </div>
     );
   },
@@ -90,13 +37,13 @@ export const CustomColor: Story = {
 export const Loading: Story = {
   parameters: {
     docs: {
-      source: { code: "<StepperLoading height={8} />" },
+      source: { code: "<StepperLoading />" },
     },
   },
   render: () => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <StepperLoading height={8} />
+      <div className="w-[300px]">
+        <StepperLoading />
       </div>
     );
   },

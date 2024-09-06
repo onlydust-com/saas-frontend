@@ -1,55 +1,20 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import {
-  CreateAvatarGroupProps,
-  FinancialCardItemProps,
-} from "@/app/programs/[programId]/_sections/financial-section/components/budget-available-cards/budget-available-cards.types";
 import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PanelType } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-import { bootstrap } from "@/core/bootstrap";
 
-import { CardFinancial, CardFinancialLoading } from "@/design-system/molecules/card-financial";
+import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
+import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-function createAvatarGroup({ total }: CreateAvatarGroupProps) {
-  return {
-    avatars:
-      total.totalPerCurrency?.map(currency => ({
-        src: currency.currency.logoUrl,
-        name: currency.currency.name,
-      })) ?? [],
-  };
-}
-
-function FinancialCardItem({ title, total, color, onClick }: FinancialCardItemProps) {
-  const avatarGroup = createAvatarGroup({ total });
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
-  return (
-    <CardFinancial
-      title={{ token: title }}
-      amount={
-        moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
-          .amount
-      }
-      currency={moneyKernelPort.getCurrency("USD").code}
-      avatarGroup={avatarGroup}
-      color={color}
-      cta={{
-        onClick,
-      }}
-    />
-  );
-}
 
 export function BudgetAvailableCards() {
   const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");
   const { programId = "" } = useParams<{ programId: string }>();
-  const { Panel, open, isOpen } = useSidePanel({ name: "financial-detail" });
+  const { Panel, open, isOpen } = useSidePanel({ name: "program-financial-detail" });
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -61,7 +26,7 @@ export function BudgetAvailableCards() {
 
   if (isLoading) {
     return (
-      <div className="grid min-h-[220px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
         <CardFinancialLoading />
         <CardFinancialLoading />
         <CardFinancialLoading />
@@ -82,23 +47,23 @@ export function BudgetAvailableCards() {
 
   return (
     <>
-      <div className="grid min-h-[220px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
         <FinancialCardItem
           title="programs:budgetAvailable.available.title"
           total={data.totalAvailable}
-          color="chart-1"
+          color="gradient"
           onClick={() => openPanel("totalAvailable")}
         />
         <FinancialCardItem
           title="programs:budgetAvailable.granted.title"
           total={data.totalGranted}
-          color="chart-2"
+          color="grey"
           onClick={() => openPanel("totalGranted")}
         />
         <FinancialCardItem
           title="programs:budgetAvailable.rewarded.title"
           total={data.totalRewarded}
-          color="chart-3"
+          color="grey"
           onClick={() => openPanel("totalRewarded")}
         />
       </div>

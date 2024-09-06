@@ -2,6 +2,7 @@
 
 import { parseAbsolute } from "@internationalized/date";
 import { DateRangePicker, DateValue, RangeValue } from "@nextui-org/react";
+import { Calendar, CircleAlert } from "lucide-react";
 import { ForwardedRef, forwardRef, useEffect, useState } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -45,44 +46,59 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       ref={ref}
       classNames={{
         base: cn(slots.base(), classNames?.base),
+        popoverContent: slots.popoverContent(),
         inputWrapper: cn(slots.inputWrapper(), classNames?.input),
         innerWrapper: slots.innerWrapper(),
         input: slots.input(),
         label: cn(slots.label(), classNames?.label),
         segment: slots.segment(),
+        separator: slots.separator(),
         selectorButton: slots.selectorButton(),
         errorMessage: slots.errorMessage(),
       }}
       calendarProps={{
         classNames: {
-          base: "rounded-xl bg-container-1",
-          headerWrapper: "bg-container-1 px-3 pt-3 pb-2",
-          prevButton: "text-text-1 data-[hover=true]:bg-white/20",
-          nextButton: "text-text-1 data-[hover=true]:bg-white/20",
-          title: "text-text-1 text-sm font-medium",
-          gridHeader: "bg-container-1",
-          gridHeaderRow: "px-3 pb-2",
-          gridHeaderCell: "text-text-1 text-xs font-medium w-12 px-1",
-          gridBody: "px-3",
+          base: "rounded-lg bg-background-primary border border-border-primary overflow-hidden",
+          headerWrapper: "bg-background-primary px-3 pt-3 pb-2",
+          prevButton:
+            "h-6 w-6 min-w-6 text-components-buttons-button-tertiary-fg rounded-md bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[focus-visible=true]:effect-ring-brand-spaced data-[disabled=true]:text-foreground-disabled !outline-none",
+          nextButton:
+            "h-6 w-6 min-w-6 text-components-buttons-button-tertiary-fg rounded-md bg-components-buttons-button-tertiary-bg data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover data-[focus-visible=true]:effect-ring-brand-spaced data-[disabled=true]:text-foreground-disabled !outline-none",
+          title: "text-typography-primary font-medium text-[1rem] leading-[1.5rem]",
+          gridHeader: "bg-background-primary",
+          gridHeaderRow: "px-2 pb-1",
+          gridHeaderCell: "text-typography-primary font-medium text-[0.75rem] leading-[1rem] w-12 px-1",
+          gridBody: "bg-background-primary px-2",
           gridBodyRow: "first:mt-0",
           cell: "py-1 px-1",
           cellButton:
-            "h-10 w-10 text-text-1 data-[disabled=true]:text-text-3 data-[unavailable=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-text-3 data-[selected=true]:data-[range-selection=true]:before:bg-interactions-white-disabled data-[selected=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-text-1 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-brand-2 data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-text-1 data-[range-start=true]:before:rounded-full data-[selection-start=true]:before:rounded-full data-[range-end=true]:before:rounded-full data-[selection-end=true]:before:rounded-full before:rounded-full",
+            "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[hover=true]:data-[selected=true]:bg-transparent data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:data-[range-selection=true]:before:bg-background-brand-primary-alt data-[selected=true]:data-[range-selection=true]:text-typography-brand-primary data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:font-bold data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:font-bold before:!rounded-full",
         },
+        weekdayStyle: "short",
       }}
       calendarWidth={352}
       label={label}
+      selectorButtonProps={{ disableRipple: true, disableAnimation: true }}
       variant="bordered"
       labelPlacement="outside-left"
       granularity="day"
-      selectorIcon={<Icon name="ri-calendar-line" />}
+      selectorIcon={
+        <>
+          <Icon component={Calendar} />
+        </>
+      }
       isDisabled={isDisabled}
       isInvalid={isError}
       onChange={handleChange}
       value={formattedValue}
       minValue={minValue ? parseAbsolute(minValue.toISOString(), DEFAULT_TZ) : undefined}
       maxValue={maxValue ? parseAbsolute(maxValue.toISOString(), DEFAULT_TZ) : undefined}
-      errorMessage={validation => getErrorMessage({ validation, minValue, maxValue })}
+      errorMessage={validation => (
+        <div className="flex items-center gap-1.5">
+          <Icon component={CircleAlert} classNames={{ base: "text-foreground-error" }} />
+          {getErrorMessage({ validation, minValue, maxValue })}
+        </div>
+      )}
     />
   );
 });

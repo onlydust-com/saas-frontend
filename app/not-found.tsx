@@ -1,3 +1,5 @@
+import { ChevronLeft } from "lucide-react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -10,8 +12,8 @@ export default function NotFound() {
     <div className={"flex size-full items-center justify-center"}>
       <div className={"flex flex-col items-center justify-center gap-6"}>
         <Typo
-          variant={"brand"}
-          size={"4xl"}
+          variant={"heading"}
+          size={"2xl"}
           classNames={{ base: "capitalize" }}
           translate={{
             token: "notFound:title",
@@ -23,10 +25,8 @@ export default function NotFound() {
           htmlProps={{
             href: NEXT_ROUTER.home.root,
           }}
-          size={"l"}
-          startIcon={{
-            name: "ri-arrow-left-s-line",
-          }}
+          size={"md"}
+          startIcon={{ component: ChevronLeft }}
         >
           <Translate token={"notFound:back"} />
         </Button>

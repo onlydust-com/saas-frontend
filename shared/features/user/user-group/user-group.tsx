@@ -1,18 +1,20 @@
 import { Popover } from "@/design-system/atoms/popover";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { UserGroupProps } from "./user-group.types";
 
 export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }: UserGroupProps) {
   if (users.length === 1) {
     return (
-      <AvatarDescription
-        avatarProps={{
-          ...avatarProps,
-          src: users[0].avatarUrl,
-        }}
-        labelProps={{ children: users[0].login }}
+      <AvatarLabelGroup
+        avatars={[
+          {
+            ...avatarProps,
+            src: users[0].avatarUrl,
+          },
+        ]}
+        title={{ children: users[0].login }}
       />
     );
   }
@@ -29,7 +31,7 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
                   name: login,
                 })) ?? []
               }
-              maxAvatars={maxUsers || 4}
+              quantity={maxUsers || 4}
               totalAvatarsCount={totalUsersCount}
             />
           </div>
@@ -39,13 +41,15 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
         {() => (
           <div className={"grid gap-3"}>
             {users?.map(({ avatarUrl, login }) => (
-              <AvatarDescription
+              <AvatarLabelGroup
                 key={login}
-                avatarProps={{
-                  ...avatarProps,
-                  src: avatarUrl,
-                }}
-                labelProps={{ children: login }}
+                avatars={[
+                  {
+                    ...avatarProps,
+                    src: avatarUrl,
+                  },
+                ]}
+                title={{ children: login }}
               />
             ))}
           </div>

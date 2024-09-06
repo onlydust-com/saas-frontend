@@ -1,49 +1,164 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { BoxSelect, CircleDashed, MessageCircleDashed } from "lucide-react";
 
 import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
+import { isButtonSolid, isButtonText } from "@/design-system/atoms/button/button.utils";
+import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 
-import { ButtonPort } from "./button.types";
+import {
+  ButtonDefaultPort,
+  ButtonSize,
+  ButtonSolidTheme,
+  ButtonSolidVariant,
+  ButtonTextPort,
+  ButtonTextSize,
+  ButtonTextVariant,
+} from "./button.types";
 import { Button } from "./variants/button-default";
 
 type Story = StoryObj<typeof Button>;
 
-const defaultProps: ButtonPort<"button"> = {
+const defaultProps: ButtonDefaultPort<"button"> = {
   children: "Button core",
-  startIcon: { name: "ri-square-line" },
-  endIcon: { name: "ri-square-line" },
-  startContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
-  endContent: <Icon name={"ri-square-line"} size={16} classNames={{ base: "text-inherit" }} />,
+  startIcon: { component: CircleDashed },
+  endIcon: { component: CircleDashed },
+  startContent: <Icon component={BoxSelect} size={"sm"} />,
+  endContent: <Icon component={BoxSelect} size={"sm"} />,
 };
 
 const meta: Meta<typeof Button> = {
   component: Button,
   title: "Atoms/Button",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
-    },
-  },
 };
+
+const FIGMA_URL = "https://www.figma.com/design/J3hcQznLabA7oR9zTBOZs2/Design-System-3.0?node-id=106-9827";
+const sizes: ButtonSize[] = ["xs", "sm", "md", "lg"];
+const variants: ButtonSolidVariant[] = ["primary", "secondary", "tertiary"];
+const theme: ButtonSolidTheme[] = ["primary", "destructive"];
+
+const sizesText: ButtonTextSize[] = ["xs", "md", "lg"];
+const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
+const underlineVariant: [false, true] = [false, true];
+
+function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFocus?: boolean }) {
+  if (args.isHover) {
+    // Storybook doesn't support data attributes in the preview
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return <Button {...defaultProps} {...args} htmlProps={{ "data-hover": "true" }} />;
+  }
+
+  if (args.isFocus) {
+    // Storybook doesn't support data attributes in the preview
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return <Button {...defaultProps} {...args} htmlProps={{ "data-focus": "true" }} />;
+  }
+
+  if (isButtonText(args) && isButtonText(defaultProps)) {
+    return <Button {...defaultProps} {...args} />;
+  }
+
+  if (isButtonSolid(args) && isButtonSolid(defaultProps)) {
+    return <Button {...defaultProps} {...args} />;
+  }
+
+  return null;
+}
+
+const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
+  <div className="flex w-full flex-col items-start gap-10">
+    {variants.map(variant => (
+      <div key={variant} className="flex w-full items-start gap-5">
+        {sizes.map(size => (
+          <div className="flex flex-col gap-3" key={size}>
+            <div className="flex w-full justify-between gap-3">
+              <ButtonDoc theme={theme} size={size} variant={variant} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isHover={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isHover={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isFocus={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isFocus={true} />
+            </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isDisabled={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isDisabled={true} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+const ButtonsTextDoc = (_: Pick<ButtonTextPort<"button">, "theme">) => (
+  <div className="flex w-full flex-col items-start gap-10">
+    {variantsText.map(variant =>
+      underlineVariant.map(underline => (
+        <div key={`${variant}-${underline}`} className="flex w-full items-start gap-5">
+          {sizesText.map(size => (
+            <div className="flex flex-col gap-3" key={size}>
+              <div className="flex w-full justify-between gap-3">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} />
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} iconOnly={true} />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isHover={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isHover={true}
+                />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isFocus={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isFocus={true}
+                />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isDisabled={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isDisabled={true}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      ))
+    )}
+  </div>
+);
 
 export const Default: Story = {
-  render: args => {
-    return <Button {...defaultProps} endContent={undefined} startContent={undefined} endIcon={undefined} {...args} />;
-  },
-};
-
-export const Size: Story = {
   parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
     docs: {
       source: {
         code: `
-<Button
-  startIcon={{
-    name: 'ri-square-line'
-  }}
->
+<Button startIcon={{component: Square}}>
   Button core
 </Button>
         `,
@@ -52,182 +167,116 @@ export const Size: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"xl"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"l"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button {...defaultProps} {...args} size={"s"} />
-        </div>
-      </div>
+      <Button
+        {...{
+          children: "Button core",
+          startIcon: { component: CircleDashed },
+          endIcon: { component: CircleDashed },
+          startContent: <Icon component={BoxSelect} size={"sm"} />,
+          endContent: <Icon component={BoxSelect} size={"sm"} />,
+        }}
+        {...args}
+      />
     );
   },
 };
 
-export const Primary: Story = {
+export const PrimaryColor: Story = {
   parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
     },
     docs: {
-      source: { code: "<Button variant='primary' />" },
+      source: {
+        code: `
+<Button>
+  Button core
+</Button>
+        `,
+      },
     },
   },
-  render: args => {
-    return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"xl"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"primary"} {...defaultProps} {...args} size={"l"} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"l"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"primary"} {...defaultProps} {...args} />
-          <Button variant={"primary"} {...defaultProps} {...args} isDisabled={true} />
-          <Button variant={"primary"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={{ name: "ri-square-line" }} hideText />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"primary"} {...defaultProps} {...args} size={"s"} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
-          <Button variant={"primary"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"primary"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"s"} />
-        </div>
-      </div>
-    );
+  render: () => {
+    return <ButtonsDoc theme={"primary"} />;
   },
 };
 
-export const SecondaryLight: Story = {
+export const DestructiveColor: Story = {
   parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#05051E" }],
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
     },
     docs: {
-      source: { code: "<Button variant='secondary-light' />" },
+      source: {
+        code: `
+<Button theme={"destructive"}>
+  Button core
+</Button>
+        `,
+      },
     },
   },
-  render: args => {
-    return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"xl"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"l"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-light"} {...defaultProps} {...args} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} isDisabled={true} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={{ name: "ri-square-line" }} hideText />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
-          <Button variant={"secondary-light"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"secondary-light"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"s"} />
-        </div>
-      </div>
-    );
-  },
-};
-export const SecondaryDark: Story = {
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#FFFFFF" }],
-    },
-    docs: {
-      source: { code: "<Button variant='secondary-dark' />" },
-    },
-  },
-  render: args => {
-    return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"xl"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"l"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} isDisabled={true} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={{ name: "ri-square-line" }} hideText />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
-          <Button variant={"secondary-dark"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"secondary-dark"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"s"} />
-        </div>
-      </div>
-    );
+  render: () => {
+    return <ButtonsDoc theme={"destructive"} />;
   },
 };
 
-export const Danger: Story = {
+export const TextButton: Story = {
   parameters: {
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    },
     docs: {
-      source: { code: "<Button variant='danger' />" },
+      source: {
+        code: `
+<Button isTextButton={true}>
+  Button core
+</Button>
+        `,
+      },
     },
   },
-  render: args => {
+  render: () => {
+    return <ButtonsTextDoc theme={"destructive"} />;
+  },
+};
+
+export const Group: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<ButtonLoading  />" },
+    },
+  },
+  render: () => {
     return (
-      <div className="flex w-full items-start gap-5">
-        <div className="flex flex-col gap-2">
-          <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} isDisabled={true} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"xl"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"xl"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"danger"} {...defaultProps} {...args} size={"l"} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"l"} isDisabled={true} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"l"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"l"} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"danger"} {...defaultProps} {...args} />
-          <Button variant={"danger"} {...defaultProps} {...args} isDisabled={true} />
-          <Button variant={"danger"} {...defaultProps} {...args} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={{ name: "ri-square-line" }} hideText />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant={"danger"} {...defaultProps} {...args} size={"s"} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"s"} isDisabled={true} />
-          <Button variant={"danger"} {...defaultProps} {...args} size={"s"} isLoading={true} />
-          <Button variant={"danger"} {...args} startIcon={{ name: "ri-square-line" }} hideText size={"s"} />
-        </div>
+      <div className="flex w-full flex-col items-start gap-10">
+        {theme.map(theme => (
+          <div key={theme} className="flex w-full flex-col items-start gap-5">
+            {sizes.map(size => (
+              <div key={size} className="flex w-full flex-col items-start gap-5">
+                <ButtonGroup
+                  theme={theme}
+                  key={`primary-${size}`}
+                  size={size}
+                  buttons={[{ children: "Button 1" }, { children: "Button 2" }, { children: "Button 3" }]}
+                />
+                <ButtonGroup
+                  theme={theme}
+                  key={`primary-${size}`}
+                  size={size}
+                  buttons={[
+                    { startIcon: { component: BoxSelect }, iconOnly: true },
+                    { startIcon: { component: CircleDashed }, iconOnly: true },
+                    { startIcon: { component: MessageCircleDashed }, iconOnly: true },
+                  ]}
+                />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     );
   },
@@ -242,20 +291,20 @@ export const Skeleton: Story = {
     return (
       <div className="flex w-full items-start gap-5">
         <div className="flex flex-col gap-2">
-          <ButtonLoading size={"xl"} />
-          <ButtonLoading size={"xl"} hideText />
+          <ButtonLoading size={"lg"} />
+          <ButtonLoading size={"lg"} iconOnly />
         </div>
         <div className="flex flex-col gap-2">
-          <ButtonLoading size={"l"} />
-          <ButtonLoading size={"l"} hideText />
+          <ButtonLoading size={"md"} />
+          <ButtonLoading size={"md"} iconOnly />
         </div>
         <div className="flex flex-col gap-2">
-          <ButtonLoading />
-          <ButtonLoading hideText />
+          <ButtonLoading size={"sm"} />
+          <ButtonLoading size={"sm"} iconOnly />
         </div>
         <div className="flex flex-col gap-2">
-          <ButtonLoading size={"s"} />
-          <ButtonLoading size={"s"} hideText />
+          <ButtonLoading size={"xs"} />
+          <ButtonLoading size={"xs"} iconOnly />
         </div>
       </div>
     );

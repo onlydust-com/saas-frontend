@@ -1,10 +1,14 @@
+import { CodeXml, Tag } from "lucide-react";
 import { ElementType } from "react";
 
+import { Avatar } from "@/design-system/atoms/avatar";
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Paper } from "@/design-system/atoms/paper";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { CardTemplate } from "../../../card-template";
 import { CardProjectPort } from "../../card-project.types";
 import { CardProjectDefaultVariants } from "./default.variants";
 
@@ -19,34 +23,60 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   categories = [],
   buttonProps,
   onClick,
+  size = "xl",
+  background = "secondary",
+  border = "primary",
 }: CardProjectPort<C>) {
   const slots = CardProjectDefaultVariants({ clickable: Boolean(onClick) });
 
   const formattedLanguages = languages.map(language => ({
     ...language,
-    icon: { name: "ri-code-line" },
+    icon: { component: CodeXml },
   }));
 
   const formattedCategories = categories.map(category => ({
     ...category,
-    icon: { name: "ri-price-tag-3-line" },
+    icon: { component: Tag },
   }));
 
+  const badges = [...formattedLanguages, ...formattedCategories];
+
   return (
-    <CardTemplate
+    <Paper
       as={as}
       htmlProps={htmlProps}
+      size={size}
+      background={background}
+      border={border}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
-      avatarProps={{ src: logoUrl, shape: "square" }}
-      titleProps={{
-        children: title,
-      }}
-      descriptionProps={{
-        children: description,
-      }}
-      tags={[...formattedLanguages, ...formattedCategories]}
-      endContent={buttonProps && <Button {...buttonProps} size="l" variant="secondary-light" />}
       onClick={onClick}
-    />
+    >
+      <Avatar src={logoUrl} shape={"squared"} size="s" />
+
+      <div className="flex w-full flex-col gap-3 overflow-hidden">
+        <div className="flex items-start justify-between gap-md">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1">
+              <Typo size="sm" weight="medium" color={"primary"}>
+                {title}
+              </Typo>
+            </div>
+            <Typo size="xs" color={"secondary"}>
+              {description}
+            </Typo>
+          </div>
+
+          {buttonProps && <Button {...buttonProps} size="xs" variant="secondary" />}
+        </div>
+
+        {badges?.length ? (
+          <div className="flex w-full flex-wrap gap-1">
+            {badges.map((t, key) => (
+              <Badge key={key} color="grey" size="xs" {...t} />
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </Paper>
   );
 }

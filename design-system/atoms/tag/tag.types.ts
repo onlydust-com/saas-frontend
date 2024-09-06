@@ -6,21 +6,17 @@ import { TypoPort } from "@/design-system/atoms/typo";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+export type TagSize = "xxs" | "xs" | "sm" | "md";
 interface Variants {
-  size: "xs" | "s" | "m";
-  shape: "round" | "square";
-  hideText: boolean;
-  style: "fill" | "outline";
-  isDeletable: boolean;
-  color: "black" | "white" | "red" | "pink" | "grey" | "green" | "yellow" | "orange" | "purple" | "blue";
+  size: TagSize;
 }
 
 interface ClassNames {
   base: string;
   content: string;
   label: string;
-  deletableIcon: string;
-  dropDownIcon: string;
+  closeButton: string;
+  closeIcon: string;
 }
 
 export interface TagBasePort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
@@ -31,17 +27,14 @@ export interface TagBasePort<C extends ElementType> extends Partial<Variants>, P
   startContent?: ReactNode;
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
-  deletableIconProps?: Partial<IconPort>;
-  clickable?: boolean;
-  hasDropdown?: boolean;
-}
-
-export interface TagIconPort<C extends ElementType> extends TagBasePort<C> {
-  icon: IconPort;
+  startIcon?: IconPort;
+  onClose?: () => void;
+  onSelect?: () => void;
+  isSelected?: boolean;
 }
 
 export interface TagAvatarPort<C extends ElementType> extends TagBasePort<C> {
   avatar: AvatarPort;
 }
 
-export type TagPort<C extends ElementType> = TagBasePort<C> | TagIconPort<C> | TagAvatarPort<C>;
+export type TagPort<C extends ElementType> = TagBasePort<C> | TagAvatarPort<C>;

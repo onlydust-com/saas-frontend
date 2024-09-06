@@ -4,8 +4,6 @@ import { useState } from "react";
 
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { TableRowLoading } from "@/design-system/atoms/table-row/table-row.loading";
-import { AvatarDescription } from "@/design-system/molecules/avatar-description";
-import { AvatarGroupDescription } from "@/design-system/molecules/avatar-group-description";
 
 import { TableRow } from "./variants/table-row-default";
 
@@ -51,37 +49,14 @@ const columnHelper = createColumnHelper<Person>();
 
 const columns = [
   columnHelper.accessor("firstName", {
-    cell: info => (
-      <AvatarDescription
-        avatarProps={{}}
-        labelProps={{
-          children: info.getValue(),
-        }}
-      />
-    ),
+    cell: info => <p>{info.getValue()}</p>,
   }),
   columnHelper.accessor(row => row.lastName, {
     id: "lastName",
-    cell: info => (
-      <AvatarDescription
-        avatarProps={{}}
-        labelProps={{
-          children: info.getValue(),
-        }}
-      />
-    ),
+    cell: info => <p>{info.getValue()}</p>,
   }),
   columnHelper.accessor("age", {
-    cell: info => (
-      <AvatarGroupDescription
-        avatarGroupProps={{
-          avatars: [{}, {}, {}],
-        }}
-        labelProps={{
-          children: info.getValue(),
-        }}
-      />
-    ),
+    cell: info => <p>{info.getValue()}</p>,
   }),
   columnHelper.accessor("visits", {
     cell: info => <TableCellKpi>{info.getValue()}</TableCellKpi>,
@@ -123,7 +98,7 @@ export const Default: Story = {
 
     return (
       <div className="flex w-full items-center gap-2">
-        <table className={"w-full border-separate border-spacing-y-3"}>
+        <table className={"w-full"}>
           <tbody>
             {table.getRowModel().rows.map(row => (
               <TableRow key={row.id} {...args} row={row} />

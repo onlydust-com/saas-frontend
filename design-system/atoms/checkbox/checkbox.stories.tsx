@@ -10,12 +10,6 @@ const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
   title: "Atoms/Checkbox",
   tags: ["autodocs"],
-  parameters: {
-    backgrounds: {
-      default: "black",
-      values: [{ name: "black", value: "#1E1E1E" }],
-    },
-  },
 };
 
 export const Default: Story = {
@@ -33,7 +27,7 @@ export const Default: Story = {
   },
 };
 
-export const White: Story = {
+export const Primary: Story = {
   parameters: {
     docs: {
       source: { code: "<Checkbox />" },
@@ -43,33 +37,63 @@ export const White: Story = {
     return (
       <div className="flex w-full items-center gap-2">
         <Checkbox {...defaultProps} />
-        <Checkbox {...defaultProps} data-hover="true" />
         <Checkbox {...defaultProps} value={true} />
         <Checkbox {...defaultProps} mixed />
         <Checkbox {...defaultProps} isDisabled />
+        <Checkbox {...defaultProps} isDisabled value={true} />
+        <Checkbox {...defaultProps} mixed isDisabled value={true} />
       </div>
     );
   },
 };
 
-export const Black: Story = {
+export const WithLabel: Story = {
   parameters: {
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#FFFFFF" }],
-    },
     docs: {
-      source: { code: "<Checkbox color='black'/>" },
+      source: { code: "<Checkbox />" },
     },
   },
   render: () => {
     return (
-      <div className="flex w-full items-center gap-2">
-        <Checkbox {...defaultProps} color={"black"} />
-        <Checkbox {...defaultProps} color={"black"} data-hover="true" />
-        <Checkbox {...defaultProps} color={"black"} value={true} />
-        <Checkbox {...defaultProps} color={"black"} mixed />
-        <Checkbox {...defaultProps} color={"black"} isDisabled />
+      <div className="flex w-full flex-col gap-2">
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+        />
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+          value={true}
+        />
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+          mixed
+        />
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+          isDisabled
+        />
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+          isDisabled
+          value={true}
+        />
+        <Checkbox
+          {...defaultProps}
+          label={{ token: "stories:checkbox.label" }}
+          description={{ token: "stories:checkbox.description" }}
+          mixed
+          isDisabled
+          value={true}
+        />
       </div>
     );
   },
