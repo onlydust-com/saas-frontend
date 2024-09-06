@@ -14,7 +14,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function withSponsorList<P extends object>(Component: ComponentType<P>) {
+function withSponsorList<P extends object>(Component: ComponentType<P>) {
   return function WithSponsorList(props: P) {
     const [showSponsorList] = useShowSponsorList();
     const router = useRouter();
