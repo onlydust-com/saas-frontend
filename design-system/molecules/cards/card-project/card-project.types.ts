@@ -21,7 +21,9 @@ export interface CardProjectPort<C extends ElementType> extends Partial<Variants
   logoUrl?: string;
   languages?: Array<TagPort<"div">>;
   categories?: Array<TagPort<"div">>;
-  buttonProps?: ButtonPort<"a">;
+  projectCount?: number;
+  userCount?: number;
+  buttonProps?: ButtonPort<"a" | "div">;
   onClick?: () => void;
   size?: PaperPort<C>["size"];
   background?: PaperPort<C>["background"];

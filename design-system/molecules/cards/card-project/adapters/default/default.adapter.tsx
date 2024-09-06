@@ -1,5 +1,5 @@
-import { CodeXml, Tag } from "lucide-react";
-import { ElementType } from "react";
+import { CodeXml, Folder, Tag, User } from "lucide-react";
+import { ComponentProps, ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -21,6 +21,8 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   logoUrl,
   languages = [],
   categories = [],
+  projectCount,
+  userCount,
   buttonProps,
   onClick,
   size = "xl",
@@ -39,7 +41,18 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
     icon: { component: Tag },
   }));
 
-  const badges = [...formattedLanguages, ...formattedCategories];
+  const formattedProjectCount =
+    typeof projectCount !== "undefined" ? [{ children: projectCount, icon: { component: Folder } }] : [];
+
+  const formattedUserCount =
+    typeof userCount !== "undefined" ? [{ children: userCount, icon: { component: User } }] : [];
+
+  const badges: ComponentProps<typeof Badge>[] = [
+    ...formattedLanguages,
+    ...formattedCategories,
+    ...formattedProjectCount,
+    ...formattedUserCount,
+  ];
 
   return (
     <Paper
