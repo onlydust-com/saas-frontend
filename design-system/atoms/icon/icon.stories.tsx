@@ -12,7 +12,7 @@ const defaultProps: IconPort = {
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
-  title: "Deprecated/Atoms/Icon",
+  title: "Atoms/Icon",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {

@@ -2,28 +2,29 @@ import { tv } from "tailwind-variants";
 
 export const ButtonDefaultVariants = tv({
   slots: {
-    base: "group relative box-border flex h-fit w-fit cursor-pointer overflow-hidden transition-all",
+    base: "group relative box-border flex h-fit w-fit cursor-pointer items-center justify-center overflow-hidden transition-all",
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
   },
+
   variants: {
     size: {
       xs: {
-        base: "px-md py-xs rounded-sm",
+        base: "h-[24px] rounded-sm px-md",
         content: "gap-xs",
       },
       sm: {
-        base: "px-lg py-md rounded-md",
+        base: "h-[32px] rounded-md px-lg",
         content: "gap-md",
       },
       md: {
-        base: "px-xl py-2md rounded-md",
+        base: "h-[40px] rounded-md px-xl",
         content: "gap-md",
       },
       lg: {
-        base: "px-2xl py-lg rounded-lg",
+        base: "h-[48px] rounded-lg px-2xl",
         content: "gap-2md",
       },
     },
@@ -61,28 +62,28 @@ export const ButtonDefaultVariants = tv({
       iconOnly: true,
       size: "xs",
       class: {
-        base: "px-xs py-xs",
+        base: "h-[24px] min-h-[24px] w-[24px] min-w-[24px] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "sm",
       class: {
-        base: "px-md py-md",
+        base: "h-[32px] min-h-[32px] w-[32px] min-w-[32px] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "md",
       class: {
-        base: "!px-2md py-2md",
+        base: "h-[40px] min-h-[40px] w-[40px] min-w-[40px] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "lg",
       class: {
-        base: "px-lg py-lg",
+        base: "h-[48px] min-h-[48px] w-[48px] min-w-[48px] !px-0",
       },
     },
   ],
@@ -93,3 +94,22 @@ export const ButtonDefaultVariants = tv({
     canInteract: true,
   },
 });
+
+// size: {
+//   xs: {
+//     base: "h-[24px] rounded-sm px-md py-xs",
+//       content: "gap-xs",
+//   },
+//   sm: {
+//     base: "h-[32px] rounded-md px-lg py-md",
+//       content: "gap-md",
+//   },
+//   md: {
+//     base: "h-[40px] rounded-md px-xl py-2md",
+//       content: "gap-md",
+//   },
+//   lg: {
+//     base: "h-[48px] rounded-lg px-2xl py-lg",
+//       content: "gap-2md",
+//   },
+// },

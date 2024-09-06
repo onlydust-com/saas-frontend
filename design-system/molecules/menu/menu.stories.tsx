@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { CircleDashed } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -38,9 +39,33 @@ export const Default: Story = {
     },
   },
   render: args => {
+    const [selectedIds, setSelectedIds] = useState<string[]>(defaultProps.selectedIds || []);
     return (
       <div className="flex w-full items-center gap-2">
-        <Menu {...defaultProps} {...args} />
+        <Menu {...defaultProps} {...args} selectedIds={selectedIds} onSelect={setSelectedIds} />
+      </div>
+    );
+  },
+};
+
+export const PopOver: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Menu />" },
+    },
+  },
+  render: args => {
+    const [selectedIds, setSelectedIds] = useState<string[]>(defaultProps.selectedIds || []);
+    return (
+      <div className="flex h-[500px] w-full items-center gap-2">
+        <Menu
+          {...defaultProps}
+          {...args}
+          selectedIds={selectedIds}
+          onSelect={setSelectedIds}
+          isPopOver={true}
+          closeOnSelect
+        />
       </div>
     );
   },

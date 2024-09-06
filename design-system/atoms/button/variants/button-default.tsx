@@ -5,9 +5,9 @@ import { ButtonDestructiveColor } from "@/design-system/atoms/button/variants/bu
 import { ButtonPrimaryColor } from "@/design-system/atoms/button/variants/button-primary-color";
 import { ButtonTextPrimaryColor } from "@/design-system/atoms/button/variants/button-text-primary-color";
 
-import { ButtonDefaultPort } from "../button.types";
+import { ButtonPort } from "../button.types";
 
-export function Button<C extends ElementType = "button">(props: ButtonDefaultPort<C>) {
+export function Button<C extends ElementType = "button">(props: ButtonPort<C>) {
   if (isButtonText(props)) {
     switch (props.theme) {
       case "primary":

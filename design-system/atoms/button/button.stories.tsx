@@ -7,7 +7,7 @@ import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group"
 import { Icon } from "@/design-system/atoms/icon";
 
 import {
-  ButtonDefaultPort,
+  ButtonPort,
   ButtonSize,
   ButtonSolidTheme,
   ButtonSolidVariant,
@@ -19,7 +19,7 @@ import { Button } from "./variants/button-default";
 
 type Story = StoryObj<typeof Button>;
 
-const defaultProps: ButtonDefaultPort<"button"> = {
+const defaultProps: ButtonPort<"button"> = {
   children: "Button core",
   startIcon: { component: CircleDashed },
   endIcon: { component: CircleDashed },
@@ -42,7 +42,7 @@ const sizesText: ButtonTextSize[] = ["xs", "md", "lg"];
 const variantsText: ButtonTextVariant[] = ["primary", "secondary"];
 const underlineVariant: [false, true] = [false, true];
 
-function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFocus?: boolean }) {
+function ButtonDoc(args: ButtonPort<"button"> & { isHover?: boolean; isFocus?: boolean }) {
   if (args.isHover) {
     // Storybook doesn't support data attributes in the preview
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -68,7 +68,7 @@ function ButtonDoc(args: ButtonDefaultPort<"button"> & { isHover?: boolean; isFo
   return null;
 }
 
-const ButtonsDoc = ({ theme }: Pick<ButtonDefaultPort<"button">, "theme">) => (
+const ButtonsDoc = ({ theme }: Pick<ButtonPort<"button">, "theme">) => (
   <div className="flex w-full flex-col items-start gap-10">
     {variants.map(variant => (
       <div key={variant} className="flex w-full items-start gap-5">
