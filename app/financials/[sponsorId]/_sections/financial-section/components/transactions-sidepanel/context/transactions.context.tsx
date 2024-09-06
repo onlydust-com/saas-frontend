@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { bootstrap } from "@/core/bootstrap";
+
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -9,10 +12,7 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "@/app/financials/[sponsorId]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
-
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
-import { bootstrap } from "@/core/bootstrap";
+} from "./transactions.context.types";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   sponsorId: "",
