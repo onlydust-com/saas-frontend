@@ -18,7 +18,7 @@ export interface AccordionItemProps {
   id: string;
   titleProps: Partial<TypoPort<"span">>;
   content: ReactNode;
-  badge?: BadgePort<"div">;
+  badgeProps?: BadgePort<"div">;
   startIcon?: IconPort;
 }
 

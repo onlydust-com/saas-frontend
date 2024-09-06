@@ -14,12 +14,12 @@ const defaultPort: AccordionPort = {
       titleProps: { children: "Label 1" },
       content: "Accordion content 1",
       startIcon: { component: CircleDashed },
-      badge: { children: 3 },
+      badgeProps: { children: 3 },
     },
     {
       id: "id-2",
       titleProps: { children: "Label 2" },
-      badge: { children: 3 },
+      badgeProps: { children: 3 },
       content: (
         <div className="flex flex-col gap-1">
           <p>Accordion content 1</p>

@@ -1,8 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { ChangeEvent, useRef } from "react";
 
-import { AmountSelectorProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/amount-selector/amount-selector.types";
-
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
@@ -16,7 +14,16 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { cn } from "@/shared/helpers/cn";
 
-export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onBudgetChange }: AmountSelectorProps) {
+import { AmountSelectorProps } from "./amount-selector.types";
+
+export function AmountSelector({
+  amount,
+  onAmountChange,
+  budget,
+  allBudgets,
+  onBudgetChange,
+  readOnly,
+}: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
@@ -36,21 +43,25 @@ export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onB
   }
 
   function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
-    let value = e.target.value;
+    if (!readOnly && onAmountChange) {
+      let value = e.target.value;
 
-    // Only allow numbers and one dot
-    value = value.replace(/[^\d.]/g, "");
+      // Only allow numbers and one dot
+      value = value.replace(/[^\d.]/g, "");
 
-    if (value.length > 1 && value.startsWith("0")) {
-      value = value.slice(1);
+      if (value.length > 1 && value.startsWith("0")) {
+        value = value.slice(1);
+      }
+
+      onAmountChange(value || "0");
     }
-
-    onAmountChange(value || "0");
   }
 
   function handleChangeBudget(budget: DetailedTotalMoneyTotalPerCurrency) {
-    onBudgetChange(budget);
-    back();
+    if (!readOnly && onBudgetChange) {
+      onBudgetChange(budget);
+      back();
+    }
   }
 
   return (
@@ -71,6 +82,7 @@ export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onB
             className={"flex bg-transparent text-right font-medium text-typography-primary outline-none"}
             value={amount}
             onChange={handleChangeAmount}
+            readOnly={readOnly}
           />
           <div onClick={handleFocusInput}>
             <span className={"font-medium text-typography-primary"}>{budget.currency.code}</span>
@@ -83,7 +95,13 @@ export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onB
 
       <div>
         <div className={"flex w-full justify-center"}>
-          <Button variant={"secondary"} size={"md"} onClick={open} endIcon={{ component: ChevronDown }}>
+          <Button
+            variant={"secondary"}
+            size={"md"}
+            onClick={open}
+            endIcon={!readOnly ? { component: ChevronDown } : undefined}
+            canInteract={!readOnly}
+          >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
               size={"md"}
@@ -94,32 +112,34 @@ export function AmountSelector({ amount, onAmountChange, budget, allBudgets, onB
           </Button>
         </div>
 
-        <Panel>
-          <SidePanelHeader
-            canGoBack={true}
-            canClose={true}
-            title={{ translate: { token: "programs:grantForm.amountSelector.title" } }}
-          />
-          <SidePanelBody>
-            <div className="grid gap-2">
-              {allBudgets?.map(budget => {
-                return (
-                  <CardBudget
-                    as={"button"}
-                    key={budget.currency.id}
-                    amount={{
-                      value: budget.amount,
-                      currency: budget.currency,
-                      usdEquivalent: budget.usdEquivalent ?? 0,
-                    }}
-                    badgeProps={{ children: budget.currency.name }}
-                    onClick={() => handleChangeBudget(budget)}
-                  />
-                );
-              })}
-            </div>
-          </SidePanelBody>
-        </Panel>
+        {!readOnly && allBudgets ? (
+          <Panel>
+            <SidePanelHeader
+              canGoBack={true}
+              canClose={true}
+              title={{ translate: { token: "features:amountSelector.currenciesAvailable.title" } }}
+            />
+            <SidePanelBody>
+              <div className="grid gap-2">
+                {allBudgets.map(budget => {
+                  return (
+                    <CardBudget
+                      as={"button"}
+                      key={budget.currency.id}
+                      amount={{
+                        value: budget.amount,
+                        currency: budget.currency,
+                        usdEquivalent: budget.usdEquivalent ?? 0,
+                      }}
+                      badgeProps={{ children: budget.currency.name }}
+                      onClick={() => handleChangeBudget(budget)}
+                    />
+                  );
+                })}
+              </div>
+            </SidePanelBody>
+          </Panel>
+        ) : null}
       </div>
     </div>
   );

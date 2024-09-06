@@ -48,7 +48,7 @@ export function AccordionNextUiAdapter({ classNames, items, multiple = false, de
                 classNames={{ base: cn(slots.label(), classNames?.label) }}
               />
 
-              {!!item.badge && <Badge size={"xxs"} color={"grey"} {...item.badge} />}
+              {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
             </div>
           }
           indicator={
