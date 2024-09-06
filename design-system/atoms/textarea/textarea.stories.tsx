@@ -1,7 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Square } from "lucide-react";
-
-import { Icon } from "@/design-system/atoms/icon";
 
 import { Textarea, TextareaPort } from "./index";
 
@@ -9,16 +6,18 @@ type Story = StoryObj<typeof Textarea>;
 
 const defaultProps: TextareaPort = {
   name: "textarea",
-  startContent: <Icon component={Square} />,
-  endContent: <Icon component={Square} />,
-  value: "Input text",
+  placeholder: "placeholder",
 };
 
 const meta: Meta<typeof Textarea> = {
   component: Textarea,
-  title: "Deprecated/Atoms/Textarea",
+  title: "Atoms/Textarea",
   tags: ["autodocs"],
 };
+
+function TextareaTemplate(args: TextareaPort) {
+  return <Textarea {...defaultProps} {...args} />;
+}
 
 export const Default: Story = {
   parameters: {
@@ -28,38 +27,38 @@ export const Default: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-[348px] items-center gap-2">
-        <Textarea {...defaultProps} {...args} />
+      <div className="flex w-[348px] flex-col items-center gap-2">
+        <TextareaTemplate {...defaultProps} {...args} />
+        <TextareaTemplate {...defaultProps} {...args} value={"Textarea text"} />
+        <TextareaTemplate {...defaultProps} {...args} isDisabled={true} />
+        <TextareaTemplate {...defaultProps} {...args} isError={true} />
       </div>
     );
   },
 };
 
-export const Disabled: Story = {
+export const withLabel: Story = {
   parameters: {
     docs: {
-      source: { code: "<Textarea isDisabled={true} />" },
+      source: { code: "<Textarea label='Input label' />" },
     },
   },
   render: () => {
     return (
-      <div className="flex w-[348px] items-center gap-2">
-        <Textarea {...defaultProps} isDisabled={true} />
-      </div>
-    );
-  },
-};
-
-export const Invalid: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<Textarea isError={true} />" },
-    },
-  },
-  render: () => {
-    return (
-      <div className="flex w-[348px] items-center gap-2">
-        <Textarea {...defaultProps} isError={true} />
+      <div className="flex flex-row items-start gap-6">
+        <TextareaTemplate
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+        />
+        <TextareaTemplate
+          label={"label"}
+          description={"Lorem ipsum dolor sit amet"}
+          info={{ text: "Lorem ipsum dolor sit amet" }}
+          error={{ text: "Lorem ipsum dolor sit amet" }}
+          isError={true}
+        />
       </div>
     );
   },

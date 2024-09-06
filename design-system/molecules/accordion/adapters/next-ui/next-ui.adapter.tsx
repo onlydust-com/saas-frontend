@@ -7,10 +7,15 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { AccordionPort } from "../../accordion.types";
+import { AccordionMultiplePort } from "../../accordion.types";
 import { AccordionNextUiVariants } from "./next-ui.variants";
 
-export function AccordionNextUiAdapter({ classNames, items, multiple = false, defaultSelected }: AccordionPort) {
+export function AccordionNextUiAdapter({
+  classNames,
+  items,
+  multiple = false,
+  defaultSelected,
+}: AccordionMultiplePort) {
   const slots = AccordionNextUiVariants();
 
   return (
@@ -48,7 +53,7 @@ export function AccordionNextUiAdapter({ classNames, items, multiple = false, de
                 classNames={{ base: cn(slots.label(), classNames?.label) }}
               />
 
-              {!!item.badge && <Badge size={"xxs"} color={"grey"} {...item.badge} />}
+              {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
             </div>
           }
           indicator={

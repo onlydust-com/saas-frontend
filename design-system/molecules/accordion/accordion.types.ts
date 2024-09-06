@@ -18,13 +18,25 @@ export interface AccordionItemProps {
   id: string;
   titleProps: Partial<TypoPort<"span">>;
   content: ReactNode;
-  badge?: BadgePort<"div">;
+  badgeProps?: BadgePort<"div">;
   startIcon?: IconPort;
 }
 
-export interface AccordionPort {
+export interface AccordionBasePort {
   classNames?: ClassNames;
-  items: AccordionItemProps[];
-  multiple?: boolean;
   defaultSelected?: string[];
 }
+
+export interface AccordionMultiplePort extends AccordionBasePort {
+  items: AccordionItemProps[];
+  multiple?: boolean;
+}
+
+export interface AccordionSinglePort extends AccordionBasePort, Omit<AccordionItemProps, "content"> {
+  classNames?: ClassNames;
+  items?: never;
+  children: ReactNode;
+  multiple?: never;
+}
+
+export type AccordionPort = AccordionMultiplePort | AccordionSinglePort;

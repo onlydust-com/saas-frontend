@@ -14,7 +14,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function withProgramList<P extends object>(Component: ComponentType<P>) {
+function withProgramList<P extends object>(Component: ComponentType<P>) {
   return function WithProgramList(props: P) {
     const [showProgramList] = useShowProgramsList();
     const router = useRouter();
