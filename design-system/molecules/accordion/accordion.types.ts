@@ -32,12 +32,11 @@ export interface AccordionMultiplePort extends AccordionBasePort {
   multiple?: boolean;
 }
 
-export interface AccordionSinglePort
-  extends Omit<AccordionBasePort, "multiple" | "items">,
-    Omit<AccordionItemProps, "content"> {
+export interface AccordionSinglePort extends AccordionBasePort, Omit<AccordionItemProps, "content"> {
   classNames?: ClassNames;
   items?: never;
   children: ReactNode;
+  multiple?: never;
 }
 
 export type AccordionPort = AccordionMultiplePort | AccordionSinglePort;
