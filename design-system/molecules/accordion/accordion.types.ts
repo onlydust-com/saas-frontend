@@ -22,9 +22,22 @@ export interface AccordionItemProps {
   startIcon?: IconPort;
 }
 
-export interface AccordionPort {
+export interface AccordionBasePort {
   classNames?: ClassNames;
-  items: AccordionItemProps[];
-  multiple?: boolean;
   defaultSelected?: string[];
 }
+
+export interface AccordionMultiplePort extends AccordionBasePort {
+  items: AccordionItemProps[];
+  multiple?: boolean;
+}
+
+export interface AccordionSinglePort
+  extends Omit<AccordionBasePort, "multiple" | "items">,
+    Omit<AccordionItemProps, "content"> {
+  classNames?: ClassNames;
+  items?: never;
+  children: ReactNode;
+}
+
+export type AccordionPort = AccordionMultiplePort | AccordionSinglePort;
