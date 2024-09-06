@@ -16,6 +16,7 @@ export function MenuDefaultAdapter({
   onNextPage,
   hasNextPage,
   isLoading,
+  onAction,
 }: ListMenuPort) {
   const slots = MenuDefaultVariants();
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -51,11 +52,16 @@ export function MenuDefaultAdapter({
 
   const showMore = hasNextPage && !!onNextPage && !isLoading;
 
+  function handleItemClick(id: string) {
+    onAction?.(id);
+    onSelectItem(id);
+  }
+
   return (
     <div className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.content(), classNames?.content)} style={minWidth ? { minWidth } : {}}>
         {itemsWithSelection.map(item => (
-          <MenuItem key={item.id} {...item} onClick={onSelectItem} />
+          <MenuItem key={item.id} {...item} onClick={handleItemClick} />
         ))}
         {showMore ? (
           <ShowMore className={"py-2"} onNext={() => onNextPage?.()} loading={isLoading || false} skip={!hasNextPage} />

@@ -17,6 +17,7 @@ export interface MenuBasePort extends Partial<Variants> {
   onNextPage?: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean;
+  onAction?: (id: string) => void;
 }
 
 export interface ListMenuPort extends MenuBasePort {
