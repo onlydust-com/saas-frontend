@@ -132,6 +132,14 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     return items;
   }, [isAutoComplete, controlledAutoComplete, inputValue, items]);
 
+  function toggleOpen() {
+    if (isAutoComplete) {
+      setOpen(false);
+    } else {
+      setOpen(prev => !prev);
+    }
+  }
+
   useEffect(() => {
     setInputValue("");
   }, [open]);
@@ -152,7 +160,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      <div ref={refs.setReference} {...getReferenceProps()} onClick={() => setOpen(true)} className={"cursor-pointer"}>
+      <div ref={refs.setReference} {...getReferenceProps()} onClick={toggleOpen} className={"cursor-pointer"}>
         <Input
           value={formatedInputValue}
           endIcon={!isAutoComplete ? { component: ChevronDown } : undefined}
