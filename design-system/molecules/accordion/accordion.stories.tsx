@@ -14,12 +14,12 @@ const defaultPort: AccordionPort = {
       titleProps: { children: "Label 1" },
       content: "Accordion content 1",
       startIcon: { component: CircleDashed },
-      badge: { children: 3 },
+      badgeProps: { children: 3 },
     },
     {
       id: "id-2",
       titleProps: { children: "Label 2" },
-      badge: { children: 3 },
+      badgeProps: { children: 3 },
       content: (
         <div className="flex flex-col gap-1">
           <p>Accordion content 1</p>
@@ -97,6 +97,23 @@ export const Multiple: Story = {
     return (
       <div className="flex w-full items-center gap-2">
         <Accordion {...defaultPort} {...args} multiple />
+      </div>
+    );
+  },
+};
+
+export const Single: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Accordion multiple />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full items-center gap-2">
+        <Accordion id={"1"} titleProps={{ children: "Label 1" }}>
+          Children
+        </Accordion>
       </div>
     );
   },
