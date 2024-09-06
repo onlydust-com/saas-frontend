@@ -11,13 +11,18 @@ export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
     <>
       <SidePanelHeader
         title={{
-          children: "Create program",
+          translate: { token: "financials:createProgramPanel.title" },
         }}
         canGoBack={false}
         canClose={true}
       />
       <SidePanelBody>
-        <Accordion items={[]} />
+        <Accordion
+          id={"general-information"}
+          titleProps={{ translate: { token: "financials:createProgramPanel.informations.title" } }}
+        >
+          BODY
+        </Accordion>
       </SidePanelBody>
     </>
   );
