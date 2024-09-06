@@ -6,10 +6,12 @@ import { ProgramsTable } from "@/app/financials/[sponsorId]/_features/programs-t
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { useProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsSection() {
   const { open } = useCreateProgramPanel();
+  const { open: openProgramList } = useProgramListSidepanel();
   return (
     <div className="grid gap-3">
       <header className={"flex items-center justify-between"}>
@@ -22,7 +24,13 @@ export function ProgramsSection() {
           }}
         />
         <div className={"flex flex-row items-center justify-end gap-lg"}>
-          <Button variant={"primary"} endIcon={{ component: ChevronRight }} isTextButton size={"md"} onClick={() => {}}>
+          <Button
+            variant={"primary"}
+            endIcon={{ component: ChevronRight }}
+            isTextButton
+            size={"md"}
+            onClick={() => openProgramList()}
+          >
             <Translate token={"financials:details.programs.actions.allocate"} />
           </Button>
           <Button
