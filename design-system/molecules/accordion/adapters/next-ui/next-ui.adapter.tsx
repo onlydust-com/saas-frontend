@@ -12,7 +12,7 @@ import { AccordionNextUiVariants } from "./next-ui.variants";
 
 export function AccordionNextUiAdapter({
   classNames,
-  items,
+  items = [],
   multiple = false,
   defaultSelected,
 }: AccordionMultiplePort) {

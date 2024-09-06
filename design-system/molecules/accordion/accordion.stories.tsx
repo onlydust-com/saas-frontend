@@ -63,10 +63,10 @@ export const Default: Story = {
       source: { code: "<Accordion />" },
     },
   },
-  render: args => {
+  render: () => {
     return (
       <div className="flex w-full flex-col items-center gap-8">
-        <Accordion {...defaultPort} {...args} />
+        <Accordion {...defaultPort} />
       </div>
     );
   },
@@ -78,10 +78,10 @@ export const DefaultSelected: Story = {
       source: { code: "<Accordion defaultSelected={['id-1']} />" },
     },
   },
-  render: args => {
+  render: () => {
     return (
       <div className="flex w-full items-center gap-2">
-        <Accordion {...defaultPort} {...args} defaultSelected={["id-1"]} />
+        <Accordion {...defaultPort} defaultSelected={["id-1"]} />
       </div>
     );
   },
@@ -93,10 +93,10 @@ export const Multiple: Story = {
       source: { code: "<Accordion multiple />" },
     },
   },
-  render: args => {
+  render: () => {
     return (
       <div className="flex w-full items-center gap-2">
-        <Accordion {...defaultPort} {...args} multiple />
+        <Accordion {...defaultPort} multiple />
       </div>
     );
   },

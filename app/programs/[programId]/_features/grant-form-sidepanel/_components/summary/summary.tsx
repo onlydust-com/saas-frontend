@@ -20,6 +20,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
 
   return (
     <CardBudgetAccordion
+      defaultSelected={["budgetBalance", "projectBalance"]}
       items={[
         {
           id: "budgetBalance",
