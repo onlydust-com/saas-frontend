@@ -25,19 +25,20 @@ export interface AccordionItemProps {
 export interface AccordionBasePort {
   classNames?: ClassNames;
   defaultSelected?: string[];
-  items?: never | AccordionItemProps[];
 }
 
 export interface AccordionMultiplePort extends AccordionBasePort {
-  items: AccordionItemProps[];
+  items?: AccordionItemProps[];
   multiple?: boolean;
+  children?: never;
+  titleProps?: never;
+  id?: never;
 }
 
 export interface AccordionSinglePort extends AccordionBasePort, Omit<AccordionItemProps, "content"> {
-  classNames?: ClassNames;
-  items?: never;
-  children: ReactNode;
+  items?: never[];
   multiple?: never;
+  children: ReactNode;
 }
 
 export type AccordionPort = AccordionMultiplePort | AccordionSinglePort;
