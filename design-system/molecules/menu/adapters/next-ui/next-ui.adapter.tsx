@@ -1,5 +1,6 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { SharedSelection } from "@nextui-org/system";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { MenuItem } from "@/design-system/molecules/menu-item";
 
@@ -19,7 +20,8 @@ export function MenuNextUiAdapter({
   placement,
 }: MenuPort) {
   const slots = MenuNextUiVariants();
-
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const [minWidth, setMinWidth] = useState<null | number>(null);
   function onSelectionChange(values: SharedSelection) {
     if (values === "all") {
       return onSelect?.(
@@ -36,6 +38,12 @@ export function MenuNextUiAdapter({
     );
   }
 
+  useLayoutEffect(() => {
+    if (triggerRef?.current) {
+      setMinWidth(triggerRef?.current?.offsetWidth);
+    }
+  }, [triggerRef]);
+
   return (
     <Dropdown
       classNames={{
@@ -45,7 +53,7 @@ export function MenuNextUiAdapter({
       placement={placement}
     >
       <DropdownTrigger>
-        <div>{children}</div>
+        <div ref={triggerRef}>{children}</div>
       </DropdownTrigger>
       <DropdownMenu
         closeOnSelect={closeOnSelect}
@@ -54,6 +62,7 @@ export function MenuNextUiAdapter({
         items={items}
         className={"gap-0 p-0"}
         classNames={{ list: "gap-0" }}
+        style={minWidth ? { minWidth } : {}}
         onAction={key => onAction?.(key.toString())}
         selectedKeys={selectedIds}
         onSelectionChange={onSelectionChange}
