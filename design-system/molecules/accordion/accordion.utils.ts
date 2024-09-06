@@ -4,10 +4,10 @@ import {
   AccordionSinglePort,
 } from "@/design-system/molecules/accordion/accordion.types";
 
-export function isAccodionSingle(accordion: AccordionPort): accordion is AccordionSinglePort {
+export function isAccordionSingle(accordion: AccordionPort): accordion is AccordionSinglePort {
   return (accordion as AccordionSinglePort).items === undefined;
 }
 
-export function isAccodionMultiple(accordion: AccordionPort): accordion is AccordionMultiplePort {
+export function isAccordionMultiple(accordion: AccordionPort): accordion is AccordionMultiplePort {
   return (accordion as AccordionSinglePort).items !== undefined;
 }
