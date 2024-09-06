@@ -102,6 +102,23 @@ export const Multiple: Story = {
   },
 };
 
+export const Single: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Accordion multiple />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full items-center gap-2">
+        <Accordion id={"1"} titleProps={{ children: "Label 1" }}>
+          Children
+        </Accordion>
+      </div>
+    );
+  },
+};
+
 export const Skeleton: Story = {
   parameters: {
     docs: {
