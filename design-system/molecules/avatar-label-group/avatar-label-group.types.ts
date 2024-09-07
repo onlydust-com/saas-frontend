@@ -4,7 +4,7 @@ import { AvatarPort } from "@/design-system/atoms/avatar";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 interface Variants {
-  size: "md" | "lg";
+  size: AvatarPort["size"];
 }
 
 interface ClassNames {
