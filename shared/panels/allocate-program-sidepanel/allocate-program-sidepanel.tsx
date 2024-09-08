@@ -1,6 +1,7 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { AccordionLoading } from "@/design-system/molecules/accordion";
 import { CardProject, CardProjectLoading } from "@/design-system/molecules/cards/card-project";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
@@ -78,7 +79,12 @@ export function AllocateProgramSidepanel({ programId }: AllocateProgramSidepanel
       <SidePanelBody>{renderBody()}</SidePanelBody>
 
       <SidePanelFooter>
-        <Button variant={"secondary"} size={"md"}>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          // TODO @hayden handle success toast + mutation
+          onClick={() => toast.success("test")}
+        >
           <Translate token={"panels:allocateProgram.makeAllocation"} />
         </Button>
       </SidePanelFooter>

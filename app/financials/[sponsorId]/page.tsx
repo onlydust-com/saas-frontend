@@ -42,13 +42,15 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
   const { open } = useSidePanelsContext();
   const [selectedProgramId, setSelectedProgramId] = useState<string>();
 
+  function handleOpenAllocateProgram(programId: string) {
+    setSelectedProgramId(programId);
+    open("allocate-program");
+  }
+
   return (
     <ProgramListSidepanelProvider
       sponsorId={sponsorId}
-      onProgramClick={programId => {
-        setSelectedProgramId(programId);
-        open("allocate-program");
-      }}
+      onProgramClick={handleOpenAllocateProgram}
       onCreateProgramClick={() => alert("create program")}
     >
       <AllocateProgramSidepanelProvider programId={selectedProgramId}>
@@ -92,7 +94,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
                   </div>
                 </header>
 
-                <ProgramsTable />
+                <ProgramsTable onAllocateClick={handleOpenAllocateProgram} />
               </div>
             </PageContent>
           </AnimatedColumn>

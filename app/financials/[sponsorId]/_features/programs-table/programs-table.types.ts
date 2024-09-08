@@ -1,3 +1,3 @@
-import { PropsWithChildren } from "react";
-
-export interface ProgramsTableProps extends PropsWithChildren {}
+export interface ProgramsTableProps {
+  onAllocateClick: (programId: string) => void;
+}
