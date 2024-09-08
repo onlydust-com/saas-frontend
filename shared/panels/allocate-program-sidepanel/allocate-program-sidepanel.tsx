@@ -1,7 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { AccordionLoading } from "@/design-system/molecules/accordion";
 import { CardProject, CardProjectLoading } from "@/design-system/molecules/cards/card-project";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
@@ -14,10 +13,12 @@ import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-si
 import { AllocateProgramSidepanelProps } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function AllocateProgramSidepanel({ programId }: AllocateProgramSidepanelProps) {
-  const { amount, budget, handleAmountChange, handleBudgetChange, program, summary } = useAllocateProgramSidepanel({
-    programId,
-  });
+export function AllocateProgramSidepanel({ sponsorId, programId }: AllocateProgramSidepanelProps) {
+  const { amount, budget, handleAmountChange, handleBudgetChange, program, summary, allocate } =
+    useAllocateProgramSidepanel({
+      sponsorId,
+      programId,
+    });
 
   function renderBody() {
     if (program.isLoading) {
@@ -82,8 +83,8 @@ export function AllocateProgramSidepanel({ programId }: AllocateProgramSidepanel
         <Button
           variant={"secondary"}
           size={"md"}
-          // TODO @hayden handle success toast + mutation
-          onClick={() => toast.success("test")}
+          onClick={() => allocate.post()}
+          isDisabled={program.isLoading || allocate.isPending}
         >
           <Translate token={"panels:allocateProgram.makeAllocation"} />
         </Button>

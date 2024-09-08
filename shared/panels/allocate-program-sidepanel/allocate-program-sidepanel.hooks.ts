@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
-export function useAllocateProgramSidepanel({ programId = "" }: { programId?: string }) {
+import { toast } from "@/design-system/molecules/toaster";
+
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+
+export function useAllocateProgramSidepanel({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
+  const { close } = useSidePanelsContext();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
 
@@ -27,6 +33,44 @@ export function useAllocateProgramSidepanel({ programId = "" }: { programId?: st
       setBudget(program.totalAvailable.totalPerCurrency?.[0]);
     }
   }, [program]);
+
+  const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
+    pathParams: {
+      sponsorId,
+    },
+    options: {
+      onSuccess: () => {
+        close();
+        toast.success("SUCCESS");
+
+        // TODO fix toaster messages
+
+        // toast.success(
+        //   <Translate token={"programs:grantForm.success.toast"} values={{
+        //       project: project?.name,
+        //       amount,
+        //       code: selectedBudget?.currency.code,
+        //     }}
+        // />)
+      },
+      onError: () => {
+        // toast.error(<Translate token={"programs:grantForm.error.toast"} />);
+        toast.error("ERROR");
+      },
+    },
+  });
+
+  function handleAllocateBudget() {
+    const currencyId = budget?.currency.id;
+
+    if (!programId || !currencyId) return;
+
+    mutate({
+      programId,
+      amount: parseFloat(amount),
+      currencyId,
+    });
+  }
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: programUsdAmount } = moneyKernelPort.format({
@@ -74,6 +118,10 @@ export function useAllocateProgramSidepanel({ programId = "" }: { programId?: st
       currentProgramBalance,
       newProjectBalance,
       budget,
+    },
+    allocate: {
+      post: handleAllocateBudget,
+      isPending,
     },
   };
 }

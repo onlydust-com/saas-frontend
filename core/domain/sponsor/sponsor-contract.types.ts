@@ -68,3 +68,15 @@ export type GetSponsorTransactionsPortResponse = HttpStorageResponse<GetSponsorT
 
 /* ---------------------- Get Sponsor Transactions CSV ---------------------- */
 export type GetSponsorTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
+
+/* ---------------------- Allocate Budget To Program ---------------------- */
+
+export type AllocateBudgetToProgramBody = components["schemas"]["AllocateRequest"];
+
+type AllocateBudgetToProgramPathParams = operations["allocateBudgetToProgram"]["parameters"]["path"];
+
+export type AllocateBudgetToProgramPortParams = HttpClientParameters<{
+  PathParams: AllocateBudgetToProgramPathParams;
+}>;
+
+export type AllocateBudgetToProgramPortResponse = HttpStorageResponse<never, AllocateBudgetToProgramBody>;
