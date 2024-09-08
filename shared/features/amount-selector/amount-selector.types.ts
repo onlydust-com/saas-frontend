@@ -14,7 +14,7 @@ interface ReadOnlyProps extends BaseProps {
 
 interface InputProps extends BaseProps {
   onAmountChange: (amount: string) => void;
-  allBudgets: DetailedTotalMoneyTotalPerCurrency[];
+  allBudgets?: DetailedTotalMoneyTotalPerCurrency[];
   onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency) => void;
   readOnly?: never;
 }
