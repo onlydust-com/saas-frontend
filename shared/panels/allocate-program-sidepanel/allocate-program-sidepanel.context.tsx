@@ -17,14 +17,14 @@ export const AllocateProgramSidepanelContext = createContext<AllocateProgramSide
   name: "",
 });
 
-export function AllocateProgramSidepanelProvider({ children }: AllocateProgramSidepanelContextProps) {
+export function AllocateProgramSidepanelProvider({ children, programId }: AllocateProgramSidepanelContextProps) {
   const { Panel, ...rest } = useSidePanel({ name: "allocate-program" });
 
   return (
     <AllocateProgramSidepanelContext.Provider value={{ ...rest }}>
       {children}
       <Panel>
-        <AllocateProgramSidepanel />
+        <AllocateProgramSidepanel programId={programId} />
       </Panel>
     </AllocateProgramSidepanelContext.Provider>
   );

@@ -1,4 +1,11 @@
 {
   "title": "Allocation",
+  "summary": {
+    "budgetBalance": "{{budget}} balance",
+    "programBalance": "Program balance",
+    "currentBalance": "Current balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final balance"
+  },
   "makeAllocation": "Make Allocation"
 }
