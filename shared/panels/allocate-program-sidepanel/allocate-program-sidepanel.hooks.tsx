@@ -8,6 +8,7 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 import { toast } from "@/design-system/molecules/toaster";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useAllocateProgramSidepanel({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
   const { close } = useSidePanelsContext();
@@ -41,21 +42,19 @@ export function useAllocateProgramSidepanel({ sponsorId, programId = "" }: { spo
     options: {
       onSuccess: () => {
         close();
-        toast.success("SUCCESS");
-
-        // TODO fix toaster messages
-
-        // toast.success(
-        //   <Translate token={"programs:grantForm.success.toast"} values={{
-        //       project: project?.name,
-        //       amount,
-        //       code: selectedBudget?.currency.code,
-        //     }}
-        // />)
+        toast.success(
+          <Translate
+            token={"panels:allocateProgram.success.toast"}
+            values={{
+              program: program?.name,
+              amount,
+              code: budget?.currency.code,
+            }}
+          />
+        );
       },
       onError: () => {
-        // toast.error(<Translate token={"programs:grantForm.error.toast"} />);
-        toast.error("ERROR");
+        toast.error(<Translate token={"panels:allocateProgram.error.toast"} />);
       },
     },
   });
