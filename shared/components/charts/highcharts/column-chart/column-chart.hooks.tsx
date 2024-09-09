@@ -2,17 +2,17 @@ import { Options, SeriesColumnOptions } from "highcharts";
 import { useMemo } from "react";
 
 import {
-  UseColumnChartOptionsParams,
-  UseColumnChartOptionsReturn,
-} from "@/shared/components/charts/highcharts/column-chart/column-chart.types";
-import {
   legendStyle,
   titleStyle,
   tooltipInnerStyle,
   tooltipWrapperStyle,
   xAxisStyle,
   yAxisStyle,
-} from "@/shared/components/charts/highcharts/column-chart/culumn-chart.styles";
+} from "@/shared/components/charts/highcharts/column-chart/column-chart.styles";
+import {
+  UseColumnChartOptionsParams,
+  UseColumnChartOptionsReturn,
+} from "@/shared/components/charts/highcharts/column-chart/column-chart.types";
 
 export function useColumnChartOptions({
   title,
