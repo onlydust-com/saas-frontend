@@ -7,10 +7,15 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { toast } from "@/design-system/molecules/toaster";
 
+import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useAllocateProgramSidepanel({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
+export function useAllocateProgramSidepanel() {
+  return useSinglePanelContext("allocate-program");
+}
+
+export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
   const { close } = useSidePanelsContext();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");

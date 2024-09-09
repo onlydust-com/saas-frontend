@@ -8,17 +8,23 @@ import { AmountSelectorLoading } from "@/shared/features/amount-selector/amount-
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Summary } from "@/shared/panels/allocate-program-sidepanel/_components/summary";
-import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
+import {
+  useAllocateProgram,
+  useAllocateProgramSidepanel,
+} from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { AllocateProgramSidepanelProps } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function AllocateProgramSidepanel({ sponsorId, programId }: AllocateProgramSidepanelProps) {
-  const { amount, budget, handleAmountChange, handleBudgetChange, program, summary, allocate } =
-    useAllocateProgramSidepanel({
-      sponsorId,
-      programId,
-    });
+  const { name } = useAllocateProgramSidepanel();
+  const { Panel } = useSidePanel({ name });
+
+  const { amount, budget, handleAmountChange, handleBudgetChange, program, summary, allocate } = useAllocateProgram({
+    sponsorId,
+    programId,
+  });
 
   function renderBody() {
     if (program.isLoading) {
@@ -68,7 +74,7 @@ export function AllocateProgramSidepanel({ sponsorId, programId }: AllocateProgr
   }
 
   return (
-    <>
+    <Panel>
       <SidePanelHeader
         title={{
           translate: { token: "panels:allocateProgram.title" },
@@ -89,6 +95,6 @@ export function AllocateProgramSidepanel({ sponsorId, programId }: AllocateProgr
           <Translate token={"panels:allocateProgram.makeAllocation"} />
         </Button>
       </SidePanelFooter>
-    </>
+    </Panel>
   );
 }

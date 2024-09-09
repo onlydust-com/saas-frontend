@@ -16,7 +16,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
-import { AllocateProgramSidepanelProvider } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.context";
+import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
+import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { ProjectSidePanelProvider } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -40,11 +41,12 @@ function WithProjectPanelProvider({ children }: PropsWithChildren) {
 
 function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
   const { open } = useSidePanelsContext();
+  const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
   const [selectedProgramId, setSelectedProgramId] = useState<string>();
 
   function handleOpenAllocateProgram(programId: string) {
     setSelectedProgramId(programId);
-    open("allocate-program");
+    openAllocateProgramSidepanel();
   }
 
   return (
@@ -53,53 +55,52 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
       onProgramClick={handleOpenAllocateProgram}
       onCreateProgramClick={() => alert("create program")}
     >
-      <AllocateProgramSidepanelProvider sponsorId={sponsorId} programId={selectedProgramId}>
-        <WithProjectPanelProvider>
-          <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
-            <div className="h-auto">
-              <PageContent>
-                <FinancialSection />
-              </PageContent>
-            </div>
+      <WithProjectPanelProvider>
+        <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
+          <div className="h-auto">
             <PageContent>
-              <div className="grid gap-3">
-                <header className={"flex items-center justify-between"}>
-                  <Typo
-                    variant={"heading"}
-                    size={"xs"}
-                    weight={"medium"}
-                    translate={{
-                      token: "financials:details.programs.title",
-                    }}
-                  />
-                  <div className={"flex flex-row items-center justify-end gap-lg"}>
-                    <Button
-                      variant={"primary"}
-                      endIcon={{ component: ChevronRight }}
-                      isTextButton
-                      size={"md"}
-                      onClick={() => open("program-list")}
-                    >
-                      <Translate token={"financials:details.programs.actions.allocate"} />
-                    </Button>
-                    <Button
-                      variant={"primary"}
-                      endIcon={{ component: ChevronRight }}
-                      isTextButton
-                      size={"md"}
-                      onClick={() => {}}
-                    >
-                      <Translate token={"financials:details.programs.actions.create"} />
-                    </Button>
-                  </div>
-                </header>
-
-                <ProgramsTable onAllocateClick={handleOpenAllocateProgram} />
-              </div>
+              <FinancialSection />
             </PageContent>
-          </AnimatedColumn>
-        </WithProjectPanelProvider>
-      </AllocateProgramSidepanelProvider>
+          </div>
+          <PageContent>
+            <div className="grid gap-3">
+              <header className={"flex items-center justify-between"}>
+                <Typo
+                  variant={"heading"}
+                  size={"xs"}
+                  weight={"medium"}
+                  translate={{
+                    token: "financials:details.programs.title",
+                  }}
+                />
+                <div className={"flex flex-row items-center justify-end gap-lg"}>
+                  <Button
+                    variant={"primary"}
+                    endIcon={{ component: ChevronRight }}
+                    isTextButton
+                    size={"md"}
+                    onClick={() => open("program-list")}
+                  >
+                    <Translate token={"financials:details.programs.actions.allocate"} />
+                  </Button>
+                  <Button
+                    variant={"primary"}
+                    endIcon={{ component: ChevronRight }}
+                    isTextButton
+                    size={"md"}
+                    onClick={() => {}}
+                  >
+                    <Translate token={"financials:details.programs.actions.create"} />
+                  </Button>
+                </div>
+              </header>
+
+              <ProgramsTable onAllocateClick={handleOpenAllocateProgram} />
+            </div>
+          </PageContent>
+        </AnimatedColumn>
+      </WithProjectPanelProvider>
+      <AllocateProgramSidepanel sponsorId={sponsorId} programId={selectedProgramId} />
     </ProgramListSidepanelProvider>
   );
 }
