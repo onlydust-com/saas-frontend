@@ -1,3 +1,5 @@
+import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
+
 import { Alert } from "@/design-system/molecules/alert";
 
 import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawer";
@@ -18,6 +20,10 @@ export function CurrencyListSidepanel() {
   function handleOpenFeedbackDrawer() {
     setIsOpen(true);
   }
+
+  const { data } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
+
+  console.log({ data });
 
   return (
     <Panel>

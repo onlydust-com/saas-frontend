@@ -1,5 +1,6 @@
 import { BootstrapConstructor } from "@/core/bootstrap/index";
 import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
+import { CurrencyClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/currency-client-adapter-mock";
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
@@ -19,6 +20,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   projectStoragePortForServer: new ProjectClientAdapterMock(),
   sponsorStoragePortForClient: new SponsorClientAdapterMock(),
   sponsorStoragePortForServer: new SponsorClientAdapterMock(),
+  currencyStoragePortForClient: new CurrencyClientAdapterMock(),
+  currencyStoragePortForServer: new CurrencyClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
