@@ -10,6 +10,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const BUDGET_AVAILABLE = "budgetAvailable";
@@ -19,6 +20,7 @@ export function FinancialSection() {
   const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof BUDGET_AVAILABLE | typeof BUDGET_CHART>(
     BUDGET_AVAILABLE
   );
+  const { open: openCurrencyListSidepanel } = useCurrencyListSidepanel();
   const { close } = useSidePanelsContext();
 
   const renderFinancialView = useMemo(() => {
@@ -71,6 +73,7 @@ export function FinancialSection() {
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
+              onClick={openCurrencyListSidepanel}
             />
 
             <TransactionsTrigger />

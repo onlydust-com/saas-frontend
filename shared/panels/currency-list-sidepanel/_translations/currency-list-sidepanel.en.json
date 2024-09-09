@@ -1,0 +1,8 @@
+{
+  "title": "Choose a currency",
+  "alert": {
+    "title": "Can't find the currency you're looking for?",
+    "description": "We strive to continually offer new currencies. If you can't find the one you need, please let us know by submitting a request through our form.",
+    "primaryAction": "Propose a currency"
+  }
+}
