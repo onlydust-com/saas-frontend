@@ -79,20 +79,24 @@ export function TransactionsWrapper({ date }: { date: Date }) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <>
       {flatTransactions.map(transaction => (
-        <CardTransaction
-          key={transaction.id}
-          type={transaction.type}
-          date={transaction.date}
-          amount={{
-            value: transaction.amount.amount,
-            currency: transaction.amount.currency,
-            usdEquivalent: transaction.amount.usdEquivalent,
-          }}
-          buttonProps={getButtonProps(transaction)}
-        />
+        <div key={transaction.id}>
+          <CardTransaction
+            type={transaction.type}
+            date={transaction.date}
+            amount={{
+              value: transaction.amount.amount,
+              currency: transaction.amount.currency,
+              usdEquivalent: transaction.amount.usdEquivalent,
+            }}
+            buttonProps={getButtonProps(transaction)}
+            size={"none"}
+            background={"transparent"}
+            border={"none"}
+          />
+        </div>
       ))}
-    </div>
+    </>
   );
 }
