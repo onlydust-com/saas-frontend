@@ -7,6 +7,8 @@ import {
   LogoutMeResponsePortResponse,
   ReplaceMyProfilePortParams,
   ReplaceMyProfilePortResponse,
+  SearchUsersPortParams,
+  SearchUsersPortResponse,
   SetMePortParams,
   SetMePortResponse,
   SetMyProfilePortParams,
@@ -21,4 +23,5 @@ export interface UserStoragePort {
   getMyProfile(params: GetMyProfilePortParams): GetMyProfilePortResponse;
   setMyProfile(params: SetMyProfilePortParams): SetMyProfilePortResponse;
   replaceMyProfile(params: ReplaceMyProfilePortParams): ReplaceMyProfilePortResponse;
+  searchUser(params: SearchUsersPortParams): SearchUsersPortResponse;
 }

@@ -14,9 +14,11 @@ interface DataAttributes {
   "data-hover"?: boolean;
 }
 
+export type MenuItemId = string | number;
+
 export interface MenuItemBasePort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  id: string;
+  id: MenuItemId;
   label: ReactNode;
   searchValue?: string;
   isDisabled?: boolean;
@@ -24,7 +26,7 @@ export interface MenuItemBasePort extends Partial<Variants> {
   showIndicatorOnSelected?: boolean;
   attr?: DataAttributes;
   isSelected?: boolean;
-  onClick?: (id: string) => void;
+  onClick?: (id: MenuItemId) => void;
 }
 
 export interface MenuItemAvatarPort extends MenuItemBasePort {

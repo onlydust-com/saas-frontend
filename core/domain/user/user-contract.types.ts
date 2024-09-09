@@ -1,6 +1,7 @@
+import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
   HttpStorageResponse,
@@ -53,3 +54,22 @@ export type ReplaceMyProfileBody = components["schemas"]["UserProfileUpdateReque
 export type ReplaceMyProfilePortParams = HttpClientParameters<object>;
 
 export type ReplaceMyProfilePortResponse = HttpStorageResponse<never, ReplaceMyProfileBody>;
+
+/* --------------------------------- Search users -------------------------------- */
+
+export type SearchUsersResponse = components["schemas"]["ContributorSearchResponse"];
+
+export type SearchUsersModel = Omit<SearchUsersResponse, "internalContributors" | "externalContributors"> & {
+  internalContributors: ContributorInterface[];
+  externalContributors: ContributorInterface[];
+};
+
+type SearchUsersQueryParams = operations["searchContributors"]["parameters"]["query"];
+type SearchUsersPathParams = operations["searchContributors"]["parameters"]["path"];
+
+export type SearchUsersPortParams = HttpClientParameters<{
+  QueryParams: SearchUsersQueryParams;
+  PathParams: SearchUsersPathParams;
+}>;
+
+export type SearchUsersPortResponse = HttpStorageResponse<SearchUsersModel>;

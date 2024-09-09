@@ -126,7 +126,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     if (isAutoComplete && !controlledAutoComplete?.onChange) {
       return items.filter(item => {
         return (
-          item.id.toLowerCase().includes(inputValue.toLowerCase()) ||
+          (item.id ? `${item.id}` : "").toLowerCase().includes(inputValue.toLowerCase()) ||
           item.searchValue?.toLowerCase().includes(inputValue.toLowerCase())
         );
       });
@@ -136,7 +136,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
 
   function toggleOpen() {
     if (isAutoComplete) {
-      setOpen(false);
+      setOpen(true);
     } else {
       setOpen(prev => !prev);
     }
@@ -175,7 +175,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
       <FloatingPortal>
         {open && (
           <FloatingFocusManager context={context} initialFocus={-1} visuallyHiddenDismiss>
-            <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
+            <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className={"z-[9999]"}>
               <Menu
                 items={formatedItems}
                 onSelect={handleSelect}

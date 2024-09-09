@@ -1,3 +1,4 @@
+import { Contributor } from "@/core/domain/user/models/contributor-model";
 import { User } from "@/core/domain/user/models/user-model";
 import { UserProfile } from "@/core/domain/user/models/user-profile-model";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
@@ -6,6 +7,8 @@ import {
   GetMyProfileResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
+  SearchUsersPortParams,
+  SearchUsersResponse,
   SetMeBody,
   SetMyProfileBody,
 } from "@/core/domain/user/user-contract.types";
@@ -21,6 +24,7 @@ export class UserClientAdapter implements UserStoragePort {
     getMyProfile: "me/profile",
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
+    searchUsers: "users/search",
   } as const;
 
   logoutMe = () => {
@@ -133,6 +137,33 @@ export class UserClientAdapter implements UserStoragePort {
         tag,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  searchUser = ({ queryParams, pathParams }: SearchUsersPortParams) => {
+    const path = this.routes["searchUsers"];
+    const method = "GET";
+    console.log("queryParams", queryParams);
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<SearchUsersResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return {
+        internalContributors: (data?.internalContributors || []).map(user => new Contributor(user)),
+        externalContributors: (data?.externalContributors || []).map(user => new Contributor(user)),
+      };
+    };
 
     return {
       request,

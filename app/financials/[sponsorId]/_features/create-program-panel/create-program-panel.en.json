@@ -1,6 +1,18 @@
 {
   "title": "New Programs",
   "informations": {
-    "title": "Global informations"
+    "title": "Global informations",
+    "name": {
+      "label": "Program name",
+      "placeholder": "Name"
+    },
+    "url": {
+      "label": "Program website",
+      "placeholder": "Website"
+    },
+    "lead": {
+      "label": "Program leads",
+      "placeholder": "Leads"
+    }
   }
 }

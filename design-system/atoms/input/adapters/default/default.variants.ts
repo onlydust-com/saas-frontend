@@ -71,7 +71,7 @@ export const InputDefaultVariants = tv({
   ],
 
   defaultVariants: {
-    size: "md",
+    size: "sm",
     isFocused: false,
   },
 });

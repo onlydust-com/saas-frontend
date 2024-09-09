@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
+import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
 
 interface Variants {}
 
@@ -12,12 +12,12 @@ interface ClassNames {
 export interface MenuBasePort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   items: MenuItemPort[];
-  selectedIds?: string[];
-  onSelect?: (ids: string[], data: MenuItemPort[]) => void;
+  selectedIds?: MenuItemId[];
+  onSelect?: (ids: MenuItemId[], data: MenuItemPort[]) => void;
   onNextPage?: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean;
-  onAction?: (id: string) => void;
+  onAction?: (id: MenuItemId) => void;
 }
 
 export interface ListMenuPort extends MenuBasePort {

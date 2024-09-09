@@ -12,7 +12,7 @@ import { cn } from "@/shared/helpers/cn";
 
 import { InputDefaultVariants } from "./default.variants";
 
-const defaultSize = "md";
+const defaultSize = "sm";
 
 function LabelsContainer({
   label,
@@ -31,6 +31,7 @@ function LabelsContainer({
           htmlProps={{ htmlFor: name }}
           size={"sm"}
           weight={"medium"}
+          color={"secondary"}
           classNames={{ base: classNames?.label }}
         >
           {label}
