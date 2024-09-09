@@ -8,6 +8,10 @@ import { ContributorRewardReceived } from "@/core/domain/notification/models/not
 import { GlobalBillingProfileReminder } from "@/core/domain/notification/models/notifications/global-billing-profile-reminder";
 import { MaintainerApplicationToReview } from "@/core/domain/notification/models/notifications/maintainer-application-to-review";
 import { MaintainerCommitteeApplicationCreated } from "@/core/domain/notification/models/notifications/maintainer-commitee-application-created";
+import { ProgramLeadFundsAllocatedToProgram } from "@/core/domain/notification/models/notifications/program-lead-funds-allocated-to-program";
+import { SponsorLeadDepositApproved } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-approved";
+import { SponsorLeadDepositRejected } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-rejected";
+import { SponsorLeadFundsUnallocatedFromProgram } from "@/core/domain/notification/models/notifications/sponsor-lead-funds-unallocated-from-program";
 
 import { ContributorProjectApplicationRefused } from "./notifications/contributor-project-application-refused";
 import { ContributorProjectGoodFirstIssueCreated } from "./notifications/contributor-project-good-first-issue-created";
@@ -39,17 +43,18 @@ export class NotificationFactory {
         return new ContributorProjectGoodFirstIssueCreated(notification);
       case "GLOBAL_BILLING_PROFILE_REMINDER":
         return new GlobalBillingProfileReminder(notification);
-
       case "GLOBAL_BILLING_PROFILE_VERIFICATION_REJECTED":
         return new GlobalBillingProfileVerificationRejected(notification);
       case "GLOBAL_BILLING_PROFILE_VERIFICATION_CLOSED":
         return new GlobalBillingProfileVerificationClosed(notification);
       case "PROGRAM_LEAD_FUNDS_ALLOCATED_TO_PROGRAM":
+        return new ProgramLeadFundsAllocatedToProgram(notification);
       case "SPONSOR_LEAD_FUNDS_UNALLOCATED_FROM_PROGRAM":
+        return new SponsorLeadFundsUnallocatedFromProgram(notification);
       case "SPONSOR_LEAD_DEPOSIT_APPROVED":
+        return new SponsorLeadDepositApproved(notification);
       case "SPONSOR_LEAD_DEPOSIT_REJECTED":
-        // TODO @hayden
-        return;
+        return new SponsorLeadDepositRejected(notification);
     }
   }
 }
