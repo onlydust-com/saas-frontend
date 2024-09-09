@@ -12,6 +12,8 @@ export class SponsorProgramsListItem implements SponsorProgramsListItemInterface
   projectCount!: SponsorProgramsListItemResponse["projectCount"];
   totalAvailable!: SponsorProgramsListItemResponse["totalAvailable"];
   totalGranted!: SponsorProgramsListItemResponse["totalGranted"];
+  totalReceived!: SponsorProgramsListItemResponse["totalReceived"];
+  userCount!: SponsorProgramsListItemResponse["userCount"];
 
   constructor(props: SponsorProgramsListItemResponse) {
     Object.assign(this, props);
