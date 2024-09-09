@@ -30,6 +30,7 @@ export function useColumnChartOptions({
       chart: {
         type: "column",
         backgroundColor: "transparent",
+        plotBackgroundColor: "rgba(255, 255, 255, 0)",
       },
       title: {
         text: title,
@@ -67,6 +68,22 @@ export function useColumnChartOptions({
         pointFormat: tooltipFormat,
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
+        shared: true, // Enable shared tooltips
+        useHTML: true, // Allow HTML formatting
+        formatter() {
+          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
+          this.points?.forEach(point => {
+            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
+          });
+          return s;
+        },
+        positioner(labelWidth, _labelHeight, point) {
+          const chart = this.chart;
+          const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
+          const y = 24; // Position above the point
+
+          return { x, y };
+        },
       },
       plotOptions: {
         column: {
