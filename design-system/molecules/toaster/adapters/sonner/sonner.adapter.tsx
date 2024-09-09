@@ -1,4 +1,4 @@
-import { CircleDashed, X } from "lucide-react";
+import { Check, CircleX, X } from "lucide-react";
 import { Toaster, toast } from "sonner";
 
 import { Icon } from "@/design-system/atoms/icon";
@@ -55,23 +55,20 @@ export const toastSonnerAdapter: ToastPort = {
       children,
       type: "default",
       icon: {
-        component: CircleDashed,
+        component: Check,
       },
     }),
   default: children =>
     handleToast({
       children,
       type: "default",
-      icon: {
-        component: CircleDashed,
-      },
     }),
   error: children =>
     handleToast({
       children,
       type: "error",
       icon: {
-        component: CircleDashed,
+        component: CircleX,
       },
     }),
 };

@@ -1,0 +1,17 @@
+{
+  "title": "Allocation",
+  "summary": {
+    "budgetBalance": "{{budget}} balance",
+    "programBalance": "Program balance",
+    "currentBalance": "Current balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final balance"
+  },
+  "makeAllocation": "Make Allocation",
+  "success": {
+    "toast": "{{program}} has been allocated {{amount}} {{code}}"
+  },
+  "error": {
+    "toast": "An error occurred while allocating the program"
+  }
+}

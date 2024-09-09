@@ -9,7 +9,7 @@
   },
   "submit": "Make allocation",
   "success": {
-    "toast": "{{project}} as been granted {{amount}} {{code}}"
+    "toast": "{{project}} has been granted {{amount}} {{code}}"
   },
   "error": {
     "toast": "An error occurred while granting the project"
