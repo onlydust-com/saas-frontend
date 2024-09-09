@@ -27,7 +27,7 @@ export function PageHeaderDefaultAdapter<C extends ElementType = "div">({
       <div className={"flex flex-row items-start justify-start gap-2"}>
         {startContent}
         {!!title && (
-          <Typo size={"sm"} weight={"medium"} classNames={{ base: classNames?.title }}>
+          <Typo size={"sm"} weight={"medium"} classNames={{ base: cn(slots.title(), classNames?.title) }}>
             {title}
           </Typo>
         )}

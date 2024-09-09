@@ -2,7 +2,6 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Paper } from "@/design-system/atoms/paper";
 import { Modal } from "@/design-system/molecules/modal";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -25,12 +24,7 @@ export function PrimaryNavigationMobile() {
 
   return (
     <>
-      <Paper
-        as={"header"}
-        background={"quaternary"}
-        border={"none"}
-        classNames={{ base: "flex justify-between items-center gap-2" }}
-      >
+      <div className={"flex items-center justify-between gap-2 pt-xs"}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo />
         </BaseLink>
@@ -39,7 +33,7 @@ export function PrimaryNavigationMobile() {
           {/*<Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly />*/}
           <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
-      </Paper>
+      </div>
       <Modal
         isOpen={isOpen}
         onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}
