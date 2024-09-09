@@ -62,6 +62,7 @@ export function PrimaryNavigationDesktop() {
         <SecondaryMenu isFolded={folded} />
       </MenuContainer>
       <PrimaryBanner isFolded={folded} />
+      <hr className={"border-border-primary"} />
       <MenuContainer>
         <UserMenu isFolded={folded} />
       </MenuContainer>
