@@ -1,10 +1,11 @@
-import { ChartColumn, CircleDollarSign } from "lucide-react";
+import { ChartColumn, ChevronRight, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/financials/[sponsorId]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
 import { TransactionsTrigger } from "@/app/financials/[sponsorId]/_sections/financial-section/components/transactions-trigger/transactions-trigger";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
@@ -59,7 +60,21 @@ export function FinancialSection() {
             ]}
             selectedId={toggleFinancialViews}
           />
-          <TransactionsTrigger />
+          <div className={"flex items-center gap-lg"}>
+            <Button
+              variant={"primary"}
+              endIcon={{ component: ChevronRight }}
+              isTextButton
+              size={"md"}
+              translate={{ token: "financials:details.financial.buttons.makeDeposit" }}
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+            />
+
+            <TransactionsTrigger />
+          </div>
         </div>
       </div>
 

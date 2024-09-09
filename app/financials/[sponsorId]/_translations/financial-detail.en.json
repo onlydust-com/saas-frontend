@@ -7,7 +7,8 @@
     "buttons": {
       "budgetAvailable": "Budget available",
       "budgetChart": "Budget chart",
-      "seeTransactions": "See transactions"
+      "seeTransactions": "See transactions",
+      "makeDeposit": "Make a deposit"
     }
   },
   "programs": {
