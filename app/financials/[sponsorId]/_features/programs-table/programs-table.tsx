@@ -164,19 +164,24 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
         );
       },
     }),
-    columnHelper.display({
-      id: "actions",
-      header: () => <Translate token={"financials:details.programs.table.columns.actions"} />,
-      cell: info => (
-        <Button
-          as={BaseLink}
-          htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
-          variant={"secondary"}
-          size={"sm"}
-        >
-          <Translate token={"financials:details.programs.table.rows.seeProgram"} />
-        </Button>
-      ),
+    columnHelper.accessor("totalReceived", {
+      header: () => <Translate token={"financials:details.programs.table.columns.received"} />,
+      cell: info => {
+        const { amount, code } = moneyKernelPort.format({
+          amount: info?.getValue()?.totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+          options: {
+            notation: "compact",
+          },
+          uppercase: true,
+        });
+
+        return (
+          <TableCellKpi>
+            {amount} {code}
+          </TableCellKpi>
+        );
+      },
     }),
     columnHelper.display({
       id: "actions",
