@@ -1,4 +1,4 @@
-import { LogIn, PanelLeftClose } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -36,12 +36,12 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         {isFolded && (
           <Button
             variant={"tertiary"}
-            startIcon={{ component: LogIn }}
+            startIcon={{ component: PanelLeftOpen }}
             iconOnly={true}
             size={"xs"}
             onClick={onUnFold}
             classNames={{
-              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 w-10 h-10 justify-center items-center",
+              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 justify-center items-center",
             }}
           />
         )}
