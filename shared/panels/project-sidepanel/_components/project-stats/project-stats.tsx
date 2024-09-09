@@ -49,6 +49,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
           ]}
           selectedIds={[rangeType]}
           onAction={onChangeRange}
+          isPopOver
         >
           <Button size={"xs"} variant={"secondary"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />
