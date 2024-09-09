@@ -5,6 +5,6 @@ interface AccordionItem extends Pick<AccordionItemProps, "id" | "titleProps"> {
   cards: CardBudgetPort<"div">[];
 }
 
-export interface CardBudgetAccordionProps extends Pick<AccordionPort, "multiple"> {
+export interface CardBudgetAccordionProps extends Pick<AccordionPort, "multiple" | "defaultSelected"> {
   items: AccordionItem[];
 }

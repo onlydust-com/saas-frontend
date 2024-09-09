@@ -13,6 +13,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
@@ -290,15 +291,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
   }
 
   if (isError) {
-    return (
-      <div className={"py-24 text-center"}>
-        <Typo
-          translate={{
-            token: "common:state.error.title",
-          }}
-        />
-      </div>
-    );
+    return <ErrorState />;
   }
 
   return (

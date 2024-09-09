@@ -26,7 +26,7 @@ const withAvatarProps: InputPort = {
 
 const withInnerButton: InputPort = {
   ...defaultProps,
-  button: { children: "Button", variant: "tertiary", startIcon: { component: CircleDashed } },
+  button: { children: "Button", isTextButton: true, variant: "secondary", startIcon: { component: CircleDashed } },
 };
 const withOuterButton: InputPort = {
   ...defaultProps,

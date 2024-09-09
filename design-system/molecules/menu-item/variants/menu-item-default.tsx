@@ -1,4 +1,5 @@
 import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
+import { MenuItemDefaultAdapter } from "@/design-system/molecules/menu-item/adapters/default/default.adapter";
 import {
   isMenuItemAvatar,
   isMenuItemCheckbox,
@@ -10,7 +11,6 @@ import { MenuItemCheckbox } from "@/design-system/molecules/menu-item/variants/m
 import { MenuItemIcon } from "@/design-system/molecules/menu-item/variants/menu-item-icon";
 import { MenuItemRadio } from "@/design-system/molecules/menu-item/variants/menu-item-radio";
 
-import { MenuItemNextUiAdapter } from "../adapters/next-ui/next-ui.adapter";
 import { MenuItemPort } from "../menu-item.types";
 
 export function MenuItem(props: MenuItemPort) {
@@ -22,5 +22,5 @@ export function MenuItem(props: MenuItemPort) {
 
   if (isMenuItemRadio(props)) return <MenuItemRadio {...props} />;
 
-  return withComponentAdapter<MenuItemPort>(MenuItemNextUiAdapter)(props);
+  return withComponentAdapter<MenuItemPort>(MenuItemDefaultAdapter)(props);
 }

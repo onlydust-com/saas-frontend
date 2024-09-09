@@ -1,11 +1,11 @@
 import { RadioGroup } from "@/design-system/atoms/radio-group";
 import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
+import { MenuItemDefaultAdapter } from "@/design-system/molecules/menu-item/adapters/default/default.adapter";
 
-import { MenuItemNextUiAdapter } from "../adapters/next-ui/next-ui.adapter";
 import { MenuItemPort, MenuItemRadioPort } from "../menu-item.types";
 
 export function MenuItemRadio({ ...props }: MenuItemRadioPort) {
-  return withComponentAdapter<MenuItemPort>(MenuItemNextUiAdapter)({
+  return withComponentAdapter<MenuItemPort>(MenuItemDefaultAdapter)({
     ...props,
     startContent: (
       <RadioGroup

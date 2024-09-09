@@ -18,11 +18,13 @@ export interface MenuItemBasePort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   id: string;
   label: ReactNode;
+  searchValue?: string;
   isDisabled?: boolean;
   startContent?: ReactNode;
   showIndicatorOnSelected?: boolean;
   attr?: DataAttributes;
   isSelected?: boolean;
+  onClick?: (id: string) => void;
 }
 
 export interface MenuItemAvatarPort extends MenuItemBasePort {
