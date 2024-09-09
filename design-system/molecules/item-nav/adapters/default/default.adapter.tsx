@@ -21,6 +21,7 @@ function Content({
 }: ItemNavPort & { isExternal: boolean; isActive: boolean }) {
   return (
     <TabItem
+      as={"div"}
       id={""}
       variant={"flat"}
       startIcon={iconProps}
