@@ -130,3 +130,9 @@ export const useSidePanel = (
     };
   }, [ref, name, classNames, config, isOpen]);
 };
+
+export function useSinglePanelContext(name: string) {
+  const { open, close, back, isOpen } = useSidePanelsContext();
+
+  return { open: () => open(name), close: () => close(name), back, isOpen: isOpen(name), name };
+}

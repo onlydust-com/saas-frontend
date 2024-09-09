@@ -23,7 +23,7 @@ export function ProgramListSidepanelProvider({
   onProgramClick,
   onCreateProgramClick,
 }: ProgramListSidepanelContextProps) {
-  const { Panel, ...rest } = useSidePanel({ name: "allocate-program" });
+  const { Panel, ...rest } = useSidePanel({ name: "program-list" });
 
   return (
     <ProgramListSidepanelContext.Provider value={{ ...rest }}>
