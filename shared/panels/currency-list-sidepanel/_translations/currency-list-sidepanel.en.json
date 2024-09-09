@@ -1,5 +1,13 @@
 {
   "title": "Choose a currency",
+  "alreadyUsed": {
+    "title": "Already used currencies",
+    "select": "Select"
+  },
+  "allCurrencies": {
+    "title": "All currencies",
+    "new": "New"
+  },
   "alert": {
     "title": "Can't find the currency you're looking for?",
     "description": "We strive to continually offer new currencies. If you can't find the one you need, please let us know by submitting a request through our form.",

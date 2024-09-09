@@ -1,5 +1,3 @@
-import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
-
 import { Alert } from "@/design-system/molecules/alert";
 
 import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawer";
@@ -7,6 +5,7 @@ import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedba
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { AllCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies";
 import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -21,10 +20,6 @@ export function CurrencyListSidepanel() {
     setIsOpen(true);
   }
 
-  const { data } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
-
-  console.log({ data });
-
   return (
     <Panel>
       <SidePanelHeader
@@ -35,7 +30,9 @@ export function CurrencyListSidepanel() {
       />
 
       <SidePanelBody>
-        <div className="flex-1">Currencies</div>
+        <div className="flex flex-1 flex-col gap-lg">
+          <AllCurrencies />
+        </div>
 
         <Alert
           title={<Translate token={"panels:currencyList.alert.title"} />}
