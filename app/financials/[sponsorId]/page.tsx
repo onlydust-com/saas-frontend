@@ -131,7 +131,13 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         ],
       }}
     >
-      <PosthogCaptureOnMount eventName={"financial_viewed"} />
+      <PosthogCaptureOnMount
+        eventName={"sponsor_viewed"}
+        params={{
+          sponsor_id: sponsorId,
+        }}
+        paramsReady={Boolean(sponsorId)}
+      />
       <SafeFinancialPage sponsorId={sponsorId} />
     </PageWrapper>
   );
