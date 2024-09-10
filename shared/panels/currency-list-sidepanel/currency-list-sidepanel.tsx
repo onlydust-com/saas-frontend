@@ -6,10 +6,12 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AllCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies";
+import { UsedCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies";
 import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
+import { CurrencyListSidepanelProps } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function CurrencyListSidepanel() {
+export function CurrencyListSidepanel({ sponsorId }: CurrencyListSidepanelProps) {
   const { name } = useCurrencyListSidepanel();
   const { Panel } = useSidePanel({ name });
 
@@ -31,6 +33,7 @@ export function CurrencyListSidepanel() {
 
       <SidePanelBody>
         <div className="flex flex-1 flex-col gap-lg">
+          <UsedCurrencies sponsorId={sponsorId} />
           <AllCurrencies />
         </div>
 

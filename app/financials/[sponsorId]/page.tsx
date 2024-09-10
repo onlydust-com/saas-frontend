@@ -61,7 +61,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
         </AnimatedColumn>
       </WithProjectPanelProvider>
       <AllocateProgramSidepanel />
-      <CurrencyListSidepanel />
+      <CurrencyListSidepanel sponsorId={sponsorId} />
     </ProgramListSidepanelProvider>
   );
 }

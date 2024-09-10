@@ -1,6 +1,6 @@
 {
   "title": "Choose a currency",
-  "alreadyUsed": {
+  "usedCurrencies": {
     "title": "Already used currencies",
     "select": "Select"
   },
