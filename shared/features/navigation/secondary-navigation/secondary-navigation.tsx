@@ -1,8 +1,11 @@
 "use client";
 
+import { Bell } from "lucide-react";
+
 import { PageHeader } from "@/design-system/organisms/page-header";
 
 import { SecondaryNavigationProps } from "@/shared/features/navigation/secondary-navigation/secondary-navigation.types";
+import { Notifications } from "@/shared/features/notifications/notifications";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 export function SecondaryNavigation({ ...props }: SecondaryNavigationProps) {
@@ -13,14 +16,17 @@ export function SecondaryNavigation({ ...props }: SecondaryNavigationProps) {
   }
 
   return (
-    <PageHeader
-      // action={{
-      //   variant: "tertiary",
-      //   size: "xs",
-      //   startIcon: { component: Bell },
-      //   iconOnly: true,
-      // }}
-      {...props}
-    />
+    <>
+      <PageHeader
+        action={{
+          variant: "tertiary",
+          size: "xs",
+          startIcon: { component: Bell },
+          iconOnly: true,
+        }}
+        {...props}
+      />
+      <Notifications />
+    </>
   );
 }
