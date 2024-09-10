@@ -21,17 +21,18 @@ function Content({
 }: ItemNavPort & { isExternal: boolean; isActive: boolean }) {
   return (
     <TabItem
+      as={"div"}
       id={""}
       variant={"flat"}
       startIcon={iconProps}
       classNames={{
         ...classNames?.item,
-        base: cn("w-full justify-start", { "justify-center": isFolded }, classNames?.item?.base),
+        base: cn("w-full justify-start", { "justify-center h-8": isFolded }, classNames?.item?.base),
       }}
       isSelected={isActive}
     >
       {!isFolded && (
-        <div className="flex flex-1 justify-start">
+        <div className="flex flex-1 items-center justify-start truncate">
           {!!translate && <Translate {...translate} />}
           {children}
           {isExternal ? (

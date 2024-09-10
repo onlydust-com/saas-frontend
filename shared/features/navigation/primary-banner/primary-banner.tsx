@@ -33,7 +33,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
 
   return (
     <div className="flex">
-      <div className="h-auto max-h-full w-[260px] min-w-[260px]">
+      <div className="h-auto max-h-full w-[246px] min-w-[246px]">
         <PlgBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}

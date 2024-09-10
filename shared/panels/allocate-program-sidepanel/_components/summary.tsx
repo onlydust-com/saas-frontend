@@ -1,26 +1,30 @@
-import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
+import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { CardBudgetType } from "@/design-system/molecules/cards/card-budget";
 
 import { CardBudgetAccordion } from "@/shared/features/card-budget-accordion/card-budget-accordion";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function Summary({ amount, budget, project }: SummaryProps) {
-  const usdConversionRate = budget.usdConversionRate ?? 0;
+export function Summary({
+  summary,
+}: {
+  summary: {
+    usdConversionRate: number;
+    allocatedAmount: number;
+    newBudgetBalance: number;
+    currentProgramBalance: number;
+    newProjectBalance: number;
+    budget?: DetailedTotalMoneyTotalPerCurrency;
+  };
+}) {
+  const { usdConversionRate, allocatedAmount, newBudgetBalance, currentProgramBalance, newProjectBalance, budget } =
+    summary;
 
-  const allocatedAmount = parseFloat(amount);
-  const newBudgetBalance = budget.amount - allocatedAmount;
-
-  const projectBudget = project.totalAvailable.totalPerCurrency?.find(b => {
-    return b.currency.id === budget.currency.id;
-  });
-
-  const currentProjectBalance = projectBudget?.amount ?? 0;
-  const newProjectBalance = currentProjectBalance + allocatedAmount;
+  if (!budget) return null;
 
   return (
     <CardBudgetAccordion
-      defaultSelected={["budgetBalance", "projectBalance"]}
+      defaultSelected={["budgetBalance", "programBalance"]}
       items={[
         {
           id: "budgetBalance",
@@ -37,7 +41,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 currency: budget.currency,
                 usdEquivalent: budget.usdEquivalent ?? 0,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.currentBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.currentBalance"} /> },
             },
             {
               amount: {
@@ -45,7 +49,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 currency: budget.currency,
                 usdEquivalent: allocatedAmount * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.allocated"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.allocated"} /> },
               type: CardBudgetType.GRANTED,
             },
             {
@@ -54,21 +58,21 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 currency: budget.currency,
                 usdEquivalent: newBudgetBalance * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.finalBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.finalBalance"} /> },
             },
           ],
         },
         {
-          id: "projectBalance",
-          titleProps: { translate: { token: "programs:grantForm.summary.projectBalance" } },
+          id: "programBalance",
+          titleProps: { translate: { token: "panels:allocateProgram.summary.programBalance" } },
           cards: [
             {
               amount: {
-                value: currentProjectBalance,
+                value: currentProgramBalance,
                 currency: budget.currency,
-                usdEquivalent: currentProjectBalance * usdConversionRate,
+                usdEquivalent: currentProgramBalance * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.currentBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.currentBalance"} /> },
             },
             {
               amount: {
@@ -76,7 +80,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 currency: budget.currency,
                 usdEquivalent: allocatedAmount * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.allocated"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.allocated"} /> },
               type: CardBudgetType.RECEIVED,
             },
             {
@@ -85,7 +89,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 currency: budget.currency,
                 usdEquivalent: newProjectBalance * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"programs:grantForm.summary.finalBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.finalBalance"} /> },
             },
           ],
         },

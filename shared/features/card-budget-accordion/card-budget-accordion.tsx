@@ -3,7 +3,7 @@ import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 
 import { CardBudgetAccordionProps } from "@/shared/features/card-budget-accordion/card-budget-accordion.types";
 
-export function CardBudgetAccordion({ items, multiple }: CardBudgetAccordionProps) {
+export function CardBudgetAccordion({ items, multiple, defaultSelected }: CardBudgetAccordionProps) {
   const cards = items.map(item => ({
     id: item.id,
     titleProps: item.titleProps,
@@ -18,5 +18,5 @@ export function CardBudgetAccordion({ items, multiple }: CardBudgetAccordionProp
     ),
   }));
 
-  return <Accordion items={cards} multiple={multiple} />;
+  return <Accordion items={cards} multiple={multiple} defaultSelected={defaultSelected} />;
 }

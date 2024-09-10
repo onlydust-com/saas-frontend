@@ -123,6 +123,7 @@ export function FinancialColumnChart() {
           ]}
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
+          isPopOver
         >
           <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />

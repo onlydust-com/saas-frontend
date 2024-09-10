@@ -1,4 +1,4 @@
-import { LogIn, PanelLeftClose } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -19,13 +19,14 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
   }
 
   return (
-    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden pl-lg pt-md"}>
+    <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
       <div className={cn("group/header w-fit", { "flex w-full items-center justify-center": isFolded })}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
               base: cn("h-6 w-auto justify-start gap-md", {
                 "group-hover/header:!opacity-0 transition-all": isFolded,
+                "pl-xs": !isFolded,
               }),
               illustration: cn("min-w-6 h-6 w-auto"),
               wordmark: cn("min-w-0 h-4 w-auto"),
@@ -36,12 +37,12 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
         {isFolded && (
           <Button
             variant={"tertiary"}
-            startIcon={{ component: LogIn }}
+            startIcon={{ component: PanelLeftOpen }}
             iconOnly={true}
             size={"xs"}
             onClick={onUnFold}
             classNames={{
-              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 w-10 h-10 justify-center items-center",
+              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 justify-center items-center",
             }}
           />
         )}

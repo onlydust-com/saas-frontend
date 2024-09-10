@@ -97,14 +97,14 @@ export function AmountSelector({
         <div className={"flex w-full justify-center"}>
           <Button
             variant={"secondary"}
-            size={"md"}
+            size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
             canInteract={!readOnly}
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
-              size={"md"}
+              size={"s"}
               title={{
                 children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
               }}

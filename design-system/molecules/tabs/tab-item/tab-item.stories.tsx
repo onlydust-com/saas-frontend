@@ -6,7 +6,7 @@ import { TabItem } from "./variants/tab-item-default";
 
 type Story = StoryObj<typeof TabItem>;
 
-const defaultProps: TabItemPort = {
+const defaultProps: TabItemPort<"button"> = {
   children: "Placeholder",
   startIcon: { component: CircleDashed },
   badge: { children: 3 },
@@ -19,7 +19,11 @@ const meta: Meta<typeof TabItem> = {
   tags: ["autodocs"],
 };
 
-function TabItemTemplate({ hover, focus, ...args }: Omit<TabItemPort, "id"> & { hover?: boolean; focus?: boolean }) {
+function TabItemTemplate({
+  hover,
+  focus,
+  ...args
+}: Omit<TabItemPort<"button">, "id"> & { hover?: boolean; focus?: boolean }) {
   if (hover) {
     return <TabItem {...defaultProps} {...args} attr={{ "data-hover": true }} />;
   }
@@ -31,7 +35,7 @@ function TabItemTemplate({ hover, focus, ...args }: Omit<TabItemPort, "id"> & { 
   return <TabItem {...defaultProps} {...args} />;
 }
 
-function TabsVariant({ ...args }: Omit<TabItemPort, "id">) {
+function TabsVariant({ ...args }: Omit<TabItemPort<"button">, "id">) {
   return (
     <div className="flex w-full gap-5">
       <div className="flex w-full gap-2">
@@ -68,10 +72,10 @@ export const Default: Story = {
       source: { code: "<TabItem />" },
     },
   },
-  render: args => {
+  render: () => {
     return (
       <div className="flex w-full items-start gap-2">
-        <TabItemTemplate {...defaultProps} {...args} />
+        <TabItemTemplate {...defaultProps} />
       </div>
     );
   },

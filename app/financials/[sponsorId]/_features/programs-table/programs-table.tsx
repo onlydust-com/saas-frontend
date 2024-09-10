@@ -2,6 +2,8 @@ import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/re
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
+import { ProgramsTableProps } from "@/app/financials/[sponsorId]/_features/programs-table/programs-table.types";
+
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
 import { SponsorProgramsListItemInterface } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
@@ -19,7 +21,7 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProgramsTable() {
+export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
@@ -161,19 +163,24 @@ export function ProgramsTable() {
         );
       },
     }),
-    columnHelper.display({
-      id: "actions",
-      header: () => <Translate token={"financials:details.programs.table.columns.actions"} />,
-      cell: info => (
-        <Button
-          as={BaseLink}
-          htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
-          variant={"secondary"}
-          size={"sm"}
-        >
-          <Translate token={"financials:details.programs.table.rows.seeProgram"} />
-        </Button>
-      ),
+    columnHelper.accessor("totalReceived", {
+      header: () => <Translate token={"financials:details.programs.table.columns.received"} />,
+      cell: info => {
+        const { amount, code } = moneyKernelPort.format({
+          amount: info?.getValue()?.totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+          options: {
+            notation: "compact",
+          },
+          uppercase: true,
+        });
+
+        return (
+          <TableCellKpi>
+            {amount} {code}
+          </TableCellKpi>
+        );
+      },
     }),
     columnHelper.display({
       id: "actions",
@@ -181,7 +188,13 @@ export function ProgramsTable() {
       cell: info => {
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary"} size={"sm"} onClick={() => {}}>
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => {
+                onAllocateClick(info.row.original.id);
+              }}
+            >
               <Translate token={"financials:details.programs.table.rows.allocate"} />
             </Button>
 

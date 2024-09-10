@@ -63,7 +63,7 @@ export default function ProgramPage({ params: { programId } }: { params: { progr
       <PosthogCaptureOnMount eventName={"program_viewed"} />
       <GrantFormContextProvider>
         <WithProjectPanelProvider>
-          <AnimatedColumn className="flex h-full flex-1 flex-col gap-3 overflow-auto">
+          <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
             <div className="h-auto">
               <PageContent>
                 <FinancialSection />

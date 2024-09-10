@@ -11,7 +11,7 @@ type _BaseLinkProps = Omit<BaseLinkProps, "children" | "style">;
 interface ClassNames {
   base: string;
   label: string;
-  item: TabItemPort["classNames"];
+  item: TabItemPort<"button">["classNames"];
 }
 
 export interface ItemNavPort extends PropsWithChildren {

@@ -22,7 +22,7 @@ export function Transactions() {
           titleProps: {
             children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },
-          badge: {
+          badgeProps: {
             children: t.transactionCount,
           },
           content: <TransactionsWrapper date={new Date(t.date)} />,
