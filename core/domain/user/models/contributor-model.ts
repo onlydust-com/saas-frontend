@@ -9,6 +9,7 @@ export class Contributor implements ContributorInterface {
   login!: ContributorResponse["login"];
   avatarUrl!: ContributorResponse["avatarUrl"];
   isRegistered!: ContributorResponse["isRegistered"];
+  id?: ContributorResponse["id"];
 
   constructor(props: ContributorResponse) {
     Object.assign(this, props);

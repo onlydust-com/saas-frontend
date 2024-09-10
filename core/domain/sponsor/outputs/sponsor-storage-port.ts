@@ -1,6 +1,8 @@
 import {
   AllocateBudgetToProgramPortParams,
   AllocateBudgetToProgramPortResponse,
+  CreateSponsorProgramPortParams,
+  CreateSponsorProgramPortResponse,
   GetSponsorPortParams,
   GetSponsorPortResponse,
   GetSponsorProgramsPortParams,
@@ -20,4 +22,5 @@ export interface SponsorStoragePort {
   getSponsorTransactions(p: GetSponsorTransactionsPortParams): GetSponsorTransactionsPortResponse;
   getSponsorTransactionsCsv(p: GetSponsorTransactionsPortParams): GetSponsorTransactionsCsvPortResponse;
   allocateBudgetToProgram(p: AllocateBudgetToProgramPortParams): AllocateBudgetToProgramPortResponse;
+  createSponsorProgram(p: CreateSponsorProgramPortParams): CreateSponsorProgramPortResponse;
 }

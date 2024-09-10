@@ -10,18 +10,26 @@ import { UserAutocompleteProps } from "./user-autocomplete.types";
 
 export function UserAutocomplete({
   withExternalUser = false,
+  withInternalUserOnly = false,
+  withExternalUserOnly = false,
   selectedUser,
   onSelect,
   ...selectProps
 }: UserAutocompleteProps) {
   const [search, setSearch] = useState("");
-  const { data } = UserReactQueryAdapter.client.useSearchUser({ queryParams: { login: search || undefined } });
+  const { data } = UserReactQueryAdapter.client.useSearchUser({
+    queryParams: {
+      login: search || undefined,
+      internalSearchOnly: withInternalUserOnly,
+      externalSearchOnly: withExternalUserOnly,
+    },
+  });
 
   const createMenuItems = (
     users: SearchUsersModel["internalContributors"] | SearchUsersModel["externalContributors"]
   ): MenuItemPort[] => {
     return users.map(user => ({
-      id: user.githubUserId,
+      id: user.id || `${user.githubUserId}`,
       label: user.login,
       searchValue: user.login,
       avatar: { src: user.avatarUrl },
@@ -36,8 +44,8 @@ export function UserAutocomplete({
   }, [data, withExternalUser]);
 
   function handleSelect(ids: MenuItemId[]) {
-    if (typeof ids[0] === "number") {
-      onSelect?.(ids as number[]);
+    if (typeof ids[0] === "string") {
+      onSelect?.(ids as string[]);
     }
   }
 

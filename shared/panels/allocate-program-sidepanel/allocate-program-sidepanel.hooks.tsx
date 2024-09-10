@@ -12,7 +12,7 @@ import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useAllocateProgramSidepanel() {
-  return useSinglePanelContext("allocate-program");
+  return useSinglePanelContext<{ programId: string; sponsorId: string }>("allocate-program");
 }
 
 export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {

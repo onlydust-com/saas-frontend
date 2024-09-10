@@ -147,7 +147,6 @@ export class UserClientAdapter implements UserStoragePort {
   searchUser = ({ queryParams, pathParams }: SearchUsersPortParams) => {
     const path = this.routes["searchUsers"];
     const method = "GET";
-    console.log("queryParams", queryParams);
     const tag = HttpClient.buildTag({ path, queryParams, pathParams });
 
     const request = async () => {

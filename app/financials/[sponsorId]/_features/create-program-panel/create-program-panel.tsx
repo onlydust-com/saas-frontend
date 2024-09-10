@@ -6,6 +6,7 @@ import { z } from "zod";
 import { CreateProgramPanelProps } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { CreateSponsorProgramBody } from "@/core/domain/sponsor/sponsor-contract.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -16,6 +17,7 @@ import { ImageInput } from "@/design-system/molecules/image-input";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -24,32 +26,31 @@ const validation = z.object({
   url: z.string().min(1),
   logoUrl: z.string().optional(),
   logoFile: z.any().optional(),
-  leadIds: z.array(z.number()).min(0),
+  leadIds: z.array(z.string()).min(0),
 });
 
 export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
   const { t } = useTranslation("financials");
+  const { close } = useSidePanelsContext();
   const { mutateAsync: uploadLogo } = ProgramReactQueryAdapter.client.useUploadProgramLogo();
-  const { control, handleSubmit } = useForm<
-    Omit<CreateSponsorProgramBody, "leadIds"> & { leadIds: number[]; logoFile?: File }
-  >({
+  const { mutateAsync: createProgram } = SponsorReactQueryAdapter.client.useCreateSponsorProgram({
+    pathParams: { sponsorId },
+  });
+  const { control, handleSubmit } = useForm<CreateSponsorProgramBody & { logoFile?: File }>({
     resolver: zodResolver(validation),
   });
 
-  async function onCreateProgram({
-    logoFile,
-    ...data
-  }: Omit<CreateSponsorProgramBody, "leadIds"> & { leadIds: number[]; logoFile?: File }) {
+  async function onCreateProgram({ logoFile, ...data }: CreateSponsorProgramBody & { logoFile?: File }) {
     const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
     const createProgramData: CreateSponsorProgramBody = {
       ...data,
       logoUrl: fileUrl?.url,
-      // TODO REMOVE WHEN API IS FIXED
-      leadIds: data.leadIds.map(id => `${id}`),
     };
 
-    console.log("onCreateProgram", createProgramData);
+    await createProgram(createProgramData);
+
+    close();
   }
 
   return (
@@ -96,6 +97,7 @@ export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
                   <UserAutocomplete
+                    withInternalUserOnly={true}
                     name={name}
                     label={<Translate token={"financials:createProgramPanel.informations.lead.label"} />}
                     placeholder={t("createProgramPanel.informations.lead.placeholder")}
