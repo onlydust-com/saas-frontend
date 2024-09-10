@@ -8,7 +8,7 @@ import { CreateProgramPanelContextProps } from "@/app/financials/[sponsorId]/_fe
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-panel.types";
 
-interface CreateProgramPanelContextInterface extends Omit<UseSidePanel, "Panel"> {}
+interface CreateProgramPanelContextInterface extends Omit<UseSidePanel<object>, "Panel"> {}
 
 export const CreateProgramPanelContext = createContext<CreateProgramPanelContextInterface>({
   open: () => {},
@@ -19,7 +19,7 @@ export const CreateProgramPanelContext = createContext<CreateProgramPanelContext
 });
 
 export function CreateProgramPanelProvider({ children, sponsorId }: CreateProgramPanelContextProps) {
-  const { Panel, ...rest } = useSidePanel({ name: "create-progam" });
+  const { Panel, ...rest } = useSidePanel({ name: "create-program" });
 
   return (
     <CreateProgramPanelContext.Provider value={{ ...rest }}>
