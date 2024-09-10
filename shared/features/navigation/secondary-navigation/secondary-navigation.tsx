@@ -26,7 +26,7 @@ export function SecondaryNavigation({ ...props }: SecondaryNavigationProps) {
         }}
         {...props}
       />
-      <Notifications />
+      <Notifications onClose={() => alert("close")} />
     </>
   );
 }
