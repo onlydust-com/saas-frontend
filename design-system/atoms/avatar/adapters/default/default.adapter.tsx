@@ -58,6 +58,7 @@ export function AvatarDefaultAdapter({
   onlineIcon,
   size,
   shape,
+  enableOptimizedImage = true,
 }: AvatarPort) {
   const slots = AvatarDefaultVariants({ size, shape, name: !!name });
 
@@ -78,7 +79,7 @@ export function AvatarDefaultAdapter({
   })();
 
   const renderImage = useImageWithFallback({
-    src: imageSrc,
+    src: enableOptimizedImage ? imageSrc : src,
     alt,
     fallback: fallback || defaultFallback,
     className: cn(slots.image(), classNames?.image),

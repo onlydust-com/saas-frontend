@@ -10,9 +10,14 @@
       "label": "Program website",
       "placeholder": "Website"
     },
+    "image": {
+      "label": "Program Icon",
+      "buttonLabel": "Upload a file"
+    },
     "lead": {
       "label": "Program leads",
       "placeholder": "Leads"
     }
-  }
+  },
+  "submit": "Create a program"
 }

@@ -25,6 +25,7 @@ import { SelectDefaultVariants } from "./default.variants";
 export function SelectDefaultAdapter<C extends ElementType = "div">({
   as,
   classNames,
+  name,
   htmlProps,
   selectedIds,
   onSelect,
@@ -135,11 +136,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   }, [isAutoComplete, controlledAutoComplete, inputValue, items]);
 
   function toggleOpen() {
-    if (isAutoComplete) {
-      setOpen(true);
-    } else {
-      setOpen(prev => !prev);
-    }
+    setOpen(prev => !prev);
   }
 
   useEffect(() => {
@@ -150,6 +147,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     return (
       <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
         <Input
+          name={name}
           value={selectedValues}
           isDisabled={isDisabled}
           endIcon={{ component: ChevronDown }}
@@ -164,6 +162,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <div ref={refs.setReference} {...getReferenceProps()} onClick={toggleOpen} className={"cursor-pointer"}>
         <Input
+          name={name}
           value={formatedInputValue}
           endIcon={!isAutoComplete ? { component: ChevronDown } : undefined}
           startIcon={isAutoComplete ? { component: Search } : undefined}

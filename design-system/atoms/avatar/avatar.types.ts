@@ -23,4 +23,5 @@ export interface AvatarPort extends AvatarImage, Partial<Variants> {
   name?: string;
   icon?: AvatarImage;
   onlineIcon?: boolean;
+  enableOptimizedImage?: boolean;
 }

@@ -17,6 +17,7 @@ export interface SelectInputProps {
   label?: InputPort["label"];
   description?: InputPort["description"];
   isError?: InputPort["isError"];
+  name: string;
 }
 
 interface SelectProps {
