@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { IconPort } from "@/design-system/atoms/icon";
+
 interface Variants {
   size: "xxs" | "xs" | "s" | "md" | "lg" | "xl" | "2xl" | "3xl";
   shape: "rounded" | "squared";
@@ -24,4 +26,5 @@ export interface AvatarPort extends AvatarImage, Partial<Variants> {
   icon?: AvatarImage;
   onlineIcon?: boolean;
   enableOptimizedImage?: boolean;
+  iconProps?: IconPort;
 }
