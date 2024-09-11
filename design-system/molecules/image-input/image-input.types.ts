@@ -14,7 +14,7 @@ export interface ImageInputPort<C extends ElementType> extends Partial<Variants>
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   name: string;
-  max_size_mo?: number;
+  maxSizeMo?: number;
   value?: string;
   buttonProps?: ButtonPort<"label">;
 }

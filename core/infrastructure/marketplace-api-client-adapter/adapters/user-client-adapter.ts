@@ -159,6 +159,7 @@ export class UserClientAdapter implements UserStoragePort {
       });
 
       return {
+        ...data,
         internalContributors: (data?.internalContributors || []).map(user => new Contributor(user)),
         externalContributors: (data?.externalContributors || []).map(user => new Contributor(user)),
       };

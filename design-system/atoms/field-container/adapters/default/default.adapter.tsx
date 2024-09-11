@@ -36,7 +36,7 @@ function InfoContainer({ error, info, isError }: Pick<FieldContainerPort, "info"
   if (isError && error) {
     return (
       <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-error">
-        <Icon size={"sm"} {...(error.icon || {})} component={error?.icon?.component || CircleAlert} />
+        <Icon size={"sm"} {...(error.icon || {})} component={error.icon?.component || CircleAlert} />
         {error.text ? (
           <Typo as={"div"} size={"sm"} color={"error"}>
             {error.text}

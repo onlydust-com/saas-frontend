@@ -14,7 +14,7 @@ export function ImageInputDefaultAdapter<C extends ElementType = "div">({
   classNames,
   htmlProps,
   name,
-  max_size_mo,
+  maxSizeMo,
   isError,
   description,
   label,
@@ -28,13 +28,13 @@ export function ImageInputDefaultAdapter<C extends ElementType = "div">({
   const slots = ImageInputDefaultVariants();
   const bytesToMegaBytes = (bytes: number) => bytes / (1024 * 1024);
 
-  const [Preview, setPreview] = useState<string | undefined>(undefined);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
 
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (file) {
-      if (!max_size_mo || bytesToMegaBytes(file.size) <= max_size_mo) {
+      if (!maxSizeMo || bytesToMegaBytes(file.size) <= maxSizeMo) {
         setPreview(URL.createObjectURL(file));
         onChange?.(file);
       }
@@ -48,9 +48,9 @@ export function ImageInputDefaultAdapter<C extends ElementType = "div">({
   }, [value]);
 
   return (
-    <FieldContainer isError={isError} label={label} description={description} info={info} error={error}>
+    <FieldContainer name={name} isError={isError} label={label} description={description} info={info} error={error}>
       <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-        <Avatar src={Preview} enableOptimizedImage={false} shape={"squared"} size={"md"} />
+        <Avatar src={preview} enableOptimizedImage={false} shape={"squared"} size={"md"} />
         <Button
           size={"sm"}
           classNames={{ base: "w-full" }}
