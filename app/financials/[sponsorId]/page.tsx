@@ -16,6 +16,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { CurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel";
+import { CurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { ProjectSidePanelProvider } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -62,6 +63,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
       </WithProjectPanelProvider>
       <AllocateProgramSidepanel />
       <CurrencyListSidepanel sponsorId={sponsorId} />
+      <CurrencyNetworkSidepanel />
     </ProgramListSidepanelProvider>
   );
 }

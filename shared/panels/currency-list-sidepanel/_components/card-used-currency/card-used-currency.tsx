@@ -7,8 +7,11 @@ import { Icon } from "@/design-system/atoms/icon";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { CardUsedCurrencyProps } from "@/shared/panels/currency-list-sidepanel/_components/card-used-currency/card-used-currency.types";
+import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
 
 export function CardUsedCurrency({ budget }: CardUsedCurrencyProps) {
+  const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
+
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const titleMoney = moneyKernelPort.format({
@@ -34,7 +37,7 @@ export function CardUsedCurrency({ budget }: CardUsedCurrencyProps) {
         <Badge
           as={"button"}
           htmlProps={{
-            onClick: () => alert("Add currency"),
+            onClick: openCurrencyNetworkSidepanel,
           }}
           size={"sm"}
           color={"grey"}
