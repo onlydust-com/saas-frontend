@@ -55,13 +55,11 @@ export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
         },
       }}
     >
-      {allCurrencies.map(currency => {
-        return (
-          <div key={currency.id}>
+      {allCurrencies.map(currency => (
+             <div key={currency.id}>
             <CardAllCurrency currency={currency} />
           </div>
-        );
-      })}
+      ))}
     </Accordion>
   );
 }
