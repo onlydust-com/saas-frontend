@@ -8,6 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { NotificationFacadePort } from "@/core/domain/notification/input/notification-facade-port";
 import { GetNotificationsCountResponse } from "@/core/domain/notification/notification-contract.types";
 
+// TODO @hayden handle the counter
 export function useGetNotificationsCount({
   options,
   queryParams,
