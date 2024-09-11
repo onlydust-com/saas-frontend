@@ -54,6 +54,7 @@ export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
   }
 
   return (
+    // use as props instead of form when the panel is in this component
     <form onSubmit={handleSubmit(onCreateProgram)} className={"flex h-full w-full flex-col gap-px"}>
       <SidePanelHeader
         title={{
