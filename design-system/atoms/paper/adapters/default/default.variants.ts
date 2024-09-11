@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const PaperDefaultVariants = tv({
   slots: {
-    base: "w-full rounded-md",
+    base: "w-full rounded-md text-left transition-all data-[clickable=true]:cursor-pointer data-[clickable=true]:outline-none data-[clickable=true]:focus-visible:effect-ring-brand-spaced",
   },
   variants: {
     px: {
@@ -49,13 +49,13 @@ export const PaperDefaultVariants = tv({
     },
     background: {
       transparent: { base: "bg-transparent" },
-      primary: { base: "bg-background-primary" },
-      "primary-alt": { base: "bg-background-primary-alt" },
+      primary: { base: "bg-background-primary data-[clickable=true]:hover:bg-background-primary-hover" },
+      "primary-alt": { base: "bg-background-primary-alt data-[clickable=true]:hover:bg-background-primary-alt-hover" },
       "primary-solid": { base: "bg-background-primary-solid" },
-      secondary: { base: "bg-background-secondary" },
+      secondary: { base: "bg-background-secondary data-[clickable=true]:hover:bg-background-secondary-hover" },
       "secondary-alt": { base: "bg-background-secondary-alt" },
       "secondary-alt-2": { base: "bg-background-secondary-alt-2" },
-      tertiary: { base: "bg-background-tertiary" },
+      tertiary: { base: "bg-background-tertiary data-[clickable=true]:hover:bg-background-tertiary-hover" },
       quaternary: { base: "bg-background-quaternary" },
       active: { base: "bg-background-active" },
       disabled: { base: "bg-background-disabled" },
@@ -63,17 +63,23 @@ export const PaperDefaultVariants = tv({
       overlay: { base: "bg-background-overlay" },
       error: { base: "bg-background-error" },
       "error-alt": { base: "bg-background-error-alt" },
-      "error-solid": { base: "bg-background-error-solid" },
+      "error-solid": { base: "bg-background-error-solid data-[clickable=true]:hover:bg-background-error-solid-hover" },
       "brand-primary": { base: "bg-background-brand-primary" },
       "brand-primary-alt": { base: "bg-background-brand-primary-alt" },
-      "brand-primary-solid": { base: "bg-background-brand-primary-solid" },
+      "brand-primary-solid": {
+        base: "bg-background-brand-primary-solid data-[clickable=true]:hover:bg-background-brand-primary-solid-hover",
+      },
       "brand-secondary": { base: "bg-background-brand-secondary" },
       warning: { base: "bg-background-warning" },
       "warning-alt": { base: "bg-background-warning-alt" },
-      "warning-solid": { base: "bg-background-warning-solid" },
+      "warning-solid": {
+        base: "bg-background-warning-solid data-[clickable=true]:hover:bg-background-warning-solid-hover",
+      },
       success: { base: "bg-background-success" },
       "success-alt": { base: "bg-background-success-alt" },
-      "success-solid": { base: "bg-background-success-solid" },
+      "success-solid": {
+        base: "bg-background-success-solid data-[clickable=true]:hover:bg-background-success-solid-hover",
+      },
       "primary-hover": { base: "bg-primary-hover" },
       "primary-alt-hover": { base: "bg-primary-alt-hover" },
       "secondary-hover": { base: "bg-secondary-hover" },
@@ -102,84 +108,23 @@ export const PaperDefaultVariants = tv({
       active: { base: "border border-border-active" },
       "success-secondary": { base: "border border-border-success-secondary" },
     },
-    clickable: {
-      true: { base: "cursor-pointer" },
-    },
     hasBorderHover: {
       true: { base: "" },
     },
   },
   compoundVariants: [
     {
-      clickable: true,
-      background: "primary",
-      class: {
-        base: "hover:bg-background-primary-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "primary-alt",
-      class: {
-        base: "hover:bg-background-primary-alt-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "secondary",
-      class: {
-        base: "hover:bg-background-secondary-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "tertiary",
-      class: {
-        base: "hover:bg-background-tertiary-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "error-solid",
-      class: {
-        base: "hover:bg-background-error-solid-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "brand-primary-solid",
-      class: {
-        base: "hover:bg-background-brand-primary-solid-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "warning-solid",
-      class: {
-        base: "hover:bg-background-warning-solid-hover",
-      },
-    },
-    {
-      clickable: true,
-      background: "success-solid",
-      class: {
-        base: "hover:bg-background-success-solid-hover",
-      },
-    },
-    {
-      clickable: true,
       hasBorderHover: true,
       border: "primary",
       class: {
-        base: "hover:border-primary-hover",
+        base: "data-[clickable=true]:hover:border-primary-hover",
       },
     },
     {
-      clickable: true,
       hasBorderHover: true,
       border: "error-secondary",
       class: {
-        base: "hover:error-secondary-hover",
+        base: "data-[clickable=true]:hover:error-secondary-hover",
       },
     },
   ],

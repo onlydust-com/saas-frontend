@@ -35,7 +35,7 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
         <div className={"flex gap-lg"}>
           <Avatar size="s" {...avatarProps} />
 
-          <div>
+          <div className={"grid"}>
             <Typo {...titleProps} size="sm" weight="medium" color={"primary"} />
             {descriptionProps ? <Typo {...descriptionProps} size="xs" color={"secondary"} /> : null}
           </div>

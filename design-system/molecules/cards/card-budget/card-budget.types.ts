@@ -1,7 +1,7 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ElementType } from "react";
 
 import { BadgePort } from "@/design-system/atoms/badge";
-import { PaperPort } from "@/design-system/atoms/paper";
+import { CardTemplatePort } from "@/design-system/molecules/cards/card-template";
 
 export enum CardBudgetType {
   GRANTED = "GRANTED",
@@ -11,10 +11,6 @@ export enum CardBudgetType {
 interface Variants {
   clickable: boolean;
   type: CardBudgetType;
-}
-
-interface ClassNames {
-  base: string;
 }
 
 interface Currency {
@@ -31,15 +27,8 @@ interface Amount {
   usdEquivalent: number;
 }
 
-export interface CardBudgetPort<C extends ElementType> extends Partial<Variants> {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
-  classNames?: Partial<ClassNames>;
+export interface CardBudgetPort<C extends ElementType> extends Partial<Variants>, Partial<CardTemplatePort<C>> {
   amount: Amount;
   badgeProps?: BadgePort<"span">;
-  onClick?: () => void;
-  size?: PaperPort<C>["size"];
-  background?: PaperPort<C>["background"];
-  border?: PaperPort<C>["border"];
   type?: CardBudgetType;
 }
