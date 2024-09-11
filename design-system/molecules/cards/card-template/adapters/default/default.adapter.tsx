@@ -33,7 +33,7 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
     >
       <div className={"flex justify-between gap-md"}>
         <div className={"flex gap-lg"}>
-          <Avatar size="s" {...avatarProps} />
+          {avatarProps ? <Avatar size="s" {...avatarProps} /> : null}
 
           <div className={"grid"}>
             <Typo {...titleProps} size="sm" weight="medium" color={"primary"} />

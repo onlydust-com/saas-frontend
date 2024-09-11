@@ -6,13 +6,11 @@ import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { CardNetworkProps } from "@/shared/panels/currency-network-sidepanel/_components/card-network/card-network.types";
 
-export function CardNetwork({ networkLogoUrl, networkName }: CardNetworkProps) {
+export function CardNetwork({ networkName }: CardNetworkProps) {
+  if (!networkName) return null;
+
   return (
     <CardTemplate
-      avatarProps={{
-        // TODO @hayden get correct logo
-        src: networkLogoUrl,
-      }}
       titleProps={{
         classNames: { base: "capitalize" },
         children: networkName?.toLowerCase(),
