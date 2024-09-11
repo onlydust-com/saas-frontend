@@ -40,7 +40,6 @@ export class HttpClient {
     try {
       const authProvider = bootstrap.getAuthProvider();
       const accessToken = await authProvider?.getAccessToken();
-      console.log(accessToken);
       const authHeaders = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 
       return {

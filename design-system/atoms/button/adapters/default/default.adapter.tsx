@@ -1,4 +1,6 @@
-import { ComponentProps, ElementType } from "react";
+import { ComponentProps, ElementType, SyntheticEvent } from "react";
+
+import { AnyType } from "@/core/kernel/types";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
@@ -44,6 +46,10 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     lg: "md",
   };
 
+  function handleClick(e: AnyType) {
+    onClick?.(e as SyntheticEvent<C>);
+  }
+
   if (iconOnly && startIcon) {
     return (
       <Component
@@ -51,7 +57,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
         {...(htmlProps || {})}
         data-disabled={isDisabled}
         className={cn(slots.base(), classNames?.base)}
-        onClick={onClick}
+        onClick={handleClick}
         type={type}
       >
         <Icon
@@ -70,7 +76,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
       {...(htmlProps || {})}
       data-disabled={isDisabled}
       className={cn(slots.base(), classNames?.base)}
-      onClick={onClick}
+      onClick={handleClick}
       type={type}
     >
       <div className={cn(slots.content(), classNames?.content)}>
