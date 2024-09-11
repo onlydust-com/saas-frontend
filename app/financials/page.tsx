@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
@@ -7,6 +8,7 @@ import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsor
 
 import { Typo } from "@/design-system/atoms/typo";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -62,4 +64,4 @@ function FinancialPage() {
   );
 }
 
-export default withSponsorList(FinancialPage);
+export default withClientOnly(withAuthenticationRequired(withSponsorList(FinancialPage)));

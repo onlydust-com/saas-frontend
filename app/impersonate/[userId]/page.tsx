@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -80,4 +81,4 @@ function ImpersonationPage() {
   );
 }
 
-export default withClientOnly(withAdminGuard(ImpersonationPage));
+export default withClientOnly(withAuthenticationRequired(withAdminGuard(ImpersonationPage)));
