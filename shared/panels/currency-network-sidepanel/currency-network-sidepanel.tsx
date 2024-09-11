@@ -63,13 +63,11 @@ export function CurrencyNetworkSidepanel() {
             translate: { token: "panels:currencyNetwork.network" },
           }}
         >
-          {currency?.onlyDustWallets?.map(wallet => {
-            return (
-              <div key={wallet.address}>
-                <CardNetwork networkLogoUrl={currency.logoUrl} networkName={wallet.network} />
-              </div>
-            );
-          })}
+          {currency?.onlyDustWallets?.map(wallet => (
+            <div key={wallet.address}>
+              <CardNetwork networkLogoUrl={currency.logoUrl} networkName={wallet.network} />
+            </div>
+          ))}
         </Accordion>
       </SidePanelBody>
     </Panel>
