@@ -26,7 +26,7 @@ const defaultProps: DrawerPort<"div"> = {
 
 const meta: Meta<typeof Drawer> = {
   component: Drawer,
-  title: "Deprecated/Molecules/Drawer",
+  title: "Molecules/Drawer",
   tags: ["autodocs"],
 };
 
