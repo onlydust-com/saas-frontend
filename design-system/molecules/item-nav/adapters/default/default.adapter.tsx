@@ -27,24 +27,26 @@ function Content({
       startIcon={iconProps}
       classNames={{
         ...classNames?.item,
-        base: cn("w-full justify-start", { "justify-center h-8": isFolded }, classNames?.item?.base),
+        base: cn(
+          "w-full justify-start !transition-all",
+          { "gap-[18px] transition-all": isFolded },
+          classNames?.item?.base
+        ),
       }}
       isSelected={isActive}
     >
-      {!isFolded && (
-        <div className="flex flex-1 items-center justify-start truncate">
-          {!!translate && <Translate {...translate} />}
-          {children}
-          {isExternal ? (
-            <Icon
-              component={SquareArrowOutUpRight}
-              classNames={{
-                base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
-              }}
-            />
-          ) : null}
-        </div>
-      )}
+      <div className="flex flex-1 items-center justify-start truncate">
+        {!!translate && <Translate {...translate} />}
+        {children}
+        {isExternal ? (
+          <Icon
+            component={SquareArrowOutUpRight}
+            classNames={{
+              base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
+            }}
+          />
+        ) : null}
+      </div>
     </TabItem>
   );
 }

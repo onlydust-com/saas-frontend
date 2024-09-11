@@ -20,20 +20,21 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
 
   return (
     <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
-      <div className={cn("group/header w-fit", { "flex w-full items-center justify-center": isFolded })}>
+      <div className={cn("group/header w-fit")}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
-              base: cn("h-6 w-auto justify-start gap-md", {
-                "group-hover/header:!opacity-0 transition-all": isFolded,
-                "pl-xs": !isFolded,
+              base: cn("h-6 w-auto justify-start gap-md px-lg pl-2 transition-all", {
+                "transition-all gap-[18px]": isFolded,
+                // "pl-xs": !isFolded,
               }),
               illustration: cn("min-w-6 h-6 w-auto"),
               wordmark: cn("min-w-0 h-4 w-auto"),
             }}
-            type={isFolded ? "illustration" : undefined}
+            // type={isFolded ? "illustration" : undefined}
           />
         </BaseLink>
+
         {isFolded && (
           <Button
             variant={"tertiary"}
@@ -42,20 +43,18 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
             size={"xs"}
             onClick={onUnFold}
             classNames={{
-              base: "opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all group-hover/header:opacity-100 justify-center items-center",
+              base: "opacity-0 absolute top-1/2 left-2 -translate-y-1/2 transition-all group-hover/header:opacity-100 justify-center items-center",
             }}
           />
         )}
       </div>
-      {!isFolded && (
-        <Button
-          variant={"tertiary"}
-          startIcon={{ component: PanelLeftClose }}
-          iconOnly={true}
-          size={"xs"}
-          onClick={onFold}
-        />
-      )}
+      <Button
+        variant={"tertiary"}
+        startIcon={{ component: PanelLeftClose }}
+        iconOnly={true}
+        size={"xs"}
+        onClick={onFold}
+      />
     </div>
   );
 }
