@@ -1,7 +1,7 @@
 import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
 
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
-import { CardTemplate } from "@/design-system/molecules/cards/card-template";
+import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -19,29 +19,26 @@ export function CurrencyNetworkSidepanel() {
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
-  if (isLoading) {
-    return <AccordionLoading />;
-  }
+  function renderContent() {
+    if (isLoading) {
+      return (
+        <>
+          <CardTemplateLoading />
+          <AccordionLoading />
+        </>
+      );
+    }
 
-  if (isError) {
-    return <ErrorState />;
-  }
+    if (isError) {
+      return <ErrorState />;
+    }
 
-  if (!data) return null;
+    if (!data) return null;
 
-  const currency = data.currencies.find(currency => currency.id === currencyId);
+    const currency = data.currencies.find(currency => currency.id === currencyId);
 
-  return (
-    <Panel>
-      <SidePanelHeader
-        title={{
-          translate: { token: "panels:currencyNetwork.title" },
-        }}
-        canGoBack
-        canClose
-      />
-
-      <SidePanelBody>
+    return (
+      <>
         <CardTemplate
           avatarProps={{
             src: currency?.logoUrl,
@@ -65,11 +62,25 @@ export function CurrencyNetworkSidepanel() {
         >
           {currency?.onlyDustWallets?.map(wallet => (
             <div key={wallet.address}>
-              <CardNetwork networkLogoUrl={currency.logoUrl} networkName={wallet.network} />
+              <CardNetwork networkName={wallet.network} />
             </div>
           ))}
         </Accordion>
-      </SidePanelBody>
+      </>
+    );
+  }
+
+  return (
+    <Panel>
+      <SidePanelHeader
+        title={{
+          translate: { token: "panels:currencyNetwork.title" },
+        }}
+        canGoBack
+        canClose
+      />
+
+      <SidePanelBody>{renderContent()}</SidePanelBody>
     </Panel>
   );
 }
