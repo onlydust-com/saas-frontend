@@ -1,0 +1,29 @@
+{
+  "informations": {
+    "title": "Global information",
+    "name": {
+      "label": "Program name",
+      "placeholder": "Name"
+    },
+    "url": {
+      "label": "Program website",
+      "placeholder": "Website"
+    },
+    "image": {
+      "label": "Program icon",
+      "buttonLabel": "Upload a file"
+    },
+    "lead": {
+      "label": "Program leads",
+      "placeholder": "Leads"
+    }
+  },
+  "messages": {
+    "success": "Program edited successfully",
+    "error": "An error occurred while updating the program"
+  },
+  "transactions": {
+    "title": "Last transactions"
+  },
+  "submit": "Edit"
+}

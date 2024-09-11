@@ -1,4 +1,6 @@
 import {
+  EditProgramPortParams,
+  EditProgramPortResponse,
   GetProgramByIdPortParams,
   GetProgramByIdPortResponse,
   GetProgramProjectPortParams,
@@ -29,4 +31,5 @@ export interface ProgramStoragePort {
   grantBudgetToProject(p: GrantBudgetToProjectPortParams): GrantBudgetToProjectPortResponse;
   getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;
   uploadProgramLogo(p: UploadProgramLogoPortParams): UploadProgramLogoPortResponse;
+  editProgram(p: EditProgramPortParams): EditProgramPortResponse;
 }

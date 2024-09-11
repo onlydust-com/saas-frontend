@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
+import { useParams } from "next/navigation";
 
-import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.context";
+import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.hooks";
 import { ProgramsTable } from "@/app/financials/[sponsorId]/_features/programs-table/programs-table";
 import { ProgramsSectionProps } from "@/app/financials/[sponsorId]/_sections/programs-section/programs-section.types";
 
@@ -11,7 +12,8 @@ import { useProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsSection({ onAllocateClick }: ProgramsSectionProps) {
-  const { open } = useCreateProgramPanel();
+  const { sponsorId } = useParams<{ sponsorId: string }>();
+  const { open: openCreateProgram } = useCreateProgramPanel();
   const { open: openProgramList } = useProgramListSidepanel();
 
   return (
@@ -40,7 +42,7 @@ export function ProgramsSection({ onAllocateClick }: ProgramsSectionProps) {
             endIcon={{ component: ChevronRight }}
             isTextButton
             size={"md"}
-            onClick={() => open()}
+            onClick={() => openCreateProgram({ sponsorId })}
           >
             <Translate token={"financials:details.programs.actions.create"} />
           </Button>

@@ -5,6 +5,7 @@ import { ProgramProject } from "@/core/domain/program/models/program-project-mod
 import { ProgramTransactionsStats } from "@/core/domain/program/models/program-transactions-stats-model";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
+  EditProgramBody,
   GetProgramProjectResponse,
   GetProgramProjectsResponse,
   GetProgramResponse,
@@ -30,6 +31,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     grantBudgetToProject: "programs/:programId/grant",
     getProgramProject: "programs/:programId/projects/:projectId",
     uploadProgramLogo: "programs/logos",
+    editProgram: "programs/:programId",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -238,6 +240,26 @@ export class ProgramClientAdapter implements ProgramStoragePort {
         headers: {
           "Content-Type": body.type,
         },
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  editProgram = ({ pathParams }: FirstParameter<ProgramStoragePort["editProgram"]>) => {
+    const path = this.routes["editProgram"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: EditProgramBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
       });
 
     return {
