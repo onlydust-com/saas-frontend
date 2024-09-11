@@ -7,6 +7,7 @@ import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-cli
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
 import { FileAdapterMock } from "@/core/kernel/file/file-adapter-mock";
 import { MoneyAdapterMock } from "@/core/kernel/money/money-adapter-mock";
+import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
   userStoragePortForClient: new UserClientAdapterMock(),
@@ -22,4 +23,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
+  urlKernelPort: UrlAdapterMock,
 };

@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { BadgePort } from "@/design-system/atoms/badge";
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
 import { PaperPort } from "@/design-system/atoms/paper";
-import { TagPort } from "@/design-system/atoms/tag";
 
 interface Variants {
   clickable: boolean;
@@ -19,8 +19,8 @@ export interface CardProjectPort<C extends ElementType> extends Partial<Variants
   title: string;
   description?: string;
   logoUrl?: string;
-  languages?: Array<TagPort<"div">>;
-  categories?: Array<TagPort<"div">>;
+  languages?: Array<BadgePort<"div">>;
+  categories?: Array<BadgePort<"div">>;
   projectCount?: string;
   userCount?: string;
   buttonProps?: ButtonPort<"a" | "div">;
