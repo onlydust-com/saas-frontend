@@ -3,6 +3,8 @@ import { NotificationInterface } from "@/core/domain/notification/models/notific
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
 export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInterface {
   data: components["schemas"]["NotificationSponsorLeadFundsUnallocatedFromProgram"] | undefined;
   constructor(private notification: Notification) {
@@ -26,17 +28,17 @@ export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInter
   }
 
   getTitle() {
-    // TODO @hayden
-    return "";
+    // TODO @hayden is this correct ?
+    return "Deposit rejected";
   }
 
   getDescription() {
-    // TODO @hayden
-    return "";
+    return `An allocation from ${this.data?.program.name} has been returned to you: ${this.data?.currencyCode} ${this.data?.amount}.`;
   }
 
   getUrl() {
-    // TODO @hayden
-    return undefined;
+    return this.data?.sponsor.id
+      ? NEXT_ROUTER.financials.details.root(this.data.sponsor.id)
+      : NEXT_ROUTER.financials.root;
   }
 }

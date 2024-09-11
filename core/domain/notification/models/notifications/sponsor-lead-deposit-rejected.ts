@@ -3,6 +3,8 @@ import { NotificationInterface } from "@/core/domain/notification/models/notific
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
 export class SponsorLeadDepositRejected implements NotificationInterface {
   data: components["schemas"]["NotificationSponsorLeadDepositRejected"] | undefined;
   constructor(private notification: Notification) {
@@ -26,17 +28,16 @@ export class SponsorLeadDepositRejected implements NotificationInterface {
   }
 
   getTitle() {
-    // TODO @hayden
-    return "";
+    return "Deposit rejected";
   }
 
   getDescription() {
-    // TODO @hayden
-    return "";
+    return `Your deposit ${this.data?.currencyCode} ${this.data?.amount} from ${this.data?.timestamp} was rejected. Please check the details and try again.`;
   }
 
   getUrl() {
-    // TODO @hayden
-    return undefined;
+    return this.data?.sponsor.id
+      ? NEXT_ROUTER.financials.details.root(this.data.sponsor.id)
+      : NEXT_ROUTER.financials.root;
   }
 }
