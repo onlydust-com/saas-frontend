@@ -24,7 +24,6 @@ export function PrimaryNavigationDesktop() {
   const isLowerThanLaptop = useIsLaptop("lower");
   const isLargerThanLaptop = useIsLaptop("greater");
   const [folded, setFolded] = useState(false);
-  const [debouncedFolded, setDebouncedFolded] = useState(false);
 
   function onFold(value: boolean) {
     setFolded(value);
@@ -45,12 +44,6 @@ export function PrimaryNavigationDesktop() {
   }, [isLargerThanLaptop]);
 
   const navSize = folded ? SIZES.folded : SIZES.unfolded;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDebouncedFolded(folded);
-    }, 1000);
-  }, [folded]);
 
   return (
     <AnimatedColumn

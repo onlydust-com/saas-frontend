@@ -37,8 +37,9 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
       className="flex w-full overflow-hidden"
       animate={isFolded ? "folded" : "unFolded"}
       initial={"unFolded"}
+      layout={true}
       variants={{
-        folded: { opacity: 0, height: "0" },
+        folded: { opacity: 0, height: "0px" },
         unFolded: { opacity: 1, height: "fit-content" },
       }}
     >
