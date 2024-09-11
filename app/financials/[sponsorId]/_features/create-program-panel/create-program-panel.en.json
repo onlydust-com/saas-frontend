@@ -1,7 +1,7 @@
 {
-  "title": "New Programs",
+  "title": "New Program",
   "informations": {
-    "title": "Global informations",
+    "title": "Global information",
     "name": {
       "label": "Program name",
       "placeholder": "Name"
@@ -11,7 +11,7 @@
       "placeholder": "Website"
     },
     "image": {
-      "label": "Program Icon",
+      "label": "Program icon",
       "buttonLabel": "Upload a file"
     },
     "lead": {
