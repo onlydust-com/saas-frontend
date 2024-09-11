@@ -1,6 +1,8 @@
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { NotificationReactQueryAdapter } from "@/core/application/react-query-adapter/notification";
+import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
@@ -14,30 +16,39 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NotificationsProps } from "@/shared/features/notifications/notifications.types";
 
 export function Notifications({ onClose }: NotificationsProps) {
+  const router = useRouter();
+
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     NotificationReactQueryAdapter.client.useGetNotifications({});
 
   const notifications = data?.pages.flatMap(page => page.notifications) || [];
 
-  // const { mutateAsync: readNotifications } = NotificationReactQueryAdapter.client.useUpdateNotifications({});
-  // const { mutateAsync: readAllNotifications } = NotificationReactQueryAdapter.client.useReadAllNotifications({});
-  //
-  // async function handleReadAll() {
-  //   await readAllNotifications({});
-  //   onClose();
-  // }
-  //
-  // async function handleRead(notificationId: string, url?: string) {
-  //   await readNotifications({
-  //     notifications: [{ id: notificationId, status: NotificationStatus.READ }],
-  //   });
-  //
-  //   onClose();
-  //
-  //   if (url) {
-  //     router.push(url);
-  //   }
-  // }
+  const { mutate: readAllNotifications, isPending: readAllNotificationsIsPending } =
+    NotificationReactQueryAdapter.client.useReadAllNotifications({
+      options: {
+        onSuccess: () => {
+          onClose();
+        },
+      },
+    });
+
+  const { mutateAsync: readNotifications } = NotificationReactQueryAdapter.client.useUpdateNotifications({});
+
+  function handleReadAll() {
+    readAllNotifications({});
+  }
+
+  async function handleRead(notificationId: string, url?: string) {
+    await readNotifications({
+      notifications: [{ id: notificationId, status: NotificationStatus.READ }],
+    });
+
+    onClose();
+
+    if (url) {
+      router.push(url);
+    }
+  }
 
   function renderContent() {
     if (isLoading) {
@@ -69,10 +80,7 @@ export function Notifications({ onClose }: NotificationsProps) {
             descriptionProps={{
               children: notification.getDescription(),
             }}
-            onClick={() =>
-              // TODO handle click
-              alert("test")
-            }
+            onClick={() => handleRead(notification.getId(), notification.getUrl())}
           />
         ))}
 
@@ -105,7 +113,8 @@ export function Notifications({ onClose }: NotificationsProps) {
               translate={{
                 token: "features:notifications.markAllAsRead",
               }}
-              // TODO handle click
+              onClick={handleReadAll}
+              isDisabled={readAllNotificationsIsPending}
             />
           ) : null}
         </div>
