@@ -30,4 +30,5 @@ export interface PopoverTriggerPort {
 export interface PopoverContentPort {
   children(args: PopoverContextPort): ReactNode;
   className?: string;
+  unstyled?: boolean;
 }

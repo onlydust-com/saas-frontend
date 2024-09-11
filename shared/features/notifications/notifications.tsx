@@ -13,7 +13,7 @@ export function Notifications({ onClose }: NotificationsProps) {
       size={"3xl"}
       background={"primary-alt"}
       border={"primary"}
-      classNames={{ base: "effect-box-shadow-xl grid gap-3xl w-full max-w-[560px]" }}
+      classNames={{ base: "effect-box-shadow-xl grid gap-3xl w-full" }}
     >
       <header className={"flex items-center justify-between"}>
         <div className={"flex items-center gap-lg"}>
