@@ -27,11 +27,7 @@ function Content({
       startIcon={iconProps}
       classNames={{
         ...classNames?.item,
-        base: cn(
-          "w-full justify-start !transition-all",
-          { "gap-[18px] transition-all": isFolded },
-          classNames?.item?.base
-        ),
+        base: cn("w-full justify-start !transition-all", { "!gap-[18px]": isFolded }, classNames?.item?.base),
       }}
       isSelected={isActive}
     >

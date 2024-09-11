@@ -39,8 +39,8 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
       initial={"unFolded"}
       layout={true}
       variants={{
-        folded: { opacity: 0, height: "0px" },
-        unFolded: { opacity: 1, height: "fit-content" },
+        folded: { opacity: 0, height: "0px", width: "0px" },
+        unFolded: { opacity: 1, height: "fit-content", width: "fit-content" },
       }}
     >
       <div className="h-auto max-h-full w-[246px] min-w-[246px]">

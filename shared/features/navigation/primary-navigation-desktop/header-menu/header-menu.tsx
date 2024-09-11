@@ -25,13 +25,11 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
           <Logo
             classNames={{
               base: cn("h-6 w-auto justify-start gap-md px-lg pl-2 transition-all", {
-                "transition-all gap-[18px]": isFolded,
-                // "pl-xs": !isFolded,
+                "!gap-[18px]": isFolded,
               }),
               illustration: cn("min-w-6 h-6 w-auto"),
               wordmark: cn("min-w-0 h-4 w-auto"),
             }}
-            // type={isFolded ? "illustration" : undefined}
           />
         </BaseLink>
 
