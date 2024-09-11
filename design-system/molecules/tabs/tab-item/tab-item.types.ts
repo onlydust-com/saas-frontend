@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
 
 import { BadgePort } from "@/design-system/atoms/badge";
 import { IconPort } from "@/design-system/atoms/icon";
@@ -20,7 +20,9 @@ interface ClassNames {
   badge: string;
 }
 
-export interface TabItemPort extends Partial<Variants>, PropsWithChildren {
+export interface TabItemPort<C extends ElementType> extends Partial<Variants>, PropsWithChildren {
+  as?: C;
+  htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   badge?: BadgePort<"div">;
   startIcon?: IconPort;

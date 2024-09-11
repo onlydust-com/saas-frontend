@@ -1,3 +1,5 @@
+import { ElementType } from "react";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
@@ -7,7 +9,9 @@ import { cn } from "@/shared/helpers/cn";
 import { TabItemPort } from "../../tab-item.types";
 import { TabItemDefaultVariants } from "./default.variants";
 
-export function TabItemDefaultAdapter({
+export function TabItemDefaultAdapter<C extends ElementType = "button">({
+  as,
+  htmlProps,
   classNames,
   variant = "flat",
   size = "sm",
@@ -18,7 +22,8 @@ export function TabItemDefaultAdapter({
   attr = {},
   id,
   onClick,
-}: TabItemPort) {
+}: TabItemPort<C>) {
+  const Component = as || "button";
   const slots = TabItemDefaultVariants({ variant, size, isSelected });
 
   const handleClick = () => {
@@ -28,7 +33,7 @@ export function TabItemDefaultAdapter({
   };
 
   return (
-    <button {...attr} className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
+    <Component {...attr} {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
       {startIcon && (
         <Icon
           size={"sm"}
@@ -60,6 +65,6 @@ export function TabItemDefaultAdapter({
           }}
         />
       )}
-    </button>
+    </Component>
   );
 }

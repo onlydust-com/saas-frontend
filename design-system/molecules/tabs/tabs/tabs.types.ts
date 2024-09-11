@@ -4,14 +4,14 @@ interface Variants {}
 
 interface ClassNames {
   base: string;
-  item: TabItemPort["classNames"];
+  item: TabItemPort<"button">["classNames"];
 }
 
 export interface TabsPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  variant?: TabItemPort["variant"];
-  size?: TabItemPort["size"];
-  tabs: TabItemPort[];
+  variant?: TabItemPort<"button">["variant"];
+  size?: TabItemPort<"button">["size"];
+  tabs: TabItemPort<"button">[];
   isFullWidth?: boolean;
   layout?: "horizontal" | "vertical";
   selectedId?: string;

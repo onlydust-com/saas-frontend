@@ -17,7 +17,7 @@ export const TabItemDefaultVariants = tv({
     },
 
     size: {
-      sm: { base: "px-lg py-md" },
+      sm: { base: "px-lg py-sm" },
       md: { base: "px-xl py-2md" },
     },
 
