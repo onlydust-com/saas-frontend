@@ -2,7 +2,8 @@
 
 import { PropsWithChildren } from "react";
 
-import { CreateProgramPanelProvider } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.context";
+import { CreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel";
+import { EditProgramPanel } from "@/app/financials/[sponsorId]/_features/edit-program-panel/edit-program-panel";
 import { FinancialSection } from "@/app/financials/[sponsorId]/_sections/financial-section/financial-section";
 import { ProgramsSection } from "@/app/financials/[sponsorId]/_sections/programs-section/programs-section";
 import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
@@ -97,9 +98,9 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         }}
         paramsReady={Boolean(sponsorId)}
       />
-      <CreateProgramPanelProvider sponsorId={sponsorId}>
-        <SafeFinancialPage sponsorId={sponsorId} />
-      </CreateProgramPanelProvider>
+      <SafeFinancialPage sponsorId={sponsorId} />
+      <EditProgramPanel />
+      <CreateProgramPanel />
     </PageWrapper>
   );
 }

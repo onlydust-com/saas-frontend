@@ -31,6 +31,7 @@
         "leads": "{{count}} leads",
         "currencies": "{{count}} currencies",
         "seeProgram": "See program",
+        "editProgram": "Edit program",
         "allocate": "Allocate"
       }
     }

@@ -1,13 +1,4 @@
-import { PropsWithChildren } from "react";
 import { z } from "zod";
-
-export interface CreateProgramPanelProps {
-  sponsorId: string;
-}
-
-export interface CreateProgramPanelContextProps extends PropsWithChildren {
-  sponsorId: string;
-}
 
 export const createProgramPanelFormValidation = z.object({
   name: z.string().min(1),
