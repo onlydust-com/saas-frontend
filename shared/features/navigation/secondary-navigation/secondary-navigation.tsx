@@ -29,7 +29,7 @@ export function SecondaryNavigation({ ...props }: SecondaryNavigationProps) {
                 </div>
               )}
             </Popover.Trigger>
-            <Popover.Content unstyled className={"max-w-[560px]"}>
+            <Popover.Content unstyled className={"w-[560px]"}>
               {({ setIsOpen }) => <Notifications onClose={() => setIsOpen(false)} />}
             </Popover.Content>
           </Popover>
