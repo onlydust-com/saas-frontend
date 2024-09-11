@@ -19,5 +19,9 @@
       "placeholder": "Leads"
     }
   },
+  "messages": {
+    "success": "Program created successfully",
+    "error": "An error occurred while creating the program"
+  },
   "submit": "Create a program"
 }

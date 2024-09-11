@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { z } from "zod";
 
-import { CreateProgramPanelProps } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.types";
+import {
+  CreateProgramPanelProps,
+  createProgramPanelFormValidation,
+} from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
@@ -13,6 +15,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { ImageInput } from "@/design-system/molecules/image-input";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -20,14 +23,6 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-const validation = z.object({
-  name: z.string().min(1),
-  url: z.string().min(1),
-  logoUrl: z.string().optional(),
-  logoFile: z.any().optional(),
-  leadIds: z.array(z.string()).min(0),
-});
 
 export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
   const { t } = useTranslation("financials");
@@ -37,20 +32,25 @@ export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
     pathParams: { sponsorId },
   });
   const { control, handleSubmit } = useForm<CreateSponsorProgramBody & { logoFile?: File }>({
-    resolver: zodResolver(validation),
+    resolver: zodResolver(createProgramPanelFormValidation),
   });
 
   async function onCreateProgram({ logoFile, ...data }: CreateSponsorProgramBody & { logoFile?: File }) {
-    const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
+    try {
+      const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
-    const createProgramData: CreateSponsorProgramBody = {
-      ...data,
-      logoUrl: fileUrl?.url,
-    };
+      const createProgramData: CreateSponsorProgramBody = {
+        ...data,
+        logoUrl: fileUrl?.url,
+      };
 
-    await createProgram(createProgramData);
+      await createProgram(createProgramData);
 
-    close();
+      close();
+      toast.success(<Translate token={"financials:createProgramPanel.messages.success"} />);
+    } catch {
+      toast.error(<Translate token={"financials:createProgramPanel.messages.error"} />);
+    }
   }
 
   return (
