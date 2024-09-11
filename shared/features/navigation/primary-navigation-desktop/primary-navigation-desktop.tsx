@@ -15,7 +15,7 @@ function MenuContainer({ children }: { children: ReactNode }) {
 }
 
 const SIZES = {
-  folded: 66,
+  folded: 52,
   unfolded: 260,
 };
 
@@ -49,23 +49,25 @@ export function PrimaryNavigationDesktop() {
     <AnimatedColumn
       width={navSize}
       initialWidth={SIZES.unfolded}
-      className="flex h-full flex-col justify-between gap-lg px-sm pb-sm pt-xs"
+      className="flex h-full flex-col justify-between gap-lg overflow-hidden px-sm pb-sm pt-xs"
     >
-      <MenuContainer>
-        <HeaderMenu isFolded={folded} onFoldChange={onFold} />
-      </MenuContainer>
-      <MenuContainer>
-        <PrimaryMenu isFolded={folded} />
-      </MenuContainer>
-      <div className={"flex-1"} />
-      <MenuContainer>
-        <SecondaryMenu isFolded={folded} />
-      </MenuContainer>
-      <PrimaryBanner isFolded={folded} />
-      <hr className={"border-border-primary"} />
-      <MenuContainer>
-        <UserMenu isFolded={folded} />
-      </MenuContainer>
+      <div className={"flex h-full w-fit flex-col justify-between gap-lg overflow-hidden"}>
+        <MenuContainer>
+          <HeaderMenu isFolded={folded} onFoldChange={onFold} />
+        </MenuContainer>
+        <MenuContainer>
+          <PrimaryMenu isFolded={folded} />
+        </MenuContainer>
+        <div className={"flex-1"} />
+        <MenuContainer>
+          <SecondaryMenu isFolded={folded} />
+        </MenuContainer>
+        <PrimaryBanner isFolded={folded} />
+        <hr className={"border-border-primary"} />
+        <MenuContainer>
+          <UserMenu isFolded={folded} />
+        </MenuContainer>
+      </div>
     </AnimatedColumn>
   );
 }
