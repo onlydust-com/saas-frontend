@@ -41,7 +41,9 @@ export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
   if (!allCurrenciesData) return null;
 
   const usedCurrencies = sponsorData?.totalAvailable.totalPerCurrency?.map(budget => budget.currency.id) || [];
-  const allCurrencies = allCurrenciesData.currencies.filter(currency => !usedCurrencies.includes(currency.id));
+  const allCurrencies = allCurrenciesData.currencies.filter(
+    currency => !usedCurrencies.includes(currency.id) && currency.onlyDustWallets?.length
+  );
 
   return (
     <Accordion

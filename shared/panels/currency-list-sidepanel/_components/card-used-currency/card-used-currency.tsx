@@ -37,7 +37,7 @@ export function CardUsedCurrency({ budget }: CardUsedCurrencyProps) {
         <Badge
           as={"button"}
           htmlProps={{
-            onClick: openCurrencyNetworkSidepanel,
+            onClick: () => openCurrencyNetworkSidepanel({ currencyId: budget.currency.id }),
           }}
           size={"sm"}
           color={"grey"}

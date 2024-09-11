@@ -53,7 +53,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
         <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
           <div className="h-auto">
             <PageContent>
-              <FinancialSection />
+              <FinancialSection sponsorId={sponsorId} />
             </PageContent>
           </div>
           <PageContent>
@@ -62,7 +62,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
         </AnimatedColumn>
       </WithProjectPanelProvider>
       <AllocateProgramSidepanel />
-      <CurrencyListSidepanel sponsorId={sponsorId} />
+      <CurrencyListSidepanel />
       <CurrencyNetworkSidepanel />
     </ProgramListSidepanelProvider>
   );

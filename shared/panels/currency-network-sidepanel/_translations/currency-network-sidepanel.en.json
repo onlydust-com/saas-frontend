@@ -1,3 +1,5 @@
 {
-  "title": "Choose a network"
+  "title": "Choose a network",
+  "network": "Network",
+  "select": "Select"
 }

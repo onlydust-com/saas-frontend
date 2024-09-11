@@ -4,16 +4,18 @@ import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawe
 import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AllCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies";
 import { UsedCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies";
 import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
-import { CurrencyListSidepanelProps } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function CurrencyListSidepanel({ sponsorId }: CurrencyListSidepanelProps) {
+export function CurrencyListSidepanel() {
   const { name } = useCurrencyListSidepanel();
   const { Panel } = useSidePanel({ name });
+  const { sponsorId } = useSinglePanelData<{ sponsorId: string }>(name) ?? {
+    sponsorId: "",
+  };
 
   const feedbackDrawerState = useFeedbackDrawerState();
   const [, setIsOpen] = feedbackDrawerState;

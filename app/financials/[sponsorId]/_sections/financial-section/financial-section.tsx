@@ -16,7 +16,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const BUDGET_AVAILABLE = "budgetAvailable";
 const BUDGET_CHART = "budgetChart";
 
-export function FinancialSection() {
+export function FinancialSection({ sponsorId }: { sponsorId: string }) {
   const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof BUDGET_AVAILABLE | typeof BUDGET_CHART>(
     BUDGET_AVAILABLE
   );
@@ -73,7 +73,7 @@ export function FinancialSection() {
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
-              onClick={openCurrencyListSidepanel}
+              onClick={() => openCurrencyListSidepanel({ sponsorId })}
             />
 
             <TransactionsTrigger />
