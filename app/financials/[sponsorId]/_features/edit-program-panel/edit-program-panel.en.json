@@ -22,5 +22,8 @@
     "success": "Program edited successfully",
     "error": "An error occurred while updating the program"
   },
+  "transactions": {
+    "title": "Last transactions"
+  },
   "submit": "Edit"
 }

@@ -70,6 +70,7 @@ export function CreateProgramPanel() {
         <SidePanelBody>
           <Accordion
             id={"general-information"}
+            defaultSelected={["general-information"]}
             titleProps={{ translate: { token: "financials:createProgramPanel.informations.title" } }}
           >
             <div className={"flex w-full flex-col gap-md"}>
