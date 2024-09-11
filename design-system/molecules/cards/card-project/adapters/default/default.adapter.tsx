@@ -1,4 +1,4 @@
-import { CodeXml, Folder, Tag, User } from "lucide-react";
+import { CodeXml, Folder, LucideIcon, Tag, User } from "lucide-react";
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -9,70 +9,52 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { InfoDropdown } from "@/shared/features/info-dropdown/info-dropdown";
 import { cn } from "@/shared/helpers/cn";
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { CardProjectPort } from "../../card-project.types";
 import { CardProjectDefaultVariants } from "./default.variants";
 
-function Languages({ languages }: { languages: Array<BadgePort<"div">> }) {
-  const formattedLanguages = languages.map(language => ({
-    ...language,
-    icon: { component: CodeXml },
+function BadgeList({
+  items,
+  icon,
+  label,
+}: {
+  items: Array<BadgePort<"div">>;
+  icon: LucideIcon;
+  label: TranslateProps["token"];
+}) {
+  const formattedItems = items.map(item => ({
+    ...item,
+    icon: { component: icon },
   }));
 
-  if (formattedLanguages.length < 3) {
-    return formattedLanguages.map((t, key) => <Badge key={key} color="grey" size="xs" {...t} />);
+  if (formattedItems.length < 3) {
+    return formattedItems.map((item, index) => <Badge key={index} color="grey" size="xs" {...item} />);
   }
 
   return (
     <InfoDropdown
-      label={{ token: "common:languages", count: formattedLanguages.length }}
-      icon={{ component: CodeXml }}
-      items={formattedLanguages}
+      label={{ token: label, count: formattedItems.length }}
+      icon={{ component: icon }}
+      items={formattedItems}
     />
   );
 }
 
-function Categories({ categories }: { categories: Array<BadgePort<"div">> }) {
-  const formattedCategories = categories.map(category => ({
-    ...category,
-    icon: { component: Tag },
-  }));
-
-  if (formattedCategories.length < 3) {
-    return formattedCategories.map((t, key) => <Badge key={key} color="grey" size="xs" {...t} />);
-  }
-
-  return (
-    <InfoDropdown
-      label={{ token: "common:categories", count: formattedCategories.length }}
-      icon={{ component: Tag }}
-      items={formattedCategories}
-    />
-  );
-}
-
-function ProjectCount({ projectCount }: { projectCount?: string }) {
-  if (projectCount) {
-    return (
-      <Badge color="grey" size="xs" icon={{ component: Folder }}>
-        {projectCount}
-      </Badge>
-    );
-  }
-
-  return null;
-}
-
-function UserCount({ userCount }: { userCount?: string }) {
-  if (userCount) {
-    return (
-      <Badge color="grey" size="xs" icon={{ component: User }}>
-        {userCount}
-      </Badge>
-    );
-  }
-
-  return null;
+function ConditionalBadge({
+  count,
+  icon,
+  label,
+}: {
+  count?: string;
+  icon: LucideIcon;
+  label: TranslateProps["token"];
+}) {
+  return count ? (
+    <Badge color="grey" size="xs" icon={{ component: icon }}>
+      {count}
+    </Badge>
+  ) : null;
 }
 
 export function CardProjectDefaultAdapter<C extends ElementType = "div">({
@@ -123,10 +105,10 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
         </div>
 
         <div className="flex w-full flex-wrap gap-1">
-          <Languages languages={languages} />
-          <Categories categories={categories} />
-          <ProjectCount projectCount={projectCount} />
-          <UserCount userCount={userCount} />
+          <BadgeList items={languages} icon={CodeXml} label="common:languages" />
+          <BadgeList items={categories} icon={Tag} label="common:categories" />
+          <ConditionalBadge count={projectCount} icon={Folder} label="projects" />
+          <ConditionalBadge count={userCount} icon={User} label="users" />
         </div>
       </div>
     </Paper>
