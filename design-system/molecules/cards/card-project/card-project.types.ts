@@ -29,3 +29,5 @@ export interface CardProjectPort<C extends ElementType> extends Partial<Variants
   background?: PaperPort<C>["background"];
   border?: PaperPort<C>["border"];
 }
+
+export interface BadgeListProps {}

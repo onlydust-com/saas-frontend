@@ -1,55 +1,19 @@
-import { CodeXml, Folder, LucideIcon, Tag, User } from "lucide-react";
+import { CodeXml, Folder, LucideIcon, User } from "lucide-react";
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { Badge, BadgePort } from "@/design-system/atoms/badge";
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { InfoDropdown } from "@/shared/features/info-dropdown/info-dropdown";
+import { BadgeList } from "@/shared/features/badge-list/badge-list";
 import { cn } from "@/shared/helpers/cn";
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { CardProjectPort } from "../../card-project.types";
 import { CardProjectDefaultVariants } from "./default.variants";
 
-function BadgeList({
-  items,
-  icon,
-  label,
-}: {
-  items: Array<BadgePort<"div">>;
-  icon: LucideIcon;
-  label: TranslateProps["token"];
-}) {
-  const formattedItems = items.map(item => ({
-    ...item,
-    icon: { component: icon },
-  }));
-
-  if (formattedItems.length < 3) {
-    return formattedItems.map((item, index) => <Badge key={index} color="grey" size="xs" {...item} />);
-  }
-
-  return (
-    <InfoDropdown
-      label={{ token: label, count: formattedItems.length }}
-      icon={{ component: icon }}
-      items={formattedItems}
-    />
-  );
-}
-
-function ConditionalBadge({
-  count,
-  icon,
-  label,
-}: {
-  count?: string;
-  icon: LucideIcon;
-  label: TranslateProps["token"];
-}) {
+function ConditionalBadge({ count, icon }: { count?: string; icon: LucideIcon }) {
   return count ? (
     <Badge color="grey" size="xs" icon={{ component: icon }}>
       {count}
@@ -105,10 +69,10 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
         </div>
 
         <div className="flex w-full flex-wrap gap-1">
-          <BadgeList items={languages} icon={CodeXml} label="common:languages" />
-          <BadgeList items={categories} icon={Tag} label="common:categories" />
-          <ConditionalBadge count={projectCount} icon={Folder} label="projects" />
-          <ConditionalBadge count={userCount} icon={User} label="users" />
+          <BadgeList items={languages} icon={CodeXml} label={{ token: "common:languages" }} />
+          <BadgeList items={categories} icon={CodeXml} label={{ token: "common:categories" }} />
+          <ConditionalBadge count={projectCount} icon={Folder} />
+          <ConditionalBadge count={userCount} icon={User} />
         </div>
       </div>
     </Paper>

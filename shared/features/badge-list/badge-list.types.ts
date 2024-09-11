@@ -1,10 +1,11 @@
+import { LucideIcon } from "lucide-react";
+
 import { BadgePort } from "@/design-system/atoms/badge";
-import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
-export interface TInfoDropdownProps {
+export interface TBadgeListProps {
   label: TranslateProps;
-  icon?: IconPort;
+  icon: LucideIcon;
   items: Array<BadgePort<"div">>;
 }
