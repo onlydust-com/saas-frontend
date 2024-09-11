@@ -211,7 +211,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
             <Button
               variant={"secondary"}
               size={"sm"}
-              onClick={() => OpenEditProgram({ programId: info.row.original.id })}
+              onClick={() => OpenEditProgram({ programId: info.row.original.id, sponsorId })}
             >
               <Translate token={"financials:details.programs.table.rows.editProgram"} />
             </Button>

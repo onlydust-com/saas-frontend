@@ -114,3 +114,16 @@ export type UploadProgramLogoResponse = components["schemas"]["UploadImageRespon
 export type UploadProgramLogoPortParams = HttpClientParameters<object>;
 
 export type UploadProgramLogoPortResponse = HttpStorageResponse<UploadProgramLogoResponse, File>;
+
+/* --------------------- Edit Program --------------------- */
+
+export type EditProgramBody = components["schemas"]["UpdateProgramRequest"];
+
+type EditProgramPathParams = operations["updateProgram"]["parameters"]["path"];
+
+export type EditProgramPortParams = HttpClientParameters<{
+  PathParams: EditProgramPathParams;
+  QueryParams: { sponsorId?: string };
+}>;
+
+export type EditProgramPortResponse = HttpStorageResponse;
