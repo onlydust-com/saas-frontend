@@ -3,6 +3,7 @@ import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { CardUsedCurrency } from "@/shared/panels/currency-list-sidepanel/_components/card-used-currency/card-used-currency";
 import { UsedCurrenciesProps } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies.types";
 
 export function UsedCurrencies({ sponsorId }: UsedCurrenciesProps) {
@@ -36,7 +37,11 @@ export function UsedCurrencies({ sponsorId }: UsedCurrenciesProps) {
       }}
     >
       {data.totalAvailable.totalPerCurrency?.map(budget => {
-        return <div key={budget.currency.id}>{budget.currency.name}</div>;
+        return (
+          <div key={budget.currency.id}>
+            <CardUsedCurrency budget={budget} />
+          </div>
+        );
       })}
     </Accordion>
   );

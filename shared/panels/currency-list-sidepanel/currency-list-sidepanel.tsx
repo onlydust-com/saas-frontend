@@ -34,7 +34,7 @@ export function CurrencyListSidepanel({ sponsorId }: CurrencyListSidepanelProps)
       <SidePanelBody>
         <div className="flex flex-1 flex-col gap-lg">
           <UsedCurrencies sponsorId={sponsorId} />
-          <AllCurrencies />
+          <AllCurrencies sponsorId={sponsorId} />
         </div>
 
         <Alert
