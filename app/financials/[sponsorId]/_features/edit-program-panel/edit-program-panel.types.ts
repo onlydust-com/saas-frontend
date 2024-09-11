@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createProgramPanelFormValidation = z.object({
+export const editProgramPanelFormValidation = z.object({
   name: z.string().min(1),
   url: z.string().min(1),
   logoUrl: z.string().optional(),

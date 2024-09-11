@@ -145,11 +145,11 @@ export const useSidePanel = <T extends AnyType>(
   }, [ref, name, classNames, config, isOpen]);
 };
 
-export function useSinglePanelContext<T extends AnyType>(name: string) {
+export function useSinglePanelContext<T extends AnyType>(name: string, config?: SidePanelConfig) {
   const { open, close, back, isOpen, getData } = useSidePanelsContext();
 
   return {
-    open: (data?: T) => open<T>(name, data),
+    open: (data?: T) => open<T>(name, data, config),
     close: () => close(name),
     back,
     isOpen: isOpen(name),
