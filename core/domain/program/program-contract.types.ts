@@ -106,3 +106,11 @@ type GetProgramProjectPathParams = operations["getProgramProject"]["parameters"]
 export type GetProgramProjectPortParams = HttpClientParameters<{
   PathParams: GetProgramProjectPathParams;
 }>;
+
+/* --------------------- Upload program logo --------------------- */
+
+export type UploadProgramLogoResponse = components["schemas"]["UploadImageResponse"];
+
+export type UploadProgramLogoPortParams = HttpClientParameters<object>;
+
+export type UploadProgramLogoPortResponse = HttpStorageResponse<UploadProgramLogoResponse, File>;

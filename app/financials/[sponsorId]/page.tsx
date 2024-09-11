@@ -1,29 +1,24 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren } from "react";
 
+import { CreateProgramPanelProvider } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.context";
 import { FinancialSection } from "@/app/financials/[sponsorId]/_sections/financial-section/financial-section";
+import { ProgramsSection } from "@/app/financials/[sponsorId]/_sections/programs-section/programs-section";
 import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
-
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { ProjectSidePanelProvider } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { ProgramsTable } from "./_features/programs-table/programs-table";
 
 function WithProjectPanelProvider({ children }: PropsWithChildren) {
   const {
@@ -40,13 +35,10 @@ function WithProjectPanelProvider({ children }: PropsWithChildren) {
 }
 
 function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
-  const { open } = useSidePanelsContext();
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
-  const [selectedProgramId, setSelectedProgramId] = useState<string>();
 
   function handleOpenAllocateProgram(programId: string) {
-    setSelectedProgramId(programId);
-    openAllocateProgramSidepanel();
+    openAllocateProgramSidepanel({ programId, sponsorId });
   }
 
   return (
@@ -63,44 +55,11 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
             </PageContent>
           </div>
           <PageContent>
-            <div className="grid gap-3">
-              <header className={"flex items-center justify-between"}>
-                <Typo
-                  variant={"heading"}
-                  size={"xs"}
-                  weight={"medium"}
-                  translate={{
-                    token: "financials:details.programs.title",
-                  }}
-                />
-                <div className={"flex flex-row items-center justify-end gap-lg"}>
-                  <Button
-                    variant={"primary"}
-                    endIcon={{ component: ChevronRight }}
-                    isTextButton
-                    size={"md"}
-                    onClick={() => open("program-list")}
-                  >
-                    <Translate token={"financials:details.programs.actions.allocate"} />
-                  </Button>
-                  <Button
-                    variant={"primary"}
-                    endIcon={{ component: ChevronRight }}
-                    isTextButton
-                    size={"md"}
-                    onClick={() => {}}
-                  >
-                    <Translate token={"financials:details.programs.actions.create"} />
-                  </Button>
-                </div>
-              </header>
-
-              <ProgramsTable onAllocateClick={handleOpenAllocateProgram} />
-            </div>
+            <ProgramsSection onAllocateClick={handleOpenAllocateProgram} />
           </PageContent>
         </AnimatedColumn>
       </WithProjectPanelProvider>
-      <AllocateProgramSidepanel sponsorId={sponsorId} programId={selectedProgramId} />
+      <AllocateProgramSidepanel />
     </ProgramListSidepanelProvider>
   );
 }
@@ -138,7 +97,9 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         }}
         paramsReady={Boolean(sponsorId)}
       />
-      <SafeFinancialPage sponsorId={sponsorId} />
+      <CreateProgramPanelProvider sponsorId={sponsorId}>
+        <SafeFinancialPage sponsorId={sponsorId} />
+      </CreateProgramPanelProvider>
     </PageWrapper>
   );
 }

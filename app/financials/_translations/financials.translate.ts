@@ -4,6 +4,7 @@ import enFinancialDetailSidePanel from "@/app/financials/[sponsorId]/_sections/f
 import enTransactionPanel from "@/app/financials/[sponsorId]/_sections/financial-section/components/transactions-sidepanel/_translations/transaction-sidepanel.en.json";
 import enFinancialsDetails from "@/app/financials/[sponsorId]/_translations/financial-detail.en.json";
 
+import enCreateProgramPanel from "../[sponsorId]/_features/create-program-panel/create-program-panel.en.json";
 import enFinancials from "./financials.en.json";
 
 export const enFinancialsTranslation = {
@@ -13,6 +14,7 @@ export const enFinancialsTranslation = {
     budgetAvailable: enBudgetAvailable,
     financialDetailSidePanel: enFinancialDetailSidePanel,
     financialColumnChart: enFinancialColumnChart,
+    createProgramPanel: enCreateProgramPanel,
     transactionPanel: enTransactionPanel,
   },
 };

@@ -5,6 +5,7 @@ import { SponsorTransactionsStats } from "@/core/domain/sponsor/models/sponsor-t
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import {
   AllocateBudgetToProgramBody,
+  CreateSponsorProgramBody,
   GetSponsorProgramsResponse,
   GetSponsorResponse,
   GetSponsorTransactionsResponse,
@@ -22,6 +23,7 @@ export class SponsorClientAdapter implements SponsorStoragePort {
     getSponsorProgram: "sponsors/:sponsorId/programs",
     getSponsorTransactions: "sponsors/:sponsorId/transactions",
     allocateBudgetToProgram: "sponsors/:sponsorId/allocate",
+    createSponsorProgram: "sponsors/:sponsorId/programs",
   } as const;
 
   getSponsor = ({ pathParams }: FirstParameter<SponsorStoragePort["getSponsor"]>) => {
@@ -163,6 +165,26 @@ export class SponsorClientAdapter implements SponsorStoragePort {
         pathParams,
         method,
         tag,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  createSponsorProgram = ({ pathParams }: FirstParameter<SponsorStoragePort["createSponsorProgram"]>) => {
+    const path = this.routes["createSponsorProgram"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: CreateSponsorProgramBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
         body: JSON.stringify(body),
       });
 

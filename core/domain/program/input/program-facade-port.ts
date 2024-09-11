@@ -14,6 +14,8 @@ import {
   GetProgramsPortResponse,
   GrantBudgetToProjectPortParams,
   GrantBudgetToProjectPortResponse,
+  UploadProgramLogoPortParams,
+  UploadProgramLogoPortResponse,
 } from "../program-contract.types";
 
 export interface ProgramFacadePort {
@@ -25,4 +27,5 @@ export interface ProgramFacadePort {
   getProgramProjects(p: GetProgramProjectsPortParams): GetProgramProjectsPortResponse;
   grantBudgetToProject(p: GrantBudgetToProjectPortParams): GrantBudgetToProjectPortResponse;
   getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;
+  uploadProgramLogo(p: UploadProgramLogoPortParams): UploadProgramLogoPortResponse;
 }

@@ -2,9 +2,10 @@ import { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
+import { FieldContainerPort } from "@/design-system/atoms/field-container";
 import { IconPort } from "@/design-system/atoms/icon";
 
-type htmlInputProps = Omit<ComponentPropsWithoutRef<"input">, "size">;
+type htmlInputProps = Omit<ComponentPropsWithoutRef<"input">, "size" | "name">;
 
 export type InputSize = "sm" | "md" | "lg";
 interface Variants {
@@ -25,7 +26,8 @@ interface DataAttributes {
   "data-hover"?: boolean;
 }
 
-export interface InputPort extends htmlInputProps, Partial<Variants> {
+export interface InputPort extends htmlInputProps, Partial<Variants>, FieldContainerPort {
+  name: string;
   classNames?: Partial<ClassNames>;
   value?: string;
   isError?: boolean;
@@ -36,17 +38,7 @@ export interface InputPort extends htmlInputProps, Partial<Variants> {
   endContent?: ReactNode;
   endIcon?: IconPort;
   isDisabled?: boolean;
-  label?: ReactNode;
-  description?: ReactNode;
   placeholder?: string;
   canInteract?: boolean;
-  info?: {
-    text: string;
-    icon?: IconPort;
-  };
-  error?: {
-    text: string;
-    icon?: IconPort;
-  };
   attr?: DataAttributes;
 }

@@ -23,7 +23,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
-
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
       pathParams: { sponsorId },

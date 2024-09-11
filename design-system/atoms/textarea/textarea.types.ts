@@ -1,9 +1,9 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
-import { IconPort } from "@/design-system/atoms/icon";
+import { FieldContainerPort } from "@/design-system/atoms/field-container";
 
 // Should use the `textarea` HTML element, but we're using `input` to please NextUI for now
-type htmlTextareaProps = ComponentPropsWithoutRef<"input">;
+type htmlTextareaProps = Omit<ComponentPropsWithoutRef<"input">, "name">;
 
 interface Variants {
   isDisabled: boolean;
@@ -19,7 +19,7 @@ interface ClassNames {
   input: string;
 }
 
-export interface TextareaPort extends htmlTextareaProps, Partial<Variants> {
+export interface TextareaPort extends htmlTextareaProps, Partial<Variants>, FieldContainerPort {
   classNames?: Partial<ClassNames>;
   isDisabled?: boolean;
   minRows?: number;
@@ -28,14 +28,4 @@ export interface TextareaPort extends htmlTextareaProps, Partial<Variants> {
   value?: string;
   isError?: boolean;
   placeholder?: string;
-  label?: ReactNode;
-  description?: ReactNode;
-  info?: {
-    text: string;
-    icon?: IconPort;
-  };
-  error?: {
-    text: string;
-    icon?: IconPort;
-  };
 }

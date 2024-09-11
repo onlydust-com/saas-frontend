@@ -1,79 +1,17 @@
-import { CircleAlert } from "lucide-react";
 import { ChangeEvent, ComponentProps, ForwardedRef, forwardRef, useMemo, useState } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { isButtonSolid, isButtonText } from "@/design-system/atoms/button/button.utils";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { FieldContainer } from "@/design-system/atoms/field-container";
 import { Icon } from "@/design-system/atoms/icon";
 import { InputPort } from "@/design-system/atoms/input";
-import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
 import { InputDefaultVariants } from "./default.variants";
 
-const defaultSize = "md";
-
-function LabelsContainer({
-  label,
-  description,
-  classNames,
-  name,
-}: Pick<InputPort, "label" | "description" | "classNames" | "name">) {
-  if (!description && !label) {
-    return null;
-  }
-  return (
-    <div className="flex w-full flex-col">
-      {label ? (
-        <Typo
-          as={"label"}
-          htmlProps={{ htmlFor: name }}
-          size={"sm"}
-          weight={"medium"}
-          classNames={{ base: classNames?.label }}
-        >
-          {label}
-        </Typo>
-      ) : null}
-      {description ? (
-        <Typo as={"div"} size={"sm"} color={"secondary"}>
-          {description}
-        </Typo>
-      ) : null}
-    </div>
-  );
-}
-
-function InfoContainer({ error, info, isError }: Pick<InputPort, "info" | "error" | "isError">) {
-  if (isError && error) {
-    return (
-      <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-error">
-        <Icon size={"sm"} {...(error.icon || {})} component={error?.icon?.component || CircleAlert} />
-        {error.text ? (
-          <Typo as={"div"} size={"sm"} color={"error"}>
-            {error.text}
-          </Typo>
-        ) : null}
-      </div>
-    );
-  }
-
-  if (info) {
-    return (
-      <div className="flex w-full flex-row items-center justify-start gap-sm text-foreground-secondary">
-        {info.icon ? <Icon size={"sm"} {...info.icon} /> : null}
-        {info.text ? (
-          <Typo as={"div"} size={"sm"} color={"secondary"}>
-            {info.text}
-          </Typo>
-        ) : null}
-      </div>
-    );
-  }
-
-  return null;
-}
+const defaultSize = "sm";
 
 function StartContent({
   startContent,
@@ -199,8 +137,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
   }
 
   return (
-    <div className={cn(slots.container(), classNames?.container)} {...attr}>
-      <LabelsContainer label={label} description={description} classNames={classNames} />
+    <FieldContainer isError={isError} label={label} description={description} info={info} error={error}>
       <div className={cn(slots.wrapper())} {...attr}>
         <div className={cn(slots.base(), classNames?.base)} {...attr}>
           <StartContent startContent={startContent} startIcon={startIcon} avatar={avatar} {...variants} />
@@ -224,7 +161,6 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
           <Button {...button} size={size} classNames={{ base: "rounded-l-none !border-l-0" }} isDisabled={isDisabled} />
         ) : null}
       </div>
-      <InfoContainer isError={isError} info={info} error={error} />
-    </div>
+    </FieldContainer>
   );
 });

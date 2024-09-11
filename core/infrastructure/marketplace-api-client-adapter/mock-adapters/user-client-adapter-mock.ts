@@ -17,4 +17,6 @@ export class UserClientAdapterMock implements UserStoragePort {
   setMyProfile = mockHttpStorageResponse<UserStoragePort["setMyProfile"]>;
 
   replaceMyProfile = mockHttpStorageResponse<UserStoragePort["replaceMyProfile"]>;
+
+  searchUser = mockHttpStorageResponse<UserStoragePort["searchUser"]>;
 }
