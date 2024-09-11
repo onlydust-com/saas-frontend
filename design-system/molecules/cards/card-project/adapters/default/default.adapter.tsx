@@ -2,7 +2,7 @@ import { CodeXml, Folder, Tag, User } from "lucide-react";
 import { ComponentProps, ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { Badge, BadgePort } from "@/design-system/atoms/badge";
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
@@ -12,22 +12,22 @@ import { cn } from "@/shared/helpers/cn";
 import { CardProjectPort } from "../../card-project.types";
 import { CardProjectDefaultVariants } from "./default.variants";
 
-function Languages(languages: Array<BadgePort<"div">>) {
-  const formattedLanguages = languages.map(language => ({
-    ...language,
-    icon: { component: CodeXml },
-  }));
-
-  if (formattedLanguages.length < 3) {
-    return (
-      <>
-        {formattedLanguages.map((t, key) => (
-          <Badge key={key} color="grey" size="xs" {...t} />
-        ))}
-      </>
-    );
-  }
-}
+// function Languages(languages: Array<BadgePort<"div">>) {
+//   const formattedLanguages = languages.map(language => ({
+//     ...language,
+//     icon: { component: CodeXml },
+//   }));
+//
+//   if (formattedLanguages.length < 3) {
+//     return (
+//       <>
+//         {formattedLanguages.map((t, key) => (
+//           <Badge key={key} color="grey" size="xs" {...t} />
+//         ))}
+//       </>
+//     );
+//   }
+// }
 
 export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   as,
@@ -47,6 +47,8 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   border = "primary",
 }: CardProjectPort<C>) {
   const slots = CardProjectDefaultVariants({ clickable: Boolean(onClick) });
+
+  console.log("languages", languages);
 
   const formattedLanguages = languages.map(language => ({
     ...language,
