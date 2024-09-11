@@ -35,7 +35,7 @@ export interface BootstrapConstructor {
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
-  urlHelperPort: UrlFacadePort;
+  urlKernelPort: UrlFacadePort;
 }
 
 export class Bootstrap {
@@ -55,7 +55,7 @@ export class Bootstrap {
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
-  urlHelperPort: UrlFacadePort;
+  urlKernelPort: UrlFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.userStoragePortForClient = constructor.userStoragePortForClient;
@@ -71,7 +71,7 @@ export class Bootstrap {
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
-    this.urlHelperPort = constructor.urlHelperPort;
+    this.urlKernelPort = constructor.urlKernelPort;
   }
 
   getAuthProvider() {
@@ -142,8 +142,8 @@ export class Bootstrap {
     return this.fileKernelPort;
   }
 
-  getUrlHelperPort() {
-    return this.urlHelperPort;
+  getUrlKernelPort() {
+    return this.urlKernelPort;
   }
 
   public static get getBootstrap(): Bootstrap {
@@ -162,7 +162,7 @@ export class Bootstrap {
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
-        urlHelperPort: UrlAdapter,
+        urlKernelPort: UrlAdapter,
       });
     }
 

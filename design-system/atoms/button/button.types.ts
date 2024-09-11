@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode, SyntheticEvent } from "react";
+import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
 
@@ -35,7 +35,7 @@ export interface ButtonDefaultPort<C extends ElementType> extends Partial<Varian
   endIcon?: IconPort;
   startContent?: ReactNode;
   endContent?: ReactNode;
-  onClick?: (e: SyntheticEvent<C>) => void;
+  onClick?: () => void;
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
   variant?: ButtonTextVariant | ButtonSolidVariant;

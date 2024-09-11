@@ -23,5 +23,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
-  urlHelperPort: UrlAdapterMock,
+  urlKernelPort: UrlAdapterMock,
 };
