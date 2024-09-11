@@ -7,7 +7,7 @@ import { TypoPort } from "@/design-system/atoms/typo";
 interface Variants {}
 
 export interface CardTemplatePort<C extends ElementType> extends Partial<Variants>, PaperPort<C> {
-  avatarProps: AvatarPort;
+  avatarProps?: AvatarPort;
   titleProps: TypoPort<"span">;
   descriptionProps?: TypoPort<"span">;
   actionSlot?: ReactNode;

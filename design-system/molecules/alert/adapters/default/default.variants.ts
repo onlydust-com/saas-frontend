@@ -2,8 +2,9 @@ import { tv } from "tailwind-variants";
 
 export const AlertDefaultVariants = tv({
   slots: {
-    base: "effect-box-shadow-lg flex w-full gap-4 rounded-lg border p-4",
+    base: "flex w-full gap-4 rounded-lg border p-xl effect-box-shadow-lg",
     icon: "",
+    title: "capitalize",
   },
   variants: {
     color: {

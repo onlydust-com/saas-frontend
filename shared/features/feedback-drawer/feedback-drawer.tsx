@@ -16,7 +16,7 @@ export function FeedbackDrawer({ state }: { state: ReturnType<typeof useFeedback
       isOpen={isOpen}
       onOpenChange={setIsOpen}
       header={{
-        startContent: <Typo size={"2xl"} variant="heading" translate={{ token: "feedbackDrawer:title" }} />,
+        startContent: <Typo size={"xs"} variant="heading" translate={{ token: "feedbackDrawer:title" }} />,
       }}
       classNames={{
         base: "bg-[#181818]",
