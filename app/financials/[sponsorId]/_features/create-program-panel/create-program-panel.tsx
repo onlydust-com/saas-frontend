@@ -54,79 +54,77 @@ export function CreateProgramPanel({ sponsorId }: CreateProgramPanelProps) {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onCreateProgram)} className={"flex h-full w-full flex-col gap-px"}>
-        <SidePanelHeader
-          title={{
-            translate: { token: "financials:createProgramPanel.title" },
-          }}
-          canGoBack={false}
-          canClose={true}
-        />
+    <form onSubmit={handleSubmit(onCreateProgram)} className={"flex h-full w-full flex-col gap-px"}>
+      <SidePanelHeader
+        title={{
+          translate: { token: "financials:createProgramPanel.title" },
+        }}
+        canGoBack={false}
+        canClose={true}
+      />
 
-        <SidePanelBody>
-          <Accordion
-            id={"general-information"}
-            titleProps={{ translate: { token: "financials:createProgramPanel.informations.title" } }}
-          >
-            <div className={"flex w-full flex-col gap-md"}>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={<Translate token={"financials:createProgramPanel.informations.name.label"} />}
-                    placeholder={t("createProgramPanel.informations.name.placeholder")}
-                    {...field}
-                  />
-                )}
-              />
-              <Controller
-                name="url"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={<Translate token={"financials:createProgramPanel.informations.url.label"} />}
-                    placeholder={t("createProgramPanel.informations.url.placeholder")}
-                    {...field}
-                  />
-                )}
-              />
-              <Controller
-                name="leadIds"
-                control={control}
-                render={({ field: { onChange, value, name } }) => (
-                  <UserAutocomplete
-                    withInternalUserOnly={true}
-                    name={name}
-                    label={<Translate token={"financials:createProgramPanel.informations.lead.label"} />}
-                    placeholder={t("createProgramPanel.informations.lead.placeholder")}
-                    onSelect={onChange}
-                    selectedUser={value}
-                  />
-                )}
-              />
-              <Controller
-                name="logoFile"
-                control={control}
-                render={({ field: { onChange, name } }) => (
-                  <ImageInput
-                    name={name}
-                    label={<Translate token={"financials:createProgramPanel.informations.image.label"} />}
-                    onChange={onChange}
-                    buttonProps={{
-                      children: <Translate token={"financials:createProgramPanel.informations.image.buttonLabel"} />,
-                    }}
-                  />
-                )}
-              />
-            </div>
-          </Accordion>
-        </SidePanelBody>
-        <SidePanelFooter>
-          <Button variant={"secondary"} type={"submit"} translate={{ token: "financials:createProgramPanel.submit" }} />
-        </SidePanelFooter>
-      </form>
-    </>
+      <SidePanelBody>
+        <Accordion
+          id={"general-information"}
+          titleProps={{ translate: { token: "financials:createProgramPanel.informations.title" } }}
+        >
+          <div className={"flex w-full flex-col gap-md"}>
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={<Translate token={"financials:createProgramPanel.informations.name.label"} />}
+                  placeholder={t("createProgramPanel.informations.name.placeholder")}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="url"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={<Translate token={"financials:createProgramPanel.informations.url.label"} />}
+                  placeholder={t("createProgramPanel.informations.url.placeholder")}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="leadIds"
+              control={control}
+              render={({ field: { onChange, value, name } }) => (
+                <UserAutocomplete
+                  withInternalUserOnly={true}
+                  name={name}
+                  label={<Translate token={"financials:createProgramPanel.informations.lead.label"} />}
+                  placeholder={t("createProgramPanel.informations.lead.placeholder")}
+                  onSelect={onChange}
+                  selectedUser={value}
+                />
+              )}
+            />
+            <Controller
+              name="logoFile"
+              control={control}
+              render={({ field: { onChange, name } }) => (
+                <ImageInput
+                  name={name}
+                  label={<Translate token={"financials:createProgramPanel.informations.image.label"} />}
+                  onChange={onChange}
+                  buttonProps={{
+                    children: <Translate token={"financials:createProgramPanel.informations.image.buttonLabel"} />,
+                  }}
+                />
+              )}
+            />
+          </div>
+        </Accordion>
+      </SidePanelBody>
+      <SidePanelFooter>
+        <Button variant={"secondary"} type={"submit"} translate={{ token: "financials:createProgramPanel.submit" }} />
+      </SidePanelFooter>
+    </form>
   );
 }
