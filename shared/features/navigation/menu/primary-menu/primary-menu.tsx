@@ -23,7 +23,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: Wallet }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
-        isDisabled={showSponsorList.loading}
+        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsor}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
@@ -39,7 +39,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
             : NEXT_ROUTER.programs.details.root(showProgramList.firstProgram ?? ""),
         }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
-        isDisabled={showProgramList.loading}
+        isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
       />
       <ItemNav
         isFolded={isFolded}
