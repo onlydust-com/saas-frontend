@@ -4,8 +4,10 @@ import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapte
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
+import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
+import { AccordionLoading } from "@/design-system/molecules/accordion";
+import { Alert } from "@/design-system/molecules/alert";
 import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
@@ -14,14 +16,20 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
   const { name } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, networkName } = useSinglePanelData<{ currencyId: string; networkName: string }>(name) ?? {
+  const { currencyId, networkName, networkAddress } = useSinglePanelData<{
+    currencyId: string;
+    networkName: string;
+    networkAddress: string;
+  }>(name) ?? {
     currencyId: "",
     networkName: "",
+    networkAddress: "",
   };
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
@@ -69,22 +77,23 @@ export function DepositTransactionSidepanel() {
           background={"secondary"}
         />
 
-        <Accordion
-          id={"depositInstructions"}
-          defaultSelected={["depositInstructions"]}
-          titleProps={{
-            translate: { token: "panels:depositTransaction.depositInstructions" },
-          }}
-        >
-          <div>
-            {/* TODO @hayden */}
-            <Typo size={"xs"}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur consequatur ea error
-              laudantium reprehenderit temporibus, vitae. Adipisci amet aperiam asperiores aspernatur at eaque eius
-              natus, nemo placeat ratione vero!
-            </Typo>
-          </div>
-        </Accordion>
+        <Paper size={"lg"} border={"primary"}>
+          <Typo
+            size={"sm"}
+            classNames={{ base: "break-all" }}
+            translate={{
+              token: "panels:depositTransaction.depositInstructions",
+              // TODO @hayden handle bold values
+              values: { name: networkName, address: networkAddress },
+            }}
+          />
+        </Paper>
+
+        <Alert
+          title={<Translate token={"panels:depositTransaction.disclaimer.title"} />}
+          description={<Translate token={"panels:depositTransaction.disclaimer.description"} />}
+          color={"brand"}
+        />
 
         <Input
           name={"transactionReference"}

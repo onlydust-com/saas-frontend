@@ -66,7 +66,13 @@ export function CurrencyNetworkSidepanel() {
             <div key={wallet.address}>
               <CardNetwork
                 networkName={wallet.network}
-                onActionClick={networkName => openDepositTransactionSidepanel({ currencyId: currency.id, networkName })}
+                onActionClick={networkName =>
+                  openDepositTransactionSidepanel({
+                    currencyId: currency.id,
+                    networkName,
+                    networkAddress: wallet.address,
+                  })
+                }
               />
             </div>
           ))}
