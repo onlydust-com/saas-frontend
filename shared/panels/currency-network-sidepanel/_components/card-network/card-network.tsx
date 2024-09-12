@@ -6,7 +6,7 @@ import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { CardNetworkProps } from "@/shared/panels/currency-network-sidepanel/_components/card-network/card-network.types";
 
-export function CardNetwork({ networkName }: CardNetworkProps) {
+export function CardNetwork({ networkName, onActionClick }: CardNetworkProps) {
   if (!networkName) return null;
 
   return (
@@ -19,7 +19,7 @@ export function CardNetwork({ networkName }: CardNetworkProps) {
         <Badge
           as={"button"}
           htmlProps={{
-            onClick: () => alert("test"),
+            onClick: onActionClick,
           }}
           size={"sm"}
           color={"grey"}

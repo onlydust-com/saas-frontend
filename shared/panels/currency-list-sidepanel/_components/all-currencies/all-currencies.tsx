@@ -7,7 +7,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AllCurrenciesProps } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies.types";
 import { CardAllCurrency } from "@/shared/panels/currency-list-sidepanel/_components/card-all-currency/card-all-currency";
 
-export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
+export function AllCurrencies({ sponsorId, onActionClick }: AllCurrenciesProps) {
   const {
     data: sponsorData,
     isLoading: isLoadingSponsor,
@@ -56,9 +56,9 @@ export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
       }}
     >
       {allCurrencies.map(currency => (
-             <div key={currency.id}>
-            <CardAllCurrency currency={currency} />
-          </div>
+        <div key={currency.id}>
+          <CardAllCurrency currency={currency} onActionClick={onActionClick} />
+        </div>
       ))}
     </Accordion>
   );

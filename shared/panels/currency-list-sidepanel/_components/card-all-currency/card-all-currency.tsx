@@ -5,11 +5,8 @@ import { Icon } from "@/design-system/atoms/icon";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { CardAllCurrencyProps } from "@/shared/panels/currency-list-sidepanel/_components/card-all-currency/card-all-currency.types";
-import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
 
-export function CardAllCurrency({ currency }: CardAllCurrencyProps) {
-  const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
-
+export function CardAllCurrency({ currency, onActionClick }: CardAllCurrencyProps) {
   return (
     <CardTemplate
       avatarProps={{ src: currency.logoUrl }}
@@ -23,7 +20,7 @@ export function CardAllCurrency({ currency }: CardAllCurrencyProps) {
         <Badge
           as={"button"}
           htmlProps={{
-            onClick: () => openCurrencyNetworkSidepanel({ currencyId: currency.id }),
+            onClick: () => onActionClick(currency.id),
           }}
           size={"sm"}
           color={"grey"}

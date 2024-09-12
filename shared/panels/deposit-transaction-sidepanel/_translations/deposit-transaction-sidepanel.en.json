@@ -1,0 +1,10 @@
+{
+  "title": "Make a deposit",
+  "depositInstructions": "Send your tokens to the following address on the <strong>{{name}}</strong> network.\n\nAddress:\n<strong>{{address}}</strong>\n\nOnce sent, paste your transaction hash in the form to confirm.",
+  "disclaimer": {
+    "title": "Disclaimer",
+    "description": "Please ensure you are sending the tokens via the correct network. Transactions on the wrong network may result in a permanent loss of funds, and we will not be able to recover them."
+  },
+  "transactionReference": "Transaction reference",
+  "next": "Next"
+}
