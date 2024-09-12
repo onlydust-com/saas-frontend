@@ -4,5 +4,14 @@
   },
   "content": {
     "title": "Data"
+  },
+  "histogram": {
+    "tabs": {
+      "contributor": "Contributor",
+      "project": "Project"
+    },
+    "buttons": {
+      "deepDive": "Deep dive"
+    }
   }
 }
