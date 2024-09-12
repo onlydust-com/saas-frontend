@@ -7,4 +7,6 @@ export class DepositClientAdapterMock implements DepositStoragePort {
   routes = {};
 
   previewDeposit = mockHttpStorageResponse<DepositStoragePort["previewDeposit"]>;
+
+  updateDeposit = mockHttpStorageResponse<DepositStoragePort["updateDeposit"]>;
 }

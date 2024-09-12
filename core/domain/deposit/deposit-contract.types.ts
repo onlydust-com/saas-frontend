@@ -14,3 +14,11 @@ type PreviewDepositPathParams = operations["previewDeposit"]["parameters"]["path
 export type PreviewDepositPortParams = HttpClientParameters<{ PathParams: PreviewDepositPathParams }>;
 
 export type PreviewDepositPortResponse = HttpStorageResponse<PreviewDepositResponse>;
+
+/* ------------------------ Update Deposit ------------------------ */
+
+export type UpdateDepositBody = components["schemas"]["UpdateDepositRequest"];
+
+export type UpdateDepositPortParams = HttpClientParameters<object>;
+
+export type UpdateDepositPortResponse = HttpStorageResponse;

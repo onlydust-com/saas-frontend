@@ -1,5 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
 import { PreviewDepositBody } from "@/core/domain/deposit/deposit-contract.types";
@@ -8,6 +9,7 @@ import { DepositPreviewInterface } from "@/core/domain/deposit/models/deposit-pr
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
@@ -22,7 +24,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositSummarySidepanel() {
   const { name } = useDepositSummarySidepanel();
-  const { Panel, open } = useSidePanel({ name });
+  const { Panel, open, close } = useSidePanel({ name });
   const { sponsorId, network, transactionReference } = useSinglePanelData<{
     sponsorId: string;
     network: PreviewDepositBody["network"];
@@ -32,6 +34,7 @@ export function DepositSummarySidepanel() {
     network: "",
     transactionReference: "",
   };
+  const { t } = useTranslation();
   const [depositPreview, setDepositPreview] = useState<DepositPreviewInterface>();
 
   const {
@@ -47,6 +50,27 @@ export function DepositSummarySidepanel() {
     },
   });
 
+  const { mutate: updateDeposit, isPending: updateDepositIsPending } = DepositReactQueryAdapter.client.useUpdateDeposit(
+    {
+      options: {
+        onSuccess: () => {
+          if (depositPreview) {
+            toast.success(
+              t("panels:depositSummary.toast.success", {
+                amount: depositPreview.amount.prettyAmount,
+                code: depositPreview.amount.currency.code,
+              })
+            );
+            close();
+          }
+        },
+        onError: () => {
+          toast.error(t("panels:depositSummary.toast.error"));
+        },
+      },
+    }
+  );
+
   useEffect(() => {
     if (network && transactionReference) {
       previewDeposit({
@@ -55,6 +79,11 @@ export function DepositSummarySidepanel() {
       });
     }
   }, [previewDeposit, network, transactionReference]);
+
+  function handleSubmit() {
+    // TODO @hayden
+    updateDeposit({});
+  }
 
   function renderContent() {
     if (previewDepositIsPending) {
@@ -67,6 +96,7 @@ export function DepositSummarySidepanel() {
     }
 
     if (previewDepositIsError) {
+      // TODO @hayden return to previous panel if transaction reference is invalid ?
       return <ErrorState />;
     }
 
@@ -237,9 +267,8 @@ export function DepositSummarySidepanel() {
             variant={"secondary"}
             size={"md"}
             translate={{ token: "panels:depositSummary.done" }}
-            onClick={() => {
-              // TODO @hayden
-            }}
+            onClick={handleSubmit}
+            isDisabled={updateDepositIsPending}
           />
         </SidePanelFooter>
       </Panel>

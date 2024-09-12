@@ -1,5 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import {
   UseMutationFacadeParams,
@@ -18,33 +17,12 @@ export function usePreviewDeposit({
   PreviewDepositResponse,
   PreviewDepositBody
 > = {}) {
-  const { sponsorId } = useParams<{ sponsorId?: string }>();
   const depositStoragePort = bootstrap.getDepositStoragePortForClient();
-  const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
-  const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
       ...depositStoragePort.previewDeposit({ pathParams }),
-      options: {
-        ...options,
-        onSuccess: async (data, variables, context) => {
-          if (sponsorId) {
-            // Invalidate sponsor detail
-            await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsor({ pathParams: { sponsorId } }).tag,
-              exact: false,
-            });
-
-            // Invalidate sponsor transaction stats
-            await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsorTransactionsStats({ pathParams: { sponsorId } }).tag,
-              exact: false,
-            });
-          }
-          options?.onSuccess?.(data, variables, context);
-        },
-      },
+      options,
     })
   );
 }

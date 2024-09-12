@@ -24,5 +24,9 @@
     "deposit": "Deposit",
     "finalBalance": "Final balance"
   },
-  "done": "Done"
+  "done": "Done",
+  "toast": {
+    "success": "Successfully deposited {{amount}} {{code}}.",
+    "error": "Deposit failed, please try again."
+  }
 }
