@@ -16,13 +16,13 @@
   "kpi": {
     "title": "KPI",
     "activeDev": {
-      "title": "Active dev"
+      "title": "Devs Active"
     },
     "prMerged": {
       "title": "PR Merged"
     },
-    "rewards": {
-      "title": "Rewards"
+    "devsOnboarded": {
+      "title": "Onboarded"
     }
   },
   "lead": {

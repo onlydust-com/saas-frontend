@@ -7,7 +7,7 @@ import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 import { ProjectSidepanel } from "./project-sidepanel";
 
-interface ProjectSidePanelContextInterface extends Omit<UseSidePanel, "Panel" | "open"> {
+interface ProjectSidePanelContextInterface extends Omit<UseSidePanel<object>, "Panel" | "open"> {
   open: (projectId: string) => void;
 }
 
