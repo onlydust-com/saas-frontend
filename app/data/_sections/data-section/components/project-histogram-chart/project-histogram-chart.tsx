@@ -2,7 +2,7 @@ import { Calendar } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useContributorHistogramChart } from "@/app/data/_sections/data-section/components/contributor-histogram-chart/contributor-histogram-chart.hooks";
+import { useProjectHistogramChart } from "@/app/data/_sections/data-section/components/project-histogram-chart/project-histogram-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -19,7 +19,7 @@ import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/char
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ContributorHistogramChart() {
+export function ProjectHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
 
@@ -34,7 +34,7 @@ export function ContributorHistogramChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorsStats({
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiProjectsStats({
     queryParams: {
       fromDate,
       toDate,
@@ -47,27 +47,28 @@ export function ContributorHistogramChart() {
   const {
     categories,
     mergedPrSeries,
-    newContributorSeries,
-    activeContributorSeries,
-    reactivatedContributorSeries,
-    churnedContributorSeries,
+    newProjectSeries,
+    activeProjectSeries,
+    reactivatedProjectSeries,
+    churnedProjectSeries,
     renderNewContributorCount,
-    renderReactivatedContributorCount,
-    renderActiveContributorCount,
-    renderChurnedContributorCount,
+    renderReactivatedProjectCount,
+    renderActiveProjectCount,
+    renderChurnedProjectCount,
     renderMergedPrCount,
-  } = useContributorHistogramChart(stats);
+  } = useProjectHistogramChart(stats);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
     series: [
-      { name: t("data:contributorsHistogram.legends.new"), data: newContributorSeries },
-      { name: t("data:contributorsHistogram.legends.reactivated"), data: reactivatedContributorSeries },
-      { name: t("data:contributorsHistogram.legends.active"), data: activeContributorSeries },
-      { name: t("data:contributorsHistogram.legends.churned"), data: churnedContributorSeries },
+      { name: t("data:projectsHistogram.legends.new"), data: newProjectSeries },
+      { name: t("data:projectsHistogram.legends.reactivated"), data: reactivatedProjectSeries },
+      { name: t("data:projectsHistogram.legends.active"), data: activeProjectSeries },
+      { name: t("data:projectsHistogram.legends.churned"), data: churnedProjectSeries },
       {
         name: t("data:contributorsHistogram.legends.prMerged"),
         data: mergedPrSeries,
+        type: "areaspline",
         lineWidth: 4,
         marker: {
           enabled: true,
@@ -96,16 +97,16 @@ export function ContributorHistogramChart() {
   }
 
   if (
-    !newContributorSeries.length &&
-    !reactivatedContributorSeries.length &&
-    !activeContributorSeries.length &&
-    !churnedContributorSeries.length &&
+    !newProjectSeries.length &&
+    !reactivatedProjectSeries.length &&
+    !activeProjectSeries.length &&
+    !churnedProjectSeries.length &&
     !mergedPrSeries.length
   ) {
     return (
       <EmptyState
-        titleTranslate={{ token: "data:contributorsHistogram.emptyState.title" }}
-        descriptionTranslate={{ token: "data:contributorsHistogram.emptyState.description" }}
+        titleTranslate={{ token: "data:projectsHistogram.emptyState.title" }}
+        descriptionTranslate={{ token: "data:projectsHistogram.emptyState.description" }}
       />
     );
   }
@@ -135,31 +136,31 @@ export function ContributorHistogramChart() {
         <Paper size={"lg"} classNames={{ base: "grid grid-cols-4 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
-              <Translate token={"data:contributorsHistogram.legends.new"} />
+              <Translate token={"data:projectsHistogram.legends.new"} />
             </ChartLegend>
             {renderNewContributorCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="secondary">
-              <Translate token={"data:contributorsHistogram.legends.reactivated"} />
+              <Translate token={"data:projectsHistogram.legends.reactivated"} />
             </ChartLegend>
-            {renderReactivatedContributorCount}
+            {renderReactivatedProjectCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="tertiary">
-              <Translate token={"data:contributorsHistogram.legends.active"} />
+              <Translate token={"data:projectsHistogram.legends.active"} />
             </ChartLegend>
-            {renderActiveContributorCount}
+            {renderActiveProjectCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="quaternary">
-              <Translate token={"data:contributorsHistogram.legends.churned"} />
+              <Translate token={"data:projectsHistogram.legends.churned"} />
             </ChartLegend>
-            {renderChurnedContributorCount}
+            {renderChurnedProjectCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="quaternary">
-              <Translate token={"data:contributorsHistogram.legends.prMerged"} />
+              <Translate token={"data:projectsHistogram.legends.prMerged"} />
             </ChartLegend>
             {renderMergedPrCount}
           </div>

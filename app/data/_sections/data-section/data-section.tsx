@@ -1,6 +1,9 @@
 import { ChevronRight, Folder, User } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { ContributorHistogramChart } from "@/app/data/_sections/data-section/components/contributor-histogram-chart/contributor-histogram-chart";
+import { ProjectHistogramChart } from "@/app/data/_sections/data-section/components/project-histogram-chart/project-histogram-chart";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -11,14 +14,14 @@ const CONTRIBUTOR = "contributor";
 const PROJECTS = "projects";
 
 export function DataSection() {
-  const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(CONTRIBUTOR);
+  const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(PROJECTS);
 
   const renderDataView = useMemo(() => {
     if (toggleDataViews === CONTRIBUTOR) {
-      return <div>contributor</div>;
+      return <ContributorHistogramChart />;
     }
 
-    return <div>project</div>;
+    return <ProjectHistogramChart />;
   }, [toggleDataViews]);
 
   function handleToggleDataViews(view: string) {

@@ -1,0 +1,24 @@
+{
+  "series": {
+    "granted": "Granted",
+    "rewarded": "Rewarded",
+    "prMerged": "PR merged",
+    "newContributors": "New contributors",
+    "activeContributors": "Active contributors",
+    "reactivatedContributors": "Reactivated contributors",
+    "churnedContributors": "Churned contributors"
+  },
+  "legends": {
+    "new": "New",
+    "reactivated": "Reactivated",
+    "active": "Active",
+    "churned": "Churned",
+    "prMerged": "PR merged",
+    "projects": "Projects",
+    "pr": "PR"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available."
+  }
+}
