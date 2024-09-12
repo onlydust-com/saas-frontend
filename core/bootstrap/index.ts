@@ -10,9 +10,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
-import {
-  DepositClientAdapter
-} from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
+import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
@@ -98,8 +96,8 @@ export class Bootstrap {
     this.biStoragePortForServer = constructor.biStoragePortForServer;
     this.currencyStoragePortForClient = constructor.currencyStoragePortForClient;
     this.currencyStoragePortForServer = constructor.currencyStoragePortForServer;
-    this.depositStoragePortForClient: constructor.depositStoragePortForClient;
-    this.depositStoragePortForServer: constructor.depositStoragePortForServer;
+    this.depositStoragePortForClient = constructor.depositStoragePortForClient;
+    this.depositStoragePortForServer = constructor.depositStoragePortForServer;
     this.notificationStoragePortForClient = constructor.notificationStoragePortForClient;
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
