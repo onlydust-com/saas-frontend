@@ -68,19 +68,18 @@ export function DepositTransactionSidepanel() {
           }}
           descriptionProps={{
             classNames: { base: "capitalize" },
-            children: networkName.toLowerCase(),
+            children: networkName?.toLowerCase(),
           }}
           border={"primary"}
           background={"secondary"}
         />
 
-        <Paper size={"lg"} border={"primary"}>
+        <Paper size={"lg"} border={"primary"} background={"primary"}>
           <Typo
             size={"sm"}
-            classNames={{ base: "break-all" }}
+            classNames={{ base: "break-words whitespace-pre-line" }}
             translate={{
               token: "panels:depositTransaction.depositInstructions",
-              // TODO @hayden handle bold values
               values: { name: networkName, address: networkAddress },
             }}
           />
