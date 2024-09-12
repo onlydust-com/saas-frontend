@@ -21,4 +21,8 @@ export class ProgramClientAdapterMock implements ProgramStoragePort {
   getProgramTransactionsCsv = mockHttpStorageResponse<ProgramStoragePort["getProgramTransactionsCsv"]>;
 
   getProgramProject = mockHttpStorageResponse<ProgramStoragePort["getProgramProject"]>;
+
+  uploadProgramLogo = mockHttpStorageResponse<ProgramStoragePort["uploadProgramLogo"]>;
+
+  editProgram = mockHttpStorageResponse<ProgramStoragePort["editProgram"]>;
 }
