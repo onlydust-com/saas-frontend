@@ -5,17 +5,15 @@ import { NotificationReactQueryAdapter } from "@/core/application/react-query-ad
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardNotification, CardNotificationLoading } from "@/design-system/molecules/cards/card-notification";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { NotificationsProps } from "@/shared/features/notifications/notifications.types";
+import { NotificationsContentProps } from "@/shared/features/notifications/_components/notifications-content/notifications-content.types";
 
-export function Notifications({ onClose }: NotificationsProps) {
+export function NotificationsContent({ onClose }: NotificationsContentProps) {
   const router = useRouter();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -90,13 +88,7 @@ export function Notifications({ onClose }: NotificationsProps) {
   }
 
   return (
-    <Paper
-      as={ScrollView}
-      size={"3xl"}
-      background={"primary-alt"}
-      border={"primary"}
-      classNames={{ base: "effect-box-shadow-xl grid gap-3xl w-full max-h-72" }}
-    >
+    <div className={"grid gap-3xl"}>
       <header className={"flex items-center justify-between"}>
         <div className={"flex items-center gap-lg"}>
           <Typo
@@ -123,6 +115,6 @@ export function Notifications({ onClose }: NotificationsProps) {
       </header>
 
       {renderContent()}
-    </Paper>
+    </div>
   );
 }
