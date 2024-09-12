@@ -17,8 +17,6 @@ export function NotificationsModal() {
     setIsOpen(false);
   }
 
-  // TODO @hayden handle horizontal scroll
-
   return (
     <>
       <NotificationsButton onClick={handleOpen} />
@@ -27,7 +25,7 @@ export function NotificationsModal() {
         onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}
         hideHeader={true}
         placement={"bottom"}
-        classNames={{ modal: "min-w-full max-w-full rounded-b-none !my-0 max-h-72" }}
+        classNames={{ modal: "max-w-none rounded-b-none !m-0 max-h-[calc(100%_-_24px)]" }}
         as={ScrollView}
       >
         <NotificationsContent onClose={handleClose} />
