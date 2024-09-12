@@ -1,3 +1,4 @@
+import { enDataTranslation } from "@/app/data/_translations/data.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
@@ -27,6 +28,7 @@ export const en = {
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
   ...enFinancialsTranslation,
+  ...enDataTranslation,
   ...enDateRangePickerTranslation,
   cards: {
     ...enCardTransactionTranslation,
