@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
@@ -28,6 +29,7 @@ export function DepositTransactionSidepanel() {
     networkName: "",
     networkAddress: "",
   };
+  const [transactionReference, setTransactionReference] = useState<string>();
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
@@ -96,6 +98,8 @@ export function DepositTransactionSidepanel() {
           size={"sm"}
           placeholder={t("panels:depositTransaction.transactionReference")}
           label={t("panels:depositTransaction.transactionReference")}
+          value={transactionReference}
+          onChange={e => setTransactionReference(e.target.value)}
         />
       </SidePanelBody>
 
@@ -105,8 +109,10 @@ export function DepositTransactionSidepanel() {
           size={"md"}
           onClick={() => {
             // TODO @hayden
+            alert(transactionReference);
           }}
           translate={{ token: "panels:depositTransaction.next" }}
+          isDisabled={!transactionReference}
         />
       </SidePanelFooter>
     </Panel>
