@@ -20,7 +20,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
 
   return (
     <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
-      <div className={cn("group/header")}>
+      <div className={"group/header"}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{

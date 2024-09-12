@@ -28,7 +28,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
         { "!px-1": isFolded }
       )}
     >
-      <div className={cn("relative flex-1")}>
+      <div className={"relative flex-1"}>
         <AvatarLabelGroup
           avatars={[{ src: user?.avatarUrl, alt: user?.login }]}
           size={"md"}
