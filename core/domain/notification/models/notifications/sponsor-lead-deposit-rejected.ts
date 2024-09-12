@@ -32,7 +32,7 @@ export class SponsorLeadDepositRejected implements NotificationInterface {
   }
 
   getDescription() {
-    return `Your deposit ${this.data?.currencyCode} ${this.data?.amount} from ${this.data?.timestamp} was rejected. Please check the details and try again.`;
+    return `Your deposit ${this.data?.amount} ${this.data?.currencyCode} from ${this.data?.timestamp} was rejected. Please check the details and try again.`;
   }
 
   getUrl() {

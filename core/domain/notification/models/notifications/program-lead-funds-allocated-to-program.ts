@@ -32,7 +32,7 @@ export class ProgramLeadFundsAllocatedToProgram implements NotificationInterface
   }
 
   getDescription() {
-    return `You have received a new allocation from ${this.data?.sponsor.name}: ${this.data?.currencyCode} ${this.data?.amount}.`;
+    return `You have received a new allocation from ${this.data?.sponsor.name}: ${this.data?.amount} ${this.data?.currencyCode}.`;
   }
 
   getUrl() {

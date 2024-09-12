@@ -32,7 +32,7 @@ export class SponsorLeadDepositApproved implements NotificationInterface {
   }
 
   getDescription() {
-    return `Your deposit ${this.data?.currencyCode} ${this.data?.amount} from ${this.data?.timestamp} was approved. Funds are now available for allocations.`;
+    return `Your deposit ${this.data?.amount} ${this.data?.currencyCode} from ${this.data?.timestamp} was approved. Funds are now available for allocations.`;
   }
 
   getUrl() {
