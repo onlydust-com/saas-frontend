@@ -19,7 +19,7 @@ export function CardNetwork({ networkName, onActionClick }: CardNetworkProps) {
         <Badge
           as={"button"}
           htmlProps={{
-            onClick: () => onActionClick(networkName),
+            onClick: onActionClick,
           }}
           size={"sm"}
           color={"grey"}

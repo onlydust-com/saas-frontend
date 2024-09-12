@@ -6,11 +6,8 @@ import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AllCurrenciesProps } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies.types";
 import { CardAllCurrency } from "@/shared/panels/currency-list-sidepanel/_components/card-all-currency/card-all-currency";
-import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
 
-export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
-  const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
-
+export function AllCurrencies({ sponsorId, onActionClick }: AllCurrenciesProps) {
   const {
     data: sponsorData,
     isLoading: isLoadingSponsor,
@@ -60,10 +57,7 @@ export function AllCurrencies({ sponsorId }: AllCurrenciesProps) {
     >
       {allCurrencies.map(currency => (
         <div key={currency.id}>
-          <CardAllCurrency
-            currency={currency}
-            onActionClick={currencyId => openCurrencyNetworkSidepanel({ currencyId })}
-          />
+          <CardAllCurrency currency={currency} onActionClick={onActionClick} />
         </div>
       ))}
     </Accordion>

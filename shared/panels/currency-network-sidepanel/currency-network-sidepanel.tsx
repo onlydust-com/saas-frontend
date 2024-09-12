@@ -9,15 +9,15 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { CardNetwork } from "@/shared/panels/currency-network-sidepanel/_components/card-network/card-network";
 import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
-import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
+import { CurrencyNetworkSidepanelData } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.types";
 
 export function CurrencyNetworkSidepanel() {
   const { name } = useCurrencyNetworkSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId } = useSinglePanelData<{ currencyId: string }>(name) ?? {
+  const { currencyId, onNetworkClick } = useSinglePanelData<CurrencyNetworkSidepanelData>(name) ?? {
     currencyId: "",
+    onNetworkClick: () => {},
   };
-  const { open: openDepositTransactionSidepanel } = useDepositTransactionSidepanel();
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
@@ -66,10 +66,10 @@ export function CurrencyNetworkSidepanel() {
             <div key={wallet.address}>
               <CardNetwork
                 networkName={wallet.network}
-                onActionClick={networkName =>
-                  openDepositTransactionSidepanel({
+                onActionClick={() =>
+                  onNetworkClick({
                     currencyId: currency.id,
-                    networkName,
+                    networkName: wallet.network,
                     networkAddress: wallet.address,
                   })
                 }

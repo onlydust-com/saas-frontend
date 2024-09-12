@@ -5,11 +5,8 @@ import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { CardUsedCurrency } from "@/shared/panels/currency-list-sidepanel/_components/card-used-currency/card-used-currency";
 import { UsedCurrenciesProps } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies.types";
-import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
 
-export function UsedCurrencies({ sponsorId }: UsedCurrenciesProps) {
-  const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
-
+export function UsedCurrencies({ sponsorId, onActionClick }: UsedCurrenciesProps) {
   const { data, isLoading, isError } = SponsorReactQueryAdapter.client.useGetSponsor({
     pathParams: {
       sponsorId,
@@ -42,10 +39,7 @@ export function UsedCurrencies({ sponsorId }: UsedCurrenciesProps) {
       {data.totalAvailable.totalPerCurrency?.map(budget => {
         return (
           <div key={budget.currency.id}>
-            <CardUsedCurrency
-              budget={budget}
-              onActionClick={currencyId => openCurrencyNetworkSidepanel({ currencyId })}
-            />
+            <CardUsedCurrency budget={budget} onActionClick={onActionClick} />
           </div>
         );
       })}

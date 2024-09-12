@@ -8,6 +8,8 @@ import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/
 import { AllCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/all-currencies/all-currencies";
 import { UsedCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies";
 import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
+import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
+import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function CurrencyListSidepanel() {
@@ -16,6 +18,8 @@ export function CurrencyListSidepanel() {
   const { sponsorId } = useSinglePanelData<{ sponsorId: string }>(name) ?? {
     sponsorId: "",
   };
+  const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
+  const { open: openDepositTransactionSidepanel } = useDepositTransactionSidepanel();
 
   const feedbackDrawerState = useFeedbackDrawerState();
   const [, setIsOpen] = feedbackDrawerState;
@@ -35,8 +39,26 @@ export function CurrencyListSidepanel() {
 
       <SidePanelBody>
         <div className="flex flex-1 flex-col gap-lg">
-          <UsedCurrencies sponsorId={sponsorId} />
-          <AllCurrencies sponsorId={sponsorId} />
+          <UsedCurrencies
+            sponsorId={sponsorId}
+            onActionClick={currencyId =>
+              openCurrencyNetworkSidepanel({
+                currencyId,
+                onNetworkClick: ({ currencyId, networkName, networkAddress }) =>
+                  openDepositTransactionSidepanel({ currencyId, networkName, networkAddress }),
+              })
+            }
+          />
+          <AllCurrencies
+            sponsorId={sponsorId}
+            onActionClick={currencyId =>
+              openCurrencyNetworkSidepanel({
+                currencyId,
+                onNetworkClick: ({ currencyId, networkName, networkAddress }) =>
+                  openDepositTransactionSidepanel({ currencyId, networkName, networkAddress }),
+              })
+            }
+          />
         </div>
 
         <Alert
