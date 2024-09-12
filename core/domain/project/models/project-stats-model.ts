@@ -7,7 +7,7 @@ export interface ProjectStatsInterface extends ProjectStatsResponse {}
 export class ProjectStats implements ProjectStatsInterface {
   activeContributorCount!: ProjectStatsResponse["activeContributorCount"];
   mergedPrCount!: ProjectStatsResponse["mergedPrCount"];
-  rewardCount!: ProjectStatsResponse["rewardCount"];
+  onboardedContributorCount!: ProjectStatsResponse["onboardedContributorCount"];
   totalGranted!: ProjectStatsResponse["totalGranted"];
   totalRewarded!: ProjectStatsResponse["totalRewarded"];
 
