@@ -137,7 +137,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
   }
 
   return (
-    <FieldContainer isError={isError} label={label} description={description} info={info} error={error}>
+    <FieldContainer name={name} isError={isError} label={label} description={description} info={info} error={error}>
       <div className={cn(slots.wrapper())} {...attr}>
         <div className={cn(slots.base(), classNames?.base)} {...attr}>
           <StartContent startContent={startContent} startIcon={startIcon} avatar={avatar} {...variants} />

@@ -47,12 +47,14 @@ export const withLabel: Story = {
     return (
       <div className="flex flex-row items-start gap-6">
         <TextareaTemplate
+          name={"template1"}
           label={"label"}
           description={"Lorem ipsum dolor sit amet"}
           info={{ text: "Lorem ipsum dolor sit amet" }}
           error={{ text: "Lorem ipsum dolor sit amet" }}
         />
         <TextareaTemplate
+          name={"template2"}
           label={"label"}
           description={"Lorem ipsum dolor sit amet"}
           info={{ text: "Lorem ipsum dolor sit amet" }}
