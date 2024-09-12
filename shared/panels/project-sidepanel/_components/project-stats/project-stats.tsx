@@ -16,8 +16,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
     {
       key: "devsOnboarded",
       title: <Translate token={"panels:projectDetail.kpi.devsOnboarded.title"} />,
-      // TODO update data here
-      value: data.rewardCount,
+      value: data.onboardedContributorCount,
     },
     {
       key: "activeContributorCount",
