@@ -14,8 +14,8 @@ function MenuContainer({ children }: { children: ReactNode }) {
   return <div className={"flex w-full flex-col gap-xs"}>{children}</div>;
 }
 
-const SIZES = {
-  folded: 52,
+export const PrimaryNavigationDesktopSize = {
+  folded: 54,
   unfolded: 260,
 };
 
@@ -43,15 +43,15 @@ export function PrimaryNavigationDesktop() {
     }
   }, [isLargerThanLaptop]);
 
-  const navSize = folded ? SIZES.folded : SIZES.unfolded;
+  const navSize = folded ? PrimaryNavigationDesktopSize.folded : PrimaryNavigationDesktopSize.unfolded;
 
   return (
     <AnimatedColumn
       width={navSize}
-      initialWidth={SIZES.unfolded}
+      initialWidth={PrimaryNavigationDesktopSize.unfolded}
       className="flex h-full flex-col justify-between gap-lg overflow-hidden px-sm pb-sm pt-xs"
     >
-      <div className={"flex h-full w-fit flex-col justify-between gap-lg overflow-hidden"}>
+      <div className={"flex h-full w-full flex-col justify-between gap-lg overflow-hidden"}>
         <MenuContainer>
           <HeaderMenu isFolded={folded} onFoldChange={onFold} />
         </MenuContainer>

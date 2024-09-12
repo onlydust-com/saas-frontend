@@ -27,7 +27,7 @@ export function SecondaryMenu({ isFolded }: SecondaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: Settings }}
         translate={{ token: "primaryNavigation:secondaryMenu.settings" }}
-        isDisabled={true}
+        isComingSoon={true}
       />
       <FeedbackDrawer state={feedbackDrawerState} />
     </>

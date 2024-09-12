@@ -17,7 +17,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        isDisabled={true}
+        isComingSoon={true}
       />
       <ItemNav
         isFolded={isFolded}
