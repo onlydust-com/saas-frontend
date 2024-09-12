@@ -6,6 +6,7 @@ export interface ProgramShortInterface extends ProgramShortResponse {}
 
 export class ProgramShort implements ProgramShortInterface {
   id!: ProgramShortResponse["id"];
+  leads!: ProgramShortResponse["leads"];
   logoUrl!: ProgramShortResponse["logoUrl"];
   name!: ProgramShortResponse["name"];
   url!: ProgramShortResponse["url"];
