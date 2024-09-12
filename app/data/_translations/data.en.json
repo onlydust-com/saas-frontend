@@ -5,7 +5,7 @@
   "content": {
     "title": "Data"
   },
-  "histogram": {
+  "dataSection": {
     "tabs": {
       "contributor": "Contributor",
       "project": "Project"

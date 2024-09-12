@@ -1,4 +1,4 @@
-import { Options, SeriesColumnOptions } from "highcharts";
+import { Options, SeriesAreasplineOptions, SeriesColumnOptions } from "highcharts";
 import { useMemo } from "react";
 
 import {
@@ -14,7 +14,7 @@ import {
   HighchartsOptionsReturn,
 } from "@/shared/components/charts/highcharts/highcharts.types";
 
-export function useColumnChartOptions({
+export function useStackedColumnAreaSplineChartOptions({
   title,
   categories,
   series,
@@ -56,6 +56,13 @@ export function useColumnChartOptions({
         labels: {
           style: yAxisStyle,
         },
+        stackLabels: {
+          enabled: true,
+          style: {
+            fontWeight: "bold",
+            color: "gray",
+          },
+        },
         gridLineColor: "#4C4C5C",
       },
       legend: {
@@ -70,29 +77,18 @@ export function useColumnChartOptions({
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        formatter() {
-          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
-          this.points?.forEach(point => {
-            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
-          });
-          return s;
-        },
-        positioner(labelWidth, _labelHeight, point) {
-          const chart = this.chart;
-          const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = 24; // Position above the point
-
-          return { x, y };
-        },
       },
       plotOptions: {
         column: {
+          stacking: "normal",
+        },
+        series: {
           pointPadding: 0.2,
           borderWidth: 0,
         },
       },
-      series: series.map<SeriesColumnOptions>((s, index) => ({
-        type: "column",
+      series: series.map<SeriesColumnOptions | SeriesAreasplineOptions>((s, index) => ({
+        type: s.type ?? "column",
         name: s.name,
         data: s.data,
         color: colors[index % colors.length],

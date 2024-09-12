@@ -10,7 +10,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const CONTRIBUTOR = "contributor";
 const PROJECTS = "projects";
 
-export function HistogramSection() {
+export function DataSection() {
   const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(CONTRIBUTOR);
 
   const renderDataView = useMemo(() => {
@@ -36,12 +36,12 @@ export function HistogramSection() {
             tabs={[
               {
                 id: CONTRIBUTOR,
-                children: <Translate token={"data:details.histogram.tabs.contributor"} />,
+                children: <Translate token={"data:details.dataSection.tabs.contributor"} />,
                 startIcon: { component: User },
               },
               {
                 id: PROJECTS,
-                children: <Translate token={"data:details.histogram.tabs.project"} />,
+                children: <Translate token={"data:details.dataSection.tabs.project"} />,
                 startIcon: { component: Folder },
               },
             ]}
@@ -53,7 +53,7 @@ export function HistogramSection() {
               endIcon={{ component: ChevronRight }}
               isTextButton
               size={"md"}
-              translate={{ token: "data:details.histogram.buttons.deepDive" }}
+              translate={{ token: "data:details.dataSection.buttons.deepDive" }}
               classNames={{
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
