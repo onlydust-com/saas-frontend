@@ -28,6 +28,14 @@ export function CurrencyListSidepanel() {
     setIsOpen(true);
   }
 
+  function handleNetworkClick(currencyId: string) {
+    openCurrencyNetworkSidepanel({
+      currencyId,
+      onNetworkClick: ({ currencyId, networkName, networkAddress }) =>
+        openDepositTransactionSidepanel({ currencyId, networkName, networkAddress }),
+    });
+  }
+
   return (
     <Panel>
       <SidePanelHeader
@@ -39,26 +47,8 @@ export function CurrencyListSidepanel() {
 
       <SidePanelBody>
         <div className="flex flex-1 flex-col gap-lg">
-          <UsedCurrencies
-            sponsorId={sponsorId}
-            onActionClick={currencyId =>
-              openCurrencyNetworkSidepanel({
-                currencyId,
-                onNetworkClick: ({ currencyId, networkName, networkAddress }) =>
-                  openDepositTransactionSidepanel({ currencyId, networkName, networkAddress }),
-              })
-            }
-          />
-          <AllCurrencies
-            sponsorId={sponsorId}
-            onActionClick={currencyId =>
-              openCurrencyNetworkSidepanel({
-                currencyId,
-                onNetworkClick: ({ currencyId, networkName, networkAddress }) =>
-                  openDepositTransactionSidepanel({ currencyId, networkName, networkAddress }),
-              })
-            }
-          />
+          <UsedCurrencies sponsorId={sponsorId} onActionClick={handleNetworkClick} />
+          <AllCurrencies sponsorId={sponsorId} onActionClick={handleNetworkClick} />
         </div>
 
         <Alert
