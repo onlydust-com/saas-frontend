@@ -13,8 +13,10 @@ import { Typo } from "@/design-system/atoms/typo";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { ProjectPrograms } from "@/shared/panels/project-sidepanel/_components/project-programs/project-programs";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -25,9 +27,16 @@ import { ProjectFinancial } from "./_components/project-financial/project-financ
 import { ProjectLanguages } from "./_components/project-languages/project-languages";
 import { ProjectLeads } from "./_components/project-leads/project-leads";
 import { ProjectStats } from "./_components/project-stats/project-stats";
-import { ProjectSidepanelProps } from "./project-sidepanel.types";
+import { ProjectSidePanelData } from "./project-sidepanel.types";
 
-export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelProps) {
+export function ProjectSidepanel() {
+  const { name } = useProjectSidePanel();
+  const { Panel } = useSidePanel({ name });
+  const {
+    projectId,
+    onGrantClick,
+    canGoBack = false,
+  } = useSinglePanelData<ProjectSidePanelData>(name) ?? { projectId: "" };
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
 
@@ -64,18 +73,18 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
 
   if (isLoading || loadingStats || !data) {
     return (
-      <>
+      <Panel>
         <Skeleton className="h-14 w-full" />
         <Skeleton className="h-32 w-full" />
         <Skeleton className="h-36 w-full" />
         <Skeleton className="h-20 w-full" />
         <Skeleton className="h-20 w-full" />
-      </>
+      </Panel>
     );
   }
 
   return (
-    <>
+    <Panel>
       <PosthogCaptureOnMount
         eventName={"project_viewed"}
         params={{
@@ -88,7 +97,7 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
         title={{
           children: data.name,
         }}
-        canGoBack={false}
+        canGoBack={canGoBack}
         canClose={true}
       />
 
@@ -145,6 +154,6 @@ export function ProjectSidepanel({ projectId, onGrantClick }: ProjectSidepanelPr
           </div>
         </SidePanelFooter>
       )}
-    </>
+    </Panel>
   );
 }

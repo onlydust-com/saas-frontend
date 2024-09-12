@@ -11,14 +11,14 @@ import {
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
 
-import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 
 import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { programId, queryParams } = useTransactionsContext();
-  const projectSidePanel = useProjectSidePanel();
+  const { open: openProject } = useProjectSidePanel();
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getMonthRange(date);
@@ -61,7 +61,7 @@ export function TransactionsWrapper({ date }: { date: Date }) {
         children: transaction.thirdParty.project.name,
         onClick: () => {
           if (transaction.thirdParty.project?.id) {
-            projectSidePanel.open(transaction.thirdParty.project.id);
+            openProject({ projectId: transaction.thirdParty.project.id, canGoBack: true });
           }
         },
       };
