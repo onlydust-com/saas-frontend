@@ -16,17 +16,14 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
+import { DepositTransactionSidepanelData } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
   const { name } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, networkName, networkAddress } = useSinglePanelData<{
-    currencyId: string;
-    networkName: string;
-    networkAddress: string;
-  }>(name) ?? {
+  const { currencyId, networkName, networkAddress } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
     currencyId: "",
     networkName: "",
     networkAddress: "",
