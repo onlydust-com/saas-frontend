@@ -1,3 +1,28 @@
 {
-  "title": "Summary"
+  "title": "Summary",
+  "senderInformation": {
+    "title": "Sender Information",
+    "accountNumber": "Account number",
+    "senderName": "Sender name",
+    "reference": "Reference"
+  },
+  "billingInformation": {
+    "title": "Billing Information",
+    "companyName": "Company name",
+    "companyAddress": "Company address",
+    "companyCountry": "Company country",
+    "companyId": "Company ID",
+    "vatNumber": "VAT number",
+    "billingEmail": "Billing email",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email"
+  },
+  "transactionSummary": {
+    "title": "Transaction Summary",
+    "currentBalance": "Current balance",
+    "deposit": "Deposit",
+    "finalBalance": "Final balance"
+  },
+  "done": "Done"
 }
