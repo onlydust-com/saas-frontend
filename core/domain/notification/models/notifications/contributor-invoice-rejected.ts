@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class ContributorInvoiceRejected implements NotificationInterface {
   data: components["schemas"]["NotificationContributorInvoiceRejected"] | undefined;
@@ -33,13 +34,13 @@ export class ContributorInvoiceRejected implements NotificationInterface {
 
   getDescription() {
     const { invoiceName, rejectionReason } = this.data || {};
-    return `Your invoice ${invoiceName} has been rejected because of : ${rejectionReason}`;
+    return `Your invoice ${invoiceName} has been rejected because of: ${rejectionReason}.`;
   }
 
   getUrl() {
     const { billingProfileId } = this.data || {};
     if (billingProfileId) {
-      return this.notification.createMarketplaceUrl(MARKETPLACE_ROUTER.settings.billing.invoices(billingProfileId));
+      return marketplaceRouting(MARKETPLACE_ROUTER.settings.billing.invoices(billingProfileId));
     }
     return undefined;
   }

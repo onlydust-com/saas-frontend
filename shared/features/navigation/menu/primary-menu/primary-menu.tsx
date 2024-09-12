@@ -3,6 +3,7 @@ import { ChartLine, Clipboard, Compass, Wallet } from "lucide-react";
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
@@ -44,7 +45,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: Compass }}
-        linkProps={{ href: `${process.env.NEXT_PUBLIC_MARKETPLACE_URL}/projects` ?? "" }}
+        linkProps={{ href: marketplaceRouting("/projects") }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />
     </>

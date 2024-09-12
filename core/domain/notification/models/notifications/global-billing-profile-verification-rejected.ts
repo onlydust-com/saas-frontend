@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class GlobalBillingProfileVerificationRejected implements NotificationInterface {
   data: components["schemas"]["NotificationGlobalBillingProfileVerificationRejected"] | undefined;
@@ -33,15 +34,13 @@ export class GlobalBillingProfileVerificationRejected implements NotificationInt
 
   getDescription() {
     const { billingProfileName, reason } = this.data || {};
-    return `Your billing profile ${billingProfileName} has been rejected because of : ${reason}`;
+    return `Your billing profile ${billingProfileName} has been rejected because of: ${reason}.`;
   }
 
   getUrl() {
     const { billingProfileId } = this.data || {};
     if (billingProfileId) {
-      return this.notification.createMarketplaceUrl(
-        MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId)
-      );
+      return marketplaceRouting(MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId));
     }
     return undefined;
   }

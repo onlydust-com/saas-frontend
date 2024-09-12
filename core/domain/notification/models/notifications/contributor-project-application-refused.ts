@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class ContributorProjectApplicationRefused implements NotificationInterface {
   data: components["schemas"]["NotificationContributorProjectApplicationRefused"] | undefined;
@@ -33,10 +34,10 @@ export class ContributorProjectApplicationRefused implements NotificationInterfa
 
   getDescription() {
     const { issueName } = this.data || {};
-    return `Your application for ${issueName} has been refused`;
+    return `Your application for ${issueName} has been refused.`;
   }
 
   getUrl() {
-    return this.notification.createMarketplaceUrl(MARKETPLACE_ROUTER.applications.all);
+    return marketplaceRouting(MARKETPLACE_ROUTER.applications.all);
   }
 }

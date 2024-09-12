@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class ContributorRewardCanceled implements NotificationInterface {
   data: components["schemas"]["NotificationContributorRewardCanceled"] | undefined;
@@ -33,10 +34,10 @@ export class ContributorRewardCanceled implements NotificationInterface {
 
   getDescription() {
     const { projectName, currencyCode, amount } = this.data || {};
-    return `Your reward of ${amount} ${currencyCode} has been canceled for the project ${projectName}`;
+    return `Your reward of ${amount} ${currencyCode} has been canceled for the project ${projectName}.`;
   }
 
   getUrl() {
-    return this.notification.createMarketplaceUrl(MARKETPLACE_ROUTER.rewards.all);
+    return marketplaceRouting(MARKETPLACE_ROUTER.rewards.all);
   }
 }

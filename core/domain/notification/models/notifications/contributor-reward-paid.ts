@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class ContributorRewardPaid implements NotificationInterface {
   data: components["schemas"]["NotificationContributorRewardsPaid"] | undefined;
@@ -33,10 +34,10 @@ export class ContributorRewardPaid implements NotificationInterface {
 
   getDescription() {
     const { numberOfRewardPaid, totalAmountDollarsEquivalent } = this.data || {};
-    return `${numberOfRewardPaid} reward(s) has been paid for a total of ${totalAmountDollarsEquivalent} USD`;
+    return `${numberOfRewardPaid} reward(s) has been paid for a total of ${totalAmountDollarsEquivalent} USD.`;
   }
 
   getUrl() {
-    return this.notification.createMarketplaceUrl(MARKETPLACE_ROUTER.rewards.all);
+    return marketplaceRouting(MARKETPLACE_ROUTER.rewards.all);
   }
 }

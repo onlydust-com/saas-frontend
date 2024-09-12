@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class MaintainerApplicationToReview implements NotificationInterface {
   data: components["schemas"]["NotificationMaintainerApplicationToReview"] | undefined;
@@ -33,11 +34,11 @@ export class MaintainerApplicationToReview implements NotificationInterface {
 
   getDescription() {
     const { projectName, applicationLogin, issueName } = this.data || {};
-    return `${applicationLogin} applied to ${issueName} on ${projectName}`;
+    return `${applicationLogin} applied to ${issueName} on ${projectName}.`;
   }
 
   getUrl() {
-    return this.notification.createMarketplaceUrl(
+    return marketplaceRouting(
       MARKETPLACE_ROUTER.projects.details.applications.details(this.data!.projectSlug, this.data!.issueId.toString())
     );
   }

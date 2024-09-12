@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class GlobalBillingProfileReminder implements NotificationInterface {
   data: components["schemas"]["NotificationGlobalBillingProfileReminder"] | undefined;
@@ -33,15 +34,13 @@ export class GlobalBillingProfileReminder implements NotificationInterface {
 
   getDescription() {
     const { billingProfileName } = this.data || {};
-    return `Your billing profile ${billingProfileName} is incomplete, please update it to complete the process`;
+    return `Your billing profile ${billingProfileName} is incomplete, please update it to complete the process.`;
   }
 
   getUrl() {
     const { billingProfileId } = this.data || {};
     if (billingProfileId) {
-      return this.notification.createMarketplaceUrl(
-        MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId)
-      );
+      return marketplaceRouting(MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId));
     }
     return undefined;
   }

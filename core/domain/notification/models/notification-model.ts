@@ -10,8 +10,4 @@ export class Notification implements NotificationResponse {
   constructor(props: NotificationResponse) {
     Object.assign(this, props);
   }
-
-  createMarketplaceUrl(path: string) {
-    return `NEXT_PUBLIC_MARKETPLACE_URL/${path}`;
-  }
 }

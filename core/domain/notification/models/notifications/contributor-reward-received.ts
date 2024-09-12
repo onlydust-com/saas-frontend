@@ -4,6 +4,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export class ContributorRewardReceived implements NotificationInterface {
   data: components["schemas"]["NotificationContributorRewardReceived"] | undefined;
@@ -33,10 +34,10 @@ export class ContributorRewardReceived implements NotificationInterface {
 
   getDescription() {
     const { projectName, currencyCode, amount, sentByGithubLogin } = this.data || {};
-    return `${sentByGithubLogin} sent you a new reward of ${amount} ${currencyCode} on project ${projectName}`;
+    return `${sentByGithubLogin} sent you a new reward of ${amount} ${currencyCode} on project ${projectName}.`;
   }
 
   getUrl() {
-    return this.notification.createMarketplaceUrl(MARKETPLACE_ROUTER.rewards.all);
+    return marketplaceRouting(MARKETPLACE_ROUTER.rewards.all);
   }
 }
