@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
-import { PreviewDepositBody } from "@/core/domain/deposit/deposit-contract.types";
 import { DepositPreviewInterface } from "@/core/domain/deposit/models/deposit-preview-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -20,16 +19,13 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useDepositSummarySidepanel } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.hooks";
+import { DepositSummarySidepanelData } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositSummarySidepanel() {
   const { name } = useDepositSummarySidepanel();
-  const { Panel, open, close } = useSidePanel({ name });
-  const { sponsorId, network, transactionReference } = useSinglePanelData<{
-    sponsorId: string;
-    network: PreviewDepositBody["network"];
-    transactionReference: string;
-  }>(name) ?? {
+  const { Panel, close } = useSidePanel({ name });
+  const { sponsorId, network, transactionReference } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
     sponsorId: "",
     network: "",
     transactionReference: "",
@@ -249,29 +245,26 @@ export function DepositSummarySidepanel() {
   }
 
   return (
-    <>
-      <button onClick={() => open({ sponsorId: "2ea814ce-0a0e-472c-b37c-05f54396e9d6" })}>test</button>
-      <Panel>
-        <SidePanelHeader
-          title={{
-            translate: { token: "panels:depositSummary.title" },
-          }}
-          canGoBack
-          canClose
+    <Panel>
+      <SidePanelHeader
+        title={{
+          translate: { token: "panels:depositSummary.title" },
+        }}
+        canGoBack
+        canClose
+      />
+
+      <SidePanelBody>{renderContent()}</SidePanelBody>
+
+      <SidePanelFooter>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          translate={{ token: "panels:depositSummary.done" }}
+          onClick={handleSubmit}
+          isDisabled={updateDepositIsPending}
         />
-
-        <SidePanelBody>{renderContent()}</SidePanelBody>
-
-        <SidePanelFooter>
-          <Button
-            variant={"secondary"}
-            size={"md"}
-            translate={{ token: "panels:depositSummary.done" }}
-            onClick={handleSubmit}
-            isDisabled={updateDepositIsPending}
-          />
-        </SidePanelFooter>
-      </Panel>
-    </>
+      </SidePanelFooter>
+    </Panel>
   );
 }

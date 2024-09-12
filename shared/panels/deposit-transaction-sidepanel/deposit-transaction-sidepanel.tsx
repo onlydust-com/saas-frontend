@@ -24,10 +24,11 @@ export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
   const { name } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, networkName, networkAddress } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
+  const { currencyId, network, address, onNextClick } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
     currencyId: "",
-    networkName: "",
-    networkAddress: "",
+    network: "",
+    address: "",
+    onNextClick: () => {},
   };
   const [transactionReference, setTransactionReference] = useState<string>();
 
@@ -70,7 +71,7 @@ export function DepositTransactionSidepanel() {
           }}
           descriptionProps={{
             classNames: { base: "capitalize" },
-            children: networkName?.toLowerCase(),
+            children: network?.toLowerCase(),
           }}
           border={"primary"}
           background={"secondary"}
@@ -82,7 +83,7 @@ export function DepositTransactionSidepanel() {
             classNames={{ base: "break-words whitespace-pre-line" }}
             translate={{
               token: "panels:depositTransaction.depositInstructions",
-              values: { name: networkName, address: networkAddress },
+              values: { name: network, address },
             }}
           />
         </Paper>
@@ -108,8 +109,9 @@ export function DepositTransactionSidepanel() {
           variant={"secondary"}
           size={"md"}
           onClick={() => {
-            // TODO @hayden
-            alert(transactionReference);
+            if (transactionReference) {
+              onNextClick(transactionReference);
+            }
           }}
           translate={{ token: "panels:depositTransaction.next" }}
           isDisabled={!transactionReference}
