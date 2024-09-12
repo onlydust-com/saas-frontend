@@ -1,6 +1,6 @@
 {
   "title": "Make a deposit",
   "depositInstructions": "Deposit instructions",
-  "transactionHash": "Transaction hash",
+  "transactionReference": "Transaction reference",
   "next": "Next"
 }

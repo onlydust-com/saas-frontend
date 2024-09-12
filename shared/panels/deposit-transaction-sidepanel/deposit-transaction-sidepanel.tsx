@@ -4,6 +4,7 @@ import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapte
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
+import { Typo } from "@/design-system/atoms/typo";
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
 import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
@@ -75,15 +76,22 @@ export function DepositTransactionSidepanel() {
             translate: { token: "panels:depositTransaction.depositInstructions" },
           }}
         >
-          {/* TODO @hayden */}
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur consequatur ea error laudantium
-            reprehenderit temporibus, vitae. Adipisci amet aperiam asperiores aspernatur at eaque eius natus, nemo
-            placeat ratione vero!
-          </p>
+          <div>
+            {/* TODO @hayden */}
+            <Typo size={"xs"}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur consequatur ea error
+              laudantium reprehenderit temporibus, vitae. Adipisci amet aperiam asperiores aspernatur at eaque eius
+              natus, nemo placeat ratione vero!
+            </Typo>
+          </div>
         </Accordion>
 
-        <Input name={"transactionHash"} size={"sm"} placeholder={t("panels:depositTransaction.transactionHash")} />
+        <Input
+          name={"transactionReference"}
+          size={"sm"}
+          placeholder={t("panels:depositTransaction.transactionReference")}
+          label={t("panels:depositTransaction.transactionReference")}
+        />
       </SidePanelBody>
 
       <SidePanelFooter>
