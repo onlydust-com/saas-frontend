@@ -71,37 +71,21 @@ export function ProjectSidepanel() {
     setRangeType(type);
   }
 
-  if (isLoading || loadingStats || !data) {
+  const PanelContent = useMemo(() => {
+    if (isLoading || loadingStats || !data) {
+      return (
+        <>
+          <Skeleton className="h-14 w-full" />
+          <Skeleton className="h-32 w-full" />
+          <Skeleton className="h-36 w-full" />
+          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-20 w-full" />
+        </>
+      );
+    }
+
     return (
-      <Panel>
-        <Skeleton className="h-14 w-full" />
-        <Skeleton className="h-32 w-full" />
-        <Skeleton className="h-36 w-full" />
-        <Skeleton className="h-20 w-full" />
-        <Skeleton className="h-20 w-full" />
-      </Panel>
-    );
-  }
-
-  return (
-    <Panel>
-      <PosthogCaptureOnMount
-        eventName={"project_viewed"}
-        params={{
-          project_id: projectId,
-          type: "panel_sponsor",
-        }}
-        paramsReady={Boolean(projectId && data)}
-      />
-      <SidePanelHeader
-        title={{
-          children: data.name,
-        }}
-        canGoBack={canGoBack}
-        canClose={true}
-      />
-
-      <SidePanelBody>
+      <>
         {!!stats && (
           <>
             <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
@@ -131,12 +115,34 @@ export function ProjectSidepanel() {
         <ProjectLanguages languages={data.languages} />
 
         <ProjectCategories categories={data.categories} />
-      </SidePanelBody>
+      </>
+    );
+  }, [isLoading, loadingStats, data, stats, rangeType]);
 
-      {onGrantClick && (
+  return (
+    <Panel>
+      <PosthogCaptureOnMount
+        eventName={"project_viewed"}
+        params={{
+          project_id: projectId,
+          type: "panel_sponsor",
+        }}
+        paramsReady={Boolean(projectId && data)}
+      />
+      <SidePanelHeader
+        title={{
+          children: data?.name,
+        }}
+        canGoBack={canGoBack}
+        canClose={true}
+      />
+
+      <SidePanelBody>{PanelContent}</SidePanelBody>
+
+      {onGrantClick && !!data && (
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"md"} onClick={() => onGrantClick(data.id)}>
+            <Button size={"md"} onClick={() => onGrantClick(data?.id)}>
               <Translate token={"panels:projectDetail.grant"} />
             </Button>
             <Button
@@ -145,7 +151,7 @@ export function ProjectSidepanel() {
               size={"md"}
               as={"a"}
               htmlProps={{
-                href: marketplaceRouting(`/p/${data.slug}`),
+                href: marketplaceRouting(`/p/${data?.slug}`),
                 target: "_blank",
               }}
             >
