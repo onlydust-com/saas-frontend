@@ -7,8 +7,8 @@ import {
   tooltipInnerStyle,
   tooltipWrapperStyle,
   xAxisStyle,
-  yAxisStyle,
-} from "@/shared/components/charts/highcharts/column-chart/column-chart.styles";
+  yAxisPrimaryStyle,
+} from "@/shared/components/charts/highcharts/highcharts.styles";
 import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
@@ -43,7 +43,7 @@ export function useColumnChartOptions({
           style: xAxisStyle,
         },
         labels: {
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         crosshair: true,
       },
@@ -51,10 +51,10 @@ export function useColumnChartOptions({
         min: 0,
         title: {
           text: yAxisTitle,
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         labels: {
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         gridLineColor: "#4C4C5C",
       },

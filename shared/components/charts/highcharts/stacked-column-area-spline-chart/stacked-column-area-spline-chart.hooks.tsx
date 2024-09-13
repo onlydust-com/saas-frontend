@@ -7,8 +7,9 @@ import {
   tooltipInnerStyle,
   tooltipWrapperStyle,
   xAxisStyle,
-  yAxisStyle,
-} from "@/shared/components/charts/highcharts/column-chart/column-chart.styles";
+  yAxisPrimaryStyle,
+  yAxisQuaternaryStyle,
+} from "@/shared/components/charts/highcharts/highcharts.styles";
 import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
@@ -44,7 +45,7 @@ export function useStackedColumnAreaSplineChartOptions({
           style: xAxisStyle,
         },
         labels: {
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         crosshair: true,
       },
@@ -53,10 +54,10 @@ export function useStackedColumnAreaSplineChartOptions({
           min: min ?? 0,
           title: {
             text: xAxisTitle,
-            style: yAxisStyle,
+            style: yAxisPrimaryStyle,
           },
           labels: {
-            style: yAxisStyle,
+            style: yAxisQuaternaryStyle,
           },
           stackLabels: {
             enabled: false, // Disable stack labels to hide totals
@@ -67,7 +68,7 @@ export function useStackedColumnAreaSplineChartOptions({
         {
           title: {
             text: yAxisTitle,
-            style: yAxisStyle,
+            style: yAxisPrimaryStyle,
           },
           opposite: true,
           visible: false, // Hide the second y-axis
@@ -77,6 +78,9 @@ export function useStackedColumnAreaSplineChartOptions({
         {
           title: {
             text: xAxisTitle, // Optional title for clarity
+          },
+          labels: {
+            style: yAxisPrimaryStyle,
           },
           opposite: true, // Place it on the opposite side
           linkedTo: 0, // Link to the first y-axis
