@@ -1,8 +1,10 @@
-import { Calendar, ChevronDown, GitCommitHorizontal } from "lucide-react";
+import { Calendar, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useContributorHistogramChart } from "@/app/data/_sections/data-section/components/histograms/contributor-histogram-chart/contributor-histogram-chart.hooks";
+import { SplineType } from "@/app/data/_sections/data-section/components/histograms/histograms.types";
+import { SplineLegend } from "@/app/data/_sections/data-section/components/histograms/legends/spline-legend";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -10,10 +12,8 @@ import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
 import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 
@@ -28,7 +28,7 @@ export function ContributorHistogramChart() {
 
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
-  const [splineType, setSplineType] = useState<"grant" | "reward" | "pr">("pr");
+  const [splineType, setSplineType] = useState<SplineType>("pr");
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
@@ -92,46 +92,12 @@ export function ContributorHistogramChart() {
   const splineLegend = useMemo(() => {
     switch (splineType) {
       case "grant":
-        return (
-          <div className="flex justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
-              <Typo as={"div"} size={"xs"} weight={"medium"} translate={{ token: "data:histograms.legends.granted" }} />
-            </div>
-            {renderGrantedAmount}
-          </div>
-        );
+        return <SplineLegend splineType={splineType}>{renderGrantedAmount}</SplineLegend>;
       case "reward":
-        return (
-          <div className="flex justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
-              <Typo
-                as={"div"}
-                size={"xs"}
-                weight={"medium"}
-                translate={{ token: "data:histograms.legends.rewarded" }}
-              />
-            </div>
-            {renderRewardedAmount}
-          </div>
-        );
+        return <SplineLegend splineType={splineType}>{renderRewardedAmount}</SplineLegend>;
       case "pr":
       default:
-        return (
-          <div className="flex justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
-              <Typo
-                as={"div"}
-                size={"xs"}
-                weight={"medium"}
-                translate={{ token: "data:histograms.legends.prMerged" }}
-              />
-            </div>
-            {renderMergedPrCount}
-          </div>
-        );
+        return <SplineLegend splineType={splineType}>{renderMergedPrCount}</SplineLegend>;
     }
   }, [splineType, renderMergedPrCount, renderGrantedAmount, renderRewardedAmount]);
 
