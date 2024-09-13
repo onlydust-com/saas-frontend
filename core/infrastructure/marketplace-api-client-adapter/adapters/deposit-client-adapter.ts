@@ -1,8 +1,10 @@
 import {
+  GetDepositResponse,
   PreviewDepositBody,
   PreviewDepositResponse,
   UpdateDepositBody,
 } from "@/core/domain/deposit/deposit-contract.types";
+import { Deposit } from "@/core/domain/deposit/models/deposit-model";
 import { DepositPreview } from "@/core/domain/deposit/models/deposit-preview-model";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -14,6 +16,7 @@ export class DepositClientAdapter implements DepositStoragePort {
   routes = {
     previewDeposit: "sponsors/:sponsorId/deposits",
     updateDeposit: "deposits/:depositId",
+    getDeposit: "deposits/:depositId",
   } as const;
 
   previewDeposit = ({ pathParams }: FirstParameter<DepositStoragePort["previewDeposit"]>) => {
@@ -52,6 +55,28 @@ export class DepositClientAdapter implements DepositStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getDeposit = ({ pathParams }: FirstParameter<DepositStoragePort["getDeposit"]>) => {
+    const path = this.routes["getDeposit"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetDepositResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new Deposit(data);
+    };
 
     return {
       request,

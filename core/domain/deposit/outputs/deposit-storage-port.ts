@@ -1,4 +1,6 @@
 import {
+  GetDepositPortParams,
+  GetDepositPortResponse,
   PreviewDepositPortParams,
   PreviewDepositPortResponse,
   UpdateDepositPortParams,
@@ -9,4 +11,5 @@ export interface DepositStoragePort {
   routes: Record<string, string>;
   previewDeposit(p: PreviewDepositPortParams): PreviewDepositPortResponse;
   updateDeposit(p: UpdateDepositPortParams): UpdateDepositPortResponse;
+  getDeposit(p: GetDepositPortParams): GetDepositPortResponse;
 }

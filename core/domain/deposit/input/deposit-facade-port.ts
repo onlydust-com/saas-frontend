@@ -1,4 +1,6 @@
 import {
+  GetDepositPortParams,
+  GetDepositPortResponse,
   PreviewDepositPortParams,
   PreviewDepositPortResponse,
   UpdateDepositPortParams,
@@ -8,4 +10,5 @@ import {
 export interface DepositFacadePort {
   previewDeposit(p: PreviewDepositPortParams): PreviewDepositPortResponse;
   updateDeposit(p: UpdateDepositPortParams): UpdateDepositPortResponse;
+  getDeposit(p: GetDepositPortParams): GetDepositPortResponse;
 }

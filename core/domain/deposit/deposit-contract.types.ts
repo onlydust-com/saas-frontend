@@ -24,3 +24,13 @@ type UpdateDepositPathParams = operations["updateDeposit"]["parameters"]["path"]
 export type UpdateDepositPortParams = HttpClientParameters<{ PathParams: UpdateDepositPathParams }>;
 
 export type UpdateDepositPortResponse = HttpStorageResponse;
+
+/* ------------------------ Get Deposit ------------------------ */
+
+export type GetDepositResponse = components["schemas"]["DepositResponse"];
+
+type GetDepositPathParams = operations["getDeposit"]["parameters"]["path"];
+
+export type GetDepositPortParams = HttpClientParameters<{ PathParams: GetDepositPathParams }>;
+
+export type GetDepositPortResponse = HttpStorageResponse<GetDepositResponse>;

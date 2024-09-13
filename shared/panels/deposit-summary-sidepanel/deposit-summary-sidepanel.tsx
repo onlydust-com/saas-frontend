@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
-import { DepositPreviewInterface } from "@/core/domain/deposit/models/deposit-preview-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
@@ -31,42 +30,38 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function DepositSummarySidepanel() {
   const { name } = useDepositSummarySidepanel();
   const { Panel, close } = useSidePanel({ name });
-  const { sponsorId, network, transactionReference } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
-    sponsorId: "",
-    network: "",
-    transactionReference: "",
+  const { depositId } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
+    depositId: "",
   };
   const { t } = useTranslation();
-  const [depositPreview, setDepositPreview] = useState<DepositPreviewInterface>();
 
-  const { control, handleSubmit, setValue } = useForm<DepositSummaryFormValues>({
+  const { control, handleSubmit, reset } = useForm<DepositSummaryFormValues>({
     resolver: zodResolver(depositSummaryFormValidation),
   });
 
   const {
-    mutate: previewDeposit,
-    isPending: previewDepositIsPending,
-    isError: previewDepositIsError,
-  } = DepositReactQueryAdapter.client.usePreviewDeposit({
-    pathParams: { sponsorId },
+    data: deposit,
+    isLoading,
+    isError,
+  } = DepositReactQueryAdapter.client.useGetDeposit({
+    pathParams: {
+      depositId,
+    },
     options: {
-      onSuccess: data => {
-        setDepositPreview(data);
-        setValue("billingInformation", data.billingInformation ?? undefined);
-      },
+      enabled: Boolean(depositId),
     },
   });
 
   const { mutate: updateDeposit, isPending: updateDepositIsPending } = DepositReactQueryAdapter.client.useUpdateDeposit(
     {
-      pathParams: { depositId: depositPreview?.id ?? "" },
+      pathParams: { depositId: deposit?.id ?? "" },
       options: {
         onSuccess: () => {
-          if (depositPreview) {
+          if (deposit) {
             toast.success(
               t("panels:depositSummary.toast.success", {
-                amount: depositPreview.amount.prettyAmount,
-                code: depositPreview.amount.currency.code,
+                amount: deposit.amount.prettyAmount,
+                code: deposit.amount.currency.code,
               })
             );
             close();
@@ -80,20 +75,19 @@ export function DepositSummarySidepanel() {
   );
 
   useEffect(() => {
-    if (network && transactionReference) {
-      previewDeposit({
-        network,
-        transactionReference,
+    if (deposit) {
+      reset({
+        billingInformation: deposit.billingInformation ?? undefined,
       });
     }
-  }, [previewDeposit, network, transactionReference]);
+  }, [deposit]);
 
   function submitForm(values: DepositSummaryFormValues) {
     updateDeposit(values);
   }
 
   function renderContent() {
-    if (previewDepositIsPending) {
+    if (isLoading) {
       return (
         <>
           <AmountSelectorLoading />
@@ -102,17 +96,16 @@ export function DepositSummarySidepanel() {
       );
     }
 
-    if (previewDepositIsError) {
-      // TODO @hayden return to previous panel if transaction reference is invalid + inline error
+    if (isError) {
       return <ErrorState />;
     }
 
-    if (!depositPreview) return null;
+    if (!deposit) return null;
 
     return (
       <>
         <div className="flex max-h-72 flex-1 items-center">
-          <AmountSelector readOnly amount={String(depositPreview.amount.amount)} budget={depositPreview.amount} />
+          <AmountSelector readOnly amount={String(deposit.amount.amount)} budget={deposit.amount} />
         </div>
 
         <Accordion
@@ -127,21 +120,21 @@ export function DepositSummarySidepanel() {
           <div className={"grid gap-md"}>
             <Input
               name={"accountNumber"}
-              value={depositPreview.senderInformation.accountNumber}
+              value={deposit.senderInformation.accountNumber}
               label={<Translate token={"panels:depositSummary.senderInformation.accountNumber"} />}
               readOnly
               isDisabled
             />
             <Input
               name={"senderName"}
-              value={depositPreview.senderInformation.name}
+              value={deposit.senderInformation.name}
               label={<Translate token={"panels:depositSummary.senderInformation.senderName"} />}
               readOnly
               isDisabled
             />
             <Input
               name={"reference"}
-              value={depositPreview.senderInformation.transactionReference}
+              value={deposit.senderInformation.transactionReference}
               label={<Translate token={"panels:depositSummary.senderInformation.reference"} />}
               readOnly
               isDisabled
@@ -151,9 +144,9 @@ export function DepositSummarySidepanel() {
 
         <Accordion
           id={"billingInformation"}
-          defaultSelected={!depositPreview.billingInformation ? ["billingInformation"] : undefined}
+          defaultSelected={!deposit.billingInformation ? ["billingInformation"] : undefined}
           startIcon={
-            depositPreview.billingInformation
+            deposit.billingInformation
               ? {
                   component: CheckCircle,
                 }
@@ -350,9 +343,9 @@ export function DepositSummarySidepanel() {
               cards: [
                 {
                   amount: {
-                    value: depositPreview.currentBalance.amount,
-                    currency: depositPreview.currentBalance.currency,
-                    usdEquivalent: depositPreview.currentBalance.usdEquivalent ?? 0,
+                    value: deposit.currentBalance.amount,
+                    currency: deposit.currentBalance.currency,
+                    usdEquivalent: deposit.currentBalance.usdEquivalent ?? 0,
                   },
                   badgeProps: {
                     children: <Translate token={"panels:depositSummary.transactionSummary.currentBalance"} />,
@@ -360,17 +353,17 @@ export function DepositSummarySidepanel() {
                 },
                 {
                   amount: {
-                    value: depositPreview.amount.amount,
-                    currency: depositPreview.amount.currency,
-                    usdEquivalent: depositPreview.amount.usdEquivalent ?? 0,
+                    value: deposit.amount.amount,
+                    currency: deposit.amount.currency,
+                    usdEquivalent: deposit.amount.usdEquivalent ?? 0,
                   },
                   badgeProps: { children: <Translate token={"panels:depositSummary.transactionSummary.deposit"} /> },
                 },
                 {
                   amount: {
-                    value: depositPreview.finalBalance.amount,
-                    currency: depositPreview.finalBalance.currency,
-                    usdEquivalent: depositPreview.finalBalance.usdEquivalent ?? 0,
+                    value: deposit.finalBalance.amount,
+                    currency: deposit.finalBalance.currency,
+                    usdEquivalent: deposit.finalBalance.usdEquivalent ?? 0,
                   },
                   badgeProps: {
                     children: <Translate token={"panels:depositSummary.transactionSummary.finalBalance"} />,
@@ -403,7 +396,7 @@ export function DepositSummarySidepanel() {
             variant={"secondary"}
             size={"md"}
             translate={{ token: "panels:depositSummary.done" }}
-            isDisabled={updateDepositIsPending}
+            isDisabled={isLoading || isError || updateDepositIsPending}
           />
         </SidePanelFooter>
       </form>

@@ -1,12 +1,9 @@
 import { z } from "zod";
 
 import { UpdateDepositBody } from "@/core/domain/deposit/deposit-contract.types";
-import { OnlyDustWallet } from "@/core/kernel/money/money.types";
 
 export interface DepositSummarySidepanelData {
-  sponsorId: string;
-  network: NonNullable<OnlyDustWallet["network"]>;
-  transactionReference: string;
+  depositId: string;
 }
 
 export type DepositSummaryFormValues = UpdateDepositBody;

@@ -38,8 +38,9 @@ export function CurrencyListSidepanel() {
           currencyId,
           network,
           address,
-          onNextClick: transactionReference => {
-            openDepositSummarySidepanel({ sponsorId, network, transactionReference });
+          sponsorId,
+          onSubmit: depositId => {
+            openDepositSummarySidepanel({ depositId });
           },
         }),
     });

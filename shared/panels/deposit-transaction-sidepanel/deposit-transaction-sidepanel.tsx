@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
+import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
@@ -26,17 +27,33 @@ export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
   const { name } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, network, address, onNextClick } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
+  const { currencyId, network, address, sponsorId, onSubmit } = useSinglePanelData<DepositTransactionSidepanelData>(
+    name
+  ) ?? {
     currencyId: "",
     network: "",
     address: "",
-    onNextClick: () => {},
+    sponsorId: "",
+    onSubmit: () => {},
   };
   const [transactionReference, setTransactionReference] = useState<string>();
   const feedbackDrawerState = useFeedbackDrawerState();
   const [, setIsOpen] = feedbackDrawerState;
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
+
+  const {
+    mutate: previewDeposit,
+    isPending: previewDepositIsPending,
+    isError: previewDepositIsError,
+  } = DepositReactQueryAdapter.client.usePreviewDeposit({
+    pathParams: { sponsorId },
+    options: {
+      onSuccess: data => {
+        onSubmit(data.id);
+      },
+    },
+  });
 
   if (isLoading) {
     return (
@@ -59,9 +76,14 @@ export function DepositTransactionSidepanel() {
     setIsOpen(true);
   }
 
-  function handleSubmit() {
-    if (transactionReference) {
-      onNextClick(transactionReference);
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (transactionReference && network) {
+      previewDeposit({
+        network,
+        transactionReference,
+      });
     }
   }
 
@@ -118,20 +140,17 @@ export function DepositTransactionSidepanel() {
             onChange={e => setTransactionReference(e.target.value)}
           />
 
-          {
-            // TODO @hayden handle condition
-            false && (
-              <Alert
-                title={<Translate token={"panels:depositTransaction.error.title"} />}
-                description={<Translate token={"panels:depositTransaction.error.description"} />}
-                color={"error"}
-                primaryButton={{
-                  translate: { token: "panels:depositTransaction.error.contactSupport" },
-                  onClick: handleOpenFeedbackDrawer,
-                }}
-              />
-            )
-          }
+          {previewDepositIsError ? (
+            <Alert
+              title={<Translate token={"panels:depositTransaction.error.title"} />}
+              description={<Translate token={"panels:depositTransaction.error.description"} />}
+              color={"error"}
+              primaryButton={{
+                translate: { token: "panels:depositTransaction.error.contactSupport" },
+                onClick: handleOpenFeedbackDrawer,
+              }}
+            />
+          ) : null}
         </SidePanelBody>
 
         <SidePanelFooter>
@@ -140,7 +159,7 @@ export function DepositTransactionSidepanel() {
             variant={"secondary"}
             size={"md"}
             translate={{ token: "panels:depositTransaction.next" }}
-            isDisabled={!transactionReference}
+            isDisabled={!transactionReference || previewDepositIsPending}
           />
         </SidePanelFooter>
       </form>
