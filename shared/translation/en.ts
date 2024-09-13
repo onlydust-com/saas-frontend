@@ -11,7 +11,7 @@ import { enTableGroupByTranslation } from "@/design-system/molecules/table-group
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 import { enTableNavTranslation } from "@/design-system/organisms/table-nav/translations/table-nav.translate";
 
-import { enAmountSelectorTranslation } from "@/shared/features/amount-selector/_translations/amount-selector.translate";
+import { enFeaturesTranslations } from "@/shared/features/_translations/features.translate";
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
 import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
@@ -44,8 +44,6 @@ export const en = {
     ...enTableNavTranslation,
     ...enTableSortTranslation,
   },
-  features: {
-    ...enAmountSelectorTranslation,
-  },
+  ...enFeaturesTranslations,
   ...enPanelsTranslation,
 };

@@ -1,6 +1,7 @@
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
+import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
@@ -8,6 +9,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
+import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
@@ -40,6 +42,8 @@ export interface BootstrapConstructor {
   biStoragePortForServer: BiStoragePort;
   currencyStoragePortForClient: CurrencyStoragePort;
   currencyStoragePortForServer: CurrencyStoragePort;
+  notificationStoragePortForClient: NotificationStoragePort;
+  notificationStoragePortForServer: NotificationStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -64,6 +68,8 @@ export class Bootstrap {
   biStoragePortForServer: BiStoragePort;
   currencyStoragePortForClient: CurrencyStoragePort;
   currencyStoragePortForServer: CurrencyStoragePort;
+  notificationStoragePortForClient: NotificationStoragePort;
+  notificationStoragePortForServer: NotificationStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -84,6 +90,8 @@ export class Bootstrap {
     this.biStoragePortForServer = constructor.biStoragePortForServer;
     this.currencyStoragePortForClient = constructor.currencyStoragePortForClient;
     this.currencyStoragePortForServer = constructor.currencyStoragePortForServer;
+    this.notificationStoragePortForClient = constructor.notificationStoragePortForClient;
+    this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -162,6 +170,14 @@ export class Bootstrap {
     return this.currencyStoragePortForServer;
   }
 
+  getNotificationStoragePortForClient() {
+    return this.notificationStoragePortForClient;
+  }
+
+  getNotificationStoragePortForServer() {
+    return this.notificationStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -195,6 +211,8 @@ export class Bootstrap {
         biStoragePortForServer: new BiClientAdapter(new FetchHttpClient()),
         currencyStoragePortForClient: new CurrencyClientAdapter(new FetchHttpClient()),
         currencyStoragePortForServer: new CurrencyClientAdapter(new FetchHttpClient()),
+        notificationStoragePortForClient: new NotificationClientAdapter(new FetchHttpClient()),
+        notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
