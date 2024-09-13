@@ -10,14 +10,16 @@ import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/
 import { CardNetwork } from "@/shared/panels/currency-network-sidepanel/_components/card-network/card-network";
 import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
 import { CurrencyNetworkSidepanelData } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.types";
+import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
 
 export function CurrencyNetworkSidepanel() {
   const { name } = useCurrencyNetworkSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, onNetworkClick } = useSinglePanelData<CurrencyNetworkSidepanelData>(name) ?? {
+  const { currencyId, sponsorId } = useSinglePanelData<CurrencyNetworkSidepanelData>(name) ?? {
     currencyId: "",
-    onNetworkClick: () => {},
+    sponsorId: "",
   };
+  const { open: openDepositTransactionSidepanel } = useDepositTransactionSidepanel();
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
@@ -69,9 +71,11 @@ export function CurrencyNetworkSidepanel() {
                   <CardNetwork
                     networkName={network}
                     onActionClick={() =>
-                      onNetworkClick({
+                      openDepositTransactionSidepanel({
+                        currencyId,
                         network,
                         address,
+                        sponsorId,
                       })
                     }
                   />
