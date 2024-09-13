@@ -3,14 +3,28 @@ import { useCallback, useMemo } from "react";
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorsStatsResponse } from "@/core/domain/bi/models/bi-contributors-stats-model";
+import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
 import { Typo } from "@/design-system/atoms/typo";
 
-export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel["stats"]) {
+export function useContributorHistogramChart(
+  stats?: GetBiContributorsStatsModel["stats"],
+  timeGroupingType?: TimeGroupingType
+) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
+  const categories = useMemo(() => {
+    if (timeGroupingType === TimeGroupingType.DAY || timeGroupingType === TimeGroupingType.WEEK) {
+      return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "dd.MM.yyyy")) ?? [];
+    }
+
+    if (timeGroupingType === TimeGroupingType.YEAR) {
+      return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "yyyy")) ?? [];
+    }
+
+    return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
+  }, [stats, dateKernelPort, timeGroupingType]);
 
   function calculateSeries(key: keyof Omit<BiContributorsStatsResponse, "timestamp">) {
     if (key === "churnedContributorCount") {

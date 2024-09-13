@@ -1,6 +1,8 @@
 import { Options, SeriesAreasplineOptions, SeriesColumnOptions } from "highcharts";
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import {
   legendStyle,
   titleStyle,
@@ -27,6 +29,7 @@ export function useStackedColumnAreaSplineChartOptions({
   tooltip,
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const options = useMemo<Options>(
     () => ({
       chart: {
@@ -103,6 +106,10 @@ export function useStackedColumnAreaSplineChartOptions({
         formatter() {
           let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
           this.points?.forEach(point => {
+            if (point.series.name === "Granted" || point.series.name === "Rewarded") {
+              s += `${point.series.name}: ${moneyKernelPort.format({ amount: point.y, currency: moneyKernelPort.getCurrency("USD") }).amount} USD<br/>`;
+              return;
+            }
             s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
           });
           return s;

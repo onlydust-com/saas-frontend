@@ -1,4 +1,4 @@
-import { Calendar, GitCommitHorizontal } from "lucide-react";
+import { Calendar, ChevronDown, GitCommitHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -62,9 +62,11 @@ export function ContributorHistogramChart() {
     renderReactivatedContributorCount,
     renderActiveContributorCount,
     renderChurnedContributorCount,
+    renderGrantedAmount,
+    renderRewardedAmount,
     renderMergedPrCount,
     minChurnedContributor,
-  } = useContributorHistogramChart(stats);
+  } = useContributorHistogramChart(stats, timeGroupingType);
 
   const splineSeries = useMemo(() => {
     switch (splineType) {
@@ -86,6 +88,57 @@ export function ContributorHistogramChart() {
         };
     }
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
+
+  const splineLegend = useMemo(() => {
+    switch (splineType) {
+      case "grant":
+        return (
+          <div className="flex justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
+              <Typo
+                as={"div"}
+                size={"xs"}
+                weight={"medium"}
+                translate={{ token: "data:contributorsHistogram.legends.granted" }}
+              />
+            </div>
+            {renderGrantedAmount}
+          </div>
+        );
+      case "reward":
+        return (
+          <div className="flex justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
+              <Typo
+                as={"div"}
+                size={"xs"}
+                weight={"medium"}
+                translate={{ token: "data:contributorsHistogram.legends.rewarded" }}
+              />
+            </div>
+            {renderRewardedAmount}
+          </div>
+        );
+      case "pr":
+      default:
+        return (
+          <div className="flex justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
+              <Typo
+                as={"div"}
+                size={"xs"}
+                weight={"medium"}
+                translate={{ token: "data:contributorsHistogram.legends.prMerged" }}
+              />
+            </div>
+            {renderMergedPrCount}
+          </div>
+        );
+    }
+  }, [splineType, renderMergedPrCount, renderGrantedAmount, renderRewardedAmount]);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
@@ -151,7 +204,13 @@ export function ContributorHistogramChart() {
             onAction={onChangeRangeType}
             isPopOver
           >
-            <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
+            <Button
+              as={"div"}
+              variant={"secondary"}
+              size={"md"}
+              startIcon={{ component: Calendar }}
+              endIcon={{ component: ChevronDown }}
+            >
               <Translate token={`common:dateRangeType.${rangeType}`} />
             </Button>
           </Menu>
@@ -167,7 +226,7 @@ export function ContributorHistogramChart() {
             onAction={onChangeTimeGroupingType}
             isPopOver
           >
-            <Button variant={"secondary"} size={"md"}>
+            <Button variant={"secondary"} size={"md"} endIcon={{ component: ChevronDown }}>
               <Translate token={`common:timeGroupingType.${timeGroupingType}`} />
             </Button>
           </Menu>
@@ -178,15 +237,15 @@ export function ContributorHistogramChart() {
             items={[
               {
                 value: "grant",
-                label: "Option 1",
+                label: t("data:contributorsHistogram.splineTypes.totalGranted"),
               },
               {
                 value: "reward",
-                label: "Option 2",
+                label: t("data:contributorsHistogram.splineTypes.totalRewarded"),
               },
               {
                 value: "pr",
-                label: "Option 2",
+                label: t("data:contributorsHistogram.splineTypes.prMerged"),
               },
             ]}
             value={splineType}
@@ -221,18 +280,7 @@ export function ContributorHistogramChart() {
             </ChartLegend>
             {renderChurnedContributorCount}
           </div>
-          <div className="flex justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
-              <Typo
-                as={"div"}
-                size={"xs"}
-                weight={"medium"}
-                translate={{ token: "data:contributorsHistogram.legends.prMerged" }}
-              />
-            </div>
-            {renderMergedPrCount}
-          </div>
+          {splineLegend}
         </Paper>
       </div>
     </div>

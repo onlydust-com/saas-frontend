@@ -1,13 +1,4 @@
 {
-  "series": {
-    "granted": "Granted",
-    "rewarded": "Rewarded",
-    "prMerged": "PR merged",
-    "newContributors": "New contributors",
-    "activeContributors": "Active contributors",
-    "reactivatedContributors": "Reactivated contributors",
-    "churnedContributors": "Churned contributors"
-  },
   "legends": {
     "new": "New",
     "reactivated": "Reactivated",
@@ -18,6 +9,11 @@
     "pr": "PR",
     "granted": "Granted",
     "rewarded": "Rewarded"
+  },
+  "splineTypes": {
+    "totalGranted": "Total granted to project",
+    "totalRewarded": "Total rewarded to contributors",
+    "prMerged": "PR Merged"
   },
   "emptyState": {
     "title": "No data available",
