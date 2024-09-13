@@ -300,6 +300,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
           classNames={{
             base: "min-w-[1620px]",
           }}
+          onRowClick={row => open({ projectId: (row.original as ProgramProjectListItemInterface).id })}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>

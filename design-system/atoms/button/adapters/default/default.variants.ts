@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const ButtonDefaultVariants = tv({
   slots: {
     base: "group relative box-border flex h-fit w-fit cursor-pointer items-center justify-center overflow-hidden transition-all",
-    content: "flex w-full flex-row items-center justify-center",
+    content: "pointer-events-none flex w-full flex-row items-center justify-center",
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",

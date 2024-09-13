@@ -15,4 +15,5 @@ export interface Row extends ReactTableRow<unknown> {
 export interface TableRowPort extends Partial<Variants> {
   row: Row;
   classNames?: Partial<ClassNames>;
+  onRowClick?: (row: Row) => void;
 }

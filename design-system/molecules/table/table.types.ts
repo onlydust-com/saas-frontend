@@ -11,4 +11,5 @@ export interface TablePort<H> extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   header: TableHeaderPort<H>;
   rows: Row[];
+  onRowClick?: (row: Row) => void;
 }

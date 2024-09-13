@@ -1,9 +1,11 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
 import { ProgramListItemInterface } from "@/core/domain/program/models/program-list-item-model";
+import { ProgramProjectListItemInterface } from "@/core/domain/program/models/program-project-list-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -22,7 +24,7 @@ export function ProgramsTable() {
     ProgramReactQueryAdapter.client.useGetPrograms({});
   const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
+  const router = useRouter();
   const columnHelper = createColumnHelper<ProgramListItemInterface>();
 
   const columns = [
@@ -218,6 +220,9 @@ export function ProgramsTable() {
         rows={table.getRowModel().rows}
         classNames={{
           base: "min-w-[1200px]",
+        }}
+        onRowClick={row => {
+          router.push(NEXT_ROUTER.programs.details.root((row.original as ProgramProjectListItemInterface).id));
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
