@@ -64,7 +64,7 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
     }
 
     if (!notifications.length) {
-      return <EmptyStateLite />;
+      return <EmptyStateLite message={"features:notifications.empty"} />;
     }
 
     return (

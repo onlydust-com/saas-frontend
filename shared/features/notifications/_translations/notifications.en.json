@@ -1,4 +1,5 @@
 {
   "title": "Notifications",
-  "markAllAsRead": "Mark all as read"
+  "markAllAsRead": "Mark all as read",
+  "empty": "No notifications."
 }
