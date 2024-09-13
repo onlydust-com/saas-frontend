@@ -59,7 +59,11 @@ export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavP
 
   if (linkProps) {
     return (
-      <Tooltip content={<Translate token={"ds:itemNav.comingSoon"} />} enabled={isComingSoon}>
+      <Tooltip
+        placement={"bottom-start"}
+        content={<Translate token={"ds:itemNav.comingSoon"} />}
+        enabled={isComingSoon}
+      >
         <BaseLink {...linkProps} className={cn(slots.base(), classNames?.base)}>
           {({ isExternal, isActive: active }) => (
             <Content {...props} isFolded={isFolded} isExternal={isExternal} isActive={active || isActive || false} />
@@ -70,7 +74,7 @@ export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavP
   }
 
   return (
-    <Tooltip content={<Translate token={"ds:itemNav.comingSoon"} />} enabled={isComingSoon}>
+    <Tooltip placement={"bottom-start"} content={<Translate token={"ds:itemNav.comingSoon"} />} enabled={isComingSoon}>
       <button className={cn(slots.base(), classNames?.base)} onClick={onClick} disabled={isDisabled || isComingSoon}>
         <Content {...props} isExternal={false} isActive={isActive || false} isFolded={isFolded} />
       </button>
