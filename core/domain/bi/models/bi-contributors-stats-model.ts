@@ -10,6 +10,7 @@ export class BiContributorsStats implements BiContributorsStatsInterface {
   mergedPrCount!: BiContributorsStatsResponse["mergedPrCount"];
   newContributorCount!: BiContributorsStatsResponse["newContributorCount"];
   reactivatedContributorCount!: BiContributorsStatsResponse["reactivatedContributorCount"];
+  timestamp!: BiContributorsStatsResponse["timestamp"];
   totalGranted!: BiContributorsStatsResponse["totalGranted"];
   totalRewarded!: BiContributorsStatsResponse["totalRewarded"];
 
