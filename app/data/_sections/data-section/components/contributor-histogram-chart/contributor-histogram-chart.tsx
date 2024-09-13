@@ -6,7 +6,7 @@ import { useContributorHistogramChart } from "@/app/data/_sections/data-section/
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
-import { DateRangeType } from "@/core/kernel/date/date-facade-port";
+import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
@@ -15,6 +15,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
+import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
@@ -25,7 +26,9 @@ export function ContributorHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
+  const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
+  const [splineType, setSplineType] = useState<"grant" | "reward" | "pr">("pr");
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
@@ -40,7 +43,7 @@ export function ContributorHistogramChart() {
     queryParams: {
       fromDate,
       toDate,
-      timeGrouping: "MONTH",
+      timeGrouping: timeGroupingType,
     },
   });
 
@@ -48,6 +51,8 @@ export function ContributorHistogramChart() {
 
   const {
     categories,
+    grantedSeries,
+    rewardedSeries,
     mergedPrSeries,
     newContributorSeries,
     activeContributorSeries,
@@ -61,6 +66,27 @@ export function ContributorHistogramChart() {
     minChurnedContributor,
   } = useContributorHistogramChart(stats);
 
+  const splineSeries = useMemo(() => {
+    switch (splineType) {
+      case "grant":
+        return {
+          name: t("data:contributorsHistogram.legends.granted"),
+          data: grantedSeries,
+        };
+      case "reward":
+        return {
+          name: t("data:contributorsHistogram.legends.rewarded"),
+          data: rewardedSeries,
+        };
+      case "pr":
+      default:
+        return {
+          name: t("data:contributorsHistogram.legends.prMerged"),
+          data: mergedPrSeries,
+        };
+    }
+  }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
+
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
     min: minChurnedContributor,
@@ -70,8 +96,7 @@ export function ContributorHistogramChart() {
       { name: t("data:contributorsHistogram.legends.active"), data: activeContributorSeries },
       { name: t("data:contributorsHistogram.legends.churned"), data: churnedContributorSeries },
       {
-        name: t("data:contributorsHistogram.legends.prMerged"),
-        data: mergedPrSeries,
+        ...splineSeries,
         type: "areaspline",
       },
     ],
@@ -79,6 +104,10 @@ export function ContributorHistogramChart() {
 
   function onChangeRangeType(value: string) {
     setRangeType(value as DateRangeType);
+  }
+
+  function onChangeTimeGroupingType(value: string) {
+    setTimeGroupingType(value as TimeGroupingType);
   }
 
   if (isLoading) {
@@ -108,23 +137,62 @@ export function ContributorHistogramChart() {
 
   return (
     <div className="flex min-h-[300px] flex-col gap-4">
-      <div>
-        <Menu
-          items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-          ]}
-          selectedIds={[rangeType]}
-          onAction={onChangeRangeType}
-          isPopOver
-        >
-          <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
-            <Translate token={`common:dateRangeType.${rangeType}`} />
-          </Button>
-        </Menu>
+      <div className="flex justify-between gap-2">
+        <div className="flex gap-2">
+          <Menu
+            items={[
+              { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
+              { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
+              { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
+              { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
+              { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
+            ]}
+            selectedIds={[rangeType]}
+            onAction={onChangeRangeType}
+            isPopOver
+          >
+            <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
+              <Translate token={`common:dateRangeType.${rangeType}`} />
+            </Button>
+          </Menu>
+          <Menu
+            items={[
+              { label: <Translate token={"common:timeGroupingType.DAY"} />, id: TimeGroupingType.DAY },
+              { label: <Translate token={"common:timeGroupingType.WEEK"} />, id: TimeGroupingType.WEEK },
+              { label: <Translate token={"common:timeGroupingType.MONTH"} />, id: TimeGroupingType.MONTH },
+              { label: <Translate token={"common:timeGroupingType.QUARTER"} />, id: TimeGroupingType.QUARTER },
+              { label: <Translate token={"common:timeGroupingType.YEAR"} />, id: TimeGroupingType.YEAR },
+            ]}
+            selectedIds={[timeGroupingType]}
+            onAction={onChangeTimeGroupingType}
+            isPopOver
+          >
+            <Button variant={"secondary"} size={"md"}>
+              <Translate token={`common:timeGroupingType.${timeGroupingType}`} />
+            </Button>
+          </Menu>
+        </div>
+
+        <div className="flex gap-2">
+          <RadioButtonGroup
+            items={[
+              {
+                value: "grant",
+                label: "Option 1",
+              },
+              {
+                value: "reward",
+                label: "Option 2",
+              },
+              {
+                value: "pr",
+                label: "Option 2",
+              },
+            ]}
+            value={splineType}
+            onChange={v => setSplineType(v)}
+          />
+        </div>
       </div>
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">

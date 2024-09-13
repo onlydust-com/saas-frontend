@@ -62,7 +62,7 @@ export function useStackedColumnAreaSplineChartOptions({
           stackLabels: {
             enabled: false, // Disable stack labels to hide totals
           },
-          gridLineColor: "#4C4C5C",
+          gridLineColor: "#697586",
           gridLineDashStyle: "Dash",
         },
         {
@@ -72,8 +72,6 @@ export function useStackedColumnAreaSplineChartOptions({
           },
           opposite: true,
           visible: false, // Hide the second y-axis
-          gridLineColor: "#4C4C5C",
-          gridLineDashStyle: "Dash",
         },
         {
           title: {

@@ -15,7 +15,9 @@
     "churned": "Churned",
     "prMerged": "PR merged",
     "devs": "Devs",
-    "pr": "PR"
+    "pr": "PR",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
   },
   "emptyState": {
     "title": "No data available",

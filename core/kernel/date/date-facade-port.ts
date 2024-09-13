@@ -6,6 +6,14 @@ export enum DateRangeType {
   ALL_TIME = "ALL_TIME",
 }
 
+export enum TimeGroupingType {
+  DAY = "DAY",
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+  QUARTER = "QUARTER",
+  YEAR = "YEAR",
+}
+
 export interface DateFacadePort {
   eachDayOfInterval: (start: Date, end: Date) => Date[];
   isToday: (date: Date) => boolean;
