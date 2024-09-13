@@ -19,6 +19,8 @@ export interface HighchartsOptionsParams {
     lineWidth?: number;
     marker?: Marker;
     tooltip?: Tooltip;
+    yAxis?: number;
+    color?: string;
   }>;
   yAxisTitle?: string;
   xAxisTitle?: string;

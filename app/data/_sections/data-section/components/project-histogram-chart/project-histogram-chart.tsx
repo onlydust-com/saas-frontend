@@ -77,6 +77,8 @@ export function ProjectHistogramChart() {
         tooltip: {
           valueSuffix: " PRs",
         },
+        yAxis: 1,
+        color: "#C434FF",
       },
     ],
     legend: { enabled: false },
@@ -133,7 +135,7 @@ export function ProjectHistogramChart() {
       </div>
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid grid-cols-4 items-center gap-3 flex-1" }} background={"secondary"}>
+        <Paper size={"lg"} classNames={{ base: "grid grid-cols-5 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
               <Translate token={"data:projectsHistogram.legends.new"} />

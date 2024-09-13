@@ -12,7 +12,7 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
 
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
 
-  function calculateSeries(key: keyof BiContributorsStatsResponse) {
+  function calculateSeries(key: keyof Omit<BiContributorsStatsResponse, "timestamp">) {
     return stats?.map(stat => stat[key]) ?? [];
   }
 

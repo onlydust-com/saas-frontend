@@ -14,7 +14,7 @@ const CONTRIBUTOR = "contributor";
 const PROJECTS = "projects";
 
 export function DataSection() {
-  const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(PROJECTS);
+  const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(CONTRIBUTOR);
 
   const renderDataView = useMemo(() => {
     if (toggleDataViews === CONTRIBUTOR) {

@@ -21,7 +21,7 @@ export function useStackedColumnAreaSplineChartOptions({
   yAxisTitle,
   xAxisTitle,
   tooltipFormat = "{point.y}",
-  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
+  colors = ["#510077", "#A03AE9", "#9C9CFF", "#F04438"],
   legend,
   tooltip,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
@@ -47,24 +47,43 @@ export function useStackedColumnAreaSplineChartOptions({
         },
         crosshair: true,
       },
-      yAxis: {
-        min: 0,
-        title: {
-          text: yAxisTitle,
-          style: yAxisStyle,
-        },
-        labels: {
-          style: yAxisStyle,
-        },
-        stackLabels: {
-          enabled: true,
-          style: {
-            fontWeight: "bold",
-            color: "gray",
+      yAxis: [
+        {
+          min: 0,
+          title: {
+            text: xAxisTitle,
+            style: yAxisStyle,
           },
+          labels: {
+            style: yAxisStyle,
+          },
+          stackLabels: {
+            enabled: false, // Disable stack labels to hide totals
+          },
+          gridLineColor: "#4C4C5C",
+          gridLineDashStyle: "Dash",
         },
-        gridLineColor: "#4C4C5C",
-      },
+        {
+          title: {
+            text: yAxisTitle,
+            style: yAxisStyle,
+          },
+          opposite: true,
+          visible: false, // Hide the second y-axis
+          gridLineColor: "#4C4C5C",
+          gridLineDashStyle: "Dash",
+        },
+        {
+          title: {
+            text: xAxisTitle, // Optional title for clarity
+          },
+          opposite: true, // Place it on the opposite side
+          linkedTo: 0, // Link to the first y-axis
+          showEmpty: false, // Prevents it from showing if no data exists
+          gridLineColor: "#4C4C5C",
+          gridLineDashStyle: "Dash",
+        },
+      ],
       legend: {
         ...legend,
         itemStyle: legendStyle,
@@ -91,7 +110,23 @@ export function useStackedColumnAreaSplineChartOptions({
         type: s.type ?? "column",
         name: s.name,
         data: s.data,
-        color: colors[index % colors.length],
+        color: s.color ?? colors[index % colors.length],
+        yAxis: s.yAxis,
+        fillColor:
+          s.type === "areaspline"
+            ? {
+                linearGradient: {
+                  x1: 0,
+                  y1: 0,
+                  x2: 0,
+                  y2: 1,
+                },
+                stops: [
+                  [0, "rgba(196, 52, 255, 0.50)"], // Start color
+                  [1, "rgba(196, 52, 255, 0.00)"], // End color
+                ],
+              }
+            : undefined,
       })),
     }),
     [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]
