@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react";
+import { Calendar, GitCommitHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,8 +10,10 @@ import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
 
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
@@ -150,9 +152,15 @@ export function ContributorHistogramChart() {
             {renderChurnedContributorCount}
           </div>
           <div className="flex justify-between gap-4">
-            <ChartLegend color="quaternary">
-              <Translate token={"data:contributorsHistogram.legends.prMerged"} />
-            </ChartLegend>
+            <div className="flex items-center gap-2">
+              <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
+              <Typo
+                as={"div"}
+                size={"xs"}
+                weight={"medium"}
+                translate={{ token: "data:contributorsHistogram.legends.prMerged" }}
+              />
+            </div>
             {renderMergedPrCount}
           </div>
         </Paper>

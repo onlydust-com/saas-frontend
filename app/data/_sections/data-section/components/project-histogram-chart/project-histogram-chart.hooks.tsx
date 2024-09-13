@@ -40,13 +40,24 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
     [moneyKernelPort]
   );
 
-  const renderCount = useCallback((countSum: number) => {
+  const renderDevsCount = useCallback((countSum: number) => {
     return (
       <div className="flex gap-1">
         <Typo size={"xs"} color={"primary"}>
           {countSum}
         </Typo>
-        <Typo size={"xs"} color={"primary"} translate={{ token: "data:projectsHistogram.legends.projects" }} />
+        <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.devs" }} />
+      </div>
+    );
+  }, []);
+
+  const renderPrCount = useCallback((countSum: number) => {
+    return (
+      <div className="flex gap-1">
+        <Typo size={"xs"} color={"primary"}>
+          {countSum}
+        </Typo>
+        <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.pr" }} />
       </div>
     );
   }, []);
@@ -60,24 +71,24 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
     [rewardedSeries, renderAmount]
   );
   const renderMergedPrCount = useMemo(
-    () => renderCount(mergedPrSeries.reduce((a, c) => a + c, 0)),
-    [mergedPrSeries, renderCount]
+    () => renderPrCount(mergedPrSeries.reduce((a, c) => a + c, 0)),
+    [mergedPrSeries, renderPrCount]
   );
   const renderNewContributorCount = useMemo(
-    () => renderCount(newProjectSeries.reduce((a, c) => a + c, 0)),
-    [newProjectSeries, renderCount]
+    () => renderDevsCount(newProjectSeries.reduce((a, c) => a + c, 0)),
+    [newProjectSeries, renderDevsCount]
   );
   const renderActiveProjectCount = useMemo(
-    () => renderCount(activeProjectSeries.reduce((a, c) => a + c, 0)),
-    [activeProjectSeries, renderCount]
+    () => renderDevsCount(activeProjectSeries.reduce((a, c) => a + c, 0)),
+    [activeProjectSeries, renderDevsCount]
   );
   const renderReactivatedProjectCount = useMemo(
-    () => renderCount(reactivatedProjectSeries.reduce((a, c) => a + c, 0)),
-    [reactivatedProjectSeries, renderCount]
+    () => renderDevsCount(reactivatedProjectSeries.reduce((a, c) => a + c, 0)),
+    [reactivatedProjectSeries, renderDevsCount]
   );
   const renderChurnedProjectCount = useMemo(
-    () => renderCount(churnedProjectSeries.reduce((a, c) => a + c, 0)),
-    [churnedProjectSeries, renderCount]
+    () => renderDevsCount(churnedProjectSeries.reduce((a, c) => a + c, 0)),
+    [churnedProjectSeries, renderDevsCount]
   );
 
   return {

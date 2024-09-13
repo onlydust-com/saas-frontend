@@ -40,13 +40,24 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
     [moneyKernelPort]
   );
 
-  const renderCount = useCallback((countSum: number) => {
+  const renderDevsCount = useCallback((countSum: number) => {
     return (
       <div className="flex gap-1">
         <Typo size={"xs"} color={"primary"}>
           {countSum}
         </Typo>
         <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.devs" }} />
+      </div>
+    );
+  }, []);
+
+  const renderPrCount = useCallback((countSum: number) => {
+    return (
+      <div className="flex gap-1">
+        <Typo size={"xs"} color={"primary"}>
+          {countSum}
+        </Typo>
+        <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.pr" }} />
       </div>
     );
   }, []);
@@ -60,24 +71,24 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
     [rewardedSeries, renderAmount]
   );
   const renderMergedPrCount = useMemo(
-    () => renderCount(mergedPrSeries.reduce((a, c) => a + c, 0)),
-    [mergedPrSeries, renderCount]
+    () => renderPrCount(mergedPrSeries.reduce((a, c) => a + c, 0)),
+    [mergedPrSeries, renderPrCount]
   );
   const renderNewContributorCount = useMemo(
-    () => renderCount(newContributorSeries.reduce((a, c) => a + c, 0)),
-    [newContributorSeries, renderCount]
+    () => renderDevsCount(newContributorSeries.reduce((a, c) => a + c, 0)),
+    [newContributorSeries, renderDevsCount]
   );
   const renderActiveContributorCount = useMemo(
-    () => renderCount(activeContributorSeries.reduce((a, c) => a + c, 0)),
-    [activeContributorSeries, renderCount]
+    () => renderDevsCount(activeContributorSeries.reduce((a, c) => a + c, 0)),
+    [activeContributorSeries, renderDevsCount]
   );
   const renderReactivatedContributorCount = useMemo(
-    () => renderCount(reactivatedContributorSeries.reduce((a, c) => a + c, 0)),
-    [reactivatedContributorSeries, renderCount]
+    () => renderDevsCount(reactivatedContributorSeries.reduce((a, c) => a + c, 0)),
+    [reactivatedContributorSeries, renderDevsCount]
   );
   const renderChurnedContributorCount = useMemo(
-    () => renderCount(churnedContributorSeries.reduce((a, c) => a + c, 0)),
-    [churnedContributorSeries, renderCount]
+    () => renderDevsCount(churnedContributorSeries.reduce((a, c) => a + c, 0)),
+    [churnedContributorSeries, renderDevsCount]
   );
 
   return {
