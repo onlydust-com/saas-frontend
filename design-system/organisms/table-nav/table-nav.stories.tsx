@@ -33,6 +33,7 @@ const defaultProps: TableNavPort = {
     ],
   },
   search: {
+    name: "search",
     value: "Search the data",
   },
   columnList: {

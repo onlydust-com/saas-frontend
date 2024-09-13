@@ -24,19 +24,20 @@ export function UserMenu({ isFolded }: UserMenuProps) {
   return (
     <div
       className={cn(
-        "group/user flex w-fit items-center justify-center gap-1 overflow-hidden px-lg py-md pl-2 transition-all"
+        "group/user flex w-full items-center justify-center gap-1 overflow-hidden px-lg py-md transition-all",
+        { "!px-1": isFolded }
       )}
     >
-      <div className={cn("relative flex-1")}>
+      <div className={"relative flex-1"}>
         <AvatarLabelGroup
           avatars={[{ src: user?.avatarUrl, alt: user?.login }]}
           size={"md"}
           shape={"rounded"}
-          title={{ children: login }}
-          description={{ children: email }}
+          title={!isFolded ? { children: login } : undefined}
+          description={!isFolded ? { children: email } : undefined}
           classNames={{
             base: cn("transition-all", {
-              "flex justify-center gap-[18px] transition-all w-full group-hover/user:opacity-0": isFolded,
+              "flex justify-center !gap-0 transition-all w-full group-hover/user:opacity-0": isFolded,
             }),
           }}
         />
@@ -53,15 +54,18 @@ export function UserMenu({ isFolded }: UserMenuProps) {
           />
         )}
       </div>
-      {!isFolded && (
-        <Button
-          variant={"tertiary"}
-          startIcon={{ component: LogIn }}
-          iconOnly={true}
-          size={"xs"}
-          onClick={handleLogout}
-        />
-      )}
+
+      <div className={"flex flex-1 items-center justify-end"}>
+        {!isFolded && (
+          <Button
+            variant={"tertiary"}
+            startIcon={{ component: LogIn }}
+            iconOnly={true}
+            size={"xs"}
+            onClick={handleLogout}
+          />
+        )}
+      </div>
     </div>
   );
 }

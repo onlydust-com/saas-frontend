@@ -2,4 +2,5 @@ import { CurrencySupportedListItemInterface } from "@/core/domain/currency/model
 
 export interface CardAllCurrencyProps {
   currency: CurrencySupportedListItemInterface;
+  onActionClick: (currencyId: string) => void;
 }

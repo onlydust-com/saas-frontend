@@ -10,6 +10,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
+import { NotificationsModal } from "@/shared/features/notifications/notifications-modal";
 
 export function PrimaryNavigationMobile() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ export function PrimaryNavigationMobile() {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
-          {/*<Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly />*/}
+          <NotificationsModal />
           <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -16,16 +16,14 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.context";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable({ programId }: { programId: string }) {
   const { open } = useProjectSidePanel();
 
-  const {
-    sidePanel: { open: openGrantForm },
-    projectIdState: [, setGrantProjectId],
-  } = useGrantFormContext();
+  const { open: openGrantForm } = useGrantFromPanel();
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProgramReactQueryAdapter.client.useGetProgramProjects({
       pathParams: {
@@ -40,15 +38,6 @@ export function ProjectsTable({ programId }: { programId: string }) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const columnHelper = createColumnHelper<ProgramProjectListItemInterface>();
-
-  function handleOpenProjectGrant(projectId: string) {
-    setGrantProjectId(projectId);
-    openGrantForm();
-  }
-
-  function handleOpenProjectDetail(projectId: string) {
-    open(projectId);
-  }
 
   const columns = [
     columnHelper.accessor("name", {
@@ -267,11 +256,17 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary"} size={"sm"} onClick={() => handleOpenProjectGrant(project.id)}>
+            <Button variant={"secondary"} size={"sm"} onClick={() => openGrantForm({ projectId: project.id })}>
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
-            <Button variant={"secondary"} size={"sm"} onClick={() => handleOpenProjectDetail(project.id)}>
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() =>
+                open({ projectId: project.id, onGrantClick: (projectId: string) => openGrantForm({ projectId }) })
+              }
+            >
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
             </Button>
           </div>
@@ -305,6 +300,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
           classNames={{
             base: "min-w-[1620px]",
           }}
+          onRowClick={row => open({ projectId: row.original.id })}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>

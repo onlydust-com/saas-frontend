@@ -1,4 +1,5 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -14,7 +15,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function SponsorsTable() {
   const { user, isLoading, isError } = useAuthUser();
   const sponsors = user?.sponsors ?? [];
-
+  const router = useRouter();
   const columnHelper = createColumnHelper<{ name: string; id: string }>();
 
   const columns = [
@@ -69,6 +70,9 @@ export function SponsorsTable() {
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
+        onRowClick={row => {
+          router.push(NEXT_ROUTER.financials.details.root(row.original.id));
+        }}
         classNames={{
           base: "min-w-[1200px]",
         }}

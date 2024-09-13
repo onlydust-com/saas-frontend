@@ -3,6 +3,9 @@
   "state": {
     "error": {
       "title": "An error occurred, please try again later."
+    },
+    "empty": {
+      "title": "No items found."
     }
   },
   "showMore": "Show more",

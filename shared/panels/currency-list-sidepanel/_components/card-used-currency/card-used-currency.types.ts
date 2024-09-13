@@ -2,4 +2,5 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 export interface CardUsedCurrencyProps {
   budget: DetailedTotalMoneyTotalPerCurrency;
+  onActionClick: (currencyId: string) => void;
 }

@@ -3,6 +3,6 @@ import { withComponentAdapter } from "@/design-system/helpers/with-component-ada
 import { TableDefaultAdapter } from "../adapters/default/default.adapter";
 import { TablePort } from "../table.types";
 
-export function Table<H>(props: TablePort<H>) {
-  return withComponentAdapter<TablePort<H>>(TableDefaultAdapter)(props);
+export function Table<H, R>(props: TablePort<H, R>) {
+  return withComponentAdapter<TablePort<H, R>>(TableDefaultAdapter)(props);
 }

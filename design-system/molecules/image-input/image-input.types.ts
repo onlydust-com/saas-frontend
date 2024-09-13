@@ -17,4 +17,5 @@ export interface ImageInputPort<C extends ElementType> extends Partial<Variants>
   maxSizeMo?: number;
   value?: string;
   buttonProps?: ButtonPort<"label">;
+  onChange?: (e: File) => void;
 }

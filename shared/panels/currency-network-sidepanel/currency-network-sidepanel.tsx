@@ -1,7 +1,7 @@
 import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
 
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
-import { CardTemplate } from "@/design-system/molecules/cards/card-template";
+import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -9,39 +9,38 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { CardNetwork } from "@/shared/panels/currency-network-sidepanel/_components/card-network/card-network";
 import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
+import { CurrencyNetworkSidepanelData } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.types";
 
 export function CurrencyNetworkSidepanel() {
   const { name } = useCurrencyNetworkSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId } = useSinglePanelData<{ currencyId: string }>(name) ?? {
+  const { currencyId, onNetworkClick } = useSinglePanelData<CurrencyNetworkSidepanelData>(name) ?? {
     currencyId: "",
+    onNetworkClick: () => {},
   };
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
-  if (isLoading) {
-    return <AccordionLoading />;
-  }
+  function renderContent() {
+    if (isLoading) {
+      return (
+        <>
+          <CardTemplateLoading />
+          <AccordionLoading />
+        </>
+      );
+    }
 
-  if (isError) {
-    return <ErrorState />;
-  }
+    if (isError) {
+      return <ErrorState />;
+    }
 
-  if (!data) return null;
+    if (!data) return null;
 
-  const currency = data.currencies.find(currency => currency.id === currencyId);
+    const currency = data.currencies.find(currency => currency.id === currencyId);
 
-  return (
-    <Panel>
-      <SidePanelHeader
-        title={{
-          translate: { token: "panels:currencyNetwork.title" },
-        }}
-        canGoBack
-        canClose
-      />
-
-      <SidePanelBody>
+    return (
+      <>
         <CardTemplate
           avatarProps={{
             src: currency?.logoUrl,
@@ -65,11 +64,34 @@ export function CurrencyNetworkSidepanel() {
         >
           {currency?.onlyDustWallets?.map(wallet => (
             <div key={wallet.address}>
-              <CardNetwork networkLogoUrl={currency.logoUrl} networkName={wallet.network} />
+              <CardNetwork
+                networkName={wallet.network}
+                onActionClick={() =>
+                  onNetworkClick({
+                    currencyId: currency.id,
+                    networkName: wallet.network,
+                    networkAddress: wallet.address,
+                  })
+                }
+              />
             </div>
           ))}
         </Accordion>
-      </SidePanelBody>
+      </>
+    );
+  }
+
+  return (
+    <Panel>
+      <SidePanelHeader
+        title={{
+          translate: { token: "panels:currencyNetwork.title" },
+        }}
+        canGoBack
+        canClose
+      />
+
+      <SidePanelBody>{renderContent()}</SidePanelBody>
     </Panel>
   );
 }

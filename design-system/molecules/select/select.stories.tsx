@@ -10,6 +10,7 @@ import { Select } from "./variants/select-default";
 type Story = StoryObj<typeof Select>;
 
 const defaultProps: SelectPort<"div"> = {
+  name: "select",
   placeholder: "Select your item",
   items: [
     { id: "item1", label: "Item 1" },

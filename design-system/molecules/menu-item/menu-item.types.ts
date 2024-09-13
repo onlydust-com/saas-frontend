@@ -14,7 +14,7 @@ interface DataAttributes {
   "data-hover"?: boolean;
 }
 
-export type MenuItemId = string | number;
+export type MenuItemId = string;
 
 export interface MenuItemBasePort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;

@@ -12,7 +12,6 @@ export interface FieldContainerPort extends PropsWithChildren {
   description?: ReactNode;
   isError?: boolean;
   name: string;
-  onChange?: (e: File) => void;
   info?: {
     text: string;
     icon?: IconPort;
