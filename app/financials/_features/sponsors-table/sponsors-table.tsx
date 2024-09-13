@@ -71,7 +71,7 @@ export function SponsorsTable() {
         }}
         rows={table.getRowModel().rows}
         onRowClick={row => {
-          router.push(NEXT_ROUTER.financials.details.root((row.original as { name: string; id: string }).id));
+          router.push(NEXT_ROUTER.financials.details.root(row.original.id));
         }}
         classNames={{
           base: "min-w-[1200px]",

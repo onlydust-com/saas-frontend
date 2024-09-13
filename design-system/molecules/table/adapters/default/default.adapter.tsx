@@ -6,7 +6,7 @@ import { cn } from "@/shared/helpers/cn";
 import { TablePort } from "../../table.types";
 import { TableDefaultVariants } from "./default.variants";
 
-export function TableDefaultAdapter<H>({ classNames, header, rows, onRowClick }: TablePort<H>) {
+export function TableDefaultAdapter<H, R>({ classNames, header, rows, onRowClick }: TablePort<H, R>) {
   const slots = TableDefaultVariants();
 
   return (

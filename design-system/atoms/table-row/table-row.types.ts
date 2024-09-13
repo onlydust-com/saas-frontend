@@ -7,13 +7,13 @@ interface ClassNames {
   cell: string;
 }
 
-export interface Row extends ReactTableRow<unknown> {
+export interface Row<R> extends ReactTableRow<R> {
   // Includes the following
   // id: string;
 }
 
-export interface TableRowPort extends Partial<Variants> {
-  row: Row;
+export interface TableRowPort<R> extends Partial<Variants> {
+  row: Row<R>;
   classNames?: Partial<ClassNames>;
-  onRowClick?: (row: Row) => void;
+  onRowClick?: (row: Row<R>) => void;
 }

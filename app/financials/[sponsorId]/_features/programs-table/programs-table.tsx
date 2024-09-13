@@ -247,7 +247,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
           base: "min-w-[1200px]",
         }}
         onRowClick={row => {
-          router.push(NEXT_ROUTER.programs.details.root((row.original as SponsorProgramsListItemInterface).id));
+          router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
