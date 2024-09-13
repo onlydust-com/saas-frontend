@@ -23,7 +23,7 @@ export type GetBiContributorsStatsPortParams = HttpClientParameters<{
 
 export type GetBiContributorsStatsPortResponse = HttpStorageResponse<GetBiContributorsStatsModel>;
 
-/* --------------------- Get Bi Contributors Stats --------------------- */
+/* --------------------- Get Bi Projects Stats --------------------- */
 export type GetBiProjectsStatsResponse = components["schemas"]["BiProjectsStatsListResponse"];
 export type GetBiProjectsStatsModel = Omit<GetBiProjectsStatsResponse, "stats"> & {
   stats: BiProjectsStatsInterface[];
