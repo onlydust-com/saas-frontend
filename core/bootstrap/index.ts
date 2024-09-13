@@ -1,6 +1,7 @@
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
+import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
@@ -9,6 +10,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
+import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
@@ -42,6 +44,8 @@ export interface BootstrapConstructor {
   biStoragePortForServer: BiStoragePort;
   currencyStoragePortForClient: CurrencyStoragePort;
   currencyStoragePortForServer: CurrencyStoragePort;
+  depositStoragePortForClient: DepositStoragePort;
+  depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
   dateKernelPort: DateFacadePort;
@@ -68,6 +72,8 @@ export class Bootstrap {
   biStoragePortForServer: BiStoragePort;
   currencyStoragePortForClient: CurrencyStoragePort;
   currencyStoragePortForServer: CurrencyStoragePort;
+  depositStoragePortForClient: DepositStoragePort;
+  depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
   dateKernelPort: DateFacadePort;
@@ -90,6 +96,8 @@ export class Bootstrap {
     this.biStoragePortForServer = constructor.biStoragePortForServer;
     this.currencyStoragePortForClient = constructor.currencyStoragePortForClient;
     this.currencyStoragePortForServer = constructor.currencyStoragePortForServer;
+    this.depositStoragePortForClient = constructor.depositStoragePortForClient;
+    this.depositStoragePortForServer = constructor.depositStoragePortForServer;
     this.notificationStoragePortForClient = constructor.notificationStoragePortForClient;
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
@@ -170,6 +178,14 @@ export class Bootstrap {
     return this.currencyStoragePortForServer;
   }
 
+  getDepositStoragePortForClient() {
+    return this.depositStoragePortForClient;
+  }
+
+  getDepositStoragePortForServer() {
+    return this.depositStoragePortForServer;
+  }
+
   getNotificationStoragePortForClient() {
     return this.notificationStoragePortForClient;
   }
@@ -211,6 +227,8 @@ export class Bootstrap {
         biStoragePortForServer: new BiClientAdapter(new FetchHttpClient()),
         currencyStoragePortForClient: new CurrencyClientAdapter(new FetchHttpClient()),
         currencyStoragePortForServer: new CurrencyClientAdapter(new FetchHttpClient()),
+        depositStoragePortForClient: new DepositClientAdapter(new FetchHttpClient()),
+        depositStoragePortForServer: new DepositClientAdapter(new FetchHttpClient()),
         notificationStoragePortForClient: new NotificationClientAdapter(new FetchHttpClient()),
         notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,

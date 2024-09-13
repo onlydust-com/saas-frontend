@@ -62,20 +62,25 @@ export function CurrencyNetworkSidepanel() {
             translate: { token: "panels:currencyNetwork.network" },
           }}
         >
-          {currency?.onlyDustWallets?.map(wallet => (
-            <div key={wallet.address}>
-              <CardNetwork
-                networkName={wallet.network}
-                onActionClick={() =>
-                  onNetworkClick({
-                    currencyId: currency.id,
-                    networkName: wallet.network,
-                    networkAddress: wallet.address,
-                  })
-                }
-              />
-            </div>
-          ))}
+          {currency?.onlyDustWallets?.map(({ network, address }) => {
+            if (network && address) {
+              return (
+                <div key={address}>
+                  <CardNetwork
+                    networkName={network}
+                    onActionClick={() =>
+                      onNetworkClick({
+                        network,
+                        address,
+                      })
+                    }
+                  />
+                </div>
+              );
+            }
+
+            return null;
+          })}
         </Accordion>
       </>
     );

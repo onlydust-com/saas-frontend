@@ -15,6 +15,7 @@ import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidep
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { CurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel";
 import { CurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel";
+import { DepositSummarySidepanel } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel";
 import { DepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -47,6 +48,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
       <CurrencyListSidepanel />
       <CurrencyNetworkSidepanel />
       <DepositTransactionSidepanel />
+      <DepositSummarySidepanel />
     </ProgramListSidepanelProvider>
   );
 }
