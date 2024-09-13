@@ -39,16 +39,17 @@ export class DepositClientAdapter implements DepositStoragePort {
     };
   };
 
-  updateDeposit = () => {
+  updateDeposit = ({ pathParams }: FirstParameter<DepositStoragePort["updateDeposit"]>) => {
     const path = this.routes["updateDeposit"];
-    const method = "POST";
-    const tag = HttpClient.buildTag({ path });
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: UpdateDepositBody) =>
       this.client.request<never>({
         path,
         method,
         tag,
+        pathParams,
         body: JSON.stringify(body),
       });
 

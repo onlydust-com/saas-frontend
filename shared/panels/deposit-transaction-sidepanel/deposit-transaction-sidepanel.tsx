@@ -12,6 +12,8 @@ import { Alert } from "@/design-system/molecules/alert";
 import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawer";
+import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -31,6 +33,8 @@ export function DepositTransactionSidepanel() {
     onNextClick: () => {},
   };
   const [transactionReference, setTransactionReference] = useState<string>();
+  const feedbackDrawerState = useFeedbackDrawerState();
+  const [, setIsOpen] = feedbackDrawerState;
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
@@ -51,72 +55,97 @@ export function DepositTransactionSidepanel() {
 
   const currency = data.currencies.find(currency => currency.id === currencyId);
 
+  function handleOpenFeedbackDrawer() {
+    setIsOpen(true);
+  }
+
+  function handleSubmit() {
+    if (transactionReference) {
+      onNextClick(transactionReference);
+    }
+  }
+
   return (
     <Panel>
-      <SidePanelHeader
-        title={{
-          translate: { token: "panels:depositTransaction.title" },
-        }}
-        canGoBack
-        canClose
-      />
-
-      <SidePanelBody>
-        <CardTemplate
-          avatarProps={{
-            src: currency?.logoUrl,
+      <form className={"flex h-full flex-col gap-px"} onSubmit={handleSubmit}>
+        <SidePanelHeader
+          title={{
+            translate: { token: "panels:depositTransaction.title" },
           }}
-          titleProps={{
-            children: currency?.name,
-          }}
-          descriptionProps={{
-            classNames: { base: "capitalize" },
-            children: network?.toLowerCase(),
-          }}
-          border={"primary"}
-          background={"secondary"}
+          canGoBack
+          canClose
         />
 
-        <Paper size={"lg"} border={"primary"} background={"primary"}>
-          <Typo
-            size={"sm"}
-            classNames={{ base: "break-words whitespace-pre-line" }}
-            translate={{
-              token: "panels:depositTransaction.depositInstructions",
-              values: { name: network, address },
+        <SidePanelBody>
+          <CardTemplate
+            avatarProps={{
+              src: currency?.logoUrl,
             }}
+            titleProps={{
+              children: currency?.name,
+            }}
+            descriptionProps={{
+              classNames: { base: "capitalize" },
+              children: network?.toLowerCase(),
+            }}
+            border={"primary"}
+            background={"secondary"}
           />
-        </Paper>
 
-        <Alert
-          title={<Translate token={"panels:depositTransaction.disclaimer.title"} />}
-          description={<Translate token={"panels:depositTransaction.disclaimer.description"} />}
-          color={"brand"}
-        />
+          <Paper size={"lg"} border={"primary"} background={"primary"}>
+            <Typo
+              size={"sm"}
+              classNames={{ base: "break-words whitespace-pre-line" }}
+              translate={{
+                token: "panels:depositTransaction.depositInstructions",
+                values: { name: network, address },
+              }}
+            />
+          </Paper>
 
-        <Input
-          name={"transactionReference"}
-          size={"sm"}
-          placeholder={t("panels:depositTransaction.transactionReference")}
-          label={t("panels:depositTransaction.transactionReference")}
-          value={transactionReference}
-          onChange={e => setTransactionReference(e.target.value)}
-        />
-      </SidePanelBody>
+          <Alert
+            title={<Translate token={"panels:depositTransaction.disclaimer.title"} />}
+            description={<Translate token={"panels:depositTransaction.disclaimer.description"} />}
+            color={"brand"}
+          />
 
-      <SidePanelFooter>
-        <Button
-          variant={"secondary"}
-          size={"md"}
-          onClick={() => {
-            if (transactionReference) {
-              onNextClick(transactionReference);
-            }
-          }}
-          translate={{ token: "panels:depositTransaction.next" }}
-          isDisabled={!transactionReference}
-        />
-      </SidePanelFooter>
+          <Input
+            name={"transactionReference"}
+            size={"sm"}
+            placeholder={t("panels:depositTransaction.transactionReference")}
+            label={t("panels:depositTransaction.transactionReference")}
+            value={transactionReference}
+            onChange={e => setTransactionReference(e.target.value)}
+          />
+
+          {
+            // TODO @hayden handle condition
+            false && (
+              <Alert
+                title={<Translate token={"panels:depositTransaction.error.title"} />}
+                description={<Translate token={"panels:depositTransaction.error.description"} />}
+                color={"error"}
+                primaryButton={{
+                  translate: { token: "panels:depositTransaction.error.contactSupport" },
+                  onClick: handleOpenFeedbackDrawer,
+                }}
+              />
+            )
+          }
+        </SidePanelBody>
+
+        <SidePanelFooter>
+          <Button
+            type={"submit"}
+            variant={"secondary"}
+            size={"md"}
+            translate={{ token: "panels:depositTransaction.next" }}
+            isDisabled={!transactionReference}
+          />
+        </SidePanelFooter>
+      </form>
+
+      <FeedbackDrawer state={feedbackDrawerState} />
     </Panel>
   );
 }

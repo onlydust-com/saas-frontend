@@ -1,5 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
@@ -19,7 +21,11 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useDepositSummarySidepanel } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.hooks";
-import { DepositSummarySidepanelData } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.types";
+import {
+  DepositSummaryFormValues,
+  DepositSummarySidepanelData,
+  depositSummaryFormValidation,
+} from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositSummarySidepanel() {
@@ -33,6 +39,10 @@ export function DepositSummarySidepanel() {
   const { t } = useTranslation();
   const [depositPreview, setDepositPreview] = useState<DepositPreviewInterface>();
 
+  const { control, handleSubmit, setValue } = useForm<DepositSummaryFormValues>({
+    resolver: zodResolver(depositSummaryFormValidation),
+  });
+
   const {
     mutate: previewDeposit,
     isPending: previewDepositIsPending,
@@ -42,12 +52,14 @@ export function DepositSummarySidepanel() {
     options: {
       onSuccess: data => {
         setDepositPreview(data);
+        setValue("billingInformation", data.billingInformation ?? undefined);
       },
     },
   });
 
   const { mutate: updateDeposit, isPending: updateDepositIsPending } = DepositReactQueryAdapter.client.useUpdateDeposit(
     {
+      pathParams: { depositId: depositPreview?.id ?? "" },
       options: {
         onSuccess: () => {
           if (depositPreview) {
@@ -76,9 +88,8 @@ export function DepositSummarySidepanel() {
     }
   }, [previewDeposit, network, transactionReference]);
 
-  function handleSubmit() {
-    // TODO @hayden
-    updateDeposit({});
+  function submitForm(values: DepositSummaryFormValues) {
+    updateDeposit(values);
   }
 
   function renderContent() {
@@ -92,7 +103,7 @@ export function DepositSummarySidepanel() {
     }
 
     if (previewDepositIsError) {
-      // TODO @hayden return to previous panel if transaction reference is invalid ?
+      // TODO @hayden return to previous panel if transaction reference is invalid + inline error
       return <ErrorState />;
     }
 
@@ -119,24 +130,28 @@ export function DepositSummarySidepanel() {
               value={depositPreview.senderInformation.accountNumber}
               label={<Translate token={"panels:depositSummary.senderInformation.accountNumber"} />}
               readOnly
+              isDisabled
             />
             <Input
               name={"senderName"}
               value={depositPreview.senderInformation.name}
               label={<Translate token={"panels:depositSummary.senderInformation.senderName"} />}
               readOnly
+              isDisabled
             />
             <Input
               name={"reference"}
               value={depositPreview.senderInformation.transactionReference}
               label={<Translate token={"panels:depositSummary.senderInformation.reference"} />}
               readOnly
+              isDisabled
             />
           </div>
         </Accordion>
 
         <Accordion
           id={"billingInformation"}
+          defaultSelected={!depositPreview.billingInformation ? ["billingInformation"] : undefined}
           startIcon={
             depositPreview.billingInformation
               ? {
@@ -149,50 +164,175 @@ export function DepositSummarySidepanel() {
           }}
         >
           <div className={"grid gap-md"}>
-            <Input
-              name={"companyName"}
-              value={depositPreview.billingInformation?.companyName}
-              label={<Translate token={"panels:depositSummary.billingInformation.companyName"} />}
+            <Controller
+              name="billingInformation.companyName"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.companyName"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"companyAddress"}
-              value={depositPreview.billingInformation?.companyAddress}
-              label={<Translate token={"panels:depositSummary.billingInformation.companyAddress"} />}
+
+            <Controller
+              name="billingInformation.companyAddress"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.companyAddress"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"companyCountry"}
-              value={depositPreview.billingInformation?.companyCountry}
-              label={<Translate token={"panels:depositSummary.billingInformation.companyCountry"} />}
+
+            <Controller
+              name="billingInformation.companyCountry"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.companyCountry"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"companyId"}
-              value={depositPreview.billingInformation?.companyId}
-              label={<Translate token={"panels:depositSummary.billingInformation.companyId"} />}
+
+            <Controller
+              name="billingInformation.companyId"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.companyId"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"vatNumber"}
-              value={depositPreview.billingInformation?.vatNumber}
-              label={<Translate token={"panels:depositSummary.billingInformation.vatNumber"} />}
+
+            <Controller
+              name="billingInformation.vatNumber"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.vatNumber"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"billingEmail"}
-              value={depositPreview.billingInformation?.billingEmail}
-              label={<Translate token={"panels:depositSummary.billingInformation.vatNumber"} />}
+
+            <Controller
+              name="billingInformation.billingEmail"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.billingEmail"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"firstName"}
-              value={depositPreview.billingInformation?.firstName}
-              label={<Translate token={"panels:depositSummary.billingInformation.firstName"} />}
+
+            <Controller
+              name="billingInformation.firstName"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.firstName"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"lastName"}
-              value={depositPreview.billingInformation?.lastName}
-              label={<Translate token={"panels:depositSummary.billingInformation.lastName"} />}
+
+            <Controller
+              name="billingInformation.lastName"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.lastName"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
-            <Input
-              name={"email"}
-              value={depositPreview.billingInformation?.email}
-              label={<Translate token={"panels:depositSummary.billingInformation.email"} />}
+
+            <Controller
+              name="billingInformation.email"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input
+                  label={<Translate token={"panels:depositSummary.billingInformation.email"} />}
+                  {...field}
+                  isError={!!error}
+                  error={
+                    error?.message
+                      ? {
+                          text: error.message,
+                        }
+                      : undefined
+                  }
+                />
+              )}
             />
           </div>
         </Accordion>
@@ -246,25 +386,27 @@ export function DepositSummarySidepanel() {
 
   return (
     <Panel>
-      <SidePanelHeader
-        title={{
-          translate: { token: "panels:depositSummary.title" },
-        }}
-        canGoBack
-        canClose
-      />
-
-      <SidePanelBody>{renderContent()}</SidePanelBody>
-
-      <SidePanelFooter>
-        <Button
-          variant={"secondary"}
-          size={"md"}
-          translate={{ token: "panels:depositSummary.done" }}
-          onClick={handleSubmit}
-          isDisabled={updateDepositIsPending}
+      <form className={"flex h-full flex-col gap-px"} onSubmit={handleSubmit(submitForm)}>
+        <SidePanelHeader
+          title={{
+            translate: { token: "panels:depositSummary.title" },
+          }}
+          canGoBack
+          canClose
         />
-      </SidePanelFooter>
+
+        <SidePanelBody>{renderContent()}</SidePanelBody>
+
+        <SidePanelFooter>
+          <Button
+            type={"submit"}
+            variant={"secondary"}
+            size={"md"}
+            translate={{ token: "panels:depositSummary.done" }}
+            isDisabled={updateDepositIsPending}
+          />
+        </SidePanelFooter>
+      </form>
     </Panel>
   );
 }

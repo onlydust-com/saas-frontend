@@ -19,6 +19,8 @@ export type PreviewDepositPortResponse = HttpStorageResponse<PreviewDepositRespo
 
 export type UpdateDepositBody = components["schemas"]["UpdateDepositRequest"];
 
-export type UpdateDepositPortParams = HttpClientParameters<object>;
+type UpdateDepositPathParams = operations["updateDeposit"]["parameters"]["path"];
+
+export type UpdateDepositPortParams = HttpClientParameters<{ PathParams: UpdateDepositPathParams }>;
 
 export type UpdateDepositPortResponse = HttpStorageResponse;

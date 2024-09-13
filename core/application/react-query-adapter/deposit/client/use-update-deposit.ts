@@ -10,6 +10,7 @@ import { UpdateDepositBody } from "@/core/domain/deposit/deposit-contract.types"
 import { DepositFacadePort } from "@/core/domain/deposit/input/deposit-facade-port";
 
 export function useUpdateDeposit({
+  pathParams,
   options,
 }: UseMutationFacadeParams<DepositFacadePort["updateDeposit"], undefined, never, UpdateDepositBody> = {}) {
   const { sponsorId } = useParams<{ sponsorId?: string }>();
@@ -19,7 +20,7 @@ export function useUpdateDeposit({
 
   return useMutation(
     useMutationAdapter({
-      ...depositStoragePort.updateDeposit({}),
+      ...depositStoragePort.updateDeposit({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
