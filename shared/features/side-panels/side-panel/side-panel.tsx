@@ -142,7 +142,8 @@ export const useSidePanel = <T extends AnyType>(
       getData: ref.current?.getData,
       name,
     };
-  }, [ref, name, classNames, config, isOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref, name, classNames, config, isOpen, Panel]);
 };
 
 export function useSinglePanelContext<T extends AnyType>(name: string, config?: SidePanelConfig) {
