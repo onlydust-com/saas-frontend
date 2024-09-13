@@ -65,12 +65,12 @@ export function ProjectHistogramChart() {
     categories,
     min: minChurnedProject,
     series: [
-      { name: t("data:projectsHistogram.legends.new"), data: newProjectSeries },
-      { name: t("data:projectsHistogram.legends.reactivated"), data: reactivatedProjectSeries },
-      { name: t("data:projectsHistogram.legends.active"), data: activeProjectSeries },
-      { name: t("data:projectsHistogram.legends.churned"), data: churnedProjectSeries },
+      { name: t("data:histograms.legends.new"), data: newProjectSeries },
+      { name: t("data:histograms.legends.reactivated"), data: reactivatedProjectSeries },
+      { name: t("data:histograms.legends.active"), data: activeProjectSeries },
+      { name: t("data:histograms.legends.churned"), data: churnedProjectSeries },
       {
-        name: t("data:contributorsHistogram.legends.prMerged"),
+        name: t("data:histograms.legends.prMerged"),
         data: mergedPrSeries,
         type: "areaspline",
       },
@@ -100,8 +100,8 @@ export function ProjectHistogramChart() {
   ) {
     return (
       <EmptyState
-        titleTranslate={{ token: "data:projectsHistogram.emptyState.title" }}
-        descriptionTranslate={{ token: "data:projectsHistogram.emptyState.description" }}
+        titleTranslate={{ token: "data:histograms.emptyState.title" }}
+        descriptionTranslate={{ token: "data:histograms.emptyState.description" }}
       />
     );
   }
@@ -131,25 +131,25 @@ export function ProjectHistogramChart() {
         <Paper size={"lg"} classNames={{ base: "grid grid-cols-5 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
-              <Translate token={"data:projectsHistogram.legends.new"} />
+              <Translate token={"data:histograms.legends.new"} />
             </ChartLegend>
             {renderNewContributorCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="secondary">
-              <Translate token={"data:projectsHistogram.legends.reactivated"} />
+              <Translate token={"data:histograms.legends.reactivated"} />
             </ChartLegend>
             {renderReactivatedProjectCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="tertiary">
-              <Translate token={"data:projectsHistogram.legends.active"} />
+              <Translate token={"data:histograms.legends.active"} />
             </ChartLegend>
             {renderActiveProjectCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="quaternary">
-              <Translate token={"data:projectsHistogram.legends.churned"} />
+              <Translate token={"data:histograms.legends.churned"} />
             </ChartLegend>
             {renderChurnedProjectCount}
           </div>
@@ -160,7 +160,7 @@ export function ProjectHistogramChart() {
                 as={"div"}
                 size={"xs"}
                 weight={"medium"}
-                translate={{ token: "data:projectsHistogram.legends.prMerged" }}
+                translate={{ token: "data:histograms.legends.prMerged" }}
               />
             </div>
             {renderMergedPrCount}

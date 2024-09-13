@@ -6,7 +6,7 @@ export function PrCountLegend({ countSum }: { countSum: number }) {
       <Typo size={"xs"} color={"primary"}>
         {countSum}
       </Typo>
-      <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.pr" }} />
+      <Typo size={"xs"} color={"primary"} translate={{ token: "data:histograms.legends.pr" }} />
     </div>
   );
 }

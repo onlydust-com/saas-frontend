@@ -72,18 +72,18 @@ export function ContributorHistogramChart() {
     switch (splineType) {
       case "grant":
         return {
-          name: t("data:contributorsHistogram.legends.granted"),
+          name: t("data:histograms.legends.granted"),
           data: grantedSeries,
         };
       case "reward":
         return {
-          name: t("data:contributorsHistogram.legends.rewarded"),
+          name: t("data:histograms.legends.rewarded"),
           data: rewardedSeries,
         };
       case "pr":
       default:
         return {
-          name: t("data:contributorsHistogram.legends.prMerged"),
+          name: t("data:histograms.legends.prMerged"),
           data: mergedPrSeries,
         };
     }
@@ -96,12 +96,7 @@ export function ContributorHistogramChart() {
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
               <Icon component={GitCommitHorizontal} classNames={{ base: "text-text-1" }} />
-              <Typo
-                as={"div"}
-                size={"xs"}
-                weight={"medium"}
-                translate={{ token: "data:contributorsHistogram.legends.granted" }}
-              />
+              <Typo as={"div"} size={"xs"} weight={"medium"} translate={{ token: "data:histograms.legends.granted" }} />
             </div>
             {renderGrantedAmount}
           </div>
@@ -115,7 +110,7 @@ export function ContributorHistogramChart() {
                 as={"div"}
                 size={"xs"}
                 weight={"medium"}
-                translate={{ token: "data:contributorsHistogram.legends.rewarded" }}
+                translate={{ token: "data:histograms.legends.rewarded" }}
               />
             </div>
             {renderRewardedAmount}
@@ -131,7 +126,7 @@ export function ContributorHistogramChart() {
                 as={"div"}
                 size={"xs"}
                 weight={"medium"}
-                translate={{ token: "data:contributorsHistogram.legends.prMerged" }}
+                translate={{ token: "data:histograms.legends.prMerged" }}
               />
             </div>
             {renderMergedPrCount}
@@ -144,10 +139,10 @@ export function ContributorHistogramChart() {
     categories,
     min: minChurnedContributor,
     series: [
-      { name: t("data:contributorsHistogram.legends.new"), data: newContributorSeries },
-      { name: t("data:contributorsHistogram.legends.reactivated"), data: reactivatedContributorSeries },
-      { name: t("data:contributorsHistogram.legends.active"), data: activeContributorSeries },
-      { name: t("data:contributorsHistogram.legends.churned"), data: churnedContributorSeries },
+      { name: t("data:histograms.legends.new"), data: newContributorSeries },
+      { name: t("data:histograms.legends.reactivated"), data: reactivatedContributorSeries },
+      { name: t("data:histograms.legends.active"), data: activeContributorSeries },
+      { name: t("data:histograms.legends.churned"), data: churnedContributorSeries },
       {
         ...splineSeries,
         type: "areaspline",
@@ -182,8 +177,8 @@ export function ContributorHistogramChart() {
   ) {
     return (
       <EmptyState
-        titleTranslate={{ token: "data:contributorsHistogram.emptyState.title" }}
-        descriptionTranslate={{ token: "data:contributorsHistogram.emptyState.description" }}
+        titleTranslate={{ token: "data:histograms.emptyState.title" }}
+        descriptionTranslate={{ token: "data:histograms.emptyState.description" }}
       />
     );
   }
@@ -237,15 +232,15 @@ export function ContributorHistogramChart() {
             items={[
               {
                 value: "grant",
-                label: t("data:contributorsHistogram.splineTypes.totalGranted"),
+                label: t("data:histograms.splineTypes.totalGranted"),
               },
               {
                 value: "reward",
-                label: t("data:contributorsHistogram.splineTypes.totalRewarded"),
+                label: t("data:histograms.splineTypes.totalRewarded"),
               },
               {
                 value: "pr",
-                label: t("data:contributorsHistogram.splineTypes.prMerged"),
+                label: t("data:histograms.splineTypes.prMerged"),
               },
             ]}
             value={splineType}
@@ -258,25 +253,25 @@ export function ContributorHistogramChart() {
         <Paper size={"lg"} classNames={{ base: "grid grid-cols-5 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
-              <Translate token={"data:contributorsHistogram.legends.new"} />
+              <Translate token={"data:histograms.legends.new"} />
             </ChartLegend>
             {renderNewContributorCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="secondary">
-              <Translate token={"data:contributorsHistogram.legends.reactivated"} />
+              <Translate token={"data:histograms.legends.reactivated"} />
             </ChartLegend>
             {renderReactivatedContributorCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="tertiary">
-              <Translate token={"data:contributorsHistogram.legends.active"} />
+              <Translate token={"data:histograms.legends.active"} />
             </ChartLegend>
             {renderActiveContributorCount}
           </div>
           <div className="flex justify-between gap-4">
             <ChartLegend color="quaternary">
-              <Translate token={"data:contributorsHistogram.legends.churned"} />
+              <Translate token={"data:histograms.legends.churned"} />
             </ChartLegend>
             {renderChurnedContributorCount}
           </div>
