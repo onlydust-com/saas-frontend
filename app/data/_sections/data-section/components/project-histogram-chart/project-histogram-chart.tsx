@@ -69,19 +69,8 @@ export function ProjectHistogramChart() {
         name: t("data:contributorsHistogram.legends.prMerged"),
         data: mergedPrSeries,
         type: "areaspline",
-        lineWidth: 4,
-        marker: {
-          enabled: true,
-          radius: 5,
-        },
-        tooltip: {
-          valueSuffix: " PRs",
-        },
-        yAxis: 1,
-        color: "#C434FF",
       },
     ],
-    legend: { enabled: false },
   });
 
   function onChangeRangeType(value: string) {

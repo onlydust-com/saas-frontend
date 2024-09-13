@@ -88,6 +88,7 @@ export function useStackedColumnAreaSplineChartOptions({
         ...legend,
         itemStyle: legendStyle,
         itemHoverStyle: legendStyle,
+        enabled: false,
       },
       tooltip: {
         ...tooltip,
@@ -124,8 +125,8 @@ export function useStackedColumnAreaSplineChartOptions({
         type: s.type ?? "column",
         name: s.name,
         data: s.data,
-        color: s.color ?? colors[index % colors.length],
-        yAxis: s.yAxis,
+        color: s.type === "areaspline" ? "#C434FF" : colors[index % colors.length],
+        yAxis: s.type === "areaspline" ? 1 : undefined,
         fillColor:
           s.type === "areaspline"
             ? {
@@ -139,6 +140,13 @@ export function useStackedColumnAreaSplineChartOptions({
                   [0, "rgba(196, 52, 255, 0.50)"], // Start color
                   [1, "rgba(196, 52, 255, 0.00)"], // End color
                 ],
+              }
+            : undefined,
+        marker:
+          s.type === "areaspline"
+            ? {
+                enabled: true,
+                radius: 5,
               }
             : undefined,
       })),
