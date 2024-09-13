@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 
+import { buildCategories } from "@/app/data/_sections/data-section/components/histograms/histograms.utils";
 import { AmountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/amount-legend";
 import { DevCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/dev-count-legend";
 import { PrCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/pr-count-legend";
 
-import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorsStatsResponse } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
@@ -13,27 +13,13 @@ export function useContributorHistogramChart(
   stats?: GetBiContributorsStatsModel["stats"],
   timeGroupingType?: TimeGroupingType
 ) {
-  const dateKernelPort = bootstrap.getDateKernelPort();
-
-  const categories = useMemo(() => {
-    if (timeGroupingType === TimeGroupingType.DAY || timeGroupingType === TimeGroupingType.WEEK) {
-      return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "dd.MM.yyyy")) ?? [];
-    }
-
-    if (timeGroupingType === TimeGroupingType.YEAR) {
-      return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "yyyy")) ?? [];
-    }
-
-    return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
-  }, [stats, dateKernelPort, timeGroupingType]);
-
   function calculateSeries(key: keyof Omit<BiContributorsStatsResponse, "timestamp">) {
     if (key === "churnedContributorCount") {
       return stats?.map(stat => -stat["churnedContributorCount"] ?? 0) ?? [];
     }
     return stats?.map(stat => stat[key]) ?? [];
   }
-
+  const categories = stats && timeGroupingType ? buildCategories({ stats, timeGroupingType }) : [];
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
   const mergedPrSeries = calculateSeries("mergedPrCount");

@@ -1,17 +1,18 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
-import { bootstrap } from "@/core/bootstrap";
+import { buildCategories } from "@/app/data/_sections/data-section/components/histograms/histograms.utils";
+import { AmountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/amount-legend";
+import { DevCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/dev-count-legend";
+import { PrCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/pr-count-legend";
+
 import { GetBiProjectsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { BiProjectsStatsResponse } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
-import { Typo } from "@/design-system/atoms/typo";
-
-export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"]) {
-  const dateKernelPort = bootstrap.getDateKernelPort();
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
-  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
-
+export function useProjectHistogramChart(
+  stats?: GetBiProjectsStatsModel["stats"],
+  timeGroupingType?: TimeGroupingType
+) {
   function calculateSeries(key: keyof Omit<BiProjectsStatsResponse, "timestamp">) {
     if (key === "churnedProjectCount") {
       return stats?.map(stat => -stat["churnedProjectCount"] ?? 0) ?? [];
@@ -19,6 +20,7 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
     return stats?.map(stat => stat[key]) ?? [];
   }
 
+  const categories = stats && timeGroupingType ? buildCategories({ stats, timeGroupingType }) : [];
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
   const mergedPrSeries = calculateSeries("mergedPrCount");
@@ -28,71 +30,33 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
   const churnedProjectSeries = calculateSeries("churnedProjectCount");
   const minChurnedProject = Math.min(...churnedProjectSeries.map(value => value));
 
-  const renderAmount = useCallback(
-    (amountSum: number) => {
-      return (
-        <div className="flex gap-1">
-          <Typo size={"xs"} color={"primary"}>
-            {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).amount}
-          </Typo>
-          <Typo size={"xs"} color={"primary"}>
-            {moneyKernelPort.format({ amount: amountSum, currency: moneyKernelPort.getCurrency("USD") }).code}
-          </Typo>
-        </div>
-      );
-    },
-    [moneyKernelPort]
-  );
-
-  const renderDevsCount = useCallback((countSum: number) => {
-    return (
-      <div className="flex gap-1">
-        <Typo size={"xs"} color={"primary"}>
-          {countSum}
-        </Typo>
-        <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.devs" }} />
-      </div>
-    );
-  }, []);
-
-  const renderPrCount = useCallback((countSum: number) => {
-    return (
-      <div className="flex gap-1">
-        <Typo size={"xs"} color={"primary"}>
-          {countSum}
-        </Typo>
-        <Typo size={"xs"} color={"primary"} translate={{ token: "data:contributorsHistogram.legends.pr" }} />
-      </div>
-    );
-  }, []);
-
   const renderGrantedAmount = useMemo(
-    () => renderAmount(grantedSeries.reduce((a, c) => a + c, 0)),
-    [grantedSeries, renderAmount]
+    () => <AmountLegend amountSum={grantedSeries.reduce((a, c) => a + c, 0)} />,
+    [grantedSeries]
   );
   const renderRewardedAmount = useMemo(
-    () => renderAmount(rewardedSeries.reduce((a, c) => a + c, 0)),
-    [rewardedSeries, renderAmount]
+    () => <AmountLegend amountSum={rewardedSeries.reduce((a, c) => a + c, 0)} />,
+    [rewardedSeries]
   );
   const renderMergedPrCount = useMemo(
-    () => renderPrCount(mergedPrSeries.reduce((a, c) => a + c, 0)),
-    [mergedPrSeries, renderPrCount]
+    () => <PrCountLegend countSum={mergedPrSeries.reduce((a, c) => a + c, 0)} />,
+    [mergedPrSeries]
   );
   const renderNewContributorCount = useMemo(
-    () => renderDevsCount(newProjectSeries.reduce((a, c) => a + c, 0)),
-    [newProjectSeries, renderDevsCount]
+    () => <DevCountLegend countSum={newProjectSeries.reduce((a, c) => a + c, 0)} />,
+    [newProjectSeries]
   );
   const renderActiveProjectCount = useMemo(
-    () => renderDevsCount(activeProjectSeries.reduce((a, c) => a + c, 0)),
-    [activeProjectSeries, renderDevsCount]
+    () => <DevCountLegend countSum={activeProjectSeries.reduce((a, c) => a + c, 0)} />,
+    [activeProjectSeries]
   );
   const renderReactivatedProjectCount = useMemo(
-    () => renderDevsCount(reactivatedProjectSeries.reduce((a, c) => a + c, 0)),
-    [reactivatedProjectSeries, renderDevsCount]
+    () => <DevCountLegend countSum={reactivatedProjectSeries.reduce((a, c) => a + c, 0)} />,
+    [reactivatedProjectSeries]
   );
   const renderChurnedProjectCount = useMemo(
-    () => renderDevsCount(churnedProjectSeries.reduce((a, c) => a + c, 0)),
-    [churnedProjectSeries, renderDevsCount]
+    () => <DevCountLegend countSum={churnedProjectSeries.reduce((a, c) => a + c, 0)} />,
+    [churnedProjectSeries]
   );
 
   return {
