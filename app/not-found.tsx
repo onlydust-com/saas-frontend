@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronLeft } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
