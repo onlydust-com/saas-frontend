@@ -1,4 +1,5 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -22,7 +23,7 @@ export function ProgramsTable() {
     ProgramReactQueryAdapter.client.useGetPrograms({});
   const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
+  const router = useRouter();
   const columnHelper = createColumnHelper<ProgramListItemInterface>();
 
   const columns = [
@@ -218,6 +219,9 @@ export function ProgramsTable() {
         rows={table.getRowModel().rows}
         classNames={{
           base: "min-w-[1200px]",
+        }}
+        onRowClick={row => {
+          router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
