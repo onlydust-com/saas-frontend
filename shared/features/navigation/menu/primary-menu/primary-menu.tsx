@@ -3,6 +3,7 @@ import { ChartLine, Clipboard, Compass, Wallet } from "lucide-react";
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
@@ -17,13 +18,13 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        isDisabled={true}
+        isComingSoon={true}
       />
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: Wallet }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
-        isDisabled={showSponsorList.loading}
+        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsor}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
@@ -39,12 +40,12 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
             : NEXT_ROUTER.programs.details.root(showProgramList.firstProgram ?? ""),
         }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
-        isDisabled={showProgramList.loading}
+        isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
       />
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: Compass }}
-        linkProps={{ href: `${process.env.NEXT_PUBLIC_MARKETPLACE_URL}/projects` ?? "" }}
+        linkProps={{ href: marketplaceRouting("/projects") }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />
     </>

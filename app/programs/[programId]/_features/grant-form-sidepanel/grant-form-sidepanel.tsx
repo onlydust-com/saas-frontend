@@ -2,8 +2,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
-import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
 import { GrantFormSidepanelLoading } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.loading";
+import { GrantFormSidePanelData } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -19,15 +20,16 @@ import { AmountSelector } from "@/shared/features/amount-selector/amount-selecto
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
-  const { sidePanel, projectIdState } = useGrantFormContext();
-  const { Panel, close: closeSidepanel } = sidePanel;
-  const [projectId] = projectIdState;
+  const { name } = useGrantFromPanel();
+  const { Panel, close: closeSidepanel } = useSidePanel({ name });
+  const { projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { projectId: "" };
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
 

@@ -21,11 +21,15 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
   const px = _px || size;
   const py = _py || size;
   const Component = as || "article";
-  const clickable = !!onClick;
-  const slots = PaperDefaultVariants({ px, py, background, border, clickable, hasBorderHover });
+  const slots = PaperDefaultVariants({ px, py, background, border, hasBorderHover });
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={onClick}>
+    <Component
+      {...htmlProps}
+      className={cn(slots.base(), classNames?.base)}
+      onClick={onClick}
+      data-clickable={Boolean(onClick)}
+    >
       {children}
     </Component>
   );

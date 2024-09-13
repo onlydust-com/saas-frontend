@@ -23,4 +23,5 @@ export interface ItemNavPort extends PropsWithChildren {
   isFolded?: boolean;
   isActive?: boolean;
   onClick?: () => void;
+  isComingSoon?: boolean;
 }

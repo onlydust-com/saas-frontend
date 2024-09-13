@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { CircleDashed } from "lucide-react";
 import { useState } from "react";
 
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
+import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { SelectPort } from "./select.types";
 import { Select } from "./variants/select-default";
@@ -10,6 +10,7 @@ import { Select } from "./variants/select-default";
 type Story = StoryObj<typeof Select>;
 
 const defaultProps: SelectPort<"div"> = {
+  name: "select",
   placeholder: "Select your item",
   items: [
     { id: "item1", label: "Item 1" },
@@ -37,7 +38,7 @@ export const Default: Story = {
     },
   },
   render: args => {
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<MenuItemId[]>([]);
     return (
       <div className="flex w-full items-center gap-2">
         <Select {...defaultProps} {...args} selectedIds={selectedIds} onSelect={setSelectedIds} closeOnSelect={false} />
@@ -53,7 +54,7 @@ export const WithShowMore: Story = {
     },
   },
   render: args => {
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<MenuItemId[]>([]);
     const [items, setItems] = useState<MenuItemPort[]>(defaultProps.items);
     const [fromIndex, setFromIndex] = useState(10);
     const [isLoading, setIsLoading] = useState(false);
@@ -102,7 +103,7 @@ export const Disabled: Story = {
     },
   },
   render: () => {
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<MenuItemId[]>([]);
     return (
       <div className="flex w-full items-center gap-2">
         <Select
@@ -155,7 +156,7 @@ export const AutoComplete: Story = {
     },
   },
   render: () => {
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<MenuItemId[]>([]);
     return (
       <div className="flex w-full items-center gap-2">
         <Select

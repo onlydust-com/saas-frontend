@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AvatarDefaultVariants } from "@/design-system/atoms/avatar/adapters/default/default.variants";
 import { useImageWithFallback } from "@/design-system/atoms/avatar/avatar.hooks";
 import { getAvatarImageSize, getAvatarItemImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
+import { Icon } from "@/design-system/atoms/icon";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -58,6 +59,8 @@ export function AvatarDefaultAdapter({
   onlineIcon,
   size,
   shape,
+  enableOptimizedImage = true,
+  iconProps,
 }: AvatarPort) {
   const slots = AvatarDefaultVariants({ size, shape, name: !!name });
 
@@ -78,15 +81,27 @@ export function AvatarDefaultAdapter({
   })();
 
   const renderImage = useImageWithFallback({
-    src: imageSrc,
+    src: enableOptimizedImage ? imageSrc : src,
     alt,
     fallback: fallback || defaultFallback,
     className: cn(slots.image(), classNames?.image),
   });
 
+  function renderAvatar() {
+    if (name) {
+      return <div className={cn(slots.name(), classNames?.name)}>{name}</div>;
+    }
+
+    if (iconProps) {
+      return <Icon {...iconProps} />;
+    }
+
+    return renderImage;
+  }
+
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      {name ? <div className={cn(slots.name(), classNames?.name)}>{name}</div> : renderImage}
+      {renderAvatar()}
 
       <AvatarItem classNames={classNames} size={size} icon={icon} onlineIcon={onlineIcon} />
     </div>

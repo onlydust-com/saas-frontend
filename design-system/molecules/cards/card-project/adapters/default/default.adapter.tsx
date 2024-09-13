@@ -1,5 +1,5 @@
-import { CodeXml, Folder, Tag, User } from "lucide-react";
-import { ComponentProps, ElementType } from "react";
+import { CodeXml, Folder, LucideIcon, User } from "lucide-react";
+import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -7,10 +7,19 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { BadgeList } from "@/shared/features/badge-list/badge-list";
 import { cn } from "@/shared/helpers/cn";
 
 import { CardProjectPort } from "../../card-project.types";
 import { CardProjectDefaultVariants } from "./default.variants";
+
+function ConditionalBadge({ count, icon }: { count?: string; icon: LucideIcon }) {
+  return count ? (
+    <Badge color="grey" size="xs" icon={{ component: icon }}>
+      {count}
+    </Badge>
+  ) : null;
+}
 
 export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   as,
@@ -30,27 +39,6 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
   border = "primary",
 }: CardProjectPort<C>) {
   const slots = CardProjectDefaultVariants({ clickable: Boolean(onClick) });
-
-  const formattedLanguages = languages.map(language => ({
-    ...language,
-    icon: { component: CodeXml },
-  }));
-
-  const formattedCategories = categories.map(category => ({
-    ...category,
-    icon: { component: Tag },
-  }));
-
-  const formattedProjectCount = projectCount ? [{ children: projectCount, icon: { component: Folder } }] : [];
-
-  const formattedUserCount = userCount ? [{ children: userCount, icon: { component: User } }] : [];
-
-  const badges: ComponentProps<typeof Badge>[] = [
-    ...formattedLanguages,
-    ...formattedCategories,
-    ...formattedProjectCount,
-    ...formattedUserCount,
-  ];
 
   return (
     <Paper
@@ -80,13 +68,12 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
           {buttonProps && <Button {...buttonProps} size="xs" variant="secondary" />}
         </div>
 
-        {badges?.length ? (
-          <div className="flex w-full flex-wrap gap-1">
-            {badges.map((t, key) => (
-              <Badge key={key} color="grey" size="xs" {...t} />
-            ))}
-          </div>
-        ) : null}
+        <div className="flex w-full flex-wrap gap-1">
+          <BadgeList items={languages} icon={CodeXml} label={{ token: "common:languages" }} />
+          <BadgeList items={categories} icon={CodeXml} label={{ token: "common:categories" }} />
+          <ConditionalBadge count={projectCount} icon={Folder} />
+          <ConditionalBadge count={userCount} icon={User} />
+        </div>
       </div>
     </Paper>
   );

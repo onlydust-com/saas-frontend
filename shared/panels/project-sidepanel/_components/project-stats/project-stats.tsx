@@ -14,6 +14,11 @@ import { ProjectStatsProps } from "./project-stats.types";
 export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStatsProps) {
   const map = [
     {
+      key: "devsOnboarded",
+      title: <Translate token={"panels:projectDetail.kpi.devsOnboarded.title"} />,
+      value: data.onboardedContributorCount,
+    },
+    {
       key: "activeContributorCount",
       title: <Translate token={"panels:projectDetail.kpi.activeDev.title"} />,
       value: data.activeContributorCount,
@@ -22,11 +27,6 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
       key: "mergedPrCount",
       title: <Translate token={"panels:projectDetail.kpi.prMerged.title"} />,
       value: data.mergedPrCount,
-    },
-    {
-      key: "rewardCount",
-      title: <Translate token={"panels:projectDetail.kpi.rewards.title"} />,
-      value: data.rewardCount,
     },
   ];
 

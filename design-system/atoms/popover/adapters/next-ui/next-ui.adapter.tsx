@@ -30,12 +30,20 @@ PopoverNextUiAdapter.Trigger = function PopoverNextUiAdapterTrigger({ children }
   return <PopoverTrigger>{children(context)}</PopoverTrigger>;
 };
 
-PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({ children, className }: PopoverContentPort) {
+PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({
+  children,
+  className,
+  unstyled,
+}: PopoverContentPort) {
   const context = useContext(PopoverContext);
 
   return (
     <PopoverContent
-      className={cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg text-typography-primary", className)}
+      className={
+        unstyled
+          ? cn("rounded-none bg-transparent !p-none shadow-none", className)
+          : cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg text-typography-primary", className)
+      }
     >
       {children(context)}
     </PopoverContent>

@@ -20,20 +20,19 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
 
   return (
     <div className={"relative flex w-full items-center justify-between gap-1 overflow-hidden"}>
-      <div className={cn("group/header w-fit", { "flex w-full items-center justify-center": isFolded })}>
+      <div className={"group/header"}>
         <BaseLink href={NEXT_ROUTER.home.root}>
           <Logo
             classNames={{
-              base: cn("h-6 w-auto justify-start gap-md", {
-                "group-hover/header:!opacity-0 transition-all": isFolded,
-                "pl-xs": !isFolded,
+              base: cn("h-6 justify-center gap-md px-lg transition-all w-fit", {
+                "!gap-0 !px-2  group-hover/header:opacity-0": isFolded,
               }),
               illustration: cn("min-w-6 h-6 w-auto"),
-              wordmark: cn("min-w-0 h-4 w-auto"),
+              wordmark: cn("min-w-0 h-4 w-auto transition-all", { hidden: isFolded }),
             }}
-            type={isFolded ? "illustration" : undefined}
           />
         </BaseLink>
+
         {isFolded && (
           <Button
             variant={"tertiary"}
@@ -47,7 +46,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
           />
         )}
       </div>
-      {!isFolded && (
+      <div className={"flex flex-1 items-center justify-end"}>
         <Button
           variant={"tertiary"}
           startIcon={{ component: PanelLeftClose }}
@@ -55,7 +54,7 @@ export function HeaderMenu({ isFolded, onFoldChange }: HeaderMenuProps) {
           size={"xs"}
           onClick={onFold}
         />
-      )}
+      </div>
     </div>
   );
 }

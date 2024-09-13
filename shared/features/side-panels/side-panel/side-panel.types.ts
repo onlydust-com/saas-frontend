@@ -1,5 +1,7 @@
 import { PropsWithChildren, ReactNode } from "react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { SidePanelConfig } from "@/shared/features/side-panels/side-panels.types";
 
 interface classNames {
@@ -13,19 +15,28 @@ export interface SidePanelProps {
   classNames?: Partial<classNames>;
 }
 
-export interface UseSidePanel {
+export interface UseSidePanel<T extends AnyType> {
   name: string;
   isOpen: boolean;
-  open: () => void;
+  open: (data?: T) => void;
   close: (current?: boolean) => void;
   back: () => void;
   Panel: (p: PropsWithChildren) => JSX.Element;
 }
 
-export interface SidePanelRef {
-  open: (config?: SidePanelConfig) => void;
+export interface SidePanelRef<T = AnyType> {
+  open: (panelData?: T, config?: SidePanelConfig) => void;
   close: (current?: boolean) => void;
   back: () => void;
   isOpen: boolean;
   name: string;
+  getData: () => T | undefined;
+}
+
+export interface SidePanelContextInterface<Data extends AnyType> {
+  data: Data;
+}
+
+export interface SidePanelContextProps extends PropsWithChildren {
+  classNames?: Partial<classNames>;
 }

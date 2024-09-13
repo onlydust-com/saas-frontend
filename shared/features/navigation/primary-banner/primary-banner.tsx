@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ComponentProps } from "react";
 
 import { BannerReactQueryAdapter } from "@/core/application/react-query-adapter/banner";
@@ -27,12 +28,21 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
     return <Skeleton className={"h-[116px] w-full"} />;
   }
 
-  if (isFolded || !bannerData || !bannerData.longDescription || isError) {
+  if (!bannerData || !bannerData.longDescription || isError) {
     return null;
   }
 
   return (
-    <div className="flex">
+    <motion.div
+      className="flex w-full overflow-hidden"
+      animate={isFolded ? "folded" : "unFolded"}
+      initial={"unFolded"}
+      layout={true}
+      variants={{
+        folded: { opacity: 0, height: "0px", width: "0px" },
+        unFolded: { opacity: 1, height: "fit-content", width: "fit-content" },
+      }}
+    >
       <div className="h-auto max-h-full w-[246px] min-w-[246px]">
         <PlgBanner
           title={bannerData.title}
@@ -42,6 +52,6 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
           cta={getCta()}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -6,10 +6,13 @@ export interface ProgramInterface extends ProgramResponse {}
 
 export class Program implements ProgramInterface {
   id!: ProgramResponse["id"];
+  leads!: ProgramResponse["leads"];
+  logoUrl!: ProgramResponse["logoUrl"];
   name!: ProgramResponse["name"];
   totalAvailable!: ProgramResponse["totalAvailable"];
   totalGranted!: ProgramResponse["totalGranted"];
   totalRewarded!: ProgramResponse["totalRewarded"];
+  url!: ProgramResponse["url"];
 
   constructor(props: ProgramResponse) {
     Object.assign(this, props);

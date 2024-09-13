@@ -7,8 +7,9 @@ interface ClassNames {
   base: string;
 }
 
-export interface TablePort<H> extends Partial<Variants> {
+export interface TablePort<H, R> extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   header: TableHeaderPort<H>;
-  rows: Row[];
+  rows: Row<R>[];
+  onRowClick?: (row: Row<R>) => void;
 }

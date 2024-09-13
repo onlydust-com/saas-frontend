@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { useGrantFormContext } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.context";
+import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -33,14 +33,10 @@ export function AlreadyGrantedProjects({
     });
   const alreadyGrantedProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
-  const {
-    sidePanel: { open: openGrantForm },
-    projectIdState: [, setGrantProjectId],
-  } = useGrantFormContext();
+  const { open: openGrantForm } = useGrantFromPanel();
 
   function handleOpenProjectGrant(projectId: string) {
-    setGrantProjectId(projectId);
-    openGrantForm();
+    openGrantForm({ projectId });
   }
 
   if (isLoading) {

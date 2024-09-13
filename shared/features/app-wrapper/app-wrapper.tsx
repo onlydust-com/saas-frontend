@@ -35,7 +35,7 @@ function AppSkeleton() {
     <>
       <div className={"h-dvh p-md tablet:hidden"}>
         <div className="flex h-full flex-col gap-md">
-          <Skeleton classNames={{ base: "h-[32px]" }} />
+          <Skeleton classNames={{ base: "h-[44px]" }} />
           <Skeleton classNames={{ base: "flex-1" }} />
         </div>
       </div>

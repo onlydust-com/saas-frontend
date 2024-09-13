@@ -1,7 +1,8 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
+import { useEditProgramPanel } from "@/app/financials/[sponsorId]/_features/edit-program-panel/edit-program-panel.hooks";
 import { ProgramsTableProps } from "@/app/financials/[sponsorId]/_features/programs-table/programs-table.types";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
@@ -23,7 +24,8 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
-
+  const { open: OpenEditProgram } = useEditProgramPanel();
+  const router = useRouter();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
       pathParams: { sponsorId },
@@ -207,6 +209,13 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
             >
               <Translate token={"financials:details.programs.table.rows.seeProgram"} />
             </Button>
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => OpenEditProgram({ programId: info.row.original.id, sponsorId })}
+            >
+              <Translate token={"financials:details.programs.table.rows.editProgram"} />
+            </Button>
           </div>
         );
       },
@@ -236,6 +245,9 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
         rows={table.getRowModel().rows}
         classNames={{
           base: "min-w-[1200px]",
+        }}
+        onRowClick={row => {
+          router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

@@ -14,8 +14,8 @@ function MenuContainer({ children }: { children: ReactNode }) {
   return <div className={"flex w-full flex-col gap-xs"}>{children}</div>;
 }
 
-const SIZES = {
-  folded: 66,
+export const PrimaryNavigationDesktopSize = {
+  folded: 54,
   unfolded: 260,
 };
 
@@ -43,29 +43,31 @@ export function PrimaryNavigationDesktop() {
     }
   }, [isLargerThanLaptop]);
 
-  const navSize = folded ? SIZES.folded : SIZES.unfolded;
+  const navSize = folded ? PrimaryNavigationDesktopSize.folded : PrimaryNavigationDesktopSize.unfolded;
 
   return (
     <AnimatedColumn
       width={navSize}
-      initialWidth={SIZES.unfolded}
-      className="flex h-full flex-col justify-between gap-lg px-sm pb-sm pt-xs"
+      initialWidth={PrimaryNavigationDesktopSize.unfolded}
+      className="flex h-full flex-col justify-between gap-lg overflow-hidden px-sm pb-sm pt-xs"
     >
-      <MenuContainer>
-        <HeaderMenu isFolded={folded} onFoldChange={onFold} />
-      </MenuContainer>
-      <MenuContainer>
-        <PrimaryMenu isFolded={folded} />
-      </MenuContainer>
-      <div className={"flex-1"} />
-      <MenuContainer>
-        <SecondaryMenu isFolded={folded} />
-      </MenuContainer>
-      <PrimaryBanner isFolded={folded} />
-      <hr className={"border-border-primary"} />
-      <MenuContainer>
-        <UserMenu isFolded={folded} />
-      </MenuContainer>
+      <div className={"flex h-full w-full flex-col justify-between gap-lg overflow-hidden"}>
+        <MenuContainer>
+          <HeaderMenu isFolded={folded} onFoldChange={onFold} />
+        </MenuContainer>
+        <MenuContainer>
+          <PrimaryMenu isFolded={folded} />
+        </MenuContainer>
+        <div className={"flex-1"} />
+        <MenuContainer>
+          <SecondaryMenu isFolded={folded} />
+        </MenuContainer>
+        <PrimaryBanner isFolded={folded} />
+        <hr className={"border-border-primary"} />
+        <MenuContainer>
+          <UserMenu isFolded={folded} />
+        </MenuContainer>
+      </div>
     </AnimatedColumn>
   );
 }

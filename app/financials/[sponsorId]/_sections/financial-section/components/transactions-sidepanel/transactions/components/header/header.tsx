@@ -119,6 +119,7 @@ export function Header() {
       </Popover>
 
       <Input
+        name={"searchTransactions"}
         value={search}
         onChange={e => handleSearch(e.target.value)}
         startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}

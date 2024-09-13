@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { CircleDashed } from "lucide-react";
 
 import { PageHeaderPort } from "./page-header.types";
 import { PageHeader } from "./variants/page-header-default";
@@ -7,7 +6,6 @@ import { PageHeader } from "./variants/page-header-default";
 type Story = StoryObj<typeof PageHeader>;
 
 const defaultProps: PageHeaderPort<"div"> = {
-  action: { children: "Action", variant: "tertiary", startIcon: { component: CircleDashed } },
   title: "Page Header",
 };
 

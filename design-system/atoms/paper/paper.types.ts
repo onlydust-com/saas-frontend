@@ -29,7 +29,6 @@ interface Variants {
   py?: paperSpacing;
   background: "transparent" | keyof typeof COLORS.background;
   border: "none" | keyof typeof COLORS.border;
-  clickable?: boolean;
   hasBorderHover?: boolean;
 }
 

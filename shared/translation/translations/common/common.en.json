@@ -3,6 +3,9 @@
   "state": {
     "error": {
       "title": "An error occurred, please try again later."
+    },
+    "empty": {
+      "title": "No items found."
     }
   },
   "showMore": "Show more",
@@ -12,5 +15,10 @@
     "LAST_SEMESTER": "Last semester",
     "LAST_YEAR": "Last year",
     "ALL_TIME": "All time"
-  }
+  },
+  "languages": "Languages +{{count}}",
+  "sponsors": "Sponsors +{{count}}",
+  "projects": "Projects +{{count}}",
+  "users": "Users +{{count}}",
+  "categories": "Categories +{{count}}"
 }

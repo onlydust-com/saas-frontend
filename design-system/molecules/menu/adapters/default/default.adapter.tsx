@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
-import { MenuItem } from "@/design-system/molecules/menu-item";
+import { MenuItem, MenuItemId } from "@/design-system/molecules/menu-item";
 import { MenuDefaultVariants } from "@/design-system/molecules/menu/adapters/default/default.variants";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
@@ -22,7 +22,7 @@ export function MenuDefaultAdapter({
   const triggerRef = useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = useState<null | number>(null);
 
-  function onSelectItem(value: string) {
+  function onSelectItem(value: MenuItemId) {
     const valuesArray = [...(selectedIds || [])];
 
     if (selectedIds?.includes(value)) {
@@ -52,7 +52,7 @@ export function MenuDefaultAdapter({
 
   const showMore = hasNextPage && !!onNextPage && !isLoading;
 
-  function handleItemClick(id: string) {
+  function handleItemClick(id: MenuItemId) {
     onAction?.(id);
     onSelectItem(id);
   }

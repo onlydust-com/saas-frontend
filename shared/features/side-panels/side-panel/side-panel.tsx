@@ -1,8 +1,20 @@
 "use client";
 
 import { Variants, motion } from "framer-motion";
-import { ForwardedRef, PropsWithChildren, forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from "react";
+import {
+  ForwardedRef,
+  PropsWithChildren,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
+
+import { AnyType } from "@/core/kernel/types";
 
 import { Paper } from "@/design-system/atoms/paper";
 
@@ -13,11 +25,11 @@ import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 import { SidePanelProps, SidePanelRef, UseSidePanel } from "./side-panel.types";
 
-export const SidePanel = forwardRef(function SidePanel(
+export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
   { children, name, classNames }: SidePanelProps,
   ref: ForwardedRef<SidePanelRef>
 ) {
-  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back, openedPanels } =
+  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back, openedPanels, getData } =
     useSidePanelsContext();
 
   const isTablet = useIsTablet("lower");
@@ -34,13 +46,14 @@ export const SidePanel = forwardRef(function SidePanel(
 
   useImperativeHandle(ref, () => {
     return {
-      open: (config?: SidePanelConfig) => open(name, config),
+      open: (data?: T, config?: SidePanelConfig) => open(name, data, config),
       isOpen: isOpen(name),
-      close: current => close(current ? name : undefined),
+      getData: () => getData<T>(name),
+      close: (current?: boolean) => close(current ? name : undefined),
       back: () => back(),
       name,
     };
-  }, [open, close, isOpen, name, back]);
+  }, [open, close, isOpen, name, back, getData]);
 
   const animateKey = isOpenLast(name) ? "isOpen" : "isClosed";
 
@@ -100,11 +113,11 @@ export const SidePanel = forwardRef(function SidePanel(
   );
 });
 
-export const useSidePanel = (
+export const useSidePanel = <T extends AnyType>(
   { name, classNames }: Omit<SidePanelProps, "children">,
   config?: SidePanelConfig
-): UseSidePanel => {
-  const ref = useRef<SidePanelRef>(null);
+): UseSidePanel<T> => {
+  const ref = useRef<SidePanelRef<T>>(null);
 
   const { isOpen } = useSidePanelsContext();
 
@@ -122,17 +135,39 @@ export const useSidePanel = (
   return useMemo(() => {
     return {
       Panel,
-      open: () => ref.current?.open(config),
-      close: current => ref.current?.close(current),
+      open: (data?: T) => ref.current?.open(data, config),
+      close: (current?: boolean) => ref.current?.close(current),
       back: () => ref.current?.back(),
       isOpen: ref.current?.name ? isOpen(ref.current?.name) : false,
+      getData: ref.current?.getData,
       name,
     };
   }, [ref, name, classNames, config, isOpen]);
 };
 
-export function useSinglePanelContext(name: string) {
-  const { open, close, back, isOpen } = useSidePanelsContext();
+export function useSinglePanelContext<T extends AnyType>(name: string, config?: SidePanelConfig) {
+  const { open, close, back, isOpen, getData } = useSidePanelsContext();
 
-  return { open: () => open(name), close: () => close(name), back, isOpen: isOpen(name), name };
+  return {
+    open: (data?: T) => open<T>(name, data, config),
+    close: () => close(name),
+    back,
+    isOpen: isOpen(name),
+    name,
+    getData: () => getData<T>(name),
+  };
+}
+
+export function useSinglePanelData<T extends AnyType>(name: string): T | undefined {
+  const { isOpen, getData } = useSidePanelsContext();
+  const [data, setData] = useState<T | undefined>(undefined);
+
+  useEffect(() => {
+    if (isOpen(name)) {
+      setData(getData<T>(name));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  return data;
 }
