@@ -87,8 +87,7 @@ export function EditProgramPanel() {
         name: program.name,
         url: program.url,
         logoUrl: program.logoUrl,
-        // TODO WHEN BACKEND READY
-        leadIds: [],
+        leadIds: program?.leads.map(l => l.id) || [],
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
