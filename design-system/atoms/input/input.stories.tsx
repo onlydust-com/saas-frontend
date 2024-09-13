@@ -9,6 +9,7 @@ import { Input } from "./variants/input-default";
 type Story = StoryObj<typeof Input>;
 const inputSize: InputSize[] = ["sm", "md", "lg"];
 const defaultProps: InputPort = {
+  name: "input",
   placeholder: "placeholder",
 };
 
@@ -133,12 +134,14 @@ export const withLabel: Story = {
     return (
       <div className="flex flex-row items-start gap-6">
         <InputTemplate
+          name={"template1"}
           label={"label"}
           description={"Lorem ipsum dolor sit amet"}
           info={{ text: "Lorem ipsum dolor sit amet" }}
           error={{ text: "Lorem ipsum dolor sit amet" }}
         />
         <InputTemplate
+          name={"template2"}
           label={"label"}
           description={"Lorem ipsum dolor sit amet"}
           info={{ text: "Lorem ipsum dolor sit amet" }}

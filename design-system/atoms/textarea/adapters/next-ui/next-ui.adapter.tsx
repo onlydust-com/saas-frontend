@@ -31,7 +31,7 @@ export const TextareaNextUiAdapter = forwardRef(function TextareaNextUiAdapter(
   const slots = TextareaNextUiVariants({ isDisabled, isError });
 
   return (
-    <FieldContainer isError={isError} label={label} description={description} info={info} error={error}>
+    <FieldContainer name={name} isError={isError} label={label} description={description} info={info} error={error}>
       <NextTextarea
         ref={ref}
         id={id}

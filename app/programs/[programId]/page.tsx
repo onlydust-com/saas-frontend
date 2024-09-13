@@ -21,7 +21,7 @@ import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-side
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function SafeProgramPage({ params: { programId } }: { params: { programId: string } }) {
+function SafeProgramPage({ params: { programId } }: { params: { programId: string } }) {
   const { isOpen: isGrantListOpen, open: openGrantList, close: CloseGrantList } = useGrantListSidePanel();
 
   function toggleGrantListPanel() {
