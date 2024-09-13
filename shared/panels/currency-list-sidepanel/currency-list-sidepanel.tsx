@@ -9,8 +9,6 @@ import { AllCurrencies } from "@/shared/panels/currency-list-sidepanel/_componen
 import { UsedCurrencies } from "@/shared/panels/currency-list-sidepanel/_components/used-currencies/used-currencies";
 import { useCurrencyListSidepanel } from "@/shared/panels/currency-list-sidepanel/currency-list-sidepanel.hooks";
 import { useCurrencyNetworkSidepanel } from "@/shared/panels/currency-network-sidepanel/currency-network-sidepanel.hooks";
-import { useDepositSummarySidepanel } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.hooks";
-import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function CurrencyListSidepanel() {
@@ -20,8 +18,6 @@ export function CurrencyListSidepanel() {
     sponsorId: "",
   };
   const { open: openCurrencyNetworkSidepanel } = useCurrencyNetworkSidepanel();
-  const { open: openDepositTransactionSidepanel } = useDepositTransactionSidepanel();
-  const { open: openDepositSummarySidepanel } = useDepositSummarySidepanel();
 
   const feedbackDrawerState = useFeedbackDrawerState();
   const [, setIsOpen] = feedbackDrawerState;
@@ -33,16 +29,7 @@ export function CurrencyListSidepanel() {
   function handleNetworkClick(currencyId: string) {
     openCurrencyNetworkSidepanel({
       currencyId,
-      onNetworkClick: ({ network, address }) =>
-        openDepositTransactionSidepanel({
-          currencyId,
-          network,
-          address,
-          sponsorId,
-          onSubmit: depositId => {
-            openDepositSummarySidepanel({ depositId });
-          },
-        }),
+      sponsorId,
     });
   }
 

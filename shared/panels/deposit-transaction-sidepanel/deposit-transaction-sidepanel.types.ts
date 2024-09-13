@@ -5,5 +5,4 @@ export interface DepositTransactionSidepanelData {
   network: NonNullable<OnlyDustWallet["network"]>;
   address: NonNullable<OnlyDustWallet["address"]>;
   sponsorId: string;
-  onSubmit: (depositId: string) => void;
 }

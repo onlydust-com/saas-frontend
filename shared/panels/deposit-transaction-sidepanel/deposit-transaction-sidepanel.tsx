@@ -19,6 +19,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useDepositSummarySidepanel } from "@/shared/panels/deposit-summary-sidepanel/deposit-summary-sidepanel.hooks";
 import { useDepositTransactionSidepanel } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.hooks";
 import { DepositTransactionSidepanelData } from "@/shared/panels/deposit-transaction-sidepanel/deposit-transaction-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -27,15 +28,13 @@ export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
   const { name } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { currencyId, network, address, sponsorId, onSubmit } = useSinglePanelData<DepositTransactionSidepanelData>(
-    name
-  ) ?? {
+  const { currencyId, network, address, sponsorId } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
     currencyId: "",
     network: "",
     address: "",
     sponsorId: "",
-    onSubmit: () => {},
   };
+  const { open: openDepositSummarySidepanel } = useDepositSummarySidepanel();
   const [transactionReference, setTransactionReference] = useState<string>();
   const feedbackDrawerState = useFeedbackDrawerState();
   const [, setIsOpen] = feedbackDrawerState;
@@ -50,7 +49,7 @@ export function DepositTransactionSidepanel() {
     pathParams: { sponsorId },
     options: {
       onSuccess: data => {
-        onSubmit(data.id);
+        openDepositSummarySidepanel({ depositId: data.id });
       },
     },
   });
