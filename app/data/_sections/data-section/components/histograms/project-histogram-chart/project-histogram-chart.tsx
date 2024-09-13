@@ -2,7 +2,7 @@ import { Calendar, GitCommitHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useProjectHistogramChart } from "@/app/data/_sections/data-section/components/project-histogram-chart/project-histogram-chart.hooks";
+import { useProjectHistogramChart } from "@/app/data/_sections/data-section/components/histograms/project-histogram-chart/project-histogram-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
