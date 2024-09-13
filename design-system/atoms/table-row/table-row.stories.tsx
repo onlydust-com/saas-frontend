@@ -87,7 +87,7 @@ export const Default: Story = {
       source: { code: "<TableRow />" },
     },
   },
-  render: args => {
+  render: () => {
     const [data, _setData] = useState(() => [...defaultData]);
 
     const table = useReactTable({
@@ -101,7 +101,7 @@ export const Default: Story = {
         <table className={"w-full"}>
           <tbody>
             {table.getRowModel().rows.map(row => (
-              <TableRow key={row.id} {...args} row={row} />
+              <TableRow key={row.id} row={row} />
             ))}
           </tbody>
         </table>

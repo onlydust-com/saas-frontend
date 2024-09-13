@@ -94,7 +94,7 @@ export const Default: Story = {
       source: { code: "<Table />" },
     },
   },
-  render: args => {
+  render: () => {
     const [data, _setData] = useState(() => [...defaultData]);
 
     const table = useReactTable({
@@ -106,7 +106,6 @@ export const Default: Story = {
     return (
       <div className="flex w-full items-center gap-2">
         <Table
-          {...args}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}

@@ -5,7 +5,7 @@ import { cn } from "@/shared/helpers/cn";
 import { TableRowPort } from "../../table-row.types";
 import { TableRowReactTableVariants } from "./react-table.variants";
 
-export function TableRowReactTableAdapter({ row, classNames, onRowClick }: TableRowPort) {
+export function TableRowReactTableAdapter<R>({ row, classNames, onRowClick }: TableRowPort<R>) {
   const slots = TableRowReactTableVariants();
 
   return (
