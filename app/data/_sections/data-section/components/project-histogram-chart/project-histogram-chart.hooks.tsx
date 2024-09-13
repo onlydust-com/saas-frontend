@@ -13,6 +13,9 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
 
   function calculateSeries(key: keyof Omit<BiProjectsStatsResponse, "timestamp">) {
+    if (key === "churnedProjectCount") {
+      return stats?.map(stat => -stat["churnedProjectCount"] ?? 0) ?? [];
+    }
     return stats?.map(stat => stat[key]) ?? [];
   }
 
@@ -23,6 +26,7 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
   const activeProjectSeries = calculateSeries("activeProjectCount");
   const reactivatedProjectSeries = calculateSeries("reactivatedProjectCount");
   const churnedProjectSeries = calculateSeries("churnedProjectCount");
+  const minChurnedProject = Math.min(...churnedProjectSeries.map(value => value));
 
   const renderAmount = useCallback(
     (amountSum: number) => {
@@ -100,6 +104,7 @@ export function useProjectHistogramChart(stats?: GetBiProjectsStatsModel["stats"
     activeProjectSeries,
     reactivatedProjectSeries,
     churnedProjectSeries,
+    minChurnedProject,
     renderGrantedAmount,
     renderRewardedAmount,
     renderMergedPrCount,

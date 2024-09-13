@@ -58,10 +58,12 @@ export function ContributorHistogramChart() {
     renderActiveContributorCount,
     renderChurnedContributorCount,
     renderMergedPrCount,
+    minChurnedContributor,
   } = useContributorHistogramChart(stats);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
+    min: minChurnedContributor,
     series: [
       { name: t("data:contributorsHistogram.legends.new"), data: newContributorSeries },
       { name: t("data:contributorsHistogram.legends.reactivated"), data: reactivatedContributorSeries },

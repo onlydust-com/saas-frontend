@@ -21,9 +21,10 @@ export function useStackedColumnAreaSplineChartOptions({
   yAxisTitle,
   xAxisTitle,
   tooltipFormat = "{point.y}",
-  colors = ["#510077", "#A03AE9", "#9C9CFF", "#F04438"],
+  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
+  min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const options = useMemo<Options>(
     () => ({
@@ -49,7 +50,7 @@ export function useStackedColumnAreaSplineChartOptions({
       },
       yAxis: [
         {
-          min: 0,
+          min: min ?? 0,
           title: {
             text: xAxisTitle,
             style: yAxisStyle,
@@ -137,7 +138,7 @@ export function useStackedColumnAreaSplineChartOptions({
                   y2: 1,
                 },
                 stops: [
-                  [0, "rgba(196, 52, 255, 0.50)"], // Start color
+                  [0, "rgba(196, 52, 255, 0.30)"], // Start color
                   [1, "rgba(196, 52, 255, 0.00)"], // End color
                 ],
               }

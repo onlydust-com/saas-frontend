@@ -13,6 +13,9 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
 
   function calculateSeries(key: keyof Omit<BiContributorsStatsResponse, "timestamp">) {
+    if (key === "churnedContributorCount") {
+      return stats?.map(stat => -stat["churnedContributorCount"] ?? 0) ?? [];
+    }
     return stats?.map(stat => stat[key]) ?? [];
   }
 
@@ -23,6 +26,7 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
   const activeContributorSeries = calculateSeries("activeContributorCount");
   const reactivatedContributorSeries = calculateSeries("reactivatedContributorCount");
   const churnedContributorSeries = calculateSeries("churnedContributorCount");
+  const minChurnedContributor = Math.min(...churnedContributorSeries.map(value => value));
 
   const renderAmount = useCallback(
     (amountSum: number) => {
@@ -100,6 +104,7 @@ export function useContributorHistogramChart(stats?: GetBiContributorsStatsModel
     activeContributorSeries,
     reactivatedContributorSeries,
     churnedContributorSeries,
+    minChurnedContributor,
     renderGrantedAmount,
     renderRewardedAmount,
     renderMergedPrCount,

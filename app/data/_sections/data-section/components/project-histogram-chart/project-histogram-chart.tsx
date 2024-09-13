@@ -58,10 +58,12 @@ export function ProjectHistogramChart() {
     renderActiveProjectCount,
     renderChurnedProjectCount,
     renderMergedPrCount,
+    minChurnedProject,
   } = useProjectHistogramChart(stats);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
+    min: minChurnedProject,
     series: [
       { name: t("data:projectsHistogram.legends.new"), data: newProjectSeries },
       { name: t("data:projectsHistogram.legends.reactivated"), data: reactivatedProjectSeries },

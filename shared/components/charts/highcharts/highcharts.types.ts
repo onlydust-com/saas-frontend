@@ -28,6 +28,7 @@ export interface HighchartsOptionsParams {
   colors?: string[];
   legend?: Options["legend"];
   tooltip?: Options["tooltip"];
+  min?: number;
 }
 
 export interface HighchartsOptionsReturn {
