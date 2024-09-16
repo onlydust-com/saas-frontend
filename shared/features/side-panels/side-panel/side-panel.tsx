@@ -82,7 +82,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
           className={cn(
             "absolute right-0 translate-x-full opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
-            { "fixed bottom-0 h-[calc(100%_-_36px)] translate-y-full p-3": isTablet },
+            { "fixed bottom-0 h-[calc(100%_-_64px)] translate-y-full p-md": isTablet },
             { invisible: !isOpenLast(name) },
             classNames?.container
           )}
