@@ -6,6 +6,14 @@ export enum DateRangeType {
   ALL_TIME = "ALL_TIME",
 }
 
+export enum TimeGroupingType {
+  DAY = "DAY",
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+  QUARTER = "QUARTER",
+  YEAR = "YEAR",
+}
+
 export interface DateFacadePort {
   eachDayOfInterval: (start: Date, end: Date) => Date[];
   isToday: (date: Date) => boolean;
@@ -19,4 +27,6 @@ export interface DateFacadePort {
   formatInEuropeTimeZone: (date: Date, pattern: string) => string;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };
+  isDateRangeType: (value: string) => value is DateRangeType;
+  isTimeGroupingType: (value: string) => value is TimeGroupingType;
 }

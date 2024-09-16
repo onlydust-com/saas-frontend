@@ -52,7 +52,7 @@ export function Header() {
           {() => (
             <div>
               <Button
-                size="md"
+                size="sm"
                 variant="secondary"
                 iconOnly
                 startIcon={{ component: Filter }}
@@ -121,6 +121,7 @@ export function Header() {
       <Input
         name={"searchTransactions"}
         value={search}
+        size={"sm"}
         onChange={e => handleSearch(e.target.value)}
         startContent={<Icon component={Search} classNames={{ base: "text-text-2" }} />}
         placeholder={t("transactionPanel.transactions.search.placeholder")}

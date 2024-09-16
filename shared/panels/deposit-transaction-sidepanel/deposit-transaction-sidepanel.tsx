@@ -54,22 +54,7 @@ export function DepositTransactionSidepanel() {
     },
   });
 
-  if (isLoading) {
-    return (
-      <>
-        <CardTemplateLoading />
-        <AccordionLoading />
-      </>
-    );
-  }
-
-  if (isError) {
-    return <ErrorState />;
-  }
-
-  if (!data) return null;
-
-  const currency = data.currencies.find(currency => currency.id === currencyId);
+  const currency = data?.currencies.find(currency => currency.id === currencyId);
 
   function handleOpenFeedbackDrawer() {
     setIsOpen(true);
@@ -86,6 +71,80 @@ export function DepositTransactionSidepanel() {
     }
   }
 
+  function PanelContent() {
+    if (isLoading) {
+      return (
+        <>
+          <CardTemplateLoading />
+          <AccordionLoading />
+        </>
+      );
+    }
+
+    if (isError) {
+      return <ErrorState />;
+    }
+
+    if (!data) return null;
+
+    return (
+      <>
+        <CardTemplate
+          avatarProps={{
+            src: currency?.logoUrl,
+          }}
+          titleProps={{
+            children: currency?.name,
+          }}
+          descriptionProps={{
+            classNames: { base: "capitalize" },
+            children: network?.toLowerCase(),
+          }}
+          border={"primary"}
+          background={"secondary"}
+        />
+
+        <Paper size={"lg"} border={"primary"} background={"primary"}>
+          <Typo
+            size={"sm"}
+            classNames={{ base: "break-words whitespace-pre-line" }}
+            translate={{
+              token: "panels:depositTransaction.depositInstructions",
+              values: { name: network, address },
+            }}
+          />
+        </Paper>
+
+        <Alert
+          title={<Translate token={"panels:depositTransaction.disclaimer.title"} />}
+          description={<Translate token={"panels:depositTransaction.disclaimer.description"} />}
+          color={"brand"}
+        />
+
+        <Input
+          name={"transactionReference"}
+          size={"sm"}
+          placeholder={t("panels:depositTransaction.transactionReference")}
+          label={t("panels:depositTransaction.transactionReference")}
+          value={transactionReference}
+          onChange={e => setTransactionReference(e.target.value)}
+        />
+
+        {previewDepositIsError ? (
+          <Alert
+            title={<Translate token={"panels:depositTransaction.error.title"} />}
+            description={<Translate token={"panels:depositTransaction.error.description"} />}
+            color={"error"}
+            primaryButton={{
+              translate: { token: "panels:depositTransaction.error.contactSupport" },
+              onClick: handleOpenFeedbackDrawer,
+            }}
+          />
+        ) : null}
+      </>
+    );
+  }
+
   return (
     <Panel>
       <form className={"flex h-full flex-col gap-px"} onSubmit={handleSubmit}>
@@ -98,58 +157,7 @@ export function DepositTransactionSidepanel() {
         />
 
         <SidePanelBody>
-          <CardTemplate
-            avatarProps={{
-              src: currency?.logoUrl,
-            }}
-            titleProps={{
-              children: currency?.name,
-            }}
-            descriptionProps={{
-              classNames: { base: "capitalize" },
-              children: network?.toLowerCase(),
-            }}
-            border={"primary"}
-            background={"secondary"}
-          />
-
-          <Paper size={"lg"} border={"primary"} background={"primary"}>
-            <Typo
-              size={"sm"}
-              classNames={{ base: "break-words whitespace-pre-line" }}
-              translate={{
-                token: "panels:depositTransaction.depositInstructions",
-                values: { name: network, address },
-              }}
-            />
-          </Paper>
-
-          <Alert
-            title={<Translate token={"panels:depositTransaction.disclaimer.title"} />}
-            description={<Translate token={"panels:depositTransaction.disclaimer.description"} />}
-            color={"brand"}
-          />
-
-          <Input
-            name={"transactionReference"}
-            size={"sm"}
-            placeholder={t("panels:depositTransaction.transactionReference")}
-            label={t("panels:depositTransaction.transactionReference")}
-            value={transactionReference}
-            onChange={e => setTransactionReference(e.target.value)}
-          />
-
-          {previewDepositIsError ? (
-            <Alert
-              title={<Translate token={"panels:depositTransaction.error.title"} />}
-              description={<Translate token={"panels:depositTransaction.error.description"} />}
-              color={"error"}
-              primaryButton={{
-                translate: { token: "panels:depositTransaction.error.contactSupport" },
-                onClick: handleOpenFeedbackDrawer,
-              }}
-            />
-          ) : null}
+          <PanelContent />
         </SidePanelBody>
 
         <SidePanelFooter>

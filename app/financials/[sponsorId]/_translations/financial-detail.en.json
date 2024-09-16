@@ -18,6 +18,9 @@
       "create": "Create a Program"
     },
     "table": {
+      "emptyState": {
+        "message": "No programs available"
+      },
       "columns": {
         "programName": "Program name",
         "programLeads": "Program leads",

@@ -9,7 +9,7 @@ export class Sponsor implements SponsorInterface {
   name!: SponsorInterface["name"];
   logoUrl!: SponsorInterface["logoUrl"];
   url!: SponsorInterface["url"];
-  totalDeposited!: SponsorInterface["totalDeposited"];
+  totalAllocated!: SponsorInterface["totalAllocated"];
   totalAvailable!: SponsorInterface["totalAvailable"];
   totalGranted!: SponsorInterface["totalGranted"];
   totalRewarded!: SponsorInterface["totalRewarded"];

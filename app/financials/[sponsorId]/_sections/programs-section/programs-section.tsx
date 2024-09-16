@@ -18,7 +18,9 @@ export function ProgramsSection({ onAllocateClick }: ProgramsSectionProps) {
 
   return (
     <div className="grid gap-3">
-      <header className={"flex items-center justify-between"}>
+      <header
+        className={"flex flex-col items-start justify-start tablet:flex-row tablet:items-center tablet:justify-between"}
+      >
         <Typo
           variant={"heading"}
           size={"xs"}

@@ -1,10 +1,4 @@
 {
-  "series": {
-    "deposit": "Deposit",
-    "allocated": "Allocated",
-    "granted": "Granted",
-    "rewarded": "Rewarded"
-  },
   "legends": {
     "deposit": "Deposited",
     "allocated": "Allocated",

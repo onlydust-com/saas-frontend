@@ -11,6 +11,7 @@ export enum CardBudgetType {
 interface Variants {
   clickable: boolean;
   type: CardBudgetType;
+  isError: boolean;
 }
 
 interface Currency {

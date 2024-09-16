@@ -7,12 +7,12 @@ import {
   tooltipInnerStyle,
   tooltipWrapperStyle,
   xAxisStyle,
-  yAxisStyle,
-} from "@/shared/components/charts/highcharts/column-chart/column-chart.styles";
+  yAxisPrimaryStyle,
+} from "@/shared/components/charts/highcharts/highcharts.styles";
 import {
-  UseColumnChartOptionsParams,
-  UseColumnChartOptionsReturn,
-} from "@/shared/components/charts/highcharts/column-chart/column-chart.types";
+  HighchartsOptionsParams,
+  HighchartsOptionsReturn,
+} from "@/shared/components/charts/highcharts/highcharts.types";
 
 export function useColumnChartOptions({
   title,
@@ -24,13 +24,16 @@ export function useColumnChartOptions({
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
-}: UseColumnChartOptionsParams): UseColumnChartOptionsReturn {
+}: HighchartsOptionsParams): HighchartsOptionsReturn {
   const options = useMemo<Options>(
     () => ({
       chart: {
         type: "column",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
+      },
+      credits: {
+        enabled: false, // Disable the credits
       },
       title: {
         text: title,
@@ -43,7 +46,7 @@ export function useColumnChartOptions({
           style: xAxisStyle,
         },
         labels: {
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         crosshair: true,
       },
@@ -51,10 +54,10 @@ export function useColumnChartOptions({
         min: 0,
         title: {
           text: yAxisTitle,
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         labels: {
-          style: yAxisStyle,
+          style: yAxisPrimaryStyle,
         },
         gridLineColor: "#4C4C5C",
       },

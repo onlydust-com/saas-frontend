@@ -22,7 +22,7 @@ export function NotificationsPopover() {
             size={"3xl"}
             background={"primary-alt"}
             border={"primary"}
-            classNames={{ base: "effect-box-shadow-xl w-full max-h-72" }}
+            classNames={{ base: "effect-box-shadow-xl w-full h-[400px]" }}
           >
             <NotificationsContent onClose={() => setIsOpen(false)} />
           </Paper>

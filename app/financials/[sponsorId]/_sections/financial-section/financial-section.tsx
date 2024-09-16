@@ -37,14 +37,14 @@ export function FinancialSection({ sponsorId }: { sponsorId: string }) {
   }
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <Typo
-          size={"xs"}
-          weight={"medium"}
-          variant={"heading"}
-          translate={{ token: "financials:details.financial.title" }}
-        />
-        <div className="flex max-w-full flex-1 items-center justify-between gap-2">
+      <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
+        <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
+          <Typo
+            size={"xs"}
+            weight={"medium"}
+            variant={"heading"}
+            translate={{ token: "financials:details.financial.title" }}
+          />
           <Tabs
             onTabClick={handleToggleFinancialViews}
             variant={"solid"}
@@ -62,22 +62,22 @@ export function FinancialSection({ sponsorId }: { sponsorId: string }) {
             ]}
             selectedId={toggleFinancialViews}
           />
-          <div className={"flex items-center gap-lg"}>
-            <Button
-              variant={"primary"}
-              endIcon={{ component: ChevronRight }}
-              isTextButton
-              size={"md"}
-              translate={{ token: "financials:details.financial.buttons.makeDeposit" }}
-              classNames={{
-                base: "max-w-full overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
-              onClick={() => openCurrencyListSidepanel({ sponsorId })}
-            />
+        </div>
+        <div className={"flex items-center gap-lg"}>
+          <Button
+            variant={"primary"}
+            endIcon={{ component: ChevronRight }}
+            isTextButton
+            size={"md"}
+            translate={{ token: "financials:details.financial.buttons.makeDeposit" }}
+            classNames={{
+              base: "max-w-full overflow-hidden",
+              label: "whitespace-nowrap text-ellipsis overflow-hidden",
+            }}
+            onClick={() => openCurrencyListSidepanel({ sponsorId })}
+          />
 
-            <TransactionsTrigger />
-          </div>
+          <TransactionsTrigger />
         </div>
       </div>
 

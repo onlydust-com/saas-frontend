@@ -15,8 +15,8 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Menu } from "@/design-system/molecules/menu";
 
-import { ColumnChart } from "@/shared/components/charts/highcharts/column-chart/column-chart";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
+import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -91,9 +91,13 @@ export function FinancialColumnChart() {
 
   return (
     <div className="flex min-h-[300px] flex-col gap-4">
-      <ColumnChart options={options} />
+      <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid grid-cols-3 items-center gap-3 flex-1" }} background={"secondary"}>
+        <Paper
+          size={"lg"}
+          classNames={{ base: "grid laptop:grid-cols-3 laptop:items-center gap-3 flex-1" }}
+          background={"secondary"}
+        >
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
               <Translate token={"programs:financialColumnChart.legends.received"} />

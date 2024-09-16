@@ -6,12 +6,12 @@ import { CardFinancialPort } from "@/design-system/molecules/cards/card-financia
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 export interface CreateAvatarGroupProps {
-  total: SponsorInterface["totalDeposited" | "totalAvailable" | "totalGranted" | "totalRewarded"];
+  total: SponsorInterface["totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded"];
 }
 
 export interface FinancialCardItemProps {
   title: TranslateProps["token"];
-  total: SponsorInterface["totalDeposited" | "totalAvailable" | "totalGranted" | "totalRewarded"];
+  total: SponsorInterface["totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded"];
   color: CardFinancialPort<AnyType>["color"];
   onClick?: () => void;
 }

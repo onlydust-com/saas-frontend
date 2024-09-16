@@ -40,7 +40,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     columnHelper.accessor("name", {
       header: () => <Translate token={"financials:details.programs.table.columns.programName"} />,
       cell: info => (
-        <Typo size={"sm"} weight={"medium"} color="secondary">
+        <Typo size={"sm"} weight={"medium"} color="secondary" classNames={{ base: "whitespace-nowrap" }}>
           {info.getValue()}
         </Typo>
       ),
@@ -248,6 +248,9 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
         }}
         onRowClick={row => {
           router.push(NEXT_ROUTER.programs.details.root(row.original.id));
+        }}
+        emptyState={{
+          message: "financials:details.programs.table.emptyState.message",
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

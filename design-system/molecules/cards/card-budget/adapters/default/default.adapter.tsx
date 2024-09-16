@@ -7,6 +7,8 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Icon, IconPort } from "@/design-system/atoms/icon";
 import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
+import { cn } from "@/shared/helpers/cn";
+
 import { CardBudgetPort, CardBudgetType } from "../../card-budget.types";
 import { CardBudgetDefaultVariants } from "./default.variants";
 
@@ -17,9 +19,10 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   size = "lg",
   background = "secondary",
   border = "primary",
+  isError = false,
   ...props
 }: CardBudgetPort<C>) {
-  const slots = CardBudgetDefaultVariants({ type });
+  const slots = CardBudgetDefaultVariants({ type, isError });
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -48,7 +51,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
         src: currency.logoUrl,
       }}
       titleProps={{
-        classNames: { base: "flex gap-xs items-center" },
+        classNames: { base: cn("flex gap-xs items-center", slots.title()) },
         children: (
           <>
             {`${titleMoney.amount} ${titleMoney.code}`}
@@ -57,6 +60,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
         ),
       }}
       descriptionProps={{
+        classNames: { base: slots.description() },
         children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
       actionSlot={badgeProps ? <Badge {...badgeProps} size="md" color={"grey"} /> : null}

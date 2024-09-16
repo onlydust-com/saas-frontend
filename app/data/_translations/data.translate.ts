@@ -1,7 +1,10 @@
+import enHistograms from "@/app/data/_sections/data-section/components/histograms/histograms.en.json";
+
 import enData from "../_translations/data.en.json";
 
 export const enDataTranslation = {
   data: {
     details: enData,
+    histograms: enHistograms,
   },
 };

@@ -4,5 +4,14 @@
   },
   "content": {
     "title": "Data"
+  },
+  "dataSection": {
+    "tabs": {
+      "contributor": "Contributor",
+      "project": "Project"
+    },
+    "buttons": {
+      "deepDive": "Deep dive"
+    }
   }
 }
