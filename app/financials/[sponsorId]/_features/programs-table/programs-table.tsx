@@ -249,6 +249,9 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
         onRowClick={row => {
           router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}
+        emptyState={{
+          message: "financials:details.programs.table.emptyState.message",
+        }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </ScrollView>
