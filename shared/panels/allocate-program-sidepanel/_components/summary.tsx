@@ -59,6 +59,7 @@ export function Summary({
                 usdEquivalent: newBudgetBalance * usdConversionRate,
               },
               badgeProps: { children: <Translate token={"panels:allocateProgram.summary.finalBalance"} /> },
+              isError: newBudgetBalance < 0,
             },
           ],
         },
