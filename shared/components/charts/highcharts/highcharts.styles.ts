@@ -10,7 +10,7 @@ const xAxisStyle = {
   fontWeight: "400",
   lineHeight: "16px",
   letterSpacing: "-0.12px",
-  color: "var(--typography-primary)",
+  color: "var(--typography-quaternary)",
   fontFamily: "Inter 24pt",
 };
 

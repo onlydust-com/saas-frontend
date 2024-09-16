@@ -51,7 +51,7 @@ export function useStackedColumnAreaSplineChartOptions({
           style: xAxisStyle,
         },
         labels: {
-          style: yAxisPrimaryStyle,
+          style: yAxisQuaternaryStyle,
         },
         crosshair: true,
       },
