@@ -1,8 +1,8 @@
 import { ChevronRight, Folder, User } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { ContributorHistogramChart } from "@/app/data/_sections/data-section/components/histograms/contributor-histogram-chart/contributor-histogram-chart";
-import { ProjectHistogramChart } from "@/app/data/_sections/data-section/components/histograms/project-histogram-chart/project-histogram-chart";
+import { ContributorsTable } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
+import { ProjectsTable } from "@/app/data/deep-dive/_features/projects-table/projects-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -15,15 +15,15 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const CONTRIBUTOR = "contributor";
 const PROJECTS = "projects";
 
-export function DataSection() {
+export function DeepDiveSection() {
   const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(CONTRIBUTOR);
 
   const renderDataView = useMemo(() => {
     if (toggleDataViews === CONTRIBUTOR) {
-      return <ContributorHistogramChart />;
+      return <ContributorsTable />;
     }
 
-    return <ProjectHistogramChart />;
+    return <ProjectsTable />;
   }, [toggleDataViews]);
 
   function handleToggleDataViews(view: string) {
@@ -31,9 +31,9 @@ export function DataSection() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-4 overflow-hidden">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-lg">
-        <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:details.content.title" }} />
+        <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:deepDive.header.title" }} />
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
           <Tabs
             onTabClick={handleToggleDataViews}
@@ -56,13 +56,13 @@ export function DataSection() {
             <Button
               as={BaseLink}
               htmlProps={{
-                href: NEXT_ROUTER.data.deepDive.root,
+                href: NEXT_ROUTER.data.root,
               }}
               variant={"primary"}
               endIcon={{ component: ChevronRight }}
               isTextButton
               size={"md"}
-              translate={{ token: "data:details.dataSection.buttons.deepDive" }}
+              translate={{ token: "data:deepDive.header.ctaGraph" }}
               classNames={{
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",

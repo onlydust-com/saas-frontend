@@ -15,6 +15,12 @@ export const NEXT_ROUTER = {
       root: (id: string) => `/financials/${id}`,
     },
   },
+  data: {
+    root: "/data",
+    deepDive: {
+      root: "/data/deep-dive",
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
