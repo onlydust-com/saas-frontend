@@ -28,7 +28,7 @@ export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
   const { name } = useGrantFromPanel();
-  const { Panel, close: closeSidepanel } = useSidePanel({ name });
+  const { Panel, close: closeSidepanel, isOpen } = useSidePanel({ name });
   const { projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { projectId: "" };
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
@@ -53,11 +53,18 @@ export function GrantFormSidepanel() {
   });
 
   useEffect(() => {
-    if (data) {
-      // Set default selected budget
+    if (isOpen && data) {
       setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
+      setAmount("0");
+      return;
     }
-  }, [data]);
+
+    if (!isOpen) {
+      setSelectedBudget(undefined);
+      setAmount("0");
+      return;
+    }
+  }, [isOpen, data]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({

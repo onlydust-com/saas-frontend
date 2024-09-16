@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 
 import {
   UseMutationFacadeParams,
@@ -12,14 +11,26 @@ import { AllocateBudgetToProgramBody } from "@/core/domain/sponsor/sponsor-contr
 export function useAllocateBudgetToProgram({
   pathParams,
   options,
+  invalidateTagParams,
 }: UseMutationFacadeParams<
   SponsorFacadePort["allocateBudgetToProgram"],
-  undefined,
+  {
+    sponsor: {
+      pathParams: {
+        sponsorId: string;
+      };
+    };
+    program: {
+      pathParams: {
+        programId: string;
+      };
+    };
+  },
   never,
   AllocateBudgetToProgramBody
 > = {}) {
-  const { sponsorId } = useParams<{ sponsorId?: string }>();
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
+  const programStoragePort = bootstrap.getProgramStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -28,22 +39,36 @@ export function useAllocateBudgetToProgram({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (sponsorId) {
+          if (invalidateTagParams) {
             // Invalidate sponsor detail
             await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsor({ pathParams: { sponsorId } }).tag,
+              queryKey: sponsorStoragePort.getSponsor({
+                pathParams: { sponsorId: invalidateTagParams.sponsor.pathParams.sponsorId },
+              }).tag,
               exact: false,
             });
 
             // Invalidate sponsor transaction stats
             await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsorTransactionsStats({ pathParams: { sponsorId } }).tag,
+              queryKey: sponsorStoragePort.getSponsorTransactionsStats({
+                pathParams: { sponsorId: invalidateTagParams.sponsor.pathParams.sponsorId },
+              }).tag,
               exact: false,
             });
 
             // Invalidate sponsor programs
             await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsorPrograms({ pathParams: { sponsorId } }).tag,
+              queryKey: sponsorStoragePort.getSponsorPrograms({
+                pathParams: { sponsorId: invalidateTagParams.sponsor.pathParams.sponsorId },
+              }).tag,
+              exact: false,
+            });
+
+            // Invalidate program by id
+            await queryClient.invalidateQueries({
+              queryKey: programStoragePort.getProgramById({
+                pathParams: { programId: invalidateTagParams.program.pathParams.programId },
+              }).tag,
               exact: false,
             });
           }
