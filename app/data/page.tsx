@@ -14,7 +14,12 @@ function DataPage() {
   return (
     <PageWrapper
       navigation={{
-        title: <Translate token={"data:details.header.title"} />,
+        breadcrumbs: [
+          {
+            id: "root",
+            label: <Translate token={"data:details.header.title"} />,
+          },
+        ],
       }}
     >
       <ScrollView>

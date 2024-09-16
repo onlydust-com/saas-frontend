@@ -6,7 +6,12 @@ import { PageHeader } from "./variants/page-header-default";
 type Story = StoryObj<typeof PageHeader>;
 
 const defaultProps: PageHeaderPort<"div"> = {
-  title: "Page Header",
+  breadcrumbs: [
+    {
+      id: "root",
+      label: "Test",
+    },
+  ],
 };
 
 const meta: Meta<typeof PageHeader> = {
@@ -42,7 +47,6 @@ export const WithBreadcrumbs: Story = {
         <PageHeader
           {...defaultProps}
           {...args}
-          title={undefined}
           breadcrumbs={[
             { id: "item1", label: "item 1", href: "#" },
             { id: "item2", label: "item 2", href: "#" },
