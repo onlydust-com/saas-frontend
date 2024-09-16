@@ -1,5 +1,5 @@
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
 import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
@@ -28,7 +28,7 @@ export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
   const { name } = useGrantFromPanel();
-  const { Panel, close: closeSidepanel } = useSidePanel({ name });
+  const { Panel, close: closeSidepanel, isOpen } = useSidePanel({ name });
   const { projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { projectId: "" };
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
@@ -52,12 +52,24 @@ export function GrantFormSidepanel() {
     },
   });
 
-  useEffect(() => {
+  const initPanelState = useCallback(() => {
     if (data) {
-      // Set default selected budget
       setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
     }
+    setAmount("0");
   }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      initPanelState();
+    }
+  }, [data, initPanelState]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      initPanelState();
+    }
+  }, [isOpen, initPanelState]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
