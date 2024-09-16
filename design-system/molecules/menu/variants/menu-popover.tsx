@@ -49,8 +49,8 @@ export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: 
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps()}>
-        {children}
+      <div ref={refs.setReference} {...getReferenceProps()} className="cursor-pointer">
+        <div className="pointer-events-none">{children}</div>
       </div>
       {isOpen && (
         <>

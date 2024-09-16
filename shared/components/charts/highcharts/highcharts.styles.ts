@@ -24,6 +24,16 @@ const yAxisStyle = {
   fontFamily: "Inter 24pt",
 };
 
+const yAxisPrimaryStyle = {
+  ...yAxisStyle,
+  color: "var(--typography-primary)",
+};
+
+const yAxisQuaternaryStyle = {
+  ...yAxisStyle,
+  color: "var(--typography-quaternary)",
+};
+
 const legendStyle = {
   color: "var(--typography-primary)",
 };
@@ -35,4 +45,12 @@ const tooltipInnerStyle = {
   color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
-export { titleStyle, xAxisStyle, yAxisStyle, legendStyle, tooltipWrapperStyle, tooltipInnerStyle };
+export {
+  titleStyle,
+  xAxisStyle,
+  yAxisPrimaryStyle,
+  legendStyle,
+  tooltipWrapperStyle,
+  tooltipInnerStyle,
+  yAxisQuaternaryStyle,
+};

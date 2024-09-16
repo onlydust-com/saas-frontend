@@ -1,0 +1,23 @@
+{
+  "legends": {
+    "new": "New",
+    "reactivated": "Reactivated",
+    "active": "Active",
+    "churned": "Churned",
+    "prMerged": "PR merged",
+    "devs": "Devs",
+    "pr": "PR",
+    "projects": "Projects",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  },
+  "splineTypes": {
+    "totalGranted": "Total granted to project",
+    "totalRewarded": "Total rewarded to contributors",
+    "prMerged": "PR Merged"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available."
+  }
+}

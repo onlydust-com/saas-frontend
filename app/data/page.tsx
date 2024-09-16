@@ -2,7 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { Typo } from "@/design-system/atoms/typo";
+import { DataSection } from "@/app/data/_sections/data-section/data-section";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -20,15 +20,7 @@ function DataPage() {
       <ScrollView>
         <PageContent>
           <div className="grid h-full gap-3">
-            <Typo
-              size={"xs"}
-              weight={"medium"}
-              variant={"heading"}
-              translate={{
-                token: "data:details.content.title",
-              }}
-            />
-            coucou
+            <DataSection />
           </div>
         </PageContent>
       </ScrollView>

@@ -16,6 +16,13 @@
     "LAST_YEAR": "Last year",
     "ALL_TIME": "All time"
   },
+  "timeGroupingType": {
+    "DAY": "Day",
+    "WEEK": "Week",
+    "MONTH": "Month",
+    "QUARTER": "Quarter",
+    "YEAR": "Year"
+  },
   "languages": "Languages +{{count}}",
   "sponsors": "Sponsors +{{count}}",
   "projects": "Projects +{{count}}",

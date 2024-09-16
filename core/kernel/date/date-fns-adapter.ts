@@ -15,7 +15,7 @@ import {
 import { formatInTimeZone as formatInTimeZoneDateFns } from "date-fns-tz";
 import { enGB } from "date-fns/locale/en-GB";
 
-import { DateFacadePort, DateRangeType } from "./date-facade-port";
+import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 
 function getRangeOfDates(range: DateRangeType): { from: Date | null; to: Date | null } {
   switch (range) {
@@ -51,6 +51,14 @@ function getMonthRange(date: Date): { from: Date; to: Date } {
   return { from: firstDay, to: lastDay };
 }
 
+function isDateRangeType(value: string): value is DateRangeType {
+  return Object.values(DateRangeType).includes(value as DateRangeType);
+}
+
+function isTimeGroupingType(value: string): value is TimeGroupingType {
+  return Object.values(TimeGroupingType).includes(value as TimeGroupingType);
+}
+
 export const DateFnsAdapter: DateFacadePort = {
   eachDayOfInterval: (start: Date, end: Date) => eachDayOfIntervalDateFns({ start, end }),
   isToday: (date: Date) => isTodayDateFns(date),
@@ -65,4 +73,6 @@ export const DateFnsAdapter: DateFacadePort = {
   getMonthRange,
   formatInEuropeTimeZone: (date: Date, pattern: string) =>
     formatInTimeZoneDateFns(date, "Europe/Paris", pattern, { locale: enGB }),
+  isDateRangeType,
+  isTimeGroupingType,
 };
