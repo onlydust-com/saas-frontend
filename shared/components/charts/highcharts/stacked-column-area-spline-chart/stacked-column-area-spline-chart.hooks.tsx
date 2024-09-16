@@ -37,6 +37,9 @@ export function useStackedColumnAreaSplineChartOptions({
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
       },
+      credits: {
+        enabled: false, // Disable the credits
+      },
       title: {
         text: title,
         style: titleStyle,
@@ -127,6 +130,7 @@ export function useStackedColumnAreaSplineChartOptions({
           stacking: "normal",
         },
         series: {
+          borderRadius: 10, // Set the radius for rounded corners
           pointPadding: 0.2,
           borderWidth: 0,
         },
@@ -156,9 +160,12 @@ export function useStackedColumnAreaSplineChartOptions({
           s.type === "areaspline"
             ? {
                 enabled: true,
-                radius: 5,
+                radius: 3,
+                fillColor: "white", // Set the marker color to white
+                lineColor: "white", // Optional: set the border color of the marker to white
               }
             : undefined,
+        lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
       })),
     }),
     [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]

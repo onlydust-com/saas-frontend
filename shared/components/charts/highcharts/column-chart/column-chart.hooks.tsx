@@ -32,6 +32,9 @@ export function useColumnChartOptions({
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
       },
+      credits: {
+        enabled: false, // Disable the credits
+      },
       title: {
         text: title,
         style: titleStyle,
