@@ -29,8 +29,8 @@ export class UserClientAdapter implements UserStoragePort {
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
     searchUsers: "users/search",
-    getUserById: "users/{githubId}",
-    getUserByLogin: "users/login/{slug}",
+    getUserById: "users/:githubId",
+    getUserByLogin: "users/login/:slug",
   } as const;
 
   logoutMe = () => {
@@ -178,7 +178,7 @@ export class UserClientAdapter implements UserStoragePort {
   };
 
   getUserById = ({ queryParams, pathParams }: FirstParameter<UserStoragePort["getUserById"]>) => {
-    const path = this.routes["getUserByLogin"];
+    const path = this.routes["getUserById"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, queryParams, pathParams });
     const request = async () => {
