@@ -27,4 +27,6 @@ export interface DateFacadePort {
   formatInEuropeTimeZone: (date: Date, pattern: string) => string;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };
+  isDateRangeType: (value: string) => value is DateRangeType;
+  isTimeGroupingType: (value: string) => value is TimeGroupingType;
 }

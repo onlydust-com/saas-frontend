@@ -13,4 +13,8 @@ export const DateAdapterMock: DateFacadePort = {
   formatInEuropeTimeZone: (_date: Date, _pattern: string) => "",
   getRangeOfDates: (_range: DateRangeType) => ({ from: null, to: null }),
   getMonthRange: (_date: Date) => ({ from: new Date(), to: new Date() }),
+  // @ts-expect-error next line is a mock
+  isDateRangeType: (_value: string) => true,
+  // @ts-expect-error next line is a mock
+  isTimeGroupingType: (_value: string) => true,
 };

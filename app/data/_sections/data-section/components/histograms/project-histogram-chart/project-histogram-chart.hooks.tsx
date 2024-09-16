@@ -2,8 +2,7 @@ import { useMemo } from "react";
 
 import { buildCategories } from "@/app/data/_sections/data-section/components/histograms/histograms.utils";
 import { AmountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/amount-legend";
-import { DevCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/dev-count-legend";
-import { PrCountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/pr-count-legend";
+import { CountLegend } from "@/app/data/_sections/data-section/components/histograms/legends/count-legend";
 
 import { GetBiProjectsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { BiProjectsStatsResponse } from "@/core/domain/bi/models/bi-projects-stats-model";
@@ -39,23 +38,48 @@ export function useProjectHistogramChart(
     [rewardedSeries]
   );
   const renderMergedPrCount = useMemo(
-    () => <PrCountLegend countSum={mergedPrSeries.reduce((a, c) => a + c, 0)} />,
+    () => (
+      <CountLegend
+        countSum={mergedPrSeries.reduce((a, c) => a + c, 0)}
+        label={{ token: "data:histograms.legends.pr" }}
+      />
+    ),
     [mergedPrSeries]
   );
   const renderNewContributorCount = useMemo(
-    () => <DevCountLegend countSum={newProjectSeries.reduce((a, c) => a + c, 0)} />,
+    () => (
+      <CountLegend
+        countSum={newProjectSeries.reduce((a, c) => a + c, 0)}
+        label={{ token: "data:histograms.legends.devs" }}
+      />
+    ),
     [newProjectSeries]
   );
   const renderActiveProjectCount = useMemo(
-    () => <DevCountLegend countSum={activeProjectSeries.reduce((a, c) => a + c, 0)} />,
+    () => (
+      <CountLegend
+        countSum={activeProjectSeries.reduce((a, c) => a + c, 0)}
+        label={{ token: "data:histograms.legends.devs" }}
+      />
+    ),
     [activeProjectSeries]
   );
   const renderReactivatedProjectCount = useMemo(
-    () => <DevCountLegend countSum={reactivatedProjectSeries.reduce((a, c) => a + c, 0)} />,
+    () => (
+      <CountLegend
+        countSum={reactivatedProjectSeries.reduce((a, c) => a + c, 0)}
+        label={{ token: "data:histograms.legends.devs" }}
+      />
+    ),
     [reactivatedProjectSeries]
   );
   const renderChurnedProjectCount = useMemo(
-    () => <DevCountLegend countSum={churnedProjectSeries.reduce((a, c) => a + c, 0)} />,
+    () => (
+      <CountLegend
+        countSum={churnedProjectSeries.reduce((a, c) => a + c, 0)}
+        label={{ token: "data:histograms.legends.devs" }}
+      />
+    ),
     [churnedProjectSeries]
   );
 

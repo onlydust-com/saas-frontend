@@ -117,11 +117,11 @@ export function ContributorHistogramChart() {
   });
 
   function onChangeRangeType(value: string) {
-    setRangeType(value as DateRangeType);
+    if (dateKernelPort.isDateRangeType(value)) setRangeType(value);
   }
 
   function onChangeTimeGroupingType(value: string) {
-    setTimeGroupingType(value as TimeGroupingType);
+    if (dateKernelPort.isTimeGroupingType(value)) setTimeGroupingType(value);
   }
 
   if (isLoading) {
