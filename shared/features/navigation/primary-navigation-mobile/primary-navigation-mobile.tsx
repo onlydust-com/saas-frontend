@@ -40,7 +40,7 @@ export function PrimaryNavigationMobile() {
         onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}
         hideHeader={true}
         placement={"bottom"}
-        classNames={{ modal: "min-w-full max-w-full rounded-b-none !my-0" }}
+        classNames={{ modal: "min-w-full max-w-full rounded-b-none !m-0" }}
       >
         <div className={"flex w-full flex-col gap-3"}>
           <div className={"flex w-full flex-row items-center gap-1"}>
