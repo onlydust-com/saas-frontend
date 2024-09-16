@@ -14,12 +14,13 @@ import {
   useAllocateProgram,
   useAllocateProgramSidepanel,
 } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
+import { AllocateProgramData } from "@/shared/panels/allocate-program-sidepanel/allocate-program.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function AllocateProgramSidepanel() {
   const { name } = useAllocateProgramSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { sponsorId, programId } = useSinglePanelData<{ programId: string; sponsorId: string }>(name) ?? {
+  const { sponsorId, programId } = useSinglePanelData<AllocateProgramData>(name) ?? {
     sponsorId: "",
     programId: "",
   };
