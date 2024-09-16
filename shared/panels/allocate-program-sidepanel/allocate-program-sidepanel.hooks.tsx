@@ -78,6 +78,18 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
         toast.error(<Translate token={"panels:allocateProgram.error.toast"} />);
       },
     },
+    invalidateTagParams: {
+      sponsor: {
+        pathParams: {
+          sponsorId,
+        },
+      },
+      program: {
+        pathParams: {
+          programId,
+        },
+      },
+    },
   });
 
   function handleAllocateBudget() {
