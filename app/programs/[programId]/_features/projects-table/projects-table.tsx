@@ -301,6 +301,9 @@ export function ProjectsTable({ programId }: { programId: string }) {
             base: "min-w-[1620px]",
           }}
           onRowClick={row => open({ projectId: row.original.id })}
+          emptyState={{
+            message: "programs:details.projects.table.emptyState.message",
+          }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>

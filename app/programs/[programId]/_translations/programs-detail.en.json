@@ -14,6 +14,9 @@
     "title": "Projects",
     "grantProject": "Grant project",
     "table": {
+      "emptyState": {
+        "message": "No projects available"
+      },
       "columns": {
         "projectName": "Project name",
         "projectLead": "Project lead",
