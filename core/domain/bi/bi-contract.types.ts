@@ -39,3 +39,18 @@ export type GetBiProjectsStatsPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiProjectsStatsPortResponse = HttpStorageResponse<GetBiProjectsStatsModel>;
+
+/* --------------------- Get Bi World map --------------------- */
+
+export type GetBiWorldsMapResponse = components["schemas"]["BiWorldMapItemResponse"][];
+
+type GetBiWorldsMapQueryParams = operations["getBIWorldMap"]["parameters"]["query"];
+
+type GetBiWorldsMapPathParams = operations["getBIWorldMap"]["parameters"]["path"];
+
+export type GetBiWorldsMapPortParams = HttpClientParameters<{
+  QueryParams: GetBiWorldsMapQueryParams;
+  PathParams: GetBiWorldsMapPathParams;
+}>;
+
+export type GetBiWorldsMapPortResponse = HttpStorageResponse<GetBiWorldsMapResponse>;

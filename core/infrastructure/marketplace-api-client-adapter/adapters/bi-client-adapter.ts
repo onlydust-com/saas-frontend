@@ -1,6 +1,11 @@
-import { GetBiContributorsStatsResponse, GetBiProjectsStatsResponse } from "@/core/domain/bi/bi-contract.types";
+import {
+  GetBiContributorsStatsResponse,
+  GetBiProjectsStatsResponse,
+  GetBiWorldsMapResponse,
+} from "@/core/domain/bi/bi-contract.types";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { BiWorldMap } from "@/core/domain/bi/models/bi-world-map-model";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -11,6 +16,7 @@ export class BiClientAdapter implements BiStoragePort {
   routes = {
     getBiContributorsStats: "bi/stats/contributors",
     getBiProjectsStats: "bi/stats/projects",
+    getBiWorldMap: "bi/world-map",
   } as const;
 
   getBiContributorsStats = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiContributorsStats"]>) => {
@@ -55,6 +61,28 @@ export class BiClientAdapter implements BiStoragePort {
         ...data,
         stats: data.stats.map(stat => new BiProjectsStats(stat)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiWorldMap = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiWorldMap"]>) => {
+    const path = this.routes["getBiWorldMap"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiWorldsMapResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return data.map(item => new BiWorldMap(item));
     };
 
     return {
