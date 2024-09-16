@@ -14,8 +14,7 @@ export interface PageHeaderPort<C extends ElementType> extends Partial<Variants>
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  title?: ReactNode;
-  breadcrumbs?: BreadcrumbsPort["items"];
+  breadcrumbs: BreadcrumbsPort["items"];
   endContent?: ReactNode;
   startContent?: ReactNode;
 }

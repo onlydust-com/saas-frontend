@@ -41,7 +41,12 @@ function FinancialPage() {
   return (
     <PageWrapper
       navigation={{
-        title: <Translate token={"financials:list.header.title"} />,
+        breadcrumbs: [
+          {
+            id: "root",
+            label: <Translate token={"financials:list.header.title"} />,
+          },
+        ],
       }}
     >
       <ScrollView>
