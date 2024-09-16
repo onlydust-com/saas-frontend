@@ -1,16 +1,11 @@
-import { Options, SeriesColumnOptions } from "highcharts";
+import { Options, SeriesMapOptions } from "highcharts";
 import { useMemo } from "react";
-
-import { bootstrap } from "@/core/bootstrap";
 
 import {
   legendStyle,
   titleStyle,
   tooltipInnerStyle,
   tooltipWrapperStyle,
-  xAxisStyle,
-  yAxisPrimaryStyle,
-  yAxisQuaternaryStyle,
 } from "@/shared/components/charts/highcharts/highcharts.styles";
 import {
   HighchartsOptionsParams,
@@ -19,21 +14,16 @@ import {
 
 export function useMapChartOptions({
   title,
-  categories,
   series,
-  yAxisTitle,
-  xAxisTitle,
   tooltipFormat = "{point.y}",
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
-  min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const options = useMemo<Options>(
     () => ({
       chart: {
-        type: "column",
+        map: "custom/world",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
       },
@@ -44,55 +34,24 @@ export function useMapChartOptions({
         text: title,
         style: titleStyle,
       },
-      xAxis: {
-        categories,
-        title: {
-          text: xAxisTitle,
-          style: xAxisStyle,
+      mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+          verticalAlign: "bottom",
         },
-        labels: {
-          style: yAxisQuaternaryStyle,
-        },
-        crosshair: true,
       },
-      yAxis: [
-        {
-          min: min ?? 0,
-          title: {
-            text: xAxisTitle,
-            style: yAxisPrimaryStyle,
-          },
-          labels: {
-            style: yAxisQuaternaryStyle,
-          },
-          stackLabels: {
-            enabled: false, // Disable stack labels to hide totals
-          },
-          gridLineColor: "#697586",
-          gridLineDashStyle: "Dash",
-        },
-        {
-          title: {
-            text: yAxisTitle,
-            style: yAxisPrimaryStyle,
-          },
-          opposite: true,
-          visible: false, // Hide the second y-axis
-        },
-        {
-          title: {
-            text: xAxisTitle, // Optional title for clarity
-          },
-          labels: {
-            style: yAxisPrimaryStyle,
-          },
-          opposite: true, // Place it on the opposite side
-          linkedTo: 0, // Link to the first y-axis
-          showEmpty: false, // Prevents it from showing if no data exists
-          gridLineColor: "#4C4C5C",
-          gridLineDashStyle: "Dash",
-        },
-      ],
+      colorAxis: {
+        min: 0,
+        stops: [
+          [0, "#EE46BC"], // < 5000
+          [0.25, "#8400b0"], // 5000 - 10000
+          [0.5, "#9a00d7"], // 10000 - 15000
+          [0.75, "#ff9000"], // 15000 - 20000
+          [1, "#008000"], // > 20000
+        ],
+        minColor: "#FFFFFF",
+        maxColor: "#008000", // You can customize the max color
+      },
       legend: {
         ...legend,
         itemStyle: legendStyle,
@@ -106,43 +65,53 @@ export function useMapChartOptions({
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        formatter() {
-          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
-          this.points?.forEach(point => {
-            if (point.series.name === "Granted" || point.series.name === "Rewarded") {
-              s += `${point.series.name}: ${moneyKernelPort.format({ amount: point.y, currency: moneyKernelPort.getCurrency("USD") }).amount} USD<br/>`;
-              return;
-            }
-            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
-          });
-          return s;
-        },
-        positioner(labelWidth, _labelHeight, point) {
-          const chart = this.chart;
-          const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = 24; // Position above the point
-
-          return { x, y };
-        },
+        // formatter() {
+        //   let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
+        //   this.points?.forEach(point => {
+        //     if (point.series.name === "Granted" || point.series.name === "Rewarded") {
+        //       s += `${point.series.name}: ${moneyKernelPort.format({ amount: point.y, currency: moneyKernelPort.getCurrency("USD") }).amount} USD<br/>`;
+        //       return;
+        //     }
+        //     s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
+        //   });
+        //   return s;
+        // },
+        // positioner(labelWidth, _labelHeight, point) {
+        //   const chart = this.chart;
+        //   const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
+        //   const y = 24; // Position above the point
+        //
+        //   return { x, y };
+        // },
       },
-      plotOptions: {
-        column: {
-          stacking: "normal",
-        },
-        series: {
-          borderRadius: 10, // Set the radius for rounded corners
-          pointPadding: 0.2,
-          borderWidth: 0,
-        },
-      },
-      series: series.map<SeriesColumnOptions>((s, index) => ({
-        type: "column",
+      // plotOptions: {
+      //   column: {
+      //     stacking: "normal",
+      //   },
+      //   series: {
+      //     borderRadius: 10, // Set the radius for rounded corners
+      //     pointPadding: 0.2,
+      //     borderWidth: 0,
+      //   },
+      // },
+      series: series.map<SeriesMapOptions>((s, index) => ({
+        type: "map",
         name: s.name,
         data: s.data,
         color: colors[index % colors.length],
+        joinBy: "iso-a2", // Join by the country code
+        states: {
+          hover: {
+            color: "#BADA55",
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          format: "{point.name}: {point.value}", // Show country name and value
+        },
       })),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]
+    [title, series, tooltipFormat, colors, legend, tooltip]
   );
 
   return { options };

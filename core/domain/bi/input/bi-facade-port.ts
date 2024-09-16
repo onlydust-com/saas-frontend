@@ -3,12 +3,12 @@ import {
   GetBiContributorsStatsPortResponse,
   GetBiProjectsStatsPortParams,
   GetBiProjectsStatsPortResponse,
-  GetBiWorldsMapPortParams,
-  GetBiWorldsMapPortResponse,
+  GetBiWorldMapPortParams,
+  GetBiWorldMapPortResponse,
 } from "@/core/domain/bi/bi-contract.types";
 
 export interface BiFacadePort {
   getBiContributorsStats(p: GetBiContributorsStatsPortParams): GetBiContributorsStatsPortResponse;
   getBiProjectsStats(p: GetBiProjectsStatsPortParams): GetBiProjectsStatsPortResponse;
-  getBiWorldMap(p: GetBiWorldsMapPortParams): GetBiWorldsMapPortResponse;
+  getBiWorldMap(p: GetBiWorldMapPortParams): GetBiWorldMapPortResponse;
 }

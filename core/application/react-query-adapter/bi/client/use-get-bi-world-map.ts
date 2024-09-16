@@ -5,14 +5,14 @@ import {
   useQueryAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { GetBiWorldsMapResponse } from "@/core/domain/bi/bi-contract.types";
+import { GetBiWorldMapModel } from "@/core/domain/bi/bi-contract.types";
 import { BiFacadePort } from "@/core/domain/bi/input/bi-facade-port";
 
 export function useGetBiWorldMap({
   pathParams,
   queryParams,
   options,
-}: UseQueryFacadeParams<BiFacadePort["getBiWorldMap"], GetBiWorldsMapResponse>) {
+}: UseQueryFacadeParams<BiFacadePort["getBiWorldMap"], GetBiWorldMapModel>) {
   const biStoragePort = bootstrap.getBiStoragePortForClient();
 
   return useQuery(

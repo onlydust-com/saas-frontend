@@ -1,5 +1,6 @@
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectsStatsInterface } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { BiWorldMapInterface } from "@/core/domain/bi/models/bi-world-map-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -42,15 +43,17 @@ export type GetBiProjectsStatsPortResponse = HttpStorageResponse<GetBiProjectsSt
 
 /* --------------------- Get Bi World map --------------------- */
 
-export type GetBiWorldsMapResponse = components["schemas"]["BiWorldMapItemResponse"][];
+export type GetBiWorldMapResponse = components["schemas"]["BiWorldMapItemResponse"][];
 
-type GetBiWorldsMapQueryParams = operations["getBIWorldMap"]["parameters"]["query"];
+export type GetBiWorldMapModel = BiWorldMapInterface[];
 
-type GetBiWorldsMapPathParams = operations["getBIWorldMap"]["parameters"]["path"];
+type GetBiWorldMapQueryParams = operations["getBIWorldMap"]["parameters"]["query"];
 
-export type GetBiWorldsMapPortParams = HttpClientParameters<{
-  QueryParams: GetBiWorldsMapQueryParams;
-  PathParams: GetBiWorldsMapPathParams;
+type GetBiWorldMapPathParams = operations["getBIWorldMap"]["parameters"]["path"];
+
+export type GetBiWorldMapPortParams = HttpClientParameters<{
+  QueryParams: GetBiWorldMapQueryParams;
+  PathParams: GetBiWorldMapPathParams;
 }>;
 
-export type GetBiWorldsMapPortResponse = HttpStorageResponse<GetBiWorldsMapResponse>;
+export type GetBiWorldMapPortResponse = HttpStorageResponse<GetBiWorldMapResponse>;

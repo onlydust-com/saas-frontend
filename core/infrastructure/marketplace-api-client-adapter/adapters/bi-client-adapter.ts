@@ -1,7 +1,7 @@
 import {
   GetBiContributorsStatsResponse,
   GetBiProjectsStatsResponse,
-  GetBiWorldsMapResponse,
+  GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
@@ -74,7 +74,7 @@ export class BiClientAdapter implements BiStoragePort {
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () => {
-      const data = await this.client.request<GetBiWorldsMapResponse>({
+      const data = await this.client.request<GetBiWorldMapResponse>({
         path,
         method,
         tag,
