@@ -53,23 +53,21 @@ export function GrantFormSidepanel() {
   });
 
   const initPanelState = useCallback(() => {
-    if (data) {
-      setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
-    }
+    setSelectedBudget(data?.totalAvailable.totalPerCurrency?.[0]);
     setAmount("0");
   }, [data]);
 
   useEffect(() => {
-    if (data) {
+    if (isOpen && data) {
       initPanelState();
+      return;
     }
-  }, [data, initPanelState]);
 
-  useEffect(() => {
     if (!isOpen) {
       initPanelState();
+      return;
     }
-  }, [isOpen, initPanelState]);
+  }, [isOpen, data, initPanelState]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({

@@ -38,23 +38,21 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
   });
 
   const initPanelState = useCallback(() => {
-    if (program) {
-      setBudget(program.totalAvailable.totalPerCurrency?.[0]);
-    }
+    setBudget(program?.totalAvailable.totalPerCurrency?.[0]);
     setAmount("0");
   }, [program]);
 
   useEffect(() => {
-    if (program) {
+    if (isPanelOpen && program) {
       initPanelState();
+      return;
     }
-  }, [program, initPanelState]);
 
-  useEffect(() => {
     if (!isPanelOpen) {
       initPanelState();
+      return;
     }
-  }, [isPanelOpen, initPanelState]);
+  }, [isPanelOpen, program, initPanelState]);
 
   const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
     pathParams: {
