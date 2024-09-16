@@ -2,8 +2,9 @@ import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { Typo } from "@/design-system/atoms/typo";
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
+
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 
 import { useTransactionsContext } from "../context/transactions.context";
 import { Header } from "./components/header/header";
@@ -36,10 +37,10 @@ export function Transactions() {
       <Header />
 
       {!items.length ? (
-        <div className="flex flex-col items-center gap-1 py-4">
-          <Typo variant="heading" translate={{ token: "programs:transactionPanel.transactions.empty.title" }} />
-          <Typo size="sm" translate={{ token: "programs:transactionPanel.transactions.empty.description" }} />
-        </div>
+        <EmptyStateLite
+          title={"programs:transactionPanel.transactions.empty.title"}
+          message={"programs:transactionPanel.transactions.empty.description"}
+        />
       ) : (
         <Accordion
           classNames={{ base: "gap-3" }}

@@ -16,8 +16,8 @@ export function TypoDefaultAdapter<C extends ElementType = "span">({
   ...props
 }: TypoPort<C>) {
   const Component = as || "span";
-  const { weight, variant, size, color } = props;
-  const slots = TypoDefaultVariants({ weight, variant, size, color, canHover });
+  const { weight, variant, size, color, align } = props;
+  const slots = TypoDefaultVariants({ weight, variant, size, color, canHover, align });
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
