@@ -94,7 +94,7 @@ export function AllocateProgramSidepanel() {
           variant={"secondary"}
           size={"md"}
           onClick={() => allocate.post()}
-          isDisabled={program.isLoading || allocate.isPending}
+          isDisabled={program.isLoading || allocate.isPending || allocate.newBalanceIsNegative}
         >
           <Translate token={"panels:allocateProgram.makeAllocation"} />
         </Button>

@@ -117,6 +117,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
 
   const allocatedAmount = parseFloat(amount);
   const newBudgetBalance = (budget?.amount ?? 0) - allocatedAmount;
+  const newBalanceIsNegative = newBudgetBalance < 0;
 
   const programBudget = program?.totalAvailable.totalPerCurrency?.find(b => {
     return b.currency.id === budget?.currency.id;
@@ -149,6 +150,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
     allocate: {
       post: handleAllocateBudget,
       isPending,
+      newBalanceIsNegative,
     },
   };
 }
