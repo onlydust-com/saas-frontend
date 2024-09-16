@@ -40,7 +40,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     columnHelper.accessor("name", {
       header: () => <Translate token={"financials:details.programs.table.columns.programName"} />,
       cell: info => (
-        <Typo size={"sm"} weight={"medium"} color="secondary">
+        <Typo size={"sm"} weight={"medium"} color="secondary" classNames={{ base: "whitespace-nowrap" }}>
           {info.getValue()}
         </Typo>
       ),
