@@ -33,6 +33,10 @@ export function GrantFormSidepanel() {
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
 
+  const allocatedAmount = parseFloat(amount);
+  const newBudgetBalance = (selectedBudget?.amount ?? 0) - allocatedAmount;
+  const newBalanceIsNegative = newBudgetBalance < 0;
+
   const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -115,7 +119,7 @@ export function GrantFormSidepanel() {
 
     mutate({
       projectId,
-      amount: parseFloat(amount),
+      amount: allocatedAmount,
       currencyId,
     });
   }
@@ -166,7 +170,12 @@ export function GrantFormSidepanel() {
       <SidePanelBody>{renderContent()}</SidePanelBody>
 
       <SidePanelFooter>
-        <Button variant={"secondary"} size={"md"} onClick={handleGrantProject} isDisabled={isPending || !amount}>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          onClick={handleGrantProject}
+          isDisabled={isPending || !amount || newBalanceIsNegative}
+        >
           <Translate token={"programs:grantForm.submit"} />
         </Button>
       </SidePanelFooter>

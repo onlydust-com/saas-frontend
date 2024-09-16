@@ -55,6 +55,7 @@ export function Summary({ amount, budget, project }: SummaryProps) {
                 usdEquivalent: newBudgetBalance * usdConversionRate,
               },
               badgeProps: { children: <Translate token={"programs:grantForm.summary.finalBalance"} /> },
+              isError: newBudgetBalance < 0,
             },
           ],
         },
