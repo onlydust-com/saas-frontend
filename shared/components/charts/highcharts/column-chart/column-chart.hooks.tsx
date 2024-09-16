@@ -20,7 +20,6 @@ export function useColumnChartOptions({
   series,
   yAxisTitle,
   xAxisTitle,
-  tooltipFormat = "{point.y}",
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
@@ -67,19 +66,12 @@ export function useColumnChartOptions({
         itemHoverStyle: legendStyle,
       },
       tooltip: {
-        ...tooltip,
-        pointFormat: tooltipFormat,
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        formatter() {
-          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
-          this.points?.forEach(point => {
-            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
-          });
-          return s;
-        },
+        headerFormat: "<strong>{point.key}</strong><br/><br/>", // Category name
+        pointFormat: "{series.name}: {point.y}<br/>", // Series name and value
         positioner(labelWidth, _labelHeight, point) {
           const chart = this.chart;
           const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
@@ -87,6 +79,7 @@ export function useColumnChartOptions({
 
           return { x, y };
         },
+        ...tooltip,
       },
       plotOptions: {
         column: {
@@ -101,7 +94,7 @@ export function useColumnChartOptions({
         color: colors[index % colors.length],
       })),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]
+    [title, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
   );
 
   return { options };

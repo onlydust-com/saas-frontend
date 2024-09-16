@@ -66,7 +66,10 @@ export function FinancialColumnChart() {
       { name: t("financials:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
-    tooltip: { valueSuffix: " USD" },
+    tooltip: {
+      valueDecimals: 2,
+      valueSuffix: " USD",
+    },
   });
 
   function onChangeRangeType(value: string) {
