@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
@@ -37,22 +37,19 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
     },
   });
 
-  const initPanelState = useCallback(() => {
-    setBudget(program?.totalAvailable.totalPerCurrency?.[0]);
-    setAmount("0");
-  }, [program]);
-
   useEffect(() => {
     if (isPanelOpen && program) {
-      initPanelState();
+      setBudget(program.totalAvailable.totalPerCurrency?.[0]);
+      setAmount("0");
       return;
     }
 
     if (!isPanelOpen) {
-      initPanelState();
+      setBudget(undefined);
+      setAmount("0");
       return;
     }
-  }, [isPanelOpen, program, initPanelState]);
+  }, [isPanelOpen, program]);
 
   const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
     pathParams: {

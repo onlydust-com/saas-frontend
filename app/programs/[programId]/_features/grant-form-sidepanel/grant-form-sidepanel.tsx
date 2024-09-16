@@ -1,5 +1,5 @@
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
 import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
@@ -52,22 +52,19 @@ export function GrantFormSidepanel() {
     },
   });
 
-  const initPanelState = useCallback(() => {
-    setSelectedBudget(data?.totalAvailable.totalPerCurrency?.[0]);
-    setAmount("0");
-  }, [data]);
-
   useEffect(() => {
     if (isOpen && data) {
-      initPanelState();
+      setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
+      setAmount("0");
       return;
     }
 
     if (!isOpen) {
-      initPanelState();
+      setSelectedBudget(undefined);
+      setAmount("0");
       return;
     }
-  }, [isOpen, data, initPanelState]);
+  }, [isOpen, data]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
