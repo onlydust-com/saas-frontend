@@ -2,4 +2,5 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 export interface EmptyStateLiteProps {
   message?: TranslateProps["token"];
+  title?: TranslateProps["token"];
 }

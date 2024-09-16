@@ -5,6 +5,11 @@ export const TypoDefaultVariants = tv({
     base: "transition-colors",
   },
   variants: {
+    align: {
+      left: { base: "text-left" },
+      center: { base: "text-center" },
+      right: { base: "text-right" },
+    },
     size: {
       xs: { base: "" },
       sm: { base: "" },
