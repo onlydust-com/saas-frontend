@@ -5,3 +5,5 @@ export * from "./use-get-my-profile";
 export * from "./use-set-my-profile";
 export * from "./use-replace-my-profile";
 export * from "./use-search-user";
+export * from "./use-get-user-by-login";
+export * from "./use-get-user-by-id";

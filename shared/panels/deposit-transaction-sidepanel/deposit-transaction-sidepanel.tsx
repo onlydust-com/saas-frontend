@@ -71,7 +71,7 @@ export function DepositTransactionSidepanel() {
     }
   }
 
-  function PanelContent() {
+  function renderContent() {
     if (isLoading) {
       return (
         <>
@@ -156,9 +156,7 @@ export function DepositTransactionSidepanel() {
           canClose
         />
 
-        <SidePanelBody>
-          <PanelContent />
-        </SidePanelBody>
+        <SidePanelBody>{renderContent()}</SidePanelBody>
 
         <SidePanelFooter>
           <Button

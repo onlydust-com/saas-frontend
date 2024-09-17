@@ -23,7 +23,6 @@ export function useStackedColumnAreaSplineChartOptions({
   series,
   yAxisTitle,
   xAxisTitle,
-  tooltipFormat = "{point.y}",
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
@@ -51,7 +50,7 @@ export function useStackedColumnAreaSplineChartOptions({
           style: xAxisStyle,
         },
         labels: {
-          style: yAxisPrimaryStyle,
+          style: yAxisQuaternaryStyle,
         },
         crosshair: true,
       },
@@ -100,12 +99,12 @@ export function useStackedColumnAreaSplineChartOptions({
         enabled: false,
       },
       tooltip: {
-        ...tooltip,
-        pointFormat: tooltipFormat,
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
+        headerFormat: "<strong>{point.key}</strong><br/><br/>", // Category name
+        pointFormat: "{series.name}: {point.y}<br/>", // Series name and value
         formatter() {
           let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
           this.points?.forEach(point => {
@@ -124,6 +123,7 @@ export function useStackedColumnAreaSplineChartOptions({
 
           return { x, y };
         },
+        ...tooltip,
       },
       plotOptions: {
         column: {
@@ -168,7 +168,7 @@ export function useStackedColumnAreaSplineChartOptions({
         lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
       })),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, tooltipFormat, colors, legend, tooltip]
+    [title, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
   );
 
   return { options };

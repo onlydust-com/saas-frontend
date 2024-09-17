@@ -1,6 +1,7 @@
 import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
+import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -73,3 +74,34 @@ export type SearchUsersPortParams = HttpClientParameters<{
 }>;
 
 export type SearchUsersPortResponse = HttpStorageResponse<SearchUsersModel>;
+
+/* --------------------------------- Get user -------------------------------- */
+
+export type GetUserResponse = components["schemas"]["PublicUserProfileResponseV2"];
+
+/* --------------------------------- Get user by ID -------------------------------- */
+
+export type GetUserByIdResponse = GetUserResponse;
+
+export type GetUserByIdPortResponse = HttpStorageResponse<UserPublicInterface>;
+
+type GetUserByIdQueryParams = operations["getUserProfile"]["parameters"]["query"];
+type GetUserByIdPathParams = operations["getUserProfile"]["parameters"]["path"];
+
+export type GetUserByIdPortParams = HttpClientParameters<{
+  QueryParams: GetUserByIdQueryParams;
+  PathParams: GetUserByIdPathParams;
+}>;
+
+/* --------------------------------- Get user by Login -------------------------------- */
+export type GetUserByLoginResponse = GetUserResponse;
+
+export type GetUserByLoginPortResponse = HttpStorageResponse<UserPublicInterface>;
+
+type GetUserByLoginQueryParams = operations["getUserProfileByLogin"]["parameters"]["query"];
+type GetUserByLoginPathParams = operations["getUserProfileByLogin"]["parameters"]["path"];
+
+export type GetUserByLoginPortParams = HttpClientParameters<{
+  QueryParams: GetUserByLoginQueryParams;
+  PathParams: GetUserByLoginPathParams;
+}>;

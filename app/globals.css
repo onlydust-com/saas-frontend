@@ -358,6 +358,11 @@
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
     --chart-quaternary: var(--_brand-brightorange-500-primary);
+    /*TODO temp colors until we update the design system*/
+    --chart-quinary: #510077;
+    --chart-senary: #7A0EBB;
+    --chart-septenary: #A03AE9;
+    --chart-octonary: #CA75FF;
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
@@ -715,6 +720,11 @@
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
     --chart-quaternary: var(--_brand-brightorange-500-primary);
+    /*TODO temp colors until we update the design system*/
+    --chart-quinary: #510077;
+    --chart-senary: #7A0EBB;
+    --chart-septenary: #A03AE9;
+    --chart-octonary: #CA75FF;
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);

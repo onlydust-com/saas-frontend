@@ -9,4 +9,6 @@ export class BiClientAdapterMock implements BiStoragePort {
   getBiContributorsStats = mockHttpStorageResponse<BiStoragePort["getBiContributorsStats"]>;
 
   getBiProjectsStats = mockHttpStorageResponse<BiStoragePort["getBiProjectsStats"]>;
+
+  getBiWorldMap = mockHttpStorageResponse<BiStoragePort["getBiWorldMap"]>;
 }
