@@ -79,7 +79,7 @@ export type SearchUsersPortResponse = HttpStorageResponse<SearchUsersModel>;
 
 export type GetUserResponse = components["schemas"]["PublicUserProfileResponseV2"];
 
-/* --------------------------------- Get user BY ID -------------------------------- */
+/* --------------------------------- Get user by ID -------------------------------- */
 
 export type GetUserByIdResponse = GetUserResponse;
 
@@ -93,7 +93,7 @@ export type GetUserByIdPortParams = HttpClientParameters<{
   PathParams: GetUserByIdPathParams;
 }>;
 
-/* --------------------------------- Get user BY ID -------------------------------- */
+/* --------------------------------- Get user by Login -------------------------------- */
 export type GetUserByLoginResponse = GetUserResponse;
 
 export type GetUserByLoginPortResponse = HttpStorageResponse<UserPublicInterface>;

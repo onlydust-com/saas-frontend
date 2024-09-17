@@ -12,22 +12,26 @@ import { ContributorSidepanelData } from "./contributor-sidepanel.types";
 export function ContributorSidepanel() {
   const { name, isOpen } = useContributorSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { login, githubId, canGoBack } = useSinglePanelData<ContributorSidepanelData>(name) ?? {
+  const {
+    login = "",
+    githubId = 0,
+    canGoBack,
+  } = useSinglePanelData<ContributorSidepanelData>(name) ?? {
     login: undefined,
     githubId: undefined,
   };
 
   const { data: dataById, isLoading: isLoadingById } = UserReactQueryAdapter.client.useGetUserById({
-    pathParams: { githubId: githubId ?? 0 },
+    pathParams: { githubId },
     options: {
-      enabled: Boolean(githubId) && isOpen,
+      enabled: !!githubId && isOpen,
     },
   });
 
   const { data: dataBySlug, isLoading: isLoadingBySlug } = UserReactQueryAdapter.client.useGetUserByLogin({
-    pathParams: { slug: login ?? "" },
+    pathParams: { slug: login },
     options: {
-      enabled: Boolean(login) && isOpen,
+      enabled: !!login && login !== "" && isOpen,
     },
   });
 
