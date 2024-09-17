@@ -2,9 +2,11 @@ import { useMemo } from "react";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Profile } from "@/shared/panels/contributor-sidepanel/_components/profile/profile";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 import { ContributorSidepanelData } from "./contributor-sidepanel.types";
@@ -46,7 +48,25 @@ export function ContributorSidepanel() {
     }
 
     return undefined;
-  }, [dataBySlug, dataById]);
+  }, [dataBySlug, dataById, githubId, login]);
+
+  function renderContent() {
+    if (isLoading) {
+      // TODO SKELETON
+      return <p>Loading...</p>;
+    }
+
+    if (!data) {
+      // TODO WORDING
+      return <EmptyStateLite />;
+    }
+
+    return (
+      <>
+        <Profile user={data} />
+      </>
+    );
+  }
 
   return (
     <Panel>
@@ -57,15 +77,7 @@ export function ContributorSidepanel() {
         canGoBack={canGoBack}
         canClose={true}
       />
-      <SidePanelBody>
-        {!isLoading && (
-          <>
-            <p>Panel :</p>
-            <p>{`login : ${login}`}</p>
-            <p>{`id : ${githubId}`}</p>
-          </>
-        )}
-      </SidePanelBody>
+      <SidePanelBody>{renderContent()}</SidePanelBody>
     </Panel>
   );
 }

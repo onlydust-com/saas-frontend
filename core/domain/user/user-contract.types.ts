@@ -94,6 +94,7 @@ export type GetUserByIdPortParams = HttpClientParameters<{
 }>;
 
 /* --------------------------------- Get user by Login -------------------------------- */
+
 export type GetUserByLoginResponse = GetUserResponse;
 
 export type GetUserByLoginPortResponse = HttpStorageResponse<UserPublicInterface>;
