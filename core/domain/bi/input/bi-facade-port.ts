@@ -1,6 +1,8 @@
 import {
   GetBiContributorsStatsPortParams,
   GetBiContributorsStatsPortResponse,
+  GetBiProjectsPortParams,
+  GetBiProjectsPortResponse,
   GetBiProjectsStatsPortParams,
   GetBiProjectsStatsPortResponse,
   GetBiWorldMapPortParams,
@@ -11,4 +13,5 @@ export interface BiFacadePort {
   getBiContributorsStats(p: GetBiContributorsStatsPortParams): GetBiContributorsStatsPortResponse;
   getBiProjectsStats(p: GetBiProjectsStatsPortParams): GetBiProjectsStatsPortResponse;
   getBiWorldMap(p: GetBiWorldMapPortParams): GetBiWorldMapPortResponse;
+  getBiProjects(p: GetBiProjectsPortParams): GetBiProjectsPortResponse;
 }

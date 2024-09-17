@@ -2,7 +2,8 @@ import { HTTP_METHOD } from "next/dist/server/web/http";
 
 type HttpClientMethod = HTTP_METHOD;
 type HttpClientPathParams = Record<string, string | number>;
-type HttpClientQueryParams = Record<string, string | number | string[] | number[] | boolean>;
+type HttpClientQueryParam = string | number | string[] | number[] | boolean;
+type HttpClientQueryParams = Record<string, HttpClientQueryParam | Record<string, HttpClientQueryParam>>;
 type HttpClientBody = BodyInit;
 
 enum HttpClientErrorStatus {
