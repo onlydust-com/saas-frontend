@@ -53,12 +53,12 @@ function DataPage() {
           <PageContent>
             <div className="grid h-full gap-3">
               <DataSection />
-          </div>
-        </PageContent>
+            </div>
+          </PageContent>
 
-        <PageContent>
-          <div className="grid h-full gap-3">
-            <ActiveUsersSection />
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <ActiveUsersSection />
             </div>
             <Sandbox />
           </PageContent>
