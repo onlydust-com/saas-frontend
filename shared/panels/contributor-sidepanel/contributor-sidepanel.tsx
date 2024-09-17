@@ -2,6 +2,8 @@ import { useMemo } from "react";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
+import { Skeleton } from "@/design-system/atoms/skeleton";
+
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -52,8 +54,7 @@ export function ContributorSidepanel() {
 
   function renderContent() {
     if (isLoading) {
-      // TODO SKELETON
-      return <p>Loading...</p>;
+      return <Skeleton className={"h-[170px] w-full"} />;
     }
 
     if (!data) {
