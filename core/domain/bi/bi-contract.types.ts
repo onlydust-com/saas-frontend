@@ -56,4 +56,4 @@ export type GetBiWorldMapPortParams = HttpClientParameters<{
   PathParams: GetBiWorldMapPathParams;
 }>;
 
-export type GetBiWorldMapPortResponse = HttpStorageResponse<GetBiWorldMapResponse>;
+export type GetBiWorldMapPortResponse = HttpStorageResponse<GetBiWorldMapModel>;

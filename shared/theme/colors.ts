@@ -43,6 +43,10 @@ export const COLORS = {
     secondary: "var(--chart-secondary)",
     tertiary: "var(--chart-tertiary)",
     quaternary: "var(--chart-quaternary)",
+    quinary: "var(--chart-quinary)",
+    senary: "var(--chart-senary)",
+    septenary: "var(--chart-septenary)",
+    octonary: "var(--chart-octonary)",
   },
   foreground: {
     primary: "var(--foreground-primary)",
