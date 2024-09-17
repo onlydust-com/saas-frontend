@@ -7,7 +7,7 @@ import { CardFinancialPort } from "@/design-system/molecules/cards/card-financia
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 type Total =
-  | SponsorInterface["totalDeposited" | "totalAvailable" | "totalGranted" | "totalRewarded"]
+  | SponsorInterface["totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded"]
   | ProgramInterface["totalAvailable" | "totalGranted" | "totalRewarded"];
 
 export interface CreateAvatarGroupProps {

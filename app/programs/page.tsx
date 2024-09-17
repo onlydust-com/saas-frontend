@@ -41,7 +41,12 @@ function ProgramsPage() {
   return (
     <PageWrapper
       navigation={{
-        title: <Translate token={"programs:list.header.title"} />,
+        breadcrumbs: [
+          {
+            id: "root",
+            label: <Translate token={"programs:list.header.title"} />,
+          },
+        ],
       }}
     >
       <ScrollView>

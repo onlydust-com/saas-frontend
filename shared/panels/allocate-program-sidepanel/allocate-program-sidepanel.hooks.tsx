@@ -9,16 +9,20 @@ import { toast } from "@/design-system/molecules/toaster";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { AllocateProgramData } from "@/shared/panels/allocate-program-sidepanel/allocate-program.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+const PANEL_NAME = "allocate-program";
+
 export function useAllocateProgramSidepanel() {
-  return useSinglePanelContext<{ programId: string; sponsorId: string }>("allocate-program");
+  return useSinglePanelContext<AllocateProgramData>(PANEL_NAME);
 }
 
 export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
-  const { close } = useSidePanelsContext();
+  const { close, isOpen } = useSidePanelsContext();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
+  const isPanelOpen = isOpen(PANEL_NAME);
 
   const {
     data: program,
@@ -34,11 +38,18 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
   });
 
   useEffect(() => {
-    if (program) {
-      // Set default selected budget
+    if (isPanelOpen && program) {
       setBudget(program.totalAvailable.totalPerCurrency?.[0]);
+      setAmount("0");
+      return;
     }
-  }, [program]);
+
+    if (!isPanelOpen) {
+      setBudget(undefined);
+      setAmount("0");
+      return;
+    }
+  }, [isPanelOpen, program]);
 
   const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
     pathParams: {
@@ -60,6 +71,18 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
       },
       onError: () => {
         toast.error(<Translate token={"panels:allocateProgram.error.toast"} />);
+      },
+    },
+    invalidateTagParams: {
+      sponsor: {
+        pathParams: {
+          sponsorId,
+        },
+      },
+      program: {
+        pathParams: {
+          programId,
+        },
       },
     },
   });
@@ -94,6 +117,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
 
   const allocatedAmount = parseFloat(amount);
   const newBudgetBalance = (budget?.amount ?? 0) - allocatedAmount;
+  const newBalanceIsNegative = newBudgetBalance < 0;
 
   const programBudget = program?.totalAvailable.totalPerCurrency?.find(b => {
     return b.currency.id === budget?.currency.id;
@@ -126,6 +150,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
     allocate: {
       post: handleAllocateBudget,
       isPending,
+      newBalanceIsNegative,
     },
   };
 }

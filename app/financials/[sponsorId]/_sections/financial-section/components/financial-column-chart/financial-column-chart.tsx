@@ -66,7 +66,10 @@ export function FinancialColumnChart() {
       { name: t("financials:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
-    tooltip: { valueSuffix: " USD" },
+    tooltip: {
+      valueDecimals: 2,
+      valueSuffix: " USD",
+    },
   });
 
   function onChangeRangeType(value: string) {
@@ -96,7 +99,11 @@ export function FinancialColumnChart() {
     <div className="flex min-h-[300px] flex-col gap-4">
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid grid-cols-4 items-center gap-3 flex-1" }} background={"secondary"}>
+        <Paper
+          size={"lg"}
+          classNames={{ base: "grid laptop:grid-cols-4 laptop:items-center gap-3 flex-1" }}
+          background={"secondary"}
+        >
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
               <Translate token={"financials:financialColumnChart.legends.deposit"} />

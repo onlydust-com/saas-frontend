@@ -28,10 +28,14 @@ export function GrantFormSidepanel() {
   const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
   const { name } = useGrantFromPanel();
-  const { Panel, close: closeSidepanel } = useSidePanel({ name });
+  const { Panel, close: closeSidepanel, isOpen } = useSidePanel({ name });
   const { projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { projectId: "" };
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
+
+  const allocatedAmount = parseFloat(amount);
+  const newBudgetBalance = (selectedBudget?.amount ?? 0) - allocatedAmount;
+  const newBalanceIsNegative = newBudgetBalance < 0;
 
   const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
@@ -53,11 +57,18 @@ export function GrantFormSidepanel() {
   });
 
   useEffect(() => {
-    if (data) {
-      // Set default selected budget
+    if (isOpen && data) {
       setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
+      setAmount("0");
+      return;
     }
-  }, [data]);
+
+    if (!isOpen) {
+      setSelectedBudget(undefined);
+      setAmount("0");
+      return;
+    }
+  }, [isOpen, data]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
@@ -108,7 +119,7 @@ export function GrantFormSidepanel() {
 
     mutate({
       projectId,
-      amount: parseFloat(amount),
+      amount: allocatedAmount,
       currencyId,
     });
   }
@@ -159,7 +170,12 @@ export function GrantFormSidepanel() {
       <SidePanelBody>{renderContent()}</SidePanelBody>
 
       <SidePanelFooter>
-        <Button variant={"secondary"} size={"md"} onClick={handleGrantProject} isDisabled={isPending || !amount}>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          onClick={handleGrantProject}
+          isDisabled={isPending || !amount || newBalanceIsNegative}
+        >
           <Translate token={"programs:grantForm.submit"} />
         </Button>
       </SidePanelFooter>

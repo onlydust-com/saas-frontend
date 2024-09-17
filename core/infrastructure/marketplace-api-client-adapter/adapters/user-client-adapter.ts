@@ -1,10 +1,13 @@
 import { Contributor } from "@/core/domain/user/models/contributor-model";
 import { User } from "@/core/domain/user/models/user-model";
 import { UserProfile } from "@/core/domain/user/models/user-profile-model";
+import { UserPublic } from "@/core/domain/user/models/user-public-model";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import {
   GetMeResponse,
   GetMyProfileResponse,
+  GetUserByIdResponse,
+  GetUserByLoginResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SearchUsersPortParams,
@@ -13,6 +16,7 @@ import {
   SetMyProfileBody,
 } from "@/core/domain/user/user-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
+import { FirstParameter } from "@/core/kernel/types";
 
 export class UserClientAdapter implements UserStoragePort {
   constructor(private readonly client: HttpClient) {}
@@ -25,6 +29,8 @@ export class UserClientAdapter implements UserStoragePort {
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
     searchUsers: "users/search",
+    getUserById: "users/:githubId",
+    getUserByLogin: "users/login/:slug",
   } as const;
 
   logoutMe = () => {
@@ -163,6 +169,50 @@ export class UserClientAdapter implements UserStoragePort {
         internalContributors: (data?.internalContributors || []).map(user => new Contributor(user)),
         externalContributors: (data?.externalContributors || []).map(user => new Contributor(user)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUserById = ({ queryParams, pathParams }: FirstParameter<UserStoragePort["getUserById"]>) => {
+    const path = this.routes["getUserById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetUserByIdResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return new UserPublic(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUserByLogin = ({ queryParams, pathParams }: FirstParameter<UserStoragePort["getUserByLogin"]>) => {
+    const path = this.routes["getUserByLogin"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetUserByLoginResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return new UserPublic(data);
     };
 
     return {

@@ -30,7 +30,6 @@ export interface HighchartsOptionsParams {
   }>;
   yAxisTitle?: string;
   xAxisTitle?: string;
-  tooltipFormat?: string;
   colors?: string[];
   legend?: Options["legend"];
   tooltip?: Options["tooltip"];

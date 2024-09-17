@@ -1,10 +1,10 @@
 {
   "title": "Financial detail",
-  "totalDeposited": {
-    "title": "Deposited"
+  "totalAllocated": {
+    "title": "Allocated"
   },
   "totalAvailable": {
-    "title": "Allocated"
+    "title": "Available"
   },
   "totalGranted": {
     "title": "Granted"

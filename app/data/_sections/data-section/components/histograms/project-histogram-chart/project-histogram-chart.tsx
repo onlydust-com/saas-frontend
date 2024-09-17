@@ -216,7 +216,11 @@ export function ProjectHistogramChart() {
       </div>
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid grid-cols-5 items-center gap-3 flex-1" }} background={"secondary"}>
+        <Paper
+          size={"lg"}
+          classNames={{ base: "grid laptop:grid-cols-5 laptop:items-center gap-3 flex-1" }}
+          background={"secondary"}
+        >
           <div className="flex items-center justify-between gap-4">
             <ChartLegend color="primary">
               <Translate token={"data:histograms.legends.new"} />
