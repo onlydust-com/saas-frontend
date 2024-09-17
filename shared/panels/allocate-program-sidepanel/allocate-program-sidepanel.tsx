@@ -25,13 +25,25 @@ export function AllocateProgramSidepanel() {
     programId: "",
   };
 
-  const { amount, budget, handleAmountChange, handleBudgetChange, program, summary, allocate } = useAllocateProgram({
+  const {
+    amount,
+    budget,
+    allBudgets,
+    handleAmountChange,
+    handleBudgetChange,
+    isLoading,
+    isError,
+    program,
+    programUsdAmount,
+    summary,
+    allocate,
+  } = useAllocateProgram({
     sponsorId,
     programId,
   });
 
   function renderBody() {
-    if (program.isLoading) {
+    if (isLoading) {
       return (
         <div className="flex h-full flex-col gap-3">
           <CardProjectLoading />
@@ -43,19 +55,19 @@ export function AllocateProgramSidepanel() {
       );
     }
 
-    if (program.isError) {
+    if (isError) {
       return <ErrorState />;
     }
 
-    if (!program.data || !budget) return null;
+    if (!program || !budget) return null;
 
     return (
       <div className="flex h-full flex-col gap-3">
         <CardProject
-          title={program.data.name}
-          logoUrl={program.data.logoUrl}
+          title={program.name}
+          logoUrl={program.logoUrl}
           buttonProps={{
-            children: `${program.usdAmount} USD`,
+            children: `${programUsdAmount} USD`,
             classNames: {
               base: "pointer-events-none whitespace-nowrap",
             },
@@ -67,7 +79,7 @@ export function AllocateProgramSidepanel() {
             amount={amount}
             onAmountChange={handleAmountChange}
             budget={budget}
-            allBudgets={program.data.totalAvailable.totalPerCurrency}
+            allBudgets={allBudgets}
             onBudgetChange={handleBudgetChange}
           />
         </div>
@@ -94,7 +106,7 @@ export function AllocateProgramSidepanel() {
           variant={"secondary"}
           size={"md"}
           onClick={() => allocate.post()}
-          isDisabled={program.isLoading || allocate.isPending || allocate.newBalanceIsNegative}
+          isDisabled={isLoading || allocate.isPending || allocate.newBalanceIsNegative}
         >
           <Translate token={"panels:allocateProgram.makeAllocation"} />
         </Button>
