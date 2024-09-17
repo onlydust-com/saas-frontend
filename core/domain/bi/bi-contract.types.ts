@@ -1,3 +1,4 @@
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStatsInterface } from "@/core/domain/bi/models/bi-projects-stats-model";
@@ -72,3 +73,18 @@ export type GetBiProjectsPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiProjectsPortResponse = HttpStorageResponse<GetBiProjectsModel>;
+
+/* --------------------- Get Bi Contributors --------------------- */
+
+export type GetBiContributorsResponse = components["schemas"]["BiContributorsPageResponse"];
+export type GetBiContributorsModel = Omit<GetBiContributorsResponse, "contributors"> & {
+  contributors: BiContributorInterface[];
+};
+
+type GetBiContributorsQueryParams = operations["getBIContributors"]["parameters"]["query"];
+
+export type GetBiContributorsPortParams = HttpClientParameters<{
+  QueryParams: GetBiContributorsQueryParams;
+}>;
+
+export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributorsModel>;
