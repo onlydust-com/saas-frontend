@@ -2,6 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import { ActiveUsersSection } from "@/app/data/_sections/active-users-section/active-users-section";
 import { DataSection } from "@/app/data/_sections/data-section/data-section";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -48,10 +49,16 @@ function DataPage() {
       }}
     >
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <ScrollView>
+        <ScrollView className="flex flex-col gap-4">
           <PageContent>
             <div className="grid h-full gap-3">
               <DataSection />
+            </div>
+          </PageContent>
+
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <ActiveUsersSection />
             </div>
             <Sandbox />
           </PageContent>

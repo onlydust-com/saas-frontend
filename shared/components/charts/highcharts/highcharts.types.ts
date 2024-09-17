@@ -9,12 +9,18 @@ interface Tooltip {
   valueSuffix: string;
 }
 
+interface MapDataType {
+  "iso-a2": string;
+  value: number;
+  color: string;
+}
+
 export interface HighchartsOptionsParams {
   title?: string;
-  categories: string[];
+  categories?: string[];
   series: Array<{
     name: string;
-    data: number[];
+    data: number[] | MapDataType[];
     type?: "column" | "areaspline";
     lineWidth?: number;
     marker?: Marker;
@@ -36,4 +42,5 @@ export interface HighchartsOptionsReturn {
 
 export interface HighchartsProps {
   options: Options;
+  constructorType?: string;
 }
