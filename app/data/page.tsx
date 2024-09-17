@@ -12,9 +12,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
-import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -60,12 +58,12 @@ function DataPage() {
             <div className="grid h-full gap-3">
               <ActiveUsersSection />
             </div>
-            <Sandbox />
+            {/*<Sandbox />*/}
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
-      <ContributorSidepanel />
-      <ProjectSidepanel />
+      {/*<ContributorSidepanel />*/}
+      {/*<ProjectSidepanel />*/}
     </PageWrapper>
   );
 }
