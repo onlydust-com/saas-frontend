@@ -18,12 +18,29 @@ export function MenuItemDefaultAdapter({
   isSelected,
   showIndicatorOnSelected = true,
   onClick,
+  isSeparator,
 }: MenuItemPort) {
   const slots = MenuItemDefaultVariants({ isDisabled, isSelected });
 
   function handleClick() {
     onClick?.(id);
   }
+
+  if (isSeparator) {
+    return (
+      <div {...attr} className={cn(slots.base(), classNames?.base, "pointer-events-none")}>
+        <div className={cn(slots.inner(), classNames?.inner)}>
+          <div className={"flex flex-1 items-center justify-start gap-md"}>
+            {startContent}
+            <Typo size={"xs"} color={"tertiary"}>
+              {label}
+            </Typo>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div {...attr} className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
       <div className={cn(slots.inner(), classNames?.inner)}>
