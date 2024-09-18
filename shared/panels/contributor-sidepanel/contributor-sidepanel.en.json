@@ -17,5 +17,9 @@
   },
   "ecosystems": {
     "title": "Ecosystems"
+  },
+  "earning": {
+    "title": "Rewarded",
+    "otherLabel": "Other"
   }
 }

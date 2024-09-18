@@ -45,6 +45,14 @@ const tooltipInnerStyle = {
   color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
 };
+
+const PieChartSubtitlePrimaryStyle = {
+  color: "#FFF",
+  fontSize: "24px",
+  fontFamily: "Inter",
+  fontWeight: "semi-bold",
+};
+
 export {
   titleStyle,
   xAxisStyle,
@@ -53,4 +61,5 @@ export {
   tooltipWrapperStyle,
   tooltipInnerStyle,
   yAxisQuaternaryStyle,
+  PieChartSubtitlePrimaryStyle,
 };

@@ -12,6 +12,7 @@ import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ec
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
 import { Profile } from "@/shared/panels/contributor-sidepanel/_components/profile/profile";
+import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 import { ContributorSidepanelData } from "./contributor-sidepanel.types";
@@ -76,6 +77,7 @@ export function ContributorSidepanel() {
         <Kpi user={data} />
         {data?.githubUserId && <Languages githubId={data.githubUserId} />}
         {data?.githubUserId && <Ecosystems githubId={data.githubUserId} />}
+        {data?.githubUserId && <RewardsGraph githubId={data.githubUserId} />}
       </div>
     );
   }

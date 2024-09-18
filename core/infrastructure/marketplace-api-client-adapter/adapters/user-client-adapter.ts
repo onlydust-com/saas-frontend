@@ -4,6 +4,7 @@ import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-m
 import { User } from "@/core/domain/user/models/user-model";
 import { UserProfile } from "@/core/domain/user/models/user-profile-model";
 import { UserPublic } from "@/core/domain/user/models/user-public-model";
+import { UserStats } from "@/core/domain/user/models/user-stats-model";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import {
   GetMeResponse,
@@ -12,6 +13,7 @@ import {
   GetUserByLoginResponse,
   GetUserEcosystemsResponse,
   GetUserLanguagesResponse,
+  GetUserStatsResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SearchUsersPortParams,
@@ -37,6 +39,7 @@ export class UserClientAdapter implements UserStoragePort {
     getUserByLogin: "users/login/:slug",
     getUserLanguages: "users/:githubId/languages",
     getUserEcosystems: "users/:githubId/ecosystems",
+    getUserStats: "users/:githubId/stats",
   } as const;
 
   logoutMe = () => {
@@ -269,6 +272,28 @@ export class UserClientAdapter implements UserStoragePort {
         ...data,
         languages: data.ecosystems.map(ecosystem => new UserEcosystemItem(ecosystem)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUserStats = ({ queryParams, pathParams }: FirstParameter<UserStoragePort["getUserStats"]>) => {
+    const path = this.routes["getUserStats"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetUserStatsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return new UserStats(data);
     };
 
     return {
