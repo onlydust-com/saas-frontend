@@ -7,6 +7,24 @@
     "title": "Data",
     "ctaGraph": "See graph"
   },
+  "contributorsTable": {
+    "columns": {
+      "contributorName": "Contributor name",
+      "projects": "Projects",
+      "categories": "Categories",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "totalRewardedUsdAmount": "Global rewarded amount",
+      "contributionCount": "Global contributions",
+      "mergedPrCount": "Global PRs merged"
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystems",
+      "projects": "{{count}} projects"
+    }
+  },
   "projectsTable": {
     "columns": {
       "projectName": "Project name",

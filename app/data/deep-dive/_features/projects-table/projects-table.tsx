@@ -23,6 +23,8 @@ export function ProjectsTable() {
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
+  // TODO @hayden handle error state
+
   const columnHelper = createColumnHelper<BiProjectInterface>();
 
   const columns = [
