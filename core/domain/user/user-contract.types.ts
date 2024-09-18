@@ -1,4 +1,6 @@
 import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
+import { UserEcosystemItem } from "@/core/domain/user/models/user-ecosystem-item-model";
+import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
@@ -106,3 +108,39 @@ export type GetUserByLoginPortParams = HttpClientParameters<{
   QueryParams: GetUserByLoginQueryParams;
   PathParams: GetUserByLoginPathParams;
 }>;
+
+/* --------------------------------- Get user languages -------------------------------- */
+
+export type GetUserLanguagesResponse = components["schemas"]["UserProfileLanguagePage"];
+export type GetUserLanguagesModel = Omit<GetUserLanguagesResponse, "languages"> & {
+  languages: UserLanguageItem[];
+};
+
+type GetUserLanguagesQueryParams = operations["getUserProfileStatsPerLanguages"]["parameters"]["query"];
+
+type GetUserLanguagesPathParams = operations["getUserProfileStatsPerLanguages"]["parameters"]["path"];
+
+export type GetUserLanguagesPortParams = HttpClientParameters<{
+  QueryParams: GetUserLanguagesQueryParams;
+  PathParams: GetUserLanguagesPathParams;
+}>;
+
+export type GetUserLanguagesPortResponse = HttpStorageResponse<GetUserLanguagesResponse>;
+
+/* --------------------------------- Get user ecosystems -------------------------------- */
+
+export type GetUserEcosystemsResponse = components["schemas"]["UserProfileEcosystemPage"];
+export type GetUserEcosystemsModel = Omit<GetUserEcosystemsResponse, "ecosystems"> & {
+  ecosystems: UserEcosystemItem[];
+};
+
+type GetUserEcosystemsQueryParams = operations["getUserProfileStatsPerEcosystems"]["parameters"]["query"];
+
+type GetUserEcosystemsPathParams = operations["getUserProfileStatsPerEcosystems"]["parameters"]["path"];
+
+export type GetUserEcosystemsPortParams = HttpClientParameters<{
+  QueryParams: GetUserEcosystemsQueryParams;
+  PathParams: GetUserEcosystemsPathParams;
+}>;
+
+export type GetUserEcosystemsPortResponse = HttpStorageResponse<GetUserEcosystemsResponse>;

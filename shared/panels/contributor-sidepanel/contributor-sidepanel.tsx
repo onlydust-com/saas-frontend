@@ -8,6 +8,9 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
+import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
+import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
 import { Profile } from "@/shared/panels/contributor-sidepanel/_components/profile/profile";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
@@ -54,7 +57,12 @@ export function ContributorSidepanel() {
 
   function renderContent() {
     if (isLoading) {
-      return <Skeleton className={"h-[170px] w-full"} />;
+      return (
+        <div className={"flex w-full flex-col gap-lg"}>
+          <Skeleton className={"h-[170px] w-full"} />
+          <Skeleton className={"h-[170px] w-full"} />
+        </div>
+      );
     }
 
     if (!data) {
@@ -63,9 +71,12 @@ export function ContributorSidepanel() {
     }
 
     return (
-      <>
+      <div className={"flex w-full flex-col gap-lg"}>
         <Profile user={data} />
-      </>
+        <Kpi user={data} />
+        {data?.githubUserId && <Languages githubId={data.githubUserId} />}
+        {data?.githubUserId && <Ecosystems githubId={data.githubUserId} />}
+      </div>
     );
   }
 
