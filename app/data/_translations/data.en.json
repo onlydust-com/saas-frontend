@@ -13,5 +13,11 @@
     "buttons": {
       "deepDive": "Deep dive"
     }
+  },
+  "allDataFilter": {
+    "trigger": "All data",
+    "placeholder": "Search",
+    "programSeparatorLabel": "Program",
+    "ecosystemSeparatorLabel": "Ecosystem"
   }
 }

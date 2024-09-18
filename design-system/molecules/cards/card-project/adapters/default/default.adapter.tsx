@@ -1,4 +1,4 @@
-import { CodeXml, Folder, LucideIcon, User } from "lucide-react";
+import { CodeXml, Folder, LucideIcon, Tag, User } from "lucide-react";
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -69,8 +69,8 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
         </div>
 
         <div className="flex w-full flex-wrap gap-1">
-          <BadgeList items={languages} icon={CodeXml} label={{ token: "common:languages" }} />
-          <BadgeList items={categories} icon={CodeXml} label={{ token: "common:categories" }} />
+          <BadgeList items={languages} icon={CodeXml} label={{ token: "common:languages", count: languages?.length }} />
+          <BadgeList items={categories} icon={Tag} label={{ token: "common:categories", count: categories?.length }} />
           <ConditionalBadge count={projectCount} icon={Folder} />
           <ConditionalBadge count={userCount} icon={User} />
         </div>
