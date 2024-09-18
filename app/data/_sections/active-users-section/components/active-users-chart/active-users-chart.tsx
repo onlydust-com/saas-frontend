@@ -115,9 +115,10 @@ export function ActiveUsersChart() {
           </Menu>
         </div>
       </div>
-      <div className="overflow-hidden rounded-xl">
+
+      <Paper size={"xs"} background={"secondary"}>
         <HighchartsDefault options={options} constructorType={"mapChart"} />
-      </div>
+      </Paper>
       <div className="flex items-center gap-4">
         <Paper size={"lg"} classNames={{ base: "grid grid-cols-4 items-center gap-3 flex-1" }} background={"secondary"}>
           <div className="flex items-center justify-between gap-4">

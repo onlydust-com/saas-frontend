@@ -23,6 +23,8 @@ export function useMapChartOptions({
     () => ({
       chart: {
         map: worldMap,
+        backgroundColor: "transparent",
+        plotBackgroundColor: "rgba(255, 255, 255, 0)",
       },
       tooltip: {
         ...tooltip,
@@ -59,7 +61,7 @@ export function useMapChartOptions({
         joinBy: "iso-a2", // Join by the country code
         states: {
           hover: {
-            color: "#000000",
+            color: "var(--background-secondary_hover)",
           },
         },
         dataLabels: {
