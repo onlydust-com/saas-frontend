@@ -34,7 +34,10 @@
         "actions": "Actions"
       },
       "rows": {
-        "grant": "Grant",
+        "grant": {
+          "button": "Grant",
+          "tooltip": "No budget available"
+        },
         "seeDetail": "See detail"
       }
     }
