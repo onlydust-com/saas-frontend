@@ -51,12 +51,12 @@ export function ProgramEcosystemAutocomplete({
         ]
       : [];
     // TODO @Mehdi enable ecosystems once ready in /me
-    // const ecoststemsItems = createMenuItems(filteredEcosystems || []);
-    // const ecoststems = ecoststemsItems.length
-    //   ? [{ id: "ecoststems", label: "Sponsors", isSeparator: true }, ...ecoststemsItems]
+    // const ecosystemsItems = createMenuItems(filteredEcosystems || []);
+    // const ecosystems = ecosystemsItems.length
+    //   ? [{ id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true }, ...ecosystemsItems]
     //   : [];
     return [...programs];
-  }, [filteredPrograms]);
+  }, [t, filteredPrograms]);
 
   const selectedValues = useMemo(() => {
     if (selectedProgramAndEcosystem?.length) {
