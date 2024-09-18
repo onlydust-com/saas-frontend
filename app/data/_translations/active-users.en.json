@@ -1,0 +1,16 @@
+{
+  "header": {
+    "title": "Active users"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available."
+  },
+  "legends": {
+    "contributors": "Contributors",
+    "range1": "<20 001 Devs",
+    "range2": "10 001 - 20 000",
+    "range3": "5 001 - 10 000",
+    "range4": ">5000"
+  }
+}

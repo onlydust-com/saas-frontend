@@ -12,8 +12,6 @@ import {
   subWeeks,
   subYears,
 } from "date-fns";
-import { formatInTimeZone as formatInTimeZoneDateFns } from "date-fns-tz";
-import { enGB } from "date-fns/locale/en-GB";
 
 import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 
@@ -71,8 +69,6 @@ export const DateFnsAdapter: DateFacadePort = {
   formatDistanceToNow: (date: Date) => formatDistanceToNowStrict(date, { addSuffix: true }),
   getRangeOfDates,
   getMonthRange,
-  formatInEuropeTimeZone: (date: Date, pattern: string) =>
-    formatInTimeZoneDateFns(date, "Europe/Paris", pattern, { locale: enGB }),
   isDateRangeType,
   isTimeGroupingType,
 };

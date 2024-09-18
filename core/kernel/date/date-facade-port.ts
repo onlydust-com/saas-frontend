@@ -24,7 +24,6 @@ export interface DateFacadePort {
   addMinutes: (date: Date, minutes: number) => Date;
   format: (date: Date, pattern: string) => string;
   formatDistanceToNow: (date: Date) => string;
-  formatInEuropeTimeZone: (date: Date, pattern: string) => string;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };
   isDateRangeType: (value: string) => value is DateRangeType;
