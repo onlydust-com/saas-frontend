@@ -1,4 +1,5 @@
 import { Contributor } from "@/core/domain/user/models/contributor-model";
+import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
 import { User } from "@/core/domain/user/models/user-model";
 import { UserProfile } from "@/core/domain/user/models/user-profile-model";
 import { UserPublic } from "@/core/domain/user/models/user-public-model";
@@ -8,6 +9,7 @@ import {
   GetMyProfileResponse,
   GetUserByIdResponse,
   GetUserByLoginResponse,
+  GetUserLanguagesResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SearchUsersPortParams,
@@ -31,6 +33,7 @@ export class UserClientAdapter implements UserStoragePort {
     searchUsers: "users/search",
     getUserById: "users/:githubId",
     getUserByLogin: "users/login/:slug",
+    getUserLanguages: "users/:githubId/languages",
   } as const;
 
   logoutMe = () => {
@@ -213,6 +216,31 @@ export class UserClientAdapter implements UserStoragePort {
       });
 
       return new UserPublic(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUserLanguages = ({ pathParams, queryParams }: FirstParameter<UserStoragePort["getUserLanguages"]>) => {
+    const path = this.routes["getUserLanguages"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetUserLanguagesResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        languages: data.languages.map(language => new UserLanguageItem(language)),
+      };
     };
 
     return {

@@ -1,3 +1,3 @@
-import { PropsWithChildren } from "react";
-
-export interface LanguagesProps extends PropsWithChildren {}
+export interface LanguagesProps {
+  githubId: number;
+}

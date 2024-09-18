@@ -1,4 +1,5 @@
 import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
+import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
@@ -106,3 +107,21 @@ export type GetUserByLoginPortParams = HttpClientParameters<{
   QueryParams: GetUserByLoginQueryParams;
   PathParams: GetUserByLoginPathParams;
 }>;
+
+/* --------------------------------- Get user languages -------------------------------- */
+
+export type GetUserLanguagesResponse = components["schemas"]["UserProfileLanguagePage"];
+export type GetUserLanguagesModel = Omit<GetUserLanguagesResponse, "languages"> & {
+  languages: UserLanguageItem[];
+};
+
+type GetUserLanguagesQueryParams = operations["getUserProfileStatsPerLanguages"]["parameters"]["query"];
+
+type GetUserLanguagesPathParams = operations["getUserProfileStatsPerLanguages"]["parameters"]["path"];
+
+export type GetUserLanguagesPortParams = HttpClientParameters<{
+  QueryParams: GetUserLanguagesQueryParams;
+  PathParams: GetUserLanguagesPathParams;
+}>;
+
+export type GetUserLanguagesPortResponse = HttpStorageResponse<GetUserLanguagesResponse>;
