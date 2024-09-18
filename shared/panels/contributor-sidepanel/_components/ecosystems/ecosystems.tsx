@@ -5,10 +5,10 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { LanguagesProps } from "./languages.types";
+import { EcosystemsProps } from "./ecosystems.types";
 
-export function Languages({ githubId }: LanguagesProps) {
-  const { data, isLoading } = UserReactQueryAdapter.client.useGetUserLanguages({
+export function Ecosystems({ githubId }: EcosystemsProps) {
+  const { data, isLoading } = UserReactQueryAdapter.client.useGetUserEcosystems({
     pathParams: { githubId },
     options: {
       enabled: !!githubId,
@@ -19,18 +19,18 @@ export function Languages({ githubId }: LanguagesProps) {
     return <Skeleton className={"h-[170px] w-full"} />;
   }
 
-  const languages = data?.pages.flatMap(page => page.languages);
+  const ecosystems = data?.pages.flatMap(page => page.ecosystems);
 
-  if (!languages?.length) {
+  if (!ecosystems?.length) {
     return null;
   }
 
   return (
     <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
-      <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.languages.title" }} />
+      <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.ecosystems.title" }} />
 
       <div className={"flex flex-wrap gap-md"}>
-        {languages?.map(({ language: { logoUrl, name } }) => (
+        {ecosystems?.map(({ ecosystem: { logoUrl, name } }) => (
           <Tag
             key={name}
             size={"md"}

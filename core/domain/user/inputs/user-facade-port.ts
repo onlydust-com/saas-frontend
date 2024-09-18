@@ -7,6 +7,8 @@ import {
   GetUserByIdPortResponse,
   GetUserByLoginPortParams,
   GetUserByLoginPortResponse,
+  GetUserEcosystemsPortParams,
+  GetUserEcosystemsPortResponse,
   GetUserLanguagesPortParams,
   GetUserLanguagesPortResponse,
   LogoutMeResponsePortParams,
@@ -32,4 +34,5 @@ export interface UserFacadePort {
   getUserById(params: GetUserByIdPortParams): GetUserByIdPortResponse;
   getUserByLogin(params: GetUserByLoginPortParams): GetUserByLoginPortResponse;
   getUserLanguages(params: GetUserLanguagesPortParams): GetUserLanguagesPortResponse;
+  getUserEcosystems(params: GetUserEcosystemsPortParams): GetUserEcosystemsPortResponse;
 }

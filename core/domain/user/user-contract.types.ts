@@ -1,4 +1,5 @@
 import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
+import { UserEcosystemItem } from "@/core/domain/user/models/user-ecosystem-item-model";
 import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
@@ -125,3 +126,21 @@ export type GetUserLanguagesPortParams = HttpClientParameters<{
 }>;
 
 export type GetUserLanguagesPortResponse = HttpStorageResponse<GetUserLanguagesResponse>;
+
+/* --------------------------------- Get user ecosystems -------------------------------- */
+
+export type GetUserEcosystemsResponse = components["schemas"]["UserProfileEcosystemPage"];
+export type GetUserEcosystemsModel = Omit<GetUserEcosystemsResponse, "ecosystems"> & {
+  ecosystems: UserEcosystemItem[];
+};
+
+type GetUserEcosystemsQueryParams = operations["getUserProfileStatsPerEcosystems"]["parameters"]["query"];
+
+type GetUserEcosystemsPathParams = operations["getUserProfileStatsPerEcosystems"]["parameters"]["path"];
+
+export type GetUserEcosystemsPortParams = HttpClientParameters<{
+  QueryParams: GetUserEcosystemsQueryParams;
+  PathParams: GetUserEcosystemsPathParams;
+}>;
+
+export type GetUserEcosystemsPortResponse = HttpStorageResponse<GetUserEcosystemsResponse>;

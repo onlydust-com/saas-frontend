@@ -25,4 +25,6 @@ export class UserClientAdapterMock implements UserStoragePort {
   getUserById = mockHttpStorageResponse<UserStoragePort["getUserById"]>;
 
   getUserLanguages = mockHttpStorageResponse<UserStoragePort["getUserLanguages"]>;
+
+  getUserEcosystems = mockHttpStorageResponse<UserStoragePort["getUserEcosystems"]>;
 }

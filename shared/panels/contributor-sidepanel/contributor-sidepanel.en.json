@@ -11,5 +11,11 @@
     "rewards": {
       "title": "Rewards"
     }
+  },
+  "languages": {
+    "title": "Languages"
+  },
+  "ecosystems": {
+    "title": "Ecosystems"
   }
 }
