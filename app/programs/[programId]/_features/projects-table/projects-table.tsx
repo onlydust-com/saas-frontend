@@ -256,7 +256,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary"} size={"sm"} onClick={() => openGrantForm({ projectId: project.id })}>
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => openGrantForm({ programId, projectId: project.id })}
+            >
               <Translate token={"programs:details.projects.table.rows.grant"} />
             </Button>
 
@@ -264,7 +268,10 @@ export function ProjectsTable({ programId }: { programId: string }) {
               variant={"secondary"}
               size={"sm"}
               onClick={() =>
-                open({ projectId: project.id, onGrantClick: (projectId: string) => openGrantForm({ projectId }) })
+                open({
+                  projectId: project.id,
+                  onGrantClick: (projectId: string) => openGrantForm({ programId, projectId }),
+                })
               }
             >
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
