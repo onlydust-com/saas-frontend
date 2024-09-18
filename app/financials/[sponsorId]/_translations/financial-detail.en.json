@@ -39,7 +39,10 @@
         "currencies": "{{count}} currencies",
         "seeProgram": "See program",
         "editProgram": "Edit program",
-        "allocate": "Allocate"
+        "allocate": {
+          "button": "Allocate",
+          "tooltip": "No budget available"
+        }
       }
     }
   }

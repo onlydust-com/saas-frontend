@@ -11,6 +11,7 @@ import { SponsorProgramsListItemInterface } from "@/core/domain/sponsor/models/s
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -26,13 +27,25 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
   const { open: OpenEditProgram } = useEditProgramPanel();
   const router = useRouter();
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
       pathParams: { sponsorId },
     });
 
+  const { data: sponsor } = SponsorReactQueryAdapter.client.useGetSponsor({
+    pathParams: {
+      sponsorId,
+    },
+    options: {
+      enabled: Boolean(sponsorId),
+    },
+  });
+
   const programs = useMemo(() => data?.pages.flatMap(page => page.programs) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+
+  const canAllocatePrograms = Boolean(sponsor?.totalAvailable.totalUsdEquivalent);
 
   const columnHelper = createColumnHelper<SponsorProgramsListItemInterface>();
 
@@ -191,15 +204,21 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       cell: info => {
         return (
           <div className={"flex gap-1"}>
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              onClick={() => {
-                onAllocateClick(info.row.original.id);
-              }}
+            <Tooltip
+              content={<Translate token={"financials:details.programs.table.rows.allocate.tooltip"} />}
+              enabled={!canAllocatePrograms}
             >
-              <Translate token={"financials:details.programs.table.rows.allocate"} />
-            </Button>
+              <Button
+                variant={"secondary"}
+                size={"sm"}
+                onClick={() => {
+                  onAllocateClick(info.row.original.id);
+                }}
+                isDisabled={!canAllocatePrograms}
+              >
+                <Translate token={"financials:details.programs.table.rows.allocate.button"} />
+              </Button>
+            </Tooltip>
 
             <Button
               as={BaseLink}
@@ -209,6 +228,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
             >
               <Translate token={"financials:details.programs.table.rows.seeProgram"} />
             </Button>
+
             <Button
               variant={"secondary"}
               size={"sm"}
