@@ -20,6 +20,7 @@ import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { ProgramEcosystemAutocomplete } from "@/shared/features/program-ecosystem-autocomplete/program-ecosystem-autocomplete";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectHistogramChart() {
@@ -29,6 +30,7 @@ export function ProjectHistogramChart() {
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>("pr");
+  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
@@ -44,6 +46,7 @@ export function ProjectHistogramChart() {
       fromDate,
       toDate,
       timeGrouping: timeGroupingType,
+      ...(selectedProgramAndEcosystem.length && { programOrEcosystemIds: selectedProgramAndEcosystem }),
     },
   });
 
@@ -124,6 +127,10 @@ export function ProjectHistogramChart() {
     if (dateKernelPort.isTimeGroupingType(value)) setTimeGroupingType(value);
   }
 
+  function onProgramEcosystemChange(ids: string[]) {
+    setSelectedProgramAndEcosystem(ids);
+  }
+
   if (isLoading) {
     return (
       <Skeleton
@@ -153,6 +160,12 @@ export function ProjectHistogramChart() {
     <div className="flex min-h-[300px] flex-col gap-4">
       <div className="flex justify-between gap-2">
         <div className="flex gap-2">
+          <ProgramEcosystemAutocomplete
+            name={"programAndEcosystem"}
+            placeholder={t("data:details.allDataFilter.placeholder")}
+            onSelect={onProgramEcosystemChange}
+            selectedProgramAndEcosystem={selectedProgramAndEcosystem}
+          />
           <Menu
             items={[
               { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },

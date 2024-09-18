@@ -9,6 +9,7 @@ import { ProgramProjectListItemInterface } from "@/core/domain/program/models/pr
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -34,8 +35,19 @@ export function ProjectsTable({ programId }: { programId: string }) {
       },
     });
 
+  const { data: program } = ProgramReactQueryAdapter.client.useGetProgramById({
+    pathParams: {
+      programId,
+    },
+    options: {
+      enabled: Boolean(programId),
+    },
+  });
+
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+
+  const canGrantProjects = Boolean(program?.totalAvailable.totalUsdEquivalent);
 
   const columnHelper = createColumnHelper<ProgramProjectListItemInterface>();
 
@@ -256,15 +268,30 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
         return (
           <div className={"flex gap-1"}>
-            <Button variant={"secondary"} size={"sm"} onClick={() => openGrantForm({ projectId: project.id })}>
-              <Translate token={"programs:details.projects.table.rows.grant"} />
-            </Button>
+            <Tooltip
+              content={<Translate token={"programs:details.projects.table.rows.grant.tooltip"} />}
+              enabled={!canGrantProjects}
+            >
+              <Button
+                variant={"secondary"}
+                size={"sm"}
+                onClick={() => openGrantForm({ programId, projectId: project.id })}
+                isDisabled={!canGrantProjects}
+              >
+                <Translate token={"programs:details.projects.table.rows.grant.button"} />
+              </Button>
+            </Tooltip>
 
             <Button
               variant={"secondary"}
               size={"sm"}
               onClick={() =>
-                open({ projectId: project.id, onGrantClick: (projectId: string) => openGrantForm({ projectId }) })
+                open({
+                  projectId: project.id,
+                  onGrantClick: canGrantProjects
+                    ? (projectId: string) => openGrantForm({ programId, projectId })
+                    : undefined,
+                })
               }
             >
               <Translate token={"programs:details.projects.table.rows.seeDetail"} />
@@ -300,7 +327,14 @@ export function ProjectsTable({ programId }: { programId: string }) {
           classNames={{
             base: "min-w-[1620px]",
           }}
-          onRowClick={row => open({ projectId: row.original.id })}
+          onRowClick={row =>
+            open({
+              projectId: row.original.id,
+              onGrantClick: canGrantProjects
+                ? (projectId: string) => openGrantForm({ programId, projectId })
+                : undefined,
+            })
+          }
           emptyState={{
             message: "programs:details.projects.table.emptyState.message",
           }}

@@ -66,7 +66,7 @@ export function GrantListSidepanel() {
             {
               id: "allProjects",
               titleProps: { translate: { token: "programs:grantList.allProjects" } },
-              content: <AllProjects queryParams={{ search: debouncedSearch }} />,
+              content: <AllProjects programId={programId} queryParams={{ search: debouncedSearch }} />,
               badgeProps: {
                 children: <AllProjectsBadge queryParams={{ search: debouncedSearch }} />,
               },

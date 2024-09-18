@@ -1,16 +1,13 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
-
+import { GrantButton } from "@/app/programs/[programId]/_features/grant-button/grant-button";
 import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
 import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
-import { useGrantListSidePanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
 import { ProjectsTable } from "@/app/programs/[programId]/_features/projects-table/projects-table";
 import { FinancialSection } from "@/app/programs/[programId]/_sections/financial-section/financial-section";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
@@ -22,12 +19,6 @@ import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function SafeProgramPage({ params: { programId } }: { params: { programId: string } }) {
-  const { isOpen: isGrantListOpen, open: openGrantList, close: CloseGrantList } = useGrantListSidePanel();
-
-  function toggleGrantListPanel() {
-    (isGrantListOpen ? CloseGrantList : openGrantList)();
-  }
-
   return (
     <>
       <PosthogCaptureOnMount eventName={"program_viewed"} />
@@ -49,19 +40,10 @@ function SafeProgramPage({ params: { programId } }: { params: { programId: strin
                 }}
               />
 
-              <Button
-                variant={"primary"}
-                endIcon={{ component: ChevronRight }}
-                isTextButton
-                size={"md"}
-                onClick={toggleGrantListPanel}
-              >
-                <Translate token={"programs:details.projects.grantProject"} />
-              </Button>
+              <GrantButton programId={programId} />
             </header>
 
             <ProjectsTable programId={programId} />
-            <GrantFormSidepanel />
           </div>
         </PageContent>
       </AnimatedColumn>

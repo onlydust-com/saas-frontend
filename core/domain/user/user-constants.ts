@@ -1,3 +1,5 @@
+import { GetUserResponse } from "@/core/domain/user/user-contract.types";
+
 export const LOCAL_STORAGE_JOINING_REASON_KEY = "joiningReason";
 
 export enum USER_PROFILE_JOINING_REASON {
@@ -5,3 +7,23 @@ export enum USER_PROFILE_JOINING_REASON {
   MAINTAINER = "MAINTAINER",
   SPONSOR = "SPONSOR",
 }
+
+type rankCategory = NonNullable<GetUserResponse["statsSummary"]>["rankCategory"];
+
+export const userRankCategoryMapping: Record<rankCategory, string> = {
+  A: "Diamond contributor",
+  B: "Gold contributor",
+  C: "Silver contributor",
+  D: "Bronze contributor",
+  E: "Steel contributor",
+  F: "Wood contributor",
+};
+
+export const userRankCategoryEmojiMapping: Record<rankCategory, string> = {
+  A: "💎",
+  B: "🥇",
+  C: "🥈",
+  D: "🥉",
+  E: "🔨",
+  F: "🪵",
+};

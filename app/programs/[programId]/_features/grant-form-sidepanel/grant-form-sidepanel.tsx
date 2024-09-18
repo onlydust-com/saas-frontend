@@ -1,4 +1,3 @@
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
@@ -25,11 +24,10 @@ import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantFormSidepanel() {
-  const { programId } = useParams<{ programId: string }>();
   const { capture } = usePosthog();
   const { name } = useGrantFromPanel();
   const { Panel, close: closeSidepanel, isOpen } = useSidePanel({ name });
-  const { projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { projectId: "" };
+  const { programId, projectId } = useSinglePanelData<GrantFormSidePanelData>(name) ?? { programId: "", projectId: "" };
   const [selectedBudget, setSelectedBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
 
@@ -37,7 +35,11 @@ export function GrantFormSidepanel() {
   const newBudgetBalance = (selectedBudget?.amount ?? 0) - allocatedAmount;
   const newBalanceIsNegative = newBudgetBalance < 0;
 
-  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
+  const {
+    data: program,
+    isLoading,
+    isError,
+  } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
     },
@@ -57,8 +59,8 @@ export function GrantFormSidepanel() {
   });
 
   useEffect(() => {
-    if (isOpen && data) {
-      setSelectedBudget(data.totalAvailable.totalPerCurrency?.[0]);
+    if (isOpen && program) {
+      setSelectedBudget(program.totalAvailable.totalPerCurrency?.[0]);
       setAmount("0");
       return;
     }
@@ -68,7 +70,7 @@ export function GrantFormSidepanel() {
       setAmount("0");
       return;
     }
-  }, [isOpen, data]);
+  }, [isOpen, program]);
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: projectUsdAmount, code: projectUsdCode } = moneyKernelPort.format({
@@ -131,7 +133,7 @@ export function GrantFormSidepanel() {
       return <ErrorState />;
     }
 
-    if (!data || !project || !selectedBudget || !data.totalAvailable.totalPerCurrency) return null;
+    if (!program || !project || !selectedBudget || !program.totalAvailable.totalPerCurrency) return null;
 
     return (
       <ScrollView>
@@ -152,7 +154,7 @@ export function GrantFormSidepanel() {
               amount={amount}
               onAmountChange={handleAmountChange}
               budget={selectedBudget}
-              allBudgets={data.totalAvailable.totalPerCurrency}
+              allBudgets={program.totalAvailable.totalPerCurrency}
               onBudgetChange={handleBudgetChange}
             />
           </div>

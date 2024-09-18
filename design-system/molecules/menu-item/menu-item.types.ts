@@ -27,6 +27,7 @@ export interface MenuItemBasePort extends Partial<Variants> {
   attr?: DataAttributes;
   isSelected?: boolean;
   onClick?: (id: MenuItemId) => void;
+  isSeparator?: boolean;
 }
 
 export interface MenuItemAvatarPort extends MenuItemBasePort {

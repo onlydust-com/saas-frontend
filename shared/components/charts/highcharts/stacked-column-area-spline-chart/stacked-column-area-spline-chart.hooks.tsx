@@ -168,7 +168,7 @@ export function useStackedColumnAreaSplineChartOptions({
         lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
       })),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
+    [title, min, moneyKernelPort, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
   );
 
   return { options };

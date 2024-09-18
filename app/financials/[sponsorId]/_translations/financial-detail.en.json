@@ -14,7 +14,10 @@
   "programs": {
     "title": "Programs",
     "actions": {
-      "allocate": "Allocate a Program",
+      "allocate": {
+        "button": "Allocate a Program",
+        "tooltip": "No budget available"
+      },
       "create": "Create a Program"
     },
     "table": {
@@ -36,7 +39,10 @@
         "currencies": "{{count}} currencies",
         "seeProgram": "See program",
         "editProgram": "Edit program",
-        "allocate": "Allocate"
+        "allocate": {
+          "button": "Allocate",
+          "tooltip": "No budget available"
+        }
       }
     }
   }

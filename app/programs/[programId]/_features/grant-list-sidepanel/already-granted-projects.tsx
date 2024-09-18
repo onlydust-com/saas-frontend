@@ -36,7 +36,7 @@ export function AlreadyGrantedProjects({
   const { open: openGrantForm } = useGrantFromPanel();
 
   function handleOpenProjectGrant(projectId: string) {
-    openGrantForm({ projectId });
+    openGrantForm({ programId, projectId });
   }
 
   if (isLoading) {

@@ -40,4 +40,5 @@ export interface SelectPort<C extends ElementType> extends Partial<Variants>, Se
     onChange?: (value: string) => void;
     value?: string;
   };
+  isPopover?: boolean;
 }

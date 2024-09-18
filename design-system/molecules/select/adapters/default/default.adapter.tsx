@@ -36,6 +36,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   hasNextPage,
   isDisabled,
   isAutoComplete = false,
+  isPopover = true,
   ...inputProps
 }: SelectPort<C>) {
   const Component = as || "div";
@@ -155,6 +156,30 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
           {...inputProps}
         />
       </Component>
+    );
+  }
+
+  if (!isPopover) {
+    return (
+      <div className="flex flex-col gap-md">
+        <Input
+          name={name}
+          value={formatedInputValue}
+          endIcon={!isAutoComplete ? { component: ChevronDown } : undefined}
+          startIcon={isAutoComplete ? { component: Search } : undefined}
+          canInteract={isAutoComplete}
+          onChange={e => onSearchChange(e.target.value)}
+          {...inputProps}
+        />
+
+        <Menu
+          items={formatedItems}
+          onSelect={handleSelect}
+          selectedIds={selectedIds}
+          onNextPage={onNextPage}
+          hasNextPage={hasNextPage}
+        />
+      </div>
     );
   }
 

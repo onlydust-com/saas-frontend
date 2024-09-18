@@ -12,8 +12,10 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 
 export function AllProjects({
+  programId,
   queryParams,
 }: {
+  programId: string;
   queryParams: FirstParameter<typeof ProjectReactQueryAdapter.client.useGetProjects>["queryParams"];
 }) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -25,7 +27,7 @@ export function AllProjects({
   const { open: openGrantForm } = useGrantFromPanel();
 
   function handleOpenProjectGrant(projectId: string) {
-    openGrantForm({ projectId });
+    openGrantForm({ programId, projectId });
   }
 
   if (isLoading) {

@@ -26,8 +26,8 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
 
   const {
     data: program,
-    isLoading,
-    isError,
+    isLoading: isLoadingProgram,
+    isError: isErrorProgram,
   } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -37,9 +37,24 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
     },
   });
 
+  const {
+    data: sponsor,
+    isLoading: isLoadingSponsor,
+    isError: isErrorSponsor,
+  } = SponsorReactQueryAdapter.client.useGetSponsor({
+    pathParams: {
+      sponsorId,
+    },
+    options: {
+      enabled: Boolean(sponsorId),
+    },
+  });
+
+  const allBudgets = sponsor?.totalAvailable.totalPerCurrency ?? [];
+
   useEffect(() => {
-    if (isPanelOpen && program) {
-      setBudget(program.totalAvailable.totalPerCurrency?.[0]);
+    if (isPanelOpen && sponsor) {
+      setBudget(sponsor.totalAvailable.totalPerCurrency?.[0]);
       setAmount("0");
       return;
     }
@@ -49,7 +64,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
       setAmount("0");
       return;
     }
-  }, [isPanelOpen, program]);
+  }, [isPanelOpen, sponsor]);
 
   const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
     pathParams: {
@@ -129,16 +144,13 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
   return {
     amount,
     budget,
+    allBudgets,
     handleAmountChange,
     handleBudgetChange,
-    isLoading,
-    isError,
-    program: {
-      data: program,
-      isLoading,
-      isError,
-      usdAmount: programUsdAmount,
-    },
+    isLoading: isLoadingProgram || isLoadingSponsor,
+    isError: isErrorProgram || isErrorSponsor,
+    program,
+    programUsdAmount,
     summary: {
       usdConversionRate,
       allocatedAmount,

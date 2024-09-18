@@ -23,6 +23,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function FinancialColumnChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { sponsorId = "" } = useParams<{ sponsorId: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
 
@@ -67,8 +68,14 @@ export function FinancialColumnChart() {
     ],
     legend: { enabled: false },
     tooltip: {
-      valueDecimals: 2,
-      valueSuffix: " USD",
+      pointFormatter() {
+        const { amount, code } = moneyKernelPort.format({
+          amount: this.y,
+          currency: moneyKernelPort.getCurrency("USD"),
+        });
+
+        return `${this.series.name}: ${amount} ${code}<br/>`;
+      },
     },
   });
 
