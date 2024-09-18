@@ -11,6 +11,8 @@ import {
   GetUserEcosystemsPortResponse,
   GetUserLanguagesPortParams,
   GetUserLanguagesPortResponse,
+  GetUserStatsPortParams,
+  GetUserStatsPortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
   ReplaceMyProfilePortParams,
@@ -36,4 +38,5 @@ export interface UserStoragePort {
   getUserByLogin(params: GetUserByLoginPortParams): GetUserByLoginPortResponse;
   getUserLanguages(params: GetUserLanguagesPortParams): GetUserLanguagesPortResponse;
   getUserEcosystems(params: GetUserEcosystemsPortParams): GetUserEcosystemsPortResponse;
+  getUserStats(params: GetUserStatsPortParams): GetUserStatsPortResponse;
 }

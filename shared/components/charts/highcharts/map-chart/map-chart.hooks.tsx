@@ -59,9 +59,12 @@ export function useMapChartOptions({
         name: s.name,
         data: s.data,
         joinBy: "iso-a2", // Join by the country code
+        nullColor: "var(--background-tertiary)",
+        borderColor: "var(--border-tertiary)",
         states: {
           hover: {
-            color: "var(--background-secondary_hover)",
+            color: "white",
+            borderColor: "var(--border-tertiary)",
           },
         },
         dataLabels: {

@@ -15,12 +15,20 @@ interface MapDataType {
   color: string;
 }
 
+export interface PieDataType {
+  y: number;
+  name: string;
+  color: string;
+}
+
+export type HighchartsSerieData = number[] | MapDataType[] | PieDataType[];
+
 export interface HighchartsOptionsParams {
   title?: string;
   categories?: string[];
   series: Array<{
     name: string;
-    data: number[] | MapDataType[];
+    data: HighchartsSerieData;
     type?: "column" | "areaspline";
     lineWidth?: number;
     marker?: Marker;
