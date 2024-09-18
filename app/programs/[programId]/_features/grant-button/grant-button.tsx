@@ -12,7 +12,7 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function GrantButton({ programId }: { programId: string }) {
-  const { isOpen, open, close } = useGrantListSidePanel();
+  const { open } = useGrantListSidePanel();
 
   const {
     data: program,
@@ -29,10 +29,6 @@ export function GrantButton({ programId }: { programId: string }) {
 
   const isDisabled = isLoading || isError || !program?.totalAvailable.totalUsdEquivalent;
 
-  function toggleGrantListPanel() {
-    (isOpen ? close : open)();
-  }
-
   return (
     <Tooltip content={<Translate token={"programs:details.projects.grant.tooltip"} />} enabled={isDisabled}>
       <Button
@@ -40,7 +36,7 @@ export function GrantButton({ programId }: { programId: string }) {
         endIcon={{ component: ChevronRight }}
         isTextButton
         size={"md"}
-        onClick={toggleGrantListPanel}
+        onClick={() => open()}
         isDisabled={isDisabled}
       >
         <Translate token={"programs:details.projects.grant.button"} />
