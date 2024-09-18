@@ -17,7 +17,7 @@
   "allDataFilter": {
     "trigger": "All data",
     "placeholder": "Search",
-    "programGroupTitle": "Program",
-    "ecosystemGroupTitle": "Ecosystem"
+    "programSeparatorLabel": "Program",
+    "ecosystemSeparatorLabel": "Ecosystem"
   }
 }

@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { User } from "@/core/domain/user/models/user-model";
 
@@ -18,6 +19,7 @@ export function ProgramEcosystemAutocomplete({
   onSelect,
   ...selectProps
 }: ProgramEcosystemAutocompleteProps) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const { user } = useAuthUser();
 
@@ -43,7 +45,10 @@ export function ProgramEcosystemAutocomplete({
   const programAndEcosystemItems: MenuItemPort[] = useMemo(() => {
     const programsItems = createMenuItems(filteredPrograms || []);
     const programs = programsItems.length
-      ? [{ id: "programs", label: "Programs", isSeparator: true }, ...programsItems]
+      ? [
+          { id: "programs", label: t("data:details.allDataFilter.programSeparatorLabel"), isSeparator: true },
+          ...programsItems,
+        ]
       : [];
     // TODO @Mehdi enable ecosystems once ready in /me
     // const ecoststemsItems = createMenuItems(filteredEcosystems || []);
