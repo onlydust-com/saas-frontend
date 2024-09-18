@@ -12,7 +12,10 @@
   },
   "projects": {
     "title": "Projects",
-    "grantProject": "Grant project",
+    "grant": {
+      "button": "Grant project",
+      "tooltip": "No budget available"
+    },
     "table": {
       "emptyState": {
         "message": "No projects available"
@@ -31,7 +34,10 @@
         "actions": "Actions"
       },
       "rows": {
-        "grant": "Grant",
+        "grant": {
+          "button": "Grant",
+          "tooltip": "No budget available"
+        },
         "seeDetail": "See detail"
       }
     }

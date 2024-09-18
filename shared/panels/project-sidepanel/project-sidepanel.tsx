@@ -139,27 +139,34 @@ export function ProjectSidepanel() {
 
       <SidePanelBody>{PanelContent}</SidePanelBody>
 
-      {onGrantClick && !!data && (
+      {onGrantClick || !!data ? (
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-            <Button size={"md"} onClick={() => onGrantClick(data?.id)}>
-              <Translate token={"panels:projectDetail.grant"} />
-            </Button>
-            <Button
-              variant={"secondary"}
-              endContent={<SquareArrowOutUpRight size={16} />}
-              size={"md"}
-              as={"a"}
-              htmlProps={{
-                href: marketplaceRouting(`/p/${data?.slug}`),
-                target: "_blank",
-              }}
-            >
-              <Translate token={"panels:projectDetail.seeProject"} />
-            </Button>
+            {onGrantClick && data ? (
+              <Button size={"md"} onClick={() => onGrantClick(data?.id)}>
+                <Translate token={"panels:projectDetail.grant"} />
+              </Button>
+            ) : (
+              <div />
+            )}
+
+            {data ? (
+              <Button
+                variant={"secondary"}
+                endContent={<SquareArrowOutUpRight size={16} />}
+                size={"md"}
+                as={"a"}
+                htmlProps={{
+                  href: marketplaceRouting(`/p/${data?.slug}`),
+                  target: "_blank",
+                }}
+              >
+                <Translate token={"panels:projectDetail.seeProject"} />
+              </Button>
+            ) : null}
           </div>
         </SidePanelFooter>
-      )}
+      ) : null}
     </Panel>
   );
 }
