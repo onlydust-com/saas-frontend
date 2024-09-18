@@ -16,6 +16,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const columnHelper = createColumnHelper<BiProjectInterface>();
 
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiProjects({
     queryParams: {},
@@ -23,9 +24,9 @@ export function ProjectsTable() {
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
-  // TODO @hayden handle error state
-
-  const columnHelper = createColumnHelper<BiProjectInterface>();
+  if (isError) {
+    return <ErrorState />;
+  }
 
   const columns = [
     columnHelper.accessor("project", {

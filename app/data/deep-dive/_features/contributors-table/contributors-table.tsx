@@ -16,6 +16,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const columnHelper = createColumnHelper<BiContributorInterface>();
 
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributors({
     queryParams: {
@@ -25,9 +26,9 @@ export function ContributorsTable() {
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
 
-  // TODO @hayden handle error state
-
-  const columnHelper = createColumnHelper<BiContributorInterface>();
+  if (isError) {
+    return <ErrorState />;
+  }
 
   const columns = [
     columnHelper.accessor("contributor", {
