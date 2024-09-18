@@ -24,10 +24,6 @@ export function ProjectsTable() {
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
-  if (isError) {
-    return <ErrorState />;
-  }
-
   const columns = [
     columnHelper.accessor("project", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.projectName"} />,

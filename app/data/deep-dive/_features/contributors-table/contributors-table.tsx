@@ -26,10 +26,6 @@ export function ContributorsTable() {
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
 
-  if (isError) {
-    return <ErrorState />;
-  }
-
   const columns = [
     columnHelper.accessor("contributor", {
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributorName"} />,
