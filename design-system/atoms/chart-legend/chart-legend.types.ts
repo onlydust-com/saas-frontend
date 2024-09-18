@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react"
 interface Variants {
   size: "s" | "m";
   color: "primary" | "secondary" | "tertiary" | "quaternary" | "quinary" | "senary" | "septenary" | "octonary";
+  rawColor: string;
 }
 
 interface ClassNames {

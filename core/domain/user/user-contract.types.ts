@@ -4,6 +4,7 @@ import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-m
 import { UserInterface } from "@/core/domain/user/models/user-model";
 import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
+import { UserStats } from "@/core/domain/user/models/user-stats-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -144,3 +145,17 @@ export type GetUserEcosystemsPortParams = HttpClientParameters<{
 }>;
 
 export type GetUserEcosystemsPortResponse = HttpStorageResponse<GetUserEcosystemsResponse>;
+
+/* --------------------------------- Get user stats -------------------------------- */
+
+export type GetUserStatsResponse = components["schemas"]["UserProfileStatsV2"];
+
+export type GetUserStatsPortResponse = HttpStorageResponse<UserStats>;
+
+type GetUserStatsQueryParams = operations["getUserProfileStats"]["parameters"]["query"];
+type GetUserStatsPathParams = operations["getUserProfileStats"]["parameters"]["path"];
+
+export type GetUserStatsPortParams = HttpClientParameters<{
+  QueryParams: GetUserStatsQueryParams;
+  PathParams: GetUserStatsPathParams;
+}>;

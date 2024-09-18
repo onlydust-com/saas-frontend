@@ -13,6 +13,7 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
   htmlProps,
   children,
   color,
+  rawColor,
   size = "m",
 }: ChartLegendPort<C>) {
   const Component = as || "div";
@@ -21,7 +22,10 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      <div className={cn(slots.square(), classNames?.square)}></div>
+      <div
+        className={cn(slots.square(), classNames?.square)}
+        style={rawColor ? { background: rawColor } : undefined}
+      ></div>
 
       <Typo as={"div"} size={typoSize} weight={"medium"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
         {children}
