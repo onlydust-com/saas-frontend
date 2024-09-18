@@ -63,9 +63,10 @@ export function ContributorSidepanel() {
     }
 
     return (
-      <>
+      <div className={"flex w-full flex-col gap-lg"}>
         <Profile user={data} />
-      </>
+        <Kpi user={data} />
+      </div>
     );
   }
 
