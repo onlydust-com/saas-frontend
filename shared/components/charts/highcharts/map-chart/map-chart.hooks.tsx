@@ -1,4 +1,4 @@
-import worldMap from "@highcharts/map-collection/custom/world.geo.json";
+import worldMap from "@highcharts/map-collection/custom/world.topo.json";
 import { Options, SeriesMapOptions } from "highcharts";
 import { useMemo } from "react";
 
