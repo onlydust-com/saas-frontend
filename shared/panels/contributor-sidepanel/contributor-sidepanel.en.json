@@ -1,3 +1,15 @@
 {
-  "rank": "Top {{count}}%"
+  "rank": "Top {{count}}%",
+  "kpi": {
+    "title": "KPI",
+    "lead": {
+      "title": "Lead"
+    },
+    "projects": {
+      "title": "Projects"
+    },
+    "rewards": {
+      "title": "Rewards"
+    }
+  }
 }
