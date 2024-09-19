@@ -12,6 +12,7 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+//
 // function Sandbox() {
 //   const { open } = useContributorSidePanel();
 //   const { open: openProject } = useProjectSidePanel();
