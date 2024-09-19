@@ -97,6 +97,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     if (closeOnSelect) {
       setOpen(false);
     }
+
     onSelect?.(args[0]);
   }
 
