@@ -1,5 +1,6 @@
-import { format } from "date-fns";
+import { bootstrap } from "@/core/bootstrap";
 
 export function getDayId(date: Date) {
-  return format(date, "yyyy-MM-dd");
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  return dateKernelPort.format(date, "yyyy-MM-dd");
 }

@@ -23,6 +23,7 @@ export interface DateFacadePort {
   compareDesc: (dateLeft: Date, dateRight: Date) => number;
   addMinutes: (date: Date, minutes: number) => Date;
   format: (date: Date, pattern: string) => string;
+  startOfWeek: (date: Date) => Date;
   formatDistanceToNow: (date: Date) => string;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };

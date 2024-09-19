@@ -11,6 +11,7 @@ export const DateAdapterMock: DateFacadePort = {
   format: (_date: Date, _pattern: string) => "",
   formatDistanceToNow: (_date: Date) => "",
   getRangeOfDates: (_range: DateRangeType) => ({ from: null, to: null }),
+  startOfWeek: (_date: Date) => new Date(),
   getMonthRange: (_date: Date) => ({ from: new Date(), to: new Date() }),
   // @ts-expect-error next line is a mock
   isDateRangeType: (_value: string) => true,

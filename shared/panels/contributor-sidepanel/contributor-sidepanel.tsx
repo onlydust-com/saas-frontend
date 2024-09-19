@@ -76,10 +76,14 @@ export function ContributorSidepanel() {
       <div className={"flex w-full flex-col gap-lg"}>
         <Profile user={data} />
         <Kpi user={data} />
-        {data?.githubUserId && <Languages githubId={data.githubUserId} />}
-        {data?.githubUserId && <Ecosystems githubId={data.githubUserId} />}
-        {data?.githubUserId && <RewardsGraph githubId={data.githubUserId} />}
-        {data?.githubUserId && <Activity githubId={data.githubUserId} />}
+        {data?.githubUserId ? (
+          <>
+            <Languages githubId={data.githubUserId} />
+            <Ecosystems githubId={data.githubUserId} />
+            <RewardsGraph githubId={data.githubUserId} />
+            <Activity githubId={data.githubUserId} />
+          </>
+        ) : null}
       </div>
     );
   }

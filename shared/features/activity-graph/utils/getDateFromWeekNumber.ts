@@ -1,5 +1,8 @@
-import { setWeek, setYear, startOfWeek, startOfYear } from "date-fns";
+import { setWeek, setYear, startOfYear } from "date-fns";
+
+import { bootstrap } from "@/core/bootstrap";
 
 export function getDateFromWeekNumber(year: number, weekNumber: number) {
-  return startOfWeek(setWeek(startOfYear(setYear(new Date(), year)), weekNumber), { weekStartsOn: 1 });
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  return dateKernelPort.startOfWeek(setWeek(startOfYear(setYear(new Date(), year)), weekNumber));
 }
