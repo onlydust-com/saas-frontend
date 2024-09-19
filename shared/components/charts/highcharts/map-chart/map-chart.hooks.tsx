@@ -30,7 +30,7 @@ export function useMapChartOptions({
         ...tooltip,
         useHTML: true, // Enable HTML for tooltip
         formatter() {
-          return `<strong>${this.point.name}</strong>: ${this.point.value} ${title}`;
+          return `<div><span class='font-medium'>${this.point.name}</span>: <span class='text-typography-secondary'>${this.point.value ? Intl.NumberFormat().format(this.point.value) : ""} ${title}</span></div>`;
         },
         followPointer: true, // Ensure the tooltip follows the mouse pointer
         ...tooltipWrapperStyle,
