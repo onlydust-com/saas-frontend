@@ -40,9 +40,17 @@ const legendStyle = {
 
 const tooltipWrapperStyle = {
   backgroundColor: "var(--background-secondary)",
+  padding: 16,
+  borderWidth: 1,
+  borderColor: "var(--border-primary)",
+  borderRadius: 8,
+  shadow: false,
 };
+
 const tooltipInnerStyle = {
   color: "var(--typography-primary)",
+  fontSize: "14px",
+  lineHeight: "20px",
   fontFamily: "Inter 24pt",
 };
 

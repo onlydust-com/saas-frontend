@@ -74,7 +74,7 @@ export function FinancialColumnChart() {
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
-        return `${this.series.name}: ${amount} ${code}<br/>`;
+        return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
       },
     },
   });
