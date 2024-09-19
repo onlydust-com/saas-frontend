@@ -29,4 +29,6 @@ export interface DateFacadePort {
   getMonthRange: (date: Date) => { from: Date; to: Date };
   isDateRangeType: (value: string) => value is DateRangeType;
   isTimeGroupingType: (value: string) => value is TimeGroupingType;
+  getDateFromWeekNumber: (year: number, weekNumber: number) => Date;
+  getWeekNumber: (date: Date, options?: { hideMonths: boolean }) => string;
 }

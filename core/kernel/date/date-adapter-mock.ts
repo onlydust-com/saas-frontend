@@ -17,4 +17,6 @@ export const DateAdapterMock: DateFacadePort = {
   isDateRangeType: (_value: string) => true,
   // @ts-expect-error next line is a mock
   isTimeGroupingType: (_value: string) => true,
+  getDateFromWeekNumber: (_year: number, _weekNumber: number) => new Date(),
+  getWeekNumber: (_date: Date, _options?: { hideMonths: boolean }) => "",
 };

@@ -1,16 +1,18 @@
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { Icon } from "@/design-system/atoms/icon";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
 import { cn } from "@/shared/helpers/cn";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { getWeekNumber } from "../../utils/getWeekNumber";
 import { ActivityGraphWeekProps } from "./week.types";
 
 export function Week({ week, data }: ActivityGraphWeekProps) {
-  const weekNumber = useMemo(() => getWeekNumber(week.startDate), [week]);
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const weekNumber = useMemo(() => dateKernelPort.getWeekNumber(week.startDate), [week]);
 
   const tooltipContent = useMemo(
     () => (

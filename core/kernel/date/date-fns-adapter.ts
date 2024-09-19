@@ -8,7 +8,10 @@ import {
   isFuture as isFutureDateFns,
   isPast as isPastDateFns,
   isToday as isTodayDateFns,
+  setWeek,
+  setYear,
   startOfWeek as startOfWeekDateFns,
+  startOfYear,
   subMonths,
   subWeeks,
   subYears,
@@ -58,6 +61,17 @@ function isTimeGroupingType(value: string): value is TimeGroupingType {
   return Object.values(TimeGroupingType).includes(value as TimeGroupingType);
 }
 
+export function getDateFromWeekNumber(year: number, weekNumber: number) {
+  return startOfWeekDateFns(setWeek(startOfYear(setYear(new Date(), year)), weekNumber));
+}
+
+export function getWeekNumber(date: Date, options?: { hideMonths: boolean }): string {
+  if (options?.hideMonths) {
+    return formatDateFns(date, "w yyyy");
+  }
+  return formatDateFns(date, "w, MMM yyyy");
+}
+
 export const DateFnsAdapter: DateFacadePort = {
   eachDayOfInterval: (start: Date, end: Date) => eachDayOfIntervalDateFns({ start, end }),
   isToday: (date: Date) => isTodayDateFns(date),
@@ -73,4 +87,6 @@ export const DateFnsAdapter: DateFacadePort = {
   getMonthRange,
   isDateRangeType,
   isTimeGroupingType,
+  getDateFromWeekNumber,
+  getWeekNumber,
 };

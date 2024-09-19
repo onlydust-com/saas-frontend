@@ -2,6 +2,7 @@ import { Medal } from "lucide-react";
 import { useMemo } from "react";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { bootstrap } from "@/core/bootstrap";
 
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -9,7 +10,6 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { ActivityGraph } from "@/shared/features/activity-graph/activity-graph";
 import { ActivityGraphWeeksData } from "@/shared/features/activity-graph/activity-graph.types";
-import { getDateFromWeekNumber } from "@/shared/features/activity-graph/utils/getDateFromWeekNumber";
 import { getLevelFromCount } from "@/shared/features/activity-graph/utils/getLevelFromCount";
 import { getLevelRange } from "@/shared/features/activity-graph/utils/getLevelRange";
 import { getWeekId } from "@/shared/features/activity-graph/utils/getWeekId";
@@ -17,6 +17,7 @@ import { getWeekId } from "@/shared/features/activity-graph/utils/getWeekId";
 import { ActivityProps } from "./activity.types";
 
 export function Activity({ githubId }: ActivityProps) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
   const { data, isLoading } = UserReactQueryAdapter.client.useGetUserStats({
     pathParams: { githubId },
     options: {
@@ -33,7 +34,7 @@ export function Activity({ githubId }: ActivityProps) {
 
     data?.activity.forEach(activity => {
       const contributionCount = activity.issueCount + activity.codeReviewCount + activity.pullRequestCount;
-      _weekData[getWeekId(getDateFromWeekNumber(activity.year, activity.week))] = {
+      _weekData[getWeekId(dateKernelPort.getDateFromWeekNumber(activity.year, activity.week))] = {
         level: getLevelFromCount(levelRange, contributionCount),
         icon: activity.rewardCount > 0 ? { component: Medal } : undefined,
         tooltipContent: `${contributionCount} contributions • ${activity.rewardCount} rewards`,
