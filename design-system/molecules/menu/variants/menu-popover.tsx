@@ -57,7 +57,12 @@ export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: 
           <FloatingOverlay lockScroll={true}>
             <FloatingPortal>
               <FloatingFocusManager context={context} modal={false}>
-                <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className={"z-[9999]"}>
+                <div
+                  ref={refs.setFloating}
+                  style={floatingStyles}
+                  {...getFloatingProps()}
+                  className={"z-[9999] outline-none"}
+                >
                   {withComponentAdapter<ListMenuPort>(MenuDefaultAdapter)({
                     ...props,
                     onSelect: handleSelect,
