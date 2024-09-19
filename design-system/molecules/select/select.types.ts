@@ -28,6 +28,7 @@ interface SelectProps {
   onNextPage?: MenuPort["onNextPage"];
   hasNextPage?: MenuPort["hasNextPage"];
   isLoading?: MenuPort["isLoading"];
+  isMultiple?: MenuPort["isMultiple"];
 }
 
 export interface SelectPort<C extends ElementType> extends Partial<Variants>, SelectProps, SelectInputProps {
