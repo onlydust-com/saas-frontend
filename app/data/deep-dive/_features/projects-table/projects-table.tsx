@@ -1,14 +1,15 @@
-import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { ColumnDef, createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
-import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
+import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
 
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
+import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -19,6 +20,19 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function ProjectsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiProjectInterface>();
+
+  const [selectedIds, setSelectedIds] = useState<Array<keyof BiProjectResponse>>([
+    "project",
+    "projectLeads",
+    "programs",
+    "availableBudget",
+    "percentUsedBudget",
+    "totalGrantedUsdAmount",
+    "onboardedContributorCount",
+    "activeContributorCount",
+    "mergedPrCount",
+    "rewardCount",
+  ]);
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -45,8 +59,8 @@ export function ProjectsTable() {
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
-  const columns = [
-    columnHelper.accessor("project", {
+  const columnMap: Partial<Record<keyof BiProjectResponse, object>> = {
+    project: columnHelper.accessor("project", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.projectName"} />,
       cell: info => {
         const project = info.getValue();
@@ -64,8 +78,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("projectLeads", {
+    projectLeads: columnHelper.accessor("projectLeads", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.projectLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -104,8 +117,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("categories", {
+    categories: columnHelper.accessor("categories", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
       cell: info => {
         const categories = info.getValue();
@@ -117,8 +129,7 @@ export function ProjectsTable() {
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("languages", {
+    languages: columnHelper.accessor("languages", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.languages"} />,
       cell: info => {
         const languages = info.getValue() ?? [];
@@ -156,8 +167,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("ecosystems", {
+    ecosystems: columnHelper.accessor("ecosystems", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.ecosystems"} />,
       cell: info => {
         const ecosystems = info.getValue() ?? [];
@@ -195,8 +205,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("programs", {
+    programs: columnHelper.accessor("programs", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.programs"} />,
       cell: info => {
         const programs = info.getValue() ?? [];
@@ -234,9 +243,8 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("availableBudget", {
-      header: () => <Translate token={"data:deepDive.projectsTable.columns.globalBudgetAvailable"} />,
+    availableBudget: columnHelper.accessor("availableBudget", {
+      header: () => <Translate token={"data:deepDive.projectsTable.columns.availableBudget"} />,
       cell: info => {
         const value = info.getValue();
 
@@ -291,8 +299,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("percentUsedBudget", {
+    percentUsedBudget: columnHelper.accessor("percentUsedBudget", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.percentUsedBudget"} />,
       cell: info => {
         const value = info.getValue();
@@ -304,8 +311,7 @@ export function ProjectsTable() {
         return <TableCellKpi>{value}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("totalGrantedUsdAmount", {
+    totalGrantedUsdAmount: columnHelper.accessor("totalGrantedUsdAmount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.totalGrantedUsdAmount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -322,8 +328,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("averageRewardUsdAmount", {
+    averageRewardUsdAmount: columnHelper.accessor("averageRewardUsdAmount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.averageRewardUsdAmount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -340,8 +345,7 @@ export function ProjectsTable() {
         );
       },
     }),
-
-    columnHelper.accessor("onboardedContributorCount", {
+    onboardedContributorCount: columnHelper.accessor("onboardedContributorCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.onboardedContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -351,8 +355,7 @@ export function ProjectsTable() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("activeContributorCount", {
+    activeContributorCount: columnHelper.accessor("activeContributorCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.activeContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -362,8 +365,7 @@ export function ProjectsTable() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("mergedPrCount", {
+    mergedPrCount: columnHelper.accessor("mergedPrCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.mergedPrCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -373,8 +375,7 @@ export function ProjectsTable() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("rewardCount", {
+    rewardCount: columnHelper.accessor("rewardCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -384,8 +385,7 @@ export function ProjectsTable() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-
-    columnHelper.accessor("contributionCount", {
+    contributionCount: columnHelper.accessor("contributionCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -395,7 +395,14 @@ export function ProjectsTable() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-  ];
+  } as const;
+
+  const columnMapKeys = Object.keys(columnMap) as Array<keyof typeof columnMap>;
+
+  // Loop on object keys to keep column order
+  const columns = columnMapKeys
+    .map(key => (selectedIds.includes(key) ? columnMap[key] : null))
+    .filter(Boolean) as ColumnDef<BiProjectInterface>[];
 
   const table = useReactTable({
     data: projects,
@@ -413,6 +420,107 @@ export function ProjectsTable() {
 
   return (
     <ScrollView direction={"x"}>
+      <div>
+        <TableColumnList
+          titleProps={{ token: "data:deepDive.projectsTable.filters.columnList" }}
+          menuProps={{
+            items: [
+              {
+                id: "global",
+                label: <Translate token={"data:deepDive.projectsTable.filters.global"} />,
+                isSeparator: true,
+              },
+              {
+                id: "project",
+                label: <Translate token={"data:deepDive.projectsTable.columns.projectName"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "projectLeads",
+                label: <Translate token={"data:deepDive.projectsTable.columns.projectLeads"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "categories",
+                label: <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "languages",
+                label: <Translate token={"data:deepDive.projectsTable.columns.languages"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "ecosystems",
+                label: <Translate token={"data:deepDive.projectsTable.columns.ecosystems"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "programs",
+                label: <Translate token={"data:deepDive.projectsTable.columns.programs"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "financial",
+                label: <Translate token={"data:deepDive.projectsTable.filters.financial"} />,
+                isSeparator: true,
+              },
+              {
+                id: "availableBudget",
+                label: <Translate token={"data:deepDive.projectsTable.columns.availableBudget"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "percentUsedBudget",
+                label: <Translate token={"data:deepDive.projectsTable.columns.percentUsedBudget"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "totalGrantedUsdAmount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.totalGrantedUsdAmount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "averageRewardUsdAmount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.averageRewardUsdAmount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "activity",
+                label: <Translate token={"data:deepDive.projectsTable.filters.activity"} />,
+                isSeparator: true,
+              },
+              {
+                id: "onboardedContributorCount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.onboardedContributorCount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "activeContributorCount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.activeContributorCount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "mergedPrCount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.mergedPrCount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "rewardCount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.rewardCount"} />,
+                isCheckbox: true,
+              },
+              {
+                id: "contributionCount",
+                label: <Translate token={"data:deepDive.projectsTable.columns.contributionCount"} />,
+                isCheckbox: true,
+              },
+            ],
+            selectedIds,
+            onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),
+          }}
+        />
+      </div>
       <Table
         header={{
           headerGroups: table.getHeaderGroups(),

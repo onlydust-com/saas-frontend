@@ -8,8 +8,6 @@ import { TableColumnList } from "./variants/table-column-list-default";
 type Story = StoryObj<typeof TableColumnList>;
 
 const defaultProps: TableColumnListPort = {
-  onChange: () => {},
-  onClear: () => {},
   items: [
     {
       id: "1",

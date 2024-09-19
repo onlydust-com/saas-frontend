@@ -1,10 +1,11 @@
 import { Columns2 } from "lucide-react";
+import { X } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
-import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
+import { Menu } from "@/design-system/molecules/menu";
 
 import { cn } from "@/shared/helpers/cn";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -12,7 +13,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { TableColumnListPort } from "../../table-column-list.types";
 import { TableColumnListDefaultVariants } from "./default.variants";
 
-export function TableColumnListDefaultAdapter({ classNames, items, onChange, onClear }: TableColumnListPort) {
+export function TableColumnListDefaultAdapter({ classNames, titleProps, menuProps }: TableColumnListPort) {
   const slots = TableColumnListDefaultVariants();
 
   return (
@@ -20,7 +21,7 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
-            <Tooltip content={<Translate token={"table:tableColumnList.title"} />}>
+            <Tooltip content={<Translate {...titleProps} />}>
               <Button variant={"secondary"} size="sm" startIcon={{ component: Columns2 }} iconOnly />
             </Tooltip>
           </div>
@@ -28,30 +29,21 @@ export function TableColumnListDefaultAdapter({ classNames, items, onChange, onC
       </Popover.Trigger>
 
       <Popover.Content>
-        {() => (
-          <div className="grid max-w-[360px] gap-lg">
-            <div className="flex items-center justify-between gap-md">
-              <Typo size={"sm"} translate={{ token: "table:tableColumnList.title" }} color={"secondary"} />
-              <Button
-                onClick={onClear}
-                variant={"secondary"}
-                size="xs"
-                translate={{ token: "table:tableColumnList.clear" }}
-              />
-            </div>
+        {({ setIsOpen }) => (
+          <div className="grid w-[376px] gap-md">
+            <header className={"flex items-center justify-between gap-lg"}>
+              <Typo variant={"heading"} size={"xs"} translate={titleProps} />
 
-            <div className="flex flex-col gap-md">
-              {items.map(item => (
-                <CheckboxButton
-                  key={item.id}
-                  variant={"secondary"}
-                  value={item.value}
-                  onChange={value => onChange(item.id, value)}
-                >
-                  {item.label}
-                </CheckboxButton>
-              ))}
-            </div>
+              <Button
+                variant={"tertiary"}
+                size={"sm"}
+                startIcon={{ component: X }}
+                iconOnly
+                onClick={() => setIsOpen(false)}
+              />
+            </header>
+
+            <Menu {...menuProps} classNames={{ content: "max-h-none" }} />
           </div>
         )}
       </Popover.Content>

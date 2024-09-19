@@ -26,6 +26,12 @@
     }
   },
   "projectsTable": {
+    "filters": {
+      "columnList": "Projects columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
     "columns": {
       "projectName": "Project name",
       "projectLeads": "Project leads",
@@ -33,14 +39,14 @@
       "languages": "Languages",
       "ecosystems": "Ecosystems",
       "programs": "Programs",
-      "globalBudgetAvailable": "Global budget available",
-      "percentUsedBudget": "% budget used",
-      "totalGrantedUsdAmount": "Global granted amount",
-      "averageRewardUsdAmount": "Global average rewards",
-      "onboardedContributorCount": "Global devs onboarded",
-      "activeContributorCount": "Global active devs",
-      "mergedPrCount": "Global PRs merged",
-      "rewardCount": "Global rewards",
+      "availableBudget": "Budget available",
+      "percentUsedBudget": "Budget used",
+      "totalGrantedUsdAmount": "Granted amount",
+      "averageRewardUsdAmount": "Average reward",
+      "onboardedContributorCount": "Devs onboarded",
+      "activeContributorCount": "Active devs",
+      "mergedPrCount": "PRs merged",
+      "rewardCount": "Rewards",
       "contributionCount": "Contributions"
     },
     "rows": {
