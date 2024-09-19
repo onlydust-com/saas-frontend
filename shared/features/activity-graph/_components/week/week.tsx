@@ -27,16 +27,16 @@ export function Week({ week, data }: ActivityGraphWeekProps) {
     <Tooltip content={tooltipContent}>
       <div
         className={cn(
-          "border-card-border-light bg-spaceBlue-800 flex h-6 w-6 flex-row items-center justify-center rounded-[2px] border",
+          "flex h-4 w-4 flex-row items-center justify-center rounded-[2px] border border-border-primary bg-background-secondary",
           {
-            "bg-spaceBlue-800": data?.level === 1,
-            "bg-spacePurple-800": data?.level === 2,
-            "bg-spacePurple-700": data?.level === 3,
-            "bg-spacePurple-500": data?.level === 4,
+            "bg-utility-brand-crystalizedviolet-500": data?.level === 1,
+            "bg-utility-brand-crystalizedviolet-200": data?.level === 2,
+            "bg-utility-brand-crystalizedviolet-100": data?.level === 3,
+            "bg-utility-brand-crystalizedviolet-50": data?.level === 4,
           }
         )}
       >
-        {data?.icon ? <Icon {...data.icon} classNames={{ base: "h-4 w-4" }} /> : null}
+        {data?.icon ? <Icon {...data.icon} classNames={{ base: "h-3 w-3" }} /> : null}
       </div>
     </Tooltip>
   );

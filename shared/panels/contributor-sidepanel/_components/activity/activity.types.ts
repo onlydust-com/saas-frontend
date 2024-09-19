@@ -1,3 +1,3 @@
-import { PropsWithChildren } from "react";
-
-export interface ActivityProps extends PropsWithChildren {}
+export interface ActivityProps {
+  githubId: number;
+}

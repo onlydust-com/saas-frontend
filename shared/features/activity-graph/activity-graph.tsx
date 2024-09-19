@@ -19,7 +19,7 @@ export function ActivityGraph<T>({ endDate, weekData, isLoading }: ActivityGraph
   }
 
   return (
-    <div className="flex flex-col items-start justify-start gap-1.5">
+    <div className="flex flex-col items-start justify-start gap-1">
       {splitWeeks.map((weeks, index) => (
         <Row
           key={index}

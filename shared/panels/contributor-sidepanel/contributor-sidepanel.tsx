@@ -8,6 +8,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Activity } from "@/shared/panels/contributor-sidepanel/_components/activity/activity";
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
@@ -78,6 +79,7 @@ export function ContributorSidepanel() {
         {data?.githubUserId && <Languages githubId={data.githubUserId} />}
         {data?.githubUserId && <Ecosystems githubId={data.githubUserId} />}
         {data?.githubUserId && <RewardsGraph githubId={data.githubUserId} />}
+        {data?.githubUserId && <Activity githubId={data.githubUserId} />}
       </div>
     );
   }

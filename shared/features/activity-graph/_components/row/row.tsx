@@ -30,7 +30,7 @@ export function Row({ weeks, data, asLabel, isLastRow }: ActivityGraphRowProps) 
 
   return (
     <div className="flex w-full flex-row items-center justify-between gap-4">
-      <div className="flex w-full flex-row items-center justify-start gap-1.5">
+      <div className="flex w-full flex-row items-center justify-start gap-1">
         {weeks.map(week => (
           <Week week={week} key={week.id} data={findData(week.id)} />
         ))}
@@ -41,7 +41,7 @@ export function Row({ weeks, data, asLabel, isLastRow }: ActivityGraphRowProps) 
           as="div"
           color={"primary"}
           classNames={{
-            base: cn("text-spaceBlue-300 w-full whitespace-nowrap", { "text-spacePurple-500": isLastRow }),
+            base: cn("w-full whitespace-nowrap"),
           }}
         >
           {label}
