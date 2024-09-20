@@ -17,9 +17,10 @@
       "types": {
         "title": "Types",
         "choices": {
+          "ALLOCATED": "Allocated",
           "GRANTED": "Granted",
-          "RECEIVED": "Received",
-          "RETURNED": "Returned"
+          "UNALLOCATED": "Unallocated",
+          "UNGRANTED": "Ungranted"
         }
       },
       "period": {

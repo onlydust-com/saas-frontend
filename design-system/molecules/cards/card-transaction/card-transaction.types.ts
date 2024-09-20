@@ -11,6 +11,7 @@ interface ClassNames {
 }
 
 enum CardTransactionType {
+  DEPOSITED = "DEPOSITED",
   ALLOCATED = "ALLOCATED",
   GRANTED = "GRANTED",
   UNGRANTED = "UNGRANTED",
