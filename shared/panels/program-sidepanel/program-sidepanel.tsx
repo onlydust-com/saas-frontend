@@ -36,7 +36,7 @@ export function ProgramSidepanel() {
     }
 
     if (!data || isError) {
-      return <EmptyStateLite />;
+      return <EmptyStateLite title={"panels:program.emptyState.title"} message={"panels:program.emptyState.message"} />;
     }
 
     return (

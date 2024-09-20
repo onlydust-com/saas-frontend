@@ -25,5 +25,9 @@
     "lead": {
       "title": "Program lead"
     }
+  },
+  "emptyState": {
+    "title": "No program found",
+    "message": "There are no programs available."
   }
 }
