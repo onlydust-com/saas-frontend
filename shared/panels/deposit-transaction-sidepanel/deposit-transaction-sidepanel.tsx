@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { CurrencyReactQueryAdapter } from "@/core/application/react-query-adapter/currency";
@@ -26,7 +26,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function DepositTransactionSidepanel() {
   const { t } = useTranslation();
-  const { name } = useDepositTransactionSidepanel();
+  const { name, isOpen } = useDepositTransactionSidepanel();
   const { Panel } = useSidePanel({ name });
   const { currencyId, network, address, sponsorId } = useSinglePanelData<DepositTransactionSidepanelData>(name) ?? {
     currencyId: "",
@@ -55,6 +55,12 @@ export function DepositTransactionSidepanel() {
   });
 
   const currency = data?.currencies.find(currency => currency.id === currencyId);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTransactionReference("");
+    }
+  }, [isOpen]);
 
   function handleOpenFeedbackDrawer() {
     setIsOpen(true);
