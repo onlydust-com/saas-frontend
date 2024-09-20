@@ -17,7 +17,7 @@ export function ProgramSidepanel() {
   const { name, isOpen } = useProgramSidePanel();
   const { Panel } = useSidePanel({ name });
   const { programId, canGoBack = false } = useSinglePanelData<ProgramSidePanelData>(name) ?? { programId: "" };
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
+  const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: { programId },
     options: {
       enabled: !!programId && isOpen,
@@ -35,7 +35,7 @@ export function ProgramSidepanel() {
       );
     }
 
-    if (!data) {
+    if (!data || isError) {
       return <EmptyStateLite />;
     }
 
