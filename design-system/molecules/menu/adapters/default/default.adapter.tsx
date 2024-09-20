@@ -17,18 +17,31 @@ export function MenuDefaultAdapter({
   hasNextPage,
   isLoading,
   onAction,
+  isMultiple,
 }: ListMenuPort) {
   const slots = MenuDefaultVariants();
   const triggerRef = useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = useState<null | number>(null);
 
   function onSelectItem(value: MenuItemId) {
-    const valuesArray = [...(selectedIds || [])];
+    let valuesArray = [...(selectedIds || [])];
 
-    if (selectedIds?.includes(value)) {
-      valuesArray.splice(valuesArray.indexOf(value), 1);
+    if (!isMultiple) {
+      if (selectedIds?.includes(value)) {
+        valuesArray = [];
+      } else {
+        valuesArray = [value];
+      }
     } else {
-      valuesArray.push(value);
+      if (selectedIds?.includes(value)) {
+        if (valuesArray.length === 1) {
+          valuesArray = [];
+        } else {
+          valuesArray.splice(valuesArray.indexOf(value), 1);
+        }
+      } else {
+        valuesArray.push(value);
+      }
     }
 
     onSelect?.(

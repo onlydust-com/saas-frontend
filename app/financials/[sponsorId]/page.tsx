@@ -15,6 +15,7 @@ import { DepositFlow } from "@/shared/panels/_flows/deposit-flow/deposit-flow";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
+import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -83,6 +84,7 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
       <SafeFinancialPage sponsorId={sponsorId} />
       <EditProgramPanel />
       <CreateProgramPanel />
+      <ProgramSidepanel />
     </PageWrapper>
   );
 }

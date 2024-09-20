@@ -8,7 +8,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInterface {
   data: components["schemas"]["NotificationSponsorLeadFundsUnallocatedFromProgram"] | undefined;
   constructor(private notification: Notification) {
-    this.data = notification.data.programLeadFundsAllocatedToProgram;
+    this.data = notification.data.sponsorLeadFundsUnallocatedFromProgram;
   }
 
   getId() {

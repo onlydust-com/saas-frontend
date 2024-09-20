@@ -77,7 +77,7 @@ export function DepositSummarySidepanel() {
   useEffect(() => {
     if (deposit) {
       reset({
-        billingInformation: deposit.billingInformation ?? undefined,
+        billingInformation: deposit.latestBillingInformation ?? undefined,
       });
     }
   }, [deposit]);
@@ -144,9 +144,9 @@ export function DepositSummarySidepanel() {
 
         <Accordion
           id={"billingInformation"}
-          defaultSelected={!deposit.billingInformation ? ["billingInformation"] : undefined}
+          defaultSelected={!deposit.latestBillingInformation ? ["billingInformation"] : undefined}
           startIcon={
-            deposit.billingInformation
+            deposit.latestBillingInformation
               ? {
                   component: CheckCircle,
                 }

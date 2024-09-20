@@ -82,7 +82,9 @@ export class BiClientAdapter implements BiStoragePort {
         queryParams,
       });
 
-      return data.map(item => new BiWorldMap(item));
+      const max = data.reduce((acc, item) => Math.max(acc, item.value), 0);
+
+      return data.map(item => new BiWorldMap(item, max));
     };
 
     return {

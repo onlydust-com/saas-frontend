@@ -9,6 +9,9 @@ import { GlobalBillingProfileReminder } from "@/core/domain/notification/models/
 import { MaintainerApplicationToReview } from "@/core/domain/notification/models/notifications/maintainer-application-to-review";
 import { MaintainerCommitteeApplicationCreated } from "@/core/domain/notification/models/notifications/maintainer-commitee-application-created";
 import { ProgramLeadFundsAllocatedToProgram } from "@/core/domain/notification/models/notifications/program-lead-funds-allocated-to-program";
+import {
+  ProgramLeadFundsUngrantedFromProject
+} from "@/core/domain/notification/models/notifications/program-lead-funds-ungranted-form-project";
 import { SponsorLeadDepositApproved } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-approved";
 import { SponsorLeadDepositRejected } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-rejected";
 import { SponsorLeadFundsUnallocatedFromProgram } from "@/core/domain/notification/models/notifications/sponsor-lead-funds-unallocated-from-program";
@@ -49,6 +52,8 @@ export class NotificationFactory {
         return new GlobalBillingProfileVerificationClosed(notification);
       case "PROGRAM_LEAD_FUNDS_ALLOCATED_TO_PROGRAM":
         return new ProgramLeadFundsAllocatedToProgram(notification);
+      case "PROGRAM_LEAD_FUNDS_UNGRANTED_FROM_PROJECT":
+        return new ProgramLeadFundsUngrantedFromProject(notification);
       case "SPONSOR_LEAD_FUNDS_UNALLOCATED_FROM_PROGRAM":
         return new SponsorLeadFundsUnallocatedFromProgram(notification);
       case "SPONSOR_LEAD_DEPOSIT_APPROVED":

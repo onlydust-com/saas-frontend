@@ -1,3 +1,4 @@
+import { Placement } from "@floating-ui/react";
 import { PropsWithChildren } from "react";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
@@ -18,6 +19,7 @@ export interface MenuBasePort extends Partial<Variants> {
   hasNextPage?: boolean;
   isLoading?: boolean;
   onAction?: (id: MenuItemId) => void;
+  isMultiple?: boolean;
 }
 
 export interface ListMenuPort extends MenuBasePort {
@@ -28,6 +30,7 @@ export interface PopOverMenuPort extends MenuBasePort, PropsWithChildren {
   isPopOver?: true;
   onOpenChange?: (isOpen: boolean) => void;
   closeOnSelect?: boolean;
+  placement?: Placement;
 }
 
 export type MenuPort = ListMenuPort | PopOverMenuPort;

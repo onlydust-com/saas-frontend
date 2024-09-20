@@ -44,9 +44,7 @@ export function UserAutocomplete({
   }, [data, withExternalUser]);
 
   function handleSelect(ids: MenuItemId[]) {
-    if (typeof ids[0] === "string") {
-      onSelect?.(ids as string[]);
-    }
+    onSelect?.(ids as string[]);
   }
 
   return (

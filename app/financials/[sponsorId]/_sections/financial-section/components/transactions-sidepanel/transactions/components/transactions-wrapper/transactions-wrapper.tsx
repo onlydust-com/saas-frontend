@@ -1,4 +1,4 @@
-import { Check, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle, X } from "lucide-react";
 import { useMemo } from "react";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
@@ -55,6 +55,7 @@ export function TransactionsWrapper({ date }: { date: Date }) {
 
   const transactionIconMapping = {
     PENDING: <Icon component={LoaderCircle} classNames={{ base: "text-text-2" }} />,
+    REJECTED: <Icon component={X} classNames={{ base: "text-text-2" }} />,
     COMPLETED: <Icon component={Check} classNames={{ base: "text-text-2" }} />,
   };
 

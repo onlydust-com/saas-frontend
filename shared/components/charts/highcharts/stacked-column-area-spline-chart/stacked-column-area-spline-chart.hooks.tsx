@@ -101,25 +101,30 @@ export function useStackedColumnAreaSplineChartOptions({
       tooltip: {
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
-        shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        headerFormat: "<strong>{point.key}</strong><br/><br/>", // Category name
-        pointFormat: "{series.name}: {point.y}<br/>", // Series name and value
-        formatter() {
-          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
-          this.points?.forEach(point => {
-            if (point.series.name === "Granted" || point.series.name === "Rewarded") {
-              s += `${point.series.name}: ${moneyKernelPort.format({ amount: point.y, currency: moneyKernelPort.getCurrency("USD") }).amount} USD<br/>`;
-              return;
-            }
-            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
-          });
-          return s;
+        headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
+        pointFormat:
+          "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
+        pointFormatter() {
+          if (this.series.name === "Granted" || this.series.name === "Rewarded") {
+            const { amount, code } = moneyKernelPort.format({
+              amount: this.y,
+              currency: moneyKernelPort.getCurrency("USD"),
+            });
+
+            return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
+          }
+
+          return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${this.y ? Intl.NumberFormat().format(this.y) : ""}</span></div>`;
         },
-        positioner(labelWidth, _labelHeight, point) {
+        positioner(labelWidth, labelHeight, point) {
           const chart = this.chart;
           const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = 24; // Position above the point
+          let y = point.plotY - labelHeight;
+
+          if (point.negative) {
+            y = point.plotY - point.h - labelHeight;
+          }
 
           return { x, y };
         },

@@ -18,12 +18,20 @@ import { MenuDefaultAdapter } from "@/design-system/molecules/menu/adapters/defa
 
 import { ListMenuPort, MenuBasePort, PopOverMenuPort } from "../menu.types";
 
-export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: _, ...props }: PopOverMenuPort) {
+export function MenuPopover({
+  children,
+  onOpenChange,
+  placement,
+  closeOnSelect,
+  isPopOver: _,
+  ...props
+}: PopOverMenuPort) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
+    placement,
     middleware: [flip({ padding: 0 }), offset(8)],
     whileElementsMounted: autoUpdate,
   });
@@ -57,7 +65,12 @@ export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: 
           <FloatingOverlay lockScroll={true}>
             <FloatingPortal>
               <FloatingFocusManager context={context} modal={false}>
-                <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className={"z-[9999]"}>
+                <div
+                  ref={refs.setFloating}
+                  style={floatingStyles}
+                  {...getFloatingProps()}
+                  className={"z-[9999] outline-none"}
+                >
                   {withComponentAdapter<ListMenuPort>(MenuDefaultAdapter)({
                     ...props,
                     onSelect: handleSelect,

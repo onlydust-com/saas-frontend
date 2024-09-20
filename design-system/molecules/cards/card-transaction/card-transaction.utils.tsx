@@ -15,7 +15,7 @@ export function getComponentsVariants(type: CardTransactionTypes): {
     DEPOSITED: {
       iconProps: {
         component: ArrowDown,
-        classNames: { base: "text-utility-secondary-blue-500" },
+        classNames: { base: "text-utility-success-500" },
       },
     },
     ALLOCATED: {
@@ -30,13 +30,13 @@ export function getComponentsVariants(type: CardTransactionTypes): {
         classNames: { base: "text-utility-secondary-blue-500" },
       },
     },
-    RECEIVED: {
+    UNGRANTED: {
       iconProps: {
-        component: ArrowDown,
-        classNames: { base: "text-utility-secondary-green-500" },
+        component: Undo2,
+        classNames: { base: "text-foreground-error" },
       },
     },
-    RETURNED: {
+    UNALLOCATED: {
       iconProps: {
         component: Undo2,
         classNames: { base: "text-foreground-error" },

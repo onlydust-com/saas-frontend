@@ -31,7 +31,7 @@ export interface TransactionsContextReturn {
 export enum TransactionsContextFilterType {
   DEPOSITED = "DEPOSITED",
   ALLOCATED = "ALLOCATED",
-  RETURNED = "RETURNED",
+  UNALLOCATED = "UNALLOCATED",
 }
 
 export type TransactionsContextFilterTypes = `${TransactionsContextFilterType}`;

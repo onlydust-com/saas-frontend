@@ -56,8 +56,9 @@ export function useDonnutChartOptions({
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        headerFormat: "<strong>{point.key}</strong><br/><br/>", // Category name
-        pointFormat: "{series.name}: {point.y}<br/>", // Series name and value
+        headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
+        pointFormat:
+          "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
         ...tooltip,
       },
       plotOptions: {

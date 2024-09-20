@@ -21,5 +21,9 @@
   "earning": {
     "title": "Rewarded",
     "otherLabel": "Other"
-  }
+  },
+  "activity": {
+    "title": "Activity"
+  },
+  "seeContributor": "See public profile"
 }

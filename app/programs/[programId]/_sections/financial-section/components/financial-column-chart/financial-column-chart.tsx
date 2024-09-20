@@ -18,10 +18,12 @@ import { Menu } from "@/design-system/molecules/menu";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const { t } = useTranslation();
+  const rangeMenu = useRangeSelectOptions();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { programId = "" } = useParams<{ programId: string }>();
@@ -46,15 +48,7 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
-  const {
-    categories,
-    receivedSeries,
-    grantedSeries,
-    rewardedSeries,
-    renderReceivedAmount,
-    renderGrantedAmount,
-    renderRewardedAmount,
-  } = useFinancialColumnChart(stats);
+  const { categories, receivedSeries, grantedSeries, rewardedSeries } = useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
@@ -71,7 +65,7 @@ export function FinancialColumnChart() {
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
-        return `${this.series.name}: ${amount} ${code}<br/>`;
+        return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
       },
     },
   });
@@ -105,43 +99,33 @@ export function FinancialColumnChart() {
       <div className="flex items-center gap-4">
         <Paper
           size={"lg"}
-          classNames={{ base: "grid laptop:grid-cols-3 laptop:items-center gap-3 flex-1" }}
+          classNames={{ base: "grid tablet:grid-cols-3 tablet:items-center gap-3 flex-1" }}
           background={"secondary"}
         >
-          <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="primary">
-              <Translate token={"programs:financialColumnChart.legends.received"} />
-            </ChartLegend>
-            {renderReceivedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="secondary">
-              <Translate token={"programs:financialColumnChart.legends.granted"} />
-            </ChartLegend>
-            {renderGrantedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"programs:financialColumnChart.legends.rewarded"} />
-            </ChartLegend>
-            {renderRewardedAmount}
-          </div>
+          <ChartLegend color="primary">
+            <Translate token={"programs:financialColumnChart.legends.received"} />
+          </ChartLegend>
+
+          <ChartLegend color="secondary">
+            <Translate token={"programs:financialColumnChart.legends.granted"} />
+          </ChartLegend>
+
+          <ChartLegend color="tertiary">
+            <Translate token={"programs:financialColumnChart.legends.rewarded"} />
+          </ChartLegend>
         </Paper>
         <Menu
-          items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-          ]}
+          items={rangeMenu}
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
           isPopOver
+          placement={"bottom-end"}
         >
-          <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
-            <Translate token={`common:dateRangeType.${rangeType}`} />
-          </Button>
+          <div>
+            <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
+              <Translate token={`common:dateRangeType.${rangeType}`} />
+            </Button>
+          </div>
         </Menu>
       </div>
     </div>
