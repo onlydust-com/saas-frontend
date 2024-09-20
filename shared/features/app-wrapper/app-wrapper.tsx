@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
+
+import { handleLoginWithRedirect } from "@/core/application/auth0-client-adapter/helpers";
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
@@ -61,19 +64,15 @@ function AppSkeleton() {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
-  const { isAuthenticated, isLoading, error, loginWithRedirect } = useClientBootstrapAuth();
+  const { isAuthenticated, isLoading, loginWithRedirect } = useClientBootstrapAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading && loginWithRedirect) {
+      handleLoginWithRedirect(loginWithRedirect);
+    }
+  }, [isAuthenticated, isLoading, loginWithRedirect]);
 
   if (isLoading) {
-    return <AppSkeleton />;
-  }
-
-  // TODO redirect to error page
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
-
-  if (!isAuthenticated && loginWithRedirect) {
-    loginWithRedirect();
     return <AppSkeleton />;
   }
 
