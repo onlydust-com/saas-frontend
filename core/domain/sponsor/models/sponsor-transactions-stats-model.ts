@@ -9,7 +9,7 @@ export interface SponsorTransactionsStatsInterface extends SponsorTransactionsSt
 export class SponsorTransactionsStats implements SponsorTransactionsStatsInterface {
   date!: SponsorTransactionsStatsResponse["date"];
   totalAllocated!: SponsorTransactionsStatsResponse["totalAllocated"];
-  totalAvailable!: SponsorTransactionsStatsResponse["totalAvailable"];
+  totalDeposited!: SponsorTransactionsStatsResponse["totalDeposited"];
   totalGranted!: SponsorTransactionsStatsResponse["totalGranted"];
   totalRewarded!: SponsorTransactionsStatsResponse["totalRewarded"];
   transactionCount!: SponsorTransactionsStatsResponse["transactionCount"];

@@ -14,8 +14,8 @@ enum CardTransactionType {
   DEPOSITED = "DEPOSITED",
   ALLOCATED = "ALLOCATED",
   GRANTED = "GRANTED",
-  RECEIVED = "RECEIVED",
-  RETURNED = "RETURNED",
+  UNGRANTED = "UNGRANTED",
+  UNALLOCATED = "UNALLOCATED",
 }
 
 export type CardTransactionTypes = `${CardTransactionType}`;

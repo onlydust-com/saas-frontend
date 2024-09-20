@@ -18,7 +18,7 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
     );
   };
 
-  const receivedSeries = calculateSeries("totalAvailable");
+  const receivedSeries = calculateSeries("totalReceived");
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
 

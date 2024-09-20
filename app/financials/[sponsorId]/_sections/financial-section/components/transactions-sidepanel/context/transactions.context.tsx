@@ -36,7 +36,7 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
     types: [
       TransactionsContextFilterType.DEPOSITED,
       TransactionsContextFilterType.ALLOCATED,
-      TransactionsContextFilterType.RETURNED,
+      TransactionsContextFilterType.UNALLOCATED,
     ],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});

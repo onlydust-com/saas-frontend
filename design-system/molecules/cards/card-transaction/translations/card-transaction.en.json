@@ -3,7 +3,7 @@
     "DEPOSITED": "Deposited",
     "ALLOCATED": "Allocated",
     "GRANTED": "Granted",
-    "RECEIVED": "Received",
-    "RETURNED": "Returned"
+    "UNALLOCATED": "Unallocated",
+    "UNGRANTED": "Ungranted"
   }
 }

@@ -35,8 +35,9 @@ export function TransactionsContextProvider({ children, programId }: Transaction
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
     types: [
       TransactionsContextFilterType.GRANTED,
-      TransactionsContextFilterType.RECEIVED,
-      TransactionsContextFilterType.RETURNED,
+      TransactionsContextFilterType.UNGRANTED,
+      TransactionsContextFilterType.ALLOCATED,
+      TransactionsContextFilterType.UNALLOCATED,
     ],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});

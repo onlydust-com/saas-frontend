@@ -19,7 +19,7 @@
         "choices": {
           "DEPOSITED": "Deposited",
           "ALLOCATED": "Allocated",
-          "RETURNED": "Returned"
+          "UNALLOCATED": "Unallocated"
         }
       },
       "period": {

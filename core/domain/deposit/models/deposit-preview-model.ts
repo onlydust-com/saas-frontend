@@ -5,12 +5,7 @@ export type DepositPreviewResponse = components["schemas"]["PreviewDepositRespon
 export interface DepositPreviewInterface extends DepositPreviewResponse {}
 
 export class DepositPreview implements DepositPreviewInterface {
-  amount!: DepositPreviewResponse["amount"];
-  billingInformation!: DepositPreviewResponse["billingInformation"];
-  currentBalance!: DepositPreviewResponse["currentBalance"];
-  finalBalance!: DepositPreviewResponse["finalBalance"];
   id!: DepositPreviewResponse["id"];
-  senderInformation!: DepositPreviewResponse["senderInformation"];
 
   constructor(props: DepositPreviewResponse) {
     Object.assign(this, props);
