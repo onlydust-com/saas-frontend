@@ -61,13 +61,7 @@ export function ContributorHistogramChart() {
     activeContributorSeries,
     reactivatedContributorSeries,
     churnedContributorSeries,
-    renderNewContributorCount,
-    renderReactivatedContributorCount,
-    renderActiveContributorCount,
-    renderChurnedContributorCount,
-    renderGrantedAmount,
-    renderRewardedAmount,
-    renderMergedPrCount,
+
     minChurnedContributor,
   } = useContributorHistogramChart(stats, timeGroupingType);
 
@@ -91,18 +85,6 @@ export function ContributorHistogramChart() {
         };
     }
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
-
-  const splineLegend = useMemo(() => {
-    switch (splineType) {
-      case "grant":
-        return <SplineLegend splineType={splineType}>{renderGrantedAmount}</SplineLegend>;
-      case "reward":
-        return <SplineLegend splineType={splineType}>{renderRewardedAmount}</SplineLegend>;
-      case "pr":
-      default:
-        return <SplineLegend splineType={splineType}>{renderMergedPrCount}</SplineLegend>;
-    }
-  }, [splineType, renderMergedPrCount, renderGrantedAmount, renderRewardedAmount]);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     categories,
@@ -229,36 +211,24 @@ export function ContributorHistogramChart() {
       </div>
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper
-          size={"lg"}
-          classNames={{ base: "grid laptop:grid-cols-5 laptop:items-center gap-3 flex-1" }}
-          background={"secondary"}
-        >
-          <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="primary">
-              <Translate token={"data:histograms.legends.new"} />
-            </ChartLegend>
-            {renderNewContributorCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="secondary">
-              <Translate token={"data:histograms.legends.reactivated"} />
-            </ChartLegend>
-            {renderReactivatedContributorCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"data:histograms.legends.active"} />
-            </ChartLegend>
-            {renderActiveContributorCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="quaternary">
-              <Translate token={"data:histograms.legends.churned"} />
-            </ChartLegend>
-            {renderChurnedContributorCount}
-          </div>
-          {splineLegend}
+        <Paper size={"lg"} classNames={{ base: "grid tablet:grid-cols-5 gap-3 flex-1" }} background={"secondary"}>
+          <ChartLegend color="primary">
+            <Translate token={"data:histograms.legends.new"} />
+          </ChartLegend>
+
+          <ChartLegend color="secondary">
+            <Translate token={"data:histograms.legends.reactivated"} />
+          </ChartLegend>
+
+          <ChartLegend color="tertiary">
+            <Translate token={"data:histograms.legends.active"} />
+          </ChartLegend>
+
+          <ChartLegend color="quaternary">
+            <Translate token={"data:histograms.legends.churned"} />
+          </ChartLegend>
+
+          <SplineLegend splineType={splineType} />
         </Paper>
       </div>
     </div>

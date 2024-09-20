@@ -46,15 +46,7 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
-  const {
-    categories,
-    receivedSeries,
-    grantedSeries,
-    rewardedSeries,
-    renderReceivedAmount,
-    renderGrantedAmount,
-    renderRewardedAmount,
-  } = useFinancialColumnChart(stats);
+  const { categories, receivedSeries, grantedSeries, rewardedSeries } = useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
@@ -105,27 +97,20 @@ export function FinancialColumnChart() {
       <div className="flex items-center gap-4">
         <Paper
           size={"lg"}
-          classNames={{ base: "grid laptop:grid-cols-3 laptop:items-center gap-3 flex-1" }}
+          classNames={{ base: "grid tablet:grid-cols-3 tablet:items-center gap-3 flex-1" }}
           background={"secondary"}
         >
-          <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="primary">
-              <Translate token={"programs:financialColumnChart.legends.received"} />
-            </ChartLegend>
-            {renderReceivedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="secondary">
-              <Translate token={"programs:financialColumnChart.legends.granted"} />
-            </ChartLegend>
-            {renderGrantedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"programs:financialColumnChart.legends.rewarded"} />
-            </ChartLegend>
-            {renderRewardedAmount}
-          </div>
+          <ChartLegend color="primary">
+            <Translate token={"programs:financialColumnChart.legends.received"} />
+          </ChartLegend>
+
+          <ChartLegend color="secondary">
+            <Translate token={"programs:financialColumnChart.legends.granted"} />
+          </ChartLegend>
+
+          <ChartLegend color="tertiary">
+            <Translate token={"programs:financialColumnChart.legends.rewarded"} />
+          </ChartLegend>
         </Paper>
         <Menu
           items={[

@@ -46,17 +46,8 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
-  const {
-    categories,
-    availableSeries,
-    allocatedSeries,
-    grantedSeries,
-    rewardedSeries,
-    renderAvailableAmount,
-    renderAllocatedAmount,
-    renderGrantedAmount,
-    renderRewardedAmount,
-  } = useFinancialColumnChart(stats);
+  const { categories, availableSeries, allocatedSeries, grantedSeries, rewardedSeries } =
+    useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
@@ -108,33 +99,24 @@ export function FinancialColumnChart() {
       <div className="flex items-center gap-4">
         <Paper
           size={"lg"}
-          classNames={{ base: "grid laptop:grid-cols-4 laptop:items-center gap-3 flex-1" }}
+          classNames={{ base: "grid tablet:grid-cols-4 tablet:items-center gap-3 flex-1" }}
           background={"secondary"}
         >
-          <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="primary">
-              <Translate token={"financials:financialColumnChart.legends.deposit"} />
-            </ChartLegend>
-            {renderAvailableAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="secondary">
-              <Translate token={"financials:financialColumnChart.legends.allocated"} />
-            </ChartLegend>
-            {renderAllocatedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"financials:financialColumnChart.legends.granted"} />
-            </ChartLegend>
-            {renderGrantedAmount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="quaternary">
-              <Translate token={"financials:financialColumnChart.legends.rewarded"} />
-            </ChartLegend>
-            {renderRewardedAmount}
-          </div>
+          <ChartLegend color="primary">
+            <Translate token={"financials:financialColumnChart.legends.deposit"} />
+          </ChartLegend>
+
+          <ChartLegend color="secondary">
+            <Translate token={"financials:financialColumnChart.legends.allocated"} />
+          </ChartLegend>
+
+          <ChartLegend color="tertiary">
+            <Translate token={"financials:financialColumnChart.legends.granted"} />
+          </ChartLegend>
+
+          <ChartLegend color="quaternary">
+            <Translate token={"financials:financialColumnChart.legends.rewarded"} />
+          </ChartLegend>
         </Paper>
         <Menu
           items={[

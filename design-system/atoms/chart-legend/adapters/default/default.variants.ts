@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ChartLegendDefaultVariants = tv({
   slots: {
-    base: "group flex items-center justify-center gap-2 overflow-hidden",
+    base: "group flex items-center gap-2 overflow-hidden",
     square: "rounded",
     label: "text-text-1",
   },
