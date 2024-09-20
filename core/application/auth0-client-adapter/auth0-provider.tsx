@@ -1,6 +1,7 @@
 "use client";
 
-import { Auth0Provider as Provider } from "@auth0/auth0-react";
+import { AppState, Auth0Provider as Provider } from "@auth0/auth0-react";
+import { useRouter } from "next/navigation";
 import { PropsWithChildren } from "react";
 
 const domain = process.env.NEXT_PUBLIC_AUTH0_PROVIDER_DOMAIN;
@@ -10,9 +11,16 @@ const connectionName = process.env.NEXT_PUBLIC_AUTH0_DEFAULT_CONNECTION_NAME;
 const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE;
 
 export function Auth0Provider({ children }: PropsWithChildren) {
+  const router = useRouter();
   if (!(domain && clientId && redirectUri && audience)) {
     return null;
   }
+
+  const onRedirectCallback = (state: AppState | undefined) => {
+    if (state?.returnTo) {
+      router.push(state.returnTo);
+    }
+  };
 
   return (
     <Provider
@@ -26,7 +34,7 @@ export function Auth0Provider({ children }: PropsWithChildren) {
       }}
       cacheLocation="localstorage"
       useRefreshTokens={true}
-      // onRedirectCallback={onRedirectCallback}
+      onRedirectCallback={onRedirectCallback}
     >
       {children}
     </Provider>
