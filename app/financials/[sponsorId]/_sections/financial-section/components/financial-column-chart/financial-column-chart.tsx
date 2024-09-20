@@ -46,13 +46,13 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
-  const { categories, availableSeries, allocatedSeries, grantedSeries, rewardedSeries } =
+  const { categories, depositedSeries, allocatedSeries, grantedSeries, rewardedSeries } =
     useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: t("financials:financialColumnChart.legends.deposit"), data: availableSeries },
+      { name: t("financials:financialColumnChart.legends.deposit"), data: depositedSeries },
       { name: t("financials:financialColumnChart.legends.allocated"), data: allocatedSeries },
       { name: t("financials:financialColumnChart.legends.granted"), data: grantedSeries },
       { name: t("financials:financialColumnChart.legends.rewarded"), data: rewardedSeries },
@@ -84,7 +84,7 @@ export function FinancialColumnChart() {
     );
   }
 
-  if (!availableSeries.length && !allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
+  if (!depositedSeries.length && !allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
         titleTranslate={{ token: "financials:financialColumnChart.emptyState.title" }}

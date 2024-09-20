@@ -11,14 +11,14 @@ export function useFinancialColumnChart(stats?: GetSponsorTransactionsStatsModel
     return stats?.map(stat => stat?.getStatTotalUsdEquivalent(key)) ?? [];
   };
 
-  const availableSeries = calculateSeries("totalAvailable");
+  const depositedSeries = calculateSeries("totalDeposited");
   const allocatedSeries = calculateSeries("totalAllocated");
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
 
   return {
     categories,
-    availableSeries,
+    depositedSeries,
     allocatedSeries,
     grantedSeries,
     rewardedSeries,
