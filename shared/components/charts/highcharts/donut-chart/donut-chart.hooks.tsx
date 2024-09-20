@@ -59,6 +59,7 @@ export function useDonnutChartOptions({
         headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
         pointFormat:
           "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
+        outside: true,
         ...tooltip,
       },
       plotOptions: {

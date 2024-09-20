@@ -36,7 +36,7 @@ export interface HighchartsOptionsParams {
     yAxis?: number;
     color?: string;
   }>;
-  yAxisTitle?: string;
+  yAxisTitle?: string[];
   xAxisTitle?: string;
   colors?: string[];
   legend?: Options["legend"];

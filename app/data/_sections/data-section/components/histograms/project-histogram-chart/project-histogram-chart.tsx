@@ -62,13 +62,6 @@ export function ProjectHistogramChart() {
     activeProjectSeries,
     reactivatedProjectSeries,
     churnedProjectSeries,
-    renderNewContributorCount,
-    renderReactivatedProjectCount,
-    renderActiveProjectCount,
-    renderChurnedProjectCount,
-    renderMergedPrCount,
-    renderGrantedAmount,
-    renderRewardedAmount,
     minChurnedProject,
   } = useProjectHistogramChart(stats, timeGroupingType);
 
@@ -93,19 +86,8 @@ export function ProjectHistogramChart() {
     }
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
 
-  const splineLegend = useMemo(() => {
-    switch (splineType) {
-      case "grant":
-        return <SplineLegend splineType={splineType}>{renderGrantedAmount}</SplineLegend>;
-      case "reward":
-        return <SplineLegend splineType={splineType}>{renderRewardedAmount}</SplineLegend>;
-      case "pr":
-      default:
-        return <SplineLegend splineType={splineType}>{renderMergedPrCount}</SplineLegend>;
-    }
-  }, [splineType, renderMergedPrCount, renderGrantedAmount, renderRewardedAmount]);
-
   const { options } = useStackedColumnAreaSplineChartOptions({
+    yAxisTitle: [t("data:histograms.data.projects"), splineSeries.name],
     categories,
     min: minChurnedProject,
     series: [
@@ -224,31 +206,23 @@ export function ProjectHistogramChart() {
           classNames={{ base: "grid laptop:grid-cols-5 laptop:items-center gap-3 flex-1" }}
           background={"secondary"}
         >
-          <div className="flex items-center justify-between gap-4">
-            <ChartLegend color="primary">
-              <Translate token={"data:histograms.legends.new"} />
-            </ChartLegend>
-            {renderNewContributorCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="secondary">
-              <Translate token={"data:histograms.legends.reactivated"} />
-            </ChartLegend>
-            {renderReactivatedProjectCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="tertiary">
-              <Translate token={"data:histograms.legends.active"} />
-            </ChartLegend>
-            {renderActiveProjectCount}
-          </div>
-          <div className="flex justify-between gap-4">
-            <ChartLegend color="quaternary">
-              <Translate token={"data:histograms.legends.churned"} />
-            </ChartLegend>
-            {renderChurnedProjectCount}
-          </div>
-          {splineLegend}
+          <ChartLegend color="primary">
+            <Translate token={"data:histograms.legends.new"} />
+          </ChartLegend>
+
+          <ChartLegend color="secondary">
+            <Translate token={"data:histograms.legends.reactivated"} />
+          </ChartLegend>
+
+          <ChartLegend color="tertiary">
+            <Translate token={"data:histograms.legends.active"} />
+          </ChartLegend>
+
+          <ChartLegend color="quaternary">
+            <Translate token={"data:histograms.legends.churned"} />
+          </ChartLegend>
+
+          <SplineLegend splineType={splineType} />
         </Paper>
       </div>
     </div>
