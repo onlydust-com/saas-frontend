@@ -5,8 +5,8 @@
   "financial": {
     "title": "Financials",
     "buttons": {
-      "budgetAvailable": "Budget available",
-      "budgetChart": "Budget chart",
+      "budgetAvailable": "Budget",
+      "budgetChart": "Chart",
       "seeTransactions": "See transactions"
     }
   },
