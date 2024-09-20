@@ -17,12 +17,13 @@ import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcha
 import { useMapChartOptions } from "@/shared/components/charts/highcharts/map-chart/map-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ProgramEcosystemAutocomplete } from "@/shared/features/program-ecosystem-autocomplete/program-ecosystem-autocomplete";
+import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ActiveUsersChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
-
+  const rangeMenu = useRangeSelectOptions();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
   const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
 
@@ -91,18 +92,7 @@ export function ActiveUsersChart() {
             onSelect={onProgramEcosystemChange}
             selectedProgramAndEcosystem={selectedProgramAndEcosystem}
           />
-          <Menu
-            items={[
-              { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-              { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-              { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-              { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-              { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-            ]}
-            selectedIds={[rangeType]}
-            onAction={onChangeRangeType}
-            isPopOver
-          >
+          <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRangeType} isPopOver>
             <Button
               as={"div"}
               variant={"secondary"}

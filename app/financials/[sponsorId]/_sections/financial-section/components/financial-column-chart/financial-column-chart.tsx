@@ -18,10 +18,12 @@ import { Menu } from "@/design-system/molecules/menu";
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const { t } = useTranslation();
+  const rangeMenu = useRangeSelectOptions();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { sponsorId = "" } = useParams<{ sponsorId: string }>();
@@ -119,16 +121,11 @@ export function FinancialColumnChart() {
           </ChartLegend>
         </Paper>
         <Menu
-          items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-          ]}
+          items={rangeMenu}
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
           isPopOver
+          placement={"bottom-end"}
         >
           <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />
