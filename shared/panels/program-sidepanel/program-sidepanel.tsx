@@ -41,7 +41,7 @@ export function ProgramSidepanel() {
 
     return (
       <div className={"flex w-full flex-col gap-lg"}>
-        <Kpi />
+        <Kpi data={data} />
         <Financial data={data} />
         <Information data={data} />
       </div>

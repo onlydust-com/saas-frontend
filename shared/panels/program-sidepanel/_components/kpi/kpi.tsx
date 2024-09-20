@@ -5,22 +5,22 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { KpiProps } from "./kpi.types";
 
-export function Kpi(_: KpiProps) {
+export function Kpi({ data }: KpiProps) {
   const map = [
     {
       key: "projects",
       title: <Translate token={"panels:program.kpi.projects.title"} />,
-      value: 0,
+      value: data.projectCount ?? 0,
     },
     {
       key: "contributors",
       title: <Translate token={"panels:program.kpi.contributors.title"} />,
-      value: 0,
+      value: data.contributorCount ?? 0,
     },
     {
       key: "rewards",
       title: <Translate token={"panels:program.kpi.rewards.title"} />,
-      value: 0,
+      value: data.rewardCount ?? 0,
     },
   ];
 

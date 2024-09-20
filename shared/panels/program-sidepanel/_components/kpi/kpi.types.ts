@@ -1,1 +1,5 @@
-export interface KpiProps {}
+import { ProgramInterface } from "@/core/domain/program/models/program-model";
+
+export interface KpiProps {
+  data: ProgramInterface;
+}
