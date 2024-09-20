@@ -103,17 +103,25 @@ export function useStackedColumnAreaSplineChartOptions({
         style: tooltipInnerStyle,
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
-        headerFormat: "<strong>{point.key}</strong><br/><br/>", // Category name
-        pointFormat: "{series.name}: {point.y}<br/>", // Series name and value
+        headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
+        pointFormat:
+          "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
         formatter() {
-          let s = `<strong>${this.x}</strong><br/><br/>`; // Category name
+          let s = `<div class='font-medium mb-xs'>${this.x}</div>`; // Category name
+
           this.points?.forEach(point => {
             if (point.series.name === "Granted" || point.series.name === "Rewarded") {
-              s += `${point.series.name}: ${moneyKernelPort.format({ amount: point.y, currency: moneyKernelPort.getCurrency("USD") }).amount} USD<br/>`;
-              return;
+              const { amount, code } = moneyKernelPort.format({
+                amount: point.y,
+                currency: moneyKernelPort.getCurrency("USD"),
+              });
+
+              s += `<div><span class='text-typography-secondary'>${point.series.name}</span> <span class='font-medium'>${amount} ${code}</span></div>`; // Series name and value
+            } else {
+              s += `<div><span class='text-typography-secondary'>${point.series.name}</span> <span class='font-medium'>${point.y ? Intl.NumberFormat().format(point.y) : ""}</span></div>`; // Series name and value
             }
-            s += `${point.series.name}: ${point.y}<br/>`; // Series name and value
           });
+
           return s;
         },
         positioner(labelWidth, _labelHeight, point) {
