@@ -9,16 +9,18 @@ export interface BiWorldMapInterface extends BiWorldMapResponse {
 export class BiWorldMap implements BiWorldMapInterface {
   countryCode!: BiWorldMapResponse["countryCode"];
   value!: BiWorldMapResponse["value"];
+  scales: [number, number, number];
 
-  constructor(props: BiWorldMapResponse) {
+  constructor(props: BiWorldMapResponse, maxScale: number) {
     Object.assign(this, props);
+    this.scales = [maxScale * 0.25, maxScale * 0.5, maxScale * 0.75];
   }
 
   private getColor(value: number): string {
-    if (value < 5000) return "#510077"; // < 5000
-    if (value < 10000) return "#7A0EBB"; // 5000 - 10000
-    if (value < 20000) return "#A03AE9"; // 10000 - 20000
-    return "#CA75FF"; // > 20000
+    if (value < this.scales[0]) return "#510077"; // < scales[0]
+    if (value < this.scales[1]) return "#7A0EBB"; // scales[0] - scales[1]
+    if (value < this.scales[2]) return "#A03AE9"; // scales[1] - scales[2];
+    return "#CA75FF"; // >= scales[2]
   }
 
   getChartFormattedData(item: BiWorldMapResponse) {
