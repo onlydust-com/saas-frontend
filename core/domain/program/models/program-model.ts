@@ -13,6 +13,9 @@ export class Program implements ProgramInterface {
   totalGranted!: ProgramResponse["totalGranted"];
   totalRewarded!: ProgramResponse["totalRewarded"];
   url!: ProgramResponse["url"];
+  projectCount!: ProgramResponse["projectCount"];
+  contributorCount!: ProgramResponse["contributorCount"];
+  rewardCount!: ProgramResponse["rewardCount"];
 
   constructor(props: ProgramResponse) {
     Object.assign(this, props);
