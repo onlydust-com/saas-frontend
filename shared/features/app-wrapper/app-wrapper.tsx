@@ -64,24 +64,13 @@ function AppSkeleton() {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
-  const { isAuthenticated, isLoading, loginWithRedirect, error, logout } = useClientBootstrapAuth();
+  const { isAuthenticated, isLoading, loginWithRedirect, error } = useClientBootstrapAuth();
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading && loginWithRedirect && !error) {
       handleLoginWithRedirect(loginWithRedirect);
     }
   }, [isAuthenticated, isLoading, loginWithRedirect, error]);
-
-  useEffect(() => {
-    if (error) {
-      logout({
-        logoutParams: {
-          returnTo: window.location.pathname,
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
 
   if (isLoading) {
     return <AppSkeleton />;

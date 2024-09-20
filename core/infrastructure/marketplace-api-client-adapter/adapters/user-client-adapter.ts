@@ -1,3 +1,4 @@
+import { bootstrap } from "@/core/bootstrap";
 import { Contributor } from "@/core/domain/user/models/contributor-model";
 import { UserEcosystemItem } from "@/core/domain/user/models/user-ecosystem-item-model";
 import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
@@ -22,7 +23,7 @@ import {
   SetMyProfileBody,
 } from "@/core/domain/user/user-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
-import { FirstParameter } from "@/core/kernel/types";
+import { AnyType, FirstParameter } from "@/core/kernel/types";
 
 export class UserClientAdapter implements UserStoragePort {
   constructor(private readonly client: HttpClient) {}
@@ -65,14 +66,25 @@ export class UserClientAdapter implements UserStoragePort {
     const method = "GET";
     const tag = HttpClient.buildTag({ path });
 
+    const authProvider = bootstrap.getAuthProvider();
     const request = async () => {
-      const data = await this.client.request<GetMeResponse>({
-        path,
-        method,
-        tag,
-      });
-
-      return new User(data);
+      try {
+        const data = await this.client.request<GetMeResponse>({
+          path,
+          method,
+          tag,
+        });
+        return new User(data);
+      } catch (err) {
+        if ((err as AnyType).status === 401 && authProvider?.logout) {
+          authProvider?.logout({
+            logoutParams: {
+              returnTo: window.location.origin,
+            },
+          });
+        }
+        throw err;
+      }
     };
 
     return {
