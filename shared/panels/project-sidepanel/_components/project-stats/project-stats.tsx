@@ -7,11 +7,13 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
 
+import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectStatsProps } from "./project-stats.types";
 
 export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStatsProps) {
+  const rangeMenu = useRangeSelectOptions();
   const map = [
     {
       key: "devsOnboarded",
@@ -39,18 +41,7 @@ export function ProjectStats({ data, rangeType, onChangeRangeType }: ProjectStat
       <div className="flex flex-row items-center justify-between gap-1">
         <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.kpi.title" }} />
 
-        <Menu
-          items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-          ]}
-          selectedIds={[rangeType]}
-          onAction={onChangeRange}
-          isPopOver
-        >
+        <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRange} isPopOver placement={"bottom-end"}>
           <Button size={"xs"} variant={"secondary"} startIcon={{ component: Calendar }}>
             <Translate token={`common:dateRangeType.${rangeType}`} />
           </Button>

@@ -18,6 +18,7 @@ import {
   useDonnutChartOptions,
 } from "@/shared/components/charts/highcharts/donut-chart/donut-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
+import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { RewardsGraphProps } from "./rewards-graph.types";
@@ -25,7 +26,7 @@ import { RewardsGraphProps } from "./rewards-graph.types";
 const SHOWED_STATS_NUMBER = 4;
 export function RewardsGraph({ githubId }: RewardsGraphProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-
+  const rangeMenu = useRangeSelectOptions();
   const { t } = useTranslation("panels");
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.ALL_TIME);
   const { fromDate, toDate } = useMemo(() => {
@@ -103,17 +104,12 @@ export function RewardsGraph({ githubId }: RewardsGraphProps) {
       <div className={"flex flex-row items-center justify-between"}>
         <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.earning.title" }} />
         <Menu
-          items={[
-            { label: <Translate token={"common:dateRangeType.LAST_WEEK"} />, id: DateRangeType.LAST_WEEK },
-            { label: <Translate token={"common:dateRangeType.LAST_MONTH"} />, id: DateRangeType.LAST_MONTH },
-            { label: <Translate token={"common:dateRangeType.LAST_SEMESTER"} />, id: DateRangeType.LAST_SEMESTER },
-            { label: <Translate token={"common:dateRangeType.LAST_YEAR"} />, id: DateRangeType.LAST_YEAR },
-            { label: <Translate token={"common:dateRangeType.ALL_TIME"} />, id: DateRangeType.ALL_TIME },
-          ]}
+          items={rangeMenu}
           selectedIds={[rangeType]}
           onAction={onChangeRangeType}
           isPopOver
           closeOnSelect
+          placement={"bottom-end"}
         >
           <div>
             <Button

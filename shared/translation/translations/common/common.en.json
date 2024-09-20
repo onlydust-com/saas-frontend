@@ -16,6 +16,13 @@
     "LAST_YEAR": "Last year",
     "ALL_TIME": "All time"
   },
+  "dateRangeTypeLong": {
+    "LAST_WEEK": "Last week ({{from}} to {{to}})",
+    "LAST_MONTH": "Last month ({{from}} to {{to}})",
+    "LAST_SEMESTER": "Last semester ({{from}} to {{to}})",
+    "LAST_YEAR": "Last year ({{from}} to {{to}})",
+    "ALL_TIME": "All time"
+  },
   "timeGroupingType": {
     "DAY": "Day",
     "WEEK": "Week",

@@ -18,12 +18,20 @@ import { MenuDefaultAdapter } from "@/design-system/molecules/menu/adapters/defa
 
 import { ListMenuPort, MenuBasePort, PopOverMenuPort } from "../menu.types";
 
-export function MenuPopover({ children, onOpenChange, closeOnSelect, isPopOver: _, ...props }: PopOverMenuPort) {
+export function MenuPopover({
+  children,
+  onOpenChange,
+  placement,
+  closeOnSelect,
+  isPopOver: _,
+  ...props
+}: PopOverMenuPort) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
+    placement,
     middleware: [flip({ padding: 0 }), offset(8)],
     whileElementsMounted: autoUpdate,
   });
