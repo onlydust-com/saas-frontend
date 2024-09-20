@@ -141,8 +141,8 @@ export function ContributorHistogramChart() {
 
   return (
     <div className="flex min-h-[300px] flex-col gap-4">
-      <div className="flex justify-between gap-2">
-        <div className="flex gap-2">
+      <div className="flex flex-wrap justify-between gap-2">
+        <div className="flex flex-wrap gap-2">
           <ProgramEcosystemAutocomplete
             name={"programAndEcosystem"}
             placeholder={t("data:details.allDataFilter.placeholder")}
@@ -178,7 +178,7 @@ export function ContributorHistogramChart() {
           </Menu>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <RadioButtonGroup
             items={[
               {
