@@ -1,5 +1,5 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { useEditProgramPanel } from "@/app/financials/[sponsorId]/_features/edit-program-panel/edit-program-panel.hooks";
@@ -21,12 +21,13 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useProgramSidePanel } from "@/shared/panels/program-sidepanel/program-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
   const { open: OpenEditProgram } = useEditProgramPanel();
-  const router = useRouter();
+  const { open: openProgram } = useProgramSidePanel();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
@@ -267,7 +268,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
           base: "min-w-[1200px]",
         }}
         onRowClick={row => {
-          router.push(NEXT_ROUTER.programs.details.root(row.original.id));
+          openProgram({ programId: row.original.id });
         }}
         emptyState={{
           message: "financials:details.programs.table.emptyState.message",

@@ -1,0 +1,33 @@
+{
+  "kpi": {
+    "title": "KPI",
+    "projects": {
+      "title": "Projects"
+    },
+    "contributors": {
+      "title": "Contributors"
+    },
+    "rewards": {
+      "title": "Rewards"
+    }
+  },
+  "financials": {
+    "title": "Financials",
+    "granted": {
+      "title": "Granted"
+    },
+    "available": {
+      "title": "Available"
+    }
+  },
+  "information": {
+    "title": "Information",
+    "lead": {
+      "title": "Program lead"
+    }
+  },
+  "emptyState": {
+    "title": "No program found",
+    "message": "There are no programs available."
+  }
+}
