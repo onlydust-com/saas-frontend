@@ -1,13 +1,18 @@
+import { SquareArrowOutUpRight } from "lucide-react";
 import { useMemo } from "react";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
+import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { Activity } from "@/shared/panels/contributor-sidepanel/_components/activity/activity";
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
@@ -15,6 +20,7 @@ import { Languages } from "@/shared/panels/contributor-sidepanel/_components/lan
 import { Profile } from "@/shared/panels/contributor-sidepanel/_components/profile/profile";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ContributorSidepanelData } from "./contributor-sidepanel.types";
 
@@ -98,6 +104,26 @@ export function ContributorSidepanel() {
         canClose={true}
       />
       <SidePanelBody>{renderContent()}</SidePanelBody>
+      {data ? (
+        <SidePanelFooter>
+          <div className={"flex w-full flex-row items-center justify-end gap-1"}>
+            {data ? (
+              <Button
+                variant={"secondary"}
+                endContent={<SquareArrowOutUpRight size={16} />}
+                size={"md"}
+                as={"a"}
+                htmlProps={{
+                  href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
+                  target: "_blank",
+                }}
+              >
+                <Translate token={"panels:contributor.seeContributor"} />
+              </Button>
+            ) : null}
+          </div>
+        </SidePanelFooter>
+      ) : null}
     </Panel>
   );
 }
