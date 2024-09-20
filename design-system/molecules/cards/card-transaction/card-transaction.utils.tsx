@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Undo2 } from "lucide-react";
+import { ArrowRight, Undo2 } from "lucide-react";
 import { ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
@@ -12,12 +12,6 @@ export function getComponentsVariants(type: CardTransactionTypes): {
   typeName: ReactNode;
 } {
   const map: Record<CardTransactionTypes, { iconProps: IconPort }> = {
-    DEPOSITED: {
-      iconProps: {
-        component: ArrowDown,
-        classNames: { base: "text-utility-secondary-blue-500" },
-      },
-    },
     ALLOCATED: {
       iconProps: {
         component: ArrowRight,
@@ -30,13 +24,13 @@ export function getComponentsVariants(type: CardTransactionTypes): {
         classNames: { base: "text-utility-secondary-blue-500" },
       },
     },
-    RECEIVED: {
+    UNGRANTED: {
       iconProps: {
-        component: ArrowDown,
-        classNames: { base: "text-utility-secondary-green-500" },
+        component: Undo2,
+        classNames: { base: "text-foreground-error" },
       },
     },
-    RETURNED: {
+    UNALLOCATED: {
       iconProps: {
         component: Undo2,
         classNames: { base: "text-foreground-error" },

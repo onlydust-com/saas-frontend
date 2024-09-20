@@ -70,14 +70,14 @@ export const ReceivedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransaction type='RECEIVED' />",
+        code: "<CardTransaction type='UNGRANTED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransaction {...defaultProps} {...args} type="RECEIVED" />
+        <CardTransaction {...defaultProps} {...args} type="UNGRANTED" />
       </div>
     );
   },
@@ -87,14 +87,14 @@ export const ReturnedType: Story = {
   parameters: {
     docs: {
       source: {
-        code: "<CardTransaction type='RETURNED' />",
+        code: "<CardTransaction type='UNALLOCATED' />",
       },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <CardTransaction {...defaultProps} {...args} type="RETURNED" />
+        <CardTransaction {...defaultProps} {...args} type="UNALLOCATED" />
       </div>
     );
   },
