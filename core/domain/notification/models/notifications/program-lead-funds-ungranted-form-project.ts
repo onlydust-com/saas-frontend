@@ -5,10 +5,10 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
-export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInterface {
-  data: components["schemas"]["NotificationSponsorLeadFundsUnallocatedFromProgram"] | undefined;
+export class ProgramLeadFundsUngrantedFromProject implements NotificationInterface {
+  data: components["schemas"]["NotificationProgramLeadFundsUngrantedFromProject"] | undefined;
   constructor(private notification: Notification) {
-    this.data = notification.data.sponsorLeadFundsUnallocatedFromProgram;
+    this.data = notification.data.programLeadFundsUngrantedFromProject;
   }
 
   getId() {
@@ -28,16 +28,14 @@ export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInter
   }
 
   getTitle() {
-    return "Allocation returned to you from program";
+    return "Grant returned to you from project";
   }
 
   getDescription() {
-    return `An allocation from ${this.data?.program.name} has been returned to you: ${this.data?.amount} ${this.data?.currencyCode}.`;
+    return `A grant from ${this.data?.project.name} has been returned to you: ${this.data?.amount} ${this.data?.currencyCode}.`;
   }
 
   getUrl() {
-    return this.data?.sponsor.id
-      ? NEXT_ROUTER.financials.details.root(this.data.sponsor.id)
-      : NEXT_ROUTER.financials.root;
+    return this.data?.program.id ? NEXT_ROUTER.programs.details.root(this.data.program.id) : NEXT_ROUTER.programs.root;
   }
 }
