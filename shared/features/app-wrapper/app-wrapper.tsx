@@ -64,13 +64,13 @@ function AppSkeleton() {
 
 export function AppWrapper({ children }: AppWrapperProps) {
   const isTablet = useIsTablet("lower");
-  const { isAuthenticated, isLoading, loginWithRedirect } = useClientBootstrapAuth();
+  const { isAuthenticated, isLoading, loginWithRedirect, error } = useClientBootstrapAuth();
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoading && loginWithRedirect) {
+    if (!isAuthenticated && !isLoading && loginWithRedirect && !error) {
       handleLoginWithRedirect(loginWithRedirect);
     }
-  }, [isAuthenticated, isLoading, loginWithRedirect]);
+  }, [isAuthenticated, isLoading, loginWithRedirect, error]);
 
   if (isLoading) {
     return <AppSkeleton />;
