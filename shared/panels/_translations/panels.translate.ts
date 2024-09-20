@@ -5,6 +5,7 @@ import enCurrencyNetwork from "@/shared/panels/currency-network-sidepanel/_trans
 import enDepositSummary from "@/shared/panels/deposit-summary-sidepanel/_translations/deposit-summary-sidepanel.en.json";
 import enDepositTransaction from "@/shared/panels/deposit-transaction-sidepanel/_translations/deposit-transaction-sidepanel.en.json";
 import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/program-list-sidepanel.en.json";
+import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
 
 export const enPanelsTranslation = {
@@ -17,5 +18,6 @@ export const enPanelsTranslation = {
     depositSummary: enDepositSummary,
     depositTransaction: enDepositTransaction,
     contributor: enContributor,
+    program: enProgramDetail,
   },
 };
