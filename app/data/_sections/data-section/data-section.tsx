@@ -29,7 +29,7 @@ export function DataSection() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4 overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:details.content.title" }} />
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
