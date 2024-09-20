@@ -159,8 +159,8 @@ export function ProjectHistogramChart() {
 
   return (
     <div className="flex min-h-[300px] flex-col gap-4">
-      <div className="flex justify-between gap-2">
-        <div className="flex gap-2">
+      <div className="flex flex-wrap justify-between gap-2 tablet:flex-nowrap">
+        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
           <ProgramEcosystemAutocomplete
             name={"programAndEcosystem"}
             placeholder={t("data:details.allDataFilter.placeholder")}
@@ -196,7 +196,7 @@ export function ProjectHistogramChart() {
           </Menu>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
           <RadioButtonGroup
             items={[
               {
