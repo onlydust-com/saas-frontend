@@ -28,7 +28,6 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const { sponsorId } = useParams<{ sponsorId: string }>();
   const { open: OpenEditProgram } = useEditProgramPanel();
   const { open: openProgram } = useProgramSidePanel();
-  // const router = useRouter();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     SponsorReactQueryAdapter.client.useGetSponsorPrograms({
@@ -269,7 +268,6 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
           base: "min-w-[1200px]",
         }}
         onRowClick={row => {
-          // router.push(NEXT_ROUTER.programs.details.root(row.original.id));
           openProgram({ programId: row.original.id });
         }}
         emptyState={{

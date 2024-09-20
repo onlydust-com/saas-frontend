@@ -6,20 +6,21 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroupPort } from "@/design-system/molecules/avatar-group";
 import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
-
 import { FinancialCardProps, FinancialProps } from "./financial.types";
 
 function Card({ type, values }: FinancialCardProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  function buildTitle(): TranslateProps["token"] {
-    if (type === "available") {
-      return "panels:program.financials.available.title";
-    }
-
-    return "panels:program.financials.granted.title";
-  }
+  const config = {
+    available: {
+      title: "panels:program.financials.available.title",
+      color: "gradient",
+    },
+    granted: {
+      title: "panels:program.financials.granted.title",
+      color: "grey",
+    },
+  } as const;
 
   function buildAvatars(): AvatarGroupPort<AnyType>["avatars"] {
     if (values.totalPerCurrency) {
@@ -31,21 +32,19 @@ function Card({ type, values }: FinancialCardProps) {
     return [];
   }
 
-  function formatAmount() {
-    return moneyKernelPort.format({
-      amount: values.totalUsdEquivalent,
-      currency: moneyKernelPort.getCurrency("USD"),
-    }).amount;
-  }
+  const amount = moneyKernelPort.format({
+    amount: values.totalUsdEquivalent,
+    currency: moneyKernelPort.getCurrency("USD"),
+  }).amount;
 
   return (
     <CardFinancial
-      title={{ token: buildTitle() }}
-      amount={formatAmount()}
+      title={{ token: config[type].title }}
+      amount={amount}
       currency={moneyKernelPort.getCurrency("USD").code}
       avatarGroup={{ avatars: buildAvatars() }}
       size={"m"}
-      color={type === "available" ? "gradient" : "grey"}
+      color={config[type].color}
     />
   );
 }
