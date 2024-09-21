@@ -5,29 +5,24 @@ import {
   useMutationAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { UserFacadePort } from "@/core/domain/user/inputs/user-facade-port";
-import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
-import { ReplaceMyProfileBody } from "@/core/domain/user/user-contract.types";
+import { MeFacadePort } from "@/core/domain/me/inputs/me-facade-port";
+import { SetMyProfileBody } from "@/core/domain/me/me-contract.types";
+import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
 
-export function useReplaceMyProfile({
+export function useSetMyProfile({
   options,
-}: UseMutationFacadeParams<
-  UserFacadePort["replaceMyProfile"],
-  undefined,
-  UserProfileInterface,
-  ReplaceMyProfileBody
-> = {}) {
-  const userStoragePort = bootstrap.getUserStoragePortForClient();
+}: UseMutationFacadeParams<MeFacadePort["setMyProfile"], undefined, MeProfileInterface, SetMyProfileBody> = {}) {
+  const meStoragePort = bootstrap.getMeStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
-      ...userStoragePort.replaceMyProfile({}),
+      ...meStoragePort.setMyProfile({}),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
           await queryClient.invalidateQueries({
-            queryKey: userStoragePort.getMyProfile({}).tag,
+            queryKey: meStoragePort.getMyProfile({}).tag,
             exact: false,
           });
 

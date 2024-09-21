@@ -5,14 +5,14 @@ import {
   useMutationAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { UserFacadePort } from "@/core/domain/user/inputs/user-facade-port";
+import { MeFacadePort } from "@/core/domain/me/inputs/me-facade-port";
 
-export function useLogoutMe({ options }: UseMutationFacadeParams<UserFacadePort["logoutMe"], undefined, object>) {
-  const userStoragePort = bootstrap.getUserStoragePortForClient();
+export function useLogoutMe({ options }: UseMutationFacadeParams<MeFacadePort["logoutMe"], undefined, object>) {
+  const meStoragePort = bootstrap.getMeStoragePortForClient();
 
   return useMutation(
     useMutationAdapter({
-      ...userStoragePort.logoutMe({}),
+      ...meStoragePort.logoutMe({}),
       options,
     })
   );
