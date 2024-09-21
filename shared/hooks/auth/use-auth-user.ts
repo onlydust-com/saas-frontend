@@ -1,4 +1,4 @@
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 
 export function useAuthUser() {
@@ -8,7 +8,7 @@ export function useAuthUser() {
     data: user,
     isLoading,
     ...restUser
-  } = UserReactQueryAdapter.client.useGetMe({
+  } = MeReactQueryAdapter.client.useGetMe({
     options: {
       enabled: isAuthenticated,
     },
