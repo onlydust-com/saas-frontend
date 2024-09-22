@@ -420,7 +420,7 @@ export function ProjectsTable() {
 
   return (
     <ScrollView direction={"x"}>
-      <div>
+      <div className={"flex"}>
         <TableColumnList
           titleProps={{ token: "data:deepDive.projectsTable.filters.columnList" }}
           menuProps={{
