@@ -428,7 +428,7 @@ export function ProjectsTable() {
               {
                 id: "global",
                 label: <Translate token={"data:deepDive.projectsTable.filters.global"} />,
-                isSeparator: true,
+                isLabel: true,
               },
               {
                 id: "project",
@@ -461,9 +461,13 @@ export function ProjectsTable() {
                 isCheckbox: true,
               },
               {
+                id: "globalSeparator",
+                isSeparator: true,
+              },
+              {
                 id: "financial",
                 label: <Translate token={"data:deepDive.projectsTable.filters.financial"} />,
-                isSeparator: true,
+                isLabel: true,
               },
               {
                 id: "availableBudget",
@@ -486,9 +490,13 @@ export function ProjectsTable() {
                 isCheckbox: true,
               },
               {
+                id: "financialSeparator",
+                isSeparator: true,
+              },
+              {
                 id: "activity",
                 label: <Translate token={"data:deepDive.projectsTable.filters.activity"} />,
-                isSeparator: true,
+                isLabel: true,
               },
               {
                 id: "onboardedContributorCount",
@@ -518,6 +526,7 @@ export function ProjectsTable() {
             ],
             selectedIds,
             onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),
+            isMultiple: true,
           }}
         />
       </div>
