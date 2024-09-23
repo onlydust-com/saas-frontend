@@ -12,15 +12,32 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiProjectInterface>();
 
-  const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiProjects({
-    queryParams: {},
+  const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
+  const userProgramIds = user?.programs?.map(program => program.id) ?? [];
+  const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
+
+  const {
+    data,
+    isLoading: isLoadingBiProjects,
+    isError: isErrorBiProjects,
+  } = BiReactQueryAdapter.client.useGetBiProjects({
+    queryParams: {
+      programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    },
+    options: {
+      enabled: Boolean(user),
+    },
   });
+
+  const isLoading = isLoadingUser || isLoadingBiProjects;
+  const isError = isErrorUser || isErrorBiProjects;
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
