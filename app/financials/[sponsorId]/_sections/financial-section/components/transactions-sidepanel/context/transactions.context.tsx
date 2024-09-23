@@ -54,7 +54,7 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
 
   const { data: transactionsStats } = SponsorReactQueryAdapter.client.useGetSponsorTransactionsStats({
     pathParams: { sponsorId },
-    queryParams: debouncedQueryParams,
+    queryParams: { ...debouncedQueryParams, sort: "DATE", sortDirection: "DESC", showEmpty: false },
     options: {
       enabled: !!sponsorId,
     },

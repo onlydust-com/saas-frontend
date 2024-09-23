@@ -43,6 +43,9 @@ export function FinancialColumnChart() {
     queryParams: {
       fromDate,
       toDate,
+      sort: "DATE",
+      sortDirection: "ASC",
+      showEmpty: true,
     },
   });
 
