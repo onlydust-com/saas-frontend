@@ -49,7 +49,7 @@ export interface MenuItemLabelPort extends MenuItemBasePort {
   isLabel?: boolean;
 }
 
-export interface MenuItemSeparatorPort extends MenuItemBasePort {
+export interface MenuItemSeparatorPort extends Omit<MenuItemBasePort, "label"> {
   isSeparator?: boolean;
   label?: never;
 }
