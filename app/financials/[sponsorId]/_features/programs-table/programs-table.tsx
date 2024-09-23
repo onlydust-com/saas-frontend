@@ -16,11 +16,9 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useProgramSidePanel } from "@/shared/panels/program-sidepanel/program-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -49,6 +47,13 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   const canAllocatePrograms = Boolean(sponsor?.totalAvailable.totalUsdEquivalent);
 
   const columnHelper = createColumnHelper<SponsorProgramsListItemInterface>();
+
+  function handleOpenProgram(programId: string) {
+    openProgram({
+      programId,
+      onEditClick: (id: string) => OpenEditProgram({ programId: id, sponsorId }),
+    });
+  }
 
   const columns = [
     columnHelper.accessor("name", {
@@ -221,12 +226,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
               </Button>
             </Tooltip>
 
-            <Button
-              as={BaseLink}
-              htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
-              variant={"secondary"}
-              size={"sm"}
-            >
+            <Button variant={"secondary"} size={"sm"} onClick={() => handleOpenProgram(info.row.original.id)}>
               <Translate token={"financials:details.programs.table.rows.seeProgram"} />
             </Button>
 
@@ -268,7 +268,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
           base: "min-w-[1200px]",
         }}
         onRowClick={row => {
-          openProgram({ programId: row.original.id });
+          handleOpenProgram(row.original.id);
         }}
         emptyState={{
           message: "financials:details.programs.table.emptyState.message",
