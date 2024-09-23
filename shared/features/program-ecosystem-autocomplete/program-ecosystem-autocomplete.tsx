@@ -28,9 +28,9 @@ export function ProgramEcosystemAutocomplete({
   }, [search, user?.programs]);
 
   // TODO @Mehdi enable ecosystems once ready in /me
-  // const filteredEcosystems = useMemo(() => {
-  //   return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
-  // }, [search, user?.ecosystems]);
+  const filteredEcosystems = useMemo(() => {
+    return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
+  }, [search, user?.ecosystems]);
 
   const createMenuItems = (items: User["programs"] | User["sponsors"]): MenuItemPort[] => {
     return (
@@ -50,13 +50,16 @@ export function ProgramEcosystemAutocomplete({
           ...programsItems,
         ]
       : [];
-    // TODO @Mehdi enable ecosystems once ready in /me
-    // const ecosystemsItems = createMenuItems(filteredEcosystems || []);
-    // const ecosystems = ecosystemsItems.length
-    //   ? [{ id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true }, ...ecosystemsItems]
-    //   : [];
-    return [...programs];
-  }, [t, filteredPrograms]);
+    const ecosystemsItems = createMenuItems(filteredEcosystems || []);
+    const ecosystems = ecosystemsItems.length
+      ? [
+          { id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true },
+          ...ecosystemsItems,
+        ]
+      : [];
+    return [...programs, ...ecosystems];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredPrograms, filteredEcosystems]);
 
   const selectedValues = useMemo(() => {
     if (selectedProgramAndEcosystem?.length) {
