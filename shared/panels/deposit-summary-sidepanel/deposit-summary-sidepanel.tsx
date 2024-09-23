@@ -75,10 +75,13 @@ export function DepositSummarySidepanel() {
   );
 
   useEffect(() => {
-    if (deposit) {
-      reset({
-        billingInformation: deposit.latestBillingInformation ?? undefined,
-      });
+    if (deposit?.latestBillingInformation) {
+      const billingInformation = Object.fromEntries(
+        // We only want non-null values
+        Object.entries(deposit.latestBillingInformation).filter(([, value]) => Boolean(value))
+      );
+
+      reset({ billingInformation });
     }
   }, [deposit]);
 
