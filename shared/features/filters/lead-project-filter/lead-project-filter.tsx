@@ -1,14 +1,17 @@
 import { AccordionFilter } from "@/shared/features/filters/accordion-filter/accordion-filter";
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 
-import { LeadProjectProps } from "./lead-project.types";
+import { LeadProjectFilterProps } from "./lead-project-filter.types";
 
-export function LeadProject({ selectedUser, onSelect }: LeadProjectProps) {
-  const fieldName = "coucou";
+export function LeadProjectFilter({ selectedUser, onSelect }: LeadProjectFilterProps) {
   return (
-    <AccordionFilter name={fieldName} title={{ children: "LEAD" }} selected={selectedUser?.length}>
+    <AccordionFilter
+      name={"lead-project"}
+      title={{ translate: { token: "features:filters.leadProject.title" } }}
+      selected={selectedUser?.length}
+    >
       <UserAutocomplete
-        name={fieldName}
+        name={"lead-project"}
         selectedUser={selectedUser}
         isPopover={false}
         onSelect={onSelect}

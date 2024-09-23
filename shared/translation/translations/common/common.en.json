@@ -23,6 +23,11 @@
     "LAST_YEAR": "Last year ({{from}} to {{to}})",
     "ALL_TIME": "All time"
   },
+  "quantityFilterType": {
+    "EQUAL": "is equal",
+    "GREATER_THAN_OR_EQUAL": "is superior or equal",
+    "LESS_THAN_OR_EQUAL": "is inferior or equal"
+  },
   "timeGroupingType": {
     "DAY": "Day",
     "WEEK": "Week",
