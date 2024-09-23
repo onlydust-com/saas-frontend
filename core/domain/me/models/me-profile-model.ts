@@ -1,32 +1,33 @@
-import { UserJoiningReason, UserProfileContact, UserProfileContactChannel } from "@/core/domain/user/models/user.types";
+import { UserJoiningReason } from "@/core/domain/me/models/me.types";
+import { UserProfileContact, UserProfileContactChannel } from "@/core/domain/user/models/user.types";
 import { USER_PROFILE_JOINING_REASON } from "@/core/domain/user/user-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-type UserProfileResponse = components["schemas"]["PrivateUserProfileResponse"];
+type MeProfileResponse = components["schemas"]["PrivateUserProfileResponse"];
 
-export interface UserProfileInterface extends UserProfileResponse {
+export interface MeProfileInterface extends MeProfileResponse {
   hasContact(channel: UserProfileContactChannel): boolean;
   getContact(channel: UserProfileContactChannel): UserProfileContact | undefined;
   getContactTelegram(): UserProfileContact | undefined;
   isMaintainer(): boolean;
 }
 
-export class UserProfile implements UserProfileInterface {
-  allocatedTimeToContribute!: UserProfileResponse["allocatedTimeToContribute"];
-  avatarUrl!: UserProfileResponse["avatarUrl"];
-  bio!: UserProfileResponse["bio"];
-  contacts!: UserProfileResponse["contacts"];
-  firstName!: UserProfileResponse["firstName"];
-  githubUserId!: UserProfileResponse["githubUserId"];
-  id!: UserProfileResponse["id"];
-  isLookingForAJob!: UserProfileResponse["isLookingForAJob"];
-  joiningReason!: UserProfileResponse["joiningReason"];
-  lastName!: UserProfileResponse["lastName"];
-  location!: UserProfileResponse["location"];
-  login!: UserProfileResponse["login"];
-  website!: UserProfileResponse["website"];
+export class MeProfile implements MeProfileInterface {
+  allocatedTimeToContribute!: MeProfileResponse["allocatedTimeToContribute"];
+  avatarUrl!: MeProfileResponse["avatarUrl"];
+  bio!: MeProfileResponse["bio"];
+  contacts!: MeProfileResponse["contacts"];
+  firstName!: MeProfileResponse["firstName"];
+  githubUserId!: MeProfileResponse["githubUserId"];
+  id!: MeProfileResponse["id"];
+  isLookingForAJob!: MeProfileResponse["isLookingForAJob"];
+  joiningReason!: MeProfileResponse["joiningReason"];
+  lastName!: MeProfileResponse["lastName"];
+  location!: MeProfileResponse["location"];
+  login!: MeProfileResponse["login"];
+  website!: MeProfileResponse["website"];
 
-  constructor(props: UserProfileResponse) {
+  constructor(props: MeProfileResponse) {
     Object.assign(this, props);
   }
 

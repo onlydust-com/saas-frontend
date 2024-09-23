@@ -1,8 +1,6 @@
 import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
 import { UserEcosystemItem } from "@/core/domain/user/models/user-ecosystem-item-model";
 import { UserLanguageItem } from "@/core/domain/user/models/user-language-item-model";
-import { UserInterface } from "@/core/domain/user/models/user-model";
-import { UserProfileInterface } from "@/core/domain/user/models/user-profile-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
 import { UserStats } from "@/core/domain/user/models/user-stats-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -10,54 +8,6 @@ import {
   HttpClientParameters,
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
-
-/* --------------------------------- Logout me -------------------------------- */
-
-export type LogoutMeResponse = never;
-
-export type LogoutMeResponsePortParams = HttpClientParameters<object>;
-
-export type LogoutMeResponsePortResponse = HttpStorageResponse;
-
-/* --------------------------------- Get me -------------------------------- */
-
-export type GetMeResponse = components["schemas"]["GetMeResponse"];
-
-export type GetMeResponsePortParams = HttpClientParameters<object>;
-
-export type GetMeResponsePortResponse = HttpStorageResponse<UserInterface>;
-
-/* --------------------------------- Set me --------------------------------- */
-
-export type SetMeBody = components["schemas"]["PatchMeContract"];
-
-export type SetMePortParams = HttpClientParameters<object>;
-
-export type SetMePortResponse = HttpStorageResponse<UserInterface, SetMeBody>;
-
-/* --------------------------------- Get my profile -------------------------------- */
-
-export type GetMyProfileResponse = components["schemas"]["PrivateUserProfileResponse"];
-
-export type GetMyProfilePortParams = HttpClientParameters<object>;
-
-export type GetMyProfilePortResponse = HttpStorageResponse<UserProfileInterface>;
-
-/* --------------------------------- Set my profile -------------------------------- */
-
-export type SetMyProfileBody = components["schemas"]["UserProfileUpdateRequest"];
-
-export type SetMyProfilePortParams = HttpClientParameters<object>;
-
-export type SetMyProfilePortResponse = HttpStorageResponse<never, SetMyProfileBody>;
-
-/* --------------------------------- Replace my profile -------------------------------- */
-
-export type ReplaceMyProfileBody = components["schemas"]["UserProfileUpdateRequest"];
-
-export type ReplaceMyProfilePortParams = HttpClientParameters<object>;
-
-export type ReplaceMyProfilePortResponse = HttpStorageResponse<never, ReplaceMyProfileBody>;
 
 /* --------------------------------- Search users -------------------------------- */
 

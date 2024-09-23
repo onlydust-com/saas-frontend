@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { User } from "@/core/domain/user/models/user-model";
+import { MeInterface } from "@/core/domain/me/models/me-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
@@ -32,7 +32,7 @@ export function ProgramEcosystemAutocomplete({
   //   return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
   // }, [search, user?.ecosystems]);
 
-  const createMenuItems = (items: User["programs"] | User["sponsors"]): MenuItemPort[] => {
+  const createMenuItems = (items: MeInterface["programs"] | MeInterface["sponsors"]): MenuItemPort[] => {
     return (
       items?.map(item => ({
         id: item.id,
