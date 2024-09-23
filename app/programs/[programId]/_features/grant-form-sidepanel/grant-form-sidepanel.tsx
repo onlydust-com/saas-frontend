@@ -143,9 +143,6 @@ export function GrantFormSidepanel() {
             logoUrl={project.logoUrl}
             buttonProps={{
               children: `${projectUsdAmount} ${projectUsdCode}`,
-              classNames: {
-                base: "pointer-events-none whitespace-nowrap",
-              },
             }}
           />
 

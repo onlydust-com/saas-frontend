@@ -68,9 +68,6 @@ export function AllocateProgramSidepanel() {
           logoUrl={program.logoUrl}
           buttonProps={{
             children: `${programUsdAmount} USD`,
-            classNames: {
-              base: "pointer-events-none whitespace-nowrap",
-            },
           }}
         />
 

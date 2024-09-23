@@ -43,7 +43,20 @@ export function CardProjectDefaultAdapter<C extends ElementType = "div">({
       avatarProps={{ shape: "squared", src: logoUrl }}
       titleProps={{ children: title }}
       descriptionProps={{ children: description }}
-      actionSlot={buttonProps ? <Button {...buttonProps} size="xs" variant="secondary" /> : null}
+      actionSlot={
+        buttonProps ? (
+          <Button
+            as={"div"}
+            canInteract={false}
+            classNames={{
+              base: "whitespace-nowrap",
+            }}
+            {...buttonProps}
+            size="xs"
+            variant="secondary"
+          />
+        ) : null
+      }
       contentSlot={
         <div className="flex w-full flex-wrap gap-1">
           <BadgeList items={languages} icon={CodeXml} label={{ token: "common:languages", count: languages?.length }} />
