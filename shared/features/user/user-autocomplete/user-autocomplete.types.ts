@@ -1,6 +1,6 @@
-import { SelectInputProps } from "@/design-system/molecules/select";
+import { SelectExtendedProps } from "@/design-system/molecules/select";
 
-export interface UserAutocompleteProps extends SelectInputProps {
+export interface UserAutocompleteProps extends SelectExtendedProps {
   withExternalUser?: boolean;
   withInternalUserOnly?: boolean;
   withExternalUserOnly?: boolean;

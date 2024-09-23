@@ -88,6 +88,7 @@ export function ContributorHistogramChart() {
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
+    yAxisTitle: [t("data:histograms.data.contributors"), splineSeries.name],
     categories,
     min: minChurnedContributor,
     series: [

@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
@@ -12,7 +12,7 @@ export function useLogout() {
   const { capture, reset } = usePosthog();
   const { isImpersonating, clearClaim } = useClientBootstrapImpersonation();
   const { logout } = useClientBootstrapAuth();
-  const { mutateAsync: logoutUser } = UserReactQueryAdapter.client.useLogoutMe({});
+  const { mutateAsync: logoutUser } = MeReactQueryAdapter.client.useLogoutMe({});
   const queryClient = useQueryClient();
 
   async function handleLogout() {

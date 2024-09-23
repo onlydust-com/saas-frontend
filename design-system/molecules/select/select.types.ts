@@ -14,9 +14,11 @@ export interface SelectInputProps {
   placeholder?: InputPort["placeholder"];
   info?: InputPort["info"];
   error?: InputPort["error"];
+  size?: InputPort["size"];
   label?: InputPort["label"];
   description?: InputPort["description"];
   isError?: InputPort["isError"];
+  isPopover?: boolean;
   name: string;
 }
 
@@ -31,15 +33,18 @@ interface SelectProps {
   isMultiple?: MenuPort["isMultiple"];
 }
 
-export interface SelectPort<C extends ElementType> extends Partial<Variants>, SelectProps, SelectInputProps {
+export interface SelectExtendedProps extends SelectInputProps {
+  isDisabled?: boolean;
+  isAutoComplete?: boolean;
+  isMultiple?: MenuPort["isMultiple"];
+}
+
+export interface SelectPort<C extends ElementType> extends Partial<Variants>, SelectExtendedProps, SelectProps {
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  isDisabled?: boolean;
-  isAutoComplete?: boolean;
   controlledAutoComplete?: {
     onChange?: (value: string) => void;
     value?: string;
   };
-  isPopover?: boolean;
 }

@@ -5,24 +5,29 @@ import {
   useMutationAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { UserFacadePort } from "@/core/domain/user/inputs/user-facade-port";
-import { UserInterface } from "@/core/domain/user/models/user-model";
-import { SetMeBody } from "@/core/domain/user/user-contract.types";
+import { MeFacadePort } from "@/core/domain/me/inputs/me-facade-port";
+import { ReplaceMyProfileBody } from "@/core/domain/me/me-contract.types";
+import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
 
-export function useSetMe({
+export function useReplaceMyProfile({
   options,
-}: UseMutationFacadeParams<UserFacadePort["setMe"], undefined, UserInterface, SetMeBody>) {
-  const userStoragePort = bootstrap.getUserStoragePortForClient();
+}: UseMutationFacadeParams<
+  MeFacadePort["replaceMyProfile"],
+  undefined,
+  MeProfileInterface,
+  ReplaceMyProfileBody
+> = {}) {
+  const meStoragePort = bootstrap.getMeStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
-      ...userStoragePort.setMe({}),
+      ...meStoragePort.replaceMyProfile({}),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
           await queryClient.invalidateQueries({
-            queryKey: userStoragePort.getMe({}).tag,
+            queryKey: meStoragePort.getMyProfile({}).tag,
             exact: false,
           });
 

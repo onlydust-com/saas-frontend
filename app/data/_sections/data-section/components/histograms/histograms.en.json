@@ -11,6 +11,10 @@
     "granted": "Granted",
     "rewarded": "Rewarded"
   },
+  "data": {
+    "contributors": "Contributors",
+    "projects": "Projects"
+  },
   "splineTypes": {
     "totalGranted": "Total granted to project",
     "totalRewarded": "Total rewarded to contributors",

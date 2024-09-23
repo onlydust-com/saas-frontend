@@ -52,7 +52,7 @@ export function useColumnChartOptions({
       yAxis: {
         min: 0,
         title: {
-          text: yAxisTitle,
+          text: yAxisTitle?.[0],
           style: yAxisPrimaryStyle,
         },
         labels: {
@@ -80,6 +80,7 @@ export function useColumnChartOptions({
 
           return { x, y };
         },
+        outside: true,
         ...tooltip,
       },
       plotOptions: {

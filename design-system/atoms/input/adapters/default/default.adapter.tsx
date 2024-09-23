@@ -103,6 +103,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
     canInteract = true,
     button,
     attr = {},
+    type,
     size = defaultSize,
     isFocused: _isFocused,
   }: InputPort,
@@ -153,6 +154,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
               placeholder={placeholder}
               disabled={isDisabled || !canInteract}
               onChange={handleChanges}
+              type={type}
             />
           </div>
           <EndContent endContent={endContent} endIcon={endIcon} button={button} {...variants} />

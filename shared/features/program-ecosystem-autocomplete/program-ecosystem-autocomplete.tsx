@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { User } from "@/core/domain/user/models/user-model";
+import { MeInterface } from "@/core/domain/me/models/me-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
@@ -27,12 +27,11 @@ export function ProgramEcosystemAutocomplete({
     return user?.programs?.filter(program => program.name.toLowerCase().includes(search.toLowerCase()));
   }, [search, user?.programs]);
 
-  // TODO @Mehdi enable ecosystems once ready in /me
-  // const filteredEcosystems = useMemo(() => {
-  //   return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
-  // }, [search, user?.ecosystems]);
+  const filteredEcosystems = useMemo(() => {
+    return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
+  }, [search, user?.ecosystems]);
 
-  const createMenuItems = (items: User["programs"] | User["sponsors"]): MenuItemPort[] => {
+  const createMenuItems = (items: MeInterface["programs"] | MeInterface["sponsors"]): MenuItemPort[] => {
     return (
       items?.map(item => ({
         id: item.id,
@@ -50,13 +49,16 @@ export function ProgramEcosystemAutocomplete({
           ...programsItems,
         ]
       : [];
-    // TODO @Mehdi enable ecosystems once ready in /me
-    // const ecosystemsItems = createMenuItems(filteredEcosystems || []);
-    // const ecosystems = ecosystemsItems.length
-    //   ? [{ id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true }, ...ecosystemsItems]
-    //   : [];
-    return [...programs];
-  }, [t, filteredPrograms]);
+    const ecosystemsItems = createMenuItems(filteredEcosystems || []);
+    const ecosystems = ecosystemsItems.length
+      ? [
+          { id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true },
+          ...ecosystemsItems,
+        ]
+      : [];
+    return [...programs, ...ecosystems];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredPrograms, filteredEcosystems]);
 
   const selectedValues = useMemo(() => {
     if (selectedProgramAndEcosystem?.length) {

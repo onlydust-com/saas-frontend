@@ -2,6 +2,7 @@ import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-p
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
+import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
@@ -11,6 +12,7 @@ import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-clien
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
+import { MeClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/me-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
@@ -30,6 +32,8 @@ import { FileAdapter } from "../kernel/file/file-adapter";
 import { FileFacadePort } from "../kernel/file/file-facade-port";
 
 export interface BootstrapConstructor {
+  meStoragePortForClient: MeStoragePort;
+  meStoragePortForServer: MeStoragePort;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
@@ -58,6 +62,8 @@ export class Bootstrap {
   static #instance: Bootstrap;
   private authProvider?: AuthProvider;
   private impersonationProvider?: ImpersonationProvider | null = null;
+  meStoragePortForClient: MeStoragePort;
+  meStoragePortForServer: MeStoragePort;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
   bannerStoragePortForClient: BannerStoragePort;
@@ -82,6 +88,8 @@ export class Bootstrap {
   urlKernelPort: UrlFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
+    this.meStoragePortForClient = constructor.meStoragePortForClient;
+    this.meStoragePortForServer = constructor.meStoragePortForServer;
     this.userStoragePortForClient = constructor.userStoragePortForClient;
     this.userStoragePortForServer = constructor.userStoragePortForServer;
     this.bannerStoragePortForClient = constructor.bannerStoragePortForClient;
@@ -120,6 +128,14 @@ export class Bootstrap {
 
   setImpersonationProvider(impersonationProvider: ImpersonationProvider) {
     this.impersonationProvider = impersonationProvider;
+  }
+
+  getMeStoragePortForClient() {
+    return this.meStoragePortForClient;
+  }
+
+  getMeStoragePortForServer() {
+    return this.meStoragePortForServer;
   }
 
   getUserStoragePortForClient() {
@@ -213,6 +229,8 @@ export class Bootstrap {
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
+        meStoragePortForClient: new MeClientAdapter(new FetchHttpClient()),
+        meStoragePortForServer: new MeClientAdapter(new FetchHttpClient()),
         userStoragePortForClient: new UserClientAdapter(new FetchHttpClient()),
         userStoragePortForServer: new UserClientAdapter(new FetchHttpClient()),
         bannerStoragePortForClient: new BannerClientAdapter(new FetchHttpClient()),

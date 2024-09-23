@@ -37,6 +37,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   isDisabled,
   isAutoComplete = false,
   isPopover = true,
+  isMultiple = false,
   ...inputProps
 }: SelectPort<C>) {
   const Component = as || "div";
@@ -179,6 +180,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
           selectedIds={selectedIds}
           onNextPage={onNextPage}
           hasNextPage={hasNextPage}
+          isMultiple={isMultiple}
         />
       </div>
     );
@@ -207,6 +209,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
                 selectedIds={selectedIds}
                 onNextPage={onNextPage}
                 hasNextPage={hasNextPage}
+                isMultiple={isMultiple}
               />
             </div>
           </FloatingFocusManager>
