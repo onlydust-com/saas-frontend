@@ -27,7 +27,6 @@ export function ProgramEcosystemAutocomplete({
     return user?.programs?.filter(program => program.name.toLowerCase().includes(search.toLowerCase()));
   }, [search, user?.programs]);
 
-  // TODO @Mehdi enable ecosystems once ready in /me
   const filteredEcosystems = useMemo(() => {
     return user?.ecosystems?.filter(ecosystem => ecosystem.name.toLowerCase().includes(search.toLowerCase()));
   }, [search, user?.ecosystems]);
