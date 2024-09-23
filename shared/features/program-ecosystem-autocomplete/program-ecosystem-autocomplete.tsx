@@ -113,6 +113,7 @@ export function ProgramEcosystemAutocomplete({
               }}
               {...selectProps}
               isPopover={false}
+              isMultiple
             />
           )}
         </Popover.Content>

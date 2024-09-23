@@ -9,10 +9,10 @@ import { cn } from "@/shared/helpers/cn";
 
 import { ButtonSolidPort } from "../button.types";
 
-const ButtonPrimaryColortVariants = tv({
+const ButtonPrimaryColorVariants = tv({
   extend: ButtonDefaultVariants,
   slots: {
-    base: "outline-none",
+    base: "outline-none data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
   },
   variants: {
     variant: {
@@ -22,7 +22,6 @@ const ButtonPrimaryColortVariants = tv({
           "text-components-buttons-button-primary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-primary-bg-hover hover:bg-components-buttons-button-primary-bg-hover",
-          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       secondary: {
@@ -32,7 +31,6 @@ const ButtonPrimaryColortVariants = tv({
           "text-components-buttons-button-secondary-fg",
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-secondary-bg-hover hover:bg-components-buttons-button-secondary-bg-hover",
-          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
       tertiary: {
@@ -40,7 +38,6 @@ const ButtonPrimaryColortVariants = tv({
           "bg-components-buttons-button-tertiary-bg",
           "text-components-buttons-button-tertiary-fg",
           "data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover hover:bg-components-buttons-button-tertiary-bg-hover",
-          "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
       },
     },
@@ -58,7 +55,7 @@ const ButtonPrimaryColortVariants = tv({
 
 export function ButtonPrimaryColor<C extends ElementType = "button">(props: ButtonSolidPort<C>) {
   const { isDisabled, iconOnly, size, canInteract, variant = "primary" } = props;
-  const slotsDefault = ButtonPrimaryColortVariants({ isDisabled, iconOnly, size, canInteract, variant });
+  const slotsDefault = ButtonPrimaryColorVariants({ isDisabled, iconOnly, size, canInteract, variant });
 
   return withComponentAdapter<ButtonSolidPort<C>>(ButtonDefaultAdapter)({
     ...props,

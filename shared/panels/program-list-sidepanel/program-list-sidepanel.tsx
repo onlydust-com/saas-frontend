@@ -77,9 +77,7 @@ function Programs({
             projectCount={Intl.NumberFormat().format(program.projectCount)}
             // TODO @hayden handle user count
             buttonProps={{
-              as: "div",
               children: `${totalUsdAvailable} USD`,
-              canInteract: false,
             }}
           />
         );
