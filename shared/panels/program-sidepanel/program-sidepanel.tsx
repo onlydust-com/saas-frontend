@@ -68,10 +68,10 @@ export function ProgramSidepanel() {
       />
 
       <SidePanelBody>{renderContent()}</SidePanelBody>
-      {onEditClick || !!data ? (
+      {data ? (
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
-            {onEditClick && data ? (
+            {onEditClick ? (
               <Button size={"md"} variant={"secondary"} onClick={() => onEditClick(data?.id)}>
                 <Translate token={"panels:program.buttons.edit"} />
               </Button>
