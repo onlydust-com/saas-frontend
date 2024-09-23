@@ -29,5 +29,9 @@
   "emptyState": {
     "title": "No program found",
     "message": "There are no programs available."
+  },
+  "buttons": {
+    "edit": "Edit program",
+    "see": "See program"
   }
 }
