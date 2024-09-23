@@ -47,8 +47,6 @@ export function UserAutocomplete({
     onSelect?.(ids as string[]);
   }
 
-  console.log("isMultiple", selectProps);
-
   return (
     <Select
       items={usersItem}
