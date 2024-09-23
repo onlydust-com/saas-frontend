@@ -78,9 +78,6 @@ export function AlreadyGrantedProjects({
               categories={project.categories.map(category => ({ children: category.name }))}
               buttonProps={{
                 children: grantedAmount,
-                classNames: {
-                  base: "pointer-events-none whitespace-nowrap",
-                },
               }}
               onClick={() => handleOpenProjectGrant(project.id)}
               size={"none"}

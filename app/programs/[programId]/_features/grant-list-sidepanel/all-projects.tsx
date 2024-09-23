@@ -58,9 +58,6 @@ export function AllProjects({
               languages={project.languages?.map(language => ({ children: language.name }))}
               buttonProps={{
                 children: "0 USD",
-                classNames: {
-                  base: "pointer-events-none whitespace-nowrap",
-                },
               }}
               onClick={() => handleOpenProjectGrant(project.id)}
               size={"none"}
