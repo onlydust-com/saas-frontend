@@ -14,6 +14,7 @@ export interface SelectInputProps {
   placeholder?: InputPort["placeholder"];
   info?: InputPort["info"];
   error?: InputPort["error"];
+  size?: InputPort["size"];
   label?: InputPort["label"];
   description?: InputPort["description"];
   isError?: InputPort["isError"];
