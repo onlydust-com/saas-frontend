@@ -17,14 +17,19 @@ export function useFilterColumns() {
   const [selectedIds, setSelectedIds] = useState<Array<keyof BiProjectResponse>>([
     "project",
     "projectLeads",
+    "categories",
+    "languages",
+    "ecosystems",
     "programs",
     "availableBudget",
     "percentUsedBudget",
     "totalGrantedUsdAmount",
+    "averageRewardUsdAmount",
     "onboardedContributorCount",
     "activeContributorCount",
     "mergedPrCount",
     "rewardCount",
+    "contributionCount",
   ]);
 
   const columnMap: Partial<Record<keyof BiProjectResponse, object>> = {
