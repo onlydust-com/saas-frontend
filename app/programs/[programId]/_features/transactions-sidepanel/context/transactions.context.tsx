@@ -55,7 +55,12 @@ export function TransactionsContextProvider({ children, programId }: Transaction
 
   const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
     pathParams: { programId },
-    queryParams: debouncedQueryParams,
+    queryParams: {
+      ...debouncedQueryParams,
+      sort: "DATE",
+      sortDirection: "DESC",
+      showEmpty: false,
+    },
     options: {
       enabled: !!programId,
     },
