@@ -35,6 +35,7 @@ export function useMapChartOptions({
         followPointer: true, // Ensure the tooltip follows the mouse pointer
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
+        outside: true,
       },
       mapNavigation: {
         enabled: true,

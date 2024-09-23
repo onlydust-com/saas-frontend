@@ -8,7 +8,6 @@ import {
   titleStyle,
   tooltipInnerStyle,
   tooltipWrapperStyle,
-  xAxisStyle,
   yAxisPrimaryStyle,
   yAxisQuaternaryStyle,
 } from "@/shared/components/charts/highcharts/highcharts.styles";
@@ -16,6 +15,11 @@ import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
 } from "@/shared/components/charts/highcharts/highcharts.types";
+
+interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositionerPointObject {
+  negative: boolean;
+  h: number;
+}
 
 export function useStackedColumnAreaSplineChartOptions({
   title,
@@ -35,6 +39,7 @@ export function useStackedColumnAreaSplineChartOptions({
         type: "column",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
+        spacingTop: 40,
       },
       credits: {
         enabled: false, // Disable the credits
@@ -45,10 +50,6 @@ export function useStackedColumnAreaSplineChartOptions({
       },
       xAxis: {
         categories,
-        title: {
-          text: xAxisTitle,
-          style: xAxisStyle,
-        },
         labels: {
           style: yAxisQuaternaryStyle,
         },
@@ -58,8 +59,14 @@ export function useStackedColumnAreaSplineChartOptions({
         {
           min: min ?? 0,
           title: {
-            text: xAxisTitle,
-            style: yAxisPrimaryStyle,
+            text: yAxisTitle?.[0],
+            style: yAxisQuaternaryStyle,
+            align: "high",
+            offset: 0,
+            rotation: 0,
+            y: -20,
+            reserveSpace: false,
+            textAlign: "left",
           },
           labels: {
             style: yAxisQuaternaryStyle,
@@ -72,24 +79,20 @@ export function useStackedColumnAreaSplineChartOptions({
         },
         {
           title: {
-            text: yAxisTitle,
+            text: yAxisTitle?.[1],
             style: yAxisPrimaryStyle,
-          },
-          opposite: true,
-          visible: false, // Hide the second y-axis
-        },
-        {
-          title: {
-            text: xAxisTitle, // Optional title for clarity
+            align: "high",
+            offset: 0,
+            rotation: 0,
+            y: -20,
+            reserveSpace: false,
+            textAlign: "right",
           },
           labels: {
             style: yAxisPrimaryStyle,
           },
-          opposite: true, // Place it on the opposite side
-          linkedTo: 0, // Link to the first y-axis
-          showEmpty: false, // Prevents it from showing if no data exists
-          gridLineColor: "#4C4C5C",
-          gridLineDashStyle: "Dash",
+          opposite: true,
+          gridLineWidth: 0,
         },
       ],
       legend: {
@@ -118,17 +121,18 @@ export function useStackedColumnAreaSplineChartOptions({
           return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${this.y ? Intl.NumberFormat().format(this.y) : ""}</span></div>`;
         },
         positioner(labelWidth, labelHeight, point) {
-          const chart = this.chart;
-          const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = point.plotY - labelHeight;
+          // Need to cast extended point object to avoid TypeScript error, Highcharts types are wrong.
+          const _point = point as ExtendedTooltipPositionerPointObject;
+          const x = _point.plotX + this.chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
+          let y = _point.plotY - labelHeight;
 
-          // TODO @hayden -> comment to make build work
-          // if (point.negative) {
-          //   y = point.plotY - point.h - labelHeight;
-          // }
+          if (_point.negative) {
+            y = _point.plotY - _point.h - labelHeight;
+          }
 
           return { x, y };
         },
+        outside: true,
         ...tooltip,
       },
       plotOptions: {
