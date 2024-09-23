@@ -1,5 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
 import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
@@ -14,23 +15,31 @@ export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiProjectInterface>();
 
-  const [selectedIds, setSelectedIds] = useState<Array<keyof BiProjectResponse>>([
-    "project",
-    "projectLeads",
-    "categories",
-    "languages",
-    "ecosystems",
-    "programs",
-    "availableBudget",
-    "percentUsedBudget",
-    "totalGrantedUsdAmount",
-    "averageRewardUsdAmount",
-    "onboardedContributorCount",
-    "activeContributorCount",
-    "mergedPrCount",
-    "rewardCount",
-    "contributionCount",
-  ]);
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof BiProjectResponse>>(
+    "deep-dive-projects-table-columns"
+  );
+
+  useEffect(() => {
+    if (!selectedIds) {
+      setSelectedIds([
+        "project",
+        "projectLeads",
+        "categories",
+        "languages",
+        "ecosystems",
+        "programs",
+        "availableBudget",
+        "percentUsedBudget",
+        "totalGrantedUsdAmount",
+        "averageRewardUsdAmount",
+        "onboardedContributorCount",
+        "activeContributorCount",
+        "mergedPrCount",
+        "rewardCount",
+        "contributionCount",
+      ]);
+    }
+  }, [selectedIds, setSelectedIds]);
 
   const columnMap: Partial<Record<keyof BiProjectResponse, object>> = {
     project: columnHelper.accessor("project", {
@@ -374,7 +383,7 @@ export function useFilterColumns() {
 
   // Loop on object keys to keep column order
   const columns = columnMapKeys
-    .map(key => (selectedIds.includes(key) ? columnMap[key] : null))
+    .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<BiProjectInterface>[];
 
   return { columns, selectedIds, setSelectedIds };

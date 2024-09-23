@@ -7,8 +7,6 @@ import { TableColumnList } from "@/design-system/molecules/table-column-list";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
-  // TODO @hayden save user preferences in local storage
-
   return (
     <TableColumnList
       titleProps={{ token: "data:deepDive.projectsTable.filters.columnList" }}
