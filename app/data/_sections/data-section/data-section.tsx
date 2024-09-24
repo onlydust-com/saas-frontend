@@ -8,6 +8,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const CONTRIBUTOR = "contributor";
@@ -30,7 +32,7 @@ export function DataSection() {
 
   return (
     <div className="flex w-full flex-col gap-4 overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-lg">
         <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:details.content.title" }} />
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
           <Tabs
@@ -52,6 +54,10 @@ export function DataSection() {
           />
           <div className={"flex items-center gap-lg"}>
             <Button
+              as={BaseLink}
+              htmlProps={{
+                href: NEXT_ROUTER.data.deepDive.root,
+              }}
               variant={"primary"}
               endIcon={{ component: ChevronRight }}
               isTextButton
@@ -61,8 +67,6 @@ export function DataSection() {
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
-              // TODO @Mehdi Handle Open DeepDive Panel
-              // onClick={() => Open Deep Dive Panel}
             />
           </div>
         </div>

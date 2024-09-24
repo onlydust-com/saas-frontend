@@ -3,6 +3,7 @@ import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-c
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
 import { CurrencyClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/currency-client-adapter-mock";
 import { DepositClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/deposit-client-adapter-mock";
+import { LanguagesClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/languages-client-adapter-mock";
 import { MeClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/me-client-adapter-mock";
 import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/notification-client-adapter-mock";
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
@@ -35,6 +36,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   depositStoragePortForServer: new DepositClientAdapterMock(),
   notificationStoragePortForClient: new NotificationClientAdapterMock(),
   notificationStoragePortForServer: new NotificationClientAdapterMock(),
+  languageStoragePortForClient: new LanguagesClientAdapterMock(),
+  languageStoragePortForServer: new LanguagesClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),

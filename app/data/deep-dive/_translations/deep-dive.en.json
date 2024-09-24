@@ -1,0 +1,55 @@
+{
+  "breadcrumbs": {
+    "data": "Data",
+    "deepDive": "Deep Dive"
+  },
+  "header": {
+    "title": "Data",
+    "ctaGraph": "See graph"
+  },
+  "contributorsTable": {
+    "columns": {
+      "contributorName": "Contributor name",
+      "projects": "Projects",
+      "categories": "Categories",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "totalRewardedUsdAmount": "Global rewarded amount",
+      "contributionCount": "Global contributions",
+      "mergedPrCount": "Global PRs merged"
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystems",
+      "projects": "{{count}} projects"
+    }
+  },
+  "projectsTable": {
+    "columns": {
+      "projectName": "Project name",
+      "projectLeads": "Project leads",
+      "categories": "Categories",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "programs": "Programs",
+      "globalBudgetAvailable": "Global budget available",
+      "percentUsedBudget": "% budget used",
+      "totalGrantedUsdAmount": "Global granted amount",
+      "averageRewardUsdAmount": "Global average rewards",
+      "onboardedContributorCount": "Global devs onboarded",
+      "activeContributorCount": "Global active devs",
+      "mergedPrCount": "Global PRs merged",
+      "rewardCount": "Global rewards",
+      "contributionCount": "Contributions"
+    },
+    "rows": {
+      "projectLead": "Project lead",
+      "leads": "{{count}} leads",
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystems",
+      "programs": "{{count}} programs",
+      "currencies": "{{count}} currencies"
+    }
+  }
+}

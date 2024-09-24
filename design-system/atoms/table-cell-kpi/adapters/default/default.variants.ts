@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const TableCellKpiDefaultVariants = tv({
   slots: {
-    base: "flex items-center justify-between gap-2 whitespace-nowrap p-1",
+    base: "flex items-center justify-between gap-2 whitespace-nowrap",
     icon: "text-components-badge-grey-fg",
   },
   variants: {
