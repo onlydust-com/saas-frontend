@@ -1,3 +1,4 @@
+import enAverageRewardCount from "../average-reward-count-filter/average-reward-count-filter.en.json";
 import enBudgetAvailableCount from "../budget-available-count-filter/budget-available-count-filter.en.json";
 import enCategory from "../category-filter/category-filter.en.json";
 import enContributionActivity from "../contributions-activity-filter/contributions-activity-filter.en.json";
@@ -23,5 +24,6 @@ export const enFiltersTranslations = {
     devActiveCount: enDevActiveCount,
     budgetAvailableCount: enBudgetAvailableCount,
     grantedCount: enGrantedCount,
+    averageRewardCount: enAverageRewardCount,
   },
 };

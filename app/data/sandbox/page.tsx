@@ -6,6 +6,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Typo } from "@/design-system/atoms/typo";
 
+import { AverageRewardCountFilter } from "@/shared/features/filters/average-reward-count-filter/average-reward-count-filter";
 import { BudgetAvailableCountFilter } from "@/shared/features/filters/budget-available-count-filter/budget-available-count-filter";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
@@ -31,6 +32,7 @@ export default function SandboxPage() {
   const [devActiveCount, setDevActiveCount] = useState<QuantityFilterValues | undefined>();
   const [budgetAvailableCount, setBudgetAvailableCount] = useState<QuantityFilterValues | undefined>();
   const [grantedCount, setGrantedCount] = useState<QuantityFilterValues | undefined>();
+  const [averageRewardCount, setBAverageRewardCount] = useState<QuantityFilterValues | undefined>();
   const [selectedUserType, setSelectedUserType] = useState<string[]>([]);
 
   const [contributionActivity, setContributionActivity] = useState<ContributionsActivityFilterValue | undefined>();
@@ -58,6 +60,15 @@ export default function SandboxPage() {
         <GrantedCountFilter
           value={grantedCount}
           onChange={setGrantedCount}
+          unit={
+            <Typo size={"sm"} color={"tertiary"}>
+              {moneyKernelPort.getCurrency("USD").code}
+            </Typo>
+          }
+        />
+        <AverageRewardCountFilter
+          value={averageRewardCount}
+          onChange={setBAverageRewardCount}
           unit={
             <Typo size={"sm"} color={"tertiary"}>
               {moneyKernelPort.getCurrency("USD").code}
