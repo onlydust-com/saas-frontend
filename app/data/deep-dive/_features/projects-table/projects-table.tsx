@@ -12,6 +12,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -27,6 +28,9 @@ export function ProjectsTable() {
     data,
     isLoading: isLoadingBiProjects,
     isError: isErrorBiProjects,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiProjects({
     queryParams: {
       programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
@@ -414,11 +418,11 @@ export function ProjectsTable() {
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
-        // onRowClick={row => {}}
         classNames={{
           base: "min-w-[1200px]",
         }}
       />
+      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </ScrollView>
   );
 }

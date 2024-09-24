@@ -13,17 +13,19 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiContributorInterface>();
 
-  const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams: {
-      timeGrouping: "MONTH",
-    },
-  });
+  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    BiReactQueryAdapter.client.useGetBiContributors({
+      queryParams: {
+        timeGrouping: "MONTH",
+      },
+    });
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
 
@@ -275,11 +277,11 @@ export function ContributorsTable() {
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
-        // onRowClick={row => {}}
         classNames={{
           base: "min-w-[1200px]",
         }}
       />
+      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </ScrollView>
   );
 }
