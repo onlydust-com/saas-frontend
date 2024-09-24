@@ -37,20 +37,23 @@ const defaultProps: TableNavPort = {
     value: "Search the data",
   },
   columnList: {
-    onChange: () => {},
-    onClear: () => {},
-    items: [
-      {
-        id: "1",
-        label: "Label 1",
-        value: true,
-      },
-      {
-        id: "2",
-        label: "Label 2",
-        value: false,
-      },
-    ],
+    titleProps: {
+      token: "data:deepDive.projectsTable.filters.columnList",
+    },
+    menuProps: {
+      items: [
+        {
+          id: "1",
+          label: "Label 1",
+          isCheckbox: true,
+        },
+        {
+          id: "2",
+          label: "Label 2",
+          isCheckbox: true,
+        },
+      ],
+    },
   },
 };
 

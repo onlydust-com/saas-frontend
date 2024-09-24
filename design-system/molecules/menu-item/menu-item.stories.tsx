@@ -37,6 +37,10 @@ function MenuItemRadioTemplate(args: MenuItemPort) {
   return <MenuItemTemplate {...args} isRadio />;
 }
 
+function MenuItemLabelTemplate(args: MenuItemPort) {
+  return <MenuItemTemplate {...args} isLabel />;
+}
+
 export const Default: Story = {
   parameters: {
     docs: {
@@ -212,6 +216,17 @@ export const Radio: Story = {
         </div>
       </div>
     );
+  },
+};
+
+export const Label: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<MenuItem />" },
+    },
+  },
+  render: args => {
+    return <MenuItemLabelTemplate {...args} />;
   },
 };
 

@@ -49,5 +49,6 @@
   "sponsors": "Sponsors +{{count}}",
   "projects": "Projects +{{count}}",
   "users": "Users +{{count}}",
-  "categories": "Categories +{{count}}"
+  "categories": "Categories +{{count}}",
+  "search": "Search"
 }

@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
+
+import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { ContributionsActivityFilterValue } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.types";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
@@ -14,6 +17,7 @@ import { UserTypeFilter } from "@/shared/features/filters/user-type-filter/user-
 export default function SandboxPage() {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [rewardsAmountTotal, setRewardsAmountTotal] = useState<QuantityFilterValues | undefined>();
   const [prMergedCount, setPrMergedCount] = useState<QuantityFilterValues | undefined>();
   const [selectedUserType, setSelectedUserType] = useState<string[]>([]);
@@ -26,6 +30,7 @@ export default function SandboxPage() {
         <LeadProjectFilter selectedUser={selectedUsers} onSelect={setSelectedUsers} />
         <TotalRewardedAmountFilter value={rewardsAmountTotal} onChange={setRewardsAmountTotal} />
         <LanguageFilter selectedLanguages={selectedLanguages} onSelect={setSelectedLanguages} />
+        <CategoryFilter selectedCategories={selectedCategories} onSelect={setSelectedCategories} />
         <UserTypeFilter selectedUserType={selectedUserType} onSelect={setSelectedUserType} />
         <ContributionsActivityFilter value={contributionActivity} onChange={setContributionActivity} />
         <PrMergedCountFilter value={prMergedCount} onChange={setPrMergedCount} />

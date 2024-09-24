@@ -2,8 +2,10 @@ import {
   MenuItemAvatarPort,
   MenuItemCheckboxPort,
   MenuItemIconPort,
+  MenuItemLabelPort,
   MenuItemPort,
   MenuItemRadioPort,
+  MenuItemSeparatorPort,
 } from "@/design-system/molecules/menu-item/menu-item.types";
 
 export function isMenuItemAvatar(menuItem: MenuItemPort): menuItem is MenuItemAvatarPort {
@@ -20,4 +22,12 @@ export function isMenuItemCheckbox(menuItem: MenuItemPort): menuItem is MenuItem
 
 export function isMenuItemRadio(menuItem: MenuItemPort): menuItem is MenuItemRadioPort {
   return (menuItem as MenuItemRadioPort).isRadio !== undefined;
+}
+
+export function isMenuItemLabel(menuItem: MenuItemPort): menuItem is MenuItemLabelPort {
+  return (menuItem as MenuItemLabelPort).isLabel !== undefined;
+}
+
+export function isMenuItemSeparator(menuItem: MenuItemPort): menuItem is MenuItemSeparatorPort {
+  return (menuItem as MenuItemSeparatorPort).isSeparator !== undefined;
 }
