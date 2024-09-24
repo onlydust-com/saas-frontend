@@ -1,5 +1,6 @@
+import { ReactNode } from "react";
+
 import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
-import { Currency } from "@/core/kernel/money/money.types";
 
 export interface QuantityFilterValues {
   type?: QuantityFilterType;
@@ -9,5 +10,5 @@ export interface QuantityFilterProps {
   name: string;
   value?: QuantityFilterValues;
   onChange?: (v: QuantityFilterValues) => void;
-  currency?: Currency;
+  unit?: ReactNode;
 }

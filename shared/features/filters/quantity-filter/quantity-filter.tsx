@@ -4,7 +4,6 @@ import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 import { AnyType } from "@/core/kernel/types";
 
 import { Input } from "@/design-system/atoms/input";
-import { Typo } from "@/design-system/atoms/typo";
 import { Select, SelectPort } from "@/design-system/molecules/select";
 
 import { QuantityFilterProps } from "./quantity-filter.types";
@@ -16,7 +15,7 @@ export function QuantityFilter({
   },
   onChange,
   name,
-  currency,
+  unit,
 }: QuantityFilterProps) {
   const { t } = useTranslation("common");
   const { amount, type = QuantityFilterType.EQUAL } = value;
@@ -62,13 +61,7 @@ export function QuantityFilter({
         type={"number"}
         size={"sm"}
         classNames={{ base: "flex-1" }}
-        endContent={
-          currency ? (
-            <Typo color={"tertiary"} size={"sm"}>
-              {currency.code}
-            </Typo>
-          ) : null
-        }
+        endContent={unit ? unit : null}
       />
     </div>
   );

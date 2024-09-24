@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
+import { Typo } from "@/design-system/atoms/typo";
+
 import { BudgetAvailableCountFilter } from "@/shared/features/filters/budget-available-count-filter/budget-available-count-filter";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
@@ -45,7 +47,11 @@ export default function SandboxPage() {
         <BudgetAvailableCountFilter
           value={budgetAvailableCount}
           onChange={setBudgetAvailableCount}
-          currency={moneyKernelPort.getCurrency("USD")}
+          unit={
+            <Typo size={"sm"} color={"tertiary"}>
+              {moneyKernelPort.getCurrency("USD").code}
+            </Typo>
+          }
         />
         <DevActiveCountFilter value={devActiveCount} onChange={setDevActiveCount} />
       </div>
