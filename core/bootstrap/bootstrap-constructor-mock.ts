@@ -7,6 +7,7 @@ import { LanguagesClientAdapterMock } from "@/core/infrastructure/marketplace-ap
 import { MeClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/me-client-adapter-mock";
 import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/notification-client-adapter-mock";
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
+import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
@@ -36,6 +37,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   depositStoragePortForServer: new DepositClientAdapterMock(),
   notificationStoragePortForClient: new NotificationClientAdapterMock(),
   notificationStoragePortForServer: new NotificationClientAdapterMock(),
+  projectCategoryStoragePortForClient: new ProjectCategoryClientAdapterMock(),
+  projectCategoryStoragePortForServer: new ProjectCategoryClientAdapterMock(),
   languageStoragePortForClient: new LanguagesClientAdapterMock(),
   languageStoragePortForServer: new LanguagesClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
