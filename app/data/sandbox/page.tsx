@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
-
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { ContributionsActivityFilterValue } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.types";
