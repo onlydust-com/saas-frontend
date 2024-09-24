@@ -1,8 +1,10 @@
 import { HTTP_METHOD } from "next/dist/server/web/http";
 
+import { JSONObject } from "@/core/kernel/types";
+
 type HttpClientMethod = HTTP_METHOD;
 type HttpClientPathParams = Record<string, string | number>;
-type HttpClientQueryParams = Record<string, string | number | string[] | number[] | boolean>;
+type HttpClientQueryParams = JSONObject;
 type HttpClientBody = BodyInit;
 
 enum HttpClientErrorStatus {

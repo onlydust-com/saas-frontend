@@ -28,6 +28,11 @@
     "GREATER_THAN_OR_EQUAL": "is superior or equal",
     "LESS_THAN_OR_EQUAL": "is inferior or equal"
   },
+  "contributionFilterType": {
+    "PULL_REQUESTS": "Pull requests",
+    "ISSUES": "Issues",
+    "CODE_REVIEWS": "Code reviews"
+  },
   "userType": {
     "CONTRIBUTOR": "Contributor",
     "MAINTAINER": "Maintainer",
@@ -44,5 +49,6 @@
   "sponsors": "Sponsors +{{count}}",
   "projects": "Projects +{{count}}",
   "users": "Users +{{count}}",
-  "categories": "Categories +{{count}}"
+  "categories": "Categories +{{count}}",
+  "search": "Search"
 }

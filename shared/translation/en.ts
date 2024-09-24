@@ -5,7 +5,6 @@ import { enProgramsTranslation } from "@/app/programs/_translations/programs.tra
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTransactionTranslation } from "@/design-system/molecules/cards/card-transaction/translations/card-transaction.translate";
 import { enItemNavTranslation } from "@/design-system/molecules/item-nav/_translations/item-nav.translate";
-import { enTableColumnListTranslation } from "@/design-system/molecules/table-column-list/translations/table-column-list.translate";
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
 import { enTableGroupByTranslation } from "@/design-system/molecules/table-group-by/translations/table-group-by.translate";
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
@@ -38,7 +37,6 @@ export const en = {
     ...enItemNavTranslation,
   },
   table: {
-    ...enTableColumnListTranslation,
     ...enTableFilterTranslation,
     ...enTableGroupByTranslation,
     ...enTableNavTranslation,

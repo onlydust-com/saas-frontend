@@ -6,9 +6,11 @@ import { useMemo } from "react";
 import { IconPort } from "@/design-system/atoms/icon";
 import { Accordion, AccordionSinglePort } from "@/design-system/molecules/accordion";
 
+import { cn } from "@/shared/helpers/cn";
+
 import { AccordionFilterProps } from "./accordion-filter.types";
 
-export function AccordionFilter({ selected, children, title, name }: AccordionFilterProps) {
+export function AccordionFilter({ selected, children, title, name, classNames }: AccordionFilterProps) {
   const icon: IconPort = useMemo(() => {
     if (selected) {
       return {
@@ -33,7 +35,7 @@ export function AccordionFilter({ selected, children, title, name }: AccordionFi
 
   return (
     <Accordion startIcon={icon} badgeProps={badge} titleProps={title} id={name}>
-      <div className={"p-lg"}>{children}</div>
+      <div className={cn("p-lg", classNames?.container)}>{children}</div>
     </Accordion>
   );
 }

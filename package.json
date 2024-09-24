@@ -13,7 +13,8 @@
     "cli": "ts-node tooling/cli/cli.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "serve-storybook": "storybook start"
+    "serve-storybook": "storybook start",
+    "postinstall": "react-flagpack"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
