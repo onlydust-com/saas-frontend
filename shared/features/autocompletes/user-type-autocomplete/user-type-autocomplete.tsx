@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { UserFilterType } from "@/core/kernel/filters/filters-facade-port";
@@ -11,9 +11,8 @@ import { UserTypeAutocompleteProps } from "@/shared/features/autocompletes/user-
 
 export function UserTypeAutocomplete({ selectedUserType, onSelect, ...selectProps }: UserTypeAutocompleteProps) {
   const { t } = useTranslation("common");
-  const [search, setSearch] = useState("");
 
-  const filteredUserType = useMemo(() => {
+  const userTypesItems: MenuItemPort[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
         label: t("userType.CONTRIBUTOR"),
@@ -28,15 +27,9 @@ export function UserTypeAutocomplete({ selectedUserType, onSelect, ...selectProp
         id: UserFilterType.LEAD_PROGRAM,
       },
     ];
-    return options.filter(
-      option => typeof option.label === "string" && option.label.toLowerCase().includes(search.toLowerCase())
-    );
+    return [...options];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
-
-  const userTypesItems: MenuItemPort[] = useMemo(() => {
-    return [...filteredUserType];
-  }, [filteredUserType]);
+  }, []);
 
   function handleSelect(ids: MenuItemId[]) {
     onSelect?.(ids as string[]);
@@ -48,10 +41,6 @@ export function UserTypeAutocomplete({ selectedUserType, onSelect, ...selectProp
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedUserType}
-      controlledAutoComplete={{
-        value: search,
-        onChange: setSearch,
-      }}
       {...selectProps}
     />
   );

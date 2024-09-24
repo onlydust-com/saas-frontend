@@ -11,7 +11,8 @@ export function LanguageAutocomplete({ selectedLanguages, onSelect, ...selectPro
   const [search, setSearch] = useState("");
   const { data: data } = LanguageReactQueryAdapter.client.useGetLanguages({
     queryParams: {
-      login: search || undefined,
+      // TODO check once backend ready
+      search: search || undefined,
     },
   });
 
