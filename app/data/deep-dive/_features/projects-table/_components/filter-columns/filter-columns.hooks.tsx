@@ -34,7 +34,6 @@ export function useFilterColumns() {
         "averageRewardUsdAmount",
         "onboardedContributorCount",
         "activeContributorCount",
-        "mergedPrCount",
         "rewardCount",
         "contributionCount",
       ]);
@@ -347,16 +346,16 @@ export function useFilterColumns() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-    mergedPrCount: columnHelper.accessor("mergedPrCount", {
-      header: () => <Translate token={"data:deepDive.projectsTable.columns.mergedPrCount"} />,
-      cell: info => {
-        const { value, trend } = info.getValue() ?? {};
-
-        const formattedValue = Intl.NumberFormat().format(value);
-
-        return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
-      },
-    }),
+    // mergedPrCount: columnHelper.accessor("mergedPrCount", {
+    //   header: () => <Translate token={"data:deepDive.projectsTable.columns.mergedPrCount"} />,
+    //   cell: info => {
+    //     const { value, trend } = info.getValue() ?? {};
+    //
+    //     const formattedValue = Intl.NumberFormat().format(value);
+    //
+    //     return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
+    //   },
+    // }),
     rewardCount: columnHelper.accessor("rewardCount", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.rewardCount"} />,
       cell: info => {
