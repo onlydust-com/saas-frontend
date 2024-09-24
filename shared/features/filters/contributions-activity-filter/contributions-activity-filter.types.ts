@@ -2,7 +2,7 @@ import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-por
 
 import { QuantityFilterProps } from "@/shared/features/filters/quantity-filter/quantity-filter.types";
 
-type QuantityFilterValue = QuantityFilterProps["value"];
+type QuantityFilterValue = NonNullable<QuantityFilterProps["value"]>;
 
 export interface ContributionsActivityFilterValue extends QuantityFilterValue {
   contributionType: ContributionFilterType[];

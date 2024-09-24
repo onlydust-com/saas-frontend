@@ -53,7 +53,7 @@ export function ContributionsActivityFilter({
     <AccordionFilter
       name={"total-rewarded-amount"}
       title={{ translate: { token: "features:filters.contributionActivity.title" } }}
-      selected={value.amount}
+      selected={value.amount ? 1 : 0}
       classNames={{ container: "!p-0" }}
     >
       <div className={"p-lg"}>
