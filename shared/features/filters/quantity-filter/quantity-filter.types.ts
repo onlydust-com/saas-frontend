@@ -6,6 +6,6 @@ export interface QuantityFilterValues {
 }
 export interface QuantityFilterProps {
   name: string;
-  value: QuantityFilterValues;
+  value?: QuantityFilterValues;
   onChange?: (v: QuantityFilterValues) => void;
 }

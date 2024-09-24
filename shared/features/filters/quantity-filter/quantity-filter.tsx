@@ -8,7 +8,14 @@ import { Select, SelectPort } from "@/design-system/molecules/select";
 
 import { QuantityFilterProps } from "./quantity-filter.types";
 
-export function QuantityFilter({ value, onChange, name }: QuantityFilterProps) {
+export function QuantityFilter({
+  value = {
+    type: QuantityFilterType.EQUAL,
+    amount: 0,
+  },
+  onChange,
+  name,
+}: QuantityFilterProps) {
   const { t } = useTranslation("common");
   const { amount, type = QuantityFilterType.EQUAL } = value;
   const options: SelectPort<AnyType>["items"] = [
