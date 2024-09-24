@@ -28,6 +28,11 @@
     "GREATER_THAN_OR_EQUAL": "is superior or equal",
     "LESS_THAN_OR_EQUAL": "is inferior or equal"
   },
+  "userType": {
+    "CONTRIBUTOR": "Contributor",
+    "MAINTAINER": "Maintainer",
+    "LEAD_PROGRAM": "Lead Program"
+  },
   "timeGroupingType": {
     "DAY": "Day",
     "WEEK": "Week",
