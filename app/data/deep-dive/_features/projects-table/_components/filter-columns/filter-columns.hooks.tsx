@@ -290,7 +290,7 @@ export function useFilterColumns() {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        return <TableCellKpi>{value}</TableCellKpi>;
+        return <TableCellKpi>{value}%</TableCellKpi>;
       },
     }),
     totalGrantedUsdAmount: columnHelper.accessor("totalGrantedUsdAmount", {

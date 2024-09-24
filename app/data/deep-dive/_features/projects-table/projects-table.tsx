@@ -56,20 +56,22 @@ export function ProjectsTable() {
   }
 
   return (
-    <ScrollView direction={"x"}>
+    <div>
       <div className={"flex"}>
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
       </div>
-      <Table
-        header={{
-          headerGroups: table.getHeaderGroups(),
-        }}
-        rows={table.getRowModel().rows}
-        classNames={{
-          base: "min-w-[1200px]",
-        }}
-      />
-      {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-    </ScrollView>
+      <ScrollView direction={"x"}>
+        <Table
+          header={{
+            headerGroups: table.getHeaderGroups(),
+          }}
+          rows={table.getRowModel().rows}
+          classNames={{
+            base: "min-w-[1200px]",
+          }}
+        />
+        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+      </ScrollView>
+    </div>
   );
 }
