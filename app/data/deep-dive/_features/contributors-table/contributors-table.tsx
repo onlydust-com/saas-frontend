@@ -14,18 +14,37 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorsTable() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiContributorInterface>();
 
-  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    BiReactQueryAdapter.client.useGetBiContributors({
-      queryParams: {
-        timeGrouping: "MONTH",
-      },
-    });
+  const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
+  const userProgramIds = user?.programs?.map(program => program.id) ?? [];
+  const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
+
+  const {
+    data,
+    isLoading: isLoadingBiContributors,
+    isError: isErrorBiContributors,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = BiReactQueryAdapter.client.useGetBiContributors({
+    queryParams: {
+      programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+      timeGrouping: "MONTH",
+    },
+
+    options: {
+      enabled: Boolean(user),
+    },
+  });
+
+  const isLoading = isLoadingUser || isLoadingBiContributors;
+  const isError = isErrorUser || isErrorBiContributors;
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
 
