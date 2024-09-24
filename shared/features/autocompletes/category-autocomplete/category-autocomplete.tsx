@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
 
@@ -8,13 +8,7 @@ import { Select } from "@/design-system/molecules/select";
 import { CategoryAutocompleteProps } from "@/shared/features/autocompletes/category-autocomplete/category-autocomplete.types";
 
 export function CategoryAutocomplete({ selectedCategories, onSelect, ...selectProps }: CategoryAutocompleteProps) {
-  const [search, setSearch] = useState("");
-  const { data: data } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({
-    queryParams: {
-      // TODO check once backend ready
-      search: search || undefined,
-    },
-  });
+  const { data: data } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
 
   const categoriesItem: MenuItemPort[] = useMemo(() => {
     return (
@@ -37,10 +31,6 @@ export function CategoryAutocomplete({ selectedCategories, onSelect, ...selectPr
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedCategories}
-      controlledAutoComplete={{
-        value: search,
-        onChange: setSearch,
-      }}
       {...selectProps}
     />
   );

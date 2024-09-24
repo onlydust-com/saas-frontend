@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { LanguageReactQueryAdapter } from "@/core/application/react-query-adapter/language";
 
@@ -8,13 +8,7 @@ import { Select } from "@/design-system/molecules/select";
 import { LanguageAutocompleteProps } from "./language-autocomplete.types";
 
 export function LanguageAutocomplete({ selectedLanguages, onSelect, ...selectProps }: LanguageAutocompleteProps) {
-  const [search, setSearch] = useState("");
-  const { data: data } = LanguageReactQueryAdapter.client.useGetLanguages({
-    queryParams: {
-      // TODO check once backend ready
-      search: search || undefined,
-    },
-  });
+  const { data: data } = LanguageReactQueryAdapter.client.useGetLanguages({});
 
   const languagesItem: MenuItemPort[] = useMemo(() => {
     return (
@@ -37,10 +31,6 @@ export function LanguageAutocomplete({ selectedLanguages, onSelect, ...selectPro
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedLanguages}
-      controlledAutoComplete={{
-        value: search,
-        onChange: setSearch,
-      }}
       {...selectProps}
     />
   );
