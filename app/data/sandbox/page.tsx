@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { ContributionsActivityFilterValue } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.types";
+import { DevActiveCountFilter } from "@/shared/features/filters/dev-active-count-filter/dev-active-count-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
 import { PrMergedCountFilter } from "@/shared/features/filters/pr-merged-count-filter/pr-merged-count-filter";
@@ -20,6 +21,7 @@ export default function SandboxPage() {
   const [rewardsAmountTotal, setRewardsAmountTotal] = useState<QuantityFilterValues | undefined>();
   const [prMergedCount, setPrMergedCount] = useState<QuantityFilterValues | undefined>();
   const [rewardCount, setRewardCount] = useState<QuantityFilterValues | undefined>();
+  const [devActiveCount, setDevActiveCount] = useState<QuantityFilterValues | undefined>();
   const [selectedUserType, setSelectedUserType] = useState<string[]>([]);
 
   const [contributionActivity, setContributionActivity] = useState<ContributionsActivityFilterValue | undefined>();
@@ -35,6 +37,7 @@ export default function SandboxPage() {
         <ContributionsActivityFilter value={contributionActivity} onChange={setContributionActivity} />
         <PrMergedCountFilter value={prMergedCount} onChange={setPrMergedCount} />
         <RewardCountFilter value={rewardCount} onChange={setRewardCount} />
+        <DevActiveCountFilter value={devActiveCount} onChange={setDevActiveCount} />
       </div>
     </div>
   );
