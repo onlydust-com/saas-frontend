@@ -1,5 +1,6 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
+import Flag from "react-flagpack";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -186,8 +187,15 @@ export function ContributorsTable() {
       cell: info => {
         const countryCode = info.getValue();
 
-        // TODO @hayden
-        return <TableCellKpi>{countryCode}</TableCellKpi>;
+        if (!countryCode) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
+
+        return (
+          <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
+            <Flag code={countryCode} hasBorder={false} size={"m"} />
+          </TableCellKpi>
+        );
       },
     }),
 
