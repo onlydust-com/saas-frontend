@@ -66,7 +66,7 @@ export type GetBiProjectsModel = Omit<GetBiProjectsResponse, "projects"> & {
   projects: BiProjectInterface[];
 };
 
-type GetBiProjectsQueryParams = operations["getBIProjects"]["parameters"]["query"];
+type GetBiProjectsQueryParams = operations["getBIProjects_1"]["parameters"]["query"];
 
 export type GetBiProjectsPortParams = HttpClientParameters<{
   QueryParams: GetBiProjectsQueryParams;
@@ -81,7 +81,7 @@ export type GetBiContributorsModel = Omit<GetBiContributorsResponse, "contributo
   contributors: BiContributorInterface[];
 };
 
-type GetBiContributorsQueryParams = operations["getBIContributors"]["parameters"]["query"];
+type GetBiContributorsQueryParams = operations["getBIContributors_1"]["parameters"]["query"];
 
 export type GetBiContributorsPortParams = HttpClientParameters<{
   QueryParams: GetBiContributorsQueryParams;
