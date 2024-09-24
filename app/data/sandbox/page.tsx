@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 
+import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
+import { ContributionsActivityFilterValue } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.types";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
 import { QuantityFilterValues } from "@/shared/features/filters/quantity-filter/quantity-filter.types";
@@ -19,6 +21,8 @@ export default function SandboxPage() {
   });
   const [selectedUserType, setSelectedUserType] = useState<string[]>([]);
 
+  const [contributionActivity, setContributionActivity] = useState<ContributionsActivityFilterValue | undefined>();
+
   return (
     <div className={"flex h-full w-full items-start justify-center"}>
       <div className={"h-full w-[384px] bg-background-primary-alt"}>
@@ -26,6 +30,7 @@ export default function SandboxPage() {
         <TotalRewardedAmountFilter value={rewardsAmountTotal} onChange={setRewardsAmountTotal} />
         <LanguageFilter selectedLanguages={selectedLanguages} onSelect={setSelectedLanguages} />
         <UserTypeFilter selectedUserType={selectedUserType} onSelect={setSelectedUserType} />
+        <ContributionsActivityFilter value={contributionActivity} onChange={setContributionActivity} />
       </div>
     </div>
   );
