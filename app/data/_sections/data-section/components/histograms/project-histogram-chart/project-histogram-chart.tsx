@@ -20,7 +20,7 @@ import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { ProgramEcosystemAutocomplete } from "@/shared/features/program-ecosystem-autocomplete/program-ecosystem-autocomplete";
+import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -143,11 +143,11 @@ export function ProjectHistogramChart() {
     <div className="flex min-h-[300px] flex-col gap-4">
       <div className="flex flex-wrap justify-between gap-2 tablet:flex-nowrap">
         <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
-          <ProgramEcosystemAutocomplete
+          <ProgramEcosystemPopover
             name={"programAndEcosystem"}
             placeholder={t("data:details.allDataFilter.placeholder")}
             onSelect={onProgramEcosystemChange}
-            selectedProgramAndEcosystem={selectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
           />
           <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRangeType} isPopOver>
             <Button
