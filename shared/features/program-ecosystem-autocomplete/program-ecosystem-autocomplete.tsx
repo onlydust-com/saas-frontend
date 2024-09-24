@@ -45,14 +45,14 @@ export function ProgramEcosystemAutocomplete({
     const programsItems = createMenuItems(filteredPrograms || []);
     const programs = programsItems.length
       ? [
-          { id: "programs", label: t("data:details.allDataFilter.programSeparatorLabel"), isSeparator: true },
+          { id: "programs", label: t("data:details.allDataFilter.programSeparatorLabel"), isLabel: true },
           ...programsItems,
         ]
       : [];
     const ecosystemsItems = createMenuItems(filteredEcosystems || []);
     const ecosystems = ecosystemsItems.length
       ? [
-          { id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isSeparator: true },
+          { id: "ecosystems", label: t("data:details.allDataFilter.ecosystemSeparatorLabel"), isLabel: true },
           ...ecosystemsItems,
         ]
       : [];

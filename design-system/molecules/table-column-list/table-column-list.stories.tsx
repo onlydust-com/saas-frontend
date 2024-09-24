@@ -8,20 +8,23 @@ import { TableColumnList } from "./variants/table-column-list-default";
 type Story = StoryObj<typeof TableColumnList>;
 
 const defaultProps: TableColumnListPort = {
-  onChange: () => {},
-  onClear: () => {},
-  items: [
-    {
-      id: "1",
-      label: "Label 1",
-      value: true,
-    },
-    {
-      id: "2",
-      label: "Label 2",
-      value: false,
-    },
-  ],
+  titleProps: {
+    token: "data:deepDive.projectsTable.filters.columnList",
+  },
+  menuProps: {
+    items: [
+      {
+        id: "1",
+        label: "Label 1",
+        isCheckbox: true,
+      },
+      {
+        id: "2",
+        label: "Label 2",
+        isCheckbox: true,
+      },
+    ],
+  },
 };
 
 const meta: Meta<typeof TableColumnList> = {
