@@ -15,6 +15,7 @@ export function QuantityFilter({
   },
   onChange,
   name,
+  unit,
 }: QuantityFilterProps) {
   const { t } = useTranslation("common");
   const { amount, type = QuantityFilterType.EQUAL } = value;
@@ -60,6 +61,7 @@ export function QuantityFilter({
         type={"number"}
         size={"sm"}
         classNames={{ base: "flex-1" }}
+        endContent={unit ? unit : null}
       />
     </div>
   );

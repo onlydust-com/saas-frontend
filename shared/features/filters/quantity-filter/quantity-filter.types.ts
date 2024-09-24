@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 export interface QuantityFilterValues {
@@ -8,4 +10,5 @@ export interface QuantityFilterProps {
   name: string;
   value?: QuantityFilterValues;
   onChange?: (v: QuantityFilterValues) => void;
+  unit?: ReactNode;
 }
