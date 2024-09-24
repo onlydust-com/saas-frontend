@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ProgramEcosystemFilter } from "@/shared/features/filters/program-ecosystem-filter/program-ecosystem-filter";
@@ -10,11 +12,19 @@ import { useExportContributorsSidepanel } from "@/shared/panels/export-contribut
 export function ExportContributorsSidepanel() {
   const { name } = useExportContributorsSidepanel();
   const { Panel } = useSidePanel({ name });
+  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
+
+  function handleProgramEcosystemChange(ids: string[]) {
+    setSelectedProgramAndEcosystem(ids);
+  }
 
   function renderContent() {
     return (
       <div>
-        <ProgramEcosystemFilter />
+        <ProgramEcosystemFilter
+          selectedProgramsEcosystems={selectedProgramAndEcosystem}
+          onSelect={handleProgramEcosystemChange}
+        />
       </div>
     );
   }

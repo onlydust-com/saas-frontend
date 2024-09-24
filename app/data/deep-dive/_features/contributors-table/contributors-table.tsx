@@ -1,6 +1,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
+import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.hooks";
 
@@ -58,8 +59,9 @@ export function ContributorsTable() {
 
   return (
     <div>
-      <div className={"flex"}>
+      <div className={"flex gap-md"}>
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
+        <ExportCsv />
       </div>
       <ScrollView direction={"x"}>
         <Table
