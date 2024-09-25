@@ -1,8 +1,10 @@
 import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 
+import { bootstrap } from "@/core/bootstrap";
 import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
@@ -27,6 +29,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { useFilterData } from "./filter-data.context";
 
 export function FilterData() {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useContributorFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
@@ -65,6 +68,11 @@ export function FilterData() {
                 ...value.amount,
               },
             })
+          }
+          unit={
+            <Typo size={"sm"} color={"tertiary"}>
+              {moneyKernelPort.getCurrency("USD").code}
+            </Typo>
           }
         />
         <ContributionsActivityFilter
