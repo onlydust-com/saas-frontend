@@ -50,7 +50,8 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
       });
     }
     onChange?.({ fromDate, toDate });
-  }, [onChange, fromDate, toDate, dateRange, dateKernelPort, periodType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fromDate, toDate, dateRange, dateKernelPort, periodType]);
 
   return (
     <Popover>
