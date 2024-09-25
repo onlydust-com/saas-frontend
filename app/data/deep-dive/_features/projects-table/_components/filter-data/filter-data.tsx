@@ -3,6 +3,7 @@ import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/pr
 import { bootstrap } from "@/core/bootstrap";
 import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BudgetAvailableCountFilter } from "@/shared/features/filters/budget-available-count-filter/budget-available-count-filter";
@@ -20,8 +21,10 @@ import {
 } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { useFilterData } from "./filter-data.context";
 
@@ -29,13 +32,13 @@ export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useProjectFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { filters, setFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
 
   return (
     <Panel>
       <SidePanelHeader
         title={{
-          children: "Filters",
+          children: <Translate token={"data:deepDive.filters.titles.project"} />,
         }}
         canGoBack={false}
         canClose={true}
@@ -140,6 +143,17 @@ export function FilterData() {
           }}
         />
       </SidePanelBody>
+      <SidePanelFooter>
+        <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
+          <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
+            <Translate token={"data:deepDive.filters.reset"} />
+          </Button>
+
+          <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
+            <Translate token={"data:deepDive.filters.save"} />
+          </Button>
+        </div>
+      </SidePanelFooter>
     </Panel>
   );
 }

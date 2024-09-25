@@ -10,7 +10,7 @@ import { FilterDataProvider } from "@/app/data/deep-dive/_features/projects-tabl
 import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { GetBiProjectsPortParams } from "@/core/domain/bi/bi-contract.types";
+import { GetBiProjectsPortParams, GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -21,10 +21,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-export type ProjectTableFilters = Omit<
-  NonNullable<GetBiProjectsPortParams["queryParams"]>["queryParams"],
-  "pageSize" | "pageIndex"
->;
+export type ProjectTableFilters = Omit<NonNullable<GetBiProjectsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
 export function ProjectsTable() {
   const { open: openFilterPanel } = useProjectFilterDataSidePanel();
@@ -81,7 +78,6 @@ export function ProjectsTable() {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
         <nav className={"flex gap-md"}>
-          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <Button
             variant={"secondary"}
             size="sm"
@@ -89,6 +85,7 @@ export function ProjectsTable() {
             iconOnly
             onClick={() => openFilterPanel()}
           />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
         </nav>
