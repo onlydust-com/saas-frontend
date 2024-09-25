@@ -6,6 +6,7 @@ import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table
 import { useFilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
@@ -19,6 +20,10 @@ export function ContributorsTable() {
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
+  const queryParams: Partial<GetBiContributorsQueryParams> = {
+    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+  };
+
   const {
     data,
     isLoading: isLoadingBiContributors,
@@ -27,10 +32,7 @@ export function ContributorsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams: {
-      programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
-      timeGrouping: "MONTH",
-    },
+    queryParams,
     options: {
       enabled: Boolean(user),
     },
@@ -61,7 +63,7 @@ export function ContributorsTable() {
     <div>
       <div className={"flex gap-md"}>
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-        <ExportCsv />
+        <ExportCsv queryParams={queryParams} />
       </div>
       <ScrollView direction={"x"}>
         <Table

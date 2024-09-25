@@ -1,10 +1,12 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
+import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
@@ -18,6 +20,10 @@ export function ProjectsTable() {
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
+  const queryParams: Partial<GetBiProjectsQueryParams> = {
+    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+  };
+
   const {
     data,
     isLoading: isLoadingBiProjects,
@@ -26,9 +32,7 @@ export function ProjectsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiProjects({
-    queryParams: {
-      programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
-    },
+    queryParams,
     options: {
       enabled: Boolean(user),
     },
@@ -57,8 +61,9 @@ export function ProjectsTable() {
 
   return (
     <div>
-      <div className={"flex"}>
+      <div className={"flex gap-md"}>
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
+        <ExportCsv queryParams={queryParams} />
       </div>
       <ScrollView direction={"x"}>
         <Table
