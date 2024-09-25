@@ -20,6 +20,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 
@@ -27,6 +28,7 @@ export type ProjectTableFilters = Omit<NonNullable<GetBiProjectsPortParams["quer
 
 export function ProjectsTable() {
   const { open: openFilterPanel } = useProjectFilterDataSidePanel();
+  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ProjectTableFilters>({});
@@ -37,7 +39,9 @@ export function ProjectsTable() {
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
   const queryParams: Partial<GetBiProjectsQueryParams> = {
-    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    programOrEcosystemIds: selectedProgramAndEcosystem.length
+      ? selectedProgramAndEcosystem
+      : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
     ...filters,
   };
@@ -83,6 +87,12 @@ export function ProjectsTable() {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
         <nav className={"flex gap-md"}>
+          <ProgramEcosystemPopover
+            name={"programAndEcosystem"}
+            onSelect={setSelectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            buttonProps={{ size: "sm" }}
+          />
           <Button
             variant={"secondary"}
             size="sm"
