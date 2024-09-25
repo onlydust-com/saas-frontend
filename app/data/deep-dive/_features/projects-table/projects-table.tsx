@@ -14,6 +14,7 @@ import { GetBiProjectsPortParams, GetBiProjectsQueryParams } from "@/core/domain
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
@@ -73,6 +74,7 @@ export function ProjectsTable() {
   const isError = isErrorUser || isErrorBiProjects;
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
   const { columns, selectedIds, setSelectedIds } = useFilterColumns();
 
@@ -133,6 +135,12 @@ export function ProjectsTable() {
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
+        <div className="flex gap-2">
+          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:deepDive.projectsTable.projectCount" }} />
+          <Typo size={"sm"} color={"primary"}>
+            {totalItemNumber}
+          </Typo>
+        </div>
       </div>
       <FilterData />
     </FilterDataProvider>
