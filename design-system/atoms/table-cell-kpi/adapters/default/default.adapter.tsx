@@ -8,7 +8,14 @@ import { cn } from "@/shared/helpers/cn";
 
 import { TableCellKpiDefaultVariants } from "./default.variants";
 
-export function TableCellKpiDefaultAdapter({ classNames, trend, inverted, children }: TableCellKpiPort) {
+export function TableCellKpiDefaultAdapter({
+  classNames,
+  trend,
+  inverted,
+  children,
+  shape,
+  badgeClassNames,
+}: TableCellKpiPort) {
   const slots = TableCellKpiDefaultVariants({ trend, inverted });
 
   const iconNames: Record<NonNullable<typeof trend>, IconPort> = {
@@ -19,7 +26,12 @@ export function TableCellKpiDefaultAdapter({ classNames, trend, inverted, childr
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      <Badge endContent={trend ? <Icon {...iconNames[trend]} classNames={{ base: slots.icon() }} /> : null} size={"md"}>
+      <Badge
+        classNames={badgeClassNames}
+        endContent={trend ? <Icon {...iconNames[trend]} classNames={{ base: slots.icon() }} /> : null}
+        size={"md"}
+        shape={shape}
+      >
         {children}
       </Badge>
     </div>

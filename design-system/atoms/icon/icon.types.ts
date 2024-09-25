@@ -8,13 +8,19 @@ interface ClassNames {
 
 export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
 
-export interface IconPort {
-  component: LucideIcon;
+interface BaseIconPort {
   classNames?: Partial<ClassNames>;
   size?: IconSize;
 }
 
-export interface RemixIconPort extends Omit<IconPort, "component"> {
+export interface LucideIconPort extends BaseIconPort {
+  component: LucideIcon;
+}
+
+export interface RemixIconPort extends BaseIconPort {
   name: RemixIconsName;
   color?: string;
+  component?: never;
 }
+
+export type IconPort = LucideIconPort | RemixIconPort;

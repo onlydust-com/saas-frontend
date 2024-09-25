@@ -28,10 +28,10 @@ export const Default: Story = {
       source: { code: "<Icon />" },
     },
   },
-  render: args => {
+  render: () => {
     return (
       <div className="flex w-full items-center gap-2">
-        <Icon {...defaultProps} {...args} />
+        <Icon {...defaultProps} />
       </div>
     );
   },

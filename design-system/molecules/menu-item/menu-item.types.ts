@@ -27,7 +27,6 @@ export interface MenuItemBasePort extends Partial<Variants> {
   attr?: DataAttributes;
   isSelected?: boolean;
   onClick?: (id: MenuItemId) => void;
-  isSeparator?: boolean;
 }
 
 export interface MenuItemAvatarPort extends MenuItemBasePort {
@@ -46,9 +45,20 @@ export interface MenuItemRadioPort extends MenuItemBasePort {
   isRadio?: boolean;
 }
 
+export interface MenuItemLabelPort extends MenuItemBasePort {
+  isLabel?: boolean;
+}
+
+export interface MenuItemSeparatorPort extends Omit<MenuItemBasePort, "label"> {
+  isSeparator?: boolean;
+  label?: never;
+}
+
 export type MenuItemPort =
   | MenuItemBasePort
   | MenuItemAvatarPort
   | MenuItemIconPort
   | MenuItemCheckboxPort
-  | MenuItemRadioPort;
+  | MenuItemRadioPort
+  | MenuItemLabelPort
+  | MenuItemSeparatorPort;

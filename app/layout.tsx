@@ -3,7 +3,7 @@ import "@/public/fonts/inter/stylesheet.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
-import "remixicon/fonts/remixicon.css";
+import "react-flagpack/dist/style.css";
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";

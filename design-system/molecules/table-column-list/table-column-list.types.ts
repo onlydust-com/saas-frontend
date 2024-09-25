@@ -1,3 +1,8 @@
+import { PopoverPort } from "@/design-system/atoms/popover";
+import { ListMenuPort } from "@/design-system/molecules/menu";
+
+import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
+
 interface Variants {}
 
 interface ClassNames {
@@ -6,11 +11,7 @@ interface ClassNames {
 
 export interface TableColumnListPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  items: {
-    id: string;
-    label: string;
-    value: boolean;
-  }[];
-  onChange: (id: string, value: boolean) => void;
-  onClear: () => void;
+  titleProps: TranslateProps;
+  menuProps: ListMenuPort;
+  popoverProps?: Omit<PopoverPort, "children">;
 }

@@ -3,3 +3,15 @@ export enum QuantityFilterType {
   GREATER_THAN_OR_EQUAL = "GREATER_THAN_OR_EQUAL",
   LESS_THAN_OR_EQUAL = "LESS_THAN_OR_EQUAL",
 }
+
+export enum UserFilterType {
+  CONTRIBUTOR = "CONTRIBUTOR",
+  MAINTAINER = "MAINTAINER",
+  LEAD_PROGRAM = "LEAD_PROGRAM",
+}
+
+export enum ContributionFilterType {
+  PULL_REQUESTS = "PULL_REQUESTS",
+  ISSUES = "ISSUES",
+  CODE_REVIEWS = "CODE_REVIEWS",
+}

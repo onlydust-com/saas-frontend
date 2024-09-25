@@ -6,6 +6,7 @@ export function ActiveUsersSection() {
   return (
     <div className="flex flex-col gap-4">
       <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:activeUsers.header.title" }} />
+      <Typo size={"xs"} color={"tertiary"} translate={{ token: "data:activeUsers.header.content" }} />
       <ActiveUsersChart />
     </div>
   );

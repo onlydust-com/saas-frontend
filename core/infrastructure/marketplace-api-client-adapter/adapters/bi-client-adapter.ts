@@ -1,9 +1,13 @@
 import {
+  GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
+  GetBiProjectsResponse,
   GetBiProjectsStatsResponse,
   GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
+import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
+import { BiProject } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
 import { BiWorldMap } from "@/core/domain/bi/models/bi-world-map-model";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
@@ -17,6 +21,8 @@ export class BiClientAdapter implements BiStoragePort {
     getBiContributorsStats: "bi/stats/contributors",
     getBiProjectsStats: "bi/stats/projects",
     getBiWorldMap: "bi/world-map",
+    getBiProjects: "bi/projects",
+    getBiContributors: "bi/contributors",
   } as const;
 
   getBiContributorsStats = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiContributorsStats"]>) => {
@@ -86,6 +92,96 @@ export class BiClientAdapter implements BiStoragePort {
 
       return data.map(item => new BiWorldMap(item, max));
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiProjects = ({ queryParams }: FirstParameter<BiStoragePort["getBiProjects"]>) => {
+    const path = this.routes["getBiProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiProjectsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new BiProject(project)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiProjectsCsv = ({ queryParams }: FirstParameter<BiStoragePort["getBiProjectsCsv"]>) => {
+    const path = this.routes["getBiProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiContributors = ({ queryParams }: FirstParameter<BiStoragePort["getBiContributors"]>) => {
+    const path = this.routes["getBiContributors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiContributorsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        contributors: data.contributors.map(contributor => new BiContributor(contributor)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiContributorsCsv = ({ queryParams }: FirstParameter<BiStoragePort["getBiContributorsCsv"]>) => {
+    const path = this.routes["getBiContributors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
 
     return {
       request,

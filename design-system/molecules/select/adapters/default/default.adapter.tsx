@@ -16,6 +16,7 @@ import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 
 import { Input } from "@/design-system/atoms/input";
 import { Menu } from "@/design-system/molecules/menu";
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -45,6 +46,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MenuItemPort[]>([]);
 
   const listRef = useRef<Array<HTMLElement | null>>([]);
 
@@ -83,7 +85,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     if (selectedIds?.length) {
       return selectedIds
         .map(id => {
-          const findInItems = items.find(item => item.id === id);
+          const findInItems = items.find(item => item.id === id) || selectedItem.find(item => item.id === id);
           if (findInItems) {
             return findInItems.label;
           }
@@ -99,6 +101,9 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
       setOpen(false);
     }
 
+    controlledAutoComplete?.onChange?.("");
+    setActiveIndex(null);
+    setSelectedItem(items.filter(item => args[0].includes(item.id)));
     onSelect?.(args[0]);
   }
 
@@ -115,7 +120,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
       return selectedValues;
     }
 
-    if (open && isAutoComplete) {
+    if ((open || !isPopover) && isAutoComplete) {
       if (controlledAutoComplete) {
         return controlledAutoComplete.value;
       }
@@ -166,12 +171,12 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
       <div className="flex flex-col gap-md">
         <Input
           name={name}
-          value={formatedInputValue}
           endIcon={!isAutoComplete ? { component: ChevronDown } : undefined}
           startIcon={isAutoComplete ? { component: Search } : undefined}
           canInteract={isAutoComplete}
           onChange={e => onSearchChange(e.target.value)}
           {...inputProps}
+          value={formatedInputValue}
         />
 
         <Menu

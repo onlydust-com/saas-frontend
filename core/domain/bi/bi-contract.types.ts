@@ -1,4 +1,6 @@
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
+import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStatsInterface } from "@/core/domain/bi/models/bi-projects-stats-model";
 import { BiWorldMapInterface } from "@/core/domain/bi/models/bi-world-map-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -57,3 +59,40 @@ export type GetBiWorldMapPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiWorldMapPortResponse = HttpStorageResponse<GetBiWorldMapModel>;
+
+/* --------------------- Get Bi Projects --------------------- */
+export type GetBiProjectsResponse = components["schemas"]["BiProjectsPageResponse"];
+export type GetBiProjectsModel = Omit<GetBiProjectsResponse, "projects"> & {
+  projects: BiProjectInterface[];
+};
+
+export type GetBiProjectsQueryParams = operations["getBIProjects_1"]["parameters"]["query"]["queryParams"];
+
+export type GetBiProjectsPortParams = HttpClientParameters<{
+  QueryParams: GetBiProjectsQueryParams;
+}>;
+
+export type GetBiProjectsPortResponse = HttpStorageResponse<GetBiProjectsModel>;
+
+/* --------------------- Get Bi Projects CSV --------------------- */
+
+export type GetBiProjectsCsvPortResponse = HttpStorageResponse<Blob>;
+
+/* --------------------- Get Bi Contributors --------------------- */
+
+export type GetBiContributorsResponse = components["schemas"]["BiContributorsPageResponse"];
+export type GetBiContributorsModel = Omit<GetBiContributorsResponse, "contributors"> & {
+  contributors: BiContributorInterface[];
+};
+
+export type GetBiContributorsQueryParams = operations["getBIContributors_1"]["parameters"]["query"]["queryParams"];
+
+export type GetBiContributorsPortParams = HttpClientParameters<{
+  QueryParams: GetBiContributorsQueryParams;
+}>;
+
+export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributorsModel>;
+
+/* --------------------- Get Bi Contributors CSV --------------------- */
+
+export type GetBiContributorsCsvPortResponse = HttpStorageResponse<Blob>;

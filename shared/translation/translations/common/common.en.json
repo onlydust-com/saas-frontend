@@ -14,19 +14,31 @@
     "LAST_MONTH": "Last month",
     "LAST_SEMESTER": "Last semester",
     "LAST_YEAR": "Last year",
-    "ALL_TIME": "All time"
+    "ALL_TIME": "All time",
+    "CUSTOM": "Custom period"
   },
   "dateRangeTypeLong": {
     "LAST_WEEK": "Last week ({{from}} to {{to}})",
     "LAST_MONTH": "Last month ({{from}} to {{to}})",
     "LAST_SEMESTER": "Last semester ({{from}} to {{to}})",
     "LAST_YEAR": "Last year ({{from}} to {{to}})",
-    "ALL_TIME": "All time"
+    "ALL_TIME": "All time",
+    "CUSTOM": "Custom period"
   },
   "quantityFilterType": {
     "EQUAL": "is equal",
     "GREATER_THAN_OR_EQUAL": "is superior or equal",
     "LESS_THAN_OR_EQUAL": "is inferior or equal"
+  },
+  "contributionFilterType": {
+    "PULL_REQUESTS": "Pull requests",
+    "ISSUES": "Issues",
+    "CODE_REVIEWS": "Code reviews"
+  },
+  "userType": {
+    "CONTRIBUTOR": "Contributor",
+    "MAINTAINER": "Maintainer",
+    "LEAD_PROGRAM": "Lead Program"
   },
   "timeGroupingType": {
     "DAY": "Day",
@@ -39,5 +51,6 @@
   "sponsors": "Sponsors +{{count}}",
   "projects": "Projects +{{count}}",
   "users": "Users +{{count}}",
-  "categories": "Categories +{{count}}"
+  "categories": "Categories +{{count}}",
+  "search": "Search"
 }

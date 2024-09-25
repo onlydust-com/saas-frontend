@@ -4,6 +4,7 @@ export enum DateRangeType {
   LAST_SEMESTER = "LAST_SEMESTER",
   LAST_YEAR = "LAST_YEAR",
   ALL_TIME = "ALL_TIME",
+  CUSTOM = "CUSTOM",
 }
 
 export enum TimeGroupingType {

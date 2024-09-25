@@ -2,9 +2,11 @@ import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-p
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
+import { LanguageStoragePort } from "@/core/domain/language/outputs/language-storage-port";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
+import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
@@ -12,9 +14,11 @@ import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-clien
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
+import { LanguageClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/language-client-adapter";
 import { MeClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/me-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
+import { ProjectCategoryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-category-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
@@ -52,6 +56,10 @@ export interface BootstrapConstructor {
   depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
+  languageStoragePortForClient: LanguageStoragePort;
+  languageStoragePortForServer: LanguageStoragePort;
+  projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
+  projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -82,6 +90,10 @@ export class Bootstrap {
   depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
+  languageStoragePortForClient: LanguageStoragePort;
+  languageStoragePortForServer: LanguageStoragePort;
+  projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
+  projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -108,6 +120,10 @@ export class Bootstrap {
     this.depositStoragePortForServer = constructor.depositStoragePortForServer;
     this.notificationStoragePortForClient = constructor.notificationStoragePortForClient;
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
+    this.languageStoragePortForClient = constructor.languageStoragePortForClient;
+    this.languageStoragePortForServer = constructor.languageStoragePortForServer;
+    this.projectCategoryStoragePortForClient = constructor.projectCategoryStoragePortForClient;
+    this.projectCategoryStoragePortForServer = constructor.projectCategoryStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -206,6 +222,22 @@ export class Bootstrap {
     return this.notificationStoragePortForClient;
   }
 
+  getLanguagesStoragePortForServer() {
+    return this.languageStoragePortForServer;
+  }
+
+  getLanguagesStoragePortForClient() {
+    return this.languageStoragePortForClient;
+  }
+
+  getProjectCategoryStoragePortForServer() {
+    return this.projectCategoryStoragePortForServer;
+  }
+
+  getProjectCategoryStoragePortForClient() {
+    return this.projectCategoryStoragePortForClient;
+  }
+
   getNotificationStoragePortForServer() {
     return this.notificationStoragePortForServer;
   }
@@ -249,6 +281,10 @@ export class Bootstrap {
         depositStoragePortForServer: new DepositClientAdapter(new FetchHttpClient()),
         notificationStoragePortForClient: new NotificationClientAdapter(new FetchHttpClient()),
         notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
+        languageStoragePortForClient: new LanguageClientAdapter(new FetchHttpClient()),
+        languageStoragePortForServer: new LanguageClientAdapter(new FetchHttpClient()),
+        projectCategoryStoragePortForClient: new ProjectCategoryClientAdapter(new FetchHttpClient()),
+        projectCategoryStoragePortForServer: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
