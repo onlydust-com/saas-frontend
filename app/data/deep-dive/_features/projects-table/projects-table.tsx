@@ -20,23 +20,34 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
+import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
+import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 
 export type ProjectTableFilters = Omit<NonNullable<GetBiProjectsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
 export function ProjectsTable() {
   const { open: openFilterPanel } = useProjectFilterDataSidePanel();
+  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [period, setPeriod] = useState<PeriodValue>();
   const [filters, setFilters] = useState<ProjectTableFilters>({});
+  const { open: openProject } = useProjectSidePanel();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
   const queryParams: Partial<GetBiProjectsQueryParams> = {
-    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    programOrEcosystemIds: selectedProgramAndEcosystem.length
+      ? selectedProgramAndEcosystem
+      : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
+    fromDate: period?.fromDate,
+    toDate: period?.toDate,
     ...filters,
   };
 
@@ -53,6 +64,10 @@ export function ProjectsTable() {
       enabled: Boolean(user),
     },
   });
+
+  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
+    setPeriod({ fromDate, toDate });
+  }
 
   const isLoading = isLoadingUser || isLoadingBiProjects;
   const isError = isErrorUser || isErrorBiProjects;
@@ -81,6 +96,12 @@ export function ProjectsTable() {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
         <nav className={"flex gap-md"}>
+          <ProgramEcosystemPopover
+            name={"programAndEcosystem"}
+            onSelect={setSelectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            buttonProps={{ size: "sm" }}
+          />
           <Button
             variant={"secondary"}
             size="sm"
@@ -92,6 +113,7 @@ export function ProjectsTable() {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
+          <PeriodFilter onChange={handleOnPeriodChange} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
@@ -104,6 +126,9 @@ export function ProjectsTable() {
             rows={table.getRowModel().rows}
             classNames={{
               base: "min-w-[1200px]",
+            }}
+            onRowClick={row => {
+              openProject({ projectId: row.original.project.id });
             }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

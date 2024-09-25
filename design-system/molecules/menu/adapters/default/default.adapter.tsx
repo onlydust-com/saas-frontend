@@ -3,6 +3,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { MenuItem, MenuItemId } from "@/design-system/molecules/menu-item";
 import { MenuDefaultVariants } from "@/design-system/molecules/menu/adapters/default/default.variants";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { cn } from "@/shared/helpers/cn";
 
@@ -73,9 +74,11 @@ export function MenuDefaultAdapter({
   return (
     <div className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.content(), classNames?.content)} style={minWidth ? { minWidth } : {}}>
-        {itemsWithSelection.map(item => (
-          <MenuItem key={item.id} {...item} onClick={handleItemClick} />
-        ))}
+        {itemsWithSelection.length ? (
+          itemsWithSelection.map(item => <MenuItem key={item.id} {...item} onClick={handleItemClick} />)
+        ) : (
+          <EmptyStateLite />
+        )}
         {showMore ? (
           <ShowMore className={"py-2"} onNext={() => onNextPage?.()} loading={isLoading || false} skip={!hasNextPage} />
         ) : undefined}
