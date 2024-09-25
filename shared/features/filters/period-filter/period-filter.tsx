@@ -15,7 +15,7 @@ import { usePeriodSelectOptions } from "@/shared/hooks/select/use-period-select-
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const FUTURE_DEFAULT_DATE = new Date();
-FUTURE_DEFAULT_DATE.setDate(new Date().getDate() + 30);
+FUTURE_DEFAULT_DATE.setDate(new Date().getDate() + 20);
 
 export function PeriodFilter({ onChange }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
