@@ -7,7 +7,6 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { ExportContributorsSidepanel } from "@/shared/panels/export-contributors-sidepanel/export-contributors-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function DeepDivePage() {
@@ -34,8 +33,6 @@ export default function DeepDivePage() {
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
-
-      <ExportContributorsSidepanel />
     </PageWrapper>
   );
 }
