@@ -1,6 +1,6 @@
 export type PeriodValue = {
-  fromDate?: string | null;
-  toDate?: string | null;
+  fromDate?: string;
+  toDate?: string;
 };
 
 export interface PeriodFilterProps {
