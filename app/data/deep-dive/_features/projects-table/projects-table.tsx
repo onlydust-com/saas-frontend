@@ -12,6 +12,7 @@ import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/pr
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiProjectsPortParams, GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -74,6 +75,10 @@ export function ProjectsTable() {
     return <ErrorState />;
   }
 
+  const filtersCount = Object.keys(filters)?.length;
+
+  console.log("filtersCount", filtersCount, Object.keys(filters));
+
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
@@ -82,8 +87,12 @@ export function ProjectsTable() {
             variant={"secondary"}
             size="sm"
             startIcon={{ component: Filter }}
-            iconOnly
+            iconOnly={!filtersCount}
             onClick={() => openFilterPanel()}
+            classNames={{
+              content: "w-fit",
+            }}
+            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
