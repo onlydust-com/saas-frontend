@@ -14,13 +14,13 @@ import { PeriodFilterProps } from "@/shared/features/filters/period-filter/perio
 import { usePeriodSelectOptions } from "@/shared/hooks/select/use-period-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-const FUTURE_DEFAULT_DATE = new Date();
-FUTURE_DEFAULT_DATE.setDate(new Date().getDate() + 20);
+const START_DEFAULT_DATE = new Date();
+START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
 
 export function PeriodFilter({ onChange }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
-  const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: new Date(), end: FUTURE_DEFAULT_DATE });
+  const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
   const rangeMenu = usePeriodSelectOptions();
 
   const { fromDate, toDate } = useMemo(() => {
