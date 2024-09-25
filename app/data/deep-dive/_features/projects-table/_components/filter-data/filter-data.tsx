@@ -141,6 +141,11 @@ export function FilterData() {
               },
             })
           }
+          unit={
+            <Typo size={"sm"} color={"tertiary"}>
+              {moneyKernelPort.getCurrency("USD").code}
+            </Typo>
+          }
         />
         <OnboardedDevCountFilter
           value={{
