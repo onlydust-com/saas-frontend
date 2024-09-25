@@ -201,15 +201,21 @@ export function FilterData() {
           }}
           onChange={value => {
             setFilters({
-              ...(value.contributionType.includes(ContributionFilterType.PULL_REQUESTS) && {
-                prCount: value.amount,
-              }),
-              ...(value.contributionType.includes(ContributionFilterType.ISSUES) && {
-                issueCount: value.amount,
-              }),
-              ...(value.contributionType.includes(ContributionFilterType.CODE_REVIEWS) && {
-                codeReviewCount: value.amount,
-              }),
+              ...(value.contributionType.includes(ContributionFilterType.PULL_REQUESTS)
+                ? {
+                    prCount: value.amount,
+                  }
+                : { prCount: undefined }),
+              ...(value.contributionType.includes(ContributionFilterType.ISSUES)
+                ? {
+                    issueCount: value.amount,
+                  }
+                : { issueCount: undefined }),
+              ...(value.contributionType.includes(ContributionFilterType.CODE_REVIEWS)
+                ? {
+                    codeReviewCount: value.amount,
+                  }
+                : { codeReviewCount: undefined }),
             });
           }}
         />

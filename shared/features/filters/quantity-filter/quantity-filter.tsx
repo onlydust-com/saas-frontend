@@ -50,7 +50,7 @@ export function QuantityFilter({ value: _value, onChange, name, unit }: Quantity
   }
 
   function onTypeChange(selected: string[]) {
-    const amount = Object.values(value.amount).find(v => v !== undefined);
+    const amount = Object.values(value.amount).find(v => !!v) ?? 0;
     const newAmount = {
       eq: selected[0] === "EQUAL" ? amount : undefined,
       gte: selected[0] === "GREATER_THAN_OR_EQUAL" ? amount : undefined,
