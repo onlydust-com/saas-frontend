@@ -81,6 +81,8 @@
       "ecosystems": "{{count}} ecosystems",
       "programs": "{{count}} programs",
       "currencies": "{{count}} currencies"
-    }
+    },
+    "projectCount": "Projects",
+    "contributorCount": "Contributors"
   }
 }
