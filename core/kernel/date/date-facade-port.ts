@@ -6,6 +6,14 @@ export enum DateRangeType {
   ALL_TIME = "ALL_TIME",
 }
 
+export enum CustomPeriodType {
+  LAST_WEEK = "LAST_WEEK",
+  LAST_MONTH = "LAST_MONTH",
+  LAST_SEMESTER = "LAST_SEMESTER",
+  LAST_YEAR = "LAST_YEAR",
+  CUSTOM = "CUSTOM",
+}
+
 export enum TimeGroupingType {
   DAY = "DAY",
   WEEK = "WEEK",
@@ -25,9 +33,9 @@ export interface DateFacadePort {
   format: (date: Date, pattern: string) => string;
   startOfWeek: (date: Date) => Date;
   formatDistanceToNow: (date: Date) => string;
-  getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
+  getRangeOfDates: (range: DateRangeType | CustomPeriodType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };
-  isDateRangeType: (value: string) => value is DateRangeType;
+  isDateRangeType: (value: string) => value is DateRangeType | CustomPeriodType;
   isTimeGroupingType: (value: string) => value is TimeGroupingType;
   getDateFromWeekNumber: (year: number, weekNumber: number) => Date;
   getWeekNumber: (date: Date, options?: { hideMonths: boolean }) => string;

@@ -17,9 +17,9 @@ import {
   subYears,
 } from "date-fns";
 
-import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
+import { CustomPeriodType, DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 
-function getRangeOfDates(range: DateRangeType): { from: Date | null; to: Date | null } {
+function getRangeOfDates(range: DateRangeType | CustomPeriodType): { from: Date | null; to: Date | null } {
   switch (range) {
     case DateRangeType.LAST_WEEK: {
       const today = new Date();

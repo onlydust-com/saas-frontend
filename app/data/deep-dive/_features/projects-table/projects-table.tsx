@@ -14,11 +14,14 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
+import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export function ProjectsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [period, setPeriod] = useState<PeriodValue>();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -27,6 +30,8 @@ export function ProjectsTable() {
   const queryParams: Partial<GetBiProjectsQueryParams> = {
     programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
+    fromDate: period?.fromDate,
+    toDate: period?.toDate,
   };
 
   const {
@@ -42,6 +47,10 @@ export function ProjectsTable() {
       enabled: Boolean(user),
     },
   });
+
+  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
+    setPeriod({ fromDate, toDate });
+  }
 
   const isLoading = isLoadingUser || isLoadingBiProjects;
   const isError = isErrorUser || isErrorBiProjects;
@@ -67,6 +76,7 @@ export function ProjectsTable() {
   return (
     <div className={"grid gap-lg"}>
       <nav className={"flex gap-md"}>
+        <PeriodFilter onChange={handleOnPeriodChange} />
         <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         <ExportCsv queryParams={queryParams} />

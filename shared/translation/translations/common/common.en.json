@@ -14,7 +14,8 @@
     "LAST_MONTH": "Last month",
     "LAST_SEMESTER": "Last semester",
     "LAST_YEAR": "Last year",
-    "ALL_TIME": "All time"
+    "ALL_TIME": "All time",
+    "CUSTOM": "Custom period"
   },
   "dateRangeTypeLong": {
     "LAST_WEEK": "Last week ({{from}} to {{to}})",

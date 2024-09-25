@@ -54,7 +54,7 @@ export function ActiveUsersChart() {
   });
 
   function onChangeRangeType(value: string) {
-    if (dateKernelPort.isDateRangeType(value)) setRangeType(value);
+    if (dateKernelPort.isDateRangeType(value)) setRangeType(value as DateRangeType);
   }
 
   function onProgramEcosystemChange(ids: string[]) {
