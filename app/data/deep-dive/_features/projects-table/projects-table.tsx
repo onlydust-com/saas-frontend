@@ -2,6 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Filter } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data";
@@ -13,6 +14,7 @@ import { GetBiProjectsPortParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Table, TableLoading } from "@/design-system/molecules/table";
+import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -26,10 +28,20 @@ export type ProjectTableFilters = Omit<
 
 export function ProjectsTable() {
   const { open: openFilterPanel } = useProjectFilterDataSidePanel();
+  const [search, setSearch] = useState<string>();
+  const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [filters, setFilters] = useState<ProjectTableFilters>({});
+
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
-  const [filters, setFilters] = useState<ProjectTableFilters>({});
+
+  const queryParams: Partial<GetBiProjectsQueryParams> = {
+    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    search: debouncedSearch,
+    ...filters,
+  };
+
   const {
     data,
     isLoading: isLoadingBiProjects,
@@ -38,10 +50,7 @@ export function ProjectsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiProjects({
-    queryParams: {
-      ...filters,
-      programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
-    },
+    queryParams,
     options: {
       enabled: Boolean(user),
     },
@@ -70,8 +79,9 @@ export function ProjectsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div>
-        <div className={"flex gap-md"}>
+      <div className={"grid gap-lg"}>
+        <nav className={"flex gap-md"}>
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <Button
             variant={"secondary"}
             size="sm"
@@ -80,7 +90,8 @@ export function ProjectsTable() {
             onClick={() => openFilterPanel()}
           />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-        </div>
+          <ExportCsv queryParams={queryParams} />
+        </nav>
         <ScrollView direction={"x"}>
           <Table
             header={{

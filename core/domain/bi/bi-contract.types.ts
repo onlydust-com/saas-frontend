@@ -66,13 +66,17 @@ export type GetBiProjectsModel = Omit<GetBiProjectsResponse, "projects"> & {
   projects: BiProjectInterface[];
 };
 
-type GetBiProjectsQueryParams = operations["getBIProjects_1"]["parameters"]["query"];
+export type GetBiProjectsQueryParams = operations["getBIProjects_1"]["parameters"]["query"]["queryParams"];
 
 export type GetBiProjectsPortParams = HttpClientParameters<{
   QueryParams: GetBiProjectsQueryParams;
 }>;
 
 export type GetBiProjectsPortResponse = HttpStorageResponse<GetBiProjectsModel>;
+
+/* --------------------- Get Bi Projects CSV --------------------- */
+
+export type GetBiProjectsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* --------------------- Get Bi Contributors --------------------- */
 
@@ -81,10 +85,14 @@ export type GetBiContributorsModel = Omit<GetBiContributorsResponse, "contributo
   contributors: BiContributorInterface[];
 };
 
-type GetBiContributorsQueryParams = operations["getBIContributors_1"]["parameters"]["query"];
+export type GetBiContributorsQueryParams = operations["getBIContributors_1"]["parameters"]["query"]["queryParams"];
 
 export type GetBiContributorsPortParams = HttpClientParameters<{
   QueryParams: GetBiContributorsQueryParams;
 }>;
 
 export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributorsModel>;
+
+/* --------------------- Get Bi Contributors CSV --------------------- */
+
+export type GetBiContributorsCsvPortResponse = HttpStorageResponse<Blob>;

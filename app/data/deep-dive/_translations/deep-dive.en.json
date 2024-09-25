@@ -14,6 +14,11 @@
       "financial": "Financial",
       "activity": "Activity"
     },
+    "export": {
+      "tooltip": "Export contributors",
+      "success": "Contributors exported successfully.",
+      "error": "Error exporting contributors."
+    },
     "columns": {
       "contributorName": "Contributor name",
       "projects": "Projects",
@@ -23,7 +28,7 @@
       "country": "Country",
       "totalRewardedUsdAmount": "Rewarded amount",
       "contributionCount": "Contributions",
-      "mergedPrCount": "PRs merged",
+      "prCount": "PRs",
       "rewardCount": "Rewards"
     },
     "rows": {
@@ -39,6 +44,11 @@
       "financial": "Financial",
       "activity": "Activity"
     },
+    "export": {
+      "tooltip": "Export projects",
+      "success": "Projects exported successfully.",
+      "error": "Error exporting projects."
+    },
     "columns": {
       "projectName": "Project name",
       "projectLeads": "Project leads",
@@ -52,7 +62,7 @@
       "averageRewardUsdAmount": "Average reward",
       "onboardedContributorCount": "Devs onboarded",
       "activeContributorCount": "Active devs",
-      "mergedPrCount": "PRs merged",
+      "prCount": "PRs",
       "rewardCount": "Rewards",
       "contributionCount": "Contributions"
     },

@@ -108,9 +108,9 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "mergedPrCount",
-            label: <Translate token={"data:deepDive.projectsTable.columns.mergedPrCount"} />,
-            searchValue: "PRs merged",
+            id: "prCount",
+            label: <Translate token={"data:deepDive.projectsTable.columns.prCount"} />,
+            searchValue: "PRs",
             isCheckbox: true,
           },
           {
@@ -129,6 +129,9 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
         selectedIds,
         onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),
         isMultiple: true,
+      }}
+      popoverProps={{
+        placement: "bottom-end",
       }}
     />
   );
