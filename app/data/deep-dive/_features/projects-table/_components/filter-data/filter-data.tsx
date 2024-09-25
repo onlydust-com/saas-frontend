@@ -6,19 +6,24 @@ import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-por
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { AverageRewardCountFilter } from "@/shared/features/filters/average-reward-count-filter/average-reward-count-filter";
 import { BudgetAvailableCountFilter } from "@/shared/features/filters/budget-available-count-filter/budget-available-count-filter";
+import { BudgetUsedCountFilter } from "@/shared/features/filters/budget-used-count-filter/budget-used-count-filter";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { getContributionFilterType } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.utils";
+import { DevActiveCountFilter } from "@/shared/features/filters/dev-active-count-filter/dev-active-count-filter";
 import { GrantedCountFilter } from "@/shared/features/filters/granted-count-filter/granted-count-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
+import { OnboardedDevCountFilter } from "@/shared/features/filters/onboarded-dev-count-filter/onboarded-dev-count-filter";
 import { PrMergedCountFilter } from "@/shared/features/filters/pr-merged-count-filter/pr-merged-count-filter";
 import {
   getQuantityFilterAmountFromArray,
   getQuantityFilterType,
   getQuantityFilterTypeFromArray,
 } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
+import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -74,6 +79,20 @@ export function FilterData() {
             </Typo>
           }
         />
+        <BudgetUsedCountFilter
+          value={{
+            amount: filters.percentUsedBudget,
+            type: getQuantityFilterType(filters.percentUsedBudget),
+          }}
+          onChange={value =>
+            setFilters({
+              percentUsedBudget: {
+                ...value.amount,
+              },
+            })
+          }
+          unit={<Typo size={"sm"} color={"tertiary"} translate={{ token: "features:filters.budgetUsedCount.unit" }} />}
+        />
         <GrantedCountFilter
           value={{
             amount: filters.totalGrantedUsdAmount,
@@ -82,6 +101,24 @@ export function FilterData() {
           onChange={value =>
             setFilters({
               totalGrantedUsdAmount: {
+                ...value.amount,
+              },
+            })
+          }
+          unit={
+            <Typo size={"sm"} color={"tertiary"}>
+              {moneyKernelPort.getCurrency("USD").code}
+            </Typo>
+          }
+        />
+        <AverageRewardCountFilter
+          value={{
+            amount: filters.averageRewardUsdAmount,
+            type: getQuantityFilterType(filters.averageRewardUsdAmount),
+          }}
+          onChange={value =>
+            setFilters({
+              averageRewardUsdAmount: {
                 ...value.amount,
               },
             })
@@ -105,6 +142,22 @@ export function FilterData() {
             })
           }
         />
+        <OnboardedDevCountFilter
+          value={{
+            amount: filters.onboardedContributorCount,
+            type: getQuantityFilterType(filters.onboardedContributorCount),
+          }}
+          onChange={value =>
+            setFilters({
+              onboardedContributorCount: {
+                ...value.amount,
+              },
+            })
+          }
+          unit={
+            <Typo size={"sm"} color={"tertiary"} translate={{ token: "features:filters.onboardedDevCount.unit" }} />
+          }
+        />
         <PrMergedCountFilter
           value={{
             amount: filters.prCount,
@@ -113,6 +166,19 @@ export function FilterData() {
           onChange={value =>
             setFilters({
               prCount: {
+                ...value.amount,
+              },
+            })
+          }
+        />
+        <RewardCountFilter
+          value={{
+            amount: filters.rewardCount,
+            type: getQuantityFilterType(filters.rewardCount),
+          }}
+          onChange={value =>
+            setFilters({
+              rewardCount: {
                 ...value.amount,
               },
             })
@@ -141,6 +207,19 @@ export function FilterData() {
               }),
             });
           }}
+        />
+        <DevActiveCountFilter
+          value={{
+            amount: filters.activeContributorCount,
+            type: getQuantityFilterType(filters.activeContributorCount),
+          }}
+          onChange={value =>
+            setFilters({
+              activeContributorCount: {
+                ...value.amount,
+              },
+            })
+          }
         />
       </SidePanelBody>
       <SidePanelFooter>
