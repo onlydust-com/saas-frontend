@@ -2,6 +2,7 @@
 
 import { DeepDiveSection } from "@/app/data/deep-dive/_sections/deep-dive-section";
 
+import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -25,11 +26,13 @@ export default function DeepDivePage() {
         ],
       }}
     >
-      <ScrollView>
-        <PageContent>
-          <DeepDiveSection />
-        </PageContent>
-      </ScrollView>
+      <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
+        <ScrollView>
+          <PageContent>
+            <DeepDiveSection />
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
     </PageWrapper>
   );
 }

@@ -14,6 +14,11 @@
       "financial": "Financial",
       "activity": "Activity"
     },
+    "export": {
+      "tooltip": "Export contributors",
+      "success": "Contributors exported successfully.",
+      "error": "Error exporting contributors."
+    },
     "columns": {
       "contributorName": "Contributor name",
       "projects": "Projects",
@@ -38,6 +43,11 @@
       "global": "Global",
       "financial": "Financial",
       "activity": "Activity"
+    },
+    "export": {
+      "tooltip": "Export projects",
+      "success": "Projects exported successfully.",
+      "error": "Error exporting projects."
     },
     "columns": {
       "projectName": "Project name",

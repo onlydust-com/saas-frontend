@@ -1,8 +1,8 @@
 import {
   GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
-  GetBiProjectsStatsResponse,
   GetBiProjectsResponse,
+  GetBiProjectsStatsResponse,
   GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
 import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
@@ -123,6 +123,27 @@ export class BiClientAdapter implements BiStoragePort {
     };
   };
 
+  getBiProjectsCsv = ({ queryParams }: FirstParameter<BiStoragePort["getBiProjectsCsv"]>) => {
+    const path = this.routes["getBiProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
   getBiContributors = ({ queryParams }: FirstParameter<BiStoragePort["getBiContributors"]>) => {
     const path = this.routes["getBiContributors"];
     const method = "GET";
@@ -140,6 +161,27 @@ export class BiClientAdapter implements BiStoragePort {
         contributors: data.contributors.map(contributor => new BiContributor(contributor)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiContributorsCsv = ({ queryParams }: FirstParameter<BiStoragePort["getBiContributorsCsv"]>) => {
+    const path = this.routes["getBiContributors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
 
     return {
       request,
