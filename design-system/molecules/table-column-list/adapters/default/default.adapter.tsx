@@ -19,7 +19,12 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { TableColumnListPort } from "../../table-column-list.types";
 import { TableColumnListDefaultVariants } from "./default.variants";
 
-export function TableColumnListDefaultAdapter({ classNames, titleProps, menuProps }: TableColumnListPort) {
+export function TableColumnListDefaultAdapter({
+  classNames,
+  titleProps,
+  menuProps,
+  popoverProps,
+}: TableColumnListPort) {
   const { t } = useTranslation();
   const slots = TableColumnListDefaultVariants();
 
@@ -35,7 +40,7 @@ export function TableColumnListDefaultAdapter({ classNames, titleProps, menuProp
   );
 
   return (
-    <Popover>
+    <Popover {...popoverProps}>
       <Popover.Trigger>
         {() => (
           <div className={cn(slots.base(), classNames?.base)}>
