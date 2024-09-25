@@ -10,7 +10,7 @@ import { BadgeList } from "@/shared/features/badge-list/badge-list";
 
 import { CardProjectPort } from "../../card-project.types";
 
-function ConditionalBadge({ count, icon }: { count?: string; icon: IconPort["component"] }) {
+function ConditionalBadge({ count, icon }: { count?: string; icon: NonNullable<IconPort["component"]> }) {
   if (typeof count === "undefined") return null;
 
   return (

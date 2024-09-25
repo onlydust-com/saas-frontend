@@ -6,12 +6,14 @@ export interface BiContributorInterface extends BiContributorResponse {}
 
 export class BiContributor implements BiContributorInterface {
   categories!: BiContributorResponse["categories"];
+  codeReviewCount!: BiContributorResponse["codeReviewCount"];
   contributionCount!: BiContributorResponse["contributionCount"];
   contributor!: BiContributorResponse["contributor"];
   countryCode!: BiContributorResponse["countryCode"];
   ecosystems!: BiContributorResponse["ecosystems"];
+  issueCount!: BiContributorResponse["issueCount"];
   languages!: BiContributorResponse["languages"];
-  mergedPrCount!: BiContributorResponse["mergedPrCount"];
+  prCount!: BiContributorResponse["prCount"];
   projects!: BiContributorResponse["projects"];
   rewardCount!: BiContributorResponse["rewardCount"];
   totalRewardedUsdAmount!: BiContributorResponse["totalRewardedUsdAmount"];

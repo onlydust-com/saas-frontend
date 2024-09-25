@@ -9,12 +9,14 @@ export class BiProject implements BiProjectInterface {
   availableBudget!: BiProjectResponse["availableBudget"];
   averageRewardUsdAmount!: BiProjectResponse["averageRewardUsdAmount"];
   categories!: BiProjectResponse["categories"];
+  codeReviewCount!: BiProjectResponse["codeReviewCount"];
   contributionCount!: BiProjectResponse["contributionCount"];
   ecosystems!: BiProjectResponse["ecosystems"];
+  issueCount!: BiProjectResponse["issueCount"];
   languages!: BiProjectResponse["languages"];
-  mergedPrCount!: BiProjectResponse["mergedPrCount"];
   onboardedContributorCount!: BiProjectResponse["onboardedContributorCount"];
   percentUsedBudget!: BiProjectResponse["percentUsedBudget"];
+  prCount!: BiProjectResponse["prCount"];
   programs!: BiProjectResponse["programs"];
   project!: BiProjectResponse["project"];
   projectLeads!: BiProjectResponse["projectLeads"];

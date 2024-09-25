@@ -3,12 +3,12 @@ import { isRemixIcon } from "@/design-system/atoms/icon/icon.utils";
 import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
 import { withComponentAdapter } from "@/design-system/helpers/with-component-adapter";
 
-import { IconPort } from "../icon.types";
+import { IconPort, LucideIconPort } from "../icon.types";
 
 export function Icon(props: IconPort) {
   if (isRemixIcon(props)) {
     return <RemixIcon {...props} />;
   }
 
-  return withComponentAdapter<IconPort>(IconLucideAdapter)(props);
+  return withComponentAdapter<LucideIconPort>(IconLucideAdapter)(props);
 }
