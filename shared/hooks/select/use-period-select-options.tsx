@@ -1,5 +1,5 @@
 import { bootstrap } from "@/core/bootstrap";
-import { CustomPeriodType } from "@/core/kernel/date/date-facade-port";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
@@ -8,16 +8,16 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function usePeriodSelectOptions(): MenuItemPort[] {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const ranges: CustomPeriodType[] = [
-    CustomPeriodType.LAST_WEEK,
-    CustomPeriodType.LAST_MONTH,
-    CustomPeriodType.LAST_SEMESTER,
-    CustomPeriodType.LAST_YEAR,
-    CustomPeriodType.CUSTOM,
+  const ranges: DateRangeType[] = [
+    DateRangeType.LAST_WEEK,
+    DateRangeType.LAST_MONTH,
+    DateRangeType.LAST_SEMESTER,
+    DateRangeType.LAST_YEAR,
+    DateRangeType.CUSTOM,
   ];
 
   return ranges.map(range => {
-    if (range === CustomPeriodType.CUSTOM) {
+    if (range === DateRangeType.CUSTOM) {
       return {
         label: <Translate token={`common:dateRangeType.${range}`} />,
         id: range,

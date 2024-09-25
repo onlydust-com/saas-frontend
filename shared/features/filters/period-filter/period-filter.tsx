@@ -2,7 +2,7 @@ import { Calendar } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
-import { CustomPeriodType } from "@/core/kernel/date/date-facade-port";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
@@ -19,7 +19,7 @@ FUTURE_DEFAULT_DATE.setDate(new Date().getDate() + 30);
 
 export function PeriodFilter({ onChange }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [periodType, setPeriodType] = useState<CustomPeriodType>(CustomPeriodType.LAST_SEMESTER);
+  const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: new Date(), end: FUTURE_DEFAULT_DATE });
   const rangeMenu = usePeriodSelectOptions();
 
@@ -33,7 +33,7 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
   }, [periodType, dateKernelPort]);
 
   function onChangeRangeType(value: string) {
-    setPeriodType(value as CustomPeriodType);
+    if (dateKernelPort.isDateRangeType(value)) setPeriodType(value);
   }
 
   function handleDateRange(value: DateRangePickerValue) {
@@ -41,7 +41,7 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
   }
 
   useEffect(() => {
-    if (periodType === CustomPeriodType.CUSTOM) {
+    if (periodType === DateRangeType.CUSTOM) {
       const { start, end } = dateRange;
       return onChange?.({
         fromDate: start ? dateKernelPort.format(start, "yyyy-MM-dd") : undefined,
@@ -77,7 +77,7 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
                 <Translate token={`common:dateRangeType.${periodType}`} />
               </Button>
             </Menu>
-            {periodType === CustomPeriodType.CUSTOM ? (
+            {periodType === DateRangeType.CUSTOM ? (
               <DateRangePicker
                 label={
                   <Typo

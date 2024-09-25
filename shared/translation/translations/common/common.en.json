@@ -22,7 +22,8 @@
     "LAST_MONTH": "Last month ({{from}} to {{to}})",
     "LAST_SEMESTER": "Last semester ({{from}} to {{to}})",
     "LAST_YEAR": "Last year ({{from}} to {{to}})",
-    "ALL_TIME": "All time"
+    "ALL_TIME": "All time",
+    "CUSTOM": "Custom period"
   },
   "quantityFilterType": {
     "EQUAL": "is equal",
