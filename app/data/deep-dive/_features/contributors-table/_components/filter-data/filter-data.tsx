@@ -9,6 +9,7 @@ import { ContributionsActivityFilter } from "@/shared/features/filters/contribut
 import { getContributionFilterType } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.utils";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { PrMergedCountFilter } from "@/shared/features/filters/pr-merged-count-filter/pr-merged-count-filter";
+import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
 import {
   getQuantityFilterAmountFromArray,
   getQuantityFilterType,
@@ -44,7 +45,7 @@ export function FilterData() {
           selectedUserType={filters.contributorRoles}
           onSelect={type => setFilters({ contributorRoles: type as typeof filters.contributorRoles })}
         />
-        {/*<ProjectFilter selectedProjects={filters.categoryIds} onSelect={type => setFilters({ categoryIds: type })} />*/}
+        <ProjectFilter selectedProjects={filters.projectIds} onSelect={projectIds => setFilters({ projectIds })} />
         <CategoryFilter
           selectedCategories={filters.categoryIds}
           onSelect={categories => setFilters({ categoryIds: categories })}
