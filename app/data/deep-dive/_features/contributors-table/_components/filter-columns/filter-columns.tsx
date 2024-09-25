@@ -84,9 +84,9 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "mergedPrCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.mergedPrCount"} />,
-            searchValue: "PRs merged",
+            id: "prCount",
+            label: <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
+            searchValue: "PRs",
             isCheckbox: true,
           },
           {
