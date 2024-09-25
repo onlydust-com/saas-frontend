@@ -18,7 +18,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        linkProps={{ href: NEXT_ROUTER.data.root }}
+        isComingSoon={true}
       />
       <ItemNav
         isFolded={isFolded}
