@@ -1,13 +1,19 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { Filter } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.hooks";
+import { FilterData } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data";
+import { FilterDataProvider } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.context";
+import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
+import { Badge } from "@/design-system/atoms/badge";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
@@ -20,10 +26,17 @@ import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecos
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
+export type ContributorsTableFilters = Omit<
+  NonNullable<GetBiContributorsPortParams["queryParams"]>,
+  "pageSize" | "pageIndex"
+>;
+
 export function ContributorsTable() {
+  const { open: openFilterPanel } = useContributorFilterDataSidePanel();
   const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [filters, setFilters] = useState<ContributorsTableFilters>({});
   const [period, setPeriod] = useState<PeriodValue>();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
@@ -38,6 +51,7 @@ export function ContributorsTable() {
     search: debouncedSearch,
     fromDate: period?.fromDate,
     toDate: period?.toDate,
+    ...filters,
   };
 
   const {
@@ -79,35 +93,52 @@ export function ContributorsTable() {
     return <ErrorState />;
   }
 
+  const filtersCount = Object.keys(filters)?.length;
+
   return (
-    <div className={"grid gap-lg"}>
-      <nav className={"flex gap-md"}>
-        <ProgramEcosystemPopover
-          name={"programAndEcosystem"}
-          onSelect={setSelectedProgramAndEcosystem}
-          selectedProgramsEcosystems={selectedProgramAndEcosystem}
-          buttonProps={{ size: "sm" }}
-        />
-        <PeriodFilter onChange={handleOnPeriodChange} />
-        <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-        <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-        <ExportCsv queryParams={queryParams} />
-      </nav>
-      <ScrollView direction={"x"}>
-        <Table
-          header={{
-            headerGroups: table.getHeaderGroups(),
-          }}
-          rows={table.getRowModel().rows}
-          classNames={{
-            base: "min-w-[1200px]",
-          }}
-          onRowClick={row => {
-            openContributor({ login: row.original.contributor.login });
-          }}
-        />
-        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-      </ScrollView>
-    </div>
+    <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <div className={"grid gap-lg"}>
+        <nav className={"flex gap-md"}>
+          <Button
+            variant={"secondary"}
+            size="sm"
+            startIcon={{ component: Filter }}
+            iconOnly={!filtersCount}
+            onClick={() => openFilterPanel()}
+            classNames={{
+              content: "w-fit",
+            }}
+            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
+          />
+          <ProgramEcosystemPopover
+            name={"programAndEcosystem"}
+            onSelect={setSelectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            buttonProps={{ size: "sm" }}
+          />
+
+          <PeriodFilter onChange={handleOnPeriodChange} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
+          <ExportCsv queryParams={queryParams} />
+        </nav>
+        <ScrollView direction={"x"}>
+          <Table
+            header={{
+              headerGroups: table.getHeaderGroups(),
+            }}
+            rows={table.getRowModel().rows}
+            classNames={{
+              base: "min-w-[1200px]",
+            }}
+            onRowClick={row => {
+              openContributor({ login: row.original.contributor.login });
+            }}
+          />
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+        </ScrollView>
+      </div>
+      <FilterData />
+    </FilterDataProvider>
   );
 }
