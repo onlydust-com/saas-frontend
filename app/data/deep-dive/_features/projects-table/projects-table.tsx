@@ -20,6 +20,8 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
+import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
@@ -31,6 +33,7 @@ export function ProjectsTable() {
   const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [period, setPeriod] = useState<PeriodValue>();
   const [filters, setFilters] = useState<ProjectTableFilters>({});
   const { open: openProject } = useProjectSidePanel();
 
@@ -43,6 +46,8 @@ export function ProjectsTable() {
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
+    fromDate: period?.fromDate,
+    toDate: period?.toDate,
     ...filters,
   };
 
@@ -59,6 +64,10 @@ export function ProjectsTable() {
       enabled: Boolean(user),
     },
   });
+
+  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
+    setPeriod({ fromDate, toDate });
+  }
 
   const isLoading = isLoadingUser || isLoadingBiProjects;
   const isError = isErrorUser || isErrorBiProjects;
@@ -104,6 +113,7 @@ export function ProjectsTable() {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
+          <PeriodFilter onChange={handleOnPeriodChange} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
