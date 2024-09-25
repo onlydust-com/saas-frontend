@@ -3,6 +3,7 @@ import enBudgetAvailableCount from "../budget-available-count-filter/budget-avai
 import enCategory from "../category-filter/category-filter.en.json";
 import enContributionActivity from "../contributions-activity-filter/contributions-activity-filter.en.json";
 import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter.en.json";
+import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
 import enLanguage from "../language-filter/language-filter.en.json";
 import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
 import enPrMergedCount from "../pr-merged-count-filter/pr-merged-count-filter.en.json";
@@ -22,6 +23,7 @@ export const enFiltersTranslations = {
     rewardCount: enRewardCount,
     devActiveCount: enDevActiveCount,
     budgetAvailableCount: enBudgetAvailableCount,
+    grantedCount: enGrantedCount,
     averageRewardCount: enAverageRewardCount,
   },
 };
