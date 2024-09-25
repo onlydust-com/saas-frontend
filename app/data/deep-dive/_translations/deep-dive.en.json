@@ -28,7 +28,7 @@
       "country": "Country",
       "totalRewardedUsdAmount": "Rewarded amount",
       "contributionCount": "Contributions",
-      "mergedPrCount": "PRs merged",
+      "prCount": "PRs",
       "rewardCount": "Rewards"
     },
     "rows": {
@@ -62,7 +62,7 @@
       "averageRewardUsdAmount": "Average reward",
       "onboardedContributorCount": "Devs onboarded",
       "activeContributorCount": "Active devs",
-      "mergedPrCount": "PRs merged",
+      "prCount": "PRs",
       "rewardCount": "Rewards",
       "contributionCount": "Contributions"
     },
