@@ -15,6 +15,7 @@ import { DevActiveCountFilter } from "@/shared/features/filters/dev-active-count
 import { GrantedCountFilter } from "@/shared/features/filters/granted-count-filter/granted-count-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
+import { OnboardedDevCountFilter } from "@/shared/features/filters/onboarded-dev-count-filter/onboarded-dev-count-filter";
 import { PrMergedCountFilter } from "@/shared/features/filters/pr-merged-count-filter/pr-merged-count-filter";
 import { QuantityFilterValues } from "@/shared/features/filters/quantity-filter/quantity-filter.types";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
@@ -32,6 +33,7 @@ export default function SandboxPage() {
   const [devActiveCount, setDevActiveCount] = useState<QuantityFilterValues | undefined>();
   const [budgetAvailableCount, setBudgetAvailableCount] = useState<QuantityFilterValues | undefined>();
   const [grantedCount, setGrantedCount] = useState<QuantityFilterValues | undefined>();
+  const [onboardedDevCount, setOnboardedDevCount] = useState<QuantityFilterValues | undefined>();
   const [averageRewardCount, setBAverageRewardCount] = useState<QuantityFilterValues | undefined>();
   const [selectedUserType, setSelectedUserType] = useState<string[]>([]);
 
@@ -73,6 +75,13 @@ export default function SandboxPage() {
             <Typo size={"sm"} color={"tertiary"}>
               {moneyKernelPort.getCurrency("USD").code}
             </Typo>
+          }
+        />
+        <OnboardedDevCountFilter
+          value={onboardedDevCount}
+          onChange={setOnboardedDevCount}
+          unit={
+            <Typo size={"sm"} color={"tertiary"} translate={{ token: "features:filters.onboardedDevCount.unit" }} />
           }
         />
         <DevActiveCountFilter value={devActiveCount} onChange={setDevActiveCount} />
