@@ -12,25 +12,6 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-//
-// function Sandbox() {
-//   const { open } = useContributorSidePanel();
-//   const { open: openProject } = useProjectSidePanel();
-//   return (
-//     <>
-//       <Button isTextButton={true} onClick={() => open({ githubId: 17259618 })}>
-//         Open User (githubId)
-//       </Button>
-//       <Button isTextButton={true} onClick={() => open({ login: "alexbeno" })}>
-//         Open User (login)
-//       </Button>
-//       <Button isTextButton={true} onClick={() => openProject({ projectId: "a0c91aee-9770-4000-a893-953ddcbd62a7" })}>
-//         Open project
-//       </Button>
-//     </>
-//   );
-// }
-
 function DataPage() {
   return (
     <PageWrapper
@@ -55,12 +36,9 @@ function DataPage() {
             <div className="grid h-full gap-3">
               <ActiveUsersSection />
             </div>
-            {/*<Sandbox />*/}
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
-      {/*<ContributorSidepanel />*/}
-      {/*<ProjectSidepanel />*/}
     </PageWrapper>
   );
 }
