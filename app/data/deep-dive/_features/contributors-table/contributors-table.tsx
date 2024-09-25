@@ -99,6 +99,12 @@ export function ContributorsTable() {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
         <nav className={"flex gap-md"}>
+          <ProgramEcosystemPopover
+            name={"programAndEcosystem"}
+            onSelect={setSelectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            buttonProps={{ size: "sm" }}
+          />
           <Button
             variant={"secondary"}
             size="sm"
@@ -110,13 +116,6 @@ export function ContributorsTable() {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
-          <ProgramEcosystemPopover
-            name={"programAndEcosystem"}
-            onSelect={setSelectedProgramAndEcosystem}
-            selectedProgramsEcosystems={selectedProgramAndEcosystem}
-            buttonProps={{ size: "sm" }}
-          />
-
           <PeriodFilter onChange={handleOnPeriodChange} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
