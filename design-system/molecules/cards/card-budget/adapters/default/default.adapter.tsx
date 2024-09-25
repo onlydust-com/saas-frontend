@@ -36,7 +36,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
     currency: moneyKernelPort.getCurrency("USD"),
   });
 
-  const iconComponents: Record<CardBudgetType, IconPort["component"]> = {
+  const iconComponents: Record<CardBudgetType, NonNullable<IconPort["component"]>> = {
     [CardBudgetType.GRANTED]: ArrowRight,
     [CardBudgetType.RECEIVED]: ArrowDown,
   };
