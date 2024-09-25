@@ -111,13 +111,14 @@ export function ContributorsTable() {
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
           <ProgramEcosystemPopover
-          name={"programAndEcosystem"}
-          onSelect={setSelectedProgramAndEcosystem}
-          selectedProgramsEcosystems={selectedProgramAndEcosystem}
-          buttonProps={{ size: "sm" }}
-        />
-        <PeriodFilter onChange={handleOnPeriodChange} />
-        <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+            name={"programAndEcosystem"}
+            onSelect={setSelectedProgramAndEcosystem}
+            selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            buttonProps={{ size: "sm" }}
+          />
+
+          <PeriodFilter onChange={handleOnPeriodChange} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
         </nav>
@@ -129,9 +130,9 @@ export function ContributorsTable() {
             rows={table.getRowModel().rows}
             classNames={{
               base: "min-w-[1200px]",
-          }}
-          onRowClick={row => {
-            openContributor({ login: row.original.contributor.login });
+            }}
+            onRowClick={row => {
+              openContributor({ login: row.original.contributor.login });
             }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
