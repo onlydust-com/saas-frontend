@@ -72,7 +72,7 @@ export function ProjectSidepanel() {
   }
 
   const PanelContent = useMemo(() => {
-    if (isLoading || loadingStats || !data) {
+    if (isLoading || !data) {
       return (
         <>
           <Skeleton className="h-14 w-full" />
