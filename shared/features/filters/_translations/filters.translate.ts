@@ -10,6 +10,7 @@ import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
 import enOnboardedDevCount from "../onboarded-dev-count-filter/onboarded-dev-count-filter.en.json";
 import enPrMergedCount from "../pr-merged-count-filter/pr-merged-count-filter.en.json";
 import enProgramEcosystem from "../program-ecosystem-filter/program-ecosystem-filter.en.json";
+import enProject from "../project-filter/project-filter.en.json";
 import enRewardCount from "../reward-count-filter/reward-count-filter.en.json";
 import enTotalRewardedAmount from "../total-rewarded-amount-filter/total-rewarded-amount.en.json";
 import enUserType from "../user-type-filter/user-type-filter.en.json";
@@ -31,5 +32,6 @@ export const enFiltersTranslations = {
     budgetUsedCount: enBudgetUsedCount,
     onboardedDevCount: enOnboardedDevCount,
     programEcosystem: enProgramEcosystem,
+    project: enProject,
   },
 };

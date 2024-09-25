@@ -44,6 +44,7 @@ export function FilterData() {
           selectedUserType={filters.contributorRoles}
           onSelect={type => setFilters({ contributorRoles: type as typeof filters.contributorRoles })}
         />
+        {/*<ProjectFilter selectedProjects={filters.categoryIds} onSelect={type => setFilters({ categoryIds: type })} />*/}
         <CategoryFilter
           selectedCategories={filters.categoryIds}
           onSelect={categories => setFilters({ categoryIds: categories })}
