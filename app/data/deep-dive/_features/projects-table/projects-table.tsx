@@ -77,8 +77,6 @@ export function ProjectsTable() {
 
   const filtersCount = Object.keys(filters)?.length;
 
-  console.log("filtersCount", filtersCount, Object.keys(filters));
-
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
