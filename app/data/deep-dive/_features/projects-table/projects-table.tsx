@@ -20,6 +20,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 
 export type ProjectTableFilters = Omit<NonNullable<GetBiProjectsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
@@ -28,6 +29,7 @@ export function ProjectsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ProjectTableFilters>({});
+  const { open: openProject } = useProjectSidePanel();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -97,6 +99,9 @@ export function ProjectsTable() {
             rows={table.getRowModel().rows}
             classNames={{
               base: "min-w-[1200px]",
+            }}
+            onRowClick={row => {
+              openProject({ projectId: row.original.project.id });
             }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
