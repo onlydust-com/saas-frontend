@@ -5,7 +5,10 @@ import { TableSearch } from "./variants/table-search-default";
 
 type Story = StoryObj<typeof TableSearch>;
 
-const defaultProps: TableSearchPort = {};
+const defaultProps: TableSearchPort = {
+  onChange: value => console.log(value),
+  onDebouncedChange: value => console.log(value),
+};
 
 const meta: Meta<typeof TableSearch> = {
   component: TableSearch,

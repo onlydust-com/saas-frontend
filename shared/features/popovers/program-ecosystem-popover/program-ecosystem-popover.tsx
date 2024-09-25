@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
@@ -13,8 +14,10 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function ProgramEcosystemPopover({
   selectedProgramsEcosystems,
   onSelect,
+  buttonProps,
   ...selectProps
 }: ProgramEcosystemPopoverProps) {
+  const { t } = useTranslation();
   const [selectedValues, setSelectedValues] = useState("");
   const { programAndEcosystemItems } = useProgramEcosystemAutocomplete();
 
@@ -35,38 +38,38 @@ export function ProgramEcosystemPopover({
   }
 
   return (
-    <div className="flex w-full flex-wrap gap-1">
-      <Popover>
-        <Popover.Trigger>
-          {() => (
-            <div>
-              <Button
-                as={"div"}
-                variant={"secondary"}
-                size={"md"}
-                endIcon={{ component: ChevronDown }}
-                classNames={{
-                  base: "max-w-xs overflow-hidden",
-                  label: "whitespace-nowrap text-ellipsis overflow-hidden",
-                }}
-              >
-                {selectedValues ? selectedValues : <Translate token="data:details.allDataFilter.trigger" />}
-              </Button>
-            </div>
-          )}
-        </Popover.Trigger>
-        <Popover.Content>
-          {() => (
-            <ProgramEcosystemAutocomplete
-              {...selectProps}
-              selectedProgramsEcosystems={selectedProgramsEcosystems}
-              onSelect={handleSelect}
-              isPopover={false}
-              isMultiple
-            />
-          )}
-        </Popover.Content>
-      </Popover>
-    </div>
+    <Popover>
+      <Popover.Trigger>
+        {() => (
+          <div>
+            <Button
+              as={"div"}
+              variant={"secondary"}
+              size={"md"}
+              endIcon={{ component: ChevronDown }}
+              classNames={{
+                base: "max-w-xs overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+              {...buttonProps}
+            >
+              {selectedValues ? selectedValues : <Translate token="features:popovers.programEcosystem.trigger" />}
+            </Button>
+          </div>
+        )}
+      </Popover.Trigger>
+      <Popover.Content>
+        {() => (
+          <ProgramEcosystemAutocomplete
+            placeholder={t("features:popovers.programEcosystem.placeholder")}
+            {...selectProps}
+            selectedProgramsEcosystems={selectedProgramsEcosystems}
+            onSelect={handleSelect}
+            isPopover={false}
+            isMultiple
+          />
+        )}
+      </Popover.Content>
+    </Popover>
   );
 }

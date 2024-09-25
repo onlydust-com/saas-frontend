@@ -20,6 +20,7 @@ export function LeadProjectFilter({ selectedUser, onSelect }: LeadProjectFilterP
         onSelect={onSelect}
         isMultiple={true}
         placeholder={t("filters.leadProject.placeholder")}
+        withInternalUserOnly={true}
       />
     </AccordionFilter>
   );

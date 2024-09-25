@@ -3,8 +3,12 @@ import { ReactNode } from "react";
 import { QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 export interface QuantityFilterValues {
-  type?: QuantityFilterType;
-  amount?: number;
+  type: QuantityFilterType;
+  amount?: {
+    gte?: number;
+    eq?: number;
+    lte?: number;
+  };
 }
 export interface QuantityFilterProps {
   name: string;

@@ -14,18 +14,24 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function ContributorsTable() {
+  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
+  const { open: openContributor } = useContributorSidePanel();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
-    programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    programOrEcosystemIds: selectedProgramAndEcosystem.length
+      ? selectedProgramAndEcosystem
+      : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
   };
 
@@ -67,6 +73,12 @@ export function ContributorsTable() {
   return (
     <div className={"grid gap-lg"}>
       <nav className={"flex gap-md"}>
+        <ProgramEcosystemPopover
+          name={"programAndEcosystem"}
+          onSelect={setSelectedProgramAndEcosystem}
+          selectedProgramsEcosystems={selectedProgramAndEcosystem}
+          buttonProps={{ size: "sm" }}
+        />
         <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         <ExportCsv queryParams={queryParams} />
@@ -79,6 +91,9 @@ export function ContributorsTable() {
           rows={table.getRowModel().rows}
           classNames={{
             base: "min-w-[1200px]",
+          }}
+          onRowClick={row => {
+            openContributor({ login: row.original.contributor.login });
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

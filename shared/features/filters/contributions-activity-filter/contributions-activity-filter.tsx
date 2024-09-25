@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ContributionFilterType, QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
@@ -10,14 +11,19 @@ import { QuantityFilterProps } from "@/shared/features/filters/quantity-filter/q
 
 import { ContributionsActivityFilterProps } from "./contributions-activity-filter.types";
 
-export function ContributionsActivityFilter({
-  value = {
-    contributionType: [ContributionFilterType.ISSUES],
-    amount: 0,
-    type: QuantityFilterType.EQUAL,
-  },
-  onChange,
-}: ContributionsActivityFilterProps) {
+export function ContributionsActivityFilter({ value: _value, onChange }: ContributionsActivityFilterProps) {
+  const value = useMemo(
+    () => ({
+      type: _value?.type ?? QuantityFilterType.EQUAL,
+      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUES],
+      amount: _value?.amount ?? {
+        eq: undefined,
+        gte: undefined,
+        lte: undefined,
+      },
+    }),
+    [_value]
+  );
   const { t } = useTranslation("common");
 
   const contributionsOptions: MenuPort["items"] = [
