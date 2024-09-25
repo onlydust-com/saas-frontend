@@ -14,6 +14,8 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
+import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -22,6 +24,7 @@ export function ContributorsTable() {
   const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [period, setPeriod] = useState<PeriodValue>();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -33,6 +36,8 @@ export function ContributorsTable() {
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
+    fromDate: period?.fromDate,
+    toDate: period?.toDate,
   };
 
   const {
@@ -48,6 +53,10 @@ export function ContributorsTable() {
       enabled: Boolean(user),
     },
   });
+
+  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
+    setPeriod({ fromDate, toDate });
+  }
 
   const isLoading = isLoadingUser || isLoadingBiContributors;
   const isError = isErrorUser || isErrorBiContributors;
@@ -79,6 +88,7 @@ export function ContributorsTable() {
           selectedProgramsEcosystems={selectedProgramAndEcosystem}
           buttonProps={{ size: "sm" }}
         />
+        <PeriodFilter onChange={handleOnPeriodChange} />
         <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         <ExportCsv queryParams={queryParams} />

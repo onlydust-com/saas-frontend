@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Popover } from "@/design-system/atoms/popover";
@@ -19,7 +20,7 @@ START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
 
 export function PeriodFilter({ onChange }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
+  const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
   const rangeMenu = usePeriodSelectOptions();
 
@@ -65,6 +66,7 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
                 base: "max-w-xs overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
+              endContent={<Badge size={"xxs"}>1</Badge>}
             />
           </div>
         )}
