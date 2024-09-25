@@ -9,6 +9,7 @@ import {
   HttpClientPathParams,
   HttpClientQueryParams,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+import { AnyType } from "@/core/kernel/types";
 
 export class HttpClient {
   request<R>(args: {
@@ -60,6 +61,13 @@ export class HttpClient {
 
         if (Array.isArray(value)) {
           acc.append(key, value.join(","));
+        } else if (typeof value === "object") {
+          const keys = Object.keys(value);
+          keys.forEach(subKey => {
+            if (value[subKey] !== undefined) {
+              acc.append(`${key}.${subKey}`, String(value[subKey]));
+            }
+          });
         } else {
           acc.append(key, String(value));
         }
@@ -97,10 +105,17 @@ export class HttpClient {
     return Object.keys(obj)
       .sort()
       .reduce((acc, key, i, arr) => {
-        acc += key + ":" + obj[key];
+        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+          const keys = Object.keys(obj[key]);
+          keys.forEach(subKey => {
+            acc += `${key}.${subKey}` + ":" + `${(obj[key] as AnyType)[subKey]}`;
+          });
+        } else {
+          acc += key + ":" + obj[key];
 
-        if (arr.length != i + 1) {
-          acc += "-";
+          if (arr.length != i + 1) {
+            acc += "-";
+          }
         }
 
         return acc;
