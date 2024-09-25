@@ -10,12 +10,14 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const CONTRIBUTOR = "contributor";
 const PROJECTS = "projects";
 
 export function DeepDiveSection() {
+  const { close } = useSidePanelsContext();
   const [toggleDataViews, setToggleDataViews] = useState<typeof CONTRIBUTOR | typeof PROJECTS>(CONTRIBUTOR);
 
   const renderDataView = useMemo(() => {
@@ -27,6 +29,7 @@ export function DeepDiveSection() {
   }, [toggleDataViews]);
 
   function handleToggleDataViews(view: string) {
+    close();
     setToggleDataViews(view as typeof CONTRIBUTOR | typeof PROJECTS);
   }
 
