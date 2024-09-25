@@ -1,5 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
@@ -9,6 +9,7 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Table, TableLoading } from "@/design-system/molecules/table";
+import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -16,12 +17,16 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export function ContributorsTable() {
+  const [search, setSearch] = useState<string>();
+  const [debouncedSearch, setDebouncedSearch] = useState<string>();
+
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     programOrEcosystemIds: [...userProgramIds, ...userEcosystemIds],
+    search: debouncedSearch,
   };
 
   const {
@@ -60,11 +65,12 @@ export function ContributorsTable() {
   }
 
   return (
-    <div>
-      <div className={"flex gap-md"}>
+    <div className={"grid gap-lg"}>
+      <nav className={"flex gap-md"}>
+        <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         <ExportCsv queryParams={queryParams} />
-      </div>
+      </nav>
       <ScrollView direction={"x"}>
         <Table
           header={{

@@ -130,6 +130,9 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
         onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),
         isMultiple: true,
       }}
+      popoverProps={{
+        placement: "bottom-end",
+      }}
     />
   );
 }
