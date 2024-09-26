@@ -15,6 +15,12 @@ export const NEXT_ROUTER = {
       root: (id: string) => `/financials/${id}`,
     },
   },
+  maintainer: {
+    root: "/maintainer",
+    details: {
+      root: (slug: string) => `/maintainer/${slug}`,
+    },
+  },
   data: {
     root: "/data",
     deepDive: {
