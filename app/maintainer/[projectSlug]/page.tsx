@@ -1,4 +1,9 @@
+"use client";
+
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -6,7 +11,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function MaintainerSinglePage() {
+function MaintainerSinglePage() {
   return (
     <PageWrapper
       navigation={{
@@ -14,7 +19,7 @@ export default function MaintainerSinglePage() {
           {
             id: "root",
             label: <Translate token={"maintainer:list.header.title"} />,
-            href: NEXT_ROUTER.financials.root,
+            href: NEXT_ROUTER.maintainer.root,
           },
           {
             id: "details",
@@ -34,3 +39,5 @@ export default function MaintainerSinglePage() {
     </PageWrapper>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(MaintainerSinglePage));
