@@ -3,6 +3,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function MaintainerSinglePage() {
@@ -29,6 +30,7 @@ export default function MaintainerSinglePage() {
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
+      <ContributorSidepanel />
     </PageWrapper>
   );
 }
