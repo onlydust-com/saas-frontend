@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useFinancialColumnChart } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
@@ -57,10 +57,10 @@ export function FinancialColumnChart() {
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: t("maintainer:financialColumnChart.legends.deposit"), data: depositedSeries },
-      { name: t("maintainer:financialColumnChart.legends.allocated"), data: allocatedSeries },
-      { name: t("maintainer:financialColumnChart.legends.granted"), data: grantedSeries },
-      { name: t("maintainer:financialColumnChart.legends.rewarded"), data: rewardedSeries },
+      { name: t("manageProjects:financialColumnChart.legends.deposit"), data: depositedSeries },
+      { name: t("manageProjects:financialColumnChart.legends.allocated"), data: allocatedSeries },
+      { name: t("manageProjects:financialColumnChart.legends.granted"), data: grantedSeries },
+      { name: t("manageProjects:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
     legend: { enabled: false },
     tooltip: {
@@ -92,8 +92,8 @@ export function FinancialColumnChart() {
   if (!depositedSeries.length && !allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
-        titleTranslate={{ token: "maintainer:financialColumnChart.emptyState.title" }}
-        descriptionTranslate={{ token: "maintainer:financialColumnChart.emptyState.description" }}
+        titleTranslate={{ token: "manageProjects:financialColumnChart.emptyState.title" }}
+        descriptionTranslate={{ token: "manageProjects:financialColumnChart.emptyState.description" }}
       />
     );
   }
@@ -108,19 +108,19 @@ export function FinancialColumnChart() {
           background={"secondary"}
         >
           <ChartLegend color="primary">
-            <Translate token={"maintainer:financialColumnChart.legends.deposit"} />
+            <Translate token={"manageProjects:financialColumnChart.legends.deposit"} />
           </ChartLegend>
 
           <ChartLegend color="secondary">
-            <Translate token={"maintainer:financialColumnChart.legends.allocated"} />
+            <Translate token={"manageProjects:financialColumnChart.legends.allocated"} />
           </ChartLegend>
 
           <ChartLegend color="tertiary">
-            <Translate token={"maintainer:financialColumnChart.legends.granted"} />
+            <Translate token={"manageProjects:financialColumnChart.legends.granted"} />
           </ChartLegend>
 
           <ChartLegend color="quaternary">
-            <Translate token={"maintainer:financialColumnChart.legends.rewarded"} />
+            <Translate token={"manageProjects:financialColumnChart.legends.rewarded"} />
           </ChartLegend>
         </Paper>
         <Menu

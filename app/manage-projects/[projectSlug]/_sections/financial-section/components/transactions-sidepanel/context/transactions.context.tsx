@@ -1,9 +1,3 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useDebounce } from "react-use";
-
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
-import { bootstrap } from "@/core/bootstrap";
-
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -12,7 +6,12 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "./transactions.context.types";
+} from "app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useDebounce } from "react-use";
+
+import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { bootstrap } from "@/core/bootstrap";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   projectSlug: "",
