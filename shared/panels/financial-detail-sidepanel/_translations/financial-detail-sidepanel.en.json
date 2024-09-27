@@ -1,13 +1,19 @@
 {
   "title": "Financial detail",
+  "totalAllocated": {
+    "title": "Allocated"
+  },
   "totalAvailable": {
     "title": "Available"
+  },
+  "totalGranted": {
+    "title": "Granted"
   },
   "totalRewarded": {
     "title": "Rewarded"
   },
   "emptyState": {
     "title": "No financial details available",
-    "description": "There are no financial details available for this project."
+    "description": "There are no financial details available."
   }
 }
