@@ -1,6 +1,8 @@
 import {
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
+  GetProjectFinancialDetailsPortParams,
+  GetProjectFinancialDetailsPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectsPortParams,
@@ -11,4 +13,5 @@ export interface ProjectFacadePort {
   getProjectById(p: GetProjectByIdPortParams): GetProjectByIdPortResponse;
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
+  getProjectFinancialDetails(p: GetProjectFinancialDetailsPortParams): GetProjectFinancialDetailsPortResponse;
 }

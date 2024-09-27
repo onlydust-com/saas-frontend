@@ -1,8 +1,13 @@
+import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
-import { GetProjectByIdResponse, GetProjectStatsResponse } from "@/core/domain/project/project-contract.types";
+import {
+  GetProjectByIdResponse,
+  GetProjectFinancialDetailsResponse,
+  GetProjectStatsResponse,
+} from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -14,6 +19,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectById: "projects/:projectId",
     getProjectStats: "projects/:projectId/stats",
     getProjects: "projects",
+    getProjectFinancialDetails: "projects/:projectSlug/financial",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -76,6 +82,27 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         ...data,
         projects: data.projects.map(project => new ProjectListItem(project)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectFinancialDetails = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectFinancialDetails"]>) => {
+    const path = this.routes["getProjectFinancialDetails"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectFinancialDetailsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProjectFinancial(data);
     };
 
     return {
