@@ -70,7 +70,7 @@ export type GetProjectFinancialDetailsResponse = components["schemas"]["ProjectF
 
 export type GetProjectFinancialDetailsPortResponse = HttpStorageResponse<ProjectFinancialInterface>;
 
-type GetProjectFinancialDetailsPathParams = operations["getProjects"]["parameters"]["path"];
+type GetProjectFinancialDetailsPathParams = operations["getProjectFinancialDetails"]["parameters"]["path"];
 
 export type GetProjectFinancialDetailsPortParams = HttpClientParameters<{
   PathParams: GetProjectFinancialDetailsPathParams;

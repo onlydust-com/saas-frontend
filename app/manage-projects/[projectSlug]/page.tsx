@@ -6,6 +6,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -28,7 +30,12 @@ function UpdateProjectSandbox() {
 }
 
 function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
-  // TODO handle request to get project details: get project name for breadcrumbs
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetails({
+    pathParams: { projectSlug },
+    options: {
+      enabled: Boolean(projectSlug),
+    },
+  });
   return (
     <PageWrapper
       navigation={{
@@ -40,7 +47,7 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
           },
           {
             id: "details",
-            label: "PROJECT NAME",
+            label: data?.name ?? "",
           },
         ],
       }}
