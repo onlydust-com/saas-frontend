@@ -1,0 +1,11 @@
+{
+  "financial": {
+    "title": "Financial",
+    "buttons": {
+      "budgetAvailable": "Budget",
+      "budgetChart": "Chart",
+      "seeTransactions": "See transactions",
+      "modifyProject": "Modify project"
+    }
+  }
+}
