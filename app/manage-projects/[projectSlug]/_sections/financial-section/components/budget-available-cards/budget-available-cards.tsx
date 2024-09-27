@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FinancialDetailSidepanel } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PanelType } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
@@ -13,15 +13,13 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 export function BudgetAvailableCards() {
   const [panelType, setPanelType] = useState<PanelType>("totalAvailable");
-  const { sponsorId = "" } = useParams<{ sponsorId: string }>();
-  const { Panel, open, isOpen } = useSidePanel({ name: "sponsors-financial-detail" });
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const { Panel, open, isOpen } = useSidePanel({ name: "project-financial-detail" });
 
-  const { data, isLoading } = SponsorReactQueryAdapter.client.useGetSponsor({
-    pathParams: {
-      sponsorId,
-    },
+  const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
+    pathParams: { projectSlug },
     options: {
-      enabled: Boolean(sponsorId),
+      enabled: Boolean(projectSlug),
     },
   });
 
@@ -63,7 +61,7 @@ export function BudgetAvailableCards() {
         />
       </div>
       <Panel>
-        <FinancialDetailSidepanel panelType={panelType} sponsor={data} />
+        <FinancialDetailSidepanel panelType={panelType} projectFinancial={data} />
       </Panel>
     </>
   );
