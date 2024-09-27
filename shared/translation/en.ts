@@ -1,6 +1,6 @@
 import { enDataTranslation } from "@/app/data/_translations/data.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
-import { enMaintainerTranslation } from "@/app/maintainer/_translations/maintainer.translate";
+import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
@@ -31,7 +31,7 @@ export const en = {
   ...enProgramsTranslation,
   ...enFinancialsTranslation,
   ...enDataTranslation,
-  ...enMaintainerTranslation,
+  ...enManageProjectsTranslation,
   ...enDateRangePickerTranslation,
   cards: {
     ...enCardTransactionTranslation,

@@ -18,8 +18,8 @@ function MaintainerSinglePage() {
         breadcrumbs: [
           {
             id: "root",
-            label: <Translate token={"maintainer:list.header.title"} />,
-            href: NEXT_ROUTER.maintainer.root,
+            label: <Translate token={"manageProjects:list.header.title"} />,
+            href: NEXT_ROUTER.manageProjects.root,
           },
           {
             id: "details",

@@ -17,4 +17,6 @@ export class MeClientAdapterMock implements MeStoragePort {
   setMyProfile = mockHttpStorageResponse<MeStoragePort["setMyProfile"]>;
 
   replaceMyProfile = mockHttpStorageResponse<MeStoragePort["replaceMyProfile"]>;
+
+  getMeProjects = mockHttpStorageResponse<MeStoragePort["getMeProjects"]>;
 }

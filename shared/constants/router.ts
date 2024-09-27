@@ -15,10 +15,10 @@ export const NEXT_ROUTER = {
       root: (id: string) => `/financials/${id}`,
     },
   },
-  maintainer: {
-    root: "/maintainer",
+  manageProjects: {
+    root: "/manage-projects",
     details: {
-      root: (slug: string) => `/maintainer/${slug}`,
+      root: (slug: string) => `/manage-projects/${slug}`,
     },
   },
   data: {
