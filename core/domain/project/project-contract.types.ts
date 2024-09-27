@@ -44,6 +44,14 @@ export type GetProjectsPortResponse = HttpStorageResponse<GetProjectsModel>;
 
 export type GetProjectsPortParams = HttpClientParameters<{ QueryParams: GetProjectsQueryParams }>;
 
+/* --------------------- Upload project logo --------------------- */
+
+export type UploadProjectLogoResponse = components["schemas"]["UploadImageResponse"];
+
+export type UploadProjectLogoPortParams = HttpClientParameters<object>;
+
+export type UploadProjectLogoPortResponse = HttpStorageResponse<UploadProjectLogoResponse, File>;
+
 /* --------------------- Edit Project --------------------- */
 
 export type EditProjectBody = components["schemas"]["UpdateProjectRequest"];

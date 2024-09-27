@@ -1,5 +1,9 @@
 {
   "title": "Modify Project",
+  "messages": {
+    "success": "Project edited successfully",
+    "error": "An error occurred while updating the project"
+  },
   "globalInformation": {
     "title": "Global Information",
     "name": {

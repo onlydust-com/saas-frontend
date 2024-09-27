@@ -7,6 +7,8 @@ import {
   GetProjectStatsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
+  UploadProjectLogoPortParams,
+  UploadProjectLogoPortResponse,
 } from "@/core/domain/project/project-contract.types";
 
 export interface ProjectStoragePort {
@@ -15,4 +17,5 @@ export interface ProjectStoragePort {
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
   editProject(p: EditProjectPortParams): EditProjectPortResponse;
+  uploadProjectLogo(p: UploadProjectLogoPortParams): UploadProjectLogoPortResponse;
 }

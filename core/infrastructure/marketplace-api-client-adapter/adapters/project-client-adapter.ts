@@ -6,6 +6,7 @@ import {
   EditProjectBody,
   GetProjectByIdResponse,
   GetProjectStatsResponse,
+  UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -19,6 +20,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectStats: "projects/:projectId/stats",
     getProjects: "projects",
     editProject: "projects/:projectId",
+    uploadProjectLogo: "projects/logos",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -82,6 +84,28 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         projects: data.projects.map(project => new ProjectListItem(project)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  uploadProjectLogo = () => {
+    const path = this.routes["uploadProjectLogo"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: File) =>
+      this.client.request<UploadProjectLogoResponse>({
+        path,
+        method,
+        tag,
+        body,
+        headers: {
+          "Content-Type": body.type,
+        },
+      });
 
     return {
       request,
