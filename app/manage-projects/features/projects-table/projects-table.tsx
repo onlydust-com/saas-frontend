@@ -47,7 +47,6 @@ export function ProjectsTable() {
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            console.log("row", row.original.slug);
             router.push(NEXT_ROUTER.manageProjects.details.root(row.original.slug));
           }}
         />
