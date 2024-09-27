@@ -16,6 +16,8 @@ export type LogoutMeResponsePortResponse = HttpStorageResponse<LogoutMeResponse>
 
 /* --------------------------------- Get me -------------------------------- */
 
+export type GetMeProjectLinkResponse = components["schemas"]["ProjectLinkResponse"];
+
 export type GetMeResponse = components["schemas"]["GetMeResponse"];
 
 export type GetMeResponsePortParams = HttpClientParameters<object>;

@@ -1,6 +1,6 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-type MeResponse = components["schemas"]["GetMeResponse"];
+export type MeResponse = components["schemas"]["GetMeResponse"];
 
 export interface MeInterface extends MeResponse {}
 
