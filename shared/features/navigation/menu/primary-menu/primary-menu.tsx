@@ -1,4 +1,4 @@
-import { ChartLine, CircleDashed, Clipboard, Compass, Wallet } from "lucide-react";
+import { ChartLine, Clipboard, Compass, FolderKanban, Wallet } from "lucide-react";
 
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
@@ -44,15 +44,15 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       />
       <ItemNav
         isFolded={isFolded}
-        iconProps={{ component: Compass }}
-        linkProps={{ href: marketplaceRouting("/projects") }}
-        translate={{ token: "primaryNavigation:primaryMenu.projects" }}
+        iconProps={{ component: FolderKanban }}
+        translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
+        isComingSoon={true}
       />
       <ItemNav
         isFolded={isFolded}
-        iconProps={{ component: CircleDashed }}
-        translate={{ token: "primaryNavigation:primaryMenu.maintainer" }}
-        isComingSoon={true}
+        iconProps={{ component: Compass }}
+        linkProps={{ href: marketplaceRouting("/projects") }}
+        translate={{ token: "primaryNavigation:primaryMenu.projects" }}
       />
     </>
   );
