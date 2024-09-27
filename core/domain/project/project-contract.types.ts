@@ -1,3 +1,4 @@
+import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -63,3 +64,14 @@ export type EditProjectPortParams = HttpClientParameters<{
 }>;
 
 export type EditProjectPortResponse = HttpStorageResponse;
+
+/* ------------------------------ Get Project Financial Details ------------------------------ */
+export type GetProjectFinancialDetailsResponse = components["schemas"]["ProjectFinancialResponse"];
+
+export type GetProjectFinancialDetailsPortResponse = HttpStorageResponse<ProjectFinancialInterface>;
+
+type GetProjectFinancialDetailsPathParams = operations["getProjects"]["parameters"]["path"];
+
+export type GetProjectFinancialDetailsPortParams = HttpClientParameters<{
+  PathParams: GetProjectFinancialDetailsPathParams;
+}>;
