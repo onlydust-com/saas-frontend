@@ -38,7 +38,7 @@ export type GetProjectsModel = Omit<GetProjectsResponse, "projects"> & {
   projects: ProjectListItemInterface[];
 };
 
-export type GetProjectsQueryParams = operations["getProjects"]["parameters"]["query"];
+type GetProjectsQueryParams = operations["getProjects"]["parameters"]["query"];
 
 export type GetProjectsPortResponse = HttpStorageResponse<GetProjectsModel>;
 
