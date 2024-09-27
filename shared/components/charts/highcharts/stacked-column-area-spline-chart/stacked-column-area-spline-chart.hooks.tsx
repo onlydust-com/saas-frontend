@@ -78,6 +78,7 @@ export function useStackedColumnAreaSplineChartOptions({
           gridLineDashStyle: "Dash",
         },
         {
+          min: min ?? 0,
           title: {
             text: yAxisTitle?.[1],
             style: yAxisPrimaryStyle,
