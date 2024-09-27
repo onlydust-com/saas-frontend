@@ -46,6 +46,7 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "react-hooks/exhaustive-deps": "off",
     "@next/next/no-img-element": "off"
   },
   "ignorePatterns": ["**/node_modules/*", "**/__generated/*", "**/.next/*", "tooling/*"]

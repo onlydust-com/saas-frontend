@@ -30,7 +30,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   htmlProps,
   selectedIds,
   onSelect,
-  items,
+  items: _items,
   closeOnSelect,
   controlledAutoComplete,
   onNextPage,
@@ -39,6 +39,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   isAutoComplete = false,
   isPopover = true,
   isMultiple = false,
+  initialItems,
   ...inputProps
 }: SelectPort<C>) {
   const Component = as || "div";
@@ -46,7 +47,12 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [selectedItem, setSelectedItem] = useState<MenuItemPort[]>([]);
+  const [selectedItem, setSelectedItem] = useState<MenuItemPort[]>(initialItems ?? []);
+
+  const items = useMemo(() => {
+    const set = Array.from(new Set([...selectedItem, ..._items]));
+    return set.filter((item, index, self) => index === self.findIndex(t => t.id === item.id));
+  }, [_items, selectedItem]);
 
   const listRef = useRef<Array<HTMLElement | null>>([]);
 
@@ -150,6 +156,12 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   useEffect(() => {
     setInputValue("");
   }, [open]);
+
+  useEffect(() => {
+    if (!selectedItem.length && initialItems) {
+      setSelectedItem(initialItems);
+    }
+  }, [initialItems]);
 
   if (isDisabled) {
     return (

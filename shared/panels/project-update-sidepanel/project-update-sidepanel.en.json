@@ -1,0 +1,47 @@
+{
+  "title": "Modify Project",
+  "messages": {
+    "success": "Project edited successfully.",
+    "error": "An error occurred while updating the project."
+  },
+  "globalInformation": {
+    "title": "Global Information",
+    "name": {
+      "label": "Project name",
+      "placeholder": "Name"
+    },
+    "shortDescription": {
+      "label": "Short description",
+      "placeholder": "Short description"
+    },
+    "longDescription": {
+      "label": "Long description",
+      "placeholder": "Long description"
+    },
+    "logo": {
+      "label": "Project visual",
+      "buttonLabel": "Upload a file"
+    },
+    "leads": {
+      "label": "Project lead",
+      "placeholder": "Project lead"
+    },
+    "ecosystems": {
+      "label": "Ecosystems",
+      "placeholder": "Ecosystems"
+    },
+    "categories": {
+      "label": "Categories",
+      "placeholder": "Categories"
+    },
+    "rewardsSettings": {
+      "label": "Rewardable contributions",
+      "since": "Since",
+      "items": {
+        "pullRequests": "Pull requests",
+        "issue": "Issues",
+        "codeReviews": "Code reviews"
+      }
+    }
+  }
+}

@@ -150,6 +150,7 @@ export function EditProgramPanel() {
                       placeholder={t("editProgramPanel.informations.lead.placeholder")}
                       onSelect={onChange}
                       selectedUser={value}
+                      isMultiple={true}
                     />
                   )}
                 />

@@ -27,6 +27,7 @@ interface SelectProps {
   selectedIds?: MenuPort["selectedIds"];
   onSelect?: (ids: MenuItemId[]) => void;
   items: MenuItemPort[];
+  initialItems?: MenuItemPort[];
   onNextPage?: MenuPort["onNextPage"];
   hasNextPage?: MenuPort["hasNextPage"];
   isLoading?: MenuPort["isLoading"];
