@@ -3,8 +3,8 @@
     "data": "Data",
     "financial": "Financial",
     "program": "Program",
-    "projects": "Explore Project",
-    "manageProject": "Manage Project"
+    "projects": "Explore Projects",
+    "manageProject": "Manage Projects"
   },
   "secondaryMenu": {
     "support": "Support",
