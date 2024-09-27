@@ -12,6 +12,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 export function ProjectsTable() {
   const { columns } = useFilterColumns();
@@ -20,6 +21,7 @@ export function ProjectsTable() {
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     MeReactQueryAdapter.client.useGetMeProjects({});
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
   const table = useReactTable({
     data: projects,
@@ -37,6 +39,13 @@ export function ProjectsTable() {
 
   return (
     <div>
+      <PosthogCaptureOnMount
+        eventName={"maintainer_projects_list_viewed"}
+        params={{
+          projects_count: totalItemNumber,
+        }}
+        paramsReady={Boolean(totalItemNumber)}
+      />
       <ScrollView direction={"x"}>
         <Table
           header={{
