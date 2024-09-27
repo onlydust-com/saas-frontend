@@ -28,7 +28,9 @@ export function BudgetAvailableCards() {
 
   if (isLoading) {
     return (
-      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-4">
+        <CardFinancialLoading />
+        <CardFinancialLoading />
         <CardFinancialLoading />
         <CardFinancialLoading />
       </div>
@@ -48,7 +50,7 @@ export function BudgetAvailableCards() {
 
   return (
     <>
-      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-4">
         <FinancialCardItem
           title="financials:budgetAvailable.available.title"
           total={data.totalAvailable}
@@ -60,6 +62,18 @@ export function BudgetAvailableCards() {
           total={data.totalAllocated}
           color="grey"
           onClick={() => openPanel("totalAllocated")}
+        />
+        <FinancialCardItem
+          title="financials:budgetAvailable.granted.title"
+          total={data.totalGranted}
+          color="grey"
+          onClick={() => openPanel("totalGranted")}
+        />
+        <FinancialCardItem
+          title="financials:budgetAvailable.rewarded.title"
+          total={data.totalRewarded}
+          color="grey"
+          onClick={() => openPanel("totalRewarded")}
         />
       </div>
       <Panel>
