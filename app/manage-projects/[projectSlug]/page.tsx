@@ -30,7 +30,7 @@ function UpdateProjectSandbox() {
 }
 
 function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
-  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetails({
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
       enabled: Boolean(projectSlug),
