@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "Manage Projects",
+    "ctaSubmitProject": "Submit a project"
+  },
+  "projectsTable": {
+    "title": "Projects",
+    "filters": {
+      "columnList": "Projects columns",
+      "global": "Global"
+    },
+    "export": {
+      "tooltip": "Export projects",
+      "success": "Projects exported successfully.",
+      "error": "Error exporting projects."
+    },
+    "columns": {
+      "projectName": "Project name",
+      "projectLeads": "Project leads",
+      "budget": "Budget",
+      "members": "Members",
+      "granted": "Granted",
+      "rewarded": "Rewarded",
+      "actions": "Actions",
+      "percentUsedBudget": "Budget used",
+      "averageRewardUsdAmount": "Average reward",
+      "onboardedContributorCount": "Devs onboarded",
+      "activeContributorCount": "Active devs",
+      "prCount": "PRs",
+      "rewardCount": "Rewards",
+      "contributionCount": "Contributions"
+    },
+    "rows": {
+      "projectLeads": "Project leads",
+      "currencies": "{{count}} currencies",
+      "seeProject": "See project"
+    }
+  }
+}
