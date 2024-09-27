@@ -14,7 +14,7 @@ export function EcosystemsAutocomplete({
   ...selectProps
 }: EcosystemsAutocompleteProps) {
   const [search, setSearch] = useState("");
-  const { data, hasNextPage, fetchNextPage } = EcosystemReactQueryAdapter.client.useSearchEcosystem({
+  const { data, hasNextPage, fetchNextPage } = EcosystemReactQueryAdapter.client.useSearchEcosystems({
     queryParams: {
       search: search || undefined,
     },

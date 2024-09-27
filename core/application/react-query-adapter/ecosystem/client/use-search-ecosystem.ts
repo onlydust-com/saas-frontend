@@ -8,7 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { SearchEcosystemsModel } from "@/core/domain/ecosystem/ecosystem-contract.types";
 import { EcosystemFacadePort } from "@/core/domain/ecosystem/input/ecosystem-facade-port";
 
-export function useSearchEcosystem({
+export function useSearchEcosystems({
   options,
   pathParams,
   queryParams,
