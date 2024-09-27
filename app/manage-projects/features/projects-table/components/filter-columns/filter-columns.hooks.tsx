@@ -29,7 +29,7 @@ export function useFilterColumns() {
 
   const columnMap: Partial<Record<keyof ProjectListItemResponse, object>> = {
     name: columnHelper.accessor("name", {
-      header: () => <Translate token={"maintainer:list.projectsTable.columns.projectName"} />,
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectName"} />,
       cell: info => {
         return (
           <AvatarLabelGroup
@@ -45,7 +45,7 @@ export function useFilterColumns() {
       },
     }),
     leaders: columnHelper.accessor("leaders", {
-      header: () => <Translate token={"maintainer:list.projectsTable.columns.projectLeads"} />,
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
 
@@ -64,7 +64,7 @@ export function useFilterColumns() {
                 },
               ]}
               title={{ children: lead.login }}
-              description={{ children: <Translate token={"maintainer:list.projectsTable.rows.projectLeads"} /> }}
+              description={{ children: <Translate token={"manageProjects:list.projectsTable.rows.projectLeads"} /> }}
             />
           );
         }
@@ -77,7 +77,9 @@ export function useFilterColumns() {
             }))}
             quantity={3}
             title={{
-              children: <Translate token={"maintainer:list.projectsTable.rows.projectLeads"} count={leads?.length} />,
+              children: (
+                <Translate token={"manageProjects:list.projectsTable.rows.projectLeads"} count={leads?.length} />
+              ),
             }}
           />
         );

@@ -3,7 +3,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { ChevronRight } from "lucide-react";
 
-import { ProjectsTable } from "@/app/maintainer/features/projects-table/projects-table";
+import { ProjectsTable } from "@/app/manage-projects/features/projects-table/projects-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -16,14 +16,14 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function MaintainerPage() {
+function ManageProjectsPage() {
   return (
     <PageWrapper
       navigation={{
         breadcrumbs: [
           {
             id: "root",
-            label: <Translate token={"maintainer:list.header.title"} />,
+            label: <Translate token={"manageProjects:list.header.title"} />,
           },
         ],
       }}
@@ -37,7 +37,7 @@ function MaintainerPage() {
                 weight={"medium"}
                 variant={"heading"}
                 translate={{
-                  token: "maintainer:list.projectsTable.title",
+                  token: "manageProjects:list.projectsTable.title",
                 }}
               />
               <Button
@@ -49,7 +49,7 @@ function MaintainerPage() {
                 endIcon={{ component: ChevronRight }}
                 isTextButton
                 size={"md"}
-                translate={{ token: "maintainer:list.header.ctaSubmitProject" }}
+                translate={{ token: "manageProjects:list.header.ctaSubmitProject" }}
                 classNames={{
                   base: "max-w-full overflow-hidden",
                   label: "whitespace-nowrap text-ellipsis overflow-hidden",
@@ -65,4 +65,4 @@ function MaintainerPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(MaintainerPage));
+export default withClientOnly(withAuthenticationRequired(ManageProjectsPage));

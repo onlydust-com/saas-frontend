@@ -1,7 +1,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { useFilterColumns } from "@/app/maintainer/features/projects-table/components/filter-columns/filter-columns.hooks";
+import { useFilterColumns } from "@/app/manage-projects/features/projects-table/components/filter-columns/filter-columns.hooks";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -45,7 +45,7 @@ export function ProjectsTable() {
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            NEXT_ROUTER.manageProject.details.root(row.original.id);
+            NEXT_ROUTER.manageProjects.details.root(row.original.id);
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
