@@ -1,4 +1,6 @@
 import {
+  GetMeProjectsPortParams,
+  GetMeProjectsPortResponse,
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
   GetMyProfilePortParams,
@@ -21,4 +23,5 @@ export interface MeStoragePort {
   getMyProfile(params: GetMyProfilePortParams): GetMyProfilePortResponse;
   setMyProfile(params: SetMyProfilePortParams): SetMyProfilePortResponse;
   replaceMyProfile(params: ReplaceMyProfilePortParams): ReplaceMyProfilePortResponse;
+  getMeProjects(params: GetMeProjectsPortParams): GetMeProjectsPortResponse;
 }

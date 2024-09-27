@@ -1,6 +1,7 @@
 import { MeInterface } from "@/core/domain/me/models/me-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { MeProjectListItemInterface } from "@/core/domain/me/models/me-projects-model";
+import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
   HttpStorageResponse,
@@ -15,8 +16,6 @@ export type LogoutMeResponsePortParams = HttpClientParameters<object>;
 export type LogoutMeResponsePortResponse = HttpStorageResponse<LogoutMeResponse>;
 
 /* --------------------------------- Get me -------------------------------- */
-
-export type GetMeProjectLinkResponse = components["schemas"]["ProjectLinkResponse"];
 
 export type GetMeResponse = components["schemas"]["GetMeResponse"];
 
@@ -55,3 +54,17 @@ export type ReplaceMyProfileBody = components["schemas"]["UserProfileUpdateReque
 export type ReplaceMyProfilePortParams = HttpClientParameters<object>;
 
 export type ReplaceMyProfilePortResponse = HttpStorageResponse<never, ReplaceMyProfileBody>;
+
+/* ------------------------------ Get MY Projects ------------------------------ */
+
+export type GetMeProjectsResponse = components["schemas"]["MyProjectsPageResponse"];
+
+export type GetMeProjectsModel = Omit<GetMeProjectsResponse, "projects"> & {
+  projects: MeProjectListItemInterface[];
+};
+
+export type GetMeProjectsQueryParams = operations["getMyProjects"]["parameters"]["query"];
+
+export type GetMeProjectsPortResponse = HttpStorageResponse<GetMeProjectsModel>;
+
+export type GetMeProjectsPortParams = HttpClientParameters<{ QueryParams: GetMeProjectsQueryParams }>;

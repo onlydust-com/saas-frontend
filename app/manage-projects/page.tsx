@@ -30,7 +30,7 @@ function ManageProjectsPage() {
     >
       <ScrollView>
         <PageContent>
-          <div className="grid h-full gap-3">
+          <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-2">
               <Typo
                 size={"xs"}

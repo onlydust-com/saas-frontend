@@ -18,12 +18,11 @@
       "projectName": "Project name",
       "projectLeads": "Project leads",
       "budget": "Budget",
-      "contributors": "Contributors",
+      "members": "Members",
       "granted": "Granted",
       "rewarded": "Rewarded",
       "actions": "Actions",
       "percentUsedBudget": "Budget used",
-      "totalGrantedUsdAmount": "Granted amount",
       "averageRewardUsdAmount": "Average reward",
       "onboardedContributorCount": "Devs onboarded",
       "activeContributorCount": "Active devs",
@@ -32,7 +31,9 @@
       "contributionCount": "Contributions"
     },
     "rows": {
-      "projectLeads": "Project leads"
+      "projectLeads": "Project leads",
+      "currencies": "{{count}} currencies",
+      "seeProject": "See project"
     }
   }
 }

@@ -4,30 +4,44 @@ import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
 import {
-  ProjectListItemInterface,
-  ProjectListItemResponse,
-} from "@/core/domain/project/models/project-list-item-model";
+  MeProjectListItemInterface,
+  MeProjectProjectListItemResponse,
+} from "@/core/domain/me/models/me-projects-model";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const columnHelper = createColumnHelper<ProjectListItemInterface>();
+  const columnHelper = createColumnHelper<MeProjectListItemInterface>();
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof ProjectListItemResponse>>(
-    "maintainer-projects-table-columns"
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof MeProjectProjectListItemResponse>>(
+    "manage-projects-table-columns"
   );
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["id", "slug", "name", "logoUrl", "leaders"]);
+      setSelectedIds([
+        "id",
+        "slug",
+        "name",
+        "logoUrl",
+        "leads",
+        "totalAvailable",
+        "contributorCount",
+        "totalGranted",
+        "totalRewarded",
+      ]);
     }
   }, [selectedIds, setSelectedIds]);
 
-  const columnMap: Partial<Record<keyof ProjectListItemResponse, object>> = {
+  const columnMap: Partial<Record<keyof MeProjectProjectListItemResponse, object>> = {
     name: columnHelper.accessor("name", {
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectName"} />,
       cell: info => {
@@ -44,7 +58,7 @@ export function useFilterColumns() {
         );
       },
     }),
-    leaders: columnHelper.accessor("leaders", {
+    leads: columnHelper.accessor("leads", {
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -85,89 +99,124 @@ export function useFilterColumns() {
         );
       },
     }),
-    // availableBudget: columnHelper.accessor("availableBudget", {
-    //   header: () => <Translate token={"maintainer:list.projectsTable.columns.budget"} />,
-    //   cell: info => {
-    //     const value = info.getValue();
-    //
-    //     const totalUsdEquivalent = moneyKernelPort.format({
-    //       amount: value?.totalUsdEquivalent,
-    //       currency: moneyKernelPort.getCurrency("USD"),
-    //     });
-    //
-    //     const totalPerCurrency = value?.totalPerCurrency ?? [];
-    //
-    //     if (!totalPerCurrency.length) {
-    //       return <Typo size={"xs"}>N/A</Typo>;
-    //     }
-    //
-    //     if (totalPerCurrency.length === 1) {
-    //       const firstCurrency = totalPerCurrency[0];
-    //
-    //       const totalFirstCurrency = moneyKernelPort.format({
-    //         amount: firstCurrency.amount,
-    //         currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
-    //       });
-    //
-    //       return (
-    //         <AvatarLabelGroup
-    //           avatars={[
-    //             {
-    //               src: firstCurrency.currency.logoUrl,
-    //             },
-    //           ]}
-    //           title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
-    //           description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-    //         />
-    //       );
-    //     }
-    //
-    //     return (
-    //       <AvatarLabelGroup
-    //         avatars={
-    //           totalPerCurrency?.map(({ currency }) => ({
-    //             src: currency.logoUrl,
-    //             name: currency.name,
-    //           })) ?? []
-    //         }
-    //         quantity={3}
-    //         title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-    //         description={{
-    //           children: (
-    //             <Translate token={"maintainer:list.projectsTable.rows.currencies"} count={totalPerCurrency?.length} />
-    //           ),
-    //         }}
-    //       />
-    //     );
-    //   },
-    // }),
-    // totalGrantedUsdAmount: columnHelper.accessor("totalGrantedUsdAmount", {
-    //   header: () => <Translate token={"maintainer:list.projectsTable.columns.totalGrantedUsdAmount"} />,
-    //   cell: info => {
-    //     const { value, trend } = info.getValue() ?? {};
-    //
-    //     const { amount, code } = moneyKernelPort.format({
-    //       amount: value,
-    //       currency: moneyKernelPort.getCurrency("USD"),
-    //     });
-    //
-    //     return (
-    //       <TableCellKpi trend={trend}>
-    //         {amount} {code}
-    //       </TableCellKpi>
-    //     );
-    //   },
-    // }),
-    // activeContributorCount: columnHelper.accessor("activeContributorCount", {
-    //   header: () => <Translate token={"maintainer:list.projectsTable.columns.activeContributorCount"} />,
-    //   cell: info => {
-    //     const { value, trend } = info.getValue() ?? {};
-    //
-    //     const formattedValue = Intl.NumberFormat().format(value);
-    //
-    //     return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
-    //   },
-    // }),
+    totalAvailable: columnHelper.accessor("totalAvailable", {
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.budget"} />,
+      cell: info => {
+        const value = info.getValue();
+
+        const totalUsdEquivalent = moneyKernelPort.format({
+          amount: value?.totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+        });
+
+        const totalPerCurrency = value?.totalPerCurrency ?? [];
+
+        if (!totalPerCurrency.length) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
+
+        if (totalPerCurrency.length === 1) {
+          const firstCurrency = totalPerCurrency[0];
+
+          const totalFirstCurrency = moneyKernelPort.format({
+            amount: firstCurrency.amount,
+            currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
+          });
+
+          return (
+            <AvatarLabelGroup
+              avatars={[
+                {
+                  src: firstCurrency.currency.logoUrl,
+                },
+              ]}
+              title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
+              description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
+            />
+          );
+        }
+
+        return (
+          <AvatarLabelGroup
+            avatars={
+              totalPerCurrency?.map(({ currency }) => ({
+                src: currency.logoUrl,
+                name: currency.name,
+              })) ?? []
+            }
+            quantity={3}
+            title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
+            description={{
+              children: (
+                <Translate
+                  token={"manageProjects:list.projectsTable.rows.currencies"}
+                  count={totalPerCurrency?.length}
+                />
+              ),
+            }}
+          />
+        );
+      },
+    }),
+    contributorCount: columnHelper.accessor("contributorCount", {
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
+      cell: info => {
+        const contributorCount = info.getValue();
+
+        return <TableCellKpi>{contributorCount}</TableCellKpi>;
+      },
+    }),
+    totalGranted: columnHelper.accessor("totalGranted", {
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.granted"} />,
+      cell: info => {
+        const { amount, code } = moneyKernelPort.format({
+          amount: info.getValue().totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+          options: {
+            notation: "compact",
+          },
+          uppercase: true,
+        });
+
+        return (
+          <TableCellKpi>
+            {amount} {code}
+          </TableCellKpi>
+        );
+      },
+    }),
+    totalRewarded: columnHelper.accessor("totalRewarded", {
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.rewarded"} />,
+      cell: info => {
+        const { amount, code } = moneyKernelPort.format({
+          amount: info.getValue().totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+          options: {
+            notation: "compact",
+          },
+          uppercase: true,
+        });
+
+        return (
+          <TableCellKpi>
+            {amount} {code}
+          </TableCellKpi>
+        );
+      },
+    }),
+    slug: columnHelper.display({
+      id: "actions",
+      header: () => <Translate token={"manageProjects:list.projectsTable.columns.actions"} />,
+      cell: info => (
+        <Button
+          as={BaseLink}
+          htmlProps={{ href: NEXT_ROUTER.manageProjects.details.root(info.row.original.slug) }}
+          variant={"secondary"}
+          size={"sm"}
+          translate={{ token: "manageProjects:list.projectsTable.rows.seeProject" }}
+        />
+      ),
+    }),
   } as const;
 
   const columnMapKeys = Object.keys(columnMap) as Array<keyof typeof columnMap>;
@@ -175,7 +224,7 @@ export function useFilterColumns() {
   // Loop on object keys to keep column order
   const columns = columnMapKeys
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
-    .filter(Boolean) as ColumnDef<ProjectListItemInterface>[];
+    .filter(Boolean) as ColumnDef<MeProjectListItemInterface>[];
 
   return { columns, selectedIds, setSelectedIds };
 }

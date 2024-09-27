@@ -1,9 +1,10 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { useFilterColumns } from "@/app/manage-projects/features/projects-table/components/filter-columns/filter-columns.hooks";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
@@ -14,9 +15,10 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function ProjectsTable() {
   const { columns } = useFilterColumns();
+  const router = useRouter();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    ProjectReactQueryAdapter.client.useGetProjects({});
+    MeReactQueryAdapter.client.useGetMeProjects({});
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   const table = useReactTable({
@@ -45,7 +47,8 @@ export function ProjectsTable() {
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            NEXT_ROUTER.manageProjects.details.root(row.original.id);
+            console.log("row", row.original.slug);
+            router.push(NEXT_ROUTER.manageProjects.details.root(row.original.slug));
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
