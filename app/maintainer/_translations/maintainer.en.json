@@ -3,6 +3,7 @@
     "title": "Maintainer"
   },
   "projectsTable": {
+    "title": "Projects",
     "filters": {
       "columnList": "Projects columns",
       "global": "Global"
