@@ -8,15 +8,15 @@ import { bootstrap } from "@/core/bootstrap";
 import { ProjectFacadePort } from "@/core/domain/project/input/project-facade-port";
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 
-export function useGetProjectFinancialDetails({
+export function useGetProjectFinancialDetailsBySlug({
   options,
   pathParams,
-}: UseQueryFacadeParams<ProjectFacadePort["getProjectFinancialDetails"], ProjectFinancialInterface>) {
+}: UseQueryFacadeParams<ProjectFacadePort["getProjectFinancialDetailsBySlug"], ProjectFinancialInterface>) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...projectStoragePort.getProjectFinancialDetails({ pathParams }),
+      ...projectStoragePort.getProjectFinancialDetailsBySlug({ pathParams }),
       options,
     })
   );

@@ -3,8 +3,8 @@ import {
   EditProjectPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
-  GetProjectFinancialDetailsPortParams,
-  GetProjectFinancialDetailsPortResponse,
+  GetProjectFinancialDetailsBySlugPortParams,
+  GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectsPortParams,
@@ -20,5 +20,7 @@ export interface ProjectStoragePort {
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
   editProject(p: EditProjectPortParams): EditProjectPortResponse;
   uploadProjectLogo(p: UploadProjectLogoPortParams): UploadProjectLogoPortResponse;
-  getProjectFinancialDetails(p: GetProjectFinancialDetailsPortParams): GetProjectFinancialDetailsPortResponse;
+  getProjectFinancialDetailsBySlug(
+    p: GetProjectFinancialDetailsBySlugPortParams
+  ): GetProjectFinancialDetailsBySlugPortResponse;
 }
