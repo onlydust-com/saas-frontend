@@ -21,7 +21,6 @@ export interface SelectInputProps {
 }
 
 interface SelectProps<T = string> {
-  closeOnSelect?: boolean;
   selectedIds?: MenuPort<T>["selectedIds"];
   onSelect?: (ids: MenuItemId<T>[]) => void;
   items: MenuItemPort<T>[];
@@ -36,6 +35,7 @@ export interface SelectExtendedProps extends SelectInputProps {
   isDisabled?: boolean;
   isAutoComplete?: boolean;
   isMultiple?: MenuPort["isMultiple"];
+  closeOnSelect?: boolean;
 }
 
 export interface SelectPort<T = string> extends Partial<Variants>, SelectExtendedProps, SelectProps<T> {

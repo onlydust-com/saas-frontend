@@ -73,6 +73,8 @@ export function ProjectUpdateSidepanel() {
         ...data,
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
         leads: [...data.leaders.map(lead => lead.id), ...data.invitedLeaders.map(lead => lead.id)],
+        projectLeadsToKeep: data.leaders.map(lead => lead.id),
+        inviteGithubUserIdsAsProjectLeads: data.invitedLeaders.map(lead => lead.githubUserId),
         rewardSettingsArrays: [
           ...(!data.rewardSettings?.ignoreCodeReviews ? [rewardsSettingsTypes.CodeReviews] : []),
           ...(!data.rewardSettings?.ignoreIssues ? [rewardsSettingsTypes.Issue] : []),
