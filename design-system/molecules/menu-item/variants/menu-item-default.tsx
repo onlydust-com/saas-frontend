@@ -17,7 +17,7 @@ import { MenuItemSeparator } from "@/design-system/molecules/menu-item/variants/
 
 import { MenuItemPort } from "../menu-item.types";
 
-export function MenuItem(props: MenuItemPort) {
+export function MenuItem<T = string>(props: MenuItemPort<T>) {
   if (isMenuItemAvatar(props)) return <MenuItemAvatar {...props} />;
 
   if (isMenuItemIcon(props)) return <MenuItemIcon {...props} />;
@@ -30,5 +30,5 @@ export function MenuItem(props: MenuItemPort) {
 
   if (isMenuItemSeparator(props)) return <MenuItemSeparator {...props} />;
 
-  return withComponentAdapter<MenuItemPort>(MenuItemDefaultAdapter)(props);
+  return withComponentAdapter<MenuItemPort<T>>(MenuItemDefaultAdapter)(props);
 }

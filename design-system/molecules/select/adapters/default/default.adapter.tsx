@@ -12,7 +12,7 @@ import {
   useRole,
 } from "@floating-ui/react";
 import { ChevronDown, Search } from "lucide-react";
-import { ElementType, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Input } from "@/design-system/atoms/input";
 import { Menu } from "@/design-system/molecules/menu";
@@ -23,11 +23,9 @@ import { cn } from "@/shared/helpers/cn";
 import { SelectPort } from "../../select.types";
 import { SelectDefaultVariants } from "./default.variants";
 
-export function SelectDefaultAdapter<C extends ElementType = "div">({
-  as,
+export function SelectDefaultAdapter<T = string>({
   classNames,
   name,
-  htmlProps,
   selectedIds,
   onSelect,
   items: _items,
@@ -41,13 +39,12 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   isMultiple = false,
   initialItems,
   ...inputProps
-}: SelectPort<C>) {
-  const Component = as || "div";
+}: SelectPort<T>) {
   const slots = SelectDefaultVariants();
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [selectedItem, setSelectedItem] = useState<MenuItemPort[]>(initialItems ?? []);
+  const [selectedItem, setSelectedItem] = useState<MenuItemPort<T>[]>(initialItems ?? []);
 
   const items = useMemo(() => {
     const set = Array.from(new Set([...selectedItem, ..._items]));
@@ -102,7 +99,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
     }
   }, [selectedIds, items]);
 
-  function handleSelect(...args: Parameters<NonNullable<SelectPort<C>["onSelect"]>>) {
+  function handleSelect(...args: Parameters<NonNullable<SelectPort<T>["onSelect"]>>) {
     if (closeOnSelect) {
       setOpen(false);
     }
@@ -165,7 +162,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
 
   if (isDisabled) {
     return (
-      <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
+      <div className={cn(slots.base(), classNames?.base)}>
         <Input
           name={name}
           value={selectedValues}
@@ -174,7 +171,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
           canInteract={isAutoComplete}
           {...inputProps}
         />
-      </Component>
+      </div>
     );
   }
 
@@ -204,7 +201,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
   }
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
+    <div className={cn(slots.base(), classNames?.base)}>
       <div ref={refs.setReference} {...getReferenceProps()} onClick={toggleOpen} className={"cursor-pointer"}>
         <Input
           name={name}
@@ -220,7 +217,7 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
         {open && (
           <FloatingFocusManager context={context} initialFocus={-1} visuallyHiddenDismiss>
             <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className={"z-[9999]"}>
-              <Menu
+              <Menu<T>
                 items={formatedItems}
                 onSelect={handleSelect}
                 selectedIds={selectedIds}
@@ -232,6 +229,6 @@ export function SelectDefaultAdapter<C extends ElementType = "div">({
           </FloatingFocusManager>
         )}
       </FloatingPortal>
-    </Component>
+    </div>
   );
 }

@@ -4,8 +4,8 @@ import { MenuItemDefaultAdapter } from "@/design-system/molecules/menu-item/adap
 
 import { MenuItemIconPort, MenuItemPort } from "../menu-item.types";
 
-export function MenuItemIcon({ icon, ...props }: MenuItemIconPort) {
-  return withComponentAdapter<MenuItemPort>(MenuItemDefaultAdapter)({
+export function MenuItemIcon<T = string>({ icon, ...props }: MenuItemIconPort<T>) {
+  return withComponentAdapter<MenuItemPort<T>>(MenuItemDefaultAdapter)({
     ...props,
     startContent: <Icon size={"sm"} {...icon} />,
   });
