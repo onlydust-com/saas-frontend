@@ -43,3 +43,15 @@ type GetProjectsQueryParams = operations["getProjects"]["parameters"]["query"];
 export type GetProjectsPortResponse = HttpStorageResponse<GetProjectsModel>;
 
 export type GetProjectsPortParams = HttpClientParameters<{ QueryParams: GetProjectsQueryParams }>;
+
+/* --------------------- Edit Project --------------------- */
+
+export type EditProjectBody = components["schemas"]["UpdateProjectRequest"];
+
+type EditProjectPathParams = operations["updateProject"]["parameters"]["path"];
+
+export type EditProjectPortParams = HttpClientParameters<{
+  PathParams: EditProjectPathParams;
+}>;
+
+export type EditProjectPortResponse = HttpStorageResponse;

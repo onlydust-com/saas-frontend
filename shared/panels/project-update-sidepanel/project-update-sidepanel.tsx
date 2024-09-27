@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
   ProjectUpdateSidePanelData,
@@ -35,7 +36,9 @@ export function ProjectUpdateSidepanel() {
           canGoBack={canGoBack}
           canClose={true}
         />
-        <SidePanelBody>UPDATE PANEL</SidePanelBody>
+        <SidePanelBody>
+          <GlobalInformation />
+        </SidePanelBody>
       </form>
     </Panel>
   );

@@ -1,3 +1,6 @@
 {
-  "title": "Modify Project"
+  "title": "Modify Project",
+  "globalInformation": {
+    "title": "Global Information"
+  }
 }

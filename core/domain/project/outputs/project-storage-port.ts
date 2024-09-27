@@ -1,4 +1,6 @@
 import {
+  EditProjectPortParams,
+  EditProjectPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
   GetProjectStatsPortParams,
@@ -12,4 +14,5 @@ export interface ProjectStoragePort {
   getProjectById(p: GetProjectByIdPortParams): GetProjectByIdPortResponse;
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
+  editProject(p: EditProjectPortParams): EditProjectPortResponse;
 }
