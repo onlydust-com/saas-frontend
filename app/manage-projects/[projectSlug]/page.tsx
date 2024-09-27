@@ -2,6 +2,8 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import { FinancialSection } from "@/app/maintainer/[projectSlug]/_sections/financial-section/financial-section";
+
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -11,7 +13,9 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function MaintainerSinglePage() {
+function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+  // TODO handle request to get project details: get project name for breadcrumbs
+
   return (
     <PageWrapper
       navigation={{
@@ -31,7 +35,7 @@ function MaintainerSinglePage() {
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <ScrollView>
           <PageContent>
-            <div>content</div>
+            <FinancialSection projectSlug={projectSlug} />
           </PageContent>
         </ScrollView>
       </AnimatedColumn>

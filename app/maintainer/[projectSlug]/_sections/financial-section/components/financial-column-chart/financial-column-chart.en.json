@@ -1,0 +1,12 @@
+{
+  "legends": {
+    "deposit": "Deposited",
+    "allocated": "Allocated",
+    "granted": "Granted",
+    "rewarded": "Rewarded"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available for this project."
+  }
+}
