@@ -10,6 +10,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function ProjectsTable() {
   const { columns } = useFilterColumns();
@@ -43,9 +44,9 @@ export function ProjectsTable() {
           classNames={{
             base: "min-w-[1200px]",
           }}
-          // onRowClick={row => {
-          //   openProject({ projectId: row.original.project.id });
-          // }}
+          onRowClick={row => {
+            NEXT_ROUTER.manageProject.details.root(row.original.id);
+          }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>

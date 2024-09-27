@@ -1,6 +1,7 @@
 {
   "header": {
-    "title": "Maintainer"
+    "title": "Maintainer",
+    "ctaSubmitProject": "Submit a project"
   },
   "projectsTable": {
     "title": "Projects",
