@@ -1,6 +1,6 @@
 import { SponsorInterface } from "@/core/domain/sponsor/models/sponsor-model";
 
-export type PanelType = "totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded";
+export type PanelType = "totalAvailable" | "totalRewarded";
 
 export interface FinancialDetailSidepanelProps {
   panelType: PanelType;
@@ -9,7 +9,5 @@ export interface FinancialDetailSidepanelProps {
 
 export const colorMapping: Record<PanelType, "gradient" | "grey"> = {
   totalAvailable: "gradient",
-  totalAllocated: "grey",
-  totalGranted: "grey",
   totalRewarded: "grey",
 };

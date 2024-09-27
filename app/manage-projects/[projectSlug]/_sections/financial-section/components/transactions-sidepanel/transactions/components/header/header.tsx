@@ -1,6 +1,9 @@
 import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useTransactionsContext } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
+import { TransactionsContextFilterTypes } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
@@ -12,11 +15,8 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useTransactionsContext } from "../../../context/transactions.context";
-import { TransactionsContextFilterTypes } from "../../../context/transactions.context.types";
-
 export function Header() {
-  const { t } = useTranslation("maintainer");
+  const { t } = useTranslation("manageProjects");
 
   const {
     filters: {
@@ -72,14 +72,14 @@ export function Header() {
           {() => (
             <div className="flex max-w-[360px] flex-col gap-3">
               <div className="flex items-center justify-between gap-2">
-                <Typo translate={{ token: "maintainer:transactionPanel.filters.title" }} />
+                <Typo translate={{ token: "manageProjects:transactionPanel.filters.title" }} />
 
                 {!isCleared ? (
                   <Button
                     onClick={clear}
                     size="sm"
                     variant="secondary"
-                    translate={{ token: "maintainer:transactionPanel.filters.clear" }}
+                    translate={{ token: "manageProjects:transactionPanel.filters.clear" }}
                   />
                 ) : null}
               </div>
@@ -88,7 +88,7 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="secondary"
-                  translate={{ token: "maintainer:transactionPanel.filters.options.types.title" }}
+                  translate={{ token: "manageProjects:transactionPanel.filters.options.types.title" }}
                 />
 
                 <div className="flex flex-wrap gap-1">
@@ -98,7 +98,7 @@ export function Header() {
                       value={types.includes(type)}
                       onChange={checked => handleTypes(type, checked)}
                     >
-                      <Translate token={`maintainer:transactionPanel.filters.options.types.choices.${type}`} />
+                      <Translate token={`manageProjects:transactionPanel.filters.options.types.choices.${type}`} />
                     </CheckboxButton>
                   ))}
                 </div>
@@ -108,7 +108,7 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="secondary"
-                  translate={{ token: "maintainer:transactionPanel.filters.options.period.title" }}
+                  translate={{ token: "manageProjects:transactionPanel.filters.options.period.title" }}
                 />
 
                 <DateRangePicker value={dateRange} onChange={handleDateRange} />

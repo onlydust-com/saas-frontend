@@ -1,8 +1,8 @@
 import { ChartColumn, ChevronRight, CircleDollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { BudgetAvailableCards } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
-import { FinancialColumnChart } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
+import { BudgetAvailableCards } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
+import { FinancialColumnChart } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -41,7 +41,7 @@ export function FinancialSection({ projectSlug }: { projectSlug: string }) {
             size={"xs"}
             weight={"medium"}
             variant={"heading"}
-            translate={{ token: "maintainer:detail.financial.title" }}
+            translate={{ token: "manageProjects:detail.financial.title" }}
           />
           <Tabs
             onTabClick={handleToggleFinancialViews}
@@ -49,12 +49,12 @@ export function FinancialSection({ projectSlug }: { projectSlug: string }) {
             tabs={[
               {
                 id: BUDGET_AVAILABLE,
-                children: <Translate token={"maintainer:detail.financial.buttons.budgetAvailable"} />,
+                children: <Translate token={"manageProjects:detail.financial.buttons.budgetAvailable"} />,
                 startIcon: { component: CircleDollarSign },
               },
               {
                 id: BUDGET_CHART,
-                children: <Translate token={"maintainer:detail.financial.buttons.budgetChart"} />,
+                children: <Translate token={"manageProjects:detail.financial.buttons.budgetChart"} />,
                 startIcon: { component: ChartColumn },
               },
             ]}
@@ -68,7 +68,7 @@ export function FinancialSection({ projectSlug }: { projectSlug: string }) {
             endIcon={{ component: ChevronRight }}
             isTextButton
             size={"md"}
-            translate={{ token: "maintainer:detail.financial.buttons.modifyProject" }}
+            translate={{ token: "manageProjects:detail.financial.buttons.modifyProject" }}
             classNames={{
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",

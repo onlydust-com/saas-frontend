@@ -1,12 +1,12 @@
+import { useTransactionsContext } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
+import { ExportCsv } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/export-csv/export-csv";
+import { Transactions } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions/transactions";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-import { useTransactionsContext } from "./context/transactions.context";
-import { ExportCsv } from "./export-csv/export-csv";
-import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
   const { Panel, open } = useSidePanel({ name: "financial-transaction-export" });
@@ -18,14 +18,14 @@ export function TransactionsSidepanel() {
     <>
       <SidePanelHeader
         canClose={true}
-        title={{ translate: { token: "maintainer:transactionPanel.transactions.title" } }}
+        title={{ translate: { token: "manageProjects:transactionPanel.transactions.title" } }}
         endContent={
           <Button
             variant="secondary"
             size="md"
             onClick={() => open()}
             translate={{
-              token: "maintainer:transactionPanel.transactions.export",
+              token: "manageProjects:transactionPanel.transactions.export",
             }}
           />
         }
@@ -42,7 +42,7 @@ export function TransactionsSidepanel() {
         <SidePanelHeader
           canGoBack={true}
           canClose={true}
-          title={{ translate: { token: "maintainer:transactionPanel.export.title" } }}
+          title={{ translate: { token: "manageProjects:transactionPanel.export.title" } }}
           onClose={clear}
         />
 

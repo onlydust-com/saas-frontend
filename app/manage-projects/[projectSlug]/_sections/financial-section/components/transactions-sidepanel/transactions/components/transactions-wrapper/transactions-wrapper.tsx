@@ -1,3 +1,4 @@
+import { useTransactionsContext } from "app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
 import { Check, LoaderCircle, X } from "lucide-react";
 import { useMemo } from "react";
 
@@ -12,8 +13,6 @@ import {
   CardTransactionLoading,
   CardTransactionPort,
 } from "@/design-system/molecules/cards/card-transaction";
-
-import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
