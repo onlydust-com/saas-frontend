@@ -1,8 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 
-import { TransactionsContextProvider } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
-import { TransactionsSidepanel } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions-sidepanel";
+import { TransactionsContextProvider } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
+import { TransactionsSidepanel } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions-sidepanel";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -27,7 +27,7 @@ export function TransactionsTrigger() {
         endIcon={{ component: ChevronRight }}
         isTextButton
         size={"md"}
-        translate={{ token: "maintainer:detail.financial.buttons.seeTransactions" }}
+        translate={{ token: "manageProjects:detail.financial.buttons.seeTransactions" }}
         onClick={togglePanel}
         classNames={{
           base: "max-w-full overflow-hidden",

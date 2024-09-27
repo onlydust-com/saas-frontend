@@ -1,5 +1,5 @@
-import { useTransactionsContext } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
-import { TransactionsContextFilterTypes } from "@/app/maintainer/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
+import { useTransactionsContext } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
+import { TransactionsContextFilterTypes } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -67,7 +67,7 @@ export function ExportCsv() {
           classNames={{ base: "flex flex-col gap-3" }}
           id={"types"}
           titleProps={{
-            translate: { token: "maintainer:transactionPanel.filters.options.types.title" },
+            translate: { token: "manageProjects:transactionPanel.filters.options.types.title" },
             size: "xs",
             weight: "medium",
           }}
@@ -76,7 +76,7 @@ export function ExportCsv() {
           <div className="flex flex-wrap gap-1">
             {typesOptions.map(type => (
               <CheckboxButton key={type} value={types.includes(type)} onChange={checked => handleTypes(type, checked)}>
-                <Translate token={`maintainer:transactionPanel.filters.options.types.choices.${type}`} />
+                <Translate token={`manageProjects:transactionPanel.filters.options.types.choices.${type}`} />
               </CheckboxButton>
             ))}
           </div>
@@ -86,7 +86,7 @@ export function ExportCsv() {
           classNames={{ base: "flex flex-col gap-3" }}
           id={"period"}
           titleProps={{
-            translate: { token: "maintainer:transactionPanel.filters.options.period.title" },
+            translate: { token: "manageProjects:transactionPanel.filters.options.period.title" },
             size: "xs",
             weight: "medium",
           }}
@@ -97,7 +97,7 @@ export function ExportCsv() {
               <Typo
                 size="xs"
                 color="secondary"
-                translate={{ token: "maintainer:transactionPanel.filters.options.period.title" }}
+                translate={{ token: "manageProjects:transactionPanel.filters.options.period.title" }}
               />
             }
             value={dateRange}
@@ -109,7 +109,7 @@ export function ExportCsv() {
           classNames={{ base: "flex flex-col gap-1" }}
           id={"data"}
           titleProps={{
-            translate: { token: "maintainer:transactionPanel.export.data.title" },
+            translate: { token: "manageProjects:transactionPanel.export.data.title" },
             size: "xs",
             weight: "medium",
           }}
@@ -119,42 +119,42 @@ export function ExportCsv() {
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.id" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.id" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.timestamp" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.timestamp" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.transactionType" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.transactionType" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.depositStatus" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.depositStatus" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.programId" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.programId" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.amount" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.amount" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.currency" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.currency" }}
             />
             <Typo
               size="xs"
               color="secondary"
-              translate={{ token: "maintainer:transactionPanel.export.data.columns.usdAmount" }}
+              translate={{ token: "manageProjects:transactionPanel.export.data.columns.usdAmount" }}
             />
           </div>
         </Accordion>
@@ -165,7 +165,7 @@ export function ExportCsv() {
           variant={"secondary"}
           size="md"
           translate={{
-            token: "maintainer:transactionPanel.export.button",
+            token: "manageProjects:transactionPanel.export.button",
           }}
           onClick={handleClick}
         />

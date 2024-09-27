@@ -2,7 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { FinancialSection } from "@/app/maintainer/[projectSlug]/_sections/financial-section/financial-section";
+import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";

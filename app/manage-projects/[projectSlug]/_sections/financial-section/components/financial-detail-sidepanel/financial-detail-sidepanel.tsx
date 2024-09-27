@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
   FinancialDetailSidepanelProps,
   colorMapping,
-} from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
+} from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -25,13 +25,13 @@ export function FinancialDetailSidepanel({ panelType, sponsor }: FinancialDetail
       <SidePanelHeader
         canGoBack={false}
         canClose={true}
-        title={{ translate: { token: "maintainer:financialDetailSidePanel.title" } }}
+        title={{ translate: { token: "manageProjects:financialDetailSidePanel.title" } }}
       />
 
       <SidePanelBody>
         <div className="flex flex-col gap-3">
           <CardFinancial
-            title={{ token: `maintainer:financialDetailSidePanel.${panelType}.title` }}
+            title={{ token: `manageProjects:financialDetailSidePanel.${panelType}.title` }}
             amount={
               moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
                 .amount
