@@ -19,7 +19,6 @@ import {
 } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
-import { UserTypeFilter } from "@/shared/features/filters/user-type-filter/user-type-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -44,10 +43,6 @@ export function FilterData() {
         canClose={true}
       />
       <SidePanelBody>
-        <UserTypeFilter
-          selectedUserType={filters.contributorRoles}
-          onSelect={type => setFilters({ contributorRoles: type as typeof filters.contributorRoles })}
-        />
         <ProjectFilter selectedProjects={filters.projectIds} onSelect={projectIds => setFilters({ projectIds })} />
         <CategoryFilter
           selectedCategories={filters.categoryIds}
