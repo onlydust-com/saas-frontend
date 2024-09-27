@@ -7,11 +7,13 @@ import enDepositTransaction from "@/shared/panels/deposit-transaction-sidepanel/
 import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/program-list-sidepanel.en.json";
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
+import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
 
 export const enPanelsTranslation = {
   panels: {
     allocateProgram: enAllocateProgram,
     projectDetail: enProjectDetail,
+    projectUpdate: enProjectUpdate,
     programList: enProgramList,
     currencyList: enCurrencyList,
     currencyNetwork: enCurrencyNetwork,
