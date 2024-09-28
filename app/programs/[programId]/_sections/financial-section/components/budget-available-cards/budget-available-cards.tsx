@@ -1,7 +1,5 @@
 import { useParams } from "next/navigation";
-import { useState } from "react";
 
-import { FinancialDetailSidepanel } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PanelType } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -9,12 +7,13 @@ import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
 import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useFinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.hooks";
 
 export function BudgetAvailableCards() {
-  const [panelType, setPanelType] = useState<"totalAvailable" | "totalGranted" | "totalRewarded">("totalAvailable");
   const { programId = "" } = useParams<{ programId: string }>();
-  const { Panel, open, isOpen } = useSidePanel({ name: "program-financial-detail" });
+
+  const { open } = useFinancialDetailSidepanel();
+
   const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -39,37 +38,34 @@ export function BudgetAvailableCards() {
   }
 
   function openPanel(panelType: PanelType) {
-    setPanelType(panelType);
-    if (!isOpen) {
-      open();
+    if (data) {
+      open({
+        panelType,
+        total: data[panelType],
+      });
     }
   }
 
   return (
-    <>
-      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
-        <FinancialCardItem
-          title="programs:budgetAvailable.available.title"
-          total={data.totalAvailable}
-          color="gradient"
-          onClick={() => openPanel("totalAvailable")}
-        />
-        <FinancialCardItem
-          title="programs:budgetAvailable.granted.title"
-          total={data.totalGranted}
-          color="grey"
-          onClick={() => openPanel("totalGranted")}
-        />
-        <FinancialCardItem
-          title="programs:budgetAvailable.rewarded.title"
-          total={data.totalRewarded}
-          color="grey"
-          onClick={() => openPanel("totalRewarded")}
-        />
-      </div>
-      <Panel>
-        <FinancialDetailSidepanel panelType={panelType} program={data} />
-      </Panel>
-    </>
+    <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+      <FinancialCardItem
+        title="programs:budgetAvailable.available.title"
+        total={data.totalAvailable}
+        color="gradient"
+        onClick={() => openPanel("totalAvailable")}
+      />
+      <FinancialCardItem
+        title="programs:budgetAvailable.granted.title"
+        total={data.totalGranted}
+        color="grey"
+        onClick={() => openPanel("totalGranted")}
+      />
+      <FinancialCardItem
+        title="programs:budgetAvailable.rewarded.title"
+        total={data.totalRewarded}
+        color="grey"
+        onClick={() => openPanel("totalRewarded")}
+      />
+    </div>
   );
 }
