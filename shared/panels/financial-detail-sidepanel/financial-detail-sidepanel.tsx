@@ -1,10 +1,3 @@
-import { useMemo } from "react";
-
-import {
-  FinancialDetailSidepanelProps,
-  colorMapping,
-} from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
-
 import { bootstrap } from "@/core/bootstrap";
 
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
@@ -12,26 +5,35 @@ import { CardFinancial } from "@/design-system/molecules/cards/card-financial/va
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useFinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.hooks";
+import {
+  FinancialDetailSidepanelData,
+  colorMapping,
+} from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
-export function FinancialDetailSidepanel({ panelType, projectFinancial }: FinancialDetailSidepanelProps) {
+export function FinancialDetailSidepanel() {
+  const { name } = useFinancialDetailSidepanel();
+  const { Panel } = useSidePanel({ name });
+  const { panelType, total } = useSinglePanelData<FinancialDetailSidepanelData>(name) ?? {
+    panelType: "totalAvailable",
+    total: {},
+  };
+
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  const total = useMemo(() => {
-    return projectFinancial[panelType];
-  }, [panelType, projectFinancial]);
-
   return (
-    <>
+    <Panel>
       <SidePanelHeader
         canGoBack={false}
         canClose={true}
-        title={{ translate: { token: "manageProjects:financialDetailSidePanel.title" } }}
+        title={{ translate: { token: "panels:financialDetail.title" } }}
       />
 
       <SidePanelBody>
         <div className="flex flex-col gap-3">
           <CardFinancial
-            title={{ token: `manageProjects:financialDetailSidePanel.${panelType}.title` }}
+            title={{ token: `panels:financialDetail.${panelType}.title` }}
             amount={
               moneyKernelPort.format({ amount: total.totalUsdEquivalent, currency: moneyKernelPort.getCurrency("USD") })
                 .amount
@@ -46,6 +48,7 @@ export function FinancialDetailSidepanel({ panelType, projectFinancial }: Financ
             }}
             color={colorMapping[panelType]}
           />
+
           {total.totalPerCurrency?.map(currency => (
             <CardBudget
               key={currency.currency.id}
@@ -59,6 +62,6 @@ export function FinancialDetailSidepanel({ panelType, projectFinancial }: Financ
           ))}
         </div>
       </SidePanelBody>
-    </>
+    </Panel>
   );
 }

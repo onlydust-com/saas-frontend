@@ -16,6 +16,7 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -70,6 +71,7 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
         </ScrollView>
       </AnimatedColumn>
 
+      <FinancialDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
     </PageWrapper>
