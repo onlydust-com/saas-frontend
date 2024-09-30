@@ -45,5 +45,18 @@
     "title": "Project lead",
     "you": "You",
     "invited": "Pending"
+  },
+  "moreInfo": {
+    "title": "More info",
+    "emptyLinkLabel": "Link {{count}}",
+    "addLink": "Add a link",
+    "inputs": {
+      "link": {
+        "placeholder": "Link"
+      },
+      "label": {
+        "placeholder": "Label"
+      }
+    }
   }
 }

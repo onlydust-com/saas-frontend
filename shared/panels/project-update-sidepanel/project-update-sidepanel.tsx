@@ -13,6 +13,7 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
+import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
@@ -108,6 +109,7 @@ export function ProjectUpdateSidepanel() {
               <>
                 <GlobalInformation project={data} />
                 <ProjectLead project={data} />
+                <MoreInfo />
               </>
             )}
           </SidePanelBody>
