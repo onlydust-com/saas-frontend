@@ -1,3 +1,4 @@
+import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
 import { enDataTranslation } from "@/app/data/_translations/data.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
 import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
@@ -48,4 +49,5 @@ export const en = {
   },
   ...enFeaturesTranslations,
   ...enPanelsTranslation,
+  ...enSplashTranslation,
 };
