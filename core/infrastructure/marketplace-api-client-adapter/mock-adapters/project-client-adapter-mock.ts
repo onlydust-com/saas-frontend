@@ -23,4 +23,6 @@ export class ProjectClientAdapterMock implements ProjectStoragePort {
   getProjectTransactions = mockHttpStorageResponse<ProjectStoragePort["getProjectTransactions"]>;
 
   getProjectTransactionsCsv = mockHttpStorageResponse<ProjectStoragePort["getProjectTransactionsCsv"]>;
+
+  getProjectBySlug = mockHttpStorageResponse<ProjectStoragePort["getProjectBySlug"]>;
 }

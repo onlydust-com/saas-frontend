@@ -7,6 +7,7 @@ import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storag
 import {
   EditProjectBody,
   GetProjectByIdResponse,
+  GetProjectBySlugResponse,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectStatsResponse,
@@ -30,6 +31,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectFinancialDetailsById: "projects/:projectId/financial",
     getProjectTransactions: "projects/:projectId/transactions",
     getProjectTransactionsCsv: "projects/:projectId/transactions",
+    getProjectBySlug: "projects/slug/:slug",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -234,6 +236,28 @@ export class ProjectClientAdapter implements ProjectStoragePort {
           accept: "text/csv",
         },
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectBySlug = ({ pathParams, queryParams }: FirstParameter<ProjectStoragePort["getProjectBySlug"]>) => {
+    const path = this.routes["getProjectBySlug"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectBySlugResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return new Project(data);
+    };
 
     return {
       request,

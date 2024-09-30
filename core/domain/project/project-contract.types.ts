@@ -8,6 +8,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+type GetProjectResponse = components["schemas"]["ProjectResponse"];
+
 /* ------------------------------ Get Project By Id ------------------------------ */
 export type GetProjectByIdResponse = components["schemas"]["ProjectResponse"];
 
@@ -108,3 +110,17 @@ export type GetProjectTransactionsPortParams = HttpClientParameters<{
 /* ------------------------------ Get Project Transactions CSV ------------------------------ */
 
 export type GetProjectTransactionsCsvResponse = HttpStorageResponse<Blob>;
+
+/* --------------------------------- Get project by slug -------------------------------- */
+
+type GetProjectBySlugPathParams = operations["getProjectBySlug"]["parameters"]["path"];
+type GetProjectBySlugQueryParams = operations["getProjectBySlug"]["parameters"]["query"];
+
+export type GetProjectBySlugResponse = GetProjectResponse;
+
+export type GetProjectBySlugPortResponse = HttpStorageResponse<GetProjectBySlugResponse>;
+
+export type GetProjectBySlugPortParams = HttpClientParameters<{
+  PathParams: GetProjectBySlugPathParams;
+  QueryParams: GetProjectBySlugQueryParams;
+}>;
