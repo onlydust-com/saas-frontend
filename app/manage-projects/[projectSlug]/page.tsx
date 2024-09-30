@@ -2,9 +2,11 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
+
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -13,8 +15,10 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function UpdateProjectSandbox() {
@@ -34,7 +38,12 @@ function UpdateProjectSandbox() {
 }
 
 function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
-  // TODO handle request to get project details: get project name for breadcrumbs
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
+    pathParams: { projectSlug },
+    options: {
+      enabled: Boolean(projectSlug),
+    },
+  });
   return (
     <PageWrapper
       navigation={{
@@ -46,11 +55,19 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
           },
           {
             id: "details",
-            label: "PROJECT NAME",
+            label: data?.name ?? "",
           },
         ],
       }}
     >
+      <PosthogCaptureOnMount
+        eventName={"project_dashboard_viewed"}
+        params={{
+          project_id: data?.id,
+        }}
+        paramsReady={Boolean(data?.id)}
+      />
+
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <ScrollView>
           <PageContent>
@@ -59,6 +76,8 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
+
+      <FinancialDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
     </PageWrapper>

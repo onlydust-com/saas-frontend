@@ -6,7 +6,8 @@ import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storag
 import {
   EditProjectBody,
   GetProjectByIdResponse,
-  GetProjectFinancialDetailsResponse,
+  GetProjectFinancialDetailsByIdResponse,
+  GetProjectFinancialDetailsBySlugResponse,
   GetProjectStatsResponse,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
@@ -23,7 +24,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjects: "projects",
     editProject: "projects/:projectId",
     uploadProjectLogo: "projects/logos",
-    getProjectFinancialDetails: "projects/:projectSlug/financial",
+    getProjectFinancialDetailsBySlug: "projects/slug/:projectSlug/financial",
+    getProjectFinancialDetailsById: "projects/:projectId/financial",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -136,12 +138,37 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     };
   };
 
-  getProjectFinancialDetails = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectFinancialDetails"]>) => {
-    const path = this.routes["getProjectFinancialDetails"];
+  getProjectFinancialDetailsBySlug = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["getProjectFinancialDetailsBySlug"]>) => {
+    const path = this.routes["getProjectFinancialDetailsBySlug"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams });
     const request = async () => {
-      const data = await this.client.request<GetProjectFinancialDetailsResponse>({
+      const data = await this.client.request<GetProjectFinancialDetailsBySlugResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProjectFinancial(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectFinancialDetailsById = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["getProjectFinancialDetailsById"]>) => {
+    const path = this.routes["getProjectFinancialDetailsById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectFinancialDetailsByIdResponse>({
         path,
         method,
         tag,
