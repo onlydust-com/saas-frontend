@@ -7,6 +7,5 @@ type Program = ProgramShortInterface;
 export interface ProgramGroupProps {
   programs: Program[];
   maxPrograms?: number;
-  className?: string;
   avatarProps?: AvatarPort;
 }
