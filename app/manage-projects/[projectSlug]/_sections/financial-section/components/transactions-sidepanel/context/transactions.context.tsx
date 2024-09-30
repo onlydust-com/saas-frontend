@@ -1,3 +1,6 @@
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useDebounce } from "react-use";
+
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -6,15 +9,13 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useDebounce } from "react-use";
+} from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
-  projectSlug: "",
+  sponsorId: "",
   transactionsStats: [],
   queryParams: {},
   filters: {
@@ -29,7 +30,7 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
   },
 });
 
-export function TransactionsContextProvider({ children, projectSlug }: TransactionsContextProps) {
+export function TransactionsContextProvider({ children, sponsorId }: TransactionsContextProps) {
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
     types: [
@@ -86,7 +87,7 @@ export function TransactionsContextProvider({ children, projectSlug }: Transacti
   return (
     <TransactionsContext.Provider
       value={{
-        projectSlug,
+        sponsorId,
         transactionsStats: transactionsStats?.stats,
         queryParams: debouncedQueryParams,
         filters: {

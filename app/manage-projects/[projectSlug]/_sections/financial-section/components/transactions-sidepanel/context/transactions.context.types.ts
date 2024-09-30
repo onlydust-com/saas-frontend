@@ -8,14 +8,14 @@ import {
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 
 export interface TransactionsContextProps extends PropsWithChildren {
-  projectSlug: string;
+  sponsorId: string;
 }
 
 type TransactionsStats = GetSponsorTransactionsStatsResponse["stats"];
 export type TransactionsContextQueryParams = GetSponsorTransactionsStatsPortParams["queryParams"];
 
 export interface TransactionsContextReturn {
-  projectSlug: string;
+  sponsorId: string;
   transactionsStats?: TransactionsStats;
   queryParams: TransactionsContextQueryParams;
   filters: {
