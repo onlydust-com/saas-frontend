@@ -75,3 +75,14 @@ type GetProjectFinancialDetailsBySlugPathParams = operations["getProjectFinancia
 export type GetProjectFinancialDetailsBySlugPortParams = HttpClientParameters<{
   PathParams: GetProjectFinancialDetailsBySlugPathParams;
 }>;
+
+/* ------------------------------ Get Project Financial Details By Id ------------------------------ */
+export type GetProjectFinancialDetailsByIdResponse = components["schemas"]["ProjectFinancialResponse"];
+
+export type GetProjectFinancialDetailsByIdPortResponse = HttpStorageResponse<ProjectFinancialInterface>;
+
+type GetProjectFinancialDetailsByIdPathParams = operations["getProjectFinancialDetails"]["parameters"]["path"];
+
+export type GetProjectFinancialDetailsByIdPortParams = HttpClientParameters<{
+  PathParams: GetProjectFinancialDetailsByIdPathParams;
+}>;
