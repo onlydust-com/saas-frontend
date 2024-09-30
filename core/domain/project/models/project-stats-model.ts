@@ -8,8 +8,6 @@ export class ProjectStats implements ProjectStatsInterface {
   activeContributorCount!: ProjectStatsResponse["activeContributorCount"];
   mergedPrCount!: ProjectStatsResponse["mergedPrCount"];
   onboardedContributorCount!: ProjectStatsResponse["onboardedContributorCount"];
-  totalGranted!: ProjectStatsResponse["totalGranted"];
-  totalRewarded!: ProjectStatsResponse["totalRewarded"];
 
   constructor(props: ProjectStatsResponse) {
     Object.assign(this, props);

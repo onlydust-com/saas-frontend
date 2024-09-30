@@ -3,6 +3,8 @@ import {
   EditProjectPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
+  GetProjectFinancialDetailsByIdPortParams,
+  GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
   GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectStatsPortParams,
@@ -23,4 +25,7 @@ export interface ProjectStoragePort {
   getProjectFinancialDetailsBySlug(
     p: GetProjectFinancialDetailsBySlugPortParams
   ): GetProjectFinancialDetailsBySlugPortResponse;
+  getProjectFinancialDetailsById(
+    p: GetProjectFinancialDetailsByIdPortParams
+  ): GetProjectFinancialDetailsByIdPortResponse;
 }
