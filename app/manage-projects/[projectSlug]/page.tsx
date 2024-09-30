@@ -18,10 +18,16 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 function UpdateProjectSandbox() {
   const { open } = useProjectUpdateSidePanel();
   const projectId1 = "7d04163c-4187-4313-8066-61504d34fc56";
+  const projectId2 = "9b984978-a322-49ea-a93a-498d5992cb8b";
   return (
-    <Button variant={"secondary"} onClick={() => open({ projectId: projectId1 })}>
-      Open Update project
-    </Button>
+    <>
+      <Button variant={"secondary"} onClick={() => open({ projectId: projectId1 })}>
+        Open Update project
+      </Button>
+      <Button variant={"secondary"} onClick={() => open({ projectId: projectId2 })}>
+        Open Update project 2
+      </Button>
+    </>
   );
 }
 

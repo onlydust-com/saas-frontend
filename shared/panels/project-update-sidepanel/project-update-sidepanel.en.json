@@ -1,5 +1,6 @@
 {
   "title": "Modify Project",
+  "submit": "Modify the project",
   "messages": {
     "success": "Project edited successfully.",
     "error": "An error occurred while updating the project."
