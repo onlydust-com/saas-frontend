@@ -9,6 +9,9 @@ import {
   GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
+  GetProjectTransactionsCsvResponse,
+  GetProjectTransactionsPortParams,
+  GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
   UploadProjectLogoPortParams,
@@ -27,4 +30,6 @@ export interface ProjectFacadePort {
   getProjectFinancialDetailsById(
     p: GetProjectFinancialDetailsByIdPortParams
   ): GetProjectFinancialDetailsByIdPortResponse;
+  getProjectTransactions(p: GetProjectTransactionsPortParams): GetProjectTransactionsPortResponse;
+  getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
 }

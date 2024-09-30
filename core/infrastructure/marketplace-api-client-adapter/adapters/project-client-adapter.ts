@@ -2,6 +2,7 @@ import { ProjectFinancial } from "@/core/domain/project/models/project-financial
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
+import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import {
   EditProjectBody,
@@ -9,6 +10,7 @@ import {
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectStatsResponse,
+  GetProjectTransactionsResponse,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
@@ -26,6 +28,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     uploadProjectLogo: "projects/logos",
     getProjectFinancialDetailsBySlug: "projects/slug/:projectSlug/financial",
     getProjectFinancialDetailsById: "projects/:projectId/financial",
+    getProjectTransactions: "projects/:projectId/transactions",
+    getProjectTransactionsCsv: "projects/:projectId/transactions",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -177,6 +181,59 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
       return new ProjectFinancial(data);
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectTransactions = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectTransactions"]>) => {
+    const path = this.routes["getProjectTransactions"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectTransactionsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        transactions: data.transactions.map(transaction => new ProjectTransaction(transaction)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectTransactionsCsv = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectTransactions"]>) => {
+    const path = this.routes["getProjectTransactions"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
 
     return {
       request,

@@ -1,6 +1,7 @@
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
+import { ProjectTransactionInterface } from "@/core/domain/project/models/project-transaction-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -86,3 +87,24 @@ type GetProjectFinancialDetailsByIdPathParams = operations["getProjectFinancialD
 export type GetProjectFinancialDetailsByIdPortParams = HttpClientParameters<{
   PathParams: GetProjectFinancialDetailsByIdPathParams;
 }>;
+
+/* ------------------------------ Get Project Transactions ------------------------------ */
+
+export type GetProjectTransactionsResponse = components["schemas"]["ProjectTransactionPageResponse"];
+export type GetProjectTransactionsModel = Omit<GetProjectTransactionsResponse, "transactions"> & {
+  transactions: ProjectTransactionInterface[];
+};
+
+export type GetProjectTransactionsPortResponse = HttpStorageResponse<GetProjectTransactionsResponse>;
+
+type GetProjectTransactionsQueryParams = operations["getProjectTransactions_1"]["parameters"]["query"];
+type GetProjectTransactionsPathParams = operations["getProjectTransactions_1"]["parameters"]["path"];
+
+export type GetProjectTransactionsPortParams = HttpClientParameters<{
+  QueryParams: GetProjectTransactionsQueryParams;
+  PathParams: GetProjectTransactionsPathParams;
+}>;
+
+/* ------------------------------ Get Project Transactions CSV ------------------------------ */
+
+export type GetProjectTransactionsCsvResponse = HttpStorageResponse<Blob>;
