@@ -31,6 +31,10 @@
       "label": "Categories",
       "placeholder": "Categories"
     },
+    "hiring": {
+      "label": "Accept new applications",
+      "switch": "Looking for contributors"
+    },
     "rewardsSettings": {
       "label": "Rewardable contributions",
       "since": "Since",
