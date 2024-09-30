@@ -89,7 +89,7 @@ export function ProjectSidepanel() {
         {!!stats && (
           <>
             <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-            <ProjectFinancial data={stats} />
+            <ProjectFinancial projectId={projectId} />
           </>
         )}
 
