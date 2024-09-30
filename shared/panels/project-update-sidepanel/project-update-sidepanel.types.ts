@@ -25,6 +25,14 @@ export const editProjectFormValidation = z.object({
   categoryIds: z.array(z.string()).optional(),
   logoFile: z.any().optional(),
   rewardSettingsArrays: z.array(z.string()).optional(),
+  moreInfos: z
+    .array(
+      z.object({
+        url: z.string().trim().nullish().optional(),
+        value: z.string().nullish().optional(),
+      })
+    )
+    .min(0),
 });
 
 export enum rewardsSettingsTypes {
