@@ -1,13 +1,12 @@
 import { useParams } from "next/navigation";
 
-import { PanelType } from "@/app/programs/[programId]/_sections/financial-section/components/financial-detail-sidepanel/financial-detail-sidepanel.types";
-
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
 import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
 import { useFinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.hooks";
+import { PanelType } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 export function BudgetAvailableCards() {
   const { programId = "" } = useParams<{ programId: string }>();
@@ -37,7 +36,7 @@ export function BudgetAvailableCards() {
     return null;
   }
 
-  function openPanel(panelType: PanelType) {
+  function openPanel(panelType: Exclude<PanelType, "totalAllocated">) {
     if (data) {
       open({
         panelType,
