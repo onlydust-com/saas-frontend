@@ -4,7 +4,11 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { UserGroupProps } from "./user-group.types";
 
-export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }: UserGroupProps) {
+export function UserGroup({ users, maxUsers = 4, avatarProps }: UserGroupProps) {
+  const usersCount = users.length;
+
+  if (!usersCount) return null;
+
   if (users.length === 1) {
     return (
       <AvatarLabelGroup
@@ -15,6 +19,7 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
           },
         ]}
         title={{ children: users[0].login }}
+        truncate
       />
     );
   }
@@ -31,8 +36,8 @@ export function UserGroup({ users, avatarProps = {}, maxUsers, totalUsersCount }
                   name: login,
                 })) ?? []
               }
-              quantity={maxUsers || 4}
-              totalAvatarsCount={totalUsersCount}
+              quantity={maxUsers}
+              totalAvatarsCount={usersCount}
             />
           </div>
         )}

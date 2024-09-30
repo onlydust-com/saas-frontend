@@ -6,6 +6,12 @@ export const AvatarLabelGroupDefaultVariants = tv({
     title: "line-clamp-1",
     description: "line-clamp-1",
   },
-  variants: {},
+  variants: {
+    truncate: {
+      true: {
+        title: "break-all",
+      },
+    },
+  },
   defaultVariants: {},
 });
