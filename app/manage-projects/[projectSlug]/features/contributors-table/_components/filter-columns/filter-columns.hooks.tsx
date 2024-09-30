@@ -26,7 +26,7 @@ export function useFilterColumns() {
   const { t } = useTranslation();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
-  const columnHelper = createColumnHelper<BiContributorInterface>();
+  const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
   const [selectedLabels, setSelectedLabels] = useState<Record<string, string[]>>({});
 
   const onLabelChange = (id: number, selectedIds: string[]) => {
@@ -60,15 +60,16 @@ export function useFilterColumns() {
       id: "select",
       header: ({ table }) => (
         <Checkbox
-          onChange={table.getToggleAllRowsSelectedHandler()}
+          onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
           mixed={table.getIsSomeRowsSelected()}
           value={table.getIsAllRowsSelected()}
+          classNames={{ base: "p-lg" }}
         />
       ),
       cell: ({ row }) => (
         <div className="px-1">
           <Checkbox
-            onChange={row.getToggleSelectedHandler()}
+            onNativeEventChange={row.getToggleSelectedHandler()}
             mixed={row.getIsSomeSelected()}
             value={row.getIsSelected()}
             isDisabled={!row.getCanSelect()}
@@ -94,17 +95,17 @@ export function useFilterColumns() {
         );
       },
     }),
-    labels: columnHelper.accessor("contributor", {
+    labels: columnHelper.accessor("labels", {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
       cell: info => {
-        const contributor = info.getValue();
+        const githubUserId = info.row.original.contributor.githubUserId;
 
         return (
           <LabelPopover
-            name={`contributorsLabels-${contributor.githubUserId}`}
+            name={`contributorsLabels-${githubUserId}`}
             placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
-            onSelect={selectedIds => onLabelChange(contributor.githubUserId, selectedIds)}
-            selectedLabels={selectedLabels[contributor.githubUserId] ?? []}
+            onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
+            selectedLabels={selectedLabels[githubUserId] ?? []}
           />
         );
       },

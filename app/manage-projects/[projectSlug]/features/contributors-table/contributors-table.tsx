@@ -66,13 +66,17 @@ export function ContributorsTable() {
   const table = useReactTable({
     data: contributors,
     columns,
+    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: row => row.contributor.id ?? row.contributor.login,
+    getRowId: row => row.contributor.githubUserId.toString(),
     onRowSelectionChange: setRowSelection,
     state: {
       rowSelection,
     },
   });
+
+  // TODO Bulk actions
+  // console.log("table.getState().rowSelection", table.getState().rowSelection);
 
   if (isLoading) {
     return <TableLoading />;
