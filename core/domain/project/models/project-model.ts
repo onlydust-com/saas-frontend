@@ -4,6 +4,7 @@ export type ProjectResponse = components["schemas"]["ProjectResponse"];
 
 export interface ProjectInterface extends ProjectResponse {
   truncateDescription(max: number): string;
+  findUserInProjectLead(id: string): ProjectResponse["leaders"][0] | undefined;
 }
 
 export class Project implements ProjectInterface {
@@ -41,5 +42,9 @@ export class Project implements ProjectInterface {
 
   truncateDescription(max: number) {
     return this.shortDescription.length > max ? `${this.shortDescription.slice(0, max)}...` : this.shortDescription;
+  }
+
+  findUserInProjectLead(id: string) {
+    return this.leaders?.find(lead => lead.id === id);
   }
 }

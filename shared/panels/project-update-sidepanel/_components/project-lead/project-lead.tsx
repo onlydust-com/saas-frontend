@@ -18,10 +18,6 @@ export function ProjectLead({ project }: ProjectLeadProps) {
   const [invitedUser, setInvitedUser] = useState<MenuItemAvatarPort<number>[]>([]);
   const { control } = useFormContext<EditProjectFormData>();
 
-  function findUserInProjectLead(id: string) {
-    return project.leaders?.find(lead => lead.id === id);
-  }
-
   function findUserInInvited(githubId: number) {
     const usersItems = project.invitedLeaders.map(user => ({
       id: user.githubUserId,
@@ -38,10 +34,6 @@ export function ProjectLead({ project }: ProjectLeadProps) {
       return [user.id, ...ids.filter(id => id !== user.id)];
     }
     return ids;
-  }
-
-  function isMe(id: string) {
-    return user?.id === id;
   }
 
   return (
@@ -74,13 +66,13 @@ export function ProjectLead({ project }: ProjectLeadProps) {
             render={({ field: { value, onChange } }) => (
               <>
                 {orderByMe(value)?.map(lead => {
-                  const user = findUserInProjectLead(lead);
-                  const _isMe = isMe(lead);
+                  const findUser = project.findUserInProjectLead(lead);
+                  const _isMe = user?.isMe(lead);
                   return (
                     <Badge
                       as={"span"}
                       isDeletable={!_isMe}
-                      avatar={{ src: user?.avatarUrl }}
+                      avatar={{ src: findUser?.avatarUrl }}
                       color={"brand"}
                       size={"xs"}
                       closeProps={{
@@ -89,12 +81,12 @@ export function ProjectLead({ project }: ProjectLeadProps) {
                           onChange((value || []).filter(id => id !== lead));
                         },
                       }}
-                      key={user?.id}
+                      key={findUser?.id}
                     >
-                      {user?.login}
+                      {findUser?.login}
                       {_isMe && (
                         <span className={"text-typography-primary"}>
-                          &nbsp; {`(${t("projectUpdate.projectLeads.me")})`}
+                          &nbsp; {`(${t("projectUpdate.projectLeads.you")})`}
                         </span>
                       )}
                     </Badge>

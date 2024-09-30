@@ -43,7 +43,7 @@
   },
   "projectLeads": {
     "title": "Project lead",
-    "me": "You",
+    "you": "You",
     "invited": "Pending"
   }
 }
