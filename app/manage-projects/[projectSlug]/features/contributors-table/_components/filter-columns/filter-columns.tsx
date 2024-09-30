@@ -9,47 +9,35 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
     <TableColumnList
-      titleProps={{ token: "data:deepDive.contributorsTable.filters.columnList" }}
+      titleProps={{ token: "manageProjects:detail.contributorsTable.filters.columnList" }}
       menuProps={{
         items: [
           {
             id: "global",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.global"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.filters.global"} />,
             isLabel: true,
           },
           {
             id: "contributor",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.contributorName"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.columns.contributorName"} />,
             searchValue: "Contributor name",
             isCheckbox: true,
           },
           {
-            id: "projects",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.projects"} />,
-            searchValue: "Projects",
-            isCheckbox: true,
-          },
-          {
-            id: "categories",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.categories"} />,
-            searchValue: "Categories",
-            isCheckbox: true,
-          },
-          {
             id: "languages",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.languages"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.columns.languages"} />,
             searchValue: "Languages",
             isCheckbox: true,
           },
           {
             id: "ecosystems",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.ecosystems"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.columns.ecosystems"} />,
             searchValue: "Ecosystems",
             isCheckbox: true,
           },
           {
             id: "countryCode",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
           },
@@ -59,40 +47,13 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
           {
             id: "financial",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.financial"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.filters.financial"} />,
             isLabel: true,
           },
           {
             id: "totalRewardedUsdAmount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.totalRewardedUsdAmount"} />,
+            label: <Translate token={"manageProjects:detail.contributorsTable.columns.totalRewardedUsdAmount"} />,
             searchValue: "Rewarded amount",
-            isCheckbox: true,
-          },
-          {
-            id: "financialSeparator",
-            isSeparator: true,
-          },
-          {
-            id: "activity",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.activity"} />,
-            isLabel: true,
-          },
-          {
-            id: "contributionCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
-            searchValue: "Contributions",
-            isCheckbox: true,
-          },
-          {
-            id: "prCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
-            searchValue: "PRs",
-            isCheckbox: true,
-          },
-          {
-            id: "rewardCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
-            searchValue: "Rewards",
             isCheckbox: true,
           },
         ],
