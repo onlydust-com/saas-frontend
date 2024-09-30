@@ -20,10 +20,11 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   size = "md",
   shape,
   quantity,
+  truncate,
 }: AvatarLabelGroupPort<C>) {
   const Component = as || "div";
 
-  const slots = AvatarLabelGroupDefaultVariants();
+  const slots = AvatarLabelGroupDefaultVariants({ truncate });
 
   const imageSize = getAvatarImageSize(size);
 
