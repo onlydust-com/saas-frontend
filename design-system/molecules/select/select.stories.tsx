@@ -7,9 +7,9 @@ import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
 import { SelectPort } from "./select.types";
 import { Select } from "./variants/select-default";
 
-type Story = StoryObj<typeof Select>;
+type Story = StoryObj<typeof Select<string>>;
 
-const defaultProps: SelectPort<"div"> = {
+const defaultProps: SelectPort<string> = {
   name: "select",
   placeholder: "Select your item",
   items: [

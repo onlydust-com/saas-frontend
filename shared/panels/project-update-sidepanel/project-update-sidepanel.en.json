@@ -1,5 +1,6 @@
 {
   "title": "Modify Project",
+  "submit": "Modify the project",
   "messages": {
     "success": "Project edited successfully.",
     "error": "An error occurred while updating the project."
@@ -22,10 +23,6 @@
       "label": "Project visual",
       "buttonLabel": "Upload a file"
     },
-    "leads": {
-      "label": "Project lead",
-      "placeholder": "Project lead"
-    },
     "ecosystems": {
       "label": "Ecosystems",
       "placeholder": "Ecosystems"
@@ -43,5 +40,10 @@
         "codeReviews": "Code reviews"
       }
     }
+  },
+  "projectLeads": {
+    "title": "Project lead",
+    "you": "You",
+    "invited": "Pending"
   }
 }

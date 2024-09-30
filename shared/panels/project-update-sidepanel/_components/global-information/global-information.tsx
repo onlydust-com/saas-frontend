@@ -12,7 +12,6 @@ import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
 
 import { EcosystemsAutocomplete } from "@/shared/features/autocompletes/ecosystems-autocomplete/ecosystems-autocomplete";
-import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 import { GlobalInformationProps } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information.types";
 import {
   EditProjectFormData,
@@ -39,23 +38,6 @@ export function GlobalInformation({ project }: GlobalInformationProps) {
       },
     ],
     []
-  );
-  const initialUsersItems: MenuItemPort[] = useMemo(
-    () => [
-      ...project.leaders.map(lead => ({
-        id: lead.id || `${lead.githubUserId}`,
-        label: lead.login,
-        searchValue: lead.login,
-        avatar: { src: lead.avatarUrl },
-      })),
-      ...project.invitedLeaders.map(lead => ({
-        id: lead.id || `${lead.githubUserId}`,
-        label: lead.login,
-        searchValue: lead.login,
-        avatar: { src: lead.avatarUrl },
-      })),
-    ],
-    [project]
   );
 
   const initialEcosystemsItems: MenuItemPort[] = useMemo(
@@ -121,22 +103,6 @@ export function GlobalInformation({ project }: GlobalInformationProps) {
               buttonProps={{
                 children: <Translate token={"panels:projectUpdate.globalInformation.logo.buttonLabel"} />,
               }}
-            />
-          )}
-        />
-        <Controller
-          name="leads"
-          control={control}
-          render={({ field: { onChange, value, name } }) => (
-            <UserAutocomplete
-              withInternalUserOnly={true}
-              name={name}
-              label={<Translate token={"panels:projectUpdate.globalInformation.leads.label"} />}
-              placeholder={t("projectUpdate.globalInformation.leads.placeholder")}
-              onSelect={onChange}
-              selectedUser={value}
-              initialtUsers={initialUsersItems}
-              isMultiple={true}
             />
           )}
         />

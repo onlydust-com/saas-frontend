@@ -5,12 +5,15 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { EditProjectBody } from "@/core/domain/project/project-contract.types";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
+import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
   EditProjectFormData,
@@ -22,7 +25,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectUpdateSidepanel() {
   const { name } = useProjectUpdateSidePanel();
-  const { Panel } = useSidePanel({ name });
+  const { Panel, close: closePanel } = useSidePanel({ name });
   const { projectId, canGoBack = false } = useSinglePanelData<ProjectUpdateSidePanelData>(name) ?? { projectId: "" };
 
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectById({
@@ -32,8 +35,10 @@ export function ProjectUpdateSidepanel() {
     },
   });
 
-  const { mutateAsync: uploadLogo } = ProjectReactQueryAdapter.client.useUploadProjectLogo();
-  const { mutateAsync: editProject } = ProjectReactQueryAdapter.client.useEditProject({
+  const { mutateAsync: uploadLogo, isPending: isUploadingLogo } =
+    ProjectReactQueryAdapter.client.useUploadProjectLogo();
+
+  const { mutateAsync: editProject, isPending: isEditingProject } = ProjectReactQueryAdapter.client.useEditProject({
     pathParams: { projectId },
   });
 
@@ -43,23 +48,24 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, leads, ...data }: EditProjectFormData) {
+  async function onSubmit({ logoFile, rewardSettingsArrays, ...updatedData }: EditProjectFormData) {
     try {
-      // if i remove leads i have to remove it in projectLeadsToKeep
-      // if i add a new lead i have to in inviteGithubUserIdsAsProjectLeads with githubUserId
-
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
-      // const newLead = leads.find(lead => !data.projectLeadsToKeep.includes(lead));
 
       const editProjectData: EditProjectBody = {
-        ...data,
-        logoUrl: fileUrl?.url || data?.logoUrl,
-        // projectLeadsToKeep: data.projectLeadsToKeep?.filter(lead => leads.includes(lead)),
+        ...updatedData,
+        logoUrl: fileUrl?.url || updatedData?.logoUrl,
+        rewardSettings: {
+          ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
+          ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
+          ignoreCodeReviews: !rewardSettingsArrays.includes(rewardsSettingsTypes.CodeReviews),
+          ignoreContributionsBefore: data?.rewardSettings?.ignoreContributionsBefore,
+        },
       };
 
       await editProject(editProjectData);
 
-      close();
+      closePanel();
       toast.success(<Translate token={"panels:projectUpdate.messages.success"} />);
     } catch {
       toast.error(<Translate token={"panels:projectUpdate.messages.error"} />);
@@ -70,8 +76,11 @@ export function ProjectUpdateSidepanel() {
     if (data) {
       reset({
         ...data,
+        isLookingForContributors: data.hiring,
+        githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
-        leads: [...data.leaders.map(lead => lead.id), ...data.invitedLeaders.map(lead => lead.id)],
+        projectLeadsToKeep: data.leaders.map(lead => lead.id),
+        inviteGithubUserIdsAsProjectLeads: data.invitedLeaders.map(lead => lead.githubUserId),
         rewardSettingsArrays: [
           ...(!data.rewardSettings?.ignoreCodeReviews ? [rewardsSettingsTypes.CodeReviews] : []),
           ...(!data.rewardSettings?.ignoreIssues ? [rewardsSettingsTypes.Issue] : []),
@@ -94,7 +103,23 @@ export function ProjectUpdateSidepanel() {
             canGoBack={canGoBack}
             canClose={true}
           />
-          <SidePanelBody>{data && <GlobalInformation project={data} />}</SidePanelBody>
+          <SidePanelBody>
+            {data && (
+              <>
+                <GlobalInformation project={data} />
+                <ProjectLead project={data} />
+              </>
+            )}
+          </SidePanelBody>
+          <SidePanelFooter>
+            <Button
+              type={"submit"}
+              variant={"secondary"}
+              size={"md"}
+              translate={{ token: "panels:projectUpdate.submit" }}
+              isDisabled={isLoading || isUploadingLogo || isEditingProject}
+            />
+          </SidePanelFooter>
         </form>
       </FormProvider>
     </Panel>

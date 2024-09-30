@@ -10,27 +10,27 @@ interface ClassNames {
   content: string;
 }
 
-export interface MenuBasePort extends Partial<Variants> {
+export interface MenuBasePort<T = string> extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  items: MenuItemPort[];
-  selectedIds?: MenuItemId[];
-  onSelect?: (ids: MenuItemId[], data: MenuItemPort[]) => void;
+  items: MenuItemPort<T>[];
+  selectedIds?: MenuItemId<T>[];
+  onSelect?: (ids: MenuItemId<T>[], data: MenuItemPort<T>[]) => void;
   onNextPage?: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean;
-  onAction?: (id: MenuItemId) => void;
+  onAction?: (id: MenuItemId<T>) => void;
   isMultiple?: boolean;
 }
 
-export interface ListMenuPort extends MenuBasePort {
+export interface ListMenuPort<T = string> extends MenuBasePort<T> {
   isPopOver?: never;
 }
 
-export interface PopOverMenuPort extends MenuBasePort, PropsWithChildren {
+export interface PopOverMenuPort<T = string> extends MenuBasePort<T>, PropsWithChildren {
   isPopOver?: true;
   onOpenChange?: (isOpen: boolean) => void;
   closeOnSelect?: boolean;
   placement?: Placement;
 }
 
-export type MenuPort = ListMenuPort | PopOverMenuPort;
+export type MenuPort<T = string> = ListMenuPort<T> | PopOverMenuPort<T>;

@@ -4,19 +4,19 @@ import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/us
 import { SearchUsersModel } from "@/core/domain/user/user-contract.types";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
+import { isMenuItemAvatar } from "@/design-system/molecules/menu-item/menu-item.utils";
 import { Select } from "@/design-system/molecules/select";
 
-import { UserAutocompleteProps } from "./user-autocomplete.types";
+import { GithubUserAutocompleteProps } from "./github-user-autocomplete.types";
 
-export function UserAutocomplete({
+export function GithubUserAutocomplete({
   withExternalUser = false,
   withInternalUserOnly = false,
   withExternalUserOnly = false,
   selectedUser,
   onSelect,
-  initialtUsers,
   ...selectProps
-}: UserAutocompleteProps) {
+}: GithubUserAutocompleteProps) {
   const [search, setSearch] = useState("");
   const { data } = UserReactQueryAdapter.client.useSearchUser({
     queryParams: {
@@ -28,35 +28,40 @@ export function UserAutocomplete({
 
   const createMenuItems = (
     users: SearchUsersModel["internalContributors"] | SearchUsersModel["externalContributors"]
-  ): MenuItemPort[] => {
-    return users
-      .filter(user => user.id)
-      .map(user => ({
-        id: user.id ?? "",
-        label: user.login,
-        searchValue: user.login,
-        avatar: { src: user.avatarUrl },
-      }));
+  ): MenuItemPort<number>[] => {
+    return users.map(user => ({
+      id: user.githubUserId,
+      label: user.login,
+      searchValue: user.login,
+      avatar: { src: user.avatarUrl },
+    }));
   };
 
-  const usersItem: MenuItemPort[] = useMemo(() => {
+  const usersItem: MenuItemPort<number>[] = useMemo(() => {
     return [
       ...createMenuItems(data?.internalContributors || []),
       ...(withExternalUser ? createMenuItems(data?.externalContributors || []) : []),
     ];
   }, [data, withExternalUser]);
 
-  function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as string[]);
+  function handleSelect(ids: MenuItemId<number>[]) {
+    const users = usersItem.filter(user => ids.includes(user.id));
+    onSelect?.(
+      ids,
+      users?.map(user => ({
+        ...user,
+        label: user.label ?? "",
+        avatar: isMenuItemAvatar(user) ? { src: user.avatar?.src } : { src: "" },
+      }))
+    );
   }
 
   return (
-    <Select
+    <Select<number>
       items={usersItem}
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedUser}
-      initialItems={initialtUsers}
       controlledAutoComplete={{
         value: search,
         onChange: setSearch,
