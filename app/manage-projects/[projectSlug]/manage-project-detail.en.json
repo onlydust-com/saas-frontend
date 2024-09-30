@@ -25,7 +25,10 @@
     },
     "columns": {
       "contributorName": "Contributor name",
-      "labels": "Labels",
+      "labels": {
+        "title": "Labels",
+        "placeholder": "Select labels"
+      },
       "languages": "Languages",
       "ecosystems": "Ecosystems",
       "country": "Country",

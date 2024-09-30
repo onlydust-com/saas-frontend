@@ -21,7 +21,6 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export type ContributorsTableFilters = Omit<
   NonNullable<GetBiContributorsPortParams["queryParams"]>,
@@ -36,7 +35,6 @@ export function ContributorsTable() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
-  const { open: openContributor } = useContributorSidePanel();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
@@ -112,9 +110,6 @@ export function ContributorsTable() {
             rows={table.getRowModel().rows}
             classNames={{
               base: "min-w-[1200px]",
-            }}
-            onRowClick={row => {
-              openContributor({ login: row.original.contributor.login });
             }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

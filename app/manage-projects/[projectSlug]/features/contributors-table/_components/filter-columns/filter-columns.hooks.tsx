@@ -1,6 +1,7 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Flag from "react-flagpack";
+import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import {
@@ -17,13 +18,23 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
+import { LabelPopover } from "@/shared/features/popovers/label-popover/label-popover";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
+  const { t } = useTranslation();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
   const columnHelper = createColumnHelper<BiContributorInterface>();
+  const [selectedLabels, setSelectedLabels] = useState<Record<string, string[]>>({});
+
+  const onLabelChange = (id: number, selectedIds: string[]) => {
+    setSelectedLabels(prev => ({
+      ...prev,
+      [id]: selectedIds,
+    }));
+  };
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<ColumnMapKeys>>(
     "manage-projects-contributors-table-columns"
@@ -79,6 +90,21 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: contributor.login }}
+          />
+        );
+      },
+    }),
+    labels: columnHelper.accessor("contributor", {
+      header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
+      cell: info => {
+        const contributor = info.getValue();
+
+        return (
+          <LabelPopover
+            name={`contributorsLabels-${contributor.githubUserId}`}
+            placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
+            onSelect={selectedIds => onLabelChange(contributor.githubUserId, selectedIds)}
+            selectedLabels={selectedLabels[contributor.githubUserId] ?? []}
           />
         );
       },
