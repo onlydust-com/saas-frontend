@@ -1,0 +1,22 @@
+import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+
+export type GithubRepoResponse = components["schemas"]["GithubRepoResponse"];
+
+export interface GithubRepoInterface extends GithubRepoResponse {}
+
+export class GithubRepo implements GithubRepoInterface {
+  id!: GithubRepoInterface["id"];
+  owner!: GithubRepoInterface["owner"];
+  name!: GithubRepoInterface["name"];
+  description!: GithubRepoInterface["description"];
+  htmlUrl!: GithubRepoInterface["htmlUrl"];
+  stars!: GithubRepoInterface["stars"];
+  forkCount!: GithubRepoInterface["forkCount"];
+  hasIssues!: GithubRepoInterface["hasIssues"];
+  isIncludedInProject!: GithubRepoInterface["isIncludedInProject"];
+  isAuthorizedInGithubApp!: GithubRepoInterface["isAuthorizedInGithubApp"];
+
+  constructor(props: GithubRepoResponse) {
+    Object.assign(this, props);
+  }
+}
