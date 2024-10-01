@@ -55,6 +55,7 @@ export function ContributorsTable() {
       ...queryParams,
       projectSlugs: [projectSlug],
       showFilteredKpis: true,
+      contributionStatuses: ["IN_PROGRESS", "COMPLETED"],
     },
     options: {
       enabled: Boolean(user),
