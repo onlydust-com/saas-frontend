@@ -50,6 +50,9 @@
     "you": "You",
     "invited": "Pending"
   },
+  "repositories": {
+    "title": "Repositories"
+  },
   "moreInfo": {
     "title": "More info",
     "emptyLinkLabel": "Link {{count}}",

@@ -6,6 +6,7 @@ export type GithubOrganizationResponse = components["schemas"]["GithubOrganizati
 export interface GithubOrganizationInterface
   extends Omit<components["schemas"]["GithubOrganizationResponse"], "repos"> {
   repos: GithubRepoInterface[];
+  isContainsRepo(repoIds: number[]): boolean;
 }
 
 export class GithubOrganization implements GithubOrganizationInterface {
@@ -23,5 +24,9 @@ export class GithubOrganization implements GithubOrganizationInterface {
   constructor({ repos, ...props }: GithubOrganizationResponse) {
     Object.assign(this, props);
     this.repos = repos.map(repo => new GithubRepo(repo));
+  }
+
+  isContainsRepo(repoIds: number[]) {
+    return this.repos.some(repo => repoIds.includes(repo.id));
   }
 }
