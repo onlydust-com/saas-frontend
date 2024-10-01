@@ -11,7 +11,7 @@ import {
   TransactionsContextReturn,
 } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context.types";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
@@ -52,11 +52,13 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
     [queryParams]
   );
 
-  const { data: transactionsStats } = SponsorReactQueryAdapter.client.useGetSponsorTransactionsStats({
-    pathParams: { sponsorId },
-    queryParams: { ...debouncedQueryParams, sort: "DATE", sortDirection: "DESC", showEmpty: false },
-    options: {
-      enabled: !!sponsorId,
+  const { data: transactionsStats } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
+    queryParams: {
+      ...debouncedQueryParams,
+      sort: "DATE",
+      sortDirection: "ASC",
+      showEmpty: true,
+      sponsorId,
     },
   });
 

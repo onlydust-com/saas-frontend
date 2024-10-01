@@ -38,7 +38,6 @@ export function FinancialColumnChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  // TODO @hayden replace
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       fromDate,
