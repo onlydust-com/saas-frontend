@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 
 import { BudgetAvailableCards } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/budget-available-cards/budget-available-cards";
 import { FinancialColumnChart } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart";
+import { TransactionsTrigger } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-trigger/transactions-trigger";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -73,11 +74,11 @@ export function FinancialSection({ projectSlug }: { projectSlug: string }) {
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",
             }}
-            // TODO
+            // TODO @alexis
             onClick={() => alert(projectSlug)}
           />
 
-          {/*<TransactionsTrigger />*/}
+          <TransactionsTrigger />
         </div>
       </div>
 
