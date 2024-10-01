@@ -10,6 +10,7 @@ import {
   GetProjectBySlugResponse,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
+  GetProjectFinancialResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
   UploadProjectLogoResponse,
@@ -32,6 +33,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectTransactions: "projects/:projectId/transactions",
     getProjectTransactionsCsv: "projects/:projectId/transactions",
     getProjectBySlug: "projects/slug/:slug",
+    getProjectFinancial: "projects/:projectId/financial",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -257,6 +259,27 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       });
 
       return new Project(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectFinancial = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectFinancial"]>) => {
+    const path = this.routes["getProjectFinancial"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectFinancialResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProjectFinancial(data);
     };
 
     return {

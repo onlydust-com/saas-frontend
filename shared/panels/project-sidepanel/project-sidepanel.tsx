@@ -67,6 +67,17 @@ export function ProjectSidepanel() {
     },
   });
 
+  const { data: financial, isLoading: loadingFinancial } = ProjectReactQueryAdapter.client.useGetProjectFinancial({
+    pathParams: { projectId: projectId ?? "" },
+    queryParams: {
+      fromDate,
+      toDate,
+    },
+    options: {
+      enabled: !!projectId,
+    },
+  });
+
   function onChangeRangeType(type: DateRangeType) {
     setRangeType(type);
   }
@@ -117,7 +128,7 @@ export function ProjectSidepanel() {
         <ProjectCategories categories={data.categories} />
       </>
     );
-  }, [isLoading, loadingStats, data, stats, rangeType]);
+  }, [isLoading, loadingStats, loadingFinancial, data, stats, financial, rangeType]);
 
   return (
     <Panel>

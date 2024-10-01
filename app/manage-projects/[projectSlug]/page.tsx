@@ -6,6 +6,8 @@ import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
@@ -37,7 +39,7 @@ function UpdateProjectSandbox() {
   );
 }
 
-function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
@@ -72,6 +74,7 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
         <ScrollView>
           <PageContent>
             <FinancialSection projectSlug={projectSlug} />
+            <ContributorsTable />
             <UpdateProjectSandbox />
           </PageContent>
         </ScrollView>
@@ -84,4 +87,4 @@ function MaintainerSinglePage({ params: { projectSlug } }: { params: { projectSl
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(MaintainerSinglePage));
+export default withClientOnly(withAuthenticationRequired(ManageProjectsSinglePage));

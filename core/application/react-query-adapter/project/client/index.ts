@@ -8,3 +8,4 @@ export * from "./use-get-project-financial-details-by-id";
 export * from "./use-get-project-transactions";
 export * from "./use-get-project-transactions-csv";
 export * from "./use-get-project-by-slug";
+export * from "./use-get-project-financial";

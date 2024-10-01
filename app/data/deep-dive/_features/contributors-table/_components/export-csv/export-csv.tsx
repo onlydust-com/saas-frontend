@@ -18,6 +18,8 @@ export function ExportCsv({ queryParams }: { queryParams: Partial<GetBiContribut
   const { mutate, isPending } = BiReactQueryAdapter.client.useGetBiContributorsCsv({
     queryParams: {
       ...queryParams,
+      showFilteredKpis: false,
+      contributionStatuses: ["COMPLETED"],
       pageIndex: 0,
       pageSize: 10000,
     },
