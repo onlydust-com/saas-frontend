@@ -3,6 +3,7 @@ import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
+import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
 import { LanguageStoragePort } from "@/core/domain/language/outputs/language-storage-port";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
@@ -16,6 +17,7 @@ import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-ad
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { EcosystemClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/ecosystem-client-adapter";
+import { GithubClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/github-client-adapter";
 import { LanguageClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/language-client-adapter";
 import { MeClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/me-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
@@ -64,6 +66,8 @@ export interface BootstrapConstructor {
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
   ecosystemStoragePortForServer: EcosystemStoragePort;
+  githubStoragePortForClient: GithubStoragePort;
+  githubStoragePortForServer: GithubStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -100,6 +104,8 @@ export class Bootstrap {
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
   ecosystemStoragePortForServer: EcosystemStoragePort;
+  githubStoragePortForClient: GithubStoragePort;
+  githubStoragePortForServer: GithubStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -132,6 +138,8 @@ export class Bootstrap {
     this.projectCategoryStoragePortForServer = constructor.projectCategoryStoragePortForServer;
     this.ecosystemStoragePortForClient = constructor.ecosystemStoragePortForClient;
     this.ecosystemStoragePortForServer = constructor.ecosystemStoragePortForServer;
+    this.githubStoragePortForClient = constructor.githubStoragePortForClient;
+    this.githubStoragePortForServer = constructor.githubStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -254,6 +262,14 @@ export class Bootstrap {
     return this.ecosystemStoragePortForClient;
   }
 
+  getGithubStoragePortForServer() {
+    return this.githubStoragePortForServer;
+  }
+
+  getGithubStoragePortForClient() {
+    return this.githubStoragePortForClient;
+  }
+
   getNotificationStoragePortForServer() {
     return this.notificationStoragePortForServer;
   }
@@ -303,6 +319,8 @@ export class Bootstrap {
         projectCategoryStoragePortForServer: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         ecosystemStoragePortForServer: new EcosystemClientAdapter(new FetchHttpClient()),
         ecosystemStoragePortForClient: new EcosystemClientAdapter(new FetchHttpClient()),
+        githubStoragePortForServer: new GithubClientAdapter(new FetchHttpClient()),
+        githubStoragePortForClient: new GithubClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
