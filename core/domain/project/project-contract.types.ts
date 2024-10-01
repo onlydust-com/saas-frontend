@@ -63,3 +63,15 @@ export type EditProjectPortParams = HttpClientParameters<{
 }>;
 
 export type EditProjectPortResponse = HttpStorageResponse;
+
+/* ------------------------------ Get Project Financial ------------------------------ */
+
+export type GetProjectFinancialResponse = components["schemas"]["ProjectFinancialResponse"];
+
+export type GetProjectFinancialPortResponse = HttpStorageResponse<GetProjectFinancialResponse>;
+
+type GetProjectFinancialPathParams = operations["getProjectFinancialDetails"]["parameters"]["path"];
+
+export type GetProjectFinancialPortParams = HttpClientParameters<{
+  PathParams: GetProjectFinancialPathParams;
+}>;
