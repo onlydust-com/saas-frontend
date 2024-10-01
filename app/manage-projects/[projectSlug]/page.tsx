@@ -70,11 +70,21 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       />
 
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <ScrollView>
+        <ScrollView className="flex flex-col gap-4">
           <PageContent>
-            <FinancialSection projectSlug={projectSlug} />
-            <ContributorsTable />
-            <UpdateProjectSandbox />
+            <div className="grid h-full gap-3">
+              <FinancialSection projectSlug={projectSlug} />
+            </div>
+          </PageContent>
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <ContributorsTable />
+            </div>
+          </PageContent>
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <UpdateProjectSandbox />
+            </div>
           </PageContent>
         </ScrollView>
       </AnimatedColumn>

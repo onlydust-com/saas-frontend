@@ -8,6 +8,13 @@
       "modifyProject": "Modify project"
     }
   },
+  "activity": {
+    "title": "Activity",
+    "buttons": {
+      "seeActivity": "See activity",
+      "seeTransactions": "See transactions"
+    }
+  },
   "filters": {
     "titles": {
       "project": "Projects filters",
