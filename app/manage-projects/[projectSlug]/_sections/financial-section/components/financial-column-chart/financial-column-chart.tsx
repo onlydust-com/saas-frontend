@@ -1,10 +1,11 @@
 import { Calendar } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useFinancialColumnChart } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
@@ -25,7 +26,7 @@ export function FinancialColumnChart() {
   const rangeMenu = useRangeSelectOptions();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  // const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
 
   const { fromDate, toDate } = useMemo(() => {
@@ -38,14 +39,14 @@ export function FinancialColumnChart() {
   }, [rangeType, dateKernelPort]);
 
   // TODO @hayden replace
-  const { data, isLoading } = SponsorReactQueryAdapter.client.useGetSponsorTransactionsStats({
-    pathParams: { sponsorId: "2ea814ce-0a0e-472c-b37c-05f54396e9d6" },
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       fromDate,
       toDate,
       sort: "DATE",
       sortDirection: "ASC",
       showEmpty: true,
+      projectSlug,
     },
   });
 

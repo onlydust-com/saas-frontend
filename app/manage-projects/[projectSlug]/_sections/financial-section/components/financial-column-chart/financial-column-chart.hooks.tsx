@@ -1,13 +1,13 @@
 import { bootstrap } from "@/core/bootstrap";
-import { SponsorTransactionsStatsResponse } from "@/core/domain/sponsor/models/sponsor-transactions-stats-model";
-import { GetSponsorTransactionsStatsModel } from "@/core/domain/sponsor/sponsor-contract.types";
+import { GetBiStatsFinancialsModel } from "@/core/domain/bi/bi-contract.types";
+import { BiStatsFinancialsResponse } from "@/core/domain/bi/models/bi-stats-financials-model";
 
-export function useFinancialColumnChart(stats?: GetSponsorTransactionsStatsModel["stats"]) {
+export function useFinancialColumnChart(stats?: GetBiStatsFinancialsModel["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
-  const calculateSeries = (key: keyof SponsorTransactionsStatsResponse) => {
+  const calculateSeries = (key: keyof BiStatsFinancialsResponse) => {
     return stats?.map(stat => stat?.getStatTotalUsdEquivalent(key)) ?? [];
   };
 

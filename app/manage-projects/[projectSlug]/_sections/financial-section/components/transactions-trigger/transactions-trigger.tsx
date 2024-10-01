@@ -9,7 +9,7 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 export function TransactionsTrigger() {
   // const { projectSlug = "" } = useParams<{ projectSlug: string }>();
-  const { Panel, open, close, isOpen } = useSidePanel({ name: "sponsor-transaction" });
+  const { Panel, open, close, isOpen } = useSidePanel({ name: "manage-project-transaction" });
 
   function togglePanel() {
     if (!isOpen) {
