@@ -2,9 +2,9 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
 import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
