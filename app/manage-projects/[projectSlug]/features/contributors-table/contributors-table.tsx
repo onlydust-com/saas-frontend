@@ -1,5 +1,6 @@
 import { RowSelectionState, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Filter } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { FilterColumns } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-columns/filter-columns";
@@ -28,6 +29,7 @@ export type ContributorsTableFilters = Omit<
 >;
 
 export function ContributorsTable() {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const { open: openFilterPanel } = useContributorFilterDataSidePanel();
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -49,7 +51,11 @@ export function ContributorsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams,
+    queryParams: {
+      ...queryParams,
+      projectSlugs: [projectSlug],
+      showFilteredKpis: true,
+    },
     options: {
       enabled: Boolean(user),
     },
@@ -75,7 +81,7 @@ export function ContributorsTable() {
     },
   });
 
-  // TODO Bulk actions
+  // TODO @Mehdi Bulk actions
   // console.log("table.getState().rowSelection", table.getState().rowSelection);
 
   if (isLoading) {

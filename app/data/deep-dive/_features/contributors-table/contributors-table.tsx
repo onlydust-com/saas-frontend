@@ -63,7 +63,10 @@ export function ContributorsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams,
+    queryParams: {
+      ...queryParams,
+      showFilteredKpis: true,
+    },
     options: {
       enabled: Boolean(user),
     },

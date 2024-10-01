@@ -1,7 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Flag from "react-flagpack";
-import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import {
@@ -18,23 +17,22 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
-import { LabelPopover } from "@/shared/features/popovers/label-popover/label-popover";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
-  const [selectedLabels, setSelectedLabels] = useState<Record<string, string[]>>({});
-
-  const onLabelChange = (id: number, selectedIds: string[]) => {
-    setSelectedLabels(prev => ({
-      ...prev,
-      [id]: selectedIds,
-    }));
-  };
+  // const [selectedLabels, setSelectedLabels] = useState<Record<string, string[]>>({});
+  //
+  // const onLabelChange = (id: number, selectedIds: string[]) => {
+  //   setSelectedLabels(prev => ({
+  //     ...prev,
+  //     [id]: selectedIds,
+  //   }));
+  // };
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<ColumnMapKeys>>(
     "manage-projects-contributors-table-columns"
@@ -95,21 +93,22 @@ export function useFilterColumns() {
         );
       },
     }),
-    labels: columnHelper.accessor("labels", {
-      header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
-      cell: info => {
-        const githubUserId = info.row.original.contributor.githubUserId;
-
-        return (
-          <LabelPopover
-            name={`contributorsLabels-${githubUserId}`}
-            placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
-            onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
-            selectedLabels={selectedLabels[githubUserId] ?? []}
-          />
-        );
-      },
-    }),
+    // TODO @Mehdi: uncomment this block when labels ready
+    // labels: columnHelper.accessor("labels", {
+    //   header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
+    //   cell: info => {
+    //     const githubUserId = info.row.original.contributor.githubUserId;
+    //
+    //     return (
+    //       <LabelPopover
+    //         name={`contributorsLabels-${githubUserId}`}
+    //         placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
+    //         onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
+    //         selectedLabels={selectedLabels[githubUserId] ?? []}
+    //       />
+    //     );
+    //   },
+    // }),
     languages: columnHelper.accessor("languages", {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.languages"} />,
       cell: info => {
