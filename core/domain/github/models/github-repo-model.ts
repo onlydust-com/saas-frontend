@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type GithubRepoResponse = components["schemas"]["GithubRepoResponse"];
 
-export interface GithubRepoInterface extends GithubRepoResponse {}
+export interface GithubRepoInterface extends GithubRepoResponse {
+  isRepoIncluded(repoIds: number[]): boolean;
+}
 
 export class GithubRepo implements GithubRepoInterface {
   id!: GithubRepoInterface["id"];
@@ -18,5 +20,9 @@ export class GithubRepo implements GithubRepoInterface {
 
   constructor(props: GithubRepoResponse) {
     Object.assign(this, props);
+  }
+
+  isRepoIncluded(repoIds: number[]): boolean {
+    return repoIds.includes(this.id);
   }
 }
