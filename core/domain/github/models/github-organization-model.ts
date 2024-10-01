@@ -7,6 +7,8 @@ export interface GithubOrganizationInterface
   extends Omit<components["schemas"]["GithubOrganizationResponse"], "repos"> {
   repos: GithubRepoInterface[];
   isContainsRepo(repoIds: number[]): boolean;
+  isInstalled(): boolean;
+  addRepo(repo: GithubRepoInterface): void;
 }
 
 export class GithubOrganization implements GithubOrganizationInterface {
@@ -24,9 +26,18 @@ export class GithubOrganization implements GithubOrganizationInterface {
   constructor({ repos, ...props }: GithubOrganizationResponse) {
     Object.assign(this, props);
     this.repos = repos.map(repo => new GithubRepo(repo));
+    this.name = this.name || this.login;
   }
 
   isContainsRepo(repoIds: number[]) {
     return this.repos.some(repo => repoIds.includes(repo.id));
+  }
+
+  isInstalled() {
+    return this.installationStatus !== "NOT_INSTALLED";
+  }
+
+  addRepo(repo: GithubRepoInterface) {
+    this.repos.push(repo);
   }
 }

@@ -5,14 +5,14 @@ import {
   useQueryAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
+import { GetMyOrganizationsModel } from "@/core/domain/github/github-contract.types";
 import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
 
 export function useGetMyOrganizations({
   options,
   pathParams,
   queryParams,
-}: UseQueryFacadeParams<GithubStoragePort["getMyOrganizations"], GetMyOrganizationsResponse>) {
+}: UseQueryFacadeParams<GithubStoragePort["getMyOrganizations"], GetMyOrganizationsModel>) {
   const githubStoragePort = bootstrap.getGithubStoragePortForClient();
 
   return useQuery(

@@ -51,7 +51,8 @@
     "invited": "Pending"
   },
   "repositories": {
-    "title": "Repositories"
+    "title": "Repositories",
+    "addRepoButton": "Add a repo"
   },
   "moreInfo": {
     "title": "More info",
@@ -64,6 +65,12 @@
       "label": {
         "placeholder": "Label"
       }
+    }
+  },
+  "addRepoPanel": {
+    "title": "Add a repo",
+    "repositories": {
+      "title": "Repositories"
     }
   }
 }

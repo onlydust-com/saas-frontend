@@ -16,6 +16,7 @@ import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_com
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
 import { Repositories } from "@/shared/panels/project-update-sidepanel/_components/repositories/repositories";
+import { AddRepoToProjectSidePanel } from "@/shared/panels/project-update-sidepanel/_features/add-repo-to-project-side-panel/add-repo-to-project-side-panel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
   EditProjectFormData,
@@ -29,7 +30,6 @@ export function ProjectUpdateSidepanel() {
   const { name } = useProjectUpdateSidePanel();
   const { Panel, close: closePanel } = useSidePanel({ name });
   const { projectId, canGoBack = false } = useSinglePanelData<ProjectUpdateSidePanelData>(name) ?? { projectId: "" };
-
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: { projectId: projectId ?? "" },
     options: {
@@ -94,8 +94,8 @@ export function ProjectUpdateSidepanel() {
   }, [data]);
 
   return (
-    <Panel>
-      <FormProvider {...form}>
+    <FormProvider {...form}>
+      <Panel>
         <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col gap-px"}>
           <SidePanelHeader
             title={{
@@ -126,7 +126,8 @@ export function ProjectUpdateSidepanel() {
             />
           </SidePanelFooter>
         </form>
-      </FormProvider>
-    </Panel>
+      </Panel>
+      {data && <AddRepoToProjectSidePanel project={data} />}
+    </FormProvider>
   );
 }
