@@ -5,10 +5,8 @@ import { bootstrap } from "@/core/bootstrap";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
-import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
 import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
@@ -36,11 +34,6 @@ export function FilterData() {
         canClose={true}
       />
       <SidePanelBody>
-        <ProjectFilter selectedProjects={filters.projectIds} onSelect={projectIds => setFilters({ projectIds })} />
-        <CategoryFilter
-          selectedCategories={filters.categoryIds}
-          onSelect={categories => setFilters({ categoryIds: categories })}
-        />
         <LanguageFilter
           selectedLanguages={filters.languageIds}
           onSelect={languages => setFilters({ languageIds: languages })}

@@ -4,6 +4,8 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
+
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -31,7 +33,7 @@ function UpdateProjectSandbox() {
   );
 }
 
-function MaintainerSinglePage() {
+function ManageProjectsSinglePage() {
   return (
     <PageWrapper
       navigation={{
@@ -51,7 +53,7 @@ function MaintainerSinglePage() {
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <ScrollView>
           <PageContent>
-            <div>content</div>
+            <ContributorsTable />
             <UpdateProjectSandbox />
           </PageContent>
         </ScrollView>
@@ -62,4 +64,4 @@ function MaintainerSinglePage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(MaintainerSinglePage));
+export default withClientOnly(withAuthenticationRequired(ManageProjectsSinglePage));
