@@ -178,24 +178,25 @@ export function EditProgramPanel() {
                   titleProps={{ translate: { token: "financials:editProgramPanel.transactions.title" } }}
                   classNames={{ base: "h-full overflow-auto" }}
                 >
-                  <div className={"flex flex-col"}>
+                  <>
                     {flatTransactions.map(transaction => (
-                      <CardTransaction
-                        key={transaction?.id}
-                        type={transaction.type}
-                        date={transaction.date}
-                        amount={{
-                          value: transaction.amount.amount,
-                          currency: transaction.amount.currency,
-                          usdEquivalent: transaction.amount.usdEquivalent,
-                        }}
-                        size={"none"}
-                        background={"transparent"}
-                        border={"none"}
-                      />
+                      <div key={transaction?.id}>
+                        <CardTransaction
+                          type={transaction.type}
+                          date={transaction.date}
+                          amount={{
+                            value: transaction.amount.amount,
+                            currency: transaction.amount.currency,
+                            usdEquivalent: transaction.amount.usdEquivalent,
+                          }}
+                          size={"none"}
+                          background={"transparent"}
+                          border={"none"}
+                        />
+                      </div>
                     ))}
                     {hasNextPage && <ShowMore onNext={fetchNextPage} loading={isPending} />}
-                  </div>
+                  </>
                 </Accordion>
               ) : null}
             </div>
