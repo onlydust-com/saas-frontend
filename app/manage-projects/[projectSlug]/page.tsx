@@ -3,10 +3,9 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
+import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-
-import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 

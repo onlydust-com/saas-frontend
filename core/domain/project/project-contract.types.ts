@@ -124,15 +124,3 @@ export type GetProjectBySlugPortParams = HttpClientParameters<{
   PathParams: GetProjectBySlugPathParams;
   QueryParams: GetProjectBySlugQueryParams;
 }>;
-
-/* ------------------------------ Get Project Financial ------------------------------ */
-
-export type GetProjectFinancialResponse = components["schemas"]["ProjectFinancialResponse"];
-
-export type GetProjectFinancialPortResponse = HttpStorageResponse<GetProjectFinancialResponse>;
-
-type GetProjectFinancialPathParams = operations["getProjectFinancialDetails"]["parameters"]["path"];
-
-export type GetProjectFinancialPortParams = HttpClientParameters<{
-  PathParams: GetProjectFinancialPathParams;
-}>;
