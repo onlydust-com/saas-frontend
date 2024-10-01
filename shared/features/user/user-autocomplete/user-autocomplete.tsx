@@ -14,6 +14,7 @@ export function UserAutocomplete({
   withExternalUserOnly = false,
   selectedUser,
   onSelect,
+  initialtUsers,
   ...selectProps
 }: UserAutocompleteProps) {
   const [search, setSearch] = useState("");
@@ -28,12 +29,14 @@ export function UserAutocomplete({
   const createMenuItems = (
     users: SearchUsersModel["internalContributors"] | SearchUsersModel["externalContributors"]
   ): MenuItemPort[] => {
-    return users.map(user => ({
-      id: user.id || `${user.githubUserId}`,
-      label: user.login,
-      searchValue: user.login,
-      avatar: { src: user.avatarUrl },
-    }));
+    return users
+      .filter(user => user.id)
+      .map(user => ({
+        id: user.id ?? "",
+        label: user.login,
+        searchValue: user.login,
+        avatar: { src: user.avatarUrl },
+      }));
   };
 
   const usersItem: MenuItemPort[] = useMemo(() => {
@@ -53,6 +56,7 @@ export function UserAutocomplete({
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedUser}
+      initialItems={initialtUsers}
       controlledAutoComplete={{
         value: search,
         onChange: setSearch,

@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { AvatarPort } from "@/design-system/atoms/avatar";
 import { IconPort } from "@/design-system/atoms/icon";
 
@@ -14,11 +16,11 @@ interface DataAttributes {
   "data-hover"?: boolean;
 }
 
-export type MenuItemId = string;
+export type MenuItemId<T = string> = T;
 
-export interface MenuItemBasePort extends Partial<Variants> {
+export interface MenuItemBasePort<T extends AnyType> extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  id: MenuItemId;
+  id: MenuItemId<T>;
   label: ReactNode;
   searchValue?: string;
   isDisabled?: boolean;
@@ -26,39 +28,39 @@ export interface MenuItemBasePort extends Partial<Variants> {
   showIndicatorOnSelected?: boolean;
   attr?: DataAttributes;
   isSelected?: boolean;
-  onClick?: (id: MenuItemId) => void;
+  onClick?: (id: MenuItemId<T>) => void;
 }
 
-export interface MenuItemAvatarPort extends MenuItemBasePort {
+export interface MenuItemAvatarPort<T = string> extends MenuItemBasePort<T> {
   avatar: AvatarPort;
 }
 
-export interface MenuItemIconPort extends MenuItemBasePort {
+export interface MenuItemIconPort<T = string> extends MenuItemBasePort<T> {
   icon: IconPort;
 }
 
-export interface MenuItemCheckboxPort extends MenuItemBasePort {
+export interface MenuItemCheckboxPort<T = string> extends MenuItemBasePort<T> {
   isCheckbox?: boolean;
 }
 
-export interface MenuItemRadioPort extends MenuItemBasePort {
+export interface MenuItemRadioPort<T = string> extends MenuItemBasePort<T> {
   isRadio?: boolean;
 }
 
-export interface MenuItemLabelPort extends MenuItemBasePort {
+export interface MenuItemLabelPort<T = string> extends MenuItemBasePort<T> {
   isLabel?: boolean;
 }
 
-export interface MenuItemSeparatorPort extends Omit<MenuItemBasePort, "label"> {
+export interface MenuItemSeparatorPort<T = string> extends Omit<MenuItemBasePort<T>, "label"> {
   isSeparator?: boolean;
   label?: never;
 }
 
-export type MenuItemPort =
-  | MenuItemBasePort
-  | MenuItemAvatarPort
-  | MenuItemIconPort
-  | MenuItemCheckboxPort
-  | MenuItemRadioPort
-  | MenuItemLabelPort
-  | MenuItemSeparatorPort;
+export type MenuItemPort<T = string> =
+  | MenuItemBasePort<T>
+  | MenuItemAvatarPort<T>
+  | MenuItemIconPort<T>
+  | MenuItemCheckboxPort<T>
+  | MenuItemRadioPort<T>
+  | MenuItemLabelPort<T>
+  | MenuItemSeparatorPort<T>;

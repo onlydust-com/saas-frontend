@@ -18,14 +18,14 @@ import { MenuDefaultAdapter } from "@/design-system/molecules/menu/adapters/defa
 
 import { ListMenuPort, MenuBasePort, PopOverMenuPort } from "../menu.types";
 
-export function MenuPopover({
+export function MenuPopover<T = string>({
   children,
   onOpenChange,
   placement,
   closeOnSelect,
   isPopOver: _,
   ...props
-}: PopOverMenuPort) {
+}: PopOverMenuPort<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
@@ -45,7 +45,7 @@ export function MenuPopover({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  function handleSelect(...args: Parameters<NonNullable<MenuBasePort["onSelect"]>>) {
+  function handleSelect(...args: Parameters<NonNullable<MenuBasePort<T>["onSelect"]>>) {
     if (closeOnSelect) {
       setIsOpen(false);
     }
@@ -71,7 +71,7 @@ export function MenuPopover({
                   {...getFloatingProps()}
                   className={"z-[9999] outline-none"}
                 >
-                  {withComponentAdapter<ListMenuPort>(MenuDefaultAdapter)({
+                  {withComponentAdapter<ListMenuPort<T>>(MenuDefaultAdapter)({
                     ...props,
                     onSelect: handleSelect,
                   })}

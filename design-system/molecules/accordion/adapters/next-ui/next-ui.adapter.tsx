@@ -28,6 +28,10 @@ export function AccordionNextUiAdapter({
       {items.map(item => (
         <AccordionItem
           key={item.id}
+          onKeyDown={e => {
+            e.stopPropagation();
+          }}
+          onFocus={e => e.stopPropagation()}
           classNames={{
             base: slots.baseItem(),
             heading: cn(slots.heading(), classNames?.heading),

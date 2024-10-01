@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { AvatarPort } from "@/design-system/atoms/avatar";
 import { BadgeClosePort } from "@/design-system/atoms/badge-close/badge-close.types";
 import { IconPort } from "@/design-system/atoms/icon";
@@ -29,7 +31,7 @@ export interface BadgeBasePort<C extends ElementType> extends Partial<Variants>,
   startContent?: ReactNode;
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
-  closeProps?: Partial<BadgeClosePort<"button">>;
+  closeProps?: Partial<BadgeClosePort<AnyType>>;
 }
 
 export interface BadgeIconPort<C extends ElementType> extends BadgeBasePort<C> {

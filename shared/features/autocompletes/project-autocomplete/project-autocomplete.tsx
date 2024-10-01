@@ -7,11 +7,17 @@ import { Select } from "@/design-system/molecules/select";
 
 import { ProjectAutocompleteProps } from "./project-autocomplete.types";
 
-export function ProjectAutocomplete({ onSelect, selectedProjects, ...selectProps }: ProjectAutocompleteProps) {
+export function ProjectAutocomplete({
+  onSelect,
+  selectedProjects,
+  mine = true,
+  ...selectProps
+}: ProjectAutocompleteProps) {
   const [search, setSearch] = useState("");
   const { data, hasNextPage, fetchNextPage } = ProjectReactQueryAdapter.client.useGetProjects({
     queryParams: {
       search: search || undefined,
+      mine,
     },
   });
 

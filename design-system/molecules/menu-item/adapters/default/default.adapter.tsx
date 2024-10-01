@@ -1,5 +1,7 @@
 import { Check } from "lucide-react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 import { MenuItemDefaultVariants } from "@/design-system/molecules/menu-item/adapters/default/default.variants";
@@ -8,7 +10,7 @@ import { cn } from "@/shared/helpers/cn";
 
 import { MenuItemPort } from "../../menu-item.types";
 
-export function MenuItemDefaultAdapter({
+export function MenuItemDefaultAdapter<T extends AnyType>({
   classNames,
   label,
   startContent,
@@ -18,7 +20,7 @@ export function MenuItemDefaultAdapter({
   isSelected,
   showIndicatorOnSelected = true,
   onClick,
-}: MenuItemPort) {
+}: MenuItemPort<T>) {
   const slots = MenuItemDefaultVariants({ isDisabled, isSelected });
 
   function handleClick() {

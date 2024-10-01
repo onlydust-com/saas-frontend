@@ -1,5 +1,3 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
-
 import { InputPort } from "@/design-system/atoms/input";
 import { MenuPort } from "@/design-system/molecules/menu";
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
@@ -22,26 +20,25 @@ export interface SelectInputProps {
   name: string;
 }
 
-interface SelectProps {
-  closeOnSelect?: boolean;
-  selectedIds?: MenuPort["selectedIds"];
-  onSelect?: (ids: MenuItemId[]) => void;
-  items: MenuItemPort[];
-  onNextPage?: MenuPort["onNextPage"];
-  hasNextPage?: MenuPort["hasNextPage"];
-  isLoading?: MenuPort["isLoading"];
-  isMultiple?: MenuPort["isMultiple"];
+interface SelectProps<T = string> {
+  selectedIds?: MenuPort<T>["selectedIds"];
+  onSelect?: (ids: MenuItemId<T>[]) => void;
+  items: MenuItemPort<T>[];
+  initialItems?: MenuItemPort<T>[];
+  onNextPage?: MenuPort<T>["onNextPage"];
+  hasNextPage?: MenuPort<T>["hasNextPage"];
+  isLoading?: MenuPort<T>["isLoading"];
+  isMultiple?: MenuPort<T>["isMultiple"];
 }
 
 export interface SelectExtendedProps extends SelectInputProps {
   isDisabled?: boolean;
   isAutoComplete?: boolean;
   isMultiple?: MenuPort["isMultiple"];
+  closeOnSelect?: boolean;
 }
 
-export interface SelectPort<C extends ElementType> extends Partial<Variants>, SelectExtendedProps, SelectProps {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export interface SelectPort<T = string> extends Partial<Variants>, SelectExtendedProps, SelectProps<T> {
   classNames?: Partial<ClassNames>;
   controlledAutoComplete?: {
     onChange?: (value: string) => void;

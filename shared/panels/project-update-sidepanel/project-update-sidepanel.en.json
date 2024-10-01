@@ -1,0 +1,69 @@
+{
+  "title": "Modify Project",
+  "submit": "Modify the project",
+  "messages": {
+    "success": "Project edited successfully.",
+    "error": "An error occurred while updating the project."
+  },
+  "globalInformation": {
+    "title": "Global Information",
+    "name": {
+      "label": "Project name",
+      "placeholder": "Name"
+    },
+    "shortDescription": {
+      "label": "Short description",
+      "placeholder": "Short description"
+    },
+    "longDescription": {
+      "label": "Long description",
+      "placeholder": "Long description"
+    },
+    "logo": {
+      "label": "Project visual",
+      "buttonLabel": "Upload a file"
+    },
+    "ecosystems": {
+      "label": "Ecosystems",
+      "placeholder": "Ecosystems"
+    },
+    "categories": {
+      "label": "Categories",
+      "placeholder": "Categories"
+    },
+    "hiring": {
+      "label": "Accept new applications",
+      "switch": "Looking for contributors"
+    },
+    "rewardsSettings": {
+      "label": "Rewardable contributions",
+      "since": "Since",
+      "items": {
+        "pullRequests": "Pull requests",
+        "issue": "Issues",
+        "codeReviews": "Code reviews"
+      }
+    }
+  },
+  "projectLeads": {
+    "title": "Project lead",
+    "you": "You",
+    "invited": "Pending"
+  },
+  "repositories": {
+    "title": "Repositories"
+  },
+  "moreInfo": {
+    "title": "More info",
+    "emptyLinkLabel": "Link {{count}}",
+    "addLink": "Add a link",
+    "inputs": {
+      "link": {
+        "placeholder": "Link"
+      },
+      "label": {
+        "placeholder": "Label"
+      }
+    }
+  }
+}

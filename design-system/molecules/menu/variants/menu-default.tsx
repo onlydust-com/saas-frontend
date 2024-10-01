@@ -5,9 +5,9 @@ import { MenuPopover } from "@/design-system/molecules/menu/variants/menu-popove
 
 import { ListMenuPort, MenuPort } from "../menu.types";
 
-export function Menu(props: MenuPort) {
+export function Menu<T = string>(props: MenuPort<T>) {
   if (isMenuPopOver(props)) {
     return <MenuPopover {...props} />;
   }
-  return withComponentAdapter<ListMenuPort>(MenuDefaultAdapter)(props);
+  return withComponentAdapter<ListMenuPort<T>>(MenuDefaultAdapter)(props);
 }

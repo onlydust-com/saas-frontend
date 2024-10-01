@@ -8,9 +8,9 @@ import * as MenuItemStories from "../menu-item/menu-item.stories";
 import { MenuPort } from "./menu.types";
 import { Menu } from "./variants/menu-default";
 
-type Story = StoryObj<typeof Menu>;
+type Story = StoryObj<typeof Menu<string>>;
 
-const defaultProps: MenuPort = {
+const defaultProps: MenuPort<string> = {
   children: <Button>Open menu</Button>,
   selectedIds: ["item2"],
   items: [

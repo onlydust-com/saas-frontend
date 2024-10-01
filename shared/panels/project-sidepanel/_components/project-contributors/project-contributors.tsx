@@ -10,12 +10,7 @@ export function ProjectContributors({ topContributors }: ProjectContributorsProp
   return (
     <div className={"flex flex-col gap-1"}>
       <Typo size={"xs"} color={"secondary"} translate={{ token: "panels:projectDetail.topContributors.title" }} />
-      <UserGroup
-        avatarProps={{ size: "s" }}
-        users={topContributors}
-        totalUsersCount={topContributors.length}
-        maxUsers={2}
-      />
+      <UserGroup avatarProps={{ size: "s" }} users={topContributors} maxUsers={2} />
     </div>
   );
 }

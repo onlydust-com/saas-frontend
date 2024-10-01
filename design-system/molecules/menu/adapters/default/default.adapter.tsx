@@ -9,7 +9,7 @@ import { cn } from "@/shared/helpers/cn";
 
 import { ListMenuPort } from "../../menu.types";
 
-export function MenuDefaultAdapter({
+export function MenuDefaultAdapter<T = string>({
   classNames,
   items,
   selectedIds,
@@ -19,12 +19,12 @@ export function MenuDefaultAdapter({
   isLoading,
   onAction,
   isMultiple,
-}: ListMenuPort) {
+}: ListMenuPort<T>) {
   const slots = MenuDefaultVariants();
   const triggerRef = useRef<HTMLDivElement>(null);
   const [minWidth, setMinWidth] = useState<null | number>(null);
 
-  function onSelectItem(value: MenuItemId) {
+  function onSelectItem(value: MenuItemId<T>) {
     let valuesArray = [...(selectedIds || [])];
 
     if (!isMultiple) {
@@ -66,7 +66,7 @@ export function MenuDefaultAdapter({
 
   const showMore = hasNextPage && !!onNextPage && !isLoading;
 
-  function handleItemClick(id: MenuItemId) {
+  function handleItemClick(id: MenuItemId<T>) {
     onAction?.(id);
     onSelectItem(id);
   }
@@ -75,7 +75,7 @@ export function MenuDefaultAdapter({
     <div className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.content(), classNames?.content)} style={minWidth ? { minWidth } : {}}>
         {itemsWithSelection.length ? (
-          itemsWithSelection.map(item => <MenuItem key={item.id} {...item} onClick={handleItemClick} />)
+          itemsWithSelection.map(item => <MenuItem<T> key={`${item.id}`} {...item} onClick={handleItemClick} />)
         ) : (
           <EmptyStateLite />
         )}
