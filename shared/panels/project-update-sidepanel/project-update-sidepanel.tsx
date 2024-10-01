@@ -15,6 +15,7 @@ import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
+import { Repositories } from "@/shared/panels/project-update-sidepanel/_components/repositories/repositories";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
   EditProjectFormData,
@@ -111,6 +112,7 @@ export function ProjectUpdateSidepanel() {
                 <GlobalInformation project={data} />
                 <ProjectLead project={data} />
                 <MoreInfo />
+                <Repositories project={data} />
               </>
             )}
           </SidePanelBody>
