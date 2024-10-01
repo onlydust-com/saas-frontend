@@ -6,7 +6,6 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 import { useTransactionsContext } from "./context/transactions.context";
 import { ExportCsv } from "./export-csv/export-csv";
-import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
   const { Panel, open } = useSidePanel({ name: "transaction-export" });
@@ -34,7 +33,7 @@ export function TransactionsSidepanel() {
 
       <SidePanelBody>
         <div className={"flex flex-col gap-3"}>
-          <Transactions />
+          <Transactwions />
         </div>
       </SidePanelBody>
 
