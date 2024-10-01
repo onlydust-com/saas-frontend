@@ -1,3 +1,4 @@
+import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
@@ -5,6 +6,7 @@ import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storag
 import {
   EditProjectBody,
   GetProjectByIdResponse,
+  GetProjectFinancialResponse,
   GetProjectStatsResponse,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
@@ -21,6 +23,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjects: "projects",
     editProject: "projects/:projectId",
     uploadProjectLogo: "projects/logos",
+    getProjectFinancial: "projects/:projectId/financial",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -126,6 +129,27 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectFinancial = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectFinancial"]>) => {
+    const path = this.routes["getProjectFinancial"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectFinancialResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProjectFinancial(data);
+    };
 
     return {
       request,

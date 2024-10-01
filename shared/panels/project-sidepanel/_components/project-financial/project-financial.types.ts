@@ -1,7 +1,7 @@
-import { ProjectStatsInterface } from "@/core/domain/project/models/project-stats-model";
+import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 
 export interface ProjectFinancialProps {
-  data: ProjectStatsInterface;
+  data: ProjectFinancialInterface;
 }
 
 export interface ProjectFinancialCardProps {
