@@ -40,8 +40,7 @@ function Repo({
       name={repo.name}
       description={repo.description}
       starsCount={repo.stars}
-      // TODO : add prCount
-      prCount={repo.forkCount}
+      forkCount={repo.forkCount}
       topActions={{
         iconOnly: true,
         startIcon: { component: Plus },

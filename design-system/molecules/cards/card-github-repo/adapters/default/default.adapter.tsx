@@ -1,4 +1,4 @@
-import { GitPullRequest, Star } from "lucide-react";
+import { GitFork, Star } from "lucide-react";
 import { ElementType } from "react";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -20,14 +20,14 @@ export function CardGithubRepoDefaultAdapter<C extends ElementType = "div">({
   description,
   badges,
   starsCount,
-  prCount,
+  forkCount,
 }: CardGithubRepoPort<C>) {
   const Component = as || "div";
   const slots = CardGithubRepoDefaultVariants();
   const showHeader = !!topActions || !!name;
-  const showPrCount = !!prCount || prCount === 0;
+  const showForkCount = !!forkCount || forkCount === 0;
   const showStarsCount = !!starsCount || starsCount === 0;
-  const showBadges = !!badges?.length || showPrCount || showStarsCount;
+  const showBadges = !!badges?.length || showForkCount || showStarsCount;
 
   return (
     <Paper
@@ -74,9 +74,9 @@ export function CardGithubRepoDefaultAdapter<C extends ElementType = "div">({
               {starsCount}
             </Badge>
           )}
-          {showPrCount && (
-            <Badge icon={{ component: GitPullRequest }} color={"grey"} shape={"rounded"} size={"xs"}>
-              {prCount}
+          {showForkCount && (
+            <Badge icon={{ component: GitFork }} color={"grey"} shape={"rounded"} size={"xs"}>
+              {forkCount}
             </Badge>
           )}
           {badges?.map((badge, index) => <Badge key={index} color={"grey"} shape={"rounded"} size={"xs"} {...badge} />)}

@@ -3,10 +3,6 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type GithubOrganizationResponse = components["schemas"]["GithubOrganizationResponse"];
 
-interface githubState {
-  projectSlug?: string;
-}
-
 export interface GithubOrganizationInterface
   extends Omit<components["schemas"]["GithubOrganizationResponse"], "repos"> {
   repos: GithubRepoInterface[];
@@ -65,9 +61,8 @@ export class GithubOrganization implements GithubOrganizationInterface {
     return `${baseUrl}organizations/${this.login}/settings/installations/${this.installationId}`;
   }
 
-  getGithubInstallationUrl(state?: githubState) {
-    const stateUrl = state ? `&state=projectSlug-${state.projectSlug}` : "";
-    return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}${stateUrl}`;
+  getGithubInstallationUrl() {
+    return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}&state=generic-state-`;
   }
 
   search(search?: string | null) {

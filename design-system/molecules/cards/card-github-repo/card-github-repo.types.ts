@@ -18,7 +18,7 @@ export interface CardGithubRepoPort<C extends ElementType> extends Partial<Varia
   name?: ReactNode;
   description?: ReactNode;
   starsCount?: number;
-  prCount?: number;
+  forkCount?: number;
   badges?: BadgePort<AnyType>[];
   topActions?: ButtonPort<AnyType>;
 }
