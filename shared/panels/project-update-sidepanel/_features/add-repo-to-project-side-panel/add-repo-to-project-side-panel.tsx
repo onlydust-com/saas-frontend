@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
@@ -19,27 +19,17 @@ export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterfa
   const { projectId } = useSinglePanelData<AddRepoToProjectSidePanelData>(name) ?? { projectId: "" };
 
   const { data: userOrganizations } = GithubReactQueryAdapter.client.useGetMyOrganizations({});
-  const [searchRepo, setSearchRepo] = useState<string | null>(null);
-  const [searchOrg, setSearchOrg] = useState<string | null>(null);
 
   const { watch } = useFormContext<EditProjectFormData>();
   const githubRepos = watch("githubRepoIds");
 
-  console.log("searchRepo", searchRepo);
-
-  const availableOrganizations = useMemo(() => {
-    const orgs = userOrganizations?.getInstalledOrganizations() ?? [];
-
-    return userOrganizations?.getInstalledOrganizations() ?? [];
-  }, [userOrganizations, searchOrg, githubRepos, searchRepo]);
-
   const installedOrganizations = useMemo(() => {
-    return userOrganizations?.getInstalledOrganizations({ search: searchOrg || searchRepo }) ?? [];
-  }, [userOrganizations, searchOrg, githubRepos, searchRepo]);
+    return userOrganizations?.getInstalledOrganizations() ?? [];
+  }, [userOrganizations, githubRepos]);
 
   const notInstalledOrganizations = useMemo(() => {
-    return userOrganizations?.getNotInstalledOrganizations({ search: searchOrg }) ?? [];
-  }, [userOrganizations, searchOrg, githubRepos]);
+    return userOrganizations?.getNotInstalledOrganizations() ?? [];
+  }, [userOrganizations, githubRepos]);
 
   return (
     <Panel>
@@ -54,12 +44,7 @@ export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterfa
         canClose={true}
       />
       <SidePanelBody>
-        <AvailableRepositories
-          organizations={installedOrganizations}
-          project={project}
-          search={searchRepo}
-          onSearch={setSearchRepo}
-        />
+        <AvailableRepositories organizations={installedOrganizations} project={project} />
       </SidePanelBody>
     </Panel>
   );

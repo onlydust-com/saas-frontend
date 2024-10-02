@@ -70,7 +70,9 @@
   "addRepoPanel": {
     "title": "Add a repo",
     "repositories": {
-      "title": "Repositories"
+      "title": "Repositories",
+      "search": "Search for a repository",
+      "manage": "Manage"
     }
   }
 }

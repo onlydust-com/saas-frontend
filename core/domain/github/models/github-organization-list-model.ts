@@ -5,14 +5,11 @@ export type GithubOrganizationResponse = {
   organizations: components["schemas"]["GithubOrganizationResponse"][];
 };
 
-interface filterOptions {
-  search?: string | null;
-}
-
 export interface GithubOrganizationListInterface {
   organizations: GithubOrganizationInterface[];
-  getInstalledOrganizations(filter?: filterOptions): GithubOrganizationInterface[];
-  getNotInstalledOrganizations(filter?: filterOptions): GithubOrganizationInterface[];
+  getInstalledOrganizations(): GithubOrganizationInterface[];
+  getNotInstalledOrganizations(): GithubOrganizationInterface[];
+  search(search?: string | null): GithubOrganizationInterface[];
 }
 
 export class GithubOrganizationList implements GithubOrganizationListInterface {
@@ -22,35 +19,17 @@ export class GithubOrganizationList implements GithubOrganizationListInterface {
     this.organizations = organizations.map(organization => new GithubOrganization(organization));
   }
 
-  private searchOrganizationBy(organizations: GithubOrganizationInterface[], search?: string | null) {
-    if (!search) return organizations;
+  search(search?: string | null) {
+    if (!search) return this.organizations;
 
-    const filterOrganizationByRepoName = organizations.filter(organization => {
-      return organization.repos.some(repo => repo.name.toLowerCase().includes(search.toLowerCase()));
-    });
-
-    const filterOrganizationByName = organizations.filter(organization => {
-      return organization.name.toLowerCase().includes(search.toLowerCase());
-    });
-
-    return [...new Set([...filterOrganizationByRepoName, ...filterOrganizationByName])];
+    return this.organizations.filter(org => org.name.toLowerCase().includes(search.toLowerCase()));
   }
 
-  private filterOrganization(filter?: filterOptions) {
-    if (!filter) return this.organizations;
-
-    const { search } = filter;
-
-    return this.searchOrganizationBy(this.organizations, search);
+  getInstalledOrganizations() {
+    return this.organizations.filter(organization => organization.isInstalled());
   }
 
-  getInstalledOrganizations(filter?: filterOptions) {
-    const organizations = this.filterOrganization(filter);
-    return organizations.filter(organization => organization.isInstalled());
-  }
-
-  getNotInstalledOrganizations(filter?: filterOptions) {
-    const organizations = this.filterOrganization(filter);
-    return organizations.filter(organization => !organization.isInstalled());
+  getNotInstalledOrganizations() {
+    return this.organizations.filter(organization => !organization.isInstalled());
   }
 }
