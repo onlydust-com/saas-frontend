@@ -31,20 +31,22 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
       size={size}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
-      <div className={"flex justify-between gap-md"}>
-        <div className={"flex gap-lg"}>
-          {avatarProps ? <Avatar size="s" {...avatarProps} /> : null}
+      <div className={"grid w-full gap-lg"}>
+        <div className={"flex justify-between gap-md"}>
+          <div className={"flex gap-lg"}>
+            {avatarProps ? <Avatar size="s" {...avatarProps} /> : null}
 
-          <div className={"grid"}>
-            <Typo {...titleProps} size="sm" weight="medium" color={"primary"} />
-            {descriptionProps ? <Typo {...descriptionProps} size="xs" color={"secondary"} /> : null}
+            <div className={"grid"}>
+              <Typo {...titleProps} size="sm" weight="medium" color={"primary"} />
+              {descriptionProps ? <Typo {...descriptionProps} size="xs" color={"secondary"} /> : null}
+            </div>
           </div>
+
+          {actionSlot ? <div>{actionSlot}</div> : null}
         </div>
 
-        {actionSlot ? <div>{actionSlot}</div> : null}
+        {contentSlot ? <div>{contentSlot}</div> : null}
       </div>
-
-      {contentSlot ? <div>{contentSlot}</div> : null}
     </Paper>
   );
 }
