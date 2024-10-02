@@ -7,8 +7,6 @@ import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -18,25 +16,8 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
-import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-function UpdateProjectSandbox() {
-  const { open } = useProjectUpdateSidePanel();
-  const projectId1 = "7d04163c-4187-4313-8066-61504d34fc56";
-  const projectId2 = "9b984978-a322-49ea-a93a-498d5992cb8b";
-  return (
-    <>
-      <Button variant={"secondary"} onClick={() => open({ projectId: projectId1 })}>
-        Open Update project
-      </Button>
-      <Button variant={"secondary"} onClick={() => open({ projectId: projectId2 })}>
-        Open Update project 2
-      </Button>
-    </>
-  );
-}
 
 function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
@@ -45,6 +26,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       enabled: Boolean(projectSlug),
     },
   });
+
   return (
     <PageWrapper
       navigation={{
@@ -73,17 +55,12 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
         <ScrollView className="flex flex-col gap-4">
           <PageContent>
             <div className="grid h-full gap-3">
-              <FinancialSection projectSlug={projectSlug} />
+              <FinancialSection projectId={data?.id} />
             </div>
           </PageContent>
           <PageContent>
             <div className="grid h-full gap-3">
               <ContributorsTable />
-            </div>
-          </PageContent>
-          <PageContent>
-            <div className="grid h-full gap-3">
-              <UpdateProjectSandbox />
             </div>
           </PageContent>
         </ScrollView>
