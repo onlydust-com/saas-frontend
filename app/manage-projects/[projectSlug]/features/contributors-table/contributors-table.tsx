@@ -97,7 +97,7 @@ export function ContributorsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"grid gap-lg"}>
+      <div className={"flex flex-col gap-lg"}>
         <Typo
           size={"xs"}
           weight={"medium"}
