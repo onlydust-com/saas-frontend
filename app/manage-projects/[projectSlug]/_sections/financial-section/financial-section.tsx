@@ -10,15 +10,17 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const BUDGET_AVAILABLE = "budgetAvailable";
 const BUDGET_CHART = "budgetChart";
 
-export function FinancialSection({ projectSlug }: { projectSlug: string }) {
+export function FinancialSection({ projectId }: { projectId?: string }) {
   const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof BUDGET_AVAILABLE | typeof BUDGET_CHART>(
     BUDGET_AVAILABLE
   );
+  const { open: openProject } = useProjectUpdateSidePanel();
   const { close } = useSidePanelsContext();
 
   const renderFinancialView = useMemo(() => {
@@ -64,19 +66,20 @@ export function FinancialSection({ projectSlug }: { projectSlug: string }) {
         </div>
 
         <div className={"flex items-center gap-lg"}>
-          <Button
-            variant={"primary"}
-            endIcon={{ component: ChevronRight }}
-            isTextButton
-            size={"md"}
-            translate={{ token: "manageProjects:detail.financial.buttons.modifyProject" }}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            // TODO @alexis
-            onClick={() => alert(projectSlug)}
-          />
+          {!!projectId && (
+            <Button
+              variant={"primary"}
+              endIcon={{ component: ChevronRight }}
+              isTextButton
+              size={"md"}
+              translate={{ token: "manageProjects:detail.financial.buttons.modifyProject" }}
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+              onClick={() => openProject({ projectId })}
+            />
+          )}
 
           <TransactionsTrigger />
         </div>
