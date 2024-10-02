@@ -31,6 +31,7 @@ export function AccordionNextUiAdapter({
           onKeyDown={e => {
             e.stopPropagation();
           }}
+          onClick={e => e.stopPropagation()}
           onFocus={e => e.stopPropagation()}
           classNames={{
             base: slots.baseItem(),
@@ -58,6 +59,7 @@ export function AccordionNextUiAdapter({
               />
 
               {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
+              {!!item.endTitleContent && item.endTitleContent}
             </div>
           }
           indicator={

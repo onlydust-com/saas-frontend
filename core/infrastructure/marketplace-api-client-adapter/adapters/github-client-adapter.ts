@@ -1,5 +1,5 @@
 import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
-import { GithubOrganization } from "@/core/domain/github/models/github-organization-model";
+import { GithubOrganizationList } from "@/core/domain/github/models/github-organization-list-model";
 import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -24,7 +24,7 @@ export class GithubClientAdapter implements GithubStoragePort {
         pathParams,
       });
 
-      return data.map(organization => new GithubOrganization(organization));
+      return new GithubOrganizationList({ organizations: data });
     };
 
     return {

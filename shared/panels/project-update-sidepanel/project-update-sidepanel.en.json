@@ -51,7 +51,8 @@
     "invited": "Pending"
   },
   "repositories": {
-    "title": "Repositories"
+    "title": "Repositories",
+    "addRepoButton": "Add a repo"
   },
   "moreInfo": {
     "title": "More info",
@@ -64,6 +65,23 @@
       "label": {
         "placeholder": "Label"
       }
+    }
+  },
+  "addRepoPanel": {
+    "title": "Add a repo",
+    "disabledTooltip": "Github app installed by an organisation admin",
+    "repositories": {
+      "title": "Repositories",
+      "search": "Search for a repository",
+      "manage": "Manage"
+    },
+    "organizations": {
+      "title": "Organizations",
+      "search": "Search for a organizations",
+      "manage": "Manage",
+      "refresh": "Refresh organizations",
+      "installed": "Installed organizations",
+      "available": "Available organizations"
     }
   }
 }

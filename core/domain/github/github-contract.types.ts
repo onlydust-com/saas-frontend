@@ -1,4 +1,4 @@
-import { GithubOrganizationInterface } from "@/core/domain/github/models/github-organization-model";
+import { GithubOrganizationList } from "@/core/domain/github/models/github-organization-list-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -7,7 +7,7 @@ import {
 
 export type GetMyOrganizationsResponse = components["schemas"]["GithubOrganizationResponse"][];
 
-export type GetMyOrganizationsModel = GithubOrganizationInterface[];
+export type GetMyOrganizationsModel = GithubOrganizationList;
 
 export type GetMyOrganizationsPortResponse = HttpStorageResponse<GetMyOrganizationsModel>;
 
