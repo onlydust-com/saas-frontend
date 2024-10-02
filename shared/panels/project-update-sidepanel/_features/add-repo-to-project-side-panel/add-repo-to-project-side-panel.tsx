@@ -40,7 +40,6 @@ export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterfa
           translate: {
             token: "panels:projectUpdate.addRepoPanel.title",
           },
-          children: "ADD REPO",
         }}
         canGoBack={true}
         canClose={true}
