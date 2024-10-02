@@ -1,19 +1,11 @@
-import { Check, LoaderCircle, X } from "lucide-react";
 import { useMemo } from "react";
 
 import { useTransactionsContext } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
-import { SponsorTransactionListItemResponse } from "@/core/domain/sponsor/models/sponsor-transaction-list-item-model";
 
-import { Avatar } from "@/design-system/atoms/avatar";
-import { Icon } from "@/design-system/atoms/icon";
-import {
-  CardTransaction,
-  CardTransactionLoading,
-  CardTransactionPort,
-} from "@/design-system/molecules/cards/card-transaction";
+import { CardTransaction, CardTransactionLoading } from "@/design-system/molecules/cards/card-transaction";
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -29,7 +21,7 @@ export function TransactionsWrapper({ date }: { date: Date }) {
   }, [date, dateKernelPort]);
 
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectTransactions({
-    pathParams: { projectSlug },
+    pathParams: { projectIdOrSlug: projectSlug },
     queryParams: {
       ...queryParams,
       fromDate,
@@ -53,30 +45,6 @@ export function TransactionsWrapper({ date }: { date: Date }) {
     return null;
   }
 
-  const transactionIconMapping = {
-    PENDING: <Icon component={LoaderCircle} classNames={{ base: "text-text-2" }} />,
-    REJECTED: <Icon component={X} classNames={{ base: "text-text-2" }} />,
-    COMPLETED: <Icon component={Check} classNames={{ base: "text-text-2" }} />,
-  };
-
-  function getBadgeProps(transaction: SponsorTransactionListItemResponse): CardTransactionPort<"div">["badgeProps"] {
-    if (transaction.depositStatus) {
-      return {
-        startContent: transactionIconMapping[transaction.depositStatus],
-        children: transaction.depositStatus,
-      };
-    }
-
-    if (transaction.program) {
-      return {
-        startContent: <Avatar src={transaction.program.logoUrl} size="xs" shape="squared" />,
-        children: transaction.program.name,
-      };
-    }
-
-    return undefined;
-  }
-
   return (
     <>
       {flatTransactions.map(transaction => (
@@ -89,7 +57,6 @@ export function TransactionsWrapper({ date }: { date: Date }) {
               currency: transaction.amount.currency,
               usdEquivalent: transaction.amount.usdEquivalent,
             }}
-            badgeProps={getBadgeProps(transaction)}
             size={"none"}
             background={"transparent"}
             border={"none"}

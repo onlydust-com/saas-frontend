@@ -43,7 +43,7 @@ export function ExportCsv() {
   async function handleClick() {
     const data = await projectStoragePortForClient
       .getProjectTransactionsCsv({
-        pathParams: { projectSlug },
+        pathParams: { projectIdOrSlug: projectSlug },
         queryParams: {
           types: queryParams?.types,
           fromDate: queryParams?.fromDate,

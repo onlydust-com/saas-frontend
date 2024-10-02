@@ -29,8 +29,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     uploadProjectLogo: "projects/logos",
     getProjectFinancialDetailsBySlug: "projects/slug/:projectSlug/financial",
     getProjectFinancialDetailsById: "projects/:projectId/financial",
-    getProjectTransactions: "projects/:projectId/transactions",
-    getProjectTransactionsCsv: "projects/:projectId/transactions",
+    getProjectTransactions: "projects/:projectIdOrSlug/transactions",
+    getProjectTransactionsCsv: "projects/:projectIdOrSlug/transactions",
     getProjectBySlug: "projects/slug/:slug",
   } as const;
 
