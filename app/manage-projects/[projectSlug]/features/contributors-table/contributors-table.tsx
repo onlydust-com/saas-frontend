@@ -98,6 +98,12 @@ export function ContributorsTable() {
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
+        <Typo
+          size={"xs"}
+          weight={"medium"}
+          variant={"heading"}
+          translate={{ token: "manageProjects:detail.activity.title" }}
+        />
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}

@@ -42,6 +42,12 @@ export function getComponentsVariants(type: CardTransactionTypes): {
         classNames: { base: "text-foreground-error" },
       },
     },
+    REWARDED: {
+      iconProps: {
+        component: ArrowRight,
+        classNames: { base: "text-utility-secondary-blue-500" },
+      },
+    },
   };
 
   return {

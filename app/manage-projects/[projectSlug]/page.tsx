@@ -2,7 +2,10 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
 import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
+
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -13,8 +16,10 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function UpdateProjectSandbox() {
@@ -33,7 +38,13 @@ function UpdateProjectSandbox() {
   );
 }
 
-function ManageProjectsSinglePage() {
+function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
+    pathParams: { projectSlug },
+    options: {
+      enabled: Boolean(projectSlug),
+    },
+  });
   return (
     <PageWrapper
       navigation={{
@@ -45,19 +56,40 @@ function ManageProjectsSinglePage() {
           },
           {
             id: "details",
-            label: "PROJECT NAME",
+            label: data?.name ?? "",
           },
         ],
       }}
     >
+      <PosthogCaptureOnMount
+        eventName={"project_dashboard_viewed"}
+        params={{
+          project_id: data?.id,
+        }}
+        paramsReady={Boolean(data?.id)}
+      />
+
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <ScrollView>
+        <ScrollView className="flex flex-col gap-4">
           <PageContent>
-            <ContributorsTable />
-            <UpdateProjectSandbox />
+            <div className="grid h-full gap-3">
+              <FinancialSection projectSlug={projectSlug} />
+            </div>
+          </PageContent>
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <ContributorsTable />
+            </div>
+          </PageContent>
+          <PageContent>
+            <div className="grid h-full gap-3">
+              <UpdateProjectSandbox />
+            </div>
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
+
+      <FinancialDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
     </PageWrapper>

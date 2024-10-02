@@ -1,4 +1,20 @@
 {
+  "financial": {
+    "title": "Financial",
+    "buttons": {
+      "budgetAvailable": "Budget",
+      "budgetChart": "Chart",
+      "seeTransactions": "See transactions",
+      "modifyProject": "Modify project"
+    }
+  },
+  "activity": {
+    "title": "Activity",
+    "buttons": {
+      "seeActivity": "See activity",
+      "seeTransactions": "See transactions"
+    }
+  },
   "filters": {
     "titles": {
       "project": "Projects filters",

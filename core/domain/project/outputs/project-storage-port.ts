@@ -3,10 +3,17 @@ import {
   EditProjectPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
-  GetProjectFinancialPortParams,
-  GetProjectFinancialPortResponse,
+  GetProjectBySlugPortParams,
+  GetProjectBySlugPortResponse,
+  GetProjectFinancialDetailsByIdPortParams,
+  GetProjectFinancialDetailsByIdPortResponse,
+  GetProjectFinancialDetailsBySlugPortParams,
+  GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
+  GetProjectTransactionsCsvResponse,
+  GetProjectTransactionsPortParams,
+  GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
   UploadProjectLogoPortParams,
@@ -20,5 +27,13 @@ export interface ProjectStoragePort {
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
   editProject(p: EditProjectPortParams): EditProjectPortResponse;
   uploadProjectLogo(p: UploadProjectLogoPortParams): UploadProjectLogoPortResponse;
-  getProjectFinancial(p: GetProjectFinancialPortParams): GetProjectFinancialPortResponse;
+  getProjectFinancialDetailsBySlug(
+    p: GetProjectFinancialDetailsBySlugPortParams
+  ): GetProjectFinancialDetailsBySlugPortResponse;
+  getProjectFinancialDetailsById(
+    p: GetProjectFinancialDetailsByIdPortParams
+  ): GetProjectFinancialDetailsByIdPortResponse;
+  getProjectTransactions(p: GetProjectTransactionsPortParams): GetProjectTransactionsPortResponse;
+  getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
+  getProjectBySlug(params: GetProjectBySlugPortParams): GetProjectBySlugPortResponse;
 }

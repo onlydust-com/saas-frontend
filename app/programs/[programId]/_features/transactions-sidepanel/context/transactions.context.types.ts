@@ -1,9 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import {
-  GetProgramTransactionsPortParams,
-  GetProgramTransactionsStatsResponse,
-} from "@/core/domain/program/program-contract.types";
+import { GetBiStatsFinancialsPortParams, GetBiStatsFinancialsResponse } from "@/core/domain/bi/bi-contract.types";
 
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 
@@ -11,8 +8,8 @@ export interface TransactionsContextProps extends PropsWithChildren {
   programId: string;
 }
 
-type TransactionsStats = GetProgramTransactionsStatsResponse["stats"];
-export type TransactionsContextQueryParams = GetProgramTransactionsPortParams["queryParams"];
+type TransactionsStats = GetBiStatsFinancialsResponse["stats"];
+export type TransactionsContextQueryParams = GetBiStatsFinancialsPortParams["queryParams"];
 
 export interface TransactionsContextReturn {
   programId: string;

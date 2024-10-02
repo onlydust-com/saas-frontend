@@ -5,3 +5,4 @@ export * from "./use-get-bi-projects";
 export * from "./use-get-bi-projects-csv";
 export * from "./use-get-bi-contributors";
 export * from "./use-get-bi-contributors-csv";
+export * from "./use-get-bi-stats-financials";

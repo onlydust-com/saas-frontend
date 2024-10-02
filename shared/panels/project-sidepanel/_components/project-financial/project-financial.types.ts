@@ -1,10 +1,10 @@
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 
 export interface ProjectFinancialProps {
-  data: ProjectFinancialInterface;
+  projectId: string;
 }
 
 export interface ProjectFinancialCardProps {
   type: "granted" | "rewarded";
-  values: ProjectFinancialProps["data"]["totalRewarded"] | ProjectFinancialProps["data"]["totalGranted"];
+  values: ProjectFinancialInterface["totalRewarded"] | ProjectFinancialInterface["totalGranted"];
 }
