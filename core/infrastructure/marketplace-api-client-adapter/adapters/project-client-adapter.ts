@@ -221,8 +221,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
   getProjectTransactionsCsv = ({
     pathParams,
     queryParams,
-  }: FirstParameter<ProjectStoragePort["getProjectTransactions"]>) => {
-    const path = this.routes["getProjectTransactions"];
+  }: FirstParameter<ProjectStoragePort["getProjectTransactionsCsv"]>) => {
+    const path = this.routes["getProjectTransactionsCsv"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () =>

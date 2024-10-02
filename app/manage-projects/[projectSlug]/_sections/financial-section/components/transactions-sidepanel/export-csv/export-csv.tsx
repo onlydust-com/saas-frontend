@@ -15,7 +15,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ExportCsv() {
   const {
-    sponsorId,
+    projectSlug,
     queryParams,
     filters: {
       set,
@@ -26,7 +26,7 @@ export function ExportCsv() {
 
   const fileKernelPort = bootstrap.getFileKernelPort();
 
-  const sponsorStoragePortForClient = bootstrap.getSponsorStoragePortForClient();
+  const projectStoragePortForClient = bootstrap.getProjectStoragePortForClient();
 
   function handleTypes(newType: TransactionsContextFilterTypes, checked: boolean) {
     if (checked) {
@@ -41,14 +41,15 @@ export function ExportCsv() {
   }
 
   async function handleClick() {
-    const data = await sponsorStoragePortForClient
-      .getSponsorTransactionsCsv({
-        pathParams: { sponsorId },
+    const data = await projectStoragePortForClient
+      .getProjectTransactionsCsv({
+        pathParams: { projectSlug },
         queryParams: {
           types: queryParams?.types,
           fromDate: queryParams?.fromDate,
           toDate: queryParams?.toDate,
           pageSize: 100,
+          pageIndex: 0,
         },
       })
       .request();
