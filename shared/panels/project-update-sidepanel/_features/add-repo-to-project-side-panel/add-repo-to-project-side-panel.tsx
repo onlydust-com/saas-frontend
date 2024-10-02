@@ -21,13 +21,17 @@ export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterfa
   const { watch } = useFormContext<EditProjectFormData>();
   const githubRepos = watch("githubRepoIds");
 
+  const mergedOrganizations = useMemo(() => {
+    return userOrganizations?.addOrganizations(project.organizations ?? []);
+  }, [userOrganizations, project]);
+
   const installedOrganizations = useMemo(() => {
-    return userOrganizations?.getInstalledOrganizations() ?? [];
-  }, [userOrganizations, githubRepos]);
+    return mergedOrganizations?.getInstalledOrganizations() ?? [];
+  }, [mergedOrganizations, githubRepos]);
 
   const notInstalledOrganizations = useMemo(() => {
-    return userOrganizations?.getNotInstalledOrganizations() ?? [];
-  }, [userOrganizations, githubRepos]);
+    return mergedOrganizations?.getNotInstalledOrganizations() ?? [];
+  }, [mergedOrganizations, githubRepos]);
 
   return (
     <Panel>

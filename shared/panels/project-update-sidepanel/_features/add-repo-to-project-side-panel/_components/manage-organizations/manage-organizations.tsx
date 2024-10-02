@@ -92,7 +92,6 @@ export function ManageOrganizations({ installed, notInstalled, onRefresh }: Mana
 
   return (
     <Accordion
-      defaultSelected={["organizations"]}
       id={"organizations"}
       titleProps={{ translate: { token: "panels:projectUpdate.addRepoPanel.organizations.title" } }}
     >

@@ -125,7 +125,6 @@ export function AvailableRepositories({ organizations, project }: AvailableRepos
 
   return (
     <Accordion
-      defaultSelected={["repositories"]}
       id={"repositories"}
       titleProps={{ translate: { token: "panels:projectUpdate.addRepoPanel.repositories.title" } }}
     >

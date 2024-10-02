@@ -10,6 +10,8 @@ export interface GithubOrganizationListInterface {
   getInstalledOrganizations(): GithubOrganizationInterface[];
   getNotInstalledOrganizations(): GithubOrganizationInterface[];
   search(search?: string | null): GithubOrganizationInterface[];
+  addOrganization(organization: GithubOrganizationInterface): GithubOrganizationListInterface;
+  addOrganizations(organizations: GithubOrganizationInterface[]): GithubOrganizationListInterface;
 }
 
 export class GithubOrganizationList implements GithubOrganizationListInterface {
@@ -31,5 +33,18 @@ export class GithubOrganizationList implements GithubOrganizationListInterface {
 
   getNotInstalledOrganizations() {
     return this.organizations.filter(organization => !organization.isInstalled());
+  }
+
+  addOrganization(organization: GithubOrganizationInterface) {
+    if (!this.organizations.find(org => org.githubUserId === organization.githubUserId)) {
+      this.organizations.push(organization);
+    }
+
+    return this;
+  }
+
+  addOrganizations(organizations: GithubOrganizationInterface[]) {
+    organizations.forEach(organization => this.addOrganization(organization));
+    return this;
   }
 }
