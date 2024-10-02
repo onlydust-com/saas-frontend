@@ -12,6 +12,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
@@ -50,7 +51,7 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, rewardSettingsArrays, ...updatedData }: EditProjectFormData) {
+  async function onSubmit({ logoFile, rewardSettingsArrays, labels, ...updatedData }: EditProjectFormData) {
     try {
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
@@ -64,6 +65,8 @@ export function ProjectUpdateSidepanel() {
           ignoreContributionsBefore: data?.rewardSettings?.ignoreContributionsBefore,
         },
       };
+
+      console.log("LABELS", labels);
 
       await editProject(editProjectData);
 
@@ -112,6 +115,7 @@ export function ProjectUpdateSidepanel() {
                 <GlobalInformation project={data} />
                 <ProjectLead project={data} />
                 <MoreInfo />
+                <ContributorLabels />
                 <Repositories project={data} />
               </>
             )}
