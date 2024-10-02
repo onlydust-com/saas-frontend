@@ -17,6 +17,7 @@ export function CardGithubOrganizationDefaultAdapter<C extends ElementType = "di
   name,
   action,
   avatar,
+  isNotAllowed,
 }: CardGithubOrganizationPort<C>) {
   const Component = as || "div";
   const slots = CardGithubOrganizationDefaultVariants();
@@ -24,7 +25,7 @@ export function CardGithubOrganizationDefaultAdapter<C extends ElementType = "di
 
   return (
     <Paper
-      classNames={{ base: cn(slots.base(), classNames?.base) }}
+      classNames={{ base: cn(slots.base(), classNames?.base, { "cursor-not-allowed": isNotAllowed }) }}
       background={"primary-alt"}
       border={"primary"}
       as={Component}

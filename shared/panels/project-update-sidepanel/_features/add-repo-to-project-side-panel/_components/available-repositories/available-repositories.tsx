@@ -75,17 +75,27 @@ function Organization({
         >
           {organization.name}
         </Typo>
-        <Button
-          as={"a"}
-          htmlProps={{
-            target: "_blank",
-            href: organization.getGithubManagementUrl(),
-          }}
-          size={"xs"}
-          startIcon={{ component: Github }}
-          variant={"secondary"}
-          translate={{ token: "panels:projectUpdate.addRepoPanel.repositories.manage" }}
-        />
+        {organization.isCurrentUserAdmin ? (
+          <Button
+            as={"a"}
+            htmlProps={{
+              target: "_blank",
+              href: organization.getGithubManagementUrl(),
+            }}
+            size={"xs"}
+            startIcon={{ component: Github }}
+            variant={"secondary"}
+            translate={{ token: "panels:projectUpdate.addRepoPanel.repositories.manage" }}
+          />
+        ) : (
+          <Button
+            size={"xs"}
+            startIcon={{ component: Github }}
+            variant={"secondary"}
+            translate={{ token: "panels:projectUpdate.addRepoPanel.repositories.manage" }}
+            isDisabled={true}
+          />
+        )}
       </div>
       {filteredRepos.map(repo => (
         <Repo key={repo.id} organization={organization} repo={repo} onAddRepo={onAddRepo} githubRepos={githubRepos} />

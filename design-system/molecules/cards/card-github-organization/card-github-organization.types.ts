@@ -18,4 +18,5 @@ export interface CardGithubOrganizationPort<C extends ElementType> extends Parti
   name?: ReactNode;
   avatar?: AvatarPort;
   action?: ButtonPort<AnyType>;
+  isNotAllowed?: boolean;
 }

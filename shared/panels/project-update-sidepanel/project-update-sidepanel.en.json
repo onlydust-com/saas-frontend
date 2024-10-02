@@ -69,6 +69,7 @@
   },
   "addRepoPanel": {
     "title": "Add a repo",
+    "disabledTooltip": "Github app installed by an organisation admin",
     "repositories": {
       "title": "Repositories",
       "search": "Search for a repository",
@@ -78,7 +79,7 @@
       "title": "Organizations",
       "search": "Search for a organizations",
       "manage": "Manage",
-      "refresh": "Refresh",
+      "refresh": "Refresh organizations",
       "installed": "Installed organizations",
       "available": "Available organizations"
     }

@@ -6,11 +6,13 @@ import { GithubOrganizationInterface } from "@/core/domain/github/models/github-
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { CardGithubOrganization } from "@/design-system/molecules/cards/card-github-organization";
 
 import { Github } from "@/shared/icons";
+import { Translate } from "@/shared/translation/components/translate/translate";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { ManageOrganizationsProps } from "./manage-organizations.types";
@@ -22,22 +24,37 @@ function Organization({ organization, search }: { organization: GithubOrganizati
     ? organization.getGithubManagementUrl()
     : organization.getGithubInstallationUrl();
 
+  const isDisabled = !organization.isCurrentUserAdmin;
+
   return (
-    <CardGithubOrganization
-      name={organization.name}
-      avatar={{ src: organization.avatarUrl }}
-      action={{
-        startIcon: { component: Github },
-        variant: "secondary",
-        size: "xs",
-        translate: { token: "panels:projectUpdate.addRepoPanel.organizations.manage" },
-        as: "a",
-        htmlProps: {
-          target: "_blank",
-          href: url,
-        },
-      }}
-    />
+    <Tooltip content={<Translate token={"panels:projectUpdate.addRepoPanel.disabledTooltip"} />} enabled={isDisabled}>
+      <CardGithubOrganization
+        name={organization.name}
+        isNotAllowed={isDisabled}
+        avatar={{ src: organization.avatarUrl }}
+        action={
+          !isDisabled
+            ? {
+                startIcon: { component: Github },
+                variant: "secondary",
+                size: "xs",
+                translate: { token: "panels:projectUpdate.addRepoPanel.organizations.manage" },
+                as: "a",
+                htmlProps: {
+                  target: "_blank",
+                  href: url,
+                },
+              }
+            : {
+                startIcon: { component: Github },
+                variant: "secondary",
+                isDisabled: true,
+                size: "xs",
+                translate: { token: "panels:projectUpdate.addRepoPanel.organizations.manage" },
+              }
+        }
+      />
+    </Tooltip>
   );
 }
 
@@ -78,20 +95,6 @@ export function ManageOrganizations({ installed, notInstalled, onRefresh }: Mana
       defaultSelected={["organizations"]}
       id={"organizations"}
       titleProps={{ translate: { token: "panels:projectUpdate.addRepoPanel.organizations.title" } }}
-      endTitleContent={
-        <Button
-          size={"xs"}
-          as={"div"}
-          startIcon={{ component: RefreshCcw }}
-          variant={"secondary"}
-          translate={{ token: "panels:projectUpdate.addRepoPanel.organizations.refresh" }}
-          onNativeClick={e => {
-            e.stopPropagation();
-            e.preventDefault();
-            onRefresh();
-          }}
-        />
-      }
     >
       <div>
         <Input
@@ -99,6 +102,19 @@ export function ManageOrganizations({ installed, notInstalled, onRefresh }: Mana
           onChange={e => setSearch(e.target.value)}
           value={search ?? ""}
           placeholder={t("projectUpdate.addRepoPanel.organizations.search")}
+        />
+      </div>
+      <div>
+        <Button
+          size={"sm"}
+          as={"div"}
+          startIcon={{ component: RefreshCcw }}
+          variant={"secondary"}
+          translate={{ token: "panels:projectUpdate.addRepoPanel.organizations.refresh" }}
+          classNames={{ base: "w-full" }}
+          onClick={() => {
+            onRefresh();
+          }}
         />
       </div>
       <Organizations
