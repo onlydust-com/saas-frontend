@@ -5,6 +5,8 @@ import {
   GetProjectByIdPortResponse,
   GetProjectBySlugPortParams,
   GetProjectBySlugPortResponse,
+  GetProjectContributorLabelsPortParams,
+  GetProjectContributorLabelsPortResponse,
   GetProjectFinancialDetailsByIdPortParams,
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
@@ -36,4 +38,5 @@ export interface ProjectStoragePort {
   getProjectTransactions(p: GetProjectTransactionsPortParams): GetProjectTransactionsPortResponse;
   getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
   getProjectBySlug(params: GetProjectBySlugPortParams): GetProjectBySlugPortResponse;
+  getProjectContributorLabels(p: GetProjectContributorLabelsPortParams): GetProjectContributorLabelsPortResponse;
 }
