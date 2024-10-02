@@ -25,6 +25,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   size,
   iconOnly,
   canInteract,
+  onNativeClick,
   ...restProps
 }: ButtonPort<C>) {
   const Component = as || "button";
@@ -46,6 +47,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
 
   function handleClick(e: SyntheticEvent) {
     e?.stopPropagation();
+    onNativeClick?.(e);
     onClick?.();
   }
 

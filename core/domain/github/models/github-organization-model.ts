@@ -16,6 +16,7 @@ export interface GithubOrganizationInterface
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
   getGithubInstallationUrl(): string;
+  search(search?: string | null): GithubOrganizationInterface | undefined;
 }
 
 const baseUrl = "https://github.com/";
@@ -67,5 +68,15 @@ export class GithubOrganization implements GithubOrganizationInterface {
   getGithubInstallationUrl(state?: githubState) {
     const stateUrl = state ? `&state=projectSlug-${state.projectSlug}` : "";
     return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}${stateUrl}`;
+  }
+
+  search(search?: string | null) {
+    if (!search) return this;
+
+    if (this.name.toLowerCase().includes(search.toLowerCase())) {
+      return this;
+    }
+
+    return undefined;
   }
 }

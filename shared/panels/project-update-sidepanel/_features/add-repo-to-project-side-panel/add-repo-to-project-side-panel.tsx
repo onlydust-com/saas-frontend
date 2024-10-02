@@ -6,19 +6,17 @@ import { ProjectInterface } from "@/core/domain/project/models/project-model";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AvailableRepositories } from "@/shared/panels/project-update-sidepanel/_features/add-repo-to-project-side-panel/_components/available-repositories/available-repositories";
+import { ManageOrganizations } from "@/shared/panels/project-update-sidepanel/_features/add-repo-to-project-side-panel/_components/manage-organizations/manage-organizations";
 import { useAddRepoToProjectSidePanel } from "@/shared/panels/project-update-sidepanel/_features/add-repo-to-project-side-panel/add-repo-to-project-side-panel.hooks";
 import { EditProjectFormData } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 
-import { AddRepoToProjectSidePanelData } from "./add-repo-to-project-side-panel.types";
-
 export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterface }) {
   const { name } = useAddRepoToProjectSidePanel();
-  const { Panel, close: closePanel } = useSidePanel({ name });
-  const { projectId } = useSinglePanelData<AddRepoToProjectSidePanelData>(name) ?? { projectId: "" };
+  const { Panel } = useSidePanel({ name });
 
-  const { data: userOrganizations } = GithubReactQueryAdapter.client.useGetMyOrganizations({});
+  const { data: userOrganizations, refetch } = GithubReactQueryAdapter.client.useGetMyOrganizations({});
 
   const { watch } = useFormContext<EditProjectFormData>();
   const githubRepos = watch("githubRepoIds");
@@ -45,6 +43,11 @@ export function AddRepoToProjectSidePanel({ project }: { project: ProjectInterfa
       />
       <SidePanelBody>
         <AvailableRepositories organizations={installedOrganizations} project={project} />
+        <ManageOrganizations
+          installed={installedOrganizations}
+          notInstalled={notInstalledOrganizations}
+          onRefresh={refetch}
+        />
       </SidePanelBody>
     </Panel>
   );
