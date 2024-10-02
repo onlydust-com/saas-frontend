@@ -17,8 +17,9 @@
       "types": {
         "title": "Types",
         "choices": {
-          "DEPOSITED": "Deposited",
-          "ALLOCATED": "Allocated",
+          "GRANTED": "Granted",
+          "REWARDED": "Rewarded",
+          "UNGRANTED": "Ungranted",
           "UNALLOCATED": "Unallocated"
         }
       },

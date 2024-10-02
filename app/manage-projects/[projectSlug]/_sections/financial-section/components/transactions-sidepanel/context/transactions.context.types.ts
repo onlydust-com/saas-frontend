@@ -26,8 +26,9 @@ export interface TransactionsContextReturn {
 }
 
 export enum TransactionsContextFilterType {
-  DEPOSITED = "DEPOSITED",
-  ALLOCATED = "ALLOCATED",
+  GRANTED = "GRANTED",
+  REWARDED = "REWARDED",
+  UNGRANTED = "UNGRANTED",
   UNALLOCATED = "UNALLOCATED",
 }
 
