@@ -53,8 +53,8 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
 
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <ScrollView className="flex flex-col gap-4">
-          <PageContent>
-            <div className="grid h-full gap-3">
+          <PageContent classNames={{ base: "flex-none" }}>
+            <div className="grid gap-3">
               <FinancialSection projectId={data?.id} />
             </div>
           </PageContent>

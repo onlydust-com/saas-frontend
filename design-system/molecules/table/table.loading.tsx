@@ -3,7 +3,7 @@ import { TableRowLoading } from "@/design-system/atoms/table-row";
 
 export function TableLoading() {
   return (
-    <div className="grid w-full gap-3">
+    <div className="flex flex-col gap-lg">
       <TableHeaderLoading />
       <TableRowLoading />
       <TableRowLoading />
