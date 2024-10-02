@@ -14,7 +14,7 @@ const defaultProps: CardGithubRepoPort<"div"> = {
     startIcon: { component: Trash },
   },
   starsCount: 10,
-  prCount: 5,
+  forkCount: 5,
   badges: [
     {
       icon: { component: CircleDashed },
