@@ -53,20 +53,6 @@ export type GetProgramTransactionsPortResponse = HttpStorageResponse<GetProgramT
 /* ---------------------- Get Program Transactions CSV ---------------------- */
 export type GetProgramTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
 
-/* --------------------- Get Program Transactions Stats --------------------- */
-export type GetProgramTransactionsStatsResponse = components["schemas"]["ProgramTransactionStatListResponse"];
-
-type GetProgramTransactionsStatsQueryParams = operations["getProgramTransactionsStats"]["parameters"]["query"];
-
-type GetProgramTransactionsStatsPathParams = operations["getProgramTransactionsStats"]["parameters"]["path"];
-
-export type GetProgramTransactionsStatsPortParams = HttpClientParameters<{
-  QueryParams: GetProgramTransactionsStatsQueryParams;
-  PathParams: GetProgramTransactionsStatsPathParams;
-}>;
-
-export type GetProgramTransactionsStatsPortResponse = HttpStorageResponse<GetProgramTransactionsStatsResponse>;
-
 /* ------------------------ Get Program Projects ------------------------ */
 
 export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];

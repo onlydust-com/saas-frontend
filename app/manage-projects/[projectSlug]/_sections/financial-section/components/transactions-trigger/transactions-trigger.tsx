@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import { useParams } from "next/navigation";
 
 import { TransactionsContextProvider } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
 import { TransactionsSidepanel } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions-sidepanel";
@@ -8,7 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
 export function TransactionsTrigger() {
-  // const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const { Panel, open, close, isOpen } = useSidePanel({ name: "manage-project-transaction" });
 
   function togglePanel() {
@@ -33,7 +34,7 @@ export function TransactionsTrigger() {
           label: "whitespace-nowrap text-ellipsis overflow-hidden",
         }}
       />
-      <TransactionsContextProvider sponsorId={"2ea814ce-0a0e-472c-b37c-05f54396e9d6"}>
+      <TransactionsContextProvider projectSlug={projectSlug}>
         <Panel>
           <TransactionsSidepanel />
         </Panel>

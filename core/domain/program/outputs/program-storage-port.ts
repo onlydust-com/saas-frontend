@@ -10,8 +10,6 @@ import {
   GetProgramTransactionsCsvPortResponse,
   GetProgramTransactionsPortParams,
   GetProgramTransactionsPortResponse,
-  GetProgramTransactionsStatsPortParams,
-  GetProgramTransactionsStatsPortResponse,
   GetProgramsPortParams,
   GetProgramsPortResponse,
   GrantBudgetToProjectPortParams,
@@ -26,7 +24,6 @@ export interface ProgramStoragePort {
   getProgramById(p: GetProgramByIdPortParams): GetProgramByIdPortResponse;
   getProgramTransactions(p: GetProgramTransactionsPortParams): GetProgramTransactionsPortResponse;
   getProgramTransactionsCsv(p: GetProgramTransactionsPortParams): GetProgramTransactionsCsvPortResponse;
-  getProgramTransactionsStats(p: GetProgramTransactionsStatsPortParams): GetProgramTransactionsStatsPortResponse;
   getProgramProjects(p: GetProgramProjectsPortParams): GetProgramProjectsPortResponse;
   grantBudgetToProject(p: GrantBudgetToProjectPortParams): GrantBudgetToProjectPortResponse;
   getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;

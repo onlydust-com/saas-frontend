@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { useFinancialColumnChart } from "@/app/programs/[programId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
@@ -38,25 +38,25 @@ export function FinancialColumnChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  const { data, isLoading } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
-    pathParams: { programId },
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       fromDate,
       toDate,
       sort: "DATE",
       sortDirection: "ASC",
       showEmpty: true,
+      programId,
     },
   });
 
   const { stats } = data ?? {};
 
-  const { categories, receivedSeries, grantedSeries, rewardedSeries } = useFinancialColumnChart(stats);
+  const { categories, allocatedSeries, grantedSeries, rewardedSeries } = useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
     series: [
-      { name: t("programs:financialColumnChart.legends.received"), data: receivedSeries },
+      { name: t("programs:financialColumnChart.legends.allocated"), data: allocatedSeries },
       { name: t("programs:financialColumnChart.legends.granted"), data: grantedSeries },
       { name: t("programs:financialColumnChart.legends.rewarded"), data: rewardedSeries },
     ],
@@ -87,7 +87,7 @@ export function FinancialColumnChart() {
     );
   }
 
-  if (!receivedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
+  if (!allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
         titleTranslate={{ token: "programs:financialColumnChart.emptyState.title" }}
@@ -106,7 +106,7 @@ export function FinancialColumnChart() {
           background={"secondary"}
         >
           <ChartLegend color="primary">
-            <Translate token={"programs:financialColumnChart.legends.received"} />
+            <Translate token={"programs:financialColumnChart.legends.allocated"} />
           </ChartLegend>
 
           <ChartLegend color="secondary">

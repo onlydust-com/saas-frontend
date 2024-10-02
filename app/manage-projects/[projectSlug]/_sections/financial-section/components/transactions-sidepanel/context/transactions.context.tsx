@@ -15,7 +15,7 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
-  sponsorId: "",
+  projectSlug: "",
   transactionsStats: [],
   queryParams: {},
   filters: {
@@ -30,7 +30,7 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
   },
 });
 
-export function TransactionsContextProvider({ children, sponsorId }: TransactionsContextProps) {
+export function TransactionsContextProvider({ children, projectSlug }: TransactionsContextProps) {
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
     types: [
@@ -58,7 +58,7 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
       sort: "DATE",
       sortDirection: "ASC",
       showEmpty: true,
-      sponsorId,
+      projectSlug,
     },
   });
 
@@ -89,7 +89,7 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
   return (
     <TransactionsContext.Provider
       value={{
-        sponsorId,
+        projectSlug,
         transactionsStats: transactionsStats?.stats,
         queryParams: debouncedQueryParams,
         filters: {

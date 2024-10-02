@@ -4,6 +4,7 @@
     "ALLOCATED": "Allocated",
     "GRANTED": "Granted",
     "UNALLOCATED": "Unallocated",
-    "UNGRANTED": "Ungranted"
+    "UNGRANTED": "Ungranted",
+    "REWARDED": "Rewarded"
   }
 }

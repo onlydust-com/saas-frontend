@@ -19,7 +19,7 @@ export function Transactions() {
     return (
       transactionsStats?.map((t, index) => {
         return {
-          id: `financials-transaction-stats-${index}`,
+          id: `manage-projects-transaction-stats-${index}`,
           titleProps: {
             children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },

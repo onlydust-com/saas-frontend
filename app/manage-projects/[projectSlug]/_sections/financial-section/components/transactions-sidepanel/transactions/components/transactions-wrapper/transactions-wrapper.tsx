@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import { useTransactionsContext } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/context/transactions.context";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { SponsorTransactionListItemResponse } from "@/core/domain/sponsor/models/sponsor-transaction-list-item-model";
 
@@ -17,7 +17,7 @@ import {
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const { sponsorId, queryParams } = useTransactionsContext();
+  const { projectSlug, queryParams } = useTransactionsContext();
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getMonthRange(date);
@@ -28,8 +28,8 @@ export function TransactionsWrapper({ date }: { date: Date }) {
     };
   }, [date, dateKernelPort]);
 
-  const { data, isLoading } = SponsorReactQueryAdapter.client.useGetSponsorTransactions({
-    pathParams: { sponsorId },
+  const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectTransactions({
+    pathParams: { projectSlug },
     queryParams: {
       ...queryParams,
       fromDate,
