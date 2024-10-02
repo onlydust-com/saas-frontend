@@ -4,8 +4,8 @@ import { MenuItemDefaultAdapter } from "@/design-system/molecules/menu-item/adap
 
 import { MenuItemPort, MenuItemRadioPort } from "../menu-item.types";
 
-export function MenuItemRadio({ ...props }: MenuItemRadioPort) {
-  return withComponentAdapter<MenuItemPort>(MenuItemDefaultAdapter)({
+export function MenuItemRadio<T = string>({ ...props }: MenuItemRadioPort<T>) {
+  return withComponentAdapter<MenuItemPort<T>>(MenuItemDefaultAdapter)({
     ...props,
     startContent: (
       <RadioGroup

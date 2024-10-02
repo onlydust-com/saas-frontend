@@ -45,9 +45,8 @@ export function TransactionsSidepanel() {
           title={{ translate: { token: "financials:transactionPanel.export.title" } }}
           onClose={clear}
         />
-        <SidePanelBody>
-          <ExportCsv />
-        </SidePanelBody>
+
+        <ExportCsv />
       </Panel>
     </>
   );

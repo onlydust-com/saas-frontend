@@ -3,12 +3,10 @@ import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
-import { Paper } from "@/design-system/atoms/paper";
-import { Typo } from "@/design-system/atoms/typo";
+import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -45,28 +43,30 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
   });
 
   return (
-    <Paper
+    <CardTemplate
       as={as}
       htmlProps={htmlProps}
+      classNames={{ base: cn(slots.base(), classNames?.base) }}
       size={size}
       background={background}
       border={border}
-      classNames={{ base: cn(slots.base(), classNames?.base) }}
-    >
-      <Avatar src={currency.logoUrl} size="s" />
-
-      <div className="flex w-full flex-col gap-3 overflow-hidden">
-        <div className="flex items-start justify-between gap-md">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1">
-              <Typo size="sm" weight="medium" color={"primary"}>{`${titleMoney.amount} ${titleMoney.code}`}</Typo>
-
-              {!!iconProps && <Icon {...iconProps} />}
-            </div>
-
-            <Typo size="xs" color={"secondary"}>{`~${descriptionMoney.amount} ${descriptionMoney.code}`}</Typo>
-          </div>
-
+      avatarProps={{
+        src: currency.logoUrl,
+      }}
+      titleProps={{
+        classNames: { base: "flex gap-xs items-center" },
+        children: (
+          <>
+            {`${titleMoney.amount} ${titleMoney.code}`}
+            {!!iconProps && <Icon {...iconProps} />}
+          </>
+        ),
+      }}
+      descriptionProps={{
+        children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
+      }}
+      actionSlot={
+        <>
           {buttonProps && (
             <Button
               {...buttonProps}
@@ -90,17 +90,19 @@ export function CardTransactionDefaultAdapter<C extends ElementType = "div">({
               }}
             />
           )}
-        </div>
-
-        <div className="flex w-full flex-wrap gap-1">
+        </>
+      }
+      contentSlot={
+        <div className="flex w-full flex-wrap gap-xs pl-4xl">
           <Badge color="grey" size="xs">
             {typeName}
           </Badge>
+
           <Badge icon={{ component: Clock }} color="grey" size="xs">
             {dateKernelPort.format(new Date(date), "dd.MM.yyyy")}
           </Badge>
         </div>
-      </div>
-    </Paper>
+      }
+    />
   );
 }

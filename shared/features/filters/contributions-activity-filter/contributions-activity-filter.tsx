@@ -1,7 +1,11 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ContributionFilterType, QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
+import {
+  ContributionFilterType,
+  ContributionUnion,
+  QuantityFilterType,
+} from "@/core/kernel/filters/filters-facade-port";
 
 import { Menu, MenuPort } from "@/design-system/molecules/menu";
 
@@ -15,7 +19,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   const value = useMemo(
     () => ({
       type: _value?.type ?? QuantityFilterType.EQUAL,
-      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUES],
+      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUE],
       amount: _value?.amount ?? {
         eq: undefined,
         gte: undefined,
@@ -29,15 +33,15 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   const contributionsOptions: MenuPort["items"] = [
     {
       label: t("contributionFilterType.PULL_REQUESTS"),
-      id: ContributionFilterType.PULL_REQUESTS,
+      id: ContributionFilterType.PULL_REQUEST,
     },
     {
       label: t("contributionFilterType.ISSUES"),
-      id: ContributionFilterType.ISSUES,
+      id: ContributionFilterType.ISSUE,
     },
     {
       label: t("contributionFilterType.CODE_REVIEWS"),
-      id: ContributionFilterType.CODE_REVIEWS,
+      id: ContributionFilterType.CODE_REVIEW,
     },
   ];
 
@@ -51,7 +55,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   function onContributionTypeChange(newValue: string[]) {
     onChange?.({
       ...value,
-      contributionType: newValue as ContributionFilterType[],
+      contributionType: newValue as ContributionUnion[],
     });
   }
 

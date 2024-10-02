@@ -1,12 +1,12 @@
 import { bootstrap } from "@/core/bootstrap";
-import { GetProgramTransactionsStatsResponse } from "@/core/domain/program/program-contract.types";
+import { GetBiStatsFinancialsResponse } from "@/core/domain/bi/bi-contract.types";
 
-export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsResponse["stats"]) {
+export function useFinancialColumnChart(stats?: GetBiStatsFinancialsResponse["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
-  const calculateSeries = (key: keyof GetProgramTransactionsStatsResponse["stats"][number]) => {
+  const calculateSeries = (key: keyof GetBiStatsFinancialsResponse["stats"][number]) => {
     return (
       stats?.map(stat => {
         const value = stat[key];
@@ -18,13 +18,13 @@ export function useFinancialColumnChart(stats?: GetProgramTransactionsStatsRespo
     );
   };
 
-  const receivedSeries = calculateSeries("totalReceived");
+  const allocatedSeries = calculateSeries("totalAllocated");
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
 
   return {
     categories,
-    receivedSeries,
+    allocatedSeries,
     grantedSeries,
     rewardedSeries,
   };

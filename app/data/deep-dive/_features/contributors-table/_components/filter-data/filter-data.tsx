@@ -1,25 +1,17 @@
 import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 
 import { bootstrap } from "@/core/bootstrap";
-import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
-import { getContributionFilterType } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter.utils";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
-import { PrMergedCountFilter } from "@/shared/features/filters/pr-merged-count-filter/pr-merged-count-filter";
 import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
-import {
-  getQuantityFilterAmountFromArray,
-  getQuantityFilterType,
-  getQuantityFilterTypeFromArray,
-} from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
+import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
-import { UserTypeFilter } from "@/shared/features/filters/user-type-filter/user-type-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -44,10 +36,6 @@ export function FilterData() {
         canClose={true}
       />
       <SidePanelBody>
-        <UserTypeFilter
-          selectedUserType={filters.contributorRoles}
-          onSelect={type => setFilters({ contributorRoles: type as typeof filters.contributorRoles })}
-        />
         <ProjectFilter selectedProjects={filters.projectIds} onSelect={projectIds => setFilters({ projectIds })} />
         <CategoryFilter
           selectedCategories={filters.categoryIds}
@@ -77,47 +65,33 @@ export function FilterData() {
         />
         <ContributionsActivityFilter
           value={{
-            amount: getQuantityFilterAmountFromArray([filters.prCount, filters.issueCount, filters.codeReviewCount]),
-            type: getQuantityFilterTypeFromArray([filters.prCount, filters.issueCount, filters.codeReviewCount]),
-            contributionType: getContributionFilterType({
-              prCount: filters.prCount,
-              issueCount: filters.issueCount,
-              codeReviewCount: filters.codeReviewCount,
-            }),
+            amount: filters.contributionCount,
+            type: getQuantityFilterType(filters.contributionCount),
+            contributionType: filters.contributionCount?.types || [],
           }}
           onChange={value => {
             setFilters({
-              ...(value.contributionType.includes(ContributionFilterType.PULL_REQUESTS)
-                ? {
-                    prCount: value.amount,
-                  }
-                : { prCount: undefined }),
-              ...(value.contributionType.includes(ContributionFilterType.ISSUES)
-                ? {
-                    issueCount: value.amount,
-                  }
-                : { issueCount: undefined }),
-              ...(value.contributionType.includes(ContributionFilterType.CODE_REVIEWS)
-                ? {
-                    codeReviewCount: value.amount,
-                  }
-                : { codeReviewCount: undefined }),
+              contributionCount: {
+                ...value.amount,
+                types: value.contributionType,
+              },
             });
           }}
         />
-        <PrMergedCountFilter
-          value={{
-            amount: filters.prCount,
-            type: getQuantityFilterType(filters.prCount),
-          }}
-          onChange={value =>
-            setFilters({
-              prCount: {
-                ...value.amount,
-              },
-            })
-          }
-        />
+        {/*TODO @Mehdi check with backend how to handle this filter knowing that its the same that contributionsCount*/}
+        {/*<PrMergedCountFilter*/}
+        {/*  value={{*/}
+        {/*    amount: filters.prCount,*/}
+        {/*    type: getQuantityFilterType(filters.prCount),*/}
+        {/*  }}*/}
+        {/*  onChange={value =>*/}
+        {/*    setFilters({*/}
+        {/*      prCount: {*/}
+        {/*        ...value.amount,*/}
+        {/*      },*/}
+        {/*    })*/}
+        {/*  }*/}
+        {/*/>*/}
         <RewardCountFilter
           value={{
             amount: filters.rewardCount,

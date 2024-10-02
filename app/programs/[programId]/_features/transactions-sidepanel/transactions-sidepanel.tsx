@@ -1,3 +1,5 @@
+import { Transactions } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions/transactions";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -6,7 +8,6 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 import { useTransactionsContext } from "./context/transactions.context";
 import { ExportCsv } from "./export-csv/export-csv";
-import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
   const { Panel, open } = useSidePanel({ name: "transaction-export" });
@@ -45,9 +46,8 @@ export function TransactionsSidepanel() {
           title={{ translate: { token: "programs:transactionPanel.export.title" } }}
           onClose={clear}
         />
-        <SidePanelBody>
-          <ExportCsv />
-        </SidePanelBody>
+
+        <ExportCsv />
       </Panel>
     </>
   );

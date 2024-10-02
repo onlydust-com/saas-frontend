@@ -4,9 +4,9 @@ import { CircleDashed } from "lucide-react";
 import { MenuItemPort } from "./menu-item.types";
 import { MenuItem } from "./variants/menu-item-default";
 
-type Story = StoryObj<typeof MenuItem>;
+type Story = StoryObj<typeof MenuItem<string>>;
 
-const defaultProps: MenuItemPort = {
+const defaultProps: MenuItemPort<string> = {
   label: "Item 1",
   id: "item1",
 };

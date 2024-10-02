@@ -31,6 +31,7 @@ export function useAllocateBudgetToProgram({
 > = {}) {
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
   const programStoragePort = bootstrap.getProgramStoragePortForClient();
+  const biStoragePort = bootstrap.getBiStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -48,10 +49,10 @@ export function useAllocateBudgetToProgram({
               exact: false,
             });
 
-            // Invalidate sponsor transaction stats
+            // Invalidate bi financial stats for sponsor
             await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsorTransactionsStats({
-                pathParams: { sponsorId: invalidateTagParams.sponsor.pathParams.sponsorId },
+              queryKey: biStoragePort.getBiStatsFinancials({
+                queryParams: { sponsorId: invalidateTagParams.sponsor.pathParams.sponsorId },
               }).tag,
               exact: false,
             });

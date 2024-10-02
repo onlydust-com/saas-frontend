@@ -4,7 +4,7 @@ import { MenuItemDefaultVariants } from "@/design-system/molecules/menu-item/ada
 
 import { cn } from "@/shared/helpers/cn";
 
-export function MenuItemLabel({ classNames, label, startContent, attr = {} }: MenuItemLabelPort) {
+export function MenuItemLabel<T = string>({ classNames, label, startContent, attr = {} }: MenuItemLabelPort<T>) {
   const slots = MenuItemDefaultVariants();
 
   return (

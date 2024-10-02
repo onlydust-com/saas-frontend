@@ -1,4 +1,5 @@
 import { SquareArrowOutUpRight } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -30,6 +31,7 @@ import { ProjectStats } from "./_components/project-stats/project-stats";
 import { ProjectSidePanelData } from "./project-sidepanel.types";
 
 export function ProjectSidepanel() {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const { name } = useProjectSidePanel();
   const { Panel } = useSidePanel({ name });
   const {
@@ -67,6 +69,18 @@ export function ProjectSidepanel() {
     },
   });
 
+  const { data: financial, isLoading: loadingFinancial } =
+    ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
+      pathParams: { projectSlug: projectSlug ?? "" },
+      queryParams: {
+        fromDate,
+        toDate,
+      },
+      options: {
+        enabled: !!projectId,
+      },
+    });
+
   function onChangeRangeType(type: DateRangeType) {
     setRangeType(type);
   }
@@ -89,7 +103,7 @@ export function ProjectSidepanel() {
         {!!stats && (
           <>
             <ProjectStats data={stats} rangeType={rangeType} onChangeRangeType={onChangeRangeType} />
-            <ProjectFinancial data={stats} />
+            <ProjectFinancial projectId={projectId} />
           </>
         )}
 
@@ -117,7 +131,7 @@ export function ProjectSidepanel() {
         <ProjectCategories categories={data.categories} />
       </>
     );
-  }, [isLoading, loadingStats, data, stats, rangeType]);
+  }, [isLoading, loadingStats, loadingFinancial, data, stats, financial, rangeType]);
 
   return (
     <Panel>

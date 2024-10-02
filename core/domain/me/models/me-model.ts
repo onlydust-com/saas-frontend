@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 type MeResponse = components["schemas"]["GetMeResponse"];
 
-export interface MeInterface extends MeResponse {}
+export interface MeInterface extends MeResponse {
+  isMe(id: string): boolean;
+}
 
 export class Me implements MeInterface {
   avatarUrl!: MeResponse["avatarUrl"];
@@ -27,5 +29,9 @@ export class Me implements MeInterface {
 
   constructor(props: MeResponse) {
     Object.assign(this, props);
+  }
+
+  isMe(id: string) {
+    return this.id === id;
   }
 }
