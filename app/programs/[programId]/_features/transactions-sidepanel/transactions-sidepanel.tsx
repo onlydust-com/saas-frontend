@@ -1,3 +1,5 @@
+import { Transactions } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions/transactions";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -33,7 +35,7 @@ export function TransactionsSidepanel() {
 
       <SidePanelBody>
         <div className={"flex flex-col gap-3"}>
-          <Transactwions />
+          <Transactions />
         </div>
       </SidePanelBody>
 

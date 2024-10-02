@@ -34,8 +34,9 @@ export function TransactionsContextProvider({ children, projectSlug }: Transacti
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
     types: [
-      TransactionsContextFilterType.DEPOSITED,
-      TransactionsContextFilterType.ALLOCATED,
+      TransactionsContextFilterType.GRANTED,
+      TransactionsContextFilterType.REWARDED,
+      TransactionsContextFilterType.UNGRANTED,
       TransactionsContextFilterType.UNALLOCATED,
     ],
   });
