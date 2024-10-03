@@ -28,11 +28,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
   }
 
   return (
-    <ProgramListSidepanelProvider
-      sponsorId={sponsorId}
-      onProgramClick={handleOpenAllocateProgram}
-      onCreateProgramClick={() => alert("create program")}
-    >
+    <ProgramListSidepanelProvider sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram}>
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <div className="h-auto">
           <PageContent>
