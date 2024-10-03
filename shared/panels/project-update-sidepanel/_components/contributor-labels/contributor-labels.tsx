@@ -65,6 +65,7 @@ export function ContributorLabels() {
               <Badge
                 color={"brand"}
                 as={"div"}
+                size={"xs"}
                 isDeletable
                 classNames={{ base: "w-fit cursor-pointer" }}
                 htmlProps={{
