@@ -8,11 +8,11 @@
       "modifyProject": "Modify project"
     }
   },
-  "activity": {
-    "title": "Activity",
+  "contributions": {
+    "title": "Contributions",
     "buttons": {
       "contributors": "Contributors",
-      "issues": "Issues"
+      "contributions": "Contributions"
     },
     "kanban": {
       "columns": {
@@ -27,7 +27,8 @@
   "filters": {
     "titles": {
       "project": "Projects filters",
-      "contributor": "Contributors filters"
+      "contributor": "Contributors filters",
+      "contribution": "Contributions filters"
     },
     "save": "Validate",
     "reset": "Reset filters"
