@@ -2,8 +2,8 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import { ActivitySection } from "@/app/manage-projects/[projectSlug]/_sections/activity-section/activity-section";
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
-import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -56,8 +56,8 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
           <PageContent classNames={{ base: "flex-none" }}>
             <FinancialSection projectId={data?.id} />
           </PageContent>
-          <PageContent>
-            <ContributorsTable />
+          <PageContent classNames={{ base: "overflow-hidden" }}>
+            <ActivitySection projectId={data?.id} />
           </PageContent>
         </ScrollView>
       </AnimatedColumn>

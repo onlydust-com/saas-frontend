@@ -97,13 +97,7 @@ export function ContributorsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex flex-col gap-lg"}>
-        <Typo
-          size={"xs"}
-          weight={"medium"}
-          variant={"heading"}
-          translate={{ token: "manageProjects:detail.activity.title" }}
-        />
+      <div className={"flex flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}
@@ -119,7 +113,7 @@ export function ContributorsTable() {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
-        <ScrollView direction={"x"}>
+        <ScrollView direction={"all"}>
           <Table
             header={{
               headerGroups: table.getHeaderGroups(),
