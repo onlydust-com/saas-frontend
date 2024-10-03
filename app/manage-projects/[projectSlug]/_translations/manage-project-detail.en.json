@@ -11,8 +11,8 @@
   "activity": {
     "title": "Activity",
     "buttons": {
-      "seeActivity": "See activity",
-      "seeTransactions": "See transactions"
+      "contributors": "Contributors",
+      "issues": "Issues"
     }
   },
   "filters": {
