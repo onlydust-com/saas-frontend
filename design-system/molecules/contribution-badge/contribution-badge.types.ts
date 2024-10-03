@@ -9,6 +9,6 @@ export type Contribution = Pick<
   "type" | "githubStatus" | "githubNumber"
 >;
 
-export interface ContributionBadgePort<C extends ElementType> extends BadgeIconPort<C> {
+export interface ContributionBadgePort<C extends ElementType> extends Partial<BadgeIconPort<C>> {
   contribution: Contribution;
 }
