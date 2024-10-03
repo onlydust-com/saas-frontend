@@ -17,3 +17,5 @@ type GetContributionsQueryParams = operations["getContributions"]["parameters"][
 export type GetContributionsPortResponse = HttpStorageResponse<GetContributionsModel>;
 
 export type GetContributionsPortParams = HttpClientParameters<{ QueryParams: GetContributionsQueryParams }>;
+
+export type Contribution = components["schemas"]["ContributionPageItemResponse"];
