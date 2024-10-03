@@ -99,6 +99,7 @@ export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributor
 export type GetBiContributorsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* --------------------- Get Bi Stats Financials --------------------- */
+
 export type GetBiStatsFinancialsResponse = components["schemas"]["BiFinancialsStatsListResponse"];
 export type GetBiStatsFinancialsModel = Omit<GetBiStatsFinancialsResponse, "stats"> & {
   stats: BiStatsFinancialsInterface[];

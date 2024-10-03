@@ -1,6 +1,8 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import Flag from "react-flagpack";
+import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import {
@@ -8,31 +10,70 @@ import {
   ColumnMapKeys,
 } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-columns/filter-columns.types";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
+import { ProjectContributorLabelsResponse } from "@/core/domain/project/models/project-contributor-labels-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { toast } from "@/design-system/molecules/toaster";
 
+import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+const contributorLabelsMock: ProjectContributorLabelsResponse[] = [
+  {
+    id: "0151da31-d3e5-447e-816d-ccc32c48dd17",
+    slug: "10x",
+    name: "10x",
+  },
+  {
+    id: "dd4cd512-f1a4-4f17-b729-d536d81cfa03",
+    slug: "1x",
+    name: "1x",
+  },
+];
+
 export function useFilterColumns() {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
-  // const [selectedLabels, setSelectedLabels] = useState<Record<string, string[]>>({});
-  //
-  // const onLabelChange = (id: number, selectedIds: string[]) => {
-  //   setSelectedLabels(prev => ({
-  //     ...prev,
-  //     [id]: selectedIds,
-  //   }));
-  // };
+
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: { slug: projectSlug ?? "" },
+    options: {
+      enabled: !!projectSlug,
+    },
+  });
+
+  // TODO @Mehdi handle loading and delete mock once backend ready
+
+  const { mutateAsync: updateContributorLabels, isPending: isUpdationgContributorLabels } =
+    ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
+      pathParams: { projectId: data?.id ?? "" },
+    });
+
+  async function onLabelChange(githubUserId: number, selectedIds: string[]) {
+    try {
+      await updateContributorLabels({
+        contributorsLabels: [
+          {
+            githubUserId,
+            labels: selectedIds,
+          },
+        ],
+      });
+    } catch (error) {
+      toast.error(<Translate token={"panels:projectUpdate.messages.error"} />);
+    }
+  }
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<ColumnMapKeys>>(
     "manage-projects-contributors-table-columns"
@@ -93,22 +134,22 @@ export function useFilterColumns() {
         );
       },
     }),
-    // TODO @Mehdi: uncomment this block when labels ready
-    // labels: columnHelper.accessor("labels", {
-    //   header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
-    //   cell: info => {
-    //     const githubUserId = info.row.original.contributor.githubUserId;
-    //
-    //     return (
-    //       <LabelPopover
-    //         name={`contributorsLabels-${githubUserId}`}
-    //         placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
-    //         onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
-    //         selectedLabels={selectedLabels[githubUserId] ?? []}
-    //       />
-    //     );
-    //   },
-    // }),
+    labels: columnHelper.accessor("labels", {
+      header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
+      cell: info => {
+        const githubUserId = info.row.original.contributor.githubUserId;
+
+        return (
+          <ContributorLabelPopover
+            projectIdOrSlug={projectSlug}
+            name={`contributorsLabels-${githubUserId}`}
+            placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
+            onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
+            selectedLabels={contributorLabelsMock ?? []}
+          />
+        );
+      },
+    }),
     languages: columnHelper.accessor("languages", {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.languages"} />,
       cell: info => {

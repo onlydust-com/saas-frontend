@@ -12,6 +12,7 @@ export function ContributorLabelPopover({
   selectedLabels,
   onSelect,
   buttonProps,
+  projectIdOrSlug,
   ...selectProps
 }: ContributorLabelPopoverProps) {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ export function ContributorLabelPopover({
               {...buttonProps}
             >
               {selectedLabels?.length ? (
-                selectedLabels?.map(item => item).join(", ")
+                selectedLabels?.map(item => item.name).join(", ")
               ) : (
                 <Translate token="features:popovers.label.trigger" />
               )}
@@ -43,9 +44,10 @@ export function ContributorLabelPopover({
       <Popover.Content>
         {() => (
           <ContributorLabelAutocomplete
+            projectIdOrSlug={projectIdOrSlug}
             placeholder={t("features:popovers.label.placeholder")}
             {...selectProps}
-            selectedLabels={selectedLabels}
+            selectedLabels={selectedLabels?.map(item => item.id)}
             onSelect={onSelect}
             isPopover={false}
             isMultiple
