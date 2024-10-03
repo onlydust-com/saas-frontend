@@ -30,7 +30,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex h-full flex-col gap-4">
       <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
         <Typo
           size={"xs"}

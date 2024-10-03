@@ -13,6 +13,15 @@
     "buttons": {
       "contributors": "Contributors",
       "issues": "Issues"
+    },
+    "kanban": {
+      "columns": {
+        "notAssigned": "Not assigned",
+        "inProgress": "In Progress",
+        "toReview": "To Review",
+        "done": "Done",
+        "archive": "Archive"
+      }
     }
   },
   "filters": {
