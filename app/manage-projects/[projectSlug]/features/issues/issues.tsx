@@ -35,7 +35,7 @@ function Column({ type }: { type: IssuesKanbanColumns }) {
   );
 }
 
-export function Issues({ projectId }: IssuesProps) {
+export function Issues(_: IssuesProps) {
   return (
     <div className={"h-full overflow-hidden"}>
       <Kanban>
