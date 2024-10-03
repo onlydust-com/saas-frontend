@@ -3,6 +3,7 @@ import enBudgetAvailableCount from "../budget-available-count-filter/budget-avai
 import enBudgetUsedCount from "../budget-used-count-filter/budget-used-count-filter.en.json";
 import enCategory from "../category-filter/category-filter.en.json";
 import enContributionActivity from "../contributions-activity-filter/contributions-activity-filter.en.json";
+import enContributorProject from "../contributor-project-filter/contributor-project-filter.en.json";
 import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter.en.json";
 import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
 import enLanguage from "../language-filter/language-filter.en.json";
@@ -20,6 +21,7 @@ export const enFiltersTranslations = {
   filters: {
     totalRewardedAmount: enTotalRewardedAmount,
     leadProject: enLeadProject,
+    contributorProject: enContributorProject,
     language: enLanguage,
     category: enCategory,
     userType: enUserType,

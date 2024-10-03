@@ -6,6 +6,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
+import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
@@ -55,6 +56,10 @@ export function FilterData() {
               {moneyKernelPort.getCurrency("USD").code}
             </Typo>
           }
+        />
+        <ContributorProjectFilter
+          selectedUser={filters.contributorsIds}
+          onSelect={(users: string[]) => setFilters({ contributorsIds: users })}
         />
         <ContributionsActivityFilter
           value={{
