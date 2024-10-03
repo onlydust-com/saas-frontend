@@ -34,7 +34,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectTransactions: "projects/:projectIdOrSlug/transactions",
     getProjectTransactionsCsv: "projects/:projectIdOrSlug/transactions",
     getProjectBySlug: "projects/slug/:slug",
-    getProjectContributorLabels: "projects/:projectId/contributor-labels",
+    getProjectContributorLabels: "projects/:projectIdOrSlug/contributor-labels",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {

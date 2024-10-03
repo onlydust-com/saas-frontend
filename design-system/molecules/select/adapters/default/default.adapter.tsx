@@ -38,6 +38,7 @@ export function SelectDefaultAdapter<T = string>({
   isPopover = true,
   isMultiple = false,
   initialItems,
+  onAction,
   ...inputProps
 }: SelectPort<T>) {
   const slots = SelectDefaultVariants();
@@ -188,13 +189,14 @@ export function SelectDefaultAdapter<T = string>({
           value={formatedInputValue}
         />
 
-        <Menu
+        <Menu<T>
           items={formatedItems}
           onSelect={handleSelect}
           selectedIds={selectedIds}
           onNextPage={onNextPage}
           hasNextPage={hasNextPage}
           isMultiple={isMultiple}
+          onAction={onAction}
         />
       </div>
     );
@@ -224,6 +226,7 @@ export function SelectDefaultAdapter<T = string>({
                 onNextPage={onNextPage}
                 hasNextPage={hasNextPage}
                 isMultiple={isMultiple}
+                onAction={onAction}
               />
             </div>
           </FloatingFocusManager>
