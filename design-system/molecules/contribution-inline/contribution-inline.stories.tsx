@@ -5,7 +5,14 @@ import { ContributionInline } from "./variants/contribution-inline-default";
 
 type Story = StoryObj<typeof ContributionInline>;
 
-const defaultProps: ContributionInlinePort<"div"> = {};
+const defaultProps: ContributionInlinePort<"div"> = {
+  contributionBadgeProps: {
+    type: "ISSUE",
+    githubStatus: "OPEN",
+    number: 123,
+  },
+  githubTitle: "Title",
+};
 
 const meta: Meta<typeof ContributionInline> = {
   component: ContributionInline,

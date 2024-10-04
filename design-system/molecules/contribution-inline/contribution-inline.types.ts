@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
-import { Contribution } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionBadgePort } from "@/design-system/molecules/contribution-badge";
 
 interface Variants {
   truncate: boolean;
@@ -15,6 +15,7 @@ export interface ContributionInlinePort<C extends ElementType> extends Partial<V
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  contribution: Contribution;
+  contributionBadgeProps: ContributionBadgePort<"span">;
+  githubTitle: string;
   truncate?: boolean;
 }

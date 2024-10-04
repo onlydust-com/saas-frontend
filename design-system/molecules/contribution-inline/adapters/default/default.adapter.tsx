@@ -12,7 +12,8 @@ export function ContributionInlineDefaultAdapter<C extends ElementType = "div">(
   as,
   classNames,
   htmlProps,
-  contribution,
+  contributionBadgeProps,
+  githubTitle,
   truncate = false,
 }: ContributionInlinePort<C>) {
   const Component = as || "div";
@@ -20,9 +21,9 @@ export function ContributionInlineDefaultAdapter<C extends ElementType = "div">(
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
-      <ContributionBadge contribution={contribution} />
+      <ContributionBadge {...contributionBadgeProps} />
       <Typo size={"xs"} color={"tertiary"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
-        {contribution.githubTitle}
+        {githubTitle}
       </Typo>
     </Component>
   );
