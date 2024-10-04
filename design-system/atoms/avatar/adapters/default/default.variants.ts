@@ -29,7 +29,7 @@ export const AvatarDefaultVariants = tv({
         base: "h-8 min-h-8 w-8 min-w-8",
         icon: "h-3.5 w-3.5 outline-2",
       },
-      s: {
+      sm: {
         base: "h-6 min-h-6 w-6 min-w-6",
         icon: "h-3 w-3 outline-1",
       },
@@ -103,7 +103,7 @@ export const AvatarDefaultVariants = tv({
       },
     },
     {
-      size: "s",
+      size: "sm",
       onlineIcon: true,
       class: {
         icon: "bottom-0 right-0 h-1.5 w-1.5",
@@ -164,7 +164,7 @@ export const AvatarDefaultVariants = tv({
       },
     },
     {
-      size: "s",
+      size: "sm",
       shape: "squared",
       class: {
         base: "rounded-md",
@@ -223,7 +223,7 @@ export const AvatarDefaultVariants = tv({
       },
     },
     {
-      size: "s",
+      size: "sm",
       name: true,
       class: {
         name: "text-xs",

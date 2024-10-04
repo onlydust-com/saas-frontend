@@ -14,7 +14,7 @@ export function getAvatarItemImageSize(size: AvatarPort["size"]): [number, numbe
       return [16, 16];
     case "md":
       return [14, 14];
-    case "s":
+    case "sm":
       return [12, 12];
     case "xs":
       return [12, 12];
@@ -38,7 +38,7 @@ export function getAvatarImageSize(size: AvatarPort["size"]): [number, number] {
       return [40, 40];
     case "md":
       return [32, 32];
-    case "s":
+    case "sm":
       return [24, 24];
     case "xs":
       return [20, 20];
