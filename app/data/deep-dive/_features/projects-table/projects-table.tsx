@@ -43,7 +43,7 @@ export function ProjectsTable() {
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
   const queryParams: Partial<GetBiProjectsQueryParams> = {
-    programOrEcosystemIds: selectedProgramAndEcosystem.length
+    dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
