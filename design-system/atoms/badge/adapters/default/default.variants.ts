@@ -29,6 +29,9 @@ export const BadgeDefaultVariants = tv({
     isDeletable: {
       true: {},
     },
+    iconOnly: {
+      true: {},
+    },
     color: {
       grey: {
         base: "border-components-badge-grey-border bg-components-badge-grey-bg",
@@ -89,11 +92,41 @@ export const BadgeDefaultVariants = tv({
         base: "px-2 py-3",
       },
     },
+
+    {
+      size: "xxs",
+      iconOnly: true,
+      class: {
+        base: "px-xxs py-xxs",
+      },
+    },
+    {
+      size: "xs",
+      iconOnly: true,
+      class: {
+        base: "px-xs py-xs",
+      },
+    },
+    {
+      size: "sm",
+      iconOnly: true,
+      class: {
+        base: "px-sm py-sm",
+      },
+    },
+    {
+      size: "md",
+      iconOnly: true,
+      class: {
+        base: "px-md py-md",
+      },
+    },
   ],
   defaultVariants: {
     size: "sm",
     shape: "rounded",
     color: "grey",
     isDeletable: false,
+    iconOnly: false,
   },
 });
