@@ -58,7 +58,7 @@ export function FilterData() {
           }
         />
         <ContributorProjectFilter
-          selectedUser={filters.contributorsIds}
+          selectedUser={filters.contributorIds}
           onSelect={(users: string[]) => setFilters({ contributorsIds: users })}
         />
         <ContributionsActivityFilter
