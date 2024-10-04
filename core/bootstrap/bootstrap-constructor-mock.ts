@@ -1,6 +1,7 @@
 import { BootstrapConstructor } from "@/core/bootstrap/index";
 import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
+import { ContributionClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/contribution-client-adapter-mock";
 import { CurrencyClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/currency-client-adapter-mock";
 import { DepositClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/deposit-client-adapter-mock";
 import { EcosystemClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/ecosystem-client-adapter-mock";
@@ -47,6 +48,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   ecosystemStoragePortForClient: new EcosystemClientAdapterMock(),
   githubStoragePortForServer: new GithubClientAdapterMock(),
   githubStoragePortForClient: new GithubClientAdapterMock(),
+  contributionStoragePortForServer: new ContributionClientAdapterMock(),
+  contributionStoragePortForClient: new ContributionClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
