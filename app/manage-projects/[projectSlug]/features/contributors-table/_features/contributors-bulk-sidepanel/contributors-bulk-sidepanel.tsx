@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { useContributorsBulkSidePanel } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_features/contributors-bulk-sidepanel/contributors-bulk-sidepanel.hooks";
 import { LabelSelector } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_features/label-selector/label-selector";
@@ -24,10 +24,7 @@ export function ContributorsBulkSidepanel() {
   const { Panel } = useSidePanel({ name });
   const { projectSlug } = useSinglePanelData<ContributorsBulkSidepanelData>(name) ?? { projectSlug: "" };
   const { userSelected, onRemoveSelection } = useContext(ContributorsTableContext);
-  const [selectedLabels, setSelectedLabels] = useState<label[]>([
-    { id: "0151da31-d3e5-447e-816d-ccc32c48dd17", for: [43467246] },
-    { id: "dd4cd512-f1a4-4f17-b729-d536d81cfa03", for: [43467246, 4435377] },
-  ]);
+  const [selectedLabels, setSelectedLabels] = useState<label[]>([]);
 
   const formatedLabels: LabelSelectorProps["selectedLabels"] = useMemo(() => {
     return selectedLabels?.map(label => ({
@@ -62,6 +59,24 @@ export function ContributorsBulkSidepanel() {
       setSelectedLabels(newSelectedLabels);
     }
   }
+
+  useEffect(() => {
+    if (userSelected.length) {
+      const labels = userSelected
+        .map(user => user.projectContributorLabels?.map(({ id }) => id))
+        .flat()
+        .filter(Boolean) as string[];
+
+      setSelectedLabels(
+        labels.map(label => ({
+          id: label,
+          for: userSelected
+            .filter(user => user.projectContributorLabels?.map(({ id }) => id).includes(label))
+            .map(user => user.contributor.githubUserId),
+        }))
+      );
+    }
+  }, [userSelected]);
 
   return (
     <Panel>
