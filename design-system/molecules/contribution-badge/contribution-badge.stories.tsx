@@ -6,11 +6,9 @@ import { ContributionBadge } from "./variants/contribution-badge-default";
 type Story = StoryObj<typeof ContributionBadge>;
 
 const defaultProps: ContributionBadgePort<"div"> = {
-  contribution: {
-    type: "ISSUE",
-    githubStatus: "OPEN",
-    githubNumber: 123,
-  },
+  type: "ISSUE",
+  githubStatus: "OPEN",
+  id: 123,
 };
 
 const meta: Meta<typeof ContributionBadge> = {
