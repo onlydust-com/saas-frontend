@@ -36,6 +36,20 @@ export const BadgeCloseDefaultVariants = tv({
         base: "rounded-xs",
       },
     },
+    size: {
+      xxs: {
+        base: "size-4",
+      },
+      xs: {
+        base: "size-4",
+      },
+      sm: {
+        base: "size-4",
+      },
+      md: {
+        base: "size-4",
+      },
+    },
   },
   defaultVariants: {
     shape: "rounded",
