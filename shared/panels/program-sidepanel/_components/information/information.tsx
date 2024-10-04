@@ -16,7 +16,7 @@ export function Information({ data }: InformationProps) {
       <div className="grid grid-cols-3 gap-md">
         <div className={"flex flex-col gap-1"}>
           <Typo size={"xs"} color={"secondary"} translate={{ token: "panels:program.information.lead.title" }} />
-          <UserGroup avatarProps={{ size: "s" }} users={data.leads} maxUsers={2} />
+          <UserGroup avatarProps={{ size: "sm" }} users={data.leads} maxUsers={2} />
         </div>
       </div>
     </Paper>

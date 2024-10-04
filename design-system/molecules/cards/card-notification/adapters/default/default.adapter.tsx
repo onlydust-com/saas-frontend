@@ -28,7 +28,7 @@ export function CardNotificationDefaultAdapter({
           component: Bell,
           size: "xs",
         },
-        size: "s",
+        size: "sm",
         onlineIcon: true,
       }}
       titleProps={{
