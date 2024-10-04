@@ -1,11 +1,10 @@
 import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
 
-import { bootstrap } from "@/core/bootstrap";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ContributorLabelFilter } from "@/shared/features/filters/contributor-label-filter/contributor-label-filter";
 import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
+import { ProjectRepoFilter } from "@/shared/features/filters/project-repo-filter/project-repo-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -15,7 +14,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { useFilterData } from "./filter-data.context";
 
 export function FilterData() {
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useContributionsFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
@@ -37,6 +35,10 @@ export function FilterData() {
         <ContributorLabelFilter
           selectedLabel={filters.projectContributorLabelIds}
           onSelect={(labels: string[]) => setFilters({ projectContributorLabelIds: labels })}
+        />
+        <ProjectRepoFilter
+          selectedRepo={filters.repoIds?.map(id => id.toString())}
+          onSelect={(repos: string[]) => setFilters({ repoIds: repos.map(repo => Number(repo)) })}
         />
       </SidePanelBody>
       <SidePanelFooter>
