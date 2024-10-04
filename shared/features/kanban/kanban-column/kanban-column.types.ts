@@ -6,7 +6,7 @@ import { BadgePort } from "@/design-system/atoms/badge";
 
 interface header {
   startContent?: ReactNode;
-  title: ReactNode;
+  title?: ReactNode;
   badge?: BadgePort<AnyType>;
   endContent?: ReactNode;
 }
