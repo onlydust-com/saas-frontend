@@ -63,7 +63,7 @@ function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnio
           <ContributionBadge
             type={contribution.type}
             githubStatus={contribution.githubStatus}
-            id={contribution.githubNumber}
+            number={contribution.githubNumber}
           />
           {contribution.githubTitle}
         </div>

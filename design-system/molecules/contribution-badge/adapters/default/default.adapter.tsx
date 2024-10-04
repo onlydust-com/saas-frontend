@@ -17,7 +17,7 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
   shape = "rounded",
   type,
   githubStatus,
-  id,
+  number,
 }: ContributionBadgePort<C>) {
   const Component = as || "div";
 
@@ -45,7 +45,7 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
         base: cn("w-fit", classNames?.base),
       }}
     >
-      {id}
+      {number}
     </Badge>
   );
 }

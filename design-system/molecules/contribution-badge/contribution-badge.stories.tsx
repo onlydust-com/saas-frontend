@@ -8,7 +8,7 @@ type Story = StoryObj<typeof ContributionBadge>;
 const defaultProps: ContributionBadgePort<"div"> = {
   type: "ISSUE",
   githubStatus: "OPEN",
-  id: 123,
+  number: 123,
 };
 
 const meta: Meta<typeof ContributionBadge> = {

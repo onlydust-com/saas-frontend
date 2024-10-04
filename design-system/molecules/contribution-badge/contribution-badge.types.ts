@@ -16,5 +16,5 @@ export type Contribution = Pick<
 export interface ContributionBadgePort<C extends ElementType> extends Partial<BadgeIconPort<C>> {
   type: ContributionTypeUnion;
   githubStatus: ContributionGithubStatusUnion;
-  id: ReactNode;
+  number: ReactNode;
 }
