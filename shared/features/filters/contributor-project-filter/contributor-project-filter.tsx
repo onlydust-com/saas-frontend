@@ -5,20 +5,20 @@ import { ContributorProjectFilterProps } from "@/shared/features/filters/contrib
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 
 export function ContributorProjectFilter({ selectedUser, onSelect }: ContributorProjectFilterProps) {
-  const { t } = useTranslation("features");
+  const { t } = useTranslation();
   return (
     <AccordionFilter
-      name={"contributions-project"}
+      name={"contributor-project"}
       title={{ translate: { token: "features:filters.contributorProject.title" } }}
       selected={selectedUser?.length}
     >
       <UserAutocomplete
-        name={"lead-project"}
+        name={"contributor-project"}
         selectedUser={selectedUser}
         isPopover={false}
         onSelect={onSelect}
         isMultiple={true}
-        placeholder={t("filters.contributorProject.placeholder")}
+        placeholder={t("features:filters.contributorProject.placeholder")}
         withInternalUserOnly={true}
       />
     </AccordionFilter>

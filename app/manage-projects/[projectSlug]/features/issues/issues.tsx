@@ -1,26 +1,22 @@
 import { Plus } from "lucide-react";
-import { useParams } from "next/navigation";
-import { useMemo } from "react";
 import { Filter } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { ContributorsTableFilters } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
 import { FilterData } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data";
 import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.context";
 import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { GetContributionsPortParams } from "@/core/domain/contribution/contribution-contract.types";
+import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { TableSearch } from "@/design-system/molecules/table-search";
-
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
-
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Menu } from "@/design-system/molecules/menu";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
+import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Kanban } from "@/shared/features/kanban/kanban";
@@ -29,6 +25,11 @@ import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { IssuesKanbanColumns, IssuesProps } from "./issues.types";
+
+export type ContributionKanbanFilters = Omit<
+  NonNullable<GetContributionsPortParams["queryParams"]>,
+  "pageSize" | "pageIndex"
+>;
 
 function Column({ type, ...kanbanProps }: { type: IssuesKanbanColumns } & Partial<KanbanColumnProps>) {
   const title = useMemo(() => {
@@ -63,7 +64,7 @@ function Column({ type, ...kanbanProps }: { type: IssuesKanbanColumns } & Partia
 
 export function Issues(_: IssuesProps) {
   // TODO @Mehdi update to ContributionFiltersType once ready
-  const [filters, setFilters] = useState<ContributorsTableFilters>({});
+  const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
@@ -110,15 +111,15 @@ export function Issues(_: IssuesProps) {
         <div className={"h-full overflow-hidden"}>
           <Kanban>
             <Column
-          type={IssuesKanbanColumns.notAssigned}
-          header={{
-            endContent: (
-              <Menu isPopOver={true} closeOnSelect items={createMenuItems(data?.getProjectRepos() || [])}>
-                <Button iconOnly variant={"secondary"} size="sm" startIcon={{ component: Plus }} />
-              </Menu>
-            ),
-          }}
-        />
+              type={IssuesKanbanColumns.notAssigned}
+              header={{
+                endContent: (
+                  <Menu isPopOver={true} closeOnSelect items={createMenuItems(data?.getProjectRepos() || [])}>
+                    <Button iconOnly variant={"secondary"} size="sm" startIcon={{ component: Plus }} />
+                  </Menu>
+                ),
+              }}
+            />
             <Column type={IssuesKanbanColumns.inProgress} />
             <Column type={IssuesKanbanColumns.toReview} />
             <Column type={IssuesKanbanColumns.done} />

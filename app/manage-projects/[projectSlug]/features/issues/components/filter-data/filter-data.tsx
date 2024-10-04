@@ -3,14 +3,8 @@ import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[proj
 import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
 
-import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
-import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
-import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
-import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
-import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -35,59 +29,9 @@ export function FilterData() {
         canClose={true}
       />
       <SidePanelBody>
-        <LanguageFilter
-          selectedLanguages={filters.languageIds}
-          onSelect={languages => setFilters({ languageIds: languages })}
-        />
-        <TotalRewardedAmountFilter
-          value={{
-            amount: filters.totalRewardedUsdAmount,
-            type: getQuantityFilterType(filters.totalRewardedUsdAmount),
-          }}
-          onChange={value =>
-            setFilters({
-              totalRewardedUsdAmount: {
-                ...value.amount,
-              },
-            })
-          }
-          unit={
-            <Typo size={"sm"} color={"tertiary"}>
-              {moneyKernelPort.getCurrency("USD").code}
-            </Typo>
-          }
-        />
         <ContributorProjectFilter
-          selectedUser={filters.contributorIds}
-          onSelect={(users: string[]) => setFilters({ contributorsIds: users })}
-        />
-        <ContributionsActivityFilter
-          value={{
-            amount: filters.contributionCount,
-            type: getQuantityFilterType(filters.contributionCount),
-            contributionType: filters.contributionCount?.types || [],
-          }}
-          onChange={value => {
-            setFilters({
-              contributionCount: {
-                ...value.amount,
-                types: value.contributionType,
-              },
-            });
-          }}
-        />
-        <RewardCountFilter
-          value={{
-            amount: filters.rewardCount,
-            type: getQuantityFilterType(filters.rewardCount),
-          }}
-          onChange={value =>
-            setFilters({
-              rewardCount: {
-                ...value.amount,
-              },
-            })
-          }
+          selectedUser={filters.contributorIds?.map(id => id.toString())}
+          onSelect={(users: string[]) => setFilters({ contributorIds: users.map(user => Number(user)) })}
         />
       </SidePanelBody>
       <SidePanelFooter>

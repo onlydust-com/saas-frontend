@@ -2,19 +2,18 @@
 
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
-import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
+import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/features/issues/issues";
 
 interface FilterDataContextInterface {
-  // TODO @Mehdi update to ContributionFiltersType once ready
-  filters: ContributorsTableFilters;
-  setFilters: (filters: ContributorsTableFilters) => void;
+  filters: ContributionKanbanFilters;
+  setFilters: (filters: ContributionKanbanFilters) => void;
   saveFilters: () => void;
   resetFilters: () => void;
 }
 
 interface FilterDataProviderProps extends PropsWithChildren {
-  filters: ContributorsTableFilters;
-  setFilters: (filters: ContributorsTableFilters) => void;
+  filters: ContributionKanbanFilters;
+  setFilters: (filters: ContributionKanbanFilters) => void;
 }
 
 export const FilterDataContext = createContext<FilterDataContextInterface>({
@@ -25,8 +24,8 @@ export const FilterDataContext = createContext<FilterDataContextInterface>({
 });
 
 export function FilterDataProvider({ children, filters, setFilters }: FilterDataProviderProps) {
-  const [localFilters, setLocalFilters] = useState<ContributorsTableFilters>(filters);
-  function handleUpdateFilters(newFilters: ContributorsTableFilters) {
+  const [localFilters, setLocalFilters] = useState<ContributionKanbanFilters>(filters);
+  function handleUpdateFilters(newFilters: ContributionKanbanFilters) {
     setLocalFilters({
       ...localFilters,
       ...newFilters,
