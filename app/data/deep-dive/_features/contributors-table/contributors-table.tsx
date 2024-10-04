@@ -46,7 +46,7 @@ export function ContributorsTable() {
   const { open: openContributor } = useContributorSidePanel();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
-    programOrEcosystemIds: selectedProgramAndEcosystem.length
+    dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
