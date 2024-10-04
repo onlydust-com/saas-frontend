@@ -58,6 +58,7 @@ export function ProjectUpdateSidepanel() {
       const editProjectData: EditProjectBody = {
         ...updatedData,
         logoUrl: fileUrl?.url || updatedData?.logoUrl,
+        contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
         rewardSettings: {
           ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
           ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
@@ -65,8 +66,6 @@ export function ProjectUpdateSidepanel() {
           ignoreContributionsBefore: data?.rewardSettings?.ignoreContributionsBefore,
         },
       };
-
-      console.log("LABELS", labels);
 
       await editProject(editProjectData);
 
@@ -81,6 +80,7 @@ export function ProjectUpdateSidepanel() {
     if (data) {
       reset({
         ...data,
+        labels: (data.contributorLabels || []).map(label => ({ name: label.name, backendId: label.id })),
         isLookingForContributors: data.hiring,
         githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
