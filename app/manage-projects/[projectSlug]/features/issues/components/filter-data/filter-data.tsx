@@ -4,6 +4,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { ContributorLabelFilter } from "@/shared/features/filters/contributor-label-filter/contributor-label-filter";
 import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -32,6 +33,10 @@ export function FilterData() {
         <ContributorProjectFilter
           selectedUser={filters.contributorIds?.map(id => id.toString())}
           onSelect={(users: string[]) => setFilters({ contributorIds: users.map(user => Number(user)) })}
+        />
+        <ContributorLabelFilter
+          selectedLabel={filters.projectContributorLabelIds}
+          onSelect={(labels: string[]) => setFilters({ projectContributorLabelIds: labels })}
         />
       </SidePanelBody>
       <SidePanelFooter>

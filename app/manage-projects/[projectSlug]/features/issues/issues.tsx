@@ -63,7 +63,7 @@ function Column({ type, ...kanbanProps }: { type: IssuesKanbanColumns } & Partia
 }
 
 export function Issues(_: IssuesProps) {
-  // TODO @Mehdi update to ContributionFiltersType once ready
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -74,8 +74,6 @@ export function Issues(_: IssuesProps) {
     search: debouncedSearch,
     ...filters,
   };
-
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
