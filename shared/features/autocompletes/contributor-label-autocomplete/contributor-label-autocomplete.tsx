@@ -1,4 +1,3 @@
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -11,11 +10,11 @@ import { ContributorLabelAutocompleteProps } from "@/shared/features/autocomplet
 export function ContributorLabelAutocomplete({
   selectedLabels,
   onSelect,
+  projectIdOrSlug,
   ...selectProps
 }: ContributorLabelAutocompleteProps) {
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const { data } = ProjectReactQueryAdapter.client.useGetProjectContributorLabels({
-    pathParams: { projectIdOrSlug: projectSlug },
+    pathParams: { projectIdOrSlug },
   });
 
   const labelsItem: MenuItemPort[] = useMemo(() => {

@@ -142,3 +142,15 @@ export type GetProjectContributorLabelsPortParams = HttpClientParameters<{
 }>;
 
 export type GetProjectContributorLabelsPortResponse = HttpStorageResponse<GetProjectContributorLabelsModel>;
+
+/* --------------------- Update Project Contributor labels --------------------- */
+
+export type UpdateProjectContributorLabelsBody = components["schemas"]["ContributorsLabelsRequest"];
+
+type UpdateProjectContributorLabelsPathParams = operations["updateContributorsLabels"]["parameters"]["path"];
+
+export type UpdateProjectContributorLabelsPortParams = HttpClientParameters<{
+  PathParams: UpdateProjectContributorLabelsPathParams;
+}>;
+
+export type UpdateProjectContributorLabelsPortResponse = HttpStorageResponse;
