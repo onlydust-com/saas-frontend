@@ -3,5 +3,5 @@ import { ContributorsBulkSidepanelData } from "@/app/manage-projects/[projectSlu
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 
 export function useContributorsBulkSidePanel() {
-  return useSinglePanelContext<ContributorsBulkSidepanelData>("project-detail");
+  return useSinglePanelContext<ContributorsBulkSidepanelData>("contributors-bulk");
 }

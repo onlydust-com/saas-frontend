@@ -62,18 +62,16 @@ export function ContributorsBulkSidepanel() {
     });
   }
 
+  function handleChange(labels: label[]) {
+    onSave(labels);
+    setSelectedLabels(labels);
+  }
+
   function onChange(id: string, isSelected: boolean) {
     if (isSelected) {
-      const newSelectedLabels = [
-        ...selectedLabels,
-        { id, for: userSelected?.map(user => user.contributor.githubUserId) ?? [] },
-      ];
-      onSave(newSelectedLabels);
-      setSelectedLabels(newSelectedLabels);
+      handleChange([...selectedLabels, { id, for: userSelected?.map(user => user.contributor.githubUserId) ?? [] }]);
     } else {
-      const newSelectedLabels = selectedLabels.filter(label => label.id !== id);
-      onSave(newSelectedLabels);
-      setSelectedLabels(newSelectedLabels);
+      handleChange(selectedLabels.filter(label => label.id !== id));
     }
   }
 
