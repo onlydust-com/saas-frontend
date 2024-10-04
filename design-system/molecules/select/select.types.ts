@@ -31,14 +31,16 @@ interface SelectProps<T = string> {
   isMultiple?: MenuPort<T>["isMultiple"];
 }
 
-export interface SelectExtendedProps extends SelectInputProps {
+export interface SelectExtendedProps<T = string> extends SelectInputProps {
   isDisabled?: boolean;
   isAutoComplete?: boolean;
   isMultiple?: MenuPort["isMultiple"];
   closeOnSelect?: boolean;
+  onAction?: MenuPort<T>["onAction"];
+  disabledAutoOrdering?: boolean;
 }
 
-export interface SelectPort<T = string> extends Partial<Variants>, SelectExtendedProps, SelectProps<T> {
+export interface SelectPort<T = string> extends Partial<Variants>, SelectExtendedProps<T>, SelectProps<T> {
   classNames?: Partial<ClassNames>;
   controlledAutoComplete?: {
     onChange?: (value: string) => void;

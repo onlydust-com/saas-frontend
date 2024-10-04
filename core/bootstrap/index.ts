@@ -1,5 +1,6 @@
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
+import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
@@ -14,6 +15,7 @@ import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storag
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
+import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { EcosystemClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/ecosystem-client-adapter";
@@ -68,6 +70,8 @@ export interface BootstrapConstructor {
   ecosystemStoragePortForServer: EcosystemStoragePort;
   githubStoragePortForClient: GithubStoragePort;
   githubStoragePortForServer: GithubStoragePort;
+  contributionStoragePortForClient: ContributionStoragePort;
+  contributionStoragePortForServer: ContributionStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -106,6 +110,8 @@ export class Bootstrap {
   ecosystemStoragePortForServer: EcosystemStoragePort;
   githubStoragePortForClient: GithubStoragePort;
   githubStoragePortForServer: GithubStoragePort;
+  contributionStoragePortForClient: ContributionStoragePort;
+  contributionStoragePortForServer: ContributionStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -140,6 +146,8 @@ export class Bootstrap {
     this.ecosystemStoragePortForServer = constructor.ecosystemStoragePortForServer;
     this.githubStoragePortForClient = constructor.githubStoragePortForClient;
     this.githubStoragePortForServer = constructor.githubStoragePortForServer;
+    this.contributionStoragePortForClient = constructor.contributionStoragePortForClient;
+    this.contributionStoragePortForServer = constructor.contributionStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -270,6 +278,14 @@ export class Bootstrap {
     return this.githubStoragePortForClient;
   }
 
+  getContributionStoragePortForServer() {
+    return this.contributionStoragePortForServer;
+  }
+
+  getContributionStoragePortForClient() {
+    return this.contributionStoragePortForClient;
+  }
+
   getNotificationStoragePortForServer() {
     return this.notificationStoragePortForServer;
   }
@@ -321,6 +337,8 @@ export class Bootstrap {
         ecosystemStoragePortForClient: new EcosystemClientAdapter(new FetchHttpClient()),
         githubStoragePortForServer: new GithubClientAdapter(new FetchHttpClient()),
         githubStoragePortForClient: new GithubClientAdapter(new FetchHttpClient()),
+        contributionStoragePortForServer: new ContributionClientAdapter(new FetchHttpClient()),
+        contributionStoragePortForClient: new ContributionClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),

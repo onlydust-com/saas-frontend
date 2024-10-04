@@ -18,6 +18,8 @@ import {
   GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
+  UpdateProjectContributorLabelsPortParams,
+  UpdateProjectContributorLabelsPortResponse,
   UploadProjectLogoPortParams,
   UploadProjectLogoPortResponse,
 } from "@/core/domain/project/project-contract.types";
@@ -38,4 +40,7 @@ export interface ProjectFacadePort {
   getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
   getProjectBySlug(params: GetProjectBySlugPortParams): GetProjectBySlugPortResponse;
   getProjectContributorLabels(p: GetProjectContributorLabelsPortParams): GetProjectContributorLabelsPortResponse;
+  updateProjectContributorLabels(
+    p: UpdateProjectContributorLabelsPortParams
+  ): UpdateProjectContributorLabelsPortResponse;
 }

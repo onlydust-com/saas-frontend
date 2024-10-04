@@ -83,5 +83,12 @@
       "installed": "Installed organizations",
       "available": "Available organizations"
     }
+  },
+  "contributorLabels": {
+    "title": "Contributor labels",
+    "addLabel": "Add",
+    "updateLabel": "Modify",
+    "cancel": "Cancel",
+    "addLabelPlaceholder": "New label name"
   }
 }
