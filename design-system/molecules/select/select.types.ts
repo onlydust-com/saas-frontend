@@ -37,6 +37,7 @@ export interface SelectExtendedProps<T = string> extends SelectInputProps {
   isMultiple?: MenuPort["isMultiple"];
   closeOnSelect?: boolean;
   onAction?: MenuPort<T>["onAction"];
+  disabledAutoOrdering?: boolean;
 }
 
 export interface SelectPort<T = string> extends Partial<Variants>, SelectExtendedProps<T>, SelectProps<T> {

@@ -39,6 +39,7 @@ export function SelectDefaultAdapter<T = string>({
   isMultiple = false,
   initialItems,
   onAction,
+  disabledAutoOrdering = false,
   ...inputProps
 }: SelectPort<T>) {
   const slots = SelectDefaultVariants();
@@ -48,6 +49,9 @@ export function SelectDefaultAdapter<T = string>({
   const [selectedItem, setSelectedItem] = useState<MenuItemPort<T>[]>(initialItems ?? []);
 
   const items = useMemo(() => {
+    if (disabledAutoOrdering) {
+      return _items;
+    }
     const set = Array.from(new Set([...selectedItem, ..._items]));
     return set.filter((item, index, self) => index === self.findIndex(t => t.id === item.id));
   }, [_items, selectedItem]);

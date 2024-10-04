@@ -43,6 +43,7 @@ export function LabelSelector({ selectedLabels, onAction }: LabelSelectorProps) 
       isPopover={false}
       isMultiple={true}
       onAction={handleAction}
+      disabledAutoOrdering={true}
     />
   );
 }

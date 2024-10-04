@@ -5,6 +5,8 @@ import { LabelSelector } from "@/app/manage-projects/[projectSlug]/features/cont
 import { LabelSelectorProps } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_features/label-selector/label-selector.types";
 import { ContributorsTableContext } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table.context";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
@@ -14,6 +16,7 @@ import { Accordion } from "@/design-system/molecules/accordion";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { cn } from "@/shared/helpers/cn";
 
 import { ContributorsBulkSidepanelData } from "./contributors-bulk-sidepanel.types";
 
@@ -25,6 +28,18 @@ export function ContributorsBulkSidepanel() {
   const { projectSlug } = useSinglePanelData<ContributorsBulkSidepanelData>(name) ?? { projectSlug: "" };
   const { userSelected, onRemoveSelection } = useContext(ContributorsTableContext);
   const [selectedLabels, setSelectedLabels] = useState<label[]>([]);
+
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: { slug: projectSlug ?? "" },
+    options: {
+      enabled: !!projectSlug,
+    },
+  });
+
+  const { mutateAsync: updateContributorLabels, isPending } =
+    ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
+      pathParams: { projectId: data?.id ?? "" },
+    });
 
   const formatedLabels: LabelSelectorProps["selectedLabels"] = useMemo(() => {
     return selectedLabels?.map(label => ({
@@ -42,7 +57,9 @@ export function ContributorsBulkSidepanel() {
 
   function onSave(labels: label[]) {
     const updatedData = buildUpdatedLabelByContributors(labels);
-    console.log("should update labels", updatedData);
+    updateContributorLabels({
+      contributorsLabels: updatedData,
+    });
   }
 
   function onChange(id: string, isSelected: boolean) {
@@ -140,7 +157,7 @@ export function ContributorsBulkSidepanel() {
             children: userSelected.length || 0,
           }}
         >
-          <div>
+          <div className={cn({ "pointer-events-none": isPending })}>
             <LabelSelector onAction={onChange} selectedLabels={formatedLabels} />
           </div>
         </Accordion>
