@@ -16,6 +16,7 @@ export const ScrollView = forwardRef(function ScrollView(
         {
           "overflow-y-auto": direction === "y",
           "overflow-x-auto": direction === "x",
+          "overflow-auto": direction === "all",
         },
         className
       )}

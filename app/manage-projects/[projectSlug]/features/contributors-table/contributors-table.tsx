@@ -25,7 +25,6 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export type ContributorsTableFilters = Omit<
   NonNullable<GetBiContributorsPortParams["queryParams"]>,
@@ -39,8 +38,6 @@ function SafeContributorsTable() {
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
   const { rowSelection, setRowSelection, setUserSelected } = useContext(ContributorsTableContext);
-
-  const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
@@ -62,12 +59,12 @@ function SafeContributorsTable() {
       contributionStatuses: ["IN_PROGRESS", "COMPLETED"],
     },
     options: {
-      enabled: Boolean(user),
+      enabled: Boolean(projectSlug),
     },
   });
 
-  const isLoading = isLoadingUser || isLoadingBiContributors;
-  const isError = isErrorUser || isErrorBiContributors;
+  const isLoading = isLoadingBiContributors;
+  const isError = isErrorBiContributors;
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
@@ -108,13 +105,7 @@ function SafeContributorsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex flex-col gap-lg"}>
-        <Typo
-          size={"xs"}
-          weight={"medium"}
-          variant={"heading"}
-          translate={{ token: "manageProjects:detail.activity.title" }}
-        />
+      <div className={"flex flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}
@@ -130,7 +121,7 @@ function SafeContributorsTable() {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
-        <ScrollView direction={"x"}>
+        <ScrollView direction={"all"}>
           <Table
             header={{
               headerGroups: table.getHeaderGroups(),

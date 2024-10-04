@@ -14,6 +14,7 @@ import {
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
@@ -35,6 +36,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectTransactionsCsv: "projects/:projectIdOrSlug/transactions",
     getProjectBySlug: "projects/slug/:slug",
     getProjectContributorLabels: "projects/:projectIdOrSlug/contributor-labels",
+    updateProjectContributorLabels: "projects/:projectId/contributors",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -289,6 +291,28 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         labels: data.labels.map(label => new ProjectContributorLabels(label)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updateProjectContributorLabels = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["updateProjectContributorLabels"]>) => {
+    const path = this.routes["updateProjectContributorLabels"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateProjectContributorLabelsBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,
