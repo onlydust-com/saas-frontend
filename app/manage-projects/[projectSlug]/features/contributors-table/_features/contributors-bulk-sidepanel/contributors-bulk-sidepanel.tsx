@@ -158,7 +158,7 @@ export function ContributorsBulkSidepanel() {
           }}
         >
           <div className={cn({ "pointer-events-none": isPending })}>
-            <LabelSelector onAction={onChange} selectedLabels={formatedLabels} />
+            <LabelSelector onAction={onChange} selectedLabels={formatedLabels} projectSlug={projectSlug} />
           </div>
         </Accordion>
       </SidePanelBody>

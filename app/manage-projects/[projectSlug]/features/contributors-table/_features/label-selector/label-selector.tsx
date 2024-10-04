@@ -1,4 +1,3 @@
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -8,8 +7,7 @@ import { Select } from "@/design-system/molecules/select";
 
 import { LabelSelectorProps } from "./label-selector.types";
 
-export function LabelSelector({ selectedLabels, onAction }: LabelSelectorProps) {
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+export function LabelSelector({ selectedLabels, onAction, projectSlug }: LabelSelectorProps) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectContributorLabels({
     pathParams: { projectIdOrSlug: projectSlug },
   });
