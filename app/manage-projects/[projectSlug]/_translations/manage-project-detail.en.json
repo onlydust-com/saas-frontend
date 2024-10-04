@@ -58,6 +58,10 @@
     "rows": {
       "languages": "{{count}} languages",
       "ecosystems": "{{count}} ecosystems"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
     }
   }
 }

@@ -13,7 +13,6 @@ import {
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
-import { ProjectContributorLabelsResponse } from "@/core/domain/project/models/project-contributor-labels-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
@@ -25,19 +24,6 @@ import { toast } from "@/design-system/molecules/toaster";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-const contributorLabelsMock: ProjectContributorLabelsResponse[] = [
-  {
-    id: "0151da31-d3e5-447e-816d-ccc32c48dd17",
-    slug: "10x",
-    name: "10x",
-  },
-  {
-    id: "dd4cd512-f1a4-4f17-b729-d536d81cfa03",
-    slug: "1x",
-    name: "1x",
-  },
-];
 
 export function useFilterColumns() {
   const { t } = useTranslation();
@@ -53,12 +39,9 @@ export function useFilterColumns() {
     },
   });
 
-  // TODO @Mehdi handle loading and delete mock once backend ready
-
-  const { mutateAsync: updateContributorLabels, isPending: isUpdationgContributorLabels } =
-    ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
-      pathParams: { projectId: data?.id ?? "" },
-    });
+  const { mutateAsync: updateContributorLabels } = ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
+    pathParams: { projectId: data?.id ?? "" },
+  });
 
   async function onLabelChange(githubUserId: number, selectedIds: string[]) {
     try {
@@ -70,8 +53,9 @@ export function useFilterColumns() {
           },
         ],
       });
+      toast.success(<Translate token={"manageProjects:detail.contributorsTable.toast.success"} />);
     } catch (error) {
-      toast.error(<Translate token={"panels:projectUpdate.messages.error"} />);
+      toast.error(<Translate token={"manageProjects:detail.contributorsTable.toast.error"} />);
     }
   }
 
@@ -138,14 +122,14 @@ export function useFilterColumns() {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
       cell: info => {
         const githubUserId = info.row.original.contributor.githubUserId;
-
+        const contributorLabels = info.row.original.projectContributorLabels;
         return (
           <ContributorLabelPopover
             projectIdOrSlug={projectSlug}
             name={`contributorsLabels-${githubUserId}`}
             placeholder={t("manageProjects:detail.contributorsTable.columns.labels.placeholder")}
             onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
-            selectedLabels={contributorLabelsMock ?? []}
+            selectedLabels={contributorLabels ?? []}
           />
         );
       },
