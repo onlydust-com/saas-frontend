@@ -14,7 +14,7 @@ export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading 
   return (
     <div
       className={
-        "flex h-full min-w-[287px] flex-col items-start justify-start gap-lg overflow-hidden rounded-md border-1 border-border-primary bg-background-primary-alt py-xl"
+        "flex h-full w-[287px] min-w-[287px] flex-col items-start justify-start gap-lg overflow-hidden rounded-md border-1 border-border-primary bg-background-primary-alt py-xl"
       }
     >
       <div className={"flex h-fit w-full flex-row items-center justify-between gap-xs px-xl"}>
