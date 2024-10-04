@@ -11,8 +11,17 @@
   "activity": {
     "title": "Activity",
     "buttons": {
-      "seeActivity": "See activity",
-      "seeTransactions": "See transactions"
+      "contributors": "Contributors",
+      "issues": "Issues"
+    },
+    "kanban": {
+      "columns": {
+        "notAssigned": "Not assigned",
+        "inProgress": "In Progress",
+        "toReview": "To Review",
+        "done": "Done",
+        "archive": "Archive"
+      }
     }
   },
   "filters": {
@@ -58,6 +67,10 @@
     "rows": {
       "languages": "{{count}} languages",
       "ecosystems": "{{count}} ecosystems"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
     }
   }
 }

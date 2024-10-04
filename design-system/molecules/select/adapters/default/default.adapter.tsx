@@ -38,6 +38,8 @@ export function SelectDefaultAdapter<T = string>({
   isPopover = true,
   isMultiple = false,
   initialItems,
+  onAction,
+  disabledAutoOrdering = false,
   ...inputProps
 }: SelectPort<T>) {
   const slots = SelectDefaultVariants();
@@ -47,6 +49,9 @@ export function SelectDefaultAdapter<T = string>({
   const [selectedItem, setSelectedItem] = useState<MenuItemPort<T>[]>(initialItems ?? []);
 
   const items = useMemo(() => {
+    if (disabledAutoOrdering) {
+      return _items;
+    }
     const set = Array.from(new Set([...selectedItem, ..._items]));
     return set.filter((item, index, self) => index === self.findIndex(t => t.id === item.id));
   }, [_items, selectedItem]);
@@ -188,13 +193,14 @@ export function SelectDefaultAdapter<T = string>({
           value={formatedInputValue}
         />
 
-        <Menu
+        <Menu<T>
           items={formatedItems}
           onSelect={handleSelect}
           selectedIds={selectedIds}
           onNextPage={onNextPage}
           hasNextPage={hasNextPage}
           isMultiple={isMultiple}
+          onAction={onAction}
         />
       </div>
     );
@@ -224,6 +230,7 @@ export function SelectDefaultAdapter<T = string>({
                 onNextPage={onNextPage}
                 hasNextPage={hasNextPage}
                 isMultiple={isMultiple}
+                onAction={onAction}
               />
             </div>
           </FloatingFocusManager>

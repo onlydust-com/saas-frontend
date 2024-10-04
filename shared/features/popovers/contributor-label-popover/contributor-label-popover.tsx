@@ -4,11 +4,17 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 
-import { LabelAutocomplete } from "@/shared/features/autocompletes/label-autocomplete/label-autocomplete";
-import { LabelPopoverProps } from "@/shared/features/popovers/label-popover/label-popover.types";
+import { ContributorLabelAutocomplete } from "@/shared/features/autocompletes/contributor-label-autocomplete/contributor-label-autocomplete";
+import { ContributorLabelPopoverProps } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function LabelPopover({ selectedLabels, onSelect, buttonProps, ...selectProps }: LabelPopoverProps) {
+export function ContributorLabelPopover({
+  selectedLabels,
+  onSelect,
+  buttonProps,
+  projectIdOrSlug,
+  ...selectProps
+}: ContributorLabelPopoverProps) {
   const { t } = useTranslation();
   return (
     <Popover>
@@ -27,7 +33,7 @@ export function LabelPopover({ selectedLabels, onSelect, buttonProps, ...selectP
               {...buttonProps}
             >
               {selectedLabels?.length ? (
-                selectedLabels?.map(item => item).join(", ")
+                selectedLabels?.map(item => item.name).join(", ")
               ) : (
                 <Translate token="features:popovers.label.trigger" />
               )}
@@ -37,10 +43,11 @@ export function LabelPopover({ selectedLabels, onSelect, buttonProps, ...selectP
       </Popover.Trigger>
       <Popover.Content>
         {() => (
-          <LabelAutocomplete
+          <ContributorLabelAutocomplete
+            projectIdOrSlug={projectIdOrSlug}
             placeholder={t("features:popovers.label.placeholder")}
             {...selectProps}
-            selectedLabels={selectedLabels}
+            selectedLabels={selectedLabels?.map(item => item.id)}
             onSelect={onSelect}
             isPopover={false}
             isMultiple

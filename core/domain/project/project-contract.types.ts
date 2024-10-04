@@ -1,3 +1,4 @@
+import { ProjectContributorLabelsInterface } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
@@ -124,3 +125,32 @@ export type GetProjectBySlugPortParams = HttpClientParameters<{
   PathParams: GetProjectBySlugPathParams;
   QueryParams: GetProjectBySlugQueryParams;
 }>;
+
+/* ------------------------------ Get Project Contributor labels ------------------------------ */
+
+export type GetProjectContributorLabelsResponse = components["schemas"]["ProjectContributorLabelListResponse"];
+export type GetProjectContributorLabelsModel = Omit<GetProjectContributorLabelsResponse, "labels"> & {
+  labels: ProjectContributorLabelsInterface[];
+};
+
+type GetProjectContributorLabelsPathParams = operations["getProjectContributorLabels"]["parameters"]["path"];
+type GetProjectContributorLabelsQueryParams = operations["getProjectContributorLabels"]["parameters"]["query"];
+
+export type GetProjectContributorLabelsPortParams = HttpClientParameters<{
+  PathParams: GetProjectContributorLabelsPathParams;
+  QueryParams: GetProjectContributorLabelsQueryParams;
+}>;
+
+export type GetProjectContributorLabelsPortResponse = HttpStorageResponse<GetProjectContributorLabelsModel>;
+
+/* --------------------- Update Project Contributor labels --------------------- */
+
+export type UpdateProjectContributorLabelsBody = components["schemas"]["ContributorsLabelsRequest"];
+
+type UpdateProjectContributorLabelsPathParams = operations["updateContributorsLabels"]["parameters"]["path"];
+
+export type UpdateProjectContributorLabelsPortParams = HttpClientParameters<{
+  PathParams: UpdateProjectContributorLabelsPathParams;
+}>;
+
+export type UpdateProjectContributorLabelsPortResponse = HttpStorageResponse;

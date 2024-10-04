@@ -5,6 +5,8 @@ import {
   GetProjectByIdPortResponse,
   GetProjectBySlugPortParams,
   GetProjectBySlugPortResponse,
+  GetProjectContributorLabelsPortParams,
+  GetProjectContributorLabelsPortResponse,
   GetProjectFinancialDetailsByIdPortParams,
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
@@ -16,6 +18,8 @@ import {
   GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
+  UpdateProjectContributorLabelsPortParams,
+  UpdateProjectContributorLabelsPortResponse,
   UploadProjectLogoPortParams,
   UploadProjectLogoPortResponse,
 } from "@/core/domain/project/project-contract.types";
@@ -36,4 +40,8 @@ export interface ProjectStoragePort {
   getProjectTransactions(p: GetProjectTransactionsPortParams): GetProjectTransactionsPortResponse;
   getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
   getProjectBySlug(params: GetProjectBySlugPortParams): GetProjectBySlugPortResponse;
+  getProjectContributorLabels(p: GetProjectContributorLabelsPortParams): GetProjectContributorLabelsPortResponse;
+  updateProjectContributorLabels(
+    p: UpdateProjectContributorLabelsPortParams
+  ): UpdateProjectContributorLabelsPortResponse;
 }

@@ -12,6 +12,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
@@ -50,13 +51,14 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, rewardSettingsArrays, ...updatedData }: EditProjectFormData) {
+  async function onSubmit({ logoFile, rewardSettingsArrays, labels, ...updatedData }: EditProjectFormData) {
     try {
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
       const editProjectData: EditProjectBody = {
         ...updatedData,
         logoUrl: fileUrl?.url || updatedData?.logoUrl,
+        contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
         rewardSettings: {
           ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
           ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
@@ -78,6 +80,7 @@ export function ProjectUpdateSidepanel() {
     if (data) {
       reset({
         ...data,
+        labels: (data.contributorLabels || []).map(label => ({ name: label.name, backendId: label.id })),
         isLookingForContributors: data.hiring,
         githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
@@ -112,6 +115,7 @@ export function ProjectUpdateSidepanel() {
                 <GlobalInformation project={data} />
                 <ProjectLead project={data} />
                 <MoreInfo />
+                <ContributorLabels />
                 <Repositories project={data} />
               </>
             )}

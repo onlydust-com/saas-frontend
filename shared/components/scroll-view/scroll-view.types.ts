@@ -2,5 +2,5 @@ import { PropsWithChildren } from "react";
 
 export interface ScrollViewProps extends PropsWithChildren {
   className?: string;
-  direction?: "x" | "y";
+  direction?: "x" | "y" | "all";
 }

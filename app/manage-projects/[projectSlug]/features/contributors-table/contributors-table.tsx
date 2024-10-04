@@ -1,13 +1,17 @@
-import { RowSelectionState, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { RowSelectionState, Updater, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Filter } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 
 import { FilterColumns } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-data/filter-data.context";
 import { useContributorFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-data/filter-data.hooks";
+import {
+  ContributorsTableContext,
+  ContributorsTableProvider,
+} from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table.context";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
@@ -21,22 +25,19 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export type ContributorsTableFilters = Omit<
   NonNullable<GetBiContributorsPortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;
 
-export function ContributorsTable() {
+function SafeContributorsTable() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const { open: openFilterPanel } = useContributorFilterDataSidePanel();
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
-  const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
+  const { rowSelection, setRowSelection, setUserSelected } = useContext(ContributorsTableContext);
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
@@ -58,12 +59,12 @@ export function ContributorsTable() {
       contributionStatuses: ["IN_PROGRESS", "COMPLETED"],
     },
     options: {
-      enabled: Boolean(user),
+      enabled: Boolean(projectSlug),
     },
   });
 
-  const isLoading = isLoadingUser || isLoadingBiContributors;
-  const isError = isErrorUser || isErrorBiContributors;
+  const isLoading = isLoadingBiContributors;
+  const isError = isErrorBiContributors;
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
@@ -76,14 +77,21 @@ export function ContributorsTable() {
     enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
     getRowId: row => row.contributor.githubUserId.toString(),
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: (selection: Updater<RowSelectionState>) => {
+      const selectedIds = typeof selection === "function" ? selection(rowSelection) : selection;
+
+      const selectedContributors = contributors.filter(
+        contributor => selectedIds[contributor.contributor.githubUserId]
+      );
+
+      setUserSelected(selectedContributors);
+      setRowSelection(selection);
+      return selection;
+    },
     state: {
       rowSelection,
     },
   });
-
-  // TODO @Mehdi Bulk actions
-  // console.log("table.getState().rowSelection", table.getState().rowSelection);
 
   if (isLoading) {
     return <TableLoading />;
@@ -97,13 +105,7 @@ export function ContributorsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex flex-col gap-lg"}>
-        <Typo
-          size={"xs"}
-          weight={"medium"}
-          variant={"heading"}
-          translate={{ token: "manageProjects:detail.activity.title" }}
-        />
+      <div className={"flex flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}
@@ -119,7 +121,7 @@ export function ContributorsTable() {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
-        <ScrollView direction={"x"}>
+        <ScrollView direction={"all"}>
           <Table
             header={{
               headerGroups: table.getHeaderGroups(),
@@ -140,5 +142,15 @@ export function ContributorsTable() {
       </div>
       <FilterData />
     </FilterDataProvider>
+  );
+}
+
+export function ContributorsTable() {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
+  return (
+    <ContributorsTableProvider projectSlug={projectSlug}>
+      <SafeContributorsTable />
+    </ContributorsTableProvider>
   );
 }

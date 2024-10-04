@@ -21,7 +21,6 @@ export function ProgramListSidepanelProvider({
   children,
   sponsorId,
   onProgramClick,
-  onCreateProgramClick,
 }: ProgramListSidepanelContextProps) {
   const { Panel, ...rest } = useSidePanel({ name: "program-list" });
 
@@ -29,11 +28,7 @@ export function ProgramListSidepanelProvider({
     <ProgramListSidepanelContext.Provider value={{ ...rest }}>
       {children}
       <Panel>
-        <ProgramListSidepanel
-          sponsorId={sponsorId}
-          onProgramClick={onProgramClick}
-          onCreateProgramClick={onCreateProgramClick}
-        />
+        <ProgramListSidepanel sponsorId={sponsorId} onProgramClick={onProgramClick} />
       </Panel>
     </ProgramListSidepanelContext.Provider>
   );

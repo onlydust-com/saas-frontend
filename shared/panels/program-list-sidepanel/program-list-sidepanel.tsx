@@ -1,3 +1,5 @@
+import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.hooks";
+
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
 
@@ -87,7 +89,9 @@ function Programs({
   );
 }
 
-export function ProgramListSidepanel({ sponsorId, onProgramClick, onCreateProgramClick }: ProgramListSidepanelProps) {
+export function ProgramListSidepanel({ sponsorId, onProgramClick }: ProgramListSidepanelProps) {
+  const { open: openCreateProgramPanel } = useCreateProgramPanel();
+
   return (
     <>
       <SidePanelHeader
@@ -102,7 +106,7 @@ export function ProgramListSidepanel({ sponsorId, onProgramClick, onCreateProgra
       </SidePanelBody>
 
       <SidePanelFooter>
-        <Button variant={"secondary"} size={"md"} onClick={onCreateProgramClick}>
+        <Button variant={"secondary"} size={"md"} onClick={openCreateProgramPanel}>
           <Translate token={"panels:programList.createProgram"} />
         </Button>
       </SidePanelFooter>
