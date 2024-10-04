@@ -1,8 +1,8 @@
 import { tv } from "tailwind-variants";
 
-export const CardContributionKanbanDefaultVariants = tv({
+export const CardContributionKanbanNextUiVariants = tv({
   slots: {
-    base: "",
+    base: "grid gap-lg",
   },
   variants: {},
   defaultVariants: {},
