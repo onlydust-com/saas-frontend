@@ -4,6 +4,7 @@ import { ItemNav } from "@/design-system/molecules/item-nav";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { useShowEcosystemList } from "@/shared/hooks/ecosystems/use-show-ecosystem-list";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
@@ -12,13 +13,19 @@ import { PrimaryMenuProps } from "./primary-menu.types";
 export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
   const [showSponsorList] = useShowSponsorList();
   const [showProgramList] = useShowProgramsList();
+  const [showEcosystemList] = useShowEcosystemList();
+
+  // Has a program or an ecosystem in /me
+  const pageDataAvailable = showProgramList.hasPrograms || showEcosystemList.hasEcosystems;
+
   return (
     <>
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        isComingSoon={true}
+        isComingSoon={!pageDataAvailable}
+        linkProps={pageDataAvailable ? { href: NEXT_ROUTER.data.root } : undefined}
       />
       <ItemNav
         isFolded={isFolded}
