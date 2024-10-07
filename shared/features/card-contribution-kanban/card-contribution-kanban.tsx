@@ -5,8 +5,8 @@ import { CardContributionKanbanHooks } from "@/shared/features/card-contribution
 
 import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 
-export function CardContributionKanban({ contribution }: CardContributionKanbanProps) {
-  const actionGroup = CardContributionKanbanHooks.useContributionActions(contribution);
+export function CardContributionKanban({ contribution, ...actions }: CardContributionKanbanProps) {
+  const actionGroup = CardContributionKanbanHooks.useContributionActions(contribution, actions);
   return (
     <div className={"bg-background-primary p-3"} key={contribution.id}>
       <ContributionBadge
