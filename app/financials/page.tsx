@@ -6,7 +6,7 @@ import { ComponentType, useEffect } from "react";
 
 import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
 
-import { Contribution } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionActivity } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { CardContributionKanban } from "@/design-system/molecules/cards/card-contribution-kanban/variants/card-contribution-kanban-default";
@@ -40,7 +40,7 @@ function withSponsorList<P extends object>(Component: ComponentType<P>) {
   };
 }
 
-const c: Contribution = {
+const c = {
   type: "ISSUE",
   repo: {
     id: 650626566,
@@ -56,43 +56,58 @@ const c: Contribution = {
   },
   githubNumber: 6,
   githubStatus: "OPEN",
-  githubTitle:
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto beatae corporis dolorem necessitatibus nisi quam temporibus velit voluptatum. Adipisci animi corporis deserunt odit quod repudiandae tempora ut voluptas?",
+  githubTitle: "string",
   githubHtmlUrl: "string",
   githubBody: "string",
   githubCodeReviewOutcome: "PENDING",
+  githubLabels: [
+    {
+      name: "string",
+      description: "string",
+    },
+    {
+      name: "string",
+      description: "string",
+    },
+  ],
   id: "string",
-  createdAt: "2024-10-03T15:24:26.490Z",
-  completedAt: "2024-10-03T15:24:26.490Z",
-  lastUpdatedAt: "2024-10-03T15:24:26.491Z",
-  status: "IN_PROGRESS",
-  githubPullRequestReviewState: "PENDING_REVIEWER",
-  rewardIds: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
-  project: {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    slug: "my-awesome-project",
-    name: "string",
-    logoUrl: "string",
-    shortDescription: "A short project description",
-    visibility: "PUBLIC",
-    languages: [
-      {
-        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        slug: "string",
-        name: "Rust",
-        logoUrl: "https://rust.org/logo.png",
-        bannerUrl: "https://rust.org/banner.png",
-      },
-    ],
-  },
-  contributor: {
-    githubUserId: 595505,
-    login: "ofux",
-    avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-    isRegistered: true,
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  },
-  links: [
+  createdAt: "2024-10-04T12:45:02.234Z",
+  completedAt: "2024-10-04T12:45:02.234Z",
+  lastUpdatedAt: "2024-10-04T12:45:02.234Z",
+  activityStatus: "NOT_ASSIGNED",
+  contributors: [
+    {
+      githubUserId: 595505,
+      login: "ofux",
+      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
+      isRegistered: true,
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    },
+    {
+      githubUserId: 595505,
+      login: "ofux",
+      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
+      isRegistered: true,
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    },
+  ],
+  applicants: [
+    {
+      githubUserId: 595505,
+      login: "ofux",
+      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
+      isRegistered: true,
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    },
+    {
+      githubUserId: 595505,
+      login: "ofux",
+      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
+      isRegistered: true,
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    },
+  ],
+  linkedIssues: [
     {
       type: "ISSUE",
       repo: {
@@ -113,9 +128,59 @@ const c: Contribution = {
       githubHtmlUrl: "string",
       githubBody: "string",
       githubCodeReviewOutcome: "PENDING",
-      is_mine: true,
+      githubLabels: [
+        {
+          name: "string",
+          description: "string",
+        },
+      ],
+    },
+    {
+      type: "ISSUE",
+      repo: {
+        id: 650626566,
+        owner: "onlydustxyz",
+        name: "marketplace-backend",
+        description: "Awesome repo",
+        htmlUrl: "https://github.com/onlydustxyz/marketplace-backend",
+      },
+      githubAuthor: {
+        githubUserId: 595505,
+        login: "ofux",
+        avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
+      },
+      githubNumber: 6,
+      githubStatus: "OPEN",
+      githubTitle: "string",
+      githubHtmlUrl: "string",
+      githubBody: "string",
+      githubCodeReviewOutcome: "PENDING",
+      githubLabels: [
+        {
+          name: "string",
+          description: "string",
+        },
+      ],
     },
   ],
+  totalRewardedAmount: {
+    totalAmount: 0,
+    details: [
+      {
+        amount: 100,
+        prettyAmount: 0,
+        currency: {
+          id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          code: "USDC",
+          name: "USD Coin",
+          logoUrl: "string",
+          decimals: 0,
+        },
+        usdEquivalent: 100,
+        usdConversionRate: 1.5,
+      },
+    ],
+  },
 };
 
 function FinancialPage() {
@@ -132,7 +197,7 @@ function FinancialPage() {
     >
       <ScrollView>
         <div>
-          <CardContributionKanban contribution={c} />
+          <CardContributionKanban contribution={new ContributionActivity(c)} />
         </div>
         <PageContent>
           <div className="grid h-full gap-3">

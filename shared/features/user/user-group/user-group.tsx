@@ -1,10 +1,11 @@
 import { Popover } from "@/design-system/atoms/popover";
+import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { UserGroupProps } from "./user-group.types";
 
-export function UserGroup({ users, maxUsers = 4, avatarProps }: UserGroupProps) {
+export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroupProps) {
   const usersCount = users.length;
 
   if (!usersCount) return null;
@@ -20,6 +21,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps }: UserGroupProps) 
         ]}
         title={{ children: users[0].login }}
         truncate
+        size={avatarProps?.size}
       />
     );
   }
@@ -28,17 +30,20 @@ export function UserGroup({ users, maxUsers = 4, avatarProps }: UserGroupProps) 
     <Popover>
       <Popover.Trigger>
         {() => (
-          <div className={"max-w-full cursor-pointer overflow-hidden"}>
+          <div className={"flex max-w-full cursor-pointer items-center gap-md overflow-hidden"}>
             <AvatarGroup
               avatars={
                 users?.map(({ avatarUrl, login }) => ({
                   src: avatarUrl,
                   name: login,
+                  size: avatarProps?.size,
                 })) ?? []
               }
               quantity={maxUsers}
               totalAvatarsCount={usersCount}
             />
+
+            {label ? <Typo size={"xs"} color={"tertiary"} {...label} /> : null}
           </div>
         )}
       </Popover.Trigger>

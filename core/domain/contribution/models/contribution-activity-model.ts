@@ -2,7 +2,14 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
-export interface ContributionActivityInterface extends ContributionActivityResponse {}
+export interface ContributionActivityInterface extends ContributionActivityResponse {
+  isActivityStatusNotAssigned(): boolean;
+  isActivityStatusInProgress(): boolean;
+  isActivityStatusToReview(): boolean;
+  isActivityStatusDone(): boolean;
+  isActivityStatusArchived(): boolean;
+  canShowLinkedIssues(): boolean;
+}
 
 export class ContributionActivity implements ContributionActivityInterface {
   activityStatus!: ContributionActivityResponse["activityStatus"];
@@ -27,5 +34,32 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
+  }
+
+  isActivityStatusNotAssigned() {
+    return this.activityStatus === "NOT_ASSIGNED";
+  }
+
+  isActivityStatusInProgress() {
+    return this.activityStatus === "IN_PROGRESS";
+  }
+
+  isActivityStatusToReview() {
+    return this.activityStatus === "TO_REVIEW";
+  }
+
+  isActivityStatusDone() {
+    return this.activityStatus === "DONE";
+  }
+
+  isActivityStatusArchived() {
+    return this.activityStatus === "ARCHIVED";
+  }
+
+  canShowLinkedIssues() {
+    return (
+      (this.linkedIssues ?? []).length > 0 &&
+      (this.isActivityStatusToReview() || this.isActivityStatusDone() || this.isActivityStatusArchived())
+    );
   }
 }

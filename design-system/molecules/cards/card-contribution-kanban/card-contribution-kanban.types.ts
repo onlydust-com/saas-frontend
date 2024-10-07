@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
-import { Contribution } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 
@@ -14,6 +14,6 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  contribution: Contribution;
+  contribution: ContributionActivityInterface;
   actions?: ButtonGroupPort["buttons"];
 }
