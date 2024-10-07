@@ -9,6 +9,6 @@ import { BadgeDefaultAdapter } from "../adapters/default/default.adapter";
 export function BadgeAvatar<C extends ElementType = "span">({ avatar, ...props }: BadgeAvatarPort<C>) {
   return withComponentAdapter<Omit<BadgeAvatarPort<C>, "avatar">>(BadgeDefaultAdapter)({
     ...props,
-    startContent: <Avatar size={"xs"} {...avatar} />,
+    startContent: <Avatar size={"xxs"} {...avatar} />,
   });
 }

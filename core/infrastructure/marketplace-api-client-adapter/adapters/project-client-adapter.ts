@@ -1,3 +1,4 @@
+import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
@@ -8,10 +9,12 @@ import {
   EditProjectBody,
   GetProjectByIdResponse,
   GetProjectBySlugResponse,
+  GetProjectContributorLabelsResponse,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
@@ -32,6 +35,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectTransactions: "projects/:projectIdOrSlug/transactions",
     getProjectTransactionsCsv: "projects/:projectIdOrSlug/transactions",
     getProjectBySlug: "projects/slug/:slug",
+    getProjectContributorLabels: "projects/:projectIdOrSlug/contributor-labels",
+    updateProjectContributorLabels: "projects/:projectId/contributors",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -258,6 +263,56 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
       return new Project(data);
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectContributorLabels = ({
+    queryParams,
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["getProjectContributorLabels"]>) => {
+    const path = this.routes["getProjectContributorLabels"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectContributorLabelsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return {
+        ...data,
+        labels: data.labels.map(label => new ProjectContributorLabels(label)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updateProjectContributorLabels = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["updateProjectContributorLabels"]>) => {
+    const path = this.routes["updateProjectContributorLabels"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateProjectContributorLabelsBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

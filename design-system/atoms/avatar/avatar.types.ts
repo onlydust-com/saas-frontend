@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { IconPort } from "@/design-system/atoms/icon";
 
 interface Variants {
-  size: "xxs" | "xs" | "s" | "md" | "lg" | "xl" | "2xl" | "3xl";
+  size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
   shape: "rounded" | "squared";
 }
 

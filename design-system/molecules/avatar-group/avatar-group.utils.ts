@@ -9,7 +9,7 @@ export function getAvatarImageSize(size: AvatarGroupPort<"div">["size"]): Avatar
     case "sm":
       return "md";
     case "xs":
-      return "s";
+      return "sm";
 
     default:
       return "md";

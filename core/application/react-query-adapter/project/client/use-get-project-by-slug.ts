@@ -6,13 +6,13 @@ import {
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectFacadePort } from "@/core/domain/project/input/project-facade-port";
-import { GetProjectBySlugResponse } from "@/core/domain/project/project-contract.types";
+import { ProjectInterface } from "@/core/domain/project/models/project-model";
 
 export function useGetProjectBySlug({
   pathParams,
   queryParams,
   options,
-}: UseQueryFacadeParams<ProjectFacadePort["getProjectBySlug"], GetProjectBySlugResponse>) {
+}: UseQueryFacadeParams<ProjectFacadePort["getProjectBySlug"], ProjectInterface>) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
 
   return useQuery(
