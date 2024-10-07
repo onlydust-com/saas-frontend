@@ -11,11 +11,11 @@ import {
 import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { Menu } from "@/design-system/molecules/menu";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
@@ -58,16 +58,7 @@ function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnio
         ...(kanbanProps.header || {}),
       }}
     >
-      {contributions?.map(contribution => (
-        <div className={"bg-background-primary p-3"} key={contribution.id}>
-          <ContributionBadge
-            type={contribution.type}
-            githubStatus={contribution.githubStatus}
-            number={contribution.githubNumber}
-          />
-          {contribution.githubTitle}
-        </div>
-      ))}
+      {contributions?.map(contribution => <CardContributionKanban contribution={contribution} key={contribution.id} />)}
     </KanbanColumn>
   );
 }

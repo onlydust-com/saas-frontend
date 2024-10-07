@@ -1,0 +1,10 @@
+{
+  "actions": {
+    "review": "Review applications",
+    "unassign": "Unassign",
+    "codeReview": "Review",
+    "archive": "Archive",
+    "reward": "Reward",
+    "unarchive": "Unarchive"
+  }
+}
