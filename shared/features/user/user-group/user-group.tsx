@@ -11,6 +11,8 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
   if (!usersCount) return null;
 
   if (users.length === 1) {
+    const { children: _, translate: __, ...restLabel } = label ?? {};
+
     return (
       <AvatarLabelGroup
         avatars={[
@@ -19,7 +21,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
             src: users[0].avatarUrl,
           },
         ]}
-        title={{ children: users[0].login }}
+        title={{ ...restLabel, children: users[0].login }}
         truncate
         size={avatarProps?.size}
       />
@@ -44,8 +46,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
               totalAvatarsCount={usersCount}
             />
 
-            {/* TODO @hayden check group label styles vs single label */}
-            {label ? <Typo size={"xs"} color={"tertiary"} {...label} /> : null}
+            {label ? <Typo size={"sm"} weight={"medium"} color={"secondary"} {...label} /> : null}
           </div>
         )}
       </Popover.Trigger>

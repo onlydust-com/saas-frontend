@@ -61,6 +61,9 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
             users={contribution.applicants}
             maxUsers={2}
             label={{
+              size: "xs",
+              weight: "regular",
+              color: "tertiary",
               translate: {
                 token: "cards:cardContributionKanban.applicants",
                 count: contribution.applicants.length,
@@ -79,6 +82,9 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
             users={contribution.contributors}
             maxUsers={2}
             label={{
+              size: "xs",
+              weight: "regular",
+              color: "tertiary",
               translate: {
                 token: "cards:cardContributionKanban.contributors",
                 count: contribution.contributors.length,
@@ -114,7 +120,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
         return (
           <Accordion showDivider={false} className={"p-0"}>
             <AccordionItem
-              // TODO @hayden handle issue status, what is it dependant on ? Contribution status ? Issue status ?
               startContent={
                 <Badge
                   color={"brand"}

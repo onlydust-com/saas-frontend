@@ -29,7 +29,7 @@ const contribution = new ContributionActivity({
   githubCodeReviewOutcome: "PENDING",
   githubLabels: [
     {
-      name: "string",
+      name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa deleniti dolorem ex id libero, maiores molestiae nam natus, nemo optio repudiandae, ullam voluptate. Aut dolorem ducimus et harum nemo, voluptates?",
       description: "string",
     },
   ],
@@ -46,22 +46,8 @@ const contribution = new ContributionActivity({
       isRegistered: true,
       id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     },
-    {
-      githubUserId: 595505,
-      login: "ofux",
-      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-      isRegistered: true,
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    },
   ],
   applicants: [
-    {
-      githubUserId: 595505,
-      login: "ofux",
-      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-      isRegistered: true,
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    },
     {
       githubUserId: 595505,
       login: "ofux",
