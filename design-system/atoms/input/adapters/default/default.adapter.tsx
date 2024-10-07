@@ -25,7 +25,7 @@ function StartContent({
   const avatarSize: Record<NonNullable<typeof size>, ComponentProps<typeof Avatar>["size"]> = {
     sm: "xxs",
     md: "xs",
-    lg: "s",
+    lg: "sm",
   };
 
   if (!hasStartContent) {

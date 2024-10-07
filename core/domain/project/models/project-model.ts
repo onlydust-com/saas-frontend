@@ -8,6 +8,7 @@ export interface ProjectInterface extends ProjectResponse {
   truncateDescription(max: number): string;
   findUserInProjectLead(id: string): ProjectResponse["leaders"][0] | undefined;
   addOrganizationToProject(organization: GithubOrganizationInterface): void;
+  getProjectRepos(): GithubOrganizationInterface["repos"];
 }
 
 export class Project implements ProjectInterface {
@@ -54,5 +55,9 @@ export class Project implements ProjectInterface {
 
   addOrganizationToProject(organization: GithubOrganizationInterface) {
     this.organizations.push(organization);
+  }
+
+  getProjectRepos() {
+    return this.organizations.flatMap(organization => organization.repos);
   }
 }

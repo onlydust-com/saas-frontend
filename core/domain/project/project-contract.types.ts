@@ -119,7 +119,7 @@ type GetProjectBySlugQueryParams = operations["getProjectBySlug"]["parameters"][
 
 export type GetProjectBySlugResponse = GetProjectResponse;
 
-export type GetProjectBySlugPortResponse = HttpStorageResponse<GetProjectBySlugResponse>;
+export type GetProjectBySlugPortResponse = HttpStorageResponse<ProjectInterface>;
 
 export type GetProjectBySlugPortParams = HttpClientParameters<{
   PathParams: GetProjectBySlugPathParams;

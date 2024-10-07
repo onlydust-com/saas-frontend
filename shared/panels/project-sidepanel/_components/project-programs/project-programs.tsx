@@ -9,7 +9,7 @@ export function ProjectPrograms({ programs }: ProjectProgramsProps) {
   return (
     <div className={"flex flex-col gap-1"}>
       <Typo size={"xs"} color={"secondary"} translate={{ token: "panels:projectDetail.programs.title" }} />
-      <ProgramGroup programs={programs} avatarProps={{ size: "s" }} maxPrograms={2} />
+      <ProgramGroup programs={programs} avatarProps={{ size: "sm" }} maxPrograms={2} />
     </div>
   );
 }

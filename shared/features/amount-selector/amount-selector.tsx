@@ -104,7 +104,7 @@ export function AmountSelector({
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
-              size={"s"}
+              size={"sm"}
               title={{
                 children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
               }}
