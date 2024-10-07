@@ -14,6 +14,7 @@ import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { ContributionInline } from "@/design-system/molecules/contribution-inline";
 
+import { LabelPopover } from "@/shared/components/label-popover/label-popover";
 import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
 
@@ -178,13 +179,16 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
   function renderGithubLabels() {
     const { githubLabels } = contribution;
-    const githubLabelsCount = githubLabels?.length;
 
-    if (githubLabelsCount) {
+    if (githubLabels?.length) {
       return (
-        <Badge color={"grey"} size={"xs"} classNames={{ base: "overflow-hidden", label: "truncate" }}>
-          {githubLabelsCount > 1 ? `${githubLabels[0].name} +${githubLabelsCount - 1}` : githubLabels[0].name}
-        </Badge>
+        <LabelPopover
+          labels={githubLabels.map(({ name }) => name)}
+          badgeProps={{
+            color: "grey",
+            size: "xs",
+          }}
+        />
       );
     }
 
