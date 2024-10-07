@@ -144,13 +144,8 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
               }
               classNames={{
                 base: "px-0",
-                heading: "",
                 trigger: "p-0 gap-xs",
-                titleWrapper: "",
                 title: "flex flex-col leading-none",
-                subtitle: "",
-                startContent: "",
-                indicator: "",
                 content: "py-0",
               }}
             >
