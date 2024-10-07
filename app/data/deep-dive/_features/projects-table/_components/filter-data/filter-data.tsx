@@ -156,20 +156,6 @@ export function FilterData() {
             <Typo size={"sm"} color={"tertiary"} translate={{ token: "features:filters.onboardedDevCount.unit" }} />
           }
         />
-        {/*TODO @Mehdi check with backend how to handle this filter knowing that its the same that contributionsCount*/}
-        {/*<PrMergedCountFilter*/}
-        {/*  value={{*/}
-        {/*    amount: filters.prCount,*/}
-        {/*    type: getQuantityFilterType(filters.prCount),*/}
-        {/*  }}*/}
-        {/*  onChange={value =>*/}
-        {/*    setFilters({*/}
-        {/*      prCount: {*/}
-        {/*        ...value.amount,*/}
-        {/*      },*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*/>*/}
         <RewardCountFilter
           value={{
             amount: filters.rewardCount,

@@ -71,20 +71,6 @@ export function FilterData() {
             });
           }}
         />
-        {/*TODO @Mehdi check with backend how to handle this filter knowing that its the same that contributionsCount*/}
-        {/*<PrMergedCountFilter*/}
-        {/*  value={{*/}
-        {/*    amount: filters.prCount,*/}
-        {/*    type: getQuantityFilterType(filters.prCount),*/}
-        {/*  }}*/}
-        {/*  onChange={value =>*/}
-        {/*    setFilters({*/}
-        {/*      prCount: {*/}
-        {/*        ...value.amount,*/}
-        {/*      },*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*/>*/}
         <RewardCountFilter
           value={{
             amount: filters.rewardCount,
