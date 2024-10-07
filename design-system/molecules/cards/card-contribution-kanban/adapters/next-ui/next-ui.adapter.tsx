@@ -182,7 +182,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
     if (githubLabelsCount) {
       return (
-        <Badge color={"grey"} size={"xs"}>
+        <Badge color={"grey"} size={"xs"} classNames={{ base: "overflow-hidden", label: "truncate" }}>
           {githubLabelsCount > 1 ? `${githubLabels[0].name} +${githubLabelsCount - 1}` : githubLabels[0].name}
         </Badge>
       );
@@ -228,7 +228,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         {renderLinkedIssues()}
 
-        <footer className={"flex justify-between gap-lg"}>
+        <footer className={"flex justify-between gap-lg overflow-hidden"}>
           {renderGithubLabels()}
 
           {actions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}

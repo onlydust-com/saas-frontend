@@ -4,7 +4,7 @@ export const BadgeDefaultVariants = tv({
   slots: {
     base: "group block border-1 outline-none transition-all focus-visible:effect-ring-brand-spaced",
     content: "flex flex-row items-center justify-center transition-colors",
-    label: "text-inherit",
+    label: "truncate text-inherit",
     deletableIcon: "text-inherit",
   },
   variants: {
