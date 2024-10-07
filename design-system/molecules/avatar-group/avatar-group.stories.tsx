@@ -10,7 +10,7 @@ const defaultAvatars: AvatarGroupPort<"div"> = {
   avatars: [{ src: "" }, { src: "" }, { src: "" }, { src: "" }, { src: "" }],
 };
 
-const sizes: AvatarGroupPort<"div">["size"][] = ["xs", "sm", "md"];
+const sizes: AvatarGroupPort<"div">["size"][] = ["xxs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"];
 
 const meta: Meta<typeof AvatarGroup> = {
   component: AvatarGroup,
