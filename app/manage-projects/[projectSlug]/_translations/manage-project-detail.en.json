@@ -27,8 +27,8 @@
   "filters": {
     "titles": {
       "project": "Projects filters",
-      "contributor": "Contributors filters",
-      "contribution": "Contributions filters"
+      "contributor": "Filter contributors",
+      "contribution": "Filter contributions"
     },
     "save": "Validate",
     "reset": "Reset filters"
