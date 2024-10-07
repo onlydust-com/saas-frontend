@@ -22,7 +22,16 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   as,
   classNames,
   htmlProps,
-  contribution,
+  type,
+  githubStatus,
+  githubTitle,
+  githubNumber,
+  lastUpdatedAt,
+  rewardUsdAmount,
+  applicants,
+  contributors,
+  linkedIssues,
+  githubLabels,
   actions,
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
@@ -32,12 +41,10 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   function renderRewardAmount() {
-    const amount = contribution.totalRewardedAmount?.totalAmount;
-
-    if (!amount) return null;
+    if (!rewardUsdAmount) return null;
 
     const { amount: rewardAmount, code: rewardCode } = moneyKernelPort.format({
-      amount,
+      amount: rewardUsdAmount,
       currency: moneyKernelPort.getCurrency("USD"),
     });
 
@@ -53,12 +60,12 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderUsers() {
-    if (contribution.isActivityStatusNotAssigned() && contribution.applicants?.length) {
+    if (applicants?.length) {
       return (
         <div className="flex">
           <UserGroup
             avatarProps={{ size: "xs" }}
-            users={contribution.applicants}
+            users={applicants}
             maxUsers={2}
             label={{
               size: "xs",
@@ -66,7 +73,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
               color: "tertiary",
               translate: {
                 token: "cards:cardContributionKanban.applicants",
-                count: contribution.applicants.length,
+                count: applicants.length,
               },
             }}
           />
@@ -74,12 +81,12 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       );
     }
 
-    if (!contribution.isActivityStatusNotAssigned() && contribution.contributors?.length) {
+    if (contributors?.length) {
       return (
         <div className="flex">
           <UserGroup
             avatarProps={{ size: "xs" }}
-            users={contribution.contributors}
+            users={contributors}
             maxUsers={2}
             label={{
               size: "xs",
@@ -87,7 +94,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
               color: "tertiary",
               translate: {
                 token: "cards:cardContributionKanban.contributors",
-                count: contribution.contributors.length,
+                count: contributors.length,
               },
             }}
           />
@@ -99,24 +106,25 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderLinkedIssues() {
-    const linkedIssuesCount = contribution.linkedIssues?.length ?? 0;
+    if (linkedIssues) {
+      const linkedIssuesCount = linkedIssues?.length ?? 0;
 
-    if (contribution.canShowLinkedIssues()) {
       if (linkedIssuesCount === 1) {
+        const [linkedIssue] = linkedIssues;
         return (
           <ContributionInline
             contributionBadgeProps={{
-              type: contribution.type,
-              githubStatus: contribution.githubStatus,
-              number: contribution.githubNumber,
+              type: linkedIssue.type,
+              githubStatus: linkedIssue.githubStatus,
+              number: linkedIssue.githubNumber,
             }}
-            githubTitle={contribution.githubTitle}
+            githubTitle={linkedIssue.githubTitle}
             truncate
           />
         );
       }
 
-      if (contribution.linkedIssues) {
+      if (linkedIssues) {
         return (
           <Accordion showDivider={false} className={"p-0"}>
             <AccordionItem
@@ -152,7 +160,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
               <div className="relative pl-3xl pt-lg">
                 <div className="absolute -top-1 bottom-0 left-2.5 w-px bg-components-badge-brand-border" />
                 <ul className={"grid gap-sm"}>
-                  {contribution.linkedIssues.map(issue => {
+                  {linkedIssues.map(issue => {
                     return (
                       <ContributionInline
                         key={issue.githubNumber}
@@ -178,8 +186,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderGithubLabels() {
-    const { githubLabels } = contribution;
-
     if (githubLabels?.length) {
       return (
         <LabelPopover
@@ -208,21 +214,17 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     >
       <header className={"flex items-start justify-between gap-lg"}>
         <Typo size={"xs"} weight={"medium"}>
-          {contribution.githubTitle}
+          {githubTitle}
         </Typo>
 
-        <ContributionBadge
-          type={contribution.type}
-          githubStatus={contribution.githubStatus}
-          number={contribution.githubNumber}
-        />
+        <ContributionBadge type={type} githubStatus={githubStatus} number={githubNumber} />
       </header>
 
       <div className={"grid gap-xl"}>
         <div className={"flex items-center gap-md"}>
           <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
             <Icon component={Clock} />
-            {dateKernelPort.formatDistanceToNow(new Date(contribution.lastUpdatedAt))}
+            {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
           </Typo>
 
           {renderRewardAmount()}

@@ -1,94 +1,38 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { ContributionActivity } from "@/core/domain/contribution/models/contribution-activity-model";
-
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { CardContributionKanban } from "@/design-system/molecules/cards/card-contribution-kanban/variants/card-contribution-kanban-default";
 
 type Story = StoryObj<typeof CardContributionKanban>;
 
-const contribution = new ContributionActivity({
+const defaultProps: CardContributionKanbanPort<"div"> = {
   type: "ISSUE",
-  repo: {
-    id: 650626566,
-    owner: "onlydustxyz",
-    name: "marketplace-backend",
-    description: "Awesome repo",
-    htmlUrl: "https://github.com/onlydustxyz/marketplace-backend",
-  },
-  githubAuthor: {
-    githubUserId: 595505,
-    login: "ofux",
-    avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-  },
-  githubNumber: 6,
+  githubTitle: "Contribution title",
   githubStatus: "OPEN",
-  githubTitle: "string",
-  githubHtmlUrl: "string",
-  githubBody: "string",
-  githubCodeReviewOutcome: "PENDING",
-  githubLabels: [
-    {
-      name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa deleniti dolorem ex id libero, maiores molestiae nam natus, nemo optio repudiandae, ullam voluptate. Aut dolorem ducimus et harum nemo, voluptates?",
-      description: "string",
-    },
-  ],
-  id: "string",
-  createdAt: "2024-10-04T12:45:02.234Z",
-  completedAt: "2024-10-04T12:45:02.234Z",
+  githubNumber: "123",
   lastUpdatedAt: "2024-10-04T12:45:02.234Z",
-  activityStatus: "NOT_ASSIGNED",
-  contributors: [
-    {
-      githubUserId: 595505,
-      login: "ofux",
-      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-      isRegistered: true,
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    },
-  ],
+  rewardUsdAmount: 123,
   applicants: [
     {
-      githubUserId: 595505,
       login: "ofux",
       avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-      isRegistered: true,
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    },
+  ],
+  contributors: [
+    {
+      login: "ofux",
+      avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
     },
   ],
   linkedIssues: [
     {
       type: "ISSUE",
-      repo: {
-        id: 650626566,
-        owner: "onlydustxyz",
-        name: "marketplace-backend",
-        description: "Awesome repo",
-        htmlUrl: "https://github.com/onlydustxyz/marketplace-backend",
-      },
-      githubAuthor: {
-        githubUserId: 595505,
-        login: "ofux",
-        avatarUrl: "https://avatars.githubusercontent.com/u/595505?v=4",
-      },
-      githubNumber: 6,
-      githubStatus: "OPEN",
       githubTitle: "string",
-      githubHtmlUrl: "string",
-      githubBody: "string",
-      githubCodeReviewOutcome: "PENDING",
-      githubLabels: [
-        {
-          name: "string",
-          description: "string",
-        },
-      ],
+      githubStatus: "OPEN",
+      githubNumber: 6,
     },
   ],
-});
-
-const defaultProps: CardContributionKanbanPort<"div"> = {
-  contribution,
+  githubLabels: [{ name: "Label" }],
 };
 
 const meta: Meta<typeof CardContributionKanban> = {
