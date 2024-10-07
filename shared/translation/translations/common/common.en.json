@@ -40,6 +40,10 @@
     "MAINTAINER": "Maintainer",
     "LEAD_PROGRAM": "Lead Program"
   },
+  "rewardedType": {
+    "REWARDED": "Rewarded",
+    "UNREWARDED": "Unrewarded"
+  },
   "timeGroupingType": {
     "DAY": "Day",
     "WEEK": "Week",

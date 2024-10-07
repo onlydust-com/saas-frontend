@@ -12,6 +12,11 @@ export enum UserFilterType {
   LEAD_PROGRAM = "LEAD_PROGRAM",
 }
 
+export enum RewardedFilterType {
+  REWARDED = "REWARDED",
+  UNREWARDED = "UNREWARDED",
+}
+
 export type ContributionUnion = components["schemas"]["BiContributorsQueryParamsContributionCount"]["types"][0];
 export const ContributionFilterType: { [key in ContributionUnion]: key } = {
   ISSUE: "ISSUE",

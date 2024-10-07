@@ -1,10 +1,13 @@
 import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
 
+import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ContributorLabelFilter } from "@/shared/features/filters/contributor-label-filter/contributor-label-filter";
 import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
 import { ProjectRepoFilter } from "@/shared/features/filters/project-repo-filter/project-repo-filter";
+import { RewardedFilter } from "@/shared/features/filters/rewarded-filter/rewarded-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -39,6 +42,14 @@ export function FilterData() {
         <ProjectRepoFilter
           selectedRepo={filters.repoIds?.map(id => id.toString())}
           onSelect={(repos: string[]) => setFilters({ repoIds: repos.map(repo => Number(repo)) })}
+        />
+        <RewardedFilter
+          selectedRewardedType={
+            filters.hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED]
+          }
+          onSelect={(rewardedType: string[]) =>
+            setFilters({ hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) })
+          }
         />
       </SidePanelBody>
       <SidePanelFooter>
