@@ -37,9 +37,17 @@ export type ContributionKanbanFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnion } & Partial<KanbanColumnProps>) {
+function Column({
+  type,
+  queryParams,
+  ...kanbanProps
+}: {
+  type: ContributionActivityStatusUnion;
+  queryParams: Partial<GetBiContributorsQueryParams>;
+} & Partial<KanbanColumnProps>) {
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
+      ...queryParams,
       statuses: [type],
     },
   });
@@ -141,11 +149,12 @@ export function Issues(_: IssuesProps) {
                   </Menu>
                 ),
               }}
+              queryParams={queryParams}
             />
-            <Column type={ContributionActivityStatus.IN_PROGRESS} />
-            <Column type={ContributionActivityStatus.TO_REVIEW} />
-            <Column type={ContributionActivityStatus.DONE} />
-            <Column type={ContributionActivityStatus.ARCHIVED} />
+            <Column type={ContributionActivityStatus.IN_PROGRESS} queryParams={queryParams} />
+            <Column type={ContributionActivityStatus.TO_REVIEW} queryParams={queryParams} />
+            <Column type={ContributionActivityStatus.DONE} queryParams={queryParams} />
+            <Column type={ContributionActivityStatus.ARCHIVED} queryParams={queryParams} />
           </Kanban>
         </div>
       </div>

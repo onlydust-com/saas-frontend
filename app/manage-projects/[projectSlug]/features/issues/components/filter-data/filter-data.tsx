@@ -33,7 +33,9 @@ export function FilterData() {
       <SidePanelBody>
         <ContributorProjectFilter
           selectedUser={filters.contributorIds?.map(id => id.toString())}
-          onSelect={(users: string[]) => setFilters({ contributorIds: users.map(user => Number(user)) })}
+          onSelect={(users: string[]) => {
+            setFilters({ contributorIds: users.map(user => Number(user)) });
+          }}
         />
         <ContributorLabelFilter
           selectedLabel={filters.projectContributorLabelIds}
