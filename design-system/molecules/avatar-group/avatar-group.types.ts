@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 import { AvatarPort } from "@/design-system/atoms/avatar";
 
 interface Variants {
-  size: Pick<AvatarPort, "size">["size"];
+  size: AvatarPort["size"];
   outsideBorder?: boolean;
 }
 
