@@ -15,6 +15,7 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { IssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -65,6 +66,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       <FinancialDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
+      <IssueSandboxPanel />
     </PageWrapper>
   );
 }

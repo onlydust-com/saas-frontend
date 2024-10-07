@@ -3,34 +3,46 @@ import { ContributionActivityStatus } from "@/core/domain/contribution/models/co
 
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 
+import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { Github } from "@/shared/icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-const useContributionActions = (contribution: ContributionActivityInterface): ButtonGroupPort["buttons"] => {
+const useContributionActions = (
+  contribution: ContributionActivityInterface,
+  actions: CardContributionKanbanActions
+): ButtonGroupPort["buttons"] => {
   function onReview() {
-    alert("review applications ");
+    actions?.onReview?.(contribution.id);
+    actions?.onAction?.(contribution.id);
   }
 
   function onUnassign() {
-    alert("unassign issue");
+    actions?.onUnassign?.(contribution.id);
+    actions?.onAction?.(contribution.id);
   }
 
   function onCodeReview() {
-    if (!contribution.githubHtmlUrl) return;
+    if (!contribution.githubHtmlUrl) {
+      actions?.onAction?.(contribution.id);
+      return;
+    }
 
     window.open(contribution.githubHtmlUrl, "_blank");
   }
 
   function onArchive() {
-    alert("archive issue");
+    actions?.onArchive?.(contribution.id);
+    actions?.onAction?.(contribution.id);
   }
 
   function onReward() {
-    alert("reward contributors");
+    actions?.onReward?.(contribution.id);
+    actions?.onAction?.(contribution.id);
   }
 
   function onUnarchive() {
-    alert("Unarchive issue");
+    actions?.onUnarchive?.(contribution.id);
+    actions?.onAction?.(contribution.id);
   }
 
   switch (contribution.activityStatus) {

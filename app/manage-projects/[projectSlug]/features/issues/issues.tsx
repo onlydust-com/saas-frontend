@@ -28,6 +28,7 @@ import { CardContributionKanban } from "@/shared/features/card-contribution-kanb
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
+import { useIssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { IssuesProps } from "./issues.types";
@@ -40,10 +41,12 @@ export type ContributionKanbanFilters = Omit<
 function Column({
   type,
   queryParams,
+  onOpenSandboxPanel,
   ...kanbanProps
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetBiContributorsQueryParams>;
+  onOpenSandboxPanel(id: string): void;
 } & Partial<KanbanColumnProps>) {
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
@@ -80,7 +83,9 @@ function Column({
         ...(kanbanProps.header || {}),
       }}
     >
-      {contributions?.map(contribution => <CardContributionKanban contribution={contribution} key={contribution.id} />)}
+      {contributions?.map(contribution => (
+        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenSandboxPanel} />
+      ))}
     </KanbanColumn>
   );
 }
@@ -92,7 +97,7 @@ export function Issues(_: IssuesProps) {
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const filtersCount = Object.keys(filters)?.length;
-
+  const { open: OpenSandboxPanel } = useIssueSandboxPanel();
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
@@ -111,6 +116,10 @@ export function Issues(_: IssuesProps) {
       label: <BaseLink href={`${repo.htmlUrl}/issues/new`}>{repo.name}</BaseLink>,
     }));
   };
+
+  function onOpenSandboxPanel(id: string) {
+    OpenSandboxPanel({ id });
+  }
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
@@ -132,6 +141,7 @@ export function Issues(_: IssuesProps) {
         <div className={"h-full overflow-hidden"}>
           <Kanban>
             <Column
+              onOpenSandboxPanel={onOpenSandboxPanel}
               type={ContributionActivityStatus.NOT_ASSIGNED}
               header={{
                 endContent: (
@@ -142,10 +152,26 @@ export function Issues(_: IssuesProps) {
               }}
               queryParams={queryParams}
             />
-            <Column type={ContributionActivityStatus.IN_PROGRESS} queryParams={queryParams} />
-            <Column type={ContributionActivityStatus.TO_REVIEW} queryParams={queryParams} />
-            <Column type={ContributionActivityStatus.DONE} queryParams={queryParams} />
-            <Column type={ContributionActivityStatus.ARCHIVED} queryParams={queryParams} />
+            <Column
+              onOpenSandboxPanel={onOpenSandboxPanel}
+              type={ContributionActivityStatus.IN_PROGRESS}
+              queryParams={queryParams}
+            />
+            <Column
+              onOpenSandboxPanel={onOpenSandboxPanel}
+              type={ContributionActivityStatus.TO_REVIEW}
+              queryParams={queryParams}
+            />
+            <Column
+              onOpenSandboxPanel={onOpenSandboxPanel}
+              type={ContributionActivityStatus.DONE}
+              queryParams={queryParams}
+            />
+            <Column
+              onOpenSandboxPanel={onOpenSandboxPanel}
+              type={ContributionActivityStatus.ARCHIVED}
+              queryParams={queryParams}
+            />
           </Kanban>
         </div>
       </div>
