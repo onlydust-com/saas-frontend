@@ -1,7 +1,6 @@
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { getAvatarImageSize } from "@/design-system/molecules/avatar-group/avatar-group.utils";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -23,8 +22,6 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
 
   const slots = AvatarGroupDefaultVariants({ size, outsideBorder });
 
-  const imageSize = getAvatarImageSize(size);
-
   const slicedAvatars = quantity ? avatars.slice(0, quantity) : avatars;
   const totalAvatars = totalAvatarsCount || avatars.length;
 
@@ -34,7 +31,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
         <Avatar
           key={`avatar-${index}`}
           src={avatar.src}
-          size={imageSize}
+          size={size}
           shape={shape}
           classNames={{
             base: slots.image(),
@@ -45,7 +42,7 @@ export function AvatarGroupDefaultAdapter<C extends ElementType = "div">({
       {quantity && (avatars.length > quantity || totalAvatars > avatars.length) ? (
         <Avatar
           name={`+${totalAvatars - quantity}`}
-          size={imageSize}
+          size={size}
           shape={shape}
           classNames={{
             base: slots.image(),
