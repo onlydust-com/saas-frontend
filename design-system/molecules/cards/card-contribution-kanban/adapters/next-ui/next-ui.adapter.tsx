@@ -56,7 +56,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       return (
         <div className="flex">
           <UserGroup
-            // TODO @hayden handle avatar size
             avatarProps={{ size: "xs" }}
             users={contribution.applicants}
             maxUsers={2}

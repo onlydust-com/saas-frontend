@@ -39,10 +39,12 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
                   size: avatarProps?.size,
                 })) ?? []
               }
+              size={avatarProps?.size}
               quantity={maxUsers}
               totalAvatarsCount={usersCount}
             />
 
+            {/* TODO @hayden check group label styles vs single label */}
             {label ? <Typo size={"xs"} color={"tertiary"} {...label} /> : null}
           </div>
         )}
