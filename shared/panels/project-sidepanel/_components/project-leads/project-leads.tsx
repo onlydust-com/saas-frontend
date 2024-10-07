@@ -10,7 +10,7 @@ export function ProjectLeads({ leaders }: ProjectLeadsProps) {
   return (
     <div className={"flex flex-col gap-1"}>
       <Typo size={"xs"} color={"secondary"} translate={{ token: "panels:projectDetail.lead.title" }} />
-      <UserGroup avatarProps={{ size: "s" }} users={leaders} maxUsers={2} />
+      <UserGroup avatarProps={{ size: "sm" }} users={leaders} maxUsers={2} />
     </div>
   );
 }
