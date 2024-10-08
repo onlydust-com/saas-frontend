@@ -1,3 +1,4 @@
+import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
@@ -13,6 +14,7 @@ import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outpu
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
+import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
@@ -72,6 +74,8 @@ export interface BootstrapConstructor {
   githubStoragePortForServer: GithubStoragePort;
   contributionStoragePortForClient: ContributionStoragePort;
   contributionStoragePortForServer: ContributionStoragePort;
+  applicationStoragePortForClient: ApplicationStoragePort;
+  applicationStoragePortForServer: ApplicationStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -112,6 +116,8 @@ export class Bootstrap {
   githubStoragePortForServer: GithubStoragePort;
   contributionStoragePortForClient: ContributionStoragePort;
   contributionStoragePortForServer: ContributionStoragePort;
+  applicationStoragePortForClient: ApplicationStoragePort;
+  applicationStoragePortForServer: ApplicationStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -148,6 +154,8 @@ export class Bootstrap {
     this.githubStoragePortForServer = constructor.githubStoragePortForServer;
     this.contributionStoragePortForClient = constructor.contributionStoragePortForClient;
     this.contributionStoragePortForServer = constructor.contributionStoragePortForServer;
+    this.applicationStoragePortForClient = constructor.applicationStoragePortForClient;
+    this.applicationStoragePortForServer = constructor.applicationStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -246,6 +254,10 @@ export class Bootstrap {
     return this.notificationStoragePortForClient;
   }
 
+  getNotificationStoragePortForServer() {
+    return this.notificationStoragePortForServer;
+  }
+
   getLanguagesStoragePortForServer() {
     return this.languageStoragePortForServer;
   }
@@ -286,8 +298,12 @@ export class Bootstrap {
     return this.contributionStoragePortForClient;
   }
 
-  getNotificationStoragePortForServer() {
-    return this.notificationStoragePortForServer;
+  getApplicationStoragePortForServer() {
+    return this.applicationStoragePortForServer;
+  }
+
+  getApplicationStoragePortForClient() {
+    return this.applicationStoragePortForClient;
   }
 
   getDateKernelPort() {
@@ -339,6 +355,8 @@ export class Bootstrap {
         githubStoragePortForClient: new GithubClientAdapter(new FetchHttpClient()),
         contributionStoragePortForServer: new ContributionClientAdapter(new FetchHttpClient()),
         contributionStoragePortForClient: new ContributionClientAdapter(new FetchHttpClient()),
+        applicationStoragePortForServer: new ApplicationClientAdapter(new FetchHttpClient()),
+        applicationStoragePortForClient: new ApplicationClientAdapter(new FetchHttpClient()),
         dateKernelPort: DateFnsAdapter,
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
