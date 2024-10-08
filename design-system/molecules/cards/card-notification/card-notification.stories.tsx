@@ -19,7 +19,7 @@ const defaultProps: CardNotificationPort = {
 
 const meta: Meta<typeof CardNotification> = {
   component: CardNotification,
-  title: "Molecules/CardNotification",
+  title: "Molecules/Cards/CardNotification",
   tags: ["autodocs"],
 };
 

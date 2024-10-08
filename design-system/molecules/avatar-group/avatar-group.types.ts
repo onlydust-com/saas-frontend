@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 import { AvatarPort } from "@/design-system/atoms/avatar";
 
 interface Variants {
-  size: "xs" | "sm" | "md";
+  size: AvatarPort["size"];
   outsideBorder?: boolean;
 }
 
@@ -22,3 +22,8 @@ export interface AvatarGroupPort<C extends ElementType> extends Partial<Variants
   totalAvatarsCount?: number;
   shape?: AvatarPort["shape"];
 }
+
+// !KEEP IN MIND IF A SIZE ARE NOT BEEN CHANGED
+// XS become SM
+// SM become MD
+// MD become LG

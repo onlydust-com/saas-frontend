@@ -2,9 +2,9 @@ import { tv } from "tailwind-variants";
 
 export const BadgeDefaultVariants = tv({
   slots: {
-    base: "group block border-1 outline-none transition-all focus-visible:effect-ring-brand-spaced",
+    base: "group block overflow-hidden border-1 outline-none transition-all focus-visible:effect-ring-brand-spaced",
     content: "flex flex-row items-center justify-center transition-colors",
-    label: "text-inherit",
+    label: "truncate text-inherit",
     deletableIcon: "text-inherit",
   },
   variants: {
@@ -27,6 +27,9 @@ export const BadgeDefaultVariants = tv({
       },
     },
     isDeletable: {
+      true: {},
+    },
+    iconOnly: {
       true: {},
     },
     color: {
@@ -89,11 +92,41 @@ export const BadgeDefaultVariants = tv({
         base: "px-2 py-3",
       },
     },
+
+    {
+      size: "xxs",
+      iconOnly: true,
+      class: {
+        base: "px-xxs py-xxs",
+      },
+    },
+    {
+      size: "xs",
+      iconOnly: true,
+      class: {
+        base: "px-xs py-xs",
+      },
+    },
+    {
+      size: "sm",
+      iconOnly: true,
+      class: {
+        base: "px-sm py-sm",
+      },
+    },
+    {
+      size: "md",
+      iconOnly: true,
+      class: {
+        base: "px-md py-md",
+      },
+    },
   ],
   defaultVariants: {
     size: "sm",
     shape: "rounded",
     color: "grey",
     isDeletable: false,
+    iconOnly: false,
   },
 });

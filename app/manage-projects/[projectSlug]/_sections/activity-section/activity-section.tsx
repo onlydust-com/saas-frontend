@@ -36,7 +36,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           size={"xs"}
           weight={"medium"}
           variant={"heading"}
-          translate={{ token: "manageProjects:detail.activity.title" }}
+          translate={{ token: "manageProjects:detail.contributions.title" }}
         />
         <Tabs
           onTabClick={handleToggleActivityViews}
@@ -44,11 +44,11 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           tabs={[
             {
               id: CONTRIBUTORS,
-              children: <Translate token={"manageProjects:detail.activity.buttons.contributors"} />,
+              children: <Translate token={"manageProjects:detail.contributions.buttons.contributors"} />,
             },
             {
               id: ISSUES,
-              children: <Translate token={"manageProjects:detail.activity.buttons.issues"} />,
+              children: <Translate token={"manageProjects:detail.contributions.buttons.contributions"} />,
             },
           ]}
           selectedId={toggleFinancialViews}

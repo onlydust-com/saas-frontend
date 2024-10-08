@@ -1,18 +1,33 @@
+import { useMemo } from "react";
+
 import { Avatar } from "@/design-system/atoms/avatar";
+import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { ProfileCardProps } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card.types";
 import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
 import { SocialLinkTranslate } from "@/shared/features/social-link/social-translate/social-translate";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ProfileProps } from "./profile.types";
+export function ProfileCard({ user, headerProps, footerContent }: ProfileCardProps) {
+  const renderHeader = useMemo(() => {
+    if (headerProps) {
+      return (
+        <div className="flex justify-between gap-2">
+          {headerProps.headerLabel ? <Typo {...headerProps.headerLabel} size={"sm"} weight={"medium"} /> : null}
+          {headerProps.badgeProps ? <Badge {...headerProps.badgeProps} size={"xxs"} /> : null}
+        </div>
+      );
+    }
+    return null;
+  }, [headerProps]);
 
-export function Profile({ user }: ProfileProps) {
   const showRankPercentile = !!user.statsSummary?.rankPercentile && user.statsSummary?.rankPercentile !== 100;
   return (
     <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
+      {renderHeader}
       <div className={"flex flex-row items-center justify-start gap-lg"}>
         <Avatar size={"2xl"} shape={"squared"} src={user.avatarUrl} />
         <div className={"flex flex-col gap-sm"}>
@@ -53,6 +68,7 @@ export function Profile({ user }: ProfileProps) {
           </Button>
         ))}
       </div>
+      {footerContent}
     </Paper>
   );
 }

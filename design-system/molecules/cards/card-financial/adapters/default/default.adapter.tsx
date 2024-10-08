@@ -28,7 +28,7 @@ export function CardFinancialDefaultAdapter<C extends ElementType = "div">({
   const isSizeM = size === "m";
   const titleSize: TypoSize = isSizeM ? "xs" : "sm";
   const contentSize: TypoSize = isSizeM ? "sm" : "md";
-  const avatarSize = isSizeM ? "xs" : "sm";
+  const avatarSize = isSizeM ? "sm" : "md";
 
   return (
     <Paper
