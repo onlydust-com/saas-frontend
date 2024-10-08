@@ -12,7 +12,7 @@ export type GetContributionsModel = Omit<GetContributionsResponse, "contribution
   contributions: ContributionActivityInterface[];
 };
 
-type GetContributionsQueryParams = operations["getContributions"]["parameters"]["query"];
+export type GetContributionsQueryParams = operations["getContributions"]["parameters"]["query"]["queryParams"];
 
 export type GetContributionsPortResponse = HttpStorageResponse<GetContributionsModel>;
 

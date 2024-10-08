@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 import {
   ContributionActivityStatus,
   ContributionActivityStatusUnion,
@@ -31,7 +31,7 @@ function Column({
   ...kanbanProps
 }: {
   type: ContributionActivityStatusUnion;
-  queryParams: Partial<GetBiContributorsQueryParams>;
+  queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({

@@ -1,6 +1,6 @@
-import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 
 export interface KanbanViewProps {
-  queryParams: Partial<GetBiContributorsQueryParams>;
+  queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 }

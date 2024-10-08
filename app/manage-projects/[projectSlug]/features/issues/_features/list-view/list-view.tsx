@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 import {
   ContributionActivityStatus,
   ContributionActivityStatusUnion,
@@ -22,7 +22,7 @@ function useAccordionItem({
   onOpenContribution,
 }: {
   type: ContributionActivityStatusUnion;
-  queryParams: Partial<GetBiContributorsQueryParams>;
+  queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 }): AccordionItemProps {
   const { data, hasNextPage, fetchNextPage, isLoading } = ContributionReactQueryAdapter.client.useGetContributions({
