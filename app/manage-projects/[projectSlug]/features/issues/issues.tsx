@@ -38,6 +38,7 @@ export function Issues(_: IssuesProps) {
 
   const filtersCount = Object.keys(filters)?.length;
 
+  // TODO: Change type with contributions @pixelfact
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
