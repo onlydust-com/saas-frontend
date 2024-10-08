@@ -1,125 +1,64 @@
-import { Plus } from "lucide-react";
-import { Filter } from "lucide-react";
-import { useParams } from "next/navigation";
+import { Columns4, Filter, Table } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { FilterData } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.context";
-import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
-
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { GetContributionsPortParams } from "@/core/domain/contribution/contribution-contract.types";
-import {
-  ContributionActivityStatus,
-  ContributionActivityStatusUnion,
-} from "@/core/domain/contribution/models/contribution.types";
-import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Menu } from "@/design-system/molecules/menu";
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
+import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
+import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
-import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
-import { Kanban } from "@/shared/features/kanban/kanban";
-import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
-import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { FilterData } from "./_components/filter-data/filter-data";
+import { FilterDataProvider } from "./_components/filter-data/filter-data.context";
+import { useContributionsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
+import { KanbanView } from "./_features/kanban-view/kanban-view";
+import { ListView } from "./_features/list-view/list-view";
 import { IssuesProps } from "./issues.types";
+
+const LIST = "list";
+const KANBAN = "kanban";
 
 export type ContributionKanbanFilters = Omit<
   NonNullable<GetContributionsPortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;
 
-function Column({
-  type,
-  queryParams,
-  onOpenContribution,
-  ...kanbanProps
-}: {
-  type: ContributionActivityStatusUnion;
-  queryParams: Partial<GetBiContributorsQueryParams>;
-  onOpenContribution(id: string): void;
-} & Partial<KanbanColumnProps>) {
-  const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      ...queryParams,
-      statuses: [type],
-    },
-  });
-
-  const contributions = data?.pages.flatMap(page => page.contributions) || [];
-
-  const title = useMemo(() => {
-    switch (type) {
-      case ContributionActivityStatus.NOT_ASSIGNED:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.notAssigned"} />;
-      case ContributionActivityStatus.IN_PROGRESS:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.inProgress"} />;
-      case ContributionActivityStatus.TO_REVIEW:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.toReview"} />;
-      case ContributionActivityStatus.DONE:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.done"} />;
-      case ContributionActivityStatus.ARCHIVED:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.archive"} />;
-    }
-  }, [type]);
-
-  return (
-    <KanbanColumn
-      {...kanbanProps}
-      hasNextPage={hasNextPage}
-      onNext={fetchNextPage}
-      header={{
-        title,
-        badge: { children: data?.pages?.[0]?.totalItemNumber ?? "0" },
-        ...(kanbanProps.header || {}),
-      }}
-    >
-      {contributions?.map(contribution => (
-        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
-      ))}
-    </KanbanColumn>
-  );
-}
-
 export function Issues(_: IssuesProps) {
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const [toggleViews, setToggleViews] = useState<typeof LIST | typeof KANBAN>(KANBAN);
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
+  const { open: openContribution } = useContributionsSidepanel();
+
   const filtersCount = Object.keys(filters)?.length;
-  const { open: OpenContribution } = useContributionsSidepanel();
+
+  // TODO: Change type with contributions @pixelfact
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
   };
 
-  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
-    pathParams: { slug: projectSlug ?? "" },
-    options: {
-      enabled: !!projectSlug,
-    },
-  });
-
-  const createMenuItems = (repos: GithubOrganizationResponse["repos"]): MenuItemPort<number>[] => {
-    return repos.map(repo => ({
-      id: repo.id,
-      label: <BaseLink href={`${repo.htmlUrl}/issues/new`}>{repo.name}</BaseLink>,
-    }));
-  };
+  function handleToggleViews(view: string) {
+    setToggleViews(view as typeof LIST | typeof KANBAN);
+  }
 
   function onOpenContribution(id: string) {
-    OpenContribution({ id });
+    openContribution({ id });
   }
+
+  const renderView = useMemo(() => {
+    if (toggleViews === LIST) {
+      return <ListView queryParams={queryParams} onOpenContribution={onOpenContribution} />;
+    }
+
+    return <KanbanView queryParams={queryParams} onOpenContribution={onOpenContribution} />;
+  }, [toggleViews]);
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
@@ -136,45 +75,29 @@ export function Issues(_: IssuesProps) {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
+
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+
+          <Tabs
+            onTabClick={handleToggleViews}
+            variant="solid"
+            tabs={[
+              {
+                id: LIST,
+                children: <Icon component={Table} />,
+              },
+              {
+                id: KANBAN,
+                children: <Icon component={Columns4} />,
+              },
+            ]}
+            selectedId={toggleViews}
+          />
         </nav>
-        <div className={"h-full overflow-hidden"}>
-          <Kanban>
-            <Column
-              onOpenContribution={onOpenContribution}
-              type={ContributionActivityStatus.NOT_ASSIGNED}
-              header={{
-                endContent: (
-                  <Menu isPopOver={true} closeOnSelect items={createMenuItems(data?.getProjectRepos() || [])}>
-                    <Button iconOnly variant={"secondary"} size="sm" startIcon={{ component: Plus }} />
-                  </Menu>
-                ),
-              }}
-              queryParams={queryParams}
-            />
-            <Column
-              onOpenContribution={onOpenContribution}
-              type={ContributionActivityStatus.IN_PROGRESS}
-              queryParams={queryParams}
-            />
-            <Column
-              onOpenContribution={onOpenContribution}
-              type={ContributionActivityStatus.TO_REVIEW}
-              queryParams={queryParams}
-            />
-            <Column
-              onOpenContribution={onOpenContribution}
-              type={ContributionActivityStatus.DONE}
-              queryParams={queryParams}
-            />
-            <Column
-              onOpenContribution={onOpenContribution}
-              type={ContributionActivityStatus.ARCHIVED}
-              queryParams={queryParams}
-            />
-          </Kanban>
-        </div>
+
+        <div className={"h-full overflow-hidden"}>{renderView}</div>
       </div>
+
       <FilterData />
     </FilterDataProvider>
   );
