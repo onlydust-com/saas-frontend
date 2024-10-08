@@ -1,5 +1,4 @@
-import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
-import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
+import { CardContributionKanban as Card } from "@/design-system/molecules/cards/card-contribution-kanban";
 
 import { CardContributionKanbanHooks } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.hooks";
 
@@ -9,18 +8,18 @@ export function CardContributionKanban({ contribution, ...actions }: CardContrib
   const actionGroup = CardContributionKanbanHooks.useContributionActions(contribution, actions);
 
   return (
-    <div className={"bg-background-primary p-3"} key={contribution.id}>
-      <ContributionBadge
-        type={contribution.type}
-        githubStatus={contribution.githubStatus}
-        number={contribution.githubNumber}
-      />
-      {contribution.githubTitle}
-      {actionGroup?.length > 0 && (
-        <div className={"flex justify-end gap-2"}>
-          <ButtonGroup size={"xs"} buttons={actionGroup} />
-        </div>
-      )}
-    </div>
+    <Card
+      type={contribution.type}
+      githubTitle={contribution.githubTitle}
+      githubStatus={contribution.githubStatus}
+      githubNumber={contribution.githubNumber}
+      lastUpdatedAt={contribution.lastUpdatedAt}
+      rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
+      applicants={contribution.applicants}
+      contributors={contribution.contributors}
+      linkedIssues={contribution.linkedIssues}
+      githubLabels={contribution.githubLabels}
+      actions={actionGroup}
+    />
   );
 }
