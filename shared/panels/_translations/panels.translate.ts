@@ -1,4 +1,5 @@
 import enAllocateProgram from "@/shared/panels/allocate-program-sidepanel/_translations/allocate-program-sidepanel.en.json";
+import enContribution from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.en.json";
 import enContributor from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.en.json";
 import enCurrencyList from "@/shared/panels/currency-list-sidepanel/_translations/currency-list-sidepanel.en.json";
 import enCurrencyNetwork from "@/shared/panels/currency-network-sidepanel/_translations/currency-network-sidepanel.en.json";
@@ -20,6 +21,7 @@ export const enPanelsTranslation = {
     currencyNetwork: enCurrencyNetwork,
     depositSummary: enDepositSummary,
     depositTransaction: enDepositTransaction,
+    contribution: enContribution,
     contributor: enContributor,
     program: enProgramDetail,
     financialDetail: enFinancialDetail,

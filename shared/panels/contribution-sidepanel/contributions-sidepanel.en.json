@@ -1,0 +1,14 @@
+{
+  "timeline": {
+    "title": "Timeline",
+    "items": {
+      "prCreated": "PR Created",
+      "contributorAssigned": "Contributor assigned",
+      "contributorRemoved": "Contributor removed",
+      "issueCreated": "Issue Created",
+      "toReview": "To review",
+      "closed": "Closed",
+      "rewarded": "Rewarded"
+    }
+  }
+}
