@@ -4,6 +4,10 @@ import { Typo } from "@/design-system/atoms/typo";
 import { KpiProps } from "./kpi.types";
 
 export function Kpi({ applicants, projectContributors, newContributors }: KpiProps) {
+  const applicantsFormattedValue = Intl.NumberFormat().format(applicants || 0);
+  const projectContributorsFormattedValue = Intl.NumberFormat().format(projectContributors || 0);
+  const newContributorsFormattedValue = Intl.NumberFormat().format(newContributors || 0);
+
   return (
     <Paper border="primary" classNames={{ base: "flex flex-col gap-lg" }}>
       <Typo size="sm" weight="medium" translate={{ token: "panels:contribution.kpi.title" }} />
@@ -19,7 +23,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
           >
             <Typo size="xs" color="secondary" translate={{ token: "panels:contribution.kpi.items.applicants" }} />
             <Typo variant="heading" size="xs" color="secondary">
-              {applicants}
+              {applicantsFormattedValue}
             </Typo>
           </Paper>
         ) : null}
@@ -38,7 +42,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
               translate={{ token: "panels:contribution.kpi.items.projectContributors" }}
             />
             <Typo variant="heading" size="xs" color="secondary">
-              {projectContributors}
+              {projectContributorsFormattedValue}
             </Typo>
           </Paper>
         ) : null}
@@ -53,7 +57,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
           >
             <Typo size="xs" color="secondary" translate={{ token: "panels:contribution.kpi.items.newContributors" }} />
             <Typo variant="heading" size="xs" color="secondary">
-              {newContributors}
+              {newContributorsFormattedValue}
             </Typo>
           </Paper>
         ) : null}
