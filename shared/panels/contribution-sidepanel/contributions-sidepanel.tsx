@@ -3,18 +3,17 @@ import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/us
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
-import { ContributionSidepanelTitle } from "@/shared/features/contributions/contribution-sidepanel-title/contribution-sidepanel-title";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
-import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
-import { useIssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel.hooks";
+import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
-import { IssueSandboxPanelData } from "./issue-sandbox-panel.types";
+import { Header } from "./_features/header/header";
 
-export function IssueSandboxPanel() {
-  const { name } = useIssueSandboxPanel();
+export function ContributionsSidepanel() {
+  const { name } = useContributionsSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { id } = useSinglePanelData<IssueSandboxPanelData>(name) ?? {
+  const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
     id: "",
   };
 
@@ -24,17 +23,7 @@ export function IssueSandboxPanel() {
 
   return (
     <Panel>
-      <SidePanelHeader
-        canGoBack={false}
-        canClose={true}
-        title={{
-          children: (
-            <ContributionSidepanelTitle badge={{ type: "ISSUE", number: 6789, githubStatus: "OPEN" }}>
-              Issue detail
-            </ContributionSidepanelTitle>
-          ),
-        }}
-      />
+      <Header />
       <SidePanelBody>
         {id}
         <div>
