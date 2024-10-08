@@ -1,5 +1,3 @@
-import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
-
 import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -15,6 +13,7 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { useFilterData } from "./filter-data.context";
+import { useContributionsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
   const { name } = useContributionsFilterDataSidePanel();

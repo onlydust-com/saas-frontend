@@ -1,10 +1,6 @@
 import { Columns4, Filter, Table } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { FilterData } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.context";
-import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/issues/components/filter-data/filter-data.hooks";
-
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { GetContributionsPortParams } from "@/core/domain/contribution/contribution-contract.types";
 
@@ -16,6 +12,9 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useIssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel.hooks";
 
+import { FilterData } from "./_components/filter-data/filter-data";
+import { FilterDataProvider } from "./_components/filter-data/filter-data.context";
+import { useContributionsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 import { KanbanView } from "./_features/kanban-view/kanban-view";
 import { ListView } from "./_features/list-view/list-view";
 import { IssuesProps } from "./issues.types";
@@ -54,7 +53,7 @@ export function Issues(_: IssuesProps) {
 
   const renderView = useMemo(() => {
     if (toggleViews === LIST) {
-      return <ListView />;
+      return <ListView queryParams={queryParams} onOpenSandboxPanel={onOpenSandboxPanel} />;
     }
 
     return <KanbanView queryParams={queryParams} onOpenSandboxPanel={onOpenSandboxPanel} />;
@@ -62,7 +61,7 @@ export function Issues(_: IssuesProps) {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
+      <div className={"flex h-full flex-col gap-lg"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}

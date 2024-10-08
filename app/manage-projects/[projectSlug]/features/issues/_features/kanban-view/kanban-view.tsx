@@ -4,6 +4,7 @@ import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import {
   ContributionActivityStatus,
   ContributionActivityStatusUnion,
@@ -11,19 +12,32 @@ import {
 import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { Menu } from "@/design-system/molecules/menu";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnion } & Partial<KanbanColumnProps>) {
+import { KanbanViewProps } from "./kanban-view.types";
+
+function Column({
+  type,
+  queryParams,
+  onOpenSandboxPanel,
+  ...kanbanProps
+}: {
+  type: ContributionActivityStatusUnion;
+  queryParams: Partial<GetBiContributorsQueryParams>;
+  onOpenSandboxPanel(id: string): void;
+} & Partial<KanbanColumnProps>) {
+  console.log(queryParams);
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
+      ...queryParams,
       statuses: [type],
     },
   });
@@ -33,15 +47,15 @@ function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnio
   const title = useMemo(() => {
     switch (type) {
       case ContributionActivityStatus.NOT_ASSIGNED:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.notAssigned"} />;
+        return <Translate token={"manageProjects:detail.contributions.kanban.columns.notAssigned"} />;
       case ContributionActivityStatus.IN_PROGRESS:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.inProgress"} />;
+        return <Translate token={"manageProjects:detail.contributions.kanban.columns.inProgress"} />;
       case ContributionActivityStatus.TO_REVIEW:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.toReview"} />;
+        return <Translate token={"manageProjects:detail.contributions.kanban.columns.toReview"} />;
       case ContributionActivityStatus.DONE:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.done"} />;
+        return <Translate token={"manageProjects:detail.contributions.kanban.columns.done"} />;
       case ContributionActivityStatus.ARCHIVED:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.archive"} />;
+        return <Translate token={"manageProjects:detail.contributions.kanban.columns.archive"} />;
     }
   }, [type]);
 
@@ -57,20 +71,13 @@ function Column({ type, ...kanbanProps }: { type: ContributionActivityStatusUnio
       }}
     >
       {contributions?.map(contribution => (
-        <div className={"bg-background-primary p-3"} key={contribution.id}>
-          <ContributionBadge
-            type={contribution.type}
-            githubStatus={contribution.githubStatus}
-            number={contribution.githubNumber}
-          />
-          {contribution.githubTitle}
-        </div>
+        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenSandboxPanel} />
       ))}
     </KanbanColumn>
   );
 }
 
-export function KanbanView() {
+export function KanbanView({ queryParams, onOpenSandboxPanel }: KanbanViewProps) {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -90,6 +97,7 @@ export function KanbanView() {
   return (
     <Kanban>
       <Column
+        onOpenSandboxPanel={onOpenSandboxPanel}
         type={ContributionActivityStatus.NOT_ASSIGNED}
         header={{
           endContent: (
@@ -98,11 +106,28 @@ export function KanbanView() {
             </Menu>
           ),
         }}
+        queryParams={queryParams}
       />
-      <Column type={ContributionActivityStatus.IN_PROGRESS} />
-      <Column type={ContributionActivityStatus.TO_REVIEW} />
-      <Column type={ContributionActivityStatus.DONE} />
-      <Column type={ContributionActivityStatus.ARCHIVED} />
+      <Column
+        onOpenSandboxPanel={onOpenSandboxPanel}
+        type={ContributionActivityStatus.IN_PROGRESS}
+        queryParams={queryParams}
+      />
+      <Column
+        onOpenSandboxPanel={onOpenSandboxPanel}
+        type={ContributionActivityStatus.TO_REVIEW}
+        queryParams={queryParams}
+      />
+      <Column
+        onOpenSandboxPanel={onOpenSandboxPanel}
+        type={ContributionActivityStatus.DONE}
+        queryParams={queryParams}
+      />
+      <Column
+        onOpenSandboxPanel={onOpenSandboxPanel}
+        type={ContributionActivityStatus.ARCHIVED}
+        queryParams={queryParams}
+      />
     </Kanban>
   );
 }
