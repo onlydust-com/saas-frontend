@@ -1,8 +1,10 @@
 import { Columns4, Filter, Table } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
-import { GetContributionsPortParams } from "@/core/domain/contribution/contribution-contract.types";
+import {
+  GetContributionsPortParams,
+  GetContributionsQueryParams,
+} from "@/core/domain/contribution/contribution-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -38,8 +40,7 @@ export function Issues(_: IssuesProps) {
 
   const filtersCount = Object.keys(filters)?.length;
 
-  // TODO: Change type with contributions @pixelfact
-  const queryParams: Partial<GetBiContributorsQueryParams> = {
+  const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
     ...filters,
   };
@@ -58,7 +59,7 @@ export function Issues(_: IssuesProps) {
     }
 
     return <KanbanView queryParams={queryParams} onOpenContribution={onOpenContribution} />;
-  }, [toggleViews]);
+  }, [toggleViews, queryParams]);
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
