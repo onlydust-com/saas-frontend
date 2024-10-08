@@ -5,6 +5,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timeline/timeline";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
@@ -26,6 +27,7 @@ export function ContributionsSidepanel() {
       <Header />
       <SidePanelBody>
         {id}
+        <Timeline />
         <div>
           {pixelfactProfileData ? (
             <ProfileCard
