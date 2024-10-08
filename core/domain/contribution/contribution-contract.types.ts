@@ -17,3 +17,16 @@ type GetContributionsQueryParams = operations["getContributions"]["parameters"][
 export type GetContributionsPortResponse = HttpStorageResponse<GetContributionsModel>;
 
 export type GetContributionsPortParams = HttpClientParameters<{ QueryParams: GetContributionsQueryParams }>;
+
+/* ------------------------------ Get Contributions By Id ------------------------------ */
+
+export type GetContributionByIdResponse = components["schemas"]["ContributionActivityPageResponse"];
+export type GetContributionByIdModel = Omit<GetContributionByIdResponse, "contributions"> & {
+  contributions: ContributionActivityInterface[];
+};
+
+type GetContributionByIdQueryParams = operations["getContributions"]["parameters"]["query"];
+
+export type GetContributionByIdPortResponse = HttpStorageResponse<GetContributionByIdModel>;
+
+export type GetContributionByIdPortParams = HttpClientParameters<{ QueryParams: GetContributionByIdQueryParams }>;
