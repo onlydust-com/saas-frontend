@@ -34,7 +34,6 @@ function Column({
   queryParams: Partial<GetBiContributorsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
-  console.log(queryParams);
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
       ...queryParams,
