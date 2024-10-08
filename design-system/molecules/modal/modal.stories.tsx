@@ -17,6 +17,8 @@ const defaultProps: ModalPort<"div"> = {
   },
   children: "Modal content",
   classNames: {},
+  size: "3xl",
+  background: "gradient",
 };
 
 const meta: Meta<typeof Modal> = {

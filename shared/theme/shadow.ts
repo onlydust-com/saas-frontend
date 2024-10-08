@@ -4,4 +4,5 @@ export const SHADOW = {
   md: "effect-box-shadow-md",
   lg: "effect-box-shadow-lg",
   xl: "effect-box-shadow-xl",
+  bg_blur_shadow: "effect-bg-blur-shadow",
 } as const;
