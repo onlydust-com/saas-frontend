@@ -15,7 +15,7 @@ export function BadgeIcon<C extends ElementType = "span">({ icon, ...props }: Ba
       <Icon
         {...icon}
         classNames={{
-          base: cn("text-inherit", icon.classNames?.base),
+          base: cn("text-inherit flex-none", icon.classNames?.base),
         }}
       />
     ),
