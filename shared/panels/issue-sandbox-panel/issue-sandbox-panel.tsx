@@ -1,3 +1,8 @@
+import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
+
+import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
 import { ContributionSidepanelTitle } from "@/shared/features/contributions/contribution-sidepanel-title/contribution-sidepanel-title";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -13,6 +18,10 @@ export function IssueSandboxPanel() {
     id: "",
   };
 
+  const { data: pixelfactProfileData } = UserReactQueryAdapter.client.useGetUserByLogin({
+    pathParams: { slug: "pixelfact" },
+  });
+
   return (
     <Panel>
       <SidePanelHeader
@@ -26,7 +35,25 @@ export function IssueSandboxPanel() {
           ),
         }}
       />
-      <SidePanelBody>{id}</SidePanelBody>
+      <SidePanelBody>
+        {id}
+        <div>
+          {pixelfactProfileData ? (
+            <ProfileCard
+              headerProps={{
+                headerLabel: { children: "Assigned" },
+                badgeProps: { children: "2 days ago", color: "success" },
+              }}
+              user={pixelfactProfileData}
+              footerContent={
+                <Button variant={"secondary"} classNames={{ base: "w-full" }}>
+                  Remove contributor
+                </Button>
+              }
+            />
+          ) : null}
+        </div>
+      </SidePanelBody>
     </Panel>
   );
 }

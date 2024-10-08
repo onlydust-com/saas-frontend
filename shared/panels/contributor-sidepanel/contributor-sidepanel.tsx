@@ -8,6 +8,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -17,7 +18,6 @@ import { Activity } from "@/shared/panels/contributor-sidepanel/_components/acti
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
-import { Profile } from "@/shared/panels/contributor-sidepanel/_components/profile/profile";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -80,7 +80,7 @@ export function ContributorSidepanel() {
 
     return (
       <div className={"flex w-full flex-col gap-lg"}>
-        <Profile user={data} />
+        <ProfileCard user={data} />
         <Kpi user={data} />
         {data?.githubUserId ? (
           <>
