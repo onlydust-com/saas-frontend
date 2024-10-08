@@ -18,5 +18,12 @@
       "projectContributors": "Project contributors",
       "newContributors": "New contributors"
     }
+  },
+  "applications": {
+    "items": {
+      "active": "Active devs applications",
+      "new": "New devs applications",
+      "ignored": "Ignored"
+    }
   }
 }

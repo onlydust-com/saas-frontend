@@ -9,6 +9,7 @@ import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timel
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
+import { ApplicationsAccordion } from "./_features/applications-accordion/applications-accordion";
 import { Header } from "./_features/header/header";
 import { Kpi } from "./_features/kpi/kpi";
 
@@ -30,6 +31,7 @@ export function ContributionsSidepanel() {
         {id}
         <Timeline />
         <Kpi applicants={2} projectContributors={10} newContributors={8} />
+        <ApplicationsAccordion />
         <div>
           {pixelfactProfileData ? (
             <ProfileCard
