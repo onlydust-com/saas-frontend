@@ -10,5 +10,9 @@
       "closed": "Closed",
       "rewarded": "Rewarded"
     }
+  },
+  "linkedIssues": {
+    "title": "Issues",
+    "button": "Link an issue"
   }
 }
