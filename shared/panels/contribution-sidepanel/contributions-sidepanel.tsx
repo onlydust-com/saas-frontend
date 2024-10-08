@@ -10,6 +10,7 @@ import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepane
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
 import { Header } from "./_features/header/header";
+import { Kpi } from "./_features/kpi/kpi";
 
 export function ContributionsSidepanel() {
   const { name } = useContributionsSidepanel();
@@ -28,6 +29,7 @@ export function ContributionsSidepanel() {
       <SidePanelBody>
         {id}
         <Timeline />
+        <Kpi applicants={2} projectContributors={10} newContributors={8} />
         <div>
           {pixelfactProfileData ? (
             <ProfileCard
