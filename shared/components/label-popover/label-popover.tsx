@@ -18,7 +18,7 @@ export function LabelPopover({ labels, badgeProps }: LabelPopoverProps) {
       <Popover.Trigger>
         {() => (
           <div>
-            <Badge {...badgeProps}>
+            <Badge {...badgeProps} classNames={{ base: "cursor-pointer", ...badgeProps?.classNames }}>
               {labels[0]} +{labelCount - 1}
             </Badge>
           </div>

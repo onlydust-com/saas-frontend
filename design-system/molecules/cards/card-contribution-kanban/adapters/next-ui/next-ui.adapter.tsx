@@ -217,7 +217,9 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
           {githubTitle}
         </Typo>
 
-        <ContributionBadge type={type} githubStatus={githubStatus} number={githubNumber} />
+        <div>
+          <ContributionBadge type={type} githubStatus={githubStatus} number={githubNumber} />
+        </div>
       </header>
 
       <div className={"grid gap-xl"}>
