@@ -14,5 +14,13 @@
   "linkedIssues": {
     "title": "Issues",
     "button": "Link an issue"
+  },
+  "kpi": {
+    "title": "KPI",
+    "items": {
+      "applicants": "Applicants",
+      "projectContributors": "Project contributors",
+      "newContributors": "New contributors"
+    }
   }
 }
