@@ -10,7 +10,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { useIssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel.hooks";
+import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 
 import { FilterData } from "./_components/filter-data/filter-data";
 import { FilterDataProvider } from "./_components/filter-data/filter-data.context";
@@ -34,7 +34,7 @@ export function Issues(_: IssuesProps) {
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
-  const { open: OpenSandboxPanel } = useIssueSandboxPanel();
+  const { open: openContribution } = useContributionsSidepanel();
 
   const filtersCount = Object.keys(filters)?.length;
 
@@ -47,16 +47,16 @@ export function Issues(_: IssuesProps) {
     setToggleViews(view as typeof LIST | typeof KANBAN);
   }
 
-  function onOpenSandboxPanel(id: string) {
-    OpenSandboxPanel({ id });
+  function onOpenContribution(id: string) {
+    openContribution({ id });
   }
 
   const renderView = useMemo(() => {
     if (toggleViews === LIST) {
-      return <ListView queryParams={queryParams} onOpenSandboxPanel={onOpenSandboxPanel} />;
+      return <ListView queryParams={queryParams} onOpenContribution={onOpenContribution} />;
     }
 
-    return <KanbanView queryParams={queryParams} onOpenSandboxPanel={onOpenSandboxPanel} />;
+    return <KanbanView queryParams={queryParams} onOpenContribution={onOpenContribution} />;
   }, [toggleViews]);
 
   return (
