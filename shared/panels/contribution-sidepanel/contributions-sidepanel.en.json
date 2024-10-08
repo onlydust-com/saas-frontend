@@ -10,5 +10,13 @@
       "closed": "Closed",
       "rewarded": "Rewarded"
     }
+  },
+  "kpi": {
+    "title": "KPI",
+    "items": {
+      "applicants": "Applicants",
+      "projectContributors": "Project contributors",
+      "newContributors": "New contributors"
+    }
   }
 }
