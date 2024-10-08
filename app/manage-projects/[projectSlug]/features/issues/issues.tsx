@@ -61,7 +61,7 @@ export function Issues(_: IssuesProps) {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex h-full flex-col gap-lg"}>
+      <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}
