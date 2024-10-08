@@ -27,12 +27,12 @@ import { KanbanViewProps } from "./kanban-view.types";
 function Column({
   type,
   queryParams,
-  onOpenSandboxPanel,
+  onOpenContribution,
   ...kanbanProps
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetBiContributorsQueryParams>;
-  onOpenSandboxPanel(id: string): void;
+  onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
   console.log(queryParams);
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
@@ -71,13 +71,13 @@ function Column({
       }}
     >
       {contributions?.map(contribution => (
-        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenSandboxPanel} />
+        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
       ))}
     </KanbanColumn>
   );
 }
 
-export function KanbanView({ queryParams, onOpenSandboxPanel }: KanbanViewProps) {
+export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps) {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -97,7 +97,7 @@ export function KanbanView({ queryParams, onOpenSandboxPanel }: KanbanViewProps)
   return (
     <Kanban>
       <Column
-        onOpenSandboxPanel={onOpenSandboxPanel}
+        onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.NOT_ASSIGNED}
         header={{
           endContent: (
@@ -109,22 +109,22 @@ export function KanbanView({ queryParams, onOpenSandboxPanel }: KanbanViewProps)
         queryParams={queryParams}
       />
       <Column
-        onOpenSandboxPanel={onOpenSandboxPanel}
+        onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.IN_PROGRESS}
         queryParams={queryParams}
       />
       <Column
-        onOpenSandboxPanel={onOpenSandboxPanel}
+        onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.TO_REVIEW}
         queryParams={queryParams}
       />
       <Column
-        onOpenSandboxPanel={onOpenSandboxPanel}
+        onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.DONE}
         queryParams={queryParams}
       />
       <Column
-        onOpenSandboxPanel={onOpenSandboxPanel}
+        onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.ARCHIVED}
         queryParams={queryParams}
       />

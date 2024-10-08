@@ -19,11 +19,11 @@ import { ListViewProps } from "./list-view.types";
 function useAccordionItem({
   type,
   queryParams,
-  onOpenSandboxPanel,
+  onOpenContribution,
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetBiContributorsQueryParams>;
-  onOpenSandboxPanel(id: string): void;
+  onOpenContribution(id: string): void;
 }): AccordionItemProps {
   const { data, hasNextPage, fetchNextPage, isLoading } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
@@ -60,7 +60,7 @@ function useAccordionItem({
     content: (
       <>
         {contributions?.map(contribution => (
-          <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenSandboxPanel} />
+          <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
         ))}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isLoading} /> : null}
@@ -69,13 +69,13 @@ function useAccordionItem({
   };
 }
 
-export function ListView({ queryParams, onOpenSandboxPanel }: ListViewProps) {
+export function ListView({ queryParams, onOpenContribution }: ListViewProps) {
   const items = [
-    useAccordionItem({ type: ContributionActivityStatus.NOT_ASSIGNED, queryParams, onOpenSandboxPanel }),
-    useAccordionItem({ type: ContributionActivityStatus.IN_PROGRESS, queryParams, onOpenSandboxPanel }),
-    useAccordionItem({ type: ContributionActivityStatus.TO_REVIEW, queryParams, onOpenSandboxPanel }),
-    useAccordionItem({ type: ContributionActivityStatus.DONE, queryParams, onOpenSandboxPanel }),
-    useAccordionItem({ type: ContributionActivityStatus.ARCHIVED, queryParams, onOpenSandboxPanel }),
+    useAccordionItem({ type: ContributionActivityStatus.NOT_ASSIGNED, queryParams, onOpenContribution }),
+    useAccordionItem({ type: ContributionActivityStatus.IN_PROGRESS, queryParams, onOpenContribution }),
+    useAccordionItem({ type: ContributionActivityStatus.TO_REVIEW, queryParams, onOpenContribution }),
+    useAccordionItem({ type: ContributionActivityStatus.DONE, queryParams, onOpenContribution }),
+    useAccordionItem({ type: ContributionActivityStatus.ARCHIVED, queryParams, onOpenContribution }),
   ];
 
   return (
