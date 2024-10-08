@@ -28,7 +28,7 @@ import { CardContributionKanban } from "@/shared/features/card-contribution-kanb
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
-import { useIssueSandboxPanel } from "@/shared/panels/issue-sandbox-panel/issue-sandbox-panel.hooks";
+import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { IssuesProps } from "./issues.types";
@@ -41,12 +41,12 @@ export type ContributionKanbanFilters = Omit<
 function Column({
   type,
   queryParams,
-  onOpenSandboxPanel,
+  onOpenContribution,
   ...kanbanProps
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetBiContributorsQueryParams>;
-  onOpenSandboxPanel(id: string): void;
+  onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
   const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
@@ -84,7 +84,7 @@ function Column({
       }}
     >
       {contributions?.map(contribution => (
-        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenSandboxPanel} />
+        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
       ))}
     </KanbanColumn>
   );
@@ -97,7 +97,7 @@ export function Issues(_: IssuesProps) {
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const filtersCount = Object.keys(filters)?.length;
-  const { open: OpenSandboxPanel } = useIssueSandboxPanel();
+  const { open: OpenContribution } = useContributionsSidepanel();
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
@@ -117,8 +117,8 @@ export function Issues(_: IssuesProps) {
     }));
   };
 
-  function onOpenSandboxPanel(id: string) {
-    OpenSandboxPanel({ id });
+  function onOpenContribution(id: string) {
+    OpenContribution({ id });
   }
 
   return (
@@ -141,7 +141,7 @@ export function Issues(_: IssuesProps) {
         <div className={"h-full overflow-hidden"}>
           <Kanban>
             <Column
-              onOpenSandboxPanel={onOpenSandboxPanel}
+              onOpenContribution={onOpenContribution}
               type={ContributionActivityStatus.NOT_ASSIGNED}
               header={{
                 endContent: (
@@ -153,22 +153,22 @@ export function Issues(_: IssuesProps) {
               queryParams={queryParams}
             />
             <Column
-              onOpenSandboxPanel={onOpenSandboxPanel}
+              onOpenContribution={onOpenContribution}
               type={ContributionActivityStatus.IN_PROGRESS}
               queryParams={queryParams}
             />
             <Column
-              onOpenSandboxPanel={onOpenSandboxPanel}
+              onOpenContribution={onOpenContribution}
               type={ContributionActivityStatus.TO_REVIEW}
               queryParams={queryParams}
             />
             <Column
-              onOpenSandboxPanel={onOpenSandboxPanel}
+              onOpenContribution={onOpenContribution}
               type={ContributionActivityStatus.DONE}
               queryParams={queryParams}
             />
             <Column
-              onOpenSandboxPanel={onOpenSandboxPanel}
+              onOpenContribution={onOpenContribution}
               type={ContributionActivityStatus.ARCHIVED}
               queryParams={queryParams}
             />
