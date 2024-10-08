@@ -1,4 +1,5 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionEvent } from "@/core/domain/contribution/models/contribution-event-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -20,13 +21,30 @@ export type GetContributionsPortParams = HttpClientParameters<{ QueryParams: Get
 
 /* ------------------------------ Get Contributions By Id ------------------------------ */
 
-export type GetContributionByIdResponse = components["schemas"]["ContributionActivityPageResponse"];
-export type GetContributionByIdModel = Omit<GetContributionByIdResponse, "contributions"> & {
-  contributions: ContributionActivityInterface[];
-};
+export type GetContributionByIdResponse = components["schemas"]["ContributionActivityPageItemResponse"];
+export type GetContributionByIdModel = ContributionActivityInterface;
 
-type GetContributionByIdQueryParams = operations["getContributions"]["parameters"]["query"];
+type GetContributionByIdQueryParams = operations["getContributionById"]["parameters"]["query"];
+type GetContributionByIdPathParams = operations["getContributionById"]["parameters"]["path"];
 
 export type GetContributionByIdPortResponse = HttpStorageResponse<GetContributionByIdModel>;
 
-export type GetContributionByIdPortParams = HttpClientParameters<{ QueryParams: GetContributionByIdQueryParams }>;
+export type GetContributionByIdPortParams = HttpClientParameters<{
+  QueryParams: GetContributionByIdQueryParams;
+  PathParams: GetContributionByIdPathParams;
+}>;
+
+/* ------------------------------ Get Contributions events ------------------------------ */
+
+export type GetContributionEventsResponse = components["schemas"]["ContributionEventListResponse"];
+export type GetContributionEventsModel = ContributionEvent[];
+
+type GetContributionEventsQueryParams = operations["getContributionEvents"]["parameters"]["query"];
+type GetContributionEventsPathParams = operations["getContributionEvents"]["parameters"]["path"];
+
+export type GetContributionEventsPortResponse = HttpStorageResponse<GetContributionEventsModel>;
+
+export type GetContributionEventsPortParams = HttpClientParameters<{
+  QueryParams: GetContributionEventsQueryParams;
+  PathParams: GetContributionEventsPathParams;
+}>;
