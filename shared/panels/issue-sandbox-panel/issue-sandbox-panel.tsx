@@ -3,6 +3,7 @@ import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/us
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
+import { ContributionSidepanelTitle } from "@/shared/features/contributions/contribution-sidepanel-title/contribution-sidepanel-title";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
@@ -23,7 +24,17 @@ export function IssueSandboxPanel() {
 
   return (
     <Panel>
-      <SidePanelHeader canGoBack={false} canClose={true} title={{ children: "Issues sandbox" }} />
+      <SidePanelHeader
+        canGoBack={false}
+        canClose={true}
+        title={{
+          children: (
+            <ContributionSidepanelTitle badge={{ type: "ISSUE", number: 6789, githubStatus: "OPEN" }}>
+              Issue detail
+            </ContributionSidepanelTitle>
+          ),
+        }}
+      />
       <SidePanelBody>
         {id}
         <div>
