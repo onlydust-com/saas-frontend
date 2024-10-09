@@ -9,7 +9,7 @@ export function EcosystemFilter({ selectedEcosystems, onSelect }: EcosystemFilte
 
   return (
     <AccordionFilter
-      name={"program-ecosystem"}
+      name={"ecosystem"}
       title={{ translate: { token: "features:filters.ecosystem.title" } }}
       selected={selectedEcosystems?.length}
     >
