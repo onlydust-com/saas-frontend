@@ -1,5 +1,4 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
-import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AssigneContributors } from "@/shared/panels/contribution-sidepanel/_features/assigne-contributors/assigne-contributors";
@@ -9,25 +8,40 @@ import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/l
 import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timeline/timeline";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
+import { Helper } from "./_features/helper/helper";
+
 export function useContributionsSidepanel() {
   return useSinglePanelContext<ContributionsPanelData>("contribution-details");
 }
 
-export function useContributionBlocks(contribution: ContributionActivityInterface | undefined) {
+interface UseContributionBlocks {
+  contribution: ContributionActivityInterface | undefined;
+  helperState: {
+    isOpen: boolean;
+    setIsOpen: (value: boolean) => void;
+  };
+}
+
+export function useContributionBlocks({ contribution, helperState }: UseContributionBlocks) {
   if (!contribution) {
     return null;
   }
 
-  if (contribution?.activityStatus === ContributionActivityStatus.NOT_ASSIGNED) {
+  if (contribution.isNotAssigned()) {
     return (
       <>
+        <Helper
+          type={contribution?.activityStatus}
+          open={helperState.isOpen}
+          onClose={() => helperState.setIsOpen(false)}
+        />
         <IssueOverview issue={contribution} />
         <AssigneContributors contributionId={contribution?.githubId} />
       </>
     );
   }
 
-  if (contribution?.activityStatus === ContributionActivityStatus.IN_PROGRESS) {
+  if (contribution.isInProgress()) {
     return (
       <>
         <IssueOverview issue={contribution} />
@@ -37,11 +51,23 @@ export function useContributionBlocks(contribution: ContributionActivityInterfac
     );
   }
 
-  if (
-    contribution?.activityStatus === ContributionActivityStatus.TO_REVIEW ||
-    contribution?.activityStatus === ContributionActivityStatus.ARCHIVED ||
-    contribution?.activityStatus === ContributionActivityStatus.DONE
-  ) {
+  if (contribution.isToReview()) {
+    return (
+      <>
+        <Helper
+          type={contribution?.activityStatus}
+          open={helperState.isOpen}
+          onClose={() => helperState.setIsOpen(false)}
+        />
+        <IssueOverview issue={contribution} />
+        <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
+        <Assignees contributors={contribution.contributors} type={"contributors"} />
+        <Timeline id={contribution.id} />
+      </>
+    );
+  }
+
+  if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
         <IssueOverview issue={contribution} />

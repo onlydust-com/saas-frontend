@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -18,6 +20,12 @@ export function ContributionsSidepanel() {
     id: "",
   };
 
+  const [openHelper, setOpenHelper] = useState(false);
+
+  function handleToggleHelper() {
+    setOpenHelper(!openHelper);
+  }
+
   const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionId: id },
     options: {
@@ -25,14 +33,20 @@ export function ContributionsSidepanel() {
     },
   });
 
-  const blocks = useContributionBlocks(contribution);
+  const blocks = useContributionBlocks({
+    contribution,
+    helperState: {
+      isOpen: openHelper,
+      setIsOpen: setOpenHelper,
+    },
+  });
 
   // TODO HANDLE GITHUB PERMISSIONS
 
   return (
     <>
       <Panel>
-        <Header />
+        <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
         <SidePanelBody>{blocks}</SidePanelBody>
       </Panel>
       <IssuesSearchSidepanel />
