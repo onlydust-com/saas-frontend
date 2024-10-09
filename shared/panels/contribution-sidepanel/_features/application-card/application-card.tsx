@@ -26,7 +26,13 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
   }
 
   return (
-    <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
+    <Paper
+      background="transparent"
+      border="none"
+      px="none"
+      py="none"
+      classNames={{ base: "flex gap-md justify-between" }}
+    >
       <div className="flex gap-lg">
         <Avatar size="sm" shape="squared" src={applicant.avatarUrl} />
 

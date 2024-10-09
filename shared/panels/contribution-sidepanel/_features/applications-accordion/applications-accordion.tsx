@@ -23,7 +23,9 @@ export function ApplicationsAccordion({
         children: activeApplicantsCount,
       },
       content: activeApplicants?.map(activeApplicant => (
-        <ApplicationCard key={activeApplicant.id} application={activeApplicant} />
+        <div key={activeApplicant.id}>
+          <ApplicationCard application={activeApplicant} />
+        </div>
       )),
     },
     {
@@ -34,7 +36,11 @@ export function ApplicationsAccordion({
       badgeProps: {
         children: newApplicantsCount,
       },
-      content: newApplicants?.map(newApplicant => <ApplicationCard key={newApplicant.id} application={newApplicant} />),
+      content: newApplicants?.map(newApplicant => (
+        <div key={newApplicant.id}>
+          <ApplicationCard application={newApplicant} />
+        </div>
+      )),
     },
     {
       id: "ignored",
@@ -45,7 +51,9 @@ export function ApplicationsAccordion({
         children: ignoredApplicantsCount,
       },
       content: ignoredApplicants?.map(ignoredApplicant => (
-        <ApplicationCard key={ignoredApplicant.id} application={ignoredApplicant} />
+        <div key={ignoredApplicant.id}>
+          <ApplicationCard application={ignoredApplicant} />
+        </div>
       )),
     },
   ];
