@@ -7,16 +7,12 @@ import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { ManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal";
-import { useManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.hooks";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
@@ -31,8 +27,6 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       enabled: Boolean(projectSlug),
     },
   });
-
-  const { isOpen, setIsOpen } = useManageApplicantsModal();
 
   return (
     <PageWrapper
@@ -59,7 +53,6 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       />
 
       <AnimatedColumn className="h-full">
-        <Button onClick={() => setIsOpen(true)}>Manage applicants</Button>
         <ScrollView className="flex flex-col gap-md">
           <PageContent classNames={{ base: "flex-none" }}>
             <FinancialSection projectId={data?.id} />
@@ -74,8 +67,6 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
       <ContributionsSidepanel />
-
-      <ManageApplicantsModal isOpen={isOpen} onOpenChange={setIsOpen} projectId={data?.id} />
     </PageWrapper>
   );
 }

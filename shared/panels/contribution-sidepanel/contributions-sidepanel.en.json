@@ -45,6 +45,11 @@
       "title": "Issue detail"
     }
   },
+  "footer": {
+    "actions": {
+      "manageInFullPage": "Manage in full page"
+    }
+  },
   "helper": {
     "NOT_ASSIGNED": {
       "title": "Contributor Assigned",

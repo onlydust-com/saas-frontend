@@ -13,7 +13,13 @@ import { ApplicantsTable } from "@/shared/modals/manage-applicants-modal/_compon
 import { ManageApplicantsModalProps } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ManageApplicantsModal({ isOpen, onOpenChange, projectId }: ManageApplicantsModalProps) {
+export function ManageApplicantsModal({
+  isOpen,
+  onOpenChange,
+  projectId,
+  contributionId,
+  onAssign,
+}: ManageApplicantsModalProps) {
   const { data, isLoading, isError } = ApplicationReactQueryAdapter.client.useGetApplications({
     queryParams: {
       projectId,
@@ -41,7 +47,7 @@ export function ManageApplicantsModal({ isOpen, onOpenChange, projectId }: Manag
       <SidePanelsProvider>
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
-            <ApplicantsTable projectId={projectId} />
+            <ApplicantsTable projectId={projectId} contributionId={contributionId ?? ""} onAssign={onAssign} />
           </PageContent>
         </AnimatedColumn>
       </SidePanelsProvider>

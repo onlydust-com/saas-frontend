@@ -20,7 +20,7 @@ import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-
 import { TableColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns() {
+export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number) => void }) {
   const { t } = useTranslation();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -60,8 +60,6 @@ export function useFilterColumns() {
       setSelectedIds(["contributor", "label", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
     }
   }, [selectedIds, setSelectedIds]);
-
-  function handleAssign(githubUserId: number) {}
 
   function handleIgnore(githubUserId: number) {}
 
@@ -239,7 +237,7 @@ export function useFilterColumns() {
               startIcon={{ component: CircleCheck }}
               variant={"secondary"}
               size={"sm"}
-              onClick={() => handleAssign(githubUserId)}
+              onClick={() => onAssign(githubUserId)}
             >
               <Translate token={"modals:manageApplicants.table.rows.assign"} />
             </Button>

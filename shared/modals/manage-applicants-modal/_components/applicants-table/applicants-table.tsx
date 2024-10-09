@@ -29,7 +29,7 @@ export type ApplicantsTableFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
+export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useApplicantsFilterDataSidePanel();
   const [filters, setFilters] = useState<ApplicantsTableFilters["u"]>({});
@@ -43,10 +43,8 @@ export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
     },
   };
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ onAssign });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
-
-  function handleAssign(githubUserId: number) {}
 
   function handleIgnore(githubUserId: number) {}
 
@@ -103,7 +101,7 @@ export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
                   startIcon={{ component: CircleCheck }}
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-                  onClick={() => handleAssign(data.githubUserId)}
+                  onClick={() => onAssign(data.githubUserId)}
                 />
               </div>
             </div>
