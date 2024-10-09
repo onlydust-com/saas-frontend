@@ -65,7 +65,7 @@ function useAccordionItem({
               contribution={contribution}
               onAction={onOpenContribution}
               classNames={{
-                base: "bg-transparent border-none",
+                base: "bg-transparent border-none rounded-none",
               }}
             />
           </div>
