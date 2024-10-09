@@ -50,24 +50,26 @@ export function ProfileCard({ user, headerProps, footerContent }: ProfileCardPro
           {user.bio}
         </Typo>
       )}
-      <div className={"flex w-full flex-row flex-wrap gap-md"}>
-        {user.contacts?.map(contact => (
-          <Button
-            key={contact.contact}
-            as={"a"}
-            size={"sm"}
-            variant={"secondary"}
-            htmlProps={{
-              href: contact.contact,
-              target: "_blank",
-              rel: "noreferrer",
-            }}
-            startContent={<SocialIconLink url={contact.contact} />}
-          >
-            <SocialLinkTranslate url={contact.contact} />
-          </Button>
-        ))}
-      </div>
+      {user.contacts?.length ? (
+        <div className={"flex w-full flex-row flex-wrap gap-md"}>
+          {user.contacts.map(contact => (
+            <Button
+              key={contact.contact}
+              as={"a"}
+              size={"sm"}
+              variant={"secondary"}
+              htmlProps={{
+                href: contact.contact,
+                target: "_blank",
+                rel: "noreferrer",
+              }}
+              startContent={<SocialIconLink url={contact.contact} />}
+            >
+              <SocialLinkTranslate url={contact.contact} />
+            </Button>
+          ))}
+        </div>
+      ) : null}
       {footerContent}
     </Paper>
   );
