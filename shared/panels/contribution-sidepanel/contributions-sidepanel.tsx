@@ -1,3 +1,4 @@
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -15,7 +16,7 @@ import { Kpi } from "./_features/kpi/kpi";
 
 export function ContributionsSidepanel() {
   const { name } = useContributionsSidepanel();
-  const { Panel } = useSidePanel({ name });
+  const { Panel, isOpen } = useSidePanel({ name });
   const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
     id: "",
   };
@@ -24,13 +25,20 @@ export function ContributionsSidepanel() {
     pathParams: { slug: "pixelfact" },
   });
 
+  const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
+    pathParams: { contributionId: id },
+    options: {
+      enabled: isOpen && !!id,
+    },
+  });
+
   return (
     <Panel>
       <Header />
       <SidePanelBody>
         {id}
-        <Timeline />
-        <LinkedIssues />
+        <Timeline id={id} />
+        <LinkedIssues issues={contribution?.linkedIssues} />
         <Kpi applicants={2} projectContributors={10} newContributors={8} />
         <div>
           {pixelfactProfileData ? (

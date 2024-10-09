@@ -26,7 +26,7 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   githubTitle: string;
   githubStatus: ContributionGithubStatusUnion;
   githubNumber: string | number;
-  lastUpdatedAt: string;
+  lastUpdatedAt?: string;
   rewardUsdAmount?: number;
   applicants?: User[];
   contributors?: User[];

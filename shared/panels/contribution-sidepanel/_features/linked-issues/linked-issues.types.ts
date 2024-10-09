@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
-export interface LinkedIssuesProps extends PropsWithChildren {}
+export interface LinkedIssuesProps {
+  issues: ContributionActivityInterface["linkedIssues"];
+}

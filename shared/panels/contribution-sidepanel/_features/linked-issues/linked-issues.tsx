@@ -6,37 +6,27 @@ import { CardContributionKanban as Card } from "@/design-system/molecules/cards/
 
 import { LinkedIssuesProps } from "./linked-issues.types";
 
-export function LinkedIssues(_: LinkedIssuesProps) {
+export function LinkedIssues({ issues }: LinkedIssuesProps) {
   return (
     <Accordion
       id={"linked-issues"}
       titleProps={{ translate: { token: "panels:contribution.linkedIssues.title" } }}
       defaultSelected={["linked-issues"]}
     >
-      <div>
-        <Card
-          type={"ISSUE"}
-          githubTitle={"issue title"}
-          githubStatus={"OPEN"}
-          githubNumber={7777}
-          lastUpdatedAt={"2021-09-09T00:00:00Z"}
-          applicants={[]}
-          contributors={[]}
-          githubLabels={[{ name: "bug" }]}
-        />
-      </div>
-      <div>
-        <Card
-          type={"ISSUE"}
-          githubTitle={"issue title"}
-          githubStatus={"OPEN"}
-          githubNumber={7777}
-          lastUpdatedAt={"2021-09-09T00:00:00Z"}
-          applicants={[]}
-          contributors={[]}
-          githubLabels={[{ name: "bug" }]}
-        />
-      </div>
+      {issues?.map(issue => (
+        <div key={issue.githubNumber}>
+          <Card
+            type={issue.type}
+            githubTitle={issue.githubTitle}
+            githubStatus={issue.githubStatus}
+            githubNumber={issue.githubNumber}
+            lastUpdatedAt={issue.lastUpdatedAt}
+            applicants={[]}
+            contributors={[]}
+            githubLabels={issue.githubLabels}
+          />
+        </div>
+      ))}
       <div>
         <Button
           variant={"secondary"}

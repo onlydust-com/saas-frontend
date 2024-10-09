@@ -201,6 +201,19 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return <div />;
   }
 
+  function renderLastUpdatedAt() {
+    if (lastUpdatedAt) {
+      return (
+        <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
+          <Icon component={Clock} />
+          {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
+        </Typo>
+      );
+    }
+
+    return <div />;
+  }
+
   return (
     <Paper
       as={Component}
@@ -224,10 +237,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
       <div className={"grid gap-xl"}>
         <div className={"flex items-center gap-md"}>
-          <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
-            <Icon component={Clock} />
-            {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
-          </Typo>
+          {renderLastUpdatedAt()}
 
           {renderRewardAmount()}
         </div>
