@@ -34,7 +34,7 @@ export function ContributionsSidepanel() {
       slug: projectSlug,
     },
     options: {
-      // enabled: !!projectSlug,
+      enabled: isOpen && !!projectSlug,
     },
   });
 
@@ -48,7 +48,7 @@ export function ContributionsSidepanel() {
       isApplicantProjectMember: true,
     },
     options: {
-      // enabled: !!projectData?.id,
+      enabled: isOpen && !!projectData?.id,
     },
   });
 
@@ -58,8 +58,7 @@ export function ContributionsSidepanel() {
       isApplicantProjectMember: false,
     },
     options: {
-      // enabled: !!projectData?.id,
-      enabled: false,
+      enabled: isOpen && !!projectData?.id,
     },
   });
 
@@ -69,8 +68,14 @@ export function ContributionsSidepanel() {
       isIgnored: true,
     },
     options: {
-      // enabled: !!projectData?.id,
-      enabled: false,
+      enabled: isOpen && !!projectData?.id,
+    },
+  });
+
+  const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
+    pathParams: { contributionId: id },
+    options: {
+      enabled: isOpen && !!id,
     },
   });
 
@@ -81,13 +86,6 @@ export function ContributionsSidepanel() {
   const activeApplicants = applicationsActiveData?.pages.flatMap(page => page.applications) || [];
   const newApplicants = applicationsNewData?.pages.flatMap(page => page.applications) || [];
   const ignoredApplicants = applicationsIgnoredData?.pages.flatMap(page => page.applications) || [];
-
-  const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
-    pathParams: { contributionId: id },
-    options: {
-      enabled: isOpen && !!id,
-    },
-  });
 
   return (
     <>
@@ -104,8 +102,11 @@ export function ContributionsSidepanel() {
           />
           <ApplicationsAccordion
             activeApplicants={activeApplicants}
+            applicantsActiveNumber={applicantsActiveNumber}
             newApplicants={newApplicants}
+            applicantsNewNumber={applicantsNewNumber}
             ignoredApplicants={ignoredApplicants}
+            applicantsIgnoredNumber={applicantsIgnoredNumber}
           />
           <div>
             {pixelfactProfileData ? (

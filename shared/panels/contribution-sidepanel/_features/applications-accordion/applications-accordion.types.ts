@@ -2,6 +2,9 @@ import { ApplicationListItemInterface } from "@/core/domain/application/models/a
 
 export interface ApplicationsAccordionProps {
   activeApplicants: ApplicationListItemInterface[];
+  applicantsActiveNumber: number;
   newApplicants: ApplicationListItemInterface[];
+  applicantsNewNumber: number;
   ignoredApplicants: ApplicationListItemInterface[];
+  applicantsIgnoredNumber: number;
 }
