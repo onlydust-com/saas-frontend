@@ -14,3 +14,13 @@ export type ContributionActivityStatusUnion = keyof typeof ContributionActivityS
 
 export type ContributionGithubStatusUnion = GetContributionsResponse["contributions"][0]["githubStatus"];
 export type ContributionTypeUnion = GetContributionsResponse["contributions"][0]["type"];
+
+export enum ContributionEventType {
+  PR_CREATED = "PR_CREATED",
+  CONTRIBUTOR_ASSIGNED = "CONTRIBUTOR_ASSIGNED",
+  CONTRIBUTOR_REMOVED = "CONTRIBUTOR_REMOVED",
+  ISSUE_CREATED = "ISSUE_CREATED",
+  TO_REVIEW = "TO_REVIEW",
+  CLOSED = "CLOSED",
+  REWARDED = "REWARDED",
+}

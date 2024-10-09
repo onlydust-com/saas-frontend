@@ -11,6 +11,14 @@
       "rewarded": "Rewarded"
     }
   },
+  "linkedIssues": {
+    "title": "Issues",
+    "button": "Link an issue",
+    "panel": {
+      "title": "Issues",
+      "searchPlaceholder": "Search"
+    }
+  },
   "kpi": {
     "title": "KPI",
     "items": {
