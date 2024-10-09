@@ -16,6 +16,7 @@ import { enTableNavTranslation } from "@/design-system/organisms/table-nav/trans
 import { enFeaturesTranslations } from "@/shared/features/_translations/features.translate";
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
+import { enModalsTranslation } from "@/shared/modals/_translations/modals.translate";
 import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
 import common from "@/shared/translation/translations/common/common.en.json";
 import error from "@/shared/translation/translations/error/error.en.json";
@@ -48,4 +49,5 @@ export const en = {
   ...enFeaturesTranslations,
   ...enPanelsTranslation,
   ...enSplashTranslation,
+  ...enModalsTranslation,
 };

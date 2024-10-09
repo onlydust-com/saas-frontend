@@ -1,8 +1,15 @@
+import { userRankCategoryEmojiMapping, userRankCategoryMapping } from "@/core/domain/user/user-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ApplicationListItemResponse = components["schemas"]["ProjectApplicationPageItemResponse"];
 
-export interface ApplicationListItemInterface extends ApplicationListItemResponse {}
+export interface ApplicationListItemInterface extends ApplicationListItemResponse {
+  getApplicantTitle(): {
+    wording?: string;
+    emoji?: string;
+    full?: string;
+  };
+}
 
 export class ApplicationListItem implements ApplicationListItemInterface {
   applicant!: ApplicationListItemResponse["applicant"];
@@ -15,5 +22,24 @@ export class ApplicationListItem implements ApplicationListItemInterface {
 
   constructor(props: ApplicationListItemResponse) {
     Object.assign(this, props);
+  }
+
+  getApplicantTitle() {
+    if (!this.applicant?.globalRankCategory) {
+      return {
+        wording: undefined,
+        emoji: undefined,
+        full: undefined,
+      };
+    }
+
+    const emoji = userRankCategoryEmojiMapping[this.applicant.globalRankCategory];
+    const wording = userRankCategoryMapping[this.applicant.globalRankCategory];
+
+    return {
+      wording,
+      emoji,
+      full: `${emoji} ${wording}`,
+    };
   }
 }

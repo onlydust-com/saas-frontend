@@ -1,0 +1,31 @@
+{
+  "table": {
+    "columns": {
+      "contributor": "Contributor",
+      "label": "Label",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "rewardedAmount": "Rewarded amount",
+      "actions": "Actions"
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystem",
+      "reject": "Reject",
+      "assign": "Assign",
+      "labels": {
+        "placeholder": "Select a label"
+      }
+    },
+    "filters": {
+      "columnList": "Applicants columns",
+      "global": "Global",
+      "financial": "Financial"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
+    }
+  }
+}
