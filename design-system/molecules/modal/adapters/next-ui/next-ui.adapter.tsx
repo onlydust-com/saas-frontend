@@ -34,7 +34,7 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       classNames={{
         base: cn(slots.modal(), classNames?.modal),
         body: cn(slots.body(), classNames?.body),
-        wrapper: "overflow-hidden p-sm",
+        wrapper: "overflow-hidden p-[5%]",
         backdrop: cn(slots.backdrop(), classNames?.backdrop),
         header: cn(slots.header(), classNames?.header),
         footer: cn(slots.footer(), classNames?.footer),
