@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 export const BadgeDefaultVariants = tv({
   slots: {
     base: "group block overflow-hidden border-1 outline-none transition-all focus-visible:effect-ring-brand-spaced",
-    content: "flex flex-row items-center justify-center transition-colors",
+    content: "flex flex-row items-center justify-center",
     label: "truncate text-inherit",
     deletableIcon: "text-inherit",
   },

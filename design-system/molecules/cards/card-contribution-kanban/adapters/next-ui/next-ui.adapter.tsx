@@ -212,7 +212,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       );
     }
 
-    return <div />;
+    return null;
   }
 
   return (
@@ -238,7 +238,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       </header>
 
       <div className={"grid gap-xl"}>
-        <div className={"flex items-center gap-md"}>
+        <div className={"flex items-center gap-md empty:hidden"}>
           {renderLastUpdatedAt()}
 
           {renderRewardAmount()}
