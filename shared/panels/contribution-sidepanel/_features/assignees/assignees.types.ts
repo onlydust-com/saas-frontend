@@ -7,4 +7,5 @@ export interface AssigneesProps {
     | ContributionActivityInterface["assignees"];
   showRemove?: boolean;
   type?: "applicants" | "contributors" | "assignees";
+  contributionId: string;
 }

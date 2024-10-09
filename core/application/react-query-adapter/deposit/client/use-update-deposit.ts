@@ -13,6 +13,7 @@ export function useUpdateDeposit({
   pathParams,
   options,
 }: UseMutationFacadeParams<DepositFacadePort["updateDeposit"], undefined, never, UpdateDepositBody> = {}) {
+  // TODO Revamp this
   const { sponsorId } = useParams<{ sponsorId?: string }>();
   const depositStoragePort = bootstrap.getDepositStoragePortForClient();
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();

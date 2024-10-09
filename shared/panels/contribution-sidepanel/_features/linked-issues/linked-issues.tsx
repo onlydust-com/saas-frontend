@@ -1,5 +1,7 @@
 import { Link } from "lucide-react";
 
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { CardContributionKanban as Card } from "@/design-system/molecules/cards/card-contribution-kanban";
@@ -10,6 +12,16 @@ import { LinkedIssuesProps } from "./linked-issues.types";
 
 export function LinkedIssues({ issues, id }: LinkedIssuesProps) {
   const { open } = useIsssuesSearchSidepanel();
+  const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
+    pathParams: { contributionId: id },
+  });
+
+  function onRemove(issueId: number) {
+    mutate({
+      linkedIssues: (issues || []).filter(issue => issue.githubId !== issueId).map(issue => issue.githubId),
+    });
+  }
+
   return (
     <Accordion
       id={"linked-issues"}
@@ -25,6 +37,13 @@ export function LinkedIssues({ issues, id }: LinkedIssuesProps) {
             githubNumber={issue.githubNumber}
             lastUpdatedAt={issue.lastUpdatedAt}
             githubLabels={issue.githubLabels}
+            actions={[
+              {
+                translate: { token: "panels:contribution.linkedIssues.remove" },
+                onClick: () => onRemove(issue.githubId),
+                isDisabled: isPending,
+              },
+            ]}
           />
         </div>
       ))}

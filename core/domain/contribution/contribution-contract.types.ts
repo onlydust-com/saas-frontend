@@ -48,3 +48,13 @@ export type GetContributionEventsPortParams = HttpClientParameters<{
   QueryParams: GetContributionEventsQueryParams;
   PathParams: GetContributionEventsPathParams;
 }>;
+
+/* ------------------------------ Patch Contributions ------------------------------ */
+
+export type PatchContributionBody = components["schemas"]["ContributionPatchRequest"];
+
+type PatchContributionPathParams = operations["patchContribution"]["parameters"]["path"];
+
+export type PatchContributionPortParams = HttpClientParameters<{ PathParams: PatchContributionPathParams }>;
+
+export type PatchContributionPortResponse = HttpStorageResponse;
