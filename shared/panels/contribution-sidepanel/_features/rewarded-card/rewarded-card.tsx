@@ -37,7 +37,7 @@ export function RewardedCard({ reward }: RewardedCardProps) {
           <div className="grid">
             <div className="flex items-center gap-xs">
               <Typo size="sm" weight="medium">
-                {`${titleMoney.amount} ${titleMoney.code}`}
+                {titleMoney.amount} {titleMoney.code}
               </Typo>
 
               <Icon component={ArrowRight} classNames={{ base: "text-utility-secondary-blue-500" }} />
