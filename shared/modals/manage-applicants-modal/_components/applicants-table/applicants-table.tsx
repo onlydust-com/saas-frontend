@@ -2,7 +2,10 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
-import { GetApplicationsQueryParams } from "@/core/domain/application/application-contract.types";
+import {
+  GetApplicationsPortParams,
+  GetApplicationsQueryParams,
+} from "@/core/domain/application/application-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -12,6 +15,11 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { FilterColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.hooks";
+
+export type ApplicantsTableFilters = Omit<
+  NonNullable<GetApplicationsPortParams["queryParams"]>,
+  "pageSize" | "pageIndex"
+>;
 
 export function ApplicantsTable() {
   const [search, setSearch] = useState<string>();

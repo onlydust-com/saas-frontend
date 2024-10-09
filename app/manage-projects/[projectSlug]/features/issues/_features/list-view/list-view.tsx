@@ -60,7 +60,15 @@ function useAccordionItem({
     content: (
       <>
         {contributions?.map(contribution => (
-          <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
+          <div key={contribution.id}>
+            <CardContributionKanban
+              contribution={contribution}
+              onAction={onOpenContribution}
+              classNames={{
+                base: "bg-transparent border-none !p-0",
+              }}
+            />
+          </div>
         ))}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isLoading} /> : null}

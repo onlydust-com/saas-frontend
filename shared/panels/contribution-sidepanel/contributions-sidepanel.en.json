@@ -47,5 +47,12 @@
       "title": "To review",
       "description": "The issue is currently awaiting review by a lead. Please check the contributor's work and decide whether to approve or reject the issue. Your feedback is important to ensure the quality of the resolution."
     }
+  },
+  "applications": {
+    "items": {
+      "active": "Active devs applications",
+      "new": "New devs applications",
+      "ignored": "Ignored"
+    }
   }
 }

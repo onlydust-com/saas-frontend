@@ -6,6 +6,7 @@ import enContributionActivity from "../contributions-activity-filter/contributio
 import enContributorLabel from "../contributor-label-filter/contributor-label-filter.en.json";
 import enContributorProject from "../contributor-project-filter/contributor-project-filter.en.json";
 import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter.en.json";
+import enEcosystem from "../ecosystem-filter/ecosystem-filter.en.json";
 import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
 import enLanguage from "../language-filter/language-filter.en.json";
 import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
@@ -41,6 +42,7 @@ export const enFiltersTranslations = {
     budgetUsedCount: enBudgetUsedCount,
     onboardedDevCount: enOnboardedDevCount,
     programEcosystem: enProgramEcosystem,
+    ecosystem: enEcosystem,
     project: enProject,
     periodDate: enPeriodDate,
   },
