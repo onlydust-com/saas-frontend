@@ -10,7 +10,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { AccordionIgnoredContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-refused-contributors/accordion-refused-contributors.types";
+import { AccordionIgnoredContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionIgnoredContributors({ projectId, queryParams, columns }: AccordionIgnoredContributorsProps) {
