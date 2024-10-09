@@ -22,9 +22,9 @@ import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ContributorSidepanelData } from "./contributor-sidepanel.types";
+import { ContributorSidepanelData, ContributorSidepanelProps } from "./contributor-sidepanel.types";
 
-export function ContributorSidepanel() {
+export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps) {
   const { name, isOpen } = useContributorSidePanel();
   const { Panel } = useSidePanel({ name });
   const {
@@ -94,6 +94,31 @@ export function ContributorSidepanel() {
     );
   }
 
+  function renderFooter() {
+    if (!data) return null;
+
+    if (customFooter) {
+      return customFooter({ data });
+    }
+
+    return (
+      <div className={"flex w-full flex-row items-center justify-end gap-1"}>
+        <Button
+          variant={"secondary"}
+          endContent={<SquareArrowOutUpRight size={16} />}
+          size={"md"}
+          as={"a"}
+          htmlProps={{
+            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
+            target: "_blank",
+          }}
+        >
+          <Translate token={"panels:contributor.seeContributor"} />
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <Panel>
       <SidePanelHeader
@@ -104,26 +129,7 @@ export function ContributorSidepanel() {
         canClose={true}
       />
       <SidePanelBody>{renderContent()}</SidePanelBody>
-      {data ? (
-        <SidePanelFooter>
-          <div className={"flex w-full flex-row items-center justify-end gap-1"}>
-            {data ? (
-              <Button
-                variant={"secondary"}
-                endContent={<SquareArrowOutUpRight size={16} />}
-                size={"md"}
-                as={"a"}
-                htmlProps={{
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
-                  target: "_blank",
-                }}
-              >
-                <Translate token={"panels:contributor.seeContributor"} />
-              </Button>
-            ) : null}
-          </div>
-        </SidePanelFooter>
-      ) : null}
+      {data ? <SidePanelFooter>{renderFooter()}</SidePanelFooter> : null}
     </Panel>
   );
 }
