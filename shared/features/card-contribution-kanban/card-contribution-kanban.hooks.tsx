@@ -1,7 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
-
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { bootstrap } from "@/core/bootstrap";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
@@ -15,18 +12,9 @@ const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] => {
-  const queryClient = useQueryClient();
-  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
-  const { mutateAsync, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
+  const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
     pathParams: { contributionId: contribution.id },
   });
-
-  async function invalidateContributions() {
-    await queryClient.invalidateQueries({
-      queryKey: contributionStoragePort.getContributions({}).tag,
-      exact: false,
-    });
-  }
 
   function onReview() {
     actions?.onReview?.(contribution.id);
@@ -48,8 +36,7 @@ const useContributionActions = (
   }
 
   async function onArchive() {
-    await mutateAsync({ archived: true });
-    await invalidateContributions();
+    mutate({ archived: true });
   }
 
   function onReward() {
@@ -58,8 +45,7 @@ const useContributionActions = (
   }
 
   async function onUnarchive() {
-    await mutateAsync({ archived: false });
-    await invalidateContributions();
+    mutate({ archived: false });
   }
 
   switch (contribution.activityStatus) {

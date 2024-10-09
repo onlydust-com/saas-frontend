@@ -29,6 +29,12 @@ export function usePatchContribution({
               exact: false,
             });
           }
+
+          await queryClient.invalidateQueries({
+            queryKey: contributionStoragePort.getContributions({}).tag,
+            exact: false,
+          });
+
           options?.onSuccess?.(data, variables, context);
         },
       },
