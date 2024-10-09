@@ -1,4 +1,4 @@
-export interface AssigneContributorsProps {
+export interface AssignContributorsProps {
   issueId: number;
   contributionId: string;
 }

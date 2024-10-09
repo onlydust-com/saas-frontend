@@ -1,7 +1,7 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
-import { AssigneContributors } from "@/shared/panels/contribution-sidepanel/_features/assigne-contributors/assigne-contributors";
+import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors";
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
@@ -37,7 +37,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
-        <AssigneContributors issueId={contribution?.githubId} contributionId={contribution.id} />
+        <AssignContributors issueId={contribution?.githubId} contributionId={contribution.id} />
       </>
     );
   }
