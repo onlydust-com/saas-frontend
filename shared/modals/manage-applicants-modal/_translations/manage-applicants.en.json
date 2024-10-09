@@ -1,5 +1,8 @@
 {
   "title": "Applicants",
+  "projectContributors": "Project contributors",
+  "newContributors": "New contributors",
+  "refused": "Refused",
   "table": {
     "columns": {
       "contributor": "Contributor",

@@ -92,7 +92,7 @@ export function useFilterColumns() {
           <ContributorLabelPopover
             projectIdOrSlug={projectId}
             name={`contributorsLabels-${githubUserId}`}
-            placeholder={t("modals:detail.manageApplicants.table.rows.labels.placeholder")}
+            placeholder={t("modals:manageApplicants.table.rows.labels.placeholder")}
             onSelect={selectedIds => onLabelChange(githubUserId, selectedIds)}
             selectedLabels={projectContributorLabels ?? []}
           />
@@ -105,7 +105,7 @@ export function useFilterColumns() {
       cell: info => {
         const { languages } = info.row.original.applicant;
 
-        if (!languages.length) {
+        if (!languages?.length) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
@@ -144,7 +144,7 @@ export function useFilterColumns() {
       cell: info => {
         const { ecosystems } = info.row.original.applicant;
 
-        if (!ecosystems.length) {
+        if (!ecosystems?.length) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 

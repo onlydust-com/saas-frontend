@@ -8,6 +8,7 @@ import { Modal } from "@/design-system/molecules/modal";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { PageContent } from "@/shared/features/page-content/page-content";
+import { ApplicantsTable } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table";
 import { ManageApplicantsModalProps } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -37,7 +38,9 @@ export function ManageApplicantsModal({ isOpen, onOpenChange, projectId }: Manag
 
     return (
       <AnimatedColumn className={"h-full"}>
-        <PageContent classNames={{ base: "h-full" }}>Table</PageContent>
+        <PageContent classNames={{ base: "h-full" }}>
+          <ApplicantsTable projectId={projectId} />
+        </PageContent>
       </AnimatedColumn>
     );
   }
@@ -55,8 +58,9 @@ export function ManageApplicantsModal({ isOpen, onOpenChange, projectId }: Manag
       }}
       size="8xl"
       background="gradient"
+      classNames={{ modal: "h-full" }}
     >
-      <div className="h-dvh">{renderContent()}</div>
+      {renderContent()}
     </Modal>
   );
 }
