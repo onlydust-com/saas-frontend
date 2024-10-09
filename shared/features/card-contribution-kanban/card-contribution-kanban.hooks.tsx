@@ -17,13 +17,11 @@ const useContributionActions = (
   });
 
   function onReview() {
-    actions?.onReview?.(contribution.id);
     actions?.onAction?.(contribution.id);
   }
 
   function onUnassign() {
-    actions?.onUnassign?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+    mutate({ assignees: [] });
   }
 
   function onCodeReview() {
@@ -40,7 +38,6 @@ const useContributionActions = (
   }
 
   function onReward() {
-    actions?.onReward?.(contribution.id);
     actions?.onAction?.(contribution.id);
   }
 
