@@ -13,7 +13,10 @@
   },
   "linkedIssues": {
     "title": "Issues",
-    "button": "Link an issue"
+    "button": "Link an issue",
+    "panel": {
+      "title": "Issues"
+    }
   },
   "kpi": {
     "title": "KPI",
