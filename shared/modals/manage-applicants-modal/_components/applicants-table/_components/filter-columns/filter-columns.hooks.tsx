@@ -26,6 +26,8 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<ApplicationListItemInterface>();
 
+  const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
     options: {
@@ -61,7 +63,14 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
     }
   }, [selectedIds, setSelectedIds]);
 
-  function handleIgnore(githubUserId: number) {}
+  function handleIgnore(githubUserId: number) {
+    // TODO Mehdi handle invalidations
+    applicationStoragePort
+      .patchApplication({
+        pathParams: { applicationId: githubUserId.toString() },
+      })
+      .request({ status: "IGNORED" });
+  }
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.display({

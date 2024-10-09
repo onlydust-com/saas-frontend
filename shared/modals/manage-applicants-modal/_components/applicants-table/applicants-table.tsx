@@ -1,6 +1,7 @@
 import { CircleCheck, CircleX, Filter, SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import {
   GetApplicationsPortParams,
   GetApplicationsQueryParams,
@@ -21,13 +22,64 @@ import { useFilterColumns } from "@/shared/modals/manage-applicants-modal/_compo
 import { FilterData } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data.context";
 import { useApplicantsFilterDataSidePanel } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data.hooks";
-import { ApplicantsTableProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table.types";
+import {
+  ApplicantsTableProps,
+  ContributorPanelFooterProps,
+} from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table.types";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
 export type ApplicantsTableFilters = Omit<
   NonNullable<GetApplicationsPortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;
+
+function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) {
+  const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
+    ApplicationReactQueryAdapter.client.usePatchApplication({
+      pathParams: {
+        applicationId: githubUserId.toString(),
+      },
+    });
+
+  function handleIgnore() {
+    ignoreApplicationMutate({ status: "IGNORED" });
+  }
+
+  return (
+    <div className="flex w-full justify-between gap-lg">
+      <div>
+        <Button
+          variant={"secondary"}
+          endIcon={{ component: SquareArrowOutUpRight }}
+          size={"md"}
+          as={"a"}
+          htmlProps={{
+            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(login)),
+            target: "_blank",
+          }}
+          translate={{ token: "panels:contributor.seeContributor" }}
+        />
+      </div>
+      <div className="flex gap-lg">
+        <Button
+          variant={"secondary"}
+          startIcon={{ component: CircleX }}
+          size={"md"}
+          translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
+          onClick={() => handleIgnore()}
+          isDisabled={ignoreApplicationIsPending}
+        />
+        <Button
+          variant={"secondary"}
+          startIcon={{ component: CircleCheck }}
+          size={"md"}
+          translate={{ token: "modals:manageApplicants.table.actions.assign" }}
+          onClick={() => onAssign(githubUserId)}
+        />
+      </div>
+    </div>
+  );
+}
 
 export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
@@ -45,8 +97,6 @@ export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
 
   const { columns, selectedIds, setSelectedIds } = useFilterColumns({ onAssign });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
-
-  function handleIgnore(githubUserId: number) {}
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
@@ -74,37 +124,7 @@ export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
         <FilterData />
         <ContributorSidepanel
           customFooter={({ data }) => (
-            <div className="flex w-full justify-between gap-lg">
-              <div>
-                <Button
-                  variant={"secondary"}
-                  endIcon={{ component: SquareArrowOutUpRight }}
-                  size={"md"}
-                  as={"a"}
-                  htmlProps={{
-                    href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
-                    target: "_blank",
-                  }}
-                  translate={{ token: "panels:contributor.seeContributor" }}
-                />
-              </div>
-              <div className="flex gap-lg">
-                <Button
-                  variant={"secondary"}
-                  startIcon={{ component: CircleX }}
-                  size={"md"}
-                  translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
-                  onClick={() => handleIgnore(data.githubUserId)}
-                />
-                <Button
-                  variant={"secondary"}
-                  startIcon={{ component: CircleCheck }}
-                  size={"md"}
-                  translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-                  onClick={() => onAssign(data.githubUserId)}
-                />
-              </div>
-            </div>
+            <Footer githubUserId={data.githubUserId} login={data.login} onAssign={onAssign} />
           )}
         />
       </ScrollView>
