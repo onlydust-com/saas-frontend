@@ -24,7 +24,7 @@ export function ApplicationsAccordion({
         children: activeApplicantsCount,
       },
       content: activeApplicants?.map(activeApplicant => (
-        <div key={activeApplicant.id}>
+        <div key={activeApplicant.id} className="!p-none">
           <ApplicationCard application={activeApplicant} contributionId={contributionId} />
         </div>
       )),
@@ -38,7 +38,7 @@ export function ApplicationsAccordion({
         children: newApplicantsCount,
       },
       content: newApplicants?.map(newApplicant => (
-        <div key={newApplicant.id}>
+        <div key={newApplicant.id} className="!p-none">
           <ApplicationCard application={newApplicant} contributionId={contributionId} />
         </div>
       )),
@@ -52,7 +52,7 @@ export function ApplicationsAccordion({
         children: ignoredApplicantsCount,
       },
       content: ignoredApplicants?.map(ignoredApplicant => (
-        <div key={ignoredApplicant.id}>
+        <div key={ignoredApplicant.id} className="!p-none">
           <ApplicationCard application={ignoredApplicant} contributionId={contributionId} isIgnored />
         </div>
       )),
