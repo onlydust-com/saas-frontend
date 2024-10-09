@@ -20,6 +20,7 @@
   "linkedIssues": {
     "title": "Issues",
     "button": "Link an issue",
+    "remove": "Remove issue",
     "panel": {
       "title": "Issues",
       "searchPlaceholder": "Search"

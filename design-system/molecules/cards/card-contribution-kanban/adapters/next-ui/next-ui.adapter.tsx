@@ -33,6 +33,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   linkedIssues,
   githubLabels,
   actions,
+  onClick,
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
@@ -219,11 +220,12 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       as={Component}
       {...htmlProps}
       classNames={{
-        base: cn(slots.base(), classNames?.base),
+        base: cn(slots.base(), classNames?.base, { "cursor-pointer": Boolean(onClick) }),
       }}
       size={"lg"}
       background={"secondary"}
       border={"primary"}
+      onClick={onClick}
     >
       <header className={"flex items-start justify-between gap-lg"}>
         <Typo size={"xs"} weight={"medium"}>

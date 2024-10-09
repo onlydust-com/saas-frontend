@@ -1,3 +1,4 @@
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
@@ -11,14 +12,16 @@ const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] => {
+  const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
+    pathParams: { contributionId: contribution.id },
+  });
+
   function onReview() {
-    actions?.onReview?.(contribution.id);
     actions?.onAction?.(contribution.id);
   }
 
   function onUnassign() {
-    actions?.onUnassign?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+    mutate({ assignees: [] });
   }
 
   function onCodeReview() {
@@ -30,19 +33,16 @@ const useContributionActions = (
     window.open(contribution.githubHtmlUrl, "_blank");
   }
 
-  function onArchive() {
-    actions?.onArchive?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+  async function onArchive() {
+    mutate({ archived: true });
   }
 
   function onReward() {
-    actions?.onReward?.(contribution.id);
     actions?.onAction?.(contribution.id);
   }
 
-  function onUnarchive() {
-    actions?.onUnarchive?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+  async function onUnarchive() {
+    mutate({ archived: false });
   }
 
   switch (contribution.activityStatus) {
@@ -73,6 +73,7 @@ const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
           onClick: onArchive,
+          isDisabled: isPending,
         },
         {
           children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
@@ -84,6 +85,7 @@ const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
           onClick: onUnarchive,
+          isDisabled: isPending,
         },
       ];
     default:
