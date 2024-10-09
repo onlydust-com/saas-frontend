@@ -20,8 +20,6 @@ export function ManageApplicantsModal({ isOpen, onOpenChange, projectId }: Manag
   });
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
 
-  console.log({ data });
-
   if (!projectId) return null;
 
   function renderContent() {
