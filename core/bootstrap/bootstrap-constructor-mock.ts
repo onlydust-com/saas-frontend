@@ -3,6 +3,7 @@ import { ApplicationClientAdapterMock } from "@/core/infrastructure/marketplace-
 import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
 import { ContributionClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/contribution-client-adapter-mock";
+import { CountryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/country-client-adapter-mock";
 import { CurrencyClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/currency-client-adapter-mock";
 import { DepositClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/deposit-client-adapter-mock";
 import { EcosystemClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/ecosystem-client-adapter-mock";
@@ -45,6 +46,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   projectCategoryStoragePortForServer: new ProjectCategoryClientAdapterMock(),
   languageStoragePortForClient: new LanguagesClientAdapterMock(),
   languageStoragePortForServer: new LanguagesClientAdapterMock(),
+  countryStoragePortForClient: new CountryClientAdapterMock(),
+  countryStoragePortForServer: new CountryClientAdapterMock(),
   ecosystemStoragePortForServer: new EcosystemClientAdapterMock(),
   ecosystemStoragePortForClient: new EcosystemClientAdapterMock(),
   githubStoragePortForServer: new GithubClientAdapterMock(),

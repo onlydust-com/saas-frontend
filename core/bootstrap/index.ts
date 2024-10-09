@@ -2,6 +2,7 @@ import { ApplicationStoragePort } from "@/core/domain/application/outputs/applic
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
+import { CountryStoragePort } from "@/core/domain/country/outputs/country-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
@@ -18,6 +19,7 @@ import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
+import { CountryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/country-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { EcosystemClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/ecosystem-client-adapter";
@@ -66,6 +68,8 @@ export interface BootstrapConstructor {
   notificationStoragePortForServer: NotificationStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
+  countryStoragePortForClient: CountryStoragePort;
+  countryStoragePortForServer: CountryStoragePort;
   projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
@@ -108,6 +112,8 @@ export class Bootstrap {
   notificationStoragePortForServer: NotificationStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
+  countryStoragePortForClient: CountryStoragePort;
+  countryStoragePortForServer: CountryStoragePort;
   projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
@@ -146,6 +152,8 @@ export class Bootstrap {
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
     this.languageStoragePortForClient = constructor.languageStoragePortForClient;
     this.languageStoragePortForServer = constructor.languageStoragePortForServer;
+    this.countryStoragePortForClient = constructor.countryStoragePortForClient;
+    this.countryStoragePortForServer = constructor.countryStoragePortForServer;
     this.projectCategoryStoragePortForClient = constructor.projectCategoryStoragePortForClient;
     this.projectCategoryStoragePortForServer = constructor.projectCategoryStoragePortForServer;
     this.ecosystemStoragePortForClient = constructor.ecosystemStoragePortForClient;
@@ -266,6 +274,14 @@ export class Bootstrap {
     return this.languageStoragePortForClient;
   }
 
+  getCountriesStoragePortForServer() {
+    return this.countryStoragePortForServer;
+  }
+
+  getCountriesStoragePortForClient() {
+    return this.countryStoragePortForClient;
+  }
+
   getProjectCategoryStoragePortForServer() {
     return this.projectCategoryStoragePortForServer;
   }
@@ -347,6 +363,8 @@ export class Bootstrap {
         notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
         languageStoragePortForClient: new LanguageClientAdapter(new FetchHttpClient()),
         languageStoragePortForServer: new LanguageClientAdapter(new FetchHttpClient()),
+        countryStoragePortForClient: new CountryClientAdapter(new FetchHttpClient()),
+        countryStoragePortForServer: new CountryClientAdapter(new FetchHttpClient()),
         projectCategoryStoragePortForClient: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         projectCategoryStoragePortForServer: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         ecosystemStoragePortForServer: new EcosystemClientAdapter(new FetchHttpClient()),
