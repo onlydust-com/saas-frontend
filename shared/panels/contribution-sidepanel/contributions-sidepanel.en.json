@@ -26,5 +26,13 @@
       "projectContributors": "Project contributors",
       "newContributors": "New contributors"
     }
+  },
+  "applications": {
+    "rank": "Top {{count}}%",
+    "items": {
+      "active": "Active devs applications",
+      "new": "New devs applications",
+      "ignored": "Ignored"
+    }
   }
 }

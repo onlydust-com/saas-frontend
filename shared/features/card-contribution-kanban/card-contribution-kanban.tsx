@@ -4,11 +4,12 @@ import { CardContributionKanbanHooks } from "@/shared/features/card-contribution
 
 import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 
-export function CardContributionKanban({ contribution, ...actions }: CardContributionKanbanProps) {
+export function CardContributionKanban({ contribution, classNames, ...actions }: CardContributionKanbanProps) {
   const actionGroup = CardContributionKanbanHooks.useContributionActions(contribution, actions);
 
   return (
     <Card
+      classNames={classNames}
       type={contribution.type}
       githubTitle={contribution.githubTitle}
       githubStatus={contribution.githubStatus}

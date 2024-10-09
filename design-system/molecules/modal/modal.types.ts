@@ -4,8 +4,8 @@ import { ButtonDefaultPort } from "@/design-system/atoms/button/button.types";
 import { TypoPort } from "@/design-system/atoms/typo";
 
 interface Variants {
-  size: "m" | "l";
-  container: "1" | "2" | "3" | "4";
+  size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl";
+  background: "primary" | "gradient";
 }
 
 interface ClassNames {
@@ -14,6 +14,7 @@ interface ClassNames {
   backdrop: string;
   header: string;
   footer: string;
+  wrapper: string;
 }
 
 type placement = "bottom" | "center";

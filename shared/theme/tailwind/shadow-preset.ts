@@ -27,6 +27,10 @@ const ShadowPreset: Config = {
           boxShadow:
             "0px 1px var(--effects-blur-xl_2) 0px var(--effects-shadow-xl_2), 0px 1px var(--effects-blur-xl_1) 0px var(--effects-shadow-xl_1)",
         },
+        [`.${SHADOW.bg_blur_shadow}`]: {
+          boxShadow:
+            "0px 1px var(--effects-blur-xl_2) 0px var(--effects-shadow-xl_2), 0px 1px var(--effects-blur-xl_1) 0px var(--effects-shadow-xl_1)",
+        },
       });
     }),
   ],

@@ -566,6 +566,15 @@
     --utility-success-800: var(--_success-800);
     --utility-success-900: var(--_success-900);
 
+    /* UTILITY GRADIENT */
+    --utility-gradient-glassneon-glass-neon-1: #FAFDEB;
+    --utility-gradient-glassneon-glass-neon-2: #FAFDEB;
+    --utility-gradient-glassneon-glass-neon-3: #E8FAFA;
+    --utility-gradient-glassneon-glass-neon-4: #E8F2FA;
+    --utility-gradient-glassneon-glass-neon-5: #FBEAF6;
+    --utility-gradient-glassneon-glass-neon-6: #E9E0FD;
+    --utility-gradient-glassneon-glass-neon-7: #E9E0FD;
+
     /* COMPONENTS BADGE */
 
     --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
@@ -927,6 +936,15 @@
     --utility-success-700: var(--_success-300);
     --utility-success-800: var(--_success-200);
     --utility-success-900: var(--_success-100);
+
+    /* UTILITY GRADIENT */
+    --utility-gradient-glassneon-glass-neon-1: #232E41;
+    --utility-gradient-glassneon-glass-neon-2: #232634;
+    --utility-gradient-glassneon-glass-neon-3: #231D2F;
+    --utility-gradient-glassneon-glass-neon-4: #231830;
+    --utility-gradient-glassneon-glass-neon-5: #2A0D3B;
+    --utility-gradient-glassneon-glass-neon-6: #1C0052;
+    --utility-gradient-glassneon-glass-neon-7: #270073;
 
     /** COMPONENTS BADGE **/
     --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);

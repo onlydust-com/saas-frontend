@@ -1,5 +1,7 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
+import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban";
+
 export interface CardContributionKanbanActions {
   onReview?: (id: string) => void;
   onUnassign?: (id: string) => void;
@@ -10,4 +12,5 @@ export interface CardContributionKanbanActions {
 }
 export interface CardContributionKanbanProps extends CardContributionKanbanActions {
   contribution: ContributionActivityInterface;
+  classNames?: CardContributionKanbanPort<"div">["classNames"];
 }
