@@ -10,8 +10,6 @@ export function IssueOverview({ issue }: IssueOverviewProps) {
       githubStatus={issue.githubStatus}
       githubNumber={issue.githubNumber}
       lastUpdatedAt={issue.lastUpdatedAt}
-      applicants={[]}
-      contributors={[]}
       githubLabels={issue.githubLabels}
     />
   );
