@@ -45,7 +45,12 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     return (
       <>
         <IssueOverview issue={contribution} />
-        <Assignees contributors={contribution.assignees} type={"assignees"} />
+        <Assignees
+          showRemove={true}
+          contributors={contribution.assignees}
+          contributionId={contribution.id}
+          type={"assignees"}
+        />
         <Timeline id={contribution.id} />
       </>
     );
@@ -61,7 +66,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         />
         <IssueOverview issue={contribution} />
         <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
-        <Assignees contributors={contribution.contributors} type={"contributors"} />
+        <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
       </>
     );
@@ -72,7 +77,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       <>
         <IssueOverview issue={contribution} />
         <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
-        <Assignees contributors={contribution.contributors} type={"contributors"} />
+        <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
       </>
     );

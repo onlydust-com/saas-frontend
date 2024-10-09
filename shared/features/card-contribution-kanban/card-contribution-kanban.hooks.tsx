@@ -1,3 +1,7 @@
+import { useQueryClient } from "@tanstack/react-query";
+
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+import { bootstrap } from "@/core/bootstrap";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
@@ -11,6 +15,19 @@ const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] => {
+  const queryClient = useQueryClient();
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
+  const { mutateAsync, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
+    pathParams: { contributionId: contribution.id },
+  });
+
+  async function invalidateContributions() {
+    await queryClient.invalidateQueries({
+      queryKey: contributionStoragePort.getContributions({}).tag,
+      exact: false,
+    });
+  }
+
   function onReview() {
     actions?.onReview?.(contribution.id);
     actions?.onAction?.(contribution.id);
@@ -30,9 +47,9 @@ const useContributionActions = (
     window.open(contribution.githubHtmlUrl, "_blank");
   }
 
-  function onArchive() {
-    actions?.onArchive?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+  async function onArchive() {
+    await mutateAsync({ archived: true });
+    await invalidateContributions();
   }
 
   function onReward() {
@@ -40,9 +57,9 @@ const useContributionActions = (
     actions?.onAction?.(contribution.id);
   }
 
-  function onUnarchive() {
-    actions?.onUnarchive?.(contribution.id);
-    actions?.onAction?.(contribution.id);
+  async function onUnarchive() {
+    await mutateAsync({ archived: false });
+    await invalidateContributions();
   }
 
   switch (contribution.activityStatus) {
@@ -73,6 +90,7 @@ const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
           onClick: onArchive,
+          isDisabled: isPending,
         },
         {
           children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
@@ -84,6 +102,7 @@ const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
           onClick: onUnarchive,
+          isDisabled: isPending,
         },
       ];
     default:

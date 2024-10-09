@@ -6,6 +6,7 @@ import {
 import { ContributionActivity } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionEvent } from "@/core/domain/contribution/models/contribution-event-model";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
+import { UpdateDepositBody } from "@/core/domain/deposit/deposit-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -290,7 +291,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
     githubBody: "",
     githubLabels,
     lastUpdatedAt: "2024-10-07T08:10:44.062572229Z",
-    id: "5dfe1418-6555-45e4-98e0-4d930ff5bf65",
+    id: "6af85286-2b4f-447c-a265-56ace336cce7",
     createdAt: "2024-10-07T08:10:44.062572229Z",
     completedAt: "2024-10-07T08:10:44.062572229Z",
     activityStatus: "NOT_ASSIGNED",
@@ -314,7 +315,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
     githubBody: "",
     githubLabels,
     lastUpdatedAt: "2024-10-07T08:10:44.062572229Z",
-    id: "5dfe1418-6555-45e4-98e0-4d930ff5bf65",
+    id: "caf85286-2b4f-447c-a265-56ace336cce7",
     createdAt: "2024-10-07T08:10:44.062572229Z",
     completedAt: "2024-10-07T08:10:44.062572229Z",
     activityStatus: "IN_PROGRESS",
@@ -338,7 +339,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
     githubBody: "",
     githubLabels,
     lastUpdatedAt: "2024-10-07T08:10:44.062572229Z",
-    id: "5dfe1418-6555-45e4-98e0-4d930ff5bf65",
+    id: "eaf85286-2b4f-447c-a265-56ace336cce7",
     createdAt: "2024-10-07T08:10:44.062572229Z",
     completedAt: "2024-10-07T08:10:44.062572229Z",
     activityStatus: "TO_REVIEW",
@@ -362,7 +363,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
     githubBody: "",
     githubLabels,
     lastUpdatedAt: "2024-10-07T08:10:44.062572229Z",
-    id: "5dfe1418-6555-45e4-98e0-4d930ff5bf65",
+    id: "1af85286-2b4f-447c-a265-56ace336cce7",
     createdAt: "2024-10-07T08:10:44.062572229Z",
     completedAt: "2024-10-07T08:10:44.062572229Z",
     activityStatus: "DONE",
@@ -386,7 +387,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
     githubBody: "",
     githubLabels,
     lastUpdatedAt: "2024-10-07T08:10:44.062572229Z",
-    id: "5dfe1418-6555-45e4-98e0-4d930ff5bf65",
+    id: "64f85286-2b4f-447c-a265-56ace336cce7",
     createdAt: "2024-10-07T08:10:44.062572229Z",
     completedAt: "2024-10-07T08:10:44.062572229Z",
     activityStatus: "ARCHIVED",
@@ -405,6 +406,7 @@ export class ContributionClientAdapter implements ContributionStoragePort {
   routes = {
     getContributions: "contributions",
     getContributionById: "contributions/:contributionId",
+    patchContribution: "contributions/:contributionId",
     getContributionEvent: "contributions/:contributionId/events",
   } as const;
 
@@ -480,6 +482,26 @@ export class ContributionClientAdapter implements ContributionStoragePort {
 
       return data?.events.map(event => new ContributionEvent(event)) ?? [];
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  patchContribution = ({ pathParams }: FirstParameter<ContributionStoragePort["patchContribution"]>) => {
+    const path = this.routes["patchContribution"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateDepositBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

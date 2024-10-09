@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
@@ -7,10 +9,22 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 import { AssigneesProps } from "./assignees.types";
 
-export function Assignees({ contributors, showRemove, type }: AssigneesProps) {
-  function removeContributorButton() {
+export function Assignees({ contributors, contributionId, showRemove, type }: AssigneesProps) {
+  const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
+    pathParams: { contributionId },
+  });
+
+  function removeContributorButton(githubUserId: number) {
     if (!showRemove) {
       return null;
+    }
+
+    function onClick() {
+      mutate({
+        assignees: contributors
+          .filter(contributor => contributor.githubUserId !== githubUserId)
+          .map(contributor => contributor.githubUserId),
+      });
     }
 
     return (
@@ -18,6 +32,8 @@ export function Assignees({ contributors, showRemove, type }: AssigneesProps) {
         variant={"secondary"}
         classNames={{ base: "w-full" }}
         translate={{ token: "panels:contribution.contributors.removeButton" }}
+        onClick={onClick}
+        isDisabled={isPending}
       />
     );
   }
@@ -36,7 +52,7 @@ export function Assignees({ contributors, showRemove, type }: AssigneesProps) {
     }
   }, [type]);
 
-  if (contributors?.length) {
+  if (!contributors?.length) {
     return null;
   }
 
@@ -50,7 +66,7 @@ export function Assignees({ contributors, showRemove, type }: AssigneesProps) {
             badgeProps: { children: "2 days ago", color: "success" },
           }}
           user={contributor.toPublicModel()}
-          footerContent={removeContributorButton()}
+          footerContent={removeContributorButton(contributor.githubUserId)}
         />
       ))}
     </div>
