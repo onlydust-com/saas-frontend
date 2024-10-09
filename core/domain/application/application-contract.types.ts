@@ -19,3 +19,13 @@ export type GetApplicationsPortResponse = HttpStorageResponse<GetApplicationsMod
 export type GetApplicationsPortParams = HttpClientParameters<{
   QueryParams: GetApplicationsQueryParams;
 }>;
+
+/* ---------------------------- Patch Application --------------------------- */
+
+export type PatchApplicationBody = components["schemas"]["ProjectApplicationPatchRequest"];
+
+export type PatchApplicationPathParams = operations["patchProjectApplication"]["parameters"]["path"];
+
+export type PatchApplicationPortParams = HttpClientParameters<{ PathParams: PatchApplicationPathParams }>;
+
+export type PatchApplicationPortResponse = HttpStorageResponse;

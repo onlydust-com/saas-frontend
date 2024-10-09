@@ -52,7 +52,7 @@ export function ApplicationsAccordion({
       },
       content: ignoredApplicants?.map(ignoredApplicant => (
         <div key={ignoredApplicant.id}>
-          <ApplicationCard application={ignoredApplicant} />
+          <ApplicationCard application={ignoredApplicant} isIgnored />
         </div>
       )),
     },

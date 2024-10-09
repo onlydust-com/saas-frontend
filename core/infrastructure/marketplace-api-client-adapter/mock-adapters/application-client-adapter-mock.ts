@@ -7,4 +7,6 @@ export class ApplicationClientAdapterMock implements ApplicationStoragePort {
   routes = {};
 
   getApplications = mockHttpStorageResponse<ApplicationStoragePort["getApplications"]>;
+
+  patchApplication = mockHttpStorageResponse<ApplicationStoragePort["patchApplication"]>;
 }
