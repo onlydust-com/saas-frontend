@@ -20,9 +20,12 @@
       }
     },
     "filters": {
+      "title": "Applicants filters",
       "columnList": "Applicants columns",
       "global": "Global",
-      "financial": "Financial"
+      "financial": "Financial",
+      "save": "Validate",
+      "reset": "Reset filters"
     },
     "toast": {
       "success": "Contributor label changed successfully.",
