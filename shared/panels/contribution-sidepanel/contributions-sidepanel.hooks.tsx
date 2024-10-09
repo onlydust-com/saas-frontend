@@ -1,5 +1,4 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
-import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AssigneContributors } from "@/shared/panels/contribution-sidepanel/_features/assigne-contributors/assigne-contributors";
@@ -28,7 +27,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     return null;
   }
 
-  if (contribution?.activityStatus === ContributionActivityStatus.NOT_ASSIGNED) {
+  if (contribution.isNotAssigned()) {
     return (
       <>
         <Helper
@@ -42,7 +41,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     );
   }
 
-  if (contribution?.activityStatus === ContributionActivityStatus.IN_PROGRESS) {
+  if (contribution.isInProgress()) {
     return (
       <>
         <IssueOverview issue={contribution} />
@@ -52,7 +51,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     );
   }
 
-  if (contribution?.activityStatus === ContributionActivityStatus.TO_REVIEW) {
+  if (contribution.isToReview()) {
     return (
       <>
         <Helper
@@ -68,10 +67,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     );
   }
 
-  if (
-    contribution?.activityStatus === ContributionActivityStatus.ARCHIVED ||
-    contribution?.activityStatus === ContributionActivityStatus.DONE
-  ) {
+  if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
         <IssueOverview issue={contribution} />

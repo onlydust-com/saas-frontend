@@ -8,6 +8,11 @@ export interface ContributionActivityInterface
   applicants: UserOverview[];
   contributors: UserOverview[];
   assignees: UserOverview[];
+  isNotAssigned(): boolean;
+  isInProgress(): boolean;
+  isToReview(): boolean;
+  isArchived(): boolean;
+  isDone(): boolean;
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
@@ -38,5 +43,25 @@ export class ContributionActivity implements ContributionActivityInterface {
     this.applicants = (props.applicants ?? []).map(applicant => new UserOverview(applicant));
     this.assignees = (props.assignees ?? []).map(assignee => new UserOverview(assignee));
     this.contributors = (props.contributors ?? []).map(contributor => new UserOverview(contributor));
+  }
+
+  isNotAssigned(): boolean {
+    return this.activityStatus === "NOT_ASSIGNED";
+  }
+
+  isInProgress(): boolean {
+    return this.activityStatus === "IN_PROGRESS";
+  }
+
+  isToReview(): boolean {
+    return this.activityStatus === "TO_REVIEW";
+  }
+
+  isArchived(): boolean {
+    return this.activityStatus === "ARCHIVED";
+  }
+
+  isDone(): boolean {
+    return this.activityStatus === "DONE";
   }
 }

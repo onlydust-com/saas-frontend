@@ -1,7 +1,5 @@
 import { Info } from "lucide-react";
 
-import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
@@ -16,9 +14,7 @@ export function Header({ contribution, onToggleHelper }: HeaderProps) {
     return null;
   }
 
-  const showHelper =
-    contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
-    contribution.activityStatus === ContributionActivityStatus.TO_REVIEW;
+  const showHelper = contribution.isNotAssigned() || contribution.isToReview();
 
   return (
     <SidePanelHeader
