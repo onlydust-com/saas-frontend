@@ -22,10 +22,33 @@ import { IssuesSearchSidepanelData } from "./issues-search-sidepanel.types";
 export function IssuesSearchSidepanel() {
   const { t } = useTranslation();
   const { name } = useIsssuesSearchSidepanel();
-  const { Panel, isOpen } = useSidePanel({ name });
+  const { Panel, isOpen, back } = useSidePanel({ name });
   const { relatedIssueId } = useSinglePanelData<IssuesSearchSidepanelData>(name) ?? {
     relatedIssueId: "",
   };
+
+  const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
+    pathParams: { contributionId: relatedIssueId },
+    options: {
+      enabled: isOpen && !!relatedIssueId,
+    },
+  });
+
+  const { mutateAsync, isPending: isAddingIssue } = ContributionReactQueryAdapter.client.usePatchContribution({
+    pathParams: { contributionId: relatedIssueId },
+  });
+
+  async function onAddIssue(issueId: number) {
+    if (isAddingIssue) return;
+
+    if (!contribution?.linkedIssues?.find(issue => issue.githubId === issueId)) {
+      await mutateAsync({
+        linkedIssues: [...(contribution?.linkedIssues || []).map(issue => issue.githubId), issueId],
+      });
+    }
+
+    back();
+  }
 
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -86,6 +109,9 @@ export function IssuesSearchSidepanel() {
                 applicants={[]}
                 contributors={[]}
                 githubLabels={issue.githubLabels}
+                htmlProps={{
+                  onClick: () => onAddIssue(issue.githubId),
+                }}
               />
             ))}
             {hasNextPage ? (

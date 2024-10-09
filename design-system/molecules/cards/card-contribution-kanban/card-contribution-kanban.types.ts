@@ -39,5 +39,6 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   githubLabels?: {
     name: string;
   }[];
+  onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
 }

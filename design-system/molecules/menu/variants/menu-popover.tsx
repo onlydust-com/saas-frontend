@@ -64,7 +64,7 @@ export function MenuPopover<T = string>({
         <>
           <FloatingOverlay lockScroll={true}>
             <FloatingPortal>
-              <FloatingFocusManager context={context} modal={false}>
+              <FloatingFocusManager context={context}>
                 <div
                   ref={refs.setFloating}
                   style={floatingStyles}
