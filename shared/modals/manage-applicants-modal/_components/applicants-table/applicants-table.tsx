@@ -1,4 +1,4 @@
-import { Filter } from "lucide-react";
+import { CircleCheck, CircleX, Filter, SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -11,15 +11,18 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { AccordionIgnoredContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors";
 import { AccordionNewContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-new-contributors/accordion-new-contributors";
 import { AccordionProjectContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-project-contributors/accordion-project-contributors";
-import { AccordionRefusedContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-refused-contributors/accordion-refused-contributors";
 import { FilterColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data.context";
 import { useApplicantsFilterDataSidePanel } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data.hooks";
 import { ApplicantsTableProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table.types";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
 export type ApplicantsTableFilters = Omit<
   NonNullable<GetApplicationsPortParams["queryParams"]>,
@@ -64,9 +67,42 @@ export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
           </nav>
           <AccordionProjectContributors projectId={projectId} queryParams={queryParams} columns={columns} />
           <AccordionNewContributors projectId={projectId} queryParams={queryParams} columns={columns} />
-          <AccordionRefusedContributors projectId={projectId} queryParams={queryParams} columns={columns} />
+          <AccordionIgnoredContributors projectId={projectId} queryParams={queryParams} columns={columns} />
         </div>
         <FilterData />
+        <ContributorSidepanel
+          customFooter={({ data }) => (
+            <div className="flex w-full justify-between gap-lg">
+              <div>
+                <Button
+                  variant={"secondary"}
+                  endIcon={{ component: SquareArrowOutUpRight }}
+                  size={"md"}
+                  as={"a"}
+                  htmlProps={{
+                    href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
+                    target: "_blank",
+                  }}
+                  translate={{ token: "panels:contributor.seeContributor" }}
+                />
+              </div>
+              <div className="flex gap-lg">
+                <Button
+                  variant={"secondary"}
+                  startIcon={{ component: CircleX }}
+                  size={"md"}
+                  translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
+                />
+                <Button
+                  variant={"secondary"}
+                  startIcon={{ component: CircleCheck }}
+                  size={"md"}
+                  translate={{ token: "modals:manageApplicants.table.actions.assign" }}
+                />
+              </div>
+            </div>
+          )}
+        />
       </ScrollView>
     </FilterDataProvider>
   );

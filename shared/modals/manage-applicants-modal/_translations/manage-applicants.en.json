@@ -2,7 +2,7 @@
   "title": "Applicants",
   "projectContributors": "Project contributors",
   "newContributors": "New contributors",
-  "refused": "Refused",
+  "ignored": "Ignored",
   "table": {
     "columns": {
       "contributor": "Contributor",
@@ -33,6 +33,10 @@
     "toast": {
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
+    },
+    "actions": {
+      "ignore": "Ignore",
+      "assign": "Assign"
     }
   }
 }

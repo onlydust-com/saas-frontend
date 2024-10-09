@@ -2,15 +2,15 @@ import { CardContributionKanban as Card } from "@/design-system/molecules/cards/
 
 import { IssueOverviewProps } from "./issue-overview.types";
 
-export function IssueOverview({ issue }: IssueOverviewProps) {
+export function IssueOverview({ contribution }: IssueOverviewProps) {
   return (
     <Card
-      type={issue.type}
-      githubTitle={issue.githubTitle}
-      githubStatus={issue.githubStatus}
-      githubNumber={issue.githubNumber}
-      lastUpdatedAt={issue.lastUpdatedAt}
-      githubLabels={issue.githubLabels}
+      type={contribution.type}
+      githubTitle={contribution.githubTitle}
+      githubStatus={contribution.githubStatus}
+      githubNumber={contribution.githubNumber}
+      lastUpdatedAt={contribution.lastUpdatedAt}
+      githubLabels={contribution.githubLabels}
     />
   );
 }

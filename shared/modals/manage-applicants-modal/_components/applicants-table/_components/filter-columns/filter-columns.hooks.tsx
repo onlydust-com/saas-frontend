@@ -1,4 +1,5 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { CircleCheck, CircleX } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import Flag from "react-flagpack";
@@ -219,19 +220,11 @@ export function useFilterColumns() {
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: () => (
         <div className={"flex gap-sm"}>
-          <Button
-            // TODO onClick
-            variant={"secondary"}
-            size={"sm"}
-          >
+          <Button startIcon={{ component: CircleX }} variant={"secondary"} size={"sm"}>
             <Translate token={"modals:manageApplicants.table.rows.reject"} />
           </Button>
 
-          <Button
-            // TODO onClick
-            variant={"secondary"}
-            size={"sm"}
-          >
+          <Button startIcon={{ component: CircleCheck }} variant={"secondary"} size={"sm"}>
             <Translate token={"modals:manageApplicants.table.rows.assign"} />
           </Button>
         </div>

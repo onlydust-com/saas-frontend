@@ -9,6 +9,7 @@ import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timel
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
 import { Helper } from "./_features/helper/helper";
+import { RewardedCardWrapper } from "./_features/rewarded-card-wrapper/rewarded-card-wrapper";
 
 export function useContributionsSidepanel() {
   return useSinglePanelContext<ContributionsPanelData>("contribution-details");
@@ -35,7 +36,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           open={helperState.isOpen}
           onClose={() => helperState.setIsOpen(false)}
         />
-        <IssueOverview issue={contribution} />
+        <IssueOverview contribution={contribution} />
         <AssigneContributors contributionId={contribution?.githubId} />
       </>
     );
@@ -44,7 +45,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
   if (contribution.isInProgress()) {
     return (
       <>
-        <IssueOverview issue={contribution} />
+        <IssueOverview contribution={contribution} />
         <Assignees
           showRemove={true}
           contributors={contribution.assignees}
@@ -64,7 +65,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           open={helperState.isOpen}
           onClose={() => helperState.setIsOpen(false)}
         />
-        <IssueOverview issue={contribution} />
+        <IssueOverview contribution={contribution} />
         <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
         <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
@@ -75,7 +76,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview issue={contribution} />
+        <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
         <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />

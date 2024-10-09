@@ -10,9 +10,12 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { SIDE_PANEL_SIZE } from "@/shared/constants/side-panel-size";
 import { AccordionNewContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-new-contributors/accordion-new-contributors.types";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionNewContributors({ projectId, queryParams, columns }: AccordionNewContributorsProps) {
+  const { open: openContributor } = useContributorSidePanel({ width: SIDE_PANEL_SIZE.l });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ApplicationReactQueryAdapter.client.useGetApplications({
       queryParams: { ...queryParams, isApplicantProjectMember: false },
@@ -66,9 +69,9 @@ export function AccordionNewContributors({ projectId, queryParams, columns }: Ac
           classNames={{
             base: "min-w-[1200px]",
           }}
-          // onRowClick={row => {
-          //   alert(row.original.id);
-          // }}
+          onRowClick={row => {
+            openContributor({ login: row.original.applicant.login });
+          }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>
