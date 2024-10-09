@@ -2,11 +2,11 @@ import {
   GetContributionByIdResponse,
   GetContributionEventsResponse,
   GetContributionsResponse,
+  PatchContributionBody,
 } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionActivity } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionEvent } from "@/core/domain/contribution/models/contribution-event-model";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
-import { UpdateDepositBody } from "@/core/domain/deposit/deposit-contract.types";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -494,7 +494,7 @@ export class ContributionClientAdapter implements ContributionStoragePort {
     const method = "PATCH";
     const tag = HttpClient.buildTag({ path, pathParams });
 
-    const request = async (body: UpdateDepositBody) =>
+    const request = async (body: PatchContributionBody) =>
       this.client.request<never>({
         path,
         method,

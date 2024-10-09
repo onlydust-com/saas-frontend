@@ -76,9 +76,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview contribution={contribution} />
+        <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} />
-        <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
         <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
       </>
