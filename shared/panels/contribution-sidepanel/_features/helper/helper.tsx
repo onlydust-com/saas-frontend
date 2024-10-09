@@ -4,7 +4,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { HelperProps } from "./helper.types";
 
-export function Helper({ type, onClose }: HelperProps) {
+export function Helper({ type, open, onClose }: HelperProps) {
+  if (!open) {
+    return null;
+  }
+
   return (
     <Alert
       color="brand"

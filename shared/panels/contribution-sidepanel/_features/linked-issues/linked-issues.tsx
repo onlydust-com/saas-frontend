@@ -24,8 +24,6 @@ export function LinkedIssues({ issues, id }: LinkedIssuesProps) {
             githubStatus={issue.githubStatus}
             githubNumber={issue.githubNumber}
             lastUpdatedAt={issue.lastUpdatedAt}
-            applicants={[]}
-            contributors={[]}
             githubLabels={issue.githubLabels}
           />
         </div>

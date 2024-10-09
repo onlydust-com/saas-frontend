@@ -4,5 +4,6 @@ type ContributionActivityPickedStatus = Extract<ContributionActivityStatusUnion,
 
 export interface HelperProps {
   type: ContributionActivityPickedStatus;
+  open: boolean;
   onClose: () => void;
 }

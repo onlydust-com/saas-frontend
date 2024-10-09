@@ -16,6 +16,10 @@ export function Header({ contribution, onToggleHelper }: HeaderProps) {
     return null;
   }
 
+  const showHelper =
+    contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
+    contribution.activityStatus === ContributionActivityStatus.TO_REVIEW;
+
   return (
     <SidePanelHeader
       canGoBack={false}
@@ -39,8 +43,7 @@ export function Header({ contribution, onToggleHelper }: HeaderProps) {
               <Translate token={`panels:contribution.header.${contribution.type}.title`} />
             </Typo>
 
-            {contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
-            contribution.activityStatus === ContributionActivityStatus.TO_REVIEW ? (
+            {showHelper ? (
               <Button
                 variant="secondary"
                 size="sm"
