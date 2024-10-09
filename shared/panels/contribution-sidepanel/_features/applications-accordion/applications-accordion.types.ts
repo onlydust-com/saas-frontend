@@ -7,4 +7,5 @@ export interface ApplicationsAccordionProps {
   newApplicantsCount: number;
   ignoredApplicants: ApplicationListItemInterface[];
   ignoredApplicantsCount: number;
+  contributionId: string;
 }

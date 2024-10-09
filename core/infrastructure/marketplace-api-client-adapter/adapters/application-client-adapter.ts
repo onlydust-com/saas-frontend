@@ -10,7 +10,7 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
 
   routes = {
     getApplications: "applications",
-    patchApplication: "applications/{applicationId}",
+    patchApplication: "applications/:applicationId",
   } as const;
 
   getApplications = ({ queryParams }: FirstParameter<ApplicationStoragePort["getApplications"]>) => {

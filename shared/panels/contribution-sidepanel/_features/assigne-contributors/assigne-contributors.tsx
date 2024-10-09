@@ -5,13 +5,14 @@ import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 
 import { AssigneContributorsProps } from "./assigne-contributors.types";
 
-export function AssigneContributors(_: AssigneContributorsProps) {
+export function AssigneContributors({ issueId, contributionId }: AssigneContributorsProps) {
   const projectId = "7d04163c-4187-4313-8066-61504d34fc56";
+
   const { data: applicationsActiveData } = ApplicationReactQueryAdapter.client.useGetApplications({
     queryParams: {
       projectId,
       isApplicantProjectMember: true,
-      // issueId: contributionId,
+      // issueId,
     },
     options: {
       enabled: !!projectId,
@@ -22,7 +23,7 @@ export function AssigneContributors(_: AssigneContributorsProps) {
     queryParams: {
       projectId,
       isApplicantProjectMember: false,
-      // issueId: contributionId,
+      // issueId,
     },
     options: {
       enabled: !!projectId,
@@ -32,7 +33,7 @@ export function AssigneContributors(_: AssigneContributorsProps) {
   const { data: applicationsIgnoredData } = ApplicationReactQueryAdapter.client.useGetApplications({
     queryParams: {
       projectId,
-      // issueId: contributionId,
+      // issueId,
       isIgnored: true,
     },
     options: {
@@ -62,6 +63,7 @@ export function AssigneContributors(_: AssigneContributorsProps) {
         newApplicantsCount={newApplicantsCount}
         ignoredApplicants={ignoredApplicants}
         ignoredApplicantsCount={ignoredApplicantsCount}
+        contributionId={contributionId}
       />
     </>
   );

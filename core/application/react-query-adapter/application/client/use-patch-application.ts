@@ -21,12 +21,11 @@ export function usePatchApplication({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (pathParams?.applicationId) {
-            await queryClient.invalidateQueries({
-              queryKey: applicationStoragePort.getApplications({}).tag,
-              exact: false,
-            });
-          }
+          await queryClient.invalidateQueries({
+            queryKey: applicationStoragePort.getApplications({}).tag,
+            exact: false,
+          });
+
           options?.onSuccess?.(data, variables, context);
         },
       },

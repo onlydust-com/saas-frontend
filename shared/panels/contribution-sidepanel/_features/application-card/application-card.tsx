@@ -1,6 +1,7 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -13,7 +14,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ application, isIgnored }: ApplicationCardProps) {
+export function ApplicationCard({ application, contributionId, isIgnored }: ApplicationCardProps) {
   const { applicant } = application;
 
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -25,12 +26,21 @@ export function ApplicationCard({ application, isIgnored }: ApplicationCardProps
       },
     });
 
+  const { mutate: acceptApplicationMutate, isPending: acceptApplicationIsPending } =
+    ContributionReactQueryAdapter.client.usePatchContribution({
+      pathParams: {
+        contributionId,
+      },
+    });
+
   function handleIgnoreApplication() {
     ignoreApplicationMutate({ status: "IGNORED" });
   }
 
   function handleApproveApplication() {
-    console.log("approve application");
+    acceptApplicationMutate({
+      assignees: [applicant.githubUserId],
+    });
   }
 
   return (
@@ -91,7 +101,7 @@ export function ApplicationCard({ application, isIgnored }: ApplicationCardProps
               component: CircleX,
             }}
             onClick={handleIgnoreApplication}
-            isDisabled={ignoreApplicationIsPending}
+            isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
           />
         ) : null}
 
@@ -103,7 +113,7 @@ export function ApplicationCard({ application, isIgnored }: ApplicationCardProps
             component: CircleCheck,
           }}
           onClick={handleApproveApplication}
-          isDisabled={ignoreApplicationIsPending}
+          isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
         />
       </div>
     </Paper>

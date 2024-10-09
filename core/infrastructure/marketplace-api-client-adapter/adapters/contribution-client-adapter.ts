@@ -450,7 +450,6 @@ export class ContributionClientAdapter implements ContributionStoragePort {
         pathParams,
       });
 
-      console.log("ICICI", pathParams?.contributionId);
       if (pathParams?.contributionId && mockContribution[pathParams?.contributionId]) {
         return new ContributionActivity(mockContribution[pathParams?.contributionId]);
       }
