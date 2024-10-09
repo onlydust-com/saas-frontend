@@ -6,5 +6,5 @@ export class CountryClientAdapterMock implements CountryStoragePort {
 
   routes = {};
 
-  getCountry = mockHttpStorageResponse<CountryStoragePort["getCountry"]>;
+  getCountries = mockHttpStorageResponse<CountryStoragePort["getCountries"]>;
 }

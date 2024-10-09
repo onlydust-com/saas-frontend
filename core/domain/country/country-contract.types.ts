@@ -7,10 +7,12 @@ import {
 
 /* --------------------------------- Get Countries -------------------------------- */
 
-export type GetCountryResponse = components["schemas"]["CountriesResponse"];
+export type GetCountriesResponse = components["schemas"]["CountriesResponse"];
 
-export type GetCountryPortResponse = HttpStorageResponse<
-  Omit<GetCountryResponse, "countries"> & { countries: CountryInterface[] }
->;
+export type GetCountriesModel = Omit<GetCountriesResponse, "countries"> & {
+  countries: CountryInterface[];
+};
 
-export type GetCountryPortParams = HttpClientParameters<object>;
+export type GetCountriesPortResponse = HttpStorageResponse<GetCountriesModel>;
+
+export type GetCountriesPortParams = HttpClientParameters<object>;
