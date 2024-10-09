@@ -15,7 +15,8 @@
     "title": "Issues",
     "button": "Link an issue",
     "panel": {
-      "title": "Issues"
+      "title": "Issues",
+      "searchPlaceholder": "Search"
     }
   },
   "kpi": {
