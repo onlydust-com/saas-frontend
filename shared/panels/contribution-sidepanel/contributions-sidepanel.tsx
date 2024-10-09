@@ -1,9 +1,11 @@
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -18,16 +20,27 @@ import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/c
 
 import { ApplicationsAccordion } from "./_features/applications-accordion/applications-accordion";
 import { Header } from "./_features/header/header";
+import { Helper } from "./_features/helper/helper";
 import { Kpi } from "./_features/kpi/kpi";
 
 export function ContributionsSidepanel() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
+  const [openHelper, setOpenHelper] = useState(false);
 
   const { name } = useContributionsSidepanel();
   const { Panel, isOpen } = useSidePanel({ name });
   const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
     id: "",
   };
+
+  function handleCloseHelper() {
+    setOpenHelper(false);
+  }
+
+  function handleToggleHelper() {
+    setOpenHelper(!openHelper);
+  }
 
   const { data: projectData } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: {
@@ -90,9 +103,15 @@ export function ContributionsSidepanel() {
   return (
     <>
       <Panel>
-        <Header contribution={contribution} />
+        <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
+
         <SidePanelBody>
-          {id}
+          {(contribution?.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
+            contribution?.activityStatus === ContributionActivityStatus.TO_REVIEW) &&
+          openHelper ? (
+            <Helper type={contribution?.activityStatus} onClose={handleCloseHelper} />
+          ) : null}
+
           <Timeline id={id} />
           <LinkedIssues issues={contribution?.linkedIssues} id={id} />
           <Kpi

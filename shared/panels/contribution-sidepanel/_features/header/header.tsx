@@ -1,25 +1,17 @@
-import { useState } from "react";
+import { Info } from "lucide-react";
 
+import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { Helper } from "../helper/helper";
 import { HeaderProps } from "./header.types";
 
-export function Header({ contribution }: HeaderProps) {
-  const [openHelper, setOpenHelper] = useState(false);
-
-  function handleOpenHelper() {
-    setOpenHelper(true);
-  }
-
-  function handleCloseHelper() {
-    setOpenHelper(false);
-  }
-
+export function Header({ contribution, onToggleHelper }: HeaderProps) {
   if (!contribution) {
     return null;
   }
@@ -48,13 +40,22 @@ export function Header({ contribution }: HeaderProps) {
                 <Translate token={`panels:contribution.header.${contribution.type}.title`} />
               </Typo>
 
-              <Button />
+              {contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
+              contribution.activityStatus === ContributionActivityStatus.TO_REVIEW ? (
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  iconOnly
+                  startIcon={{
+                    component: Info,
+                  }}
+                  onClick={onToggleHelper}
+                />
+              ) : null}
             </div>
           ),
         }}
       />
-
-      <Helper type={contribution.activityStatus} />
     </>
   );
 }
