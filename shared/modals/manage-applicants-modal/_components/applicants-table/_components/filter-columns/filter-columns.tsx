@@ -24,7 +24,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           {
             id: "label",
             label: <Translate token={"modals:manageApplicants.table.columns.label"} />,
-            searchValue: "Projects",
+            searchValue: "Label",
             isCheckbox: true,
           },
           {

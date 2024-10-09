@@ -49,39 +49,37 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       <ModalContent>
         {onClose => (
           <>
-            <Inner {...(htmlProps ?? {})} className="flex flex-1 flex-col overflow-hidden">
-              <div className={cn(slots.wrapper(), classNames?.wrapper)}>
-                {!hideHeader && (
-                  <ModalHeader className={"empty:hidden"}>
-                    {hasTitle ? (
-                      <Typo
-                        {...titleProps}
-                        variant="heading"
-                        size="xs"
-                        weight="medium"
-                        classNames={{ base: "truncate" }}
-                      />
-                    ) : null}
-                    {canDismiss ? (
-                      <Button
-                        {...closeButtonProps}
-                        iconOnly
-                        size="sm"
-                        variant="tertiary"
-                        startIcon={{ component: X }}
-                        onClick={onClose}
-                      />
-                    ) : null}
-                  </ModalHeader>
-                )}
-                <ModalBody>{children}</ModalBody>
-                {footer?.startContent || footer?.endContent ? (
-                  <ModalFooter>
-                    <div>{footer?.startContent}</div>
-                    <div>{footer?.endContent}</div>
-                  </ModalFooter>
-                ) : null}
-              </div>
+            <Inner {...(htmlProps ?? {})} className={cn(slots.wrapper(), classNames?.wrapper)}>
+              {!hideHeader && (
+                <ModalHeader className={"empty:hidden"}>
+                  {hasTitle ? (
+                    <Typo
+                      {...titleProps}
+                      variant="heading"
+                      size="xs"
+                      weight="medium"
+                      classNames={{ base: "truncate" }}
+                    />
+                  ) : null}
+                  {canDismiss ? (
+                    <Button
+                      {...closeButtonProps}
+                      iconOnly
+                      size="sm"
+                      variant="tertiary"
+                      startIcon={{ component: X }}
+                      onClick={onClose}
+                    />
+                  ) : null}
+                </ModalHeader>
+              )}
+              <ModalBody>{children}</ModalBody>
+              {footer?.startContent || footer?.endContent ? (
+                <ModalFooter>
+                  <div>{footer?.startContent}</div>
+                  <div>{footer?.endContent}</div>
+                </ModalFooter>
+              ) : null}
             </Inner>
           </>
         )}
