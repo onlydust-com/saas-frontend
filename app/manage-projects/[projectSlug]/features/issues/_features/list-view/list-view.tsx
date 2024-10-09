@@ -60,12 +60,12 @@ function useAccordionItem({
     content: (
       <>
         {contributions?.map(contribution => (
-          <div key={contribution.id}>
+          <div key={contribution.id} className="!p-none">
             <CardContributionKanban
               contribution={contribution}
               onAction={onOpenContribution}
               classNames={{
-                base: "bg-transparent border-none !p-0",
+                base: "bg-transparent border-none",
               }}
             />
           </div>
