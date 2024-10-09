@@ -10,11 +10,12 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { SIDE_PANEL_SIZE } from "@/shared/constants/side-panel-size";
 import { AccordionProjectContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-project-contributors/accordion-project-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionProjectContributors({ projectId, queryParams, columns }: AccordionProjectContributorsProps) {
-  const { open: openContributor } = useContributorSidePanel();
+  const { open: openContributor } = useContributorSidePanel({ width: SIDE_PANEL_SIZE.l });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ApplicationReactQueryAdapter.client.useGetApplications({
       queryParams: { ...queryParams, isApplicantProjectMember: true },

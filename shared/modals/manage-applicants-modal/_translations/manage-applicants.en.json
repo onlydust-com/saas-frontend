@@ -33,6 +33,10 @@
     "toast": {
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
+    },
+    "actions": {
+      "ignore": "Ignore",
+      "assign": "Assign"
     }
   }
 }
