@@ -60,5 +60,9 @@
       "new": "New devs applications",
       "ignored": "Ignored"
     }
+  },
+  "rewardedCard": {
+    "title": "Rewarded",
+    "status": "Rewarded"
   }
 }
