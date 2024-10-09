@@ -20,7 +20,7 @@ import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-
 import { TableColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns() {
+export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number) => void }) {
   const { t } = useTranslation();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -60,6 +60,8 @@ export function useFilterColumns() {
       setSelectedIds(["contributor", "label", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
     }
   }, [selectedIds, setSelectedIds]);
+
+  function handleIgnore(githubUserId: number) {}
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.display({
@@ -218,17 +220,30 @@ export function useFilterColumns() {
     actions: columnHelper.display({
       id: "actions",
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
-      cell: () => (
-        <div className={"flex gap-sm"}>
-          <Button startIcon={{ component: CircleX }} variant={"secondary"} size={"sm"}>
-            <Translate token={"modals:manageApplicants.table.rows.reject"} />
-          </Button>
+      cell: info => {
+        const { githubUserId } = info.row.original.applicant;
+        return (
+          <div className={"flex gap-sm"}>
+            <Button
+              startIcon={{ component: CircleX }}
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => handleIgnore(githubUserId)}
+            >
+              <Translate token={"modals:manageApplicants.table.rows.reject"} />
+            </Button>
 
-          <Button startIcon={{ component: CircleCheck }} variant={"secondary"} size={"sm"}>
-            <Translate token={"modals:manageApplicants.table.rows.assign"} />
-          </Button>
-        </div>
-      ),
+            <Button
+              startIcon={{ component: CircleCheck }}
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => onAssign(githubUserId)}
+            >
+              <Translate token={"modals:manageApplicants.table.rows.assign"} />
+            </Button>
+          </div>
+        );
+      },
     }),
   } as const;
 
