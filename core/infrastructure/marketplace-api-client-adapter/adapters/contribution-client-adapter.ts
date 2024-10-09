@@ -165,6 +165,7 @@ const totalRewardedAmount: GetContributionByIdResponse["totalRewardedAmount"] = 
 
 const linkedIssues: GetContributionByIdResponse["linkedIssues"] = [
   {
+    githubId: 666,
     type: "ISSUE",
     repo: {
       id: 650626566,
@@ -279,6 +280,7 @@ const githubLabels: GetContributionByIdResponse["githubLabels"] = [
 const mockContribution: Record<string, GetContributionByIdResponse> = {
   "6af85286-2b4f-447c-a265-56ace336cce7": {
     type: "ISSUE",
+    githubId: 55555,
     repo,
     githubAuthor,
     githubNumber: 1234,
@@ -303,6 +305,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
   "caf85286-2b4f-447c-a265-56ace336cce7": {
     type: "ISSUE",
     repo,
+    githubId: 55555,
     githubAuthor,
     githubNumber: 1234,
     githubStatus: "OPEN",
@@ -326,6 +329,7 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
   "eaf85286-2b4f-447c-a265-56ace336cce7": {
     type: "PULL_REQUEST",
     repo,
+    githubId: 55555,
     githubAuthor,
     githubNumber: 1234,
     githubStatus: "OPEN",
@@ -349,9 +353,10 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
   "1af85286-2b4f-447c-a265-56ace336cce7": {
     type: "PULL_REQUEST",
     repo,
+    githubId: 55555,
     githubAuthor,
     githubNumber: 1234,
-    githubStatus: "OPEN",
+    githubStatus: "MERGED",
     githubTitle: "Fix UI Bug on transaction history page",
     githubHtmlUrl: "",
     githubBody: "",
@@ -372,9 +377,10 @@ const mockContribution: Record<string, GetContributionByIdResponse> = {
   "64f85286-2b4f-447c-a265-56ace336cce7": {
     type: "PULL_REQUEST",
     repo,
+    githubId: 55555,
     githubAuthor,
     githubNumber: 1234,
-    githubStatus: "OPEN",
+    githubStatus: "CLOSED",
     githubTitle: "Fix UI Bug on transaction history page",
     githubHtmlUrl: "",
     githubBody: "",

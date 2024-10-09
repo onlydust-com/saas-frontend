@@ -5,4 +5,6 @@ export interface AssigneesProps {
     | ContributionActivityInterface["applicants"]
     | ContributionActivityInterface["contributors"]
     | ContributionActivityInterface["assignees"];
+  showRemove?: boolean;
+  type?: "applicants" | "contributors" | "assignees";
 }

@@ -11,6 +11,7 @@ export interface ContributionActivityInterface
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
+  githubId!: ContributionActivityResponse["githubId"];
   activityStatus!: ContributionActivityResponse["activityStatus"];
   applicants!: UserOverview[];
   completedAt!: ContributionActivityResponse["completedAt"];

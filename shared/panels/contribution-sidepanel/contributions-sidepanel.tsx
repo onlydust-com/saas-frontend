@@ -27,6 +27,8 @@ export function ContributionsSidepanel() {
 
   const blocks = useContributionBlocks(contribution);
 
+  // TODO HANDLE GITHUB PERMISSIONS
+
   return (
     <>
       <Panel>

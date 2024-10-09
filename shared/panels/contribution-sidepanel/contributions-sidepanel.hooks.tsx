@@ -1,9 +1,10 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
+import { AssigneContributors } from "@/shared/panels/contribution-sidepanel/_features/assigne-contributors/assigne-contributors";
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
-import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
 import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timeline/timeline";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
@@ -17,33 +18,35 @@ export function useContributionBlocks(contribution: ContributionActivityInterfac
     return null;
   }
 
-  if (contribution?.activityStatus === "NOT_ASSIGNED") {
+  if (contribution?.activityStatus === ContributionActivityStatus.NOT_ASSIGNED) {
     return (
       <>
         <IssueOverview issue={contribution} />
-        <Kpi applicants={2} projectContributors={10} newContributors={8} />
+        <AssigneContributors contributionId={contribution?.githubId} />
       </>
     );
   }
 
-  if (contribution?.activityStatus === "IN_PROGRESS") {
+  if (contribution?.activityStatus === ContributionActivityStatus.IN_PROGRESS) {
     return (
       <>
         <IssueOverview issue={contribution} />
-        <Assignees contributors={contribution.assignees} />
-        {/*// ASSIGNEES*/}
+        <Assignees contributors={contribution.assignees} type={"assignees"} />
         <Timeline id={contribution.id} />
       </>
     );
   }
 
-  if (contribution?.activityStatus === "TO_REVIEW") {
+  if (
+    contribution?.activityStatus === ContributionActivityStatus.TO_REVIEW ||
+    contribution?.activityStatus === ContributionActivityStatus.ARCHIVED ||
+    contribution?.activityStatus === ContributionActivityStatus.DONE
+  ) {
     return (
       <>
         <IssueOverview issue={contribution} />
         <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
-        <Assignees contributors={contribution.contributors} />
-        {/*// ASSIGNEES*/}
+        <Assignees contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
       </>
     );
