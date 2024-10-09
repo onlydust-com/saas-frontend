@@ -17,45 +17,43 @@ export function Header({ contribution, onToggleHelper }: HeaderProps) {
   }
 
   return (
-    <>
-      <SidePanelHeader
-        canGoBack={false}
-        canClose={true}
-        title={{
-          children: (
-            <div className={"flex w-full flex-row items-center justify-start gap-lg overflow-hidden"}>
-              <ContributionBadge
-                type={contribution.type}
-                number={contribution.githubNumber}
-                githubStatus={contribution.githubStatus}
+    <SidePanelHeader
+      canGoBack={false}
+      canClose={true}
+      title={{
+        children: (
+          <div className={"flex w-full flex-row items-center justify-start gap-lg overflow-hidden"}>
+            <ContributionBadge
+              type={contribution.type}
+              number={contribution.githubNumber}
+              githubStatus={contribution.githubStatus}
+            />
+
+            <Typo
+              size={"xs"}
+              weight={"medium"}
+              variant={"heading"}
+              as={"div"}
+              classNames={{ base: "flex-1 overflow-ellipsis overflow-hidden whitespace-nowrap" }}
+            >
+              <Translate token={`panels:contribution.header.${contribution.type}.title`} />
+            </Typo>
+
+            {contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
+            contribution.activityStatus === ContributionActivityStatus.TO_REVIEW ? (
+              <Button
+                variant="secondary"
+                size="sm"
+                iconOnly
+                startIcon={{
+                  component: Info,
+                }}
+                onClick={onToggleHelper}
               />
-
-              <Typo
-                size={"xs"}
-                weight={"medium"}
-                variant={"heading"}
-                as={"div"}
-                classNames={{ base: "flex-1 overflow-ellipsis overflow-hidden whitespace-nowrap" }}
-              >
-                <Translate token={`panels:contribution.header.${contribution.type}.title`} />
-              </Typo>
-
-              {contribution.activityStatus === ContributionActivityStatus.NOT_ASSIGNED ||
-              contribution.activityStatus === ContributionActivityStatus.TO_REVIEW ? (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  iconOnly
-                  startIcon={{
-                    component: Info,
-                  }}
-                  onClick={onToggleHelper}
-                />
-              ) : null}
-            </div>
-          ),
-        }}
-      />
-    </>
+            ) : null}
+          </div>
+        ),
+      }}
+    />
   );
 }
