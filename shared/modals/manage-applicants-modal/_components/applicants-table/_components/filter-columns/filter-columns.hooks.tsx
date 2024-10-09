@@ -61,6 +61,10 @@ export function useFilterColumns() {
     }
   }, [selectedIds, setSelectedIds]);
 
+  function handleAssign(githubUserId: number) {}
+
+  function handleIgnore(githubUserId: number) {}
+
   const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.display({
       id: "contributor",
@@ -218,17 +222,30 @@ export function useFilterColumns() {
     actions: columnHelper.display({
       id: "actions",
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
-      cell: () => (
-        <div className={"flex gap-sm"}>
-          <Button startIcon={{ component: CircleX }} variant={"secondary"} size={"sm"}>
-            <Translate token={"modals:manageApplicants.table.rows.reject"} />
-          </Button>
+      cell: info => {
+        const { githubUserId } = info.row.original.applicant;
+        return (
+          <div className={"flex gap-sm"}>
+            <Button
+              startIcon={{ component: CircleX }}
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => handleIgnore(githubUserId)}
+            >
+              <Translate token={"modals:manageApplicants.table.rows.reject"} />
+            </Button>
 
-          <Button startIcon={{ component: CircleCheck }} variant={"secondary"} size={"sm"}>
-            <Translate token={"modals:manageApplicants.table.rows.assign"} />
-          </Button>
-        </div>
-      ),
+            <Button
+              startIcon={{ component: CircleCheck }}
+              variant={"secondary"}
+              size={"sm"}
+              onClick={() => handleAssign(githubUserId)}
+            >
+              <Translate token={"modals:manageApplicants.table.rows.assign"} />
+            </Button>
+          </div>
+        );
+      },
     }),
   } as const;
 

@@ -46,6 +46,10 @@ export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
   const { columns, selectedIds, setSelectedIds } = useFilterColumns();
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
+  function handleAssign(githubUserId: number) {}
+
+  function handleIgnore(githubUserId: number) {}
+
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <ScrollView>
@@ -92,12 +96,14 @@ export function ApplicantsTable({ projectId }: ApplicantsTableProps) {
                   startIcon={{ component: CircleX }}
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
+                  onClick={() => handleIgnore(data.githubUserId)}
                 />
                 <Button
                   variant={"secondary"}
                   startIcon={{ component: CircleCheck }}
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.assign" }}
+                  onClick={() => handleAssign(data.githubUserId)}
                 />
               </div>
             </div>
