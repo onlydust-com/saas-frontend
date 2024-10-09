@@ -36,7 +36,7 @@ export function ContributionsSidepanel() {
   return (
     <>
       <Panel>
-        <Header />
+        <Header contribution={contribution} />
         <SidePanelBody>
           {id}
           <Timeline id={id} />

@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
-export interface HeaderProps extends PropsWithChildren {}
+export interface HeaderProps {
+  contribution?: ContributionActivityInterface;
+}
