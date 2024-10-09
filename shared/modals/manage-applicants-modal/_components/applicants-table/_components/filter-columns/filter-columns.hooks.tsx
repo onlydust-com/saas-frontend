@@ -64,6 +64,7 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
   }, [selectedIds, setSelectedIds]);
 
   function handleIgnore(githubUserId: number) {
+    // TODO Mehdi handle invalidations
     applicationStoragePort
       .patchApplication({
         pathParams: { applicationId: githubUserId.toString() },

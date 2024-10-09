@@ -23,6 +23,7 @@ export function Footer({ contribution }: FooterProps) {
   });
 
   function handleAssign(githubUserId: number) {
+    // TODO Mehdi handle invalidations
     acceptApplicationMutate({ assignees: [githubUserId] });
   }
 
