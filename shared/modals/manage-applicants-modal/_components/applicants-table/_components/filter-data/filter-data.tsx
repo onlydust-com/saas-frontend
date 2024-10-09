@@ -4,6 +4,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
+import { CountryFilter } from "@/shared/features/filters/country-filter/countries-filter";
 import { EcosystemFilter } from "@/shared/features/filters/ecosystem-filter/ecosystem-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
@@ -37,6 +38,10 @@ export function FilterData() {
         <LanguageFilter
           selectedLanguages={filters?.languageIds}
           onSelect={languages => setFilters({ languageIds: languages })}
+        />
+        <CountryFilter
+          selectedCountries={filters?.countryCodes}
+          onSelect={countries => setFilters({ countryCodes: countries })}
         />
         <EcosystemFilter
           selectedEcosystems={filters?.ecosystemIds}
