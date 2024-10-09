@@ -2,7 +2,7 @@
   "title": "Applicants",
   "projectContributors": "Project contributors",
   "newContributors": "New contributors",
-  "refused": "Refused",
+  "ignored": "Ignored",
   "table": {
     "columns": {
       "contributor": "Contributor",

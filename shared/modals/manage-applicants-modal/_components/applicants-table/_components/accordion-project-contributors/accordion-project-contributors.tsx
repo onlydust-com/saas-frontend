@@ -11,8 +11,10 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { AccordionProjectContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-project-contributors/accordion-project-contributors.types";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionProjectContributors({ projectId, queryParams, columns }: AccordionProjectContributorsProps) {
+  const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ApplicationReactQueryAdapter.client.useGetApplications({
       queryParams: { ...queryParams, isApplicantProjectMember: true },
@@ -66,9 +68,9 @@ export function AccordionProjectContributors({ projectId, queryParams, columns }
           classNames={{
             base: "min-w-[1200px]",
           }}
-          // onRowClick={row => {
-          //   alert(row.original.id);
-          // }}
+          onRowClick={row => {
+            openContributor({ login: row.original.applicant.login });
+          }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>
