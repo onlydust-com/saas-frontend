@@ -35,7 +35,6 @@ export function ContributionsSidepanel() {
     },
     options: {
       // enabled: !!projectSlug,
-      enabled: false,
     },
   });
 
@@ -50,7 +49,6 @@ export function ContributionsSidepanel() {
     },
     options: {
       // enabled: !!projectData?.id,
-      enabled: false,
     },
   });
 

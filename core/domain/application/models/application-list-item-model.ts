@@ -19,6 +19,7 @@ export class ApplicationListItem implements ApplicationListItemInterface {
   project!: ApplicationListItemResponse["project"];
   receivedAt!: ApplicationListItemResponse["receivedAt"];
   status!: ApplicationListItemResponse["status"];
+  isIgnored!: ApplicationListItemResponse["isIgnored"];
 
   constructor(props: ApplicationListItemResponse) {
     Object.assign(this, props);
