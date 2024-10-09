@@ -1,6 +1,5 @@
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ApplicationCard } from "../application-card/application-card";
@@ -51,9 +50,5 @@ export function ApplicationsAccordion({
     },
   ];
 
-  return (
-    <ScrollView>
-      <Accordion items={items} multiple />
-    </ScrollView>
-  );
+  return <Accordion items={items} multiple />;
 }

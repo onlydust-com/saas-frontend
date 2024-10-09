@@ -37,8 +37,9 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
             </Typo>
 
             <Typo size="xs" color="secondary">
-              {applicant.globalRankCategory} • {applicant.globalRank} •{" "}
-              <Translate token="panels:contribution.applications.rank" count={applicant.globalRankPercentile} />
+              {application.getApplicantTitle().wording} • {application.getRank()}
+              {" • "}
+              <Translate token={"panels:contributor.rank"} count={applicant.globalRankPercentile} />
             </Typo>
           </div>
 

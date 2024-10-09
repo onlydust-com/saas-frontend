@@ -1,5 +1,5 @@
-import { GetApplicationsResponse } from "@/core/domain/application/application-contract.types";
+import { ApplicationListItemInterface } from "@/core/domain/application/models/application-list-item-model";
 
 export interface ApplicationCardProps {
-  application: GetApplicationsResponse["applications"][0];
+  application: ApplicationListItemInterface;
 }
