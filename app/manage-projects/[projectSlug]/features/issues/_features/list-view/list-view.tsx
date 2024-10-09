@@ -87,7 +87,7 @@ export function ListView({ queryParams, onOpenContribution }: ListViewProps) {
   ];
 
   return (
-    <ScrollView>
+    <ScrollView className="pb-5xl">
       <Accordion items={items} multiple />
     </ScrollView>
   );
