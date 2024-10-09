@@ -13,7 +13,7 @@ import { FooterProps } from "@/shared/panels/contribution-sidepanel/_features/fo
 export function Footer({ contribution }: FooterProps) {
   const { isOpen, setIsOpen } = useManageApplicantsModal();
 
-  const { mutate } = ContributionReactQueryAdapter.client.usePatchContribution({
+  const { mutate: acceptApplicationMutate } = ContributionReactQueryAdapter.client.usePatchContribution({
     pathParams: { contributionId: contribution?.id ?? "" },
     options: {
       onSuccess: () => {
@@ -23,7 +23,7 @@ export function Footer({ contribution }: FooterProps) {
   });
 
   function handleAssign(githubUserId: number) {
-    mutate({ assignees: [githubUserId] });
+    acceptApplicationMutate({ assignees: [githubUserId] });
   }
 
   return (
