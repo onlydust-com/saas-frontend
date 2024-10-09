@@ -12,7 +12,7 @@ export type GetApplicationsModel = Omit<GetApplicationsResponse, "applications">
   applications: ApplicationListItemInterface[];
 };
 
-type GetApplicationsQueryParams = operations["getProjectsApplicationsV2"]["parameters"]["query"];
+export type GetApplicationsQueryParams = operations["getProjectsApplicationsV2"]["parameters"]["query"];
 
 export type GetApplicationsPortResponse = HttpStorageResponse<GetApplicationsModel>;
 
