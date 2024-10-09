@@ -15,7 +15,7 @@ const defaultProps: ModalPort<"div"> = {
     startContent: "Footer start",
     endContent: "Footer end",
   },
-  children: <div className="min-h-[1200px]">Modal content</div>,
+  children: <div className="min-h-[200px]">Modal content</div>,
   classNames: {},
   size: "9xl",
   background: "gradient",
@@ -23,7 +23,7 @@ const defaultProps: ModalPort<"div"> = {
 
 const meta: Meta<typeof Modal> = {
   component: Modal,
-  title: "Deprecated/Molecules/Modal",
+  title: "Molecules/Modal",
   tags: ["autodocs"],
   parameters: {
     backgrounds: {
