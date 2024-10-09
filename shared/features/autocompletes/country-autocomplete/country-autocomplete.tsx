@@ -16,7 +16,7 @@ export function CountryAutocomplete({ selectedCountries, onSelect, ...selectProp
       data?.countries?.map(country => ({
         id: country.code,
         label: (
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Flag code={country.code} hasBorder={false} size={"m"} />
             <span>{country.code}</span>
           </div>
