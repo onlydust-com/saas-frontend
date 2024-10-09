@@ -36,6 +36,10 @@ export function Assignees({ contributors, showRemove, type }: AssigneesProps) {
     }
   }, [type]);
 
+  if (contributors?.length) {
+    return null;
+  }
+
   return (
     <div className={"flex flex-col gap-lg"}>
       {contributors?.map(contributor => (
