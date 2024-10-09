@@ -18,7 +18,9 @@ export function ApplicantsTable() {
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
   const queryParams: Partial<GetApplicationsQueryParams> = {
-    search: debouncedSearch,
+    u: {
+      search: debouncedSearch,
+    },
   };
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =

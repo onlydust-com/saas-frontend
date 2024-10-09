@@ -66,6 +66,7 @@ export function useFilterColumns() {
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
         const { applicant } = info.row.original;
+        const applicantTitle = info.row.original.getApplicantTitle();
 
         return (
           <AvatarLabelGroup
@@ -75,8 +76,7 @@ export function useFilterColumns() {
               },
             ]}
             title={{ children: applicant.login }}
-            // TODO @hayden convert global rank
-            description={{ children: applicant.globalRankCategory }}
+            description={{ children: applicantTitle.wording }}
           />
         );
       },
