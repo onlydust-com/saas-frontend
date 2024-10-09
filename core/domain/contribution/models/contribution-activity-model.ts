@@ -1,14 +1,22 @@
+import { UserOverview } from "@/core/domain/user/models/user-overview-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
-export interface ContributionActivityInterface extends ContributionActivityResponse {}
+export interface ContributionActivityInterface
+  extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees"> {
+  applicants: UserOverview[];
+  contributors: UserOverview[];
+  assignees: UserOverview[];
+}
 
 export class ContributionActivity implements ContributionActivityInterface {
+  githubId!: ContributionActivityResponse["githubId"];
   activityStatus!: ContributionActivityResponse["activityStatus"];
-  applicants!: ContributionActivityResponse["applicants"];
+  applicants!: UserOverview[];
   completedAt!: ContributionActivityResponse["completedAt"];
-  contributors!: ContributionActivityResponse["contributors"];
+  contributors!: UserOverview[];
+  assignees!: UserOverview[];
   createdAt!: ContributionActivityResponse["createdAt"];
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
@@ -27,5 +35,8 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
+    this.applicants = (props.applicants ?? []).map(applicant => new UserOverview(applicant));
+    this.assignees = (props.assignees ?? []).map(assignee => new UserOverview(assignee));
+    this.contributors = (props.contributors ?? []).map(contributor => new UserOverview(contributor));
   }
 }

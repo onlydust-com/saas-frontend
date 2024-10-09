@@ -11,6 +11,12 @@
       "rewarded": "Rewarded"
     }
   },
+  "contributors": {
+    "removeButton": "Remove contributor",
+    "contributors": "Contributor",
+    "applicants": "Applicants",
+    "assignees": "Assigned"
+  },
   "linkedIssues": {
     "title": "Issues",
     "button": "Link an issue",
