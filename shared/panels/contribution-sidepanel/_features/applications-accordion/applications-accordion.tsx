@@ -8,11 +8,11 @@ import { ApplicationsAccordionProps } from "./applications-accordion.types";
 
 export function ApplicationsAccordion({
   activeApplicants,
-  applicantsActiveNumber,
+  activeApplicantsCount,
   newApplicants,
-  applicantsNewNumber,
+  newApplicantsCount,
   ignoredApplicants,
-  applicantsIgnoredNumber,
+  ignoredApplicantsCount,
 }: ApplicationsAccordionProps) {
   const items = [
     {
@@ -21,7 +21,7 @@ export function ApplicationsAccordion({
         children: <Translate token="panels:contribution.applications.items.active" />,
       },
       badgeProps: {
-        children: applicantsActiveNumber,
+        children: activeApplicantsCount,
       },
       content: activeApplicants?.map(activeApplicant => (
         <ApplicationCard key={activeApplicant.id} application={activeApplicant} />
@@ -33,7 +33,7 @@ export function ApplicationsAccordion({
         children: <Translate token="panels:contribution.applications.items.new" />,
       },
       badgeProps: {
-        children: applicantsNewNumber,
+        children: newApplicantsCount,
       },
       content: newApplicants?.map(newApplicant => <ApplicationCard key={newApplicant.id} application={newApplicant} />),
     },
@@ -43,7 +43,7 @@ export function ApplicationsAccordion({
         children: <Translate token="panels:contribution.applications.items.ignored" />,
       },
       badgeProps: {
-        children: applicantsIgnoredNumber,
+        children: ignoredApplicantsCount,
       },
       content: ignoredApplicants?.map(ignoredApplicant => (
         <ApplicationCard key={ignoredApplicant.id} application={ignoredApplicant} />

@@ -79,9 +79,9 @@ export function ContributionsSidepanel() {
     },
   });
 
-  const applicantsActiveNumber = applicationsActiveData?.pages[0].totalItemNumber ?? 0;
-  const applicantsNewNumber = applicationsNewData?.pages[0].totalItemNumber ?? 0;
-  const applicantsIgnoredNumber = applicationsIgnoredData?.pages[0].totalItemNumber ?? 0;
+  const activeApplicantsCount = applicationsActiveData?.pages[0].totalItemNumber ?? 0;
+  const newApplicantsCount = applicationsNewData?.pages[0].totalItemNumber ?? 0;
+  const ignoredApplicantsCount = applicationsIgnoredData?.pages[0].totalItemNumber ?? 0;
 
   const activeApplicants = applicationsActiveData?.pages.flatMap(page => page.applications) || [];
   const newApplicants = applicationsNewData?.pages.flatMap(page => page.applications) || [];
@@ -96,17 +96,17 @@ export function ContributionsSidepanel() {
           <Timeline id={id} />
           <LinkedIssues issues={contribution?.linkedIssues} id={id} />
           <Kpi
-            applicants={applicantsActiveNumber + applicantsNewNumber + applicantsIgnoredNumber}
-            projectContributors={applicantsActiveNumber}
-            newContributors={applicantsNewNumber}
+            applicants={activeApplicantsCount + newApplicantsCount + ignoredApplicantsCount}
+            projectContributors={activeApplicantsCount}
+            newContributors={newApplicantsCount}
           />
           <ApplicationsAccordion
             activeApplicants={activeApplicants}
-            applicantsActiveNumber={applicantsActiveNumber}
+            activeApplicantsCount={activeApplicantsCount}
             newApplicants={newApplicants}
-            applicantsNewNumber={applicantsNewNumber}
+            newApplicantsCount={newApplicantsCount}
             ignoredApplicants={ignoredApplicants}
-            applicantsIgnoredNumber={applicantsIgnoredNumber}
+            ignoredApplicantsCount={ignoredApplicantsCount}
           />
           <div>
             {pixelfactProfileData ? (
