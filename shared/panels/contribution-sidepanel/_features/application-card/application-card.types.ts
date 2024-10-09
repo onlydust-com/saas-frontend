@@ -2,4 +2,6 @@ import { ApplicationListItemInterface } from "@/core/domain/application/models/a
 
 export interface ApplicationCardProps {
   application: ApplicationListItemInterface;
+  contributionId: string;
+  isIgnored?: boolean;
 }

@@ -1,17 +1,18 @@
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
 import { ApplicationsAccordion } from "@/shared/panels/contribution-sidepanel/_features/applications-accordion/applications-accordion";
+import { AssignContributorsProps } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors.types";
 import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 
-import { AssigneContributorsProps } from "./assigne-contributors.types";
-
-export function AssigneContributors(_: AssigneContributorsProps) {
+export function AssignContributors({ contributionId }: AssignContributorsProps) {
   const projectId = "7d04163c-4187-4313-8066-61504d34fc56";
+
   const { data: applicationsActiveData } = ApplicationReactQueryAdapter.client.useGetApplications({
     queryParams: {
       projectId,
       isApplicantProjectMember: true,
-      // issueId: contributionId,
+      // TODO
+      // issueId,
     },
     options: {
       enabled: !!projectId,
@@ -22,7 +23,8 @@ export function AssigneContributors(_: AssigneContributorsProps) {
     queryParams: {
       projectId,
       isApplicantProjectMember: false,
-      // issueId: contributionId,
+      // TODO
+      // issueId,
     },
     options: {
       enabled: !!projectId,
@@ -32,7 +34,8 @@ export function AssigneContributors(_: AssigneContributorsProps) {
   const { data: applicationsIgnoredData } = ApplicationReactQueryAdapter.client.useGetApplications({
     queryParams: {
       projectId,
-      // issueId: contributionId,
+      // TODO
+      // issueId,
       isIgnored: true,
     },
     options: {
@@ -62,6 +65,7 @@ export function AssigneContributors(_: AssigneContributorsProps) {
         newApplicantsCount={newApplicantsCount}
         ignoredApplicants={ignoredApplicants}
         ignoredApplicantsCount={ignoredApplicantsCount}
+        contributionId={contributionId}
       />
     </>
   );

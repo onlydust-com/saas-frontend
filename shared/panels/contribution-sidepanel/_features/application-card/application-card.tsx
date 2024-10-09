@@ -1,5 +1,7 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -12,17 +14,33 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ application }: ApplicationCardProps) {
+export function ApplicationCard({ application, contributionId, isIgnored }: ApplicationCardProps) {
   const { applicant } = application;
 
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  function handleCancelApplication() {
-    console.log("cancel application");
+  const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
+    ApplicationReactQueryAdapter.client.usePatchApplication({
+      pathParams: {
+        applicationId: application.id,
+      },
+    });
+
+  const { mutate: acceptApplicationMutate, isPending: acceptApplicationIsPending } =
+    ContributionReactQueryAdapter.client.usePatchContribution({
+      pathParams: {
+        contributionId,
+      },
+    });
+
+  function handleIgnoreApplication() {
+    ignoreApplicationMutate({ status: "IGNORED" });
   }
 
   function handleApproveApplication() {
-    console.log("approve application");
+    acceptApplicationMutate({
+      assignees: [applicant.githubUserId],
+    });
   }
 
   return (
@@ -74,15 +92,18 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
       </div>
 
       <div className="flex gap-md">
-        <Button
-          variant="secondary"
-          size="xs"
-          iconOnly
-          startIcon={{
-            component: CircleX,
-          }}
-          onClick={handleCancelApplication}
-        />
+        {!isIgnored ? (
+          <Button
+            variant="secondary"
+            size="xs"
+            iconOnly
+            startIcon={{
+              component: CircleX,
+            }}
+            onClick={handleIgnoreApplication}
+            isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
+          />
+        ) : null}
 
         <Button
           variant="secondary"
@@ -92,6 +113,7 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
             component: CircleCheck,
           }}
           onClick={handleApproveApplication}
+          isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
         />
       </div>
     </Paper>
