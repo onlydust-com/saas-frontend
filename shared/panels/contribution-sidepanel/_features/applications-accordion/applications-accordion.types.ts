@@ -1,3 +1,7 @@
-import { PropsWithChildren } from "react";
+import { ApplicationListItemInterface } from "@/core/domain/application/models/application-list-item-model";
 
-export interface ApplicationsAccordionProps extends PropsWithChildren {}
+export interface ApplicationsAccordionProps {
+  activeApplicants: ApplicationListItemInterface[];
+  newApplicants: ApplicationListItemInterface[];
+  ignoredApplicants: ApplicationListItemInterface[];
+}

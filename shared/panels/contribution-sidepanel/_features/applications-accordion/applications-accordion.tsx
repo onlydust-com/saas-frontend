@@ -6,7 +6,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { ApplicationCard } from "../application-card/application-card";
 import { ApplicationsAccordionProps } from "./applications-accordion.types";
 
-export function ApplicationsAccordion({ children }: ApplicationsAccordionProps) {
+export function ApplicationsAccordion({
+  activeApplicants,
+  newApplicants,
+  ignoredApplicants,
+}: ApplicationsAccordionProps) {
   const items = [
     {
       id: "active",
@@ -16,7 +20,9 @@ export function ApplicationsAccordion({ children }: ApplicationsAccordionProps) 
       badgeProps: {
         children: 2,
       },
-      content: <ApplicationCard />,
+      content: activeApplicants?.map(activeApplicant => (
+        <ApplicationCard key={activeApplicant.id} application={activeApplicant} />
+      )),
     },
     {
       id: "new",
@@ -26,7 +32,7 @@ export function ApplicationsAccordion({ children }: ApplicationsAccordionProps) 
       badgeProps: {
         children: 9,
       },
-      content: <ApplicationCard />,
+      content: newApplicants?.map(newApplicant => <ApplicationCard key={newApplicant.id} application={newApplicant} />),
     },
     {
       id: "ignored",
@@ -36,7 +42,9 @@ export function ApplicationsAccordion({ children }: ApplicationsAccordionProps) 
       badgeProps: {
         children: 1,
       },
-      content: <ApplicationCard />,
+      content: ignoredApplicants?.map(ignoredApplicant => (
+        <ApplicationCard key={ignoredApplicant.id} application={ignoredApplicant} />
+      )),
     },
   ];
 

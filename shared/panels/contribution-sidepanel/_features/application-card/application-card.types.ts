@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { GetApplicationsResponse } from "@/core/domain/application/application-contract.types";
 
-export interface ApplicationCardProps extends PropsWithChildren {}
+export interface ApplicationCardProps {
+  application: GetApplicationsResponse["applications"][0];
+}

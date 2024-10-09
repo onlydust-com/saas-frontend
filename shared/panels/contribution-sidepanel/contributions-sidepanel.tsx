@@ -1,3 +1,7 @@
+import { useParams } from "next/navigation";
+
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -14,15 +18,68 @@ import { Header } from "./_features/header/header";
 import { Kpi } from "./_features/kpi/kpi";
 
 export function ContributionsSidepanel() {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
   const { name } = useContributionsSidepanel();
   const { Panel } = useSidePanel({ name });
   const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
     id: "",
   };
 
+  const { data: projectData } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: {
+      slug: projectSlug,
+    },
+    options: {
+      // enabled: !!projectSlug,
+      enabled: false,
+    },
+  });
+
   const { data: pixelfactProfileData } = UserReactQueryAdapter.client.useGetUserByLogin({
     pathParams: { slug: "pixelfact" },
   });
+
+  const { data: applicationsActiveData } = ApplicationReactQueryAdapter.client.useGetApplications({
+    queryParams: {
+      projectId: projectData?.id,
+      isApplicantProjectMember: true,
+    },
+    options: {
+      // enabled: !!projectData?.id,
+      enabled: false,
+    },
+  });
+
+  const { data: applicationsNewData } = ApplicationReactQueryAdapter.client.useGetApplications({
+    queryParams: {
+      projectId: projectData?.id,
+      isApplicantProjectMember: false,
+    },
+    options: {
+      // enabled: !!projectData?.id,
+      enabled: false,
+    },
+  });
+
+  const { data: applicationsIgnoredData } = ApplicationReactQueryAdapter.client.useGetApplications({
+    queryParams: {
+      projectId: projectData?.id,
+      isIgnored: true,
+    },
+    options: {
+      // enabled: !!projectData?.id,
+      enabled: false,
+    },
+  });
+
+  const applicantsActiveNumber = applicationsActiveData?.pages[0].totalItemNumber ?? 0;
+  const applicantsNewNumber = applicationsNewData?.pages[0].totalItemNumber ?? 0;
+  const applicantsIgnoredNumber = applicationsIgnoredData?.pages[0].totalItemNumber ?? 0;
+
+  const activeApplicants = applicationsActiveData?.pages.flatMap(page => page.applications) || [];
+  const newApplicants = applicationsNewData?.pages.flatMap(page => page.applications) || [];
+  const ignoredApplicants = applicationsIgnoredData?.pages.flatMap(page => page.applications) || [];
 
   return (
     <Panel>
@@ -30,8 +87,16 @@ export function ContributionsSidepanel() {
       <SidePanelBody>
         {id}
         <Timeline />
-        <Kpi applicants={2} projectContributors={10} newContributors={8} />
-        <ApplicationsAccordion />
+        <Kpi
+          applicants={applicantsActiveNumber + applicantsNewNumber + applicantsIgnoredNumber}
+          projectContributors={applicantsActiveNumber}
+          newContributors={applicantsNewNumber}
+        />
+        <ApplicationsAccordion
+          activeApplicants={activeApplicants}
+          newApplicants={newApplicants}
+          ignoredApplicants={ignoredApplicants}
+        />
         <div>
           {pixelfactProfileData ? (
             <ProfileCard

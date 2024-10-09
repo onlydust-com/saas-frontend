@@ -1,14 +1,30 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { Translate } from "@/shared/translation/components/translate/translate";
+
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ children }: ApplicationCardProps) {
+export function ApplicationCard({ application }: ApplicationCardProps) {
+  const { applicant } = application;
+
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
+  function handleCancelApplication() {
+    console.log("cancel application");
+  }
+
+  function handleApproveApplication() {
+    console.log("approve application");
+  }
+
   return (
     <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
       <div className="flex gap-lg">
@@ -17,11 +33,12 @@ export function ApplicationCard({ children }: ApplicationCardProps) {
         <div className="flex flex-col gap-md">
           <div className="flex flex-col">
             <Typo size="sm" weight="medium">
-              RobertoRust
+              {applicant.login}
             </Typo>
 
             <Typo size="xs" color="secondary">
-              Diamond • 14th • Top 1%
+              {applicant.globalRankCategory} • {applicant.globalRank} •{" "}
+              <Translate token="panels:contribution.applications.rank" count={applicant.globalRankPercentile} />
             </Typo>
           </div>
 
@@ -32,7 +49,7 @@ export function ApplicationCard({ children }: ApplicationCardProps) {
                 component: Medal,
               }}
             >
-              895
+              {applicant.rewardCount}
             </Badge>
 
             <Badge
@@ -41,10 +58,10 @@ export function ApplicationCard({ children }: ApplicationCardProps) {
                 component: GitPullRequest,
               }}
             >
-              344
+              {applicant.prCount}
             </Badge>
 
-            <Badge size="xs">24.09.2024</Badge>
+            <Badge size="xs">{dateKernelPort.format(new Date(application.receivedAt), "dd.MM.yyyy")}</Badge>
           </div>
         </div>
       </div>
@@ -57,6 +74,7 @@ export function ApplicationCard({ children }: ApplicationCardProps) {
           startIcon={{
             component: CircleX,
           }}
+          onClick={handleCancelApplication}
         />
 
         <Button
@@ -66,6 +84,7 @@ export function ApplicationCard({ children }: ApplicationCardProps) {
           startIcon={{
             component: CircleCheck,
           }}
+          onClick={handleApproveApplication}
         />
       </div>
     </Paper>
