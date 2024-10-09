@@ -575,6 +575,14 @@
     --utility-gradient-glassneon-glass-neon-6: #E9E0FD;
     --utility-gradient-glassneon-glass-neon-7: #E9E0FD;
 
+    --utility-gradient-app-bg-radial-1: var(--background-quaternary);
+    --utility-gradient-app-bg-radial-2: rgba(238, 242, 246, 0);
+    --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
+    --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
+    --utility-gradient-app-bg-linear-2-1: #F3EEF6;
+    --utility-gradient-app-bg-linear-2-2: #F6F2FA;
+    --utility-gradient-app-bg-linear-2-3: #FBF7FF;
+
     /* COMPONENTS BADGE */
 
     --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
@@ -944,7 +952,18 @@
     --utility-gradient-glassneon-glass-neon-4: #231830;
     --utility-gradient-glassneon-glass-neon-5: #2A0D3B;
     --utility-gradient-glassneon-glass-neon-6: #1C0052;
-    --utility-gradient-glassneon-glass-neon-7: #270073;
+
+    --utility-gradient-app-bg-radial-1: var(--background-quaternary);
+    --utility-gradient-app-bg-radial-2: rgba(13, 18, 28, 0);
+    --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
+    --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
+    --utility-gradient-app-bg-linear-2-1: #160D1C;
+    --utility-gradient-app-bg-linear-2-2: #26014A;
+    --utility-gradient-app-bg-linear-2-3: #250059;
+
+  /*radial-gradient(100% 100% at 50% 100%, var(--utility-gradient-app-bg-radial-2) 0%, var(--utility-gradient-app-bg-radial-1) 100%), linear-gradient(270deg, var(--utility-gradient-app-bg-linear-1-1) 0%, var(--utility-gradient-app-bg-linear-1-2) 10%, var(--utility-gradient-app-bg-linear-1-1) 20%, var(--utility-gradient-app-bg-linear-1-2) 35%, var(--utility-gradient-app-bg-linear-1-1) 50%, var(--utility-gradient-app-bg-linear-1-2) 58%, var(--utility-gradient-app-bg-linear-1-1) 65%, var(--utility-gradient-app-bg-linear-1-2) 81%, var(--utility-gradient-app-bg-linear-1-1) 100%), linear-gradient(180deg, var(--utility-gradient-app-bg-linear-2-1) 0%, var(--utility-gradient-app-bg-linear-2-2) 80%, var(--utility-gradient-app-bg-linear-2-3) 100%);*/
+
+
 
     /** COMPONENTS BADGE **/
     --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
@@ -1044,6 +1063,28 @@
 /*--*/
     --scrollbar-thumb: var(--foreground-senary);
     --scrollbar-track: transparent;
+  }
+
+  @layer components {
+    .app_gradient {
+      position: relative;
+      background: linear-gradient(180deg, var(--utility-gradient-app-bg-linear-2-1) 0%, var(--utility-gradient-app-bg-linear-2-2) 80%, var(--utility-gradient-app-bg-linear-2-3) 100%);
+    }
+
+    .app_gradient::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(100% 100% at 50% 100%, var(--utility-gradient-app-bg-radial-2) 0%, var(--utility-gradient-app-bg-radial-1) 100%);
+    }
+
+    .app_gradient::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background: linear-gradient(270deg, var(--utility-gradient-app-bg-linear-1-1) 0%, var(--utility-gradient-app-bg-linear-1-2) 10%, var(--utility-gradient-app-bg-linear-1-1) 20%, var(--utility-gradient-app-bg-linear-1-2) 35%, var(--utility-gradient-app-bg-linear-1-1) 50%, var(--utility-gradient-app-bg-linear-1-2) 58%, var(--utility-gradient-app-bg-linear-1-1) 65%, var(--utility-gradient-app-bg-linear-1-2) 81%, var(--utility-gradient-app-bg-linear-1-1) 100%)
+    }
   }
 
   /*DOM STYLES*/
