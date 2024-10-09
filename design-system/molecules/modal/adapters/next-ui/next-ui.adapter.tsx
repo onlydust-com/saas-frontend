@@ -34,6 +34,7 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       classNames={{
         base: cn(slots.modal(), classNames?.modal),
         body: cn(slots.body(), classNames?.body),
+        wrapper: "overflow-hidden p-sm",
         backdrop: cn(slots.backdrop(), classNames?.backdrop),
         header: cn(slots.header(), classNames?.header),
         footer: cn(slots.footer(), classNames?.footer),
@@ -48,7 +49,7 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       <ModalContent>
         {onClose => (
           <>
-            <Inner {...(htmlProps ?? {})} className="z-[1]">
+            <Inner {...(htmlProps ?? {})} className="flex flex-1 flex-col overflow-hidden">
               <div className={cn(slots.wrapper(), classNames?.wrapper)}>
                 {!hideHeader && (
                   <ModalHeader className={"empty:hidden"}>

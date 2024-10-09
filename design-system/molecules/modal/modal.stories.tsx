@@ -15,9 +15,9 @@ const defaultProps: ModalPort<"div"> = {
     startContent: "Footer start",
     endContent: "Footer end",
   },
-  children: "Modal content",
+  children: <div className="min-h-[1200px]">Modal content</div>,
   classNames: {},
-  size: "3xl",
+  size: "9xl",
   background: "gradient",
 };
 
