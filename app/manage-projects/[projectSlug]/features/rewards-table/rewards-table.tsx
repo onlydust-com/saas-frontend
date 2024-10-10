@@ -3,10 +3,10 @@ import { Filter } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data.context";
+import { useProjectRewardsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.hooks";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
@@ -28,7 +28,7 @@ export type RewardsTableFilters = Omit<
 
 export function RewardsTable() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
-  // const { open: openFilterPanel } = useRewardsFilterDataSidePanel();
+  const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
 
   const queryParams: Partial<GetProjectRewardsQueryParams> = {
@@ -103,7 +103,6 @@ export function RewardsTable() {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
-          <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
         <ScrollView direction={"x"}>
           <Table
@@ -122,7 +121,11 @@ export function RewardsTable() {
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
         <div className="flex gap-2">
-          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:deepDive.projectsTable.projectCount" }} />
+          <Typo
+            size={"sm"}
+            color={"secondary"}
+            translate={{ token: "manageProjects:detail.rewardsTable.rewardsCount" }}
+          />
           <Typo size={"sm"} color={"primary"}>
             {totalItemNumber}
           </Typo>

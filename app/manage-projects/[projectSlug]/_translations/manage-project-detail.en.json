@@ -32,7 +32,8 @@
     "titles": {
       "project": "Projects filters",
       "contributor": "Filter contributors",
-      "contribution": "Filter contributions"
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
     },
     "save": "Validate",
     "reset": "Reset filters"
@@ -76,6 +77,38 @@
     "toast": {
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
+    }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "rows": {},
+    "rewardsCount": "Rewards",
+    "statuses": {
+      "pendingSignup": "Pending signup",
+      "pendingContributor": "Pending contributor",
+      "pendingBillingProfile": "Pending billing profile",
+      "pendingCompany": "Pending company",
+      "pendingVerification": "Pending verification",
+      "geoBlocked": "Geo blocked",
+      "individualLimitReached": "Individual limit reached",
+      "payoutInfoMissing": "Payout info missing",
+      "locked": "Locked",
+      "pendingRequest": "Pending request",
+      "processing": "Processing",
+      "complete": "Complete"
     }
   }
 }
