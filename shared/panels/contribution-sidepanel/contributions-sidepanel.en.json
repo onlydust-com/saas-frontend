@@ -62,8 +62,8 @@
   },
   "applications": {
     "items": {
-      "active": "Active devs applications",
-      "new": "New devs applications",
+      "active": "Project contributors",
+      "new": "New contributors",
       "ignored": "Ignored"
     }
   },
