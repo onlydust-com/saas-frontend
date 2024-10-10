@@ -1,1 +1,1 @@
-export * from "./use-get-rewards";
+export * from "./use-get-project-rewards";

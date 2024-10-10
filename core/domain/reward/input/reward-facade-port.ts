@@ -1,5 +1,5 @@
-import { GetRewardsPortParams, GetRewardsPortResponse } from "@/core/domain/reward/reward-contract.types";
+import { GetProjectRewardsPortParams, GetProjectRewardsPortResponse } from "@/core/domain/reward/reward-contract.types";
 
 export interface RewardFacadePort {
-  getRewards(p: GetRewardsPortParams): GetRewardsPortResponse;
+  getProjectRewards(p: GetProjectRewardsPortParams): GetProjectRewardsPortResponse;
 }

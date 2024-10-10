@@ -5,18 +5,18 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-/* ------------------------------ Get Rewards ------------------------------ */
-export type GetRewardsResponse = components["schemas"]["RewardsPageResponse"];
-export type GetRewardsModel = Omit<GetRewardsResponse, "rewards"> & {
+/* ------------------------------ Get Project Rewards ------------------------------ */
+export type GetProjectRewardsResponse = components["schemas"]["RewardsPageResponse"];
+export type GetProjectRewardsModel = Omit<GetProjectRewardsResponse, "rewards"> & {
   rewards: RewardListItemInterface[];
 };
 
-type GetRewardsPathParams = operations["getProjectRewards"]["parameters"]["path"];
-type GetRewardsQueryParams = operations["getProjectRewards"]["parameters"]["query"];
+type GetProjectRewardsPathParams = operations["getProjectRewards"]["parameters"]["path"];
+type GetProjectRewardsQueryParams = operations["getProjectRewards"]["parameters"]["query"];
 
-export type GetRewardsPortResponse = HttpStorageResponse<GetRewardsResponse>;
+export type GetProjectRewardsPortResponse = HttpStorageResponse<GetProjectRewardsResponse>;
 
-export type GetRewardsPortParams = HttpClientParameters<{
-  PathParams: GetRewardsPathParams;
-  QueryParams: GetRewardsQueryParams;
+export type GetProjectRewardsPortParams = HttpClientParameters<{
+  PathParams: GetProjectRewardsPathParams;
+  QueryParams: GetProjectRewardsQueryParams;
 }>;
