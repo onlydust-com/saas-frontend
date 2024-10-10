@@ -19,7 +19,7 @@ import { FilterDataProvider } from "./_components/filter-data/filter-data.contex
 import { useContributionsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 import { KanbanView } from "./_features/kanban-view/kanban-view";
 import { ListView } from "./_features/list-view/list-view";
-import { IssuesProps } from "./issues.types";
+import { ContributionsProps } from "./contributions.types";
 
 const LIST = "list";
 const KANBAN = "kanban";
@@ -29,7 +29,7 @@ export type ContributionKanbanFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function Issues(_: IssuesProps) {
+export function Contributions(_: ContributionsProps) {
   const [toggleViews, setToggleViews] = useState<typeof LIST | typeof KANBAN>(KANBAN);
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();

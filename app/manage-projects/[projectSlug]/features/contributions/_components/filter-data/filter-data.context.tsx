@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
-import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/features/issues/issues";
+import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/features/contributions/contributions";
 
 interface FilterDataContextInterface {
   filters: ContributionKanbanFilters;

@@ -1,7 +1,8 @@
+import { ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { Contributions } from "@/app/manage-projects/[projectSlug]/features/contributions/contributions";
 import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
-import { Issues } from "@/app/manage-projects/[projectSlug]/features/issues/issues";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -13,49 +14,76 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { ActivitySectionProps } from "./activity-section.types";
 
 const CONTRIBUTORS = "contributors";
-const ISSUES = "issues";
+const CONTRIBUTIONS = "contributions";
+const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
   const { open } = useRewardFlow();
-  const [toggleFinancialViews, setToggleFinancialViews] = useState<typeof CONTRIBUTORS | typeof ISSUES>(CONTRIBUTORS);
+  const [toggleFinancialViews, setToggleFinancialViews] = useState<
+    typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
+  >(CONTRIBUTORS);
 
   const renderActivityView = useMemo(() => {
     if (toggleFinancialViews === CONTRIBUTORS) {
       return <ContributorsTable />;
     }
 
-    return <Issues projectId={projectId} />;
+    if (toggleFinancialViews === CONTRIBUTIONS) {
+      return <Contributions projectId={projectId} />;
+    }
+
+    return <p>Rewards</p>;
   }, [toggleFinancialViews]);
 
   function handleToggleActivityViews(view: string) {
     close();
-    setToggleFinancialViews(view as typeof CONTRIBUTORS | typeof ISSUES);
+    setToggleFinancialViews(view as typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS);
   }
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
-        <Button onClick={() => open({ issueIds: [], githubUserIds: [] })}>Open reward flow</Button>
+      <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
+        <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
+          <Button onClick={() => open({ issueIds: [], githubUserIds: [] })}>Open reward flow</Button>
         <Typo
-          size={"xs"}
-          weight={"medium"}
-          variant={"heading"}
-          translate={{ token: "manageProjects:detail.contributions.title" }}
-        />
-        <Tabs
-          onTabClick={handleToggleActivityViews}
-          variant={"solid"}
-          tabs={[
-            {
-              id: CONTRIBUTORS,
-              children: <Translate token={"manageProjects:detail.contributions.buttons.contributors"} />,
-            },
-            {
-              id: ISSUES,
-              children: <Translate token={"manageProjects:detail.contributions.buttons.contributions"} />,
-            },
-          ]}
-          selectedId={toggleFinancialViews}
+            size={"xs"}
+            weight={"medium"}
+            variant={"heading"}
+            translate={{ token: "manageProjects:detail.contributions.title" }}
+          />
+
+          <Tabs
+            onTabClick={handleToggleActivityViews}
+            variant={"solid"}
+            tabs={[
+              {
+                id: CONTRIBUTORS,
+                children: <Translate token={"manageProjects:detail.contributions.buttons.contributors"} />,
+              },
+              {
+                id: CONTRIBUTIONS,
+                children: <Translate token={"manageProjects:detail.contributions.buttons.contributions"} />,
+              },
+              {
+                id: REWARDS,
+                children: <Translate token={"manageProjects:detail.contributions.buttons.rewards"} />,
+              },
+            ]}
+            selectedId={toggleFinancialViews}
+          />
+        </div>
+
+        <Button
+          variant={"primary"}
+          endIcon={{ component: ChevronRight }}
+          isTextButton
+          size={"md"}
+          translate={{ token: "manageProjects:detail.contributions.actions.reward" }}
+          onClick={() => console.log("Open reward")}
+          classNames={{
+            base: "max-w-full overflow-hidden",
+            label: "whitespace-nowrap text-ellipsis overflow-hidden",
+          }}
         />
       </div>
 
