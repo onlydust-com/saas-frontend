@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { CircleCheck, CircleX } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -22,6 +23,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number) => void }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<ApplicationListItemInterface>();
@@ -63,13 +65,18 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
     }
   }, [selectedIds, setSelectedIds]);
 
-  function handleIgnore(githubUserId: number) {
-    // TODO Mehdi handle invalidations
+  function handleIgnore(applicationId: string) {
     applicationStoragePort
       .patchApplication({
-        pathParams: { applicationId: githubUserId.toString() },
+        pathParams: { applicationId },
       })
-      .request({ status: "IGNORED" });
+      .request({ status: "IGNORED" })
+      .then(async () => {
+        await queryClient.invalidateQueries({
+          queryKey: applicationStoragePort.getApplications({}).tag,
+          exact: false,
+        });
+      });
   }
 
   const columnMap: Partial<Record<TableColumns, object>> = {
@@ -231,13 +238,14 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => {
         const { githubUserId } = info.row.original.applicant;
+        const { id } = info.row.original;
         return (
           <div className={"flex gap-sm"}>
             <Button
               startIcon={{ component: CircleX }}
               variant={"secondary"}
               size={"sm"}
-              onClick={() => handleIgnore(githubUserId)}
+              onClick={() => handleIgnore(id)}
             >
               <Translate token={"modals:manageApplicants.table.rows.reject"} />
             </Button>
