@@ -254,7 +254,7 @@ export function useFilterColumns() {
       id: "actions",
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.actions.title"} />,
       cell: info => (
-        <div className="flex gap-2">
+        <div className="flex gap-sm">
           <Button
             onClick={() => console.log("Open reward")}
             variant={"secondary"}
