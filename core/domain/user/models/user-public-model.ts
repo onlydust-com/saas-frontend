@@ -36,7 +36,8 @@ export class UserPublic implements UserPublicInterface {
 
   getRank(): string {
     const position = this.statsSummary?.rank;
-    if (position === undefined) {
+
+    if (typeof position !== "number") {
       return "";
     }
     // Check the last two digits to handle special cases like 11th, 12th, 13th, etc.

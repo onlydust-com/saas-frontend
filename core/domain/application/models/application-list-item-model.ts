@@ -29,7 +29,7 @@ export class ApplicationListItem implements ApplicationListItemInterface {
   getRank(): string {
     const position = this.applicant?.globalRank;
 
-    if (position === undefined) {
+    if (typeof position !== "number") {
       return "";
     }
 

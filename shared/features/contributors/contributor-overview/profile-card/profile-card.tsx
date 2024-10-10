@@ -25,6 +25,8 @@ export function ProfileCard({ user, headerProps, footerContent }: ProfileCardPro
   }, [headerProps]);
 
   const showRankPercentile = !!user.statsSummary?.rankPercentile && user.statsSummary?.rankPercentile !== 100;
+  const userRank = user.getRank();
+
   return (
     <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
       {renderHeader}
@@ -35,7 +37,8 @@ export function ProfileCard({ user, headerProps, footerContent }: ProfileCardPro
             {user.login}
           </Typo>
           <Typo as={"div"} size={"sm"} color={"tertiary"}>
-            {user.getTitle().wording} • {user.getRank()}
+            {user.getTitle().wording}
+            {userRank ? ` • ${userRank}` : null}
             {showRankPercentile ? (
               <>
                 {" • "}
