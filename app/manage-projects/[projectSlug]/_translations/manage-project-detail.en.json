@@ -12,7 +12,8 @@
     "title": "Contributions",
     "buttons": {
       "contributors": "Contributors",
-      "contributions": "Contributions"
+      "contributions": "Contributions",
+      "rewards": "Rewards"
     },
     "kanban": {
       "columns": {
@@ -22,6 +23,9 @@
         "done": "Done",
         "archive": "Archive"
       }
+    },
+    "actions": {
+      "reward": "Reward a contributor"
     }
   },
   "filters": {

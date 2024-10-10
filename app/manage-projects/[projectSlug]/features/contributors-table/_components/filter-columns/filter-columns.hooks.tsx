@@ -255,14 +255,13 @@ export function useFilterColumns() {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.actions.title"} />,
       cell: info => (
         <div className="flex gap-2">
-          {/*TODO @Mehdi activate one reward form ready */}
-          {/*<Button*/}
-          {/*  as={BaseLink}*/}
-          {/*  htmlProps={{ href: NEXT_ROUTER.manageProjects.details.root(info.row.original.slug) }}*/}
-          {/*  variant={"secondary"}*/}
-          {/*  size={"sm"}*/}
-          {/*  translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}*/}
-          {/*/>*/}
+          <Button
+            onClick={() => console.log("Open reward")}
+            variant={"secondary"}
+            size={"sm"}
+            translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}
+          />
+
           <Button
             onClick={() => openContributor({ login: info.row.original.contributor.login })}
             variant={"secondary"}
