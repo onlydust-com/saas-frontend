@@ -45,7 +45,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
       <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
         <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
           <Button onClick={() => open({ issueIds: [], githubUserIds: [] })}>Open reward flow</Button>
-        <Typo
+          <Typo
             size={"xs"}
             weight={"medium"}
             variant={"heading"}
