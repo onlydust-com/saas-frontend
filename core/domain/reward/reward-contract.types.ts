@@ -13,7 +13,7 @@ export type GetProjectRewardsModel = Omit<GetProjectRewardsResponse, "rewards"> 
 };
 
 type GetProjectRewardsPathParams = operations["getProjectRewards"]["parameters"]["path"];
-type GetProjectRewardsQueryParams = operations["getProjectRewards"]["parameters"]["query"];
+export type GetProjectRewardsQueryParams = operations["getProjectRewards"]["parameters"]["query"];
 
 export type GetProjectRewardsPortResponse = HttpStorageResponse<GetProjectRewardsResponse>;
 
