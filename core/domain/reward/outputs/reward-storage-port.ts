@@ -1,4 +1,6 @@
 import {
+  GetProjectRewardItemsPortParams,
+  GetProjectRewardItemsPortResponse,
   GetProjectRewardPortParams,
   GetProjectRewardPortResponse,
   GetProjectRewardsPortParams,
@@ -9,4 +11,5 @@ export interface RewardStoragePort {
   routes: Record<string, string>;
   getProjectRewards(p: GetProjectRewardsPortParams): GetProjectRewardsPortResponse;
   getProjectReward(p: GetProjectRewardPortParams): GetProjectRewardPortResponse;
+  getProjectRewardItems(p: GetProjectRewardItemsPortParams): GetProjectRewardItemsPortResponse;
 }
