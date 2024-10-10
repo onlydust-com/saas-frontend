@@ -48,3 +48,15 @@ export type GetProjectRewardItemsPortParams = HttpClientParameters<{
   PathParams: GetProjectRewardItemsPathParams;
   QueryParams: GetProjectRewardItemsQueryParams;
 }>;
+
+/* ------------------------------ Create Rewards ------------------------------ */
+
+export type CreateRewardsBody = components["schemas"]["RewardRequest"][];
+
+type CreateRewardsPathParams = operations["createRewards"]["parameters"]["path"];
+
+export type CreateRewardsPortParams = HttpClientParameters<{
+  PathParams: CreateRewardsPathParams;
+}>;
+
+export type CreateRewardsPortResponse = HttpStorageResponse;

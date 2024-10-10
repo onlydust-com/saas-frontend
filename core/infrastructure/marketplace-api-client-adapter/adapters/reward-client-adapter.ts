@@ -3,10 +3,12 @@ import { RewardListItem } from "@/core/domain/reward/models/reward-list-item-mod
 import { Reward } from "@/core/domain/reward/models/reward-model";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
 import {
+  CreateRewardsBody,
   GetProjectRewardItemsResponse,
   GetProjectRewardResponse,
   GetProjectRewardsResponse,
 } from "@/core/domain/reward/reward-contract.types";
+import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -17,6 +19,7 @@ export class RewardClientAdapter implements RewardStoragePort {
     getProjectRewards: "projects/:projectId/rewards",
     getProjectReward: "projects/:projectId/rewards/:rewardId",
     getProjectRewardItems: "projects/:projectId/rewards/:rewardId/reward-items",
+    createRewards: "projects/:projectId/rewards",
   } as const;
 
   getProjectRewards = ({ queryParams, pathParams }: FirstParameter<RewardStoragePort["getProjectRewards"]>) => {
@@ -83,6 +86,27 @@ export class RewardClientAdapter implements RewardStoragePort {
         rewards: data.rewardItems.map(rewardItem => new RewardItem(rewardItem)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  createRewards = ({ pathParams }: FirstParameter<RewardStoragePort["createRewards"]>) => {
+    const path = this.routes["createRewards"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: CreateRewardsBody) =>
+      this.client.request<never>({
+        path,
+        version: MarketplaceApiVersion.v2,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,
