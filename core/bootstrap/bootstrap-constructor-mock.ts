@@ -14,6 +14,7 @@ import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
 import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
+import { RewardClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reward-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
@@ -56,6 +57,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   contributionStoragePortForClient: new ContributionClientAdapterMock(),
   applicationStoragePortForClient: new ApplicationClientAdapterMock(),
   applicationStoragePortForServer: new ApplicationClientAdapterMock(),
+  rewardStoragePortForClient: new RewardClientAdapterMock(),
+  rewardStoragePortForServer: new RewardClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
