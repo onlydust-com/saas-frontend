@@ -12,7 +12,7 @@ interface useContributorSidePanelConfig extends SidePanelConfig {
 export function useContributorSidePanel(config?: useContributorSidePanelConfig) {
   const { type } = config ?? { type: "extended" };
   const { open, ...rest } = useSinglePanelContext<ContributorSidepanelData>("contributor-detail", {
-    width: type === "short" ? SIDE_PANEL_SIZE.m : SIDE_PANEL_SIZE.xl,
+    width: type === "compact" ? SIDE_PANEL_SIZE.m : SIDE_PANEL_SIZE.xl,
     ...config,
   });
 
