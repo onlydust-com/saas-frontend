@@ -1,10 +1,12 @@
 import { UserPublic, UserPublicInterface } from "@/core/domain/user/models/user-public-model";
+import { UserRank, UserRankInterface } from "@/core/domain/user/models/user-rank-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 type UserOverviewResponse = components["schemas"]["ContributorOverviewResponse"];
 
 export interface UserOverviewInterface extends UserOverviewResponse {
   toPublicModel(): UserPublicInterface;
+  rank: UserRankInterface;
 }
 
 export class UserOverview implements UserOverviewInterface {
@@ -30,9 +32,15 @@ export class UserOverview implements UserOverviewInterface {
   prCount!: UserOverviewResponse["prCount"];
   codeReviewCount!: UserOverviewResponse["codeReviewCount"];
   contributionCount!: UserOverviewResponse["contributionCount"];
+  rank: UserRankInterface;
 
   constructor(props: UserOverviewResponse) {
     Object.assign(this, props);
+    this.rank = new UserRank({
+      rankCategory: this.globalRankCategory,
+      rank: this.globalRank,
+      rankPercentile: this.globalRankPercentile,
+    });
   }
 
   toPublicModel(): UserPublicInterface {
