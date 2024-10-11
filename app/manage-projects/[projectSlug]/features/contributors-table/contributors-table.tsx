@@ -105,7 +105,7 @@ function SafeContributorsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"flex flex-col gap-lg overflow-hidden"}>
+      <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <Button
             variant={"secondary"}

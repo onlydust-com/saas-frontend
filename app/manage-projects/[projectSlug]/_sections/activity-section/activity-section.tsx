@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 
 import { Contributions } from "@/app/manage-projects/[projectSlug]/features/contributions/contributions";
 import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/contributors-table/contributors-table";
+import { RewardsTable } from "@/app/manage-projects/[projectSlug]/features/rewards-table/rewards-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -32,7 +33,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
       return <Contributions projectId={projectId} />;
     }
 
-    return <p>Rewards</p>;
+    return <RewardsTable />;
   }, [toggleFinancialViews]);
 
   function handleToggleActivityViews(view: string) {
