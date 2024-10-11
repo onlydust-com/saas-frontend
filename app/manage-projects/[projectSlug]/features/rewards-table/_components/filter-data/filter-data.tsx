@@ -1,10 +1,9 @@
 import { useProjectRewardsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.hooks";
 
-import { bootstrap } from "@/core/bootstrap";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
+import { CurrencyFilter } from "@/shared/features/filters/currency-filter/currency-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -14,7 +13,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { useFilterData } from "./filter-data.context";
 
 export function FilterData() {
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useProjectRewardsFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
@@ -35,6 +33,7 @@ export function FilterData() {
             setFilters({ contributors: users.map(user => Number(user)) });
           }}
         />
+        <CurrencyFilter selectedCurrencies={filters.currencies} onSelect={currencies => setFilters({ currencies })} />
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
