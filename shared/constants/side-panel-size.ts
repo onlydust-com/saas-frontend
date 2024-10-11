@@ -1,6 +1,7 @@
 export const SIDE_PANEL_SIZE = {
   m: 384,
   l: 448,
+  xl: 640,
 } as const;
 
 export const SIDE_PANEL_TW_SIZE = {

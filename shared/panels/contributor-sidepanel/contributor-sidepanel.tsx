@@ -31,6 +31,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     login = "",
     githubId = 0,
     canGoBack,
+    type = "extended",
   } = useSinglePanelData<ContributorSidepanelData>(name) ?? {
     login: undefined,
     githubId: undefined,
@@ -87,7 +88,8 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
             <Languages githubId={data.githubUserId} />
             <Ecosystems githubId={data.githubUserId} />
             <RewardsGraph githubId={data.githubUserId} />
-            <Activity githubId={data.githubUserId} />
+            {/*// TODO CONDITION USAGE SANDBOX*/}
+            {type !== "extended" && <Activity githubId={data.githubUserId} />}
           </>
         ) : null}
       </div>

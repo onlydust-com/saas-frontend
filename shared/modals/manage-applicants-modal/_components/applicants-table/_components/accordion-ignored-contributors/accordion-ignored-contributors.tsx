@@ -15,7 +15,7 @@ import { AccordionIgnoredContributorsProps } from "@/shared/modals/manage-applic
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionIgnoredContributors({ projectId, queryParams, columns }: AccordionIgnoredContributorsProps) {
-  const { open: openContributor } = useContributorSidePanel({ width: SIDE_PANEL_SIZE.l });
+  const { open: openContributor } = useContributorSidePanel({ type: "compact", width: SIDE_PANEL_SIZE.l });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ApplicationReactQueryAdapter.client.useGetApplications({
       queryParams: { ...queryParams, isIgnored: true },
