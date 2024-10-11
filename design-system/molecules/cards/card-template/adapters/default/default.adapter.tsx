@@ -31,8 +31,8 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
       size={size}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
-      <div className="flex w-full flex-col gap-3 overflow-hidden">
-        <div className="flex items-start justify-between gap-md">
+      <div className={"grid w-full gap-lg"}>
+        <div className={"flex justify-between gap-md"}>
           <div className={"flex gap-lg"}>
             {avatarProps ? <Avatar size="sm" {...avatarProps} /> : null}
 
@@ -42,7 +42,7 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
             </div>
           </div>
 
-          {actionSlot ? <div className="flex-1 overflow-hidden">{actionSlot}</div> : null}
+          {actionSlot ? <div className="w-fit overflow-hidden">{actionSlot}</div> : null}
         </div>
 
         {contentSlot ? <div>{contentSlot}</div> : null}
