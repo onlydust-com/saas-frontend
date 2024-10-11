@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import { UserOverviewInterface } from "@/core/domain/user/models/user-overview-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
 
 import { BadgePort } from "@/design-system/atoms/badge";
@@ -10,8 +11,8 @@ type HeaderProps = {
   badgeProps?: BadgePort<"span">;
 };
 
-export interface ProfileCardProps {
-  user: UserPublicInterface;
+export interface ContributorProfileExtendedProps {
+  user: UserPublicInterface | UserOverviewInterface;
   headerProps?: HeaderProps;
   footerContent?: ReactNode;
 }

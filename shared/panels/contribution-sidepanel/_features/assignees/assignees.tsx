@@ -4,7 +4,7 @@ import { ContributionReactQueryAdapter } from "@/core/application/react-query-ad
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
+import { ContributorProfileCompact } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { AssigneesProps } from "./assignees.types";
@@ -59,13 +59,13 @@ export function Assignees({ contributors, contributionId, showRemove, type }: As
   return (
     <div className={"flex flex-col gap-lg"}>
       {contributors?.map(contributor => (
-        <ProfileCard
+        <ContributorProfileCompact
           key={contributor.githubUserId}
           headerProps={{
             headerLabel: { translate: title },
             badgeProps: { children: "2 days ago", color: "success" },
           }}
-          user={contributor.toPublicModel()}
+          user={contributor}
           footerContent={removeContributorButton(contributor.githubUserId)}
         />
       ))}

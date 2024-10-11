@@ -2,13 +2,8 @@ import { useMemo } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-
-import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
-import { SocialLinkTranslate } from "@/shared/features/social-link/social-translate/social-translate";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ContributorProfileCompactProps } from "./contributor-profile-compact.types";
 
@@ -25,9 +20,6 @@ export function ContributorProfileCompact({ user, headerProps, footerContent }: 
     return null;
   }, [headerProps]);
 
-  const showRankPercentile = user.rank.shouldShowRankPercentile();
-  const userRank = user.rank.getRank();
-
   return (
     <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
       {renderHeader}
@@ -38,42 +30,10 @@ export function ContributorProfileCompact({ user, headerProps, footerContent }: 
             {user.login}
           </Typo>
           <Typo as={"div"} size={"sm"} color={"tertiary"}>
-            {user.rank.getTitle().wording}
-            {userRank ? ` • ${userRank}` : null}
-            {showRankPercentile ? (
-              <>
-                {" • "}
-                <Translate token={"panels:contributor.rank"} count={user.rank.rankPercentile} />
-              </>
-            ) : null}
+            {user.rank.getRankSummary()}
           </Typo>
         </div>
       </div>
-      {user.bio && (
-        <Typo size={"xs"} color={"secondary"}>
-          {user.bio}
-        </Typo>
-      )}
-      {user.contacts?.length ? (
-        <div className={"flex w-full flex-row flex-wrap gap-md"}>
-          {user.contacts.map(contact => (
-            <Button
-              key={contact.contact}
-              as={"a"}
-              size={"sm"}
-              variant={"secondary"}
-              htmlProps={{
-                href: contact.contact,
-                target: "_blank",
-                rel: "noreferrer",
-              }}
-              startContent={<SocialIconLink url={contact.contact} />}
-            >
-              <SocialLinkTranslate url={contact.contact} />
-            </Button>
-          ))}
-        </div>
-      ) : null}
       {footerContent}
     </Paper>
   );

@@ -8,7 +8,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
+import { ContributorProfileExtended } from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -80,7 +80,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
 
     return (
       <div className={"flex w-full flex-col gap-lg"}>
-        <ProfileCard user={data} />
+        <ContributorProfileExtended user={data} />
         <Kpi user={data} />
         {data?.githubUserId ? (
           <>

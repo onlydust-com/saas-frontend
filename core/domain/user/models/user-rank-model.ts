@@ -15,6 +15,7 @@ export interface UserRankInterface extends UserRankInterfaceContract {
     emoji?: string;
     full?: string;
   };
+  getRankSummary(): string;
 }
 
 export class UserRank implements UserRankInterface {
@@ -72,5 +73,21 @@ export class UserRank implements UserRankInterface {
 
   shouldShowRankPercentile() {
     return !!this.rankPercentile && this.rankPercentile !== 100;
+  }
+
+  getRankSummary() {
+    const title = this.getTitle().wording ?? "";
+    const rank = this.getRank();
+    let summary = `${title}`;
+
+    if (rank) {
+      summary += ` • ${rank}`;
+    }
+
+    if (this.shouldShowRankPercentile()) {
+      summary += ` • Top ${this.rankPercentile}%`;
+    }
+
+    return summary;
   }
 }
