@@ -5,7 +5,7 @@ import { ContributorSidepanelData } from "@/shared/panels/contributor-sidepanel/
 
 export function useContributorSidePanel(config?: SidePanelConfig) {
   return useSinglePanelContext<ContributorSidepanelData>("contributor-detail", {
-    width: SIDE_PANEL_SIZE.xl,
+    width: SIDE_PANEL_SIZE["3xl"],
     ...config,
   });
 }

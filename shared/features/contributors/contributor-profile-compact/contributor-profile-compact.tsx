@@ -6,12 +6,13 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { ProfileCardProps } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card.types";
 import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
 import { SocialLinkTranslate } from "@/shared/features/social-link/social-translate/social-translate";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProfileCard({ user, headerProps, footerContent }: ProfileCardProps) {
+import { ContributorProfileCompactProps } from "./contributor-profile-compact.types";
+
+export function ContributorProfileCompact({ user, headerProps, footerContent }: ContributorProfileCompactProps) {
   const renderHeader = useMemo(() => {
     if (headerProps) {
       return (
