@@ -16,6 +16,7 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
+import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -28,10 +29,13 @@ export type RewardsTableFilters = Omit<
 
 export function RewardsTable() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const [search, setSearch] = useState<string>();
+  const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
 
   const queryParams: Partial<GetProjectRewardsQueryParams> = {
+    search: debouncedSearch,
     sort: "REQUESTED_AT",
     ...filters,
   };
@@ -103,6 +107,7 @@ export function RewardsTable() {
             }}
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         </nav>
         <ScrollView direction={"x"}>
           <Table
