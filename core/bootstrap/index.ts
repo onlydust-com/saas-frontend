@@ -39,6 +39,8 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { IdAdapter } from "@/core/kernel/id/id-adapter";
+import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
@@ -88,6 +90,7 @@ export interface BootstrapConstructor {
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
 }
 
 export class Bootstrap {
@@ -134,6 +137,7 @@ export class Bootstrap {
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -176,6 +180,7 @@ export class Bootstrap {
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
+    this.idKernelPort = constructor.idKernelPort;
   }
 
   getAuthProvider() {
@@ -354,6 +359,10 @@ export class Bootstrap {
     return this.urlKernelPort;
   }
 
+  getIdKernelPort() {
+    return this.idKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -397,6 +406,7 @@ export class Bootstrap {
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
+        idKernelPort: IdAdapter,
       });
     }
 

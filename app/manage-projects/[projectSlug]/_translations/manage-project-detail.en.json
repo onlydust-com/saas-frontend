@@ -95,20 +95,6 @@
       "status": "Status"
     },
     "rows": {},
-    "rewardsCount": "Rewards",
-    "statuses": {
-      "pendingSignup": "Pending signup",
-      "pendingContributor": "Pending contributor",
-      "pendingBillingProfile": "Pending billing profile",
-      "pendingCompany": "Pending company",
-      "pendingVerification": "Pending verification",
-      "geoBlocked": "Geo blocked",
-      "individualLimitReached": "Individual limit reached",
-      "payoutInfoMissing": "Payout info missing",
-      "locked": "Locked",
-      "pendingRequest": "Pending request",
-      "processing": "Processing",
-      "complete": "Complete"
-    }
+    "rewardsCount": "Rewards"
   }
 }

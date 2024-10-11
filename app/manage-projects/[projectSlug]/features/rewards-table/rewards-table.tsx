@@ -3,9 +3,9 @@ import { Filter } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
-import { FilterData } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data.context";
+import { useFilterColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.hooks";
+import { FilterData } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data";
+import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.context";
 import { useProjectRewardsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.hooks";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -70,7 +70,7 @@ export function RewardsTable() {
   const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
   const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
+  const { columns } = useFilterColumns();
 
   const table = useReactTable({
     data: rewards,
