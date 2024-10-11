@@ -1,6 +1,6 @@
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
-export function ProfileCardLoading() {
+export function ContributorProfileCompactLoading() {
   return (
     <Skeleton
       classNames={{
