@@ -1,4 +1,4 @@
-import { Transactions } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/components/transactions-sidepanel/transactions/transactions";
+import { Transactions } from "@/app/programs/[programId]/_features/transactions-sidepanel/transactions/transactions";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
