@@ -14,12 +14,6 @@ export class RewardClientAdapterMock implements RewardStoragePort {
 
   createRewards = mockHttpStorageResponse<RewardStoragePort["createRewards"]>;
 
-  getProjectRewardableItems = mockHttpStorageResponse<RewardStoragePort["getProjectRewardableItems"]>;
-
-  getAllCompletedProjectRewardableItems = mockHttpStorageResponse<
-    RewardStoragePort["getAllCompletedProjectRewardableItems"]
-  >;
-
   addOtherWork = mockHttpStorageResponse<RewardStoragePort["addOtherWork"]>;
 
   addOtherPullRequest = mockHttpStorageResponse<RewardStoragePort["addOtherPullRequest"]>;
