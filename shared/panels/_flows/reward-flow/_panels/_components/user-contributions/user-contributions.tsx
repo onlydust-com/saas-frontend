@@ -24,6 +24,7 @@ import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_componen
 import { FilterDataProvider } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.context";
 import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.hooks";
 import { UserContributionsProps } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions.types";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 export type UserContributionsFilters = Omit<
   NonNullable<GetContributionsPortParams["queryParams"]>,
@@ -31,6 +32,7 @@ export type UserContributionsFilters = Omit<
 >;
 
 export function UserContributions({ githubUserId }: UserContributionsProps) {
+  const { selectedContributionIds, setSelectedContributionIds } = useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -59,6 +61,20 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
+  function handleSelectAll() {
+    setSelectedContributionIds(contributions.map(contribution => contribution.id));
+  }
+
+  function handleSelect(contributionId: string, isSelected: boolean) {
+    setSelectedContributionIds((prevState = []) => {
+      if (isSelected) {
+        return prevState.filter(id => id !== contributionId);
+      }
+
+      return [...prevState, contributionId];
+    });
+  }
+
   function renderContributions() {
     if (isLoading) {
       return <CardContributionKanbanLoading />;
@@ -72,25 +88,33 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
 
     return (
       <div className={"grid gap-lg"}>
-        {contributions.map(contribution => (
-          <CardContributionKanban
-            key={contribution.id}
-            type={contribution.type}
-            githubTitle={contribution.githubTitle}
-            githubStatus={contribution.githubStatus}
-            githubNumber={contribution.githubNumber}
-            lastUpdatedAt={contribution.lastUpdatedAt}
-            rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
-            contributors={contribution.contributors}
-            linkedIssues={contribution.linkedIssues}
-            githubLabels={contribution.githubLabels}
-            actions={[
-              {
-                translate: { token: "common:select" },
-              },
-            ]}
-          />
-        ))}
+        {contributions.map(contribution => {
+          const isSelected = selectedContributionIds?.includes(contribution.id) ?? false;
+
+          return (
+            <CardContributionKanban
+              key={contribution.id}
+              type={contribution.type}
+              githubTitle={contribution.githubTitle}
+              githubStatus={contribution.githubStatus}
+              githubNumber={contribution.githubNumber}
+              lastUpdatedAt={contribution.lastUpdatedAt}
+              rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
+              contributors={contribution.contributors}
+              linkedIssues={contribution.linkedIssues}
+              githubLabels={contribution.githubLabels}
+              actions={[
+                {
+                  translate: { token: isSelected ? "common:unselect" : "common:select" },
+                  onClick: () => {
+                    handleSelect(contribution.id, isSelected);
+                  },
+                },
+              ]}
+              border={isSelected ? "brand-primary" : undefined}
+            />
+          );
+        })}
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </div>
     );
@@ -121,6 +145,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
               translate={{
                 token: "common:selectAll",
               }}
+              onClick={handleSelectAll}
             />
 
             <Button

@@ -6,6 +6,7 @@ import {
 } from "@/core/domain/contribution/models/contribution.types";
 
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
+import { PaperPort } from "@/design-system/atoms/paper";
 
 interface Variants {}
 
@@ -41,4 +42,5 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   }[];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
+  border?: PaperPort<"div">["border"];
 }

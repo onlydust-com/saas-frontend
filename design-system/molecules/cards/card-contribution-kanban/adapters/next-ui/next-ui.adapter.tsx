@@ -34,6 +34,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   githubLabels,
   actions,
   onClick,
+  border = "primary",
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
@@ -188,7 +189,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       }}
       size={"lg"}
       background={"secondary"}
-      border={"primary"}
+      border={border}
       onClick={onClick}
     >
       <header className={"flex items-start justify-between gap-lg"}>
