@@ -11,6 +11,7 @@ export function PayoutStatus({ status }: PayoutStatusProps) {
       color={"grey"}
       translate={{ token: PayoutStatusMapping[status].label }}
       startContent={<Icon {...PayoutStatusMapping[status].icon} classNames={{ base: "text-text-2" }} />}
+      classNames={{ base: "w-fit" }}
     />
   );
 }

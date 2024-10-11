@@ -110,9 +110,6 @@ export function RewardsTable() {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            classNames={{
-              base: "min-w-[1200px]",
-            }}
             // TODO handle reward detail sidepanel
             // onRowClick={row => {
             //   openRewardDetail({ ..... });

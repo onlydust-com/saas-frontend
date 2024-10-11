@@ -36,7 +36,7 @@ export function useFilterColumns() {
 
         return (
           <Typo size={"sm"} color={"quaternary"}>
-            {dateKernelPort.format(new Date(requestedAt), "MMMM yyyy")}
+            {dateKernelPort.format(new Date(requestedAt), "dd/MM/yyyy")}
           </Typo>
         );
       },
@@ -65,7 +65,7 @@ export function useFilterColumns() {
                 src: rewardedUser.avatarUrl,
               },
             ]}
-            shape={"squared"}
+            shape={"rounded"}
             title={{ children: rewardedUser.login }}
           />
         );
@@ -106,6 +106,7 @@ export function useFilterColumns() {
             ]}
             title={{ children: `${value.amount} ${value.currency.code}` }}
             description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
+            classNames={{ base: "w-fit" }}
           />
         );
       },
