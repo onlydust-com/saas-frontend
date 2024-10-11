@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-export const TimelineContributionDefaultVariants = tv({
+export const TimelineContributionNextUiVariants = tv({
   slots: {
     base: "p-0",
   },

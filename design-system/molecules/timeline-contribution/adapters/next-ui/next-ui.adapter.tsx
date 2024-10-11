@@ -9,15 +9,15 @@ import { ContributionInline } from "@/design-system/molecules/contribution-inlin
 import { cn } from "@/shared/helpers/cn";
 
 import { TimelineContributionPort } from "../../timeline-contribution.types";
-import { TimelineContributionDefaultVariants } from "./default.variants";
+import { TimelineContributionNextUiVariants } from "./next-ui.variants";
 
-export function TimelineContributionDefaultAdapter({
+export function TimelineContributionNextUiAdapter({
   classNames,
   titleProps,
   badgeProps,
   contributions,
 }: TimelineContributionPort) {
-  const slots = TimelineContributionDefaultVariants();
+  const slots = TimelineContributionNextUiVariants();
 
   return (
     <Accordion showDivider={false} className={cn(slots.base(), classNames?.base)}>
@@ -46,18 +46,7 @@ export function TimelineContributionDefaultAdapter({
 
           <ul className="grid gap-sm">
             {contributions.map(contribution => {
-              return (
-                <ContributionInline
-                  key={contribution.githubTitle}
-                  contributionBadgeProps={{
-                    type: contribution.contributionBadgeProps.type,
-                    githubStatus: contribution.contributionBadgeProps.githubStatus,
-                    number: contribution.contributionBadgeProps.number,
-                  }}
-                  githubTitle={contribution.githubTitle}
-                  truncate
-                />
-              );
+              return <ContributionInline key={contribution.githubTitle} {...contribution} truncate />;
             })}
           </ul>
         </div>
