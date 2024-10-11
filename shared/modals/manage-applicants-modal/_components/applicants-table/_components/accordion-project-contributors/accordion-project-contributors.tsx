@@ -15,7 +15,7 @@ import { AccordionProjectContributorsProps } from "@/shared/modals/manage-applic
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
 export function AccordionProjectContributors({ projectId, queryParams, columns }: AccordionProjectContributorsProps) {
-  const { open: openContributor } = useContributorSidePanel({ width: SIDE_PANEL_SIZE.l });
+  const { open: openContributor } = useContributorSidePanel({ type: "compact", width: SIDE_PANEL_SIZE.l });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ApplicationReactQueryAdapter.client.useGetApplications({
       queryParams: { ...queryParams, isApplicantProjectMember: true },
