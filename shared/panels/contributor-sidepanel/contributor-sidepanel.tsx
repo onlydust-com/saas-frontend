@@ -81,13 +81,16 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     return (
       <div className={"flex w-full flex-col gap-lg"}>
         <ContributorProfileExtended user={data} />
-        <Kpi user={data} />
         {data?.githubUserId ? (
           <>
-            <Languages githubId={data.githubUserId} />
-            <Ecosystems githubId={data.githubUserId} />
-            <RewardsGraph githubId={data.githubUserId} />
-            {/*// TODO CONDITION USAGE SANDBOX*/}
+            <div className={"flex flex-row gap-lg"}>
+              <Languages githubId={data.githubUserId} />
+              <Ecosystems githubId={data.githubUserId} />
+            </div>
+            <div className={"flex flex-row gap-lg"}>
+              <Kpi user={data} />
+              <RewardsGraph githubId={data.githubUserId} />
+            </div>
             <Activity githubId={data.githubUserId} />
           </>
         ) : null}
