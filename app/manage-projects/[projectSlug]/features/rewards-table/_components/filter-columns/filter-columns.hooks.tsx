@@ -112,7 +112,7 @@ export function useFilterColumns() {
       },
     }),
     status: columnHelper.accessor("status", {
-      header: () => <Translate token={"data:deepDive.projectsTable.columns.percentUsedBudget"} />,
+      header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.status"} />,
       cell: info => {
         const status = info.getValue();
 

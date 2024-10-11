@@ -1,6 +1,6 @@
-import { BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
+import { RewardListItemResponse } from "@/core/domain/reward/models/reward-list-item-model";
 
 export interface FilterColumnsProps {
-  selectedIds?: Array<keyof BiProjectResponse>;
-  setSelectedIds: (ids: Array<keyof BiProjectResponse>) => void;
+  selectedIds?: Array<keyof RewardListItemResponse>;
+  setSelectedIds: (ids: Array<keyof RewardListItemResponse>) => void;
 }

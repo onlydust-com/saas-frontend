@@ -3,6 +3,7 @@ import { Filter } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
+import { FilterColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.context";
@@ -74,7 +75,7 @@ export function RewardsTable() {
   const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
   const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
 
-  const { columns } = useFilterColumns();
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
 
   const table = useReactTable({
     data: rewards,
@@ -108,6 +109,7 @@ export function RewardsTable() {
             endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
           />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
         <ScrollView direction={"x"}>
           <Table
