@@ -23,7 +23,7 @@
     "otherLabel": "Other"
   },
   "activity": {
-    "title": "Activity"
+    "title": "{{number}} contributions last year"
   },
   "seeContributor": "See public profile"
 }
