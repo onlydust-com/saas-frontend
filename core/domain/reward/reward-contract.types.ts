@@ -74,7 +74,7 @@ export type CreateRewardsPortParams = HttpClientParameters<{
 
 export type CreateRewardsPortResponse = HttpStorageResponse<CreateRewardsResponse, CreateRewardsBody>;
 
-/* ------------------------------ Delete Reward ------------------------------ */
+/* ------------------------------ Cancel project Reward ------------------------------ */
 
 type CancelRewardsPathParams = operations["cancelReward"]["parameters"]["path"];
 
