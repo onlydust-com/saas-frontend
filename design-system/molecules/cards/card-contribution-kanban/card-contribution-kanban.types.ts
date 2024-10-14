@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ElementType } from "react";
 
 import {
   ContributionGithubStatusUnion,
@@ -19,9 +19,7 @@ interface User {
   avatarUrl: string;
 }
 
-export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants> {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants>, Partial<PaperPort<C>> {
   classNames?: Partial<ClassNames>;
   type: ContributionTypeUnion;
   githubTitle: string;
@@ -42,5 +40,4 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   }[];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
-  border?: PaperPort<"div">["border"];
 }

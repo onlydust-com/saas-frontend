@@ -21,7 +21,6 @@ import { cn } from "@/shared/helpers/cn";
 export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div">({
   as,
   classNames,
-  htmlProps,
   type,
   githubStatus,
   githubTitle,
@@ -34,7 +33,10 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   githubLabels,
   actions,
   onClick,
+  size = "lg",
+  background = "secondary",
   border = "primary",
+  ...restProps
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
@@ -183,12 +185,12 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   return (
     <Paper
       as={Component}
-      {...htmlProps}
+      {...restProps}
       classNames={{
         base: cn(slots.base(), classNames?.base, { "cursor-pointer": Boolean(onClick) }),
       }}
-      size={"lg"}
-      background={"secondary"}
+      size={size}
+      background={background}
       border={border}
       onClick={onClick}
     >
