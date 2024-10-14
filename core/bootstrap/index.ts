@@ -402,7 +402,7 @@ export class Bootstrap {
         applicationStoragePortForClient: new ApplicationClientAdapter(new FetchHttpClient()),
         rewardStoragePortForServer: new RewardClientAdapter(new FetchHttpClient()),
         rewardStoragePortForClient: new RewardClientAdapter(new FetchHttpClient()),
-        dateKernelPort: DateFnsAdapter,
+        dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,

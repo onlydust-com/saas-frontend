@@ -8,6 +8,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { ActivityGraph } from "@/shared/features/contributors/activity-graph/activity-graph";
 import { ContributorProfileExtended } from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -81,14 +82,18 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     return (
       <div className={"flex w-full flex-col gap-lg"}>
         <ContributorProfileExtended user={data} />
-        <Kpi user={data} />
         {data?.githubUserId ? (
           <>
-            <Languages githubId={data.githubUserId} />
-            <Ecosystems githubId={data.githubUserId} />
-            <RewardsGraph githubId={data.githubUserId} />
-            {/*// TODO CONDITION USAGE SANDBOX*/}
+            <div className={"flex flex-row gap-lg"}>
+              <Languages githubId={data.githubUserId} />
+              <Ecosystems githubId={data.githubUserId} />
+            </div>
+            <div className={"flex flex-row gap-lg"}>
+              <Kpi user={data} />
+              <RewardsGraph githubId={data.githubUserId} />
+            </div>
             <Activity githubId={data.githubUserId} />
+            <ActivityGraph />
           </>
         ) : null}
       </div>
