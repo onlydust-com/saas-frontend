@@ -22,7 +22,6 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { useRewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel.hooks";
 
 export type RewardsTableFilters = Omit<
   NonNullable<GetProjectRewardsPortParams["queryParams"]>,
@@ -34,7 +33,7 @@ export function RewardsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
-  const { open } = useRewardDetailSidepanel();
+  // const { open } = useRewardDetailSidepanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
 
   const queryParams: Partial<GetProjectRewardsQueryParams> = {
@@ -119,9 +118,10 @@ export function RewardsTable() {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            onRowClick={row => {
-              open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
-            }}
+            // TODO @Mehdi enable reward detail sidepanel once feature ready
+            // onRowClick={row => {
+            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
+            // }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
