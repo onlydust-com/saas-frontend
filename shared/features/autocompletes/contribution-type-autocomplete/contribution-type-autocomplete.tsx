@@ -17,7 +17,7 @@ export function ContributionTypeAutocomplete({
 }: ContributionTypeAutocompleteProps) {
   const { t } = useTranslation("common");
 
-  const contributionTypesItems: MenuItemPort[] = useMemo(() => {
+  const contributionTypesItems: MenuItemPort<ContributionTypeUnion>[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
         label: t("contributionType.PULL_REQUEST"),
@@ -36,12 +36,12 @@ export function ContributionTypeAutocomplete({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as ContributionTypeUnion[]);
+  function handleSelect(ids: MenuItemId<ContributionTypeUnion>[]) {
+    onSelect?.(ids);
   }
 
   return (
-    <Select
+    <Select<ContributionTypeUnion>
       items={contributionTypesItems}
       isAutoComplete={true}
       onSelect={handleSelect}
