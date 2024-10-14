@@ -74,52 +74,6 @@ export type CreateRewardsPortParams = HttpClientParameters<{
 
 export type CreateRewardsPortResponse = HttpStorageResponse<CreateRewardsResponse, CreateRewardsBody>;
 
-/* ------------------------------ Get Project Rewardable Items ------------------------------ */
-
-export type GetProjectRewardableItemsResponse = components["schemas"]["RewardableItemsPageResponse"];
-
-export type GetProjectRewardableItemsModel = Omit<GetProjectRewardableItemsResponse, "rewardableItems"> & {
-  rewardableItems: RewardableItemInterface[];
-};
-
-type GetProjectRewardableItemsPathParams = operations["getProjectRewardableContributions"]["parameters"]["path"];
-
-type GetProjectRewardableItemsQueryParams = operations["getProjectRewardableContributions"]["parameters"]["query"];
-
-export type GetProjectRewardableItemsPortResponse = HttpStorageResponse<GetProjectRewardableItemsModel>;
-
-export type GetProjectRewardableItemsPortParams = HttpClientParameters<{
-  PathParams: GetProjectRewardableItemsPathParams;
-  QueryParams: GetProjectRewardableItemsQueryParams;
-}>;
-
-/* ------------------------------ Get All Completed Project Rewardable Items ------------------------------ */
-
-export type GetAllCompletedProjectRewardableItemsResponse = components["schemas"]["AllRewardableItemsResponse"];
-
-export type GetAllCompletedProjectRewardableItemsModel = Omit<
-  GetAllCompletedProjectRewardableItemsResponse,
-  "rewardableIssues" | "rewardablePullRequests" | "rewardableCodeReviews"
-> & {
-  rewardableIssues: RewardableItemInterface[];
-  rewardablePullRequests: RewardableItemInterface[];
-  rewardableCodeReviews: RewardableItemInterface[];
-};
-
-type GetAllCompletedProjectRewardableItemsPathParams =
-  operations["getAllCompletedProjectRewardableContributions"]["parameters"]["path"];
-
-type GetAllCompletedProjectRewardableItemsQueryParams =
-  operations["getAllCompletedProjectRewardableContributions"]["parameters"]["query"];
-
-export type GetAllCompletedProjectRewardableItemsPortResponse =
-  HttpStorageResponse<GetAllCompletedProjectRewardableItemsModel>;
-
-export type GetAllCompletedProjectRewardableItemsPortParams = HttpClientParameters<{
-  PathParams: GetAllCompletedProjectRewardableItemsPathParams;
-  QueryParams: GetAllCompletedProjectRewardableItemsQueryParams;
-}>;
-
 /* ------------------------------ Add Other Work ------------------------------ */
 
 export type AddOtherWorkResponse = components["schemas"]["RewardableItemResponse"];

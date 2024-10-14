@@ -1,4 +1,6 @@
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
+
 export interface ContributionTypeFilterProps {
-  selectedContributionType?: string[];
-  onSelect?: (contributionType: string[]) => void;
+  selectedContributionType?: ContributionTypeUnion[];
+  onSelect?: (contributionTypes: ContributionTypeUnion[]) => void;
 }

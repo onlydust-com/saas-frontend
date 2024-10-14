@@ -1,7 +1,6 @@
 import { RewardItem } from "@/core/domain/reward/models/reward-item-model";
 import { RewardListItem } from "@/core/domain/reward/models/reward-list-item-model";
 import { Reward } from "@/core/domain/reward/models/reward-model";
-import { RewardableItem } from "@/core/domain/reward/models/rewardable-item-model";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
 import {
   AddOtherIssueBody,
@@ -12,10 +11,8 @@ import {
   AddOtherWorkResponse,
   CreateRewardsBody,
   CreateRewardsResponse,
-  GetAllCompletedProjectRewardableItemsResponse,
   GetProjectRewardItemsResponse,
   GetProjectRewardResponse,
-  GetProjectRewardableItemsResponse,
   GetProjectRewardsResponse,
 } from "@/core/domain/reward/reward-contract.types";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
@@ -30,8 +27,6 @@ export class RewardClientAdapter implements RewardStoragePort {
     getProjectReward: "projects/:projectId/rewards/:rewardId",
     getProjectRewardItems: "projects/:projectId/rewards/:rewardId/reward-items",
     createRewards: "projects/:projectId/rewards",
-    getProjectRewardableItems: "projects/:projectId/rewardable-items",
-    getAllCompletedProjectRewardableItems: "projects/:projectId/rewardable-items/all-completed",
     addOtherWork: "projects/:projectId/rewardable-items/other-works",
     addOtherPullRequest: "projects/:projectId/rewardable-items/other-pull-requests",
     addOtherIssue: "projects/:projectId/rewardable-items/other-issues",
@@ -122,68 +117,6 @@ export class RewardClientAdapter implements RewardStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  getProjectRewardableItems = ({
-    queryParams,
-    pathParams,
-  }: FirstParameter<RewardStoragePort["getProjectRewardableItems"]>) => {
-    const path = this.routes["getProjectRewardableItems"];
-    const method = "GET";
-    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
-    const request = async () => {
-      const data = await this.client.request<GetProjectRewardableItemsResponse>({
-        path,
-        method,
-        tag,
-        queryParams,
-        pathParams,
-      });
-
-      return {
-        ...data,
-        rewardableItems: data.rewardableItems.map(rewardableItem => new RewardableItem(rewardableItem)),
-      };
-    };
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  getAllCompletedProjectRewardableItems = ({
-    queryParams,
-    pathParams,
-  }: FirstParameter<RewardStoragePort["getAllCompletedProjectRewardableItems"]>) => {
-    const path = this.routes["getAllCompletedProjectRewardableItems"];
-    const method = "GET";
-    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
-    const request = async () => {
-      const data = await this.client.request<GetAllCompletedProjectRewardableItemsResponse>({
-        path,
-        method,
-        tag,
-        queryParams,
-        pathParams,
-      });
-
-      return {
-        ...data,
-        rewardableIssues: data.rewardableIssues.map(rewardableIssue => new RewardableItem(rewardableIssue)),
-        rewardablePullRequests: data.rewardablePullRequests.map(
-          rewardablePullRequest => new RewardableItem(rewardablePullRequest)
-        ),
-        rewardableCodeReviews: data.rewardableCodeReviews.map(
-          rewardableCodeReview => new RewardableItem(rewardableCodeReview)
-        ),
-      };
-    };
 
     return {
       request,

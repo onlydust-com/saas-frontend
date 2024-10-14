@@ -61,5 +61,11 @@
   "projects": "Projects +{{count}}",
   "users": "Users +{{count}}",
   "categories": "Categories +{{count}}",
-  "search": "Search"
+  "search": "Search",
+  "contributions": "Contributions",
+  "select": "Select",
+  "unselect": "Unselect",
+  "selectAll": "Select all",
+  "next": "Next",
+  "back": "Back"
 }
