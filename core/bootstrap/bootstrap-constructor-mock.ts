@@ -8,6 +8,7 @@ import { CurrencyClientAdapterMock } from "@/core/infrastructure/marketplace-api
 import { DepositClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/deposit-client-adapter-mock";
 import { EcosystemClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/ecosystem-client-adapter-mock";
 import { GithubClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/github-client-adapter-mock";
+import { IssueClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/issue-client-adapter-mock";
 import { LanguagesClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/languages-client-adapter-mock";
 import { MeClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/me-client-adapter-mock";
 import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/notification-client-adapter-mock";
@@ -19,6 +20,7 @@ import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
 import { FileAdapterMock } from "@/core/kernel/file/file-adapter-mock";
+import { IdAdapterMock } from "@/core/kernel/id/id-adapter-mock";
 import { MoneyAdapterMock } from "@/core/kernel/money/money-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 
@@ -59,8 +61,11 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   applicationStoragePortForServer: new ApplicationClientAdapterMock(),
   rewardStoragePortForClient: new RewardClientAdapterMock(),
   rewardStoragePortForServer: new RewardClientAdapterMock(),
+  issueStoragePortForClient: new IssueClientAdapterMock(),
+  issueStoragePortForServer: new IssueClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   fileKernelPort: new FileAdapterMock(),
   urlKernelPort: UrlAdapterMock,
+  idKernelPort: IdAdapterMock,
 };

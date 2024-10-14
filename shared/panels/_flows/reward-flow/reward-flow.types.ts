@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 
 export interface RewardFlowContextProps extends PropsWithChildren {
   projectId?: string;
@@ -7,6 +7,7 @@ export interface RewardFlowContextProps extends PropsWithChildren {
 export interface startFlowProps {
   githubUserIds: number[];
   issueIds: string[];
+  contributionIds?: string[];
 }
 
 export interface RewardFlowContextInterface {
@@ -14,4 +15,6 @@ export interface RewardFlowContextInterface {
   open: (props: startFlowProps) => void;
   selectedGithubUserIds: number[];
   selectedIssueIds: string[];
+  selectedContributionIds?: string[];
+  setSelectedContributionIds: ReturnType<typeof useState<string[] | undefined>>[1];
 }

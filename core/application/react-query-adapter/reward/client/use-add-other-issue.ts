@@ -13,6 +13,7 @@ export function useAddOtherIssue({
   options,
 }: UseMutationFacadeParams<RewardFacadePort["addOtherIssue"], undefined, AddOtherIssueModel, AddOtherIssueBody> = {}) {
   const rewardStoragePort = bootstrap.getRewardStoragePortForClient();
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -21,20 +22,10 @@ export function useAddOtherIssue({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (pathParams?.projectId) {
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getProjectRewardableItems({ pathParams: { projectId: pathParams.projectId } })
-                .tag,
-              exact: false,
-            });
-
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getAllCompletedProjectRewardableItems({
-                pathParams: { projectId: pathParams.projectId },
-              }).tag,
-              exact: false,
-            });
-          }
+          await queryClient.invalidateQueries({
+            queryKey: contributionStoragePort.getContributions({}).tag,
+            exact: false,
+          });
 
           options?.onSuccess?.(data, variables, context);
         },

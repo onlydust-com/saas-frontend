@@ -8,7 +8,8 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { ProfileCard } from "@/shared/features/contributors/contributor-overview/profile-card/profile-card";
+import { ActivityGraph } from "@/shared/features/contributors/activity-graph/activity-graph";
+import { ContributorProfileExtended } from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -80,14 +81,19 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
 
     return (
       <div className={"flex w-full flex-col gap-lg"}>
-        <ProfileCard user={data} />
-        <Kpi user={data} />
+        <ContributorProfileExtended user={data} />
         {data?.githubUserId ? (
           <>
-            <Languages githubId={data.githubUserId} />
-            <Ecosystems githubId={data.githubUserId} />
-            <RewardsGraph githubId={data.githubUserId} />
+            <div className={"flex flex-row gap-lg"}>
+              <Languages githubId={data.githubUserId} />
+              <Ecosystems githubId={data.githubUserId} />
+            </div>
+            <div className={"flex flex-row gap-lg"}>
+              <Kpi user={data} />
+              <RewardsGraph githubId={data.githubUserId} />
+            </div>
             <Activity githubId={data.githubUserId} />
+            <ActivityGraph />
           </>
         ) : null}
       </div>

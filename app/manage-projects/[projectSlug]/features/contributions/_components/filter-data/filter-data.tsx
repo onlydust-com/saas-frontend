@@ -40,10 +40,7 @@ export function FilterData() {
           selectedLabel={filters.projectContributorLabelIds}
           onSelect={(labels: string[]) => setFilters({ projectContributorLabelIds: labels })}
         />
-        <ProjectRepoFilter
-          selectedRepo={filters.repoIds?.map(id => id.toString())}
-          onSelect={(repos: string[]) => setFilters({ repoIds: repos.map(repo => Number(repo)) })}
-        />
+        <ProjectRepoFilter selectedRepo={filters.repoIds} onSelect={repoIds => setFilters({ repoIds })} />
         <RewardedFilter
           selectedRewardedType={
             filters.hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED]

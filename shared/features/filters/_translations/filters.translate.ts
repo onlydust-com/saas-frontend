@@ -2,10 +2,12 @@ import enAverageRewardCount from "../average-reward-count-filter/average-reward-
 import enBudgetAvailableCount from "../budget-available-count-filter/budget-available-count-filter.en.json";
 import enBudgetUsedCount from "../budget-used-count-filter/budget-used-count-filter.en.json";
 import enCategory from "../category-filter/category-filter.en.json";
+import enContributionType from "../contribution-type-filter/contribution-type-filter.en.json";
 import enContributionActivity from "../contributions-activity-filter/contributions-activity-filter.en.json";
 import enContributorLabel from "../contributor-label-filter/contributor-label-filter.en.json";
 import enContributorProject from "../contributor-project-filter/contributor-project-filter.en.json";
 import enCountry from "../country-filter/country-filter.en.json";
+import enCurrency from "../currency-filter/currency-filter.en.json";
 import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter.en.json";
 import enEcosystem from "../ecosystem-filter/ecosystem-filter.en.json";
 import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
@@ -30,9 +32,11 @@ export const enFiltersTranslations = {
     contributorLabel: enContributorLabel,
     projectRepo: enProjectRepo,
     language: enLanguage,
+    currency: enCurrency,
     country: enCountry,
     category: enCategory,
     userType: enUserType,
+    contributionType: enContributionType,
     rewarded: enRewarded,
     contributionActivity: enContributionActivity,
     prMergedCount: enPrMergedCount,

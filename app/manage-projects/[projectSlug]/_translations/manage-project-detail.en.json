@@ -32,7 +32,8 @@
     "titles": {
       "project": "Projects filters",
       "contributor": "Filter contributors",
-      "contribution": "Filter contributions"
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
     },
     "save": "Validate",
     "reset": "Reset filters"
@@ -77,5 +78,23 @@
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
     }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "rows": {},
+    "rewardsCount": "Rewards"
   }
 }

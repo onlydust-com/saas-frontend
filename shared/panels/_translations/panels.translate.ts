@@ -1,3 +1,4 @@
+import enSingleContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/_translations/single-contribution-selection.en.json";
 import enAllocateProgram from "@/shared/panels/allocate-program-sidepanel/_translations/allocate-program-sidepanel.en.json";
 import enContribution from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.en.json";
 import enContributor from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.en.json";
@@ -10,6 +11,7 @@ import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
 import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
+import enRewardDetail from "@/shared/panels/reward-detail-sidepanel/_translations/reward-detail-sidepanel.en.json";
 
 export const enPanelsTranslation = {
   panels: {
@@ -25,5 +27,7 @@ export const enPanelsTranslation = {
     contributor: enContributor,
     program: enProgramDetail,
     financialDetail: enFinancialDetail,
+    rewardDetail: enRewardDetail,
+    singleContributionSelection: enSingleContributionSelection,
   },
 };

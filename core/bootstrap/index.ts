@@ -7,6 +7,7 @@ import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-stor
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
 import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
+import { IssueStoragePort } from "@/core/domain/issue/outputs/issue-storage-port";
 import { LanguageStoragePort } from "@/core/domain/language/outputs/language-storage-port";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
@@ -25,6 +26,7 @@ import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-cli
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { EcosystemClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/ecosystem-client-adapter";
 import { GithubClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/github-client-adapter";
+import { IssueClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/issue-client-adapter";
 import { LanguageClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/language-client-adapter";
 import { MeClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/me-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
@@ -39,6 +41,8 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { IdAdapter } from "@/core/kernel/id/id-adapter";
+import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
@@ -84,10 +88,13 @@ export interface BootstrapConstructor {
   applicationStoragePortForServer: ApplicationStoragePort;
   rewardStoragePortForClient: RewardStoragePort;
   rewardStoragePortForServer: RewardStoragePort;
+  issueStoragePortForClient: IssueStoragePort;
+  issueStoragePortForServer: IssueStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
 }
 
 export class Bootstrap {
@@ -130,10 +137,13 @@ export class Bootstrap {
   applicationStoragePortForServer: ApplicationStoragePort;
   rewardStoragePortForClient: RewardStoragePort;
   rewardStoragePortForServer: RewardStoragePort;
+  issueStoragePortForClient: IssueStoragePort;
+  issueStoragePortForServer: IssueStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -172,10 +182,13 @@ export class Bootstrap {
     this.applicationStoragePortForServer = constructor.applicationStoragePortForServer;
     this.rewardStoragePortForClient = constructor.rewardStoragePortForClient;
     this.rewardStoragePortForServer = constructor.rewardStoragePortForServer;
+    this.issueStoragePortForClient = constructor.issueStoragePortForClient;
+    this.issueStoragePortForServer = constructor.issueStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
+    this.idKernelPort = constructor.idKernelPort;
   }
 
   getAuthProvider() {
@@ -338,6 +351,14 @@ export class Bootstrap {
     return this.rewardStoragePortForClient;
   }
 
+  getIssueStoragePortForServer() {
+    return this.issueStoragePortForServer;
+  }
+
+  getIssueStoragePortForClient() {
+    return this.issueStoragePortForClient;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -352,6 +373,10 @@ export class Bootstrap {
 
   getUrlKernelPort() {
     return this.urlKernelPort;
+  }
+
+  getIdKernelPort() {
+    return this.idKernelPort;
   }
 
   public static get getBootstrap(): Bootstrap {
@@ -393,10 +418,13 @@ export class Bootstrap {
         applicationStoragePortForClient: new ApplicationClientAdapter(new FetchHttpClient()),
         rewardStoragePortForServer: new RewardClientAdapter(new FetchHttpClient()),
         rewardStoragePortForClient: new RewardClientAdapter(new FetchHttpClient()),
-        dateKernelPort: DateFnsAdapter,
+        issueStoragePortForServer: new IssueClientAdapter(new FetchHttpClient()),
+        issueStoragePortForClient: new IssueClientAdapter(new FetchHttpClient()),
+        dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
+        idKernelPort: IdAdapter,
       });
     }
 

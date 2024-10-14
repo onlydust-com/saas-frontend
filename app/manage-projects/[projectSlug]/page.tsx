@@ -18,6 +18,7 @@ import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/c
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
+import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -66,6 +67,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
         </AnimatedColumn>
 
         <FinancialDetailSidepanel />
+        <RewardDetailSidepanel />
         <ContributorSidepanel />
         <ProjectUpdateSidepanel />
         <ContributionsSidepanel />

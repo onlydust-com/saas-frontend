@@ -6,12 +6,15 @@ import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { Github } from "@/shared/icons";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] => {
+  const { open: openRewardFlow } = useRewardFlow();
+
   const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
     pathParams: { contributionId: contribution.id },
   });
@@ -38,7 +41,12 @@ const useContributionActions = (
   }
 
   function onReward() {
-    actions?.onAction?.(contribution.id);
+    openRewardFlow({
+      issueIds: contribution.linkedIssues?.map(linkedIssue => String(linkedIssue.githubId)) ?? [],
+      // TODO @hayden
+      // githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
+      githubUserIds: [5160414],
+    });
   }
 
   async function onUnarchive() {

@@ -42,7 +42,7 @@ export function CardTemplateDefaultAdapter<C extends ElementType = "div">({
             </div>
           </div>
 
-          {actionSlot ? <div>{actionSlot}</div> : null}
+          {actionSlot ? <div className="w-fit overflow-hidden">{actionSlot}</div> : null}
         </div>
 
         {contentSlot ? <div>{contentSlot}</div> : null}

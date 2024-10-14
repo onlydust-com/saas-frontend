@@ -19,6 +19,7 @@ export function useCreateRewards({
 > = {}) {
   const rewardStoragePort = bootstrap.getRewardStoragePortForClient();
   const meStoragePort = bootstrap.getMeStoragePortForClient();
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -32,20 +33,12 @@ export function useCreateRewards({
               queryKey: rewardStoragePort.getProjectRewards({ pathParams: { projectId: pathParams.projectId } }).tag,
               exact: false,
             });
-
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getProjectRewardableItems({ pathParams: { projectId: pathParams.projectId } })
-                .tag,
-              exact: false,
-            });
-
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getAllCompletedProjectRewardableItems({
-                pathParams: { projectId: pathParams.projectId },
-              }).tag,
-              exact: false,
-            });
           }
+
+          await queryClient.invalidateQueries({
+            queryKey: contributionStoragePort.getContributions({}).tag,
+            exact: false,
+          });
 
           await queryClient.invalidateQueries({
             queryKey: meStoragePort.getMe({}).tag,
