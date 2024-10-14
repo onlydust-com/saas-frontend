@@ -2,10 +2,7 @@ import { CircleCheck, CircleX, Filter, SquareArrowOutUpRight } from "lucide-reac
 import { useState } from "react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
-import {
-  GetApplicationsPortParams,
-  GetApplicationsQueryParams,
-} from "@/core/domain/application/application-contract.types";
+import { GetIssueApplicantsQueryParams } from "@/core/domain/issue/issue-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -28,10 +25,7 @@ import {
 } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table.types";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
-export type ApplicantsTableFilters = Omit<
-  NonNullable<GetApplicationsPortParams["queryParams"]>,
-  "pageSize" | "pageIndex"
->;
+export type ApplicantsTableFilters = Omit<NonNullable<GetIssueApplicantsQueryParams>, "pageSize" | "pageIndex">;
 
 function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) {
   const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
@@ -42,7 +36,7 @@ function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) 
     });
 
   function handleIgnore() {
-    ignoreApplicationMutate({ status: "IGNORED" });
+    ignoreApplicationMutate({ isIgnored: true });
   }
 
   return (
@@ -81,21 +75,18 @@ function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) 
   );
 }
 
-export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
+export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useApplicantsFilterDataSidePanel();
-  const [filters, setFilters] = useState<ApplicantsTableFilters["u"]>({});
+  const [filters, setFilters] = useState<ApplicantsTableFilters>({});
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
-  const queryParams: Partial<GetApplicationsQueryParams> = {
-    projectId,
-    u: {
-      search: debouncedSearch,
-      ...filters,
-    },
+  const queryParams: Partial<GetIssueApplicantsQueryParams> = {
+    search: debouncedSearch,
+    ...filters,
   };
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ onAssign });
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
   return (
@@ -117,9 +108,9 @@ export function ApplicantsTable({ projectId, onAssign }: ApplicantsTableProps) {
             <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
             <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           </nav>
-          <AccordionProjectContributors projectId={projectId} queryParams={queryParams} columns={columns} />
-          <AccordionNewContributors projectId={projectId} queryParams={queryParams} columns={columns} />
-          <AccordionIgnoredContributors projectId={projectId} queryParams={queryParams} columns={columns} />
+          <AccordionProjectContributors issueId={issueId} queryParams={queryParams} columns={columns} />
+          <AccordionNewContributors issueId={issueId} queryParams={queryParams} columns={columns} />
+          <AccordionIgnoredContributors issueId={issueId} queryParams={queryParams} columns={columns} />
         </div>
         <FilterData />
         <ContributorSidepanel

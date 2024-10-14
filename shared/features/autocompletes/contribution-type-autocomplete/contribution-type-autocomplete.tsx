@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
 import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 import { AnyType } from "@/core/kernel/types";
 
@@ -16,7 +17,7 @@ export function ContributionTypeAutocomplete({
 }: ContributionTypeAutocompleteProps) {
   const { t } = useTranslation("common");
 
-  const contributionTypesItems: MenuItemPort[] = useMemo(() => {
+  const contributionTypesItems: MenuItemPort<ContributionTypeUnion>[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
         label: t("contributionType.PULL_REQUEST"),
@@ -35,12 +36,12 @@ export function ContributionTypeAutocomplete({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as string[]);
+  function handleSelect(ids: MenuItemId<ContributionTypeUnion>[]) {
+    onSelect?.(ids);
   }
 
   return (
-    <Select
+    <Select<ContributionTypeUnion>
       items={contributionTypesItems}
       isAutoComplete={true}
       onSelect={handleSelect}

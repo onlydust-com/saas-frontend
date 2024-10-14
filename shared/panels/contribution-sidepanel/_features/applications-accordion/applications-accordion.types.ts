@@ -1,11 +1,11 @@
-import { ApplicationListItemInterface } from "@/core/domain/application/models/application-list-item-model";
+import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applicant-model";
 
 export interface ApplicationsAccordionProps {
-  activeApplicants: ApplicationListItemInterface[];
+  activeApplicants: IssueApplicantInterface[];
   activeApplicantsCount: number;
-  newApplicants: ApplicationListItemInterface[];
+  newApplicants: IssueApplicantInterface[];
   newApplicantsCount: number;
-  ignoredApplicants: ApplicationListItemInterface[];
+  ignoredApplicants: IssueApplicantInterface[];
   ignoredApplicantsCount: number;
   contributionId: string;
 }

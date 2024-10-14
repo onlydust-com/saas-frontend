@@ -13,7 +13,7 @@ export function usePatchContribution({
   options,
 }: UseMutationFacadeParams<ContributionFacadePort["patchContribution"], undefined, never, PatchContributionBody> = {}) {
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
-  const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -37,7 +37,7 @@ export function usePatchContribution({
           });
 
           await queryClient.invalidateQueries({
-            queryKey: applicationStoragePort.getApplications({}).tag,
+            queryKey: issueStoragePort.getIssueApplicants({}).tag,
             exact: false,
           });
 
