@@ -17,7 +17,7 @@ export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
   const { selectedGithubUserIds } = useRewardFlow();
-  const { open } = useOtherWorkSidepanel();
+  const { open: openOtherWorksPanel } = useOtherWorkSidepanel();
   const [selectedGithubUserId] = selectedGithubUserIds;
 
   return (
@@ -39,8 +39,30 @@ export function SingleContributionSelection() {
             <UserContributions githubUserId={selectedGithubUserId} />
           </Paper>
 
-          <Button variant={"secondary"} size={"sm"} classNames={{ base: "w-full" }} onClick={() => open()}>
-            Open other work
+          <Button
+            variant={"secondary"}
+            size={"sm"}
+            classNames={{ base: "w-full" }}
+            onClick={() =>
+              openOtherWorksPanel({
+                type: "LINK",
+              })
+            }
+          >
+            Open other work link
+          </Button>
+
+          <Button
+            variant={"secondary"}
+            size={"sm"}
+            classNames={{ base: "w-full" }}
+            onClick={() =>
+              openOtherWorksPanel({
+                type: "CREATE",
+              })
+            }
+          >
+            Open other work create
           </Button>
         </SidePanelBody>
 

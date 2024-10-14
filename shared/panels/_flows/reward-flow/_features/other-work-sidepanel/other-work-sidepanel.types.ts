@@ -1,3 +1,3 @@
 export interface OtherWorkSidepanelData {
-  relatedIssueId: string;
+  type: "LINK" | "CREATE";
 }
