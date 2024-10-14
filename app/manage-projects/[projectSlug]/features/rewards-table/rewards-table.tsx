@@ -76,7 +76,7 @@ export function RewardsTable() {
   const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
   const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId: projectData?.id ?? "" });
 
   const table = useReactTable({
     data: rewards,
