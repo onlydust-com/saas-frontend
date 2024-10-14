@@ -11,3 +11,8 @@ export type TableColumns =
   | "country"
   | "rewardedAmount"
   | "actions";
+
+export interface FilterColumnsHookProps {
+  projectId?: string;
+  onAssign: (githubUserId: number) => void;
+}

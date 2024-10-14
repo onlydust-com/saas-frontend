@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Modal } from "@/design-system/molecules/modal";
@@ -17,14 +17,12 @@ export function ManageApplicantsModal({
   isOpen,
   onOpenChange,
   projectId,
-  contributionId,
+  issueId = 0,
   onAssign,
 }: ManageApplicantsModalProps) {
-  const { data, isLoading, isError } = ApplicationReactQueryAdapter.client.useGetApplications({
-    queryParams: {
-      projectId,
-    },
-    options: { enabled: !!projectId && isOpen },
+  const { data, isLoading, isError } = IssueReactQueryAdapter.client.useGetIssueApplicants({
+    pathParams: { issueId },
+    options: { enabled: !!issueId && isOpen },
   });
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
 
@@ -47,7 +45,7 @@ export function ManageApplicantsModal({
       <SidePanelsProvider>
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
-            <ApplicantsTable projectId={projectId} contributionId={contributionId ?? ""} onAssign={onAssign} />
+            <ApplicantsTable projectId={projectId} issueId={issueId} onAssign={onAssign} />
           </PageContent>
         </AnimatedColumn>
       </SidePanelsProvider>

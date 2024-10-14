@@ -1,7 +1,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Typo } from "@/design-system/atoms/typo";
@@ -13,19 +13,20 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { AccordionIgnoredContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
-export function AccordionIgnoredContributors({ projectId, queryParams, columns }: AccordionIgnoredContributorsProps) {
+export function AccordionIgnoredContributors({ issueId = 0, queryParams, columns }: AccordionIgnoredContributorsProps) {
   const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    ApplicationReactQueryAdapter.client.useGetApplications({
+    IssueReactQueryAdapter.client.useGetIssueApplicants({
+      pathParams: { issueId },
       queryParams: { ...queryParams, isIgnored: true },
-      options: { enabled: !!projectId },
+      options: { enabled: !!issueId },
     });
 
-  const applications = useMemo(() => data?.pages.flatMap(page => page.applications) ?? [], [data]);
-  const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
+  const applicants = useMemo(() => data?.pages.flatMap(page => page.applicants) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
 
   const table = useReactTable({
-    data: applications,
+    data: applicants,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -69,7 +70,7 @@ export function AccordionIgnoredContributors({ projectId, queryParams, columns }
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            openContributor({ login: row.original.applicant.login });
+            openContributor({ login: row.original.contributor.login });
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

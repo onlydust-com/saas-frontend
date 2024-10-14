@@ -9,7 +9,7 @@ import { useLocalStorage } from "react-use";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
-import { ApplicationListItemInterface } from "@/core/domain/application/models/application-list-item-model";
+import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applicant-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -18,17 +18,21 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
-import { TableColumns } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
+import {
+  FilterColumnsHookProps,
+  TableColumns,
+} from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number) => void }) {
+export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const columnHelper = createColumnHelper<ApplicationListItemInterface>();
+  const columnHelper = createColumnHelper<IssueApplicantInterface>();
 
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
@@ -70,10 +74,10 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       .patchApplication({
         pathParams: { applicationId },
       })
-      .request({ status: "IGNORED" })
+      .request({ isIgnored: true })
       .then(async () => {
         await queryClient.invalidateQueries({
-          queryKey: applicationStoragePort.getApplications({}).tag,
+          queryKey: issueStoragePort.getIssueApplicants({}).tag,
           exact: false,
         });
       });
@@ -84,18 +88,19 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "contributor",
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
-        const { applicant } = info.row.original;
-        const applicantTitle = info.row.original.getApplicantTitle();
+        const { contributor } = info.row.original;
+        // TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse
+        // const applicantTitle = info.row.original.getApplicantTitle();
 
         return (
           <AvatarLabelGroup
             avatars={[
               {
-                src: applicant.avatarUrl,
+                src: contributor.avatarUrl,
               },
             ]}
-            title={{ children: applicant.login }}
-            description={{ children: applicantTitle.wording }}
+            title={{ children: contributor.login }}
+            // description={{ children: applicantTitle.wording }}
           />
         );
       },
@@ -104,8 +109,14 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "label",
       header: () => <Translate token={"modals:manageApplicants.table.columns.label"} />,
       cell: info => {
-        const { githubUserId, projectContributorLabels } = info.row.original.applicant;
-        const projectId = info.row.original.project.id;
+        const {
+          contributor: { githubUserId },
+          projectContributorLabels,
+        } = info.row.original;
+
+        if (!projectId) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
 
         return (
           <ContributorLabelPopover
@@ -122,7 +133,7 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "languages",
       header: () => <Translate token={"modals:manageApplicants.table.columns.languages"} />,
       cell: info => {
-        const { languages } = info.row.original.applicant;
+        const { languages } = info.row.original;
 
         if (!languages?.length) {
           return <Typo size={"xs"}>N/A</Typo>;
@@ -161,7 +172,7 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "ecosystems",
       header: () => <Translate token={"modals:manageApplicants.table.columns.ecosystems"} />,
       cell: info => {
-        const { ecosystems } = info.row.original.applicant;
+        const { ecosystems } = info.row.original;
 
         if (!ecosystems?.length) {
           return <Typo size={"xs"}>N/A</Typo>;
@@ -202,15 +213,15 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "country",
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
-        const { applicant } = info.row.original;
+        const { countryCode } = info.row.original;
 
-        if (!applicant.countryCode) {
+        if (!countryCode) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={applicant.countryCode} hasBorder={false} size={"m"} />
+            <Flag code={countryCode} hasBorder={false} size={"m"} />
           </TableCellKpi>
         );
       },
@@ -219,10 +230,10 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "rewardedAmount",
       header: () => <Translate token={"modals:manageApplicants.table.columns.rewardedAmount"} />,
       cell: info => {
-        const { totalRewardedUsdAmount } = info.row.original.applicant;
+        const { totalRewardedUsdAmount } = info.row.original;
 
         const { amount, code } = moneyKernelPort.format({
-          amount: totalRewardedUsdAmount,
+          amount: totalRewardedUsdAmount.value,
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
@@ -237,18 +248,23 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
       id: "actions",
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => {
-        const { githubUserId } = info.row.original.applicant;
-        const { id } = info.row.original;
+        const {
+          applicationId,
+          contributor: { githubUserId },
+        } = info.row.original;
+
         return (
           <div className={"flex gap-sm"}>
-            <Button
-              startIcon={{ component: CircleX }}
-              variant={"secondary"}
-              size={"sm"}
-              onClick={() => handleIgnore(id)}
-            >
-              <Translate token={"modals:manageApplicants.table.rows.reject"} />
-            </Button>
+            {applicationId ? (
+              <Button
+                startIcon={{ component: CircleX }}
+                variant={"secondary"}
+                size={"sm"}
+                onClick={() => handleIgnore(applicationId)}
+              >
+                <Translate token={"modals:manageApplicants.table.rows.reject"} />
+              </Button>
+            ) : null}
 
             <Button
               startIcon={{ component: CircleCheck }}
@@ -269,7 +285,7 @@ export function useFilterColumns({ onAssign }: { onAssign: (githubUserId: number
   // Loop on object keys to keep column order
   const columns = columnMapKeys
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
-    .filter(Boolean) as ColumnDef<ApplicationListItemInterface>[];
+    .filter(Boolean) as ColumnDef<IssueApplicantInterface>[];
 
   return { columns, selectedIds, setSelectedIds };
 }

@@ -2,7 +2,6 @@ import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -10,19 +9,17 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { Translate } from "@/shared/translation/components/translate/translate";
-
 import { ApplicationCardProps } from "./application-card.types";
 
 export function ApplicationCard({ application, contributionId, isIgnored }: ApplicationCardProps) {
-  const { applicant } = application;
+  const { applicationId = "", contributor, rewardCount, prCount } = application;
 
-  const dateKernelPort = bootstrap.getDateKernelPort();
+  // const dateKernelPort = bootstrap.getDateKernelPort();
 
   const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
     ApplicationReactQueryAdapter.client.usePatchApplication({
       pathParams: {
-        applicationId: application.id,
+        applicationId,
       },
     });
 
@@ -34,31 +31,32 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
     });
 
   function handleIgnoreApplication() {
-    ignoreApplicationMutate({ status: "IGNORED" });
+    ignoreApplicationMutate({ isIgnored: true });
   }
 
   function handleApproveApplication() {
     acceptApplicationMutate({
-      assignees: [applicant.githubUserId],
+      assignees: [contributor.githubUserId],
     });
   }
 
   return (
     <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
       <div className="flex gap-lg">
-        <Avatar size="sm" shape="squared" src={applicant.avatarUrl} />
+        <Avatar size="sm" shape="squared" src={contributor.avatarUrl} />
 
         <div className="flex flex-col gap-md">
           <div className="flex flex-col">
             <Typo size="sm" weight="medium">
-              {applicant.login}
+              {contributor.login}
             </Typo>
 
-            <Typo size="xs" color="secondary">
-              {application.getApplicantTitle().wording} • {application.getRank()}
-              {" • "}
-              <Translate token={"panels:contributor.rank"} count={applicant.globalRankPercentile} />
-            </Typo>
+            {/* TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse */}
+            {/*<Typo size="xs" color="secondary">*/}
+            {/*  {application.getApplicantTitle().wording} • {application.getRank()}*/}
+            {/*  {" • "}*/}
+            {/*  <Translate token={"panels:contributor.rank"} count={applicant.globalRankPercentile} />*/}
+            {/*</Typo>*/}
           </div>
 
           <div className="flex flex-wrap gap-md">
@@ -68,7 +66,7 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
                 component: Medal,
               }}
             >
-              {applicant.rewardCount}
+              {rewardCount.value}
             </Badge>
 
             <Badge
@@ -77,10 +75,11 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
                 component: GitPullRequest,
               }}
             >
-              {applicant.prCount}
+              {prCount.value}
             </Badge>
 
-            <Badge size="xs">{dateKernelPort.format(new Date(application.receivedAt), "dd.MM.yyyy")}</Badge>
+            {/* TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse */}
+            {/*<Badge size="xs">{dateKernelPort.format(new Date(application.receivedAt), "dd.MM.yyyy")}</Badge>*/}
           </div>
         </div>
       </div>

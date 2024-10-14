@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
 import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 import { AnyType } from "@/core/kernel/types";
 
@@ -36,7 +37,7 @@ export function ContributionTypeAutocomplete({
   }, []);
 
   function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as string[]);
+    onSelect?.(ids as ContributionTypeUnion[]);
   }
 
   return (

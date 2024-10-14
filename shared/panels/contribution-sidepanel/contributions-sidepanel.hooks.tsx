@@ -32,12 +32,12 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     return (
       <>
         <Helper
-          type={contribution?.activityStatus}
+          type={contribution.activityStatus}
           open={helperState.isOpen}
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
-        <AssignContributors issueId={contribution?.githubId} contributionId={contribution.id} />
+        <AssignContributors issueId={contribution.githubId} contributionId={contribution.id} />
       </>
     );
   }
@@ -61,12 +61,12 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     return (
       <>
         <Helper
-          type={contribution?.activityStatus}
+          type={contribution.activityStatus}
           open={helperState.isOpen}
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
-        <LinkedIssues issues={contribution?.linkedIssues} id={contribution?.id} />
+        <LinkedIssues issues={contribution.linkedIssues} id={contribution.id} />
         <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
         <Timeline id={contribution.id} />
       </>

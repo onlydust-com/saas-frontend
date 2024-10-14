@@ -55,8 +55,8 @@ export function Footer({ contribution }: FooterProps) {
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         projectId={"7d04163c-4187-4313-8066-61504d34fc56"}
+        issueId={contribution?.githubId}
         onAssign={handleAssign}
-        contributionId={contribution?.id}
       />
     </SidePanelFooter>
   );

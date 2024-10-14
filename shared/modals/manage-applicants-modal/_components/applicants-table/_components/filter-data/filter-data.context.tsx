@@ -5,15 +5,15 @@ import { PropsWithChildren, createContext, useContext, useEffect, useState } fro
 import { ApplicantsTableFilters } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table";
 
 interface FilterDataContextInterface {
-  filters: ApplicantsTableFilters["u"];
-  setFilters: (filters: ApplicantsTableFilters["u"]) => void;
+  filters: ApplicantsTableFilters;
+  setFilters: (filters: ApplicantsTableFilters) => void;
   saveFilters: () => void;
   resetFilters: () => void;
 }
 
 interface FilterDataProviderProps extends PropsWithChildren {
-  filters: ApplicantsTableFilters["u"];
-  setFilters: (filters: ApplicantsTableFilters["u"]) => void;
+  filters: ApplicantsTableFilters;
+  setFilters: (filters: ApplicantsTableFilters) => void;
 }
 
 export const FilterDataContext = createContext<FilterDataContextInterface>({
@@ -24,8 +24,8 @@ export const FilterDataContext = createContext<FilterDataContextInterface>({
 });
 
 export function FilterDataProvider({ children, filters, setFilters }: FilterDataProviderProps) {
-  const [localFilters, setLocalFilters] = useState<ApplicantsTableFilters["u"]>(filters);
-  function handleUpdateFilters(newFilters: ApplicantsTableFilters["u"]) {
+  const [localFilters, setLocalFilters] = useState<ApplicantsTableFilters>(filters);
+  function handleUpdateFilters(newFilters: ApplicantsTableFilters) {
     setLocalFilters({
       ...localFilters,
       ...newFilters,
