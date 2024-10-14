@@ -20,22 +20,22 @@ export function ProjectRepoAutocomplete({
     },
   });
 
-  const reposItem: MenuItemPort[] = useMemo(() => {
+  const reposItem: MenuItemPort<number>[] = useMemo(() => {
     return (
       data?.getProjectRepos()?.map(repo => ({
-        id: repo.id.toString(),
+        id: repo.id,
         label: repo.name,
         searchValue: repo.name,
       })) ?? []
     );
   }, [data]);
 
-  function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as string[]);
+  function handleSelect(ids: MenuItemId<number>[]) {
+    onSelect?.(ids);
   }
 
   return (
-    <Select
+    <Select<number>
       items={reposItem}
       isAutoComplete={true}
       onSelect={handleSelect}

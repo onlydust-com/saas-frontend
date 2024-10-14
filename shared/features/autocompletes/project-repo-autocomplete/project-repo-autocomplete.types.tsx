@@ -1,7 +1,7 @@
 import { SelectExtendedProps } from "@/design-system/molecules/select";
 
-export interface ProjectRepoAutocompleteProps extends SelectExtendedProps {
-  selectedRepos?: string[];
-  onSelect?: (repos: string[]) => void;
+export interface ProjectRepoAutocompleteProps extends SelectExtendedProps<number> {
+  selectedRepos?: number[];
+  onSelect?: (repos: number[]) => void;
   projectSlug: string;
 }

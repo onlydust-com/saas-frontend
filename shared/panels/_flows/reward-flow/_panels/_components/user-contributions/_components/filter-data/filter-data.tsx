@@ -31,10 +31,7 @@ export function FilterData() {
           onSelect={contributionTypes => setFilters({ types: contributionTypes })}
         />
 
-        <ProjectRepoFilter
-          selectedRepo={filters.repoIds?.map(id => id.toString())}
-          onSelect={repos => setFilters({ repoIds: repos.map(repo => Number(repo)) })}
-        />
+        <ProjectRepoFilter selectedRepo={filters.repoIds} onSelect={repoIds => setFilters({ repoIds })} />
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
