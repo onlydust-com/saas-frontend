@@ -1,19 +1,7 @@
 {
-  "title": "Financial detail",
-  "totalAllocated": {
-    "title": "Allocated"
-  },
-  "totalAvailable": {
-    "title": "Available"
-  },
-  "totalGranted": {
-    "title": "Granted"
-  },
-  "totalRewarded": {
-    "title": "Rewarded"
-  },
+  "title": "Reward detail",
   "emptyState": {
-    "title": "No financial details available",
-    "description": "There are no financial details available."
+    "title": "No reward details available",
+    "description": "There are no reward details available."
   }
 }
