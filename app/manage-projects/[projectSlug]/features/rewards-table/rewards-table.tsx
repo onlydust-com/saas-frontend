@@ -120,7 +120,7 @@ export function RewardsTable() {
             }}
             rows={table.getRowModel().rows}
             onRowClick={row => {
-              open({ rewardId: row.original.id });
+              open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
             }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
