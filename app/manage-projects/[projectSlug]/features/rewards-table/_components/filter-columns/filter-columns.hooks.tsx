@@ -1,34 +1,70 @@
+import { Spinner } from "@nextui-org/react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "react-use";
 
-import { bootstrap } from "@/core/bootstrap";
-import { RewardListItemInterface, RewardListItemResponse } from "@/core/domain/reward/models/reward-list-item-model";
+import { TableColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.types";
 
+import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
+import { bootstrap } from "@/core/bootstrap";
+import { RewardListItemInterface } from "@/core/domain/reward/models/reward-list-item-model";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns() {
+export function useFilterColumns({ projectId }: { projectId: string }) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const idKernelPort = bootstrap.getIdKernelPort();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const columnHelper = createColumnHelper<RewardListItemInterface>();
+  const [rewardId, setRewardId] = useState("");
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof RewardListItemResponse>>(
-    "project-rewards-table-columns"
-  );
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["requestedAt", "id", "rewardedUser", "numberOfRewardedContributions", "amount", "status"]);
+      setSelectedIds([
+        "requestedAt",
+        "id",
+        "rewardedUser",
+        "numberOfRewardedContributions",
+        "amount",
+        "status",
+        "actions",
+      ]);
     }
-  }, [selectedIds, setSelectedIds]);
+  }, [selectedIds]);
 
-  const columnMap: Partial<Record<keyof RewardListItemResponse, object>> = {
+  const { mutateAsync, isPending } = RewardReactQueryAdapter.client.useCancelProjectReward({
+    pathParams: { projectId, rewardId },
+    options: {
+      onSuccess: () => {
+        toast.success(<Translate token={"manageProjects:detail.rewardsTable.toast.cancelReward.success"} />);
+      },
+      onError: () => {
+        toast.error(<Translate token={"manageProjects:detail.rewardsTable.toast.cancelReward.success"} />);
+      },
+    },
+  });
+
+  async function handleCancelReward(currentRewardId: string) {
+    await new Promise<void>(resolve => {
+      setRewardId(() => {
+        resolve();
+        return currentRewardId;
+      });
+    });
+
+    await mutateAsync({});
+  }
+
+  const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.date"} />,
       cell: info => {
@@ -117,6 +153,30 @@ export function useFilterColumns() {
         const status = info.getValue();
 
         return <PayoutStatus status={status} />;
+      },
+    }),
+    actions: columnHelper.display({
+      id: "actions",
+      header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.actions"} />,
+      cell: info => {
+        const id = info.row.original.id;
+        const status = info.row.original.status;
+
+        return (
+          <Button
+            variant={"secondary"}
+            size={"sm"}
+            onClick={() => handleCancelReward(id)}
+            isDisabled={status !== "PENDING_CONTRIBUTOR"}
+            translate={{ token: "manageProjects:detail.rewardsTable.rows.cancelReward" }}
+          >
+            {isPending && rewardId === id ? (
+              <Spinner size={"sm"} />
+            ) : (
+              <Translate token="manageProjects:detail.rewardsTable.rows.cancelReward" />
+            )}
+          </Button>
+        );
       },
     }),
   } as const;

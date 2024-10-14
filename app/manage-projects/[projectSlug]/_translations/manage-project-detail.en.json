@@ -92,9 +92,18 @@
       "to": "To",
       "contributions": "Contributions",
       "amount": "Amount",
-      "status": "Status"
+      "status": "Status",
+      "actions": "Actions"
     },
-    "rows": {},
-    "rewardsCount": "Rewards"
+    "rows": {
+      "cancelReward": "Cancel"
+    },
+    "rewardsCount": "Rewards",
+    "toast": {
+      "cancelReward": {
+        "success": "Reward canceled successfully.",
+        "error": "Error canceling reward."
+      }
+    }
   }
 }

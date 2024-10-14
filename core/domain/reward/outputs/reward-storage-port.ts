@@ -5,6 +5,8 @@ import {
   AddOtherPullRequestPortResponse,
   AddOtherWorkPortParams,
   AddOtherWorkPortResponse,
+  CancelRewardsPortParams,
+  CancelRewardsPortResponse,
   CreateRewardsPortParams,
   CreateRewardsPortResponse,
   GetProjectRewardItemsPortParams,
@@ -24,4 +26,5 @@ export interface RewardStoragePort {
   addOtherWork(p: AddOtherWorkPortParams): AddOtherWorkPortResponse;
   addOtherPullRequest(p: AddOtherPullRequestPortParams): AddOtherPullRequestPortResponse;
   addOtherIssue(p: AddOtherIssuePortParams): AddOtherIssuePortResponse;
+  cancelProjectReward(p: CancelRewardsPortParams): CancelRewardsPortResponse;
 }

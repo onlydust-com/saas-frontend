@@ -1,6 +1,8 @@
 import { RewardListItemResponse } from "@/core/domain/reward/models/reward-list-item-model";
 
+export type TableColumns = keyof RewardListItemResponse | "actions";
+
 export interface FilterColumnsProps {
-  selectedIds?: Array<keyof RewardListItemResponse>;
-  setSelectedIds: (ids: Array<keyof RewardListItemResponse>) => void;
+  selectedIds?: Array<TableColumns>;
+  setSelectedIds: (ids: Array<TableColumns>) => void;
 }

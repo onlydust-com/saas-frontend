@@ -25,6 +25,7 @@ export class RewardClientAdapter implements RewardStoragePort {
   routes = {
     getProjectRewards: "projects/:projectId/rewards",
     getProjectReward: "projects/:projectId/rewards/:rewardId",
+    cancelProjectReward: "projects/:projectId/rewards/:rewardId",
     getProjectRewardItems: "projects/:projectId/rewards/:rewardId/reward-items",
     createRewards: "projects/:projectId/rewards",
     addOtherWork: "projects/:projectId/rewardable-items/other-works",
@@ -176,6 +177,25 @@ export class RewardClientAdapter implements RewardStoragePort {
         tag,
         pathParams,
         body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  cancelProjectReward = ({ pathParams }: FirstParameter<RewardStoragePort["cancelProjectReward"]>) => {
+    const path = this.routes["cancelProjectReward"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () =>
+      this.client.request({
+        path,
+        method,
+        tag,
+        pathParams,
       });
 
     return {
