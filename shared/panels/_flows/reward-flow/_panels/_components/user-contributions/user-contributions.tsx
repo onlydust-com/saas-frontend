@@ -51,6 +51,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
       queryParams: {
         ...queryParams,
         contributorIds: [githubUserId],
+        statuses: ["DONE"],
         hasBeenRewarded: false,
       },
       options: {
