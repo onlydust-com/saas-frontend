@@ -11,6 +11,7 @@ import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
 import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
+import enRewardDetail from "@/shared/panels/reward-detail-sidepanel/_translations/reward-detail-sidepanel.en.json";
 
 export const enPanelsTranslation = {
   panels: {
@@ -26,6 +27,7 @@ export const enPanelsTranslation = {
     contributor: enContributor,
     program: enProgramDetail,
     financialDetail: enFinancialDetail,
+    rewardDetail: enRewardDetail,
     singleContributionSelection: enSingleContributionSelection,
   },
 };

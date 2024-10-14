@@ -33,6 +33,7 @@ export function RewardsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
+  // const { open } = useRewardDetailSidepanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
 
   const queryParams: Partial<GetProjectRewardsQueryParams> = {
@@ -117,9 +118,9 @@ export function RewardsTable() {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            // TODO handle reward detail sidepanel
+            // TODO @Mehdi enable reward detail sidepanel once feature ready
             // onRowClick={row => {
-            //   openRewardDetail({ ..... });
+            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
             // }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
