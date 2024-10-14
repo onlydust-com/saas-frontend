@@ -39,7 +39,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         "actions",
       ]);
     }
-  }, [selectedIds, setSelectedIds]);
+  }, [selectedIds]);
 
   const { mutateAsync, isPending } = RewardReactQueryAdapter.client.useCancelProjectReward({
     pathParams: { projectId, rewardId },

@@ -1,10 +1,11 @@
+import { PayoutStatusMapping } from "@/core/domain/reward/reward-constants";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 
-import { PayoutStatusMapping, PayoutStatusProps } from "@/shared/features/payout-status/payout-status.types";
+import { PayoutStatusProps } from "@/shared/features/payout-status/payout-status.types";
 
 export function PayoutStatus({ status }: PayoutStatusProps) {
-  // TODO : handle different statuses once rewards flow implemented
   return (
     <Badge
       size={"md"}
