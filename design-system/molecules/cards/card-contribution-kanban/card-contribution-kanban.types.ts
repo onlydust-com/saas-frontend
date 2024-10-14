@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ElementType } from "react";
 
 import {
   ContributionGithubStatusUnion,
@@ -6,6 +6,7 @@ import {
 } from "@/core/domain/contribution/models/contribution.types";
 
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
+import { PaperPort } from "@/design-system/atoms/paper";
 
 interface Variants {}
 
@@ -18,9 +19,7 @@ interface User {
   avatarUrl: string;
 }
 
-export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants> {
-  as?: C;
-  htmlProps?: ComponentPropsWithoutRef<C>;
+export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants>, Partial<PaperPort<C>> {
   classNames?: Partial<ClassNames>;
   type: ContributionTypeUnion;
   githubTitle: string;
