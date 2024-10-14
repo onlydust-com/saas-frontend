@@ -26,6 +26,7 @@ export interface DateFacadePort {
   addMinutes: (date: Date, minutes: number) => Date;
   eachDayOfInterval: (start: Date, end: Date) => Date[];
   addDays: (date: Date, days: number) => Date;
+  isSameDay: (dateLeft: Date, dateRight: Date) => boolean;
   subWeeks: (date: Date, weeks: number) => Date;
   startOfWeek: (date: Date) => Date;
   setWeek: (date: Date, weekNumber: number) => Date;
