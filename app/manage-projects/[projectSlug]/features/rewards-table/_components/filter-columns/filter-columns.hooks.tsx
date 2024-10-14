@@ -1,3 +1,4 @@
+import { Spinner } from "@nextui-org/react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "react-use";
@@ -40,7 +41,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     }
   }, [selectedIds, setSelectedIds]);
 
-  const { mutateAsync } = RewardReactQueryAdapter.client.useCancelProjectReward({
+  const { mutateAsync, isPending } = RewardReactQueryAdapter.client.useCancelProjectReward({
     pathParams: { projectId, rewardId },
     options: {
       onSuccess: () => {
@@ -160,6 +161,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       cell: info => {
         const id = info.row.original.id;
         const status = info.row.original.status;
+
         return (
           <Button
             variant={"secondary"}
@@ -167,7 +169,13 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
             onClick={() => handleCancelReward(id)}
             isDisabled={status !== "PENDING_CONTRIBUTOR"}
             translate={{ token: "manageProjects:detail.rewardsTable.rows.cancelReward" }}
-          />
+          >
+            {isPending && rewardId === id ? (
+              <Spinner size={"sm"} />
+            ) : (
+              <Translate token="manageProjects:detail.rewardsTable.rows.cancelReward" />
+            )}
+          </Button>
         );
       },
     }),

@@ -1,4 +1,4 @@
-import { Hourglass } from "lucide-react";
+import { Building2, Check, Hourglass, Lock, LogIn, TriangleAlert, Users, Wallet } from "lucide-react";
 
 import { GetProjectRewardsResponse } from "@/core/domain/reward/reward-contract.types";
 
@@ -33,47 +33,47 @@ export type PayoutStatusUnion = `${PayoutStatusEnum}`;
 
 export const PayoutStatusMapping: Record<PayoutStatus, PayoutStatusContent> = {
   PENDING_SIGNUP: {
-    icon: { component: Hourglass },
+    icon: { component: LogIn },
     label: "features:payoutStatus.statuses.pendingSignup",
     type: "error",
   },
   PENDING_CONTRIBUTOR: {
-    icon: { component: Hourglass },
+    icon: { component: Users },
     label: "features:payoutStatus.statuses.pendingContributor",
     type: "warning",
   },
   PENDING_BILLING_PROFILE: {
-    icon: { component: Hourglass },
+    icon: { component: TriangleAlert },
     label: "features:payoutStatus.statuses.pendingBillingProfile",
     type: "warning",
   },
   PENDING_COMPANY: {
-    icon: { component: Hourglass },
+    icon: { component: Building2 },
     label: "features:payoutStatus.statuses.pendingCompany",
     type: "warning",
   },
   PENDING_VERIFICATION: {
-    icon: { component: Hourglass },
+    icon: { component: TriangleAlert },
     label: "features:payoutStatus.statuses.pendingVerification",
     type: "warning",
   },
   GEO_BLOCKED: {
-    icon: { component: Hourglass },
+    icon: { component: TriangleAlert },
     label: "features:payoutStatus.statuses.geoBlocked",
     type: "error",
   },
   INDIVIDUAL_LIMIT_REACHED: {
-    icon: { component: Hourglass },
+    icon: { component: TriangleAlert },
     label: "features:payoutStatus.statuses.individualLimitReached",
     type: "error",
   },
   PAYOUT_INFO_MISSING: {
-    icon: { component: Hourglass },
+    icon: { component: Wallet },
     label: "features:payoutStatus.statuses.payoutInfoMissing",
     type: "warning",
   },
   LOCKED: {
-    icon: { component: Hourglass },
+    icon: { component: Lock },
     label: "features:payoutStatus.statuses.locked",
     type: "warning",
   },
@@ -88,7 +88,7 @@ export const PayoutStatusMapping: Record<PayoutStatus, PayoutStatusContent> = {
     type: "warning",
   },
   COMPLETE: {
-    icon: { component: Hourglass },
+    icon: { component: Check },
     label: "features:payoutStatus.statuses.complete",
     type: "success",
   },
