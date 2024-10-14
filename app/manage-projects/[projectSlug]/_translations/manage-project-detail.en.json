@@ -92,9 +92,12 @@
       "to": "To",
       "contributions": "Contributions",
       "amount": "Amount",
-      "status": "Status"
+      "status": "Status",
+      "actions": "Actions"
     },
-    "rows": {},
+    "rows": {
+      "cancelReward": "Cancel"
+    },
     "rewardsCount": "Rewards"
   }
 }
