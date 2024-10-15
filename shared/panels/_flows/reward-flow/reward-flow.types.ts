@@ -1,17 +1,21 @@
 import { PropsWithChildren } from "react";
 
+import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
+
 export interface RewardFlowContextProps extends PropsWithChildren {
   projectId?: string;
 }
+
+export type SelectedRewardsBudget = {
+  amount: string;
+  budget?: DetailedTotalMoneyTotalPerCurrency;
+};
 
 export type SelectedRewardsState = Record<
   number,
   {
     contributionIds: string[];
-    amount?: {
-      amount: string;
-      currencyId: string;
-    };
+    amount?: SelectedRewardsBudget;
   }
 >;
 
@@ -29,6 +33,6 @@ export interface RewardFlowContextInterface {
   addContributionIds: (contributionId: string[], githubUserId: number) => void;
   removeContributionId: (contributionId: string, githubUserId: number) => void;
   getSelectedContributionIds: (githubUserId: number) => string[];
-  updateAmount: (githubUserId: number, amount: { amount: string; currencyId: string }) => void;
-  getAmount: (githubUserId: number) => { amount: string; currencyId: string };
+  updateAmount: (githubUserId: number, amount: SelectedRewardsBudget) => void;
+  getAmount: (githubUserId: number) => SelectedRewardsBudget;
 }

@@ -9,10 +9,12 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { SingleUserFlow } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_features/single-user-flow/single-user-flow";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
+import { useBulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 export function BulkContributionSelection() {
-  const { name } = useBulkContributionSelection();
+  const { open } = useBulkContributionValidation();
+  const { name, isOpen } = useBulkContributionSelection();
   const { Panel } = useSidePanel({ name });
   const { selectedGithubUserIds } = useRewardFlow();
   const [isRewardValid, setIsRewardValid] = useState<Record<number, boolean>>({});
@@ -53,11 +55,13 @@ export function BulkContributionSelection() {
 
       <SidePanelBody>
         <ScrollView>
-          <div className={"flex w-full flex-col gap-lg"}>
-            {selectedGithubUserIds.map(githubUserId => (
-              <SingleUserFlow githubUserId={githubUserId} key={githubUserId} onValidate={handleValidate} />
-            ))}
-          </div>
+          {isOpen && (
+            <div className={"flex w-full flex-col gap-lg"}>
+              {selectedGithubUserIds.map(githubUserId => (
+                <SingleUserFlow githubUserId={githubUserId} key={githubUserId} onValidate={handleValidate} />
+              ))}
+            </div>
+          )}
         </ScrollView>
       </SidePanelBody>
       <SidePanelFooter>
@@ -68,7 +72,7 @@ export function BulkContributionSelection() {
             token: "common:next",
           }}
           isDisabled={!isAllValid}
-          onClick={() => alert("next panel")}
+          onClick={open}
         />
       </SidePanelFooter>
     </Panel>

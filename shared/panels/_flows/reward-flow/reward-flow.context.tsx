@@ -4,12 +4,14 @@ import { createContext, useContext, useState } from "react";
 
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
+import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
 import { SingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection";
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
 import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation";
 import {
   RewardFlowContextInterface,
   RewardFlowContextProps,
+  SelectedRewardsBudget,
   SelectedRewardsState,
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
@@ -23,18 +25,18 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   getSelectedContributionIds: () => [],
   addContributionIds: () => {},
   updateAmount: () => {},
-  getAmount: () => ({ amount: "0", currencyId: "" }),
+  getAmount: () => ({ amount: "", budget: undefined }),
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
   const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
   const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>([]);
-  const [selectedContributionIds, setSelectedContributionIds] = useState<SelectedRewardsState>({});
+  const [contributionState, setContributionState] = useState<SelectedRewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
 
   function addContributionIds(contributionIds: string[], githubUserId: number) {
-    setSelectedContributionIds(prev => ({
+    setContributionState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
@@ -44,7 +46,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function removeContributionId(contributionId: string, githubUserId: number) {
-    setSelectedContributionIds(prev => ({
+    setContributionState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
@@ -53,14 +55,8 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }));
   }
 
-  function updateAmount(
-    githubUserId: number,
-    amount: {
-      amount: string;
-      currencyId: string;
-    }
-  ) {
-    setSelectedContributionIds(prev => ({
+  function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
+    setContributionState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
@@ -70,17 +66,17 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function getSelectedContributionIds(githubUserId: number) {
-    return selectedContributionIds[githubUserId]?.contributionIds || [];
+    return contributionState[githubUserId]?.contributionIds || [];
   }
 
   function getAmount(githubUserId: number) {
-    return selectedContributionIds[githubUserId].amount ?? { amount: "0", currencyId: "" };
+    return contributionState[githubUserId].amount ?? { amount: "0" };
   }
 
   function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
     setSelectedGithubUserIds(githubUserIds);
     setSelectedIssueIds(issueIds);
-    setSelectedContributionIds(
+    setContributionState(
       githubUserIds.reduce((acc, githubUserId) => {
         return {
           ...acc,
@@ -95,8 +91,6 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       openSingleFlow();
     }
   }
-
-  console.log("selectedContributionIds", selectedContributionIds);
 
   return (
     <RewardFlowContext.Provider
@@ -116,6 +110,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       <SingleContributionSelection />
       <SingleContributionValidation />
       <BulkContributionSelection />
+      <BulkContributionValidation />
     </RewardFlowContext.Provider>
   );
 }

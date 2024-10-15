@@ -5,9 +5,9 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { ContributorProfileCompactLoading } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact.loading";
 import { UserContributions } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
 import { SingleUserAmountSelector } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_features/single-user-amount-selector/single-user-amount-selector";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
@@ -18,8 +18,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"select" | "amount">("select");
   const { getAmount, updateAmount } = useRewardFlow();
-  const { amount } = getAmount(githubUserId);
-  const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
+  const { amount, budget } = getAmount(githubUserId);
 
   const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
     pathParams: { githubId: githubUserId },
@@ -30,25 +29,24 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
 
   function handleAmountChange(amount: string) {
     if (budget?.currency.id) {
-      updateAmount(githubUserId, { currencyId: budget.currency.id, amount });
+      updateAmount(githubUserId, { budget, amount });
     }
   }
 
   function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency | undefined) {
-    setBudget(budget);
     if (budget?.currency.id) {
-      updateAmount(githubUserId, { currencyId: budget.currency.id, amount });
+      updateAmount(githubUserId, { budget, amount });
     }
   }
 
   if (isLoading) {
-    return <ContributorProfileCompactLoading />;
+    return <Skeleton classNames={{ base: "h-[72px]" }} />;
   }
 
   function handleValidate() {
     if (step === "select") {
       setStep("amount");
-    } else {
+    } else if (amount && !!budget) {
       setIsOpen(false);
       onValidate(githubUserId);
     }
