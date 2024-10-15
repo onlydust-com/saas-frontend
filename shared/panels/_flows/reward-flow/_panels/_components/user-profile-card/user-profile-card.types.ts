@@ -2,4 +2,5 @@ import { TimelineContributionPort } from "@/design-system/molecules/timeline-con
 
 export interface UserProfileCardProps {
   timelineContributionProps?: TimelineContributionPort;
+  githubUserId: number;
 }

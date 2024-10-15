@@ -22,10 +22,13 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function SingleContributionValidation() {
   const { name, isOpen } = useSingleContributionValidation();
   const { Panel } = useSidePanel({ name });
-  const { projectId = "", selectedContributionIds = [], selectedGithubUserIds } = useRewardFlow();
+  const { projectId = "", getSelectedContributionIds, selectedGithubUserIds } = useRewardFlow();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
   const amountNumber = Number(amount);
+
+  const [selectedGithubUserId] = selectedGithubUserIds;
+  const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
 
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
@@ -132,7 +135,10 @@ export function SingleContributionValidation() {
       />
 
       <SidePanelBody>
-        <UserProfileCard timelineContributionProps={getTimelineContributionProps()} />
+        <UserProfileCard
+          timelineContributionProps={getTimelineContributionProps()}
+          githubUserId={selectedGithubUserId}
+        />
 
         <AmountSelectorSummary
           amount={amount}

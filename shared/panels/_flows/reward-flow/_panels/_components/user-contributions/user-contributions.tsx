@@ -32,11 +32,11 @@ export type UserContributionsFilters = Omit<
 >;
 
 export function UserContributions({ githubUserId }: UserContributionsProps) {
-  const { selectedContributionIds, setSelectedContributionIds } = useRewardFlow();
+  const { getSelectedContributionIds, addContributionIds, removeContributionId } = useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
-
+  const selectedContributionIds = getSelectedContributionIds(githubUserId);
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
 
   const filtersCount = Object.keys(filters)?.length;
@@ -63,17 +63,18 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   function handleSelectAll() {
-    setSelectedContributionIds(contributions.map(contribution => contribution.id));
+    addContributionIds(
+      contributions.map(contribution => contribution.id),
+      githubUserId
+    );
   }
 
   function handleSelect(contributionId: string, isSelected: boolean) {
-    setSelectedContributionIds((prevState = []) => {
-      if (isSelected) {
-        return prevState.filter(id => id !== contributionId);
-      }
-
-      return [...prevState, contributionId];
-    });
+    if (isSelected) {
+      removeContributionId(contributionId, githubUserId);
+    } else {
+      addContributionIds([contributionId], githubUserId);
+    }
   }
 
   function renderContributions() {

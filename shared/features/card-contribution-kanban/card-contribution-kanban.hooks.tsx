@@ -45,7 +45,7 @@ const useContributionActions = (
       issueIds: contribution.linkedIssues?.map(linkedIssue => String(linkedIssue.githubId)) ?? [],
       // TODO @hayden
       // githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
-      githubUserIds: [5160414],
+      githubUserIds: [5160414, 17259618],
     });
   }
 
