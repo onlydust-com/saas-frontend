@@ -67,6 +67,7 @@ export function ProgramEcosystemPopover({
             onSelect={handleSelect}
             isPopover={false}
             isMultiple
+            disabledAutoOrdering
           />
         )}
       </Popover.Content>
