@@ -97,6 +97,28 @@ export function SingleContributionValidation() {
     }
   }
 
+  function getTimelineContributionProps() {
+    if (!isLoading && Boolean(contributions)) {
+      return {
+        titleProps: {
+          children: (
+            <>
+              <Translate token={"common:contributions"} /> ({selectedContributionIds?.length})
+            </>
+          ),
+        },
+        contributions: nonNullContributions.map(c => ({
+          githubTitle: c.githubTitle,
+          contributionBadgeProps: {
+            type: c.type,
+            githubStatus: c.githubStatus,
+            number: c.githubNumber,
+          },
+        })),
+      };
+    }
+  }
+
   return (
     <Panel>
       <SidePanelHeader
@@ -110,29 +132,7 @@ export function SingleContributionValidation() {
       />
 
       <SidePanelBody>
-        <UserProfileCard
-          timelineContributionProps={
-            !isLoading && Boolean(contributions)
-              ? {
-                  titleProps: {
-                    children: (
-                      <>
-                        <Translate token={"common:contributions"} /> ({selectedContributionIds?.length})
-                      </>
-                    ),
-                  },
-                  contributions: nonNullContributions.map(c => ({
-                    githubTitle: c.githubTitle,
-                    contributionBadgeProps: {
-                      type: c.type,
-                      githubStatus: c.githubStatus,
-                      number: c.githubNumber,
-                    },
-                  })),
-                }
-              : undefined
-          }
-        />
+        <UserProfileCard timelineContributionProps={getTimelineContributionProps()} />
 
         <AmountSelectorSummary
           amount={amount}
