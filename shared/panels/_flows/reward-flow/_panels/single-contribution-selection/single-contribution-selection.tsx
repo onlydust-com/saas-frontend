@@ -14,10 +14,11 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
-  const { selectedGithubUserIds, selectedContributionIds } = useRewardFlow();
+  const { selectedGithubUserIds, getSelectedContributionIds } = useRewardFlow();
   const [selectedGithubUserId] = selectedGithubUserIds;
   const { open: singleContributionValidation } = useSingleContributionValidation();
 
+  const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
   return (
     <Panel>
       <SidePanelHeader

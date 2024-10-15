@@ -10,6 +10,7 @@ import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow
 import {
   RewardFlowContextInterface,
   RewardFlowContextProps,
+  SelectedContributionIdsState,
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
 
@@ -18,21 +19,55 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   open: () => {},
   selectedGithubUserIds: [],
   selectedIssueIds: [],
-  selectedContributionIds: [],
-  setSelectedContributionIds: () => {},
+  addContributionId: () => {},
+  removeContributionId: () => {},
+  getSelectedContributionIds: () => [],
+  addContributionsId: () => {},
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
   const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
   const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>([]);
-  const [selectedContributionIds, setSelectedContributionIds] = useState<string[] | undefined>([]);
+  const [selectedContributionIds, setSelectedContributionIds] = useState<SelectedContributionIdsState>([]);
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
+
+  function addContributionId(contributionId: string, githubUserId: number) {
+    setSelectedContributionIds(prev => ({
+      ...prev,
+      [githubUserId]: [...(prev[githubUserId] || []), contributionId],
+    }));
+  }
+
+  function addContributionsId(contributionIds: string[], githubUserId: number) {
+    setSelectedContributionIds(prev => ({
+      ...prev,
+      [githubUserId]: [...(prev[githubUserId] || []), ...contributionIds],
+    }));
+  }
+
+  function removeContributionId(contributionId: string, githubUserId: number) {
+    setSelectedContributionIds(prev => ({
+      ...prev,
+      [githubUserId]: prev[githubUserId].filter(id => id !== contributionId),
+    }));
+  }
+
+  function getSelectedContributionIds(githubUserId: number) {
+    return selectedContributionIds[githubUserId] || [];
+  }
 
   function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
     setSelectedGithubUserIds(githubUserIds);
     setSelectedIssueIds(issueIds);
-    setSelectedContributionIds(contributionIds);
+    setSelectedContributionIds(
+      githubUserIds.reduce((acc, githubUserId) => {
+        return {
+          ...acc,
+          [githubUserId]: contributionIds,
+        };
+      }, {})
+    );
 
     if (githubUserIds?.length > 1) {
       openBulkFlow();
@@ -48,8 +83,10 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         open: onOpenFlow,
         selectedGithubUserIds,
         selectedIssueIds,
-        selectedContributionIds,
-        setSelectedContributionIds,
+        addContributionId,
+        getSelectedContributionIds,
+        removeContributionId,
+        addContributionsId,
       }}
     >
       {children}
