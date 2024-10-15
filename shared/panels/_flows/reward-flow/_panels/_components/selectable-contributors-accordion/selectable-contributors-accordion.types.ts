@@ -1,3 +1,1 @@
-export interface SelectableContributorsAccordionProps {
-  selectableContributors: number[];
-}
+export interface SelectableContributorsAccordionProps {}
