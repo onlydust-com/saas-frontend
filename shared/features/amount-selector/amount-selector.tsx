@@ -28,13 +28,15 @@ export function AmountSelector({
 
   const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
 
+  if (!budget) return null;
+
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: formattedBudgetAmount } = moneyKernelPort.format({
     amount: budget.amount,
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
+    amount: parseFloat(amount) * (budget.usdConversionRate ?? 0),
     currency: moneyKernelPort.getCurrency("USD"),
   });
 

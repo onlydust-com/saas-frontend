@@ -6,6 +6,7 @@ import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_p
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { SingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection";
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
+import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation";
 import {
   RewardFlowContextInterface,
   RewardFlowContextProps,
@@ -53,6 +54,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     >
       {children}
       <SingleContributionSelection />
+      <SingleContributionValidation />
       <BulkContributionSelection />
     </RewardFlowContext.Provider>
   );
