@@ -8,8 +8,8 @@
       "modifyProject": "Modify project"
     }
   },
-  "contributions": {
-    "title": "Contributions",
+  "activity": {
+    "title": "Activity",
     "buttons": {
       "contributors": "Contributors",
       "contributions": "Contributions",
