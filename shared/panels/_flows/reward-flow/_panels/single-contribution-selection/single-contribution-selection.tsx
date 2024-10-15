@@ -8,13 +8,15 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { UserContributions } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
 import { UserProfileCard } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-profile-card/user-profile-card";
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
+import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
-  const { selectedGithubUserIds } = useRewardFlow();
+  const { selectedGithubUserIds, selectedContributionIds } = useRewardFlow();
   const [selectedGithubUserId] = selectedGithubUserIds;
+  const { open: singleContributionValidation } = useSingleContributionValidation();
 
   return (
     <Panel>
@@ -42,7 +44,8 @@ export function SingleContributionSelection() {
           translate={{
             token: "common:next",
           }}
-          onClick={() => alert("Open next panel")}
+          isDisabled={!selectedContributionIds?.length}
+          onClick={() => singleContributionValidation()}
         />
       </SidePanelFooter>
     </Panel>

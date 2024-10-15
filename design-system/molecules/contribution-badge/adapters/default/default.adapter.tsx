@@ -42,7 +42,7 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
       shape={shape}
       classNames={{
         ...classNames,
-        base: cn("w-fit", classNames?.base),
+        base: cn("w-fit overflow-visible", classNames?.base),
       }}
     >
       {number}
