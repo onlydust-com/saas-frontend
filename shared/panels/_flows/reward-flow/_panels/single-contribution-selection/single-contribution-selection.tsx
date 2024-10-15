@@ -11,59 +11,45 @@ import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-fl
 import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-import { CreateContributionSidepanel } from "../_features/create-contribution-sidepanel/create-contribution-sidepanel";
-import { useCreateContributionSidepanel } from "../_features/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
-import { LinkContributionSidepanel } from "../_features/link-contribution-sidepanel/link-contribution-sidepanel";
-import { useLinkContributionSidepanel } from "../_features/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
-
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
 
   const { selectedGithubUserIds, getSelectedContributionIds } = useRewardFlow();
-
-  const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
-  const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
-
   const [selectedGithubUserId] = selectedGithubUserIds;
   const { open: singleContributionValidation } = useSingleContributionValidation();
 
   const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
   return (
-    <>
-      <Panel>
-        <SidePanelHeader
-          title={{
-            translate: {
-              token: "panels:singleContributionSelection.title",
-            },
+    <Panel>
+      <SidePanelHeader
+        title={{
+          translate: {
+            token: "panels:singleContributionSelection.title",
+          },
+        }}
+        canClose
+      />
+
+      <SidePanelBody>
+        <UserProfileCard githubUserId={selectedGithubUserId} />
+
+        <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex-1" }}>
+          <UserContributions githubUserId={selectedGithubUserId} />
+        </Paper>
+      </SidePanelBody>
+
+      <SidePanelFooter>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          translate={{
+            token: "common:next",
           }}
-          canClose
+          isDisabled={!selectedContributionIds?.length}
+          onClick={() => singleContributionValidation()}
         />
-
-        <SidePanelBody>
-          <UserProfileCard githubUserId={selectedGithubUserId} />
-
-          <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex-1" }}>
-            <UserContributions githubUserId={selectedGithubUserId} />
-          </Paper>
-        </SidePanelBody>
-
-        <SidePanelFooter>
-          <Button
-            variant={"secondary"}
-            size={"md"}
-            translate={{
-              token: "common:next",
-            }}
-            isDisabled={!selectedContributionIds?.length}
-            onClick={() => singleContributionValidation()}
-          />
-        </SidePanelFooter>
-      </Panel>
-
-      <LinkContributionSidepanel />
-      <CreateContributionSidepanel />
-    </>
+      </SidePanelFooter>
+    </Panel>
   );
 }

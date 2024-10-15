@@ -83,7 +83,7 @@ export function CreateContributionSidepanel() {
   }
 
   useEffect(() => {
-    reset({ githubRepoId: selectItems[0].id });
+    reset({ githubRepoId: selectItems[0]?.id });
   }, [selectItems]);
 
   return (
