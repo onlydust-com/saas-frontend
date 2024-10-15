@@ -17,6 +17,7 @@ import { CardTransaction } from "@/design-system/molecules/cards/card-transactio
 import { ImageInput } from "@/design-system/molecules/image-input";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -173,31 +174,32 @@ export function EditProgramPanel() {
             </Accordion>
             <div className={"flex-1 overflow-hidden"}>
               {flatTransactions.length ? (
-                <Accordion
-                  id={"transactions"}
-                  titleProps={{ translate: { token: "financials:editProgramPanel.transactions.title" } }}
-                  classNames={{ base: "h-full overflow-auto" }}
-                >
-                  <>
-                    {flatTransactions.map(transaction => (
-                      <div key={transaction?.id}>
-                        <CardTransaction
-                          type={transaction.type}
-                          date={transaction.date}
-                          amount={{
-                            value: transaction.amount.amount,
-                            currency: transaction.amount.currency,
-                            usdEquivalent: transaction.amount.usdEquivalent,
-                          }}
-                          size={"none"}
-                          background={"transparent"}
-                          border={"none"}
-                        />
-                      </div>
-                    ))}
-                    {hasNextPage && <ShowMore onNext={fetchNextPage} loading={isPending} />}
-                  </>
-                </Accordion>
+                <ScrollView>
+                  <Accordion
+                    id={"transactions"}
+                    titleProps={{ translate: { token: "financials:editProgramPanel.transactions.title" } }}
+                  >
+                    <>
+                      {flatTransactions.map(transaction => (
+                        <div key={transaction?.id}>
+                          <CardTransaction
+                            type={transaction.type}
+                            date={transaction.date}
+                            amount={{
+                              value: transaction.amount.amount,
+                              currency: transaction.amount.currency,
+                              usdEquivalent: transaction.amount.usdEquivalent,
+                            }}
+                            size={"none"}
+                            background={"transparent"}
+                            border={"none"}
+                          />
+                        </div>
+                      ))}
+                      {hasNextPage && <ShowMore onNext={fetchNextPage} loading={isPending} />}
+                    </>
+                  </Accordion>
+                </ScrollView>
               ) : null}
             </div>
           </div>
