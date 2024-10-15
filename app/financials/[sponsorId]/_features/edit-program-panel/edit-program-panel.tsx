@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +15,7 @@ import { Input } from "@/design-system/atoms/input";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { CardTransaction } from "@/design-system/molecules/cards/card-transaction";
 import { ImageInput } from "@/design-system/molecules/image-input";
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -35,6 +36,8 @@ export function EditProgramPanel() {
   const { programId, sponsorId } = useSinglePanelData<{ programId: string; sponsorId?: string }>(name) ?? {
     programId: "",
   };
+  const [initialLeads, setInitialLeads] = useState<MenuItemPort[]>();
+
   const { data: program } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: { programId },
     options: { enabled: !!programId },
@@ -90,6 +93,11 @@ export function EditProgramPanel() {
         logoUrl: program.logoUrl,
         leadIds: program?.leads.map(l => l.id) || [],
       });
+
+      setInitialLeads(
+        program?.leads.map(l => ({ id: l.id, label: l.login, searchValue: l.login, avatar: { src: l.avatarUrl } })) ??
+          []
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [program]);
@@ -152,6 +160,7 @@ export function EditProgramPanel() {
                       onSelect={onChange}
                       selectedUser={value}
                       isMultiple={true}
+                      initialUsers={initialLeads}
                     />
                   )}
                 />
