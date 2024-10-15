@@ -9,7 +9,7 @@ export type SelectedRewardsState = Record<
   {
     contributionIds: string[];
     amount?: {
-      amount: number;
+      amount: string;
       currencyId: string;
     };
   }
@@ -29,4 +29,6 @@ export interface RewardFlowContextInterface {
   addContributionIds: (contributionId: string[], githubUserId: number) => void;
   removeContributionId: (contributionId: string, githubUserId: number) => void;
   getSelectedContributionIds: (githubUserId: number) => string[];
+  updateAmount: (githubUserId: number, amount: { amount: string; currencyId: string }) => void;
+  getAmount: (githubUserId: number) => { amount: string; currencyId: string };
 }

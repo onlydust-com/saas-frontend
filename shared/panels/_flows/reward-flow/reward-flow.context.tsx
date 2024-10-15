@@ -22,6 +22,8 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   removeContributionId: () => {},
   getSelectedContributionIds: () => [],
   addContributionIds: () => {},
+  updateAmount: () => {},
+  getAmount: () => ({ amount: "0", currencyId: "" }),
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
@@ -36,7 +38,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: Array.from(new Set([...prev[githubUserId].contributionIds, ...contributionIds])),
+        contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributionIds || []), ...contributionIds])),
       },
     }));
   }
@@ -51,8 +53,28 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }));
   }
 
+  function updateAmount(
+    githubUserId: number,
+    amount: {
+      amount: string;
+      currencyId: string;
+    }
+  ) {
+    setSelectedContributionIds(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        amount,
+      },
+    }));
+  }
+
   function getSelectedContributionIds(githubUserId: number) {
-    return selectedContributionIds[githubUserId].contributionIds || [];
+    return selectedContributionIds[githubUserId]?.contributionIds || [];
+  }
+
+  function getAmount(githubUserId: number) {
+    return selectedContributionIds[githubUserId].amount ?? { amount: "0", currencyId: "" };
   }
 
   function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
@@ -74,6 +96,8 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }
   }
 
+  console.log("selectedContributionIds", selectedContributionIds);
+
   return (
     <RewardFlowContext.Provider
       value={{
@@ -84,6 +108,8 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         getSelectedContributionIds,
         removeContributionId,
         addContributionIds,
+        updateAmount,
+        getAmount,
       }}
     >
       {children}
