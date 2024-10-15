@@ -63,6 +63,8 @@
   "categories": "Categories +{{count}}",
   "search": "Search",
   "contributions": "Contributions",
+  "contributionsCount_one": "{{count}} contribution",
+  "contributionsCount_other": "{{count}} contributions",
   "select": "Select",
   "unselect": "Unselect",
   "selectAll": "Select all",

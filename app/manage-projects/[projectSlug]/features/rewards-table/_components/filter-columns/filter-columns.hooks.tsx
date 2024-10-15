@@ -119,13 +119,9 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
 
         return (
           <ContributionsPopover
-            numberOfRewardedContributions={numberOfRewardedContributions}
+            contributionsCount={numberOfRewardedContributions}
             rewardId={rewardId}
             projectId={projectId}
-            labelProps={{
-              token: "manageProjects:detail.rewardsTable.rows.contributionsCount",
-              count: numberOfRewardedContributions,
-            }}
           />
         );
       },

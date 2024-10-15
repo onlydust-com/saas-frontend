@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { InView } from "react-intersection-observer";
+import { useState } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
@@ -7,28 +7,34 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { ContributionsPopoverProps } from "@/shared/features/contributions/contributions-popover/contributions-popover.types";
-import { cn } from "@/shared/helpers/cn";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ContributionsPopover({ rewardId, projectId, labelProps, buttonProps }: ContributionsPopoverProps) {
-  const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      projectIds: [projectId],
-      // TODO activate this filter once backend ready
-      // rewardId: [rewardId],
-    },
-    options: {
-      enabled: Boolean(projectId && rewardId),
-    },
-  });
+export function ContributionsPopover({
+  rewardId,
+  projectId,
+  contributionsCount,
+  buttonProps,
+}: ContributionsPopoverProps) {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        projectIds: [projectId],
+        // TODO activate this filter once backend ready
+        // rewardId: [rewardId],
+      },
+      options: {
+        enabled: Boolean(isPopoverOpen && rewardId && projectId),
+      },
+    });
 
   const contributions = data?.pages.flatMap(page => page.contributions) || [];
   return (
     <Popover>
       <Popover.Trigger>
-        {() => (
+        {({ isOpen }) => (
           <div>
             <Button
               as={"div"}
@@ -40,9 +46,12 @@ export function ContributionsPopover({ rewardId, projectId, labelProps, buttonPr
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
               {...buttonProps}
-            >
-              <Translate {...labelProps} />
-            </Button>
+              translate={{
+                token: "common:contributionsCount",
+                count: contributionsCount,
+              }}
+              onClick={() => setIsPopoverOpen(isOpen)}
+            />
           </div>
         )}
       </Popover.Trigger>
@@ -55,9 +64,7 @@ export function ContributionsPopover({ rewardId, projectId, labelProps, buttonPr
                   <CardContributionKanban contribution={contribution} key={contribution.id} />
                 ))}
               </div>
-              {hasNextPage ? (
-                <InView className={cn("flex w-full justify-center")} onChange={fetchNextPage} skip={isPending} />
-              ) : null}
+              {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
             </ScrollView>
           </div>
         )}

@@ -96,9 +96,7 @@
       "actions": "Actions"
     },
     "rows": {
-      "cancelReward": "Cancel",
-      "contributionsCount_one": "{{count}} contribution",
-      "contributionsCount_other": "{{count}} contributions"
+      "cancelReward": "Cancel"
     },
     "rewardsCount": "Rewards",
     "toast": {
