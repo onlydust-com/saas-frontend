@@ -47,7 +47,7 @@ export function ContributorHistogramChart() {
       fromDate,
       toDate,
       timeGrouping: timeGroupingType,
-      ...(selectedProgramAndEcosystem.length && { programOrEcosystemIds: selectedProgramAndEcosystem }),
+      ...(selectedProgramAndEcosystem.length && { dataSourceIds: selectedProgramAndEcosystem }),
     },
   });
 
@@ -62,7 +62,6 @@ export function ContributorHistogramChart() {
     activeContributorSeries,
     reactivatedContributorSeries,
     churnedContributorSeries,
-
     minChurnedContributor,
   } = useContributorHistogramChart(stats, timeGroupingType);
 
