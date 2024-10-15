@@ -10,11 +10,11 @@ import { bootstrap } from "@/core/bootstrap";
 import { RewardListItemInterface } from "@/core/domain/reward/models/reward-list-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -111,12 +111,23 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.contributions"} />,
       cell: info => {
         const numberOfRewardedContributions = info.getValue();
+        const rewardId = info.row.original.id;
 
         if (!numberOfRewardedContributions) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        return <TableCellKpi>{numberOfRewardedContributions}</TableCellKpi>;
+        return (
+          <ContributionsPopover
+            numberOfRewardedContributions={numberOfRewardedContributions}
+            rewardId={rewardId}
+            projectId={projectId}
+            labelProps={{
+              token: "manageProjects:detail.rewardsTable.rows.contributionsCount",
+              count: numberOfRewardedContributions,
+            }}
+          />
+        );
       },
     }),
     amount: columnHelper.accessor("amount", {
