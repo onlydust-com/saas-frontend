@@ -36,7 +36,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: [...prev[githubUserId].contributionIds, ...contributionIds],
+        contributionIds: Array.from(new Set([...prev[githubUserId].contributionIds, ...contributionIds])),
       },
     }));
   }
