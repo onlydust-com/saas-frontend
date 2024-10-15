@@ -13,6 +13,7 @@ export function usePatchApplication({
   options,
 }: UseMutationFacadeParams<ApplicationFacadePort["patchApplication"], undefined, never, PatchApplicationBody> = {}) {
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -22,7 +23,7 @@ export function usePatchApplication({
         ...options,
         onSuccess: async (data, variables, context) => {
           await queryClient.invalidateQueries({
-            queryKey: applicationStoragePort.getApplications({}).tag,
+            queryKey: issueStoragePort.getIssueApplicants({}).tag,
             exact: false,
           });
 

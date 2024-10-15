@@ -30,8 +30,8 @@ export type GetIssueApplicantsModel = Omit<GetIssueApplicantsResponse, "applican
 
 export type GetIssueApplicantsPortResponse = HttpStorageResponse<GetIssueApplicantsModel>;
 
-export type GetIssueApplicantsPathParams = operations["getIssue"]["parameters"]["path"];
-export type GetIssueApplicantsQueryParams = operations["getIssue"]["parameters"]["query"];
+export type GetIssueApplicantsPathParams = operations["getIssueApplicants"]["parameters"]["path"];
+export type GetIssueApplicantsQueryParams = operations["getIssueApplicants"]["parameters"]["query"]["params"];
 
 export type GetIssueApplicantsPortParams = HttpClientParameters<{
   PathParams: GetIssueApplicantsPathParams;

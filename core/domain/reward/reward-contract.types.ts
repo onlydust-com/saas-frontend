@@ -74,6 +74,16 @@ export type CreateRewardsPortParams = HttpClientParameters<{
 
 export type CreateRewardsPortResponse = HttpStorageResponse<CreateRewardsResponse, CreateRewardsBody>;
 
+/* ------------------------------ Cancel project Reward ------------------------------ */
+
+type CancelRewardsPathParams = operations["cancelReward"]["parameters"]["path"];
+
+export type CancelRewardsPortParams = HttpClientParameters<{
+  PathParams: CancelRewardsPathParams;
+}>;
+
+export type CancelRewardsPortResponse = HttpStorageResponse<unknown>;
+
 /* ------------------------------ Add Other Work ------------------------------ */
 
 export type AddOtherWorkResponse = components["schemas"]["RewardableItemResponse"];

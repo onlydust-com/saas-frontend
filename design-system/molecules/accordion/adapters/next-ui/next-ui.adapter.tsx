@@ -50,6 +50,7 @@ export function AccordionNextUiAdapter({
                   }}
                 />
               )}
+              {!!item.startContent && item.startContent}
 
               <Typo
                 {...item.titleProps}

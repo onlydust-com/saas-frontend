@@ -28,13 +28,15 @@ export function AmountSelector({
 
   const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
 
+  if (!budget) return null;
+
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: formattedBudgetAmount } = moneyKernelPort.format({
     amount: budget.amount,
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
+    amount: parseFloat(amount) * (budget.usdConversionRate ?? 0),
     currency: moneyKernelPort.getCurrency("USD"),
   });
 
@@ -93,14 +95,15 @@ export function AmountSelector({
         </Typo>
       </div>
 
-      <div>
-        <div className={"flex w-full justify-center"}>
+      <div className={"w-full overflow-hidden"}>
+        <div className={"flex w-full justify-center overflow-hidden"}>
           <Button
             variant={"secondary"}
             size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
             canInteract={!readOnly}
+            classNames={{ base: "w-full overflow-hidden", label: "flex-1 overflow-hidden" }}
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}

@@ -1,7 +1,7 @@
-import { ApplicationListItemInterface } from "@/core/domain/application/models/application-list-item-model";
+import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applicant-model";
 
 export interface ApplicationCardProps {
-  application: ApplicationListItemInterface;
+  application: IssueApplicantInterface;
   contributionId: string;
   isIgnored?: boolean;
 }

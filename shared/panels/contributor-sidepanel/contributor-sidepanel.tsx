@@ -8,7 +8,6 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { ActivityGraph } from "@/shared/features/contributors/activity-graph/activity-graph";
 import { ContributorProfileExtended } from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -19,6 +18,7 @@ import { Activity } from "@/shared/panels/contributor-sidepanel/_components/acti
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
+import { PublicRepo } from "@/shared/panels/contributor-sidepanel/_components/public-repo/public-repo";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -92,8 +92,8 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
               <Kpi user={data} />
               <RewardsGraph githubId={data.githubUserId} />
             </div>
+            <PublicRepo />
             <Activity githubId={data.githubUserId} />
-            <ActivityGraph />
           </>
         ) : null}
       </div>

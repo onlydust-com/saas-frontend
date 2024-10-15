@@ -8,6 +8,7 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { UserContributions } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
 import { UserProfileCard } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-profile-card/user-profile-card";
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
+import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 import { CreateContributionSidepanel } from "../_features/create-contribution-sidepanel/create-contribution-sidepanel";
@@ -18,11 +19,16 @@ import { useLinkContributionSidepanel } from "../_features/link-contribution-sid
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
-  const { selectedGithubUserIds } = useRewardFlow();
+
+  const { selectedGithubUserIds, getSelectedContributionIds } = useRewardFlow();
+
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
-  const [selectedGithubUserId] = selectedGithubUserIds;
 
+  const [selectedGithubUserId] = selectedGithubUserIds;
+  const { open: singleContributionValidation } = useSingleContributionValidation();
+
+  const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
   return (
     <>
       <Panel>
@@ -36,24 +42,11 @@ export function SingleContributionSelection() {
         />
 
         <SidePanelBody>
-          <UserProfileCard />
+          <UserProfileCard githubUserId={selectedGithubUserId} />
 
           <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex-1" }}>
             <UserContributions githubUserId={selectedGithubUserId} />
           </Paper>
-
-          <Button variant={"secondary"} size={"sm"} classNames={{ base: "w-full" }} onClick={openLinkContributionPanel}>
-            Open other work link
-          </Button>
-
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            classNames={{ base: "w-full" }}
-            onClick={openCreateContributionPanel}
-          >
-            Open other work create
-          </Button>
         </SidePanelBody>
 
         <SidePanelFooter>
@@ -63,7 +56,8 @@ export function SingleContributionSelection() {
             translate={{
               token: "common:next",
             }}
-            onClick={() => alert("Open next panel")}
+            isDisabled={!selectedContributionIds?.length}
+            onClick={() => singleContributionValidation()}
           />
         </SidePanelFooter>
       </Panel>

@@ -39,6 +39,10 @@ export class DateFnsAdapter implements DateFacadePort {
     return DateFns.eachDayOfInterval({ start, end });
   }
 
+  isSameDay(dateLeft: Date, dateRight: Date): boolean {
+    return DateFns.isSameDay(dateLeft, dateRight);
+  }
+
   subWeeks(date: Date, weeks: number): Date {
     return DateFns.subWeeks(date, weeks);
   }
