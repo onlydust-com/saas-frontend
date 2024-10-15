@@ -46,15 +46,15 @@ function Column({
   const title = useMemo(() => {
     switch (type) {
       case ContributionActivityStatus.NOT_ASSIGNED:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.notAssigned"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.notAssigned"} />;
       case ContributionActivityStatus.IN_PROGRESS:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.inProgress"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.inProgress"} />;
       case ContributionActivityStatus.TO_REVIEW:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.toReview"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.toReview"} />;
       case ContributionActivityStatus.DONE:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.done"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.done"} />;
       case ContributionActivityStatus.ARCHIVED:
-        return <Translate token={"manageProjects:detail.contributions.kanban.columns.archive"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.archive"} />;
     }
   }, [type]);
 

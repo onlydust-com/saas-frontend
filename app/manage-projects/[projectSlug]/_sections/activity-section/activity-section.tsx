@@ -50,7 +50,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
             size={"xs"}
             weight={"medium"}
             variant={"heading"}
-            translate={{ token: "manageProjects:detail.contributions.title" }}
+            translate={{ token: "manageProjects:detail.activity.title" }}
           />
 
           <Tabs
@@ -59,15 +59,15 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
             tabs={[
               {
                 id: CONTRIBUTORS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.contributors"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.contributors"} />,
               },
               {
                 id: CONTRIBUTIONS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.contributions"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.contributions"} />,
               },
               {
                 id: REWARDS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.rewards"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.rewards"} />,
               },
             ]}
             selectedId={toggleFinancialViews}
@@ -79,7 +79,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           endIcon={{ component: ChevronRight }}
           isTextButton
           size={"md"}
-          translate={{ token: "manageProjects:detail.contributions.actions.reward" }}
+          translate={{ token: "manageProjects:detail.activity.actions.reward" }}
           onClick={() => console.log("Open reward")}
           classNames={{
             base: "max-w-full overflow-hidden",
