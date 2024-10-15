@@ -19,7 +19,7 @@ export function BulkContributorSelection() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: "Rewards",
+          translate: { token: "panels:bulkContributorsSelection.title" },
         }}
         canGoBack
         canClose

@@ -38,8 +38,6 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     setSelectedIssueIds(issueIds);
     setSelectedContributionIds(contributionIds);
 
-    console.log("githubUserIds", githubUserIds);
-
     if (githubUserIds?.length > 1) {
       openBulkContributorFlow();
     } else {
