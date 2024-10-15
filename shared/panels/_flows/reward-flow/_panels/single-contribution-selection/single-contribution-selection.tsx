@@ -28,7 +28,7 @@ export function SingleContributionSelection() {
       />
 
       <SidePanelBody>
-        <UserProfileCard />
+        <UserProfileCard githubUserId={selectedGithubUserId} />
 
         <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex-1" }}>
           <UserContributions githubUserId={selectedGithubUserId} />
