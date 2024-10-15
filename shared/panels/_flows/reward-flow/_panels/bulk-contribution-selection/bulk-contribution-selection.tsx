@@ -14,7 +14,9 @@ export function BulkContributionSelection() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: "Select contribution",
+          translate: {
+            token: "panels:bulkContributionSelection.title",
+          },
         }}
         canGoBack
         canClose
@@ -22,9 +24,11 @@ export function BulkContributionSelection() {
 
       <SidePanelBody>
         <ScrollView>
-          {selectedGithubUserIds.map(githubUserId => (
-            <SingleUserFlow githubUserId={githubUserId} key={githubUserId} />
-          ))}
+          <div className={"flex w-full flex-col gap-lg"}>
+            {selectedGithubUserIds.map(githubUserId => (
+              <SingleUserFlow githubUserId={githubUserId} key={githubUserId} />
+            ))}
+          </div>
         </ScrollView>
       </SidePanelBody>
     </Panel>

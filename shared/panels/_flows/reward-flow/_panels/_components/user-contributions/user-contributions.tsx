@@ -32,7 +32,7 @@ export type UserContributionsFilters = Omit<
 >;
 
 export function UserContributions({ githubUserId }: UserContributionsProps) {
-  const { getSelectedContributionIds, addContributionId, addContributionsId, removeContributionId } = useRewardFlow();
+  const { getSelectedContributionIds, addContributionIds, removeContributionId } = useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -63,7 +63,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   function handleSelectAll() {
-    addContributionsId(
+    addContributionIds(
       contributions.map(contribution => contribution.id),
       githubUserId
     );
@@ -73,7 +73,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
     if (isSelected) {
       removeContributionId(contributionId, githubUserId);
     } else {
-      addContributionId(contributionId, githubUserId);
+      addContributionIds([contributionId], githubUserId);
     }
   }
 

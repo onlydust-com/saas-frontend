@@ -19,10 +19,9 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   open: () => {},
   selectedGithubUserIds: [],
   selectedIssueIds: [],
-  addContributionId: () => {},
   removeContributionId: () => {},
   getSelectedContributionIds: () => [],
-  addContributionsId: () => {},
+  addContributionIds: () => {},
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
@@ -32,14 +31,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
 
-  function addContributionId(contributionId: string, githubUserId: number) {
-    setSelectedContributionIds(prev => ({
-      ...prev,
-      [githubUserId]: [...(prev[githubUserId] || []), contributionId],
-    }));
-  }
-
-  function addContributionsId(contributionIds: string[], githubUserId: number) {
+  function addContributionIds(contributionIds: string[], githubUserId: number) {
     setSelectedContributionIds(prev => ({
       ...prev,
       [githubUserId]: [...(prev[githubUserId] || []), ...contributionIds],
@@ -83,10 +75,9 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         open: onOpenFlow,
         selectedGithubUserIds,
         selectedIssueIds,
-        addContributionId,
         getSelectedContributionIds,
         removeContributionId,
-        addContributionsId,
+        addContributionIds,
       }}
     >
       {children}
