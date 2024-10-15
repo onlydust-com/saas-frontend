@@ -1,0 +1,8 @@
+{
+  "summary": {
+    "title": "Balance Summary",
+    "currentBalance": "Current Balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final Balance"
+  }
+}
