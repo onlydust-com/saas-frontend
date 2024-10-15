@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
 import { AmountSelectorLoading } from "@/shared/features/amount-selector/amount-selector.loading";
+import { AmountSelectorSummaryProps } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_components/amount-selector-summary/amount-selector-summary.types";
 import { Summary } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_components/summary/summary";
 import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-export function AmountSelectorSummary() {
+export function AmountSelectorSummary({ amount, budget, onAmountChange, onBudgetChange }: AmountSelectorSummaryProps) {
   const { isOpen } = useSingleContributionValidation();
   const { projectId = "" } = useRewardFlow();
-  const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
-  const [amount, setAmount] = useState("0");
 
   const {
     data: project,
@@ -35,25 +33,17 @@ export function AmountSelectorSummary() {
 
   useEffect(() => {
     if (isOpen && project) {
-      setBudget(project.totalAvailable.totalPerCurrency?.[0]);
-      setAmount("0");
+      onBudgetChange(project.totalAvailable.totalPerCurrency?.[0]);
+      onAmountChange("0");
       return;
     }
 
     if (!isOpen) {
-      setBudget(undefined);
-      setAmount("0");
+      onBudgetChange(undefined);
+      onAmountChange("0");
       return;
     }
   }, [isOpen, project]);
-
-  function handleAmountChange(amount: string) {
-    setAmount(amount);
-  }
-
-  function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency) {
-    setBudget(budget);
-  }
 
   if (isLoading) {
     return (
@@ -78,10 +68,10 @@ export function AmountSelectorSummary() {
       <div className="flex max-h-72 flex-1 items-center">
         <AmountSelector
           amount={amount}
-          onAmountChange={handleAmountChange}
+          onAmountChange={onAmountChange}
           budget={budget}
           allBudgets={allBudgets}
-          onBudgetChange={handleBudgetChange}
+          onBudgetChange={onBudgetChange}
         />
       </div>
 
