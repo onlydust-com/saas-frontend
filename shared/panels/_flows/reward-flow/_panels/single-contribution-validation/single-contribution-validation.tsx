@@ -75,7 +75,7 @@ export function SingleContributionValidation() {
     setAmount(amount);
   }
 
-  function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency | undefined) {
+  function handleBudgetChange(budget?: DetailedTotalMoneyTotalPerCurrency) {
     setBudget(budget);
   }
 

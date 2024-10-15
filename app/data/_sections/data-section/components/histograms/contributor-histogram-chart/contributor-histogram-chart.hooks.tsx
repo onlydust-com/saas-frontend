@@ -10,7 +10,7 @@ export function useContributorHistogramChart(
 ) {
   function calculateSeries(key: keyof Omit<BiContributorsStatsResponse, "timestamp">) {
     if (key === "churnedContributorCount") {
-      return stats?.map(stat => -stat["churnedContributorCount"] ?? 0) ?? [];
+      return stats?.map(stat => -stat["churnedContributorCount"]) ?? [];
     }
     return stats?.map(stat => stat[key]) ?? [];
   }

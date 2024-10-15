@@ -15,7 +15,7 @@ interface AmountSelectorReadOnlyProps extends BaseProps {
 export interface AmountSelectorInputProps extends BaseProps {
   onAmountChange: (amount: string) => void;
   allBudgets?: DetailedTotalMoneyTotalPerCurrency[];
-  onBudgetChange: (budget: DetailedTotalMoneyTotalPerCurrency | undefined) => void;
+  onBudgetChange: (budget?: DetailedTotalMoneyTotalPerCurrency) => void;
   readOnly?: never;
 }
 

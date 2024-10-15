@@ -109,7 +109,7 @@ export function GrantFormSidepanel() {
     setAmount(amount);
   }
 
-  function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency) {
+  function handleBudgetChange(budget?: DetailedTotalMoneyTotalPerCurrency) {
     setSelectedBudget(budget);
   }
 
