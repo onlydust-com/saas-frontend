@@ -1,0 +1,11 @@
+{
+  "title": "Rewards",
+  "filters": {
+    "title": "Contributors filters",
+    "save": "Validate",
+    "reset": "Reset filters"
+  },
+  "contributorsAccordion": {
+    "title": "Contributors"
+  }
+}
