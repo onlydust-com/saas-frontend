@@ -4,7 +4,16 @@ export interface RewardFlowContextProps extends PropsWithChildren {
   projectId?: string;
 }
 
-export type SelectedContributionIdsState = Record<number, string[]>;
+export type SelectedRewardsState = Record<
+  number,
+  {
+    contributionIds: string[];
+    amount?: {
+      amount: number;
+      currencyId: string;
+    };
+  }
+>;
 
 export interface startFlowProps {
   githubUserIds: number[];

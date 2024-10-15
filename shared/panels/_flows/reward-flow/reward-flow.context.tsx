@@ -10,7 +10,7 @@ import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow
 import {
   RewardFlowContextInterface,
   RewardFlowContextProps,
-  SelectedContributionIdsState,
+  SelectedRewardsState,
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
 
@@ -27,26 +27,32 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
   const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
   const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>([]);
-  const [selectedContributionIds, setSelectedContributionIds] = useState<SelectedContributionIdsState>([]);
+  const [selectedContributionIds, setSelectedContributionIds] = useState<SelectedRewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
 
   function addContributionIds(contributionIds: string[], githubUserId: number) {
     setSelectedContributionIds(prev => ({
       ...prev,
-      [githubUserId]: [...(prev[githubUserId] || []), ...contributionIds],
+      [githubUserId]: {
+        ...prev[githubUserId],
+        contributionIds: [...prev[githubUserId].contributionIds, ...contributionIds],
+      },
     }));
   }
 
   function removeContributionId(contributionId: string, githubUserId: number) {
     setSelectedContributionIds(prev => ({
       ...prev,
-      [githubUserId]: prev[githubUserId].filter(id => id !== contributionId),
+      [githubUserId]: {
+        ...prev[githubUserId],
+        contributionIds: prev[githubUserId].contributionIds.filter(id => id !== contributionId),
+      },
     }));
   }
 
   function getSelectedContributionIds(githubUserId: number) {
-    return selectedContributionIds[githubUserId] || [];
+    return selectedContributionIds[githubUserId].contributionIds || [];
   }
 
   function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
