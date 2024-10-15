@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
+import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -18,11 +19,7 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 
 import { useRewardFlow } from "../../../reward-flow.context";
 import { useLinkContributionSidepanel } from "./link-contribution-sidepanel.hooks";
-import {
-  ContributionType,
-  REGEX_VALID_GITHUB_ISSUE_URL,
-  REGEX_VALID_GITHUB_PULL_REQUEST_URL,
-} from "./link-contribution-sidepanel.types";
+import { ContributionType } from "./link-contribution-sidepanel.types";
 
 export function LinkContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -35,6 +32,8 @@ export function LinkContributionSidepanel() {
   const { Panel, back } = useSidePanel({ name });
 
   const { projectId } = useRewardFlow();
+
+  const urlKernelPort = bootstrap.getUrlKernelPort();
 
   const { mutateAsync: addOtherIssue, isPending: isOtherIssuePending } =
     RewardReactQueryAdapter.client.useAddOtherIssue({
@@ -74,9 +73,9 @@ export function LinkContributionSidepanel() {
   function handleError() {
     if (url) {
       if (type === ContributionType.ISSUE) {
-        setError(!REGEX_VALID_GITHUB_ISSUE_URL.test(url));
+        setError(!urlKernelPort.validateGithubIssueUrl(url));
       } else if (type === ContributionType.PULL_REQUEST) {
-        setError(!REGEX_VALID_GITHUB_PULL_REQUEST_URL.test(url));
+        setError(!urlKernelPort.validateGithubPullRequestUrl(url));
       } else {
         setError(false);
       }
