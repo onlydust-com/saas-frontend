@@ -9,6 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -20,6 +21,7 @@ const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
   const { open } = useRewardFlow();
+  const { close } = useSidePanelsContext();
   const [toggleFinancialViews, setToggleFinancialViews] = useState<
     typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
   >(CONTRIBUTORS);
