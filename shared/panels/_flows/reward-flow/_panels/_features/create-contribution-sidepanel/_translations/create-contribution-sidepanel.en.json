@@ -1,0 +1,25 @@
+{
+  "header": {
+    "title": "Create contribution"
+  },
+  "footer": {
+    "button": "Create issue"
+  },
+  "content": {
+    "title": {
+      "label": "Title",
+      "placeholder": "Add a title"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Add details about the work being paid"
+    },
+    "information": {
+      "title": "Information",
+      "description": "For tracking purposes, we will create the corresponding issue on GitHub."
+    },
+    "repository": {
+      "label": "Create isssue in"
+    }
+  }
+}

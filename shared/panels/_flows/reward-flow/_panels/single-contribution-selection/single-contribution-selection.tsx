@@ -10,14 +10,17 @@ import { UserProfileCard } from "@/shared/panels/_flows/reward-flow/_panels/_com
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-import { OtherWorkSidepanel } from "../../_features/other-work-sidepanel/other-work-sidepanel";
-import { useOtherWorkSidepanel } from "../../_features/other-work-sidepanel/other-work-sidepanel.hooks";
+import { CreateContributionSidepanel } from "../_features/create-contribution-sidepanel/create-contribution-sidepanel";
+import { useCreateContributionSidepanel } from "../_features/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
+import { LinkContributionSidepanel } from "../_features/link-contribution-sidepanel/link-contribution-sidepanel";
+import { useLinkContributionSidepanel } from "../_features/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
 
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
   const { selectedGithubUserIds } = useRewardFlow();
-  const { open: openOtherWorksPanel } = useOtherWorkSidepanel();
+  const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
+  const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
   const [selectedGithubUserId] = selectedGithubUserIds;
 
   return (
@@ -39,16 +42,7 @@ export function SingleContributionSelection() {
             <UserContributions githubUserId={selectedGithubUserId} />
           </Paper>
 
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            classNames={{ base: "w-full" }}
-            onClick={() =>
-              openOtherWorksPanel({
-                type: "LINK",
-              })
-            }
-          >
+          <Button variant={"secondary"} size={"sm"} classNames={{ base: "w-full" }} onClick={openLinkContributionPanel}>
             Open other work link
           </Button>
 
@@ -56,11 +50,7 @@ export function SingleContributionSelection() {
             variant={"secondary"}
             size={"sm"}
             classNames={{ base: "w-full" }}
-            onClick={() =>
-              openOtherWorksPanel({
-                type: "CREATE",
-              })
-            }
+            onClick={openCreateContributionPanel}
           >
             Open other work create
           </Button>
@@ -78,7 +68,8 @@ export function SingleContributionSelection() {
         </SidePanelFooter>
       </Panel>
 
-      <OtherWorkSidepanel />
+      <LinkContributionSidepanel />
+      <CreateContributionSidepanel />
     </>
   );
 }
