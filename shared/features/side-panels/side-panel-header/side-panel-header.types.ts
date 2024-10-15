@@ -10,4 +10,5 @@ export interface SidePanelHeaderProps {
   title?: TypoPort<"span">;
   titleEndContent?: ReactNode;
   onClose?: () => void;
+  onBack?: () => void;
 }

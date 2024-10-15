@@ -36,7 +36,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: Array.from(new Set([...prev[githubUserId].contributionIds, ...contributionIds])),
+        contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributionIds || []), ...contributionIds])),
       },
     }));
   }
@@ -52,7 +52,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function getSelectedContributionIds(githubUserId: number) {
-    return selectedContributionIds[githubUserId].contributionIds || [];
+    return selectedContributionIds[githubUserId]?.contributionIds || [];
   }
 
   function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
