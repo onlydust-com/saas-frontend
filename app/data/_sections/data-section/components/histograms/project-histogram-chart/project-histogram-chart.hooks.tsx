@@ -10,7 +10,7 @@ export function useProjectHistogramChart(
 ) {
   function calculateSeries(key: keyof Omit<BiProjectsStatsResponse, "timestamp">) {
     if (key === "churnedProjectCount") {
-      return stats?.map(stat => -stat["churnedProjectCount"] ?? 0) ?? [];
+      return stats?.map(stat => -stat["churnedProjectCount"]) ?? [];
     }
     return stats?.map(stat => stat[key]) ?? [];
   }
