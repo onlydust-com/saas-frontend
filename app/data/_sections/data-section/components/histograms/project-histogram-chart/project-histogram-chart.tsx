@@ -47,7 +47,7 @@ export function ProjectHistogramChart() {
       fromDate,
       toDate,
       timeGrouping: timeGroupingType,
-      ...(selectedProgramAndEcosystem.length && { programOrEcosystemIds: selectedProgramAndEcosystem }),
+      ...(selectedProgramAndEcosystem.length && { dataSourceIds: selectedProgramAndEcosystem }),
     },
   });
 
