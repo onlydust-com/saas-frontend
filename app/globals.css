@@ -321,7 +321,7 @@
     --typography-secondary_hover: var(--_grey-700);
     --typography-tertiary: var(--_grey-500-primary);
     --typography-tertiary_hover: var(--_grey-600);
-    --typography-quaternary: var(--_grey-400);
+    --typography-quaternary: var(--_grey-500-primary);
     --typography-white: var(--_white);
     --typography-disabled: var(--_grey-400);
     --typography-placeholder: var(--_grey-500-primary);
@@ -360,9 +360,9 @@
     --chart-quaternary: var(--_brand-brightorange-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
-    --chart-senary: #7A0EBB;
-    --chart-septenary: #A03AE9;
-    --chart-octonary: #CA75FF;
+    --chart-senary: #7a0ebb;
+    --chart-septenary: #a03ae9;
+    --chart-octonary: #ca75ff;
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
@@ -474,6 +474,7 @@
     --utility-grey-700: var(--_grey-700);
     --utility-grey-800: var(--_grey-800);
     --utility-grey-900: var(--_grey-900);
+    --utility-grey-950: var(--_grey-950);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-50);
@@ -486,6 +487,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-700);
     --utility-brand-brightorange-800: var(--_brand-brightorange-800);
     --utility-brand-brightorange-900: var(--_brand-brightorange-900);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-950);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-50);
@@ -498,6 +500,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-700);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-800);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-900);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-950);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-50);
@@ -510,6 +513,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-700);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-800);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-900);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-950);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-50);
@@ -522,6 +526,7 @@
     --utility-brand-cyan-700: var(--_brand-cyan-700);
     --utility-brand-cyan-800: var(--_brand-cyan-800);
     --utility-brand-cyan-900: var(--_brand-cyan-900);
+    --utility-brand-cyan-950: var(--_brand-cyan-950);
 
     /* UTILITY SECONDARY */
     --utility-secondary-blue-500: var(--_secondary-blue-500);
@@ -541,6 +546,7 @@
     --utility-error-700: var(--_error-700);
     --utility-error-800: var(--_error-800);
     --utility-error-900: var(--_error-900);
+    --utility-error-950: var(--_error-950);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-50);
@@ -553,6 +559,7 @@
     --utility-warning-700: var(--_warning-700);
     --utility-warning-800: var(--_warning-800);
     --utility-warning-900: var(--_warning-900);
+    --utility-warning-950: var(--_warning-950);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-50);
@@ -565,23 +572,24 @@
     --utility-success-700: var(--_success-700);
     --utility-success-800: var(--_success-800);
     --utility-success-900: var(--_success-900);
+    --utility-success-950: var(--_success-950);
 
     /* UTILITY GRADIENT */
-    --utility-gradient-glassneon-glass-neon-1: #FAFDEB;
-    --utility-gradient-glassneon-glass-neon-2: #FAFDEB;
-    --utility-gradient-glassneon-glass-neon-3: #E8FAFA;
-    --utility-gradient-glassneon-glass-neon-4: #E8F2FA;
-    --utility-gradient-glassneon-glass-neon-5: #FBEAF6;
-    --utility-gradient-glassneon-glass-neon-6: #E9E0FD;
-    --utility-gradient-glassneon-glass-neon-7: #E9E0FD;
+    --utility-gradient-glassneon-glass-neon-1: #fafdeb;
+    --utility-gradient-glassneon-glass-neon-2: #fafdeb;
+    --utility-gradient-glassneon-glass-neon-3: #e8fafa;
+    --utility-gradient-glassneon-glass-neon-4: #e8f2fa;
+    --utility-gradient-glassneon-glass-neon-5: #fbeaf6;
+    --utility-gradient-glassneon-glass-neon-6: #e9e0fd;
+    --utility-gradient-glassneon-glass-neon-7: #e9e0fd;
 
     --utility-gradient-app-bg-radial-1: var(--background-quaternary);
     --utility-gradient-app-bg-radial-2: rgba(238, 242, 246, 0);
     --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
     --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
-    --utility-gradient-app-bg-linear-2-1: #F3EEF6;
-    --utility-gradient-app-bg-linear-2-2: #F6F2FA;
-    --utility-gradient-app-bg-linear-2-3: #FBF7FF;
+    --utility-gradient-app-bg-linear-2-1: #f3eef6;
+    --utility-gradient-app-bg-linear-2-2: #f6f2fa;
+    --utility-gradient-app-bg-linear-2-3: #fbf7ff;
 
     /* COMPONENTS BADGE */
 
@@ -739,9 +747,9 @@
     --chart-quaternary: var(--_brand-brightorange-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
-    --chart-senary: #7A0EBB;
-    --chart-septenary: #A03AE9;
-    --chart-octonary: #CA75FF;
+    --chart-senary: #7a0ebb;
+    --chart-septenary: #a03ae9;
+    --chart-octonary: #ca75ff;
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);
@@ -853,6 +861,7 @@
     --utility-grey-700: var(--_grey-300);
     --utility-grey-800: var(--_grey-200);
     --utility-grey-900: var(--_grey-100);
+    --utility-grey-950: var(--_grey-50);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-950);
@@ -865,6 +874,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-300);
     --utility-brand-brightorange-800: var(--_brand-brightorange-200);
     --utility-brand-brightorange-900: var(--_brand-brightorange-100);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-50);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-950);
@@ -877,13 +887,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-300);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-200);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-100);
-
-    /* UTILITY SECONDARY */
-    --utility-secondary-blue-500: var(--_secondary-blue-500);
-    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
-    --utility-secondary-orange-500: var(--_secondary-orange-500);
-    --utility-secondary-green-500: var(--_secondary-green-500);
-    --utility-secondary-pink-500: var(--_secondary-pink-500);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-50);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-950);
@@ -896,6 +900,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-300);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-200);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-100);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-50);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-950);
@@ -908,6 +913,14 @@
     --utility-brand-cyan-700: var(--_brand-cyan-300);
     --utility-brand-cyan-800: var(--_brand-cyan-200);
     --utility-brand-cyan-900: var(--_brand-cyan-100);
+    --utility-brand-cyan-950: var(--_brand-cyan-50);
+
+    /* UTILITY SECONDARY */
+    --utility-secondary-blue-500: var(--_secondary-blue-500);
+    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
+    --utility-secondary-orange-500: var(--_secondary-orange-500);
+    --utility-secondary-green-500: var(--_secondary-green-500);
+    --utility-secondary-pink-500: var(--_secondary-pink-500);
 
     /* UTILITY ERROR */
     --utility-error-50: var(--_error-950);
@@ -920,6 +933,7 @@
     --utility-error-700: var(--_error-300);
     --utility-error-800: var(--_error-200);
     --utility-error-900: var(--_error-100);
+    --utility-error-950: var(--_error-50);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-950);
@@ -932,6 +946,7 @@
     --utility-warning-700: var(--_warning-300);
     --utility-warning-800: var(--_warning-200);
     --utility-warning-900: var(--_warning-100);
+    --utility-warning-950: var(--_warning-50);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-950);
@@ -944,21 +959,22 @@
     --utility-success-700: var(--_success-300);
     --utility-success-800: var(--_success-200);
     --utility-success-900: var(--_success-100);
+    --utility-success-950: var(--_success-50);
 
     /* UTILITY GRADIENT */
-    --utility-gradient-glassneon-glass-neon-1: #232E41;
+    --utility-gradient-glassneon-glass-neon-1: #232e41;
     --utility-gradient-glassneon-glass-neon-2: #232634;
-    --utility-gradient-glassneon-glass-neon-3: #231D2F;
+    --utility-gradient-glassneon-glass-neon-3: #231d2f;
     --utility-gradient-glassneon-glass-neon-4: #231830;
-    --utility-gradient-glassneon-glass-neon-5: #2A0D3B;
-    --utility-gradient-glassneon-glass-neon-6: #1C0052;
+    --utility-gradient-glassneon-glass-neon-5: #2a0d3b;
+    --utility-gradient-glassneon-glass-neon-6: #1c0052;
 
     --utility-gradient-app-bg-radial-1: var(--background-quaternary);
     --utility-gradient-app-bg-radial-2: rgba(13, 18, 28, 0);
     --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
     --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
-    --utility-gradient-app-bg-linear-2-1: #160D1C;
-    --utility-gradient-app-bg-linear-2-2: #26014A;
+    --utility-gradient-app-bg-linear-2-1: #160d1c;
+    --utility-gradient-app-bg-linear-2-2: #26014a;
     --utility-gradient-app-bg-linear-2-3: #250059;
 
     /** COMPONENTS BADGE **/
@@ -1056,7 +1072,7 @@
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-10);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
-/*--*/
+    /*--*/
     --scrollbar-thumb: var(--foreground-senary);
     --scrollbar-track: transparent;
   }
@@ -1064,14 +1080,23 @@
   @layer components {
     .app_gradient {
       position: relative;
-      background: linear-gradient(180deg, var(--utility-gradient-app-bg-linear-2-1) 0%, var(--utility-gradient-app-bg-linear-2-2) 80%, var(--utility-gradient-app-bg-linear-2-3) 100%);
+      background: linear-gradient(
+        180deg,
+        var(--utility-gradient-app-bg-linear-2-1) 0%,
+        var(--utility-gradient-app-bg-linear-2-2) 80%,
+        var(--utility-gradient-app-bg-linear-2-3) 100%
+      );
     }
 
     .app_gradient::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(100% 100% at 50% 100%, var(--utility-gradient-app-bg-radial-2) 0%, var(--utility-gradient-app-bg-radial-1) 100%);
+      background: radial-gradient(
+        100% 100% at 50% 100%,
+        var(--utility-gradient-app-bg-radial-2) 0%,
+        var(--utility-gradient-app-bg-radial-1) 100%
+      );
     }
 
     .app_gradient::after {
@@ -1079,7 +1104,18 @@
       position: absolute;
       inset: 0;
       opacity: 0.05;
-      background: linear-gradient(270deg, var(--utility-gradient-app-bg-linear-1-1) 0%, var(--utility-gradient-app-bg-linear-1-2) 10%, var(--utility-gradient-app-bg-linear-1-1) 20%, var(--utility-gradient-app-bg-linear-1-2) 35%, var(--utility-gradient-app-bg-linear-1-1) 50%, var(--utility-gradient-app-bg-linear-1-2) 58%, var(--utility-gradient-app-bg-linear-1-1) 65%, var(--utility-gradient-app-bg-linear-1-2) 81%, var(--utility-gradient-app-bg-linear-1-1) 100%)
+      background: linear-gradient(
+        270deg,
+        var(--utility-gradient-app-bg-linear-1-1) 0%,
+        var(--utility-gradient-app-bg-linear-1-2) 10%,
+        var(--utility-gradient-app-bg-linear-1-1) 20%,
+        var(--utility-gradient-app-bg-linear-1-2) 35%,
+        var(--utility-gradient-app-bg-linear-1-1) 50%,
+        var(--utility-gradient-app-bg-linear-1-2) 58%,
+        var(--utility-gradient-app-bg-linear-1-1) 65%,
+        var(--utility-gradient-app-bg-linear-1-2) 81%,
+        var(--utility-gradient-app-bg-linear-1-1) 100%
+      );
     }
   }
 
