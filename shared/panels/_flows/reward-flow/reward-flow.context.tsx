@@ -20,11 +20,12 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
   selectedGithubUserIds: [],
-  setSelectedGithubUserIds: () => {},
   selectedIssueIds: [],
   removeContributionId: () => {},
   getSelectedContributionIds: () => [],
   addContributionIds: () => {},
+  addContributorId: () => {},
+  removeContributorId: () => {},
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
@@ -43,6 +44,14 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributionIds || []), ...contributionIds])),
       },
     }));
+  }
+
+  function addContributorId(contributorId: number) {
+    setSelectedGithubUserIds(prev => Array.from(new Set([...(prev || []), contributorId])));
+  }
+
+  function removeContributorId(contributorId: number) {
+    setSelectedGithubUserIds(prev => prev?.filter(id => id !== contributorId));
   }
 
   function removeContributionId(contributionId: string, githubUserId: number) {
@@ -85,11 +94,12 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         projectId,
         open: onOpenFlow,
         selectedGithubUserIds,
-        setSelectedGithubUserIds,
         selectedIssueIds,
         getSelectedContributionIds,
         removeContributionId,
         addContributionIds,
+        addContributorId,
+        removeContributorId,
       }}
     >
       {children}
