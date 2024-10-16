@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
@@ -23,7 +23,6 @@ import {
 export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
-  selectedGithubUserIds: [],
   removeContribution: () => {},
   getSelectedContributions: () => [],
   addContributions: () => {},
@@ -32,13 +31,35 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   getRewardBody: () => [],
   addContributorId: () => {},
   removeContributorId: () => {},
+  selectedGithubUserIds: [],
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
-  const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
   const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
+
+  function addContributor(prev: RewardsState, githubUserId: number, contributions?: ContributionItemDtoInterface[]) {
+    if (!prev[githubUserId]) {
+      prev[githubUserId] = {
+        contributions: contributions ?? [],
+        amount: undefined,
+      };
+    }
+    return prev;
+  }
+
+  function addContributors(
+    prev: RewardsState,
+    githubUserIds: number[],
+    contributions?: ContributionItemDtoInterface[]
+  ) {
+    return githubUserIds.reduce((acc, githubUserId) => addContributor(acc, githubUserId, contributions), prev);
+  }
+
+  function getSelectedGithubUserIds() {
+    return Object.keys(rewardsState).map(Number) ?? [];
+  }
 
   function addContributions(contributions: ContributionItemDtoInterface[], githubUserId: number) {
     setRewardsState(prev => ({
@@ -61,11 +82,15 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function addContributorId(contributorId: number) {
-    setSelectedGithubUserIds(prev => Array.from(new Set([...(prev || []), contributorId])));
+    setRewardsState(prev => addContributor(prev, contributorId));
   }
 
   function removeContributorId(contributorId: number) {
-    setSelectedGithubUserIds(prev => prev?.filter(id => id !== contributorId));
+    setRewardsState(prev => {
+      const newState = { ...prev };
+      delete newState[contributorId];
+      return newState;
+    });
   }
 
   function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
@@ -87,18 +112,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
-    setSelectedGithubUserIds(githubUserIds);
-    setRewardsState(
-      githubUserIds.reduce((acc, githubUserId) => {
-        return {
-          ...acc,
-          [githubUserId]: {
-            contributions,
-            amount: undefined,
-          },
-        };
-      }, {})
-    );
+    setRewardsState(prev => addContributors(prev, githubUserIds, contributions));
 
     if (githubUserIds?.length > 1) {
       openBulkContributorFlow();
@@ -118,12 +132,13 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     });
   }
 
+  const selectedGithubUserIds = useMemo(() => getSelectedGithubUserIds(), [rewardsState]);
+
   return (
     <RewardFlowContext.Provider
       value={{
         projectId,
         open: onOpenFlow,
-        selectedGithubUserIds,
         getSelectedContributions,
         removeContribution,
         addContributions,
@@ -132,6 +147,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         getRewardBody,
         addContributorId,
         removeContributorId,
+        selectedGithubUserIds,
       }}
     >
       {children}
