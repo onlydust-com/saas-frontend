@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState } from "react";
 
+import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
+
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
@@ -20,37 +22,35 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
   selectedGithubUserIds: [],
-  selectedIssueIds: [],
-  removeContributionId: () => {},
-  getSelectedContributionIds: () => [],
-  addContributionIds: () => {},
+  removeContribution: () => {},
+  getSelectedContributions: () => [],
+  addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
   const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
-  const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>([]);
   const [contributionState, setContributionState] = useState<SelectedRewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
 
-  function addContributionIds(contributionIds: string[], githubUserId: number) {
+  function addContributions(contributions: ContributionItemDto[], githubUserId: number) {
     setContributionState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributionIds || []), ...contributionIds])),
+        contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributions || []), ...contributions])),
       },
     }));
   }
 
-  function removeContributionId(contributionId: string, githubUserId: number) {
+  function removeContribution(contribution: ContributionItemDto, githubUserId: number) {
     setContributionState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: prev[githubUserId].contributionIds.filter(id => id !== contributionId),
+        contributionIds: prev[githubUserId].contributions.filter(c => !c.isEqualTo(contribution)),
       },
     }));
   }
@@ -65,22 +65,25 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }));
   }
 
-  function getSelectedContributionIds(githubUserId: number) {
-    return contributionState[githubUserId]?.contributionIds || [];
+  function getSelectedContributions(githubUserId: number) {
+    console.log("dd", contributionState[githubUserId], contributionState[githubUserId]?.contributions || []);
+    return contributionState[githubUserId]?.contributions || [];
   }
 
   function getAmount(githubUserId: number) {
     return contributionState[githubUserId].amount ?? { amount: "0" };
   }
 
-  function onOpenFlow({ githubUserIds, issueIds, contributionIds = [] }: startFlowProps) {
+  function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
     setSelectedGithubUserIds(githubUserIds);
-    setSelectedIssueIds(issueIds);
     setContributionState(
       githubUserIds.reduce((acc, githubUserId) => {
         return {
           ...acc,
-          [githubUserId]: contributionIds,
+          [githubUserId]: {
+            contributions,
+            amount: undefined,
+          },
         };
       }, {})
     );
@@ -98,10 +101,9 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         projectId,
         open: onOpenFlow,
         selectedGithubUserIds,
-        selectedIssueIds,
-        getSelectedContributionIds,
-        removeContributionId,
-        addContributionIds,
+        getSelectedContributions,
+        removeContribution,
+        addContributions,
         updateAmount,
         getAmount,
       }}

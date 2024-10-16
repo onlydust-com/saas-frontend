@@ -22,29 +22,29 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function SingleContributionValidation() {
   const { name, isOpen } = useSingleContributionValidation();
   const { Panel } = useSidePanel({ name });
-  const { projectId = "", getSelectedContributionIds, selectedGithubUserIds } = useRewardFlow();
+  const { projectId = "", getSelectedContributions, selectedGithubUserIds } = useRewardFlow();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
   const amountNumber = Number(amount);
 
   const [selectedGithubUserId] = selectedGithubUserIds;
-  const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
+  const selectedContributions = getSelectedContributions(selectedGithubUserId);
 
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
   // TODO replace with /contributions with contribution ids once implemented
   const { data: contributions, isLoading } = useQueries({
-    queries: selectedContributionIds.map(contributionId => {
+    queries: selectedContributions.map(c => {
       const { tag, request } = contributionStoragePort.getContributionsById({
         pathParams: {
-          contributionId,
+          contributionId: c.id,
         },
       });
 
       return {
         queryKey: tag,
         queryFn: request,
-        enabled: Boolean(selectedContributionIds) && isOpen,
+        enabled: Boolean(selectedContributions) && isOpen,
       };
     }),
     combine: results => {
@@ -106,7 +106,7 @@ export function SingleContributionValidation() {
         titleProps: {
           children: (
             <>
-              <Translate token={"common:contributions"} /> ({selectedContributionIds?.length})
+              <Translate token={"common:contributions"} /> ({selectedContributions?.length})
             </>
           ),
         },

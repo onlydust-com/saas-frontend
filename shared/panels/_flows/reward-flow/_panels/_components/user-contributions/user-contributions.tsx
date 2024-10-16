@@ -6,6 +6,7 @@ import {
   GetContributionsPortParams,
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -32,11 +33,11 @@ export type UserContributionsFilters = Omit<
 >;
 
 export function UserContributions({ githubUserId }: UserContributionsProps) {
-  const { getSelectedContributionIds, addContributionIds, removeContributionId } = useRewardFlow();
+  const { getSelectedContributions, addContributions, removeContribution } = useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
-  const selectedContributionIds = getSelectedContributionIds(githubUserId);
+  const selectedContributions = getSelectedContributions(githubUserId);
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
 
   const filtersCount = Object.keys(filters)?.length;
@@ -63,17 +64,17 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   function handleSelectAll() {
-    addContributionIds(
-      contributions.map(contribution => contribution.id),
+    addContributions(
+      contributions.map(contribution => contribution.toItemDto()),
       githubUserId
     );
   }
 
-  function handleSelect(contributionId: string, isSelected: boolean) {
+  function handleSelect(contribution: ContributionItemDto, isSelected: boolean) {
     if (isSelected) {
-      removeContributionId(contributionId, githubUserId);
+      removeContribution(contribution, githubUserId);
     } else {
-      addContributionIds([contributionId], githubUserId);
+      addContributions([contribution], githubUserId);
     }
   }
 
@@ -91,8 +92,10 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
     return (
       <div className={"grid gap-lg"}>
         {contributions.map(contribution => {
-          const isSelected = selectedContributionIds?.includes(contribution.id) ?? false;
+          const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) ?? false;
 
+          console.log("contribution", contribution);
+          console.log("selectedContributions", selectedContributions);
           return (
             <CardContributionKanban
               key={contribution.id}
@@ -109,7 +112,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
                 {
                   translate: { token: isSelected ? "common:unselect" : "common:select" },
                   onClick: () => {
-                    handleSelect(contribution.id, isSelected);
+                    handleSelect(contribution.toItemDto(), isSelected);
                   },
                 },
               ]}

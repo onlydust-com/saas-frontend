@@ -14,11 +14,11 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 export function SingleContributionSelection() {
   const { name } = useSingleContributionSelection();
   const { Panel } = useSidePanel({ name });
-  const { selectedGithubUserIds, getSelectedContributionIds } = useRewardFlow();
+  const { selectedGithubUserIds, getSelectedContributions } = useRewardFlow();
   const [selectedGithubUserId] = selectedGithubUserIds;
   const { open: singleContributionValidation } = useSingleContributionValidation();
 
-  const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
+  const selectedContributions = getSelectedContributions(selectedGithubUserId);
   return (
     <Panel>
       <SidePanelHeader
@@ -45,7 +45,7 @@ export function SingleContributionSelection() {
           translate={{
             token: "common:next",
           }}
-          isDisabled={!selectedContributionIds?.length}
+          isDisabled={!selectedContributions?.length}
           onClick={() => singleContributionValidation()}
         />
       </SidePanelFooter>
