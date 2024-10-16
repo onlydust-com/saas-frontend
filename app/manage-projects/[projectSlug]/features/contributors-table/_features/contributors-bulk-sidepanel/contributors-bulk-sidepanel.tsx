@@ -17,6 +17,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { cn } from "@/shared/helpers/cn";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 import { ContributorsBulkSidepanelData } from "./contributors-bulk-sidepanel.types";
 
@@ -25,6 +26,7 @@ type label = { id: string; for: number[] };
 export function ContributorsBulkSidepanel() {
   const { name } = useContributorsBulkSidePanel();
   const { Panel } = useSidePanel({ name });
+  const { open: openRewardFlow } = useRewardFlow();
   const { projectSlug } = useSinglePanelData<ContributorsBulkSidepanelData>(name) ?? { projectSlug: "" };
   const { userSelected, onRemoveSelection } = useContext(ContributorsTableContext);
   const [selectedLabels, setSelectedLabels] = useState<label[]>([]);
@@ -144,6 +146,7 @@ export function ContributorsBulkSidepanel() {
               variant={"secondary"}
               translate={{ token: "manageProjects:bulk.reward.button" }}
               classNames={{ base: "w-full" }}
+              onClick={() => openRewardFlow({ githubUserIds: userSelected.map(user => user.contributor.githubUserId) })}
             />
           </div>
         </Accordion>

@@ -10,6 +10,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ActivitySectionProps } from "./activity-section.types";
@@ -20,6 +21,7 @@ const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
   const { close } = useSidePanelsContext();
+  const { open: openRewardFlow } = useRewardFlow();
   const [toggleFinancialViews, setToggleFinancialViews] = useState<
     typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
   >(CONTRIBUTORS);
@@ -79,7 +81,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           isTextButton
           size={"md"}
           translate={{ token: "manageProjects:detail.activity.actions.reward" }}
-          onClick={() => console.log("Open reward")}
+          onClick={() => openRewardFlow({ githubUserIds: [] })}
           classNames={{
             base: "max-w-full overflow-hidden",
             label: "whitespace-nowrap text-ellipsis overflow-hidden",

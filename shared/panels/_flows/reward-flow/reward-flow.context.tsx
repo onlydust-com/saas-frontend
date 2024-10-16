@@ -100,10 +100,10 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       }, {})
     );
 
-    if (githubUserIds?.length > 1) {
-      openBulkContributorFlow();
-    } else {
+    if (githubUserIds.length === 1) {
       openSingleFlow();
+    } else {
+      openBulkContributorFlow();
     }
   }
 

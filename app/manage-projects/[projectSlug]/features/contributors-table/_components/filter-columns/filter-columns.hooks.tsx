@@ -22,6 +22,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -30,6 +31,7 @@ export function useFilterColumns() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
+  const { open: openRewardFlow } = useRewardFlow();
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -256,7 +258,7 @@ export function useFilterColumns() {
       cell: info => (
         <div className="flex gap-sm">
           <Button
-            onClick={() => console.log("Open reward")}
+            onClick={() => openRewardFlow({ githubUserIds: [info.row.original.contributor.githubUserId] })}
             variant={"secondary"}
             size={"sm"}
             translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}
