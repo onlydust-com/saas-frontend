@@ -15,6 +15,7 @@ export function AccordionNextUiAdapter({
   items = [],
   multiple = false,
   defaultSelected,
+  controlled,
 }: AccordionMultiplePort) {
   const slots = AccordionNextUiVariants();
 
@@ -24,6 +25,8 @@ export function AccordionNextUiAdapter({
       selectionMode={multiple ? "multiple" : "single"}
       showDivider={false}
       defaultSelectedKeys={defaultSelected}
+      selectedKeys={controlled?.selectedKeys}
+      onSelectionChange={controlled?.onSelectionChange}
     >
       {items.map(item => (
         <AccordionItem

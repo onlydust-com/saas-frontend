@@ -42,7 +42,7 @@ const useContributionActions = (
 
   function onReward() {
     openRewardFlow({
-      issueIds: contribution.linkedIssues?.map(linkedIssue => String(linkedIssue.githubId)) ?? [],
+      contributions: [contribution.toItemDto()],
       // TODO @hayden
       // githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
       githubUserIds: [5160414, 17259618],

@@ -2,6 +2,7 @@ import enBulkContributorsSelection from "@/shared/panels/_flows/reward-flow/_pan
 import enCreateContribution from "@/shared/panels/_flows/reward-flow/_panels/_features/create-contribution-sidepanel/_translations/create-contribution-sidepanel.en.json";
 import enLinkContribution from "@/shared/panels/_flows/reward-flow/_panels/_features/link-contribution-sidepanel/_translations/link-contribution-sidepanel.en.json";
 import enBulkContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_translations/bulk-contribution-selection.en.json";
+import enBulkContributionValidation from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/_translations/bulk-contribution-validation.en.json";
 import enSingleContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/_translations/single-contribution-selection.en.json";
 import enSingleContributionValidation from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_translations/single-contribution-validation.en.json";
 import enRewardFlow from "@/shared/panels/_flows/reward-flow/_translations/reward-flow.en.json";
@@ -39,6 +40,7 @@ export const enPanelsTranslation = {
     linkContribution: enLinkContribution,
     createContribution: enCreateContribution,
     bulkContributionSelection: enBulkContributionSelection,
+    bulkContributionValidation: enBulkContributionValidation,
     singleContributionValidation: enSingleContributionValidation,
     rewardFlow: enRewardFlow,
   },

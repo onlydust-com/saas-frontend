@@ -5,18 +5,21 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { ContributorProfileCompactLoading } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact.loading";
 import { UserContributions } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
 import { SingleUserAmountSelector } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_features/single-user-amount-selector/single-user-amount-selector";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 import { SingleUserFlowProps } from "./single-user-flow.types";
 
-export function SingleUserFlow({ githubUserId }: SingleUserFlowProps) {
+export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"select" | "amount">("select");
-  const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
-  const [amount, setAmount] = useState("0");
+  const { getAmount, updateAmount, getSelectedContributions } = useRewardFlow();
+  const selectedContributions = getSelectedContributions(githubUserId);
+  const { amount, budget } = getAmount(githubUserId);
 
   const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
     pathParams: { githubId: githubUserId },
@@ -26,15 +29,38 @@ export function SingleUserFlow({ githubUserId }: SingleUserFlowProps) {
   });
 
   function handleAmountChange(amount: string) {
-    setAmount(amount);
+    if (budget?.currency.id) {
+      updateAmount(githubUserId, { budget, amount });
+    }
   }
 
   function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency | undefined) {
-    setBudget(budget);
+    if (budget?.currency.id) {
+      updateAmount(githubUserId, { budget, amount });
+    }
   }
 
   if (isLoading) {
-    return <ContributorProfileCompactLoading />;
+    return <Skeleton classNames={{ base: "h-[72px]" }} />;
+  }
+
+  function handleValidate() {
+    if (step === "select") {
+      setStep("amount");
+    } else if (Number(amount) > 0 && !!budget) {
+      setIsOpen(false);
+      onValidate(githubUserId);
+    }
+  }
+
+  function isValidateDisabled() {
+    if (step === "select") {
+      return !selectedContributions?.length;
+    }
+
+    if (step === "amount") {
+      return !budget || !Number(amount);
+    }
   }
 
   if (!data || isError) return null;
@@ -42,6 +68,10 @@ export function SingleUserFlow({ githubUserId }: SingleUserFlowProps) {
   return (
     <Accordion
       id={`bulk-user-${githubUserId}`}
+      controlled={{
+        selectedKeys: [isOpen ? `bulk-user-${githubUserId}` : ""],
+        onSelectionChange: () => setIsOpen(prev => !prev),
+      }}
       titleProps={{ children: data.login }}
       startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
     >
@@ -74,8 +104,9 @@ export function SingleUserFlow({ githubUserId }: SingleUserFlowProps) {
         <Button
           size={"xs"}
           variant={"secondary"}
-          onClick={() => setStep("amount")}
+          onClick={handleValidate}
           translate={{ token: "panels:bulkContributionSelection.validateButton" }}
+          isDisabled={isValidateDisabled()}
         />
       </div>
     </Accordion>
