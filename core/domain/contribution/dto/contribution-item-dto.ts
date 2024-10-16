@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type ContributionItemBody = components["schemas"]["RewardItemRequest"];
 
-export interface ContributionItemDtoInterface extends ContributionItemBody {}
+export interface ContributionItemDtoInterface extends ContributionItemBody {
+  isEqualTo(other: ContributionItemDtoInterface): boolean;
+}
 
 export class ContributionItemDto implements ContributionItemDtoInterface {
   type!: ContributionItemBody["type"];

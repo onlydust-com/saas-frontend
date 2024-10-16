@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
 
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
@@ -40,7 +40,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
 
-  function addContributions(contributions: ContributionItemDto[], githubUserId: number) {
+  function addContributions(contributions: ContributionItemDtoInterface[], githubUserId: number) {
     setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
@@ -50,7 +50,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }));
   }
 
-  function removeContribution(contribution: ContributionItemDto, githubUserId: number) {
+  function removeContribution(contribution: ContributionItemDtoInterface, githubUserId: number) {
     setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
