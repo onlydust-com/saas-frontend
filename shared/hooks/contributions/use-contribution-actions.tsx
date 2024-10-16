@@ -2,17 +2,17 @@ import { ContributionReactQueryAdapter } from "@/core/application/react-query-ad
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
-import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
+import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-const useContributionActions = (
+export const useContributionActions = (
   contribution: ContributionActivityInterface,
-  actions: CardContributionKanbanActions
-): ButtonGroupPort["buttons"] => {
+  actions?: CardContributionKanbanActions
+): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
   const { open: openRewardFlow } = useRewardFlow();
 
   const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
@@ -97,8 +97,4 @@ const useContributionActions = (
     default:
       return [];
   }
-};
-
-export const CardContributionKanbanHooks = {
-  useContributionActions,
 };

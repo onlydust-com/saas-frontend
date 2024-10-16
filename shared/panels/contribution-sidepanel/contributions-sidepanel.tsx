@@ -49,7 +49,7 @@ export function ContributionsSidepanel() {
       <Panel>
         <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
         <SidePanelBody>{blocks}</SidePanelBody>
-        <Footer contribution={contribution} />
+        {contribution ? <Footer contribution={contribution} /> : null}
       </Panel>
       <IssuesSearchSidepanel />
     </>
