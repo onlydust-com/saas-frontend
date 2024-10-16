@@ -38,7 +38,7 @@ export function BulkContributionSelection() {
   }
 
   const isAllValid = useMemo(() => {
-    return Object.values(isRewardValid).every(isValid => isValid);
+    return Object.values(isRewardValid).every(Boolean);
   }, [isRewardValid]);
 
   return (
