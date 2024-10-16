@@ -41,9 +41,9 @@ export function QuantityFilter({ value: _value, onChange, name, unit }: Quantity
 
   function onValueChange(newValue: string) {
     const newAmount = {
-      eq: value.type === "EQUAL" ? parseInt(newValue) : undefined,
-      gte: value.type === "GREATER_THAN_OR_EQUAL" ? parseInt(newValue) : undefined,
-      lte: value.type === "LESS_THAN_OR_EQUAL" ? parseInt(newValue) : undefined,
+      eq: newValue && value.type === "EQUAL" ? parseInt(newValue) : undefined,
+      gte: newValue && value.type === "GREATER_THAN_OR_EQUAL" ? parseInt(newValue) : undefined,
+      lte: newValue && value.type === "LESS_THAN_OR_EQUAL" ? parseInt(newValue) : undefined,
     };
 
     onChange?.({ type: value.type, amount: newAmount });
