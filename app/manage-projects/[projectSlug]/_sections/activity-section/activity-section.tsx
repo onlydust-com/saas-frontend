@@ -47,7 +47,6 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
     <div className="flex h-full flex-col gap-4">
       <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
         <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
-          <Button onClick={() => open({ issueIds: [], githubUserIds: [] })}>Open reward flow</Button>
           <Typo
             size={"xs"}
             weight={"medium"}
@@ -82,7 +81,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           isTextButton
           size={"md"}
           translate={{ token: "manageProjects:detail.activity.actions.reward" }}
-          onClick={() => console.log("Open reward")}
+          onClick={() => open({ issueIds: [], githubUserIds: [] })}
           classNames={{
             base: "max-w-full overflow-hidden",
             label: "whitespace-nowrap text-ellipsis overflow-hidden",
