@@ -2,6 +2,7 @@ export const COLORS = {
   typography: {
     primary: "var(--typography-primary)",
     "primary-on-brand": "var(--typography-primary_on-brand)",
+    "primary-on-solid": "var(--typography-primary_on-solid)",
     secondary: "var(--typography-secondary)",
     "secondary-hover": "var(--typography-secondary_hover)",
     tertiary: "var(--typography-tertiary)",
@@ -50,6 +51,7 @@ export const COLORS = {
   },
   foreground: {
     primary: "var(--foreground-primary)",
+    "primary-on-solid": "var(--foreground-primary_on-solid)",
     secondary: "var(--foreground-secondary)",
     "secondary-hover": "var(--foreground-secondary_hover)",
     tertiary: "var(--foreground-tertiary)",

@@ -36,6 +36,19 @@ export const Default: Story = {
   },
 };
 
+export const Success: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: '<Button  onClick={() => toast.success("Success!")}>Show Success Toast</Button>',
+      },
+    },
+  },
+  render: () => {
+    return <Button onClick={() => toast.success("Success!")}>Show Success Toast</Button>;
+  },
+};
+
 export const Error: Story = {
   parameters: {
     docs: {

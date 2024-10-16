@@ -317,6 +317,7 @@
     /* TYPOGRAPHY */
     --typography-primary: var(--_grey-900);
     --typography-primary_on-brand: var(--_white);
+    --typography-primary_on-solid: var(--_white);
     --typography-secondary: var(--_grey-600);
     --typography-secondary_hover: var(--_grey-700);
     --typography-tertiary: var(--_grey-500-primary);
@@ -366,6 +367,7 @@
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
+    --foreground-primary_on-solid: var(--_white);
     --foreground-secondary: var(--_grey-600);
     --foreground-secondary_hover: var(--_grey-700);
     --foreground-tertiary: var(--_grey-500-primary);
@@ -705,6 +707,7 @@
     /* TYPOGRAPHY */
     --typography-primary: var(--_grey-50);
     --typography-primary_on-brand: var(--_grey-50);
+    --typography-primary_on-solid: var(--_grey-900);
     --typography-secondary: var(--_grey-300);
     --typography-secondary_hover: var(--_grey-200);
     --typography-tertiary: var(--_grey-400);
@@ -754,6 +757,7 @@
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);
+    --foreground-primary_on-solid: var(--_grey-900);
     --foreground-secondary: var(--_grey-300);
     --foreground-secondary_hover: var(--_grey-200);
     --foreground-tertiary: var(--_grey-400);
@@ -779,7 +783,7 @@
     --background-primary_hover: var(--_grey-800);
     --background-primary_alt: var(--_grey-800);
     --background-primary_alt_hover: var(--_grey-700);
-    --background-primary-solid: var(--_grey-600);
+    --background-primary-solid: var(--_grey-25);
     --background-secondary: var(--_grey-900);
     --background-secondary_hover: var(--_grey-800);
     --background-secondary_alt: var(--_grey-700);
