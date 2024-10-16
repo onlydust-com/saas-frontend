@@ -25,7 +25,7 @@ export function BulkContributionSelection() {
       <SidePanelBody>
         <ScrollView>
           <div className={"flex w-full flex-col gap-lg"}>
-            {selectedGithubUserIds.map(githubUserId => (
+            {selectedGithubUserIds?.map(githubUserId => (
               <SingleUserFlow githubUserId={githubUserId} key={githubUserId} />
             ))}
           </div>

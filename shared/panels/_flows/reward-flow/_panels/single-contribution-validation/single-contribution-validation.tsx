@@ -27,7 +27,7 @@ export function SingleContributionValidation() {
   const [amount, setAmount] = useState("0");
   const amountNumber = Number(amount);
 
-  const [selectedGithubUserId] = selectedGithubUserIds;
+  const [selectedGithubUserId] = selectedGithubUserIds ?? [];
   const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);
 
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
@@ -83,7 +83,7 @@ export function SingleContributionValidation() {
   }
 
   function handleCreateRewards() {
-    if (amountNumber > 0) {
+    if (amountNumber > 0 && selectedGithubUserIds) {
       mutate(
         selectedGithubUserIds.map(recipientId => ({
           recipientId,
