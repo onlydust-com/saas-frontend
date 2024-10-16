@@ -7,7 +7,7 @@ import {
   GetContributionsPortParams,
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
-import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -106,7 +106,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
     );
   }
 
-  function handleSelect(contribution: ContributionItemDto, isSelected: boolean) {
+  function handleSelect(contribution: ContributionItemDtoInterface, isSelected: boolean) {
     if (isSelected) {
       removeContribution(contribution, githubUserId);
     } else {
