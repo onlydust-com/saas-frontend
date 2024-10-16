@@ -55,18 +55,9 @@ export class HttpClient {
   protected buildSearchParams(queryParams: HttpClientQueryParams = {}) {
     const validationKernelPort = bootstrap.getValidationKernelPort();
 
-    function sanitizeValue(value: unknown) {
-      return (
-        validationKernelPort.isNullable(value) ||
-        validationKernelPort.isEmptyString(value) ||
-        validationKernelPort.isInvalidNumber(value) ||
-        validationKernelPort.isEmptyArray(value)
-      );
-    }
-
     return Object.entries(queryParams)
       .reduce((acc, [key, value]) => {
-        if (sanitizeValue(value)) return acc;
+        if (validationKernelPort.isInvalidValue(value)) return acc;
 
         if (Array.isArray(value)) {
           acc.append(key, value.join(","));
@@ -74,7 +65,7 @@ export class HttpClient {
           Object.keys(value).forEach(subKey => {
             const subValue = value[subKey];
 
-            if (sanitizeValue(subValue)) return;
+            if (validationKernelPort.isInvalidValue(subValue)) return;
 
             acc.append(`${key}.${subKey}`, String(subValue));
           });

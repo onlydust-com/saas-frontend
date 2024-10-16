@@ -16,4 +16,10 @@ export class ValidationAdapter implements ValidationFacadePort {
   isEmptyArray(value: unknown) {
     return Array.isArray(value) && value.length === 0;
   }
+
+  isInvalidValue(value: unknown) {
+    return (
+      this.isNullable(value) || this.isEmptyString(value) || this.isInvalidNumber(value) || this.isEmptyArray(value)
+    );
+  }
 }
