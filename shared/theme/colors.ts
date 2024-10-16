@@ -159,6 +159,7 @@ export const COLORS = {
       700: "var(--utility-grey-700)",
       800: "var(--utility-grey-800)",
       900: "var(--utility-grey-900)",
+      950: "var(--utility-grey-950)",
     },
     "brand-brightorange": {
       50: "var(--utility-brand-brightorange-50)",
@@ -171,6 +172,7 @@ export const COLORS = {
       700: "var(--utility-brand-brightorange-700)",
       800: "var(--utility-brand-brightorange-800)",
       900: "var(--utility-brand-brightorange-900)",
+      950: "var(--utility-brand-brightorange-950)",
     },
     "brand-crystalizedviolet": {
       50: "var(--utility-brand-crystalizedviolet-50)",
@@ -183,6 +185,7 @@ export const COLORS = {
       700: "var(--utility-brand-crystalizedviolet-700)",
       800: "var(--utility-brand-crystalizedviolet-800)",
       900: "var(--utility-brand-crystalizedviolet-900)",
+      950: "var(--utility-brand-crystalizedviolet-950)",
     },
     "brand-electricroyalblue": {
       50: "var(--utility-brand-electricroyalblue-50)",
@@ -195,6 +198,7 @@ export const COLORS = {
       700: "var(--utility-brand-electricroyalblue-700)",
       800: "var(--utility-brand-electricroyalblue-800)",
       900: "var(--utility-brand-electricroyalblue-900)",
+      950: "var(--utility-brand-electricroyalblue-950)",
     },
     "brand-cyan": {
       50: "var(--utility-brand-cyan-50)",
@@ -207,6 +211,7 @@ export const COLORS = {
       700: "var(--utility-brand-cyan-700)",
       800: "var(--utility-brand-cyan-800)",
       900: "var(--utility-brand-cyan-900)",
+      950: "var(--utility-brand-cyan-950)",
     },
     secondary: {
       "blue-500": "var(--utility-secondary-blue-500)",
@@ -226,6 +231,7 @@ export const COLORS = {
       700: "var(--utility-error-700)",
       800: "var(--utility-error-800)",
       900: "var(--utility-error-900)",
+      950: "var(--utility-error-950)",
     },
     warning: {
       50: "var(--utility-warning-50)",
@@ -238,6 +244,7 @@ export const COLORS = {
       700: "var(--utility-warning-700)",
       800: "var(--utility-warning-800)",
       900: "var(--utility-warning-900)",
+      950: "var(--utility-warning-950)",
     },
     success: {
       50: "var(--utility-success-50)",
@@ -250,6 +257,7 @@ export const COLORS = {
       700: "var(--utility-success-700)",
       800: "var(--utility-success-800)",
       900: "var(--utility-success-900)",
+      950: "var(--utility-success-950)",
     },
   },
   components: {
