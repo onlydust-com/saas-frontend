@@ -128,7 +128,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
     return (
       <div className={"grid gap-lg"}>
         {contributions.map(contribution => {
-          const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) ?? false;
+          const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
           return (
             <CardContributionKanban
               key={contribution.id}

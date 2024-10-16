@@ -20,7 +20,6 @@ import {
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
 
-// TODO: Ajouter une condition no contributors pour ouvrir l'autre panel
 export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
@@ -101,10 +100,10 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       }, {})
     );
 
-    if (githubUserIds?.length > 1) {
-      openBulkContributorFlow();
-    } else {
+    if (githubUserIds.length === 1) {
       openSingleFlow();
+    } else {
+      openBulkContributorFlow();
     }
   }
 
