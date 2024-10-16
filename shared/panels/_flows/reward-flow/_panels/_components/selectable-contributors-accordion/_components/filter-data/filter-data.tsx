@@ -3,6 +3,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
@@ -14,16 +15,16 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { SelectableContributorsFilters } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/selectable-contributors-accordion";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useFilterData } from "./filter-data.context";
 import { useSelectableContributorsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useSelectableContributorsFilterDataSidePanel();
   const { Panel, back } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<SelectableContributorsFilters>();
 
   return (
     <Panel>

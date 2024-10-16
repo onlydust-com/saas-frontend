@@ -6,7 +6,6 @@ import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_co
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.context";
 import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
@@ -21,6 +20,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
 import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";

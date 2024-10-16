@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { FilterColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.context";
 import { useProjectRewardsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.hooks";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -22,6 +21,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 
 export type RewardsTableFilters = Omit<
   NonNullable<GetProjectRewardsPortParams["queryParams"]>,

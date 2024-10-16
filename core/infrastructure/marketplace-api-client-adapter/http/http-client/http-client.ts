@@ -59,6 +59,8 @@ export class HttpClient {
           return acc;
         }
 
+        // TODO sanitize
+
         if (Array.isArray(value)) {
           acc.append(key, value.join(","));
         } else if (typeof value === "object") {

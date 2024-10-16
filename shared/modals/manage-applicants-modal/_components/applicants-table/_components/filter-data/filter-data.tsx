@@ -3,6 +3,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { CountryFilter } from "@/shared/features/filters/country-filter/countries-filter";
 import { EcosystemFilter } from "@/shared/features/filters/ecosystem-filter/ecosystem-filter";
@@ -15,15 +16,14 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useApplicantsFilterDataSidePanel } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-data/filter-data.hooks";
+import { ApplicantsTableFilters } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/applicants-table";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { useFilterData } from "./filter-data.context";
 
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useApplicantsFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ApplicantsTableFilters>();
 
   return (
     <Panel>
