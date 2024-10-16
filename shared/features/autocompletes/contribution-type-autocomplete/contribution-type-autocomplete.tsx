@@ -46,6 +46,7 @@ export function ContributionTypeAutocomplete({
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedContributionType}
+      isMultiple
       {...selectProps}
     />
   );

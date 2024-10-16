@@ -7,6 +7,7 @@ import {
   GetContributionsPortParams,
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -43,7 +44,9 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
   const { getSelectedContributionIds, addContributionIds, removeContributionId } = useRewardFlow();
-  const [filters, setFilters] = useState<UserContributionsFilters>({});
+  const [filters, setFilters] = useState<UserContributionsFilters>({
+    types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
+  });
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const selectedContributionIds = getSelectedContributionIds(githubUserId);
