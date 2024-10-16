@@ -9,14 +9,12 @@ import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow
 import { useBulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-export function BulkContributorSelection() {
-  const { name } = useBulkContributorSelection();
+function Content() {
   const { open: openBulkContributionSelection } = useBulkContributionSelection();
   const { selectedGithubUserIds } = useRewardFlow();
-  const { Panel } = useSidePanel({ name });
 
   return (
-    <Panel>
+    <>
       <SidePanelHeader
         title={{
           translate: { token: "panels:bulkContributorsSelection.title" },
@@ -39,6 +37,17 @@ export function BulkContributorSelection() {
           onClick={() => openBulkContributionSelection()}
         />
       </SidePanelFooter>
+    </>
+  );
+}
+
+export function BulkContributorSelection() {
+  const { name } = useBulkContributorSelection();
+  const { Panel } = useSidePanel({ name });
+
+  return (
+    <Panel>
+      <Content />
     </Panel>
   );
 }

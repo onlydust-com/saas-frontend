@@ -1,13 +1,11 @@
 import { useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -19,16 +17,15 @@ import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-f
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function SingleContributionValidation() {
-  const { name, isOpen } = useSingleContributionValidation();
-  const { Panel } = useSidePanel({ name });
+function Content() {
+  const { isOpen } = useSingleContributionValidation();
   const {
-    projectId = "",
     getSelectedContributions,
     selectedGithubUserIds,
     updateAmount,
     getAmount,
-    getRewardBody,
+    onCreateRewards,
+    isCreatingRewards,
   } = useRewardFlow();
 
   const [selectedGithubUserId] = selectedGithubUserIds ?? [];
@@ -65,20 +62,6 @@ export function SingleContributionValidation() {
     [contributions]
   ) as ContributionActivityInterface[];
 
-  const { mutate, isPending } = RewardReactQueryAdapter.client.useCreateRewards({
-    pathParams: {
-      projectId,
-    },
-    options: {
-      onSuccess: () => {
-        toast.success(<Translate token={"panels:singleContributionValidation.toast.success"} />);
-      },
-      onError: () => {
-        toast.error(<Translate token={"panels:singleContributionValidation.toast.error"} />);
-      },
-    },
-  });
-
   function handleAmountChange(amount: string) {
     updateAmount(selectedGithubUserId, { budget, amount });
   }
@@ -89,7 +72,7 @@ export function SingleContributionValidation() {
 
   function handleCreateRewards() {
     if (amountNumber > 0 && selectedGithubUserIds) {
-      mutate(getRewardBody());
+      onCreateRewards();
     }
   }
 
@@ -116,7 +99,7 @@ export function SingleContributionValidation() {
   }
 
   return (
-    <Panel>
+    <>
       <SidePanelHeader
         title={{
           translate: {
@@ -148,10 +131,21 @@ export function SingleContributionValidation() {
           translate={{
             token: "common:reward",
           }}
-          isDisabled={isPending || amountNumber <= 0}
+          isDisabled={isCreatingRewards || amountNumber <= 0}
           onClick={() => handleCreateRewards()}
         />
       </SidePanelFooter>
+    </>
+  );
+}
+
+export function SingleContributionValidation() {
+  const { name } = useSingleContributionValidation();
+  const { Panel } = useSidePanel({ name });
+
+  return (
+    <Panel>
+      <Content />
     </Panel>
   );
 }

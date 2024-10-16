@@ -1,7 +1,4 @@
-import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -11,33 +8,17 @@ import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { SingleUserSummary } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/_features/single-user-summary/single-user-summary";
 import { useBulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function BulkContributionValidation() {
-  const { name, isOpen } = useBulkContributionValidation();
-  const { selectedGithubUserIds, getRewardBody, projectId = "" } = useRewardFlow();
-  const { Panel } = useSidePanel({ name });
-
-  const { mutate, isPending } = RewardReactQueryAdapter.client.useCreateRewards({
-    pathParams: {
-      projectId,
-    },
-    options: {
-      onSuccess: () => {
-        toast.success(<Translate token={"panels:singleContributionValidation.toast.success"} />);
-      },
-      onError: () => {
-        toast.error(<Translate token={"panels:singleContributionValidation.toast.error"} />);
-      },
-    },
-  });
+function Content() {
+  const { isOpen } = useBulkContributionValidation();
+  const { selectedGithubUserIds, onCreateRewards, isCreatingRewards } = useRewardFlow();
 
   function handleCreateRewards() {
-    mutate(getRewardBody());
+    onCreateRewards();
   }
 
   return (
-    <Panel>
+    <>
       <SidePanelHeader
         title={{
           translate: {
@@ -66,10 +47,21 @@ export function BulkContributionValidation() {
           translate={{
             token: "common:reward",
           }}
-          isDisabled={isPending}
+          isDisabled={isCreatingRewards}
           onClick={() => handleCreateRewards()}
         />
       </SidePanelFooter>
+    </>
+  );
+}
+
+export function BulkContributionValidation() {
+  const { name } = useBulkContributionValidation();
+  const { Panel } = useSidePanel({ name });
+
+  return (
+    <Panel>
+      <Content />
     </Panel>
   );
 }

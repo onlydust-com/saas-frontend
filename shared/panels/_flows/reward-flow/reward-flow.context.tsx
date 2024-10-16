@@ -1,9 +1,11 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
+import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
+
+import { toast } from "@/design-system/molecules/toaster";
 
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
@@ -19,6 +21,7 @@ import {
   SelectedRewardsBudget,
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
@@ -28,7 +31,8 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
-  getRewardBody: () => [],
+  onCreateRewards: () => null,
+  isCreatingRewards: false,
   addContributorId: () => {},
   removeContributorId: () => {},
   selectedGithubUserIds: [],
@@ -39,26 +43,72 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
 
-  function addContributor(prev: RewardsState, githubUserId: number, contributions?: ContributionItemDtoInterface[]) {
-    if (!prev[githubUserId]) {
-      prev[githubUserId] = {
-        contributions: contributions ?? [],
-        amount: undefined,
-      };
-    }
-    return prev;
-  }
+  /***************** LOCAL FUNCTIONS *****************/
+  const { mutate, isPending } = RewardReactQueryAdapter.client.useCreateRewards({
+    pathParams: {
+      projectId,
+    },
+    options: {
+      onSuccess: () => {
+        toast.success(<Translate token={"panels:singleContributionValidation.toast.success"} />);
+      },
+      onError: () => {
+        toast.error(<Translate token={"panels:singleContributionValidation.toast.error"} />);
+      },
+    },
+  });
 
   function addContributors(
     prev: RewardsState,
     githubUserIds: number[],
     contributions?: ContributionItemDtoInterface[]
   ) {
-    return githubUserIds.reduce((acc, githubUserId) => addContributor(acc, githubUserId, contributions), prev);
+    return {
+      ...githubUserIds.reduce((acc, githubUserId) => {
+        if (!acc[githubUserId]) {
+          acc[githubUserId] = {
+            contributions: contributions ?? [],
+            amount: undefined,
+          };
+        }
+        return acc;
+      }, prev),
+    };
   }
 
-  function getSelectedGithubUserIds() {
-    return Object.keys(rewardsState).map(Number) ?? [];
+  /***************** ADD AND REMOVE CONTRIBUTORS *****************/
+
+  function addContributorId(contributorId: number) {
+    setRewardsState(prev => addContributors(prev, [contributorId]));
+  }
+
+  function removeContributorId(contributorId: number) {
+    setRewardsState(prev => {
+      const newState = { ...prev };
+      delete newState[contributorId];
+      return newState;
+    });
+  }
+
+  /***************** AMOUNT MANAGEMENT *****************/
+  function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
+    setRewardsState(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        amount,
+      },
+    }));
+  }
+
+  function getAmount(githubUserId: number) {
+    return rewardsState[githubUserId]?.amount ?? { amount: "0" };
+  }
+
+  /***************** CONTRIBUTIONS MANAGEMENT *****************/
+
+  function getSelectedContributions(githubUserId: number) {
+    return rewardsState[githubUserId]?.contributions || [];
   }
 
   function addContributions(contributions: ContributionItemDtoInterface[], githubUserId: number) {
@@ -81,35 +131,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }));
   }
 
-  function addContributorId(contributorId: number) {
-    setRewardsState(prev => addContributor(prev, contributorId));
-  }
-
-  function removeContributorId(contributorId: number) {
-    setRewardsState(prev => {
-      const newState = { ...prev };
-      delete newState[contributorId];
-      return newState;
-    });
-  }
-
-  function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
-    setRewardsState(prev => ({
-      ...prev,
-      [githubUserId]: {
-        ...prev[githubUserId],
-        amount,
-      },
-    }));
-  }
-
-  function getSelectedContributions(githubUserId: number) {
-    return rewardsState[githubUserId]?.contributions || [];
-  }
-
-  function getAmount(githubUserId: number) {
-    return rewardsState[githubUserId]?.amount ?? { amount: "0" };
-  }
+  /***************** FLOW MANAGEMENT *****************/
 
   function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
     setRewardsState(prev => addContributors(prev, githubUserIds, contributions));
@@ -121,18 +143,21 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }
   }
 
-  function getRewardBody(): CreateRewardsBody {
-    return Object.entries(rewardsState).map(([githubUserId, { contributions, amount }]) => {
-      return {
-        recipientId: Number(githubUserId),
-        amount: Number(amount?.amount),
-        currencyId: amount?.budget?.currency.id ?? "",
-        items: contributions,
-      };
-    });
+  /***************** REWARDS MANAGEMENT *****************/
+  function onCreateRewards() {
+    mutate(
+      Object.entries(rewardsState).map(([githubUserId, { contributions, amount }]) => {
+        return {
+          recipientId: Number(githubUserId),
+          amount: Number(amount?.amount),
+          currencyId: amount?.budget?.currency.id ?? "",
+          items: contributions,
+        };
+      })
+    );
   }
 
-  const selectedGithubUserIds = useMemo(() => getSelectedGithubUserIds(), [rewardsState]);
+  const selectedGithubUserIds = Object.keys(rewardsState).map(Number) ?? [];
 
   return (
     <RewardFlowContext.Provider
@@ -144,10 +169,11 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         addContributions,
         updateAmount,
         getAmount,
-        getRewardBody,
         addContributorId,
         removeContributorId,
         selectedGithubUserIds,
+        onCreateRewards,
+        isCreatingRewards: isPending,
       }}
     >
       {children}
