@@ -32,7 +32,12 @@ export function TagDefaultAdapter<C extends ElementType = "span">({
   const showChildren = !!children || !!translate;
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} data-clickable={isSelectable}>
+    <Component
+      {...htmlProps}
+      onClick={onSelect}
+      className={cn(slots.base(), classNames?.base)}
+      data-clickable={isSelectable}
+    >
       <div className={cn(slots.content(), classNames?.content)}>
         {!!startIcon && <Icon size={"xxs"} {...startIcon} />}
         {startContent}

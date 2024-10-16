@@ -20,6 +20,7 @@ export interface AccordionItemProps {
   content: ReactNode;
   badgeProps?: BadgePort<"div">;
   startIcon?: IconPort;
+  startContent?: ReactNode;
   endTitleContent?: ReactNode;
 }
 

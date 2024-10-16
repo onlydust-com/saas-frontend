@@ -14,7 +14,7 @@ export function UserAutocomplete({
   withExternalUserOnly = false,
   selectedUser,
   onSelect,
-  initialtUsers,
+  initialUsers,
   ...selectProps
 }: UserAutocompleteProps) {
   const [search, setSearch] = useState("");
@@ -56,7 +56,7 @@ export function UserAutocomplete({
       isAutoComplete={true}
       onSelect={handleSelect}
       selectedIds={selectedUser}
-      initialItems={initialtUsers}
+      initialItems={initialUsers}
       controlledAutoComplete={{
         value: search,
         onChange: setSearch,

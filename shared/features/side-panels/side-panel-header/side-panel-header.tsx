@@ -15,6 +15,7 @@ export function SidePanelHeader({
   startContent,
   endContent,
   onClose,
+  onBack,
   titleEndContent,
 }: SidePanelHeaderProps) {
   const { back, close } = useSidePanelsContext();
@@ -24,6 +25,11 @@ export function SidePanelHeader({
   function handleClose() {
     close();
     onClose?.();
+  }
+
+  function handleBack() {
+    back();
+    onBack?.();
   }
 
   return (
@@ -39,7 +45,7 @@ export function SidePanelHeader({
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={() => back()} />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={handleBack} />
           )}
           {startContent}
         </div>
