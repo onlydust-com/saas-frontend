@@ -53,22 +53,30 @@ export class HttpClient {
   }
 
   protected buildSearchParams(queryParams: HttpClientQueryParams = {}) {
+    const validationKernelPort = bootstrap.getValidationKernelPort();
+
+    function sanitizeValue(value: unknown) {
+      return (
+        validationKernelPort.isNullable(value) ||
+        validationKernelPort.isEmptyString(value) ||
+        validationKernelPort.isInvalidNumber(value) ||
+        validationKernelPort.isEmptyArray(value)
+      );
+    }
+
     return Object.entries(queryParams)
       .reduce((acc, [key, value]) => {
-        if (value === undefined) {
-          return acc;
-        }
-
-        // TODO sanitize
+        if (sanitizeValue(value)) return acc;
 
         if (Array.isArray(value)) {
           acc.append(key, value.join(","));
         } else if (typeof value === "object") {
-          const keys = Object.keys(value);
-          keys.forEach(subKey => {
-            if (value[subKey] !== undefined) {
-              acc.append(`${key}.${subKey}`, String(value[subKey]));
-            }
+          Object.keys(value).forEach(subKey => {
+            const subValue = value[subKey];
+
+            if (sanitizeValue(subValue)) return;
+
+            acc.append(`${key}.${subKey}`, String(subValue));
           });
         } else {
           acc.append(key, String(value));

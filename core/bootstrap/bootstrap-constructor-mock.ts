@@ -23,6 +23,7 @@ import { FileAdapterMock } from "@/core/kernel/file/file-adapter-mock";
 import { IdAdapterMock } from "@/core/kernel/id/id-adapter-mock";
 import { MoneyAdapterMock } from "@/core/kernel/money/money-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
+import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
   meStoragePortForClient: new MeClientAdapterMock(),
@@ -68,4 +69,5 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   fileKernelPort: new FileAdapterMock(),
   urlKernelPort: UrlAdapterMock,
   idKernelPort: IdAdapterMock,
+  validationKernelPort: new ValidationAdapterMock(),
 };
