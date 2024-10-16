@@ -321,7 +321,7 @@
     --typography-secondary_hover: var(--_grey-700);
     --typography-tertiary: var(--_grey-500-primary);
     --typography-tertiary_hover: var(--_grey-600);
-    --typography-quaternary: var(--_grey-400);
+    --typography-quaternary: var(--_grey-500-primary);
     --typography-white: var(--_white);
     --typography-disabled: var(--_grey-400);
     --typography-placeholder: var(--_grey-500-primary);
@@ -475,6 +475,7 @@
     --utility-grey-700: var(--_grey-700);
     --utility-grey-800: var(--_grey-800);
     --utility-grey-900: var(--_grey-900);
+    --utility-grey-950: var(--_grey-950);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-50);
@@ -487,6 +488,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-700);
     --utility-brand-brightorange-800: var(--_brand-brightorange-800);
     --utility-brand-brightorange-900: var(--_brand-brightorange-900);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-950);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-50);
@@ -499,6 +501,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-700);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-800);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-900);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-950);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-50);
@@ -511,6 +514,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-700);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-800);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-900);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-950);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-50);
@@ -523,6 +527,7 @@
     --utility-brand-cyan-700: var(--_brand-cyan-700);
     --utility-brand-cyan-800: var(--_brand-cyan-800);
     --utility-brand-cyan-900: var(--_brand-cyan-900);
+    --utility-brand-cyan-950: var(--_brand-cyan-950);
 
     /* UTILITY SECONDARY */
     --utility-secondary-blue-500: var(--_secondary-blue-500);
@@ -542,6 +547,7 @@
     --utility-error-700: var(--_error-700);
     --utility-error-800: var(--_error-800);
     --utility-error-900: var(--_error-900);
+    --utility-error-950: var(--_error-950);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-50);
@@ -554,6 +560,7 @@
     --utility-warning-700: var(--_warning-700);
     --utility-warning-800: var(--_warning-800);
     --utility-warning-900: var(--_warning-900);
+    --utility-warning-950: var(--_warning-950);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-50);
@@ -566,6 +573,7 @@
     --utility-success-700: var(--_success-700);
     --utility-success-800: var(--_success-800);
     --utility-success-900: var(--_success-900);
+    --utility-success-950: var(--_success-950);
 
     /* UTILITY GRADIENT */
     --utility-gradient-glassneon-glass-neon-1: #fafdeb;
@@ -855,6 +863,7 @@
     --utility-grey-700: var(--_grey-300);
     --utility-grey-800: var(--_grey-200);
     --utility-grey-900: var(--_grey-100);
+    --utility-grey-950: var(--_grey-50);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-950);
@@ -867,6 +876,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-300);
     --utility-brand-brightorange-800: var(--_brand-brightorange-200);
     --utility-brand-brightorange-900: var(--_brand-brightorange-100);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-50);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-950);
@@ -879,13 +889,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-300);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-200);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-100);
-
-    /* UTILITY SECONDARY */
-    --utility-secondary-blue-500: var(--_secondary-blue-500);
-    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
-    --utility-secondary-orange-500: var(--_secondary-orange-500);
-    --utility-secondary-green-500: var(--_secondary-green-500);
-    --utility-secondary-pink-500: var(--_secondary-pink-500);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-50);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-950);
@@ -898,6 +902,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-300);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-200);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-100);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-50);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-950);
@@ -910,6 +915,14 @@
     --utility-brand-cyan-700: var(--_brand-cyan-300);
     --utility-brand-cyan-800: var(--_brand-cyan-200);
     --utility-brand-cyan-900: var(--_brand-cyan-100);
+    --utility-brand-cyan-950: var(--_brand-cyan-50);
+
+    /* UTILITY SECONDARY */
+    --utility-secondary-blue-500: var(--_secondary-blue-500);
+    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
+    --utility-secondary-orange-500: var(--_secondary-orange-500);
+    --utility-secondary-green-500: var(--_secondary-green-500);
+    --utility-secondary-pink-500: var(--_secondary-pink-500);
 
     /* UTILITY ERROR */
     --utility-error-50: var(--_error-950);
@@ -922,6 +935,7 @@
     --utility-error-700: var(--_error-300);
     --utility-error-800: var(--_error-200);
     --utility-error-900: var(--_error-100);
+    --utility-error-950: var(--_error-50);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-950);
@@ -934,6 +948,7 @@
     --utility-warning-700: var(--_warning-300);
     --utility-warning-800: var(--_warning-200);
     --utility-warning-900: var(--_warning-100);
+    --utility-warning-950: var(--_warning-50);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-950);
@@ -946,6 +961,7 @@
     --utility-success-700: var(--_success-300);
     --utility-success-800: var(--_success-200);
     --utility-success-900: var(--_success-100);
+    --utility-success-950: var(--_success-50);
 
     /* UTILITY GRADIENT */
     --utility-gradient-glassneon-glass-neon-1: #232e41;
