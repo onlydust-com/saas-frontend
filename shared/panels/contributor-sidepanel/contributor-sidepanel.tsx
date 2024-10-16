@@ -18,7 +18,6 @@ import { Activity } from "@/shared/panels/contributor-sidepanel/_components/acti
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
-import { PublicRepo } from "@/shared/panels/contributor-sidepanel/_components/public-repo/public-repo";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -84,15 +83,23 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
         <ContributorProfileExtended user={data} />
         {data?.githubUserId ? (
           <>
-            <div className={"flex flex-row gap-lg"}>
+            {/* !KEEP this
+             * <div className={"flex flex-row gap-lg"}>
+             */}
+            <div className={"flex flex-col gap-lg"}>
               <Languages githubId={data.githubUserId} />
               <Ecosystems githubId={data.githubUserId} />
             </div>
-            <div className={"flex flex-row gap-lg"}>
+            {/* !KEEP this
+             * <div className={"flex flex-row gap-lg"}>
+             */}
+            <div className={"flex flex-col gap-lg"}>
               <Kpi user={data} />
               <RewardsGraph githubId={data.githubUserId} />
             </div>
-            <PublicRepo />
+            {/* !KEEP this
+             * <PublicRepo />
+             */}
             <Activity githubId={data.githubUserId} />
           </>
         ) : null}

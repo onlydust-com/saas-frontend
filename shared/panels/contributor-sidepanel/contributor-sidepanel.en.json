@@ -23,7 +23,7 @@
     "otherLabel": "Other"
   },
   "activity": {
-    "title": "{{number}} contributions last year"
+    "title": "Activity"
   },
   "publicRepo": {
     "title": "Public Repositories ({{count}})"
