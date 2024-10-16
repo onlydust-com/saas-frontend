@@ -434,19 +434,15 @@ export class ContributionClientAdapter implements ContributionStoragePort {
     };
   };
 
-  getContributionsById = ({
-    queryParams,
-    pathParams,
-  }: FirstParameter<ContributionStoragePort["getContributionsById"]>) => {
+  getContributionsById = ({ pathParams }: FirstParameter<ContributionStoragePort["getContributionsById"]>) => {
     const path = this.routes["getContributionById"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams });
     const request = async () => {
       const data = await this.client.request<GetContributionByIdResponse>({
         path,
         method,
         tag,
-        queryParams,
         pathParams,
       });
 

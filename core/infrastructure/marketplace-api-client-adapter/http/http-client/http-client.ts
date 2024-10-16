@@ -107,7 +107,7 @@ export class HttpClient {
     return Object.keys(obj)
       .sort()
       .reduce((acc, key, i, arr) => {
-        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+        if (obj[key] && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
           const keys = Object.keys(obj[key]);
           keys.forEach(subKey => {
             acc += `${key}.${subKey}` + ":" + `${(obj[key] as AnyType)[subKey]}`;

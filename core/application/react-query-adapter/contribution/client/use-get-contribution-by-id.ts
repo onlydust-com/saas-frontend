@@ -11,13 +11,12 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 export function useGetContributionById({
   options,
   pathParams,
-  queryParams,
 }: UseQueryFacadeParams<ContributionFacadePort["getContributionsById"], ContributionActivityInterface>) {
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...contributionStoragePort.getContributionsById({ pathParams, queryParams }),
+      ...contributionStoragePort.getContributionsById({ pathParams }),
       options,
     })
   );
