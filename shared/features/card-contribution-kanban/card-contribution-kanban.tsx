@@ -1,11 +1,12 @@
+import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 import { CardContributionKanban as Card } from "@/design-system/molecules/cards/card-contribution-kanban";
 
-import { CardContributionKanbanHooks } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.hooks";
+import { useContributionActions } from "@/shared/hooks/contributions/use-contribution-actions";
 
 import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 
 export function CardContributionKanban({ contribution, classNames, ...actions }: CardContributionKanbanProps) {
-  const actionGroup = CardContributionKanbanHooks.useContributionActions(contribution, actions);
+  const actionGroup = useContributionActions(contribution, actions) as ButtonGroupPort["buttons"];
 
   return (
     <Card
