@@ -34,7 +34,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   const [selectedIssueIds, setSelectedIssueIds] = useState<string[]>([]);
   const [selectedContributionIds, setSelectedContributionIds] = useState<SelectedRewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
-  const { open: _openBulkContributionFlow } = useBulkContributionSelection();
+  const { open: openBulkContributionFlow } = useBulkContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
 
   function addContributionIds(contributionIds: string[], githubUserId: number) {
@@ -84,7 +84,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     if (githubUserIds?.length > 1) {
       openBulkContributorFlow();
     } else {
-      openBulkContributorFlow();
+      openBulkContributionFlow();
       // openSingleFlow();
     }
   }
