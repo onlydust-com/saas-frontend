@@ -23,7 +23,7 @@ export type SelectableContributorsFilters = Omit<
 >;
 
 export function SelectableContributorsAccordion() {
-  const { selectedGithubUserIds, setSelectedGithubUserIds } = useRewardFlow();
+  const { selectedGithubUserIds, addContributorId, removeContributorId } = useRewardFlow();
   const [filters, setFilters] = useState<SelectableContributorsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -53,9 +53,9 @@ export function SelectableContributorsAccordion() {
 
   function handleSelectedContributors(contributorId: number, checked: boolean) {
     if (checked) {
-      setSelectedGithubUserIds([...(selectedGithubUserIds || []), contributorId]);
+      addContributorId(contributorId);
     } else {
-      setSelectedGithubUserIds(selectedGithubUserIds?.filter(id => id !== contributorId));
+      removeContributorId(contributorId);
     }
   }
 
@@ -84,7 +84,7 @@ export function SelectableContributorsAccordion() {
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </>
     );
-  }, [contributors, isLoading]);
+  }, [contributors, isLoading, selectedGithubUserIds]);
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>

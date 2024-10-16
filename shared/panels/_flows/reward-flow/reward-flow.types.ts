@@ -25,9 +25,10 @@ export interface RewardFlowContextInterface {
   projectId?: string;
   open: (props: startFlowProps) => void;
   selectedGithubUserIds?: number[];
-  setSelectedGithubUserIds: ReturnType<typeof useState<number[]>>[1];
   selectedIssueIds: string[];
   addContributionIds: (contributionId: string[], githubUserId: number) => void;
+  addContributorId: (contributorId: number) => void;
+  removeContributorId: (contributorId: number) => void;
   removeContributionId: (contributionId: string, githubUserId: number) => void;
   getSelectedContributionIds: (githubUserId: number) => string[];
 }
