@@ -16,7 +16,7 @@ export function SingleContributionSelection() {
   const { Panel } = useSidePanel({ name });
 
   const { selectedGithubUserIds, getSelectedContributionIds } = useRewardFlow();
-  const [selectedGithubUserId] = selectedGithubUserIds;
+  const [selectedGithubUserId] = selectedGithubUserIds || [];
   const { open: singleContributionValidation } = useSingleContributionValidation();
 
   const selectedContributionIds = getSelectedContributionIds(selectedGithubUserId);

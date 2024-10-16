@@ -11,6 +11,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
+import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data";
 import { FilterDataProvider } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data.context";
 import { useSelectableContributorsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data.hooks";
@@ -38,14 +39,15 @@ export function SelectableContributorsAccordion() {
     ...filters,
   };
 
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams: {
-      ...queryParams,
-    },
-    options: {
-      enabled: Boolean(selectedGithubUserIds),
-    },
-  });
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
+    BiReactQueryAdapter.client.useGetBiContributors({
+      queryParams: {
+        ...queryParams,
+      },
+      options: {
+        enabled: Boolean(selectedGithubUserIds),
+      },
+    });
 
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
 
@@ -56,6 +58,33 @@ export function SelectableContributorsAccordion() {
       setSelectedGithubUserIds(selectedGithubUserIds?.filter(id => id !== contributorId));
     }
   }
+
+  const renderContributors = useMemo(() => {
+    if (isLoading) {
+      return (
+        <>
+          <ContributorProfileCheckboxLoading />
+          <ContributorProfileCheckboxLoading />
+          <ContributorProfileCheckboxLoading />
+          <ContributorProfileCheckboxLoading />
+        </>
+      );
+    }
+
+    return (
+      <>
+        {contributors?.map(contributor => (
+          <ContributorProfileCheckbox
+            key={contributor.contributor.id}
+            user={contributor.contributor}
+            value={selectedGithubUserIds?.includes(contributor.contributor.githubUserId)}
+            onChange={checked => handleSelectedContributors(contributor.contributor.githubUserId, checked)}
+          />
+        ))}
+        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+      </>
+    );
+  }, [contributors, isLoading]);
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
@@ -86,17 +115,7 @@ export function SelectableContributorsAccordion() {
         }}
         defaultSelected={["contributors"]}
       >
-        <div className="flex flex-col gap-2">
-          {contributors?.map(contributor => (
-            <ContributorProfileCheckbox
-              key={contributor.contributor.id}
-              user={contributor.contributor}
-              value={selectedGithubUserIds?.includes(contributor.contributor.githubUserId)}
-              onChange={checked => handleSelectedContributors(contributor.contributor.githubUserId, checked)}
-            />
-          ))}
-          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-        </div>
+        <div className="flex flex-col gap-2">{renderContributors}</div>
       </Accordion>
       <FilterData />
     </FilterDataProvider>
