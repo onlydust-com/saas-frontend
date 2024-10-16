@@ -1,5 +1,5 @@
 import { useQueries } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
@@ -22,14 +22,19 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function SingleContributionValidation() {
   const { name, isOpen } = useSingleContributionValidation();
   const { Panel } = useSidePanel({ name });
-  const { projectId = "", getSelectedContributions, selectedGithubUserIds } = useRewardFlow();
-  const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
-  const [amount, setAmount] = useState("0");
-  const amountNumber = Number(amount);
+  const {
+    projectId = "",
+    getSelectedContributions,
+    selectedGithubUserIds,
+    updateAmount,
+    getAmount,
+    getRewardBody,
+  } = useRewardFlow();
 
   const [selectedGithubUserId] = selectedGithubUserIds;
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
-
+  const { amount, budget } = getAmount(selectedGithubUserId);
+  const amountNumber = Number(amount);
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
   // TODO replace with /contributions with contribution ids once implemented
@@ -75,28 +80,16 @@ export function SingleContributionValidation() {
   });
 
   function handleAmountChange(amount: string) {
-    setAmount(amount);
+    updateAmount(selectedGithubUserId, { budget, amount });
   }
 
   function handleBudgetChange(budget?: DetailedTotalMoneyTotalPerCurrency) {
-    setBudget(budget);
+    updateAmount(selectedGithubUserId, { budget, amount });
   }
 
   function handleCreateRewards() {
     if (amountNumber > 0) {
-      mutate(
-        selectedGithubUserIds.map(recipientId => ({
-          recipientId,
-          amount: amountNumber,
-          currencyId: budget?.currency?.id ?? "",
-          items: nonNullContributions.map(c => ({
-            type: c.type,
-            id: c.id,
-            number: c.githubNumber,
-            repoId: c.repo.id,
-          })),
-        }))
-      );
+      mutate(getRewardBody());
     }
   }
 

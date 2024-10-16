@@ -17,7 +17,8 @@ import { SingleUserFlowProps } from "./single-user-flow.types";
 export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"select" | "amount">("select");
-  const { getAmount, updateAmount } = useRewardFlow();
+  const { getAmount, updateAmount, getSelectedContributions } = useRewardFlow();
+  const selectedContributions = getSelectedContributions(githubUserId);
   const { amount, budget } = getAmount(githubUserId);
 
   const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
@@ -46,9 +47,19 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
   function handleValidate() {
     if (step === "select") {
       setStep("amount");
-    } else if (amount && !!budget) {
+    } else if (Number(amount) > 0 && !!budget) {
       setIsOpen(false);
       onValidate(githubUserId);
+    }
+  }
+
+  function isValidateDisabled() {
+    if (step === "select") {
+      return !selectedContributions?.length;
+    }
+
+    if (step === "amount") {
+      return !budget || !Number(amount);
     }
   }
 
@@ -95,6 +106,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
           variant={"secondary"}
           onClick={handleValidate}
           translate={{ token: "panels:bulkContributionSelection.validateButton" }}
+          isDisabled={isValidateDisabled()}
         />
       </div>
     </Accordion>

@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
 
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
@@ -13,8 +14,8 @@ import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow
 import {
   RewardFlowContextInterface,
   RewardFlowContextProps,
+  RewardsState,
   SelectedRewardsBudget,
-  SelectedRewardsState,
   startFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
 
@@ -27,36 +28,37 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
+  getRewardBody: () => [],
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
   const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
-  const [contributionState, setContributionState] = useState<SelectedRewardsState>({});
+  const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkFlow } = useBulkContributionSelection();
 
   function addContributions(contributions: ContributionItemDto[], githubUserId: number) {
-    setContributionState(prev => ({
+    setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: Array.from(new Set([...(prev[githubUserId]?.contributions || []), ...contributions])),
+        contributions: Array.from(new Set([...(prev[githubUserId]?.contributions || []), ...contributions])),
       },
     }));
   }
 
   function removeContribution(contribution: ContributionItemDto, githubUserId: number) {
-    setContributionState(prev => ({
+    setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributionIds: prev[githubUserId].contributions.filter(c => !c.isEqualTo(contribution)),
+        contributions: prev[githubUserId].contributions.filter(c => !c.isEqualTo(contribution)),
       },
     }));
   }
 
   function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
-    setContributionState(prev => ({
+    setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
@@ -66,17 +68,16 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
   }
 
   function getSelectedContributions(githubUserId: number) {
-    console.log("dd", contributionState[githubUserId], contributionState[githubUserId]?.contributions || []);
-    return contributionState[githubUserId]?.contributions || [];
+    return rewardsState[githubUserId]?.contributions || [];
   }
 
   function getAmount(githubUserId: number) {
-    return contributionState[githubUserId].amount ?? { amount: "0" };
+    return rewardsState[githubUserId]?.amount ?? { amount: "0" };
   }
 
   function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
     setSelectedGithubUserIds(githubUserIds);
-    setContributionState(
+    setRewardsState(
       githubUserIds.reduce((acc, githubUserId) => {
         return {
           ...acc,
@@ -95,6 +96,17 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     }
   }
 
+  function getRewardBody(): CreateRewardsBody {
+    return Object.entries(rewardsState).map(([githubUserId, { contributions, amount }]) => {
+      return {
+        recipientId: Number(githubUserId),
+        amount: Number(amount?.amount),
+        currencyId: amount?.budget?.currency.id ?? "",
+        items: contributions,
+      };
+    });
+  }
+
   return (
     <RewardFlowContext.Provider
       value={{
@@ -106,6 +118,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         addContributions,
         updateAmount,
         getAmount,
+        getRewardBody,
       }}
     >
       {children}
