@@ -36,8 +36,8 @@ export function ContributionTypeAutocomplete({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSelect(ids: MenuItemId<ContributionTypeUnion>[]) {
-    onSelect?.(ids);
+  function handleSelect(types: MenuItemId<ContributionTypeUnion>[]) {
+    onSelect?.(types.length ? types : undefined);
   }
 
   return (

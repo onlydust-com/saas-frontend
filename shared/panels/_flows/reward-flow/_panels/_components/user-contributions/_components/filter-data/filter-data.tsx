@@ -1,6 +1,7 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { ContributionTypeFilter } from "@/shared/features/filters/contribution-type-filter/contribution-type-filter";
+import { ContributorLabelFilter } from "@/shared/features/filters/contributor-label-filter/contributor-label-filter";
 import { ProjectRepoFilter } from "@/shared/features/filters/project-repo-filter/project-repo-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -30,7 +31,12 @@ export function FilterData() {
           selectedContributionType={filters.types}
           onSelect={contributionTypes => setFilters({ types: contributionTypes })}
         />
-
+        <ContributorLabelFilter
+          selectedLabel={filters.projectContributorLabelIds}
+          onSelect={(labels: string[]) => {
+            setFilters({ projectContributorLabelIds: labels });
+          }}
+        />
         <ProjectRepoFilter selectedRepo={filters.repoIds} onSelect={repoIds => setFilters({ repoIds })} />
       </SidePanelBody>
       <SidePanelFooter>
