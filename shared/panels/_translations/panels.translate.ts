@@ -1,3 +1,4 @@
+import enBulkContributorsSelection from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/_translations/bulk-contributors-selection.en.json";
 import enCreateContribution from "@/shared/panels/_flows/reward-flow/_panels/_features/create-contribution-sidepanel/_translations/create-contribution-sidepanel.en.json";
 import enLinkContribution from "@/shared/panels/_flows/reward-flow/_panels/_features/link-contribution-sidepanel/_translations/link-contribution-sidepanel.en.json";
 import enBulkContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_translations/bulk-contribution-selection.en.json";
@@ -34,6 +35,7 @@ export const enPanelsTranslation = {
     financialDetail: enFinancialDetail,
     rewardDetail: enRewardDetail,
     singleContributionSelection: enSingleContributionSelection,
+    bulkContributorsSelection: enBulkContributorsSelection,
     linkContribution: enLinkContribution,
     createContribution: enCreateContribution,
     bulkContributionSelection: enBulkContributionSelection,
