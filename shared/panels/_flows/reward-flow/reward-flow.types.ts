@@ -29,11 +29,13 @@ export interface startFlowProps {
 export interface RewardFlowContextInterface {
   projectId?: string;
   open: (props: startFlowProps) => void;
-  selectedGithubUserIds: number[];
+  selectedGithubUserIds?: number[];
   addContributions: (contributions: ContributionItemDto[], githubUserId: number) => void;
   removeContribution: (contribution: ContributionItemDto, githubUserId: number) => void;
   getSelectedContributions: (githubUserId: number) => ContributionItemDto[];
   updateAmount: (githubUserId: number, amount: SelectedRewardsBudget) => void;
   getAmount: (githubUserId: number) => SelectedRewardsBudget;
   getRewardBody: () => CreateRewardsBody;
+  addContributorId: (contributorId: number) => void;
+  removeContributorId: (contributorId: number) => void;
 }

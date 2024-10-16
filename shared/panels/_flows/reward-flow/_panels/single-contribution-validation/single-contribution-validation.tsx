@@ -31,7 +31,7 @@ export function SingleContributionValidation() {
     getRewardBody,
   } = useRewardFlow();
 
-  const [selectedGithubUserId] = selectedGithubUserIds;
+  const [selectedGithubUserId] = selectedGithubUserIds ?? [];
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
   const { amount, budget } = getAmount(selectedGithubUserId);
   const amountNumber = Number(amount);
@@ -88,7 +88,7 @@ export function SingleContributionValidation() {
   }
 
   function handleCreateRewards() {
-    if (amountNumber > 0) {
+    if (amountNumber > 0 && selectedGithubUserIds) {
       mutate(getRewardBody());
     }
   }

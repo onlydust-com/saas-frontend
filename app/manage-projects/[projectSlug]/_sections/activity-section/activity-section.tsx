@@ -9,6 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ActivitySectionProps } from "./activity-section.types";
@@ -18,6 +19,7 @@ const CONTRIBUTIONS = "contributions";
 const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
+  const { close } = useSidePanelsContext();
   const [toggleFinancialViews, setToggleFinancialViews] = useState<
     typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
   >(CONTRIBUTORS);
@@ -47,7 +49,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
             size={"xs"}
             weight={"medium"}
             variant={"heading"}
-            translate={{ token: "manageProjects:detail.contributions.title" }}
+            translate={{ token: "manageProjects:detail.activity.title" }}
           />
 
           <Tabs
@@ -56,15 +58,15 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
             tabs={[
               {
                 id: CONTRIBUTORS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.contributors"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.contributors"} />,
               },
               {
                 id: CONTRIBUTIONS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.contributions"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.contributions"} />,
               },
               {
                 id: REWARDS,
-                children: <Translate token={"manageProjects:detail.contributions.buttons.rewards"} />,
+                children: <Translate token={"manageProjects:detail.activity.buttons.rewards"} />,
               },
             ]}
             selectedId={toggleFinancialViews}
@@ -76,7 +78,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           endIcon={{ component: ChevronRight }}
           isTextButton
           size={"md"}
-          translate={{ token: "manageProjects:detail.contributions.actions.reward" }}
+          translate={{ token: "manageProjects:detail.activity.actions.reward" }}
           onClick={() => console.log("Open reward")}
           classNames={{
             base: "max-w-full overflow-hidden",

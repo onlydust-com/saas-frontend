@@ -8,6 +8,8 @@ import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
+import { BulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection";
+import { useBulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection.hooks";
 import { SingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection";
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
 import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation";
@@ -29,13 +31,16 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
   getRewardBody: () => [],
+  addContributorId: () => {},
+  removeContributorId: () => {},
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
-  const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
+  const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[] | undefined>([]);
   const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
-  const { open: openBulkFlow } = useBulkContributionSelection();
+  const { open: _openBulkContributionFlow } = useBulkContributionSelection();
+  const { open: openBulkContributorFlow } = useBulkContributorSelection();
 
   function addContributions(contributions: ContributionItemDto[], githubUserId: number) {
     setRewardsState(prev => ({
@@ -52,9 +57,17 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
       ...prev,
       [githubUserId]: {
         ...prev[githubUserId],
-        contributions: prev[githubUserId].contributions.filter(c => !c.isEqualTo(contribution)),
+        contributions: prev[githubUserId]?.contributions.filter(c => !c.isEqualTo(contribution)),
       },
     }));
+  }
+
+  function addContributorId(contributorId: number) {
+    setSelectedGithubUserIds(prev => Array.from(new Set([...(prev || []), contributorId])));
+  }
+
+  function removeContributorId(contributorId: number) {
+    setSelectedGithubUserIds(prev => prev?.filter(id => id !== contributorId));
   }
 
   function updateAmount(githubUserId: number, amount: SelectedRewardsBudget) {
@@ -90,9 +103,10 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     );
 
     if (githubUserIds?.length > 1) {
-      openBulkFlow();
+      openBulkContributorFlow();
     } else {
-      openSingleFlow();
+      openBulkContributorFlow();
+      // openSingleFlow();
     }
   }
 
@@ -119,12 +133,15 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
         updateAmount,
         getAmount,
         getRewardBody,
+        addContributorId,
+        removeContributorId,
       }}
     >
       {children}
       <SingleContributionSelection />
       <SingleContributionValidation />
       <BulkContributionSelection />
+      <BulkContributorSelection />
       <BulkContributionValidation />
     </RewardFlowContext.Provider>
   );

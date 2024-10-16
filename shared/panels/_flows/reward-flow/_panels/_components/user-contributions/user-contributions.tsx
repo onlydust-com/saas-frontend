@@ -1,5 +1,6 @@
 import { CircleCheck, Filter, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import {
@@ -7,6 +8,7 @@ import {
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { ContributionFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -16,6 +18,8 @@ import {
   CardContributionKanban,
   CardContributionKanbanLoading,
 } from "@/design-system/molecules/cards/card-contribution-kanban";
+import { Menu } from "@/design-system/molecules/menu";
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -27,20 +31,52 @@ import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/
 import { UserContributionsProps } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions.types";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
+import { CreateContributionSidepanel } from "../../_features/create-contribution-sidepanel/create-contribution-sidepanel";
+import { useCreateContributionSidepanel } from "../../_features/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
+import { LinkContributionSidepanel } from "../../_features/link-contribution-sidepanel/link-contribution-sidepanel";
+import { useLinkContributionSidepanel } from "../../_features/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
+
 export type UserContributionsFilters = Omit<
   NonNullable<GetContributionsPortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;
 
 export function UserContributions({ githubUserId }: UserContributionsProps) {
+  const { t } = useTranslation("panels");
+
   const { getSelectedContributions, addContributions, removeContribution } = useRewardFlow();
-  const [filters, setFilters] = useState<UserContributionsFilters>({});
+  const [filters, setFilters] = useState<UserContributionsFilters>({
+    types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
+  });
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const selectedContributions = getSelectedContributions(githubUserId);
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
+  const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
+  const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
 
   const filtersCount = Object.keys(filters)?.length;
+
+  const menuItems: MenuItemPort[] = [
+    {
+      id: "link",
+      label: t("rewardFlow.contribution.link"),
+    },
+    {
+      id: "create",
+      label: t("rewardFlow.contribution.create"),
+    },
+  ];
+
+  function handleMenuAction(id: string) {
+    if (id === "link") {
+      openLinkContributionPanel();
+    }
+
+    if (id === "create") {
+      openCreateContributionPanel();
+    }
+  }
 
   const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
@@ -150,14 +186,16 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
               onClick={handleSelectAll}
             />
 
-            <Button
-              variant={"secondary"}
-              size={"xs"}
-              iconOnly
-              startIcon={{
-                component: Plus,
-              }}
-            />
+            <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-end">
+              <Button
+                variant={"secondary"}
+                size={"xs"}
+                iconOnly
+                startIcon={{
+                  component: Plus,
+                }}
+              />
+            </Menu>
           </div>
         </header>
 
@@ -181,6 +219,8 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
       </section>
 
       <FilterData />
+      <LinkContributionSidepanel />
+      <CreateContributionSidepanel />
     </FilterDataProvider>
   );
 }
