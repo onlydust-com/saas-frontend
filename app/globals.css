@@ -97,18 +97,18 @@
     --_brand-brightorange-950: #4d3000;
 
     /* CRYSTALIZEDVIOLET */
-    --_brand-crystalizedviolet-25: #fef7ff;
-    --_brand-crystalizedviolet-50: #fceaff;
-    --_brand-crystalizedviolet-100: #f7d0ff;
-    --_brand-crystalizedviolet-200: #ea9cff;
-    --_brand-crystalizedviolet-300: #d968ff;
-    --_brand-crystalizedviolet-400: #c434ff;
-    --_brand-crystalizedviolet-500-primary: #ac00ff;
-    --_brand-crystalizedviolet-600: #9a00d7;
-    --_brand-crystalizedviolet-700: #8400b0;
-    --_brand-crystalizedviolet-800: #6c0088;
-    --_brand-crystalizedviolet-900: #500060;
-    --_brand-crystalizedviolet-950: #41004d;
+    --_brand-crystalizedviolet-25: #fdf7ff;
+    --_brand-crystalizedviolet-50: #f8eaff;
+    --_brand-crystalizedviolet-100: #f0d0ff;
+    --_brand-crystalizedviolet-200: #de9dff;
+    --_brand-crystalizedviolet-300: #ca75ff;
+    --_brand-crystalizedviolet-400: #b654fc;
+    --_brand-crystalizedviolet-500-primary: #a03ae9;
+    --_brand-crystalizedviolet-600: #8e21db;
+    --_brand-crystalizedviolet-700: #7a0ebb;
+    --_brand-crystalizedviolet-800: #660099;
+    --_brand-crystalizedviolet-900: #510077;
+    --_brand-crystalizedviolet-950: #460066;
 
     --_alpha-crystalizedviolet-0: #ac00ff00;
     --_alpha-crystalizedviolet-3: #ac00ff07;
@@ -378,6 +378,7 @@
     --foreground-white: var(--_white);
     --foreground-disabled: var(--_grey-400);
     --foreground-brand-primary: var(--_brand-crystalizedviolet-600);
+    --foreground-brand-primary_hover: var(--_brand-crystalizedviolet-700);
     --foreground-brand-secondary: var(--_brand-crystalizedviolet-700);
     --foreground-brand-secondary_hover: var(--_brand-crystalizedviolet-800);
     --foreground-error: var(--_error-600);
@@ -408,7 +409,7 @@
     --background-error-solid_hover: var(--_error-700);
     --background-brand-primary: var(--_brand-crystalizedviolet-50);
     --background-brand-primary_alt: var(--_brand-crystalizedviolet-50);
-    --background-brand-primary-solid: var(--_brand-crystalizedviolet-400);
+    --background-brand-primary-solid: var(--_brand-crystalizedviolet-500-primary);
     --background-brand-primary-solid_hover: var(--_brand-crystalizedviolet-600);
     --background-brand-secondary: var(--_brand-crystalizedviolet-25);
     --background-warning: var(--_warning-50);
@@ -421,7 +422,7 @@
     --background-success-solid_hover: var(--_success-700);
 
     /* EFFECTS */
-    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
+    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-500-primary);
     --effects-focusrings-brand-glued: var(--_alpha-crystalizedviolet-14);
     --effects-focusrings-error-spaced: var(--_error-500-primary);
     --effects-focusrings-error-glued: var(--_alpha-error-14);
@@ -764,7 +765,8 @@
     --foreground-senary: var(--_grey-600);
     --foreground-white: var(--_white);
     --foreground-disabled: var(--_grey-500-primary);
-    --foreground-brand-primary: var(--_brand-crystalizedviolet-500-primary);
+    --foreground-brand-primary: var(--_brand-crystalizedviolet-400);
+    --foreground-brand-primary_hover: var(--_brand-crystalizedviolet-500-primary);
     --foreground-brand-secondary: var(--_brand-crystalizedviolet-300);
     --foreground-brand-secondary_hover: var(--_brand-crystalizedviolet-200);
     --foreground-error: var(--_error-400);
@@ -795,7 +797,7 @@
     --background-error-solid_hover: var(--_error-500-primary);
     --background-brand-primary: var(--_brand-crystalizedviolet-400);
     --background-brand-primary_alt: var(--_brand-crystalizedviolet-950);
-    --background-brand-primary-solid: var(--_brand-crystalizedviolet-400);
+    --background-brand-primary-solid: var(--_brand-crystalizedviolet-500-primary);
     --background-brand-primary-solid_hover: var(--_brand-crystalizedviolet-600);
     --background-brand-secondary: var(--_brand-crystalizedviolet-950);
     --background-warning: var(--_warning-500-primary);
@@ -808,7 +810,7 @@
     --background-success-solid_hover: var(--_success-500-primary);
 
     /* EFFECTS */
-    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
+    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-500-primary);
     --effects-focusrings-brand-glued: var(--_alpha-crystalizedviolet-30);
     --effects-focusrings-error-spaced: var(--_error-500-primary);
     --effects-focusrings-error-glued: var(--_alpha-error-30);

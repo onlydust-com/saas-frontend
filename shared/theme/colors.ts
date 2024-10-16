@@ -62,6 +62,7 @@ export const COLORS = {
     white: "var(--foreground-white)",
     disabled: "var(--foreground-disabled)",
     "brand-primary": "var(--foreground-brand-primary)",
+    "brand-primary-hover": "var(--foreground-brand-primary_hover)",
     "brand-secondary": "var(--foreground-brand-secondary)",
     "brand-secondary-hover": "var(--foreground-brand-secondary_hover)",
     error: "var(--foreground-error)",
