@@ -1,3 +1,4 @@
+import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { UserOverview } from "@/core/domain/user/models/user-overview-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
@@ -13,6 +14,7 @@ export interface ContributionActivityInterface
   isToReview(): boolean;
   isArchived(): boolean;
   isDone(): boolean;
+  toItemDto(): ContributionItemDto;
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
@@ -63,5 +65,14 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   isDone(): boolean {
     return this.activityStatus === "DONE";
+  }
+
+  toItemDto(): ContributionItemDto {
+    return new ContributionItemDto({
+      type: this.type,
+      id: this.githubId?.toString(),
+      number: this.githubNumber,
+      repoId: this.repo?.id,
+    });
   }
 }

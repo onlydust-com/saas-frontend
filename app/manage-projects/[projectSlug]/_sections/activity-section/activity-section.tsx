@@ -10,7 +10,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
-import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ActivitySectionProps } from "./activity-section.types";
@@ -20,7 +19,6 @@ const CONTRIBUTIONS = "contributions";
 const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
-  const { open } = useRewardFlow();
   const { close } = useSidePanelsContext();
   const [toggleFinancialViews, setToggleFinancialViews] = useState<
     typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
@@ -47,7 +45,6 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
     <div className="flex h-full flex-col gap-4">
       <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
         <div className="flex flex-col items-start justify-start gap-2 tablet:flex-row tablet:items-center">
-          <Button onClick={() => open({ issueIds: [], githubUserIds: [] })}>Open reward flow</Button>
           <Typo
             size={"xs"}
             weight={"medium"}
