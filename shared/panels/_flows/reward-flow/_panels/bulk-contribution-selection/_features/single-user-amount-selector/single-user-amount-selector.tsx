@@ -37,7 +37,7 @@ export function SingleUserAmountSelector({
   useEffect(() => {
     if (project) {
       onBudgetChange(project.totalAvailable.totalPerCurrency?.[0]);
-      onAmountChange("0");
+      onAmountChange(amount ?? "0");
       return;
     }
   }, [project]);

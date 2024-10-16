@@ -11,17 +11,14 @@ import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-fl
 import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-export function SingleContributionSelection() {
-  const { name } = useSingleContributionSelection();
-  const { Panel } = useSidePanel({ name });
-
+function Content() {
   const { selectedGithubUserIds, getSelectedContributions } = useRewardFlow();
   const [selectedGithubUserId] = selectedGithubUserIds || [];
   const { open: singleContributionValidation } = useSingleContributionValidation();
 
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
   return (
-    <Panel>
+    <>
       <SidePanelHeader
         title={{
           translate: {
@@ -50,6 +47,17 @@ export function SingleContributionSelection() {
           onClick={() => singleContributionValidation()}
         />
       </SidePanelFooter>
+    </>
+  );
+}
+
+export function SingleContributionSelection() {
+  const { name } = useSingleContributionSelection();
+  const { Panel } = useSidePanel({ name });
+
+  return (
+    <Panel>
+      <Content />
     </Panel>
   );
 }

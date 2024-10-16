@@ -12,10 +12,9 @@ import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow
 import { useBulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-export function BulkContributionSelection() {
+function Content() {
   const { open } = useBulkContributionValidation();
-  const { name, isOpen } = useBulkContributionSelection();
-  const { Panel } = useSidePanel({ name });
+  const { isOpen } = useBulkContributionSelection();
   const { selectedGithubUserIds } = useRewardFlow();
   const [isRewardValid, setIsRewardValid] = useState<Record<number, boolean>>({});
 
@@ -42,7 +41,7 @@ export function BulkContributionSelection() {
   }, [isRewardValid]);
 
   return (
-    <Panel>
+    <>
       <SidePanelHeader
         title={{
           translate: {
@@ -75,6 +74,17 @@ export function BulkContributionSelection() {
           onClick={open}
         />
       </SidePanelFooter>
+    </>
+  );
+}
+
+export function BulkContributionSelection() {
+  const { name } = useBulkContributionSelection();
+  const { Panel } = useSidePanel({ name });
+
+  return (
+    <Panel>
+      <Content />
     </Panel>
   );
 }

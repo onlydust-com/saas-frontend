@@ -1,4 +1,5 @@
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -10,8 +11,13 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 import { SingleUserSummaryProps } from "./single-user-summary.types";
 
 export function SingleUserSummary({ githubUserId }: SingleUserSummaryProps) {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { getAmount } = useRewardFlow();
   const { amount, budget } = getAmount(githubUserId);
+  const money = moneyKernelPort.format({
+    amount: parseFloat(amount),
+    currency: budget?.currency,
+  });
 
   const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
     pathParams: { githubId: githubUserId },
@@ -29,7 +35,7 @@ export function SingleUserSummary({ githubUserId }: SingleUserSummaryProps) {
   return (
     <Accordion
       id={`bulk-user-summary-${githubUserId}`}
-      titleProps={{ children: data.login }}
+      titleProps={{ children: `${data.login} • ${money.amount} ${money.code}` }}
       startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
     >
       <div>
