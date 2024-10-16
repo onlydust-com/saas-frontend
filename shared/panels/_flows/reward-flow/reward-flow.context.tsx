@@ -6,7 +6,6 @@ import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution
 import { CreateRewardsBody } from "@/core/domain/reward/reward-contract.types";
 
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
-import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
 import { BulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection";
 import { useBulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection.hooks";
@@ -36,10 +35,9 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
 });
 
 export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
-  const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[] | undefined>([]);
+  const [selectedGithubUserIds, setSelectedGithubUserIds] = useState<number[]>([]);
   const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
-  const { open: _openBulkContributionFlow } = useBulkContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
 
   function addContributions(contributions: ContributionItemDto[], githubUserId: number) {
@@ -105,8 +103,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     if (githubUserIds?.length > 1) {
       openBulkContributorFlow();
     } else {
-      openBulkContributorFlow();
-      // openSingleFlow();
+      openSingleFlow();
     }
   }
 
