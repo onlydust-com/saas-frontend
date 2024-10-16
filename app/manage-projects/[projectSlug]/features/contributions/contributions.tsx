@@ -12,10 +12,10 @@ import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 
 import { FilterData } from "./_components/filter-data/filter-data";
-import { FilterDataProvider } from "./_components/filter-data/filter-data.context";
 import { useContributionsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 import { KanbanView } from "./_features/kanban-view/kanban-view";
 import { ListView } from "./_features/list-view/list-view";

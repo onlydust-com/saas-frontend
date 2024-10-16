@@ -1,5 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { ContributionTypeFilter } from "@/shared/features/filters/contribution-type-filter/contribution-type-filter";
 import { ContributorLabelFilter } from "@/shared/features/filters/contributor-label-filter/contributor-label-filter";
 import { ProjectRepoFilter } from "@/shared/features/filters/project-repo-filter/project-repo-filter";
@@ -7,15 +8,15 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { UserContributionsFilters } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useFilterData } from "./filter-data.context";
 import { useUserContributionsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
   const { name } = useUserContributionsFilterDataSidePanel();
   const { Panel, back } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<UserContributionsFilters>();
 
   return (
     <Panel>

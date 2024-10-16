@@ -16,7 +16,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   const value = useMemo(
     () => ({
       type: _value?.type ?? QuantityFilterType.EQUAL,
-      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUE],
+      contributionType: _value?.contributionType?.length ? _value?.contributionType : [],
       amount: _value?.amount ?? {
         eq: undefined,
         gte: undefined,
