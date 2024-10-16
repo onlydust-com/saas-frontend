@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -7,10 +9,26 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
+import { Github } from "@/shared/icons";
 
 import { ContributorProfileExtendedProps } from "./contributor-profile-extended.types";
 
 export function ContributorProfileExtended({ user, headerProps, footerContent }: ContributorProfileExtendedProps) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const signedUpAt = useMemo(() => {
+    if (user.signedUpAt) {
+      return dateKernelPort.format(new Date(user.signedUpAt), "MM/yyyy");
+    }
+    return null;
+  }, [user]);
+
+  const signedUpOnGithubAt = useMemo(() => {
+    if (user.signedUpOnGithubAt) {
+      return dateKernelPort.format(new Date(user.signedUpOnGithubAt), "MM/yyyy");
+    }
+    return null;
+  }, [user]);
+
   const renderHeader = useMemo(() => {
     if (headerProps) {
       return (
@@ -76,15 +94,18 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
             ))}
           </div>
 
-          {/*// TODO KEEP THIS WHEN BACKEND IS READY*/}
-          {/*<div className={"flex flex-row flex-wrap items-center justify-end gap-md"}>*/}
-          {/*  <Badge shape={"squared"} avatar={{ src: "" }}>*/}
-          {/*    09/2018*/}
-          {/*  </Badge>*/}
-          {/*  <Badge shape={"squared"} icon={{ component: Github }}>*/}
-          {/*    09/2018*/}
-          {/*  </Badge>*/}
-          {/*</div>*/}
+          <div className={"flex flex-row flex-wrap items-center justify-end gap-md"}>
+            {!!signedUpAt && (
+              <Badge shape={"squared"} avatar={{ src: "" }}>
+                {signedUpAt}
+              </Badge>
+            )}
+            {!!signedUpOnGithubAt && (
+              <Badge shape={"squared"} icon={{ component: Github }}>
+                {signedUpOnGithubAt}
+              </Badge>
+            )}
+          </div>
         </div>
       ) : null}
       {footerContent}
