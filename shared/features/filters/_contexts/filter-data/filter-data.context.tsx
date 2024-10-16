@@ -16,28 +16,11 @@ export const FilterDataContext = createContext<FilterDataContextInterface<AnyTyp
 export function FilterDataProvider<F extends object>({ children, filters, setFilters }: FilterDataProviderProps<F>) {
   const [localFilters, setLocalFilters] = useState<F>(filters);
 
-  function sanitizeFilters(filters: F) {
-    return Object.fromEntries(
-      Object.entries(filters).filter(([, value]) => {
-        if (value === null || typeof value === "undefined") return false;
-
-        // Handles arrays and object literals
-        if (typeof value === "object" && Object.keys(value).length === 0) return false;
-
-        if (typeof value === "string" && value.trim() === "") return false;
-
-        return true;
-      })
-    ) as F;
-  }
-
   function handleUpdateFilters(newFilters: F) {
-    setLocalFilters(
-      sanitizeFilters({
-        ...localFilters,
-        ...newFilters,
-      })
-    );
+    setLocalFilters({
+      ...localFilters,
+      ...newFilters,
+    });
   }
 
   function handleSave() {
@@ -50,7 +33,7 @@ export function FilterDataProvider<F extends object>({ children, filters, setFil
   }
 
   useEffect(() => {
-    setLocalFilters(sanitizeFilters(filters));
+    setLocalFilters(filters);
   }, [filters]);
 
   return (

@@ -47,6 +47,8 @@ import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
 import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
+import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
+import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
 
 import { FileAdapter } from "../kernel/file/file-adapter";
 import { FileFacadePort } from "../kernel/file/file-facade-port";
@@ -95,6 +97,7 @@ export interface BootstrapConstructor {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  validationKernelPort: ValidationFacadePort;
 }
 
 export class Bootstrap {
@@ -144,6 +147,7 @@ export class Bootstrap {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  validationKernelPort: ValidationFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -189,6 +193,7 @@ export class Bootstrap {
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
+    this.validationKernelPort = constructor.validationKernelPort;
   }
 
   getAuthProvider() {
@@ -379,6 +384,10 @@ export class Bootstrap {
     return this.idKernelPort;
   }
 
+  getValidationKernelPort() {
+    return this.validationKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -425,6 +434,7 @@ export class Bootstrap {
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,
+        validationKernelPort: new ValidationAdapter(),
       });
     }
 
