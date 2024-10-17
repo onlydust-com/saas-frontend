@@ -16,4 +16,8 @@ export class ValidationAdapterMock implements ValidationFacadePort {
   isEmptyArray(_value: unknown) {
     return false;
   }
+
+  isInvalidValue(_value: unknown) {
+    return false;
+  }
 }
