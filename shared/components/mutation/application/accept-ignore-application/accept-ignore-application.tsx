@@ -1,6 +1,6 @@
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
-import { AcceptApplicationProps } from "@/shared/components/mutation/accept-ignore-application/accept-ignore-application.types";
+import { AcceptApplicationProps } from "./accept-ignore-application.types";
 
 export function AcceptIgnoreApplication({
   applicationId,
