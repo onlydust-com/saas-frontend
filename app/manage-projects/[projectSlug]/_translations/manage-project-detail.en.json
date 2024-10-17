@@ -21,7 +21,7 @@
         "inProgress": "In Progress",
         "toReview": "To Review",
         "done": "Done",
-        "archive": "Archive"
+        "archived": "Archived"
       }
     },
     "actions": {

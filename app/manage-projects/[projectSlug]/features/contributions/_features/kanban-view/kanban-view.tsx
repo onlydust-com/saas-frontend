@@ -54,7 +54,7 @@ function Column({
       case ContributionActivityStatus.DONE:
         return <Translate token={"manageProjects:detail.activity.kanban.columns.done"} />;
       case ContributionActivityStatus.ARCHIVED:
-        return <Translate token={"manageProjects:detail.activity.kanban.columns.archive"} />;
+        return <Translate token={"manageProjects:detail.activity.kanban.columns.archived"} />;
     }
   }, [type]);
 
