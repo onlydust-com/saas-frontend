@@ -12,6 +12,7 @@ import {
 import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Menu } from "@/design-system/molecules/menu";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
@@ -34,7 +35,7 @@ function Column({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
-  const { data, hasNextPage, fetchNextPage } = ContributionReactQueryAdapter.client.useGetContributions({
+  const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
       ...queryParams,
       statuses: [type],
@@ -72,6 +73,14 @@ function Column({
       {contributions?.map(contribution => (
         <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
       ))}
+      {isPending && (
+        <>
+          <Skeleton classNames={{ base: "h-[160px] w-full" }} />
+          <Skeleton classNames={{ base: "h-[160px] w-full" }} />
+          <Skeleton classNames={{ base: "h-[160px] w-full" }} />
+          <Skeleton classNames={{ base: "h-[160px] w-full" }} />
+        </>
+      )}
     </KanbanColumn>
   );
 }
