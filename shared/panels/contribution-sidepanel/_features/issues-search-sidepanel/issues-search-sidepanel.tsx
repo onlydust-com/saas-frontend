@@ -23,19 +23,19 @@ export function IssuesSearchSidepanel() {
   const { t } = useTranslation();
   const { name } = useIsssuesSearchSidepanel();
   const { Panel, isOpen, back } = useSidePanel({ name });
-  const { relatedIssueId } = useSinglePanelData<IssuesSearchSidepanelData>(name) ?? {
-    relatedIssueId: "",
+  const { contributionGithubId } = useSinglePanelData<IssuesSearchSidepanelData>(name) ?? {
+    contributionGithubId: 0,
   };
 
   const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
-    pathParams: { contributionId: relatedIssueId },
+    pathParams: { contributionGithubId },
     options: {
-      enabled: isOpen && !!relatedIssueId,
+      enabled: isOpen && !!contributionGithubId,
     },
   });
 
   const { mutateAsync, isPending: isAddingIssue } = ContributionReactQueryAdapter.client.usePatchContribution({
-    pathParams: { contributionId: relatedIssueId },
+    pathParams: { contributionId: contributionGithubId },
   });
 
   async function onAddIssue(issueId: number) {
@@ -72,7 +72,7 @@ export function IssuesSearchSidepanel() {
   const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams,
     options: {
-      enabled: isOpen && !!relatedIssueId,
+      enabled: isOpen && !!contributionGithubId,
     },
   });
 
@@ -100,7 +100,7 @@ export function IssuesSearchSidepanel() {
             />
             {issues?.map(issue => (
               <Card
-                key={issue.id}
+                key={issue.githubId}
                 type={issue.type}
                 githubTitle={issue.githubTitle}
                 githubStatus={issue.githubStatus}

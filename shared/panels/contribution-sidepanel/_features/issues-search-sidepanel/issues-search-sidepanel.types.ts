@@ -1,3 +1,3 @@
 export interface IssuesSearchSidepanelData {
-  relatedIssueId: string;
+  contributionGithubId: number;
 }

@@ -15,6 +15,7 @@ export interface ContributionActivityInterface
   isArchived(): boolean;
   isDone(): boolean;
   toItemDto(): ContributionItemDto;
+  canLinkIssues(): boolean;
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
@@ -65,6 +66,10 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   isDone(): boolean {
     return this.activityStatus === "DONE";
+  }
+
+  canLinkIssues(): boolean {
+    return this.type === "PULL_REQUEST";
   }
 
   toItemDto(): ContributionItemDto {
