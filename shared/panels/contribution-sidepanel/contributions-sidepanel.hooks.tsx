@@ -48,9 +48,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} />
         <Assignees
           showRemove={true}
-          contributors={contribution.assignees}
-          contributionId={contribution.id}
-          type={"assignees"}
+          contributionGithubId={contribution.githubId}
+          contributionType={contribution.type}
         />
         <Timeline id={contribution.id} />
       </>
@@ -68,10 +67,10 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} />
         <LinkedIssues
           issues={contribution.linkedIssues}
-          canLinkIssue={contribution.canLinkIssues()}
+          canLinkIssues={contribution.canLinkIssues()}
           contributionGithubId={contribution.githubId}
         />
-        <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
+        <Assignees contributionGithubId={contribution.githubId} contributionType={contribution.type} />
         <Timeline id={contribution.id} />
       </>
     );
@@ -82,7 +81,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       <>
         <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} />
-        <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
+        <Assignees contributionGithubId={contribution.githubId} contributionType={contribution.type} />
         <Timeline id={contribution.id} />
       </>
     );

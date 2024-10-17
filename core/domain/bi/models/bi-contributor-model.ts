@@ -1,3 +1,4 @@
+import { UserPublic, UserPublicInterface } from "@/core/domain/user/models/user-public-model";
 import { UserRank, UserRankInterface } from "@/core/domain/user/models/user-rank-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
@@ -5,6 +6,7 @@ export type BiContributorResponse = components["schemas"]["BiContributorsPageIte
 
 export interface BiContributorInterface extends BiContributorResponse {
   rank: UserRankInterface;
+  toContributorPublicModel(): UserPublicInterface;
 }
 
 export class BiContributor implements BiContributorInterface {
@@ -28,6 +30,21 @@ export class BiContributor implements BiContributorInterface {
       rankCategory: this.contributor.globalRankCategory,
       rank: this.contributor.globalRank,
       rankPercentile: this.contributor.globalRankPercentile,
+    });
+  }
+
+  toContributorPublicModel(): UserPublicInterface {
+    return new UserPublic({
+      ...this.contributor,
+      statsSummary: {
+        rank: this.contributor?.globalRank,
+        rankPercentile: this?.contributor?.globalRankPercentile,
+        rankCategory: this?.contributor?.globalRankCategory,
+        contributedProjectCount: 0,
+        leadedProjectCount: 0,
+        contributionCount: this.contributionCount.value,
+        rewardCount: this.rewardCount.value,
+      },
     });
   }
 }
