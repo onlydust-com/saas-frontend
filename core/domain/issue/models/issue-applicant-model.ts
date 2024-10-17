@@ -1,10 +1,13 @@
-import { Contributor, ContributorInterface } from "@/core/domain/user/models/contributor-model";
+import {
+  ContributorOverview,
+  ContributorOverviewInterface,
+} from "@/core/domain/user/models/contributor-overview-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type IssueApplicantResponse = components["schemas"]["IssueApplicantsPageItemResponse"];
 
 export interface IssueApplicantInterface extends IssueApplicantResponse {
-  contributor: ContributorInterface;
+  contributor: ContributorOverviewInterface;
 }
 
 export class IssueApplicant implements IssueApplicantInterface {
@@ -26,6 +29,6 @@ export class IssueApplicant implements IssueApplicantInterface {
   constructor(props: IssueApplicantResponse) {
     Object.assign(this, props);
 
-    this.contributor = new Contributor(props.contributor);
+    this.contributor = new ContributorOverview(props.contributor);
   }
 }
