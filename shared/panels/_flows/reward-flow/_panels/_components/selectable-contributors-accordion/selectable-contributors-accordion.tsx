@@ -1,5 +1,5 @@
 import { Filter } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
@@ -28,13 +28,15 @@ export function SelectableContributorsAccordion() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
+  const localSelectedContributorsIds = useRef(selectedGithubUserIds);
+
   const { open: openFilterPanel } = useSelectableContributorsFilterDataSidePanel();
 
   const filtersCount = Object.keys(filters)?.length;
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
-    contributorIds: selectedGithubUserIds,
+    contributorIds: localSelectedContributorsIds.current,
     ...filters,
   };
 
