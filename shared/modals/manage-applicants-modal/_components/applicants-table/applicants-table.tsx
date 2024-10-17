@@ -53,7 +53,7 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
                 startIcon={{ component: CircleX }}
                 size={"md"}
                 translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
-                onClick={() => ignore({ isIgnored: true })}
+                onClick={() => ignore()}
                 isDisabled={isIgnoring || isAccepting}
               />
             )}
@@ -74,7 +74,7 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
                 startIcon={{ component: CircleCheck }}
                 size={"md"}
                 translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-                onClick={() => accept({})}
+                onClick={() => accept()}
                 isDisabled={isAccepting || isIgnoring}
               />
             )}

@@ -242,7 +242,7 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
                   startIcon={{ component: CircleX }}
                   variant={"secondary"}
                   size={"sm"}
-                  onClick={() => ignore({ isIgnored: true })}
+                  onClick={() => ignore()}
                   isDisabled={isIgnoring || isAccepting}
                 >
                   <Translate token={"modals:manageApplicants.table.rows.reject"} />
@@ -263,7 +263,7 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
                   startIcon={{ component: CircleCheck }}
                   variant={"secondary"}
                   size={"sm"}
-                  onClick={() => accept({})}
+                  onClick={() => accept()}
                   isDisabled={isAccepting || isIgnoring}
                 >
                   <Translate token={"modals:manageApplicants.table.rows.assign"} />

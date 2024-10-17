@@ -70,7 +70,7 @@ export function ApplicationCard({ application, contributionGithubId, isIgnored }
                 startIcon={{
                   component: CircleX,
                 }}
-                onClick={() => ignore({ isIgnored: true })}
+                onClick={() => ignore()}
                 isDisabled={isIgnoring || isAccepting}
               />
             )}
@@ -86,7 +86,7 @@ export function ApplicationCard({ application, contributionGithubId, isIgnored }
               startIcon={{
                 component: CircleCheck,
               }}
-              onClick={() => accept({})}
+              onClick={() => accept()}
               isDisabled={isAccepting || isIgnoring}
             />
           )}

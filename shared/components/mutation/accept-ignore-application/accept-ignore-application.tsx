@@ -32,5 +32,5 @@ export function AcceptIgnoreApplication({
     },
   });
 
-  return children({ accept, isAccepting, ignore, isIgnoring });
+  return children({ accept: () => accept({}), isAccepting, ignore: () => ignore({ isIgnored: true }), isIgnoring });
 }
