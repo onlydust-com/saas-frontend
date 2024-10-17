@@ -13,3 +13,11 @@ export type PatchApplicationPathParams = operations["patchProjectApplication"]["
 export type PatchApplicationPortParams = HttpClientParameters<{ PathParams: PatchApplicationPathParams }>;
 
 export type PatchApplicationPortResponse = HttpStorageResponse;
+
+/* ---------------------------- Accept Application --------------------------- */
+
+export type AcceptApplicationPathParams = operations["acceptProjectApplication"]["parameters"]["path"];
+
+export type AcceptApplicationPortParams = HttpClientParameters<{ PathParams: AcceptApplicationPathParams }>;
+
+export type AcceptApplicationPortResponse = HttpStorageResponse;
