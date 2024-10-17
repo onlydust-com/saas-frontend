@@ -2,5 +2,5 @@ import { GetContributionsQueryParams } from "@/core/domain/contribution/contribu
 
 export interface KanbanViewProps {
   queryParams: Partial<GetContributionsQueryParams>;
-  onOpenContribution(id: string): void;
+  onOpenContribution(githubId: number): void;
 }
