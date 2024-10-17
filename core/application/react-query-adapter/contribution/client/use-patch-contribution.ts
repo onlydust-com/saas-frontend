@@ -25,7 +25,7 @@ export function usePatchContribution({
           if (pathParams?.contributionId) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionId: pathParams?.contributionId },
+                pathParams: { contributionGithubId: pathParams?.contributionId },
               }).tag,
               exact: false,
             });

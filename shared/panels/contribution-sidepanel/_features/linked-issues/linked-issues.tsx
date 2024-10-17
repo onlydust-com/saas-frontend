@@ -36,8 +36,9 @@ export function LinkedIssues({ issues, contributionGithubId, canLinkIssues }: Li
             githubTitle={issue.githubTitle}
             githubStatus={issue.githubStatus}
             githubNumber={issue.githubNumber}
-            lastUpdatedAt={issue.lastUpdatedAt}
-            githubLabels={issue.githubLabels}
+            // TODO lastUpdatedAt githubLabels
+            // lastUpdatedAt={issue.lastUpdatedAt}
+            // githubLabels={issue.githubLabels}
             actions={[
               {
                 translate: { token: "panels:contribution.linkedIssues.remove" },

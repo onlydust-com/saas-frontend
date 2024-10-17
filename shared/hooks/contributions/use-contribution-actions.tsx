@@ -20,7 +20,7 @@ export const useContributionActions = (
   });
 
   function onReview() {
-    actions?.onAction?.(contribution.id);
+    actions?.onAction?.(contribution.githubId);
   }
 
   function onUnassign() {
@@ -29,7 +29,7 @@ export const useContributionActions = (
 
   function onCodeReview() {
     if (!contribution.githubHtmlUrl) {
-      actions?.onAction?.(contribution.id);
+      actions?.onAction?.(contribution.githubId);
       return;
     }
 

@@ -137,7 +137,8 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
               githubStatus={contribution.githubStatus}
               githubNumber={contribution.githubNumber}
               lastUpdatedAt={contribution.lastUpdatedAt}
-              rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
+              // TODO REWARDED AMOUNT
+              // rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
               contributors={contribution.contributors}
               linkedIssues={contribution.linkedIssues}
               githubLabels={contribution.githubLabels}

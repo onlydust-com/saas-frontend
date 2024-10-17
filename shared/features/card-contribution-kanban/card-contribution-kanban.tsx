@@ -16,7 +16,8 @@ export function CardContributionKanban({ contribution, classNames, ...actions }:
       githubStatus={contribution.githubStatus}
       githubNumber={contribution.githubNumber}
       lastUpdatedAt={contribution.lastUpdatedAt}
-      rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
+      // TODO REWARDED AMOUNT
+      // rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
       applicants={contribution.applicants}
       contributors={contribution.contributors}
       linkedIssues={contribution.linkedIssues}
