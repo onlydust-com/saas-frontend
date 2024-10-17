@@ -1,7 +1,6 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -11,7 +10,7 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ application, contributionId, isIgnored }: ApplicationCardProps) {
+export function ApplicationCard({ application, contributionGithubId, isIgnored }: ApplicationCardProps) {
   const { applicationId = "", contributor, rewardCount, prCount } = application;
 
   // const dateKernelPort = bootstrap.getDateKernelPort();
@@ -24,9 +23,16 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
     });
 
   const { mutate: acceptApplicationMutate, isPending: acceptApplicationIsPending } =
-    ContributionReactQueryAdapter.client.usePatchContribution({
+    ApplicationReactQueryAdapter.client.useAcceptApplication({
       pathParams: {
-        contributionId,
+        applicationId,
+      },
+      invalidateTagParams: {
+        contribution: {
+          pathParams: {
+            contributionGithubId,
+          },
+        },
       },
     });
 
@@ -35,9 +41,7 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
   }
 
   function handleApproveApplication() {
-    acceptApplicationMutate({
-      assignees: [contributor.githubUserId],
-    });
+    acceptApplicationMutate({});
   }
 
   return (

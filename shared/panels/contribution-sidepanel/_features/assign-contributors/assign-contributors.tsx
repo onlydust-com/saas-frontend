@@ -4,34 +4,34 @@ import { ApplicationsAccordion } from "@/shared/panels/contribution-sidepanel/_f
 import { AssignContributorsProps } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors.types";
 import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 
-export function AssignContributors({ issueId, contributionId }: AssignContributorsProps) {
+export function AssignContributors({ contributionGithubId }: AssignContributorsProps) {
   const { data: applicationsActiveData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId },
+    pathParams: { issueId: contributionGithubId },
     queryParams: {
       isApplicantProjectMember: true,
     },
     options: {
-      enabled: !!issueId,
+      enabled: !!contributionGithubId,
     },
   });
 
   const { data: applicationsNewData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId },
+    pathParams: { issueId: contributionGithubId },
     queryParams: {
       isApplicantProjectMember: false,
     },
     options: {
-      enabled: !!issueId,
+      enabled: !!contributionGithubId,
     },
   });
 
   const { data: applicationsIgnoredData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId },
+    pathParams: { issueId: contributionGithubId },
     queryParams: {
       isIgnored: true,
     },
     options: {
-      enabled: !!issueId,
+      enabled: !!contributionGithubId,
     },
   });
 
@@ -57,7 +57,7 @@ export function AssignContributors({ issueId, contributionId }: AssignContributo
         newApplicantsCount={newApplicantsCount}
         ignoredApplicants={ignoredApplicants}
         ignoredApplicantsCount={ignoredApplicantsCount}
-        contributionId={contributionId}
+        contributionGithubId={contributionGithubId}
       />
     </>
   );
