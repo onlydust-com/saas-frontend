@@ -117,6 +117,11 @@ export class DateFnsAdapter implements DateFacadePort {
         const lastSemester = this.subMonths(today, 6);
         return { from: lastSemester, to: today };
       }
+      case DateRangeType.ALL_TIME: {
+        const today = new Date();
+        const allTime = new Date("2007-10-20T05:24:19Z");
+        return { from: allTime, to: today };
+      }
       default: {
         return { from: null, to: null };
       }
