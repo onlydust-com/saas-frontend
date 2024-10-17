@@ -62,7 +62,7 @@ function useAccordionItem({
     content: (
       <>
         {contributions?.map(contribution => (
-          <div key={contribution.id} className="!p-none">
+          <div key={contribution.githubId} className="!p-none">
             <CardContributionKanban
               contribution={contribution}
               onAction={onOpenContribution}

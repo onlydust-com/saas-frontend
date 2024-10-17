@@ -10,10 +10,11 @@ import { useIsssuesSearchSidepanel } from "@/shared/panels/contribution-sidepane
 
 import { LinkedIssuesProps } from "./linked-issues.types";
 
-export function LinkedIssues({ issues, id }: LinkedIssuesProps) {
+export function LinkedIssues({ issues, contributionGithubId, canLinkIssues }: LinkedIssuesProps) {
   const { open } = useIsssuesSearchSidepanel();
   const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
-    pathParams: { contributionId: id },
+    // TODO WHEN BACKEND IS READY REMOVE toString()
+    pathParams: { contributionId: contributionGithubId.toString() },
   });
 
   function onRemove(issueId: number) {
@@ -47,16 +48,18 @@ export function LinkedIssues({ issues, id }: LinkedIssuesProps) {
           />
         </div>
       ))}
-      <div>
-        <Button
-          variant={"secondary"}
-          startIcon={{ component: Link }}
-          size={"sm"}
-          translate={{ token: "panels:contribution.linkedIssues.button" }}
-          classNames={{ base: "w-full" }}
-          onClick={() => open({ relatedIssueId: id })}
-        />
-      </div>
+      {canLinkIssues && (
+        <div>
+          <Button
+            variant={"secondary"}
+            startIcon={{ component: Link }}
+            size={"sm"}
+            translate={{ token: "panels:contribution.linkedIssues.button" }}
+            classNames={{ base: "w-full" }}
+            onClick={() => open({ contributionGithubId })}
+          />
+        </div>
+      )}
     </Accordion>
   );
 }
