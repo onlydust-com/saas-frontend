@@ -1,3 +1,3 @@
 export interface ContributionsPanelData {
-  id: string;
+  githubId: number;
 }

@@ -24,7 +24,7 @@ function useAccordionItem({
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetContributionsQueryParams>;
-  onOpenContribution(id: string): void;
+  onOpenContribution(githubId: number): void;
 }): AccordionItemProps {
   const { data, hasNextPage, fetchNextPage, isLoading, isPending } =
     ContributionReactQueryAdapter.client.useGetContributions({
