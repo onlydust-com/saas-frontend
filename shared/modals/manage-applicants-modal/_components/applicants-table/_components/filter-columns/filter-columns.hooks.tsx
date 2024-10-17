@@ -24,7 +24,7 @@ import {
 } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
+export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps) {
   const { t } = useTranslation();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -250,7 +250,14 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
               )}
             </AcceptIgnoreApplication>
 
-            <AcceptIgnoreApplication applicationId={applicationId}>
+            <AcceptIgnoreApplication
+              applicationId={applicationId}
+              acceptOptions={{
+                onSuccess: () => {
+                  onAssign();
+                },
+              }}
+            >
               {({ accept, isAccepting, isIgnoring }) => (
                 <Button
                   startIcon={{ component: CircleCheck }}

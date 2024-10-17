@@ -96,7 +96,7 @@ export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTabl
     ...filters,
   };
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId });
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
   return (
