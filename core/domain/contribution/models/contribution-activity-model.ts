@@ -1,5 +1,5 @@
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { GithubUser, GithubUserInterface } from "@/core/domain/user/models/github-user-model";
+import { GithubUser, GithubUserInterface } from "@/core/domain/github/models/github-user-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
