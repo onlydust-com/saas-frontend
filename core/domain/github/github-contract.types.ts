@@ -18,3 +18,13 @@ export type GetMyOrganizationsPortParams = HttpClientParameters<{
   QueryParams: GetMyOrganizationsQueryParams;
   PathParams: GetMyOrganizationsPathParams;
 }>;
+
+/* ------------------------------ Update Pull Request ------------------------------ */
+
+export type UpdatePullRequestBody = components["schemas"]["PullRequestPatchRequest"];
+
+type UpdatePullRequestPathParams = operations["updatePullRequest"]["parameters"]["path"];
+
+export type UpdatePullRequestPortParams = HttpClientParameters<{ PathParams: UpdatePullRequestPathParams }>;
+
+export type UpdatePullRequestPortResponse = HttpStorageResponse;
