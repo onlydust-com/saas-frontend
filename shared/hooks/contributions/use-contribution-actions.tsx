@@ -1,5 +1,5 @@
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
+import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
@@ -16,23 +16,26 @@ export const useContributionActions = (
 ): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
   const { open: openRewardFlow } = useRewardFlow();
 
-  const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
-    pathParams: { contributionId: contribution.id },
-  });
-
-  const { mutate: updatePullRequest, isPending: isPendingPullRequest } =
+  const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
       pathParams: {
         pullRequestId: contribution.githubId,
       },
     });
 
+  const { mutate: updateIssues, isPending: isUpdatingIssue } = IssueReactQueryAdapter.client.useUpdateIssue({
+    pathParams: {
+      issueId: contribution.githubId,
+    },
+  });
+
   function onReview() {
     actions?.onAction?.(contribution.githubId);
   }
 
   function onUnassign() {
-    mutate({ assignees: [] });
+    // TODO UNASSIGN in kanban actions
+    //mutate({ assignees: [] });
   }
 
   function onCodeReview() {
@@ -45,7 +48,15 @@ export const useContributionActions = (
   }
 
   async function onArchive() {
-    mutate({ archived: true });
+    if (contribution.type === "ISSUE") {
+      updateIssues({
+        archived: true,
+      });
+    } else if (contribution.type === "PULL_REQUEST") {
+      updatePullRequest({
+        archived: true,
+      });
+    }
   }
 
   function onReward() {
@@ -56,7 +67,15 @@ export const useContributionActions = (
   }
 
   async function onUnarchive() {
-    mutate({ archived: false });
+    if (contribution.type === "ISSUE") {
+      updateIssues({
+        archived: false,
+      });
+    } else if (contribution.type === "PULL_REQUEST") {
+      updatePullRequest({
+        archived: false,
+      });
+    }
   }
 
   switch (contribution.activityStatus) {
@@ -87,7 +106,7 @@ export const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
           onClick: onArchive,
-          isDisabled: isPending,
+          isDisabled: isUpdatingPullRequest || isUpdatingIssue,
         },
         {
           children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
@@ -99,7 +118,7 @@ export const useContributionActions = (
         {
           children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
           onClick: onUnarchive,
-          isDisabled: isPending,
+          isDisabled: isUpdatingPullRequest || isUpdatingIssue,
         },
       ];
     default:

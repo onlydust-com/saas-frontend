@@ -5,7 +5,6 @@ import { ContributionReactQueryAdapter } from "@/core/application/react-query-ad
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Footer } from "@/shared/panels/contribution-sidepanel/_features/footer/footer";
-import { IssuesSearchSidepanel } from "@/shared/panels/contribution-sidepanel/_features/issues-search-sidepanel/issues-search-sidepanel";
 import {
   useContributionBlocks,
   useContributionsSidepanel,
@@ -51,7 +50,6 @@ export function ContributionsSidepanel() {
         <SidePanelBody>{blocks}</SidePanelBody>
         {contribution ? <Footer contribution={contribution} /> : null}
       </Panel>
-      <IssuesSearchSidepanel />
     </>
   );
 }

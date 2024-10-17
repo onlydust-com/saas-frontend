@@ -11,6 +11,4 @@ export class ContributionClientAdapterMock implements ContributionStoragePort {
   getContributionsById = mockHttpStorageResponse<ContributionStoragePort["getContributionsById"]>;
 
   getContributionEvent = mockHttpStorageResponse<ContributionStoragePort["getContributionEvent"]>;
-
-  patchContribution = mockHttpStorageResponse<ContributionStoragePort["patchContribution"]>;
 }
