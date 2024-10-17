@@ -34,8 +34,7 @@ export function SelectableContributorsAccordion() {
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
-    // TODO enable contributorIds filter once reward flow ready
-    // contributorIds: selectedGithubUserIds,
+    contributorIds: selectedGithubUserIds,
     ...filters,
   };
 
