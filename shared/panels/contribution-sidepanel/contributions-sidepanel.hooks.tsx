@@ -65,11 +65,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
-        <LinkedIssues
-          issues={contribution.linkedIssues}
-          canLinkIssues={contribution.canLinkIssues()}
-          contributionGithubId={contribution.githubId}
-        />
+        <LinkedIssues issues={contribution.linkedIssues} />
         <Assignees contributionGithubId={contribution.githubId} contributionType={contribution.type} />
         <Timeline id={contribution.id} />
       </>

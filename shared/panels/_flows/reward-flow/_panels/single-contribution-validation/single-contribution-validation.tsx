@@ -39,7 +39,7 @@ function Content() {
     queries: selectedContributions.map(c => {
       const { tag, request } = contributionStoragePort.getContributionsById({
         pathParams: {
-          contributionId: c.id,
+          contributionGithubId: c.githubId,
         },
       });
 

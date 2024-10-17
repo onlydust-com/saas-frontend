@@ -7,4 +7,6 @@ export class GithubClientAdapterMock implements GithubStoragePort {
   routes = {};
 
   getMyOrganizations = mockHttpStorageResponse<GithubStoragePort["getMyOrganizations"]>;
+
+  updatePullRequest = mockHttpStorageResponse<GithubStoragePort["updatePullRequest"]>;
 }

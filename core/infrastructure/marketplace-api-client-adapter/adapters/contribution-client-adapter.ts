@@ -2,7 +2,6 @@ import {
   GetContributionByIdResponse,
   GetContributionEventsResponse,
   GetContributionsResponse,
-  PatchContributionBody,
 } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionActivity } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionEvent } from "@/core/domain/contribution/models/contribution-event-model";
@@ -16,7 +15,6 @@ export class ContributionClientAdapter implements ContributionStoragePort {
   routes = {
     getContributions: "contributions",
     getContributionById: "contributions/:contributionGithubId",
-    patchContribution: "contributions/:contributionId",
     getContributionEvent: "contributions/:contributionId/events",
   } as const;
 
@@ -83,26 +81,6 @@ export class ContributionClientAdapter implements ContributionStoragePort {
 
       return data?.events.map(event => new ContributionEvent(event)) ?? [];
     };
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  patchContribution = ({ pathParams }: FirstParameter<ContributionStoragePort["patchContribution"]>) => {
-    const path = this.routes["patchContribution"];
-    const method = "PATCH";
-    const tag = HttpClient.buildTag({ path, pathParams });
-
-    const request = async (body: PatchContributionBody) =>
-      this.client.request<never>({
-        path,
-        method,
-        tag,
-        pathParams,
-        body: JSON.stringify(body),
-      });
 
     return {
       request,

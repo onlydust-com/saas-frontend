@@ -9,4 +9,6 @@ export class IssueClientAdapterMock implements IssueStoragePort {
   getIssue = mockHttpStorageResponse<IssueStoragePort["getIssue"]>;
 
   getIssueApplicants = mockHttpStorageResponse<IssueStoragePort["getIssueApplicants"]>;
+
+  updateIssue = mockHttpStorageResponse<IssueStoragePort["updateIssue"]>;
 }
