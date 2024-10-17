@@ -1,4 +1,5 @@
 import { Columns4, Filter, Table } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import {
@@ -34,7 +35,7 @@ export function Contributions(_: ContributionsProps) {
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
-
+  const { projectSlug } = useParams<{ projectSlug: string }>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const { open: openContribution } = useContributionsSidepanel();
 
@@ -42,6 +43,8 @@ export function Contributions(_: ContributionsProps) {
 
   const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
+    projectSlugs: projectSlug ? [projectSlug] : undefined,
+    types: ["ISSUE", "PULL_REQUEST"],
     ...filters,
   };
 

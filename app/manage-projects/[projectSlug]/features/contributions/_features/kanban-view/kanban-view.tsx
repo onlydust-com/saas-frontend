@@ -40,6 +40,9 @@ function Column({
       ...queryParams,
       statuses: [type],
     },
+    options: {
+      enabled: !!queryParams?.projectSlugs?.length,
+    },
   });
 
   const contributions = data?.pages.flatMap(page => page.contributions) || [];

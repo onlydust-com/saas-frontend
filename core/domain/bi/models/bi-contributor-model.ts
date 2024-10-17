@@ -1,5 +1,5 @@
-import { UserRank, UserRankInterface } from "@/core/domain/user/models/user-rank-model";
 import { UserPublic, UserPublicInterface } from "@/core/domain/user/models/user-public-model";
+import { UserRank, UserRankInterface } from "@/core/domain/user/models/user-rank-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BiContributorResponse = components["schemas"]["BiContributorsPageItemResponse"];
