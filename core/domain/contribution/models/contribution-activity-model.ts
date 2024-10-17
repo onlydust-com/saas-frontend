@@ -1,13 +1,13 @@
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { UserGithub } from "@/core/domain/user/models/user-github-model";
+import { GithubUser, GithubUserInterface } from "@/core/domain/github/models/github-user-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
 export interface ContributionActivityInterface
-  extends Omit<ContributionActivityResponse, "contributors" | "applicants"> {
-  contributors: UserGithub[];
-  applicants: UserGithub[];
+  extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees"> {
+  applicants: GithubUserInterface[];
+  contributors: GithubUserInterface[];
   isNotAssigned(): boolean;
   isInProgress(): boolean;
   isToReview(): boolean;
@@ -18,31 +18,31 @@ export interface ContributionActivityInterface
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
-  githubId!: ContributionActivityResponse["githubId"];
   activityStatus!: ContributionActivityResponse["activityStatus"];
-  applicants!: UserGithub[];
+  applicants!: GithubUserInterface[];
   completedAt!: ContributionActivityResponse["completedAt"];
-  contributors!: UserGithub[];
+  contributors!: GithubUserInterface[];
   createdAt!: ContributionActivityResponse["createdAt"];
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
-  githubCodeReviewOutcome!: ContributionActivityResponse["githubCodeReviewOutcome"];
   githubHtmlUrl!: ContributionActivityResponse["githubHtmlUrl"];
+  githubId!: ContributionActivityResponse["githubId"];
   githubLabels!: ContributionActivityResponse["githubLabels"];
   githubNumber!: ContributionActivityResponse["githubNumber"];
   githubStatus!: ContributionActivityResponse["githubStatus"];
   githubTitle!: ContributionActivityResponse["githubTitle"];
-  id!: ContributionActivityResponse["id"];
+  languages!: ContributionActivityResponse["languages"];
   lastUpdatedAt!: ContributionActivityResponse["lastUpdatedAt"];
   linkedIssues!: ContributionActivityResponse["linkedIssues"];
+  project!: ContributionActivityResponse["project"];
   repo!: ContributionActivityResponse["repo"];
-  totalRewardedAmount!: ContributionActivityResponse["totalRewardedAmount"];
+  totalRewardedUsdAmount!: ContributionActivityResponse["totalRewardedUsdAmount"];
   type!: ContributionActivityResponse["type"];
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
-    this.applicants = (props.applicants ?? []).map(applicant => new UserGithub(applicant));
-    this.contributors = (props.contributors ?? []).map(contributor => new UserGithub(contributor));
+    this.applicants = (props.applicants ?? []).map(applicant => new GithubUser(applicant));
+    this.contributors = (props.contributors ?? []).map(contributor => new GithubUser(contributor));
   }
 
   isNotAssigned(): boolean {

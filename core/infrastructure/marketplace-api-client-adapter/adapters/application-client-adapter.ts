@@ -8,6 +8,7 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
 
   routes = {
     patchApplication: "applications/:applicationId",
+    acceptApplication: "applications/:applicationId/accept",
   } as const;
 
   patchApplication = ({ pathParams }: FirstParameter<ApplicationStoragePort["patchApplication"]>) => {
@@ -22,6 +23,24 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
         tag,
         pathParams,
         body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  acceptApplication = ({ pathParams }: FirstParameter<ApplicationStoragePort["acceptApplication"]>) => {
+    const path = this.routes["acceptApplication"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
       });
 
     return {

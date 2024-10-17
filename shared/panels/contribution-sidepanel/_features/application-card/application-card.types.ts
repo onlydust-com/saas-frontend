@@ -2,6 +2,6 @@ import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applic
 
 export interface ApplicationCardProps {
   application: IssueApplicantInterface;
-  contributionId: string;
+  contributionGithubId: number;
   isIgnored?: boolean;
 }
