@@ -7,6 +7,7 @@ import {
   ContributionActivityStatusUnion,
 } from "@/core/domain/contribution/models/contribution.types";
 
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -25,12 +26,13 @@ function useAccordionItem({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 }): AccordionItemProps {
-  const { data, hasNextPage, fetchNextPage, isLoading } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      ...queryParams,
-      statuses: [type],
-    },
-  });
+  const { data, hasNextPage, fetchNextPage, isLoading, isPending } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        ...queryParams,
+        statuses: [type],
+      },
+    });
 
   const contributions = data?.pages.flatMap(page => page.contributions) || [];
 
@@ -70,6 +72,15 @@ function useAccordionItem({
             />
           </div>
         ))}
+
+        {isPending && (
+          <>
+            <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+            <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+            <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+            <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+          </>
+        )}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isLoading} /> : null}
       </>
