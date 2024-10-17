@@ -70,7 +70,7 @@ export function AccordionProjectContributors({ issueId = 0, queryParams, columns
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            openContributor({ login: row.original.contributor.login });
+            openContributor({ login: row.original.contributor.login, applicationId: row.original.applicationId });
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

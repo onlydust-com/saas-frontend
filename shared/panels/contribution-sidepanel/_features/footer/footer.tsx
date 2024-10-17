@@ -1,8 +1,6 @@
 import { Github } from "lucide-react";
 import { useMemo } from "react";
 
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
@@ -17,19 +15,6 @@ export function Footer({ contribution }: FooterProps) {
   const { isOpen, setIsOpen } = useManageApplicantsModal();
 
   const actions = useContributionActions(contribution) as ButtonPort<"button">[];
-
-  const { mutate: acceptApplicationMutate } = ContributionReactQueryAdapter.client.usePatchContribution({
-    pathParams: { contributionId: contribution?.id ?? "" },
-    options: {
-      onSuccess: () => {
-        setIsOpen(false);
-      },
-    },
-  });
-
-  function handleAssign(githubUserId: number) {
-    acceptApplicationMutate({ assignees: [githubUserId] });
-  }
 
   const renderContributionActions = useMemo(() => {
     if (!actions.length && !contribution?.isNotAssigned()) {
@@ -77,7 +62,6 @@ export function Footer({ contribution }: FooterProps) {
         onOpenChange={setIsOpen}
         projectId={"7d04163c-4187-4313-8066-61504d34fc56"}
         issueId={contribution?.githubId}
-        onAssign={handleAssign}
       />
     </SidePanelFooter>
   );

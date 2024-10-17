@@ -1,13 +1,13 @@
 import { CircleCheck, CircleX, Filter, SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 
-import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { GetIssueApplicantsQueryParams } from "@/core/domain/issue/issue-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { AcceptIgnoreApplication } from "@/shared/components/mutation/accept-ignore-application/accept-ignore-application";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
@@ -27,18 +27,7 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 
 export type ApplicantsTableFilters = Omit<NonNullable<GetIssueApplicantsQueryParams>, "pageSize" | "pageIndex">;
 
-function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) {
-  const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
-    ApplicationReactQueryAdapter.client.usePatchApplication({
-      pathParams: {
-        applicationId: githubUserId.toString(),
-      },
-    });
-
-  function handleIgnore() {
-    ignoreApplicationMutate({ isIgnored: true });
-  }
-
+function Footer({ login, applicationId, contributionGithubId, onAssign }: ContributorPanelFooterProps) {
   return (
     <div className="flex w-full justify-between gap-lg">
       <div>
@@ -54,23 +43,44 @@ function Footer({ githubUserId, login, onAssign }: ContributorPanelFooterProps) 
           translate={{ token: "panels:contributor.seeContributor" }}
         />
       </div>
-      <div className="flex gap-lg">
-        <Button
-          variant={"secondary"}
-          startIcon={{ component: CircleX }}
-          size={"md"}
-          translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
-          onClick={() => handleIgnore()}
-          isDisabled={ignoreApplicationIsPending}
-        />
-        <Button
-          variant={"secondary"}
-          startIcon={{ component: CircleCheck }}
-          size={"md"}
-          translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-          onClick={() => onAssign(githubUserId)}
-        />
-      </div>
+
+      {applicationId ? (
+        <div className="flex gap-lg">
+          <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
+            {({ ignore, isIgnoring, isAccepting }) => (
+              <Button
+                variant={"secondary"}
+                startIcon={{ component: CircleX }}
+                size={"md"}
+                translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
+                onClick={() => ignore({ isIgnored: true })}
+                isDisabled={isIgnoring || isAccepting}
+              />
+            )}
+          </AcceptIgnoreApplication>
+
+          <AcceptIgnoreApplication
+            applicationId={applicationId}
+            contributionGithubId={contributionGithubId}
+            acceptOptions={{
+              onSuccess: () => {
+                onAssign();
+              },
+            }}
+          >
+            {({ accept, isAccepting, isIgnoring }) => (
+              <Button
+                variant={"secondary"}
+                startIcon={{ component: CircleCheck }}
+                size={"md"}
+                translate={{ token: "modals:manageApplicants.table.actions.assign" }}
+                onClick={() => accept({})}
+                isDisabled={isAccepting || isIgnoring}
+              />
+            )}
+          </AcceptIgnoreApplication>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -86,7 +96,7 @@ export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTabl
     ...filters,
   };
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign });
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
   return (
@@ -114,8 +124,13 @@ export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTabl
         </div>
         <FilterData />
         <ContributorSidepanel
-          customFooter={({ data }) => (
-            <Footer githubUserId={data.githubUserId} login={data.login} onAssign={onAssign} />
+          customFooter={({ data, applicationId }) => (
+            <Footer
+              login={data.login}
+              applicationId={applicationId}
+              contributionGithubId={issueId}
+              onAssign={onAssign}
+            />
           )}
         />
       </ScrollView>

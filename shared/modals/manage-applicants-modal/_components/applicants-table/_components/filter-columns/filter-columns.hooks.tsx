@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { CircleCheck, CircleX } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -17,6 +16,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { AcceptIgnoreApplication } from "@/shared/components/mutation/accept-ignore-application/accept-ignore-application";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import {
   FilterColumnsHookProps,
@@ -24,15 +24,11 @@ import {
 } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps) {
+export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<IssueApplicantInterface>();
-
-  const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
-  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
@@ -68,20 +64,6 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
       setSelectedIds(["contributor", "label", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
     }
   }, [selectedIds, setSelectedIds]);
-
-  function handleIgnore(applicationId: string) {
-    applicationStoragePort
-      .patchApplication({
-        pathParams: { applicationId },
-      })
-      .request({ isIgnored: true })
-      .then(async () => {
-        await queryClient.invalidateQueries({
-          queryKey: issueStoragePort.getIssueApplicants({}).tag,
-          exact: false,
-        });
-      });
-  }
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.display({
@@ -248,32 +230,39 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
       id: "actions",
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => {
-        const {
-          applicationId,
-          contributor: { githubUserId },
-        } = info.row.original;
+        const { applicationId } = info.row.original;
+
+        if (!applicationId) return null;
 
         return (
           <div className={"flex gap-sm"}>
-            {applicationId ? (
-              <Button
-                startIcon={{ component: CircleX }}
-                variant={"secondary"}
-                size={"sm"}
-                onClick={() => handleIgnore(applicationId)}
-              >
-                <Translate token={"modals:manageApplicants.table.rows.reject"} />
-              </Button>
-            ) : null}
+            <AcceptIgnoreApplication applicationId={applicationId}>
+              {({ ignore, isIgnoring, isAccepting }) => (
+                <Button
+                  startIcon={{ component: CircleX }}
+                  variant={"secondary"}
+                  size={"sm"}
+                  onClick={() => ignore({ isIgnored: true })}
+                  isDisabled={isIgnoring || isAccepting}
+                >
+                  <Translate token={"modals:manageApplicants.table.rows.reject"} />
+                </Button>
+              )}
+            </AcceptIgnoreApplication>
 
-            <Button
-              startIcon={{ component: CircleCheck }}
-              variant={"secondary"}
-              size={"sm"}
-              onClick={() => onAssign(githubUserId)}
-            >
-              <Translate token={"modals:manageApplicants.table.rows.assign"} />
-            </Button>
+            <AcceptIgnoreApplication applicationId={applicationId}>
+              {({ accept, isAccepting, isIgnoring }) => (
+                <Button
+                  startIcon={{ component: CircleCheck }}
+                  variant={"secondary"}
+                  size={"sm"}
+                  onClick={() => accept({})}
+                  isDisabled={isAccepting || isIgnoring}
+                >
+                  <Translate token={"modals:manageApplicants.table.rows.assign"} />
+                </Button>
+              )}
+            </AcceptIgnoreApplication>
           </div>
         );
       },
