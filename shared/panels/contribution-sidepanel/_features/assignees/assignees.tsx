@@ -1,17 +1,27 @@
-import { useMemo } from "react";
-
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { ContributorProfileCompact } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact";
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { AssigneesProps } from "./assignees.types";
 
-export function Assignees({ contributors, contributionId, showRemove, type }: AssigneesProps) {
+export function Assignees({ contributionGithubId, contributionType, showRemove }: AssigneesProps) {
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributors({
+    queryParams: {
+      contributedTo: {
+        githubId: contributionGithubId,
+        type: contributionType,
+      },
+    },
+  });
+
+  const flatContributors = data?.pages.map(contributor => contributor.contributors).flat() ?? [];
+
   const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
-    pathParams: { contributionId },
+    pathParams: { contributionId: contributionGithubId },
   });
 
   function removeContributorButton(githubUserId: number) {
@@ -21,9 +31,9 @@ export function Assignees({ contributors, contributionId, showRemove, type }: As
 
     function onClick() {
       mutate({
-        assignees: contributors
-          .filter(contributor => contributor.githubUserId !== githubUserId)
-          .map(contributor => contributor.githubUserId),
+        assignees: flatContributors
+          .filter(contributor => contributor.contributor.githubUserId !== githubUserId)
+          .map(contributor => contributor.contributor.githubUserId),
       });
     }
 
@@ -38,35 +48,31 @@ export function Assignees({ contributors, contributionId, showRemove, type }: As
     );
   }
 
-  const title: TranslateProps | undefined = useMemo(() => {
-    if (type === "assignees") {
-      return { token: "panels:contribution.contributors.assignees" };
-    }
+  if (isLoading) {
+    return (
+      <div className={"flex flex-col gap-lg"}>
+        <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+        <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+        <Skeleton classNames={{ base: "h-[100px] w-full" }} />
+      </div>
+    );
+  }
 
-    if (type === "contributors") {
-      return { token: "panels:contribution.contributors.contributors" };
-    }
-
-    if (type === "applicants") {
-      return { token: "panels:contribution.contributors.applicants" };
-    }
-  }, [type]);
-
-  if (!contributors?.length) {
+  if (!flatContributors?.length) {
     return null;
   }
 
   return (
     <div className={"flex flex-col gap-lg"}>
-      {contributors?.map(contributor => (
+      {flatContributors?.map(contributor => (
         <ContributorProfileCompact
-          key={contributor.githubUserId}
+          key={contributor.contributor.githubUserId}
           headerProps={{
-            headerLabel: { translate: title },
+            headerLabel: { translate: { token: "panels:contribution.contributors.contributors" } },
             badgeProps: { children: "2 days ago", color: "success" },
           }}
-          user={contributor}
-          footerContent={removeContributorButton(contributor.githubUserId)}
+          user={contributor.toContributorPublicModel()}
+          footerContent={removeContributorButton(contributor.contributor.githubUserId)}
         />
       ))}
     </div>

@@ -1,14 +1,13 @@
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { UserOverview } from "@/core/domain/user/models/user-overview-model";
+import { UserGithub } from "@/core/domain/user/models/user-github-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
 export interface ContributionActivityInterface
-  extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees"> {
-  applicants: UserOverview[];
-  contributors: UserOverview[];
-  assignees: UserOverview[];
+  extends Omit<ContributionActivityResponse, "contributors" | "applicants"> {
+  contributors: UserGithub[];
+  applicants: UserGithub[];
   isNotAssigned(): boolean;
   isInProgress(): boolean;
   isToReview(): boolean;
@@ -21,10 +20,9 @@ export interface ContributionActivityInterface
 export class ContributionActivity implements ContributionActivityInterface {
   githubId!: ContributionActivityResponse["githubId"];
   activityStatus!: ContributionActivityResponse["activityStatus"];
-  applicants!: UserOverview[];
+  applicants!: UserGithub[];
   completedAt!: ContributionActivityResponse["completedAt"];
-  contributors!: UserOverview[];
-  assignees!: UserOverview[];
+  contributors!: UserGithub[];
   createdAt!: ContributionActivityResponse["createdAt"];
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
@@ -43,9 +41,8 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
-    this.applicants = (props.applicants ?? []).map(applicant => new UserOverview(applicant));
-    this.assignees = (props.assignees ?? []).map(assignee => new UserOverview(assignee));
-    this.contributors = (props.contributors ?? []).map(contributor => new UserOverview(contributor));
+    this.applicants = (props.applicants ?? []).map(applicant => new UserGithub(applicant));
+    this.contributors = (props.contributors ?? []).map(contributor => new UserGithub(contributor));
   }
 
   isNotAssigned(): boolean {

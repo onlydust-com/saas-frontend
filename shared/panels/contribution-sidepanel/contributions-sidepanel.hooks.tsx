@@ -68,7 +68,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} />
         <LinkedIssues
           issues={contribution.linkedIssues}
-          canLinkIssue={contribution.canLinkIssues()}
+          canLinkIssues={contribution.canLinkIssues()}
           contributionGithubId={contribution.githubId}
         />
         <Assignees contributionId={contribution.id} contributors={contribution.contributors} type={"contributors"} />
