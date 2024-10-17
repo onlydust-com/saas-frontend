@@ -6,16 +6,14 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type IssueApplicantResponse = components["schemas"]["IssueApplicantsPageItemResponse"];
 
-export interface IssueApplicantInterface extends IssueApplicantResponse {
-  contributor: ContributorOverviewInterface;
-}
+export interface IssueApplicantInterface extends IssueApplicantResponse {}
 
 export class IssueApplicant implements IssueApplicantInterface {
   applicationId!: IssueApplicantResponse["applicationId"];
   categories!: IssueApplicantResponse["categories"];
   codeReviewCount!: IssueApplicantResponse["codeReviewCount"];
   contributionCount!: IssueApplicantResponse["contributionCount"];
-  contributor!: IssueApplicantResponse["contributor"];
+  contributor!: ContributorOverviewInterface;
   countryCode!: IssueApplicantResponse["countryCode"];
   ecosystems!: IssueApplicantResponse["ecosystems"];
   issueCount!: IssueApplicantResponse["issueCount"];
