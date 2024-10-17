@@ -236,20 +236,6 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
 
         return (
           <div className={"flex gap-sm"}>
-            <AcceptIgnoreApplication applicationId={applicationId}>
-              {({ ignore, isIgnoring, isAccepting }) => (
-                <Button
-                  startIcon={{ component: CircleX }}
-                  variant={"secondary"}
-                  size={"sm"}
-                  onClick={() => ignore()}
-                  isDisabled={isIgnoring || isAccepting}
-                >
-                  <Translate token={"modals:manageApplicants.table.rows.reject"} />
-                </Button>
-              )}
-            </AcceptIgnoreApplication>
-
             <AcceptIgnoreApplication
               applicationId={applicationId}
               acceptOptions={{
@@ -258,16 +244,28 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
                 },
               }}
             >
-              {({ accept, isAccepting, isIgnoring }) => (
-                <Button
-                  startIcon={{ component: CircleCheck }}
-                  variant={"secondary"}
-                  size={"sm"}
-                  onClick={() => accept()}
-                  isDisabled={isAccepting || isIgnoring}
-                >
-                  <Translate token={"modals:manageApplicants.table.rows.assign"} />
-                </Button>
+              {({ accept, isAccepting, ignore, isIgnoring }) => (
+                <>
+                  <Button
+                    startIcon={{ component: CircleX }}
+                    variant={"secondary"}
+                    size={"sm"}
+                    onClick={() => ignore()}
+                    isDisabled={isIgnoring || isAccepting}
+                  >
+                    <Translate token={"modals:manageApplicants.table.rows.reject"} />
+                  </Button>
+
+                  <Button
+                    startIcon={{ component: CircleCheck }}
+                    variant={"secondary"}
+                    size={"sm"}
+                    onClick={() => accept()}
+                    isDisabled={isAccepting || isIgnoring}
+                  >
+                    <Translate token={"modals:manageApplicants.table.rows.assign"} />
+                  </Button>
+                </>
               )}
             </AcceptIgnoreApplication>
           </div>

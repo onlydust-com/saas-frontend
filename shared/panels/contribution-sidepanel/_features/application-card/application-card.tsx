@@ -13,8 +13,6 @@ import { ApplicationCardProps } from "./application-card.types";
 export function ApplicationCard({ application, contributionGithubId, isIgnored }: ApplicationCardProps) {
   const { applicationId = "", contributor, rewardCount, prCount } = application;
 
-  // const dateKernelPort = bootstrap.getDateKernelPort();
-
   return (
     <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
       <div className="flex gap-lg">
@@ -60,35 +58,33 @@ export function ApplicationCard({ application, contributionGithubId, isIgnored }
       </div>
 
       <div className="flex gap-md">
-        {!isIgnored ? (
-          <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
-            {({ ignore, isIgnoring, isAccepting }) => (
+        <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
+          {({ accept, isAccepting, ignore, isIgnoring }) => (
+            <>
+              {!isIgnored ? (
+                <Button
+                  variant="secondary"
+                  size="xs"
+                  iconOnly
+                  startIcon={{
+                    component: CircleX,
+                  }}
+                  onClick={() => ignore()}
+                  isDisabled={isIgnoring || isAccepting}
+                />
+              ) : null}
+
               <Button
                 variant="secondary"
                 size="xs"
                 iconOnly
                 startIcon={{
-                  component: CircleX,
+                  component: CircleCheck,
                 }}
-                onClick={() => ignore()}
-                isDisabled={isIgnoring || isAccepting}
+                onClick={() => accept()}
+                isDisabled={isAccepting || isIgnoring}
               />
-            )}
-          </AcceptIgnoreApplication>
-        ) : null}
-
-        <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
-          {({ accept, isAccepting, isIgnoring }) => (
-            <Button
-              variant="secondary"
-              size="xs"
-              iconOnly
-              startIcon={{
-                component: CircleCheck,
-              }}
-              onClick={() => accept()}
-              isDisabled={isAccepting || isIgnoring}
-            />
+            </>
           )}
         </AcceptIgnoreApplication>
       </div>

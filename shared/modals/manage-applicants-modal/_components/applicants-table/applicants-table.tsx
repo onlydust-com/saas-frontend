@@ -46,19 +46,6 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
 
       {applicationId ? (
         <div className="flex gap-lg">
-          <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
-            {({ ignore, isIgnoring, isAccepting }) => (
-              <Button
-                variant={"secondary"}
-                startIcon={{ component: CircleX }}
-                size={"md"}
-                translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
-                onClick={() => ignore()}
-                isDisabled={isIgnoring || isAccepting}
-              />
-            )}
-          </AcceptIgnoreApplication>
-
           <AcceptIgnoreApplication
             applicationId={applicationId}
             contributionGithubId={contributionGithubId}
@@ -68,15 +55,26 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
               },
             }}
           >
-            {({ accept, isAccepting, isIgnoring }) => (
-              <Button
-                variant={"secondary"}
-                startIcon={{ component: CircleCheck }}
-                size={"md"}
-                translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-                onClick={() => accept()}
-                isDisabled={isAccepting || isIgnoring}
-              />
+            {({ accept, isAccepting, ignore, isIgnoring }) => (
+              <>
+                <Button
+                  variant={"secondary"}
+                  startIcon={{ component: CircleX }}
+                  size={"md"}
+                  translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
+                  onClick={() => ignore()}
+                  isDisabled={isIgnoring || isAccepting}
+                />
+
+                <Button
+                  variant={"secondary"}
+                  startIcon={{ component: CircleCheck }}
+                  size={"md"}
+                  translate={{ token: "modals:manageApplicants.table.actions.assign" }}
+                  onClick={() => accept()}
+                  isDisabled={isAccepting || isIgnoring}
+                />
+              </>
             )}
           </AcceptIgnoreApplication>
         </div>
