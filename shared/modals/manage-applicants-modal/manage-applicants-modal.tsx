@@ -13,13 +13,7 @@ import { ApplicantsTable } from "@/shared/modals/manage-applicants-modal/_compon
 import { ManageApplicantsModalProps } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ManageApplicantsModal({
-  isOpen,
-  onOpenChange,
-  projectId,
-  issueId = 0,
-  onAssign,
-}: ManageApplicantsModalProps) {
+export function ManageApplicantsModal({ isOpen, onOpenChange, projectId, issueId = 0 }: ManageApplicantsModalProps) {
   const { data, isLoading, isError } = IssueReactQueryAdapter.client.useGetIssueApplicants({
     pathParams: { issueId },
     options: { enabled: !!issueId && isOpen },
@@ -45,7 +39,7 @@ export function ManageApplicantsModal({
       <SidePanelsProvider>
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
-            <ApplicantsTable projectId={projectId} issueId={issueId} onAssign={onAssign} />
+            <ApplicantsTable projectId={projectId} issueId={issueId} onAssign={() => onOpenChange?.(false)} />
           </PageContent>
         </AnimatedColumn>
       </SidePanelsProvider>

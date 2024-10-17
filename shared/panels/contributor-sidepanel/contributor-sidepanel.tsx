@@ -31,9 +31,11 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     login = "",
     githubId = 0,
     canGoBack,
+    applicationId = "",
   } = useSinglePanelData<ContributorSidepanelData>(name) ?? {
     login: undefined,
     githubId: undefined,
+    applicationId: undefined,
   };
 
   const { data: dataById, isLoading: isLoadingById } = UserReactQueryAdapter.client.useGetUserById({
@@ -111,7 +113,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     if (!data) return null;
 
     if (customFooter) {
-      return customFooter({ data });
+      return customFooter({ data, applicationId });
     }
 
     return (

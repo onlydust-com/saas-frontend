@@ -1,44 +1,17 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
 
-import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { AcceptIgnoreApplication } from "@/shared/components/mutation/accept-ignore-application/accept-ignore-application";
+
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ application, contributionId, isIgnored }: ApplicationCardProps) {
+export function ApplicationCard({ application, contributionGithubId, isIgnored }: ApplicationCardProps) {
   const { applicationId = "", contributor, rewardCount, prCount } = application;
-
-  // const dateKernelPort = bootstrap.getDateKernelPort();
-
-  const { mutate: ignoreApplicationMutate, isPending: ignoreApplicationIsPending } =
-    ApplicationReactQueryAdapter.client.usePatchApplication({
-      pathParams: {
-        applicationId,
-      },
-    });
-
-  const { mutate: acceptApplicationMutate, isPending: acceptApplicationIsPending } =
-    ContributionReactQueryAdapter.client.usePatchContribution({
-      pathParams: {
-        contributionId,
-      },
-    });
-
-  function handleIgnoreApplication() {
-    ignoreApplicationMutate({ isIgnored: true });
-  }
-
-  function handleApproveApplication() {
-    acceptApplicationMutate({
-      assignees: [contributor.githubUserId],
-    });
-  }
 
   return (
     <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
@@ -85,29 +58,35 @@ export function ApplicationCard({ application, contributionId, isIgnored }: Appl
       </div>
 
       <div className="flex gap-md">
-        {!isIgnored ? (
-          <Button
-            variant="secondary"
-            size="xs"
-            iconOnly
-            startIcon={{
-              component: CircleX,
-            }}
-            onClick={handleIgnoreApplication}
-            isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
-          />
-        ) : null}
+        <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
+          {({ accept, isAccepting, ignore, isIgnoring }) => (
+            <>
+              {!isIgnored ? (
+                <Button
+                  variant="secondary"
+                  size="xs"
+                  iconOnly
+                  startIcon={{
+                    component: CircleX,
+                  }}
+                  onClick={() => ignore()}
+                  isDisabled={isIgnoring || isAccepting}
+                />
+              ) : null}
 
-        <Button
-          variant="secondary"
-          size="xs"
-          iconOnly
-          startIcon={{
-            component: CircleCheck,
-          }}
-          onClick={handleApproveApplication}
-          isDisabled={ignoreApplicationIsPending || acceptApplicationIsPending}
-        />
+              <Button
+                variant="secondary"
+                size="xs"
+                iconOnly
+                startIcon={{
+                  component: CircleCheck,
+                }}
+                onClick={() => accept()}
+                isDisabled={isAccepting || isIgnoring}
+              />
+            </>
+          )}
+        </AcceptIgnoreApplication>
       </div>
     </Paper>
   );

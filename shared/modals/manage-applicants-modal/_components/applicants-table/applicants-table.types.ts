@@ -1,11 +1,12 @@
 export interface ContributorPanelFooterProps {
-  githubUserId: number;
   login: string;
-  onAssign: (githubUserId: number) => void;
+  applicationId?: string;
+  contributionGithubId?: number;
+  onAssign: () => void;
 }
 
 export interface ApplicantsTableProps {
   projectId?: string;
   issueId?: number;
-  onAssign: (githubUserId: number) => void;
+  onAssign: () => void;
 }
