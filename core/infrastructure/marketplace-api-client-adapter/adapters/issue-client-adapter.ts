@@ -1,4 +1,8 @@
-import { GetIssueApplicantsResponse, GetIssueResponse } from "@/core/domain/issue/issue-contract.types";
+import {
+  GetIssueApplicantsResponse,
+  GetIssueResponse,
+  UpdateIssueBody,
+} from "@/core/domain/issue/issue-contract.types";
 import { IssueApplicant } from "@/core/domain/issue/models/issue-applicant-model";
 import { Issue } from "@/core/domain/issue/models/issue-model";
 import { IssueStoragePort } from "@/core/domain/issue/outputs/issue-storage-port";
@@ -11,6 +15,7 @@ export class IssueClientAdapter implements IssueStoragePort {
   routes = {
     getIssue: "issues/:issueId",
     getIssueApplicants: "issues/:issueId/applicants",
+    updateIssue: "issues/:issueId",
   } as const;
 
   getIssue = ({ pathParams }: FirstParameter<IssueStoragePort["getIssue"]>) => {
@@ -53,6 +58,26 @@ export class IssueClientAdapter implements IssueStoragePort {
         applicants: data.applicants.map(applicant => new IssueApplicant(applicant)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updateIssue = ({ pathParams }: FirstParameter<IssueStoragePort["updateIssue"]>) => {
+    const path = this.routes["updateIssue"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateIssueBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

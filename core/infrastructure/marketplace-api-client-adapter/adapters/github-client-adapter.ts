@@ -1,4 +1,4 @@
-import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
+import { GetMyOrganizationsResponse, UpdatePullRequestBody } from "@/core/domain/github/github-contract.types";
 import { GithubOrganizationList } from "@/core/domain/github/models/github-organization-list-model";
 import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -9,6 +9,7 @@ export class GithubClientAdapter implements GithubStoragePort {
 
   routes = {
     getMyOrganizations: "me/organizations",
+    updatePullRequest: "pull-requests/:pullRequestId",
   } as const;
 
   getMyOrganizations = ({ queryParams, pathParams }: FirstParameter<GithubStoragePort["getMyOrganizations"]>) => {
@@ -26,6 +27,26 @@ export class GithubClientAdapter implements GithubStoragePort {
 
       return new GithubOrganizationList({ organizations: data });
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updatePullRequest = ({ pathParams }: FirstParameter<GithubStoragePort["updatePullRequest"]>) => {
+    const path = this.routes["updatePullRequest"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdatePullRequestBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

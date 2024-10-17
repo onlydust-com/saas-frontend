@@ -1,4 +1,5 @@
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
@@ -18,6 +19,13 @@ export const useContributionActions = (
   const { mutate, isPending } = ContributionReactQueryAdapter.client.usePatchContribution({
     pathParams: { contributionId: contribution.id },
   });
+
+  const { mutate: updatePullRequest, isPending: isPendingPullRequest } =
+    GithubReactQueryAdapter.client.useUpdatePullRequest({
+      pathParams: {
+        pullRequestId: contribution.githubId,
+      },
+    });
 
   function onReview() {
     actions?.onAction?.(contribution.githubId);

@@ -37,3 +37,13 @@ export type GetIssueApplicantsPortParams = HttpClientParameters<{
   PathParams: GetIssueApplicantsPathParams;
   QueryParams: GetIssueApplicantsQueryParams;
 }>;
+
+/* ---------------------------- Update Issue --------------------------- */
+
+export type UpdateIssueBody = components["schemas"]["IssuePatchRequest"];
+
+type UpdateIssuePathParams = operations["updateIssue"]["parameters"]["path"];
+
+export type UpdateIssuePortParams = HttpClientParameters<{ PathParams: UpdateIssuePathParams }>;
+
+export type UpdateIssuePortResponse = HttpStorageResponse;
