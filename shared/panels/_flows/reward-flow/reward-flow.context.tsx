@@ -7,6 +7,7 @@ import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/con
 
 import { toast } from "@/design-system/molecules/toaster";
 
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
 import { BulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection";
@@ -38,10 +39,11 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   selectedGithubUserIds: [],
 });
 
-export function RewardFlowProvider({ children, projectId }: RewardFlowContextProps) {
+export function RewardFlowProvider({ children, projectId = "" }: RewardFlowContextProps) {
   const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
+  const { close } = useSidePanelsContext();
 
   /***************** LOCAL FUNCTIONS *****************/
   const { mutate, isPending } = RewardReactQueryAdapter.client.useCreateRewards({
@@ -51,6 +53,7 @@ export function RewardFlowProvider({ children, projectId }: RewardFlowContextPro
     options: {
       onSuccess: () => {
         toast.success(<Translate token={"panels:singleContributionValidation.toast.success"} />);
+        close();
       },
       onError: () => {
         toast.error(<Translate token={"panels:singleContributionValidation.toast.error"} />);
