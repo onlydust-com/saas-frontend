@@ -35,13 +35,13 @@ export function TabsDefaultAdapter({
   }
 
   useEffect(() => {
-    if (getSearchParams) {
+    if (searchParams) {
       const id = getSearchParams.get(searchParams);
       if (id && id !== selectedId) {
         onTabClick?.(id);
       }
     }
-  }, [getSearchParams]);
+  }, [getSearchParams, searchParams]);
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
