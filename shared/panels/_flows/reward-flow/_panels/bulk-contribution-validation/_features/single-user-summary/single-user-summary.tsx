@@ -3,10 +3,11 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Accordion } from "@/design-system/molecules/accordion";
+import { CardBudgetType } from "@/design-system/molecules/cards/card-budget";
 
-import { Summary } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_components/summary/summary";
+import { CardBudgetAccordion } from "@/shared/features/card-budget-accordion/card-budget-accordion";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { SingleUserSummaryProps } from "./single-user-summary.types";
 
@@ -32,15 +33,55 @@ export function SingleUserSummary({ githubUserId }: SingleUserSummaryProps) {
 
   if (!data || isError || !budget) return null;
 
+  const usdConversionRate = budget.usdConversionRate ?? 0;
+  const allocatedAmount = parseFloat(amount);
+  const newBudgetBalance = budget.amount - allocatedAmount;
+
   return (
-    <Accordion
-      id={`bulk-user-summary-${githubUserId}`}
-      titleProps={{ children: `${data.login} • ${money.amount} ${money.code}` }}
-      startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
-    >
-      <div>
-        <Summary amount={amount} budget={budget} />
-      </div>
-    </Accordion>
+    <CardBudgetAccordion
+      defaultSelected={[`bulk-user-summary-${githubUserId}`]}
+      items={[
+        {
+          id: `bulk-user-summary-${githubUserId}`,
+          titleProps: {
+            children: `${data.login} • ${money.amount} ${money.code}`,
+          },
+          startContent: <Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />,
+          cards: [
+            {
+              amount: {
+                value: budget.amount,
+                currency: budget.currency,
+                usdEquivalent: budget.usdEquivalent ?? 0,
+              },
+              badgeProps: {
+                children: <Translate token={"panels:singleContributionValidation.summary.currentBalance"} />,
+              },
+            },
+            {
+              amount: {
+                value: allocatedAmount,
+                currency: budget.currency,
+                usdEquivalent: allocatedAmount * usdConversionRate,
+              },
+              badgeProps: { children: <Translate token={"panels:singleContributionValidation.summary.allocated"} /> },
+              type: CardBudgetType.GRANTED,
+            },
+            {
+              amount: {
+                value: newBudgetBalance,
+                currency: budget.currency,
+                usdEquivalent: newBudgetBalance * usdConversionRate,
+              },
+              badgeProps: {
+                children: <Translate token={"panels:singleContributionValidation.summary.finalBalance"} />,
+              },
+              isError: newBudgetBalance < 0,
+            },
+          ],
+        },
+      ]}
+      multiple
+    />
   );
 }
