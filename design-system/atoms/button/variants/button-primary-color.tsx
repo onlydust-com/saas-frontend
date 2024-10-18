@@ -23,6 +23,7 @@ const ButtonPrimaryColorVariants = tv({
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-primary-bg-hover hover:bg-components-buttons-button-primary-bg-hover",
         ],
+        spinnerCircle: "border-b-components-buttons-button-primary-fg",
       },
       secondary: {
         base: [
@@ -32,6 +33,7 @@ const ButtonPrimaryColorVariants = tv({
           "effect-box-shadow-xs",
           "data-[hover=true]:bg-components-buttons-button-secondary-bg-hover hover:bg-components-buttons-button-secondary-bg-hover",
         ],
+        spinnerCircle: "border-b-components-buttons-button-secondary-fg",
       },
       tertiary: {
         base: [
@@ -39,6 +41,7 @@ const ButtonPrimaryColorVariants = tv({
           "text-components-buttons-button-tertiary-fg",
           "data-[hover=true]:bg-components-buttons-button-tertiary-bg-hover hover:bg-components-buttons-button-tertiary-bg-hover",
         ],
+        spinnerCircle: "border-b-components-buttons-button-tertiary-fg",
       },
     },
     isDisabled: {
@@ -63,6 +66,7 @@ export function ButtonPrimaryColor<C extends ElementType = "button">(props: Butt
     classNames: {
       ...(props.classNames || {}),
       base: cn(slotsDefault.base(), props.classNames?.base),
+      spinnerCircle: cn(slotsDefault.spinnerCircle(), props.classNames?.spinnerCircle),
     },
   });
 }

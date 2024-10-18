@@ -1,4 +1,5 @@
-import { ComponentProps, ElementType, SyntheticEvent } from "react";
+import { Spinner } from "@nextui-org/react";
+import { ComponentProps, ElementType, SyntheticEvent, useMemo } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
@@ -26,6 +27,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
   iconOnly,
   canInteract,
   onNativeClick,
+  isLoading,
   ...restProps
 }: ButtonPort<C>) {
   const Component = as || "button";
@@ -34,6 +36,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     iconOnly,
     size,
     canInteract,
+    isLoading,
   });
 
   const showChildren = !!children || !!translate;
@@ -47,11 +50,40 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
 
   function handleClick(e: SyntheticEvent) {
     e?.stopPropagation();
-    if (!isDisabled) {
+    if (!isDisabled && !isLoading) {
       onNativeClick?.(e);
       onClick?.();
     }
   }
+
+  const StartIcon = useMemo(() => {
+    if (isLoading) {
+      return (
+        <Spinner
+          color="default"
+          size="sm"
+          classNames={{
+            wrapper: cn(slots.spinner(), classNames?.spinner),
+            circle2: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
+            circle1: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
+          }}
+        />
+      );
+    }
+
+    if (startIcon) {
+      return (
+        <Icon
+          {...startIcon}
+          classNames={{
+            base: cn(slots.startIcon(), classNames?.startIcon),
+          }}
+        />
+      );
+    }
+
+    return null;
+  }, [startIcon, isLoading]);
 
   if (iconOnly && startIcon) {
     return (
@@ -63,12 +95,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
         onClick={handleClick}
         type={type}
       >
-        <Icon
-          {...(startIcon || {})}
-          classNames={{
-            base: cn(slots.startIcon(), classNames?.startIcon),
-          }}
-        />
+        {StartIcon}
       </Component>
     );
   }
@@ -84,14 +111,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
-        {!!startIcon && (
-          <Icon
-            {...startIcon}
-            classNames={{
-              base: cn(slots.startIcon(), classNames?.startIcon),
-            }}
-          />
-        )}
+        {StartIcon}
         {showChildren && (
           <Typo size={typoSize[size || "md"]} as={"span"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
             {children || (translate && <Translate {...translate} />)}

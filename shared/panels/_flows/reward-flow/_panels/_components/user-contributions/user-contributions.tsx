@@ -29,12 +29,11 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data";
 import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.hooks";
 import { UserContributionsProps } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions.types";
+import { CreateContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/create-contribution-sidepanel/create-contribution-sidepanel";
+import { useCreateContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
+import { LinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel";
+import { useLinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
-
-import { CreateContributionSidepanel } from "../../_features/create-contribution-sidepanel/create-contribution-sidepanel";
-import { useCreateContributionSidepanel } from "../../_features/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
-import { LinkContributionSidepanel } from "../../_features/link-contribution-sidepanel/link-contribution-sidepanel";
-import { useLinkContributionSidepanel } from "../../_features/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
 
 export type UserContributionsFilters = Omit<
   NonNullable<GetContributionsPortParams["queryParams"]>,
@@ -44,13 +43,14 @@ export type UserContributionsFilters = Omit<
 export function UserContributions({ githubUserId }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
-  const { getSelectedContributions, addContributions, removeContribution } = useRewardFlow();
+  const { getSelectedContributions, addContributions, removeContribution, getOtherWorks } = useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({
     types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
   });
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const selectedContributions = getSelectedContributions(githubUserId);
+  const otherWorks = getOtherWorks(githubUserId);
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
@@ -102,6 +102,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
 
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
+  const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
   function handleSelectAll() {
     addContributions(
@@ -131,7 +132,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
 
     return (
       <div className={"grid gap-lg"}>
-        {contributions.map(contribution => {
+        {mixedContributions.map(contribution => {
           const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
           return (
             <CardContributionKanban

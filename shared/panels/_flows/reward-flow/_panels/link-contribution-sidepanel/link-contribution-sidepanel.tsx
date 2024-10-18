@@ -17,10 +17,12 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
-
-import { useRewardFlow } from "../../../reward-flow.context";
-import { useLinkContributionSidepanel } from "./link-contribution-sidepanel.hooks";
-import { ContributionType, LinkContributionSidePanelData } from "./link-contribution-sidepanel.types";
+import { useLinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
+import {
+  ContributionType,
+  LinkContributionSidePanelData,
+} from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.types";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 export function LinkContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -47,6 +49,8 @@ export function LinkContributionSidepanel() {
       options: {
         onSuccess(data) {
           handleAddContribution(data);
+          handleReset();
+          back();
         },
       },
     });
@@ -59,12 +63,14 @@ export function LinkContributionSidepanel() {
       options: {
         onSuccess(data) {
           handleAddContribution(data);
+          handleReset();
+          back();
         },
       },
     });
 
   function handleAddContribution(data: RewardableItemInterface) {
-    addOtherWorks([data], githubUserId);
+    addOtherWorks([data.toContributionActivityModel()], githubUserId);
   }
 
   function handleSubmit() {
@@ -79,9 +85,6 @@ export function LinkContributionSidepanel() {
         githubPullRequestHtmlUrl: url,
       });
     }
-
-    handleReset();
-    back();
   }
 
   function handleUrl(value: string) {
@@ -188,7 +191,8 @@ export function LinkContributionSidepanel() {
           translate={{
             token: "panels:linkContribution.footer.button",
           }}
-          isDisabled={error || !url || isOtherIssuePending || isOtherPullRequestPending}
+          isDisabled={error || !url}
+          isLoading={isOtherIssuePending || isOtherPullRequestPending}
           onClick={handleSubmit}
         />
       </SidePanelFooter>

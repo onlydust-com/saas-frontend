@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { toast } from "@/design-system/molecules/toaster";
 
@@ -114,25 +114,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** CONTRIBUTIONS MANAGEMENT *****************/
 
-  function getOtherWorks(githubUserId: number) {
-    return rewardsState[githubUserId]?.otherWorks || [];
-  }
-
   function getSelectedContributions(githubUserId: number) {
     return rewardsState[githubUserId]?.contributions || [];
-  }
-
-  function addOtherWorks(otherWorks: RewardableItemInterface[], githubUserId: number) {
-    setRewardsState(prev => ({
-      ...prev,
-      [githubUserId]: {
-        ...prev[githubUserId],
-        otherWorks: Array.from(new Set([...(prev[githubUserId]?.otherWorks || []), ...otherWorks])),
-        contributions: Array.from(
-          new Set([...(prev[githubUserId]?.contributions || []), ...otherWorks.map(c => c.toContributionItemDto())])
-        ),
-      },
-    }));
   }
 
   function addContributions(contributions: ContributionItemDtoInterface[], githubUserId: number) {
@@ -151,6 +134,24 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
       [githubUserId]: {
         ...prev[githubUserId],
         contributions: prev[githubUserId]?.contributions.filter(c => !c.isEqualTo(contribution)),
+      },
+    }));
+  }
+
+  /***************** OTHER WORKS MANAGEMENT *****************/
+  function getOtherWorks(githubUserId: number) {
+    return rewardsState[githubUserId]?.otherWorks || [];
+  }
+
+  function addOtherWorks(otherWorks: ContributionActivityInterface[], githubUserId: number) {
+    setRewardsState(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        otherWorks: Array.from(new Set([...(prev[githubUserId]?.otherWorks || []), ...otherWorks])),
+        contributions: Array.from(
+          new Set([...(prev[githubUserId]?.contributions || []), ...otherWorks.map(c => c.toItemDto())])
+        ),
       },
     }));
   }

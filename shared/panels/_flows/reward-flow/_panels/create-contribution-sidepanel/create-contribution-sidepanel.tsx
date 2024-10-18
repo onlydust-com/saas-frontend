@@ -20,15 +20,14 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
-import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { useRewardFlow } from "../../../reward-flow.context";
-import { useCreateContributionSidepanel } from "./create-contribution-sidepanel.hooks";
+import { useCreateContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/create-contribution-sidepanel/create-contribution-sidepanel.hooks";
 import {
   CreateContributionFormData,
   CreateContributionSidePanelData,
   createContributionFormValidation,
-} from "./create-contribution-sidepanel.types";
+} from "@/shared/panels/_flows/reward-flow/_panels/create-contribution-sidepanel/create-contribution-sidepanel.types";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function CreateContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -84,15 +83,14 @@ export function CreateContributionSidepanel() {
   } = form;
 
   function handleAddContribution(data: RewardableItemInterface) {
-    addOtherWorks([data], githubUserId);
+    addOtherWorks([data.toContributionActivityModel()], githubUserId);
+    reset();
+    back();
   }
 
   async function onSubmit(data: CreateContributionFormData) {
     const response = await addOtherWork(data);
     handleAddContribution(response);
-
-    reset();
-    back();
   }
 
   useEffect(() => {
@@ -190,7 +188,8 @@ export function CreateContributionSidepanel() {
               token: "panels:createContribution.footer.button",
             }}
             type="submit"
-            isDisabled={!isValid || isOtherWorkPending}
+            isDisabled={!isValid}
+            isLoading={isOtherWorkPending}
           />
         </SidePanelFooter>
       </form>

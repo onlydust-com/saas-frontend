@@ -7,6 +7,8 @@ export const ButtonDefaultVariants = tv({
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
+    spinner: "h-4 w-4",
+    spinnerCircle: "h-4 w-4",
   },
 
   variants: {
@@ -49,6 +51,11 @@ export const ButtonDefaultVariants = tv({
         endIcon: "text-typography-disabled",
         content: "text-typography-disabled",
         label: "text-typography-disabled",
+      },
+    },
+    isLoading: {
+      true: {
+        base: "pointer-events-none cursor-wait",
       },
     },
     canInteract: {
@@ -94,22 +101,3 @@ export const ButtonDefaultVariants = tv({
     canInteract: true,
   },
 });
-
-// size: {
-//   xs: {
-//     base: "h-[24px] rounded-sm px-md py-xs",
-//       content: "gap-xs",
-//   },
-//   sm: {
-//     base: "h-[32px] rounded-md px-lg py-md",
-//       content: "gap-md",
-//   },
-//   md: {
-//     base: "h-[40px] rounded-md px-xl py-2md",
-//       content: "gap-md",
-//   },
-//   lg: {
-//     base: "h-[48px] rounded-lg px-2xl py-lg",
-//       content: "gap-2md",
-//   },
-// },
