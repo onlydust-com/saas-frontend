@@ -131,7 +131,7 @@ function Content() {
           translate={{
             token: "common:reward",
           }}
-          isDisabled={isCreatingRewards || amountNumber <= 0}
+          isDisabled={isCreatingRewards || amountNumber <= 0 || (budget && amountNumber > budget.amount)}
           onClick={() => handleCreateRewards()}
         />
       </SidePanelFooter>
