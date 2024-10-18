@@ -57,6 +57,7 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           <Tabs
             onTabClick={handleToggleActivityViews}
             variant={"solid"}
+            searchParams={"activity-view"}
             tabs={[
               {
                 id: CONTRIBUTORS,
