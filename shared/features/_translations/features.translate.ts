@@ -5,6 +5,7 @@ import enContributorActivityGraph from "@/shared/features/contributors/activity-
 import enContributorProfileCheckbox from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox-translate.en.json";
 import enContributorProfileExtended from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended-translate.en.json";
 import { enFiltersTranslations } from "@/shared/features/filters/_translations/filters.translate";
+import enGithubMissingPermissionsAlert from "@/shared/features/github-missing-permissions-alert/_translations/github-missing-permissions-alert.en.json";
 import enNotifications from "@/shared/features/notifications/_translations/notifications.en.json";
 import enPayoutStatus from "@/shared/features/payout-status/_translations/payout-status.en.json";
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
@@ -14,6 +15,7 @@ export const enFeaturesTranslations = {
   features: {
     amountSelector: enAmountSelector,
     notifications: enNotifications,
+    githubMissingPermissionsAlert: enGithubMissingPermissionsAlert,
     payoutStatus: enPayoutStatus,
     socialLink: enSocialLinkTranslate,
     activityGraph: enActivityGraphTranslate,

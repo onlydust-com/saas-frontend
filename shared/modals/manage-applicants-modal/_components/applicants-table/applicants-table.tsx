@@ -27,7 +27,7 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 
 export type ApplicantsTableFilters = Omit<NonNullable<GetIssueApplicantsQueryParams>, "pageSize" | "pageIndex">;
 
-function Footer({ login, applicationId, contributionGithubId, onAssign }: ContributorPanelFooterProps) {
+function Footer({ login, applicationId, contributionGithubId, repoId, onAssign }: ContributorPanelFooterProps) {
   return (
     <div className="flex w-full justify-between gap-lg">
       <div>
@@ -49,6 +49,7 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
           <AcceptIgnoreApplication
             applicationId={applicationId}
             contributionGithubId={contributionGithubId}
+            repoId={repoId}
             acceptOptions={{
               onSuccess: () => {
                 onAssign();
@@ -83,7 +84,7 @@ function Footer({ login, applicationId, contributionGithubId, onAssign }: Contri
   );
 }
 
-export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTableProps) {
+export function ApplicantsTable({ projectId, issueId, onAssign, repoId }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useApplicantsFilterDataSidePanel();
   const [filters, setFilters] = useState<ApplicantsTableFilters>({});
@@ -94,7 +95,7 @@ export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTabl
     ...filters,
   };
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign });
+  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign, repoId });
   const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
   return (
@@ -127,6 +128,7 @@ export function ApplicantsTable({ projectId, issueId, onAssign }: ApplicantsTabl
               login={data.login}
               applicationId={applicationId}
               contributionGithubId={issueId}
+              repoId={repoId}
               onAssign={onAssign}
             />
           )}

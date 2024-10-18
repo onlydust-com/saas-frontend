@@ -1,6 +1,7 @@
 "use client";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
 
 import { ActivitySection } from "@/app/manage-projects/[projectSlug]/_sections/activity-section/activity-section";
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
@@ -11,6 +12,7 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { GithubMissingPermissionsAlert } from "@/shared/features/github-missing-permissions-alert/github-missing-permissions-alert";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { RewardFlowProvider } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
@@ -23,12 +25,26 @@ import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+  const [openAlert, setOpenAlert] = useState(false);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
       enabled: Boolean(projectSlug),
     },
   });
+
+  const { data: projectData } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: { slug: projectSlug ?? "" },
+    options: {
+      enabled: !!projectSlug,
+    },
+  });
+
+  useEffect(() => {
+    if (projectData?.isSomeOrganizationMissingPermissions()) {
+      setOpenAlert(true);
+    }
+  }, [projectData]);
 
   return (
     <PageWrapper
@@ -57,6 +73,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
 
         <AnimatedColumn className="h-full">
           <ScrollView className="flex flex-col gap-md">
+            {openAlert ? <GithubMissingPermissionsAlert onClose={() => setOpenAlert(false)} /> : null}
             <PageContent classNames={{ base: "flex-none" }}>
               <FinancialSection projectId={data?.id} />
             </PageContent>

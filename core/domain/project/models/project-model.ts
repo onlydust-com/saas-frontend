@@ -9,6 +9,8 @@ export interface ProjectInterface extends ProjectResponse {
   findUserInProjectLead(id: string): ProjectResponse["leaders"][0] | undefined;
   addOrganizationToProject(organization: GithubOrganizationInterface): void;
   getProjectRepos(): GithubOrganizationInterface["repos"];
+  isSomeOrganizationMissingPermissions(): boolean;
+  isRepoOrganizationMissingPermissions(repoId: number): boolean;
 }
 
 export class Project implements ProjectInterface {
@@ -59,5 +61,15 @@ export class Project implements ProjectInterface {
 
   getProjectRepos() {
     return this.organizations.flatMap(organization => organization.repos);
+  }
+
+  isSomeOrganizationMissingPermissions() {
+    return this.organizations.some(organization => organization.isMissingPermissions());
+  }
+
+  isRepoOrganizationMissingPermissions(repoId: number) {
+    return this.organizations.some(
+      organization => organization.isContainsRepo([repoId]) && organization.isMissingPermissions()
+    );
   }
 }
