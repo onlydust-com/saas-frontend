@@ -9,3 +9,7 @@ export const createContributionFormValidation = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
 });
+
+export interface CreateContributionSidePanelData {
+  githubUserId: number;
+}

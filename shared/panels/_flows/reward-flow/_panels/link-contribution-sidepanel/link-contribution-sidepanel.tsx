@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
+import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -15,11 +16,13 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-import { useRewardFlow } from "../../../reward-flow.context";
-import { useLinkContributionSidepanel } from "./link-contribution-sidepanel.hooks";
-import { ContributionType } from "./link-contribution-sidepanel.types";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useLinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
+import {
+  ContributionType,
+  LinkContributionSidePanelData,
+} from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.types";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 export function LinkContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -30,8 +33,11 @@ export function LinkContributionSidepanel() {
 
   const { name } = useLinkContributionSidepanel();
   const { Panel, back } = useSidePanel({ name });
+  const { githubUserId } = useSinglePanelData<LinkContributionSidePanelData>(name) ?? {
+    githubUserId: 0,
+  };
 
-  const { projectId } = useRewardFlow();
+  const { projectId, addOtherWorks } = useRewardFlow();
 
   const urlKernelPort = bootstrap.getUrlKernelPort();
 
@@ -40,6 +46,13 @@ export function LinkContributionSidepanel() {
       pathParams: {
         projectId: projectId || "",
       },
+      options: {
+        onSuccess(data) {
+          handleAddContribution(data);
+          handleReset();
+          back();
+        },
+      },
     });
 
   const { mutateAsync: addOtherPullRequest, isPending: isOtherPullRequestPending } =
@@ -47,7 +60,18 @@ export function LinkContributionSidepanel() {
       pathParams: {
         projectId: projectId || "",
       },
+      options: {
+        onSuccess(data) {
+          handleAddContribution(data);
+          handleReset();
+          back();
+        },
+      },
     });
+
+  function handleAddContribution(data: RewardableItemInterface) {
+    addOtherWorks([data.toContributionActivityModel()], githubUserId);
+  }
 
   function handleSubmit() {
     if (type === ContributionType.ISSUE) {
@@ -61,9 +85,6 @@ export function LinkContributionSidepanel() {
         githubPullRequestHtmlUrl: url,
       });
     }
-
-    handleReset();
-    back();
   }
 
   function handleUrl(value: string) {
@@ -170,7 +191,8 @@ export function LinkContributionSidepanel() {
           translate={{
             token: "panels:linkContribution.footer.button",
           }}
-          isDisabled={error || !url || isOtherIssuePending || isOtherPullRequestPending}
+          isDisabled={error || !url}
+          isLoading={isOtherIssuePending || isOtherPullRequestPending}
           onClick={handleSubmit}
         />
       </SidePanelFooter>

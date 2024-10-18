@@ -1,6 +1,7 @@
 import { RewardItem } from "@/core/domain/reward/models/reward-item-model";
 import { RewardListItem } from "@/core/domain/reward/models/reward-list-item-model";
 import { Reward } from "@/core/domain/reward/models/reward-model";
+import { RewardableItem } from "@/core/domain/reward/models/rewardable-item-model";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
 import {
   AddOtherIssueBody,
@@ -130,14 +131,17 @@ export class RewardClientAdapter implements RewardStoragePort {
     const method = "POST";
     const tag = HttpClient.buildTag({ path, pathParams });
 
-    const request = async (body: AddOtherWorkBody) =>
-      this.client.request<AddOtherWorkResponse>({
+    const request = async (body: AddOtherWorkBody) => {
+      const data = await this.client.request<AddOtherWorkResponse>({
         path,
         method,
         tag,
         pathParams,
         body: JSON.stringify(body),
       });
+
+      return new RewardableItem(data);
+    };
 
     return {
       request,
@@ -150,8 +154,8 @@ export class RewardClientAdapter implements RewardStoragePort {
     const method = "POST";
     const tag = HttpClient.buildTag({ path, pathParams });
 
-    const request = async (body: AddOtherPullRequestBody) =>
-      this.client.request<AddOtherPullRequestResponse>({
+    const request = async (body: AddOtherPullRequestBody) => {
+      const data = await this.client.request<AddOtherPullRequestResponse>({
         path,
         method,
         tag,
@@ -159,6 +163,8 @@ export class RewardClientAdapter implements RewardStoragePort {
         body: JSON.stringify(body),
       });
 
+      return new RewardableItem(data);
+    };
     return {
       request,
       tag,
@@ -170,14 +176,17 @@ export class RewardClientAdapter implements RewardStoragePort {
     const method = "POST";
     const tag = HttpClient.buildTag({ path, pathParams });
 
-    const request = async (body: AddOtherIssueBody) =>
-      this.client.request<AddOtherIssueResponse>({
+    const request = async (body: AddOtherIssueBody) => {
+      const data = await this.client.request<AddOtherIssueResponse>({
         path,
         method,
         tag,
         pathParams,
         body: JSON.stringify(body),
       });
+
+      return new RewardableItem(data);
+    };
 
     return {
       request,

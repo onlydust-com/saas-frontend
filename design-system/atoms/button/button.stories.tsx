@@ -90,6 +90,10 @@ const ButtonsDoc = ({ theme }: Pick<ButtonPort<"button">, "theme">) => (
               <ButtonDoc theme={theme} size={size} variant={variant} isDisabled={true} />
               <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isDisabled={true} />
             </div>
+            <div className="flex w-full justify-between gap-2">
+              <ButtonDoc theme={theme} size={size} variant={variant} isLoading={true} />
+              <ButtonDoc theme={theme} size={size} variant={variant} iconOnly={true} isLoading={true} />
+            </div>
           </div>
         ))}
       </div>
@@ -139,6 +143,17 @@ const ButtonsTextDoc = (_: Pick<ButtonTextPort<"button">, "theme">) => (
                   variant={variant}
                   iconOnly={true}
                   isDisabled={true}
+                />
+              </div>
+              <div className="flex w-full justify-between gap-2">
+                <ButtonDoc isTextButton={true} underline={underline} size={size} variant={variant} isLoading={true} />
+                <ButtonDoc
+                  isTextButton={true}
+                  underline={underline}
+                  size={size}
+                  variant={variant}
+                  iconOnly={true}
+                  isLoading={true}
                 />
               </div>
             </div>

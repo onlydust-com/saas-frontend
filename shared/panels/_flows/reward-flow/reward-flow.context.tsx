@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { toast } from "@/design-system/molecules/toaster";
 
@@ -28,7 +29,9 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
   removeContribution: () => {},
+  getOtherWorks: () => [],
   getSelectedContributions: () => [],
+  addOtherWorks: () => {},
   addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
@@ -72,6 +75,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
           acc[githubUserId] = {
             contributions: contributions ?? [],
             amount: undefined,
+            otherWorks: [],
           };
         }
         return acc;
@@ -134,6 +138,24 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
     }));
   }
 
+  /***************** OTHER WORKS MANAGEMENT *****************/
+  function getOtherWorks(githubUserId: number) {
+    return rewardsState[githubUserId]?.otherWorks || [];
+  }
+
+  function addOtherWorks(otherWorks: ContributionActivityInterface[], githubUserId: number) {
+    setRewardsState(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        otherWorks: Array.from(new Set([...(prev[githubUserId]?.otherWorks || []), ...otherWorks])),
+        contributions: Array.from(
+          new Set([...(prev[githubUserId]?.contributions || []), ...otherWorks.map(c => c.toItemDto())])
+        ),
+      },
+    }));
+  }
+
   /***************** FLOW MANAGEMENT *****************/
 
   function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
@@ -173,8 +195,10 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
       value={{
         projectId,
         open: onOpenFlow,
+        getOtherWorks,
         getSelectedContributions,
         removeContribution,
+        addOtherWorks,
         addContributions,
         updateAmount,
         getAmount,
