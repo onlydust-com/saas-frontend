@@ -24,6 +24,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data";
@@ -41,7 +42,7 @@ export type UserContributionsFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function UserContributions({ githubUserId }: UserContributionsProps) {
+export function UserContributions({ githubUserId, withScroll = false }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
   const { getSelectedContributions, addContributions, removeContribution } = useRewardFlow();
@@ -216,7 +217,13 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
           />
         </nav>
 
-        {renderContributions()}
+        {withScroll ? (
+          <div className={"h-[392px] overflow-hidden"}>
+            <ScrollView>{renderContributions()}</ScrollView>
+          </div>
+        ) : (
+          renderContributions()
+        )}
       </section>
 
       <FilterData />
