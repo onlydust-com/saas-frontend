@@ -1,0 +1,6 @@
+{
+  "title": "Grant permissions",
+  "description": "We need GitHub write permissions to enable full functionality. Without them, you won’t be able to use features like assigning or unassigning users to issues.",
+  "moreInfo": "Click on \"Grant Permissions\". A GitHub popup will appear. Click on \"Authorize OnlyDust\", and you'll be redirected back here to submit your application.",
+  "grantWritePermissions": "Grant write permissions"
+}

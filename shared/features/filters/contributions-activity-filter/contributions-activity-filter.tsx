@@ -1,11 +1,8 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  ContributionFilterType,
-  ContributionUnion,
-  QuantityFilterType,
-} from "@/core/kernel/filters/filters-facade-port";
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
+import { ContributionFilterType, QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Menu, MenuPort } from "@/design-system/molecules/menu";
 
@@ -19,7 +16,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   const value = useMemo(
     () => ({
       type: _value?.type ?? QuantityFilterType.EQUAL,
-      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUE],
+      contributionType: _value?.contributionType?.length ? _value?.contributionType : [],
       amount: _value?.amount ?? {
         eq: undefined,
         gte: undefined,
@@ -55,7 +52,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   function onContributionTypeChange(newValue: string[]) {
     onChange?.({
       ...value,
-      contributionType: newValue as ContributionUnion[],
+      contributionType: newValue as ContributionTypeUnion[],
     });
   }
 

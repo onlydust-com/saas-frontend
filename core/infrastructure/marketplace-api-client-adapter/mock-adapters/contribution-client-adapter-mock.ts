@@ -7,4 +7,8 @@ export class ContributionClientAdapterMock implements ContributionStoragePort {
   routes = {};
 
   getContributions = mockHttpStorageResponse<ContributionStoragePort["getContributions"]>;
+
+  getContributionsById = mockHttpStorageResponse<ContributionStoragePort["getContributionsById"]>;
+
+  getContributionEvent = mockHttpStorageResponse<ContributionStoragePort["getContributionEvent"]>;
 }

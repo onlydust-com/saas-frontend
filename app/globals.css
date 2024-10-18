@@ -97,18 +97,18 @@
     --_brand-brightorange-950: #4d3000;
 
     /* CRYSTALIZEDVIOLET */
-    --_brand-crystalizedviolet-25: #fef7ff;
-    --_brand-crystalizedviolet-50: #fceaff;
-    --_brand-crystalizedviolet-100: #f7d0ff;
-    --_brand-crystalizedviolet-200: #ea9cff;
-    --_brand-crystalizedviolet-300: #d968ff;
-    --_brand-crystalizedviolet-400: #c434ff;
-    --_brand-crystalizedviolet-500-primary: #ac00ff;
-    --_brand-crystalizedviolet-600: #9a00d7;
-    --_brand-crystalizedviolet-700: #8400b0;
-    --_brand-crystalizedviolet-800: #6c0088;
-    --_brand-crystalizedviolet-900: #500060;
-    --_brand-crystalizedviolet-950: #41004d;
+    --_brand-crystalizedviolet-25: #fdf7ff;
+    --_brand-crystalizedviolet-50: #f8eaff;
+    --_brand-crystalizedviolet-100: #f0d0ff;
+    --_brand-crystalizedviolet-200: #de9dff;
+    --_brand-crystalizedviolet-300: #ca75ff;
+    --_brand-crystalizedviolet-400: #b654fc;
+    --_brand-crystalizedviolet-500-primary: #a03ae9;
+    --_brand-crystalizedviolet-600: #8e21db;
+    --_brand-crystalizedviolet-700: #7a0ebb;
+    --_brand-crystalizedviolet-800: #660099;
+    --_brand-crystalizedviolet-900: #510077;
+    --_brand-crystalizedviolet-950: #460066;
 
     --_alpha-crystalizedviolet-0: #ac00ff00;
     --_alpha-crystalizedviolet-3: #ac00ff07;
@@ -317,11 +317,12 @@
     /* TYPOGRAPHY */
     --typography-primary: var(--_grey-900);
     --typography-primary_on-brand: var(--_white);
+    --typography-primary_on-solid: var(--_white);
     --typography-secondary: var(--_grey-600);
     --typography-secondary_hover: var(--_grey-700);
     --typography-tertiary: var(--_grey-500-primary);
     --typography-tertiary_hover: var(--_grey-600);
-    --typography-quaternary: var(--_grey-400);
+    --typography-quaternary: var(--_grey-500-primary);
     --typography-white: var(--_white);
     --typography-disabled: var(--_grey-400);
     --typography-placeholder: var(--_grey-500-primary);
@@ -360,12 +361,13 @@
     --chart-quaternary: var(--_brand-brightorange-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
-    --chart-senary: #7A0EBB;
-    --chart-septenary: #A03AE9;
-    --chart-octonary: #CA75FF;
+    --chart-senary: #7a0ebb;
+    --chart-septenary: #a03ae9;
+    --chart-octonary: #ca75ff;
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
+    --foreground-primary_on-solid: var(--_white);
     --foreground-secondary: var(--_grey-600);
     --foreground-secondary_hover: var(--_grey-700);
     --foreground-tertiary: var(--_grey-500-primary);
@@ -378,6 +380,7 @@
     --foreground-white: var(--_white);
     --foreground-disabled: var(--_grey-400);
     --foreground-brand-primary: var(--_brand-crystalizedviolet-600);
+    --foreground-brand-primary_hover: var(--_brand-crystalizedviolet-700);
     --foreground-brand-secondary: var(--_brand-crystalizedviolet-700);
     --foreground-brand-secondary_hover: var(--_brand-crystalizedviolet-800);
     --foreground-error: var(--_error-600);
@@ -408,7 +411,7 @@
     --background-error-solid_hover: var(--_error-700);
     --background-brand-primary: var(--_brand-crystalizedviolet-50);
     --background-brand-primary_alt: var(--_brand-crystalizedviolet-50);
-    --background-brand-primary-solid: var(--_brand-crystalizedviolet-400);
+    --background-brand-primary-solid: var(--_brand-crystalizedviolet-500-primary);
     --background-brand-primary-solid_hover: var(--_brand-crystalizedviolet-600);
     --background-brand-secondary: var(--_brand-crystalizedviolet-25);
     --background-warning: var(--_warning-50);
@@ -421,7 +424,7 @@
     --background-success-solid_hover: var(--_success-700);
 
     /* EFFECTS */
-    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
+    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-500-primary);
     --effects-focusrings-brand-glued: var(--_alpha-crystalizedviolet-14);
     --effects-focusrings-error-spaced: var(--_error-500-primary);
     --effects-focusrings-error-glued: var(--_alpha-error-14);
@@ -474,6 +477,7 @@
     --utility-grey-700: var(--_grey-700);
     --utility-grey-800: var(--_grey-800);
     --utility-grey-900: var(--_grey-900);
+    --utility-grey-950: var(--_grey-950);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-50);
@@ -486,6 +490,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-700);
     --utility-brand-brightorange-800: var(--_brand-brightorange-800);
     --utility-brand-brightorange-900: var(--_brand-brightorange-900);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-950);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-50);
@@ -498,6 +503,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-700);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-800);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-900);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-950);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-50);
@@ -510,6 +516,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-700);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-800);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-900);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-950);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-50);
@@ -522,6 +529,7 @@
     --utility-brand-cyan-700: var(--_brand-cyan-700);
     --utility-brand-cyan-800: var(--_brand-cyan-800);
     --utility-brand-cyan-900: var(--_brand-cyan-900);
+    --utility-brand-cyan-950: var(--_brand-cyan-950);
 
     /* UTILITY SECONDARY */
     --utility-secondary-blue-500: var(--_secondary-blue-500);
@@ -541,6 +549,7 @@
     --utility-error-700: var(--_error-700);
     --utility-error-800: var(--_error-800);
     --utility-error-900: var(--_error-900);
+    --utility-error-950: var(--_error-950);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-50);
@@ -553,6 +562,7 @@
     --utility-warning-700: var(--_warning-700);
     --utility-warning-800: var(--_warning-800);
     --utility-warning-900: var(--_warning-900);
+    --utility-warning-950: var(--_warning-950);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-50);
@@ -565,6 +575,24 @@
     --utility-success-700: var(--_success-700);
     --utility-success-800: var(--_success-800);
     --utility-success-900: var(--_success-900);
+    --utility-success-950: var(--_success-950);
+
+    /* UTILITY GRADIENT */
+    --utility-gradient-glassneon-glass-neon-1: #fafdeb;
+    --utility-gradient-glassneon-glass-neon-2: #fafdeb;
+    --utility-gradient-glassneon-glass-neon-3: #e8fafa;
+    --utility-gradient-glassneon-glass-neon-4: #e8f2fa;
+    --utility-gradient-glassneon-glass-neon-5: #fbeaf6;
+    --utility-gradient-glassneon-glass-neon-6: #e9e0fd;
+    --utility-gradient-glassneon-glass-neon-7: #e9e0fd;
+
+    --utility-gradient-app-bg-radial-1: var(--background-quaternary);
+    --utility-gradient-app-bg-radial-2: rgba(238, 242, 246, 0);
+    --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
+    --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
+    --utility-gradient-app-bg-linear-2-1: #f3eef6;
+    --utility-gradient-app-bg-linear-2-2: #f6f2fa;
+    --utility-gradient-app-bg-linear-2-3: #fbf7ff;
 
     /* COMPONENTS BADGE */
 
@@ -679,6 +707,7 @@
     /* TYPOGRAPHY */
     --typography-primary: var(--_grey-50);
     --typography-primary_on-brand: var(--_grey-50);
+    --typography-primary_on-solid: var(--_grey-900);
     --typography-secondary: var(--_grey-300);
     --typography-secondary_hover: var(--_grey-200);
     --typography-tertiary: var(--_grey-400);
@@ -722,12 +751,13 @@
     --chart-quaternary: var(--_brand-brightorange-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
-    --chart-senary: #7A0EBB;
-    --chart-septenary: #A03AE9;
-    --chart-octonary: #CA75FF;
+    --chart-senary: #7a0ebb;
+    --chart-septenary: #a03ae9;
+    --chart-octonary: #ca75ff;
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);
+    --foreground-primary_on-solid: var(--_grey-900);
     --foreground-secondary: var(--_grey-300);
     --foreground-secondary_hover: var(--_grey-200);
     --foreground-tertiary: var(--_grey-400);
@@ -739,7 +769,8 @@
     --foreground-senary: var(--_grey-600);
     --foreground-white: var(--_white);
     --foreground-disabled: var(--_grey-500-primary);
-    --foreground-brand-primary: var(--_brand-crystalizedviolet-500-primary);
+    --foreground-brand-primary: var(--_brand-crystalizedviolet-400);
+    --foreground-brand-primary_hover: var(--_brand-crystalizedviolet-500-primary);
     --foreground-brand-secondary: var(--_brand-crystalizedviolet-300);
     --foreground-brand-secondary_hover: var(--_brand-crystalizedviolet-200);
     --foreground-error: var(--_error-400);
@@ -752,7 +783,7 @@
     --background-primary_hover: var(--_grey-800);
     --background-primary_alt: var(--_grey-800);
     --background-primary_alt_hover: var(--_grey-700);
-    --background-primary-solid: var(--_grey-600);
+    --background-primary-solid: var(--_grey-25);
     --background-secondary: var(--_grey-900);
     --background-secondary_hover: var(--_grey-800);
     --background-secondary_alt: var(--_grey-700);
@@ -770,7 +801,7 @@
     --background-error-solid_hover: var(--_error-500-primary);
     --background-brand-primary: var(--_brand-crystalizedviolet-400);
     --background-brand-primary_alt: var(--_brand-crystalizedviolet-950);
-    --background-brand-primary-solid: var(--_brand-crystalizedviolet-400);
+    --background-brand-primary-solid: var(--_brand-crystalizedviolet-500-primary);
     --background-brand-primary-solid_hover: var(--_brand-crystalizedviolet-600);
     --background-brand-secondary: var(--_brand-crystalizedviolet-950);
     --background-warning: var(--_warning-500-primary);
@@ -783,7 +814,7 @@
     --background-success-solid_hover: var(--_success-500-primary);
 
     /* EFFECTS */
-    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-400);
+    --effects-focusrings-brand-spaced: var(--_brand-crystalizedviolet-500-primary);
     --effects-focusrings-brand-glued: var(--_alpha-crystalizedviolet-30);
     --effects-focusrings-error-spaced: var(--_error-500-primary);
     --effects-focusrings-error-glued: var(--_alpha-error-30);
@@ -836,6 +867,7 @@
     --utility-grey-700: var(--_grey-300);
     --utility-grey-800: var(--_grey-200);
     --utility-grey-900: var(--_grey-100);
+    --utility-grey-950: var(--_grey-50);
 
     /* UTILITY BRIGHT ORANGE */
     --utility-brand-brightorange-50: var(--_brand-brightorange-950);
@@ -848,6 +880,7 @@
     --utility-brand-brightorange-700: var(--_brand-brightorange-300);
     --utility-brand-brightorange-800: var(--_brand-brightorange-200);
     --utility-brand-brightorange-900: var(--_brand-brightorange-100);
+    --utility-brand-brightorange-950: var(--_brand-brightorange-50);
 
     /* UTILITY CRYSTALIZED VIOLET */
     --utility-brand-crystalizedviolet-50: var(--_brand-crystalizedviolet-950);
@@ -860,13 +893,7 @@
     --utility-brand-crystalizedviolet-700: var(--_brand-crystalizedviolet-300);
     --utility-brand-crystalizedviolet-800: var(--_brand-crystalizedviolet-200);
     --utility-brand-crystalizedviolet-900: var(--_brand-crystalizedviolet-100);
-
-    /* UTILITY SECONDARY */
-    --utility-secondary-blue-500: var(--_secondary-blue-500);
-    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
-    --utility-secondary-orange-500: var(--_secondary-orange-500);
-    --utility-secondary-green-500: var(--_secondary-green-500);
-    --utility-secondary-pink-500: var(--_secondary-pink-500);
+    --utility-brand-crystalizedviolet-950: var(--_brand-crystalizedviolet-50);
 
     /* UTILITY ELECTRIC ROYAL BLUE */
     --utility-brand-electricroyalblue-50: var(--_brand-electricroyalblue-950);
@@ -879,6 +906,7 @@
     --utility-brand-electricroyalblue-700: var(--_brand-electricroyalblue-300);
     --utility-brand-electricroyalblue-800: var(--_brand-electricroyalblue-200);
     --utility-brand-electricroyalblue-900: var(--_brand-electricroyalblue-100);
+    --utility-brand-electricroyalblue-950: var(--_brand-electricroyalblue-50);
 
     /* UTILITY CYAN */
     --utility-brand-cyan-50: var(--_brand-cyan-950);
@@ -891,6 +919,14 @@
     --utility-brand-cyan-700: var(--_brand-cyan-300);
     --utility-brand-cyan-800: var(--_brand-cyan-200);
     --utility-brand-cyan-900: var(--_brand-cyan-100);
+    --utility-brand-cyan-950: var(--_brand-cyan-50);
+
+    /* UTILITY SECONDARY */
+    --utility-secondary-blue-500: var(--_secondary-blue-500);
+    --utility-secondary-yellow-500: var(--_secondary-yellow-500);
+    --utility-secondary-orange-500: var(--_secondary-orange-500);
+    --utility-secondary-green-500: var(--_secondary-green-500);
+    --utility-secondary-pink-500: var(--_secondary-pink-500);
 
     /* UTILITY ERROR */
     --utility-error-50: var(--_error-950);
@@ -903,6 +939,7 @@
     --utility-error-700: var(--_error-300);
     --utility-error-800: var(--_error-200);
     --utility-error-900: var(--_error-100);
+    --utility-error-950: var(--_error-50);
 
     /* UTILITY WARNING */
     --utility-warning-50: var(--_warning-950);
@@ -915,6 +952,7 @@
     --utility-warning-700: var(--_warning-300);
     --utility-warning-800: var(--_warning-200);
     --utility-warning-900: var(--_warning-100);
+    --utility-warning-950: var(--_warning-50);
 
     /* UTILITY SUCCESS */
     --utility-success-50: var(--_success-950);
@@ -927,6 +965,24 @@
     --utility-success-700: var(--_success-300);
     --utility-success-800: var(--_success-200);
     --utility-success-900: var(--_success-100);
+    --utility-success-950: var(--_success-50);
+
+    /* UTILITY GRADIENT */
+    --utility-gradient-glassneon-glass-neon-1: #232e41;
+    --utility-gradient-glassneon-glass-neon-2: #232634;
+    --utility-gradient-glassneon-glass-neon-3: #231d2f;
+    --utility-gradient-glassneon-glass-neon-4: #231830;
+    --utility-gradient-glassneon-glass-neon-5: #2a0d3b;
+    --utility-gradient-glassneon-glass-neon-6: #1c0052;
+    --utility-gradient-glassneon-glass-neon-7: #270073;
+
+    --utility-gradient-app-bg-radial-1: var(--background-quaternary);
+    --utility-gradient-app-bg-radial-2: rgba(13, 18, 28, 0);
+    --utility-gradient-app-bg-linear-1-1: var(--utility-brand-crystalizedviolet-500-primary);
+    --utility-gradient-app-bg-linear-1-2: var(--background-quaternary);
+    --utility-gradient-app-bg-linear-2-1: #160d1c;
+    --utility-gradient-app-bg-linear-2-2: #26014a;
+    --utility-gradient-app-bg-linear-2-3: #250059;
 
     /** COMPONENTS BADGE **/
     --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
@@ -1023,9 +1079,51 @@
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-10);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
-/*--*/
+    /*--*/
     --scrollbar-thumb: var(--foreground-senary);
     --scrollbar-track: transparent;
+  }
+
+  @layer components {
+    .app_gradient {
+      position: relative;
+      background: linear-gradient(
+        180deg,
+        var(--utility-gradient-app-bg-linear-2-1) 0%,
+        var(--utility-gradient-app-bg-linear-2-2) 80%,
+        var(--utility-gradient-app-bg-linear-2-3) 100%
+      );
+    }
+
+    .app_gradient::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        100% 100% at 50% 100%,
+        var(--utility-gradient-app-bg-radial-2) 0%,
+        var(--utility-gradient-app-bg-radial-1) 100%
+      );
+    }
+
+    .app_gradient::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background: linear-gradient(
+        270deg,
+        var(--utility-gradient-app-bg-linear-1-1) 0%,
+        var(--utility-gradient-app-bg-linear-1-2) 10%,
+        var(--utility-gradient-app-bg-linear-1-1) 20%,
+        var(--utility-gradient-app-bg-linear-1-2) 35%,
+        var(--utility-gradient-app-bg-linear-1-1) 50%,
+        var(--utility-gradient-app-bg-linear-1-2) 58%,
+        var(--utility-gradient-app-bg-linear-1-1) 65%,
+        var(--utility-gradient-app-bg-linear-1-2) 81%,
+        var(--utility-gradient-app-bg-linear-1-1) 100%
+      );
+    }
   }
 
   /*DOM STYLES*/

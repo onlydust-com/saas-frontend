@@ -94,7 +94,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
         >
           <Paper
             border={"none"}
-            background={"quaternary"}
+            background={"transparent"}
             py={"none"}
             px={"none"}
             classNames={{

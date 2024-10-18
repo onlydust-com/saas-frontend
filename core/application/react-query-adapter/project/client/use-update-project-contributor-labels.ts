@@ -19,6 +19,7 @@ export function useUpdateProjectContributorLabels({
 > = {}) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
   const biStoragePort = bootstrap.getBiStoragePortForClient();
+  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -29,6 +30,11 @@ export function useUpdateProjectContributorLabels({
         onSuccess: async (data, variables, context) => {
           await queryClient.invalidateQueries({
             queryKey: biStoragePort.getBiContributors({}).tag,
+            exact: false,
+          });
+
+          await queryClient.invalidateQueries({
+            queryKey: issueStoragePort.getIssueApplicants({}).tag,
             exact: false,
           });
 

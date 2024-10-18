@@ -21,11 +21,11 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   closeProps,
   ...props
 }: BadgePort<C>) {
-  const { isDeletable, shape = "rounded", size = "sm", color } = props;
+  const { isDeletable, shape = "rounded", size = "sm", color, iconOnly } = props;
   const DefaultComponent = isDeletable ? "button" : "span";
   const Component = as || DefaultComponent;
 
-  const slots = BadgeDefaultVariants({ isDeletable, size, color, shape });
+  const slots = BadgeDefaultVariants({ isDeletable, size, color, shape, iconOnly });
   const showChildren = !!children || children === 0 || !!translate;
 
   return (

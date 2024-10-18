@@ -23,10 +23,13 @@ export function AmountSelector({
   allBudgets,
   onBudgetChange,
   readOnly,
+  showBudgetAmount = true,
 }: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
+
+  if (!budget) return null;
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { amount: formattedBudgetAmount } = moneyKernelPort.format({
@@ -34,7 +37,7 @@ export function AmountSelector({
     currency: budget.currency,
   });
   const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
+    amount: parseFloat(amount) * (budget.usdConversionRate ?? 0),
     currency: moneyKernelPort.getCurrency("USD"),
   });
 
@@ -64,6 +67,8 @@ export function AmountSelector({
     }
   }
 
+  const isFilled = !!Number(amount);
+
   return (
     <div className={"grid w-full gap-4 py-4"}>
       <div className={"grid gap-2"}>
@@ -79,34 +84,57 @@ export function AmountSelector({
             ref={inputRef}
             type="text"
             style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-typography-primary outline-none"}
-            value={amount}
+            className={cn(
+              "flex bg-transparent text-right font-medium text-typography-primary outline-none transition-colors",
+              {
+                "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
+              }
+            )}
+            value={isFilled ? amount : undefined}
             onChange={handleChangeAmount}
             readOnly={readOnly}
+            placeholder={"_"}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-typography-primary"}>{budget.currency.code}</span>
+            <span
+              className={cn("font-medium text-typography-primary transition-colors", {
+                "text-typography-tertiary": !isFilled,
+              })}
+            >
+              {budget.currency.code}
+            </span>
           </div>
         </div>
-        <Typo size={"md"} color={"secondary"} classNames={{ base: "text-center" }}>
+        <Typo
+          size={"md"}
+          color={"secondary"}
+          classNames={{
+            base: cn("text-center transition-all", {
+              "translate-y-3 opacity-0": !isFilled,
+            }),
+          }}
+        >
           {formattedUsdAmount} USD
         </Typo>
       </div>
 
-      <div>
-        <div className={"flex w-full justify-center"}>
+      <div className={"w-full overflow-hidden"}>
+        <div className={"flex justify-center overflow-hidden"}>
           <Button
             variant={"secondary"}
             size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
             canInteract={!readOnly}
+            classNames={{ base: "overflow-hidden", label: "flex-1 overflow-hidden" }}
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
               size={"sm"}
               title={{
-                children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
+                children: showBudgetAmount
+                  ? `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`
+                  : budget.currency.name,
               }}
             />
           </Button>

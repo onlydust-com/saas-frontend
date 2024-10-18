@@ -1,0 +1,29 @@
+{
+  "header": {
+    "title": "Link a contribution"
+  },
+  "footer": {
+    "button": "Validate"
+  },
+  "content": {
+    "select": {
+      "label": "Select",
+      "items": {
+        "issue": "Issue",
+        "pullRequest": "PR"
+      }
+    },
+    "url": {
+      "ISSUE": {
+        "label": "Add specific issue via URL",
+        "placeholder": "https://github.com/example/repo/issues/472",
+        "error": "Invalid issue URL"
+      },
+      "PULL_REQUEST": {
+        "label": "Add specific PR via URL",
+        "placeholder": "https://github.com/example/repo/pull/472",
+        "error": "Invalid pull request URL"
+      }
+    }
+  }
+}

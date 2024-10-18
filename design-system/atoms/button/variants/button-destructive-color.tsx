@@ -24,6 +24,7 @@ const ButtonDestructiveColortVariants = tv({
           "data-[hover=true]:bg-components-buttons-destructive-primary-bg-hover hover:bg-components-buttons-destructive-primary-bg-hover",
           "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
+        spinnerCircle: "border-b-components-buttons-destructive-primary-fg",
       },
       secondary: {
         base: [
@@ -34,6 +35,7 @@ const ButtonDestructiveColortVariants = tv({
           "data-[hover=true]:bg-components-buttons-destructive-secondary-bg-hover hover:bg-components-buttons-destructive-secondary-bg-hover",
           "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
+        spinnerCircle: "border-b-components-buttons-destructive-secondary-fg",
       },
       tertiary: {
         base: [
@@ -42,6 +44,7 @@ const ButtonDestructiveColortVariants = tv({
           "data-[hover=true]:bg-components-buttons-destructive-tertiary-bg-hover hover:bg-components-buttons-destructive-tertiary-bg-hover",
           "data-[focus-visible=true]:effect-ring-error-spaced focus-visible:effect-ring-error-spaced",
         ],
+        spinnerCircle: "border-b-components-buttons-destructive-tertiary-fg",
       },
     },
     isDisabled: {
@@ -66,6 +69,7 @@ export function ButtonDestructiveColor<C extends ElementType = "button">(props: 
     classNames: {
       ...(props.classNames || {}),
       base: cn(slotsDefault.base(), props.classNames?.base),
+      spinnerCircle: cn(slotsDefault.spinnerCircle(), props.classNames?.spinnerCircle),
     },
   });
 }

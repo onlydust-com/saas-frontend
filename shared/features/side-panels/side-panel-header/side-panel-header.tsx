@@ -15,6 +15,7 @@ export function SidePanelHeader({
   startContent,
   endContent,
   onClose,
+  onBack,
   titleEndContent,
 }: SidePanelHeaderProps) {
   const { back, close } = useSidePanelsContext();
@@ -26,25 +27,32 @@ export function SidePanelHeader({
     onClose?.();
   }
 
+  function handleBack() {
+    back();
+    onBack?.();
+  }
+
   return (
     <Paper
       as={"header"}
       background={"primary-alt"}
-      classNames={{ base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-b-none" }}
+      classNames={{
+        base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-b-none overflow-hidden",
+      }}
       py={"lg"}
       px={"xl"}
     >
       {showStartContent && (
         <div className={"flex flex-row items-center justify-start gap-1"}>
           {canGoBack && (
-            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={() => back()} />
+            <Button iconOnly variant="tertiary" size="sm" startIcon={{ component: ArrowLeft }} onClick={handleBack} />
           )}
           {startContent}
         </div>
       )}
       {title && (
-        <div className={"item-center flex flex-row justify-start gap-lg"}>
-          <Typo {...title} size={"xs"} weight={"medium"} variant={"heading"} />
+        <div className={"item-center flex flex-row justify-start gap-lg overflow-hidden"}>
+          <Typo {...title} size={"xs"} weight={"medium"} variant={"heading"} classNames={{ base: "overflow-hidden" }} />
           {titleEndContent}
         </div>
       )}

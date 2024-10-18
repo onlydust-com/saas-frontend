@@ -1,10 +1,12 @@
 import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data.hooks";
+import { ProjectTableFilters } from "@/app/data/deep-dive/_features/projects-table/projects-table";
 
 import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { AverageRewardCountFilter } from "@/shared/features/filters/average-reward-count-filter/average-reward-count-filter";
 import { BudgetAvailableCountFilter } from "@/shared/features/filters/budget-available-count-filter/budget-available-count-filter";
 import { BudgetUsedCountFilter } from "@/shared/features/filters/budget-used-count-filter/budget-used-count-filter";
@@ -24,13 +26,11 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useFilterData } from "./filter-data.context";
-
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useProjectFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ProjectTableFilters>();
 
   return (
     <Panel>
@@ -156,20 +156,6 @@ export function FilterData() {
             <Typo size={"sm"} color={"tertiary"} translate={{ token: "features:filters.onboardedDevCount.unit" }} />
           }
         />
-        {/*TODO @Mehdi check with backend how to handle this filter knowing that its the same that contributionsCount*/}
-        {/*<PrMergedCountFilter*/}
-        {/*  value={{*/}
-        {/*    amount: filters.prCount,*/}
-        {/*    type: getQuantityFilterType(filters.prCount),*/}
-        {/*  }}*/}
-        {/*  onChange={value =>*/}
-        {/*    setFilters({*/}
-        {/*      prCount: {*/}
-        {/*        ...value.amount,*/}
-        {/*      },*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*/>*/}
         <RewardCountFilter
           value={{
             amount: filters.rewardCount,

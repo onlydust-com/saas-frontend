@@ -1,4 +1,4 @@
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
 
 export enum QuantityFilterType {
   EQUAL = "EQUAL",
@@ -12,8 +12,12 @@ export enum UserFilterType {
   LEAD_PROGRAM = "LEAD_PROGRAM",
 }
 
-export type ContributionUnion = components["schemas"]["BiContributorsQueryParamsContributionCount"]["types"][0];
-export const ContributionFilterType: { [key in ContributionUnion]: key } = {
+export enum RewardedFilterType {
+  REWARDED = "REWARDED",
+  UNREWARDED = "UNREWARDED",
+}
+
+export const ContributionFilterType: { [key in ContributionTypeUnion]: key } = {
   ISSUE: "ISSUE",
   PULL_REQUEST: "PULL_REQUEST",
   CODE_REVIEW: "CODE_REVIEW",

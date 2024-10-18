@@ -42,6 +42,7 @@ const ButtonTextPrimaryColorVariants = tv({
           "data-[hover=true]:text-components-textbutton-primary-fg-hover hover:text-components-textbutton-primary-fg-hover",
           "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
+        spinnerCircle: "border-b-components-textbutton-primary-fg",
       },
       secondary: {
         base: [
@@ -49,6 +50,7 @@ const ButtonTextPrimaryColorVariants = tv({
           "data-[hover=true]:text-components-textbutton-secondary-fg-hover hover:text-components-textbutton-secondary-fg-hover",
           "data-[focus-visible=true]:effect-ring-brand-spaced focus-visible:effect-ring-brand-spaced",
         ],
+        spinnerCircle: "border-b-components-secondary-primary-fg",
       },
       tertiary: {
         base: "",
@@ -84,6 +86,7 @@ export function ButtonTextPrimaryColor<C extends ElementType = "button">(props: 
     classNames: {
       ...(props.classNames || {}),
       base: cn(slotsDefault.base(), props.classNames?.base),
+      spinnerCircle: cn(slotsDefault.spinnerCircle(), props.classNames?.spinnerCircle),
     },
   });
 }

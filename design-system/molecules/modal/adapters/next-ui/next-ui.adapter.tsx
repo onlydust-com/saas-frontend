@@ -21,12 +21,12 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
   footer,
   canDismiss = true,
   hideHeader = false,
-  placement,
+  placement = "center",
   size,
-  container,
+  background,
 }: ModalPort<C>) {
   const Inner = as || "div";
-  const slots = ModalNextUiVariants({ size, container });
+  const slots = ModalNextUiVariants({ size, background });
   const hasTitle = Boolean(titleProps?.translate || titleProps?.children);
 
   return (
@@ -34,6 +34,7 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       classNames={{
         base: cn(slots.modal(), classNames?.modal),
         body: cn(slots.body(), classNames?.body),
+        wrapper: "overflow-hidden p-[5%]",
         backdrop: cn(slots.backdrop(), classNames?.backdrop),
         header: cn(slots.header(), classNames?.header),
         footer: cn(slots.footer(), classNames?.footer),
@@ -48,12 +49,27 @@ export function ModalNextUiAdapter<C extends ElementType = "div">({
       <ModalContent>
         {onClose => (
           <>
-            <Inner {...(htmlProps ?? {})}>
+            <Inner {...(htmlProps ?? {})} className={cn(slots.wrapper(), classNames?.wrapper)}>
               {!hideHeader && (
                 <ModalHeader className={"empty:hidden"}>
-                  {hasTitle ? <Typo {...titleProps} classNames={{ base: "truncate" }} /> : null}
+                  {hasTitle ? (
+                    <Typo
+                      {...titleProps}
+                      variant="heading"
+                      size="xs"
+                      weight="medium"
+                      classNames={{ base: "truncate" }}
+                    />
+                  ) : null}
                   {canDismiss ? (
-                    <Button {...closeButtonProps} iconOnly startIcon={{ component: X }} onClick={onClose} />
+                    <Button
+                      {...closeButtonProps}
+                      iconOnly
+                      size="sm"
+                      variant="tertiary"
+                      startIcon={{ component: X }}
+                      onClick={onClose}
+                    />
                   ) : null}
                 </ModalHeader>
               )}
