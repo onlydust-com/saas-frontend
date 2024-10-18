@@ -16,4 +16,5 @@ export interface TabsPort extends Partial<Variants> {
   layout?: "horizontal" | "vertical";
   selectedId?: string;
   onTabClick?: (id: string) => void;
+  searchParams?: string;
 }

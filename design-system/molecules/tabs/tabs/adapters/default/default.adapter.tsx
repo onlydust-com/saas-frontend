@@ -1,6 +1,10 @@
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 import { TabItem } from "@/design-system/molecules/tabs/tab-item";
 
 import { cn } from "@/shared/helpers/cn";
+import { useUpdateSearchParams } from "@/shared/hooks/router/use-update-search-params";
 
 import { TabsPort } from "../../tabs.types";
 import { TabsDefaultVariants } from "./default.variants";
@@ -14,14 +18,30 @@ export function TabsDefaultAdapter({
   onTabClick,
   isFullWidth = false,
   layout = "horizontal",
+  searchParams,
 }: TabsPort) {
   const slots = TabsDefaultVariants({ layout, variant, isFullWidth });
+  const updateSearchParams = useUpdateSearchParams();
+  const getSearchParams = useSearchParams();
 
   function handleTabClick(id: string) {
     if (selectedId !== id) {
-      onTabClick?.(id);
+      if (searchParams) {
+        updateSearchParams(searchParams, id);
+      } else {
+        onTabClick?.(id);
+      }
     }
   }
+
+  useEffect(() => {
+    if (getSearchParams) {
+      const id = getSearchParams.get(searchParams);
+      if (id && id !== selectedId) {
+        onTabClick?.(id);
+      }
+    }
+  }, [getSearchParams]);
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
