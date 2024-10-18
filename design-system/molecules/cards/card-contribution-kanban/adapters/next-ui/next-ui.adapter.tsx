@@ -194,8 +194,15 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       border={border}
       onClick={onClick}
     >
-      <header className={"flex items-start justify-between gap-lg"}>
-        <Typo size={"xs"} weight={"medium"}>
+      <header className={"flex w-full items-start justify-between gap-lg overflow-hidden"}>
+        <Typo
+          htmlProps={{ title: githubTitle }}
+          size={"xs"}
+          weight={"medium"}
+          classNames={{
+            base: "text-wrap line-clamp-2",
+          }}
+        >
           {githubTitle}
         </Typo>
 
