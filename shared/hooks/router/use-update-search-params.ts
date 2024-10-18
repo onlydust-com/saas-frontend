@@ -5,13 +5,15 @@ export const useUpdateSearchParams = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  return useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-      router.replace(pathname + "?" + params.toString());
-      return params.toString();
-    },
-    [searchParams]
-  );
+  return {
+    updateSearchParams: useCallback(
+      (key: string, value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set(key, value);
+        router.push(`${pathname}?${params.toString()}`);
+      },
+      [pathname, router, searchParams]
+    ),
+    searchParams,
+  };
 };

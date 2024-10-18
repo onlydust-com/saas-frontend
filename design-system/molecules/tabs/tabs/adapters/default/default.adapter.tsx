@@ -1,4 +1,3 @@
-import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import { TabItem } from "@/design-system/molecules/tabs/tab-item";
@@ -21,8 +20,8 @@ export function TabsDefaultAdapter({
   searchParams,
 }: TabsPort) {
   const slots = TabsDefaultVariants({ layout, variant, isFullWidth });
-  const updateSearchParams = useUpdateSearchParams();
-  const getSearchParams = useSearchParams();
+  const { updateSearchParams, searchParams: getSearchParams } = useUpdateSearchParams();
+  const navigationParams = searchParams ? getSearchParams.get(searchParams) : undefined;
 
   function handleTabClick(id: string) {
     if (selectedId !== id) {
@@ -35,13 +34,10 @@ export function TabsDefaultAdapter({
   }
 
   useEffect(() => {
-    if (searchParams) {
-      const id = getSearchParams.get(searchParams);
-      if (id && id !== selectedId) {
-        onTabClick?.(id);
-      }
+    if (navigationParams && navigationParams !== selectedId) {
+      onTabClick?.(navigationParams);
     }
-  }, [getSearchParams, searchParams]);
+  }, [navigationParams]);
 
   return (
     <div className={cn(slots.base(), classNames?.base)}>
