@@ -1,4 +1,5 @@
 import { Github } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
@@ -7,12 +8,31 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { useContributionActions } from "@/shared/hooks/contributions/use-contribution-actions";
+import { useGithubPermissions } from "@/shared/hooks/github-permissions/use-github-permissions";
+import { GithubPermissionModal } from "@/shared/modals/github-permission-modal/github-permission-modal";
 import { ManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal";
 import { useManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.hooks";
 import { FooterProps } from "@/shared/panels/contribution-sidepanel/_features/footer/footer.types";
 
 export function Footer({ contribution }: FooterProps) {
-  const { isOpen, setIsOpen } = useManageApplicantsModal();
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+  const { isOpen: isManageApplicantsModalOpen, setIsOpen: setIsManageApplicantsModalOpen } = useManageApplicantsModal();
+
+  const {
+    isProjectOrganisationMissingPermissions,
+    handleRedirectToGithubFlow,
+    isGithubPermissionModalOpen,
+    setIsGithubPermissionModalOpen,
+  } = useGithubPermissions({ projectSlug, repoId: contribution.repo.id });
+
+  function HandleManageApplicants() {
+    if (isProjectOrganisationMissingPermissions) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+
+    setIsManageApplicantsModalOpen(true);
+  }
 
   const actions = useContributionActions(contribution) as ButtonPort<"button">[];
 
@@ -26,8 +46,19 @@ export function Footer({ contribution }: FooterProps) {
         <Button
           size={"md"}
           variant={"secondary"}
-          onClick={() => setIsOpen(true)}
+          onClick={HandleManageApplicants}
           translate={{ token: "panels:contribution.footer.actions.manageInFullPage" }}
+        />
+      );
+    }
+
+    if (contribution?.isInProgress() && isProjectOrganisationMissingPermissions) {
+      return (
+        <Button
+          size={"md"}
+          variant={"secondary"}
+          onClick={() => setIsGithubPermissionModalOpen(true)}
+          translate={{ token: "features:cardContributionKanban.actions.unassign" }}
         />
       );
     }
@@ -57,9 +88,14 @@ export function Footer({ contribution }: FooterProps) {
 
         {renderContributionActions}
       </div>
+      <GithubPermissionModal
+        onRedirect={handleRedirectToGithubFlow}
+        isOpen={isGithubPermissionModalOpen}
+        onOpenChange={setIsGithubPermissionModalOpen}
+      />
       <ManageApplicantsModal
-        isOpen={isOpen}
-        onOpenChange={setIsOpen}
+        isOpen={isManageApplicantsModalOpen}
+        onOpenChange={setIsManageApplicantsModalOpen}
         // TODO - replace with real projectId
         projectId={"7d04163c-4187-4313-8066-61504d34fc56"}
         // TODO - rename prop to contributionGithubId
