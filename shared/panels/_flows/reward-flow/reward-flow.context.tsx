@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
@@ -35,6 +35,8 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
+  removeAmount: () => {},
+  amountPerCurrency: {},
   onCreateRewards: () => null,
   isCreatingRewards: false,
   addContributorId: () => {},
@@ -110,6 +112,31 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   function getAmount(githubUserId: number) {
     return rewardsState[githubUserId]?.amount ?? { amount: "0" };
+  }
+
+  function removeAmount(githubUserId: number) {
+    setRewardsState(prev => {
+      const newState = { ...prev };
+      newState[githubUserId].amount = undefined;
+      return newState;
+    });
+  }
+
+  function getAmountPerCurrency() {
+    return Object.values(rewardsState).reduce(
+      (acc, { amount }) => {
+        const currencyId = amount?.budget?.currency.id;
+
+        if (currencyId) {
+          acc[currencyId] = acc[currencyId] ?? { amount: 0 };
+          acc[currencyId].amount += Number(amount.amount);
+          acc[currencyId].budget = amount.budget;
+        }
+
+        return acc;
+      },
+      {} as Record<string, SelectedRewardsBudget>
+    );
   }
 
   /***************** CONTRIBUTIONS MANAGEMENT *****************/
@@ -190,6 +217,10 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   const selectedGithubUserIds = Object.keys(rewardsState).map(Number) ?? [];
 
+  const amountPerCurrency = useMemo(() => {
+    return getAmountPerCurrency();
+  }, [rewardsState]);
+
   return (
     <RewardFlowContext.Provider
       value={{
@@ -202,6 +233,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
         addContributions,
         updateAmount,
         getAmount,
+        removeAmount,
+        amountPerCurrency,
         addContributorId,
         removeContributorId,
         selectedGithubUserIds,

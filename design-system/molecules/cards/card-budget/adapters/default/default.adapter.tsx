@@ -63,7 +63,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
         classNames: { base: slots.description() },
         children: `~${descriptionMoney.amount} ${descriptionMoney.code}`,
       }}
-      actionSlot={badgeProps ? <Badge {...badgeProps} size="md" color={"grey"} /> : null}
+      actionSlot={badgeProps ? <Badge size="md" color={"grey"} {...badgeProps} /> : null}
     />
   );
 }

@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { bootstrap } from "@/core/bootstrap";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Accordion } from "@/design-system/molecules/accordion";
+import { CardBudget } from "@/design-system/molecules/cards/card-budget";
+
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -15,8 +18,13 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 function Content() {
   const { open } = useBulkContributionValidation();
   const { isOpen } = useBulkContributionSelection();
-  const { selectedGithubUserIds } = useRewardFlow();
+  const { selectedGithubUserIds, amountPerCurrency } = useRewardFlow();
   const [isRewardValid, setIsRewardValid] = useState<Record<number, boolean>>({});
+  const disableAmountConfirm = Boolean(
+    Object.values(amountPerCurrency).find(({ amount, budget }) => (budget ? Number(amount) > budget.amount : false))
+  );
+
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   useEffect(() => {
     setIsRewardValid(prev => {
@@ -40,6 +48,53 @@ function Content() {
     return Object.values(isRewardValid).every(Boolean);
   }, [isRewardValid]);
 
+  function renderTotalAmounts() {
+    const hasAmountPerCurrency = Object.keys(amountPerCurrency).length > 0;
+
+    if (hasAmountPerCurrency) {
+      return (
+        <Accordion
+          id={"reward-amounts"}
+          defaultSelected={["reward-amounts"]}
+          titleProps={{
+            translate: {
+              token: "panels:bulkContributionSelection.available",
+            },
+          }}
+        >
+          <div className={"grid gap-md"}>
+            {Object.values(amountPerCurrency).map(({ amount, budget }) => {
+              if (!budget) return null;
+
+              const isError = Number(amount) > budget.amount;
+
+              const { amount: formattedAmount, code } = moneyKernelPort.format({
+                amount: Number(amount),
+                currency: budget.currency,
+              });
+
+              return (
+                <CardBudget
+                  key={budget.currency.id}
+                  amount={{
+                    value: budget.amount,
+                    currency: budget.currency,
+                    usdEquivalent: budget.usdEquivalent ?? 0,
+                  }}
+                  background={"secondary"}
+                  border={"primary"}
+                  badgeProps={{ color: isError ? "error" : "brand", children: `- ${formattedAmount} ${code}` }}
+                />
+              );
+            })}
+          </div>
+        </Accordion>
+      );
+    }
+
+    return null;
+  }
+
   return (
     <>
       <SidePanelHeader
@@ -53,16 +108,22 @@ function Content() {
       />
 
       <SidePanelBody>
-        <ScrollView>
-          {isOpen && (
-            <div className={"flex w-full flex-col gap-lg"}>
-              {selectedGithubUserIds.map(githubUserId => (
-                <SingleUserFlow githubUserId={githubUserId} key={githubUserId} onValidate={handleValidate} />
-              ))}
-            </div>
-          )}
-        </ScrollView>
+        {renderTotalAmounts()}
+
+        {isOpen && (
+          <div className={"flex w-full flex-col gap-lg"}>
+            {selectedGithubUserIds.map(githubUserId => (
+              <SingleUserFlow
+                githubUserId={githubUserId}
+                key={githubUserId}
+                onValidate={handleValidate}
+                disableAmountConfirm={disableAmountConfirm}
+              />
+            ))}
+          </div>
+        )}
       </SidePanelBody>
+
       <SidePanelFooter>
         <Button
           variant={"secondary"}
