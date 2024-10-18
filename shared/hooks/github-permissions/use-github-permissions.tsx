@@ -16,11 +16,7 @@ export function useGithubPermissions({ projectSlug, repoId }: UseGithubPermissio
     enabled: enablePooling,
   });
 
-  const {
-    data: projectData,
-    isRefetching,
-    isLoading,
-  } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+  const { data: projectData, isRefetching } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
     options: {
       enabled: !!projectSlug,
