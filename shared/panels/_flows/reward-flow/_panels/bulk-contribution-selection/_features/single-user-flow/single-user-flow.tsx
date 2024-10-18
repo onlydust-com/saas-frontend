@@ -14,7 +14,7 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 
 import { SingleUserFlowProps } from "./single-user-flow.types";
 
-export function SingleUserFlow({ githubUserId, onValidate, disableAmountConfirm }: SingleUserFlowProps) {
+export function SingleUserFlow({ githubUserId, onValidate, isAmountValid }: SingleUserFlowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"select" | "amount">("select");
   const { getAmount, updateAmount, removeAmount, getSelectedContributions } = useRewardFlow();
@@ -64,7 +64,7 @@ export function SingleUserFlow({ githubUserId, onValidate, disableAmountConfirm 
     }
 
     if (step === "amount") {
-      return !budget || !Number(amount) || disableAmountConfirm;
+      return !budget || !Number(amount) || !isAmountValid;
     }
   }
 
