@@ -9,9 +9,21 @@ import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow
 import { useBulkContributorSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contributor-selection/bulk-contributor-selection.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
+import { useSingleContributionSelection } from "../single-contribution-selection/single-contribution-selection.hooks";
+
 function Content() {
   const { open: openBulkContributionSelection } = useBulkContributionSelection();
+  const { open: openSingleFlow } = useSingleContributionSelection();
+
   const { selectedGithubUserIds } = useRewardFlow();
+
+  function handleOpenFlow() {
+    if (selectedGithubUserIds.length === 1) {
+      openSingleFlow();
+    } else {
+      openBulkContributionSelection();
+    }
+  }
 
   return (
     <>
@@ -34,7 +46,7 @@ function Content() {
             token: "common:next",
           }}
           isDisabled={!selectedGithubUserIds?.length}
-          onClick={() => openBulkContributionSelection()}
+          onClick={() => handleOpenFlow()}
         />
       </SidePanelFooter>
     </>
