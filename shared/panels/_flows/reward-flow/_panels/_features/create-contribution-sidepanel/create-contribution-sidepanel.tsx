@@ -84,7 +84,7 @@ export function CreateContributionSidepanel() {
   } = form;
 
   function handleAddContribution(data: RewardableItemInterface) {
-    addOtherWorks([data.toContributionItemDto()], githubUserId);
+    addOtherWorks([data], githubUserId);
   }
 
   async function onSubmit(data: CreateContributionFormData) {

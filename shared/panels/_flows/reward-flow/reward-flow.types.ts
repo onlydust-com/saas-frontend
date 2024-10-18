@@ -4,6 +4,7 @@ import {
   ContributionItemDto,
   ContributionItemDtoInterface,
 } from "@/core/domain/contribution/dto/contribution-item-dto";
+import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 export interface RewardFlowContextProps extends PropsWithChildren {
@@ -20,7 +21,7 @@ export type RewardsState = Record<
   {
     contributions: ContributionItemDtoInterface[];
     amount?: SelectedRewardsBudget;
-    otherWorks?: ContributionItemDtoInterface[];
+    otherWorks?: RewardableItemInterface[];
   }
 >;
 
@@ -32,10 +33,10 @@ export interface startFlowProps {
 export interface RewardFlowContextInterface {
   projectId?: string;
   open: (props: startFlowProps) => void;
-  addOtherWorks: (otherWorks: ContributionItemDtoInterface[], githubUserId: number) => void;
+  addOtherWorks: (otherWorks: RewardableItemInterface[], githubUserId: number) => void;
   addContributions: (contributions: ContributionItemDtoInterface[], githubUserId: number) => void;
   removeContribution: (contribution: ContributionItemDtoInterface, githubUserId: number) => void;
-  getOtherWorks: (githubUserId: number) => ContributionItemDto[];
+  getOtherWorks: (githubUserId: number) => RewardableItemInterface[];
   getSelectedContributions: (githubUserId: number) => ContributionItemDto[];
   updateAmount: (githubUserId: number, amount: SelectedRewardsBudget) => void;
   getAmount: (githubUserId: number) => SelectedRewardsBudget;
