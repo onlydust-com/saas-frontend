@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
+import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
@@ -18,20 +19,27 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { useRewardFlow } from "../../../reward-flow.context";
 import { useCreateContributionSidepanel } from "./create-contribution-sidepanel.hooks";
-import { CreateContributionFormData, createContributionFormValidation } from "./create-contribution-sidepanel.types";
+import {
+  CreateContributionFormData,
+  CreateContributionSidePanelData,
+  createContributionFormValidation,
+} from "./create-contribution-sidepanel.types";
 
 export function CreateContributionSidepanel() {
   const { t } = useTranslation("panels");
 
   const { name } = useCreateContributionSidepanel();
   const { Panel, back } = useSidePanel({ name });
+  const { githubUserId } = useSinglePanelData<CreateContributionSidePanelData>(name) ?? {
+    githubUserId: 0,
+  };
 
-  const { projectId } = useRewardFlow();
+  const { projectId, addOtherWorks } = useRewardFlow();
 
   const { data: project } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: {
@@ -75,10 +83,15 @@ export function CreateContributionSidepanel() {
     formState: { isValid },
   } = form;
 
-  function onSubmit(data: CreateContributionFormData) {
-    addOtherWork(data);
-    reset();
+  function handleAddContribution(data: RewardableItemInterface) {
+    addOtherWorks([data.toContributionItemDto()], githubUserId);
+  }
 
+  async function onSubmit(data: CreateContributionFormData) {
+    const response = await addOtherWork(data);
+    handleAddContribution(response);
+
+    reset();
     back();
   }
 

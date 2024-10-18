@@ -1,8 +1,11 @@
+import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type RewardableItemResponse = components["schemas"]["RewardableItemResponse"];
 
-export interface RewardableItemInterface extends RewardableItemResponse {}
+export interface RewardableItemInterface extends RewardableItemResponse {
+  toContributionItemDto(): ContributionItemDto;
+}
 
 export class RewardableItem implements RewardableItemInterface {
   author!: RewardableItemResponse["author"];
@@ -25,5 +28,15 @@ export class RewardableItem implements RewardableItemInterface {
 
   constructor(props: RewardableItemResponse) {
     Object.assign(this, props);
+  }
+
+  toContributionItemDto(): ContributionItemDto {
+    return new ContributionItemDto({
+      type: this.type,
+      id: this.id,
+      githubId: Number(this.id),
+      number: this.number,
+      repoId: this.repoId,
+    });
   }
 }

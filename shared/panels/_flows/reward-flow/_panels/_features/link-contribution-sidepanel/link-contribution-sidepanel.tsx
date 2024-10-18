@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
+import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -15,11 +16,11 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
-import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 
 import { useRewardFlow } from "../../../reward-flow.context";
 import { useLinkContributionSidepanel } from "./link-contribution-sidepanel.hooks";
-import { ContributionType } from "./link-contribution-sidepanel.types";
+import { ContributionType, LinkContributionSidePanelData } from "./link-contribution-sidepanel.types";
 
 export function LinkContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -30,8 +31,11 @@ export function LinkContributionSidepanel() {
 
   const { name } = useLinkContributionSidepanel();
   const { Panel, back } = useSidePanel({ name });
+  const { githubUserId } = useSinglePanelData<LinkContributionSidePanelData>(name) ?? {
+    githubUserId: 0,
+  };
 
-  const { projectId } = useRewardFlow();
+  const { projectId, addOtherWorks } = useRewardFlow();
 
   const urlKernelPort = bootstrap.getUrlKernelPort();
 
@@ -40,6 +44,11 @@ export function LinkContributionSidepanel() {
       pathParams: {
         projectId: projectId || "",
       },
+      options: {
+        onSuccess(data) {
+          handleAddContribution(data);
+        },
+      },
     });
 
   const { mutateAsync: addOtherPullRequest, isPending: isOtherPullRequestPending } =
@@ -47,7 +56,16 @@ export function LinkContributionSidepanel() {
       pathParams: {
         projectId: projectId || "",
       },
+      options: {
+        onSuccess(data) {
+          handleAddContribution(data);
+        },
+      },
     });
+
+  function handleAddContribution(data: RewardableItemInterface) {
+    addOtherWorks([data.toContributionItemDto()], githubUserId);
+  }
 
   function handleSubmit() {
     if (type === ContributionType.ISSUE) {

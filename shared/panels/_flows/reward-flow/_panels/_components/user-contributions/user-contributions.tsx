@@ -70,11 +70,15 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
 
   function handleMenuAction(id: string) {
     if (id === "link") {
-      openLinkContributionPanel();
+      openLinkContributionPanel({
+        githubUserId,
+      });
     }
 
     if (id === "create") {
-      openCreateContributionPanel();
+      openCreateContributionPanel({
+        githubUserId,
+      });
     }
   }
 

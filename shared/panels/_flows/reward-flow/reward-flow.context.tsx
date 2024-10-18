@@ -28,7 +28,9 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   projectId: "",
   open: () => {},
   removeContribution: () => {},
+  getOtherWorks: () => [],
   getSelectedContributions: () => [],
+  addOtherWorks: () => {},
   addContributions: () => {},
   updateAmount: () => {},
   getAmount: () => ({ amount: "", budget: undefined }),
@@ -72,6 +74,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
           acc[githubUserId] = {
             contributions: contributions ?? [],
             amount: undefined,
+            otherWorks: [],
           };
         }
         return acc;
@@ -110,8 +113,23 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** CONTRIBUTIONS MANAGEMENT *****************/
 
+  function getOtherWorks(githubUserId: number) {
+    return rewardsState[githubUserId]?.otherWorks || [];
+  }
+
   function getSelectedContributions(githubUserId: number) {
     return rewardsState[githubUserId]?.contributions || [];
+  }
+
+  // RewardableItem
+  function addOtherWorks(otherWorks: ContributionItemDtoInterface[], githubUserId: number) {
+    setRewardsState(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        otherWorks: Array.from(new Set([...(prev[githubUserId]?.otherWorks || []), ...otherWorks])),
+      },
+    }));
   }
 
   function addContributions(contributions: ContributionItemDtoInterface[], githubUserId: number) {
@@ -167,8 +185,10 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
       value={{
         projectId,
         open: onOpenFlow,
+        getOtherWorks,
         getSelectedContributions,
         removeContribution,
+        addOtherWorks,
         addContributions,
         updateAmount,
         getAmount,
