@@ -22,7 +22,7 @@ function Content() {
     setIsRewardValid(prev => {
       const newIsValid = { ...prev };
       selectedGithubUserIds.forEach(id => {
-        newIsValid[id] = false;
+        newIsValid[id] = prev[id] ?? false;
       });
       return newIsValid;
     });
