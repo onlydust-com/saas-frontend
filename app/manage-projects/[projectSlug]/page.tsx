@@ -73,7 +73,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
 
         <AnimatedColumn className="h-full">
           <ScrollView className="flex flex-col gap-md">
-            {openAlert ? <GithubMissingPermissionsAlert onClose={() => setOpenAlert(false)} /> : false}
+            {openAlert ? <GithubMissingPermissionsAlert onClose={() => setOpenAlert(false)} /> : null}
             <PageContent classNames={{ base: "flex-none" }}>
               <FinancialSection projectId={data?.id} />
             </PageContent>
