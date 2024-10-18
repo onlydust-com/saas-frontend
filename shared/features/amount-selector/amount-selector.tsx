@@ -66,6 +66,8 @@ export function AmountSelector({
     }
   }
 
+  const isFilled = !!Number(amount);
+
   return (
     <div className={"grid w-full gap-4 py-4"}>
       <div className={"grid gap-2"}>
@@ -81,16 +83,36 @@ export function AmountSelector({
             ref={inputRef}
             type="text"
             style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-typography-primary outline-none"}
-            value={amount}
+            className={cn(
+              "flex bg-transparent text-right font-medium text-typography-primary outline-none transition-colors",
+              {
+                "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
+              }
+            )}
+            value={isFilled ? amount : undefined}
             onChange={handleChangeAmount}
             readOnly={readOnly}
+            placeholder={"_"}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-typography-primary"}>{budget.currency.code}</span>
+            <span
+              className={cn("font-medium text-typography-primary transition-colors", {
+                "text-typography-tertiary": !isFilled,
+              })}
+            >
+              {budget.currency.code}
+            </span>
           </div>
         </div>
-        <Typo size={"md"} color={"secondary"} classNames={{ base: "text-center" }}>
+        <Typo
+          size={"md"}
+          color={"secondary"}
+          classNames={{
+            base: cn("text-center transition-all", {
+              "translate-y-3 opacity-0": !isFilled,
+            }),
+          }}
+        >
           {formattedUsdAmount} USD
         </Typo>
       </div>
