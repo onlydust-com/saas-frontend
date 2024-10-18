@@ -23,6 +23,7 @@ export function Footer({ contribution }: FooterProps) {
     handleRedirectToGithubFlow,
     isGithubPermissionModalOpen,
     setIsGithubPermissionModalOpen,
+    setEnablePooling,
   } = useGithubPermissions({ projectSlug, repoId: contribution.repo.id });
 
   function HandleManageApplicants() {
@@ -32,6 +33,7 @@ export function Footer({ contribution }: FooterProps) {
     }
 
     setIsManageApplicantsModalOpen(true);
+    setEnablePooling(false);
   }
 
   const actions = useContributionActions(contribution) as ButtonPort<"button">[];

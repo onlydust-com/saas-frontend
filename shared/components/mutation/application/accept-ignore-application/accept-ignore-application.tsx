@@ -21,6 +21,7 @@ export function AcceptIgnoreApplication({
     isGithubPermissionModalOpen,
     setIsGithubPermissionModalOpen,
     handleRedirectToGithubFlow,
+    setEnablePooling,
   } = useGithubPermissions({
     projectSlug,
     repoId,
@@ -56,6 +57,7 @@ export function AcceptIgnoreApplication({
       return;
     }
     accept({});
+    setEnablePooling(false);
   }
 
   const permissionModal = useMemo(() => {

@@ -54,5 +54,6 @@ export function useGithubPermissions({ projectSlug, repoId }: UseGithubPermissio
     handleRedirectToGithubFlow,
     isGithubPermissionModalOpen,
     setIsGithubPermissionModalOpen,
+    setEnablePooling,
   };
 }
