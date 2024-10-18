@@ -42,7 +42,7 @@ export type UserContributionsFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function UserContributions({ githubUserId, withScroll = false }: UserContributionsProps) {
+export function UserContributions({ githubUserId, containerHeight = undefined }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
   const { getSelectedContributions, addContributions, removeContribution } = useRewardFlow();
@@ -217,8 +217,8 @@ export function UserContributions({ githubUserId, withScroll = false }: UserCont
           />
         </nav>
 
-        {withScroll ? (
-          <div className={"h-[392px] overflow-hidden"}>
+        {containerHeight ? (
+          <div className={"overflow-hidden"} style={{ height: containerHeight }}>
             <ScrollView>{renderContributions()}</ScrollView>
           </div>
         ) : (

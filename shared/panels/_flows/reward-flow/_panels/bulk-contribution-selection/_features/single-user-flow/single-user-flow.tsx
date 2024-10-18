@@ -75,7 +75,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
       titleProps={{ children: data.login }}
       startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
     >
-      {step === "select" && <UserContributions githubUserId={githubUserId} withScroll={true} />}
+      {step === "select" && <UserContributions githubUserId={githubUserId} containerHeight={392} />}
       {step === "amount" && (
         <div className={"w-full overflow-hidden"}>
           <SingleUserAmountSelector
