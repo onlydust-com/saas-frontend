@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
@@ -43,7 +43,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
   const [rewardsState, setRewardsState] = useState<RewardsState>({});
   const { open: openSingleFlow } = useSingleContributionSelection();
   const { open: openBulkContributorFlow } = useBulkContributorSelection();
-  const { close } = useSidePanelsContext();
+  const { close, openedPanels } = useSidePanelsContext();
 
   /***************** LOCAL FUNCTIONS *****************/
   const { mutate, isPending } = RewardReactQueryAdapter.client.useCreateRewards({
@@ -159,6 +159,12 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
       })
     );
   }
+
+  useEffect(() => {
+    if (openedPanels.length === 0) {
+      setRewardsState({});
+    }
+  }, [openedPanels]);
 
   const selectedGithubUserIds = Object.keys(rewardsState).map(Number) ?? [];
 
