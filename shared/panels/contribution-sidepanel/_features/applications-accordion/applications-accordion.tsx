@@ -13,6 +13,7 @@ export function ApplicationsAccordion({
   ignoredApplicants,
   ignoredApplicantsCount,
   contributionGithubId,
+  repoId,
 }: ApplicationsAccordionProps) {
   const items = [
     {
@@ -25,7 +26,7 @@ export function ApplicationsAccordion({
       },
       content: activeApplicants?.map(activeApplicant => (
         <div key={activeApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={activeApplicant} contributionGithubId={contributionGithubId} />
+          <ApplicationCard application={activeApplicant} contributionGithubId={contributionGithubId} repoId={repoId} />
         </div>
       )),
     },
@@ -39,7 +40,7 @@ export function ApplicationsAccordion({
       },
       content: newApplicants?.map(newApplicant => (
         <div key={newApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={newApplicant} contributionGithubId={contributionGithubId} />
+          <ApplicationCard application={newApplicant} contributionGithubId={contributionGithubId} repoId={repoId} />
         </div>
       )),
     },
@@ -53,7 +54,12 @@ export function ApplicationsAccordion({
       },
       content: ignoredApplicants?.map(ignoredApplicant => (
         <div key={ignoredApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={ignoredApplicant} contributionGithubId={contributionGithubId} isIgnored />
+          <ApplicationCard
+            application={ignoredApplicant}
+            contributionGithubId={contributionGithubId}
+            repoId={repoId}
+            isIgnored
+          />
         </div>
       )),
     },

@@ -96,10 +96,10 @@ export function Footer({ contribution }: FooterProps) {
       <ManageApplicantsModal
         isOpen={isManageApplicantsModalOpen}
         onOpenChange={setIsManageApplicantsModalOpen}
-        // TODO - replace with real projectId
-        projectId={"7d04163c-4187-4313-8066-61504d34fc56"}
+        projectId={contribution?.project?.id}
         // TODO - rename prop to contributionGithubId
         issueId={contribution?.githubId}
+        repoId={contribution?.repo.id}
       />
     </SidePanelFooter>
   );

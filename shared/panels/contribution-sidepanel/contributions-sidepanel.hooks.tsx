@@ -37,7 +37,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
-        <AssignContributors contributionGithubId={contribution.githubId} />
+        <AssignContributors contributionGithubId={contribution.githubId} repoId={contribution.repo.id} />
       </>
     );
   }

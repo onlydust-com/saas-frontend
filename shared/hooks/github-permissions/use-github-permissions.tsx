@@ -11,7 +11,7 @@ export function useGithubPermissions({ projectSlug, repoId }: UseGithubPermissio
   const { isOpen: isGithubPermissionModalOpen, setIsOpen: setIsGithubPermissionModalOpen } = useGithubPermissionModal();
 
   const { refetchOnWindowFocus, refetchInterval, onRefetching } = usePooling({
-    limites: 20,
+    limit: 20,
     delays: 3000,
     enabled: enablePooling,
   });

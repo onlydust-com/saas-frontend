@@ -10,7 +10,7 @@ import { AcceptIgnoreApplication } from "@/shared/components/mutation/applicatio
 
 import { ApplicationCardProps } from "./application-card.types";
 
-export function ApplicationCard({ application, contributionGithubId, isIgnored }: ApplicationCardProps) {
+export function ApplicationCard({ application, contributionGithubId, isIgnored, repoId }: ApplicationCardProps) {
   const { applicationId = "", contributor, rewardCount, prCount } = application;
 
   return (
@@ -58,7 +58,11 @@ export function ApplicationCard({ application, contributionGithubId, isIgnored }
       </div>
 
       <div className="flex gap-md">
-        <AcceptIgnoreApplication applicationId={applicationId} contributionGithubId={contributionGithubId}>
+        <AcceptIgnoreApplication
+          applicationId={applicationId}
+          contributionGithubId={contributionGithubId}
+          repoId={repoId}
+        >
           {({ accept, isAccepting, ignore, isIgnoring }) => (
             <>
               {!isIgnored ? (

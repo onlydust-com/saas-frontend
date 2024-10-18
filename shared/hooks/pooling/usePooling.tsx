@@ -13,7 +13,7 @@ import {
   UsePoolingReturn,
 } from "./usePooling.type";
 
-export const usePooling = ({ limites, delays, enabled }: UsePoolingProps): UsePoolingReturn => {
+export const usePooling = ({ limit, delays, enabled }: UsePoolingProps): UsePoolingReturn => {
   const poolingCount = useRef(0);
   const [shouldRefetch, setShouldRefetch] = useState(false);
   const refetchOnWindowFocus = () => {
@@ -26,7 +26,7 @@ export const usePooling = ({ limites, delays, enabled }: UsePoolingProps): UsePo
     if (!enabled) {
       return 0;
     }
-    if (poolingCount.current < limites || shouldRefetch) {
+    if (poolingCount.current < limit || shouldRefetch) {
       setShouldRefetch(false);
       return delays;
     }
@@ -47,7 +47,7 @@ export const usePooling = ({ limites, delays, enabled }: UsePoolingProps): UsePo
       }
     },
     onForcePooling: () => {
-      poolingCount.current = limites;
+      poolingCount.current = limit;
     },
   };
 };

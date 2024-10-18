@@ -24,7 +24,7 @@ import {
 } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/filter-columns/filter-columns.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps) {
+export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsHookProps) {
   const { t } = useTranslation();
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -238,6 +238,7 @@ export function useFilterColumns({ projectId, onAssign }: FilterColumnsHookProps
           <div className={"flex gap-sm"}>
             <AcceptIgnoreApplication
               applicationId={applicationId}
+              repoId={repoId}
               acceptOptions={{
                 onSuccess: () => {
                   onAssign();
