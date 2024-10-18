@@ -76,7 +76,7 @@ export function SelectableContributorsAccordion() {
       <>
         {contributors?.map(contributor => (
           <ContributorProfileCheckbox
-            key={contributor.contributor.id}
+            key={contributor.contributor.githubUserId}
             contributor={contributor}
             value={selectedGithubUserIds?.includes(contributor.contributor.githubUserId)}
             onChange={checked => handleSelectedContributors(contributor.contributor.githubUserId, checked)}
