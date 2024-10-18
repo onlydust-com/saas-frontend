@@ -32,6 +32,7 @@ function Content() {
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
   const { amount, budget } = getAmount(selectedGithubUserId);
   const amountNumber = Number(amount);
+  const isRewardingDisabled = isCreatingRewards || amountNumber <= 0 || (budget && amountNumber > budget.amount);
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
   // TODO replace with /contributions with contribution ids once implemented
@@ -131,7 +132,7 @@ function Content() {
           translate={{
             token: "common:reward",
           }}
-          isDisabled={isCreatingRewards || amountNumber <= 0 || (budget && amountNumber > budget.amount)}
+          isDisabled={isRewardingDisabled}
           onClick={() => handleCreateRewards()}
         />
       </SidePanelFooter>
