@@ -8,7 +8,7 @@ export interface GithubOrganizationInterface
   repos: GithubRepoInterface[];
   isContainsRepo(repoIds: number[]): boolean;
   isInstalled(): boolean;
-  isMissionPermissions(): boolean;
+  isMissingPermissions(): boolean;
   addRepo(repo: GithubRepoInterface): void;
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
@@ -50,7 +50,7 @@ export class GithubOrganization implements GithubOrganizationInterface {
     return this.installationStatus !== "NOT_INSTALLED";
   }
 
-  isMissionPermissions() {
+  isMissingPermissions() {
     return this.installationStatus === "MISSING_PERMISSIONS";
   }
 

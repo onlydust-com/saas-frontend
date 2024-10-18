@@ -64,12 +64,12 @@ export class Project implements ProjectInterface {
   }
 
   isSomeOrganizationMissingPermissions() {
-    return this.organizations.some(organization => organization.isMissionPermissions());
+    return this.organizations.some(organization => organization.isMissingPermissions());
   }
 
   isRepoOrganizationMissingPermissions(repoId: number) {
     return this.organizations.some(
-      organization => organization.isContainsRepo([repoId]) && organization.isMissionPermissions()
+      organization => organization.isContainsRepo([repoId]) && organization.isMissingPermissions()
     );
   }
 }
