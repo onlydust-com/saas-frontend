@@ -75,11 +75,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
       titleProps={{ children: data.login }}
       startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
     >
-      {step === "select" && (
-        <div>
-          <UserContributions githubUserId={githubUserId} />
-        </div>
-      )}
+      {step === "select" && <UserContributions githubUserId={githubUserId} containerHeight={392} />}
       {step === "amount" && (
         <div className={"w-full overflow-hidden"}>
           <SingleUserAmountSelector
@@ -103,9 +99,9 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
         )}
         <Button
           size={"xs"}
-          variant={"secondary"}
+          variant={"primary"}
           onClick={handleValidate}
-          translate={{ token: "panels:bulkContributionSelection.validateButton" }}
+          translate={{ token: "panels:bulkContributionSelection.confirmButton" }}
           isDisabled={isValidateDisabled()}
         />
       </div>
