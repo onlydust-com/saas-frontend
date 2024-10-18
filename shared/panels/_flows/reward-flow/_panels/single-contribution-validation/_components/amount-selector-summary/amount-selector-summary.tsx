@@ -33,14 +33,14 @@ export function AmountSelectorSummary({ amount, budget, onAmountChange, onBudget
 
   useEffect(() => {
     if (isOpen && project) {
-      onBudgetChange(project.totalAvailable.totalPerCurrency?.[0]);
       onAmountChange("0");
+      onBudgetChange(project.totalAvailable.totalPerCurrency?.[0]);
       return;
     }
 
     if (!isOpen) {
-      onBudgetChange(undefined);
       onAmountChange("0");
+      onBudgetChange(undefined);
       return;
     }
   }, [isOpen, project]);

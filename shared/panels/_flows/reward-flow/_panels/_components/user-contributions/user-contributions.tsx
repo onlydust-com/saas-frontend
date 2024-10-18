@@ -96,7 +96,7 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
       },
     });
 
-  const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? undefined, [data]);
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   function handleSelectAll() {
@@ -172,9 +172,11 @@ export function UserContributions({ githubUserId }: UserContributionsProps) {
                 token: "common:contributions",
               }}
             />
-            <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
-              {totalItemNumber}
-            </Badge>
+            {typeof totalItemNumber !== "undefined" ? (
+              <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
+                {totalItemNumber}
+              </Badge>
+            ) : null}
           </div>
 
           <div className="flex items-center gap-md">
