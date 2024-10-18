@@ -7,8 +7,8 @@ export const ButtonDefaultVariants = tv({
     startIcon: "transition-color",
     endIcon: "transition-color",
     label: "transition-color whitespace-nowrap leading-none text-inherit",
-    spinner: "h-4 w-4",
-    spinnerCircle: "h-4 w-4",
+    spinner: "",
+    spinnerCircle: "",
   },
 
   variants: {

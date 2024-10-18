@@ -1,7 +1,7 @@
-import { Spinner } from "@nextui-org/react";
 import { ComponentProps, ElementType, SyntheticEvent, useMemo } from "react";
 
 import { Icon } from "@/design-system/atoms/icon";
+import { Spinner } from "@/design-system/atoms/spinner";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -60,12 +60,9 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
     if (isLoading) {
       return (
         <Spinner
-          color="default"
-          size="sm"
           classNames={{
-            wrapper: cn(slots.spinner(), classNames?.spinner),
-            circle2: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
-            circle1: cn(slots.spinnerCircle(), classNames?.spinnerCircle),
+            base: cn(classNames?.spinner),
+            circle: classNames?.spinnerCircle,
           }}
         />
       );
