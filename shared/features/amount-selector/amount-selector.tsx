@@ -23,6 +23,7 @@ export function AmountSelector({
   allBudgets,
   onBudgetChange,
   readOnly,
+  showBudgetAmount = true,
 }: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -118,20 +119,22 @@ export function AmountSelector({
       </div>
 
       <div className={"w-full overflow-hidden"}>
-        <div className={"flex w-full justify-center overflow-hidden"}>
+        <div className={"flex justify-center overflow-hidden"}>
           <Button
             variant={"secondary"}
             size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
             canInteract={!readOnly}
-            classNames={{ base: "w-full overflow-hidden", label: "flex-1 overflow-hidden" }}
+            classNames={{ base: "overflow-hidden", label: "flex-1 overflow-hidden" }}
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
               size={"sm"}
               title={{
-                children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
+                children: showBudgetAmount
+                  ? `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`
+                  : budget.currency.name,
               }}
             />
           </Button>

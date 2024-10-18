@@ -67,6 +67,7 @@ export function SingleUserAmountSelector({
       budget={budget}
       allBudgets={allBudgets}
       onBudgetChange={onBudgetChange}
+      showBudgetAmount={false}
     />
   );
 }

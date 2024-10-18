@@ -40,6 +40,8 @@ export interface RewardFlowContextInterface {
   getSelectedContributions: (githubUserId: number) => ContributionItemDto[];
   updateAmount: (githubUserId: number, amount: SelectedRewardsBudget) => void;
   getAmount: (githubUserId: number) => SelectedRewardsBudget;
+  removeAmount: (githubUserId: number) => void;
+  amountPerCurrency: Record<string, SelectedRewardsBudget>;
   onCreateRewards: () => void;
   isCreatingRewards: boolean;
   addContributorId: (contributorId: number) => void;

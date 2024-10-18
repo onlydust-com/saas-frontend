@@ -3,6 +3,7 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 interface BaseProps {
   amount: string;
   budget?: DetailedTotalMoneyTotalPerCurrency;
+  showBudgetAmount?: boolean;
 }
 
 interface AmountSelectorReadOnlyProps extends BaseProps {

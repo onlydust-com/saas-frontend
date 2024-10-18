@@ -14,10 +14,10 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 
 import { SingleUserFlowProps } from "./single-user-flow.types";
 
-export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps) {
+export function SingleUserFlow({ githubUserId, onValidate, isAmountValid }: SingleUserFlowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"select" | "amount">("select");
-  const { getAmount, updateAmount, getSelectedContributions } = useRewardFlow();
+  const { getAmount, updateAmount, removeAmount, getSelectedContributions } = useRewardFlow();
   const selectedContributions = getSelectedContributions(githubUserId);
   const { amount, budget } = getAmount(githubUserId);
 
@@ -44,6 +44,11 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
     return <Skeleton classNames={{ base: "h-[72px]" }} />;
   }
 
+  function handleBack() {
+    setStep("select");
+    removeAmount(githubUserId);
+  }
+
   function handleValidate() {
     if (step === "select") {
       setStep("amount");
@@ -59,7 +64,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
     }
 
     if (step === "amount") {
-      return !budget || !Number(amount);
+      return !budget || !Number(amount) || !isAmountValid;
     }
   }
 
@@ -91,7 +96,7 @@ export function SingleUserFlow({ githubUserId, onValidate }: SingleUserFlowProps
           <Button
             size={"xs"}
             variant={"secondary"}
-            onClick={() => setStep("select")}
+            onClick={handleBack}
             translate={{ token: "panels:bulkContributionSelection.back" }}
           />
         ) : (
