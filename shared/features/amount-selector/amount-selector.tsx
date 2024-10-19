@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useMemo, useRef } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
@@ -28,6 +28,14 @@ export function AmountSelector({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
+
+  const isFilled = !!Number(amount);
+
+  const formatedAmount = useMemo(() => {
+    if (!Number(amount)) return "";
+
+    return amount;
+  }, [amount]);
 
   if (!budget) return null;
 
@@ -67,8 +75,6 @@ export function AmountSelector({
     }
   }
 
-  const isFilled = !!Number(amount);
-
   return (
     <div className={"grid w-full gap-4 py-4"}>
       <div className={"grid gap-2"}>
@@ -90,7 +96,7 @@ export function AmountSelector({
                 "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
               }
             )}
-            value={isFilled ? amount : undefined}
+            value={formatedAmount}
             onChange={handleChangeAmount}
             readOnly={readOnly}
             placeholder={"_"}
