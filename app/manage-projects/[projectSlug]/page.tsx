@@ -77,7 +77,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
             <PageContent classNames={{ base: "flex-none" }}>
               <FinancialSection projectId={data?.id} />
             </PageContent>
-            <PageContent classNames={{ base: "overflow-hidden" }}>
+            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
               <ActivitySection projectId={data?.id} />
             </PageContent>
           </ScrollView>
