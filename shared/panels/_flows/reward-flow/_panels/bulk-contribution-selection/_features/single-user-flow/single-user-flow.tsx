@@ -14,8 +14,8 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 
 import { SingleUserFlowProps } from "./single-user-flow.types";
 
-export function SingleUserFlow({ githubUserId, onValidate, isAmountValid }: SingleUserFlowProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefaultOpen }: SingleUserFlowProps) {
+  const [isOpen, setIsOpen] = useState(isDefaultOpen);
   const [step, setStep] = useState<"select" | "amount">("select");
   const { getAmount, updateAmount, removeAmount, getSelectedContributions } = useRewardFlow();
   const selectedContributions = getSelectedContributions(githubUserId);
@@ -70,11 +70,14 @@ export function SingleUserFlow({ githubUserId, onValidate, isAmountValid }: Sing
 
   if (!data || isError) return null;
 
+  const accordionKey = `bulk-user-${githubUserId}`;
+
   return (
     <Accordion
-      id={`bulk-user-${githubUserId}`}
+      id={accordionKey}
+      defaultSelected={isDefaultOpen ? [accordionKey] : undefined}
       controlled={{
-        selectedKeys: [isOpen ? `bulk-user-${githubUserId}` : ""],
+        selectedKeys: [isOpen ? accordionKey : ""],
         onSelectionChange: () => setIsOpen(prev => !prev),
       }}
       titleProps={{ children: data.login }}
