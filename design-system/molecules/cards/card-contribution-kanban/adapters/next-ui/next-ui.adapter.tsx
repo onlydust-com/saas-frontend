@@ -110,7 +110,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderLinkedIssues() {
-    if (linkedIssues) {
+    if (linkedIssues && linkedIssues.length) {
       const linkedIssuesCount = linkedIssues?.length ?? 0;
 
       if (linkedIssuesCount === 1) {
