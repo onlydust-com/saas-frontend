@@ -97,6 +97,8 @@ export class MoneyAdapter implements MoneyFacadePort {
     return this.currencyCodeMapping.FIAT.includes(currency.code);
   };
 
+  maximumSignificantDigits = 12;
+
   private formatAmount = ({
     amount,
     decimals = 0,
@@ -108,14 +110,13 @@ export class MoneyAdapter implements MoneyFacadePort {
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
   }) => {
-    const { notation } = options;
-
     // Need this to have fixed decimal places for compact notation
-    const maximumFractionDigits = notation === "compact" ? 1 : decimals;
+    const maximumFractionDigits = options.notation === "compact" ? 1 : decimals;
 
     return new Intl.NumberFormat(locale, {
       maximumFractionDigits,
-      notation,
+      maximumSignificantDigits: this.maximumSignificantDigits,
+      ...options,
     })
       .format(amount)
       .toLowerCase();

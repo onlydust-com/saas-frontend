@@ -1,4 +1,4 @@
-import { CircleCheck, Filter, Plus } from "lucide-react";
+import { CircleCheck, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,6 +26,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data";
 import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.hooks";
@@ -44,7 +45,8 @@ export type UserContributionsFilters = Omit<
 export function UserContributions({ githubUserId, containerHeight = undefined }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
-  const { getSelectedContributions, addContributions, removeContribution, getOtherWorks } = useRewardFlow();
+  const { getSelectedContributions, addContributions, removeContribution, removeAllContributions, getOtherWorks } =
+    useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({
     types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
   });
@@ -55,8 +57,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
-
-  const filtersCount = Object.keys(filters)?.length;
 
   const menuItems: MenuItemPort[] = [
     {
@@ -101,15 +101,26 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       },
     });
 
-  const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? undefined, [data]);
+  const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
+  const totalMixedContributionsNumber = useMemo(
+    () => totalContrbutionsNumber + otherWorks.length,
+    [totalContrbutionsNumber, otherWorks]
+  );
+
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
   const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
-  function handleSelectAll() {
-    addContributions(
-      contributions.map(contribution => contribution.toItemDto()),
-      githubUserId
-    );
+  const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
+
+  function handleToggleSelectAll() {
+    if (canClearSelection) {
+      removeAllContributions(githubUserId);
+    } else {
+      addContributions(
+        mixedContributions.map(contribution => contribution.toItemDto()),
+        githubUserId
+      );
+    }
   }
 
   function handleSelect(contribution: ContributionItemDtoInterface, isSelected: boolean) {
@@ -129,7 +140,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       return <ErrorState />;
     }
 
-    if (!contributions.length) return <EmptyStateLite />;
+    if (!contributions.length && !otherWorks.length) return <EmptyStateLite />;
 
     return (
       <div className={"grid gap-lg"}>
@@ -178,9 +189,10 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
                 token: "common:contributions",
               }}
             />
-            {typeof totalItemNumber !== "undefined" ? (
+
+            {!isLoading ? (
               <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
-                {totalItemNumber}
+                {totalMixedContributionsNumber}
               </Badge>
             ) : null}
           </div>
@@ -190,9 +202,9 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               variant={"secondary"}
               size={"xs"}
               translate={{
-                token: "common:selectAll",
+                token: canClearSelection ? "common:clearSelection" : "common:selectAll",
               }}
-              onClick={handleSelectAll}
+              onClick={handleToggleSelectAll}
             />
 
             <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-end">
@@ -211,22 +223,12 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         <nav className={"flex gap-md"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
 
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
         </nav>
 
         {containerHeight ? (
-          <div className={"overflow-hidden"} style={{ height: containerHeight }}>
-            <ScrollView>{renderContributions()}</ScrollView>
+          <div className={"overflow-hidden"} style={{ maxHeight: containerHeight }}>
+            <ScrollView style={{ maxHeight: containerHeight }}>{renderContributions()}</ScrollView>
           </div>
         ) : (
           renderContributions()

@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 
 export interface FilterDataContextInterface<F extends object> {
   filters: F;
+  filterCount: number;
   setFilters: (filters: F) => void;
   saveFilters: () => void;
   resetFilters: () => void;

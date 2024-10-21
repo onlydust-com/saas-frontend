@@ -12,6 +12,7 @@ import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.co
 import { SingleUserAmountSelectorProps } from "./single-user-amount-selector.types";
 
 export function SingleUserAmountSelector({
+  id,
   amount,
   onAmountChange,
   onBudgetChange,
@@ -62,6 +63,7 @@ export function SingleUserAmountSelector({
 
   return (
     <AmountSelector
+      id={id}
       amount={amount}
       onAmountChange={onAmountChange}
       budget={budget}

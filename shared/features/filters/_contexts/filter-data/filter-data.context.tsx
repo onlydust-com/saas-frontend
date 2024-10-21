@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
 import { AnyType } from "@/core/kernel/types";
 
 import { FilterDataContextInterface, FilterDataProviderProps } from "./filter-data.types";
 
 export const FilterDataContext = createContext<FilterDataContextInterface<AnyType>>({
   filters: {},
+  filterCount: 0,
   setFilters: () => {},
   saveFilters: () => {},
   resetFilters: () => {},
@@ -15,6 +17,9 @@ export const FilterDataContext = createContext<FilterDataContextInterface<AnyTyp
 
 export function FilterDataProvider<F extends object>({ children, filters, setFilters }: FilterDataProviderProps<F>) {
   const [localFilters, setLocalFilters] = useState<F>(filters);
+
+  const validationKernelPort = bootstrap.getValidationKernelPort();
+  const filterCount = Object.values(filters)?.filter(value => !validationKernelPort.isInvalidValue(value)).length;
 
   function handleUpdateFilters(newFilters: F) {
     setLocalFilters({
@@ -40,6 +45,7 @@ export function FilterDataProvider<F extends object>({ children, filters, setFil
     <FilterDataContext.Provider
       value={{
         filters: localFilters,
+        filterCount,
         setFilters: handleUpdateFilters,
         saveFilters: handleSave,
         resetFilters: handleReset,

@@ -14,5 +14,6 @@ export type TableColumns =
 
 export interface FilterColumnsHookProps {
   projectId?: string;
+  repoId: number;
   onAssign: () => void;
 }

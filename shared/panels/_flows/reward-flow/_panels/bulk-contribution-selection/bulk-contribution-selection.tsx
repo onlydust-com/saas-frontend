@@ -113,12 +113,13 @@ function Content() {
 
         {isOpen && (
           <div className={"flex w-full flex-col gap-lg"}>
-            {selectedGithubUserIds.map(githubUserId => (
+            {selectedGithubUserIds.map((githubUserId, index) => (
               <SingleUserFlow
                 githubUserId={githubUserId}
                 key={githubUserId}
                 onValidate={handleValidate}
                 isAmountValid={!isAmountInvalid}
+                isDefaultOpen={index === 0}
               />
             ))}
           </div>

@@ -1,17 +1,16 @@
-import { Filter } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
 import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data";
 import { useSelectableContributorsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data.hooks";
@@ -31,8 +30,6 @@ export function SelectableContributorsAccordion() {
   const localSelectedContributorsIds = useRef(selectedGithubUserIds);
 
   const { open: openFilterPanel } = useSelectableContributorsFilterDataSidePanel();
-
-  const filtersCount = Object.keys(filters)?.length;
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
@@ -72,9 +69,13 @@ export function SelectableContributorsAccordion() {
       );
     }
 
+    if (!contributors.length) {
+      return <EmptyStateLite />;
+    }
+
     return (
       <>
-        {contributors?.map(contributor => (
+        {contributors.map(contributor => (
           <ContributorProfileCheckbox
             key={contributor.contributor.githubUserId}
             contributor={contributor}
@@ -92,18 +93,7 @@ export function SelectableContributorsAccordion() {
       <section className={"flex flex-col gap-lg"}>
         <nav className={"flex gap-md"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
         </nav>
       </section>
       <Accordion

@@ -1,13 +1,18 @@
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+
 import { AcceptApplicationProps } from "./accept-ignore-application.types";
 
 export function AcceptIgnoreApplication({
   applicationId,
   contributionGithubId,
+  repoId,
   children,
   acceptOptions,
 }: AcceptApplicationProps) {
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+
   const { mutate: accept, isPending: isAccepting } = ApplicationReactQueryAdapter.client.useAcceptApplication({
     pathParams: {
       applicationId,
@@ -32,5 +37,18 @@ export function AcceptIgnoreApplication({
     },
   });
 
-  return children({ accept: () => accept({}), isAccepting, ignore: () => ignore({ isIgnored: true }), isIgnoring });
+  function handleAccept() {
+    if (isProjectOrganisationMissingPermissions(repoId)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+    accept({});
+  }
+
+  return children({
+    accept: () => handleAccept(),
+    isAccepting,
+    ignore: () => ignore({ isIgnored: true }),
+    isIgnoring,
+  });
 }
