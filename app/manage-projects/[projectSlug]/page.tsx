@@ -12,7 +12,8 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { GithubMissingPermissionsAlert } from "@/shared/features/github-missing-permissions-alert/github-missing-permissions-alert";
+import { GithubMissingPermissionsAlert } from "@/shared/features/github-permissions/_components/github-missing-permissions-alert/github-missing-permissions-alert";
+import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { RewardFlowProvider } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
@@ -26,6 +27,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const [openAlert, setOpenAlert] = useState(false);
+  const [hasClosedAlert, setHasClosedAlert] = useState(false);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
@@ -41,10 +43,15 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
   });
 
   useEffect(() => {
-    if (projectData?.isSomeOrganizationMissingPermissions()) {
+    if (projectData?.isSomeOrganizationMissingPermissions() && !hasClosedAlert) {
       setOpenAlert(true);
     }
-  }, [projectData]);
+  }, [projectData, hasClosedAlert]);
+
+  function handleCloseAlert() {
+    setOpenAlert(false);
+    setHasClosedAlert(true);
+  }
 
   return (
     <PageWrapper
@@ -62,33 +69,35 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
         ],
       }}
     >
-      <RewardFlowProvider projectId={data?.id}>
-        <PosthogCaptureOnMount
-          eventName={"project_dashboard_viewed"}
-          params={{
-            project_id: data?.id,
-          }}
-          paramsReady={Boolean(data?.id)}
-        />
+      <GithubPermissionsProvider projectSlug={projectSlug}>
+        <RewardFlowProvider projectId={data?.id}>
+          <PosthogCaptureOnMount
+            eventName={"project_dashboard_viewed"}
+            params={{
+              project_id: data?.id,
+            }}
+            paramsReady={Boolean(data?.id)}
+          />
 
-        <AnimatedColumn className="h-full">
-          <ScrollView className="flex flex-col gap-md">
-            {openAlert ? <GithubMissingPermissionsAlert onClose={() => setOpenAlert(false)} /> : null}
-            <PageContent classNames={{ base: "flex-none" }}>
-              <FinancialSection projectId={data?.id} />
-            </PageContent>
-            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-              <ActivitySection projectId={data?.id} />
-            </PageContent>
-          </ScrollView>
-        </AnimatedColumn>
+          <AnimatedColumn className="h-full">
+            <ScrollView className="flex flex-col gap-md">
+              {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+              <PageContent classNames={{ base: "flex-none" }}>
+                <FinancialSection projectId={data?.id} />
+              </PageContent>
+              <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+                <ActivitySection projectId={data?.id} />
+              </PageContent>
+            </ScrollView>
+          </AnimatedColumn>
 
-        <FinancialDetailSidepanel />
-        <RewardDetailSidepanel />
-        <ContributorSidepanel />
-        <ProjectUpdateSidepanel />
-        <ContributionsSidepanel />
-      </RewardFlowProvider>
+          <FinancialDetailSidepanel />
+          <RewardDetailSidepanel />
+          <ContributorSidepanel />
+          <ProjectUpdateSidepanel />
+          <ContributionsSidepanel />
+        </RewardFlowProvider>
+      </GithubPermissionsProvider>
     </PageWrapper>
   );
 }

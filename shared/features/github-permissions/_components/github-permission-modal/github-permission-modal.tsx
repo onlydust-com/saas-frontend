@@ -6,7 +6,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Modal } from "@/design-system/molecules/modal";
 
-import { GithubPermissionModalProps } from "@/shared/modals/github-permission-modal/github-permission-modal.types";
+import { GithubPermissionModalProps } from "@/shared/features/github-permissions/_components/github-permission-modal/github-permission-modal.types";
 
 export function GithubPermissionModal({ isOpen, onOpenChange, onRedirect }: GithubPermissionModalProps) {
   return (

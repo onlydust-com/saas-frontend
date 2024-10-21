@@ -6,6 +6,7 @@ import { ContributionActivityStatus } from "@/core/domain/contribution/models/co
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -15,6 +16,8 @@ export const useContributionActions = (
   actions?: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
   const { open: openRewardFlow } = useRewardFlow();
+
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
   const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
@@ -34,6 +37,10 @@ export const useContributionActions = (
   }
 
   function onUnassign() {
+    if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
     // TODO UNASSIGN in kanban actions
     //mutate({ assignees: [] });
   }

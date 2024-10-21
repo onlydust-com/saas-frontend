@@ -13,6 +13,7 @@ export interface GithubOrganizationInterface
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
   getGithubInstallationUrl(): string;
+  getGithubAppInstallationPermissionsUpdateUrl(): string | undefined;
   search(search?: string | null): GithubOrganizationInterface | undefined;
 }
 
@@ -29,6 +30,7 @@ export class GithubOrganization implements GithubOrganizationInterface {
   installationId!: GithubOrganizationInterface["installationId"];
   installationStatus!: GithubOrganizationInterface["installationStatus"];
   repos!: GithubOrganizationInterface["repos"];
+  githubAppInstallationPermissionsUpdateUrl!: GithubOrganizationInterface["githubAppInstallationPermissionsUpdateUrl"];
 
   constructor({ repos, ...props }: GithubOrganizationResponse) {
     Object.assign(this, props);
@@ -68,6 +70,10 @@ export class GithubOrganization implements GithubOrganizationInterface {
 
   getGithubInstallationUrl() {
     return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}&state=generic-state-`;
+  }
+
+  getGithubAppInstallationPermissionsUpdateUrl() {
+    return this.githubAppInstallationPermissionsUpdateUrl;
   }
 
   search(search?: string | null) {
