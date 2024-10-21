@@ -44,7 +44,8 @@ export type UserContributionsFilters = Omit<
 export function UserContributions({ githubUserId, containerHeight = undefined }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
-  const { getSelectedContributions, addContributions, removeContribution, getOtherWorks } = useRewardFlow();
+  const { getSelectedContributions, addContributions, removeContribution, removeAllContributions, getOtherWorks } =
+    useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({
     types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
   });
@@ -105,11 +106,15 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
   const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
-  function handleSelectAll() {
-    addContributions(
-      contributions.map(contribution => contribution.toItemDto()),
-      githubUserId
-    );
+  function handleToggleSelectAll() {
+    if (selectedContributions.length === totalMixedContributionsNumber) {
+      removeAllContributions(githubUserId);
+    } else {
+      addContributions(
+        contributions.map(contribution => contribution.toItemDto()),
+        githubUserId
+      );
+    }
   }
 
   function handleSelect(contribution: ContributionItemDtoInterface, isSelected: boolean) {
@@ -192,7 +197,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               translate={{
                 token: "common:selectAll",
               }}
-              onClick={handleSelectAll}
+              onClick={handleToggleSelectAll}
             />
 
             <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-end">
