@@ -21,4 +21,6 @@ export class MoneyAdapterMock implements MoneyFacadePort {
       name: "",
     };
   }
+
+  maximumSignificantDigits = 12;
 }
