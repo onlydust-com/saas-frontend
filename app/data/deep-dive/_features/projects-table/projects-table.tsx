@@ -1,5 +1,4 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Filter } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
@@ -11,8 +10,6 @@ import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/pr
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiProjectsPortParams, GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -20,6 +17,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
 import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
@@ -92,8 +90,6 @@ export function ProjectsTable() {
     return <ErrorState />;
   }
 
-  const filtersCount = Object.keys(filters)?.length;
-
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
@@ -104,17 +100,7 @@ export function ProjectsTable() {
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
             buttonProps={{ size: "sm" }}
           />
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
           <PeriodFilter onChange={handleOnPeriodChange} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />

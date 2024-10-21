@@ -3,7 +3,7 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban";
 
 export interface CardContributionKanbanActions {
-  onAction?: (githubId: number) => void;
+  onAction?: (id: string) => void;
 }
 export interface CardContributionKanbanProps extends CardContributionKanbanActions {
   contribution: ContributionActivityInterface;

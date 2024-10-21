@@ -23,6 +23,7 @@ export interface DateFacadePort {
   compareDesc: (dateLeft: Date, dateRight: Date) => number;
   format: (date: Date, pattern: string) => string;
   formatDistanceToNow: (date: Date) => string;
+  isValid: (date: Date) => boolean;
   addMinutes: (date: Date, minutes: number) => Date;
   eachDayOfInterval: (start: Date, end: Date) => Date[];
   addDays: (date: Date, days: number) => Date;

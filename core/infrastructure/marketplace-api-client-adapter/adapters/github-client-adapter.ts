@@ -9,7 +9,7 @@ export class GithubClientAdapter implements GithubStoragePort {
 
   routes = {
     getMyOrganizations: "me/organizations",
-    updatePullRequest: "pull-requests/:pullRequestId",
+    updatePullRequest: "pull-requests/:contributionUuid",
   } as const;
 
   getMyOrganizations = ({ queryParams, pathParams }: FirstParameter<GithubStoragePort["getMyOrganizations"]>) => {

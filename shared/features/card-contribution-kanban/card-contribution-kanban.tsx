@@ -29,7 +29,7 @@ export function CardContributionKanban({
       githubLabels={contribution.githubLabels}
       actions={actionGroup}
       showActions={showActions}
-      onClick={() => actions?.onAction?.(contribution.githubId)}
+      onClick={() => actions?.onAction?.(contribution.id)}
     />
   );
 }

@@ -6,7 +6,7 @@ import { AcceptApplicationProps } from "./accept-ignore-application.types";
 
 export function AcceptIgnoreApplication({
   applicationId,
-  contributionGithubId,
+  contributionId,
   repoId,
   children,
   acceptOptions,
@@ -17,12 +17,12 @@ export function AcceptIgnoreApplication({
     pathParams: {
       applicationId,
     },
-    ...(contributionGithubId
+    ...(contributionId
       ? {
           invalidateTagParams: {
             contribution: {
               pathParams: {
-                contributionGithubId,
+                contributionId,
               },
             },
           },

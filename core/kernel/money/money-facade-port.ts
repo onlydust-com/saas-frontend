@@ -12,4 +12,5 @@ export interface MoneyFacadePort {
     uppercase?: boolean;
   }): { amount: string; code: Currency["code"] | undefined };
   getCurrency(code: Currency["code"]): Currency;
+  maximumSignificantDigits: number;
 }

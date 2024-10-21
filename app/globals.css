@@ -1064,7 +1064,7 @@
     --components-accordion-open-border: var(--utility-alpha-white-0);
 
     /** COMPONENTS TOOLTIP **/
-    --components-tooltip-typo: var(--_grey-300);
+    --components-tooltip-typo: var(--_grey-500-primary);
 
     /** COMPONENTS SWITCH **/
     --components-switch-pill-disabled: var(--utility-alpha-black-30);

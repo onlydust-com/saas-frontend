@@ -1,13 +1,10 @@
-import {
-  ContributionActivity,
-  ContributionActivityInterface,
-} from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type RewardableItemResponse = components["schemas"]["RewardableItemResponse"];
 
 export interface RewardableItemInterface extends RewardableItemResponse {
-  toContributionActivityModel(): ContributionActivityInterface;
+  toItemDto(): ContributionItemDto;
 }
 
 export class RewardableItem implements RewardableItemInterface {
@@ -33,37 +30,12 @@ export class RewardableItem implements RewardableItemInterface {
     Object.assign(this, props);
   }
 
-  toContributionActivityModel(): ContributionActivityInterface {
-    return new ContributionActivity({
-      activityStatus: "IN_PROGRESS",
-      applicants: [],
-      completedAt: this.completedAt,
-      contributors: [],
-      createdAt: this.createdAt,
-      githubAuthor: this.author ?? {
-        login: "",
-        avatarUrl: "",
-        githubUserId: 0,
-      },
-      githubBody: this.githubBody,
-      githubHtmlUrl: this.htmlUrl,
-      githubId: Number(this.id),
-      githubLabels: [],
-      githubNumber: this.number,
-      githubStatus: this.status,
-      githubTitle: this.title,
-      languages: [],
-      lastUpdatedAt: this.createdAt,
-      linkedIssues: [],
-      project: undefined,
-      repo: {
-        id: this.repoId,
-        owner: "",
-        name: this.repoName,
-        htmlUrl: "",
-      },
-      totalRewardedUsdAmount: 0,
+  toItemDto(): ContributionItemDto {
+    return new ContributionItemDto({
       type: this.type,
+      id: this.id,
+      number: this.number,
+      repoId: this.repoId,
     });
   }
 }

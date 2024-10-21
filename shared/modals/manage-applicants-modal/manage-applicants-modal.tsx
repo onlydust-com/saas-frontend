@@ -17,12 +17,12 @@ export function ManageApplicantsModal({
   isOpen,
   onOpenChange,
   projectId,
-  issueId = 0,
+  contributionId = "",
   repoId,
 }: ManageApplicantsModalProps) {
   const { data, isLoading, isError } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId },
-    options: { enabled: !!issueId && isOpen },
+    pathParams: { contributionUuid: contributionId },
+    options: { enabled: !!contributionId && isOpen },
   });
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
 
@@ -47,7 +47,7 @@ export function ManageApplicantsModal({
           <PageContent classNames={{ base: "h-full" }}>
             <ApplicantsTable
               projectId={projectId}
-              issueId={issueId}
+              contributionId={contributionId}
               repoId={repoId}
               onAssign={() => onOpenChange?.(false)}
             />

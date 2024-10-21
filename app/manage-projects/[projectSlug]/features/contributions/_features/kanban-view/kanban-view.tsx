@@ -33,7 +33,7 @@ function Column({
 }: {
   type: ContributionActivityStatusUnion;
   queryParams: Partial<GetContributionsQueryParams>;
-  onOpenContribution(githubId: number): void;
+  onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
   const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {

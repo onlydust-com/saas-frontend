@@ -5,7 +5,7 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
 export interface ContributionActivityInterface
-  extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees"> {
+  extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees" | "uuid"> {
   applicants: GithubUserInterface[];
   contributors: GithubUserInterface[];
   isNotAssigned(): boolean;
@@ -27,7 +27,6 @@ export class ContributionActivity implements ContributionActivityInterface {
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
   githubHtmlUrl!: ContributionActivityResponse["githubHtmlUrl"];
-  githubId!: ContributionActivityResponse["githubId"];
   githubLabels!: ContributionActivityResponse["githubLabels"];
   githubNumber!: ContributionActivityResponse["githubNumber"];
   githubStatus!: ContributionActivityResponse["githubStatus"];
@@ -39,13 +38,14 @@ export class ContributionActivity implements ContributionActivityInterface {
   repo!: ContributionActivityResponse["repo"];
   totalRewardedUsdAmount!: ContributionActivityResponse["totalRewardedUsdAmount"];
   type!: ContributionActivityResponse["type"];
-  id!: string;
+  id!: ContributionActivityResponse["uuid"];
+  githubId!: ContributionActivityResponse["githubId"];
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
     this.applicants = (props.applicants ?? []).map(applicant => new GithubUser(applicant));
     this.contributors = (props.contributors ?? []).map(contributor => new GithubUser(contributor));
-    this.id = props.githubId.toString();
+    this.id = props.uuid;
   }
 
   isNotAssigned(): boolean {
@@ -75,10 +75,10 @@ export class ContributionActivity implements ContributionActivityInterface {
   toItemDto(): ContributionItemDto {
     return new ContributionItemDto({
       type: this.type,
-      id: this.githubId?.toString(),
-      githubId: this.githubId,
+      id: this.githubId,
       number: this.githubNumber,
       repoId: this.repo?.id,
+      uuid: this.id,
     });
   }
 }

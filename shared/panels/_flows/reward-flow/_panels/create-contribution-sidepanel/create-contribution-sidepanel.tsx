@@ -83,7 +83,7 @@ export function CreateContributionSidepanel() {
   } = form;
 
   function handleAddContribution(data: RewardableItemInterface) {
-    addOtherWorks([data.toContributionActivityModel()], githubUserId);
+    addOtherWorks([data], githubUserId);
     reset();
     back();
   }

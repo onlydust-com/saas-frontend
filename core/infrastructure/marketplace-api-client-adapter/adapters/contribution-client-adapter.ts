@@ -14,7 +14,7 @@ export class ContributionClientAdapter implements ContributionStoragePort {
 
   routes = {
     getContributions: "contributions",
-    getContributionById: "contributions/:contributionGithubId",
+    getContributionById: "contributions/:contributionUuid",
     getContributionEvent: "contributions/:contributionId/events",
   } as const;
 

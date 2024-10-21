@@ -32,22 +32,18 @@ export function AmountSelector({
 
   const isFilled = !!Number(amount);
 
-  const formattedAmount = useMemo(() => {
-    if (!Number(amount)) return "";
-
-    return amount;
-  }, [amount]);
+  const inputWidth = useMemo(() => Math.min(Math.max(amount.length, 2), 50) + "ch", [amount]);
 
   if (!budget) return null;
 
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { amount: formattedBudgetAmount } = moneyKernelPort.format({
+  const { maximumSignificantDigits, format, getCurrency } = bootstrap.getMoneyKernelPort();
+  const { amount: formattedBudgetAmount } = format({
     amount: budget.amount,
     currency: budget.currency,
   });
-  const { amount: formattedUsdAmount } = moneyKernelPort.format({
+  const { amount: formattedUsdAmount } = format({
     amount: parseFloat(amount) * (budget.usdConversionRate ?? 0),
-    currency: moneyKernelPort.getCurrency("USD"),
+    currency: getCurrency("USD"),
   });
 
   function handleFocusInput() {
@@ -61,8 +57,21 @@ export function AmountSelector({
       // Only allow numbers and one dot
       value = value.replace(/[^\d.]/g, "");
 
-      if (value.length > 1 && value.startsWith("0")) {
+      // A single decimal is considered valid but will cause NaN errors
+      if (value === ".") {
+        return;
+      }
+
+      if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
         value = value.slice(1);
+      }
+
+      if (value.length > maximumSignificantDigits) {
+        return;
+      }
+
+      if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
+        return;
       }
 
       onAmountChange(value || "0");
@@ -90,17 +99,18 @@ export function AmountSelector({
           <input
             ref={inputRef}
             type="text"
-            style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
+            style={{ width: inputWidth }}
             className={cn(
               "flex bg-transparent text-right font-medium text-typography-primary outline-none transition-colors",
               {
                 "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
               }
             )}
-            value={formattedAmount}
+            value={amount}
             onChange={handleChangeAmount}
             readOnly={readOnly}
             placeholder={"_"}
+            autoFocus={!readOnly}
           />
           <div onClick={handleFocusInput}>
             <span

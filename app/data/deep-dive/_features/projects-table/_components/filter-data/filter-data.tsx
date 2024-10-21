@@ -17,7 +17,10 @@ import { GrantedCountFilter } from "@/shared/features/filters/granted-count-filt
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
 import { OnboardedDevCountFilter } from "@/shared/features/filters/onboarded-dev-count-filter/onboarded-dev-count-filter";
-import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
+import {
+  getQuantityFilterAmount,
+  getQuantityFilterType,
+} from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -171,7 +174,7 @@ export function FilterData() {
         />
         <ContributionsActivityFilter
           value={{
-            amount: filters.contributionCount,
+            amount: getQuantityFilterAmount(filters.contributionCount),
             type: getQuantityFilterType(filters.contributionCount),
             contributionType: filters.contributionCount?.types || [],
           }}
