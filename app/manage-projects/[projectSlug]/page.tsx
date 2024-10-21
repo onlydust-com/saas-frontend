@@ -1,7 +1,7 @@
 "use client";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ActivitySection } from "@/app/manage-projects/[projectSlug]/_sections/activity-section/activity-section";
 import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
@@ -27,7 +27,8 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const [openAlert, setOpenAlert] = useState(false);
-  const [hasClosedAlert, setHasClosedAlert] = useState(false);
+
+  const hasAlreadyClosedAlert = useRef(false);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
@@ -43,14 +44,14 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
   });
 
   useEffect(() => {
-    if (projectData?.isSomeOrganizationMissingPermissions() && !hasClosedAlert) {
+    if (projectData?.isSomeOrganizationMissingPermissions() && !hasAlreadyClosedAlert.current) {
       setOpenAlert(true);
     }
-  }, [projectData, hasClosedAlert]);
+  }, [projectData]);
 
   function handleCloseAlert() {
     setOpenAlert(false);
-    setHasClosedAlert(true);
+    hasAlreadyClosedAlert.current = true;
   }
 
   return (
