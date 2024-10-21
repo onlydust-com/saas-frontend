@@ -141,7 +141,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       return <ErrorState />;
     }
 
-    if (!contributions.length) return <EmptyStateLite />;
+    if (!contributions.length && !otherWorks.length) return <EmptyStateLite />;
 
     return (
       <div className={"grid gap-lg"}>
