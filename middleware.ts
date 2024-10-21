@@ -12,6 +12,12 @@ export default function middleware(req: NextRequest) {
     return NextResponse.rewrite(req.nextUrl);
   }
 
+  if (!inMaintenance && req.nextUrl.pathname === NEXT_ROUTER.splash.maintenance) {
+    req.nextUrl.pathname = NEXT_ROUTER.notFound;
+
+    return NextResponse.rewrite(req.nextUrl);
+  }
+
   return NextResponse.next();
 }
 
