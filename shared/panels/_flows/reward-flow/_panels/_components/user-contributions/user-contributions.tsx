@@ -225,8 +225,8 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         </nav>
 
         {containerHeight ? (
-          <div className={"overflow-hidden"} style={{ height: containerHeight }}>
-            <ScrollView>{renderContributions()}</ScrollView>
+          <div className={"overflow-hidden"} style={{ maxHeight: containerHeight }}>
+            <ScrollView style={{ maxHeight: containerHeight }}>{renderContributions()}</ScrollView>
           </div>
         ) : (
           renderContributions()
