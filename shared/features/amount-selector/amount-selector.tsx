@@ -38,6 +38,8 @@ export function AmountSelector({
     return amount;
   }, [amount]);
 
+  const inputWidth = useMemo(() => Math.min(Math.max(formattedAmount.length, 2), 50) + "ch", [formattedAmount]);
+
   if (!budget) return null;
 
   const { maximumSignificantDigits, format, getCurrency } = bootstrap.getMoneyKernelPort();
@@ -70,10 +72,11 @@ export function AmountSelector({
         value = value.slice(1);
       }
 
-      if (
-        (value.includes(".") && value.length > maximumSignificantDigits + 1) ||
-        value.length > maximumSignificantDigits
-      ) {
+      if (value.length > maximumSignificantDigits) {
+        return;
+      }
+
+      if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
         return;
       }
 
@@ -102,7 +105,7 @@ export function AmountSelector({
           <input
             ref={inputRef}
             type="text"
-            style={{ width: Math.min(Math.max(formattedAmount.length, 2), 50) + "ch" }}
+            style={{ width: inputWidth }}
             className={cn(
               "flex bg-transparent text-right font-medium text-typography-primary outline-none transition-colors",
               {

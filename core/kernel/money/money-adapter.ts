@@ -110,16 +110,13 @@ export class MoneyAdapter implements MoneyFacadePort {
     options?: Intl.NumberFormatOptions;
     locale?: Intl.LocalesArgument;
   }) => {
-    const { notation, ...restOptions } = options;
-
     // Need this to have fixed decimal places for compact notation
-    const maximumFractionDigits = notation === "compact" ? 1 : decimals;
+    const maximumFractionDigits = options.notation === "compact" ? 1 : decimals;
 
     return new Intl.NumberFormat(locale, {
       maximumFractionDigits,
-      notation,
       maximumSignificantDigits: this.maximumSignificantDigits,
-      ...restOptions,
+      ...options,
     })
       .format(amount)
       .toLowerCase();
