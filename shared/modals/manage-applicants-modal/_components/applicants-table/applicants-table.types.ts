@@ -9,7 +9,6 @@ export interface ContributorPanelFooterProps {
 export interface ApplicantsTableProps {
   projectId?: string;
   contributionId?: string;
-  issueId?: number;
   repoId: number;
   onAssign: () => void;
 }

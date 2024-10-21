@@ -16,7 +16,6 @@ export interface ContributionActivityInterface
   toItemDto(): ContributionItemDto;
   canLinkIssues(): boolean;
   id: string;
-  githubId: number;
 }
 
 export class ContributionActivity implements ContributionActivityInterface {
@@ -40,16 +39,13 @@ export class ContributionActivity implements ContributionActivityInterface {
   totalRewardedUsdAmount!: ContributionActivityResponse["totalRewardedUsdAmount"];
   type!: ContributionActivityResponse["type"];
   id!: ContributionActivityResponse["uuid"];
-  // TODO WHEN BACKEND WILL BE FIXED
-  githubId!: number;
+  githubId!: ContributionActivityResponse["githubId"];
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
     this.applicants = (props.applicants ?? []).map(applicant => new GithubUser(applicant));
     this.contributors = (props.contributors ?? []).map(contributor => new GithubUser(contributor));
     this.id = props.uuid;
-    // TODO WHEN BACKEND WILL BE FIXED
-    this.githubId = 0;
   }
 
   isNotAssigned(): boolean {
@@ -80,8 +76,7 @@ export class ContributionActivity implements ContributionActivityInterface {
   toItemDto(): ContributionItemDto {
     return new ContributionItemDto({
       type: this.type,
-      id: this.githubId?.toString(),
-      githubId: this.githubId,
+      id: this.githubId,
       number: this.githubNumber,
       repoId: this.repo?.id,
     });

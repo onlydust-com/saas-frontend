@@ -4,34 +4,34 @@ import { ApplicationsAccordion } from "@/shared/panels/contribution-sidepanel/_f
 import { AssignContributorsProps } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors.types";
 import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 
-export function AssignContributors({ contributionId, contributionGithubId, repoId }: AssignContributorsProps) {
+export function AssignContributors({ contributionId, repoId }: AssignContributorsProps) {
   const { data: applicationsActiveData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId: contributionGithubId },
+    pathParams: { contributionUuid: contributionId },
     queryParams: {
       isApplicantProjectMember: true,
     },
     options: {
-      enabled: !!contributionGithubId,
+      enabled: !!contributionId,
     },
   });
 
   const { data: applicationsNewData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId: contributionGithubId },
+    pathParams: { contributionUuid: contributionId },
     queryParams: {
       isApplicantProjectMember: false,
     },
     options: {
-      enabled: !!contributionGithubId,
+      enabled: !!contributionId,
     },
   });
 
   const { data: applicationsIgnoredData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { issueId: contributionGithubId },
+    pathParams: { contributionUuid: contributionId },
     queryParams: {
       isIgnored: true,
     },
     options: {
-      enabled: !!contributionGithubId,
+      enabled: !!contributionId,
     },
   });
 

@@ -6,6 +6,7 @@ import {
 import { IssueApplicant } from "@/core/domain/issue/models/issue-applicant-model";
 import { Issue } from "@/core/domain/issue/models/issue-model";
 import { IssueStoragePort } from "@/core/domain/issue/outputs/issue-storage-port";
+import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -14,8 +15,8 @@ export class IssueClientAdapter implements IssueStoragePort {
 
   routes = {
     getIssue: "issues/:issueId",
-    getIssueApplicants: "issues/:issueId/applicants",
-    updateIssue: "issues/:issueId",
+    getIssueApplicants: "issues/:contributionUuid/applicants",
+    updateIssue: "issues/:contributionUuid",
   } as const;
 
   getIssue = ({ pathParams }: FirstParameter<IssueStoragePort["getIssue"]>) => {
@@ -77,6 +78,7 @@ export class IssueClientAdapter implements IssueStoragePort {
         tag,
         pathParams,
         body: JSON.stringify(body),
+        version: MarketplaceApiVersion.v2,
       });
 
     return {

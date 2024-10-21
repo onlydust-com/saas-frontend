@@ -99,8 +99,7 @@ export function Footer({ contribution }: FooterProps) {
         isOpen={isManageApplicantsModalOpen}
         onOpenChange={setIsManageApplicantsModalOpen}
         projectId={contribution?.project?.id}
-        // TODO - rename prop to contributionGithubId
-        issueId={contribution?.githubId}
+        contributionId={contribution?.id}
         repoId={contribution?.repo.id}
       />
     </SidePanelFooter>

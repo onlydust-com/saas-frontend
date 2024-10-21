@@ -30,12 +30,10 @@ export class RewardableItem implements RewardableItemInterface {
     Object.assign(this, props);
   }
 
-  // TODO CHECK ID WITH BACKEND
   toItemDto(): ContributionItemDto {
     return new ContributionItemDto({
       type: this.type,
       id: this.id,
-      githubId: Number(this.id),
       number: this.number,
       repoId: this.repoId,
     });

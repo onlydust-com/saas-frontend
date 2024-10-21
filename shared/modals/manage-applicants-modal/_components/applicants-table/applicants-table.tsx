@@ -84,7 +84,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
   );
 }
 
-export function ApplicantsTable({ projectId, contributionId, onAssign, issueId, repoId }: ApplicantsTableProps) {
+export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useApplicantsFilterDataSidePanel();
   const [filters, setFilters] = useState<ApplicantsTableFilters>({});
@@ -117,9 +117,9 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, issueId, 
             <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
             <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           </nav>
-          <AccordionProjectContributors issueId={issueId} queryParams={queryParams} columns={columns} />
-          <AccordionNewContributors issueId={issueId} queryParams={queryParams} columns={columns} />
-          <AccordionIgnoredContributors issueId={issueId} queryParams={queryParams} columns={columns} />
+          <AccordionProjectContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+          <AccordionNewContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+          <AccordionIgnoredContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
         </div>
         <FilterData />
         <ContributorSidepanel
