@@ -27,7 +27,7 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 
 export type ApplicantsTableFilters = Omit<NonNullable<GetIssueApplicantsQueryParams>, "pageSize" | "pageIndex">;
 
-function Footer({ login, applicationId, contributionGithubId, repoId, onAssign }: ContributorPanelFooterProps) {
+function Footer({ login, applicationId, contributionId, repoId, onAssign }: ContributorPanelFooterProps) {
   return (
     <div className="flex w-full justify-between gap-lg">
       <div>
@@ -48,7 +48,7 @@ function Footer({ login, applicationId, contributionGithubId, repoId, onAssign }
         <div className="flex gap-lg">
           <AcceptIgnoreApplication
             applicationId={applicationId}
-            contributionGithubId={contributionGithubId}
+            contributionId={contributionId}
             repoId={repoId}
             acceptOptions={{
               onSuccess: () => {
@@ -84,7 +84,7 @@ function Footer({ login, applicationId, contributionGithubId, repoId, onAssign }
   );
 }
 
-export function ApplicantsTable({ projectId, issueId, onAssign, repoId }: ApplicantsTableProps) {
+export function ApplicantsTable({ projectId, contributionId, onAssign, issueId, repoId }: ApplicantsTableProps) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useApplicantsFilterDataSidePanel();
   const [filters, setFilters] = useState<ApplicantsTableFilters>({});
@@ -127,7 +127,7 @@ export function ApplicantsTable({ projectId, issueId, onAssign, repoId }: Applic
             <Footer
               login={data.login}
               applicationId={applicationId}
-              contributionGithubId={issueId}
+              contributionId={contributionId}
               repoId={repoId}
               onAssign={onAssign}
             />

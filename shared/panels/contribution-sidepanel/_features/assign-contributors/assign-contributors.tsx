@@ -4,7 +4,7 @@ import { ApplicationsAccordion } from "@/shared/panels/contribution-sidepanel/_f
 import { AssignContributorsProps } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors.types";
 import { Kpi } from "@/shared/panels/contribution-sidepanel/_features/kpi/kpi";
 
-export function AssignContributors({ contributionGithubId, repoId }: AssignContributorsProps) {
+export function AssignContributors({ contributionId, contributionGithubId, repoId }: AssignContributorsProps) {
   const { data: applicationsActiveData } = IssueReactQueryAdapter.client.useGetIssueApplicants({
     pathParams: { issueId: contributionGithubId },
     queryParams: {
@@ -57,7 +57,7 @@ export function AssignContributors({ contributionGithubId, repoId }: AssignContr
         newApplicantsCount={newApplicantsCount}
         ignoredApplicants={ignoredApplicants}
         ignoredApplicantsCount={ignoredApplicantsCount}
-        contributionGithubId={contributionGithubId}
+        contributionId={contributionId}
         repoId={repoId}
       />
     </>

@@ -6,13 +6,10 @@ import { ContributorProfileCompact } from "@/shared/features/contributors/contri
 
 import { AssigneesProps } from "./assignees.types";
 
-export function Assignees({ contributionGithubId, contributionType }: AssigneesProps) {
+export function Assignees({ contributionId }: AssigneesProps) {
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributors({
     queryParams: {
-      contributedTo: {
-        githubId: contributionGithubId,
-        type: contributionType,
-      },
+      contributedTo: [contributionId],
     },
   });
 

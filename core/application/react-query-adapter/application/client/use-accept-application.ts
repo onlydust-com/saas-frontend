@@ -16,7 +16,7 @@ export function useAcceptApplication({
   {
     contribution: {
       pathParams: {
-        contributionGithubId: number;
+        contributionId: string;
       };
     };
   }
@@ -32,10 +32,10 @@ export function useAcceptApplication({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (invalidateTagParams?.contribution.pathParams.contributionGithubId) {
+          if (invalidateTagParams?.contribution.pathParams.contributionId) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionGithubId: invalidateTagParams.contribution.pathParams.contributionGithubId },
+                pathParams: { contributionUuid: invalidateTagParams.contribution.pathParams.contributionId },
               }).tag,
               exact: false,
             });

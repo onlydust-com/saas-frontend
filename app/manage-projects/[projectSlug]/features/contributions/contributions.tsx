@@ -52,8 +52,8 @@ export function Contributions(_: ContributionsProps) {
     setToggleViews(view as typeof LIST | typeof KANBAN);
   }
 
-  function onOpenContribution(githubId: number) {
-    openContribution({ githubId });
+  function onOpenContribution(id: string) {
+    openContribution({ id });
   }
 
   const renderView = useMemo(() => {

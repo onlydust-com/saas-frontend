@@ -70,7 +70,7 @@ export function LinkContributionSidepanel() {
     });
 
   function handleAddContribution(data: RewardableItemInterface) {
-    addOtherWorks([data.toContributionActivityModel()], githubUserId);
+    addOtherWorks([data], githubUserId);
   }
 
   function handleSubmit() {

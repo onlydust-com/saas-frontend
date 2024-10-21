@@ -103,7 +103,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
 
   const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? undefined, [data]);
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
-  const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
   function handleSelectAll() {
     addContributions(
@@ -133,7 +132,28 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
 
     return (
       <div className={"grid gap-lg"}>
-        {mixedContributions.map(contribution => {
+        {otherWorks.map(contribution => {
+          const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
+          return (
+            <CardContributionKanban
+              key={contribution.id}
+              type={contribution.type}
+              githubTitle={contribution.title}
+              githubStatus={contribution.status}
+              githubNumber={contribution.number}
+              actions={[
+                {
+                  translate: { token: isSelected ? "common:unselect" : "common:select" },
+                  onClick: () => {
+                    handleSelect(contribution.toItemDto(), isSelected);
+                  },
+                },
+              ]}
+              border={isSelected ? "brand-primary" : undefined}
+            />
+          );
+        })}
+        {contributions.map(contribution => {
           const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
           return (
             <CardContributionKanban

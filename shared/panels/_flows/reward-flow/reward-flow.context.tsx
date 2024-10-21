@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 
 import { toast } from "@/design-system/molecules/toaster";
 
@@ -170,7 +170,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
     return rewardsState[githubUserId]?.otherWorks || [];
   }
 
-  function addOtherWorks(otherWorks: ContributionActivityInterface[], githubUserId: number) {
+  function addOtherWorks(otherWorks: RewardableItemInterface[], githubUserId: number) {
     setRewardsState(prev => ({
       ...prev,
       [githubUserId]: {
