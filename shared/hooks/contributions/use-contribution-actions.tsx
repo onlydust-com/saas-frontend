@@ -115,10 +115,14 @@ export const useContributionActions = (
           onClick: onArchive,
           isDisabled: isUpdatingPullRequest || isUpdatingIssue,
         },
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
-          onClick: onReward,
-        },
+        ...(contribution.totalRewardedUsdAmount !== 0
+          ? []
+          : [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
+                onClick: onReward,
+              },
+            ]),
       ];
     case ContributionActivityStatus.ARCHIVED:
       return [
