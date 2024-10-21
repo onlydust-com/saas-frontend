@@ -5,6 +5,7 @@ export type ContributionItemBody = components["schemas"]["RewardItemRequest"];
 export interface ContributionItemDtoInterface extends ContributionItemBody {
   isEqualTo(other: ContributionItemDtoInterface): boolean;
   toBody(): ContributionItemBody;
+  uuid?: string;
 }
 
 export class ContributionItemDto implements ContributionItemDtoInterface {
@@ -12,8 +13,9 @@ export class ContributionItemDto implements ContributionItemDtoInterface {
   id!: ContributionItemBody["id"];
   number!: ContributionItemBody["number"];
   repoId!: ContributionItemBody["repoId"];
+  uuid?: string;
 
-  constructor(props: ContributionItemBody) {
+  constructor(props: ContributionItemBody & { uuid?: string }) {
     Object.assign(this, props);
   }
 

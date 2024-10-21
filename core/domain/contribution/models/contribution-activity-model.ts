@@ -72,13 +72,13 @@ export class ContributionActivity implements ContributionActivityInterface {
     return this.type === "PULL_REQUEST";
   }
 
-  // TODO CHECK ID WITH BACKEND
   toItemDto(): ContributionItemDto {
     return new ContributionItemDto({
       type: this.type,
       id: this.githubId,
       number: this.githubNumber,
       repoId: this.repo?.id,
+      uuid: this.id,
     });
   }
 }
