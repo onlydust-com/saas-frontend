@@ -1,0 +1,10 @@
+{
+  "reward": {
+    "cancel": {
+      "toast": {
+        "success": "Reward canceled successfully.",
+        "error": "Error canceling reward."
+      }
+    }
+  }
+}

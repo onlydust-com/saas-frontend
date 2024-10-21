@@ -13,6 +13,7 @@ import { enTableSearchTranslation } from "@/design-system/molecules/table-search
 import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 import { enTableNavTranslation } from "@/design-system/organisms/table-nav/translations/table-nav.translate";
 
+import { enMutationTranslations } from "@/shared/components/mutation/_translations/mutation.translate";
 import { enFeaturesTranslations } from "@/shared/features/_translations/features.translate";
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
 import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/primary-navigation/_translations/primary-navigation.translate";
@@ -50,4 +51,5 @@ export const en = {
   ...enPanelsTranslation,
   ...enSplashTranslation,
   ...enModalsTranslation,
+  ...enMutationTranslations,
 };
