@@ -17,6 +17,7 @@ import { cn } from "@/shared/helpers/cn";
 import { AmountSelectorProps } from "./amount-selector.types";
 
 export function AmountSelector({
+  id,
   amount,
   onAmountChange,
   budget,
@@ -27,7 +28,7 @@ export function AmountSelector({
 }: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
+  const { Panel, open, back } = useSidePanel({ name: id ? `grant-budget-${id}` : "grant-budget" });
 
   const isFilled = !!Number(amount);
 
