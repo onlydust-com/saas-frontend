@@ -68,6 +68,7 @@
   "select": "Select",
   "unselect": "Unselect",
   "selectAll": "Select all",
+  "clearSelection": "Clear selection",
   "next": "Next",
   "back": "Back",
   "reward": "Reward"

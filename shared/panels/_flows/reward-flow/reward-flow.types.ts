@@ -47,4 +47,5 @@ export interface RewardFlowContextInterface {
   addContributorId: (contributorId: number) => void;
   removeContributorId: (contributorId: number) => void;
   selectedGithubUserIds: number[];
+  removeAllContributions: (githubUserId: number) => void;
 }

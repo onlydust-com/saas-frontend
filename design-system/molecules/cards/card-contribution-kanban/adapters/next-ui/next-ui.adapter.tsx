@@ -32,6 +32,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   linkedIssues,
   githubLabels,
   actions,
+  showActions = true,
   onClick,
   size = "lg",
   background = "secondary",
@@ -110,7 +111,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderLinkedIssues() {
-    if (linkedIssues) {
+    if (linkedIssues && linkedIssues.length) {
       const linkedIssuesCount = linkedIssues?.length ?? 0;
 
       if (linkedIssuesCount === 1) {
@@ -225,7 +226,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
         <footer className={"flex justify-between gap-lg overflow-hidden"}>
           {renderGithubLabels()}
 
-          {actions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+          {actions && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
         </footer>
       </div>
     </Paper>

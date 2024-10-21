@@ -1,15 +1,15 @@
-import { CircleCheck, CircleX, Filter, SquareArrowOutUpRight } from "lucide-react";
+import { CircleCheck, CircleX, SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 
 import { GetIssueApplicantsQueryParams } from "@/core/domain/issue/issue-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { AccordionIgnoredContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors";
@@ -96,24 +96,13 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }:
   };
 
   const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign, repoId });
-  const filtersCount = filters ? Object.keys(filters)?.length : 0;
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <ScrollView>
         <div className={"flex flex-col gap-lg overflow-hidden"}>
           <nav className={"flex gap-md"}>
-            <Button
-              variant={"secondary"}
-              size="sm"
-              startIcon={{ component: Filter }}
-              iconOnly={!filtersCount}
-              onClick={() => openFilterPanel()}
-              classNames={{
-                content: "w-fit",
-              }}
-              endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-            />
+            <FilterButton onClick={openFilterPanel} />
             <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
             <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           </nav>

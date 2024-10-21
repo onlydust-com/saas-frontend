@@ -50,7 +50,7 @@ export function ButtonDefaultAdapter<C extends ElementType = "button">({
 
   function handleClick(e: SyntheticEvent) {
     e?.stopPropagation();
-    if (!isDisabled && !isLoading) {
+    if (!isDisabled || !isLoading) {
       onNativeClick?.(e);
       onClick?.();
     }

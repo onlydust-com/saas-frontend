@@ -42,6 +42,7 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   addContributorId: () => {},
   removeContributorId: () => {},
   selectedGithubUserIds: [],
+  removeAllContributions: () => {},
 });
 
 export function RewardFlowProvider({ children, projectId = "" }: RewardFlowContextProps) {
@@ -165,6 +166,16 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
     }));
   }
 
+  function removeAllContributions(githubUserId: number) {
+    setRewardsState(prev => ({
+      ...prev,
+      [githubUserId]: {
+        ...prev[githubUserId],
+        contributions: [],
+      },
+    }));
+  }
+
   /***************** OTHER WORKS MANAGEMENT *****************/
   function getOtherWorks(githubUserId: number) {
     return rewardsState[githubUserId]?.otherWorks || [];
@@ -238,6 +249,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
         addContributorId,
         removeContributorId,
         selectedGithubUserIds,
+        removeAllContributions,
         onCreateRewards,
         isCreatingRewards: isPending,
       }}

@@ -1,5 +1,4 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Filter } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -12,8 +11,6 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { GetProjectRewardsPortParams, GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -21,6 +18,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 
 export type RewardsTableFilters = Omit<
@@ -92,23 +90,11 @@ export function RewardsTable() {
     return <ErrorState />;
   }
 
-  const filtersCount = Object.keys(filters)?.length;
-
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>

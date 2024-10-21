@@ -7,6 +7,7 @@ interface BaseProps {
 }
 
 interface AmountSelectorReadOnlyProps extends BaseProps {
+  id?: never;
   onAmountChange?: never;
   allBudgets?: never;
   onBudgetChange?: never;
@@ -14,6 +15,7 @@ interface AmountSelectorReadOnlyProps extends BaseProps {
 }
 
 export interface AmountSelectorInputProps extends BaseProps {
+  id?: string | number;
   onAmountChange: (amount: string) => void;
   allBudgets?: DetailedTotalMoneyTotalPerCurrency[];
   onBudgetChange: (budget?: DetailedTotalMoneyTotalPerCurrency) => void;

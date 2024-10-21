@@ -87,6 +87,7 @@ export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefa
       {step === "amount" && (
         <div className={"w-full overflow-hidden"}>
           <SingleUserAmountSelector
+            id={githubUserId}
             amount={amount}
             budget={budget}
             onAmountChange={handleAmountChange}

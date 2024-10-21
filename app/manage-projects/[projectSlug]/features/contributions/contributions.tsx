@@ -1,4 +1,4 @@
-import { Columns4, Filter, Table } from "lucide-react";
+import { Columns4, Table } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -7,12 +7,11 @@ import {
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 
@@ -38,8 +37,6 @@ export function Contributions(_: ContributionsProps) {
   const { projectSlug } = useParams<{ projectSlug: string }>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const { open: openContribution } = useContributionsSidepanel();
-
-  const filtersCount = Object.keys(filters)?.length;
 
   const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
@@ -68,17 +65,7 @@ export function Contributions(_: ContributionsProps) {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
 
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
 
