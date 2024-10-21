@@ -89,6 +89,21 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
     ...filters,
   };
 
+  const { data: selectedContributionData, isLoading: isLoadingSelectedContributions } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        ...queryParams,
+        contributorIds: [githubUserId],
+        statuses: ["DONE"],
+        hasBeenRewarded: false,
+        ids: selectedContributions.map(contribution => contribution.id),
+        pageSize: 50,
+      },
+      options: {
+        enabled: Boolean(githubUserId) && selectedContributions.length > 0,
+      },
+    });
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
@@ -102,14 +117,22 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       },
     });
 
-  const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
+  const totalContributionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
   const totalMixedContributionsNumber = useMemo(
-    () => totalContrbutionsNumber + otherWorks.length,
-    [totalContrbutionsNumber, otherWorks]
+    () => totalContributionsNumber + otherWorks.length,
+    [totalContributionsNumber, otherWorks]
   );
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
-  const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
+  const selected = useMemo(() => selectedContributionData?.pages.flatMap(page => page.contributions) ?? [], [data]);
+
+  const mixedContributions = useMemo(() => {
+    const filteredContributions = contributions?.filter(contribution =>
+      selectedContributions.find(c => c.id !== contribution.id)
+    );
+
+    return [...otherWorks, ...selected, ...filteredContributions];
+  }, [contributions, otherWorks]);
 
   const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
 
@@ -133,7 +156,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   }
 
   function renderContributions() {
-    if (isLoading) {
+    if (isLoading || isLoadingSelectedContributions) {
       return <CardContributionKanbanLoading />;
     }
 
