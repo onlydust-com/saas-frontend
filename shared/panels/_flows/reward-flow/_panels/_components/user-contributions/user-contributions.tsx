@@ -111,12 +111,14 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
   const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
+  const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
+
   function handleToggleSelectAll() {
-    if (selectedContributions.length === totalMixedContributionsNumber) {
+    if (canClearSelection) {
       removeAllContributions(githubUserId);
     } else {
       addContributions(
-        contributions.map(contribution => contribution.toItemDto()),
+        mixedContributions.map(contribution => contribution.toItemDto()),
         githubUserId
       );
     }
@@ -201,7 +203,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               variant={"secondary"}
               size={"xs"}
               translate={{
-                token: "common:selectAll",
+                token: canClearSelection ? "common:clearSelection" : "common:selectAll",
               }}
               onClick={handleToggleSelectAll}
             />
