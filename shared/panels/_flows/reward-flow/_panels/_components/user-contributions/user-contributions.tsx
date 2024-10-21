@@ -44,7 +44,8 @@ export type UserContributionsFilters = Omit<
 export function UserContributions({ githubUserId, containerHeight = undefined }: UserContributionsProps) {
   const { t } = useTranslation("panels");
 
-  const { getSelectedContributions, addContributions, removeContribution, getOtherWorks } = useRewardFlow();
+  const { getSelectedContributions, addContributions, removeContribution, removeAllContributions, getOtherWorks } =
+    useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({
     types: [ContributionFilterType.ISSUE, ContributionFilterType.PULL_REQUEST],
   });
@@ -110,11 +111,17 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
   const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
 
-  function handleSelectAll() {
-    addContributions(
-      contributions.map(contribution => contribution.toItemDto()),
-      githubUserId
-    );
+  const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
+
+  function handleToggleSelectAll() {
+    if (canClearSelection) {
+      removeAllContributions(githubUserId);
+    } else {
+      addContributions(
+        mixedContributions.map(contribution => contribution.toItemDto()),
+        githubUserId
+      );
+    }
   }
 
   function handleSelect(contribution: ContributionItemDtoInterface, isSelected: boolean) {
@@ -196,9 +203,9 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               variant={"secondary"}
               size={"xs"}
               translate={{
-                token: "common:selectAll",
+                token: canClearSelection ? "common:clearSelection" : "common:selectAll",
               }}
-              onClick={handleSelectAll}
+              onClick={handleToggleSelectAll}
             />
 
             <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-end">
