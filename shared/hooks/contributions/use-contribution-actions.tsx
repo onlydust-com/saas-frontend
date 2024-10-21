@@ -109,6 +109,15 @@ export const useContributionActions = (
         },
       ];
     case ContributionActivityStatus.DONE:
+      if (contribution.totalRewardedUsdAmount !== 0) {
+        return [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
+            onClick: onArchive,
+            isDisabled: isUpdatingPullRequest || isUpdatingIssue,
+          },
+        ];
+      }
       return [
         {
           children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
