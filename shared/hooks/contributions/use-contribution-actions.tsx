@@ -22,18 +22,18 @@ export const useContributionActions = (
   const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
       pathParams: {
-        pullRequestId: contribution.githubId,
+        contributionUuid: contribution.id,
       },
     });
 
   const { mutate: updateIssues, isPending: isUpdatingIssue } = IssueReactQueryAdapter.client.useUpdateIssue({
     pathParams: {
-      issueId: contribution.githubId,
+      contributionUuid: contribution.id,
     },
   });
 
   function onReview() {
-    actions?.onAction?.(contribution.githubId);
+    actions?.onAction?.(contribution.id);
   }
 
   function onUnassign() {
@@ -47,7 +47,7 @@ export const useContributionActions = (
 
   function onCodeReview() {
     if (!contribution.githubHtmlUrl) {
-      actions?.onAction?.(contribution.githubId);
+      actions?.onAction?.(contribution.id);
       return;
     }
 

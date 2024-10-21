@@ -7,6 +7,6 @@ export interface ApplicationsAccordionProps {
   newApplicantsCount: number;
   ignoredApplicants: IssueApplicantInterface[];
   ignoredApplicantsCount: number;
-  contributionGithubId: number;
+  contributionId: string;
   repoId: number;
 }

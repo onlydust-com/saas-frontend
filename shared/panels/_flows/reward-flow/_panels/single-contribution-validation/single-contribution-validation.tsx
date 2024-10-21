@@ -1,8 +1,6 @@
-import { useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { bootstrap } from "@/core/bootstrap";
-import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -25,43 +23,39 @@ function Content() {
     updateAmount,
     getAmount,
     onCreateRewards,
+    getOtherWorks,
     isCreatingRewards,
   } = useRewardFlow();
 
   const [selectedGithubUserId] = selectedGithubUserIds ?? [];
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
+  const otherWorks = getOtherWorks(selectedGithubUserId);
   const { amount, budget } = getAmount(selectedGithubUserId);
   const amountNumber = Number(amount);
   const isRewardingDisabled = amountNumber <= 0 || (budget && amountNumber > budget.amount);
-  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
 
-  // TODO replace with /contributions with contribution ids once implemented
-  const { data: contributions, isLoading } = useQueries({
-    queries: selectedContributions.map(c => {
-      const { tag, request } = contributionStoragePort.getContributionsById({
-        pathParams: {
-          contributionGithubId: c.githubId,
-        },
-      });
+  const selectedContributionWithUuid = useMemo(
+    () => selectedContributions?.filter(c => !!c.uuid),
+    [selectedContributions]
+  );
+  const selectedOtherWork = useMemo(
+    () =>
+      otherWorks?.filter(otherWork =>
+        selectedContributions?.find(c => c.id === otherWork.id && c.type === otherWork.type)
+      ),
+    [otherWorks]
+  );
 
-      return {
-        queryKey: tag,
-        queryFn: request,
-        enabled: Boolean(selectedContributions) && isOpen,
-      };
-    }),
-    combine: results => {
-      return {
-        data: results.map(result => result.data).filter(Boolean),
-        isLoading: results.some(result => result.isLoading),
-      };
+  const { data, isLoading } = ContributionReactQueryAdapter.client.useGetContributions({
+    queryParams: {
+      ids: selectedContributionWithUuid?.map(c => c.uuid) as string[],
+    },
+    options: {
+      enabled: isOpen && !!selectedContributionWithUuid?.length,
     },
   });
 
-  const nonNullContributions = useMemo(
-    () => contributions?.filter(Boolean) ?? [],
-    [contributions]
-  ) as ContributionActivityInterface[];
+  const contributions = data?.pages.flatMap(page => page.contributions) || [];
 
   function handleAmountChange(amount: string) {
     updateAmount(selectedGithubUserId, { budget, amount });
@@ -87,14 +81,24 @@ function Content() {
             </>
           ),
         },
-        contributions: nonNullContributions.map(c => ({
-          githubTitle: c.githubTitle,
-          contributionBadgeProps: {
-            type: c.type,
-            githubStatus: c.githubStatus,
-            number: c.githubNumber,
-          },
-        })),
+        contributions: [
+          ...contributions.map(c => ({
+            githubTitle: c.githubTitle,
+            contributionBadgeProps: {
+              type: c.type,
+              githubStatus: c.githubStatus,
+              number: c.githubNumber,
+            },
+          })),
+          ...selectedOtherWork.map(c => ({
+            githubTitle: c.title,
+            contributionBadgeProps: {
+              type: c.type,
+              githubStatus: c.status,
+              number: c.number,
+            },
+          })),
+        ],
       };
     }
   }
