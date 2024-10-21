@@ -31,7 +31,7 @@ export function AmountSelector({
 
   const isFilled = !!Number(amount);
 
-  const formatedAmount = useMemo(() => {
+  const formattedAmount = useMemo(() => {
     if (!Number(amount)) return "";
 
     return amount;
@@ -96,7 +96,7 @@ export function AmountSelector({
                 "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
               }
             )}
-            value={formatedAmount}
+            value={formattedAmount}
             onChange={handleChangeAmount}
             readOnly={readOnly}
             placeholder={"_"}
