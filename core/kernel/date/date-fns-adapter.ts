@@ -95,6 +95,10 @@ export class DateFnsAdapter implements DateFacadePort {
     return DateFns.formatDistanceToNowStrict(date, { addSuffix: true });
   }
 
+  isValid(date: Date) {
+    return DateFns.isValid(date);
+  }
+
   getRangeOfDates(range: DateRangeType): { from: Date | null; to: Date | null } {
     switch (range) {
       case DateRangeType.LAST_WEEK: {
