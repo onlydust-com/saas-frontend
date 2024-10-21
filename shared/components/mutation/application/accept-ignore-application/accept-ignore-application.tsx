@@ -39,7 +39,6 @@ export function AcceptIgnoreApplication({
 
   function handleAccept() {
     if (isProjectOrganisationMissingPermissions(repoId)) {
-      console.log("isProjectOrganisationMissingPermissions");
       setIsGithubPermissionModalOpen(true);
       return;
     }
