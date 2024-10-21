@@ -9,6 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
 import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
@@ -72,9 +73,13 @@ export function SelectableContributorsAccordion() {
       );
     }
 
+    if (!contributors.length) {
+      return <EmptyStateLite />;
+    }
+
     return (
       <>
-        {contributors?.map(contributor => (
+        {contributors.map(contributor => (
           <ContributorProfileCheckbox
             key={contributor.contributor.githubUserId}
             contributor={contributor}
