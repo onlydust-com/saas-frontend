@@ -101,12 +101,11 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       },
     });
 
-  const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
-  const totalMixedContributionsNumber = useMemo(() => {
-    if (isLoading) return undefined;
-
-    return (totalContrbutionsNumber ?? 0) + otherWorks.length;
-  }, [totalContrbutionsNumber, otherWorks]);
+  const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
+  const totalMixedContributionsNumber = useMemo(
+    () => totalContrbutionsNumber + otherWorks.length,
+    [totalContrbutionsNumber, otherWorks]
+  );
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
   const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
@@ -184,7 +183,8 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
                 token: "common:contributions",
               }}
             />
-            {typeof totalMixedContributionsNumber !== "undefined" ? (
+
+            {!isLoading ? (
               <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
                 {totalMixedContributionsNumber}
               </Badge>
