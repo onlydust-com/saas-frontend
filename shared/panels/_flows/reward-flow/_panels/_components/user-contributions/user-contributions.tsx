@@ -1,4 +1,4 @@
-import { CircleCheck, Filter, Plus } from "lucide-react";
+import { CircleCheck, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,6 +26,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data";
 import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.hooks";
@@ -56,8 +57,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
-
-  const filtersCount = Object.keys(filters)?.length;
 
   const menuItems: MenuItemPort[] = [
     {
@@ -224,17 +223,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         <nav className={"flex gap-md"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
 
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
         </nav>
 
         {containerHeight ? (
