@@ -103,15 +103,9 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
 
   const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
   const totalMixedContributionsNumber = useMemo(() => {
-    if (totalContrbutionsNumber !== undefined) {
-      return totalContrbutionsNumber + otherWorks.length;
-    }
+    if (isLoading) return undefined;
 
-    if (otherWorks.length) {
-      return otherWorks.length;
-    }
-
-    return undefined;
+    return (totalContrbutionsNumber ?? 0) + otherWorks.length;
   }, [totalContrbutionsNumber, otherWorks]);
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
