@@ -95,7 +95,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         contributorIds: [githubUserId],
         statuses: ["DONE"],
         hasBeenRewarded: false,
-        ids: selectedContributions.map(contribution => contribution.id),
+        ids: selectedContributions.filter(c => !!c.uuid).map(contribution => contribution.uuid) as string[],
         pageSize: 50,
       },
       options: {
