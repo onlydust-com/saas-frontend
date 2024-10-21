@@ -32,6 +32,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   linkedIssues,
   githubLabels,
   actions,
+  showActions = true,
   onClick,
   size = "lg",
   background = "secondary",
@@ -225,7 +226,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
         <footer className={"flex justify-between gap-lg overflow-hidden"}>
           {renderGithubLabels()}
 
-          {actions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+          {actions && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
         </footer>
       </div>
     </Paper>
