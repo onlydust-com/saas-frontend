@@ -13,7 +13,7 @@ export interface GithubOrganizationInterface
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
   getGithubInstallationUrl(): string;
-  getGithubAppInstallationPermissionsUpdateUrl(): string | undefined;
+  getGithubUpdatePermissionsUrl(): string | undefined;
   search(search?: string | null): GithubOrganizationInterface | undefined;
 }
 
@@ -72,7 +72,7 @@ export class GithubOrganization implements GithubOrganizationInterface {
     return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}&state=generic-state-`;
   }
 
-  getGithubAppInstallationPermissionsUpdateUrl() {
+  getGithubUpdatePermissionsUrl() {
     return this.githubAppInstallationPermissionsUpdateUrl;
   }
 

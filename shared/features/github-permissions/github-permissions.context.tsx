@@ -49,10 +49,10 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
     return projectData?.isRepoOrganizationMissingPermissions(repoId) ?? false;
   }
 
-  const githubAppInstallationPermissionsUpdateUrl = useMemo(() => {
+  const updatePermissionsUrl = useMemo(() => {
     if (!repoId) return false;
 
-    return projectData?.getRepoOrganizationMissingPermissionsUpdateUrl(repoId);
+    return projectData?.getGithubUpdatePermissionsUrlByRepo(repoId);
   }, [projectData, repoId, projectSlug]);
 
   useEffect(() => {
@@ -66,9 +66,9 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
   }, [projectData]);
 
   function handleRedirectToGithubFlow() {
-    if (githubAppInstallationPermissionsUpdateUrl) {
+    if (updatePermissionsUrl) {
       setEnablePooling(true);
-      window.open(githubAppInstallationPermissionsUpdateUrl, "_blank");
+      window.open(updatePermissionsUrl, "_blank");
     }
   }
 
