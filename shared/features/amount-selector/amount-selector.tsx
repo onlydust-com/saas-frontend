@@ -32,13 +32,7 @@ export function AmountSelector({
 
   const isFilled = !!Number(amount);
 
-  const formattedAmount = useMemo(() => {
-    if (!Number(amount)) return "";
-
-    return amount;
-  }, [amount]);
-
-  const inputWidth = useMemo(() => Math.min(Math.max(formattedAmount.length, 2), 50) + "ch", [formattedAmount]);
+  const inputWidth = useMemo(() => Math.min(Math.max(amount.length, 2), 50) + "ch", [amount]);
 
   if (!budget) return null;
 
@@ -68,7 +62,7 @@ export function AmountSelector({
         return;
       }
 
-      if (value.length > 1 && value.startsWith("0")) {
+      if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
         value = value.slice(1);
       }
 
@@ -96,10 +90,10 @@ export function AmountSelector({
       <div className={"grid gap-2"}>
         <div
           className={cn("mx-auto flex items-center gap-1 font-clash text-lg", {
-            "text-xl": formattedAmount.length < 22,
-            "text-2xl": formattedAmount.length < 18,
-            "text-3xl": formattedAmount.length < 14,
-            "text-4xl": formattedAmount.length < 11,
+            "text-xl": amount.length < 22,
+            "text-2xl": amount.length < 18,
+            "text-3xl": amount.length < 14,
+            "text-4xl": amount.length < 11,
           })}
         >
           <input
@@ -112,10 +106,11 @@ export function AmountSelector({
                 "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
               }
             )}
-            value={formattedAmount}
+            value={amount}
             onChange={handleChangeAmount}
             readOnly={readOnly}
             placeholder={"_"}
+            autoFocus={!readOnly}
           />
           <div onClick={handleFocusInput}>
             <span
