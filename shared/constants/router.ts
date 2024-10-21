@@ -27,6 +27,10 @@ export const NEXT_ROUTER = {
       root: "/data/deep-dive",
     },
   },
+  splash: {
+    githubCallback: "/github-callback",
+    maintenance: "/maintenance",
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
