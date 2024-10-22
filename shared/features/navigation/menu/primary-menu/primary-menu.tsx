@@ -6,6 +6,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowEcosystemList } from "@/shared/hooks/ecosystems/use-show-ecosystem-list";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
+import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
 import { PrimaryMenuProps } from "./primary-menu.types";
@@ -14,6 +15,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
   const [showSponsorList] = useShowSponsorList();
   const [showProgramList] = useShowProgramsList();
   const [showEcosystemList] = useShowEcosystemList();
+  const [showProjectList] = useShowProjectsList();
 
   // Has a program or an ecosystem in /me
   const pageDataAvailable = showProgramList.hasPrograms || showEcosystemList.hasEcosystems;
@@ -31,7 +33,7 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isFolded={isFolded}
         iconProps={{ component: Wallet }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
-        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsor}
+        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
@@ -52,8 +54,13 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: FolderKanban }}
+        linkProps={{
+          href: showProjectList.hasMultipleProjects
+            ? NEXT_ROUTER.manageProjects.root
+            : NEXT_ROUTER.manageProjects.details.root(showProjectList.firstProject ?? ""),
+        }}
         translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
-        isComingSoon={true}
+        isDisabled={showProjectList.loading || !showProjectList.hasProjects}
       />
       <ItemNav
         isFolded={isFolded}
