@@ -91,13 +91,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        return (
-          <ContributionsPopover
-            contributionsCount={numberOfRewardedContributions}
-            rewardId={rewardId}
-            projectId={projectId}
-          />
-        );
+        return <ContributionsPopover contributionsCount={numberOfRewardedContributions} rewardId={rewardId} />;
       },
     }),
     amount: columnHelper.accessor("amount", {
