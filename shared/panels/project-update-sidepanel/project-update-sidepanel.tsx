@@ -51,7 +51,13 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, rewardSettingsArrays, rewardSettingsDate, labels, ...updatedData }: EditProjectFormData) {
+  async function onSubmit({
+    logoFile,
+    rewardSettingsArrays,
+    rewardSettingsDate,
+    labels,
+    ...updatedData
+  }: EditProjectFormData) {
     try {
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
