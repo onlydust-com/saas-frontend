@@ -126,8 +126,8 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const selected = useMemo(() => selectedContributionData?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   const mixedContributions = useMemo(() => {
-    const filteredContributions = contributions?.filter(contribution =>
-      selectedContributions.find(c => c.id !== contribution.id)
+    const filteredContributions = contributions?.filter(
+      contribution => !selectedContributions.find(c => c.id === contribution.id)
     );
 
     return [...selected, ...filteredContributions];
