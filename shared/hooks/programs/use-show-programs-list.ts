@@ -50,7 +50,6 @@ export const useShowProgramsList = (): [Program, () => Program] => {
     if (user) {
       setProgram(buildProgram());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return [program, buildProgram];
