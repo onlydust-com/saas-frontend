@@ -1,16 +1,12 @@
-import { Loader } from "lucide-react";
-import { InView } from "react-intersection-observer";
-
 import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { cn } from "@/shared/helpers/cn";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 
 import { KanbanColumnProps } from "./kanban-column.types";
 
-export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading }: KanbanColumnProps) {
+export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading = false }: KanbanColumnProps) {
   return (
     <div
       className={
@@ -30,19 +26,7 @@ export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading 
       <ScrollView>
         <div className={"flex w-full flex-col items-start justify-start gap-lg px-xl"}>
           {children}
-          {hasNextPage && !!onNext ? (
-            <InView className={cn("flex w-full justify-center")} onChange={onNext} skip={isLoading}>
-              <Button
-                variant={"secondary"}
-                size={"md"}
-                onClick={onNext}
-                isDisabled={isLoading}
-                iconOnly={true}
-                classNames={{ base: "w-full" }}
-                startIcon={{ component: Loader }}
-              />
-            </InView>
-          ) : null}
+          {hasNextPage && onNext ? <ShowMore onNext={onNext} loading={isLoading} /> : null}
         </div>
       </ScrollView>
     </div>
