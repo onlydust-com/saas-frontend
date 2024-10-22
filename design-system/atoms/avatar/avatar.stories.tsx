@@ -11,7 +11,7 @@ const defaultProps: AvatarPort = {
   src: "",
 };
 
-const sizes: AvatarPort["size"][] = ["xxs", "xs", "s", "md", "lg", "xl", "2xl", "3xl"];
+const sizes: AvatarPort["size"][] = ["xxs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"];
 
 const meta: Meta<typeof Avatar> = {
   component: Avatar,

@@ -47,7 +47,7 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
       closeDelay={50}
       shouldCloseOnBlur
       classNames={{
-        base: cn("before:bg-container-action", { "pointer-events-none": !canInteract }),
+        base: cn("before:bg-background-primary-solid", { "pointer-events-none": !canInteract }),
         content: cn(slots.tooltip(), classNames?.tooltip),
       }}
       placement={placement}

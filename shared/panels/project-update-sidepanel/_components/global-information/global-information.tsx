@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { DatePicker } from "@/design-system/atoms/date-picker";
 import { FieldContainer } from "@/design-system/atoms/field-container";
 import { Input } from "@/design-system/atoms/input";
+import { Switch } from "@/design-system/atoms/switch";
 import { Textarea } from "@/design-system/atoms/textarea";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
@@ -12,6 +13,7 @@ import { ImageInput } from "@/design-system/molecules/image-input";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
 
+import { CategoryAutocomplete } from "@/shared/features/autocompletes/category-autocomplete/category-autocomplete";
 import { EcosystemsAutocomplete } from "@/shared/features/autocompletes/ecosystems-autocomplete/ecosystems-autocomplete";
 import { GlobalInformationProps } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information.types";
 import {
@@ -122,6 +124,20 @@ export function GlobalInformation({ project }: GlobalInformationProps) {
             />
           )}
         />
+        <Controller
+          name="categoryIds"
+          control={control}
+          render={({ field: { onChange, value, name } }) => (
+            <CategoryAutocomplete
+              name={name}
+              label={<Translate token={"panels:projectUpdate.globalInformation.categories.label"} />}
+              placeholder={t("projectUpdate.globalInformation.categories.placeholder")}
+              onSelect={onChange}
+              selectedCategories={value}
+              isMultiple={true}
+            />
+          )}
+        />
         <FieldContainer
           name={"rewardSettingsArrays"}
           label={<Translate token={"panels:projectUpdate.globalInformation.rewardsSettings.label"} />}
@@ -147,6 +163,22 @@ export function GlobalInformation({ project }: GlobalInformationProps) {
               render={({ field: { onChange, value } }) => <DatePicker value={value} onChange={onChange} />}
             />
           </div>
+        </FieldContainer>
+        <FieldContainer
+          name={"rewardSettingsArrays"}
+          label={<Translate token={"panels:projectUpdate.globalInformation.hiring.label"} />}
+        >
+          <Controller
+            name="isLookingForContributors"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Switch
+                onChange={onChange}
+                isSelected={value}
+                label={{ token: "panels:projectUpdate.globalInformation.hiring.switch" }}
+              />
+            )}
+          />
         </FieldContainer>
       </div>
     </Accordion>

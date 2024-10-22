@@ -22,7 +22,7 @@ interface ClassNames {
   startIcon: string;
   endIcon: string;
   label: string;
-  loaderContainer: string;
+  spinner: string;
   spinnerCircle: string;
 }
 
@@ -36,9 +36,11 @@ export interface ButtonDefaultPort<C extends ElementType> extends Partial<Varian
   startContent?: ReactNode;
   endContent?: ReactNode;
   onClick?: () => void;
+  onNativeClick?: ComponentPropsWithoutRef<C>["onClick"];
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
   variant?: ButtonTextVariant | ButtonSolidVariant;
+  isLoading?: boolean;
 }
 
 export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonDefaultPort<C> {

@@ -3,12 +3,14 @@ import {
   GetBiContributorsStatsResponse,
   GetBiProjectsResponse,
   GetBiProjectsStatsResponse,
+  GetBiStatsFinancialsResponse,
   GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
 import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProject } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { BiStatsFinancials } from "@/core/domain/bi/models/bi-stats-financials-model";
 import { BiWorldMap } from "@/core/domain/bi/models/bi-world-map-model";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -23,6 +25,7 @@ export class BiClientAdapter implements BiStoragePort {
     getBiWorldMap: "bi/world-map",
     getBiProjects: "bi/projects",
     getBiContributors: "bi/contributors",
+    getBiStatsFinancials: "bi/stats/financials",
   } as const;
 
   getBiContributorsStats = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiContributorsStats"]>) => {
@@ -182,6 +185,30 @@ export class BiClientAdapter implements BiStoragePort {
           accept: "text/csv",
         },
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiStatsFinancials = ({ queryParams }: FirstParameter<BiStoragePort["getBiStatsFinancials"]>) => {
+    const path = this.routes["getBiStatsFinancials"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiStatsFinancialsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        stats: data.stats.map(stat => new BiStatsFinancials(stat)),
+      };
+    };
 
     return {
       request,

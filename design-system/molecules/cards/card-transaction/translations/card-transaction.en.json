@@ -1,9 +1,0 @@
-{
-  "types": {
-    "DEPOSITED": "Deposited",
-    "ALLOCATED": "Allocated",
-    "GRANTED": "Granted",
-    "UNALLOCATED": "Unallocated",
-    "UNGRANTED": "Ungranted"
-  }
-}

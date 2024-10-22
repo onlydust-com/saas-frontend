@@ -15,6 +15,7 @@ export function AccordionNextUiAdapter({
   items = [],
   multiple = false,
   defaultSelected,
+  controlled,
 }: AccordionMultiplePort) {
   const slots = AccordionNextUiVariants();
 
@@ -24,6 +25,8 @@ export function AccordionNextUiAdapter({
       selectionMode={multiple ? "multiple" : "single"}
       showDivider={false}
       defaultSelectedKeys={defaultSelected}
+      selectedKeys={controlled?.selectedKeys}
+      onSelectionChange={controlled?.onSelectionChange}
     >
       {items.map(item => (
         <AccordionItem
@@ -31,6 +34,7 @@ export function AccordionNextUiAdapter({
           onKeyDown={e => {
             e.stopPropagation();
           }}
+          onClick={e => e.stopPropagation()}
           onFocus={e => e.stopPropagation()}
           classNames={{
             base: slots.baseItem(),
@@ -49,6 +53,7 @@ export function AccordionNextUiAdapter({
                   }}
                 />
               )}
+              {!!item.startContent && item.startContent}
 
               <Typo
                 {...item.titleProps}
@@ -58,6 +63,7 @@ export function AccordionNextUiAdapter({
               />
 
               {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
+              {!!item.endTitleContent && item.endTitleContent}
             </div>
           }
           indicator={

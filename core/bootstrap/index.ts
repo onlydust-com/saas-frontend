@@ -1,27 +1,39 @@
+import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
+import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
+import { CountryStoragePort } from "@/core/domain/country/outputs/country-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
 import { DepositStoragePort } from "@/core/domain/deposit/outputs/deposit-storage-port";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
+import { GithubStoragePort } from "@/core/domain/github/outputs/github-storage-port";
+import { IssueStoragePort } from "@/core/domain/issue/outputs/issue-storage-port";
 import { LanguageStoragePort } from "@/core/domain/language/outputs/language-storage-port";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
+import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
+import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
+import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
+import { CountryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/country-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
 import { DepositClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/deposit-client-adapter";
 import { EcosystemClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/ecosystem-client-adapter";
+import { GithubClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/github-client-adapter";
+import { IssueClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/issue-client-adapter";
 import { LanguageClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/language-client-adapter";
 import { MeClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/me-client-adapter";
 import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/notification-client-adapter";
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectCategoryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-category-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
+import { RewardClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/reward-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
@@ -29,10 +41,14 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { IdAdapter } from "@/core/kernel/id/id-adapter";
+import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
 import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
+import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
+import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
 
 import { FileAdapter } from "../kernel/file/file-adapter";
 import { FileFacadePort } from "../kernel/file/file-facade-port";
@@ -60,14 +76,28 @@ export interface BootstrapConstructor {
   notificationStoragePortForServer: NotificationStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
+  countryStoragePortForClient: CountryStoragePort;
+  countryStoragePortForServer: CountryStoragePort;
   projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
   ecosystemStoragePortForServer: EcosystemStoragePort;
+  githubStoragePortForClient: GithubStoragePort;
+  githubStoragePortForServer: GithubStoragePort;
+  contributionStoragePortForClient: ContributionStoragePort;
+  contributionStoragePortForServer: ContributionStoragePort;
+  applicationStoragePortForClient: ApplicationStoragePort;
+  applicationStoragePortForServer: ApplicationStoragePort;
+  rewardStoragePortForClient: RewardStoragePort;
+  rewardStoragePortForServer: RewardStoragePort;
+  issueStoragePortForClient: IssueStoragePort;
+  issueStoragePortForServer: IssueStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
+  validationKernelPort: ValidationFacadePort;
 }
 
 export class Bootstrap {
@@ -96,14 +126,28 @@ export class Bootstrap {
   notificationStoragePortForServer: NotificationStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
+  countryStoragePortForClient: CountryStoragePort;
+  countryStoragePortForServer: CountryStoragePort;
   projectCategoryStoragePortForClient: ProjectCategoryStoragePort;
   projectCategoryStoragePortForServer: ProjectCategoryStoragePort;
   ecosystemStoragePortForClient: EcosystemStoragePort;
   ecosystemStoragePortForServer: EcosystemStoragePort;
+  githubStoragePortForClient: GithubStoragePort;
+  githubStoragePortForServer: GithubStoragePort;
+  contributionStoragePortForClient: ContributionStoragePort;
+  contributionStoragePortForServer: ContributionStoragePort;
+  applicationStoragePortForClient: ApplicationStoragePort;
+  applicationStoragePortForServer: ApplicationStoragePort;
+  rewardStoragePortForClient: RewardStoragePort;
+  rewardStoragePortForServer: RewardStoragePort;
+  issueStoragePortForClient: IssueStoragePort;
+  issueStoragePortForServer: IssueStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
+  idKernelPort: IdFacadePort;
+  validationKernelPort: ValidationFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -128,14 +172,28 @@ export class Bootstrap {
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
     this.languageStoragePortForClient = constructor.languageStoragePortForClient;
     this.languageStoragePortForServer = constructor.languageStoragePortForServer;
+    this.countryStoragePortForClient = constructor.countryStoragePortForClient;
+    this.countryStoragePortForServer = constructor.countryStoragePortForServer;
     this.projectCategoryStoragePortForClient = constructor.projectCategoryStoragePortForClient;
     this.projectCategoryStoragePortForServer = constructor.projectCategoryStoragePortForServer;
     this.ecosystemStoragePortForClient = constructor.ecosystemStoragePortForClient;
     this.ecosystemStoragePortForServer = constructor.ecosystemStoragePortForServer;
+    this.githubStoragePortForClient = constructor.githubStoragePortForClient;
+    this.githubStoragePortForServer = constructor.githubStoragePortForServer;
+    this.contributionStoragePortForClient = constructor.contributionStoragePortForClient;
+    this.contributionStoragePortForServer = constructor.contributionStoragePortForServer;
+    this.applicationStoragePortForClient = constructor.applicationStoragePortForClient;
+    this.applicationStoragePortForServer = constructor.applicationStoragePortForServer;
+    this.rewardStoragePortForClient = constructor.rewardStoragePortForClient;
+    this.rewardStoragePortForServer = constructor.rewardStoragePortForServer;
+    this.issueStoragePortForClient = constructor.issueStoragePortForClient;
+    this.issueStoragePortForServer = constructor.issueStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
+    this.idKernelPort = constructor.idKernelPort;
+    this.validationKernelPort = constructor.validationKernelPort;
   }
 
   getAuthProvider() {
@@ -230,12 +288,24 @@ export class Bootstrap {
     return this.notificationStoragePortForClient;
   }
 
+  getNotificationStoragePortForServer() {
+    return this.notificationStoragePortForServer;
+  }
+
   getLanguagesStoragePortForServer() {
     return this.languageStoragePortForServer;
   }
 
   getLanguagesStoragePortForClient() {
     return this.languageStoragePortForClient;
+  }
+
+  getCountriesStoragePortForServer() {
+    return this.countryStoragePortForServer;
+  }
+
+  getCountriesStoragePortForClient() {
+    return this.countryStoragePortForClient;
   }
 
   getProjectCategoryStoragePortForServer() {
@@ -254,8 +324,44 @@ export class Bootstrap {
     return this.ecosystemStoragePortForClient;
   }
 
-  getNotificationStoragePortForServer() {
-    return this.notificationStoragePortForServer;
+  getGithubStoragePortForServer() {
+    return this.githubStoragePortForServer;
+  }
+
+  getGithubStoragePortForClient() {
+    return this.githubStoragePortForClient;
+  }
+
+  getContributionStoragePortForServer() {
+    return this.contributionStoragePortForServer;
+  }
+
+  getContributionStoragePortForClient() {
+    return this.contributionStoragePortForClient;
+  }
+
+  getApplicationStoragePortForServer() {
+    return this.applicationStoragePortForServer;
+  }
+
+  getApplicationStoragePortForClient() {
+    return this.applicationStoragePortForClient;
+  }
+
+  getRewardStoragePortForServer() {
+    return this.rewardStoragePortForServer;
+  }
+
+  getRewardStoragePortForClient() {
+    return this.rewardStoragePortForClient;
+  }
+
+  getIssueStoragePortForServer() {
+    return this.issueStoragePortForServer;
+  }
+
+  getIssueStoragePortForClient() {
+    return this.issueStoragePortForClient;
   }
 
   getDateKernelPort() {
@@ -272,6 +378,14 @@ export class Bootstrap {
 
   getUrlKernelPort() {
     return this.urlKernelPort;
+  }
+
+  getIdKernelPort() {
+    return this.idKernelPort;
+  }
+
+  getValidationKernelPort() {
+    return this.validationKernelPort;
   }
 
   public static get getBootstrap(): Bootstrap {
@@ -299,14 +413,28 @@ export class Bootstrap {
         notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
         languageStoragePortForClient: new LanguageClientAdapter(new FetchHttpClient()),
         languageStoragePortForServer: new LanguageClientAdapter(new FetchHttpClient()),
+        countryStoragePortForClient: new CountryClientAdapter(new FetchHttpClient()),
+        countryStoragePortForServer: new CountryClientAdapter(new FetchHttpClient()),
         projectCategoryStoragePortForClient: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         projectCategoryStoragePortForServer: new ProjectCategoryClientAdapter(new FetchHttpClient()),
         ecosystemStoragePortForServer: new EcosystemClientAdapter(new FetchHttpClient()),
         ecosystemStoragePortForClient: new EcosystemClientAdapter(new FetchHttpClient()),
-        dateKernelPort: DateFnsAdapter,
+        githubStoragePortForServer: new GithubClientAdapter(new FetchHttpClient()),
+        githubStoragePortForClient: new GithubClientAdapter(new FetchHttpClient()),
+        contributionStoragePortForServer: new ContributionClientAdapter(new FetchHttpClient()),
+        contributionStoragePortForClient: new ContributionClientAdapter(new FetchHttpClient()),
+        applicationStoragePortForServer: new ApplicationClientAdapter(new FetchHttpClient()),
+        applicationStoragePortForClient: new ApplicationClientAdapter(new FetchHttpClient()),
+        rewardStoragePortForServer: new RewardClientAdapter(new FetchHttpClient()),
+        rewardStoragePortForClient: new RewardClientAdapter(new FetchHttpClient()),
+        issueStoragePortForServer: new IssueClientAdapter(new FetchHttpClient()),
+        issueStoragePortForClient: new IssueClientAdapter(new FetchHttpClient()),
+        dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
+        idKernelPort: IdAdapter,
+        validationKernelPort: new ValidationAdapter(),
       });
     }
 

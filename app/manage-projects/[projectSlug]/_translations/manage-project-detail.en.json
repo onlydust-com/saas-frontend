@@ -1,0 +1,103 @@
+{
+  "financial": {
+    "title": "Financial",
+    "buttons": {
+      "budgetAvailable": "Budget",
+      "budgetChart": "Chart",
+      "seeTransactions": "See transactions",
+      "modifyProject": "Modify project"
+    }
+  },
+  "activity": {
+    "title": "Activity",
+    "buttons": {
+      "contributors": "Contributors",
+      "contributions": "Contributions",
+      "rewards": "Rewards"
+    },
+    "kanban": {
+      "columns": {
+        "notAssigned": "Not assigned",
+        "inProgress": "In Progress",
+        "toReview": "To Review",
+        "done": "Done",
+        "archived": "Archived"
+      }
+    },
+    "actions": {
+      "reward": "Reward a contributor"
+    }
+  },
+  "filters": {
+    "titles": {
+      "project": "Projects filters",
+      "contributor": "Filter contributors",
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
+    },
+    "save": "Validate",
+    "reset": "Reset filters"
+  },
+  "header": {
+    "title": "Data",
+    "ctaGraph": "See graph"
+  },
+  "contributorsTable": {
+    "filters": {
+      "columnList": "Contributors columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "export": {
+      "tooltip": "Export contributors",
+      "success": "Contributors exported successfully.",
+      "error": "Error exporting contributors."
+    },
+    "columns": {
+      "contributorName": "Contributor name",
+      "labels": {
+        "title": "Labels",
+        "placeholder": "Select labels"
+      },
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "totalRewardedUsdAmount": "Rewarded amount",
+      "actions": {
+        "title": "Actions",
+        "seeProfile": "See profile",
+        "reward": "Reward"
+      }
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystems"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
+    }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "rows": {
+      "cancelReward": "Cancel"
+    },
+    "rewardsCount": "Rewards"
+  }
+}

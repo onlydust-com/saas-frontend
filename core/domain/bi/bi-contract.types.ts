@@ -2,6 +2,7 @@ import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-m
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStatsInterface } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { BiStatsFinancialsInterface } from "@/core/domain/bi/models/bi-stats-financials-model";
 import { BiWorldMapInterface } from "@/core/domain/bi/models/bi-world-map-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
@@ -96,3 +97,18 @@ export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributor
 /* --------------------- Get Bi Contributors CSV --------------------- */
 
 export type GetBiContributorsCsvPortResponse = HttpStorageResponse<Blob>;
+
+/* --------------------- Get Bi Stats Financials --------------------- */
+
+export type GetBiStatsFinancialsResponse = components["schemas"]["BiFinancialsStatsListResponse"];
+export type GetBiStatsFinancialsModel = Omit<GetBiStatsFinancialsResponse, "stats"> & {
+  stats: BiStatsFinancialsInterface[];
+};
+
+type GetBiStatsFinancialsQueryParams = operations["getBIFinancialsStats"]["parameters"]["query"];
+
+export type GetBiStatsFinancialsPortParams = HttpClientParameters<{
+  QueryParams: GetBiStatsFinancialsQueryParams;
+}>;
+
+export type GetBiStatsFinancialsPortResponse = HttpStorageResponse<GetBiStatsFinancialsModel>;

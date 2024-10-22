@@ -1,0 +1,13 @@
+{
+  "title": "Bulk Actions",
+  "selectedTitle": "Selected ({{count}})",
+  "reward": {
+    "title": "Reward in Bulk",
+    "button": "Reward in Bulk"
+  },
+  "label": {
+    "title": "Add a label in Bulk",
+    "search": "Search",
+    "add": "Add a new label"
+  }
+}

@@ -1,3 +1,4 @@
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { AnyType } from "@/core/kernel/types";
 
@@ -48,7 +49,19 @@ function Card({ type, values }: ProjectFinancialCardProps) {
     />
   );
 }
-export function ProjectFinancial({ data }: ProjectFinancialProps) {
+
+export function ProjectFinancial({ projectId }: ProjectFinancialProps) {
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsById({
+    pathParams: { projectId },
+    options: {
+      enabled: Boolean(projectId),
+    },
+  });
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <Paper size={"lg"} background={"transparent"} border={"primary"} classNames={{ base: "flex flex-col gap-3" }}>
       <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.financials.title" }} />

@@ -1,8 +1,6 @@
 import { Bell } from "lucide-react";
 
-import { Avatar } from "@/design-system/atoms/avatar";
-import { Paper } from "@/design-system/atoms/paper";
-import { Typo } from "@/design-system/atoms/typo";
+import { CardTemplate } from "@/design-system/molecules/cards/card-template";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -18,29 +16,32 @@ export function CardNotificationDefaultAdapter({
   const slots = CardNotificationDefaultVariants();
 
   return (
-    <Paper
+    <CardTemplate
       as={"button"}
       size={"lg"}
       background={"secondary"}
       border={"primary"}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
       onClick={onClick}
-    >
-      <div className="flex gap-lg">
-        <Avatar
-          iconProps={{
-            component: Bell,
-            size: "xs",
-          }}
-          size="s"
-          onlineIcon
-        />
-
-        <div className={"grid"}>
-          <Typo {...titleProps} size={"sm"} weight={"medium"} color={"primary"} />
-          <Typo {...descriptionProps} size={"xs"} color={"secondary"} />
-        </div>
-      </div>
-    </Paper>
+      avatarProps={{
+        iconProps: {
+          component: Bell,
+          size: "xs",
+        },
+        size: "sm",
+        onlineIcon: true,
+      }}
+      titleProps={{
+        ...titleProps,
+        size: "sm",
+        weight: "medium",
+        color: "primary",
+      }}
+      descriptionProps={{
+        ...descriptionProps,
+        size: "xs",
+        color: "secondary",
+      }}
+    />
   );
 }

@@ -41,6 +41,7 @@ export interface MenuItemIconPort<T = string> extends MenuItemBasePort<T> {
 
 export interface MenuItemCheckboxPort<T = string> extends MenuItemBasePort<T> {
   isCheckbox?: boolean;
+  mixed?: boolean;
 }
 
 export interface MenuItemRadioPort<T = string> extends MenuItemBasePort<T> {

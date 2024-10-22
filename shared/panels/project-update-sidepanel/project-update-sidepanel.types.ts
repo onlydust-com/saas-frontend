@@ -11,6 +11,7 @@ export type EditProjectFormData = EditProjectBody & {
   logoFile?: File;
   rewardSettingsArrays: string[];
   rewardSettingsDate: Date | undefined;
+  labels: { name: string; backendId?: string }[];
 };
 
 export const editProjectFormValidation = z.object({
@@ -32,6 +33,14 @@ export const editProjectFormValidation = z.object({
       z.object({
         url: z.string().trim().nullish().optional(),
         value: z.string().nullish().optional(),
+      })
+    )
+    .min(0),
+  labels: z
+    .array(
+      z.object({
+        name: z.string(),
+        backendId: z.string().optional(),
       })
     )
     .min(0),

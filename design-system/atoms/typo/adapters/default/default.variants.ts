@@ -21,6 +21,7 @@ export const TypoDefaultVariants = tv({
     color: {
       primary: { base: "text-typography-primary" },
       "primary-on-brand": { base: "text-typography-primary-on-brand" },
+      "primary-on-solid": { base: "text-typography-primary-on-solid" },
       secondary: { base: "text-typography-secondary" },
       "secondary-hover": { base: "text-typography-secondary-hover" },
       tertiary: { base: "text-typography-tertiary" },

@@ -39,7 +39,7 @@ export function ActiveUsersChart() {
       fromDate,
       toDate,
       kpi: "ACTIVE_CONTRIBUTORS",
-      ...(selectedProgramAndEcosystem.length && { programOrEcosystemIds: selectedProgramAndEcosystem }),
+      ...(selectedProgramAndEcosystem.length && { dataSourceIds: selectedProgramAndEcosystem }),
     },
   });
 

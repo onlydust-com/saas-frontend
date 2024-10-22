@@ -16,7 +16,7 @@ type UseInfiniteQueryFacadeParamsPaginated<Params extends GenericFunction, Respo
 };
 
 type OmitPagination<Params extends { queryParams?: AnyType }> = Omit<Params, "queryParams"> & {
-  queryParams?: Omit<Params["queryParams"], "pageIndex">;
+  queryParams?: Partial<Omit<NonNullable<Params["queryParams"]>, "pageIndex">>;
 };
 
 export type UseInfiniteQueryFacadeParams<Params extends GenericFunction, Response> = OmitPagination<

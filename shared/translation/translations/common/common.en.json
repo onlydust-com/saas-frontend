@@ -40,6 +40,15 @@
     "MAINTAINER": "Maintainer",
     "LEAD_PROGRAM": "Lead Program"
   },
+  "contributionType": {
+    "PULL_REQUEST": "Pull request",
+    "CODE_REVIEW": "Code review",
+    "ISSUE": "Issue"
+  },
+  "rewardedType": {
+    "REWARDED": "Rewarded",
+    "UNREWARDED": "Unrewarded"
+  },
   "timeGroupingType": {
     "DAY": "Day",
     "WEEK": "Week",
@@ -52,5 +61,15 @@
   "projects": "Projects +{{count}}",
   "users": "Users +{{count}}",
   "categories": "Categories +{{count}}",
-  "search": "Search"
+  "search": "Search",
+  "contributions": "Contributions",
+  "contributionsCount_one": "{{count}} contribution",
+  "contributionsCount_other": "{{count}} contributions",
+  "select": "Select",
+  "unselect": "Unselect",
+  "selectAll": "Select all",
+  "clearSelection": "Clear selection",
+  "next": "Next",
+  "back": "Back",
+  "reward": "Reward"
 }

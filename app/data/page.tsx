@@ -24,18 +24,14 @@ function DataPage() {
         ],
       }}
     >
-      <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <ScrollView className="flex flex-col gap-4">
+      <AnimatedColumn className="h-full">
+        <ScrollView className="flex flex-col gap-md">
           <PageContent>
-            <div className="grid h-full gap-3">
-              <DataSection />
-            </div>
+            <DataSection />
           </PageContent>
 
           <PageContent>
-            <div className="grid h-full gap-3">
-              <ActiveUsersSection />
-            </div>
+            <ActiveUsersSection />
           </PageContent>
         </ScrollView>
       </AnimatedColumn>

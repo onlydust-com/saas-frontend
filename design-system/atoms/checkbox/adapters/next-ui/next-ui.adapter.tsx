@@ -10,6 +10,7 @@ import { CheckboxNextUiVariants } from "./next-ui.variants";
 export function CheckboxNextUiAdapter({
   classNames,
   onChange,
+  onNativeEventChange,
   value,
   label,
   description,
@@ -38,6 +39,7 @@ export function CheckboxNextUiAdapter({
       isIndeterminate={mixed}
       isSelected={value}
       onValueChange={handleChange}
+      onChange={onNativeEventChange}
       {...attr}
     >
       {label || description ? (

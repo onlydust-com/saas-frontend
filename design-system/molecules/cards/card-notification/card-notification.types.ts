@@ -8,7 +8,7 @@ interface ClassNames {
 
 export interface CardNotificationPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  titleProps: TypoPort<"p">;
-  descriptionProps: TypoPort<"p">;
+  titleProps: TypoPort<"span">;
+  descriptionProps: TypoPort<"span">;
   onClick: () => void;
 }

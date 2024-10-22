@@ -53,20 +53,21 @@ export class HttpClient {
   }
 
   protected buildSearchParams(queryParams: HttpClientQueryParams = {}) {
+    const validationKernelPort = bootstrap.getValidationKernelPort();
+
     return Object.entries(queryParams)
       .reduce((acc, [key, value]) => {
-        if (value === undefined) {
-          return acc;
-        }
+        if (validationKernelPort.isInvalidValue(value)) return acc;
 
         if (Array.isArray(value)) {
           acc.append(key, value.join(","));
         } else if (typeof value === "object") {
-          const keys = Object.keys(value);
-          keys.forEach(subKey => {
-            if (value[subKey] !== undefined) {
-              acc.append(`${key}.${subKey}`, String(value[subKey]));
-            }
+          Object.keys(value).forEach(subKey => {
+            const subValue = value[subKey];
+
+            if (validationKernelPort.isInvalidValue(subValue)) return;
+
+            acc.append(`${key}.${subKey}`, String(subValue));
           });
         } else {
           acc.append(key, String(value));
@@ -105,7 +106,7 @@ export class HttpClient {
     return Object.keys(obj)
       .sort()
       .reduce((acc, key, i, arr) => {
-        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+        if (obj[key] && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
           const keys = Object.keys(obj[key]);
           keys.forEach(subKey => {
             acc += `${key}.${subKey}` + ":" + `${(obj[key] as AnyType)[subKey]}`;

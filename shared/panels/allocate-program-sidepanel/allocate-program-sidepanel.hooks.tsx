@@ -124,7 +124,7 @@ export function useAllocateProgram({ sponsorId, programId = "" }: { sponsorId: s
     setAmount(amount);
   }
 
-  function handleBudgetChange(budget: DetailedTotalMoneyTotalPerCurrency) {
+  function handleBudgetChange(budget?: DetailedTotalMoneyTotalPerCurrency) {
     setBudget(budget);
   }
 

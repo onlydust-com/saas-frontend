@@ -14,6 +14,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { DepositFlow } from "@/shared/panels/_flows/deposit-flow/deposit-flow";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
 import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -27,11 +28,7 @@ function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
   }
 
   return (
-    <ProgramListSidepanelProvider
-      sponsorId={sponsorId}
-      onProgramClick={handleOpenAllocateProgram}
-      onCreateProgramClick={() => alert("create program")}
-    >
+    <ProgramListSidepanelProvider sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram}>
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <div className="h-auto">
           <PageContent>
@@ -81,7 +78,10 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         }}
         paramsReady={Boolean(sponsorId)}
       />
+
       <SafeFinancialPage sponsorId={sponsorId} />
+
+      <FinancialDetailSidepanel />
       <EditProgramPanel />
       <CreateProgramPanel />
       <ProgramSidepanel />

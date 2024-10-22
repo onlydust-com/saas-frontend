@@ -16,16 +16,30 @@ export enum TimeGroupingType {
 }
 
 export interface DateFacadePort {
-  eachDayOfInterval: (start: Date, end: Date) => Date[];
   isToday: (date: Date) => boolean;
   isPast: (date: Date) => boolean;
   isFuture: (date: Date) => boolean;
   compareAsc: (dateLeft: Date, dateRight: Date) => number;
   compareDesc: (dateLeft: Date, dateRight: Date) => number;
-  addMinutes: (date: Date, minutes: number) => Date;
   format: (date: Date, pattern: string) => string;
-  startOfWeek: (date: Date) => Date;
   formatDistanceToNow: (date: Date) => string;
+  isValid: (date: Date) => boolean;
+  addMinutes: (date: Date, minutes: number) => Date;
+  eachDayOfInterval: (start: Date, end: Date) => Date[];
+  addDays: (date: Date, days: number) => Date;
+  isSameDay: (dateLeft: Date, dateRight: Date) => boolean;
+  subWeeks: (date: Date, weeks: number) => Date;
+  startOfWeek: (date: Date) => Date;
+  setWeek: (date: Date, weekNumber: number) => Date;
+  eachMonthOfInterval: (start: Date, end: Date) => Date[];
+  endOfMonth: (date: Date) => Date;
+  startOfMonth: (date: Date) => Date;
+  isSameMonth: (dateLeft: Date, dateRight: Date) => boolean;
+  subMonths: (date: Date, months: number) => Date;
+  addYears: (date: Date, years: number) => Date;
+  subYears: (date: Date, years: number) => Date;
+  startOfYear: (date: Date) => Date;
+  setYear: (date: Date, year: number) => Date;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
   getMonthRange: (date: Date) => { from: Date; to: Date };
   isDateRangeType: (value: string) => value is DateRangeType;

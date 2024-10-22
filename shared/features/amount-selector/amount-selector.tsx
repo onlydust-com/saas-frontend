@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useMemo, useRef } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
@@ -17,25 +17,33 @@ import { cn } from "@/shared/helpers/cn";
 import { AmountSelectorProps } from "./amount-selector.types";
 
 export function AmountSelector({
+  id,
   amount,
   onAmountChange,
   budget,
   allBudgets,
   onBudgetChange,
   readOnly,
+  showBudgetAmount = true,
 }: AmountSelectorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { Panel, open, back } = useSidePanel({ name: "grant-budget" });
+  const { Panel, open, back } = useSidePanel({ name: id ? `grant-budget-${id}` : "grant-budget" });
 
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { amount: formattedBudgetAmount } = moneyKernelPort.format({
+  const isFilled = !!Number(amount);
+
+  const inputWidth = useMemo(() => Math.min(Math.max(amount.length, 2), 50) + "ch", [amount]);
+
+  if (!budget) return null;
+
+  const { maximumSignificantDigits, format, getCurrency } = bootstrap.getMoneyKernelPort();
+  const { amount: formattedBudgetAmount } = format({
     amount: budget.amount,
     currency: budget.currency,
   });
-  const { amount: formattedUsdAmount } = moneyKernelPort.format({
-    amount: parseFloat(amount) * (budget?.usdConversionRate ?? 0),
-    currency: moneyKernelPort.getCurrency("USD"),
+  const { amount: formattedUsdAmount } = format({
+    amount: parseFloat(amount) * (budget.usdConversionRate ?? 0),
+    currency: getCurrency("USD"),
   });
 
   function handleFocusInput() {
@@ -49,8 +57,21 @@ export function AmountSelector({
       // Only allow numbers and one dot
       value = value.replace(/[^\d.]/g, "");
 
-      if (value.length > 1 && value.startsWith("0")) {
+      // A single decimal is considered valid but will cause NaN errors
+      if (value === ".") {
+        return;
+      }
+
+      if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
         value = value.slice(1);
+      }
+
+      if (value.length > maximumSignificantDigits) {
+        return;
+      }
+
+      if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
+        return;
       }
 
       onAmountChange(value || "0");
@@ -78,35 +99,59 @@ export function AmountSelector({
           <input
             ref={inputRef}
             type="text"
-            style={{ width: Math.min(Math.max(amount.length, 2), 50) + "ch" }}
-            className={"flex bg-transparent text-right font-medium text-typography-primary outline-none"}
+            style={{ width: inputWidth }}
+            className={cn(
+              "flex bg-transparent text-right font-medium text-typography-primary outline-none transition-colors",
+              {
+                "text-typography-tertiary placeholder:text-typography-tertiary": !isFilled,
+              }
+            )}
             value={amount}
             onChange={handleChangeAmount}
             readOnly={readOnly}
+            placeholder={"_"}
+            autoFocus={!readOnly}
           />
           <div onClick={handleFocusInput}>
-            <span className={"font-medium text-typography-primary"}>{budget.currency.code}</span>
+            <span
+              className={cn("font-medium text-typography-primary transition-colors", {
+                "text-typography-tertiary": !isFilled,
+              })}
+            >
+              {budget.currency.code}
+            </span>
           </div>
         </div>
-        <Typo size={"md"} color={"secondary"} classNames={{ base: "text-center" }}>
+        <Typo
+          size={"md"}
+          color={"secondary"}
+          classNames={{
+            base: cn("text-center transition-all", {
+              "translate-y-3 opacity-0": !isFilled,
+            }),
+          }}
+        >
           {formattedUsdAmount} USD
         </Typo>
       </div>
 
-      <div>
-        <div className={"flex w-full justify-center"}>
+      <div className={"w-full overflow-hidden"}>
+        <div className={"flex justify-center overflow-hidden"}>
           <Button
             variant={"secondary"}
             size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
             canInteract={!readOnly}
+            classNames={{ base: "overflow-hidden", label: "flex-1 overflow-hidden" }}
           >
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
-              size={"s"}
+              size={"sm"}
               title={{
-                children: `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`,
+                children: showBudgetAmount
+                  ? `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`
+                  : budget.currency.name,
               }}
             />
           </Button>

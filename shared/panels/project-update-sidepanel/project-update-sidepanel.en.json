@@ -31,6 +31,10 @@
       "label": "Categories",
       "placeholder": "Categories"
     },
+    "hiring": {
+      "label": "Accept new applications",
+      "switch": "Looking for contributors"
+    },
     "rewardsSettings": {
       "label": "Rewardable contributions",
       "since": "Since",
@@ -46,6 +50,10 @@
     "you": "You",
     "invited": "Pending"
   },
+  "repositories": {
+    "title": "Repositories",
+    "addRepoButton": "Add a repo"
+  },
   "moreInfo": {
     "title": "More info",
     "emptyLinkLabel": "Link {{count}}",
@@ -58,5 +66,29 @@
         "placeholder": "Label"
       }
     }
+  },
+  "addRepoPanel": {
+    "title": "Add a repo",
+    "disabledTooltip": "Github app installed by an organisation admin",
+    "repositories": {
+      "title": "Repositories",
+      "search": "Search for a repository",
+      "manage": "Manage"
+    },
+    "organizations": {
+      "title": "Organizations",
+      "search": "Search for a organizations",
+      "manage": "Manage",
+      "refresh": "Refresh organizations",
+      "installed": "Installed organizations",
+      "available": "Available organizations"
+    }
+  },
+  "contributorLabels": {
+    "title": "Contributor labels",
+    "addLabel": "Add",
+    "updateLabel": "Modify",
+    "cancel": "Cancel",
+    "addLabelPlaceholder": "New label name"
   }
 }

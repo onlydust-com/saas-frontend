@@ -14,6 +14,7 @@ interface Variants {
   color: "grey" | "brand" | "error" | "warning" | "success";
   shape: "rounded" | "squared";
   isDeletable: boolean;
+  iconOnly: boolean;
 }
 
 interface ClassNames {
@@ -32,6 +33,7 @@ export interface BadgeBasePort<C extends ElementType> extends Partial<Variants>,
   endContent?: ReactNode;
   labelProps?: Partial<TypoPort<"span">>;
   closeProps?: Partial<BadgeClosePort<AnyType>>;
+  iconOnly?: boolean;
 }
 
 export interface BadgeIconPort<C extends ElementType> extends BadgeBasePort<C> {

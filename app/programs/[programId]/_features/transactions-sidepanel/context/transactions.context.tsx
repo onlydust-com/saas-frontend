@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 
 import {
@@ -53,13 +53,13 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     [queryParams]
   );
 
-  const { data: transactionsStats } = ProgramReactQueryAdapter.client.useGetProgramTransactionsStats({
-    pathParams: { programId },
+  const { data: transactionsStats } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       ...debouncedQueryParams,
       sort: "DATE",
       sortDirection: "DESC",
       showEmpty: false,
+      programId,
     },
     options: {
       enabled: !!programId,

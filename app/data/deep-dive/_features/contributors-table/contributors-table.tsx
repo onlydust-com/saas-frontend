@@ -1,19 +1,15 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Filter } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data";
-import { FilterDataProvider } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.context";
 import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -21,6 +17,8 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
+import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
 import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
@@ -46,7 +44,7 @@ export function ContributorsTable() {
   const { open: openContributor } = useContributorSidePanel();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
-    programOrEcosystemIds: selectedProgramAndEcosystem.length
+    dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
@@ -63,7 +61,11 @@ export function ContributorsTable() {
     fetchNextPage,
     isFetchingNextPage,
   } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams,
+    queryParams: {
+      ...queryParams,
+      showFilteredKpis: false,
+      contributionStatuses: ["COMPLETED"],
+    },
     options: {
       enabled: Boolean(user),
     },
@@ -95,8 +97,6 @@ export function ContributorsTable() {
     return <ErrorState />;
   }
 
-  const filtersCount = Object.keys(filters)?.length;
-
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"grid gap-lg"}>
@@ -107,17 +107,7 @@ export function ContributorsTable() {
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
             buttonProps={{ size: "sm" }}
           />
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
           <PeriodFilter onChange={handleOnPeriodChange} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />

@@ -5,6 +5,8 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+
 import { LanguagesProps } from "./languages.types";
 
 export function Languages({ githubId }: LanguagesProps) {
@@ -26,24 +28,18 @@ export function Languages({ githubId }: LanguagesProps) {
   }
 
   return (
-    <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
+    <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg overflow-hidden" }}>
       <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.languages.title" }} />
 
-      <div className={"flex flex-wrap gap-md"}>
-        {languages?.map(({ language: { logoUrl, name } }) => (
-          <Tag
-            key={name}
-            size={"md"}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            avatar={{ src: logoUrl, alt: name }}
-          >
-            {name}
-          </Tag>
-        ))}
-      </div>
+      <ScrollView direction={"x"}>
+        <div className={"flex flex-row gap-md"}>
+          {languages?.map(({ language: { logoUrl, name } }) => (
+            <Tag key={name} size={"md"} avatar={{ src: logoUrl, alt: name }}>
+              {name}
+            </Tag>
+          ))}
+        </div>
+      </ScrollView>
     </Paper>
   );
 }

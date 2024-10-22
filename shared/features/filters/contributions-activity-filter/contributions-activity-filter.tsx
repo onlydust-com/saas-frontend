@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
 import { ContributionFilterType, QuantityFilterType } from "@/core/kernel/filters/filters-facade-port";
 
 import { Menu, MenuPort } from "@/design-system/molecules/menu";
@@ -15,31 +16,39 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
   const value = useMemo(
     () => ({
       type: _value?.type ?? QuantityFilterType.EQUAL,
-      contributionType: _value?.contributionType?.length ? _value?.contributionType : [ContributionFilterType.ISSUES],
-      amount: _value?.amount ?? {
-        eq: undefined,
-        gte: undefined,
-        lte: undefined,
-      },
+      contributionType: _value?.contributionType?.length ? _value?.contributionType : [],
+      amount: _value?.amount ?? undefined,
     }),
     [_value]
   );
   const { t } = useTranslation("common");
 
-  const contributionsOptions: MenuPort["items"] = [
+  const contributionsOptions: MenuPort<ContributionTypeUnion>["items"] = [
     {
       label: t("contributionFilterType.PULL_REQUESTS"),
-      id: ContributionFilterType.PULL_REQUESTS,
+      id: ContributionFilterType.PULL_REQUEST,
     },
     {
       label: t("contributionFilterType.ISSUES"),
-      id: ContributionFilterType.ISSUES,
+      id: ContributionFilterType.ISSUE,
     },
     {
       label: t("contributionFilterType.CODE_REVIEWS"),
-      id: ContributionFilterType.CODE_REVIEWS,
+      id: ContributionFilterType.CODE_REVIEW,
     },
   ];
+
+  const getSelected = useCallback(() => {
+    let selected = 0;
+
+    if (value.amount) {
+      selected++;
+    }
+
+    selected += value.contributionType.length;
+
+    return selected;
+  }, [value]);
 
   function onQuantityChange(newValue: QuantityFilterProps["value"]) {
     onChange?.({
@@ -48,18 +57,18 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
     });
   }
 
-  function onContributionTypeChange(newValue: string[]) {
+  function onContributionTypeChange(newValue: ContributionTypeUnion[]) {
     onChange?.({
       ...value,
-      contributionType: newValue as ContributionFilterType[],
+      contributionType: newValue,
     });
   }
 
   return (
     <AccordionFilter
-      name={"total-rewarded-amount"}
+      name={"contribution-activity"}
       title={{ translate: { token: "features:filters.contributionActivity.title" } }}
-      selected={value.amount ? 1 : 0}
+      selected={getSelected()}
       classNames={{ container: "!p-0" }}
     >
       <div className={"p-lg"}>
@@ -73,7 +82,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
 
       <div className={"border-t-1 border-border-primary p-lg"}>
         <QuantityFilter
-          name={"total-rewarded-amount"}
+          name={"contribution-activity-amount"}
           value={{ amount: value?.amount, type: value?.type }}
           onChange={onQuantityChange}
         />

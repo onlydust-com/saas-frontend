@@ -12,9 +12,12 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
+import { Repositories } from "@/shared/panels/project-update-sidepanel/_components/repositories/repositories";
+import { AddRepoToProjectSidePanel } from "@/shared/panels/project-update-sidepanel/_features/add-repo-to-project-side-panel/add-repo-to-project-side-panel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import {
   EditProjectFormData,
@@ -28,7 +31,6 @@ export function ProjectUpdateSidepanel() {
   const { name } = useProjectUpdateSidePanel();
   const { Panel, close: closePanel } = useSidePanel({ name });
   const { projectId, canGoBack = false } = useSinglePanelData<ProjectUpdateSidePanelData>(name) ?? { projectId: "" };
-
   const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: { projectId: projectId ?? "" },
     options: {
@@ -49,13 +51,14 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, rewardSettingsArrays, rewardSettingsDate, ...updatedData }: EditProjectFormData) {
+  async function onSubmit({ logoFile, rewardSettingsArrays, rewardSettingsDate, labels, ...updatedData }: EditProjectFormData) {
     try {
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
       const editProjectData: EditProjectBody = {
         ...updatedData,
         logoUrl: fileUrl?.url || updatedData?.logoUrl,
+        contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
         rewardSettings: {
           ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
           ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
@@ -78,6 +81,7 @@ export function ProjectUpdateSidepanel() {
     if (data) {
       reset({
         ...data,
+        labels: (data.contributorLabels || []).map(label => ({ name: label.name, backendId: label.id })),
         isLookingForContributors: data.hiring,
         githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
@@ -86,6 +90,7 @@ export function ProjectUpdateSidepanel() {
         rewardSettingsDate: data.rewardSettings?.ignoreContributionsBefore
           ? new Date(data.rewardSettings?.ignoreContributionsBefore)
           : undefined,
+        categoryIds: data.categories.map(category => category.id),
         rewardSettingsArrays: [
           ...(!data.rewardSettings?.ignoreCodeReviews ? [rewardsSettingsTypes.CodeReviews] : []),
           ...(!data.rewardSettings?.ignoreIssues ? [rewardsSettingsTypes.Issue] : []),
@@ -96,8 +101,8 @@ export function ProjectUpdateSidepanel() {
   }, [data]);
 
   return (
-    <Panel>
-      <FormProvider {...form}>
+    <FormProvider {...form}>
+      <Panel>
         <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col gap-px"}>
           <SidePanelHeader
             title={{
@@ -114,6 +119,8 @@ export function ProjectUpdateSidepanel() {
                 <GlobalInformation project={data} />
                 <ProjectLead project={data} />
                 <MoreInfo />
+                <ContributorLabels />
+                <Repositories project={data} />
               </>
             )}
           </SidePanelBody>
@@ -127,7 +134,8 @@ export function ProjectUpdateSidepanel() {
             />
           </SidePanelFooter>
         </form>
-      </FormProvider>
-    </Panel>
+      </Panel>
+      {data && <AddRepoToProjectSidePanel project={data} />}
+    </FormProvider>
   );
 }

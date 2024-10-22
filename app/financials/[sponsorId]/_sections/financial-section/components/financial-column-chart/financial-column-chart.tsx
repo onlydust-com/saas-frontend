@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { useFinancialColumnChart } from "@/app/financials/[sponsorId]/_sections/financial-section/components/financial-column-chart/financial-column-chart.hooks";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
@@ -38,14 +38,14 @@ export function FinancialColumnChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  const { data, isLoading } = SponsorReactQueryAdapter.client.useGetSponsorTransactionsStats({
-    pathParams: { sponsorId },
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       fromDate,
       toDate,
       sort: "DATE",
       sortDirection: "ASC",
       showEmpty: true,
+      sponsorId,
     },
   });
 

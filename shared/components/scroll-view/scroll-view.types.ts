@@ -1,6 +1,7 @@
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 
 export interface ScrollViewProps extends PropsWithChildren {
   className?: string;
-  direction?: "x" | "y";
+  direction?: "x" | "y" | "all";
+  style?: CSSProperties;
 }

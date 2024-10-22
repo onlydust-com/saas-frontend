@@ -2,7 +2,6 @@ import { ProgramListItem } from "@/core/domain/program/models/program-list-item-
 import { Program } from "@/core/domain/program/models/program-model";
 import { ProgramProjectListItem } from "@/core/domain/program/models/program-project-list-item-model";
 import { ProgramProject } from "@/core/domain/program/models/program-project-model";
-import { ProgramTransactionsStats } from "@/core/domain/program/models/program-transactions-stats-model";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
   EditProgramBody,
@@ -10,7 +9,6 @@ import {
   GetProgramProjectsResponse,
   GetProgramResponse,
   GetProgramTransactionsResponse,
-  GetProgramTransactionsStatsResponse,
   GetProgramsResponse,
   GrantBudgetToProjectBody,
   UploadProgramLogoResponse,
@@ -127,31 +125,6 @@ export class ProgramClientAdapter implements ProgramStoragePort {
       });
 
       return data;
-    };
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  getProgramTransactionsStats = ({
-    pathParams,
-    queryParams,
-  }: FirstParameter<ProgramStoragePort["getProgramTransactionsStats"]>) => {
-    const path = this.routes["getProgramTransactionsStats"];
-    const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
-    const request = async () => {
-      const data = await this.client.request<GetProgramTransactionsStatsResponse>({
-        path,
-        method,
-        tag,
-        pathParams,
-        queryParams,
-      });
-
-      return new ProgramTransactionsStats(data);
     };
 
     return {

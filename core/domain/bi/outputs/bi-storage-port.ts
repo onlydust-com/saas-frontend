@@ -9,6 +9,8 @@ import {
   GetBiProjectsPortResponse,
   GetBiProjectsStatsPortParams,
   GetBiProjectsStatsPortResponse,
+  GetBiStatsFinancialsPortParams,
+  GetBiStatsFinancialsPortResponse,
   GetBiWorldMapPortParams,
   GetBiWorldMapPortResponse,
 } from "@/core/domain/bi/bi-contract.types";
@@ -22,4 +24,5 @@ export interface BiStoragePort {
   getBiProjectsCsv(p: GetBiProjectsPortParams): GetBiProjectsCsvPortResponse;
   getBiContributors(p: GetBiContributorsPortParams): GetBiContributorsPortResponse;
   getBiContributorsCsv(p: GetBiContributorsPortParams): GetBiContributorsCsvPortResponse;
+  getBiStatsFinancials(p: GetBiStatsFinancialsPortParams): GetBiStatsFinancialsPortResponse;
 }

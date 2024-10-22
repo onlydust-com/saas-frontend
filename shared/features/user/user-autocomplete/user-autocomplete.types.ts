@@ -7,5 +7,5 @@ export interface UserAutocompleteProps extends SelectExtendedProps {
   withExternalUserOnly?: boolean;
   selectedUser?: string[];
   onSelect?: (user: string[]) => void;
-  initialtUsers?: MenuItemPort[];
+  initialUsers?: MenuItemPort[];
 }

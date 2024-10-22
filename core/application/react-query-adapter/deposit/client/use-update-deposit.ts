@@ -13,9 +13,11 @@ export function useUpdateDeposit({
   pathParams,
   options,
 }: UseMutationFacadeParams<DepositFacadePort["updateDeposit"], undefined, never, UpdateDepositBody> = {}) {
+  // TODO Revamp this
   const { sponsorId } = useParams<{ sponsorId?: string }>();
   const depositStoragePort = bootstrap.getDepositStoragePortForClient();
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
+  const biStoragePort = bootstrap.getBiStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -31,9 +33,9 @@ export function useUpdateDeposit({
               exact: false,
             });
 
-            // Invalidate sponsor transaction stats
+            // Invalidate bi financial stats for sponsor
             await queryClient.invalidateQueries({
-              queryKey: sponsorStoragePort.getSponsorTransactionsStats({ pathParams: { sponsorId } }).tag,
+              queryKey: biStoragePort.getBiStatsFinancials({ queryParams: { sponsorId } }).tag,
               exact: false,
             });
           }

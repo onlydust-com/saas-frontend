@@ -8,7 +8,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { ActivityGraph } from "@/shared/features/activity-graph/activity-graph";
+import { ActivityGraph as ActivityGraphV1 } from "@/shared/features/activity-graph/activity-graph";
 import { ActivityGraphWeeksData } from "@/shared/features/activity-graph/activity-graph.types";
 import { getLevelFromCount } from "@/shared/features/activity-graph/utils/getLevelFromCount";
 import { getLevelRange } from "@/shared/features/activity-graph/utils/getLevelRange";
@@ -52,10 +52,23 @@ export function Activity({ githubId }: ActivityProps) {
     return null;
   }
 
+  /* !KEEP this*/
+  // "title": "{{number}} contributions last year "
+  // return (
+  //   <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
+  //     <Typo
+  //       size={"sm"}
+  //       weight={"medium"}
+  //       translate={{ token: "panels:contributor.activity.title", values: { number: "2,224" } }}
+  //     />
+  //     <ActivityGraph />
+  //   </Paper>
+  // );
+
   return (
     <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
       <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.activity.title" }} />
-      <ActivityGraph weekData={weekData} isLoading={isLoading} />
+      <ActivityGraphV1 weekData={weekData} isLoading={isLoading} />
     </Paper>
   );
 }

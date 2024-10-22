@@ -1,7 +1,7 @@
 import { MenuItemAvatarPort } from "@/design-system/molecules/menu-item";
 import { SelectExtendedProps } from "@/design-system/molecules/select";
 
-export interface GithubUserAutocompleteProps extends SelectExtendedProps {
+export interface GithubUserAutocompleteProps extends SelectExtendedProps<number> {
   withExternalUser?: boolean;
   withInternalUserOnly?: boolean;
   withExternalUserOnly?: boolean;
