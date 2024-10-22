@@ -15,6 +15,10 @@ export function RewardedAutocomplete({ selectedRewardedType, onSelect, ...select
   const rewardedTypesItems: MenuItemPort[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
+        label: t("rewardedType.ALL"),
+        id: RewardedFilterType.ALL,
+      },
+      {
         label: t("rewardedType.REWARDED"),
         id: RewardedFilterType.REWARDED,
       },
@@ -39,6 +43,7 @@ export function RewardedAutocomplete({ selectedRewardedType, onSelect, ...select
       selectedIds={selectedRewardedType}
       disabledAutoOrdering
       {...selectProps}
+      isMultiple
     />
   );
 }

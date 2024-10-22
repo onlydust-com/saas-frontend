@@ -44,11 +44,13 @@ export function FilterData() {
         />
         <ProjectRepoFilter selectedRepo={filters.repoIds} onSelect={repoIds => setFilters({ repoIds })} />
         <RewardedFilter
-          selectedRewardedType={
-            filters.hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED]
-          }
+          selectedRewardedType={filters.hasBeenRewarded}
           onSelect={(rewardedType: string[]) =>
-            setFilters({ hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) })
+            setFilters(
+              rewardedType.includes(RewardedFilterType.REWARDED)
+                ? { hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) }
+                : {}
+            )
           }
         />
       </SidePanelBody>
