@@ -44,7 +44,11 @@ export function Footer({ contribution }: FooterProps) {
       );
     }
 
-    if (contribution?.isInProgress() && isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+    if (
+      contribution?.isInProgress() &&
+      contribution.type !== "PULL_REQUEST" &&
+      isProjectOrganisationMissingPermissions(contribution.repo.id)
+    ) {
       return (
         <Button
           size={"md"}
