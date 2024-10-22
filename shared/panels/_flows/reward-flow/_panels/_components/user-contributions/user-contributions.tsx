@@ -1,4 +1,4 @@
-import { CircleCheck, Filter, Plus } from "lucide-react";
+import { CircleCheck, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,6 +26,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data";
 import { useUserContributionsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/_components/filter-data/filter-data.hooks";
@@ -57,8 +58,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
 
-  const filtersCount = Object.keys(filters)?.length;
-
   const menuItems: MenuItemPort[] = [
     {
       id: "link",
@@ -89,6 +88,21 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
     ...filters,
   };
 
+  const { data: selectedContributionData, isLoading: isLoadingSelectedContributions } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        ...queryParams,
+        contributorIds: [githubUserId],
+        statuses: ["DONE"],
+        hasBeenRewarded: false,
+        ids: selectedContributions.filter(c => !!c.uuid).map(contribution => contribution.uuid) as string[],
+        pageSize: 50,
+      },
+      options: {
+        enabled: Boolean(githubUserId) && selectedContributions.length > 0,
+      },
+    });
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
@@ -102,14 +116,22 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       },
     });
 
-  const totalContrbutionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
+  const totalContributionsNumber = useMemo(() => data?.pages[0].totalItemNumber ?? 0, [data]);
   const totalMixedContributionsNumber = useMemo(
-    () => totalContrbutionsNumber + otherWorks.length,
-    [totalContrbutionsNumber, otherWorks]
+    () => totalContributionsNumber + otherWorks.length,
+    [totalContributionsNumber, otherWorks]
   );
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
-  const mixedContributions = useMemo(() => [...otherWorks, ...contributions], [contributions, otherWorks]);
+  const selected = useMemo(() => selectedContributionData?.pages.flatMap(page => page.contributions) ?? [], [data]);
+
+  const mixedContributions = useMemo(() => {
+    const filteredContributions = contributions?.filter(contribution =>
+      selectedContributions.find(c => c.id !== contribution.id)
+    );
+
+    return [...selected, ...filteredContributions];
+  }, [contributions, selected]);
 
   const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
 
@@ -133,7 +155,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   }
 
   function renderContributions() {
-    if (isLoading) {
+    if (isLoading || isLoadingSelectedContributions) {
       return <CardContributionKanbanLoading />;
     }
 
@@ -145,6 +167,27 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
 
     return (
       <div className={"grid gap-lg"}>
+        {otherWorks.map(contribution => {
+          const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
+          return (
+            <CardContributionKanban
+              key={contribution.id}
+              type={contribution.type}
+              githubTitle={contribution.title}
+              githubStatus={contribution.status}
+              githubNumber={contribution.number}
+              actions={[
+                {
+                  translate: { token: isSelected ? "common:unselect" : "common:select" },
+                  onClick: () => {
+                    handleSelect(contribution.toItemDto(), isSelected);
+                  },
+                },
+              ]}
+              border={isSelected ? "brand-primary" : undefined}
+            />
+          );
+        })}
         {mixedContributions.map(contribution => {
           const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
           return (
@@ -224,17 +267,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         <nav className={"flex gap-md"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
 
-          <Button
-            variant={"secondary"}
-            size="sm"
-            startIcon={{ component: Filter }}
-            iconOnly={!filtersCount}
-            onClick={() => openFilterPanel()}
-            classNames={{
-              content: "w-fit",
-            }}
-            endContent={filtersCount ? <Badge size={"xxs"}>{filtersCount}</Badge> : undefined}
-          />
+          <FilterButton onClick={openFilterPanel} />
         </nav>
 
         {containerHeight ? (

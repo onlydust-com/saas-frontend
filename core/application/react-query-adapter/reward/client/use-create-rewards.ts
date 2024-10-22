@@ -18,8 +18,6 @@ export function useCreateRewards({
   CreateRewardsBody
 > = {}) {
   const rewardStoragePort = bootstrap.getRewardStoragePortForClient();
-  const meStoragePort = bootstrap.getMeStoragePortForClient();
-  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -27,23 +25,8 @@ export function useCreateRewards({
       ...rewardStoragePort.createRewards({ pathParams }),
       options: {
         ...options,
-        onSuccess: async (data, variables, context) => {
-          if (pathParams?.projectId) {
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getProjectRewards({ pathParams: { projectId: pathParams.projectId } }).tag,
-              exact: false,
-            });
-          }
-
-          await queryClient.invalidateQueries({
-            queryKey: contributionStoragePort.getContributions({}).tag,
-            exact: false,
-          });
-
-          await queryClient.invalidateQueries({
-            queryKey: meStoragePort.getMe({}).tag,
-            exact: false,
-          });
+        onSuccess: (data, variables, context) => {
+          queryClient.invalidateQueries();
 
           options?.onSuccess?.(data, variables, context);
         },

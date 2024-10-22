@@ -6,6 +6,7 @@ import { ContributionActivityStatus } from "@/core/domain/contribution/models/co
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -16,31 +17,37 @@ export const useContributionActions = (
 ): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
   const { open: openRewardFlow } = useRewardFlow();
 
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+
   const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
       pathParams: {
-        pullRequestId: contribution.githubId,
+        contributionUuid: contribution.id,
       },
     });
 
   const { mutate: updateIssues, isPending: isUpdatingIssue } = IssueReactQueryAdapter.client.useUpdateIssue({
     pathParams: {
-      issueId: contribution.githubId,
+      contributionUuid: contribution.id,
     },
   });
 
   function onReview() {
-    actions?.onAction?.(contribution.githubId);
+    actions?.onAction?.(contribution.id);
   }
 
   function onUnassign() {
+    if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
     // TODO UNASSIGN in kanban actions
     //mutate({ assignees: [] });
   }
 
   function onCodeReview() {
     if (!contribution.githubHtmlUrl) {
-      actions?.onAction?.(contribution.githubId);
+      actions?.onAction?.(contribution.id);
       return;
     }
 
@@ -108,10 +115,14 @@ export const useContributionActions = (
           onClick: onArchive,
           isDisabled: isUpdatingPullRequest || isUpdatingIssue,
         },
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
-          onClick: onReward,
-        },
+        ...(contribution.totalRewardedUsdAmount !== 0
+          ? []
+          : [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
+                onClick: onReward,
+              },
+            ]),
       ];
     case ContributionActivityStatus.ARCHIVED:
       return [

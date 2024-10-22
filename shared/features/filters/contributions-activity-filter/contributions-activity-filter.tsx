@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ContributionTypeUnion } from "@/core/domain/contribution/models/contribution.types";
@@ -17,17 +17,13 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
     () => ({
       type: _value?.type ?? QuantityFilterType.EQUAL,
       contributionType: _value?.contributionType?.length ? _value?.contributionType : [],
-      amount: _value?.amount ?? {
-        eq: undefined,
-        gte: undefined,
-        lte: undefined,
-      },
+      amount: _value?.amount ?? undefined,
     }),
     [_value]
   );
   const { t } = useTranslation("common");
 
-  const contributionsOptions: MenuPort["items"] = [
+  const contributionsOptions: MenuPort<ContributionTypeUnion>["items"] = [
     {
       label: t("contributionFilterType.PULL_REQUESTS"),
       id: ContributionFilterType.PULL_REQUEST,
@@ -42,6 +38,18 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
     },
   ];
 
+  const getSelected = useCallback(() => {
+    let selected = 0;
+
+    if (value.amount) {
+      selected++;
+    }
+
+    selected += value.contributionType.length;
+
+    return selected;
+  }, [value]);
+
   function onQuantityChange(newValue: QuantityFilterProps["value"]) {
     onChange?.({
       ...value,
@@ -49,18 +57,18 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
     });
   }
 
-  function onContributionTypeChange(newValue: string[]) {
+  function onContributionTypeChange(newValue: ContributionTypeUnion[]) {
     onChange?.({
       ...value,
-      contributionType: newValue as ContributionTypeUnion[],
+      contributionType: newValue,
     });
   }
 
   return (
     <AccordionFilter
-      name={"total-rewarded-amount"}
+      name={"contribution-activity"}
       title={{ translate: { token: "features:filters.contributionActivity.title" } }}
-      selected={value.amount ? 1 : 0}
+      selected={getSelected()}
       classNames={{ container: "!p-0" }}
     >
       <div className={"p-lg"}>
@@ -74,7 +82,7 @@ export function ContributionsActivityFilter({ value: _value, onChange }: Contrib
 
       <div className={"border-t-1 border-border-primary p-lg"}>
         <QuantityFilter
-          name={"total-rewarded-amount"}
+          name={"contribution-activity-amount"}
           value={{ amount: value?.amount, type: value?.type }}
           onChange={onQuantityChange}
         />

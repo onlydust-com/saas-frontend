@@ -61,7 +61,7 @@ export function ContributionsPopover({
             <ScrollView>
               <div className={"flex max-h-lg w-lg flex-col gap-3"}>
                 {contributions?.map(contribution => (
-                  <CardContributionKanban contribution={contribution} key={contribution.id} />
+                  <CardContributionKanban contribution={contribution} key={contribution.id} showActions={false} />
                 ))}
               </div>
               {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

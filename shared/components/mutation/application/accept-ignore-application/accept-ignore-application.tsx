@@ -1,42 +1,28 @@
-import { useParams } from "next/navigation";
-import { useMemo } from "react";
-
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
-import { useGithubPermissions } from "@/shared/hooks/github-permissions/use-github-permissions";
-import { GithubPermissionModal } from "@/shared/modals/github-permission-modal/github-permission-modal";
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 
 import { AcceptApplicationProps } from "./accept-ignore-application.types";
 
 export function AcceptIgnoreApplication({
   applicationId,
-  contributionGithubId,
+  contributionId,
   repoId,
   children,
   acceptOptions,
 }: AcceptApplicationProps) {
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
-  const {
-    isProjectOrganisationMissingPermissions,
-    isGithubPermissionModalOpen,
-    setIsGithubPermissionModalOpen,
-    handleRedirectToGithubFlow,
-    setEnablePooling,
-  } = useGithubPermissions({
-    projectSlug,
-    repoId,
-  });
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
   const { mutate: accept, isPending: isAccepting } = ApplicationReactQueryAdapter.client.useAcceptApplication({
     pathParams: {
       applicationId,
     },
-    ...(contributionGithubId
+    ...(contributionId
       ? {
           invalidateTagParams: {
             contribution: {
               pathParams: {
-                contributionGithubId,
+                contributionId,
               },
             },
           },
@@ -52,36 +38,17 @@ export function AcceptIgnoreApplication({
   });
 
   function handleAccept() {
-    if (isProjectOrganisationMissingPermissions) {
+    if (isProjectOrganisationMissingPermissions(repoId)) {
       setIsGithubPermissionModalOpen(true);
       return;
     }
     accept({});
-    setEnablePooling(false);
   }
 
-  const permissionModal = useMemo(() => {
-    if (isGithubPermissionModalOpen) {
-      return (
-        <GithubPermissionModal
-          isOpen={isGithubPermissionModalOpen}
-          onOpenChange={setIsGithubPermissionModalOpen}
-          onRedirect={handleRedirectToGithubFlow}
-        />
-      );
-    }
-    return null;
-  }, [isGithubPermissionModalOpen]);
-
-  return (
-    <>
-      {children({
-        accept: () => handleAccept(),
-        isAccepting,
-        ignore: () => ignore({ isIgnored: true }),
-        isIgnoring,
-      })}
-      {permissionModal}
-    </>
-  );
+  return children({
+    accept: () => handleAccept(),
+    isAccepting,
+    ignore: () => ignore({ isIgnored: true }),
+    isIgnoring,
+  });
 }

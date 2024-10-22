@@ -98,12 +98,6 @@
     "rows": {
       "cancelReward": "Cancel"
     },
-    "rewardsCount": "Rewards",
-    "toast": {
-      "cancelReward": {
-        "success": "Reward canceled successfully.",
-        "error": "Error canceling reward."
-      }
-    }
+    "rewardsCount": "Rewards"
   }
 }

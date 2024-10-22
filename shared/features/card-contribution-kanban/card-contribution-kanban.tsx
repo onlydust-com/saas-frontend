@@ -5,7 +5,12 @@ import { useContributionActions } from "@/shared/hooks/contributions/use-contrib
 
 import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 
-export function CardContributionKanban({ contribution, classNames, ...actions }: CardContributionKanbanProps) {
+export function CardContributionKanban({
+  contribution,
+  classNames,
+  showActions,
+  ...actions
+}: CardContributionKanbanProps) {
   const actionGroup = useContributionActions(contribution, actions) as ButtonGroupPort["buttons"];
 
   return (
@@ -23,7 +28,8 @@ export function CardContributionKanban({ contribution, classNames, ...actions }:
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}
       actions={actionGroup}
-      onClick={() => actions?.onAction?.(contribution.githubId)}
+      showActions={showActions}
+      onClick={() => actions?.onAction?.(contribution.id)}
     />
   );
 }

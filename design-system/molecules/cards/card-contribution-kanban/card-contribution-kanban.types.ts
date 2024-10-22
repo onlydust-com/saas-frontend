@@ -40,4 +40,5 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   }[];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
+  showActions?: boolean;
 }
