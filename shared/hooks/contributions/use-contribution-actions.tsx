@@ -15,7 +15,7 @@ export const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions?: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
-  const { open: openRewardFlow } = useRewardFlow();
+  const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
 
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
@@ -67,6 +67,8 @@ export const useContributionActions = (
   }
 
   function onReward() {
+    selectedGithubUserIds.map(githubUserId => removeContributorId(githubUserId));
+
     openRewardFlow({
       contributions: [contribution.toItemDto()],
       githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
