@@ -1,5 +1,6 @@
 import { RewardItemInterface } from "@/core/domain/reward/models/reward-item-model";
 import { RewardListItemInterface } from "@/core/domain/reward/models/reward-list-item-model";
+import { RewardListItemV2Interface } from "@/core/domain/reward/models/reward-list-item-v2-model";
 import { RewardInterface } from "@/core/domain/reward/models/reward-model";
 import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -7,6 +8,25 @@ import {
   HttpClientParameters,
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+
+/* ------------------------------ Get Rewards ------------------------------ */
+
+export type GetRewardsResponse = components["schemas"]["RewardPageResponse"];
+
+export type GetRewardsModel = Omit<GetRewardsResponse, "rewards"> & {
+  rewards: RewardListItemV2Interface[];
+};
+
+type GetRewardsPathParams = operations["getRewards"]["parameters"]["path"];
+
+export type GetRewardsQueryParams = operations["getRewards"]["parameters"]["query"]["queryParams"];
+
+export type GetRewardsPortResponse = HttpStorageResponse<GetRewardsModel>;
+
+export type GetRewardsPortParams = HttpClientParameters<{
+  PathParams: GetRewardsPathParams;
+  QueryParams: GetRewardsQueryParams;
+}>;
 
 /* ------------------------------ Get Project Rewards ------------------------------ */
 
