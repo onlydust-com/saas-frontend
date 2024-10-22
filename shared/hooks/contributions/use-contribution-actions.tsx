@@ -94,6 +94,8 @@ export const useContributionActions = (
         },
       ];
     case ContributionActivityStatus.IN_PROGRESS:
+      if (contribution.type === "PULL_REQUEST") return [];
+
       return [
         {
           children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
