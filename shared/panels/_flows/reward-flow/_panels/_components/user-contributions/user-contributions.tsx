@@ -58,6 +58,8 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
 
+  console.log("selectedContributions", selectedContributions);
+
   const menuItems: MenuItemPort[] = [
     {
       id: "link",
@@ -123,15 +125,18 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   );
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
-  const selected = useMemo(() => selectedContributionData?.pages.flatMap(page => page.contributions) ?? [], [data]);
+  const selected = useMemo(
+    () => selectedContributionData?.pages.flatMap(page => page.contributions) ?? [],
+    [selectedContributionData]
+  );
 
   const mixedContributions = useMemo(() => {
     const filteredContributions = contributions?.filter(
-      contribution => !selectedContributions.find(c => c.id === contribution.id)
+      contribution => !selectedContributions.find(c => c.uuid === contribution.id)
     );
 
     return [...selected, ...filteredContributions];
-  }, [contributions, selected]);
+  }, [contributions, selected, selectedContributions]);
 
   const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
 
