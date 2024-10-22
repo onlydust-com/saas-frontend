@@ -2,7 +2,28 @@ import { tv } from "tailwind-variants";
 
 export const DatePickerNextUiVariants = tv({
   slots: {
-    base: "h-fit flex-col items-start gap-2",
+    base: [
+      "h-fit flex-col items-start gap-2 !pb-0",
+      // TEMPORARY FIX
+      "[&>[data-slot=input-wrapper]]:rounded-lg",
+      "[&>[data-slot=input-wrapper]]:border",
+      "[&>[data-slot=input-wrapper]]:border-border-primary",
+      "[&>[data-slot=input-wrapper]]:px-3",
+      "[&>[data-slot=input-wrapper]]:py-2",
+      "[&>[data-slot=input-wrapper]]:text-[1rem]",
+      "[&>[data-slot=input-wrapper]]:leading-[1.5rem]",
+      "[&>[data-slot=input-wrapper]]:text-typography-secondary",
+      "[&>[data-slot=input-wrapper]]:transition-colors",
+      "[&>[data-slot=input-wrapper]]:effect-box-shadow-xs",
+      "[&>[data-slot=input-wrapper]]:focus-within:border-border-active",
+      "[&>[data-slot=input-wrapper]]:focus-within:effect-ring-brand-glued",
+      "[&>[data-slot=input-wrapper]]:group-data-[invalid=true]:border-border-error-secondary",
+      "[&>[data-slot=input-wrapper]]:group-data-[invalid=true]:focus-within:border-border-error-primary",
+      "[&>[data-slot=input-wrapper]]:group-data-[invalid=true]:focus-within:effect-ring-error-glued",
+      "[&>[data-slot=input-wrapper]]:hover:border-border-primary-hover",
+      "[&>[data-slot=input-wrapper]]:focus-within:hover:border-border-active",
+      "[&>[data-slot=input-wrapper]]:group-data-[invalid=true]:hover:border-border-error-secondary-hover",
+    ],
     popoverContent: "effect-shadow-lg rounded-lg bg-background-primary",
     inputWrapper:
       "rounded-lg border border-border-primary px-3 py-2 text-[1rem] leading-[1.5rem] text-typography-secondary transition-colors effect-box-shadow-xs focus-within:border-border-active focus-within:effect-ring-brand-glued group-data-[invalid=true]:border-border-error-secondary group-data-[invalid=true]:focus-within:border-border-error-primary group-data-[invalid=true]:focus-within:effect-ring-error-glued hover:border-border-primary-hover focus-within:hover:border-border-active group-data-[invalid=true]:hover:border-border-error-secondary-hover",

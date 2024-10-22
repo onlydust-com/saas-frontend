@@ -10,6 +10,7 @@ export interface ProjectUpdateSidePanelData {
 export type EditProjectFormData = EditProjectBody & {
   logoFile?: File;
   rewardSettingsArrays: string[];
+  rewardSettingsDate: Date | undefined;
 };
 
 export const editProjectFormValidation = z.object({
@@ -25,6 +26,7 @@ export const editProjectFormValidation = z.object({
   categoryIds: z.array(z.string()).optional(),
   logoFile: z.any().optional(),
   rewardSettingsArrays: z.array(z.string()).optional(),
+  rewardSettingsDate: z.date().optional(),
   moreInfos: z
     .array(
       z.object({

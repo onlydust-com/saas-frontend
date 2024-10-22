@@ -39,7 +39,7 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
       <DatePicker
         ref={ref}
         classNames={{
-          base: cn(slots.base(), classNames?.base, "bg-red-500"),
+          base: cn(slots.base(), classNames?.base),
           popoverContent: slots.popoverContent(),
           inputWrapper: cn(slots.inputWrapper(), classNames?.input),
           innerWrapper: slots.innerWrapper(),
@@ -66,7 +66,7 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
             gridBodyRow: "first:mt-0",
             cell: "py-1 px-1",
             cellButton:
-              "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[hover=true]:data-[selected=true]:bg-transparent data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[range-selection=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:data-[range-selection=true]:before:bg-background-brand-primary-alt data-[selected=true]:data-[range-selection=true]:text-typography-brand-primary data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-start=true]:data-[range-selection=true]:font-bold data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:bg-background-brand-primary-solid data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:text-typography-primary-on-brand data-[selected=true]:data-[selection-end=true]:data-[range-selection=true]:font-bold before:!rounded-full",
+              "h-10 w-10 text-typography-secondary font-medium text-[0.875rem] leading-[1.25rem] data-[today=true]:underline data-[hover=true]:bg-background-primary-alt-hover data-[hover=true]:data-[selected=true]:bg-background-brand-primary-solid data-[disabled=true]:text-typography-quaternary data-[disabled=true]:font-normal data-[unavailable=true]:text-typography-quaternary data-[unavailable=true]:font-normal data-[selected=true]:data-[outside-month=true]:text-typography-quaternary data-[selected=true]:before:bg-background-brand-primary-alt data-[selected=true]:text-typography-brand-primary data-[selected=true]:bg-background-brand-primary-solid data-[selected=true]:text-typography-primary-on-brand data-[selected=true]:font-bold before:!rounded-full",
           },
           weekdayStyle: "short",
         }}
