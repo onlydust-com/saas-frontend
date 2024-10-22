@@ -99,7 +99,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         pageSize: 50,
       },
       options: {
-        enabled: Boolean(githubUserId) && selectedContributions.length > 0,
+        enabled: Boolean(githubUserId),
       },
     });
 
@@ -129,12 +129,10 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   );
 
   const mixedContributions = useMemo(() => {
-    const filteredContributions = contributions?.filter(
-      contribution => !selectedContributions.find(c => c.uuid === contribution.id)
-    );
+    const filteredContributions = contributions?.filter(contribution => !selected.find(c => c.id === contribution.id));
 
     return [...selected, ...filteredContributions];
-  }, [contributions, selected, selectedContributions]);
+  }, [contributions, selected]);
 
   const canClearSelection = useMemo(() => selectedContributions.length > 0, [selectedContributions]);
 
