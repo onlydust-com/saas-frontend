@@ -5,7 +5,7 @@ import { DatePicker } from "./variants/date-picker-default";
 
 type Story = StoryObj<typeof DatePicker>;
 
-const defaultProps: DatePickerPort<"div"> = {};
+const defaultProps: DatePickerPort = {};
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,
