@@ -87,6 +87,12 @@ export const useContributionActions = (
     }
   }
 
+  async function onCloseIssue() {
+    updateIssues({
+      closed: true,
+    });
+  }
+
   switch (contribution.activityStatus) {
     case ContributionActivityStatus.NOT_ASSIGNED:
       return [
@@ -103,6 +109,14 @@ export const useContributionActions = (
           children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
           onClick: onUnassign,
         },
+        ...(contribution.type === "ISSUE"
+          ? [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.close"} />,
+                onClick: onCloseIssue,
+              },
+            ]
+          : []),
       ];
     case ContributionActivityStatus.TO_REVIEW:
       return [
