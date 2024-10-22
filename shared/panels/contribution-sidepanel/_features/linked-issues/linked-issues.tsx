@@ -4,13 +4,15 @@ import { CardContributionKanban as Card } from "@/design-system/molecules/cards/
 import { LinkedIssuesProps } from "./linked-issues.types";
 
 export function LinkedIssues({ issues }: LinkedIssuesProps) {
+  if (!issues?.length) return null;
+
   return (
     <Accordion
       id={"linked-issues"}
       titleProps={{ translate: { token: "panels:contribution.linkedIssues.title" } }}
       defaultSelected={["linked-issues"]}
     >
-      {issues?.map(issue => (
+      {issues.map(issue => (
         <div key={issue.githubNumber}>
           <Card
             type={issue.type}
