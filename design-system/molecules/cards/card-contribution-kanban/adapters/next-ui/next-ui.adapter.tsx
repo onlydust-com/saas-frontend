@@ -223,7 +223,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         {renderLinkedIssues()}
 
-        <footer className={"flex justify-between gap-lg overflow-hidden"}>
+        <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
           {renderGithubLabels()}
 
           {actions && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
