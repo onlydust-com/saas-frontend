@@ -46,7 +46,6 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
           input: slots.input(),
           label: cn(slots.label(), classNames?.label),
           segment: slots.segment(),
-          // separator: slots.separator(),
           selectorButton: slots.selectorButton(),
           errorMessage: slots.errorMessage(),
         }}
@@ -76,11 +75,7 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
         variant="bordered"
         labelPlacement="outside-left"
         granularity="day"
-        selectorIcon={
-          <>
-            <Icon component={Calendar} />
-          </>
-        }
+        selectorIcon={<Icon component={Calendar} />}
         isDisabled={isDisabled}
         isInvalid={isError}
         onChange={handleChange}
@@ -90,7 +85,6 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
         errorMessage={() => (
           <div className="flex items-center gap-1.5">
             <Icon component={CircleAlert} classNames={{ base: "text-foreground-error" }} />
-            {/*{getErrorMessage({ validation, minValue, maxValue })}*/}
           </div>
         )}
       />
