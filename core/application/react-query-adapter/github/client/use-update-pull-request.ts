@@ -23,10 +23,10 @@ export function useUpdatePullRequest({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (pathParams?.pullRequestId) {
+          if (pathParams?.contributionUuid) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionGithubId: pathParams?.pullRequestId },
+                pathParams: { contributionUuid: pathParams?.contributionUuid },
               }).tag,
               exact: false,
             });

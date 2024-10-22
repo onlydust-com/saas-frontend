@@ -13,13 +13,17 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { AccordionIgnoredContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
-export function AccordionIgnoredContributors({ issueId = 0, queryParams, columns }: AccordionIgnoredContributorsProps) {
+export function AccordionIgnoredContributors({
+  contributionId = "",
+  queryParams,
+  columns,
+}: AccordionIgnoredContributorsProps) {
   const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     IssueReactQueryAdapter.client.useGetIssueApplicants({
-      pathParams: { issueId },
+      pathParams: { contributionUuid: contributionId },
       queryParams: { ...queryParams, isIgnored: true },
-      options: { enabled: !!issueId },
+      options: { enabled: !!contributionId },
     });
 
   const applicants = useMemo(() => data?.pages.flatMap(page => page.applicants) ?? [], [data]);

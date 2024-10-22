@@ -10,6 +10,7 @@ export const DateAdapterMock: DateFacadePort = {
   compareDesc: (_dateLeft: Date, _dateRight: Date) => 1,
   format: (_date: Date, _pattern: string) => "",
   formatDistanceToNow: (_date: Date) => "",
+  isValid: (_date: Date) => false,
   getRangeOfDates: (_range: DateRangeType) => ({ from: null, to: null }),
   startOfWeek: (_date: Date) => new Date(),
   getMonthRange: (_date: Date) => ({ from: new Date(), to: new Date() }),

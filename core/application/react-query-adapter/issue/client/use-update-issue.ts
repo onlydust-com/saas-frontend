@@ -22,10 +22,10 @@ export function useUpdateIssue({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (pathParams?.issueId) {
+          if (pathParams?.contributionUuid) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionGithubId: pathParams?.issueId },
+                pathParams: { contributionUuid: pathParams?.contributionUuid },
               }).tag,
               exact: false,
             });

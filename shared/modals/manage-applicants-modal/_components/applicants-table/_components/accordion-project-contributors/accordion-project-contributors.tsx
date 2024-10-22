@@ -13,13 +13,17 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { AccordionProjectContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-project-contributors/accordion-project-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
-export function AccordionProjectContributors({ issueId = 0, queryParams, columns }: AccordionProjectContributorsProps) {
+export function AccordionProjectContributors({
+  contributionId = "",
+  queryParams,
+  columns,
+}: AccordionProjectContributorsProps) {
   const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     IssueReactQueryAdapter.client.useGetIssueApplicants({
-      pathParams: { issueId },
+      pathParams: { contributionUuid: contributionId },
       queryParams: { ...queryParams, isApplicantProjectMember: true },
-      options: { enabled: !!issueId },
+      options: { enabled: !!contributionId },
     });
 
   const applicants = useMemo(() => data?.pages.flatMap(page => page.applicants) ?? [], [data]);

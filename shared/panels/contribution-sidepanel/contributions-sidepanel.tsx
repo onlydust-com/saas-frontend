@@ -16,8 +16,8 @@ import { Header } from "./_features/header/header";
 export function ContributionsSidepanel() {
   const { name } = useContributionsSidepanel();
   const { Panel, isOpen } = useSidePanel({ name });
-  const { githubId } = useSinglePanelData<ContributionsPanelData>(name) ?? {
-    githubId: 0,
+  const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
+    id: "",
   };
 
   const [openHelper, setOpenHelper] = useState(false);
@@ -27,9 +27,9 @@ export function ContributionsSidepanel() {
   }
 
   const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
-    pathParams: { contributionGithubId: githubId },
+    pathParams: { contributionUuid: id },
     options: {
-      enabled: isOpen && !!githubId,
+      enabled: isOpen && !!id,
     },
   });
 
