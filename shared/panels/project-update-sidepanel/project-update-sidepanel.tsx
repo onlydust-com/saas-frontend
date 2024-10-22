@@ -51,7 +51,7 @@ export function ProjectUpdateSidepanel() {
 
   const { reset, handleSubmit } = form;
 
-  async function onSubmit({ logoFile, rewardSettingsArrays, labels, ...updatedData }: EditProjectFormData) {
+  async function onSubmit({ logoFile, rewardSettingsArrays, rewardSettingsDate, labels, ...updatedData }: EditProjectFormData) {
     try {
       const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
@@ -63,7 +63,8 @@ export function ProjectUpdateSidepanel() {
           ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
           ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
           ignoreCodeReviews: !rewardSettingsArrays.includes(rewardsSettingsTypes.CodeReviews),
-          ignoreContributionsBefore: data?.rewardSettings?.ignoreContributionsBefore,
+          ignoreContributionsBefore:
+            rewardSettingsDate?.toISOString() || data?.rewardSettings?.ignoreContributionsBefore,
         },
       };
 
@@ -86,6 +87,9 @@ export function ProjectUpdateSidepanel() {
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
         projectLeadsToKeep: data.leaders.map(lead => lead.id),
         inviteGithubUserIdsAsProjectLeads: data.invitedLeaders.map(lead => lead.githubUserId),
+        rewardSettingsDate: data.rewardSettings?.ignoreContributionsBefore
+          ? new Date(data.rewardSettings?.ignoreContributionsBefore)
+          : undefined,
         categoryIds: data.categories.map(category => category.id),
         rewardSettingsArrays: [
           ...(!data.rewardSettings?.ignoreCodeReviews ? [rewardsSettingsTypes.CodeReviews] : []),
