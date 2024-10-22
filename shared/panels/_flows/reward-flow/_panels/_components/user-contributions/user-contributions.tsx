@@ -58,8 +58,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
 
-  console.log("selectedContributions", selectedContributions);
-
   const menuItems: MenuItemPort[] = [
     {
       id: "link",
