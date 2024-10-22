@@ -254,7 +254,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                     onClick={() => ignore()}
                     isDisabled={isIgnoring || isAccepting}
                   >
-                    <Translate token={"modals:manageApplicants.table.rows.reject"} />
+                    <Translate token={"modals:manageApplicants.table.rows.ignore"} />
                   </Button>
 
                   <Button

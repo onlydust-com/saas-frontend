@@ -16,7 +16,7 @@
     "rows": {
       "languages": "{{count}} languages",
       "ecosystems": "{{count}} ecosystem",
-      "reject": "Reject",
+      "ignore": "Ignore",
       "assign": "Assign",
       "labels": {
         "placeholder": "Select a label"

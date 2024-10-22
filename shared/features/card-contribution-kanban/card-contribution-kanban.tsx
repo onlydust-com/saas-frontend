@@ -22,7 +22,7 @@ export function CardContributionKanban({
       githubNumber={contribution.githubNumber}
       lastUpdatedAt={contribution.lastUpdatedAt}
       rewardUsdAmount={contribution.totalRewardedUsdAmount}
-      applicants={contribution.applicants}
+      applicants={contribution.isNotAssigned() ? contribution.applicants : []}
       contributors={contribution.contributors}
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}

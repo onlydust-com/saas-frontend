@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelLoading } from "@/shared/features/side-panels/side-panel-loading/side-panel-loading";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Footer } from "@/shared/panels/contribution-sidepanel/_features/footer/footer";
 import {
@@ -26,7 +27,7 @@ export function ContributionsSidepanel() {
     setOpenHelper(!openHelper);
   }
 
-  const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
+  const { data: contribution, isLoading } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid: id },
     options: {
       enabled: isOpen && !!id,
@@ -44,12 +45,16 @@ export function ContributionsSidepanel() {
   // TODO HANDLE GITHUB PERMISSIONS
 
   return (
-    <>
-      <Panel>
-        <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
-        <SidePanelBody>{blocks}</SidePanelBody>
-        {contribution ? <Footer contribution={contribution} /> : null}
-      </Panel>
-    </>
+    <Panel>
+      {isLoading ? (
+        <SidePanelLoading />
+      ) : (
+        <>
+          <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
+          <SidePanelBody>{blocks}</SidePanelBody>
+          {contribution ? <Footer contribution={contribution} /> : null}
+        </>
+      )}
+    </Panel>
   );
 }
