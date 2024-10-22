@@ -71,7 +71,7 @@ export function Footer({ contribution }: FooterProps) {
   return (
     <SidePanelFooter>
       <div className={"flex w-full flex-row items-center justify-between gap-lg"}>
-        {contribution.isToReview() ? (
+        {!contribution.isToReview() ? (
           <Button
             size={"md"}
             variant={"secondary"}
