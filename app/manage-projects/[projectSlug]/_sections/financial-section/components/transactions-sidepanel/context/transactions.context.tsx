@@ -57,7 +57,7 @@ export function TransactionsContextProvider({ children, projectSlug }: Transacti
     queryParams: {
       ...debouncedQueryParams,
       sort: "DATE",
-      sortDirection: "ASC",
+      sortDirection: "DESC",
       showEmpty: true,
       projectSlug,
     },
