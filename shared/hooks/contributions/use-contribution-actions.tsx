@@ -26,11 +26,27 @@ export const useContributionActions = (
       pathParams: {
         contributionUuid: contribution.id,
       },
+      options: {
+        onSuccess: () => {
+          toast.success(<Translate token={"features:cardContributionKanban.toasts.updatePullRequest.success"} />);
+        },
+        onError: () => {
+          toast.error(<Translate token={"features:cardContributionKanban.toasts.updatePullRequest.error"} />);
+        },
+      },
     });
 
   const { mutate: updateIssues, isPending: isUpdatingIssue } = IssueReactQueryAdapter.client.useUpdateIssue({
     pathParams: {
       contributionUuid: contribution.id,
+    },
+    options: {
+      onSuccess: () => {
+        toast.success(<Translate token={"features:cardContributionKanban.toasts.updateIssue.success"} />);
+      },
+      onError: () => {
+        toast.error(<Translate token={"features:cardContributionKanban.toasts.updateIssue.error"} />);
+      },
     },
   });
 
