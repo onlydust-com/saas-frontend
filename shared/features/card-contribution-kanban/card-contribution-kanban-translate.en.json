@@ -7,5 +7,11 @@
     "reward": "Reward",
     "unarchive": "Unarchive",
     "close": "Close"
+  },
+  "toasts": {
+    "unassign": {
+      "success": "Contributor unassigned successfully",
+      "error": "An error occurred while unassigning the contributor"
+    }
   }
 }

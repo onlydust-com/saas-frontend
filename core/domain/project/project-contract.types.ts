@@ -154,3 +154,13 @@ export type UpdateProjectContributorLabelsPortParams = HttpClientParameters<{
 }>;
 
 export type UpdateProjectContributorLabelsPortResponse = HttpStorageResponse;
+
+/* ---------------------------- Unassign contribution --------------------------- */
+
+type UnassignContributorFromProjectContributionPathParams = operations["unassignContributionV2"]["parameters"]["path"];
+
+export type UnassignContributorFromProjectContributionPortParams = HttpClientParameters<{
+  PathParams: UnassignContributorFromProjectContributionPathParams;
+}>;
+
+export type UnassignContributorFromProjectContributionPortResponse = HttpStorageResponse;
