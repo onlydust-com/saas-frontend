@@ -73,11 +73,11 @@ export const useContributionActions = (
   }
 
   async function onArchive() {
-    if (contribution.type === "ISSUE") {
+    if (contribution.isIssue()) {
       updateIssues({
         archived: true,
       });
-    } else if (contribution.type === "PULL_REQUEST") {
+    } else if (contribution.isPullRequest()) {
       updatePullRequest({
         archived: true,
       });
@@ -94,11 +94,11 @@ export const useContributionActions = (
   }
 
   async function onUnarchive() {
-    if (contribution.type === "ISSUE") {
+    if (contribution.isIssue()) {
       updateIssues({
         archived: false,
       });
-    } else if (contribution.type === "PULL_REQUEST") {
+    } else if (contribution.isPullRequest()) {
       updatePullRequest({
         archived: false,
       });
@@ -125,7 +125,7 @@ export const useContributionActions = (
         },
       ];
     case ContributionActivityStatus.IN_PROGRESS:
-      if (contribution.type === "PULL_REQUEST") return [];
+      if (contribution.isPullRequest()) return [];
 
       return [
         ...(contribution.contributors.length
@@ -137,7 +137,7 @@ export const useContributionActions = (
               },
             ]
           : []),
-        ...(contribution.type === "ISSUE"
+        ...(contribution.isIssue()
           ? [
               {
                 children: <Translate token={"features:cardContributionKanban.actions.close"} />,
