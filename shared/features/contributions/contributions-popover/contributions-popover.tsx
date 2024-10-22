@@ -1,11 +1,12 @@
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
@@ -31,6 +32,24 @@ export function ContributionsPopover({
     });
 
   const contributions = data?.pages.flatMap(page => page.contributions) || [];
+
+  const renderContributions = useMemo(() => {
+    if (contributions.length === 0) {
+      return <EmptyStateLite message={"features:contributionPopover.empty.description"} />;
+    }
+
+    return (
+      <ScrollView>
+        <div className={"flex max-h-lg w-lg flex-col gap-3"}>
+          {contributions?.map(contribution => (
+            <CardContributionKanban contribution={contribution} key={contribution.id} showActions={false} />
+          ))}
+        </div>
+        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+      </ScrollView>
+    );
+  }, [contributions, hasNextPage, isFetchingNextPage]);
+
   return (
     <Popover>
       <Popover.Trigger>
@@ -55,20 +74,7 @@ export function ContributionsPopover({
           </div>
         )}
       </Popover.Trigger>
-      <Popover.Content>
-        {() => (
-          <div>
-            <ScrollView>
-              <div className={"flex max-h-lg w-lg flex-col gap-3"}>
-                {contributions?.map(contribution => (
-                  <CardContributionKanban contribution={contribution} key={contribution.id} showActions={false} />
-                ))}
-              </div>
-              {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-            </ScrollView>
-          </div>
-        )}
-      </Popover.Content>
+      <Popover.Content>{() => <div>{renderContributions}</div>}</Popover.Content>
     </Popover>
   );
 }
