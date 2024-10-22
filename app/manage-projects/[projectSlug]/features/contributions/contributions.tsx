@@ -42,6 +42,7 @@ export function Contributions(_: ContributionsProps) {
     search: debouncedSearch,
     projectSlugs: projectSlug ? [projectSlug] : undefined,
     types: ["ISSUE", "PULL_REQUEST"],
+    showLinkedIssues: false,
     ...filters,
   };
 
