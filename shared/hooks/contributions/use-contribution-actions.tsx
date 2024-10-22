@@ -67,7 +67,7 @@ export const useContributionActions = (
   }
 
   function onReward() {
-    selectedGithubUserIds.forEach(githubUserId => removeContributorId(githubUserId));
+    selectedGithubUserIds.forEach(removeContributorId);
 
     openRewardFlow({
       contributions: [contribution.toItemDto()],
