@@ -45,7 +45,7 @@ function Column({
     },
   });
 
-  const contributions = data?.pages.flatMap(page => page.contributions) || [];
+  const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
   const title = useMemo(() => {
     switch (type) {

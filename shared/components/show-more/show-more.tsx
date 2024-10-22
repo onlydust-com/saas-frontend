@@ -13,7 +13,7 @@ export function ShowMore({ onNext, loading, skip = false, className }: ShowMoreP
 
   return (
     <InView className={cn("flex justify-center", className)} onChange={handleEnterView} skip={skip}>
-      <Button variant={"secondary"} isTextButton onClick={onNext} isDisabled={loading}>
+      <Button variant={"secondary"} isTextButton onClick={onNext} isLoading={loading}>
         <Translate token={"common:showMore"} />
       </Button>
     </InView>
