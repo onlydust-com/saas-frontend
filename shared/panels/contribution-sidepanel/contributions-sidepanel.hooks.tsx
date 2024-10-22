@@ -5,7 +5,6 @@ import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_feat
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
-import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timeline/timeline";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
 import { Helper } from "./_features/helper/helper";
@@ -47,7 +46,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       <>
         <IssueOverview contribution={contribution} />
         <Assignees showRemove={true} contributionId={contribution.id} />
-        <Timeline id={contribution.id} />
+        {/* KEEP THIS */}
+        {/*<Timeline id={contribution.id} />*/}
       </>
     );
   }
@@ -63,7 +63,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} />
         <LinkedIssues issues={contribution.linkedIssues} />
         <Assignees contributionId={contribution.id} />
-        <Timeline id={contribution.id} />
+        {/* KEEP THIS */}
+        {/*<Timeline id={contribution.id} />*/}
       </>
     );
   }
@@ -74,7 +75,8 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees contributionId={contribution.id} />
-        <Timeline id={contribution.id} />
+        {/* KEEP THIS */}
+        {/*<Timeline id={contribution.id} />*/}
       </>
     );
   }
