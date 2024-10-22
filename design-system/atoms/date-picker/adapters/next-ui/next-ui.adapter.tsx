@@ -29,9 +29,7 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
   }, [value]);
 
   function handleChange(value: DateValue) {
-    if (!onChange) return;
-
-    onChange(value.toDate(DEFAULT_TZ));
+    onChange?.(value.toDate(DEFAULT_TZ));
   }
 
   return (
