@@ -12,6 +12,14 @@
     "unassign": {
       "success": "Contributor unassigned successfully",
       "error": "An error occurred while unassigning the contributor"
+    },
+    "updatePullRequest": {
+      "success": "Pull request updated successfully",
+      "error": "An error occurred while updating the pullRequest"
+    },
+    "updateIssue": {
+      "success": "Issue updated successfully",
+      "error": "An error occurred while updating the issue"
     }
   }
 }
