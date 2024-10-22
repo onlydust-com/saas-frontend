@@ -44,7 +44,11 @@ export function Footer({ contribution }: FooterProps) {
       );
     }
 
-    if (contribution?.isInProgress() && isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+    if (
+      contribution?.isInProgress() &&
+      contribution.type !== "PULL_REQUEST" &&
+      isProjectOrganisationMissingPermissions(contribution.repo.id)
+    ) {
       return (
         <Button
           size={"md"}
@@ -67,16 +71,20 @@ export function Footer({ contribution }: FooterProps) {
   return (
     <SidePanelFooter>
       <div className={"flex w-full flex-row items-center justify-between gap-lg"}>
-        <Button
-          size={"md"}
-          variant={"secondary"}
-          as={BaseLink}
-          iconOnly
-          htmlProps={{ href: contribution?.githubHtmlUrl ?? "", target: "_blank" }}
-          startIcon={{
-            component: Github,
-          }}
-        />
+        {contribution.isToReview() ? (
+          <Button
+            size={"md"}
+            variant={"secondary"}
+            as={BaseLink}
+            iconOnly
+            htmlProps={{ href: contribution?.githubHtmlUrl ?? "", target: "_blank" }}
+            startIcon={{
+              component: Github,
+            }}
+          />
+        ) : (
+          <div />
+        )}
 
         {renderContributionActions}
       </div>
