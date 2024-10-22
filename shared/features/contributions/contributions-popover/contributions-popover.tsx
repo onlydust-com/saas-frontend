@@ -22,7 +22,7 @@ export function ContributionsPopover({
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
         projectIds: [projectId],
-        rewardId: [rewardId],
+        rewardIds: [rewardId],
         hasBeenRewarded: true,
       },
       options: {
