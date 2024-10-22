@@ -1,5 +1,6 @@
 import { Accordion } from "@/design-system/molecules/accordion";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ApplicationCard } from "../application-card/application-card";
@@ -24,11 +25,15 @@ export function ApplicationsAccordion({
       badgeProps: {
         children: activeApplicantsCount,
       },
-      content: activeApplicants?.map(activeApplicant => (
-        <div key={activeApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={activeApplicant} contributionId={contributionId} repoId={repoId} />
-        </div>
-      )),
+      content: activeApplicants.length ? (
+        activeApplicants.map(activeApplicant => (
+          <div key={activeApplicant.applicationId} className="!p-none">
+            <ApplicationCard application={activeApplicant} contributionId={contributionId} repoId={repoId} />
+          </div>
+        ))
+      ) : (
+        <EmptyStateLite />
+      ),
     },
     {
       id: "new",
@@ -38,11 +43,15 @@ export function ApplicationsAccordion({
       badgeProps: {
         children: newApplicantsCount,
       },
-      content: newApplicants?.map(newApplicant => (
-        <div key={newApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={newApplicant} contributionId={contributionId} repoId={repoId} />
-        </div>
-      )),
+      content: newApplicants.length ? (
+        newApplicants.map(newApplicant => (
+          <div key={newApplicant.applicationId} className="!p-none">
+            <ApplicationCard application={newApplicant} contributionId={contributionId} repoId={repoId} />
+          </div>
+        ))
+      ) : (
+        <EmptyStateLite />
+      ),
     },
     {
       id: "ignored",
@@ -52,11 +61,15 @@ export function ApplicationsAccordion({
       badgeProps: {
         children: ignoredApplicantsCount,
       },
-      content: ignoredApplicants?.map(ignoredApplicant => (
-        <div key={ignoredApplicant.applicationId} className="!p-none">
-          <ApplicationCard application={ignoredApplicant} contributionId={contributionId} repoId={repoId} isIgnored />
-        </div>
-      )),
+      content: ignoredApplicants.length ? (
+        ignoredApplicants.map(ignoredApplicant => (
+          <div key={ignoredApplicant.applicationId} className="!p-none">
+            <ApplicationCard application={ignoredApplicant} contributionId={contributionId} repoId={repoId} isIgnored />
+          </div>
+        ))
+      ) : (
+        <EmptyStateLite />
+      ),
     },
   ];
 

@@ -13,7 +13,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
       <Typo size="sm" weight="medium" translate={{ token: "panels:contribution.kpi.title" }} />
 
       <div className="flex gap-md">
-        {applicants ? (
+        {applicantsFormattedValue ? (
           <Paper
             border="primary"
             background="primary"
@@ -28,7 +28,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
           </Paper>
         ) : null}
 
-        {projectContributors ? (
+        {projectContributorsFormattedValue ? (
           <Paper
             border="primary"
             background="primary"
@@ -47,7 +47,7 @@ export function Kpi({ applicants, projectContributors, newContributors }: KpiPro
           </Paper>
         ) : null}
 
-        {newContributors ? (
+        {newContributorsFormattedValue ? (
           <Paper
             border="primary"
             background="primary"
