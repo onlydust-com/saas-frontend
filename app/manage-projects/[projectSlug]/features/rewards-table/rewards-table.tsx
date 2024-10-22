@@ -37,7 +37,7 @@ export function RewardsTable() {
   const queryParams: Partial<GetProjectRewardsQueryParams> = {
     search: debouncedSearch,
     sort: "REQUESTED_AT",
-    order: "DESC",
+    direction: "DESC",
     ...filters,
   };
 
