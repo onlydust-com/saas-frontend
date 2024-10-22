@@ -7,6 +7,8 @@ import {
 import { bootstrap } from "@/core/bootstrap";
 import { ApplicationFacadePort } from "@/core/domain/application/input/application-facade-port";
 
+import { asyncTimeout } from "@/shared/helpers/asyncTimeout";
+
 export function useAcceptApplication({
   pathParams,
   invalidateTagParams,
@@ -32,6 +34,9 @@ export function useAcceptApplication({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
+          // Need to wait for Github to send info back to the server
+          await asyncTimeout(6000);
+
           if (invalidateTagParams?.contribution.pathParams.contributionId) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({

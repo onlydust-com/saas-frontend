@@ -7,6 +7,8 @@ import {
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 
+import { asyncTimeout } from "@/shared/helpers/asyncTimeout";
+
 export function useUnassignContributorFromProjectContribution({
   pathParams,
   options,
@@ -22,10 +24,13 @@ export function useUnassignContributorFromProjectContribution({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
+          // Need to wait for Github to send info back to the server
+          await asyncTimeout(6000);
+
           if (pathParams?.contributionUuid) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionUuid: pathParams?.contributionUuid },
+                pathParams: { contributionUuid: pathParams.contributionUuid },
               }).tag,
               exact: false,
             });

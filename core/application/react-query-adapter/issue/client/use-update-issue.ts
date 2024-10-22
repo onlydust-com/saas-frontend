@@ -8,6 +8,8 @@ import { bootstrap } from "@/core/bootstrap";
 import { IssueFacadePort } from "@/core/domain/issue/input/issue-facade-port";
 import { UpdateIssueBody } from "@/core/domain/issue/issue-contract.types";
 
+import { asyncTimeout } from "@/shared/helpers/asyncTimeout";
+
 export function useUpdateIssue({
   pathParams,
   options,
@@ -21,7 +23,12 @@ export function useUpdateIssue({
       ...issueStoragePort.updateIssue({ pathParams }),
       options: {
         ...options,
-        onSuccess: async (data, variables, context) => {
+        onSuccess: async (data, variables: UpdateIssueBody, context) => {
+          if (variables?.closed) {
+            // Need to wait for Github to send info back to the server
+            await asyncTimeout(6000);
+          }
+
           if (pathParams?.contributionUuid) {
             await queryClient.invalidateQueries({
               queryKey: contributionStoragePort.getContributionsById({
