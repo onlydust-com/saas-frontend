@@ -5,6 +5,7 @@
     "codeReview": "Review",
     "archive": "Archive",
     "reward": "Reward",
-    "unarchive": "Unarchive"
+    "unarchive": "Unarchive",
+    "close": "Close"
   }
 }
