@@ -22,6 +22,22 @@ export function FilterData() {
   const { Panel } = useSidePanel({ name });
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ContributionKanbanFilters>();
 
+  function getSelectedRewardedType(hasBeenRewarded: boolean | undefined): RewardedFilterType[] {
+    if (hasBeenRewarded === undefined) return [RewardedFilterType.ALL];
+    return hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED];
+  }
+
+  function handleSelect(
+    rewardedType: string[],
+    setFilters: (filters: { hasBeenRewarded: boolean | undefined }) => void
+  ) {
+    if (rewardedType.includes(RewardedFilterType.ALL)) {
+      setFilters({ hasBeenRewarded: undefined });
+    } else {
+      setFilters({ hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) });
+    }
+  }
+
   return (
     <Panel>
       <SidePanelHeader
@@ -44,14 +60,8 @@ export function FilterData() {
         />
         <ProjectRepoFilter selectedRepo={filters.repoIds} onSelect={repoIds => setFilters({ repoIds })} />
         <RewardedFilter
-          selectedRewardedType={filters.hasBeenRewarded}
-          onSelect={(rewardedType: string[]) =>
-            setFilters(
-              rewardedType.includes(RewardedFilterType.REWARDED)
-                ? { hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) }
-                : {}
-            )
-          }
+          selectedRewardedType={getSelectedRewardedType(filters.hasBeenRewarded)}
+          onSelect={(rewardedType: string[]) => handleSelect(rewardedType, setFilters)}
         />
       </SidePanelBody>
       <SidePanelFooter>

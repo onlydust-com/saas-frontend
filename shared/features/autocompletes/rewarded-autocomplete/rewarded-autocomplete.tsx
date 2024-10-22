@@ -43,7 +43,6 @@ export function RewardedAutocomplete({ selectedRewardedType, onSelect, ...select
       selectedIds={selectedRewardedType}
       disabledAutoOrdering
       {...selectProps}
-      isMultiple
     />
   );
 }
