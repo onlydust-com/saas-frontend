@@ -16,7 +16,6 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Menu } from "@/design-system/molecules/menu";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
@@ -101,7 +100,11 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
   const createMenuItems = (repos: GithubOrganizationResponse["repos"]): MenuItemPort<number>[] => {
     return repos.map(repo => ({
       id: repo.id,
-      label: <BaseLink href={`${repo.htmlUrl}/issues/new`}>{repo.name}</BaseLink>,
+      label: repo.name,
+      isDisabled: !repo.isAuthorizedInGithubApp,
+      onClick: () => {
+        window.open(`${repo.htmlUrl}/issues/new`, "_blank");
+      },
     }));
   };
 
