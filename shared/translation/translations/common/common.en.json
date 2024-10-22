@@ -46,7 +46,6 @@
     "ISSUE": "Issue"
   },
   "rewardedType": {
-    "ALL": "All",
     "REWARDED": "Rewarded",
     "UNREWARDED": "Unrewarded"
   },
