@@ -31,7 +31,7 @@ export function AcceptIgnoreApplication({
     options: acceptOptions,
   });
 
-  const { mutate: ignore, isPending: isIgnoring } = ApplicationReactQueryAdapter.client.usePatchApplication({
+  const { mutate: patch, isPending: isPatching } = ApplicationReactQueryAdapter.client.usePatchApplication({
     pathParams: {
       applicationId,
     },
@@ -47,8 +47,8 @@ export function AcceptIgnoreApplication({
 
   return children({
     accept: () => handleAccept(),
-    isAccepting,
-    ignore: () => ignore({ isIgnored: true }),
-    isIgnoring,
+    ignore: () => patch({ isIgnored: true }),
+    unignore: () => patch({ isIgnored: false }),
+    isUpdating: isAccepting || isPatching,
   });
 }

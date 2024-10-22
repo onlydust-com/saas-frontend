@@ -1,4 +1,4 @@
-import { CircleCheck, CircleX, GitPullRequest, Medal } from "lucide-react";
+import { CircleCheck, CircleX, GitPullRequest, Medal, Undo2 } from "lucide-react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -59,7 +59,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
 
       <div className="flex gap-md">
         <AcceptIgnoreApplication applicationId={applicationId} contributionId={contributionId} repoId={repoId}>
-          {({ accept, isAccepting, ignore, isIgnoring }) => (
+          {({ accept, ignore, unignore, isUpdating }) => (
             <>
               {!isIgnored ? (
                 <Button
@@ -69,10 +69,21 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                   startIcon={{
                     component: CircleX,
                   }}
-                  onClick={() => ignore()}
-                  isDisabled={isIgnoring || isAccepting}
+                  onClick={ignore}
+                  isDisabled={isUpdating}
                 />
-              ) : null}
+              ) : (
+                <Button
+                  variant="secondary"
+                  size="xs"
+                  iconOnly
+                  startIcon={{
+                    component: Undo2,
+                  }}
+                  onClick={unignore}
+                  isDisabled={isUpdating}
+                />
+              )}
 
               <Button
                 variant="secondary"
@@ -81,8 +92,8 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                 startIcon={{
                   component: CircleCheck,
                 }}
-                onClick={() => accept()}
-                isDisabled={isAccepting || isIgnoring}
+                onClick={accept}
+                isDisabled={isUpdating}
               />
             </>
           )}

@@ -56,15 +56,15 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
               },
             }}
           >
-            {({ accept, isAccepting, ignore, isIgnoring }) => (
+            {({ accept, ignore, isUpdating }) => (
               <>
                 <Button
                   variant={"secondary"}
                   startIcon={{ component: CircleX }}
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
-                  onClick={() => ignore()}
-                  isDisabled={isIgnoring || isAccepting}
+                  onClick={ignore}
+                  isDisabled={isUpdating}
                 />
 
                 <Button
@@ -72,8 +72,8 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
                   startIcon={{ component: CircleCheck }}
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.assign" }}
-                  onClick={() => accept()}
-                  isDisabled={isAccepting || isIgnoring}
+                  onClick={accept}
+                  isDisabled={isUpdating}
                 />
               </>
             )}

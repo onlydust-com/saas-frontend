@@ -245,14 +245,14 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                 },
               }}
             >
-              {({ accept, isAccepting, ignore, isIgnoring }) => (
+              {({ accept, ignore, isUpdating }) => (
                 <>
                   <Button
                     startIcon={{ component: CircleX }}
                     variant={"secondary"}
                     size={"sm"}
-                    onClick={() => ignore()}
-                    isDisabled={isIgnoring || isAccepting}
+                    onClick={ignore}
+                    isDisabled={isUpdating}
                   >
                     <Translate token={"modals:manageApplicants.table.rows.ignore"} />
                   </Button>
@@ -261,8 +261,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                     startIcon={{ component: CircleCheck }}
                     variant={"secondary"}
                     size={"sm"}
-                    onClick={() => accept()}
-                    isDisabled={isAccepting || isIgnoring}
+                    onClick={accept}
+                    isDisabled={isUpdating}
                   >
                     <Translate token={"modals:manageApplicants.table.rows.assign"} />
                   </Button>
