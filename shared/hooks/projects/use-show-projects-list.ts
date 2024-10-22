@@ -29,8 +29,6 @@ export const useShowProjectsList = (): [Project, () => Project] => {
       };
     }
 
-    console.log(user?.projectsLed);
-
     if (user?.projectsLed?.length === 1) {
       return {
         loading: false,
