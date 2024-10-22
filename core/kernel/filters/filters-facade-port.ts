@@ -13,7 +13,6 @@ export enum UserFilterType {
 }
 
 export enum RewardedFilterType {
-  ALL = "ALL",
   REWARDED = "REWARDED",
   UNREWARDED = "UNREWARDED",
 }

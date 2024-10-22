@@ -23,7 +23,7 @@ export function FilterData() {
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ContributionKanbanFilters>();
 
   function getSelectedRewardedType(hasBeenRewarded: boolean | undefined): RewardedFilterType[] {
-    if (hasBeenRewarded === undefined) return [RewardedFilterType.ALL];
+    if (hasBeenRewarded === undefined) return [RewardedFilterType.REWARDED, RewardedFilterType.UNREWARDED];
     return hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED];
   }
 
@@ -31,7 +31,7 @@ export function FilterData() {
     rewardedType: string[],
     setFilters: (filters: { hasBeenRewarded: boolean | undefined }) => void
   ) {
-    if (rewardedType.includes(RewardedFilterType.ALL)) {
+    if (rewardedType.includes(RewardedFilterType.REWARDED) && rewardedType.includes(RewardedFilterType.UNREWARDED)) {
       setFilters({ hasBeenRewarded: undefined });
     } else {
       setFilters({ hasBeenRewarded: rewardedType.includes(RewardedFilterType.REWARDED) });
