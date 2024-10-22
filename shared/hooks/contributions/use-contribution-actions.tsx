@@ -1,9 +1,11 @@
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
@@ -32,6 +34,23 @@ export const useContributionActions = (
     },
   });
 
+  const { mutate: unassignContribution, isPending: isUnassigningContribution } =
+    ProjectReactQueryAdapter.client.useUnassignContributorFromProjectContribution({
+      pathParams: {
+        contributionUuid: contribution.id,
+        projectId: contribution.project?.id ?? "",
+        contributorId: contribution.contributors[0]?.githubUserId,
+      },
+      options: {
+        onSuccess: () => {
+          toast.success(<Translate token={"features:cardContributionKanban.toasts.unassign.success"} />);
+        },
+        onError: () => {
+          toast.error(<Translate token={"features:cardContributionKanban.toasts.unassign.error"} />);
+        },
+      },
+    });
+
   function onReview() {
     actions?.onAction?.(contribution.id);
   }
@@ -41,8 +60,7 @@ export const useContributionActions = (
       setIsGithubPermissionModalOpen(true);
       return;
     }
-    // TODO UNASSIGN in kanban actions
-    //mutate({ assignees: [] });
+    unassignContribution({});
   }
 
   function onCodeReview() {
@@ -98,10 +116,13 @@ export const useContributionActions = (
     case ContributionActivityStatus.IN_PROGRESS:
       if (contribution.type === "PULL_REQUEST") return [];
 
+      if (!contribution.contributors.length) return [];
+
       return [
         {
           children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
           onClick: onUnassign,
+          isDisabled: isUnassigningContribution,
         },
       ];
     case ContributionActivityStatus.TO_REVIEW:
