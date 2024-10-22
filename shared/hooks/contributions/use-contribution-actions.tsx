@@ -106,6 +106,11 @@ export const useContributionActions = (
   }
 
   async function onCloseIssue() {
+    if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+
     updateIssues({
       closed: true,
     });
@@ -122,14 +127,16 @@ export const useContributionActions = (
     case ContributionActivityStatus.IN_PROGRESS:
       if (contribution.type === "PULL_REQUEST") return [];
 
-      if (!contribution.contributors.length) return [];
-
       return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
-          onClick: onUnassign,
-          isDisabled: isUnassigningContribution,
-        },
+        ...(contribution.contributors.length
+          ? [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
+                onClick: onUnassign,
+                isLoading: isUnassigningContribution,
+              },
+            ]
+          : []),
         ...(contribution.type === "ISSUE"
           ? [
               {
