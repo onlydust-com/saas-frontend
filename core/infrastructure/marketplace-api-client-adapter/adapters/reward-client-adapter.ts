@@ -1,5 +1,6 @@
 import { RewardItem } from "@/core/domain/reward/models/reward-item-model";
 import { RewardListItem } from "@/core/domain/reward/models/reward-list-item-model";
+import { RewardListItemV2 } from "@/core/domain/reward/models/reward-list-item-v2-model";
 import { Reward } from "@/core/domain/reward/models/reward-model";
 import { RewardableItem } from "@/core/domain/reward/models/rewardable-item-model";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
@@ -15,6 +16,7 @@ import {
   GetProjectRewardItemsResponse,
   GetProjectRewardResponse,
   GetProjectRewardsResponse,
+  GetRewardsResponse,
 } from "@/core/domain/reward/reward-contract.types";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -24,6 +26,7 @@ export class RewardClientAdapter implements RewardStoragePort {
   constructor(private readonly client: HttpClient) {}
 
   routes = {
+    getRewards: "rewards",
     getProjectRewards: "projects/:projectId/rewards",
     getProjectReward: "projects/:projectId/rewards/:rewardId",
     cancelProjectReward: "projects/:projectId/rewards/:rewardId",
@@ -34,6 +37,30 @@ export class RewardClientAdapter implements RewardStoragePort {
     addOtherIssue: "projects/:projectId/rewardable-items/other-issues",
   } as const;
 
+  getRewards = ({ queryParams, pathParams }: FirstParameter<RewardStoragePort["getRewards"]>) => {
+    const path = this.routes["getRewards"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetRewardsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return {
+        ...data,
+        rewards: data.rewards.map(reward => new RewardListItemV2(reward)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
   getProjectRewards = ({ queryParams, pathParams }: FirstParameter<RewardStoragePort["getProjectRewards"]>) => {
     const path = this.routes["getProjectRewards"];
     const method = "GET";

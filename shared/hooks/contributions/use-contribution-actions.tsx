@@ -1,9 +1,11 @@
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
@@ -15,7 +17,7 @@ export const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions?: CardContributionKanbanActions
 ): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
-  const { open: openRewardFlow } = useRewardFlow();
+  const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
 
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
@@ -32,6 +34,23 @@ export const useContributionActions = (
     },
   });
 
+  const { mutate: unassignContribution, isPending: isUnassigningContribution } =
+    ProjectReactQueryAdapter.client.useUnassignContributorFromProjectContribution({
+      pathParams: {
+        contributionUuid: contribution.id,
+        projectId: contribution.project?.id ?? "",
+        contributorId: contribution.contributors[0]?.githubUserId,
+      },
+      options: {
+        onSuccess: () => {
+          toast.success(<Translate token={"features:cardContributionKanban.toasts.unassign.success"} />);
+        },
+        onError: () => {
+          toast.error(<Translate token={"features:cardContributionKanban.toasts.unassign.error"} />);
+        },
+      },
+    });
+
   function onReview() {
     actions?.onAction?.(contribution.id);
   }
@@ -41,8 +60,7 @@ export const useContributionActions = (
       setIsGithubPermissionModalOpen(true);
       return;
     }
-    // TODO UNASSIGN in kanban actions
-    //mutate({ assignees: [] });
+    unassignContribution({});
   }
 
   function onCodeReview() {
@@ -55,11 +73,11 @@ export const useContributionActions = (
   }
 
   async function onArchive() {
-    if (contribution.type === "ISSUE") {
+    if (contribution.isIssue()) {
       updateIssues({
         archived: true,
       });
-    } else if (contribution.type === "PULL_REQUEST") {
+    } else if (contribution.isPullRequest()) {
       updatePullRequest({
         archived: true,
       });
@@ -67,6 +85,8 @@ export const useContributionActions = (
   }
 
   function onReward() {
+    selectedGithubUserIds.forEach(removeContributorId);
+
     openRewardFlow({
       contributions: [contribution.toItemDto()],
       githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
@@ -74,15 +94,26 @@ export const useContributionActions = (
   }
 
   async function onUnarchive() {
-    if (contribution.type === "ISSUE") {
+    if (contribution.isIssue()) {
       updateIssues({
         archived: false,
       });
-    } else if (contribution.type === "PULL_REQUEST") {
+    } else if (contribution.isPullRequest()) {
       updatePullRequest({
         archived: false,
       });
     }
+  }
+
+  async function onCloseIssue() {
+    if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+
+    updateIssues({
+      closed: true,
+    });
   }
 
   switch (contribution.activityStatus) {
@@ -94,11 +125,26 @@ export const useContributionActions = (
         },
       ];
     case ContributionActivityStatus.IN_PROGRESS:
+      if (contribution.isPullRequest()) return [];
+
       return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
-          onClick: onUnassign,
-        },
+        ...(contribution.contributors.length
+          ? [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
+                onClick: onUnassign,
+                isLoading: isUnassigningContribution,
+              },
+            ]
+          : []),
+        ...(contribution.isIssue()
+          ? [
+              {
+                children: <Translate token={"features:cardContributionKanban.actions.close"} />,
+                onClick: onCloseIssue,
+              },
+            ]
+          : []),
       ];
     case ContributionActivityStatus.TO_REVIEW:
       return [

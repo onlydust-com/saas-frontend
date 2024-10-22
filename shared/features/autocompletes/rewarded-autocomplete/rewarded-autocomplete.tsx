@@ -34,11 +34,12 @@ export function RewardedAutocomplete({ selectedRewardedType, onSelect, ...select
   return (
     <Select
       items={rewardedTypesItems}
-      isAutoComplete={true}
+      isAutoComplete={false}
       onSelect={handleSelect}
       selectedIds={selectedRewardedType}
       disabledAutoOrdering
       {...selectProps}
+      isMultiple
     />
   );
 }

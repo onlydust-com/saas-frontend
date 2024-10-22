@@ -10,7 +10,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { RewardedCardProps } from "./rewarded-card.types";
 
-export function RewardedCard({ reward }: RewardedCardProps) {
+export function RewardedCard({ reward, processedAt }: RewardedCardProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
@@ -34,9 +34,11 @@ export function RewardedCard({ reward }: RewardedCardProps) {
               <Translate token="panels:contribution.rewardedCard.status" />
             </Badge>
 
-            <Badge icon={{ component: Clock }} color="grey" size="xs">
-              {dateKernelPort.format(new Date(), "dd.MM.yyyy")}
-            </Badge>
+            {!!processedAt && (
+              <Badge icon={{ component: Clock }} color="grey" size="xs">
+                {dateKernelPort.format(new Date(processedAt), "dd.MM.yyyy")}
+              </Badge>
+            )}
           </div>
         </div>
         <div className="flex flex-col items-center gap-2">

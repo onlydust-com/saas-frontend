@@ -120,6 +120,12 @@ export function AvailableRepositories({ organizations, project }: AvailableRepos
       project.addOrganizationToProject(org);
     }
 
+    const organization = project.organizations.find(projectOrg => projectOrg.githubUserId === org.githubUserId);
+
+    if (organization && !organization?.repos?.find(r => r.id === repo.id)) {
+      organization.addRepo(repo);
+    }
+
     setValue("githubRepoIds", [...newGithubRepos, repo.id], { shouldDirty: true, shouldValidate: true });
   }
 

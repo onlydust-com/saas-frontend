@@ -15,6 +15,9 @@ export interface ContributionActivityInterface
   isDone(): boolean;
   toItemDto(): ContributionItemDto;
   canLinkIssues(): boolean;
+  isIssue(): boolean;
+  isPullRequest(): boolean;
+  isCodeReview(): boolean;
   id: string;
 }
 
@@ -70,6 +73,18 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   canLinkIssues(): boolean {
     return this.type === "PULL_REQUEST";
+  }
+
+  isIssue(): boolean {
+    return this.type === "ISSUE";
+  }
+
+  isPullRequest(): boolean {
+    return this.type === "PULL_REQUEST";
+  }
+
+  isCodeReview(): boolean {
+    return this.type === "CODE_REVIEW";
   }
 
   toItemDto(): ContributionItemDto {

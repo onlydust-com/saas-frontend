@@ -5,6 +5,13 @@
     "codeReview": "Review",
     "archive": "Archive",
     "reward": "Reward",
-    "unarchive": "Unarchive"
+    "unarchive": "Unarchive",
+    "close": "Close"
+  },
+  "toasts": {
+    "unassign": {
+      "success": "Contributor unassigned successfully",
+      "error": "An error occurred while unassigning the contributor"
+    }
   }
 }

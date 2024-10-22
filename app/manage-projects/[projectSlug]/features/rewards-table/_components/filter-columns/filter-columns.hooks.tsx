@@ -137,6 +137,8 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         const id = info.row.original.id;
         const status = info.row.original.status;
 
+        const isDisabled = status !== "PENDING_CONTRIBUTOR" && status !== "PENDING_REQUEST";
+
         return (
           <CancelReward projectId={projectId} rewardId={id}>
             {({ cancel, isCanceling }) => (
@@ -144,7 +146,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
                 variant={"secondary"}
                 size={"sm"}
                 onClick={cancel}
-                isDisabled={status !== "PENDING_CONTRIBUTOR"}
+                isDisabled={isDisabled}
                 isLoading={isCanceling}
                 translate={{ token: "manageProjects:detail.rewardsTable.rows.cancelReward" }}
               />

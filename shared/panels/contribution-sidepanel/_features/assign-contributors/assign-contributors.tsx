@@ -9,6 +9,7 @@ export function AssignContributors({ contributionId, repoId }: AssignContributor
     pathParams: { contributionUuid: contributionId },
     queryParams: {
       isApplicantProjectMember: true,
+      isIgnored: false,
     },
     options: {
       enabled: !!contributionId,
@@ -19,6 +20,7 @@ export function AssignContributors({ contributionId, repoId }: AssignContributor
     pathParams: { contributionUuid: contributionId },
     queryParams: {
       isApplicantProjectMember: false,
+      isIgnored: false,
     },
     options: {
       enabled: !!contributionId,
