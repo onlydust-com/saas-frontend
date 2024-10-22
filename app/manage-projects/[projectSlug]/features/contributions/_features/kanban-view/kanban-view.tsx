@@ -74,7 +74,7 @@ function Column({
       }}
     >
       {contributions?.map(contribution => (
-        <CardContributionKanban contribution={contribution} key={contribution.githubId} onAction={onOpenContribution} />
+        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
       ))}
       {isPending && (
         <>
