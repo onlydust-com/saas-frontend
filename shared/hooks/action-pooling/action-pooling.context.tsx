@@ -30,14 +30,22 @@ export function ActionPoolingProvider({
   const limitCount = useRef<number>(0);
   const start = useRef(Date.now());
 
-  const doPooling = () => {
-    if (Date.now() - start.current >= _interval) {
+  function canPool() {
+    return Date.now() - start.current >= _interval;
+  }
+
+  function shouldPoolNextFrame() {
+    return !_limit || limitCount.current < _limit;
+  }
+
+  function doPooling() {
+    if (canPool()) {
       start.current += _interval;
       setShouldRefetch(start.current);
       limitCount.current = limitCount.current + 1;
     }
 
-    if (!_limit || limitCount.current < _limit) {
+    if (shouldPoolNextFrame()) {
       requestAnimation.current = window.requestAnimationFrame(doPooling);
     } else {
       if (requestAnimation.current) cancelAnimationFrame(requestAnimation.current);
@@ -45,10 +53,10 @@ export function ActionPoolingProvider({
       limitCount.current = 0;
       setShouldRefetch(false);
     }
-  };
+  }
 
   function startPooling() {
-    if (!_limit || limitCount.current < _limit) {
+    if (shouldPoolNextFrame()) {
       limitCount.current = 0;
       start.current = Date.now();
       setShouldRefetch(start.current);

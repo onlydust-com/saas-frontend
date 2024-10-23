@@ -71,7 +71,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
         ],
       }}
     >
-      <ActionPoolingProvider interval={2000} limit={5}>
+      <ActionPoolingProvider interval={2000} limit={4}>
         <GithubPermissionsProvider projectSlug={projectSlug}>
           <RewardFlowProvider projectId={data?.id}>
             <PosthogCaptureOnMount
