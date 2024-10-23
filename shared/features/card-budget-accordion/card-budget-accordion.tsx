@@ -5,8 +5,7 @@ import { CardBudgetAccordionProps } from "@/shared/features/card-budget-accordio
 
 export function CardBudgetAccordion({ items, multiple, defaultSelected }: CardBudgetAccordionProps) {
   const cards = items.map(item => ({
-    id: item.id,
-    titleProps: item.titleProps,
+    ...item,
     content: (
       <>
         {item.cards.map((card, index) => (

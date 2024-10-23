@@ -1,0 +1,5 @@
+{
+  "applicants": "{{count}} applicants",
+  "contributors": "{{count}} contributors",
+  "linkedIssues": "Linked issues ({{count}})"
+}

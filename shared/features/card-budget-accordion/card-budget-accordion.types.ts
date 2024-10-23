@@ -1,7 +1,7 @@
 import { AccordionItemProps, AccordionPort } from "@/design-system/molecules/accordion";
 import { CardBudgetPort } from "@/design-system/molecules/cards/card-budget";
 
-interface AccordionItem extends Pick<AccordionItemProps, "id" | "titleProps"> {
+interface AccordionItem extends Omit<AccordionItemProps, "content"> {
   cards: CardBudgetPort<"div">[];
 }
 

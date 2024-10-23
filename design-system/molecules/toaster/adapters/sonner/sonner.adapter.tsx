@@ -23,25 +23,31 @@ function handleToast({ classNames, children, icon, type }: ToastProps) {
           <Icon
             {...icon}
             classNames={{
-              base: "text-foreground-white",
+              base: slots.icon(),
             }}
           />
         ) : null}
 
-        <Typo size="xs" weight="medium" color="white">
+        <Typo
+          size="xs"
+          weight="medium"
+          classNames={{
+            base: slots.text(),
+          }}
+        >
           {children}
         </Typo>
       </div>
 
       <button
-        className="rounded p-0.5 transition-colors hover:bg-utility-alpha-white-10"
+        className="rounded p-xxs transition-colors hover:bg-utility-alpha-white-10"
         onClick={() => toast.dismiss(t)}
       >
         <Icon
           component={X}
           size="xxs"
           classNames={{
-            base: "text-foreground-white",
+            base: slots.closeIcon(),
           }}
         />
       </button>

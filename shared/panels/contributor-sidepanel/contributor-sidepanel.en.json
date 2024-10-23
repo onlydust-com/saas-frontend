@@ -25,5 +25,8 @@
   "activity": {
     "title": "Activity"
   },
+  "publicRepo": {
+    "title": "Public Repositories ({{count}})"
+  },
   "seeContributor": "See public profile"
 }

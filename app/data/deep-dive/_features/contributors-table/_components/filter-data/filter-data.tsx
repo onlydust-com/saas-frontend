@@ -1,15 +1,20 @@
 import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
+import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
 
 import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
-import { getQuantityFilterType } from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
+import {
+  getQuantityFilterAmount,
+  getQuantityFilterType,
+} from "@/shared/features/filters/quantity-filter/quantity-filter.utils";
 import { RewardCountFilter } from "@/shared/features/filters/reward-count-filter/reward-count-filter";
 import { TotalRewardedAmountFilter } from "@/shared/features/filters/total-rewarded-amount-filter/total-rewarded-amount-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -18,13 +23,11 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useFilterData } from "./filter-data.context";
-
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useContributorFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData();
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ContributorsTableFilters>();
 
   return (
     <Panel>
@@ -65,7 +68,7 @@ export function FilterData() {
         />
         <ContributionsActivityFilter
           value={{
-            amount: filters.contributionCount,
+            amount: getQuantityFilterAmount(filters.contributionCount),
             type: getQuantityFilterType(filters.contributionCount),
             contributionType: filters.contributionCount?.types || [],
           }}
@@ -78,20 +81,6 @@ export function FilterData() {
             });
           }}
         />
-        {/*TODO @Mehdi check with backend how to handle this filter knowing that its the same that contributionsCount*/}
-        {/*<PrMergedCountFilter*/}
-        {/*  value={{*/}
-        {/*    amount: filters.prCount,*/}
-        {/*    type: getQuantityFilterType(filters.prCount),*/}
-        {/*  }}*/}
-        {/*  onChange={value =>*/}
-        {/*    setFilters({*/}
-        {/*      prCount: {*/}
-        {/*        ...value.amount,*/}
-        {/*      },*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*/>*/}
         <RewardCountFilter
           value={{
             amount: filters.rewardCount,

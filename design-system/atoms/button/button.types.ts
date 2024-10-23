@@ -22,7 +22,7 @@ interface ClassNames {
   startIcon: string;
   endIcon: string;
   label: string;
-  loaderContainer: string;
+  spinner: string;
   spinnerCircle: string;
 }
 
@@ -40,6 +40,7 @@ export interface ButtonDefaultPort<C extends ElementType> extends Partial<Varian
   type?: HTMLButtonElement["type"];
   canInteract?: boolean;
   variant?: ButtonTextVariant | ButtonSolidVariant;
+  isLoading?: boolean;
 }
 
 export interface ButtonBaseDefaultPort<C extends ElementType> extends ButtonDefaultPort<C> {
@@ -63,6 +64,6 @@ export type ButtonPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextP
 
 export interface ButtonGroupPort
   extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
-  buttons: Omit<ButtonSolidPort<"button">[], "variant">;
+  buttons: Omit<ButtonSolidPort<"button">, "variant">[];
   onClick?: (index: number) => void;
 }

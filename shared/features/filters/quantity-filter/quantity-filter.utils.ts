@@ -13,33 +13,14 @@ export function getQuantityFilterType(amount?: Amount) {
   return QuantityFilterType.EQUAL;
 }
 
-export function getQuantityFilterAmount(amount?: Amount) {
-  if (amount?.gte || amount?.lte || amount?.eq) {
-    return amount;
+export function getQuantityFilterAmount({ gte, lte, eq }: Amount = {}) {
+  if (gte || lte || eq) {
+    return {
+      gte,
+      lte,
+      eq,
+    };
   }
 
   return undefined;
-}
-
-export function getQuantityFilterTypeFromArray(amounts: Array<Amount | undefined>) {
-  const types = amounts.map(amount => {
-    if (amount) {
-      return getQuantityFilterType(amount);
-    }
-
-    return undefined;
-  });
-
-  return types.find(type => type !== undefined) ?? QuantityFilterType.EQUAL;
-}
-
-export function getQuantityFilterAmountFromArray(amounts: Array<Amount | undefined>) {
-  const types = amounts.map(amount => {
-    if (amount) {
-      return getQuantityFilterAmount(amount);
-    }
-    return undefined;
-  });
-
-  return types.find(type => type !== undefined) ?? undefined;
 }

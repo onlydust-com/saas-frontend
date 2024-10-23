@@ -1,0 +1,13 @@
+{
+  "title": "Reward",
+  "summary": {
+    "title": "Balance Summary",
+    "currentBalance": "Current Balance",
+    "allocated": "Allocated",
+    "finalBalance": "Final Balance"
+  },
+  "toast": {
+    "success": "Reward created successfully.",
+    "error": "Error creating reward, please try again."
+  }
+}

@@ -34,6 +34,16 @@ const GradientsPreset: Config = {
           background:
             "radial-gradient(261.34% 179.05% at 129.06% -46.31%, rgba(255, 246, 235, 0.80) 0%, rgba(255, 238, 217, 0.80) 10%, rgba(255, 225, 204, 0.80) 20%, rgba(255, 198, 178, 0.80) 28%, rgba(255, 153, 161, 0.80) 40.05%, rgba(255, 128, 170, 0.80) 49.97%, rgba(255, 102, 153, 0.80) 59.69%, rgba(255, 77, 195, 0.80) 70.37%, rgba(238, 51, 255, 0.80) 79.72%, rgba(198, 26, 255, 0.80) 90.4%, rgba(170, 0, 255, 0.80) 100%)",
         },
+        [`.${GRADIENTS.gradient_glass_neon_45}`]: {
+          opacity: "0.45",
+          background:
+            "radial-gradient(179.7% 179.7% at 100% -36.86%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 19.8%, var(--utility-gradient-glassneon-glass-neon-3) 38.24%, var(--utility-gradient-glassneon-glass-neon-4) 48.23%, var(--utility-gradient-glassneon-glass-neon-5) 61.15%, var(--utility-gradient-glassneon-glass-neon-6) 89.58%, var(--utility-gradient-glassneon-glass-neon-7));",
+        },
+        [`.${GRADIENTS.gradient_glass_neon_80}`]: {
+          opacity: "0.80",
+          background:
+            "radial-gradient(179.7% 179.7% at 100% -36.86%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 19.8%, var(--utility-gradient-glassneon-glass-neon-3) 38.24%, var(--utility-gradient-glassneon-glass-neon-4) 48.23%, var(--utility-gradient-glassneon-glass-neon-5) 61.15%, var(--utility-gradient-glassneon-glass-neon-6) 89.58%, var(--utility-gradient-glassneon-glass-neon-7));",
+        },
       });
     }),
   ],

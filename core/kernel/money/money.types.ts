@@ -7,3 +7,5 @@ export type DetailedTotalMoney = components["schemas"]["DetailedTotalMoney"];
 export type DetailedTotalMoneyTotalPerCurrency = components["schemas"]["DetailedTotalMoneyTotalPerCurrencyInner"];
 
 export type OnlyDustWallet = components["schemas"]["OnlyDustWalletResponse"];
+
+export type Money = components["schemas"]["Money"];

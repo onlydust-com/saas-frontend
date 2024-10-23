@@ -1,0 +1,42 @@
+{
+  "title": "Applicants",
+  "projectContributors": "Project contributors",
+  "newContributors": "New contributors",
+  "ignored": "Ignored",
+  "table": {
+    "columns": {
+      "contributor": "Contributor",
+      "label": "Label",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "rewardedAmount": "Rewarded amount",
+      "actions": "Actions"
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystem",
+      "ignore": "Ignore",
+      "assign": "Assign",
+      "labels": {
+        "placeholder": "Select a label"
+      }
+    },
+    "filters": {
+      "title": "Applicants filters",
+      "columnList": "Applicants columns",
+      "global": "Global",
+      "financial": "Financial",
+      "save": "Validate",
+      "reset": "Reset filters"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
+    },
+    "actions": {
+      "ignore": "Ignore",
+      "assign": "Assign"
+    }
+  }
+}

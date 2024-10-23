@@ -22,6 +22,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
+import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -30,6 +31,7 @@ export function useFilterColumns() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
+  const { open: openRewardFlow } = useRewardFlow();
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -254,15 +256,14 @@ export function useFilterColumns() {
       id: "actions",
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.actions.title"} />,
       cell: info => (
-        <div className="flex gap-2">
-          {/*TODO @Mehdi activate one reward form ready */}
-          {/*<Button*/}
-          {/*  as={BaseLink}*/}
-          {/*  htmlProps={{ href: NEXT_ROUTER.manageProjects.details.root(info.row.original.slug) }}*/}
-          {/*  variant={"secondary"}*/}
-          {/*  size={"sm"}*/}
-          {/*  translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}*/}
-          {/*/>*/}
+        <div className="flex gap-sm">
+          <Button
+            onClick={() => openRewardFlow({ githubUserIds: [info.row.original.contributor.githubUserId] })}
+            variant={"secondary"}
+            size={"sm"}
+            translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}
+          />
+
           <Button
             onClick={() => openContributor({ login: info.row.original.contributor.login })}
             variant={"secondary"}

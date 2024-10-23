@@ -5,7 +5,7 @@ import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 interface Sponsor {
   firstSponsor?: string;
   hasMultipleSponsors?: boolean;
-  hasSponsor?: boolean;
+  hasSponsors?: boolean;
   loading?: boolean;
 }
 
@@ -13,7 +13,7 @@ export const useShowSponsorList = (): [Sponsor, () => Sponsor] => {
   const [sponsor, setSponsor] = useState<Sponsor>({
     loading: true,
     hasMultipleSponsors: false,
-    hasSponsor: false,
+    hasSponsors: false,
     firstSponsor: undefined,
   });
 
@@ -24,7 +24,7 @@ export const useShowSponsorList = (): [Sponsor, () => Sponsor] => {
       return {
         loading: false,
         hasMultipleSponsors: false,
-        hasSponsor: false,
+        hasSponsors: false,
         firstSponsor: undefined,
       };
     }
@@ -33,7 +33,7 @@ export const useShowSponsorList = (): [Sponsor, () => Sponsor] => {
       return {
         loading: false,
         hasMultipleSponsors: false,
-        hasSponsor: true,
+        hasSponsors: true,
         firstSponsor: user?.sponsors[0].id,
       };
     }
@@ -41,7 +41,7 @@ export const useShowSponsorList = (): [Sponsor, () => Sponsor] => {
     return {
       loading: false,
       hasMultipleSponsors: true,
-      hasSponsor: true,
+      hasSponsors: true,
       firstSponsor: undefined,
     };
   }
@@ -50,7 +50,6 @@ export const useShowSponsorList = (): [Sponsor, () => Sponsor] => {
     if (user) {
       setSponsor(buildSponsor());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return [sponsor, buildSponsor];

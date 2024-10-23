@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { IconPort } from "@/design-system/atoms/icon";
 
-export type ActivityGraphLevel = 1 | 2 | 3 | 4;
+export type ActivityGraphLevel = 0 | 1 | 2 | 3 | 4;
 export interface ActivityGraphWeekData<T> {
   level: ActivityGraphLevel;
   tooltipContent?: ReactNode;

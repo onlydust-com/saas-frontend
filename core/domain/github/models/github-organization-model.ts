@@ -8,10 +8,13 @@ export interface GithubOrganizationInterface
   repos: GithubRepoInterface[];
   isContainsRepo(repoIds: number[]): boolean;
   isInstalled(): boolean;
+  isMissingPermissions(): boolean;
+  isUserAdminOfOrganization(): boolean;
   addRepo(repo: GithubRepoInterface): void;
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
   getGithubInstallationUrl(): string;
+  getGithubUpdatePermissionsUrl(): string | undefined;
   search(search?: string | null): GithubOrganizationInterface | undefined;
 }
 
@@ -28,6 +31,7 @@ export class GithubOrganization implements GithubOrganizationInterface {
   installationId!: GithubOrganizationInterface["installationId"];
   installationStatus!: GithubOrganizationInterface["installationStatus"];
   repos!: GithubOrganizationInterface["repos"];
+  githubAppInstallationPermissionsUpdateUrl!: GithubOrganizationInterface["githubAppInstallationPermissionsUpdateUrl"];
 
   constructor({ repos, ...props }: GithubOrganizationResponse) {
     Object.assign(this, props);
@@ -49,6 +53,10 @@ export class GithubOrganization implements GithubOrganizationInterface {
     return this.installationStatus !== "NOT_INSTALLED";
   }
 
+  isMissingPermissions() {
+    return this.installationStatus === "MISSING_PERMISSIONS";
+  }
+
   addRepo(repo: GithubRepoInterface) {
     this.repos.push(repo);
   }
@@ -65,6 +73,10 @@ export class GithubOrganization implements GithubOrganizationInterface {
     return `${process.env.NEXT_PUBLIC_GITHUB_INSTALLATION_URL}/permissions?target_id=${this.githubUserId}&state=generic-state-`;
   }
 
+  getGithubUpdatePermissionsUrl() {
+    return this.githubAppInstallationPermissionsUpdateUrl;
+  }
+
   search(search?: string | null) {
     if (!search) return this;
 
@@ -73,5 +85,9 @@ export class GithubOrganization implements GithubOrganizationInterface {
     }
 
     return undefined;
+  }
+
+  isUserAdminOfOrganization() {
+    return this.isCurrentUserAdmin;
   }
 }

@@ -12,7 +12,8 @@
     "title": "Activity",
     "buttons": {
       "contributors": "Contributors",
-      "issues": "Issues"
+      "contributions": "Contributions",
+      "rewards": "Rewards"
     },
     "kanban": {
       "columns": {
@@ -20,14 +21,19 @@
         "inProgress": "In Progress",
         "toReview": "To Review",
         "done": "Done",
-        "archive": "Archive"
+        "archived": "Archived"
       }
+    },
+    "actions": {
+      "reward": "Reward a contributor"
     }
   },
   "filters": {
     "titles": {
       "project": "Projects filters",
-      "contributor": "Contributors filters"
+      "contributor": "Filter contributors",
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
     },
     "save": "Validate",
     "reset": "Reset filters"
@@ -72,5 +78,26 @@
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
     }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "rows": {
+      "cancelReward": "Cancel"
+    },
+    "rewardsCount": "Rewards"
   }
 }
