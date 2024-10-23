@@ -101,7 +101,7 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
     return repos.map(repo => ({
       id: repo.id,
       label: repo.name,
-      isDisabled: !repo.isAuthorizedInGithubApp,
+      isDisabled: !repo.hasIssues,
       onClick: () => {
         window.open(`${repo.htmlUrl}/issues/new`, "_blank");
       },
