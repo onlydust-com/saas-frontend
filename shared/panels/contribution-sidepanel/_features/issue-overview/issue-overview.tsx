@@ -12,6 +12,7 @@ export function IssueOverview({ contribution, showLinkedIssues }: IssueOverviewP
       lastUpdatedAt={contribution.lastUpdatedAt}
       githubLabels={contribution.githubLabels}
       linkedIssues={showLinkedIssues ? contribution.linkedIssues : undefined}
+      rewardUsdAmount={contribution.totalRewardedUsdAmount}
     />
   );
 }

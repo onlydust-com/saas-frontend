@@ -199,8 +199,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               githubStatus={contribution.githubStatus}
               githubNumber={contribution.githubNumber}
               lastUpdatedAt={contribution.lastUpdatedAt}
-              // TODO REWARDED AMOUNT
-              // rewardUsdAmount={contribution.totalRewardedAmount?.totalAmount}
+              rewardUsdAmount={contribution.totalRewardedUsdAmount}
               contributors={contribution.contributors}
               linkedIssues={contribution.linkedIssues}
               githubLabels={contribution.githubLabels}

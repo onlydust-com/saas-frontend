@@ -19,9 +19,6 @@ export function LinkedIssues({ issues }: LinkedIssuesProps) {
             githubTitle={issue.githubTitle}
             githubStatus={issue.githubStatus}
             githubNumber={issue.githubNumber}
-            // TODO lastUpdatedAt githubLabels
-            // lastUpdatedAt={issue.lastUpdatedAt}
-            // githubLabels={issue.githubLabels}
           />
         </div>
       ))}
