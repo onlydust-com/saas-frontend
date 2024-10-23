@@ -36,6 +36,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         <AssignContributors contributionId={contribution.id} repoId={contribution.repo.id} />
       </>
     );
@@ -45,6 +46,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         <Assignees showRemove={true} contributionId={contribution.id} />
         {/* KEEP THIS */}
         {/*<Timeline id={contribution.id} />*/}
@@ -61,6 +63,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
           onClose={() => helperState.setIsOpen(false)}
         />
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         <LinkedIssues issues={contribution.linkedIssues} />
         <Assignees contributionId={contribution.id} />
         {/* KEEP THIS */}
