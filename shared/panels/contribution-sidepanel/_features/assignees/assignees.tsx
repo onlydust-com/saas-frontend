@@ -1,5 +1,8 @@
+import { useMemo } from "react";
+
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { bootstrap } from "@/core/bootstrap";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
 
@@ -22,6 +25,7 @@ function Assignee({
   showRemove?: boolean;
   contribution: ContributionActivityInterface;
 }) {
+  const dateKernel = bootstrap.getDateKernelPort();
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
   const { mutate: unassignContribution, isPending: isUnassigningContribution } =
@@ -66,11 +70,32 @@ function Assignee({
     );
   }
 
+  const date = useMemo(() => {
+    const findUserInContribution = contribution.contributors.find(
+      contributor => contributor.githubUserId === user.githubUserId
+    );
+
+    if (findUserInContribution && findUserInContribution.since) {
+      // console.log(
+      //   "new Date(findUserInContribution.since)",
+      //   findUserInContribution.since,
+      //   new Date("2024-10-23T10:01:05Z")
+      // );
+      return dateKernel.formatDistanceToNow(new Date(findUserInContribution.since));
+    }
+
+    return undefined;
+  }, [user, contribution]);
+
   return (
     <ContributorProfileCompact
       headerProps={{
         headerLabel: { translate: { token: "panels:contribution.contributors.contributors" } },
-        // badgeProps: { children: "2 days ago", color: "success" },
+        ...(date
+          ? {
+              badgeProps: { children: date, color: "success" },
+            }
+          : {}),
       }}
       user={user}
       footerContent={removeContributorButton()}

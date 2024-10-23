@@ -7,7 +7,7 @@ export type ContributionActivityResponse = components["schemas"]["ContributionAc
 export interface ContributionActivityInterface
   extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees" | "uuid"> {
   applicants: GithubUserInterface[];
-  contributors: GithubUserInterface[];
+  contributors: components["schemas"]["DatedGithubUserResponse"][];
   isNotAssigned(): boolean;
   isInProgress(): boolean;
   isToReview(): boolean;
@@ -25,7 +25,7 @@ export class ContributionActivity implements ContributionActivityInterface {
   activityStatus!: ContributionActivityResponse["activityStatus"];
   applicants!: GithubUserInterface[];
   completedAt!: ContributionActivityResponse["completedAt"];
-  contributors!: GithubUserInterface[];
+  contributors!: components["schemas"]["DatedGithubUserResponse"][];
   createdAt!: ContributionActivityResponse["createdAt"];
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
@@ -47,7 +47,7 @@ export class ContributionActivity implements ContributionActivityInterface {
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
     this.applicants = (props.applicants ?? []).map(applicant => new GithubUser(applicant));
-    this.contributors = (props.contributors ?? []).map(contributor => new GithubUser(contributor));
+    this.contributors = props.contributors ?? [];
     this.id = props.uuid;
   }
 
