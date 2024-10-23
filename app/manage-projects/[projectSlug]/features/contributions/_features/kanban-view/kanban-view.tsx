@@ -20,6 +20,7 @@ import { CardContributionKanban } from "@/shared/features/card-contribution-kanb
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
+import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { KanbanViewProps } from "./kanban-view.types";
@@ -34,15 +35,23 @@ function Column({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
-  const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      ...queryParams,
-      statuses: [type],
-    },
-    options: {
-      enabled: !!queryParams?.projectSlugs?.length,
-    },
-  });
+  const { shouldRefetch, startPooling } = useActionPooling();
+  const { data, hasNextPage, fetchNextPage, isPending, refetch } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        ...queryParams,
+        statuses: [type],
+      },
+      options: {
+        enabled: !!queryParams?.projectSlugs?.length,
+      },
+    });
+
+  // useEffect(() => {
+  //   if (shouldRefetch) {
+  //     refetch();
+  //   }
+  // }, [shouldRefetch]);
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
@@ -72,6 +81,7 @@ function Column({
         ...(kanbanProps.header || {}),
       }}
     >
+      <button onClick={startPooling}>Start pooling</button>
       {contributions?.map(contribution => (
         <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
       ))}

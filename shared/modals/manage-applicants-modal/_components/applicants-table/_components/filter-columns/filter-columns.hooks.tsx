@@ -243,7 +243,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                 },
               }}
             >
-              {({ accept, ignore, isUpdating }) => (
+              {({ accept, ignore, isUpdating, isDisabled }) => (
                 <>
                   <Button
                     startIcon={{ component: CircleX }}

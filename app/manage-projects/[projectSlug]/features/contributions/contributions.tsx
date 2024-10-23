@@ -1,7 +1,9 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Columns4, Table } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
 import {
   GetContributionsPortParams,
   GetContributionsQueryParams,
@@ -13,6 +15,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 
 import { FilterData } from "./_components/filter-data/filter-data";
@@ -55,6 +58,34 @@ export function Contributions(_: ContributionsProps) {
   function onOpenContribution(id: string) {
     openContribution({ id });
   }
+
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
+  const issueStoragePort = bootstrap.getIssueStoragePortForClient();
+  const queryClient = useQueryClient();
+  const { shouldRefetch } = useActionPooling();
+
+  async function invalidate() {
+    await queryClient.invalidateQueries({
+      queryKey: contributionStoragePort.getContributionsById({}).tag,
+      exact: false,
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: contributionStoragePort.getContributions({}).tag,
+      exact: false,
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: issueStoragePort.getIssueApplicants({}).tag,
+      exact: false,
+    });
+  }
+
+  useEffect(() => {
+    if (shouldRefetch) {
+      invalidate();
+    }
+  }, [shouldRefetch]);
 
   const renderView = useMemo(() => {
     if (toggleViews === LIST) {
