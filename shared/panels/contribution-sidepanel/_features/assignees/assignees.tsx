@@ -70,7 +70,7 @@ function Assignee({
     <ContributorProfileCompact
       headerProps={{
         headerLabel: { translate: { token: "panels:contribution.contributors.contributors" } },
-        badgeProps: { children: "2 days ago", color: "success" },
+        // badgeProps: { children: "2 days ago", color: "success" },
       }}
       user={user}
       footerContent={removeContributorButton()}
