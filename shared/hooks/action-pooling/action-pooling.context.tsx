@@ -61,9 +61,7 @@ export function ActionPoolingProvider({
       start.current = Date.now();
       setShouldRefetch(start.current);
       requestAnimation.current = window.requestAnimationFrame(doPooling);
-      return true;
     }
-    return false;
   }
 
   return (
