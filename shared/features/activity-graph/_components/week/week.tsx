@@ -14,19 +14,19 @@ export function Week({ week, data }: ActivityGraphWeekProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const weekNumber = useMemo(() => dateKernelPort.getWeekNumber(week.startDate), [week]);
 
-  const tooltipContent = useMemo(
+  const tooltipTitle = useMemo(
     () => (
-      <div className="flex flex-col gap-1">
-        <p>
-          <Translate token={"features:activityGraph.week"} /> {weekNumber}
-        </p>
-        {data?.tooltipContent ? <div>{data.tooltipContent}</div> : null}
-      </div>
+      <>
+        <Translate token={"features:activityGraph.week"} /> {weekNumber}
+      </>
     ),
-    [weekNumber, data]
+    [weekNumber]
   );
+  const tooltipContent = useMemo(() => data?.tooltipContent, [data]);
+  const tooltipEnabled = useMemo(() => !!data?.tooltipContent, [data]);
+
   return (
-    <Tooltip content={tooltipContent}>
+    <Tooltip title={tooltipTitle} content={tooltipContent} enabled={tooltipEnabled}>
       <div
         className={cn(
           "flex h-4 w-4 flex-row items-center justify-center rounded-[2px] border border-border-primary bg-background-secondary",

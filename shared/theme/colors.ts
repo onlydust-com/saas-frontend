@@ -366,6 +366,7 @@ export const COLORS = {
       "open-border": "var(--components-accordion-open-border)",
     },
     tooltip: {
+      title: "var(--components-tooltip-title)",
       typo: "var(--components-tooltip-typo)",
     },
     "switch-pill": {
