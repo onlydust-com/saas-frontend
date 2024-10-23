@@ -12,9 +12,6 @@ export function RewardedCardWrapper({ contribution }: RewardedCardWrapperProps) 
       contributionUUIDs: [contribution.id],
       pageSize: 30,
     },
-    options: {
-      enabled: !!contribution?.totalRewardedUsdAmount,
-    },
   });
 
   const rewards = useMemo(() => data?.pages.flatMap(page => page.rewards) || [], [data]);
