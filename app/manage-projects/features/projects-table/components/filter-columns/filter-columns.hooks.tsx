@@ -119,7 +119,7 @@ export function useFilterColumns() {
           const firstCurrency = totalPerCurrency[0];
 
           const totalFirstCurrency = moneyKernelPort.format({
-            amount: firstCurrency.amount,
+            amount: firstCurrency.prettyAmount,
             currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
           });
 

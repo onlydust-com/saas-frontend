@@ -8,8 +8,6 @@ import { bootstrap } from "@/core/bootstrap";
 import { IssueFacadePort } from "@/core/domain/issue/input/issue-facade-port";
 import { UpdateIssueBody } from "@/core/domain/issue/issue-contract.types";
 
-import { asyncTimeout } from "@/shared/helpers/asyncTimeout";
-
 export function useUpdateIssue({
   pathParams,
   options,
@@ -24,29 +22,26 @@ export function useUpdateIssue({
       options: {
         ...options,
         onSuccess: async (data, variables: UpdateIssueBody, context) => {
-          if (variables?.closed) {
-            // Need to wait for Github to send info back to the server
-            await asyncTimeout(6000);
-          }
+          if (variables?.closed === undefined) {
+            if (pathParams?.contributionUuid) {
+              await queryClient.invalidateQueries({
+                queryKey: contributionStoragePort.getContributionsById({
+                  pathParams: { contributionUuid: pathParams?.contributionUuid },
+                }).tag,
+                exact: false,
+              });
+            }
 
-          if (pathParams?.contributionUuid) {
             await queryClient.invalidateQueries({
-              queryKey: contributionStoragePort.getContributionsById({
-                pathParams: { contributionUuid: pathParams?.contributionUuid },
-              }).tag,
+              queryKey: contributionStoragePort.getContributions({}).tag,
+              exact: false,
+            });
+
+            await queryClient.invalidateQueries({
+              queryKey: issueStoragePort.getIssueApplicants({}).tag,
               exact: false,
             });
           }
-
-          await queryClient.invalidateQueries({
-            queryKey: contributionStoragePort.getContributions({}).tag,
-            exact: false,
-          });
-
-          await queryClient.invalidateQueries({
-            queryKey: issueStoragePort.getIssueApplicants({}).tag,
-            exact: false,
-          });
 
           options?.onSuccess?.(data, variables, context);
         },

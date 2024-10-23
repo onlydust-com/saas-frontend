@@ -12,6 +12,7 @@ import { toast } from "@/design-system/molecules/toaster";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -21,7 +22,7 @@ export const useContributionActions = (
   actions?: CardContributionKanbanActions
 ): { buttons: ButtonGroupPort["buttons"] | ButtonPort<"button">[]; endContent?: ReactNode } => {
   const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
-
+  const { startPooling, shouldRefetch } = useActionPooling();
   const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
     useGithubPermissionsContext();
 
@@ -40,7 +41,11 @@ export const useContributionActions = (
       },
     });
 
-  const { mutate: updateIssues, isPending: isUpdatingIssue } = IssueReactQueryAdapter.client.useUpdateIssue({
+  const {
+    mutate: updateIssues,
+    mutateAsync: updateIssuesAsync,
+    isPending: isUpdatingIssue,
+  } = IssueReactQueryAdapter.client.useUpdateIssue({
     pathParams: {
       contributionUuid: contribution.id,
     },
@@ -64,6 +69,7 @@ export const useContributionActions = (
       options: {
         onSuccess: () => {
           toast.success(<Translate token={"features:cardContributionKanban.toasts.unassign.success"} />);
+          startPooling();
         },
         onError: () => {
           toast.error(<Translate token={"features:cardContributionKanban.toasts.unassign.error"} />);
@@ -131,9 +137,11 @@ export const useContributionActions = (
       return;
     }
 
-    updateIssues({
+    await updateIssuesAsync({
       closed: true,
     });
+
+    startPooling();
   }
 
   switch (contribution.activityStatus) {
@@ -174,6 +182,7 @@ export const useContributionActions = (
                   children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
                   onClick: onUnassign,
                   isLoading: isUnassigningContribution,
+                  isDisabled: !!shouldRefetch,
                 },
               ]
             : []),
@@ -182,6 +191,8 @@ export const useContributionActions = (
                 {
                   children: <Translate token={"features:cardContributionKanban.actions.close"} />,
                   onClick: onCloseIssue,
+                  isLoading: isUpdatingIssue,
+                  isDisabled: !!shouldRefetch,
                 },
               ]
             : []),
@@ -221,7 +232,7 @@ export const useContributionActions = (
           {
             children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
             onClick: onUnarchive,
-            isDisabled: isUpdatingPullRequest || isUpdatingIssue,
+            isLoading: isUpdatingPullRequest || isUpdatingIssue,
           },
         ],
       };
