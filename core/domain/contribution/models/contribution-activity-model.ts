@@ -7,7 +7,7 @@ export type ContributionActivityResponse = components["schemas"]["ContributionAc
 export interface ContributionActivityInterface
   extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees" | "uuid"> {
   applicants: GithubUserInterface[];
-  contributors: components["schemas"]["DatedGithubUserResponse"][];
+  contributors: NonNullable<ContributionActivityResponse["contributors"]>;
   isNotAssigned(): boolean;
   isInProgress(): boolean;
   isToReview(): boolean;
@@ -25,7 +25,7 @@ export class ContributionActivity implements ContributionActivityInterface {
   activityStatus!: ContributionActivityResponse["activityStatus"];
   applicants!: GithubUserInterface[];
   completedAt!: ContributionActivityResponse["completedAt"];
-  contributors!: components["schemas"]["DatedGithubUserResponse"][];
+  contributors!: NonNullable<ContributionActivityResponse["contributors"]>;
   createdAt!: ContributionActivityResponse["createdAt"];
   githubAuthor!: ContributionActivityResponse["githubAuthor"];
   githubBody!: ContributionActivityResponse["githubBody"];
