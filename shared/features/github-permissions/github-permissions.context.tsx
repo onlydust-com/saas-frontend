@@ -61,7 +61,7 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
     if (relatedOrganization && organizations?.length) {
       return (
         organizations
-          .find(organization => organization.name === relatedOrganization.name)
+          .find(organization => organization.githubUserId === relatedOrganization.githubUserId)
           ?.isUserAdminOfOrganization() ?? false
       );
     }
