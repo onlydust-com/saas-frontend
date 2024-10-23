@@ -681,6 +681,7 @@
     --components-accordion-open-border: var(--border-primary);
 
     /* COMPONENTS TOOLTIP */
+    --components-tooltip-title: var(--typography-white);
     --components-tooltip-typo: var(--_grey-300);
 
     /* COMPONENTS SWITCH */
@@ -1064,6 +1065,7 @@
     --components-accordion-open-border: var(--utility-alpha-white-0);
 
     /** COMPONENTS TOOLTIP **/
+    --components-tooltip-title: var(--typography-primary_on-solid);
     --components-tooltip-typo: var(--_grey-500-primary);
 
     /** COMPONENTS SWITCH **/

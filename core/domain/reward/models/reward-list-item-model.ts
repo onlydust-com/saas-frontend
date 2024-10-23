@@ -2,7 +2,10 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type RewardListItemResponse = components["schemas"]["RewardsPageItemResponse"];
 
-export interface RewardListItemInterface extends RewardListItemResponse {}
+export interface RewardListItemInterface extends RewardListItemResponse {
+  isCompleted(): boolean;
+  isProcessing(): boolean;
+}
 
 export class RewardListItem implements RewardListItemInterface {
   amount!: RewardListItemResponse["amount"];
@@ -16,5 +19,13 @@ export class RewardListItem implements RewardListItemInterface {
 
   constructor(props: RewardListItemResponse) {
     Object.assign(this, props);
+  }
+
+  isCompleted() {
+    return this.status === "COMPLETE";
+  }
+
+  isProcessing() {
+    return this.status === "PROCESSING";
   }
 }

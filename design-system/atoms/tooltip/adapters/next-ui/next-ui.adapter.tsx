@@ -35,7 +35,7 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
       content={
         <div className={"flex w-full max-w-[224px] flex-col gap-xs"}>
           {!!title && (
-            <Typo size={"xs"} weight={"medium"} as={"div"} classNames={{ base: "text-typography-white" }}>
+            <Typo size={"xs"} weight={"medium"} as={"div"} classNames={{ base: "text-components-tooltip-title" }}>
               {title}
             </Typo>
           )}

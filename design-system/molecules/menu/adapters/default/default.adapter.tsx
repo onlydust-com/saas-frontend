@@ -75,7 +75,16 @@ export function MenuDefaultAdapter<T = string>({
     <div className={cn(slots.base(), classNames?.base)}>
       <div className={cn(slots.content(), classNames?.content)} style={minWidth ? { minWidth } : {}}>
         {itemsWithSelection.length ? (
-          itemsWithSelection.map(item => <MenuItem<T> key={`${item.id}`} {...item} onClick={handleItemClick} />)
+          itemsWithSelection.map(item => (
+            <MenuItem<T>
+              key={`${item.id}`}
+              {...item}
+              onClick={id => {
+                handleItemClick(id);
+                item.onClick?.(id);
+              }}
+            />
+          ))
         ) : (
           <EmptyStateLite />
         )}

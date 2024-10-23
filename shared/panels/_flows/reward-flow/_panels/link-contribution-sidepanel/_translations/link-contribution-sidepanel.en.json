@@ -25,5 +25,13 @@
         "error": "Invalid pull request URL"
       }
     }
+  },
+  "toasters": {
+    "issue": {
+      "error": "Error linking issue."
+    },
+    "pullRequest": {
+      "error": "Error linking pull request."
+    }
   }
 }
