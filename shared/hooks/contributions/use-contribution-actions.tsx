@@ -182,6 +182,7 @@ export const useContributionActions = (
                 {
                   children: <Translate token={"features:cardContributionKanban.actions.close"} />,
                   onClick: onCloseIssue,
+                  isLoading: isUpdatingIssue,
                 },
               ]
             : []),
@@ -221,7 +222,7 @@ export const useContributionActions = (
           {
             children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
             onClick: onUnarchive,
-            isDisabled: isUpdatingPullRequest || isUpdatingIssue,
+            isLoading: isUpdatingPullRequest || isUpdatingIssue,
           },
         ],
       };
