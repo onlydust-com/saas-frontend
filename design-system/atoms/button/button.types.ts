@@ -64,6 +64,6 @@ export type ButtonPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextP
 
 export interface ButtonGroupPort
   extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
-  buttons: Omit<ButtonSolidPort<"button">[], "variant">;
+  buttons: Omit<ButtonSolidPort<"button">, "variant">[];
   onClick?: (index: number) => void;
 }

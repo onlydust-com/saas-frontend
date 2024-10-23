@@ -149,7 +149,10 @@ export const useContributionActions = (
     case ContributionActivityStatus.IN_PROGRESS:
       if (contribution.isPullRequest()) return { buttons: [] };
 
-      if (!canCurrentUserUpdatePermissions(contribution.repo.id)) {
+      if (
+        isProjectOrganisationMissingPermissions(contribution.repo.id) &&
+        !canCurrentUserUpdatePermissions(contribution.repo.id)
+      ) {
         return {
           buttons: [],
           endContent: (

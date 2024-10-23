@@ -25,8 +25,8 @@ export function useCreateRewards({
       ...rewardStoragePort.createRewards({ pathParams }),
       options: {
         ...options,
-        onSuccess: (data, variables, context) => {
-          queryClient.invalidateQueries();
+        onSuccess: async (data, variables, context) => {
+          await queryClient.invalidateQueries();
 
           options?.onSuccess?.(data, variables, context);
         },

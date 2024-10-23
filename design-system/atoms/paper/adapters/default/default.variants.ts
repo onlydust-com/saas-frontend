@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const PaperDefaultVariants = tv({
   slots: {
-    base: "w-full rounded-md text-left transition-all data-[clickable=true]:cursor-pointer data-[clickable=true]:outline-none data-[clickable=true]:focus-visible:effect-ring-brand-spaced",
+    base: "w-full shrink-0 rounded-md text-left transition-all data-[clickable=true]:cursor-pointer data-[clickable=true]:outline-none data-[clickable=true]:focus-visible:effect-ring-brand-spaced",
   },
   variants: {
     px: {

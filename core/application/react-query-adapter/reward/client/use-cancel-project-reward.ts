@@ -20,12 +20,7 @@ export function useCancelProjectReward({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (pathParams?.projectId) {
-            await queryClient.invalidateQueries({
-              queryKey: rewardStoragePort.getProjectRewards({ pathParams: { projectId: pathParams.projectId } }).tag,
-              exact: false,
-            });
-          }
+          await queryClient.invalidateQueries();
 
           options?.onSuccess?.(data, variables, context);
         },
