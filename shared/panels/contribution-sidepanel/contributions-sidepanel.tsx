@@ -42,8 +42,6 @@ export function ContributionsSidepanel() {
     },
   });
 
-  // TODO HANDLE GITHUB PERMISSIONS
-
   return (
     <Panel>
       {isLoading ? (

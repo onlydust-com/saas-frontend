@@ -65,7 +65,7 @@ export function Assignees({ contributionId }: AssigneesProps) {
           key={contributor.contributor.githubUserId}
           headerProps={{
             headerLabel: { translate: { token: "panels:contribution.contributors.contributors" } },
-            badgeProps: { children: "2 days ago", color: "success" },
+            // badgeProps: { children: "2 days ago", color: "success" },
           }}
           user={contributor.toContributorPublicModel()}
           // TODO REMOVE CONTRIBUTORS
