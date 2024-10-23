@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 
-import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { GithubPermissionModal } from "@/shared/features/github-permissions/_components/github-permission-modal/github-permission-modal";
@@ -30,7 +30,7 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
   const [repoId, setRepoId] = useState<number | undefined>();
   const { isOpen: isGithubPermissionModalOpen, setIsOpen: setIsGithubPermissionModalOpen } = useGithubPermissionModal();
 
-  const { data: userOrganizations } = MeReactQueryAdapter.client.useGetMyOrganizations({});
+  const { data: userOrganizations } = GithubReactQueryAdapter.client.useGetMyOrganizations({});
 
   const { refetchOnWindowFocus, refetchInterval, onRefetching } = usePooling({
     limit: 20,
@@ -56,10 +56,11 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
 
   function canCurrentUserUpdatePermissions(repoId: number) {
     const relatedOrganization = projectData?.getOrganizationByRepoId(repoId);
+    const { organizations } = userOrganizations ?? {};
 
-    if (relatedOrganization && userOrganizations?.length) {
+    if (relatedOrganization && organizations?.length) {
       return (
-        userOrganizations
+        organizations
           .find(organization => organization.name === relatedOrganization.name)
           ?.isUserAdminOfOrganization() ?? false
       );

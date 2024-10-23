@@ -2,7 +2,6 @@ import { bootstrap } from "@/core/bootstrap";
 import {
   GetMeProjectsResponse,
   GetMeResponse,
-  GetMyOrganizationsResponse,
   GetMyProfileResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
@@ -10,7 +9,6 @@ import {
   SetMyProfileBody,
 } from "@/core/domain/me/me-contract.types";
 import { Me } from "@/core/domain/me/models/me-model";
-import { MeOrganization } from "@/core/domain/me/models/me-organization-model";
 import { MeProfile } from "@/core/domain/me/models/me-profile-model";
 import { MeProjectListItem } from "@/core/domain/me/models/me-projects-model";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
@@ -28,7 +26,6 @@ export class MeClientAdapter implements MeStoragePort {
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
     getMeProjects: "me/projects",
-    getMyOrganizations: "me/organizations",
   } as const;
 
   logoutMe = () => {
@@ -175,27 +172,6 @@ export class MeClientAdapter implements MeStoragePort {
         ...data,
         projects: data.projects.map(project => new MeProjectListItem(project)),
       };
-    };
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  getMyOrganizations = () => {
-    const path = this.routes["getMyOrganizations"];
-    const method = "GET";
-    const tag = HttpClient.buildTag({ path });
-
-    const request = async () => {
-      const data = await this.client.request<GetMyOrganizationsResponse>({
-        path,
-        method,
-        tag,
-      });
-
-      return data.map(organization => new MeOrganization(organization));
     };
 
     return {
