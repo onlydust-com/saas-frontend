@@ -97,7 +97,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                   component: CircleCheck,
                 }}
                 onClick={accept}
-                isDisabled={isUpdating}
+                isLoading={isUpdating}
               />
             </>
           )}
