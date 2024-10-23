@@ -16,6 +16,7 @@ import { GithubMissingPermissionsAlert } from "@/shared/features/github-permissi
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { ActionPoolingProvider } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { RewardFlowProvider } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
@@ -70,35 +71,37 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
         ],
       }}
     >
-      <GithubPermissionsProvider projectSlug={projectSlug}>
-        <RewardFlowProvider projectId={data?.id}>
-          <PosthogCaptureOnMount
-            eventName={"project_dashboard_viewed"}
-            params={{
-              project_id: data?.id,
-            }}
-            paramsReady={Boolean(data?.id)}
-          />
+      <ActionPoolingProvider interval={2000} limit={4}>
+        <GithubPermissionsProvider projectSlug={projectSlug}>
+          <RewardFlowProvider projectId={data?.id}>
+            <PosthogCaptureOnMount
+              eventName={"project_dashboard_viewed"}
+              params={{
+                project_id: data?.id,
+              }}
+              paramsReady={Boolean(data?.id)}
+            />
 
-          <AnimatedColumn className="h-full">
-            <ScrollView className="flex flex-col gap-md">
-              {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
-              <PageContent classNames={{ base: "flex-none" }}>
-                <FinancialSection projectId={data?.id} />
-              </PageContent>
-              <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-                <ActivitySection projectId={data?.id} />
-              </PageContent>
-            </ScrollView>
-          </AnimatedColumn>
+            <AnimatedColumn className="h-full">
+              <ScrollView className="flex flex-col gap-md">
+                {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+                <PageContent classNames={{ base: "flex-none" }}>
+                  <FinancialSection projectId={data?.id} />
+                </PageContent>
+                <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+                  <ActivitySection projectId={data?.id} />
+                </PageContent>
+              </ScrollView>
+            </AnimatedColumn>
 
-          <FinancialDetailSidepanel />
-          <RewardDetailSidepanel />
-          <ContributorSidepanel />
-          <ProjectUpdateSidepanel />
-          <ContributionsSidepanel />
-        </RewardFlowProvider>
-      </GithubPermissionsProvider>
+            <FinancialDetailSidepanel />
+            <RewardDetailSidepanel />
+            <ContributorSidepanel />
+            <ProjectUpdateSidepanel />
+            <ContributionsSidepanel />
+          </RewardFlowProvider>
+        </GithubPermissionsProvider>
+      </ActionPoolingProvider>
     </PageWrapper>
   );
 }

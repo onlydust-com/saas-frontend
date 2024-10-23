@@ -56,7 +56,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
               },
             }}
           >
-            {({ accept, ignore, isUpdating }) => (
+            {({ accept, ignore, isUpdating, isDisabled }) => (
               <>
                 <Button
                   variant={"secondary"}
@@ -65,6 +65,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
                   translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
                   onClick={ignore}
                   isLoading={isUpdating}
+                  isDisabled={isDisabled}
                 />
 
                 <Button
@@ -74,6 +75,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
                   translate={{ token: "modals:manageApplicants.table.actions.assign" }}
                   onClick={accept}
                   isLoading={isUpdating}
+                  isDisabled={isDisabled}
                 />
               </>
             )}

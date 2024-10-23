@@ -63,7 +63,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
 
       <div className="flex gap-md">
         <AcceptIgnoreApplication applicationId={applicationId} contributionId={contributionId} repoId={repoId}>
-          {({ accept, ignore, unignore, isUpdating }) => (
+          {({ accept, ignore, unignore, isUpdating, isDisabled }) => (
             <>
               {!isIgnored ? (
                 <Button
@@ -75,6 +75,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                   }}
                   onClick={ignore}
                   isLoading={isUpdating}
+                  isDisabled={isDisabled}
                 />
               ) : (
                 <Button
@@ -86,6 +87,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                   }}
                   onClick={unignore}
                   isLoading={isUpdating}
+                  isDisabled={isDisabled}
                 />
               )}
 
@@ -98,6 +100,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                 }}
                 onClick={accept}
                 isLoading={isUpdating}
+                isDisabled={isDisabled}
               />
             </>
           )}

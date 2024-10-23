@@ -1,6 +1,7 @@
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 
 import { AcceptApplicationProps } from "./accept-ignore-application.types";
 
@@ -12,6 +13,7 @@ export function AcceptIgnoreApplication({
   acceptOptions,
 }: AcceptApplicationProps) {
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+  const { startPooling, shouldRefetch } = useActionPooling();
 
   const { mutate: accept, isPending: isAccepting } = ApplicationReactQueryAdapter.client.useAcceptApplication({
     pathParams: {
@@ -28,7 +30,13 @@ export function AcceptIgnoreApplication({
           },
         }
       : {}),
-    options: acceptOptions,
+    options: {
+      ...acceptOptions,
+      onSuccess: (...args) => {
+        acceptOptions?.onSuccess?.(...args);
+        startPooling();
+      },
+    },
   });
 
   const { mutate: patch, isPending: isPatching } = ApplicationReactQueryAdapter.client.usePatchApplication({
@@ -50,5 +58,6 @@ export function AcceptIgnoreApplication({
     ignore: () => patch({ isIgnored: true }),
     unignore: () => patch({ isIgnored: false }),
     isUpdating: isAccepting || isPatching,
+    isDisabled: !!shouldRefetch,
   });
 }

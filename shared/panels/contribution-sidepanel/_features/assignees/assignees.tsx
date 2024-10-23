@@ -12,6 +12,7 @@ import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorProfileCompact } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { AssigneesProps } from "./assignees.types";
@@ -27,6 +28,7 @@ function Assignee({
 }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+  const { startPooling } = useActionPooling();
 
   const { mutate: unassignContribution, isPending: isUnassigningContribution } =
     ProjectReactQueryAdapter.client.useUnassignContributorFromProjectContribution({
@@ -38,6 +40,7 @@ function Assignee({
       options: {
         onSuccess: () => {
           toast.success(<Translate token={"features:cardContributionKanban.toasts.unassign.success"} />);
+          startPooling();
         },
         onError: () => {
           toast.error(<Translate token={"features:cardContributionKanban.toasts.unassign.error"} />);
