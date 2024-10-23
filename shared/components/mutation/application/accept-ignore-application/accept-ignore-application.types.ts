@@ -7,7 +7,13 @@ export interface AcceptApplicationProps {
   applicationId: string;
   contributionId?: string;
   repoId: number;
-  children: (props: { accept: () => void; ignore: () => void; unignore: () => void; isUpdating: boolean }) => ReactNode;
+  children: (props: {
+    accept: () => void;
+    ignore: () => void;
+    unignore: () => void;
+    isUpdating: boolean;
+    isDisabled: boolean;
+  }) => ReactNode;
   acceptOptions?: NonNullable<
     FirstParameter<typeof ApplicationReactQueryAdapter.client.useAcceptApplication>
   >["options"];
