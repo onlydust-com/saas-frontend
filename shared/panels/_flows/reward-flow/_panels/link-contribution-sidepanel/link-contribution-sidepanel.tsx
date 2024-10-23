@@ -11,6 +11,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -23,6 +24,7 @@ import {
   LinkContributionSidePanelData,
 } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.types";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function LinkContributionSidepanel() {
   const { t } = useTranslation("panels");
@@ -52,6 +54,9 @@ export function LinkContributionSidepanel() {
           handleReset();
           back();
         },
+        onError: () => {
+          toast.error(<Translate token={"panels:linkContribution.toasters.issue.error"} />);
+        },
       },
     });
 
@@ -65,6 +70,9 @@ export function LinkContributionSidepanel() {
           handleAddContribution(data);
           handleReset();
           back();
+        },
+        onError: () => {
+          toast.error(<Translate token={"panels:linkContribution.toasters.pullRequest.error"} />);
         },
       },
     });

@@ -14,6 +14,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Alert } from "@/design-system/molecules/alert";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -68,6 +69,11 @@ export function CreateContributionSidepanel() {
   const { mutateAsync: addOtherWork, isPending: isOtherWorkPending } = RewardReactQueryAdapter.client.useAddOtherWork({
     pathParams: {
       projectId: projectId || "",
+    },
+    options: {
+      onError: () => {
+        toast.error(<Translate token={"panels:createContribution.toasters.otherWork.error"} />);
+      },
     },
   });
 
