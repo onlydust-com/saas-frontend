@@ -32,4 +32,5 @@ export interface DateFacadePort {
   isTimeGroupingType: (value: string) => value is TimeGroupingType;
   getDateFromWeekNumber: (year: number, weekNumber: number) => Date;
   getWeekNumber: (date: Date, options?: { hideMonths: boolean }) => string;
+  isValid: (date: Date) => boolean;
 }

@@ -8,6 +8,7 @@ import {
   isFuture as isFutureDateFns,
   isPast as isPastDateFns,
   isToday as isTodayDateFns,
+  isValid,
   setWeek,
   setYear,
   startOfWeek as startOfWeekDateFns,
@@ -89,4 +90,5 @@ export const DateFnsAdapter: DateFacadePort = {
   isTimeGroupingType,
   getDateFromWeekNumber,
   getWeekNumber,
+  isValid,
 };
