@@ -69,6 +69,7 @@ export const useContributionActions = (
       options: {
         onSuccess: () => {
           toast.success(<Translate token={"features:cardContributionKanban.toasts.unassign.success"} />);
+          startPooling();
         },
         onError: () => {
           toast.error(<Translate token={"features:cardContributionKanban.toasts.unassign.error"} />);
