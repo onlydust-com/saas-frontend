@@ -76,11 +76,6 @@ function Assignee({
     );
 
     if (findUserInContribution && findUserInContribution.since) {
-      // console.log(
-      //   "new Date(findUserInContribution.since)",
-      //   findUserInContribution.since,
-      //   new Date("2024-10-23T10:01:05Z")
-      // );
       return dateKernel.formatDistanceToNow(new Date(findUserInContribution.since));
     }
 
