@@ -47,7 +47,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       <>
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
-        <Assignees showRemove={true} contributionId={contribution.id} />
+        <Assignees showRemove={true} contribution={contribution} />
         {/* KEEP THIS */}
         {/*<Timeline id={contribution.id} />*/}
       </>
@@ -65,7 +65,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <LinkedIssues issues={contribution.linkedIssues} />
-        <Assignees contributionId={contribution.id} />
+        <Assignees contribution={contribution} />
         {/* KEEP THIS */}
         {/*<Timeline id={contribution.id} />*/}
       </>
@@ -77,7 +77,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       <>
         <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} />
-        <Assignees contributionId={contribution.id} />
+        <Assignees contribution={contribution} />
         {/* KEEP THIS */}
         {/*<Timeline id={contribution.id} />*/}
       </>
