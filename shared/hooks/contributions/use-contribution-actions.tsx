@@ -1,9 +1,12 @@
+import { ReactNode } from "react";
+
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
 import { toast } from "@/design-system/molecules/toaster";
 
@@ -16,10 +19,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions?: CardContributionKanbanActions
-): ButtonGroupPort["buttons"] | ButtonPort<"button">[] => {
+): { buttons: ButtonGroupPort["buttons"] | ButtonPort<"button">[]; endContent?: ReactNode } => {
   const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
 
-  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+  const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
+    useGithubPermissionsContext();
 
   const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
@@ -134,67 +138,91 @@ export const useContributionActions = (
 
   switch (contribution.activityStatus) {
     case ContributionActivityStatus.NOT_ASSIGNED:
-      return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.review"} />,
-          onClick: onReview,
-        },
-      ];
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.review"} />,
+            onClick: onReview,
+          },
+        ],
+      };
     case ContributionActivityStatus.IN_PROGRESS:
-      if (contribution.isPullRequest()) return [];
+      if (contribution.isPullRequest()) return { buttons: [] };
 
-      return [
-        ...(contribution.contributors.length
-          ? [
-              {
-                children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
-                onClick: onUnassign,
-                isLoading: isUnassigningContribution,
-              },
-            ]
-          : []),
-        ...(contribution.isIssue()
-          ? [
-              {
-                children: <Translate token={"features:cardContributionKanban.actions.close"} />,
-                onClick: onCloseIssue,
-              },
-            ]
-          : []),
-      ];
+      if (!canCurrentUserUpdatePermissions(contribution.repo.id)) {
+        return {
+          buttons: [],
+          endContent: (
+            <Badge
+              size="xs"
+              color="warning"
+              shape="rounded"
+              translate={{ token: "features:cardContributionKanban.actions.insufficientPermissions" }}
+            />
+          ),
+        };
+      }
+
+      return {
+        buttons: [
+          ...(contribution.contributors.length
+            ? [
+                {
+                  children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
+                  onClick: onUnassign,
+                  isLoading: isUnassigningContribution,
+                },
+              ]
+            : []),
+          ...(contribution.isIssue()
+            ? [
+                {
+                  children: <Translate token={"features:cardContributionKanban.actions.close"} />,
+                  onClick: onCloseIssue,
+                },
+              ]
+            : []),
+        ],
+      };
     case ContributionActivityStatus.TO_REVIEW:
-      return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.codeReview"} />,
-          onClick: onCodeReview,
-          startIcon: { component: Github },
-        },
-      ];
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.codeReview"} />,
+            onClick: onCodeReview,
+            startIcon: { component: Github },
+          },
+        ],
+      };
     case ContributionActivityStatus.DONE:
-      return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
-          onClick: onArchive,
-          isDisabled: isUpdatingPullRequest || isUpdatingIssue,
-        },
-        ...(contribution.totalRewardedUsdAmount !== 0
-          ? []
-          : [
-              {
-                children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
-                onClick: onReward,
-              },
-            ]),
-      ];
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
+            onClick: onArchive,
+            isDisabled: isUpdatingPullRequest || isUpdatingIssue,
+          },
+          ...(contribution.totalRewardedUsdAmount !== 0
+            ? []
+            : [
+                {
+                  children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
+                  onClick: onReward,
+                },
+              ]),
+        ],
+      };
     case ContributionActivityStatus.ARCHIVED:
-      return [
-        {
-          children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
-          onClick: onUnarchive,
-          isDisabled: isUpdatingPullRequest || isUpdatingIssue,
-        },
-      ];
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
+            onClick: onUnarchive,
+            isDisabled: isUpdatingPullRequest || isUpdatingIssue,
+          },
+        ],
+      };
     default:
-      return [];
+      return { buttons: [] };
   }
 };

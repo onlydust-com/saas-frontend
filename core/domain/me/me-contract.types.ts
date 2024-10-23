@@ -1,4 +1,5 @@
 import { MeInterface } from "@/core/domain/me/models/me-model";
+import { MeOrganizationInterface } from "@/core/domain/me/models/me-organization-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
 import { MeProjectListItemInterface } from "@/core/domain/me/models/me-projects-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -68,3 +69,11 @@ export type GetMeProjectsQueryParams = operations["getMyProjects"]["parameters"]
 export type GetMeProjectsPortResponse = HttpStorageResponse<GetMeProjectsModel>;
 
 export type GetMeProjectsPortParams = HttpClientParameters<{ QueryParams: GetMeProjectsQueryParams }>;
+
+/* --------------------------------- Get my organizations -------------------------------- */
+
+export type GetMyOrganizationsResponse = components["schemas"]["GithubOrganizationResponse"][];
+
+export type GetMyOrganizationsPortParams = HttpClientParameters<object>;
+
+export type GetMyOrganizationsPortResponse = HttpStorageResponse<MeOrganizationInterface[]>;

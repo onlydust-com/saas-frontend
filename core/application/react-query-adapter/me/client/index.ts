@@ -5,3 +5,4 @@ export * from "./use-get-my-profile";
 export * from "./use-set-my-profile";
 export * from "./use-replace-my-profile";
 export * from "./use-get-me-projects";
+export * from "./use-get-my-organizations";

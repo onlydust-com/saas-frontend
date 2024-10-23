@@ -1,7 +1,6 @@
 import { Github } from "lucide-react";
 import { useMemo } from "react";
 
-import { ButtonPort } from "@/design-system/atoms/button/button.types";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -15,7 +14,8 @@ import { FooterProps } from "@/shared/panels/contribution-sidepanel/_features/fo
 export function Footer({ contribution }: FooterProps) {
   const { isOpen: isManageApplicantsModalOpen, setIsOpen: setIsManageApplicantsModalOpen } = useManageApplicantsModal();
 
-  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+  const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
+    useGithubPermissionsContext();
 
   function HandleManageApplicants() {
     if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
@@ -26,10 +26,10 @@ export function Footer({ contribution }: FooterProps) {
     setIsManageApplicantsModalOpen(true);
   }
 
-  const actions = useContributionActions(contribution) as ButtonPort<"button">[];
+  const { buttons, endContent } = useContributionActions(contribution);
 
   const renderContributionActions = useMemo(() => {
-    if (!actions.length && !contribution?.isNotAssigned()) {
+    if (!buttons.length && !endContent && !contribution?.isNotAssigned()) {
       return <div />;
     }
 
@@ -47,7 +47,8 @@ export function Footer({ contribution }: FooterProps) {
     if (
       contribution?.isInProgress() &&
       contribution.type !== "PULL_REQUEST" &&
-      isProjectOrganisationMissingPermissions(contribution.repo.id)
+      isProjectOrganisationMissingPermissions(contribution.repo.id) &&
+      canCurrentUserUpdatePermissions(contribution.repo.id)
     ) {
       return (
         <Button
@@ -61,12 +62,13 @@ export function Footer({ contribution }: FooterProps) {
 
     return (
       <div className="flex gap-sm">
-        {actions.map((action, index) => (
+        {buttons.map((action, index) => (
           <Button key={index} size={"md"} variant={"secondary"} {...action} />
         ))}
+        {endContent}
       </div>
     );
-  }, [actions, contribution]);
+  }, [buttons, contribution, endContent]);
 
   return (
     <SidePanelFooter>

@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ElementType, ReactNode } from "react";
 
 import {
   ContributionGithubStatusUnion,
@@ -40,5 +40,6 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   }[];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
+  endContent?: ReactNode;
   showActions?: boolean;
 }
