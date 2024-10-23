@@ -182,6 +182,7 @@ export const useContributionActions = (
                   children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
                   onClick: onUnassign,
                   isLoading: isUnassigningContribution,
+                  isDisabled: !!shouldRefetch,
                 },
               ]
             : []),
