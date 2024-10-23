@@ -135,9 +135,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.actions"} />,
       cell: info => {
         const id = info.row.original.id;
-        const status = info.row.original.status;
-
-        const isDisabled = status !== "PENDING_CONTRIBUTOR" && status !== "PENDING_REQUEST";
+        const isDisabled = info.row.original.isCompleted() || info.row.original.isProcessing();
 
         return (
           <CancelReward projectId={projectId} rewardId={id}>
