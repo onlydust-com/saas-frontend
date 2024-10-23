@@ -35,23 +35,16 @@ function Column({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
-  const { shouldRefetch, startPooling } = useActionPooling();
-  const { data, hasNextPage, fetchNextPage, isPending, refetch } =
-    ContributionReactQueryAdapter.client.useGetContributions({
-      queryParams: {
-        ...queryParams,
-        statuses: [type],
-      },
-      options: {
-        enabled: !!queryParams?.projectSlugs?.length,
-      },
-    });
-
-  // useEffect(() => {
-  //   if (shouldRefetch) {
-  //     refetch();
-  //   }
-  // }, [shouldRefetch]);
+  const { startPooling } = useActionPooling();
+  const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
+    queryParams: {
+      ...queryParams,
+      statuses: [type],
+    },
+    options: {
+      enabled: !!queryParams?.projectSlugs?.length,
+    },
+  });
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
