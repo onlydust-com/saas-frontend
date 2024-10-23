@@ -1,5 +1,7 @@
 import { CircleCheck, CircleX, GitPullRequest, Medal, Undo2 } from "lucide-react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -7,11 +9,13 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ApplicationCardProps } from "./application-card.types";
 
 export function ApplicationCard({ application, contributionId, isIgnored, repoId }: ApplicationCardProps) {
   const { applicationId = "", contributor, rewardCount, prCount } = application;
+  const dateKernelPort = bootstrap.getDateKernelPort();
 
   return (
     <Paper background="transparent" border="none" classNames={{ base: "flex gap-md justify-between" }}>
@@ -24,12 +28,11 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
               {contributor.login}
             </Typo>
 
-            {/* TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse */}
-            {/*<Typo size="xs" color="secondary">*/}
-            {/*  {application.getApplicantTitle().wording} • {application.getRank()}*/}
-            {/*  {" • "}*/}
-            {/*  <Translate token={"panels:contributor.rank"} count={applicant.globalRankPercentile} />*/}
-            {/*</Typo>*/}
+            <Typo size="xs" color="secondary">
+              {application.contributor.rank.getTitle().wording} • {application.contributor.rank.getRank()}
+              {" • "}
+              <Translate token={"panels:contributor.rank"} count={application.contributor.globalRankPercentile} />
+            </Typo>
           </div>
 
           <div className="flex flex-wrap gap-md">
@@ -51,8 +54,9 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
               {prCount.value}
             </Badge>
 
-            {/* TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse */}
-            {/*<Badge size="xs">{dateKernelPort.format(new Date(application.receivedAt), "dd.MM.yyyy")}</Badge>*/}
+            {application.appliedAt ? (
+              <Badge size="xs">{dateKernelPort.format(new Date(application.appliedAt), "dd.MM.yyyy")}</Badge>
+            ) : null}
           </div>
         </div>
       </div>

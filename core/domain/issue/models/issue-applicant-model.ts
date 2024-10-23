@@ -6,7 +6,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type IssueApplicantResponse = components["schemas"]["IssueApplicantsPageItemResponse"];
 
-export interface IssueApplicantInterface extends IssueApplicantResponse {}
+export interface IssueApplicantInterface extends IssueApplicantResponse {
+  contributor: ContributorOverviewInterface;
+}
 
 export class IssueApplicant implements IssueApplicantInterface {
   applicationId!: IssueApplicantResponse["applicationId"];

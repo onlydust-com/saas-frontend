@@ -71,8 +71,6 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
         const { contributor } = info.row.original;
-        // TODO https://linear.app/onlydust/issue/E-2154/[contributor]-add-global-ranking-info-to-contributorresponse
-        // const applicantTitle = info.row.original.getApplicantTitle();
 
         return (
           <AvatarLabelGroup
@@ -82,7 +80,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
               },
             ]}
             title={{ children: contributor.login }}
-            // description={{ children: applicantTitle.wording }}
+            description={{ children: contributor.rank.getTitle().wording }}
           />
         );
       },
