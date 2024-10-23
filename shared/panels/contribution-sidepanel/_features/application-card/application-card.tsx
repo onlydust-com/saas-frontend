@@ -74,7 +74,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                     component: CircleX,
                   }}
                   onClick={ignore}
-                  isDisabled={isUpdating}
+                  isLoading={isUpdating}
                 />
               ) : (
                 <Button
@@ -85,7 +85,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
                     component: Undo2,
                   }}
                   onClick={unignore}
-                  isDisabled={isUpdating}
+                  isLoading={isUpdating}
                 />
               )}
 

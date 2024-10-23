@@ -64,7 +64,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.ignore" }}
                   onClick={ignore}
-                  isDisabled={isUpdating}
+                  isLoading={isUpdating}
                 />
 
                 <Button
@@ -73,7 +73,7 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
                   size={"md"}
                   translate={{ token: "modals:manageApplicants.table.actions.assign" }}
                   onClick={accept}
-                  isDisabled={isUpdating}
+                  isLoading={isUpdating}
                 />
               </>
             )}
