@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 
+import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { GithubPermissionModal } from "@/shared/features/github-permissions/_components/github-permission-modal/github-permission-modal";
@@ -12,6 +13,7 @@ interface GithubPermissionsContextInterface {
   isGithubPermissionModalOpen: boolean;
   setIsGithubPermissionModalOpen: (isOpen: boolean) => void;
   setEnablePooling: (enable: boolean) => void;
+  canCurrentUserUpdatePermissions: (repoId: number) => boolean;
 }
 
 const GithubPermissionsContext = createContext<GithubPermissionsContextInterface>({
@@ -20,12 +22,15 @@ const GithubPermissionsContext = createContext<GithubPermissionsContextInterface
   isGithubPermissionModalOpen: false,
   setIsGithubPermissionModalOpen: () => {},
   setEnablePooling: () => {},
+  canCurrentUserUpdatePermissions: () => false,
 });
 
 export function GithubPermissionsProvider({ children, projectSlug }: PropsWithChildren & { projectSlug: string }) {
   const [enablePooling, setEnablePooling] = useState(false);
   const [repoId, setRepoId] = useState<number | undefined>();
   const { isOpen: isGithubPermissionModalOpen, setIsOpen: setIsGithubPermissionModalOpen } = useGithubPermissionModal();
+
+  const { data: userOrganizations } = GithubReactQueryAdapter.client.useGetMyOrganizations({});
 
   const { refetchOnWindowFocus, refetchInterval, onRefetching } = usePooling({
     limit: 20,
@@ -47,6 +52,21 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
 
     setRepoId(repoId);
     return projectData?.isRepoOrganizationMissingPermissions(repoId) ?? false;
+  }
+
+  function canCurrentUserUpdatePermissions(repoId: number) {
+    const relatedOrganization = projectData?.getOrganizationByRepoId(repoId);
+    const { organizations } = userOrganizations ?? {};
+
+    if (relatedOrganization && organizations?.length) {
+      return (
+        organizations
+          .find(organization => organization.githubUserId === relatedOrganization.githubUserId)
+          ?.isUserAdminOfOrganization() ?? false
+      );
+    }
+
+    return false;
   }
 
   const updatePermissionsUrl = useMemo(() => {
@@ -80,6 +100,7 @@ export function GithubPermissionsProvider({ children, projectSlug }: PropsWithCh
         isGithubPermissionModalOpen,
         setIsGithubPermissionModalOpen,
         setEnablePooling,
+        canCurrentUserUpdatePermissions,
       }}
     >
       {children}

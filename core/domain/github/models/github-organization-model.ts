@@ -9,6 +9,7 @@ export interface GithubOrganizationInterface
   isContainsRepo(repoIds: number[]): boolean;
   isInstalled(): boolean;
   isMissingPermissions(): boolean;
+  isUserAdminOfOrganization(): boolean;
   addRepo(repo: GithubRepoInterface): void;
   searchRepo(search?: string | null): GithubRepoInterface[];
   getGithubManagementUrl(): string;
@@ -84,5 +85,9 @@ export class GithubOrganization implements GithubOrganizationInterface {
     }
 
     return undefined;
+  }
+
+  isUserAdminOfOrganization() {
+    return this.isCurrentUserAdmin;
   }
 }

@@ -11,7 +11,7 @@ export function CardContributionKanban({
   showActions,
   ...actions
 }: CardContributionKanbanProps) {
-  const actionGroup = useContributionActions(contribution, actions) as ButtonGroupPort["buttons"];
+  const { buttons, endContent } = useContributionActions(contribution, actions);
 
   return (
     <Card
@@ -26,9 +26,10 @@ export function CardContributionKanban({
       contributors={contribution.contributors}
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}
-      actions={actionGroup}
+      actions={buttons as ButtonGroupPort["buttons"]}
       showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}
+      endContent={endContent}
     />
   );
 }

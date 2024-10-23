@@ -37,6 +37,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   size = "lg",
   background = "secondary",
   border = "primary",
+  endContent,
   ...restProps
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
@@ -226,7 +227,8 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
         <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
           {renderGithubLabels()}
 
-          {actions && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+          {!!endContent && endContent}
         </footer>
       </div>
     </Paper>
