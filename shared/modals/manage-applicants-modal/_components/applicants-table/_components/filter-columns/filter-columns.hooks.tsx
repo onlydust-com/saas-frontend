@@ -250,7 +250,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                     variant={"secondary"}
                     size={"sm"}
                     onClick={ignore}
-                    isDisabled={isUpdating}
+                    isLoading={isUpdating}
+                    isDisabled={isDisabled}
                   >
                     <Translate token={"modals:manageApplicants.table.rows.ignore"} />
                   </Button>
@@ -260,7 +261,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                     variant={"secondary"}
                     size={"sm"}
                     onClick={accept}
-                    isDisabled={isUpdating}
+                    isLoading={isUpdating}
+                    isDisabled={isDisabled}
                   >
                     <Translate token={"modals:manageApplicants.table.rows.assign"} />
                   </Button>
