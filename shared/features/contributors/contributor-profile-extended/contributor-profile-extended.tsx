@@ -15,19 +15,22 @@ import { ContributorProfileExtendedProps } from "./contributor-profile-extended.
 
 export function ContributorProfileExtended({ user, headerProps, footerContent }: ContributorProfileExtendedProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
+
+  const { contributor } = user;
+
   const signedUpAt = useMemo(() => {
-    if (user.signedUpAt) {
-      return dateKernelPort.format(new Date(user.signedUpAt), "MM/yyyy");
+    if (contributor.signedUpAt) {
+      return dateKernelPort.format(new Date(contributor.signedUpAt), "MM/yyyy");
     }
     return null;
-  }, [user]);
+  }, [contributor]);
 
   const signedUpOnGithubAt = useMemo(() => {
-    if (user.signedUpOnGithubAt) {
-      return dateKernelPort.format(new Date(user.signedUpOnGithubAt), "MM/yyyy");
+    if (contributor.signedUpOnGithubAt) {
+      return dateKernelPort.format(new Date(contributor.signedUpOnGithubAt), "MM/yyyy");
     }
     return null;
-  }, [user]);
+  }, [contributor]);
 
   const renderHeader = useMemo(() => {
     if (headerProps) {
@@ -45,11 +48,11 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
     <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
       {renderHeader}
       <div className={"flex flex-row items-center justify-start gap-lg"}>
-        <Avatar size={"2xl"} shape={"squared"} src={user.avatarUrl} />
+        <Avatar size={"2xl"} shape={"squared"} src={contributor.avatarUrl} />
         <div className={"flex w-full flex-col gap-sm"}>
           <div className={"flex flex-row items-center justify-between gap-1"}>
             <Typo variant={"heading"} size={"xs"} weight={"medium"}>
-              {user.login}
+              {contributor.login}
             </Typo>
             <Typo variant={"heading"} size={"xs"} weight={"medium"}>
               {user.rank.getRank()}
@@ -60,9 +63,9 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
           </Typo>
         </div>
       </div>
-      {user.bio && (
+      {contributor.bio && (
         <Typo size={"xs"} color={"secondary"}>
-          {user.bio}
+          {contributor.bio}
         </Typo>
       )}
 
@@ -74,10 +77,10 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
       {/*  translate={{ token: "features:contributorProfileExtended.followers", count: 12 }}*/}
       {/*/>*/}
 
-      {user.contacts?.length ? (
+      {contributor.contacts?.length ? (
         <div className={"flex w-full flex-row items-center justify-between gap-1"}>
           <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
-            {user.contacts.map(contact => (
+            {contributor.contacts.map(contact => (
               <Button
                 key={contact.contact}
                 iconOnly={true}

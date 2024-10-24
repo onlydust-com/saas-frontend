@@ -1,9 +1,9 @@
 import { PropsWithChildren, ReactNode } from "react";
 
-import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 export interface ContributorSidepanelProps extends PropsWithChildren {
-  customFooter?: (props: { data: UserPublicInterface; applicationId?: string }) => ReactNode;
+  customFooter?: (props: { data: BiContributorInterface; applicationId?: string }) => ReactNode;
 }
 
 export interface ContributorSidepanelData {

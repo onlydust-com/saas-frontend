@@ -74,7 +74,7 @@ export function AccordionIgnoredContributors({
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            openContributor({ login: row.original.contributor.login });
+            openContributor({ githubId: row.original.contributor.githubUserId });
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

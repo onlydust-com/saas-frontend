@@ -2,14 +2,23 @@
   "rank": "Top {{count}}%",
   "kpi": {
     "title": "KPI",
-    "lead": {
-      "title": "Lead"
+    "maintainedProjects": {
+      "title": "Maintained Projects"
     },
-    "projects": {
-      "title": "Projects"
+    "contributedProjects": {
+      "title": "Contributed Projects"
     },
     "rewards": {
       "title": "Rewards"
+    },
+    "mergedPullRequests": {
+      "title": "Merged Pull Requests"
+    },
+    "inProgressIssues": {
+      "title": "In progress issues"
+    },
+    "pendingApplications": {
+      "title": "Pending Applications"
     }
   },
   "languages": {
