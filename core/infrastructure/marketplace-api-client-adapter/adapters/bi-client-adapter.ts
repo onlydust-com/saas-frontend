@@ -1,4 +1,5 @@
 import {
+  GetBiContributorByIdResponse,
   GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
   GetBiProjectsResponse,
@@ -25,6 +26,7 @@ export class BiClientAdapter implements BiStoragePort {
     getBiWorldMap: "bi/world-map",
     getBiProjects: "bi/projects",
     getBiContributors: "bi/contributors",
+    getBiContributorById: "bi/contributors/:contributorId",
     getBiStatsFinancials: "bi/stats/financials",
   } as const;
 
@@ -163,6 +165,27 @@ export class BiClientAdapter implements BiStoragePort {
         ...data,
         contributors: data.contributors.map(contributor => new BiContributor(contributor)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiContributorById = ({ pathParams }: FirstParameter<BiStoragePort["getBiContributorById"]>) => {
+    const path = this.routes["getBiContributorById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiContributorByIdResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new BiContributor(data);
     };
 
     return {

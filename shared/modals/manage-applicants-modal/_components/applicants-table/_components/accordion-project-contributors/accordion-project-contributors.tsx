@@ -74,7 +74,10 @@ export function AccordionProjectContributors({
             base: "min-w-[1200px]",
           }}
           onRowClick={row => {
-            openContributor({ login: row.original.contributor.login, applicationId: row.original.applicationId });
+            openContributor({
+              githubId: row.original.contributor.githubUserId,
+              applicationId: row.original.applicationId,
+            });
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
