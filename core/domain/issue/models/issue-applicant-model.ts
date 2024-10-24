@@ -25,6 +25,10 @@ export class IssueApplicant implements IssueApplicantInterface {
   projects!: IssueApplicantResponse["projects"];
   rewardCount!: IssueApplicantResponse["rewardCount"];
   totalRewardedUsdAmount!: IssueApplicantResponse["totalRewardedUsdAmount"];
+  appliedAt!: IssueApplicantResponse["appliedAt"];
+  inProgressIssueCount!: IssueApplicantResponse["inProgressIssueCount"];
+  maintainedProjectCount!: IssueApplicantResponse["maintainedProjectCount"];
+  pendingApplicationCount!: IssueApplicantResponse["pendingApplicationCount"];
 
   constructor(props: IssueApplicantResponse) {
     Object.assign(this, props);
