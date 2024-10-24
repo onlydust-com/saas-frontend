@@ -265,7 +265,7 @@ export function useFilterColumns() {
           />
 
           <Button
-            onClick={() => openContributor({ login: info.row.original.contributor.login })}
+            onClick={() => openContributor({ githubId: info.row.original.contributor.githubUserId })}
             variant={"secondary"}
             size={"sm"}
             translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.seeProfile" }}

@@ -94,6 +94,20 @@ export type GetBiContributorsPortParams = HttpClientParameters<{
 
 export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributorsModel>;
 
+/* --------------------- Get Bi contributor by Id --------------------- */
+
+export type GetBiContributorByIdResponse = components["schemas"]["BiContributorsPageItemResponse"];
+
+export type GetBiContributorByIdModel = BiContributorInterface;
+
+type GetBiContributorByIdPathParams = operations["getBIContributor"]["parameters"]["path"];
+
+export type GetBiContributorByIdPortParams = HttpClientParameters<{
+  PathParams: GetBiContributorByIdPathParams;
+}>;
+
+export type GetBiContributorByIdPortResponse = HttpStorageResponse<GetBiContributorByIdModel>;
+
 /* --------------------- Get Bi Contributors CSV --------------------- */
 
 export type GetBiContributorsCsvPortResponse = HttpStorageResponse<Blob>;

@@ -1,7 +1,6 @@
 import { SquareArrowOutUpRight } from "lucide-react";
-import { useMemo } from "react";
 
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -28,42 +27,21 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
   const { name, isOpen } = useContributorSidePanel();
   const { Panel } = useSidePanel({ name });
   const {
-    login = "",
     githubId = 0,
     canGoBack,
     applicationId = "",
   } = useSinglePanelData<ContributorSidepanelData>(name) ?? {
-    login: undefined,
     githubId: undefined,
     applicationId: undefined,
   };
 
-  const { data: dataById, isLoading: isLoadingById } = UserReactQueryAdapter.client.useGetUserById({
-    pathParams: { githubId },
+  const { data: data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorById({
+    pathParams: { contributorId: githubId },
+
     options: {
-      enabled: !!githubId && isOpen,
+      enabled: Boolean(githubId && isOpen),
     },
   });
-
-  const { data: dataBySlug, isLoading: isLoadingBySlug } = UserReactQueryAdapter.client.useGetUserByLogin({
-    pathParams: { slug: login },
-    options: {
-      enabled: !!login && login !== "" && isOpen,
-    },
-  });
-
-  const isLoading = isLoadingById || isLoadingBySlug;
-
-  const data = useMemo(() => {
-    if (dataById && githubId) {
-      return dataById;
-    }
-    if (dataBySlug && login) {
-      return dataBySlug;
-    }
-
-    return undefined;
-  }, [dataBySlug, dataById, githubId, login]);
 
   function renderContent() {
     if (isLoading) {
@@ -83,26 +61,20 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     return (
       <div className={"flex w-full flex-col gap-lg"}>
         <ContributorProfileExtended user={data} />
-        {data?.githubUserId ? (
+        {data?.contributor.githubUserId ? (
           <>
-            {/* !KEEP this
-             * <div className={"flex flex-row gap-lg"}>
-             */}
-            <div className={"flex flex-col gap-lg"}>
-              <Languages githubId={data.githubUserId} />
-              <Ecosystems githubId={data.githubUserId} />
+            <div className={"flex gap-lg"}>
+              <Languages githubId={data?.contributor.githubUserId} />
+              <Ecosystems githubId={data?.contributor.githubUserId} />
             </div>
-            {/* !KEEP this
-             * <div className={"flex flex-row gap-lg"}>
-             */}
-            <div className={"flex flex-col gap-lg"}>
+            <div className={"flex gap-lg"}>
               <Kpi user={data} />
-              <RewardsGraph githubId={data.githubUserId} />
+              <RewardsGraph githubId={data?.contributor.githubUserId} />
             </div>
             {/* !KEEP this
              * <PublicRepo />
              */}
-            <Activity githubId={data.githubUserId} />
+            <Activity githubId={data?.contributor.githubUserId} />
           </>
         ) : null}
       </div>
@@ -124,7 +96,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
           size={"md"}
           as={"a"}
           htmlProps={{
-            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.login)),
+            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.contributor.login)),
             target: "_blank",
           }}
         >
@@ -138,7 +110,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     <Panel>
       <SidePanelHeader
         title={{
-          children: data?.login ?? "",
+          children: data?.contributor.login ?? "",
         }}
         canGoBack={canGoBack}
         canClose={true}

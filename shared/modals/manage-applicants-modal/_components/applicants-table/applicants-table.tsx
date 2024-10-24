@@ -116,7 +116,7 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }:
         <ContributorSidepanel
           customFooter={({ data, applicationId }) => (
             <Footer
-              login={data.login}
+              login={data.contributor.login}
               applicationId={applicationId}
               contributionId={contributionId}
               repoId={repoId}

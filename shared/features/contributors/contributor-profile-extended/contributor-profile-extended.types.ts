@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { UserPublicInterface } from "@/core/domain/user/models/user-public-model";
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 import { BadgePort } from "@/design-system/atoms/badge";
 import { TypoPort } from "@/design-system/atoms/typo";
@@ -11,7 +11,7 @@ type HeaderProps = {
 };
 
 export interface ContributorProfileExtendedProps {
-  user: UserPublicInterface;
+  user: BiContributorInterface;
   headerProps?: HeaderProps;
   footerContent?: ReactNode;
 }

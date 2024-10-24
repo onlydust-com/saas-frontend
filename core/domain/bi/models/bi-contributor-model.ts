@@ -22,6 +22,10 @@ export class BiContributor implements BiContributorInterface {
   projects!: BiContributorResponse["projects"];
   rewardCount!: BiContributorResponse["rewardCount"];
   totalRewardedUsdAmount!: BiContributorResponse["totalRewardedUsdAmount"];
+  inProgressIssueCount!: BiContributorResponse["inProgressIssueCount"];
+  maintainedProjectCount!: BiContributorResponse["maintainedProjectCount"];
+  pendingApplicationCount!: BiContributorResponse["pendingApplicationCount"];
+  projectContributorLabels!: BiContributorResponse["projectContributorLabels"];
   rank: UserRankInterface;
 
   constructor(props: BiContributorResponse) {
