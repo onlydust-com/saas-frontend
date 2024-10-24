@@ -15,6 +15,7 @@ import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { Activity } from "@/shared/panels/contributor-sidepanel/_components/activity/activity";
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
+import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -62,18 +63,12 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
         <ContributorProfileExtended user={data} />
         {data?.contributor.githubUserId ? (
           <>
-            {/* !KEEP this
-             * <div className={"flex flex-row gap-lg"}>
-             */}
-            <div className={"flex flex-col gap-lg"}>
+            <div className={"flex gap-lg"}>
               <Languages githubId={data?.contributor.githubUserId} />
               <Ecosystems githubId={data?.contributor.githubUserId} />
             </div>
-            {/* !KEEP this
-             * <div className={"flex flex-row gap-lg"}>
-             */}
-            <div className={"flex flex-col gap-lg"}>
-              {/*<Kpi user={data} />*/}
+            <div className={"flex gap-lg"}>
+              <Kpi user={data} />
               <RewardsGraph githubId={data?.contributor.githubUserId} />
             </div>
             {/* !KEEP this

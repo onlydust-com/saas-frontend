@@ -31,7 +31,7 @@ export function Languages({ githubId }: LanguagesProps) {
     <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg overflow-hidden" }}>
       <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.languages.title" }} />
 
-      <ScrollView direction={"x"}>
+      <ScrollView direction={"y"}>
         <div className={"flex flex-row gap-md"}>
           {languages?.map(({ language: { logoUrl, name } }) => (
             <Tag key={name} size={"md"} avatar={{ src: logoUrl, alt: name }}>

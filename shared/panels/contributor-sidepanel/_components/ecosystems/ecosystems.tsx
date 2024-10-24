@@ -31,7 +31,7 @@ export function Ecosystems({ githubId }: EcosystemsProps) {
     <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg overflow-hidden" }}>
       <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contributor.ecosystems.title" }} />
 
-      <ScrollView direction={"x"}>
+      <ScrollView direction={"y"}>
         <div className={"flex flex-row gap-md"}>
           {ecosystems?.map(({ ecosystem: { logoUrl, name } }) => (
             <Tag key={name} size={"md"} avatar={{ src: logoUrl, alt: name }}>
