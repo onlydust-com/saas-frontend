@@ -23,4 +23,5 @@ export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Var
   quantity?: number;
   shape?: AvatarPort["shape"];
   truncate?: boolean;
+  withPopover?: boolean;
 }
