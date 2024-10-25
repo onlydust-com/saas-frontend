@@ -24,6 +24,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   quantity,
   truncate,
   withPopover = true,
+  popoverContent,
 }: AvatarLabelGroupPort<C>) {
   const Component = as || "div";
 
@@ -76,9 +77,16 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
             <div className="h-fit w-fit overflow-hidden">
               <ScrollView className={"max-h-[300px]"}>
                 <div className="flex w-fit flex-col gap-2">
-                  {avatars?.map((avatar, index) => (
-                    <AvatarLabelGroup shape={shape} avatars={[avatar]} key={index} title={{ children: avatar.name }} />
-                  ))}
+                  {popoverContent
+                    ? popoverContent
+                    : avatars?.map((avatar, index) => (
+                        <AvatarLabelGroup
+                          shape={shape}
+                          avatars={[avatar]}
+                          key={index}
+                          title={{ children: avatar?.name }}
+                        />
+                      ))}
                 </div>
               </ScrollView>
             </div>

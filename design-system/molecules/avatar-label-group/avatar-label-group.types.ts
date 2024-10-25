@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { AvatarPort } from "@/design-system/atoms/avatar";
 import { TypoPort } from "@/design-system/atoms/typo";
@@ -11,7 +11,7 @@ interface ClassNames {
   base: string;
 }
 
-interface AvatarItem extends Pick<AvatarPort, "src" | "alt" | "fallback"> {}
+interface AvatarItem extends Pick<AvatarPort, "src" | "alt" | "fallback" | "name"> {}
 
 export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Variants> {
   as?: C;
@@ -24,4 +24,5 @@ export interface AvatarLabelGroupPort<C extends ElementType> extends Partial<Var
   shape?: AvatarPort["shape"];
   truncate?: boolean;
   withPopover?: boolean;
+  popoverContent?: ReactNode;
 }
