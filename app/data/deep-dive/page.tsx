@@ -30,7 +30,7 @@ export default function DeepDivePage() {
     >
       <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
         <ScrollView>
-          <PageContent>
+          <PageContent classNames={{ base: "h-full overflow-hidden" }}>
             <DeepDiveSection />
           </PageContent>
         </ScrollView>
