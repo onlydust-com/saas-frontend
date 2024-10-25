@@ -30,7 +30,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
 
   const slots = AvatarLabelGroupDefaultVariants({ truncate });
 
-  function Content() {
+  function renderContent() {
     return (
       <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
         {avatars.length === 1 ? (
@@ -70,7 +70,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   if (avatars?.length > 1 && withPopover) {
     return (
       <Popover>
-        <Popover.Trigger>{() => Content()}</Popover.Trigger>
+        <Popover.Trigger>{() => renderContent()}</Popover.Trigger>
 
         <Popover.Content>
           {() => (
@@ -96,5 +96,5 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
     );
   }
 
-  return Content();
+  return renderContent();
 }
