@@ -34,8 +34,8 @@ export function DeepDiveSection() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-lg">
+    <div className="flex h-full flex-col gap-4">
+      <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
         <Typo size={"xs"} weight={"medium"} variant={"heading"} translate={{ token: "data:deepDive.header.title" }} />
         <div className="flex max-w-full flex-1 items-center justify-between gap-2">
           <Tabs
