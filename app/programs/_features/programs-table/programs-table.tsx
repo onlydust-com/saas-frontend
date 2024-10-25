@@ -10,6 +10,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -124,6 +125,21 @@ export function ProgramsTable() {
                 <Translate token={"programs:list.content.table.rows.currencies"} count={totalPerCurrency?.length} />
               ),
             }}
+            popoverContent={(totalPerCurrency ?? [])?.map(amount => {
+              return (
+                <CardBudget
+                  key={amount.currency.id}
+                  amount={{
+                    value: amount.amount,
+                    currency: amount.currency,
+                    usdEquivalent: amount.usdEquivalent ?? 0,
+                  }}
+                  background={"secondary"}
+                  border={"primary"}
+                  badgeProps={{ color: "brand", children: amount.currency.name }}
+                />
+              );
+            })}
           />
         );
       },
