@@ -78,6 +78,7 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
             descriptionProps={{
               children: notification.getDescription(),
             }}
+            hasRead={notification.hasRead()}
             onClick={() => handleRead(notification.getId(), notification.getUrl())}
           />
         ))}

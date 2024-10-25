@@ -12,6 +12,7 @@ const defaultProps: CardNotificationPort = {
   descriptionProps: {
     children: "Notification description",
   },
+  hasRead: false,
   onClick: () => {
     alert("Notification clicked");
   },

@@ -10,5 +10,6 @@ export interface CardNotificationPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   titleProps: TypoPort<"span">;
   descriptionProps: TypoPort<"span">;
+  hasRead: boolean;
   onClick: () => void;
 }

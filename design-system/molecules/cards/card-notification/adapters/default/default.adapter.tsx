@@ -11,6 +11,7 @@ export function CardNotificationDefaultAdapter({
   classNames,
   titleProps,
   descriptionProps,
+  hasRead,
   onClick,
 }: CardNotificationPort) {
   const slots = CardNotificationDefaultVariants();
@@ -29,7 +30,7 @@ export function CardNotificationDefaultAdapter({
           size: "xs",
         },
         size: "sm",
-        onlineIcon: true,
+        onlineIcon: !hasRead,
       }}
       titleProps={{
         ...titleProps,
