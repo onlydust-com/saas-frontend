@@ -11,6 +11,7 @@ import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter
 import { Typo } from "@/design-system/atoms/typo";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
@@ -24,14 +25,12 @@ function SafeProgramPage({ params: { programId } }: { params: { programId: strin
     <>
       <PosthogCaptureOnMount eventName={"program_viewed"} />
 
-      <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <div className="h-auto">
-          <PageContent>
-            <FinancialSection />
-          </PageContent>
-        </div>
-        <PageContent>
-          <div className="grid gap-3">
+      <AnimatedColumn className="flex h-full flex-1 flex-col gap-md">
+        <PageContent classNames={{ base: "flex-none" }}>
+          <FinancialSection />
+        </PageContent>
+        <PageContent classNames={{ base: "overflow-hidden" }}>
+          <div className="flex h-full flex-col gap-3">
             <header className={"flex items-center justify-between"}>
               <Typo
                 variant={"heading"}
@@ -44,8 +43,9 @@ function SafeProgramPage({ params: { programId } }: { params: { programId: strin
 
               <GrantButton programId={programId} />
             </header>
-
-            <ProjectsTable programId={programId} />
+            <ScrollView direction={"all"}>
+              <ProjectsTable programId={programId} />
+            </ScrollView>
           </div>
         </PageContent>
       </AnimatedColumn>
