@@ -51,7 +51,7 @@ export function Kpi({ user }: KpiProps) {
             size={"md"}
             background={"primary"}
             border={"primary"}
-            classNames={{ base: "flex flex-col gap-md flex-1" }}
+            classNames={{ base: "flex flex-col gap-md flex-1 justify-between" }}
           >
             <Typo size={"xs"} color={"secondary"}>
               {title}
