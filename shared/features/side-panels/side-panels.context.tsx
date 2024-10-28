@@ -132,7 +132,6 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
       return closedWidth;
     }
 
-    console.log("width", width, "gap", gap, "closedWidth", closedWidth, width + (gap || 0));
     return width + (gap || 0);
   }, [openedPanels, gap, width, closedWidth]);
 
