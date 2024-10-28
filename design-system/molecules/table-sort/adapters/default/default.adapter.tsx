@@ -24,7 +24,7 @@ export function TableSortDefaultAdapter({
     if (isSelected) {
       onDirectionChange(direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC);
     } else {
-      onDirectionChange(SortDirection.ASC);
+      onDirectionChange(direction);
     }
   }
 
