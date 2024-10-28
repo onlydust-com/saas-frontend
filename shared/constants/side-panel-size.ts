@@ -1,6 +1,5 @@
 export const SIDE_PANEL_SIZE = {
   m: 33,
-  "3xl": 33,
 } as const;
 
 export const SIDE_PANEL_TW_SIZE = {
@@ -9,7 +8,6 @@ export const SIDE_PANEL_TW_SIZE = {
 
 export const SIDE_PANEL_GAP = {
   m: 0.5,
-  "3xl": 0.5,
 } as const;
 
 export const SIDE_PANEL_TW_GAP = {
