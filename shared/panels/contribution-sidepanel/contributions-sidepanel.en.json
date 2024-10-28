@@ -65,6 +65,10 @@
       "active": "Project contributors",
       "new": "New contributors",
       "ignored": "Ignored"
+    },
+    "tooltips": {
+      "rewards": "Rewards",
+      "mergedPullRequests": "Merged pull requests"
     }
   },
   "rewardedCard": {

@@ -63,14 +63,10 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
         <ContributorProfileExtended user={data} />
         {data?.contributor.githubUserId ? (
           <>
-            <div className={"flex gap-lg"}>
-              <Languages githubId={data?.contributor.githubUserId} />
-              <Ecosystems githubId={data?.contributor.githubUserId} />
-            </div>
-            <div className={"flex gap-lg"}>
-              <Kpi user={data} />
-              <RewardsGraph githubId={data?.contributor.githubUserId} />
-            </div>
+            <Languages githubId={data?.contributor.githubUserId} />
+            <Ecosystems githubId={data?.contributor.githubUserId} />
+            <Kpi user={data} />
+            <RewardsGraph githubId={data?.contributor.githubUserId} />
             {/* !KEEP this
              * <PublicRepo />
              */}

@@ -92,7 +92,7 @@ export function ProjectsTable() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className={"grid gap-lg"}>
+      <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <ProgramEcosystemPopover
             name={"programAndEcosystem"}
@@ -106,7 +106,7 @@ export function ProjectsTable() {
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
         </nav>
-        <ScrollView direction={"x"}>
+        <ScrollView direction={"all"}>
           <Table
             header={{
               headerGroups: table.getHeaderGroups(),

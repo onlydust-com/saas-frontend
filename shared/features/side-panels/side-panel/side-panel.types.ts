@@ -22,6 +22,7 @@ export interface UseSidePanel<T extends AnyType> {
   close: (current?: boolean) => void;
   back: () => void;
   Panel: (p: PropsWithChildren) => JSX.Element;
+  getConfig: () => SidePanelConfig;
 }
 
 export interface SidePanelRef<T = AnyType> {
@@ -31,6 +32,7 @@ export interface SidePanelRef<T = AnyType> {
   isOpen: boolean;
   name: string;
   getData: () => T | undefined;
+  getConfig: () => SidePanelConfig;
 }
 
 export interface SidePanelContextInterface<Data extends AnyType> {

@@ -29,10 +29,11 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
   { children, name, classNames }: SidePanelProps,
   ref: ForwardedRef<SidePanelRef>
 ) {
-  const { open, close, container, isOpen, isOpenLast, getPanelIndex, config, back, openedPanels, getData } =
+  const { open, close, container, isOpen, isOpenLast, getPanelIndex, getConfig, back, openedPanels, getData } =
     useSidePanelsContext();
 
   const isTablet = useIsTablet("lower");
+  const panelConfig = getConfig(name);
 
   const animate: Variants = {
     isClosed: { transform: "translateX(100%)", opacity: 0 },
@@ -49,6 +50,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
       open: (data?: T, config?: SidePanelConfig) => open(name, data, config),
       isOpen: isOpen(name),
       getData: () => getData<T>(name),
+      getConfig: () => getConfig(name),
       close: (current?: boolean) => close(current ? name : undefined),
       back: () => back(),
       name,
@@ -87,8 +89,8 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
             classNames?.container
           )}
           style={{
-            minWidth: isTablet ? "100%" : config.width,
-            width: isTablet ? "100%" : config.width,
+            minWidth: isTablet ? "100%" : `${panelConfig.width}rem`,
+            width: isTablet ? "100%" : `${panelConfig.width}rem`,
             zIndex: getPanelIndex(name),
           }}
         >
@@ -120,7 +122,7 @@ export const useSidePanel = <T extends AnyType>(
 ): UseSidePanel<T> => {
   const ref = useRef<SidePanelRef<T>>(null);
 
-  const { isOpen } = useSidePanelsContext();
+  const { isOpen, config: defaultConfig } = useSidePanelsContext();
 
   const Panel = useCallback(
     ({ children }: PropsWithChildren) => {
@@ -141,13 +143,14 @@ export const useSidePanel = <T extends AnyType>(
       back: () => ref.current?.back(),
       isOpen: ref.current?.name ? isOpen(ref.current?.name) : false,
       getData: ref.current?.getData,
+      getConfig: () => ref.current?.getConfig() ?? defaultConfig,
       name,
     };
   }, [ref, name, classNames, config, isOpen]);
 };
 
 export function useSinglePanelContext<T extends AnyType>(name: string, config?: SidePanelConfig) {
-  const { open, close, back, isOpen, getData } = useSidePanelsContext();
+  const { open, close, back, isOpen, getData, getConfig } = useSidePanelsContext();
 
   return {
     open: (data?: T) => open<T>(name, data, config),
@@ -156,6 +159,7 @@ export function useSinglePanelContext<T extends AnyType>(name: string, config?: 
     isOpen: isOpen(name),
     name,
     getData: () => getData<T>(name),
+    getConfig: () => getConfig(name),
   };
 }
 

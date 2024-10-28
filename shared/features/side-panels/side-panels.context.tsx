@@ -32,22 +32,41 @@ export const SidePanelsContext = createContext<SidePanelsContextInterface>({
   config: defaultConfig,
   openedPanels: [],
   getData: () => undefined,
+  getConfig: () => defaultConfig,
 });
 
 export function SidePanelsProvider({ children, classNames }: SidePanelsContextProps) {
-  const [{ gap, width, closedWidth = 0 }, setConfig] = useState<SidePanelConfig>(defaultConfig);
   const [openedPanels, setOpenedPanels] = useState<string[]>([]);
+  const [openedPanelsConfigs, setOpenedPanelsConfig] = useState<Record<string, SidePanelConfig>>();
   const [data, setData] = useState<[string, AnyType][]>([]);
   const container = useRef(null);
   const isTablet = useIsTablet("lower");
+
+  function addPanelConfig(config: SidePanelConfig): SidePanelConfig {
+    return {
+      width: config.width ?? defaultConfig.width,
+      gap: config.gap ?? defaultConfig.gap,
+      closedWidth: config.closedWidth ?? defaultConfig.closedWidth,
+    };
+  }
+
+  function removePanelConfig(name: string) {
+    setOpenedPanelsConfig(prev => {
+      const newConfig = { ...prev };
+      delete newConfig[name];
+      return newConfig;
+    });
+  }
 
   function closePanel(name?: string) {
     if (name) {
       setOpenedPanels(openedPanels.filter(panel => panel !== name));
       setData(data.filter(([panel]) => panel !== name));
+      removePanelConfig(name);
     } else {
       setOpenedPanels([]);
       setData([]);
+      setOpenedPanelsConfig({});
     }
   }
 
@@ -55,11 +74,13 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
     if (openedPanels.length === 1) {
       setOpenedPanels([]);
       setData([]);
+      setOpenedPanelsConfig({});
       return;
     }
 
     setOpenedPanels(openedPanels.slice(0, openedPanels.length - 1));
     setData(data.filter(([panel]) => panel !== openedPanels.at(-1)));
+    removePanelConfig(openedPanels.at(-1) as string);
   }
 
   function isOpen(name: string) {
@@ -71,14 +92,13 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
   }
 
   function openPanel<T = AnyType>(name: string, panelData?: T, config?: SidePanelConfig) {
-    setConfig({ ...defaultConfig, ...(config || {}) });
-
     if (openedPanels.includes(name)) {
       setOpenedPanels([...openedPanels.filter(panel => panel !== name), name]);
       setData([...data.filter(([panel]) => panel !== name), [name, panelData]]);
     } else {
       setOpenedPanels([...openedPanels, name]);
       setData([...data, [name, panelData]]);
+      setOpenedPanelsConfig({ ...openedPanelsConfigs, [name]: addPanelConfig(config ?? defaultConfig) });
     }
   }
 
@@ -89,6 +109,23 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
   function getData(name: string) {
     return data.find(([panel]) => panel === name)?.[1];
   }
+
+  function getConfig(name: string) {
+    const panelConfig = openedPanelsConfigs?.[name];
+    return panelConfig ?? defaultConfig;
+  }
+
+  const {
+    gap,
+    width,
+    closedWidth = 0,
+  } = useMemo(() => {
+    if (openedPanels.length === 0) {
+      return defaultConfig;
+    }
+
+    return getConfig(openedPanels.at(-1) as string);
+  }, [openedPanels]);
 
   const panelSize = useMemo(() => {
     if (openedPanels.length === 0) {
@@ -111,6 +148,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
         isOpenLast,
         openedPanels,
         getData,
+        getConfig,
       }}
     >
       <AnimatedColumnGroup className={classNames?.columnGroup}>
@@ -121,7 +159,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
               className={cn("relative h-full w-full overflow-hidden", classNames?.inner)}
               ref={container}
               style={{
-                paddingLeft: gap || 0,
+                paddingLeft: `${gap}rem` || 0,
               }}
             ></div>
           </AnimatedColumn>

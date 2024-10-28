@@ -20,6 +20,7 @@ export function ProgramGroup({ programs, maxPrograms = 4, avatarProps }: Program
         ]}
         title={{ children: programs[0].name }}
         truncate
+        size={avatarProps?.size}
       />
     );
   }
