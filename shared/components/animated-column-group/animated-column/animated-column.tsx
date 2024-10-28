@@ -26,6 +26,8 @@ export function AnimatedColumn({ width, initialWidth, children, className, onCli
     );
   }
 
+  console.log("width", width, "initialWidth", initialWidth);
+
   return (
     <div
       onClick={onClick}
