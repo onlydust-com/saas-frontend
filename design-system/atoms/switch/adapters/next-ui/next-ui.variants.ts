@@ -4,7 +4,7 @@ export const SwitchNextUiVariants = tv({
   slots: {
     base: "opacity-1 inline-flex w-full items-start justify-between gap-2",
     wrapper: [
-      "m-0 box-border h-4 w-[28px] w-full min-w-[28px] max-w-[28px] bg-background-tertiary p-0.5",
+      "m-0 box-border h-4 w-[1.75rem] w-full min-w-[1.75rem] max-w-[1.75rem] bg-background-tertiary p-0.5",
       "group-data-[selected=true]:bg-background-brand-primary-solid",
       "group-data-[hover=true]:bg-background-tertiary-hover",
       "group-data-[selected]:group-data-[hover=true]:bg-background-brand-primary-solid-hover",
