@@ -21,7 +21,11 @@ export function TableSortDefaultAdapter({
   };
 
   function handleClick() {
-    onDirectionChange(direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC);
+    if (isSelected) {
+      onDirectionChange(direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC);
+    } else {
+      onDirectionChange(SortDirection.ASC);
+    }
   }
 
   return (
