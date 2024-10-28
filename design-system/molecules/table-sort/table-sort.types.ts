@@ -11,6 +11,7 @@ export enum SortDirection {
 
 export interface TableSortPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
-  direction: SortDirection;
+  direction?: SortDirection;
   onDirectionChange: (direction: SortDirection) => void;
+  isSelected?: boolean;
 }

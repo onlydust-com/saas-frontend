@@ -22,7 +22,7 @@ export function IconRemixIconAdapter({ classNames, name, size = "sm", color, ...
       <i
         className={name}
         style={{
-          fontSize: `${width}px`,
+          fontSize: width,
           lineHeight: 1,
           color,
         }}
