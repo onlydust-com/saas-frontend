@@ -1,4 +1,5 @@
 import { Options, SeriesAreasplineOptions, SeriesColumnOptions } from "highcharts";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -15,6 +16,7 @@ import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
 } from "@/shared/components/charts/highcharts/highcharts.types";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositionerPointObject {
   negative: boolean;
@@ -22,6 +24,7 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
 }
 
 export function useStackedColumnAreaSplineChartOptions({
+  dataViewTarget,
   title,
   categories,
   series,
@@ -33,6 +36,7 @@ export function useStackedColumnAreaSplineChartOptions({
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const router = useRouter();
   const options = useMemo<Options>(
     () => ({
       chart: {
@@ -139,6 +143,33 @@ export function useStackedColumnAreaSplineChartOptions({
       plotOptions: {
         column: {
           stacking: "normal",
+          point: {
+            events: {
+              click() {
+                const name = this.series.name;
+                const period = this.category;
+                const value = this.y;
+                router.push(
+                  `${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}&period=${period}&name=${name}&value=${value}`
+                );
+              },
+            },
+          },
+        },
+        areaspline: {
+          stacking: "normal",
+          point: {
+            events: {
+              click() {
+                const name = this.series.name;
+                const period = this.category;
+                const value = this.y;
+                router.push(
+                  `${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}&period=${period}&name=${name}&value=${value}`
+                );
+              },
+            },
+          },
         },
         series: {
           borderRadius: 10, // Set the radius for rounded corners
@@ -177,6 +208,12 @@ export function useStackedColumnAreaSplineChartOptions({
               }
             : undefined,
         lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
+        // events: {
+        //   click(event) {
+        //     console.log("event", event);
+        //     router.push(`${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}`);
+        //   },
+        // },
       })),
     }),
     [title, min, moneyKernelPort, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]

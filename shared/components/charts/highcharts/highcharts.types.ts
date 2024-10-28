@@ -23,7 +23,10 @@ export interface PieDataType {
 
 export type HighchartsSerieData = number[] | MapDataType[] | PieDataType[];
 
+type DataViewTarget = "contributor" | "projects";
+
 export interface HighchartsOptionsParams {
+  dataViewTarget?: DataViewTarget;
   title?: string;
   categories?: string[];
   series: Array<{

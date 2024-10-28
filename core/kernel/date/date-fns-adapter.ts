@@ -138,6 +138,25 @@ export class DateFnsAdapter implements DateFacadePort {
     return { from: firstDay, to: lastDay };
   }
 
+  getYearRange(date: Date): { from: Date; to: Date } {
+    const firstDay = new Date(date.getFullYear(), 0, 1);
+    const lastDay = new Date(date.getFullYear(), 11, 31);
+    return { from: firstDay, to: lastDay };
+  }
+
+  getSemesterRange(date: Date): { from: Date; to: Date } {
+    const semester = date.getMonth() < 6 ? 0 : 6;
+    const firstDay = new Date(date.getFullYear(), semester, 1);
+    const lastDay = new Date(date.getFullYear(), semester + 6, 0);
+    return { from: firstDay, to: lastDay };
+  }
+
+  getWeekRange(date: Date): { from: Date; to: Date } {
+    const firstDay = this.startOfWeek(date);
+    const lastDay = this.addDays(firstDay, 6);
+    return { from: firstDay, to: lastDay };
+  }
+
   isDateRangeType(value: string): value is DateRangeType {
     return Object.values(DateRangeType).includes(value as DateRangeType);
   }

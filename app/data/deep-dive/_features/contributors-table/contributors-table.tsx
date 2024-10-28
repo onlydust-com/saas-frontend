@@ -36,6 +36,14 @@ export function ContributorsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
+
+  // useEffect(() => {
+  //   setFilters({
+  //     ...filters,
+  //     categoryIds: ["2443951e-c917-46e5-bf17-94c08a8f69e8"],
+  //   });
+  // }, []);
+
   const [period, setPeriod] = useState<PeriodValue>();
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
