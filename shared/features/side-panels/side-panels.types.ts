@@ -17,6 +17,7 @@ export interface SidePanelsContextInterface {
   config: SidePanelConfig;
   openedPanels: string[];
   getData: <T>(name: string) => T | undefined;
+  getConfig: (name: string) => SidePanelConfig;
 }
 
 export interface SidePanelsContextProps extends PropsWithChildren {

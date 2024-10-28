@@ -8,21 +8,21 @@ import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
 import { PrimaryBanner } from "@/shared/features/navigation/primary-banner/primary-banner";
 import { HeaderMenu } from "@/shared/features/navigation/primary-navigation-desktop/header-menu/header-menu";
-import { useIsLaptop } from "@/shared/hooks/ui/use-media-query";
+import { useIsDesktop } from "@/shared/hooks/ui/use-media-query";
 
 function MenuContainer({ children }: { children: ReactNode }) {
   return <div className={"flex w-full flex-col gap-xs"}>{children}</div>;
 }
 
 export const PrimaryNavigationDesktopSize = {
-  folded: 54,
-  unfolded: 260,
+  folded: 3.375,
+  unfolded: 16.25,
 };
 
 export function PrimaryNavigationDesktop() {
   const mounted = useRef(false);
-  const isLowerThanLaptop = useIsLaptop("lower");
-  const isLargerThanLaptop = useIsLaptop("greater");
+  const isLowerThanDesktop = useIsDesktop("lower");
+  const isLargerThanDesktop = useIsDesktop("greater");
   const [folded, setFolded] = useState(false);
 
   function onFold(value: boolean) {
@@ -30,18 +30,18 @@ export function PrimaryNavigationDesktop() {
   }
 
   useEffect(() => {
-    if (isLowerThanLaptop) {
+    if (isLowerThanDesktop) {
       mounted.current = true;
       setFolded(true);
     }
-  }, [isLowerThanLaptop]);
+  }, [isLowerThanDesktop]);
 
   useEffect(() => {
-    if (isLargerThanLaptop && !mounted.current) {
+    if (isLargerThanDesktop && !mounted.current) {
       mounted.current = true;
       setFolded(false);
     }
-  }, [isLargerThanLaptop]);
+  }, [isLargerThanDesktop]);
 
   const navSize = folded ? PrimaryNavigationDesktopSize.folded : PrimaryNavigationDesktopSize.unfolded;
 

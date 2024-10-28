@@ -13,9 +13,13 @@ export const AnimatedColumnGroupContext = createContext<AnimatedColumnGroupConte
 export function AnimatedColumnGroupProvider({ children, className }: AnimatedColumnGroupContextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  function convertPxToRem(px: number): number {
+    return px / parseFloat(getComputedStyle(document.documentElement).fontSize);
+  }
+
   function calculateWidth() {
     if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth;
+      const containerWidth = convertPxToRem(containerRef.current.offsetWidth);
       const childElements = containerRef.current.querySelectorAll(".animated-column");
       const child: Array<[Element, number | "auto"]> = [];
 
@@ -24,7 +28,7 @@ export function AnimatedColumnGroupProvider({ children, className }: AnimatedCol
         if (width === "auto") {
           child.push([el, "auto"]);
         } else {
-          child.push([el, width ? parseInt(width) : "auto"]);
+          child.push([el, width ? parseFloat(width) : "auto"]);
         }
       });
 
@@ -33,11 +37,11 @@ export function AnimatedColumnGroupProvider({ children, className }: AnimatedCol
       const totalFixedWidth = fixedWidthElements.reduce((acc, [, width]) => acc + (width as number), 0);
 
       autoWidthElements.forEach(([el]) => {
-        el.setAttribute("style", `width: ${containerWidth - totalFixedWidth}px`);
+        el.setAttribute("style", `width: ${containerWidth - totalFixedWidth}rem`);
       });
 
       fixedWidthElements.forEach(([el, width]) => {
-        el.setAttribute("style", `width: ${width}px`);
+        el.setAttribute("style", `width: ${width}rem`);
       });
     }
   }

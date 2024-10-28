@@ -7,7 +7,7 @@ import { UseSidePanel } from "@/shared/features/side-panels/side-panel/side-pane
 import { ProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel";
 import { ProgramListSidepanelContextProps } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.types";
 
-interface ProgramListSidepanelContextInterface extends Omit<UseSidePanel<object>, "Panel"> {}
+interface ProgramListSidepanelContextInterface extends Omit<UseSidePanel<object>, "Panel" | "getConfig"> {}
 
 export const ProgramListSidepanelContext = createContext<ProgramListSidepanelContextInterface>({
   open: () => {},
