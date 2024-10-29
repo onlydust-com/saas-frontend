@@ -54,6 +54,7 @@ export function DeepDiveSection() {
               },
             ]}
             selectedId={toggleDataViews}
+            searchParams={"dataView"}
           />
           <div className={"flex items-center gap-lg"}>
             <Button

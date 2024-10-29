@@ -87,6 +87,9 @@ export function ProjectHistogramChart() {
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
+    dataViewTarget: "projects",
+    dateRangeType: rangeType,
+    timeGroupingType,
     yAxisTitle: [t("data:histograms.data.projects"), splineSeries.name],
     categories,
     min: minChurnedProject,
