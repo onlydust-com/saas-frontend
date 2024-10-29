@@ -15,6 +15,7 @@ import {
 import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
+  handleChartClickParams,
 } from "@/shared/components/charts/highcharts/highcharts.types";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
@@ -25,6 +26,8 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
 
 export function useStackedColumnAreaSplineChartOptions({
   dataViewTarget,
+  dateRangeType,
+  timeGroupingType,
   title,
   categories,
   series,
@@ -36,7 +39,43 @@ export function useStackedColumnAreaSplineChartOptions({
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const dateKernelPort = bootstrap.getDateKernelPort();
   const router = useRouter();
+
+  function getPlotPeriodRange(currentDate: Date) {
+    switch (timeGroupingType) {
+      case "DAY":
+        return {
+          from: currentDate,
+          to: currentDate,
+        };
+      case "WEEK":
+        return dateKernelPort.getWeekRange(currentDate);
+      case "MONTH":
+      case "QUARTER":
+        return dateKernelPort.getMonthRange(currentDate);
+      case "YEAR":
+        return dateKernelPort.getYearRange(currentDate);
+      default:
+        return {
+          from: undefined,
+          to: undefined,
+        };
+    }
+  }
+
+  function handleChartClick({ dataViewTarget, plotPeriod, seriesName }: handleChartClickParams) {
+    const currentDate = new Date(plotPeriod) ?? new Date();
+    const { from, to } = dateKernelPort.isValid(currentDate)
+      ? getPlotPeriodRange(currentDate)
+      : { from: undefined, to: undefined };
+
+    const plotPeriodFrom = from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined;
+    const plotPeriodTo = to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined;
+    router.push(
+      `${NEXT_ROUTER.data.deepDive.root}?${dataViewTarget ? `dataView=${dataViewTarget}` : ""}&dateRangeType=CUSTOM${plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : ""}${seriesName ? `&seriesName=${seriesName}` : ""}`
+    );
+  }
   const options = useMemo<Options>(
     () => ({
       chart: {
@@ -146,12 +185,12 @@ export function useStackedColumnAreaSplineChartOptions({
           point: {
             events: {
               click() {
-                const name = this.series.name;
-                const period = this.category;
-                const value = this.y;
-                router.push(
-                  `${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}&period=${period}&name=${name}&value=${value}`
-                );
+                handleChartClick({
+                  dataViewTarget,
+                  plotPeriod: this.category.toString(),
+                  seriesName: this.series.name,
+                  seriesValue: this.y,
+                });
               },
             },
           },
@@ -161,12 +200,12 @@ export function useStackedColumnAreaSplineChartOptions({
           point: {
             events: {
               click() {
-                const name = this.series.name;
-                const period = this.category;
-                const value = this.y;
-                router.push(
-                  `${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}&period=${period}&name=${name}&value=${value}`
-                );
+                handleChartClick({
+                  dataViewTarget,
+                  plotPeriod: this.category.toString(),
+                  seriesName: this.series.name,
+                  seriesValue: this.y,
+                });
               },
             },
           },

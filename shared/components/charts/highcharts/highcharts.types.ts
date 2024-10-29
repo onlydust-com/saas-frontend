@@ -1,5 +1,7 @@
 import { Options } from "highcharts";
 
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
+
 interface Marker {
   enabled: boolean;
   radius: number;
@@ -27,6 +29,8 @@ type DataViewTarget = "contributor" | "projects";
 
 export interface HighchartsOptionsParams {
   dataViewTarget?: DataViewTarget;
+  dateRangeType?: DateRangeType;
+  timeGroupingType?: string;
   title?: string;
   categories?: string[];
   series: Array<{
@@ -54,4 +58,12 @@ export interface HighchartsOptionsReturn {
 export interface HighchartsProps {
   options: Options;
   constructorType?: string;
+}
+
+export interface handleChartClickParams {
+  dateRangeType?: string;
+  dataViewTarget?: string;
+  plotPeriod: string;
+  seriesName: string;
+  seriesValue?: number;
 }

@@ -1,4 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
@@ -36,15 +37,16 @@ export function ContributorsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
-
-  // useEffect(() => {
-  //   setFilters({
-  //     ...filters,
-  //     categoryIds: ["2443951e-c917-46e5-bf17-94c08a8f69e8"],
-  //   });
-  // }, []);
-
   const [period, setPeriod] = useState<PeriodValue>();
+  const searchParams = useSearchParams();
+
+  // TODO activate when new filters implemented
+  // useEffect(() => {
+  //   const seriesName = searchParams.get("seriesName");
+  //   if (seriesName) {
+  //     setFilters({ seriesName });
+  //   }
+  // }, [searchParams]);
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -116,7 +118,7 @@ export function ContributorsTable() {
             buttonProps={{ size: "sm" }}
           />
           <FilterButton onClick={openFilterPanel} />
-          <PeriodFilter onChange={handleOnPeriodChange} />
+          <PeriodFilter onChange={handleOnPeriodChange} value={searchParams.get("dateRangeType") ?? undefined} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />

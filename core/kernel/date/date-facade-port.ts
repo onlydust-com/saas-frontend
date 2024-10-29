@@ -41,10 +41,11 @@ export interface DateFacadePort {
   startOfYear: (date: Date) => Date;
   setYear: (date: Date, year: number) => Date;
   getRangeOfDates: (range: DateRangeType) => { from: Date | null; to: Date | null };
-  getMonthRange: (date: Date) => { from: Date; to: Date };
   getYearRange: (date: Date) => { from: Date; to: Date };
-  getWeekRange: (date: Date) => { from: Date; to: Date };
   getSemesterRange: (date: Date) => { from: Date; to: Date };
+  getQuarterRange: (date: Date) => { from: Date; to: Date };
+  getMonthRange: (date: Date) => { from: Date; to: Date };
+  getWeekRange: (date: Date) => { from: Date; to: Date };
   isDateRangeType: (value: string) => value is DateRangeType;
   isTimeGroupingType: (value: string) => value is TimeGroupingType;
   getDateFromWeekNumber: (year: number, weekNumber: number) => Date;

@@ -151,6 +151,13 @@ export class DateFnsAdapter implements DateFacadePort {
     return { from: firstDay, to: lastDay };
   }
 
+  getQuarterRange(date: Date): { from: Date; to: Date } {
+    const quarter = Math.floor(date.getMonth() / 3);
+    const firstDay = new Date(date.getFullYear(), quarter * 3, 1);
+    const lastDay = new Date(date.getFullYear(), quarter * 3 + 3, 0);
+    return { from: firstDay, to: lastDay };
+  }
+
   getWeekRange(date: Date): { from: Date; to: Date } {
     const firstDay = this.startOfWeek(date);
     const lastDay = this.addDays(firstDay, 6);
