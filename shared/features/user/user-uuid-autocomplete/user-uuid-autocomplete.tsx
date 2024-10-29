@@ -18,7 +18,7 @@ export function UserUuidAutocomplete({
   const { data } = UserReactQueryAdapter.client.useSearchUser({
     queryParams: {
       login: search || undefined,
-      internalSearchOnly: true,
+      isRegistered: true,
     },
   });
 
