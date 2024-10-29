@@ -17,6 +17,7 @@ import {
   HighchartsOptionsReturn,
   handleChartClickParams,
 } from "@/shared/components/charts/highcharts/highcharts.types";
+import { getPlotPeriodRange } from "@/shared/components/charts/highcharts/highcharts.utils";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositionerPointObject {
@@ -26,7 +27,6 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
 
 export function useStackedColumnAreaSplineChartOptions({
   dataViewTarget,
-  dateRangeType,
   timeGroupingType,
   title,
   categories,
@@ -42,40 +42,21 @@ export function useStackedColumnAreaSplineChartOptions({
   const dateKernelPort = bootstrap.getDateKernelPort();
   const router = useRouter();
 
-  function getPlotPeriodRange(currentDate: Date) {
-    switch (timeGroupingType) {
-      case "DAY":
-        return {
-          from: currentDate,
-          to: currentDate,
-        };
-      case "WEEK":
-        return dateKernelPort.getWeekRange(currentDate);
-      case "MONTH":
-      case "QUARTER":
-        return dateKernelPort.getMonthRange(currentDate);
-      case "YEAR":
-        return dateKernelPort.getYearRange(currentDate);
-      default:
-        return {
-          from: undefined,
-          to: undefined,
-        };
-    }
-  }
-
   function handleChartClick({ dataViewTarget, plotPeriod, seriesName }: handleChartClickParams) {
     const currentDate = new Date(plotPeriod) ?? new Date();
-    const { from, to } = dateKernelPort.isValid(currentDate)
-      ? getPlotPeriodRange(currentDate)
-      : { from: undefined, to: undefined };
+    const { from, to } =
+      dateKernelPort.isValid(currentDate) && timeGroupingType
+        ? getPlotPeriodRange(currentDate, timeGroupingType)
+        : { from: undefined, to: undefined };
 
     const plotPeriodFrom = from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined;
     const plotPeriodTo = to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined;
+    console.log("plotPeriod", plotPeriodFrom, plotPeriodTo);
     router.push(
       `${NEXT_ROUTER.data.deepDive.root}?${dataViewTarget ? `dataView=${dataViewTarget}` : ""}&dateRangeType=CUSTOM${plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : ""}${seriesName ? `&seriesName=${seriesName}` : ""}`
     );
   }
+
   const options = useMemo<Options>(
     () => ({
       chart: {

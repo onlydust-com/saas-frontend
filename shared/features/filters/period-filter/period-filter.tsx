@@ -18,7 +18,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const START_DEFAULT_DATE = new Date();
 START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
 
-export function PeriodFilter({ onChange, value, size = "sm" }: PeriodFilterProps) {
+export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
@@ -31,7 +31,7 @@ export function PeriodFilter({ onChange, value, size = "sm" }: PeriodFilterProps
       fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
       toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
     };
-  }, [periodType, dateKernelPort]);
+  }, [periodType, dateKernelPort, dateRangeType, value]);
 
   function onChangeRangeType(value: string) {
     if (dateKernelPort.isDateRangeType(value)) setPeriodType(value);
@@ -42,10 +42,14 @@ export function PeriodFilter({ onChange, value, size = "sm" }: PeriodFilterProps
   }
 
   useEffect(() => {
-    if (value && dateKernelPort.isDateRangeType(value)) {
-      setPeriodType(value);
+    if (dateRangeType === DateRangeType.CUSTOM && value?.fromDate && value?.toDate) {
+      setPeriodType(DateRangeType.CUSTOM);
+      setDateRange({
+        start: new Date(value.fromDate),
+        end: new Date(value.toDate),
+      });
     }
-  }, [value]);
+  }, []);
 
   useEffect(() => {
     if (periodType === DateRangeType.CUSTOM) {

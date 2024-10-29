@@ -1,6 +1,6 @@
 import { Options } from "highcharts";
 
-import { DateRangeType } from "@/core/kernel/date/date-facade-port";
+import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
 interface Marker {
   enabled: boolean;
@@ -30,7 +30,7 @@ type DataViewTarget = "contributor" | "projects";
 export interface HighchartsOptionsParams {
   dataViewTarget?: DataViewTarget;
   dateRangeType?: DateRangeType;
-  timeGroupingType?: string;
+  timeGroupingType?: TimeGroupingType;
   title?: string;
   categories?: string[];
   series: Array<{

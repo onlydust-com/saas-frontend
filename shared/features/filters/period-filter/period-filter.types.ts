@@ -1,3 +1,5 @@
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
+
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
 
 export type PeriodValue = {
@@ -7,6 +9,7 @@ export type PeriodValue = {
 
 export interface PeriodFilterProps {
   onChange: (value: PeriodValue) => void;
-  value?: string;
+  value?: PeriodValue;
+  dateRangeType?: DateRangeType;
   size?: ButtonPort<"button">["size"];
 }
