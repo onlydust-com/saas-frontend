@@ -20,15 +20,15 @@ export const InputDefaultVariants = tv({
   variants: {
     size: {
       sm: {
-        base: "h-[32px] px-lg",
+        base: "h-[2rem] px-lg",
         input: "text-[0.875rem] leading-[1.25rem]",
       },
       md: {
-        base: "h-[40px] px-xl",
+        base: "h-[2.5rem] px-xl",
         input: "text-[0.875rem] leading-[1.25rem]",
       },
       lg: {
-        base: "h-[48px] px-2xl",
+        base: "h-[3rem] px-2xl",
         input: "text-[1rem] leading-[1.5rem]",
       },
     },

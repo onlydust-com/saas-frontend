@@ -113,7 +113,7 @@ export function ActivityGraph(_: ActivityGraphProps) {
           <div className={"flex flex-row"}>
             {grid?.months?.map((month, index) => (
               // should take 4 days width
-              <Typo size={"xs"} color={"tertiary"} classNames={{ base: "min-w-[72px] w-[72px]" }} key={index}>
+              <Typo size={"xs"} color={"tertiary"} classNames={{ base: "min-w-[4.5rem] w-[4.5rem]" }} key={index}>
                 {dateKernelPort.format(month.month, "MMM")}
               </Typo>
             ))}
