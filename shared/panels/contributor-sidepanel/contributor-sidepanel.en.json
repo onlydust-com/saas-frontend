@@ -37,5 +37,11 @@
   "publicRepo": {
     "title": "Public Repositories ({{count}})"
   },
+  "timeline": {
+    "title": "Contributions activity",
+    "item": {
+      "repoLabel": "Repo"
+    }
+  },
   "seeContributor": "See public profile"
 }
