@@ -39,6 +39,21 @@ export const Default: Story = {
   },
 };
 
+export const Selected: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<TableSort isSelected />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full items-center gap-2">
+        <TableSort {...defaultProps} {...args} isSelected />
+      </div>
+    );
+  },
+};
+
 export const Loading: Story = {
   parameters: {
     docs: {

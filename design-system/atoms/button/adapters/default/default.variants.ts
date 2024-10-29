@@ -14,19 +14,19 @@ export const ButtonDefaultVariants = tv({
   variants: {
     size: {
       xs: {
-        base: "h-[24px] rounded-sm px-md",
+        base: "h-[1.5rem] rounded-sm px-md",
         content: "gap-xs",
       },
       sm: {
-        base: "h-[32px] rounded-md px-lg",
+        base: "h-[2rem] rounded-md px-lg",
         content: "gap-md",
       },
       md: {
-        base: "h-[40px] rounded-md px-xl",
+        base: "h-[2.5rem] rounded-md px-xl",
         content: "gap-md",
       },
       lg: {
-        base: "h-[48px] rounded-lg px-2xl",
+        base: "h-[3rem] rounded-lg px-2xl",
         content: "gap-2md",
       },
     },
@@ -69,28 +69,28 @@ export const ButtonDefaultVariants = tv({
       iconOnly: true,
       size: "xs",
       class: {
-        base: "h-[24px] min-h-[24px] w-[24px] min-w-[24px] !px-0",
+        base: "h-[1.5rem] min-h-[1.5rem] w-[1.5rem] min-w-[1.5rem] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "sm",
       class: {
-        base: "h-[32px] min-h-[32px] w-[32px] min-w-[32px] !px-0",
+        base: "h-[2rem] min-h-[2rem] w-[2rem] min-w-[2rem] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "md",
       class: {
-        base: "h-[40px] min-h-[40px] w-[40px] min-w-[40px] !px-0",
+        base: "h-[2.5rem] min-h-[2.5rem] w-[2.5rem] min-w-[2.5rem] !px-0",
       },
     },
     {
       iconOnly: true,
       size: "lg",
       class: {
-        base: "h-[48px] min-h-[48px] w-[48px] min-w-[48px] !px-0",
+        base: "h-[3rem] min-h-[3rem] w-[3rem] min-w-[3rem] !px-0",
       },
     },
   ],
