@@ -20,7 +20,7 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
-import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
+import { UserUuidAutocomplete } from "@/shared/features/user/user-uuid-autocomplete/user-uuid-autocomplete";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function CreateProgramPanel() {
@@ -100,8 +100,7 @@ export function CreateProgramPanel() {
                 name="leadIds"
                 control={control}
                 render={({ field: { onChange, value, name } }) => (
-                  <UserAutocomplete
-                    withInternalUserOnly={true}
+                  <UserUuidAutocomplete
                     name={name}
                     label={<Translate token={"financials:createProgramPanel.informations.lead.label"} />}
                     placeholder={t("createProgramPanel.informations.lead.placeholder")}
