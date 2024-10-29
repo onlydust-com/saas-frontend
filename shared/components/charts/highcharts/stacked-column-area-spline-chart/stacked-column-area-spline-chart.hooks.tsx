@@ -17,7 +17,7 @@ import {
   HighchartsOptionsReturn,
   handleChartClickParams,
 } from "@/shared/components/charts/highcharts/highcharts.types";
-import { getPlotPeriodRange } from "@/shared/components/charts/highcharts/highcharts.utils";
+import { getPlotPeriod } from "@/shared/components/charts/highcharts/highcharts.utils";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositionerPointObject {
@@ -44,17 +44,20 @@ export function useStackedColumnAreaSplineChartOptions({
   const router = useRouter();
 
   function handleChartClick({ dataViewTarget, plotPeriod, seriesName }: handleChartClickParams) {
-    const currentDate = new Date(plotPeriod) ?? new Date();
-    const { from, to } =
-      dateKernelPort.isValid(currentDate) && timeGroupingType
-        ? getPlotPeriodRange(currentDate, timeGroupingType)
-        : { from: undefined, to: undefined };
+    const currentDate = dateKernelPort.isValid(new Date(plotPeriod)) ? new Date(plotPeriod) : new Date();
+    const { plotPeriodFrom, plotPeriodTo } = getPlotPeriod(currentDate, timeGroupingType);
 
-    const plotPeriodFrom = from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined;
-    const plotPeriodTo = to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined;
-    console.log("plotPeriod", plotPeriodFrom, plotPeriodTo);
+    const dataView = dataViewTarget ? `dataView=${dataViewTarget}` : "";
+    const dateRangeType = "&dateRangeType=CUSTOM";
+    const period =
+      plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : "";
+    const series = seriesName ? `&seriesName=${seriesName}` : "";
+    const programAndEcosystemIds = selectedProgramAndEcosystem?.length
+      ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}`
+      : "";
+
     router.push(
-      `${NEXT_ROUTER.data.deepDive.root}?${dataViewTarget ? `dataView=${dataViewTarget}` : ""}&dateRangeType=CUSTOM${plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : ""}${seriesName ? `&seriesName=${seriesName}` : ""}${selectedProgramAndEcosystem?.length ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}` : ""}`
+      `${NEXT_ROUTER.data.deepDive.root}?${dataView}${dateRangeType}${period}${series}${programAndEcosystemIds}`
     );
   }
 

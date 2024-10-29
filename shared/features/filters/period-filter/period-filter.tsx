@@ -31,7 +31,7 @@ export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: Pe
       fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
       toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
     };
-  }, [periodType, dateKernelPort, dateRangeType, value]);
+  }, [periodType, dateKernelPort]);
 
   function onChangeRangeType(value: string) {
     if (dateKernelPort.isDateRangeType(value)) setPeriodType(value);
