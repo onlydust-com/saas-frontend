@@ -232,12 +232,6 @@ export function useStackedColumnAreaSplineChartOptions({
               }
             : undefined,
         lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
-        // events: {
-        //   click(event) {
-        //     console.log("event", event);
-        //     router.push(`${NEXT_ROUTER.data.deepDive.root}?dataView=${dataViewTarget}`);
-        //   },
-        // },
       })),
     }),
     [title, min, moneyKernelPort, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
