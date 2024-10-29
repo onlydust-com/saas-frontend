@@ -36,6 +36,8 @@ export interface DateFacadePort {
   startOfMonth: (date: Date) => Date;
   isSameMonth: (dateLeft: Date, dateRight: Date) => boolean;
   subMonths: (date: Date, months: number) => Date;
+  startOfQuarter: (date: Date) => Date;
+  endOfQuarter: (date: Date) => Date;
   addYears: (date: Date, years: number) => Date;
   subYears: (date: Date, years: number) => Date;
   startOfYear: (date: Date) => Date;
