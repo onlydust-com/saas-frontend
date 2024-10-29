@@ -31,6 +31,7 @@ export interface HighchartsOptionsParams {
   dataViewTarget?: DataViewTarget;
   dateRangeType?: DateRangeType;
   timeGroupingType?: TimeGroupingType;
+  selectedProgramAndEcosystem?: string[];
   title?: string;
   categories?: string[];
   series: Array<{

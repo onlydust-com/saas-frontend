@@ -1,6 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/contributors-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns";
@@ -58,6 +58,13 @@ export function ContributorsTable() {
       fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
       toDate: searchParams.get("plotPeriodTo") ?? undefined,
     };
+  }, [searchParams]);
+
+  useEffect(() => {
+    const programAndEcosystemParamIds = searchParams.get("programAndEcosystemIds");
+    if (programAndEcosystemParamIds) {
+      setSelectedProgramAndEcosystem(programAndEcosystemParamIds.split(","));
+    }
   }, [searchParams]);
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();

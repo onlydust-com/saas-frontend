@@ -28,6 +28,7 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
 export function useStackedColumnAreaSplineChartOptions({
   dataViewTarget,
   timeGroupingType,
+  selectedProgramAndEcosystem,
   title,
   categories,
   series,
@@ -53,7 +54,7 @@ export function useStackedColumnAreaSplineChartOptions({
     const plotPeriodTo = to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined;
     console.log("plotPeriod", plotPeriodFrom, plotPeriodTo);
     router.push(
-      `${NEXT_ROUTER.data.deepDive.root}?${dataViewTarget ? `dataView=${dataViewTarget}` : ""}&dateRangeType=CUSTOM${plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : ""}${seriesName ? `&seriesName=${seriesName}` : ""}`
+      `${NEXT_ROUTER.data.deepDive.root}?${dataViewTarget ? `dataView=${dataViewTarget}` : ""}&dateRangeType=CUSTOM${plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : ""}${seriesName ? `&seriesName=${seriesName}` : ""}${selectedProgramAndEcosystem?.length ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}` : ""}`
     );
   }
 
