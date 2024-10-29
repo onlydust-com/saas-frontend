@@ -39,6 +39,7 @@
   },
   "timeline": {
     "title": "Contributions activity",
+    "showMore": "Show more",
     "item": {
       "repoLabel": "Repo"
     }

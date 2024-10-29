@@ -18,9 +18,10 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
   children,
   title,
   placement = "top",
+  background = "primary-solid",
 }: TooltipPort<C>) {
   const Component = as || "div";
-  const slots = TooltipNextUiVariants();
+  const slots = TooltipNextUiVariants({ background });
 
   if (!enabled) {
     return (
@@ -35,11 +36,30 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
       content={
         <div className={"flex w-full max-w-[224px] flex-col gap-xs"}>
           {!!title && (
-            <Typo size={"xs"} weight={"medium"} as={"div"} classNames={{ base: "text-components-tooltip-title" }}>
+            <Typo
+              size={"xs"}
+              weight={"medium"}
+              as={"div"}
+              classNames={{
+                base: cn({
+                  "text-components-tooltip-title": background === "primary-solid",
+                  "text-typography-primary": background === "primary",
+                }),
+              }}
+            >
               {title}
             </Typo>
           )}
-          <Typo size={"xs"} as={"div"} classNames={{ base: "text-components-tooltip-typo" }}>
+          <Typo
+            size={"xs"}
+            as={"div"}
+            classNames={{
+              base: cn({
+                "text-components-tooltip-typo": background === "primary-solid",
+                "text-typography-secondary": background === "primary",
+              }),
+            }}
+          >
             {content}
           </Typo>
         </div>
@@ -47,7 +67,11 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
       closeDelay={50}
       shouldCloseOnBlur
       classNames={{
-        base: cn("before:bg-background-primary-solid", { "pointer-events-none": !canInteract }),
+        base: cn({
+          "pointer-events-none": !canInteract,
+          "before:bg-background-primary-solid": background === "primary-solid",
+          "before:bg-background-primary": background === "primary",
+        }),
         content: cn(slots.tooltip(), classNames?.tooltip),
       }}
       placement={placement}

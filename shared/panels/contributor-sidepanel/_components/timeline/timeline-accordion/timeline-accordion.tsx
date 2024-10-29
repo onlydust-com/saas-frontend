@@ -5,6 +5,7 @@ import { ContributionReactQueryAdapter } from "@/core/application/react-query-ad
 import { bootstrap } from "@/core/bootstrap";
 
 import { Badge } from "@/design-system/atoms/badge";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Accordion } from "@/design-system/molecules/accordion";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -13,7 +14,7 @@ import { TimelineItem } from "@/shared/panels/contributor-sidepanel/_components/
 import { TimelineAccordionProps } from "./timeline-accordion.types";
 
 function TimelineAccordionContent({ user }: TimelineAccordionProps) {
-  const { data } = ContributionReactQueryAdapter.client.useGetContributions({
+  const { data, hasNextPage, fetchNextPage, isFetching } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
       contributorIds: [user.contributor.githubUserId],
       sort: "UPDATED_AT",
@@ -25,7 +26,20 @@ function TimelineAccordionContent({ user }: TimelineAccordionProps) {
   const contributions = useMemo(() => data?.pages.flatMap(contributions => contributions.contributions), [data]);
 
   if (contributions?.length) {
-    return contributions?.map(contribution => <TimelineItem key={contribution.id} contribution={contribution} />);
+    return (
+      <div className={"flex w-full flex-col gap-3 pt-3"}>
+        {contributions?.map(contribution => <TimelineItem key={contribution.id} contribution={contribution} />)}
+        {hasNextPage && (
+          <Button
+            size={"sm"}
+            isTextButton={true}
+            onClick={() => fetchNextPage()}
+            translate={{ token: "panels:contributor.timeline.showMore" }}
+            isLoading={isFetching}
+          />
+        )}
+      </div>
+    );
   }
 
   return <EmptyStateLite />;
@@ -46,7 +60,6 @@ export function TimelineAccordion(props: TimelineAccordionProps) {
     <Accordion
       id={accordionId}
       defaultSelected={props.isFirst ? [accordionId] : []}
-      // titleProps={{ translate: { token: "panels:contributor.publicRepo.title", count: repos?.length || 0 } }}
       titleProps={{
         children: title,
       }}
@@ -57,9 +70,7 @@ export function TimelineAccordion(props: TimelineAccordionProps) {
     >
       <div className={"flex flex-col gap-md px-md pl-[0.875rem]"}>
         <div className={"border-l-1 border-l-components-badge-grey-border"}>
-          <div className={"flex w-full flex-col gap-3 py-3"}>
-            <TimelineAccordionContent {...props} />
-          </div>
+          <TimelineAccordionContent {...props} />
         </div>
       </div>
     </Accordion>
