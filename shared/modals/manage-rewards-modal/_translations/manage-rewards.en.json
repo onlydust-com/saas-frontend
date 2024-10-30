@@ -1,0 +1,32 @@
+{
+  "title": "Rewards",
+  "table": {
+    "columns": {
+      "contributor": "Contributor",
+      "labels": "Labels",
+      "languages": "Languages",
+      "ecosystems": "Ecosystems",
+      "country": "Country",
+      "rewardedAmount": "Rewarded amount"
+    },
+    "rows": {
+      "languages": "{{count}} languages",
+      "ecosystems": "{{count}} ecosystems",
+      "labels": {
+        "placeholder": "Select a label"
+      }
+    },
+    "filters": {
+      "title": "Contributors filters",
+      "columnList": "Contributors columns",
+      "global": "Global",
+      "financial": "Financial",
+      "save": "Validate",
+      "reset": "Reset filters"
+    },
+    "toast": {
+      "success": "Contributor label changed successfully.",
+      "error": "Error changing contributor label."
+    }
+  }
+}

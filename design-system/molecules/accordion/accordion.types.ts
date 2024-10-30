@@ -28,6 +28,7 @@ export interface AccordionItemProps {
 export interface AccordionBasePort {
   classNames?: ClassNames;
   defaultSelected?: string[];
+  inline?: boolean;
   controlled?: {
     selectedKeys: string[];
     onSelectionChange: (keys: Selection) => void;

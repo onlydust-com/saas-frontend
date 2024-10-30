@@ -35,6 +35,10 @@ export class DateFnsAdapter implements DateFacadePort {
     return DateFns.addDays(date, days);
   }
 
+  subDays(date: Date, days: number): Date {
+    return DateFns.subDays(date, days);
+  }
+
   eachDayOfInterval(start: Date, end: Date): Date[] {
     return DateFns.eachDayOfInterval({ start, end });
   }
@@ -73,6 +77,14 @@ export class DateFnsAdapter implements DateFacadePort {
 
   subMonths(date: Date, months: number): Date {
     return DateFns.subMonths(date, months);
+  }
+
+  startOfQuarter(date: Date): Date {
+    return DateFns.startOfQuarter(date);
+  }
+
+  endOfQuarter(date: Date): Date {
+    return DateFns.endOfQuarter(date);
   }
 
   addYears(date: Date, years: number): Date {
@@ -133,8 +145,31 @@ export class DateFnsAdapter implements DateFacadePort {
   }
 
   getMonthRange(date: Date): { from: Date; to: Date } {
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const firstDay = this.startOfMonth(date);
+    const lastDay = this.endOfMonth(date);
+    return { from: firstDay, to: lastDay };
+  }
+
+  getYearRange(date: Date): { from: Date; to: Date } {
+    const firstDay = this.startOfYear(date);
+    const lastDay = this.addYears(firstDay, 1);
+    return { from: firstDay, to: lastDay };
+  }
+
+  getSemesterRange(date: Date): { from: Date; to: Date } {
+    const lastSemester = this.subMonths(date, 6);
+    return { from: lastSemester, to: date };
+  }
+
+  getQuarterRange(date: Date): { from: Date; to: Date } {
+    const firstDay = this.startOfQuarter(date);
+    const lastDay = this.endOfQuarter(date);
+    return { from: firstDay, to: lastDay };
+  }
+
+  getWeekRange(date: Date): { from: Date; to: Date } {
+    const firstDay = this.startOfWeek(date);
+    const lastDay = this.addDays(firstDay, 6);
     return { from: firstDay, to: lastDay };
   }
 

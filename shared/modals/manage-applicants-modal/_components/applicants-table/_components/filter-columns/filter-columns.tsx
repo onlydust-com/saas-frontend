@@ -22,9 +22,9 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "label",
-            label: <Translate token={"modals:manageApplicants.table.columns.label"} />,
-            searchValue: "Label",
+            id: "labels",
+            label: <Translate token={"modals:manageApplicants.table.columns.labels"} />,
+            searchValue: "Labels",
             isCheckbox: true,
           },
           {

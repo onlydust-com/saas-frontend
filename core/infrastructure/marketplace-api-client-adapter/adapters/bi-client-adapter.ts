@@ -1,4 +1,5 @@
 import {
+  GetBiContributorActivityByIdResponse,
   GetBiContributorByIdResponse,
   GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
@@ -7,6 +8,7 @@ import {
   GetBiStatsFinancialsResponse,
   GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
+import { BiContributorActivity } from "@/core/domain/bi/models/bi-contributor-activity-model";
 import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProject } from "@/core/domain/bi/models/bi-project-model";
@@ -27,6 +29,7 @@ export class BiClientAdapter implements BiStoragePort {
     getBiProjects: "bi/projects",
     getBiContributors: "bi/contributors",
     getBiContributorById: "bi/contributors/:contributorId",
+    getBiContributorActivityById: "bi/contributors/:contributorId/activity-graph",
     getBiStatsFinancials: "bi/stats/financials",
   } as const;
 
@@ -186,6 +189,31 @@ export class BiClientAdapter implements BiStoragePort {
       });
 
       return new BiContributor(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiContributorActivityById = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<BiStoragePort["getBiContributorActivityById"]>) => {
+    const path = this.routes["getBiContributorActivityById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiContributorActivityByIdResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return new BiContributorActivity(data);
     };
 
     return {

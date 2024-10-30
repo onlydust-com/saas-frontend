@@ -1,5 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
@@ -9,6 +10,7 @@ import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/pr
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiProjectsPortParams, GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -35,6 +37,33 @@ export function ProjectsTable() {
   const [period, setPeriod] = useState<PeriodValue>();
   const [filters, setFilters] = useState<ProjectTableFilters>({});
   const { open: openProject } = useProjectSidePanel();
+  const searchParams = useSearchParams();
+
+  // TODO @Mehdi activate when new filters implemented
+  // useEffect(() => {
+  //   const seriesName = searchParams.get("seriesName");
+  //   if (seriesName) {
+  //     setFilters({ seriesName });
+  //   }
+  // }, [searchParams]);
+
+  const dateRangeTypeParam = useMemo(() => {
+    return searchParams.get("dateRangeType") as DateRangeType;
+  }, [searchParams]);
+
+  const plotPeriodParam = useMemo(() => {
+    return {
+      fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
+      toDate: searchParams.get("plotPeriodTo") ?? undefined,
+    };
+  }, [searchParams]);
+
+  useEffect(() => {
+    const programAndEcosystemParamIds = searchParams.get("programAndEcosystemIds");
+    if (programAndEcosystemParamIds) {
+      setSelectedProgramAndEcosystem(programAndEcosystemParamIds.split(","));
+    }
+  }, [searchParams]);
 
   const { user, isLoading: isLoadingUser, isError: isErrorUser } = useAuthUser();
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
@@ -101,7 +130,11 @@ export function ProjectsTable() {
             buttonProps={{ size: "sm" }}
           />
           <FilterButton onClick={openFilterPanel} />
-          <PeriodFilter onChange={handleOnPeriodChange} />
+          <PeriodFilter
+            onChange={handleOnPeriodChange}
+            value={{ fromDate: plotPeriodParam?.fromDate, toDate: plotPeriodParam?.toDate }}
+            dateRangeType={dateRangeTypeParam}
+          />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />

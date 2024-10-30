@@ -1,3 +1,9 @@
-import { PropsWithChildren } from "react";
-
-export interface BulkContributionSelectionProps extends PropsWithChildren {}
+export interface BulkContributionSelectionProps {
+  headerProps?: {
+    canGoBack?: boolean;
+    canClose?: boolean;
+  };
+  footerProps?: {
+    hideFullPage?: boolean;
+  };
+}

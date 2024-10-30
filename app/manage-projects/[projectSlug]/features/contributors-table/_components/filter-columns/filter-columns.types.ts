@@ -1,10 +1,14 @@
-import { BiContributorResponse } from "@/core/domain/bi/models/bi-contributor-model";
-
-export type ColumnMapKeys = keyof BiContributorResponse | "select" | "labels" | "actions";
-
-export type ColumnMap = Partial<Record<ColumnMapKeys, object>>;
-
 export interface FilterColumnsProps {
-  selectedIds?: Array<ColumnMapKeys>;
-  setSelectedIds: (ids: Array<ColumnMapKeys>) => void;
+  selectedIds?: Array<TableColumns>;
+  setSelectedIds: (ids: Array<TableColumns>) => void;
 }
+
+export type TableColumns =
+  | "select"
+  | "contributor"
+  | "labels"
+  | "languages"
+  | "ecosystems"
+  | "country"
+  | "rewardedAmount"
+  | "actions";

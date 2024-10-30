@@ -15,9 +15,10 @@ export function AccordionNextUiAdapter({
   items = [],
   multiple = false,
   defaultSelected,
+  inline,
   controlled,
 }: AccordionMultiplePort) {
-  const slots = AccordionNextUiVariants();
+  const slots = AccordionNextUiVariants({ inline });
 
   return (
     <Accordion

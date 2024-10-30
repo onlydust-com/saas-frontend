@@ -119,6 +119,21 @@ export const Single: Story = {
   },
 };
 
+export const Inline: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Accordion />" },
+    },
+  },
+  render: () => {
+    return (
+      <div className="flex w-full flex-col items-center gap-8">
+        <Accordion {...defaultPort} inline={true} />
+      </div>
+    );
+  },
+};
+
 export const Skeleton: Story = {
   parameters: {
     docs: {

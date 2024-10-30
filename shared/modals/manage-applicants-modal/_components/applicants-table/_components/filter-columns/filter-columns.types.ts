@@ -5,7 +5,7 @@ export interface FilterColumnsProps {
 
 export type TableColumns =
   | "contributor"
-  | "label"
+  | "labels"
   | "languages"
   | "ecosystems"
   | "country"
@@ -13,7 +13,7 @@ export type TableColumns =
   | "actions";
 
 export interface FilterColumnsHookProps {
-  projectId?: string;
+  projectId: string;
   repoId: number;
   onAssign: () => void;
 }

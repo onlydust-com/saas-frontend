@@ -1,12 +1,12 @@
 {
-  "title": "Applicants",
+  "title": "Applicants ({{ count }})",
   "projectContributors": "Project contributors",
   "newContributors": "New contributors",
   "ignored": "Ignored",
   "table": {
     "columns": {
       "contributor": "Contributor",
-      "label": "Label",
+      "labels": "Labels",
       "languages": "Languages",
       "ecosystems": "Ecosystems",
       "country": "Country",
@@ -15,7 +15,7 @@
     },
     "rows": {
       "languages": "{{count}} languages",
-      "ecosystems": "{{count}} ecosystem",
+      "ecosystems": "{{count}} ecosystems",
       "ignore": "Ignore",
       "assign": "Assign",
       "labels": {

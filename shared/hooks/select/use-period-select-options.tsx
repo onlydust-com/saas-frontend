@@ -13,6 +13,7 @@ export function usePeriodSelectOptions(): MenuItemPort[] {
     DateRangeType.LAST_MONTH,
     DateRangeType.LAST_SEMESTER,
     DateRangeType.LAST_YEAR,
+    DateRangeType.ALL_TIME,
     DateRangeType.CUSTOM,
   ];
 

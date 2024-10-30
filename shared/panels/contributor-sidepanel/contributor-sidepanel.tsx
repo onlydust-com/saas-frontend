@@ -18,6 +18,7 @@ import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ec
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
+import { Timeline } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -70,7 +71,8 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
             {/* !KEEP this
              * <PublicRepo />
              */}
-            <Activity githubId={data?.contributor.githubUserId} />
+            <Activity user={data} />
+            <Timeline user={data} />
           </>
         ) : null}
       </div>

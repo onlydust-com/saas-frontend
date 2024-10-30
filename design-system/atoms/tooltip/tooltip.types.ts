@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } f
 interface ClassNames {
   wrapper: string;
   tooltip: string;
+  content: string;
 }
 
 export interface TooltipPort<C extends ElementType> extends PropsWithChildren {
@@ -14,4 +15,5 @@ export interface TooltipPort<C extends ElementType> extends PropsWithChildren {
   content: ReactNode;
   title?: ReactNode;
   placement?: "top" | "bottom" | "left" | "right" | "bottom-start";
+  background?: "primary-solid" | "primary";
 }

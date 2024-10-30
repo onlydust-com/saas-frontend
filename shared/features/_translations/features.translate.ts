@@ -1,4 +1,3 @@
-import enActivityGraphTranslate from "@/shared/features/activity-graph/activity-graph-translate.en.json";
 import enAmountSelector from "@/shared/features/amount-selector/_translations/amount-selector.en.json";
 import enCardContributionKanban from "@/shared/features/card-contribution-kanban/card-contribution-kanban-translate.en.json";
 import enContributionPopover from "@/shared/features/contributions/contributions-popover/contributions-popover-translate.en.json";
@@ -20,7 +19,6 @@ export const enFeaturesTranslations = {
     githubMissingPermissionsAlert: enGithubMissingPermissionsAlert,
     payoutStatus: enPayoutStatus,
     socialLink: enSocialLinkTranslate,
-    activityGraph: enActivityGraphTranslate,
     cardContributionKanban: enCardContributionKanban,
     contributorProfileExtended: enContributorProfileExtended,
     contributorProfileCheckbox: enContributorProfileCheckbox,

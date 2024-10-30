@@ -16,7 +16,7 @@ export class IssueApplicant implements IssueApplicantInterface {
   codeReviewCount!: IssueApplicantResponse["codeReviewCount"];
   contributionCount!: IssueApplicantResponse["contributionCount"];
   contributor!: ContributorOverviewInterface;
-  countryCode!: IssueApplicantResponse["countryCode"];
+  country!: IssueApplicantResponse["country"];
   ecosystems!: IssueApplicantResponse["ecosystems"];
   issueCount!: IssueApplicantResponse["issueCount"];
   languages!: IssueApplicantResponse["languages"];

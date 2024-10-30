@@ -18,7 +18,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const START_DEFAULT_DATE = new Date();
 START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
 
-export function PeriodFilter({ onChange }: PeriodFilterProps) {
+export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
@@ -42,6 +42,16 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
   }
 
   useEffect(() => {
+    if (dateRangeType === DateRangeType.CUSTOM && value?.fromDate && value?.toDate) {
+      setPeriodType(DateRangeType.CUSTOM);
+      setDateRange({
+        start: new Date(value.fromDate),
+        end: new Date(value.toDate),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (periodType === DateRangeType.CUSTOM) {
       const { start, end } = dateRange;
       return onChange?.({
@@ -61,7 +71,7 @@ export function PeriodFilter({ onChange }: PeriodFilterProps) {
             <Button
               as={"div"}
               variant={"secondary"}
-              size={"sm"}
+              size={size}
               endIcon={{ component: Calendar }}
               classNames={{
                 base: "max-w-xs overflow-hidden",
