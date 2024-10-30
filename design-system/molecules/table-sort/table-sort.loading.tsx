@@ -1,5 +1,11 @@
-import { ButtonLoading } from "@/design-system/atoms/button/button.loading";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 
 export function TableSortLoading() {
-  return <ButtonLoading size="md" iconOnly />;
+  return (
+    <Skeleton
+      classNames={{
+        base: "h-xl w-xl rounded",
+      }}
+    />
+  );
 }

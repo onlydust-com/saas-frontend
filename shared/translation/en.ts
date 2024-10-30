@@ -10,7 +10,6 @@ import { enItemNavTranslation } from "@/design-system/molecules/item-nav/_transl
 import { enTableFilterTranslation } from "@/design-system/molecules/table-filter/translations/table-filter.translate";
 import { enTableGroupByTranslation } from "@/design-system/molecules/table-group-by/translations/table-group-by.translate";
 import { enTableSearchTranslation } from "@/design-system/molecules/table-search/translations/table-search.translate";
-import { enTableSortTranslation } from "@/design-system/molecules/table-sort/translations/table-sort.translate";
 import { enTableNavTranslation } from "@/design-system/organisms/table-nav/translations/table-nav.translate";
 
 import { enMutationTranslations } from "@/shared/components/mutation/_translations/mutation.translate";
@@ -44,7 +43,6 @@ export const en = {
     ...enTableFilterTranslation,
     ...enTableGroupByTranslation,
     ...enTableNavTranslation,
-    ...enTableSortTranslation,
     ...enTableSearchTranslation,
   },
   ...enFeaturesTranslations,
