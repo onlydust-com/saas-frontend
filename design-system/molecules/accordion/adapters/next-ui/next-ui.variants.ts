@@ -12,7 +12,7 @@ export const AccordionNextUiVariants = tv({
       "group-data-[open=true]/accordionItem:hover:bg-components-accordion-open-bg-hover",
       "group-data-[open=true]/accordionItem:rounded-t-md",
     ],
-    trigger: "px-xl py-lg",
+    trigger: "",
     content: "",
     indicator: "text-foreground-primary",
     startIcon: "text-foreground-primary",
@@ -32,6 +32,7 @@ export const AccordionNextUiVariants = tv({
       },
       false: {
         content: "divide-y divide-border-primary p-0 text-typography-primary *:p-lg",
+        trigger: "px-xl py-lg",
       },
     },
   },
