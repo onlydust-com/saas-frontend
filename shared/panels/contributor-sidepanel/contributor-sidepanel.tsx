@@ -71,7 +71,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
             {/* !KEEP this
              * <PublicRepo />
              */}
-            <Activity githubId={data?.contributor.githubUserId} />
+            <Activity user={data} />
             <Timeline user={data} />
           </>
         ) : null}

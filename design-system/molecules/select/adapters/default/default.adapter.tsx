@@ -212,8 +212,8 @@ export function SelectDefaultAdapter<T = string>({
         <Input
           name={name}
           value={formatedInputValue}
-          endIcon={!isAutoComplete ? { component: ChevronDown } : undefined}
-          startIcon={isAutoComplete ? { component: Search } : undefined}
+          endIcon={!isAutoComplete || !open ? { component: ChevronDown } : undefined}
+          startIcon={isAutoComplete && open ? { component: Search } : undefined}
           canInteract={isAutoComplete}
           onChange={e => onSearchChange(e.target.value)}
           {...inputProps}
