@@ -21,14 +21,6 @@ export function Timeline({ user }: TimelineProps) {
     excludedRange: [DateRangeType.ALL_TIME, DateRangeType.LAST_MONTH, DateRangeType.LAST_WEEK],
   });
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
-  const { fromDate, toDate } = useMemo(() => {
-    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
-
-    return {
-      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
-      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
-    };
-  }, [rangeType, dateKernelPort]);
 
   function onChangeRangeType(value: string) {
     if (dateKernelPort.isDateRangeType(value)) setRangeType(value);

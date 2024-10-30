@@ -6,6 +6,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -13,15 +14,18 @@ import { TimelineItem } from "@/shared/panels/contributor-sidepanel/_components/
 
 import { TimelineAccordionProps } from "./timeline-accordion.types";
 
-function TimelineAccordionContent({ user }: TimelineAccordionProps) {
-  const { data, hasNextPage, fetchNextPage, isFetching } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      contributorIds: [user.contributor.githubUserId],
-      sort: "UPDATED_AT",
-      sortDirection: "DESC",
-      // add start and end date
-    },
-  });
+function TimelineAccordionContent({ user, end, start }: TimelineAccordionProps) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const { data, hasNextPage, fetchNextPage, isFetching, isLoading } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        contributorIds: [user.contributor.githubUserId],
+        sort: "UPDATED_AT",
+        sortDirection: "DESC",
+        fromDate: dateKernelPort.format(start, "yyyy-MM-dd"),
+        toDate: dateKernelPort.format(end, "yyyy-MM-dd"),
+      },
+    });
 
   const contributions = useMemo(() => data?.pages.flatMap(contributions => contributions.contributions), [data]);
 
@@ -38,6 +42,17 @@ function TimelineAccordionContent({ user }: TimelineAccordionProps) {
             isLoading={isFetching}
           />
         )}
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={"flex w-full flex-col gap-3 pt-3"}>
+        <Skeleton classNames={{ base: "w-full h-3" }} />
+        <Skeleton classNames={{ base: "w-full h-3" }} />
+        <Skeleton classNames={{ base: "w-full h-3" }} />
+        <Skeleton classNames={{ base: "w-full h-3" }} />
       </div>
     );
   }
