@@ -21,6 +21,7 @@ export const DateAdapterMock: DateFacadePort = {
   getDateFromWeekNumber: (_year: number, _weekNumber: number) => new Date(),
   getWeekNumber: (_date: Date, _options?: { hideMonths: boolean }) => "",
   addDays: (_date: Date, _days: number) => new Date(),
+  subDays: (_date: Date, _days: number) => new Date(),
   isSameDay: (_dateLeft: Date, _dateRight: Date) => false,
   subWeeks: (_date: Date, _weeks: number) => new Date(),
   setWeek: (_date: Date, _weekNumber: number) => new Date(),

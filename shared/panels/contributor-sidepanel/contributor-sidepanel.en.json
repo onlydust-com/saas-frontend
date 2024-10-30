@@ -32,7 +32,7 @@
     "otherLabel": "Other"
   },
   "activity": {
-    "title": "Activity"
+    "title": "{{number}} contributions last year "
   },
   "publicRepo": {
     "title": "Public Repositories ({{count}})"

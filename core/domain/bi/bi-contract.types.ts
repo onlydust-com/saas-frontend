@@ -1,3 +1,4 @@
+import { BiContributorActivityInterface } from "@/core/domain/bi/models/bi-contributor-activity-model";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
@@ -107,6 +108,22 @@ export type GetBiContributorByIdPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiContributorByIdPortResponse = HttpStorageResponse<GetBiContributorByIdModel>;
+
+/* --------------------- Get Bi contributor activity by Id --------------------- */
+
+export type GetBiContributorActivityByIdResponse = components["schemas"]["ContributorActivityGraphResponse"];
+
+export type GetBiContributorActivityByIdModel = BiContributorActivityInterface;
+
+type GetBiContributorActivityByIdPathParams = operations["getContributorActivityGraph"]["parameters"]["path"];
+type GetBiContributorActivityByIdQueryParams = operations["getContributorActivityGraph"]["parameters"]["query"];
+
+export type GetBiContributorActivityByIdPortParams = HttpClientParameters<{
+  PathParams: GetBiContributorActivityByIdPathParams;
+  QueryParams: GetBiContributorActivityByIdQueryParams;
+}>;
+
+export type GetBiContributorActivityByIdPortResponse = HttpStorageResponse<GetBiContributorActivityByIdModel>;
 
 /* --------------------- Get Bi Contributors CSV --------------------- */
 

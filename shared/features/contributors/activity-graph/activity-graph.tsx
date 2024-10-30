@@ -86,18 +86,14 @@ const mock = [
   },
 ];
 
-export function ActivityGraph(_: ActivityGraphProps) {
+export function ActivityGraph({ data = [] }: ActivityGraphProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const data = mock;
   const ref = useRef<HTMLDivElement>(null);
   const grid = activityGraphHooks.useActivityGraph();
   const flatDays = grid.months.flatMap(month => month.days);
   const columns = activityGraphHooks.useActivityColumns(flatDays);
-  const range = useMemo(
-    () => data?.map(activity => activity.issueCount + activity.codeReviewCount + activity.pullRequestCount) || [],
-    []
-  );
-
+  const range = useMemo(() => data?.map(activity => activity.count) || [], []);
+  const months = activityGraphHooks.useGetMonthsSeparator(flatDays);
   const levelRange = activityGraphHooks.useCreateLevel(range);
 
   useLayoutEffect(() => {
@@ -111,11 +107,18 @@ export function ActivityGraph(_: ActivityGraphProps) {
       <ScrollView ref={ref}>
         <div className={"flex flex-col gap-1"}>
           <div className={"flex flex-row"}>
-            {grid?.months?.map((month, index) => (
-              // should take 4 days width
-              <Typo size={"xs"} color={"tertiary"} classNames={{ base: "min-w-[4.5rem] w-[4.5rem]" }} key={index}>
-                {dateKernelPort.format(month.month, "MMM")}
-              </Typo>
+            {months?.map((month, index) => (
+              <div
+                key={index}
+                style={{
+                  width: `calc(1.125rem*${month.col})`,
+                  minWidth: `calc(1.125rem*${month.col})`,
+                }}
+              >
+                <Typo size={"xs"} color={"tertiary"} classNames={{ base: "min-w-full w-full" }}>
+                  {dateKernelPort.format(month.month, "MMM")}
+                </Typo>
+              </div>
             ))}
           </div>
           <div className={"flex flex-row gap-[2px]"}>
