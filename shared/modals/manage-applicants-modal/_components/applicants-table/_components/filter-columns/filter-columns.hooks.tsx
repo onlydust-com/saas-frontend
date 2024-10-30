@@ -181,15 +181,15 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
       id: "country",
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
-        const { countryCode } = info.row.original;
+        const { country } = info.row.original;
 
-        if (!countryCode) {
+        if (!country) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={countryCode} hasBorder={false} size={"m"} />
+            <Flag code={country.code} hasBorder={false} size={"m"} />
           </TableCellKpi>
         );
       },
