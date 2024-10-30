@@ -23,7 +23,7 @@ export function Day({ day, data: _data, levelRange }: DayProps) {
       <div className="flex flex-col gap-1">
         <Translate
           token={"features:contributorActivityGraph.contributions"}
-          count={0}
+          count={data?.count || 0}
           values={{ date: dateKernel.format(day, "MMMM d") }}
         />
       </div>
