@@ -2,6 +2,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { AccordionFilter } from "@/shared/features/filters/accordion-filter/accordion-filter";
+import { ContributionTypeFilter } from "@/shared/features/filters/contribution-type-filter/contribution-type-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -46,10 +47,6 @@ export function FilterData({ user }: FilterDataProps) {
         canClose={true}
       />
       <SidePanelBody>
-        <LanguageFilter
-          selectedLanguages={filters.languageIds}
-          onSelect={languages => setFilters({ languageIds: languages })}
-        />
         <AccordionFilter
           name={"timeline-data-source"}
           title={{ translate: { token: "panels:contributor.timeline.filter.dataSource" } }}
@@ -70,6 +67,15 @@ export function FilterData({ user }: FilterDataProps) {
             }
           />
         </AccordionFilter>
+        <ContributionTypeFilter
+          selectedContributionType={filters.types}
+          onSelect={contributionTypes => setFilters({ types: contributionTypes })}
+          excludeContributionTypes={["CODE_REVIEW"]}
+        />
+        <LanguageFilter
+          selectedLanguages={filters.languageIds}
+          onSelect={languages => setFilters({ languageIds: languages })}
+        />
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>

@@ -14,7 +14,7 @@ import { TimelineItem } from "@/shared/panels/contributor-sidepanel/_components/
 
 import { TimelineAccordionProps } from "./timeline-accordion.types";
 
-function TimelineAccordionContent({ user, end, start, filters }: TimelineAccordionProps) {
+function TimelineAccordionContent({ user, end, start, filters, search }: TimelineAccordionProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { data, hasNextPage, fetchNextPage, isFetching, isLoading } =
     ContributionReactQueryAdapter.client.useGetContributions({
@@ -24,6 +24,7 @@ function TimelineAccordionContent({ user, end, start, filters }: TimelineAccordi
         sortDirection: "DESC",
         fromDate: dateKernelPort.format(start, "yyyy-MM-dd"),
         toDate: dateKernelPort.format(end, "yyyy-MM-dd"),
+        search,
         ...filters,
       },
     });

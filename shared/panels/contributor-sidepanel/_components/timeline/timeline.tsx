@@ -9,6 +9,7 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
+import { TableSearch } from "@/design-system/molecules/table-search";
 
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
@@ -25,6 +26,8 @@ export type TimelineFilters = Omit<NonNullable<GetContributionsPortParams["query
 export function Timeline({ user }: TimelineProps) {
   const { open: openFilter } = useTimelineFilterDataSidePanel();
   const dateKernelPort = bootstrap.getDateKernelPort();
+  const [search, setSearch] = useState<string>();
+  const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<TimelineFilters>({});
   const rangeMenu = useRangeSelectOptions({
     excludedRange: [DateRangeType.ALL_TIME, DateRangeType.LAST_MONTH, DateRangeType.LAST_WEEK],
@@ -78,8 +81,9 @@ export function Timeline({ user }: TimelineProps) {
             </div>
           </Menu>
         </div>
-        <div>
+        <div className={"flex flex-row items-center gap-md"}>
           <FilterButton onClick={openFilter} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         </div>
         {months.map((month, i) => (
           <TimelineAccordion
@@ -89,6 +93,7 @@ export function Timeline({ user }: TimelineProps) {
             end={month.end}
             isFirst={i === 0}
             filters={filters}
+            search={debouncedSearch}
           />
         ))}
       </Paper>

@@ -8,4 +8,5 @@ export interface TimelineAccordionProps {
   end: Date;
   isFirst: boolean;
   filters: TimelineFilters;
+  search?: string;
 }
