@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
@@ -12,23 +13,25 @@ export function DataSourceSelect({
   selectedSource,
   ...selectProps
 }: DataSourceSelectProps) {
+  const { t } = useTranslation();
   const items: MenuItemPort[] = useMemo(() => {
-    const projects = user.projects.map(project => ({
-      id: project.id,
-      label: project.name,
-      searchValue: project.name,
-    }));
+    const projects =
+      user?.projects?.map(project => ({
+        id: project.id,
+        label: project.name,
+        searchValue: project.name,
+      })) ?? [];
 
     const dataSource: MenuItemPort[] = [
       {
         id: "ALL",
-        label: "all",
+        label: t("panels:contributor.timeline.filter.all"),
         searchValue: "all",
       },
       {
         id: "ONLYDUST",
-        label: "OD",
-        searchValue: "OD",
+        label: t("panels:contributor.timeline.filter.internal"),
+        searchValue: "onlydust",
       },
     ];
 
@@ -37,14 +40,15 @@ export function DataSourceSelect({
 
   function handleSelect(ids: MenuItemId[]) {
     const projectsIds = ids.filter(id => id !== "ALL" && id !== "ONLYDUST") as string[];
-    const sources = ids.includes("ALL") ? "ALL" : ids.includes("ONLYDUST") ? "ONLYDUST" : undefined;
+    const findSource = ids.filter(id => id === "ALL" || id === "ONLYDUST");
+    const sources = findSource.at(-1) ?? undefined;
     onSelect?.(projectsIds, sources);
   }
 
   const selectedIds = useMemo(() => {
     const projects = selectedProjects || [];
     const source = selectedSource || "ALL";
-    return [...source, ...projects];
+    return [source, ...projects];
   }, [selectedProjects, selectedSource]);
 
   return (
