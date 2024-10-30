@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -36,6 +36,23 @@ export function ProgramEcosystemPopover({
     );
     onSelect?.(ids);
   }
+
+  useEffect(() => {
+    if (selectedProgramsEcosystems) {
+      setSelectedValues(
+        selectedProgramsEcosystems
+          .map(id => {
+            const findInItems = programAndEcosystemItems.find(item => item.id === id);
+            if (findInItems) {
+              return findInItems.label;
+            }
+
+            return id;
+          })
+          .join(", ")
+      );
+    }
+  }, [selectedProgramsEcosystems]);
 
   return (
     <Popover>

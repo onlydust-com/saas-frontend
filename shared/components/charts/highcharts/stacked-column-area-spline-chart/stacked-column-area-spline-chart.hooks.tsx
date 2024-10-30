@@ -1,4 +1,5 @@
 import { Options, SeriesAreasplineOptions, SeriesColumnOptions } from "highcharts";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -14,7 +15,10 @@ import {
 import {
   HighchartsOptionsParams,
   HighchartsOptionsReturn,
+  handleChartClickParams,
 } from "@/shared/components/charts/highcharts/highcharts.types";
+import { getPlotPeriod } from "@/shared/components/charts/highcharts/highcharts.utils";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositionerPointObject {
   negative: boolean;
@@ -22,6 +26,9 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
 }
 
 export function useStackedColumnAreaSplineChartOptions({
+  dataViewTarget,
+  timeGroupingType,
+  selectedProgramAndEcosystem,
   title,
   categories,
   series,
@@ -33,6 +40,27 @@ export function useStackedColumnAreaSplineChartOptions({
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const dateKernelPort = bootstrap.getDateKernelPort();
+  const router = useRouter();
+
+  function handleChartClick({ dataViewTarget, plotPeriod, seriesName }: handleChartClickParams) {
+    const currentDate = dateKernelPort.isValid(new Date(plotPeriod)) ? new Date(plotPeriod) : new Date();
+    const { plotPeriodFrom, plotPeriodTo } = getPlotPeriod(currentDate, timeGroupingType);
+
+    const dataView = dataViewTarget ? `dataView=${dataViewTarget}` : "";
+    const dateRangeType = "&dateRangeType=CUSTOM";
+    const period =
+      plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : "";
+    const series = seriesName ? `&seriesName=${seriesName}` : "";
+    const programAndEcosystemIds = selectedProgramAndEcosystem?.length
+      ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}`
+      : "";
+
+    router.push(
+      `${NEXT_ROUTER.data.deepDive.root}?${dataView}${dateRangeType}${period}${series}${programAndEcosystemIds}`
+    );
+  }
+
   const options = useMemo<Options>(
     () => ({
       chart: {
@@ -139,6 +167,33 @@ export function useStackedColumnAreaSplineChartOptions({
       plotOptions: {
         column: {
           stacking: "normal",
+          point: {
+            events: {
+              click() {
+                handleChartClick({
+                  dataViewTarget,
+                  plotPeriod: this.category.toString(),
+                  seriesName: this.series.name,
+                  seriesValue: this.y,
+                });
+              },
+            },
+          },
+        },
+        areaspline: {
+          stacking: "normal",
+          point: {
+            events: {
+              click() {
+                handleChartClick({
+                  dataViewTarget,
+                  plotPeriod: this.category.toString(),
+                  seriesName: this.series.name,
+                  seriesValue: this.y,
+                });
+              },
+            },
+          },
         },
         series: {
           borderRadius: 10, // Set the radius for rounded corners

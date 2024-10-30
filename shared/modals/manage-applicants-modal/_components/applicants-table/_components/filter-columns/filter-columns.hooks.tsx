@@ -1,6 +1,5 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { CircleCheck, CircleX } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
@@ -12,6 +11,7 @@ import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applic
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
@@ -26,19 +26,12 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsHookProps) {
   const { t } = useTranslation();
-  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<IssueApplicantInterface>();
 
-  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
-    pathParams: { slug: projectSlug ?? "" },
-    options: {
-      enabled: !!projectSlug,
-    },
-  });
-
   const { mutateAsync: updateContributorLabels } = ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
-    pathParams: { projectId: data?.id ?? "" },
+    pathParams: { projectId },
   });
 
   async function onLabelChange(githubUserId: number, selectedIds: string[]) {
@@ -61,7 +54,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["contributor", "label", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
+      setSelectedIds(["contributor", "labels", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
     }
   }, [selectedIds, setSelectedIds]);
 
@@ -85,18 +78,14 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    label: columnHelper.display({
-      id: "label",
-      header: () => <Translate token={"modals:manageApplicants.table.columns.label"} />,
+    labels: columnHelper.display({
+      id: "labels",
+      header: () => <Translate token={"modals:manageApplicants.table.columns.labels"} />,
       cell: info => {
         const {
           contributor: { githubUserId },
           projectContributorLabels,
         } = info.row.original;
-
-        if (!projectId) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
 
         return (
           <ContributorLabelPopover
@@ -193,15 +182,17 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
       id: "country",
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
-        const { countryCode } = info.row.original;
+        const { country } = info.row.original;
 
-        if (!countryCode) {
+        if (!country) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={countryCode} hasBorder={false} size={"m"} />
+            <Tooltip content={country.name}>
+              <Flag code={country.code} hasBorder={false} size={"m"} />
+            </Tooltip>
           </TableCellKpi>
         );
       },

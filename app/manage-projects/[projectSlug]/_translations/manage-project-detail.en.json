@@ -63,7 +63,7 @@
       "languages": "Languages",
       "ecosystems": "Ecosystems",
       "country": "Country",
-      "totalRewardedUsdAmount": "Rewarded amount",
+      "rewardedAmount": "Rewarded amount",
       "actions": {
         "title": "Actions",
         "seeProfile": "See profile",

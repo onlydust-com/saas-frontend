@@ -2,7 +2,11 @@ import { ContributionTypeAutocomplete } from "@/shared/features/autocompletes/co
 import { AccordionFilter } from "@/shared/features/filters/accordion-filter/accordion-filter";
 import { ContributionTypeFilterProps } from "@/shared/features/filters/contribution-type-filter/contribution-type-filter.types";
 
-export function ContributionTypeFilter({ selectedContributionType, onSelect }: ContributionTypeFilterProps) {
+export function ContributionTypeFilter({
+  selectedContributionType,
+  onSelect,
+  excludeContributionTypes,
+}: ContributionTypeFilterProps) {
   return (
     <AccordionFilter
       name="contribution-type"
@@ -12,6 +16,7 @@ export function ContributionTypeFilter({ selectedContributionType, onSelect }: C
       <ContributionTypeAutocomplete
         name="contribution-type"
         selectedContributionType={selectedContributionType}
+        excludeContributionTypes={excludeContributionTypes}
         isPopover={false}
         onSelect={onSelect}
       />

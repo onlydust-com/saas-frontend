@@ -1,3 +1,5 @@
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
+
 export interface ActivityProps {
-  githubId: number;
+  user: BiContributorInterface;
 }

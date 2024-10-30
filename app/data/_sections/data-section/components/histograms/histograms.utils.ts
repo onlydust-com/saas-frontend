@@ -11,7 +11,7 @@ export function buildCategories({
 }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   if (timeGroupingType === TimeGroupingType.DAY || timeGroupingType === TimeGroupingType.WEEK) {
-    return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "dd.MM.yyyy")) ?? [];
+    return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "yyyy-MM-dd")) ?? [];
   }
 
   if (timeGroupingType === TimeGroupingType.YEAR) {

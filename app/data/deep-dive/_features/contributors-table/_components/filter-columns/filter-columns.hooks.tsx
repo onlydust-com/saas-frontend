@@ -4,21 +4,22 @@ import Flag from "react-flagpack";
 import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
-import { BiContributorInterface, BiContributorResponse } from "@/core/domain/bi/models/bi-contributor-model";
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { TableColumns } from "./filter-columns.types";
+
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiContributorInterface>();
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof BiContributorResponse>>(
-    "deep-dive-contributors-table-columns"
-  );
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("deep-dive-contributors-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
@@ -28,8 +29,8 @@ export function useFilterColumns() {
         "categories",
         "languages",
         "ecosystems",
-        "countryCode",
-        "totalRewardedUsdAmount",
+        "country",
+        "rewardedAmount",
         "contributionCount",
         "prCount",
         "rewardCount",
@@ -37,7 +38,7 @@ export function useFilterColumns() {
     }
   }, [selectedIds, setSelectedIds]);
 
-  const columnMap: Partial<Record<keyof BiContributorResponse, object>> = {
+  const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.accessor("contributor", {
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributorName"} />,
       cell: info => {
@@ -187,24 +188,26 @@ export function useFilterColumns() {
         );
       },
     }),
-    countryCode: columnHelper.accessor("countryCode", {
+    country: columnHelper.accessor("country", {
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
       cell: info => {
-        const countryCode = info.getValue();
+        const country = info.getValue();
 
-        if (!countryCode) {
+        if (!country) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={countryCode} hasBorder={false} size={"m"} />
+            <Tooltip content={country.name}>
+              <Flag code={country.code} hasBorder={false} size={"m"} />
+            </Tooltip>
           </TableCellKpi>
         );
       },
     }),
-    totalRewardedUsdAmount: columnHelper.accessor("totalRewardedUsdAmount", {
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.totalRewardedUsdAmount"} />,
+    rewardedAmount: columnHelper.accessor("totalRewardedUsdAmount", {
+      header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardedAmount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
 

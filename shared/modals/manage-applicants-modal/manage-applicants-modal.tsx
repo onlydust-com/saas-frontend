@@ -24,7 +24,7 @@ export function ManageApplicantsModal({
     pathParams: { contributionUuid: contributionId },
     options: { enabled: !!contributionId && isOpen },
   });
-  const totalItemNumber = useMemo(() => data?.pages.flatMap(page => page.totalItemNumber) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
   if (!projectId) return null;
 
@@ -46,7 +46,7 @@ export function ManageApplicantsModal({
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
             <ApplicantsTable
-              projectId={projectId}
+              projectId={projectId ?? ""}
               contributionId={contributionId}
               repoId={repoId}
               onAssign={() => onOpenChange?.(false)}
@@ -62,11 +62,7 @@ export function ManageApplicantsModal({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       titleProps={{
-        children: (
-          <>
-            <Translate token={"modals:manageApplicants.title"} /> ({totalItemNumber})
-          </>
-        ),
+        children: <Translate token={"modals:manageApplicants.title"} count={totalItemNumber} />,
       }}
       size="8xl"
       background="gradient"

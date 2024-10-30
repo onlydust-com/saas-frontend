@@ -16,13 +16,7 @@ export function Day({ day, data: _data, levelRange }: DayProps) {
   const dateKernel = bootstrap.getDateKernelPort();
   const data = activityGraphHooks.useGetData(_data, day);
 
-  const contributionCount = useMemo(
-    () =>
-      (data?.rewardCount || 0) + (data?.codeReviewCount || 0) + (data?.issueCount || 0) + (data?.pullRequestCount || 0),
-    [data]
-  );
-
-  const level = activityGraphHooks.useGetLevel(contributionCount, levelRange);
+  const level = activityGraphHooks.useGetLevel(data?.count || 0, levelRange);
 
   const tooltipContent = useMemo(
     () => (
@@ -50,7 +44,7 @@ export function Day({ day, data: _data, levelRange }: DayProps) {
           }
         )}
       >
-        {data?.rewardCount ? <Icon component={Medal} classNames={{ base: "h-3 w-3" }} /> : null}
+        {data?.hasReward ? <Icon component={Medal} classNames={{ base: "h-3 w-3" }} /> : null}
       </div>
     </Tooltip>
   );

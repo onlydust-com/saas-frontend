@@ -1,10 +1,8 @@
-import { FilterColumnsProps } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-columns/filter-columns.types";
-
-import { BiContributorResponse } from "@/core/domain/bi/models/bi-contributor-model";
-
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
+
+import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
@@ -48,7 +46,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "countryCode",
+            id: "country",
             label: <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
@@ -63,8 +61,8 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isLabel: true,
           },
           {
-            id: "totalRewardedUsdAmount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.totalRewardedUsdAmount"} />,
+            id: "rewardedAmount",
+            label: <Translate token={"data:deepDive.contributorsTable.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,
           },
@@ -97,7 +95,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
         ],
         selectedIds,
-        onSelect: ids => setSelectedIds(ids as Array<keyof BiContributorResponse>),
+        onSelect: ids => setSelectedIds(ids as Array<TableColumns>),
         isMultiple: true,
       }}
       popoverProps={{
