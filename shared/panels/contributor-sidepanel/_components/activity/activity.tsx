@@ -13,15 +13,13 @@ import { DateSourceSelect } from "@/shared/panels/contributor-sidepanel/_compone
 import { ActivityProps } from "./activity.types";
 
 export function Activity({ user }: ActivityProps) {
-  const [filters, setFilters] = useState<{ dataSource: DateSourceSelect; dataSourceProjectId?: string[] }>({
+  const [filters, setFilters] = useState<{ dataSource: DateSourceSelect; dataSourceProjectIds?: string[] }>({
     dataSource: DateSourceSelect.ALL,
   });
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorActivityById({
     pathParams: { contributorId: user.contributor.githubUserId },
     queryParams: {
       ...filters,
-      // TODO CONVERT TO ARRAY
-      dataSourceProjectId: filters?.dataSourceProjectId?.[0],
     },
     options: {
       enabled: !!user.contributor.githubUserId,
@@ -47,13 +45,13 @@ export function Activity({ user }: ActivityProps) {
         <DataSourceSelect
           user={user}
           name="timeline-data-source"
-          selectedProjects={filters.dataSourceProjectId}
+          selectedProjects={filters.dataSourceProjectIds}
           selectedSource={filters.dataSource as DateSourceSelect | undefined}
           isMultiple={true}
           disabledAutoOrdering={true}
           onSelect={(projectsIds, source) =>
             setFilters({
-              dataSourceProjectId: projectsIds,
+              dataSourceProjectIds: projectsIds,
               dataSource: source ?? DateSourceSelect.ALL,
             })
           }

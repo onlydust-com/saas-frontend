@@ -1,4 +1,3 @@
-import { subDays } from "date-fns";
 import { useLayoutEffect, useMemo, useRef } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -10,81 +9,6 @@ import { Column } from "@/shared/features/contributors/activity-graph/_component
 import { activityGraphHooks } from "@/shared/features/contributors/activity-graph/activity-graph.hooks";
 
 import { ActivityGraphProps } from "./activity-graph.types";
-
-const mock = [
-  {
-    year: 2023,
-    week: 34,
-    date: new Date().toISOString(),
-    codeReviewCount: 1,
-    issueCount: 1,
-    pullRequestCount: 1,
-    rewardCount: 1,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 1).toISOString(),
-    codeReviewCount: 2,
-    issueCount: 2,
-    pullRequestCount: 1,
-    rewardCount: 1,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 2).toISOString(),
-    codeReviewCount: 3,
-    issueCount: 3,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 4).toISOString(),
-    codeReviewCount: 4,
-    issueCount: 4,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 5).toISOString(),
-    codeReviewCount: 5,
-    issueCount: 5,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 6).toISOString(),
-    codeReviewCount: 6,
-    issueCount: 6,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 7).toISOString(),
-    codeReviewCount: 7,
-    issueCount: 7,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-  {
-    year: 2023,
-    week: 34,
-    date: subDays(new Date(), 8).toISOString(),
-    codeReviewCount: 8,
-    issueCount: 8,
-    pullRequestCount: 1,
-    rewardCount: 0,
-  },
-];
 
 export function ActivityGraph({ data = [] }: ActivityGraphProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
