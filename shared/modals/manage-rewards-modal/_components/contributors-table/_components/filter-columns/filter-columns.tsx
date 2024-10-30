@@ -7,35 +7,41 @@ import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
     <TableColumnList
-      titleProps={{ token: "manageProjects:detail.contributorsTable.filters.columnList" }}
+      titleProps={{ token: "modals:manageRewards.table.filters.columnList" }}
       menuProps={{
         items: [
           {
             id: "global",
-            label: <Translate token={"manageProjects:detail.contributorsTable.filters.global"} />,
+            label: <Translate token={"modals:manageRewards.table.filters.global"} />,
             isLabel: true,
           },
           {
             id: "contributor",
-            label: <Translate token={"manageProjects:detail.contributorsTable.columns.contributorName"} />,
-            searchValue: "Contributor name",
+            label: <Translate token={"modals:manageRewards.table.columns.contributor"} />,
+            searchValue: "Contributor",
+            isCheckbox: true,
+          },
+          {
+            id: "labels",
+            label: <Translate token={"modals:manageRewards.table.columns.labels"} />,
+            searchValue: "Labels",
             isCheckbox: true,
           },
           {
             id: "languages",
-            label: <Translate token={"manageProjects:detail.contributorsTable.columns.languages"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.languages"} />,
             searchValue: "Languages",
             isCheckbox: true,
           },
           {
             id: "ecosystems",
-            label: <Translate token={"manageProjects:detail.contributorsTable.columns.ecosystems"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.ecosystems"} />,
             searchValue: "Ecosystems",
             isCheckbox: true,
           },
           {
-            id: "countryCode",
-            label: <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
+            id: "country",
+            label: <Translate token={"modals:manageRewards.table.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
           },
@@ -45,12 +51,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
           {
             id: "financial",
-            label: <Translate token={"manageProjects:detail.contributorsTable.filters.financial"} />,
+            label: <Translate token={"modals:manageRewards.table.filters.financial"} />,
             isLabel: true,
           },
           {
-            id: "totalRewardedUsdAmount",
-            label: <Translate token={"manageProjects:detail.contributorsTable.columns.rewardedAmount"} />,
+            id: "rewardedAmount",
+            label: <Translate token={"modals:manageRewards.table.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,
           },

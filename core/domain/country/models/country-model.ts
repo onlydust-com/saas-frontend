@@ -6,6 +6,7 @@ export interface CountryInterface extends CountryResponse {}
 
 export class Country implements CountryInterface {
   code!: CountryResponse["code"];
+  name!: CountryResponse["name"];
 
   constructor(props: CountryResponse) {
     Object.assign(this, props);

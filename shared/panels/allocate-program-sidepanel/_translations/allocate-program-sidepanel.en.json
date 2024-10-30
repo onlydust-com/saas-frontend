@@ -9,9 +9,9 @@
   },
   "makeAllocation": "Make Allocation",
   "success": {
-    "toast": "{{program}} has been allocated {{amount}} {{code}}"
+    "toast": "{{program}} has been allocated {{amount}} {{code}}."
   },
   "error": {
-    "toast": "An error occurred while allocating the program"
+    "toast": "An error occurred while allocating the program."
   }
 }

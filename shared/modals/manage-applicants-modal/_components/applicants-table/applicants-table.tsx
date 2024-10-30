@@ -101,30 +101,34 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }:
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <ScrollView>
-        <div className={"flex flex-col gap-lg overflow-hidden"}>
-          <nav className={"flex gap-md"}>
-            <FilterButton onClick={openFilterPanel} />
-            <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-            <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
-          </nav>
-          <AccordionProjectContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
-          <AccordionNewContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
-          <AccordionIgnoredContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
-        </div>
-        <FilterData />
-        <ContributorSidepanel
-          customFooter={({ data, applicationId }) => (
-            <Footer
-              login={data.contributor.login}
-              applicationId={applicationId}
-              contributionId={contributionId}
-              repoId={repoId}
-              onAssign={onAssign}
-            />
-          )}
-        />
-      </ScrollView>
+      <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
+        <nav className={"flex gap-md"}>
+          <FilterButton onClick={openFilterPanel} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
+        </nav>
+
+        <ScrollView>
+          <div className={"flex flex-col gap-lg"}>
+            <AccordionProjectContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+            <AccordionNewContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+            <AccordionIgnoredContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+          </div>
+        </ScrollView>
+      </div>
+
+      <FilterData />
+      <ContributorSidepanel
+        customFooter={({ data, applicationId }) => (
+          <Footer
+            login={data.contributor.login}
+            applicationId={applicationId}
+            contributionId={contributionId}
+            repoId={repoId}
+            onAssign={onAssign}
+          />
+        )}
+      />
     </FilterDataProvider>
   );
 }

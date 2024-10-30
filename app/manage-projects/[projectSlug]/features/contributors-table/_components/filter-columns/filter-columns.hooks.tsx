@@ -5,11 +5,6 @@ import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
-import {
-  ColumnMap,
-  ColumnMapKeys,
-} from "@/app/manage-projects/[projectSlug]/features/contributors-table/_components/filter-columns/filter-columns.types";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
@@ -25,6 +20,8 @@ import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
+
+import { TableColumns } from "./filter-columns.types";
 
 export function useFilterColumns() {
   const { t } = useTranslation();
@@ -61,7 +58,7 @@ export function useFilterColumns() {
     }
   }
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<ColumnMapKeys>>(
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>(
     "manage-projects-contributors-table-columns"
   );
 
@@ -73,14 +70,14 @@ export function useFilterColumns() {
         "labels",
         "languages",
         "ecosystems",
-        "countryCode",
-        "totalRewardedUsdAmount",
+        "country",
+        "rewardedAmount",
         "actions",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
 
-  const columnMap: ColumnMap = {
+  const columnMap: Partial<Record<TableColumns, object>> = {
     select: columnHelper.accessor("contributor", {
       id: "select",
       header: ({ table }) => (
@@ -219,24 +216,24 @@ export function useFilterColumns() {
         );
       },
     }),
-    countryCode: columnHelper.accessor("countryCode", {
+    country: columnHelper.accessor("country", {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
       cell: info => {
-        const countryCode = info.getValue();
+        const country = info.getValue();
 
-        if (!countryCode) {
+        if (!country) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={countryCode} hasBorder={false} size={"m"} />
+            <Flag code={country.code} hasBorder={false} size={"m"} />
           </TableCellKpi>
         );
       },
     }),
-    totalRewardedUsdAmount: columnHelper.accessor("totalRewardedUsdAmount", {
-      header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.totalRewardedUsdAmount"} />,
+    rewardedAmount: columnHelper.accessor("totalRewardedUsdAmount", {
+      header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.rewardedAmount"} />,
       cell: info => {
         const { value } = info.getValue() ?? {};
 

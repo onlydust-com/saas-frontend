@@ -4,13 +4,14 @@ export interface FilterColumnsProps {
 }
 
 export type TableColumns =
+  | "select"
   | "contributor"
-  | "projects"
-  | "categories"
+  | "labels"
   | "languages"
   | "ecosystems"
   | "country"
-  | "rewardedAmount"
-  | "contributionCount"
-  | "prCount"
-  | "rewardCount";
+  | "rewardedAmount";
+
+export interface FilterColumnsHookProps {
+  projectId: string;
+}

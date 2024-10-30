@@ -10,10 +10,14 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { ManageRewardsModal } from "@/shared/modals/manage-rewards-modal/manage-rewards-modal";
+import { useManageRewardsModal } from "@/shared/modals/manage-rewards-modal/manage-rewards-modal.hooks";
 import { SingleUserFlow } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_features/single-user-flow/single-user-flow";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { useBulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+
+import { BulkContributionSelectionProps } from "./bulk-contribution-selection.types";
 
 function TotalAmounts() {
   const { amountPerCurrency } = useRewardFlow();
@@ -65,10 +69,11 @@ function TotalAmounts() {
   return null;
 }
 
-function Content() {
+function Content({ headerProps, footerProps }: BulkContributionSelectionProps) {
   const { open } = useBulkContributionValidation();
   const { isOpen } = useBulkContributionSelection();
-  const { selectedGithubUserIds, amountPerCurrency } = useRewardFlow();
+  const { selectedGithubUserIds, amountPerCurrency, projectId } = useRewardFlow();
+  const { isOpen: isManageRewardsModalOpen, setIsOpen: setIsManageRewardsModalOpen } = useManageRewardsModal();
   const [isRewardValid, setIsRewardValid] = useState<Record<number, boolean>>({});
   const isAmountInvalid = Boolean(
     Object.values(amountPerCurrency).find(({ amount, budget }) => (budget ? Number(amount) > budget.amount : false))
@@ -104,8 +109,8 @@ function Content() {
             token: "panels:bulkContributionSelection.title",
           },
         }}
-        canGoBack
-        canClose
+        canGoBack={headerProps?.canGoBack ?? true}
+        canClose={headerProps?.canClose ?? true}
       />
 
       <SidePanelBody>
@@ -127,27 +132,48 @@ function Content() {
       </SidePanelBody>
 
       <SidePanelFooter>
-        <Button
-          variant={"secondary"}
-          size={"md"}
-          translate={{
-            token: "common:next",
-          }}
-          isDisabled={!isAllValid}
-          onClick={open}
-        />
+        <div className={"flex w-full items-center justify-end gap-lg"}>
+          {!footerProps?.hideFullPage ? (
+            <Button
+              variant={"secondary"}
+              size={"md"}
+              translate={{
+                token: "panels:rewardFlow.footer.actions.rewardInFullPage",
+              }}
+              onClick={() => setIsManageRewardsModalOpen(true)}
+            />
+          ) : null}
+
+          <Button
+            variant={"secondary"}
+            size={"md"}
+            translate={{
+              token: "common:next",
+            }}
+            isDisabled={!isAllValid}
+            onClick={open}
+          />
+        </div>
+
+        {!footerProps?.hideFullPage ? (
+          <ManageRewardsModal
+            isOpen={isManageRewardsModalOpen}
+            onOpenChange={setIsManageRewardsModalOpen}
+            projectId={projectId}
+          />
+        ) : null}
       </SidePanelFooter>
     </>
   );
 }
 
-export function BulkContributionSelection() {
+export function BulkContributionSelection({ headerProps, footerProps }: BulkContributionSelectionProps) {
   const { name } = useBulkContributionSelection();
   const { Panel } = useSidePanel({ name });
 
   return (
     <Panel>
-      <Content />
+      <Content headerProps={headerProps} footerProps={footerProps} />
     </Panel>
   );
 }
