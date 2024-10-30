@@ -34,7 +34,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "countryCode",
+            id: "country",
             label: <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
@@ -49,7 +49,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isLabel: true,
           },
           {
-            id: "totalRewardedUsdAmount",
+            id: "rewardedAmount",
             label: <Translate token={"manageProjects:detail.contributorsTable.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,
