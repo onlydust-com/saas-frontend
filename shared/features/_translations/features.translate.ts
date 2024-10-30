@@ -1,4 +1,4 @@
-import enActivityGraphTranslate from "@/shared/features/activity-graph/activity-graph-translate.en.json";
+
 import enRepoIndexingAlert from "@/shared/features/alerts/repo-indexing-alert/_translations/repo-indexing-alert.en.json";
 import enAmountSelector from "@/shared/features/amount-selector/_translations/amount-selector.en.json";
 import enCardContributionKanban from "@/shared/features/card-contribution-kanban/card-contribution-kanban-translate.en.json";
@@ -22,7 +22,6 @@ export const enFeaturesTranslations = {
     repoIndexingAlert: enRepoIndexingAlert,
     payoutStatus: enPayoutStatus,
     socialLink: enSocialLinkTranslate,
-    activityGraph: enActivityGraphTranslate,
     cardContributionKanban: enCardContributionKanban,
     contributorProfileExtended: enContributorProfileExtended,
     contributorProfileCheckbox: enContributorProfileCheckbox,

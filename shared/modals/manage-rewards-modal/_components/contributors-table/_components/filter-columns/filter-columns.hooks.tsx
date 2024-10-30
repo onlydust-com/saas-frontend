@@ -10,6 +10,7 @@ import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-m
 
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { toast } from "@/design-system/molecules/toaster";
@@ -204,7 +205,9 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={country.code} hasBorder={false} size={"m"} />
+            <Tooltip content={country.name}>
+              <Flag code={country.code} hasBorder={false} size={"m"} />
+            </Tooltip>
           </TableCellKpi>
         );
       },

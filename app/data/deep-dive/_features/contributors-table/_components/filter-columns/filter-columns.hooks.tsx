@@ -7,6 +7,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
@@ -198,7 +199,9 @@ export function useFilterColumns() {
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={country.code} hasBorder={false} size={"m"} />
+            <Tooltip content={country.name}>
+              <Flag code={country.code} hasBorder={false} size={"m"} />
+            </Tooltip>
           </TableCellKpi>
         );
       },

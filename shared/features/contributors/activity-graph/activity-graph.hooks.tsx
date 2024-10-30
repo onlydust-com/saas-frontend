@@ -1,9 +1,9 @@
 import { bootstrap } from "@/core/bootstrap";
 
-import { ActivityGraphLevel } from "@/shared/features/activity-graph/activity-graph.types";
 import { ActivityGraphConfig } from "@/shared/features/contributors/activity-graph/activity-graph.constants";
 import {
   ActivityGraphData,
+  ActivityGraphLevel,
   ActivityGraphLevelRange,
 } from "@/shared/features/contributors/activity-graph/activity-graph.types";
 
@@ -12,19 +12,19 @@ const useActivityGraphRange = ({ start, end }: { start?: Date; end?: Date }) => 
   if (start) {
     return {
       from: start,
-      to: dateKernel.addYears(dateKernel.addDays(start, 1), ActivityGraphConfig.number_of_years),
+      to: dateKernel.addYears(dateKernel.subDays(start, 1), ActivityGraphConfig.number_of_years),
     };
   }
 
   if (end) {
     return {
-      from: dateKernel.subYears(dateKernel.addDays(end, 1), ActivityGraphConfig.number_of_years),
+      from: dateKernel.subYears(dateKernel.subDays(end, 1), ActivityGraphConfig.number_of_years),
       to: end,
     };
   }
 
   return {
-    from: dateKernel.subYears(dateKernel.addDays(new Date(), 1), ActivityGraphConfig.number_of_years),
+    from: dateKernel.subYears(dateKernel.subDays(new Date(), 1), ActivityGraphConfig.number_of_years),
     to: new Date(),
   };
 };
@@ -107,10 +107,33 @@ export const useGetData = (data: ActivityGraphData[], date: Date) => {
   return data?.find(d => dateKernel.isSameDay(date, new Date(d.date)));
 };
 
+export const useGetMonthsSeparator = (days: Date[]) => {
+  const dateKernel = bootstrap.getDateKernelPort();
+  const columns = useActivityColumns(days);
+  const months: { month: Date; col: number }[] = [];
+
+  columns.forEach(column => {
+    if (column[3]) {
+      const findMonth = months.find(month => dateKernel.isSameMonth(month.month, column[3]));
+      if (findMonth) {
+        findMonth.col += 1;
+      } else {
+        months.push({
+          month: column[3],
+          col: 1,
+        });
+      }
+    }
+  });
+
+  return months.filter(month => month.col > 1);
+};
+
 export const activityGraphHooks = {
   useActivityGraph,
   useActivityColumns,
   useCreateLevel,
   useGetLevel,
   useGetData,
+  useGetMonthsSeparator,
 };

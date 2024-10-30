@@ -1,4 +1,6 @@
 import {
+  GetBiContributorActivityByIdPortParams,
+  GetBiContributorActivityByIdPortResponse,
   GetBiContributorByIdPortParams,
   GetBiContributorByIdPortResponse,
   GetBiContributorsCsvPortResponse,
@@ -28,4 +30,5 @@ export interface BiStoragePort {
   getBiContributorsCsv(p: GetBiContributorsPortParams): GetBiContributorsCsvPortResponse;
   getBiStatsFinancials(p: GetBiStatsFinancialsPortParams): GetBiStatsFinancialsPortResponse;
   getBiContributorById(p: GetBiContributorByIdPortParams): GetBiContributorByIdPortResponse;
+  getBiContributorActivityById(p: GetBiContributorActivityByIdPortParams): GetBiContributorActivityByIdPortResponse;
 }

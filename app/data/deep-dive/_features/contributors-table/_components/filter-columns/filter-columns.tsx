@@ -46,7 +46,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isCheckbox: true,
           },
           {
-            id: "countryCode",
+            id: "country",
             label: <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
@@ -61,7 +61,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             isLabel: true,
           },
           {
-            id: "totalRewardedUsdAmount",
+            id: "rewardedAmount",
             label: <Translate token={"data:deepDive.contributorsTable.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,

@@ -7,3 +7,4 @@ export * from "./use-get-bi-contributors";
 export * from "./use-get-bi-contributors-csv";
 export * from "./use-get-bi-stats-financials";
 export * from "./use-get-bi-contributor-by-id";
+export * from "./use-get-bi-contributor-activity-by-id";

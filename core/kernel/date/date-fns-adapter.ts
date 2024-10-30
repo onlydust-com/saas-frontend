@@ -35,6 +35,10 @@ export class DateFnsAdapter implements DateFacadePort {
     return DateFns.addDays(date, days);
   }
 
+  subDays(date: Date, days: number): Date {
+    return DateFns.subDays(date, days);
+  }
+
   eachDayOfInterval(start: Date, end: Date): Date[] {
     return DateFns.eachDayOfInterval({ start, end });
   }
