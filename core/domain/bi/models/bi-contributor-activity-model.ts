@@ -26,7 +26,7 @@ export class BiContributorActivity implements BiContributorActivityInterface {
     this.days = props.days.map(day => ({
       ...day,
       date: setYear(setWeek(setDay(new Date(), day.day), day.week), day.year),
-      count: (day.codeReviewCount || 0) + (day.issueCount || 0) + (day.pullRequestCount || 0),
+      count: (day.rewardCount || 0) + (day.codeReviewCount || 0) + (day.issueCount || 0) + (day.pullRequestCount || 0),
       hasReward: day.rewardCount > 0,
     }));
 

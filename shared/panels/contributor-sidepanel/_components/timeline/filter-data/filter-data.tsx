@@ -9,6 +9,7 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { DataSourceSelect } from "@/shared/panels/contributor-sidepanel/_components/data-source-select/data-source-select";
+import { DateSourceSelect } from "@/shared/panels/contributor-sidepanel/_components/data-source-select/data-source-select.types";
 import { useTimelineFilterDataSidePanel } from "@/shared/panels/contributor-sidepanel/_components/timeline/filter-data/filter-data.hooks";
 import { TimelineFilters } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -56,7 +57,7 @@ export function FilterData({ user }: FilterDataProps) {
             user={user}
             name="timeline-data-source"
             selectedProjects={filters.projectIds}
-            selectedSource={filters.dataSource}
+            selectedSource={filters.dataSource as DateSourceSelect | undefined}
             isMultiple={true}
             disabledAutoOrdering={true}
             onSelect={(projectsIds, source) =>
