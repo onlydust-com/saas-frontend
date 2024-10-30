@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } f
 interface ClassNames {
   wrapper: string;
   tooltip: string;
+  content: string;
 }
 
 export interface TooltipPort<C extends ElementType> extends PropsWithChildren {

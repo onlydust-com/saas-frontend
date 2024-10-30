@@ -1,7 +1,8 @@
-import { Clock } from "lucide-react";
+import { ClipboardCheck, Clock } from "lucide-react";
 
 import { bootstrap } from "@/core/bootstrap";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -28,13 +29,13 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
             {contribution.githubTitle}
           </Typo>
 
-          <div>
-            <ContributionBadge
-              type={contribution.type}
-              githubStatus={contribution.githubStatus}
-              number={contribution.githubNumber}
-            />
-          </div>
+          {!!contribution.linkedIssues?.length && (
+            <div>
+              <Badge color={"brand"} size={"xs"} icon={{ component: ClipboardCheck }}>
+                {contribution.linkedIssues?.length}
+              </Badge>
+            </div>
+          )}
         </header>
 
         <div className={"grid gap-xl"}>
@@ -64,10 +65,15 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
             />
           </div>
 
-          <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
-            {/*{renderGithubLabels()}*/}
-            labels
-          </footer>
+          {contribution.languages?.length ? (
+            <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
+              {contribution.languages?.map(language => (
+                <Badge color={"grey"} size={"xs"} key={language.id}>
+                  {language.name}
+                </Badge>
+              ))}
+            </footer>
+          ) : null}
         </div>
       </div>
     );
@@ -81,7 +87,11 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
           number={contribution.githubNumber}
           githubStatus={contribution.githubStatus}
         />
-        <Tooltip content={tooltipContent()} background={"primary"}>
+        <Tooltip
+          content={tooltipContent()}
+          background={"primary"}
+          classNames={{ content: "w-[16.375rem] max-w-[16.375rem]" }}
+        >
           <Typo
             size={"sm"}
             weight={"medium"}

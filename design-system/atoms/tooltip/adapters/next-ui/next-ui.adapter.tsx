@@ -34,7 +34,7 @@ export function TooltipNextUiAdapter<C extends ElementType = "div">({
   return (
     <NextUiTooltip
       content={
-        <div className={"flex w-full max-w-[224px] flex-col gap-xs"}>
+        <div className={cn("flex w-full max-w-[224px] flex-col gap-xs", classNames?.content)}>
           {!!title && (
             <Typo
               size={"xs"}
