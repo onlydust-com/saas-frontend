@@ -2,5 +2,10 @@
   "contribution": {
     "link": "Link other PR, Issues",
     "create": "Create a contribution"
+  },
+  "footer": {
+    "actions": {
+      "rewardInFullPage": "Reward in full page"
+    }
   }
 }

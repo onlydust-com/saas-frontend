@@ -14,7 +14,7 @@ export class BiContributor implements BiContributorInterface {
   codeReviewCount!: BiContributorResponse["codeReviewCount"];
   contributionCount!: BiContributorResponse["contributionCount"];
   contributor!: BiContributorResponse["contributor"];
-  countryCode!: BiContributorResponse["countryCode"];
+  country!: BiContributorResponse["country"];
   ecosystems!: BiContributorResponse["ecosystems"];
   issueCount!: BiContributorResponse["issueCount"];
   languages!: BiContributorResponse["languages"];
@@ -30,6 +30,7 @@ export class BiContributor implements BiContributorInterface {
 
   constructor(props: BiContributorResponse) {
     Object.assign(this, props);
+
     this.rank = new UserRank({
       rankCategory: this.contributor.globalRankCategory,
       rank: this.contributor.globalRank,

@@ -7,41 +7,41 @@ import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
     <TableColumnList
-      titleProps={{ token: "modals:manageApplicants.table.filters.columnList" }}
+      titleProps={{ token: "modals:manageRewards.table.filters.columnList" }}
       menuProps={{
         items: [
           {
             id: "global",
-            label: <Translate token={"modals:manageApplicants.table.filters.global"} />,
+            label: <Translate token={"modals:manageRewards.table.filters.global"} />,
             isLabel: true,
           },
           {
             id: "contributor",
-            label: <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.contributor"} />,
             searchValue: "Contributor",
             isCheckbox: true,
           },
           {
             id: "labels",
-            label: <Translate token={"modals:manageApplicants.table.columns.labels"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.labels"} />,
             searchValue: "Labels",
             isCheckbox: true,
           },
           {
             id: "languages",
-            label: <Translate token={"modals:manageApplicants.table.columns.languages"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.languages"} />,
             searchValue: "Languages",
             isCheckbox: true,
           },
           {
             id: "ecosystems",
-            label: <Translate token={"modals:manageApplicants.table.columns.ecosystems"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.ecosystems"} />,
             searchValue: "Ecosystems",
             isCheckbox: true,
           },
           {
             id: "country",
-            label: <Translate token={"modals:manageApplicants.table.columns.country"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
           },
@@ -51,12 +51,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
           {
             id: "financial",
-            label: <Translate token={"modals:manageApplicants.table.filters.financial"} />,
+            label: <Translate token={"modals:manageRewards.table.filters.financial"} />,
             isLabel: true,
           },
           {
             id: "rewardedAmount",
-            label: <Translate token={"modals:manageApplicants.table.columns.rewardedAmount"} />,
+            label: <Translate token={"modals:manageRewards.table.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,
           },

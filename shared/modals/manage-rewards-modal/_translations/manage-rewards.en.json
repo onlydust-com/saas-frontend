@@ -1,8 +1,5 @@
 {
-  "title": "Applicants ({{ count }})",
-  "projectContributors": "Project contributors",
-  "newContributors": "New contributors",
-  "ignored": "Ignored",
+  "title": "Rewards",
   "table": {
     "columns": {
       "contributor": "Contributor",
@@ -10,21 +7,18 @@
       "languages": "Languages",
       "ecosystems": "Ecosystems",
       "country": "Country",
-      "rewardedAmount": "Rewarded amount",
-      "actions": "Actions"
+      "rewardedAmount": "Rewarded amount"
     },
     "rows": {
       "languages": "{{count}} languages",
       "ecosystems": "{{count}} ecosystems",
-      "ignore": "Ignore",
-      "assign": "Assign",
       "labels": {
         "placeholder": "Select a label"
       }
     },
     "filters": {
-      "title": "Applicants filters",
-      "columnList": "Applicants columns",
+      "title": "Contributors filters",
+      "columnList": "Contributors columns",
       "global": "Global",
       "financial": "Financial",
       "save": "Validate",
@@ -33,10 +27,6 @@
     "toast": {
       "success": "Contributor label changed successfully.",
       "error": "Error changing contributor label."
-    },
-    "actions": {
-      "ignore": "Ignore",
-      "assign": "Assign"
     }
   }
 }
