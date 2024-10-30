@@ -1,9 +1,9 @@
 import { bootstrap } from "@/core/bootstrap";
 
-import { ActivityGraphLevel } from "@/shared/features/activity-graph/activity-graph.types";
 import { ActivityGraphConfig } from "@/shared/features/contributors/activity-graph/activity-graph.constants";
 import {
   ActivityGraphData,
+  ActivityGraphLevel,
   ActivityGraphLevelRange,
 } from "@/shared/features/contributors/activity-graph/activity-graph.types";
 
