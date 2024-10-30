@@ -36,4 +36,21 @@ export const Default: Story = {
   },
 };
 
+export const BackgroundPrimary: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Tooltip />" },
+    },
+  },
+  render: args => {
+    return (
+      <div className="flex w-full items-center gap-2">
+        <Tooltip {...defaultProps} {...args} background={"primary"}>
+          <Button isDisabled>Show tooltip</Button>
+        </Tooltip>
+      </div>
+    );
+  },
+};
+
 export default meta;

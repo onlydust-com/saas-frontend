@@ -37,5 +37,17 @@
   "publicRepo": {
     "title": "Public Repositories ({{count}})"
   },
+  "timeline": {
+    "title": "Contributions activity",
+    "showMore": "Show more",
+    "filter": {
+      "dataSource": "Data",
+      "all": "Github (All Data)",
+      "internal": "OnlyDust only"
+    },
+    "item": {
+      "repoLabel": "Repo"
+    }
+  },
   "seeContributor": "See public profile"
 }

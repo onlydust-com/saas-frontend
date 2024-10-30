@@ -5,15 +5,15 @@ import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function useRangeSelectOptions(): MenuItemPort[] {
+export function useRangeSelectOptions(options?: { excludedRange?: DateRangeType[] }): MenuItemPort[] {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const ranges: DateRangeType[] = [
-    DateRangeType.LAST_WEEK,
-    DateRangeType.LAST_MONTH,
-    DateRangeType.LAST_SEMESTER,
-    DateRangeType.LAST_YEAR,
-    DateRangeType.ALL_TIME,
+    ...(options?.excludedRange?.includes(DateRangeType.LAST_WEEK) ? [] : [DateRangeType.LAST_WEEK]),
+    ...(options?.excludedRange?.includes(DateRangeType.LAST_MONTH) ? [] : [DateRangeType.LAST_MONTH]),
+    ...(options?.excludedRange?.includes(DateRangeType.LAST_SEMESTER) ? [] : [DateRangeType.LAST_SEMESTER]),
+    ...(options?.excludedRange?.includes(DateRangeType.LAST_YEAR) ? [] : [DateRangeType.LAST_YEAR]),
+    ...(options?.excludedRange?.includes(DateRangeType.ALL_TIME) ? [] : [DateRangeType.ALL_TIME]),
   ];
 
   return ranges.map(range => {

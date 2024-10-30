@@ -13,24 +13,31 @@ import { ContributionTypeAutocompleteProps } from "@/shared/features/autocomplet
 export function ContributionTypeAutocomplete({
   selectedContributionType,
   onSelect,
+  excludeContributionTypes,
   ...selectProps
 }: ContributionTypeAutocompleteProps) {
   const { t } = useTranslation("common");
 
+  function addContributionType(option: SelectPort<AnyType>["items"][0]): SelectPort<AnyType>["items"] {
+    if (excludeContributionTypes?.includes(option.id)) return [];
+
+    return [option];
+  }
+
   const contributionTypesItems: MenuItemPort<ContributionTypeUnion>[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
-      {
+      ...addContributionType({
         label: t("contributionType.PULL_REQUEST"),
         id: ContributionFilterType.PULL_REQUEST,
-      },
-      {
+      }),
+      ...addContributionType({
         label: t("contributionType.CODE_REVIEW"),
         id: ContributionFilterType.CODE_REVIEW,
-      },
-      {
+      }),
+      ...addContributionType({
         label: t("contributionType.ISSUE"),
         id: ContributionFilterType.ISSUE,
-      },
+      }),
     ];
     return [...options];
     // eslint-disable-next-line react-hooks/exhaustive-deps
