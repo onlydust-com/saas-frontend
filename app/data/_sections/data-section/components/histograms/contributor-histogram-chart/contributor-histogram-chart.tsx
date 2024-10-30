@@ -22,6 +22,7 @@ import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/char
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
+import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorHistogramChart() {
@@ -29,6 +30,7 @@ export function ContributorHistogramChart() {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const rangeMenu = useRangeSelectOptions();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
+  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: rangeType });
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>("pr");
   const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
@@ -164,18 +166,7 @@ export function ContributorHistogramChart() {
               <Translate token={`common:dateRangeType.${rangeType}`} />
             </Button>
           </Menu>
-          <Menu
-            items={[
-              { label: <Translate token={"common:timeGroupingType.DAY"} />, id: TimeGroupingType.DAY },
-              { label: <Translate token={"common:timeGroupingType.WEEK"} />, id: TimeGroupingType.WEEK },
-              { label: <Translate token={"common:timeGroupingType.MONTH"} />, id: TimeGroupingType.MONTH },
-              { label: <Translate token={"common:timeGroupingType.QUARTER"} />, id: TimeGroupingType.QUARTER },
-              { label: <Translate token={"common:timeGroupingType.YEAR"} />, id: TimeGroupingType.YEAR },
-            ]}
-            selectedIds={[timeGroupingType]}
-            onAction={onChangeTimeGroupingType}
-            isPopOver
-          >
+          <Menu items={timeGroupingMenu} selectedIds={[timeGroupingType]} onAction={onChangeTimeGroupingType} isPopOver>
             <Button variant={"secondary"} size={"md"} endIcon={{ component: ChevronDown }}>
               <Translate token={`common:timeGroupingType.${timeGroupingType}`} />
             </Button>
