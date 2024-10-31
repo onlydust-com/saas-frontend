@@ -56,7 +56,7 @@ export function TransactionsContextProvider({ children, sponsorId }: Transaction
     queryParams: {
       ...debouncedQueryParams,
       sort: "DATE",
-      sortDirection: "ASC",
+      sortDirection: "DESC",
       showEmpty: true,
       sponsorId,
     },
