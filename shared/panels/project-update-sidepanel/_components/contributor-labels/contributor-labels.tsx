@@ -55,33 +55,35 @@ export function ContributorLabels() {
       id={"contributor-labels"}
       titleProps={{ translate: { token: "panels:projectUpdate.contributorLabels.title" } }}
     >
-      <div className={"flex flex-row flex-wrap gap-md"}>
-        {fields.map((item, index) => (
-          <Controller
-            key={item.id}
-            name={`labels.${index}`}
-            control={control}
-            render={({ field }) => (
-              <Badge
-                color={"brand"}
-                as={"div"}
-                size={"xs"}
-                isDeletable
-                classNames={{ base: "w-fit cursor-pointer" }}
-                htmlProps={{
-                  onClick: () => onEnableEdit(index, field.value.name),
-                }}
-                closeProps={{
-                  as: "span",
-                  onClose: () => remove(index),
-                }}
-              >
-                {field.value.name}
-              </Badge>
-            )}
-          />
-        ))}
-      </div>
+      {fields.length ? (
+        <div className={"flex flex-row flex-wrap gap-md"}>
+          {fields.map((item, index) => (
+            <Controller
+              key={item.id}
+              name={`labels.${index}`}
+              control={control}
+              render={({ field }) => (
+                <Badge
+                  color={"brand"}
+                  as={"div"}
+                  size={"xs"}
+                  isDeletable
+                  classNames={{ base: "w-fit cursor-pointer" }}
+                  htmlProps={{
+                    onClick: () => onEnableEdit(index, field.value.name),
+                  }}
+                  closeProps={{
+                    as: "span",
+                    onClose: () => remove(index),
+                  }}
+                >
+                  {field.value.name}
+                </Badge>
+              )}
+            />
+          ))}
+        </div>
+      ) : null}
       {!showEdit ? (
         <div className={"flex w-full flex-col gap-md"}>
           <Input
