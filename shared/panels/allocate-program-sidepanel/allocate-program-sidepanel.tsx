@@ -20,7 +20,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function AllocateProgramSidepanel() {
   const { name } = useAllocateProgramSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { sponsorId, programId } = useSinglePanelData<AllocateProgramData>(name) ?? {
+  const { sponsorId, programId, canGoBack } = useSinglePanelData<AllocateProgramData>(name) ?? {
     sponsorId: "",
     programId: "",
   };
@@ -92,7 +92,7 @@ export function AllocateProgramSidepanel() {
         title={{
           translate: { token: "panels:allocateProgram.title" },
         }}
-        canGoBack
+        canGoBack={canGoBack !== false}
         canClose
       />
 
