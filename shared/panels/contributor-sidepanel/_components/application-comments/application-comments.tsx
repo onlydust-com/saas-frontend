@@ -10,9 +10,9 @@ import { Accordion } from "@/design-system/molecules/accordion";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 
-import { CommentsProps } from "./comments.types";
+import { ApplicationCommentsProps } from "./application-comments.types";
 
-export function Comments({ applicationId }: CommentsProps) {
+export function ApplicationComments({ applicationId }: ApplicationCommentsProps) {
   const { data, isLoading } = ApplicationReactQueryAdapter.client.useGetApplicationById({
     pathParams: { applicationId },
     options: {

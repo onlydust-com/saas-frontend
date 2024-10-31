@@ -22,7 +22,7 @@ import { Timeline } from "@/shared/panels/contributor-sidepanel/_components/time
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { Comments } from "./_components/comments/comments";
+import { ApplicationComments } from "./_components/application-comments/application-comments";
 import { ContributorSidepanelData, ContributorSidepanelProps } from "./contributor-sidepanel.types";
 
 export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps) {
@@ -68,7 +68,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
             <Languages githubId={data?.contributor.githubUserId} />
             <Ecosystems githubId={data?.contributor.githubUserId} />
             <Kpi user={data} />
-            <Comments applicationId={applicationId} />
+            {applicationId ? <ApplicationComments applicationId={applicationId} /> : null}
             <RewardsGraph githubId={data?.contributor.githubUserId} />
             {/* !KEEP this
              * <PublicRepo />
