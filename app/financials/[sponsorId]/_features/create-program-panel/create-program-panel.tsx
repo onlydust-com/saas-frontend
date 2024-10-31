@@ -106,6 +106,7 @@ export function CreateProgramPanel() {
                     placeholder={t("createProgramPanel.informations.lead.placeholder")}
                     onSelect={onChange}
                     selectedUser={value}
+                    isMultiple={true}
                   />
                 )}
               />
