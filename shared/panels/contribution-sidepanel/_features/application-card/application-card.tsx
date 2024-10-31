@@ -24,6 +24,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
     open({
       githubId: contributor.githubUserId,
       canGoBack: true,
+      applicationId,
     });
   }
 
