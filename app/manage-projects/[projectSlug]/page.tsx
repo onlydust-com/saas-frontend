@@ -86,7 +86,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
             <AnimatedColumn className="h-full">
               <ScrollView className="flex flex-col gap-md">
                 {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
-                <RepoIndexingAlert indexingComplete={false} />
+                <RepoIndexingAlert indexingComplete={projectData?.isIndexingCompleted() ?? true} />
                 <PageContent classNames={{ base: "flex-none" }}>
                   <FinancialSection projectId={data?.id} />
                 </PageContent>
