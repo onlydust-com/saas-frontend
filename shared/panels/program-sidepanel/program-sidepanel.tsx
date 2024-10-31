@@ -25,6 +25,7 @@ export function ProgramSidepanel() {
     programId,
     canGoBack = false,
     onEditClick,
+    onAllocateClick,
   } = useSinglePanelData<ProgramSidePanelData>(name) ?? { programId: "" };
   const { data, isLoading, isError } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: { programId },
@@ -70,27 +71,35 @@ export function ProgramSidepanel() {
       <SidePanelBody>{renderContent()}</SidePanelBody>
       {data ? (
         <SidePanelFooter>
-          <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
-            {onEditClick ? (
-              <Button size={"md"} variant={"secondary"} onClick={() => onEditClick(data?.id)}>
-                <Translate token={"panels:program.buttons.edit"} />
+          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+            {onAllocateClick ? (
+              <Button size={"md"} variant={"secondary"} onClick={() => onAllocateClick(data?.id)}>
+                <Translate token={"panels:program.buttons.allocate"} />
               </Button>
             ) : (
               <div />
             )}
-
-            {data ? (
-              <Button
-                variant={"secondary"}
-                size={"md"}
-                as={BaseLink}
-                htmlProps={{
-                  href: NEXT_ROUTER.programs.details.root(data.id),
-                }}
-              >
-                <Translate token={"panels:program.buttons.see"} />
-              </Button>
-            ) : null}
+            <div className={"flex flex-row items-center justify-end gap-lg"}>
+              {onEditClick ? (
+                <Button size={"md"} variant={"secondary"} onClick={() => onEditClick(data?.id)}>
+                  <Translate token={"panels:program.buttons.edit"} />
+                </Button>
+              ) : (
+                <div />
+              )}
+              {data ? (
+                <Button
+                  variant={"secondary"}
+                  size={"md"}
+                  as={BaseLink}
+                  htmlProps={{
+                    href: NEXT_ROUTER.programs.details.root(data.id),
+                  }}
+                >
+                  <Translate token={"panels:program.buttons.see"} />
+                </Button>
+              ) : null}
+            </div>
           </div>
         </SidePanelFooter>
       ) : null}

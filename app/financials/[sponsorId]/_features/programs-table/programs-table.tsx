@@ -53,6 +53,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     openProgram({
       programId,
       onEditClick: (id: string) => OpenEditProgram({ programId: id, sponsorId }),
+      onAllocateClick: (id: string) => onAllocateClick(id),
     });
   }
 
