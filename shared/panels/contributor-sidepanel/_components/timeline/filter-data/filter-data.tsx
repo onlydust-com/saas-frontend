@@ -42,7 +42,7 @@ export function FilterData({ user }: FilterDataProps) {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"data:deepDive.filters.titles.project"} />,
+          children: <Translate token={"panels:contributor.timeline.filter.title"} />,
         }}
         canGoBack={true}
         canClose={true}
