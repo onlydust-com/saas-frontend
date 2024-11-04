@@ -6,7 +6,9 @@ import { useLocalStorage } from "react-use";
 import { bootstrap } from "@/core/bootstrap";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
@@ -33,6 +35,7 @@ export function useFilterColumns() {
         "contributionCount",
         "prCount",
         "rewardCount",
+        "activityStatus",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
@@ -198,7 +201,9 @@ export function useFilterColumns() {
 
         return (
           <TableCellKpi shape={"squared"} badgeClassNames={{ label: "leading-[0]" }}>
-            <Flag code={country.code} hasBorder={false} size={"m"} />
+            <Tooltip content={country.name}>
+              <Flag code={country.code} hasBorder={false} size={"m"} />
+            </Tooltip>
           </TableCellKpi>
         );
       },
@@ -248,6 +253,25 @@ export function useFilterColumns() {
         const formattedValue = Intl.NumberFormat().format(value);
 
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
+      },
+    }),
+    activityStatus: columnHelper.accessor("activityStatus", {
+      header: () => <Translate token={"data:deepDive.contributorsTable.columns.activityStatus"} />,
+      cell: info => {
+        const activityStatus = info.getValue();
+
+        if (!activityStatus) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
+
+        return (
+          <Badge
+            size="sm"
+            shape="squared"
+            classNames={{ base: "w-fit" }}
+            translate={{ token: `common:contributorActivityStatus.${activityStatus}` }}
+          />
+        );
       },
     }),
   } as const;

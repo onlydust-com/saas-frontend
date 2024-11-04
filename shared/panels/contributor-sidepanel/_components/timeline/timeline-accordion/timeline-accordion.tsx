@@ -85,8 +85,8 @@ export function TimelineAccordion(props: TimelineAccordionProps) {
         <Badge size={"xs"} shape={"squared"} color={"grey"} iconOnly={true} icon={{ component: Calendar }} />
       }
     >
-      <div className={"flex flex-col gap-md px-md pl-[0.875rem]"}>
-        <div className={"border-l-1 border-l-components-badge-grey-border"}>
+      <div className={"flex flex-col gap-md px-md pl-[0.84375rem]"}>
+        <div className={"border-l-1 border-l-border-primary"}>
           <TimelineAccordionContent {...props} />
         </div>
       </div>

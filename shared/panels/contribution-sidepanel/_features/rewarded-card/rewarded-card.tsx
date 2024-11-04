@@ -28,7 +28,7 @@ export function RewardedCard({ reward, processedAt }: RewardedCardProps) {
     <Paper
       border="primary"
       size="lg"
-      classNames={{ base: "flex flex-col gap-lg app_gradient overflow-hidden shrink-0" }}
+      classNames={{ base: "flex flex-col gap-lg app-gradient overflow-hidden shrink-0" }}
     >
       <div className="relative z-[1] flex flex-col gap-3xl">
         <div className="flex justify-between gap-lg">

@@ -21,3 +21,13 @@ export type AcceptApplicationPathParams = operations["acceptProjectApplication"]
 export type AcceptApplicationPortParams = HttpClientParameters<{ PathParams: AcceptApplicationPathParams }>;
 
 export type AcceptApplicationPortResponse = HttpStorageResponse;
+
+/* ----------------------------- Get application ---------------------------- */
+
+export type GetApplicationByIdPathParams = operations["getProjectApplication"]["parameters"]["path"];
+
+export type GetApplicationByIdPortParams = HttpClientParameters<{ PathParams: GetApplicationByIdPathParams }>;
+
+export type GetApplicationByIdResponse = components["schemas"]["ProjectApplicationResponse"];
+
+export type GetApplicationByIdPortResponse = HttpStorageResponse<GetApplicationByIdResponse>;

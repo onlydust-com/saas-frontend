@@ -25,6 +25,14 @@ export const BadgeDefaultVariants = tv({
         base: "px-lg py-md",
         content: "gap-2",
       },
+      lg: {
+        base: "px-lg py-2md",
+        content: "gap-md",
+      },
+      xl: {
+        base: "px-xl py-lg",
+        content: "gap-2md",
+      },
     },
     isDeletable: {
       true: {},
@@ -34,24 +42,33 @@ export const BadgeDefaultVariants = tv({
     },
     color: {
       grey: {
-        base: "border-components-badge-grey-border bg-components-badge-grey-bg",
-        content: "text-components-badge-grey-typo",
+        base: "",
       },
       brand: {
-        base: "border-components-badge-brand-border bg-components-badge-brand-bg",
-        content: "text-components-badge-brand-typo",
+        base: "",
       },
       error: {
-        base: "border-components-badge-error-border bg-components-badge-error-bg",
-        content: "text-components-badge-error-typo",
+        base: "",
       },
       warning: {
-        base: "border-components-badge-badge-warning-border bg-components-badge-badge-warning-bg",
-        content: "text-components-badge-badge-warning-typo",
+        base: "",
       },
       success: {
-        base: "border-components-badge-success-border bg-components-badge-success-bg",
-        content: "text-components-badge-success-typo",
+        base: "",
+      },
+      inverse: {
+        base: "",
+      },
+    },
+    variant: {
+      flat: {
+        base: "",
+      },
+      outline: {
+        base: "",
+      },
+      solid: {
+        base: "",
       },
     },
     shape: {
@@ -121,11 +138,144 @@ export const BadgeDefaultVariants = tv({
         base: "px-md py-md",
       },
     },
+    // FLAT
+    {
+      variant: "flat",
+      color: "grey",
+      class: {
+        base: "bg-components-badge-grey-backgroundoutline-bg border-components-badge-grey-backgroundoutline-border",
+        content: "text-components-badge-grey-backgroundoutline-typo",
+      },
+    },
+    {
+      variant: "flat",
+      color: "warning",
+      class: {
+        base: "bg-components-badge-warning-backgroundoutline-bg border-components-badge-warning-backgroundoutline-border",
+        content: "text-components-badge-warning-backgroundoutline-typo",
+      },
+    },
+    {
+      variant: "flat",
+      color: "brand",
+      class: {
+        base: "bg-components-badge-brand-backgroundoutline-bg border-components-badge-brand-backgroundoutline-border",
+        content: "text-components-badge-brand-backgroundoutline-typo",
+      },
+    },
+    {
+      variant: "flat",
+      color: "success",
+      class: {
+        base: "bg-components-badge-success-backgroundoutline-bg border-components-badge-success-backgroundoutline-border",
+        content: "text-components-badge-success-backgroundoutline-typo",
+      },
+    },
+    {
+      variant: "flat",
+      color: "error",
+      class: {
+        base: "bg-components-badge-error-backgroundoutline-bg border-components-badge-error-backgroundoutline-border",
+        content: "text-components-badge-error-backgroundoutline-typo",
+      },
+    },
+
+    // OUTLINE
+    {
+      variant: "outline",
+      color: "grey",
+      class: {
+        base: "bg-components-badge-grey-outline-bg border-components-badge-grey-outline-border",
+        content: "text-components-badge-grey-outline-typo",
+      },
+    },
+    {
+      variant: "outline",
+      color: "warning",
+      class: {
+        base: "bg-components-badge-warning-outline-bg border-components-badge-warning-outline-border",
+        content: "text-components-badge-warning-outline-typo",
+      },
+    },
+    {
+      variant: "outline",
+      color: "brand",
+      class: {
+        base: "bg-components-badge-brand-outline-bg border-components-badge-brand-outline-border",
+        content: "text-components-badge-brand-outline-typo",
+      },
+    },
+    {
+      variant: "outline",
+      color: "success",
+      class: {
+        base: "bg-components-badge-success-outline-bg border-components-badge-success-outline-border",
+        content: "text-components-badge-success-outline-typo",
+      },
+    },
+    {
+      variant: "outline",
+      color: "error",
+      class: {
+        base: "bg-components-badge-error-outline-bg border-components-badge-error-outline-border",
+        content: "text-components-badge-error-outline-typo",
+      },
+    },
+    // OUTLINE
+    {
+      variant: "solid",
+      color: "grey",
+      class: {
+        base: "bg-components-badge-grey-solid-bg border-0",
+        content: "text-components-badge-grey-solid-typo",
+      },
+    },
+    {
+      variant: "solid",
+      color: "warning",
+      class: {
+        base: "bg-components-badge-warning-solid-bg border-0",
+        content: "text-components-badge-warning-solid-typo",
+      },
+    },
+    {
+      variant: "solid",
+      color: "brand",
+      class: {
+        base: "bg-components-badge-brand-solid-bg border-0",
+        content: "text-components-badge-brand-solid-typo",
+      },
+    },
+    {
+      variant: "solid",
+      color: "success",
+      class: {
+        base: "bg-components-badge-success-solid-bg border-0",
+        content: "text-components-badge-success-solid-typo",
+      },
+    },
+    {
+      variant: "solid",
+      color: "error",
+      class: {
+        base: "bg-components-badge-error-solid-bg border-0",
+        content: "text-components-badge-error-solid-typo",
+      },
+    },
+    {
+      variant: "solid",
+      color: "inverse",
+      class: {
+        base: "bg-components-badge-invert-solid-bg border-0",
+        content: "text-components-badge-invert-solid-typo",
+      },
+    },
   ],
   defaultVariants: {
     size: "sm",
     shape: "rounded",
     color: "grey",
+    variant: "flat",
     isDeletable: false,
     iconOnly: false,
   },

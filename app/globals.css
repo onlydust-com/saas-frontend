@@ -596,50 +596,104 @@
 
     /* COMPONENTS BADGE */
 
-    --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-grey-closexitem-bg_hover: var(--background-tertiary);
-    --components-badge-grey-closexitem-fg: var(--foreground-quaternary);
-    --components-badge-grey-closexitem-fg_hover: var(--foreground-quinary_hover);
-    --components-badge-grey-bg: var(--background-secondary);
-    --components-badge-grey-fg: var(--foreground-quaternary);
-    --components-badge-grey-typo: var(--typography-tertiary);
-    --components-badge-grey-border: var(--border-primary);
 
-    --components-badge-brand-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-brand-bg: var(--utility-brand-crystalizedviolet-50);
-    --components-badge-brand-fg: var(--utility-brand-crystalizedviolet-400);
-    --components-badge-brand-closexitem-bg_hover: var(--utility-brand-crystalizedviolet-100);
-    --components-badge-brand-typo: var(--utility-brand-crystalizedviolet-600);
-    --components-badge-brand-border: var(--utility-brand-crystalizedviolet-100);
-    --components-badge-brand-closexitem-fg: var(--utility-brand-crystalizedviolet-300);
-    --components-badge-brand-closexitem-fg_hover: var(--utility-brand-crystalizedviolet-500-primary);
-
-    --components-badge-error-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-error-bg: var(--utility-error-50);
-    --components-badge-error-closexitem-bg_hover: var(--utility-error-100);
-    --components-badge-error-fg: var(--utility-error-500-primary);
-    --components-badge-error-typo: var(--utility-error-600);
-    --components-badge-error-border: var(--utility-error-100);
-    --components-badge-error-closexitem-fg: var(--utility-error-400);
-    --components-badge-error-closexitem-fg_hover: var(--utility-error-500-primary);
-
-    --components-badge-warning-bg: var(--utility-warning-50);
-    --components-badge-warning-closexitem-bg_hover: var(--utility-warning-100);
-    --components-badge-warning-border: var(--utility-warning-100);
-    --components-badge-warning-closexitem-fg: var(--utility-warning-400);
-    --components-badge-warning-closexitem-fg_hover: var(--utility-warning-500-primary);
-    --components-badge-warning-fg: var(--utility-warning-500-primary);
-    --components-badge-warning-typo: var(--utility-warning-600);
-    --components-badge-warning-closexitem-bg: var(--utility-alpha-white-0);
-
-    --components-badge-success-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-success-bg: var(--utility-success-50);
-    --components-badge-success-closexitem-bg_hover: var(--utility-success-100);
-    --components-badge-success-fg: var(--utility-success-500-primary);
-    --components-badge-success-typo: var(--utility-success-600);
-    --components-badge-success-border: var(--utility-success-100);
-    --components-badge-success-closexitem-fg: var(--utility-success-400);
-    --components-badge-success-closexitem-fg_hover: var(--utility-success-500-primary);
+    --components-badge-grey-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-grey-backgroundoutline-closexitem-bg_hover: var(--background-tertiary);
+    --components-badge-grey-backgroundoutline-closexitem-fg: var(--foreground-quaternary);
+    --components-badge-grey-backgroundoutline-closexitem-fg_hover: var(--foreground-quinary_hover);
+    --components-badge-grey-backgroundoutline-bg: var(--background-secondary);
+    --components-badge-grey-backgroundoutline-fg: var(--foreground-quaternary);
+    --components-badge-grey-backgroundoutline-typo: var(--typography-tertiary);
+    --components-badge-grey-backgroundoutline-border: var(--border-primary);
+    --components-badge-grey-outline-fg: var(--foreground-quaternary);
+    --components-badge-grey-outline-typo: var(--typography-tertiary);
+    --components-badge-grey-outline-border: var(--utility-grey-300);
+    --components-badge-grey-solid-typo: var(--typography-white);
+    --components-badge-grey-solid-bg: var(--utility-grey-500-primary);
+    --components-badge-grey-solid-fg: var(--utility-grey-200);
+    --components-badge-grey-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-grey-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-grey-solid-closexitem-fg: var(--utility-grey-200);
+    --components-badge-grey-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-brand-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-brand-backgroundoutline-bg: var(--utility-brand-crystalizedviolet-50);
+    --components-badge-brand-backgroundoutline-fg: var(--utility-brand-crystalizedviolet-400);
+    --components-badge-brand-backgroundoutline-closexitem-bg_hover: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-backgroundoutline-typo: var(--utility-brand-crystalizedviolet-600);
+    --components-badge-brand-backgroundoutline-border: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-backgroundoutline-closexitem-fg: var(--utility-brand-crystalizedviolet-300);
+    --components-badge-brand-backgroundoutline-closexitem-fg_hover: var(--utility-brand-crystalizedviolet-500-primary);
+    --components-badge-brand-outline-fg: var(--utility-brand-crystalizedviolet-400);
+    --components-badge-brand-outline-typo: var(--utility-brand-crystalizedviolet-600);
+    --components-badge-brand-outline-border: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-solid-typo: var(--typography-white);
+    --components-badge-brand-solid-fg: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-solid-bg: var(--utility-brand-crystalizedviolet-400);
+    --components-badge-brand-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-brand-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-brand-solid-closexitem-fg: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-error-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-error-backgroundoutline-bg: var(--utility-error-50);
+    --components-badge-error-backgroundoutline-closexitem-bg_hover: var(--utility-error-100);
+    --components-badge-error-backgroundoutline-fg: var(--utility-error-500-primary);
+    --components-badge-error-backgroundoutline-typo: var(--utility-error-600);
+    --components-badge-error-backgroundoutline-border: var(--utility-error-100);
+    --components-badge-error-backgroundoutline-closexitem-fg: var(--utility-error-400);
+    --components-badge-error-backgroundoutline-closexitem-fg_hover: var(--utility-error-500-primary);
+    --components-badge-error-outline-typo: var(--utility-error-600);
+    --components-badge-error-outline-fg: var(--utility-error-500-primary);
+    --components-badge-error-outline-border: var(--utility-error-200);
+    --components-badge-error-solid-typo: var(--typography-white);
+    --components-badge-error-solid-fg: var(--utility-error-200);
+    --components-badge-error-solid-bg: var(--utility-error-500-primary);
+    --components-badge-error-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-error-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-error-solid-closexitem-fg: var(--utility-error-200);
+    --components-badge-error-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-warning-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-warning-backgroundoutline-bg: var(--utility-warning-50);
+    --components-badge-warning-outline-fg: var(--utility-warning-500-primary);
+    --components-badge-warning-solid-typo: var(--typography-white);
+    --components-badge-warning-solid-fg: var(--utility-warning-200);
+    --components-badge-warning-solid-bg: var(--utility-warning-600);
+    --components-badge-warning-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-warning-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-warning-solid-closexitem-fg: var(--utility-warning-200);
+    --components-badge-warning-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-warning-outline-typo: var(--utility-warning-600);
+    --components-badge-warning-outline-border: var(--utility-warning-200);
+    --components-badge-warning-backgroundoutline-closexitem-bg_hover: var(--utility-warning-100);
+    --components-badge-warning-backgroundoutline-fg: var(--utility-warning-500-primary);
+    --components-badge-warning-backgroundoutline-typo: var(--utility-warning-600);
+    --components-badge-warning-backgroundoutline-border: var(--utility-warning-100);
+    --components-badge-warning-backgroundoutline-closexitem-fg: var(--utility-warning-400);
+    --components-badge-warning-backgroundoutline-closexitem-fg_hover: var(--utility-warning-500-primary);
+    --components-badge-success-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-success-backgroundoutline-bg: var(--utility-success-50);
+    --components-badge-success-backgroundoutline-closexitem-bg_hover: var(--utility-success-100);
+    --components-badge-success-backgroundoutline-fg: var(--utility-success-500-primary);
+    --components-badge-success-backgroundoutline-typo: var(--utility-success-600);
+    --components-badge-success-backgroundoutline-border: var(--utility-success-100);
+    --components-badge-success-outline-fg: var(--utility-success-500-primary);
+    --components-badge-success-backgroundoutline-closexitem-fg: var(--utility-success-400);
+    --components-badge-success-solid-typo: var(--typography-white);
+    --components-badge-success-solid-fg: var(--utility-success-200);
+    --components-badge-success-solid-bg: var(--utility-success-600);
+    --components-badge-success-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-success-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-success-solid-closexitem-fg: var(--utility-success-200);
+    --components-badge-success-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-success-backgroundoutline-closexitem-fg_hover: var(--utility-success-500-primary);
+    --components-badge-success-outline-typo: var(--utility-success-600);
+    --components-badge-success-outline-border: var(--utility-success-200);
+    --components-badge-inverse-solid-typo: var(--typography-primary_on-solid);
+    --components-badge-inverse-solid-fg: var(--utility-grey-100);
+    --components-badge-inverse-solid-bg: var(--background-primary-solid);
+    --components-badge-inverse-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-inverse-solid-closexitem-bg_hover: var(--utility-alpha-white-20);
+    --components-badge-inverse-solid-closexitem-fg: var(--utility-grey-200);
+    --components-badge-inverse-solid-closexitem-fg_hover: var(--foreground-white);
 
     /* COMPONENTS TEXTBUTTONS */
     --components-textbutton-primary-fg: var(--typography-brand-secondary_alt);
@@ -986,46 +1040,101 @@
     --utility-gradient-app-bg-linear-2-3: #250059;
 
     /** COMPONENTS BADGE **/
-    --components-badge-grey-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-grey-bg: var(--background-secondary);
-    --components-badge-grey-closexitem-bg_hover: var(--background-tertiary);
-    --components-badge-grey-fg: var(--foreground-quaternary);
-    --components-badge-grey-typo: var(--typography-tertiary);
-    --components-badge-grey-border: var(--border-primary);
-    --components-badge-grey-closexitem-fg: var(--foreground-quaternary);
-    --components-badge-grey-closexitem-fg_hover: var(--foreground-quinary_hover);
-    --components-badge-brand-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-brand-bg: var(--utility-brand-crystalizedviolet-50);
-    --components-badge-brand-fg: var(--utility-brand-crystalizedviolet-500-primary);
-    --components-badge-brand-closexitem-bg_hover: var(--utility-brand-crystalizedviolet-100);
-    --components-badge-brand-typo: var(--utility-brand-crystalizedviolet-700);
-    --components-badge-brand-border: var(--utility-brand-crystalizedviolet-100);
-    --components-badge-brand-closexitem-fg: var(--utility-brand-crystalizedviolet-600);
-    --components-badge-brand-closexitem-fg_hover: var(--utility-brand-crystalizedviolet-600);
-    --components-badge-error-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-error-bg: var(--utility-error-50);
-    --components-badge-error-closexitem-bg_hover: var(--utility-error-100);
-    --components-badge-error-fg: var(--utility-error-500-primary);
-    --components-badge-error-typo: var(--utility-error-600);
-    --components-badge-error-border: var(--utility-error-100);
-    --components-badge-error-closexitem-fg: var(--utility-error-500-primary);
-    --components-badge-error-closexitem-fg_hover: var(--utility-error-600);
-    --components-badge-warning-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-warning-bg: var(--utility-warning-50);
-    --components-badge-warning-closexitem-bg_hover: var(--utility-warning-100);
-    --components-badge-warning-fg: var(--utility-warning-400);
-    --components-badge-warning-typo: var(--utility-warning-500-primary);
-    --components-badge-warning-border: var(--utility-warning-100);
-    --components-badge-warning-closexitem-fg: var(--utility-warning-400);
-    --components-badge-warning-closexitem-fg_hover: var(--utility-warning-500-primary);
-    --components-badge-success-closexitem-bg: var(--utility-alpha-white-0);
-    --components-badge-success-bg: var(--utility-success-50);
-    --components-badge-success-closexitem-bg_hover: var(--utility-success-100);
-    --components-badge-success-fg: var(--utility-success-400);
-    --components-badge-success-typo: var(--utility-success-500-primary);
-    --components-badge-success-border: var(--utility-success-100);
-    --components-badge-success-closexitem-fg: var(--utility-success-400);
-    --components-badge-success-closexitem-fg_hover: var(--utility-success-500-primary);
+    --components-badge-grey-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-grey-backgroundoutline-closexitem-bg_hover: var(--background-tertiary);
+    --components-badge-grey-backgroundoutline-closexitem-fg: var(--foreground-quaternary);
+    --components-badge-grey-backgroundoutline-closexitem-fg_hover: var(--foreground-quinary_hover);
+    --components-badge-grey-backgroundoutline-bg: var(--background-secondary);
+    --components-badge-grey-backgroundoutline-fg: var(--foreground-quaternary);
+    --components-badge-grey-backgroundoutline-typo: var(--typography-tertiary);
+    --components-badge-grey-backgroundoutline-border: var(--border-primary);
+    --components-badge-grey-solid-typo: var(--typography-white);
+    --components-badge-grey-solid-bg: var(--utility-grey-500-primary);
+    --components-badge-grey-solid-fg: var(--utility-grey-800);
+    --components-badge-grey-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-grey-solid-closexitem-bg_hover: var(--utility-alpha-black-20);
+    --components-badge-grey-solid-closexitem-fg: var(--utility-grey-800);
+    --components-badge-grey-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-brand-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-brand-backgroundoutline-bg: var(--utility-brand-crystalizedviolet-50);
+    --components-badge-brand-backgroundoutline-fg: var(--utility-brand-crystalizedviolet-500-primary);
+    --components-badge-brand-backgroundoutline-closexitem-bg_hover: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-backgroundoutline-typo: var(--utility-brand-crystalizedviolet-700);
+    --components-badge-brand-backgroundoutline-border: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-brand-backgroundoutline-closexitem-fg: var(--utility-brand-crystalizedviolet-600);
+    --components-badge-brand-backgroundoutline-closexitem-fg_hover: var(--utility-brand-crystalizedviolet-600);
+    --components-badge-brand-outline-fg: var(--utility-brand-crystalizedviolet-500-primary);
+    --components-badge-brand-solid-typo: var(--typography-white);
+    --components-badge-brand-solid-fg: var(--utility-brand-crystalizedviolet-900);
+    --components-badge-brand-solid-bg: var(--utility-brand-crystalizedviolet-400);
+    --components-badge-brand-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-brand-solid-closexitem-bg_hover: var(--utility-alpha-black-20);
+    --components-badge-brand-solid-closexitem-fg: var(--utility-brand-crystalizedviolet-900);
+    --components-badge-brand-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-brand-outline-typo: var(--utility-brand-crystalizedviolet-700);
+    --components-badge-brand-outline-border: var(--utility-brand-crystalizedviolet-100);
+    --components-badge-error-backgroundoutline-bg: var(--utility-error-50);
+    --components-badge-error-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-error-backgroundoutline-closexitem-bg_hover: var(--utility-error-100);
+    --components-badge-error-backgroundoutline-fg: var(--utility-error-500-primary);
+    --components-badge-error-backgroundoutline-typo: var(--utility-error-600);
+    --components-badge-error-backgroundoutline-border: var(--utility-error-100);
+    --components-badge-error-backgroundoutline-closexitem-fg: var(--utility-error-500-primary);
+    --components-badge-error-backgroundoutline-closexitem-fg_hover: var(--utility-error-600);
+    --components-badge-error-outline-typo: var(--utility-error-600);
+    --components-badge-error-outline-fg: var(--utility-error-500-primary);
+    --components-badge-error-outline-border: var(--utility-error-200);
+    --components-badge-error-solid-typo: var(--typography-white);
+    --components-badge-error-solid-fg: var(--utility-error-800);
+    --components-badge-error-solid-bg: var(--utility-error-500-primary);
+    --components-badge-error-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-error-solid-closexitem-bg_hover: var(--utility-alpha-black-20);
+    --components-badge-error-solid-closexitem-fg: var(--utility-error-800);
+    --components-badge-error-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-warning-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-warning-backgroundoutline-bg: var(--utility-warning-50);
+    --components-badge-warning-outline-fg: var(--utility-warning-400);
+    --components-badge-warning-solid-typo: var(--typography-white);
+    --components-badge-warning-solid-fg: var(--utility-warning-800);
+    --components-badge-warning-solid-bg: var(--utility-warning-400);
+    --components-badge-warning-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-warning-solid-closexitem-bg_hover: var(--utility-alpha-black-20);
+    --components-badge-warning-solid-closexitem-fg: var(--utility-error-800);
+    --components-badge-warning-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-warning-outline-typo: var(--utility-warning-500-primary);
+    --components-badge-warning-outline-border: var(--utility-warning-200);
+    --components-badge-warning-backgroundoutline-closexitem-bg_hover: var(--utility-warning-100);
+    --components-badge-warning-backgroundoutline-fg: var(--utility-warning-400);
+    --components-badge-warning-backgroundoutline-typo: var(--utility-warning-500-primary);
+    --components-badge-warning-backgroundoutline-border: var(--utility-warning-100);
+    --components-badge-warning-backgroundoutline-closexitem-fg: var(--utility-warning-400);
+    --components-badge-warning-backgroundoutline-closexitem-fg_hover: var(--utility-warning-500-primary);
+    --components-badge-success-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-success-backgroundoutline-bg: var(--utility-success-50);
+    --components-badge-success-backgroundoutline-closexitem-bg_hover: var(--utility-success-100);
+    --components-badge-success-backgroundoutline-fg: var(--utility-success-400);
+    --components-badge-success-backgroundoutline-typo: var(--utility-success-500-primary);
+    --components-badge-success-backgroundoutline-border: var(--utility-success-100);
+    --components-badge-success-outline-fg: var(--utility-success-400);
+    --components-badge-success-backgroundoutline-closexitem-fg: var(--utility-success-400);
+    --components-badge-success-solid-typo: var(--typography-white);
+    --components-badge-success-solid-fg: var(--utility-success-800);
+    --components-badge-success-solid-bg: var(--utility-success-400);
+    --components-badge-success-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-success-solid-closexitem-bg_hover: var(--utility-alpha-black-20);
+    --components-badge-success-solid-closexitem-fg: var(--utility-success-800);
+    --components-badge-success-solid-closexitem-fg_hover: var(--foreground-white);
+    --components-badge-success-backgroundoutline-closexitem-fg_hover: var(--utility-success-500-primary);
+    --components-badge-success-outline-typo: var(--utility-success-500-primary);
+    --components-badge-success-outline-border: var(--utility-success-200);
+    --components-badge-inverse-solid-typo: var(--typography-primary_on-solid);
+    --components-badge-inverse-solid-fg: var(--utility-grey-400);
+    --components-badge-inverse-solid-bg: var(--background-primary-solid);
+    --components-badge-inverse-solid-closexitem-bg: var(--utility-alpha-white-0);
+    --components-badge-inverse-solid-closexitem-bg_hover: var(--_alpha-grey-10);
+    --components-badge-inverse-solid-closexitem-fg: var(--utility-grey-400);
+    --components-badge-inverse-solid-closexitem-fg_hover: var(--utility-grey-50);
+
 
     /** COMPONENTS TEXT BUTTONS **/
     --components-textbutton-primary-fg_hover: var(--typography-brand-secondary_alt_hover);
@@ -1087,7 +1196,7 @@
   }
 
   @layer components {
-    .app_gradient {
+    .app-gradient {
       position: relative;
       background: linear-gradient(
         180deg,
@@ -1097,7 +1206,26 @@
       );
     }
 
-    .app_gradient::before {
+    .app-gradient::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background: linear-gradient(
+        270deg,
+        var(--utility-gradient-app-bg-linear-1-2) 0%,
+        var(--utility-gradient-app-bg-linear-1-1) 10%,
+        var(--utility-gradient-app-bg-linear-1-2) 20%,
+        var(--utility-gradient-app-bg-linear-1-1) 35%,
+        var(--utility-gradient-app-bg-linear-1-2) 50%,
+        var(--utility-gradient-app-bg-linear-1-1) 58%,
+        var(--utility-gradient-app-bg-linear-1-2) 65%,
+        var(--utility-gradient-app-bg-linear-1-1) 81%,
+        var(--utility-gradient-app-bg-linear-1-2) 100%
+      );
+    }
+
+    .app-gradient::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -1107,32 +1235,12 @@
         var(--utility-gradient-app-bg-radial-1) 100%
       );
     }
-
-    .app_gradient::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.05;
-      background: linear-gradient(
-        270deg,
-        var(--utility-gradient-app-bg-linear-1-1) 0%,
-        var(--utility-gradient-app-bg-linear-1-2) 10%,
-        var(--utility-gradient-app-bg-linear-1-1) 20%,
-        var(--utility-gradient-app-bg-linear-1-2) 35%,
-        var(--utility-gradient-app-bg-linear-1-1) 50%,
-        var(--utility-gradient-app-bg-linear-1-2) 58%,
-        var(--utility-gradient-app-bg-linear-1-1) 65%,
-        var(--utility-gradient-app-bg-linear-1-2) 81%,
-        var(--utility-gradient-app-bg-linear-1-1) 100%
-      );
-    }
   }
 
   /*DOM STYLES*/
 
   body {
     @apply font-inter;
-    background: var(--background-quaternary);
   }
 
   html {
