@@ -41,14 +41,6 @@ export function ContributorsTable() {
   const [period, setPeriod] = useState<PeriodValue>();
   const searchParams = useSearchParams();
 
-  // TODO @Mehdi activate when new filters implemented
-  // useEffect(() => {
-  //   const seriesName = searchParams.get("seriesName");
-  //   if (seriesName) {
-  //     setFilters({ seriesName });
-  //   }
-  // }, [searchParams]);
-
   const dateRangeTypeParam = useMemo(() => {
     return searchParams.get("dateRangeType") as DateRangeType;
   }, [searchParams]);
@@ -58,6 +50,13 @@ export function ContributorsTable() {
       fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
       toDate: searchParams.get("plotPeriodTo") ?? undefined,
     };
+  }, [searchParams]);
+
+  useEffect(() => {
+    const seriesName = searchParams.get("seriesName")?.toUpperCase();
+    if (seriesName) {
+      setFilters({ activityStatuses: seriesName as unknown as ContributorsTableFilters["activityStatuses"] });
+    }
   }, [searchParams]);
 
   useEffect(() => {
