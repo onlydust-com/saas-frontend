@@ -110,7 +110,7 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
       </div>
       <div>
         <Typo size={"xs"} color={"secondary"}>
-          {dateKernel.format(new Date(contribution.createdAt), "dd MMM. yyyy")}
+          {dateKernel.format(new Date(contribution.createdAt), "dd MMM.")}
         </Typo>
       </div>
     </div>
