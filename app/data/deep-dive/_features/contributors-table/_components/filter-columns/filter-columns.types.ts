@@ -13,4 +13,5 @@ export type TableColumns =
   | "rewardedAmount"
   | "contributionCount"
   | "prCount"
-  | "rewardCount";
+  | "rewardCount"
+  | "activityStatus";
