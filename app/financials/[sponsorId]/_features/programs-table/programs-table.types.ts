@@ -1,3 +1,3 @@
 export interface ProgramsTableProps {
-  onAllocateClick: (programId: string) => void;
+  onAllocateClick: (programId: string, canGoBack?: boolean) => void;
 }

@@ -23,8 +23,8 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
 
-  function handleOpenAllocateProgram(programId: string) {
-    openAllocateProgramSidepanel({ programId, sponsorId });
+  function handleOpenAllocateProgram(programId: string, canGoBack?: boolean) {
+    openAllocateProgramSidepanel({ programId, sponsorId, canGoBack });
   }
 
   return (
