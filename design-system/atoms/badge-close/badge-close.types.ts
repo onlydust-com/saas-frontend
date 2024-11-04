@@ -1,9 +1,10 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
 interface Variants {
-  color: "grey" | "brand" | "error" | "warning" | "success";
   shape: "rounded" | "squared";
-  size: "xxs" | "xs" | "sm" | "md";
+  size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
+  color: "grey" | "brand" | "error" | "warning" | "success" | "inverse";
+  variant: "flat" | "outline" | "solid";
 }
 
 interface ClassNames {
