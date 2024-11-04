@@ -1101,17 +1101,6 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        100% 100% at 50% 100%,
-        var(--utility-gradient-app-bg-radial-2) 0%,
-        var(--utility-gradient-app-bg-radial-1) 100%
-      );
-    }
-
-    .app-gradient::after {
-      content: "";
-      position: absolute;
-      inset: 0;
       opacity: 0.05;
       background: linear-gradient(
         270deg,
@@ -1124,6 +1113,17 @@
         var(--utility-gradient-app-bg-linear-1-2) 65%,
         var(--utility-gradient-app-bg-linear-1-1) 81%,
         var(--utility-gradient-app-bg-linear-1-2) 100%
+      );
+    }
+
+    .app-gradient::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        100% 100% at 50% 100%,
+        var(--utility-gradient-app-bg-radial-2) 0%,
+        var(--utility-gradient-app-bg-radial-1) 100%
       );
     }
   }
