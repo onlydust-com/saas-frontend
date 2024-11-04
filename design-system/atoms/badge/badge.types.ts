@@ -10,7 +10,7 @@ import { TypoPort } from "@/design-system/atoms/typo";
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 interface Variants {
-  size: "xxs" | "xs" | "sm" | "md";
+  size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
   color: "grey" | "brand" | "error" | "warning" | "success" | "inverse";
   shape: "rounded" | "squared";
   isDeletable: boolean;

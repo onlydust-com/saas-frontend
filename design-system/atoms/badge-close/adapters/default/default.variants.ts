@@ -58,6 +58,12 @@ export const BadgeCloseDefaultVariants = tv({
       md: {
         base: "size-4",
       },
+      lg: {
+        base: "size-4",
+      },
+      xl: {
+        base: "size-5",
+      },
     },
   },
   compoundVariants: [

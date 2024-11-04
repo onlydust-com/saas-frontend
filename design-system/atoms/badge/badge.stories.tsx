@@ -36,7 +36,7 @@ const defaultBadgeCloseProps: BadgePort<"div"> = {
   isDeletable: true,
 };
 
-const sizes = ["xxs", "xs", "sm", "md"] as const;
+const sizes = ["xxs", "xs", "sm", "md", "lg", "xl"] as const;
 const variant = ["flat", "solid", "outline"] as const;
 const shape = ["rounded", "squared"] as const;
 const colors = ["grey", "brand", "error", "warning", "success"] as const;

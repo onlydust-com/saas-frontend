@@ -25,6 +25,14 @@ export const BadgeDefaultVariants = tv({
         base: "px-lg py-md",
         content: "gap-2",
       },
+      lg: {
+        base: "px-lg py-2md",
+        content: "gap-md",
+      },
+      xl: {
+        base: "px-xl py-lg",
+        content: "gap-2md",
+      },
     },
     isDeletable: {
       true: {},
