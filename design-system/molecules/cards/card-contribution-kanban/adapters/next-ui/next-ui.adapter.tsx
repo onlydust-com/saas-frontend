@@ -1,4 +1,5 @@
 import { CircleDollarSign, Clock } from "lucide-react";
+import dynamic from "next/dynamic";
 import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -17,6 +18,8 @@ import { TimelineContribution } from "@/design-system/molecules/timeline-contrib
 import { LabelPopover } from "@/shared/components/label-popover/label-popover";
 import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
+
+const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div">({
   as,
@@ -208,7 +211,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
             base: "text-wrap line-clamp-2",
           }}
         >
-          {githubTitle}
+          <Emoji>{githubTitle}</Emoji>
         </Typo>
 
         <div>

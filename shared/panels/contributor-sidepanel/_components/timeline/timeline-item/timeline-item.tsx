@@ -1,4 +1,5 @@
 import { ClipboardCheck, Clock } from "lucide-react";
+import dynamic from "next/dynamic";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -11,6 +12,8 @@ import { ContributionBadge } from "@/design-system/molecules/contribution-badge"
 import { UserGroup } from "@/shared/features/user/user-group/user-group";
 
 import { TimelineItemProps } from "./timeline-item.types";
+
+const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function TimelineItem({ contribution }: TimelineItemProps) {
   const dateKernel = bootstrap.getDateKernelPort();
@@ -26,7 +29,7 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
               base: "text-wrap line-clamp-2",
             }}
           >
-            {contribution.githubTitle}
+            <Emoji>{contribution.githubTitle}</Emoji>
           </Typo>
 
           {!!contribution.linkedIssues?.length && (
@@ -104,7 +107,7 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
               target: "_blank",
             }}
           >
-            {contribution.githubTitle}
+            <Emoji>{contribution.githubTitle}</Emoji>
           </Typo>
         </Tooltip>
       </div>
