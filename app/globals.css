@@ -1087,7 +1087,7 @@
   }
 
   @layer components {
-    .app_gradient {
+    .app-gradient {
       position: relative;
       background: linear-gradient(
         180deg,
@@ -1097,7 +1097,7 @@
       );
     }
 
-    .app_gradient::before {
+    .app-gradient::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -1108,22 +1108,22 @@
       );
     }
 
-    .app_gradient::after {
+    .app-gradient::after {
       content: "";
       position: absolute;
       inset: 0;
       opacity: 0.05;
       background: linear-gradient(
         270deg,
-        var(--utility-gradient-app-bg-linear-1-1) 0%,
-        var(--utility-gradient-app-bg-linear-1-2) 10%,
-        var(--utility-gradient-app-bg-linear-1-1) 20%,
-        var(--utility-gradient-app-bg-linear-1-2) 35%,
-        var(--utility-gradient-app-bg-linear-1-1) 50%,
-        var(--utility-gradient-app-bg-linear-1-2) 58%,
-        var(--utility-gradient-app-bg-linear-1-1) 65%,
-        var(--utility-gradient-app-bg-linear-1-2) 81%,
-        var(--utility-gradient-app-bg-linear-1-1) 100%
+        var(--utility-gradient-app-bg-linear-1-2) 0%,
+        var(--utility-gradient-app-bg-linear-1-1) 10%,
+        var(--utility-gradient-app-bg-linear-1-2) 20%,
+        var(--utility-gradient-app-bg-linear-1-1) 35%,
+        var(--utility-gradient-app-bg-linear-1-2) 50%,
+        var(--utility-gradient-app-bg-linear-1-1) 58%,
+        var(--utility-gradient-app-bg-linear-1-2) 65%,
+        var(--utility-gradient-app-bg-linear-1-1) 81%,
+        var(--utility-gradient-app-bg-linear-1-2) 100%
       );
     }
   }
@@ -1132,7 +1132,6 @@
 
   body {
     @apply font-inter;
-    background: var(--background-quaternary);
   }
 
   html {
