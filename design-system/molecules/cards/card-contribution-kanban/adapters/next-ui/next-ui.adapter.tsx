@@ -58,7 +58,10 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       <Badge
         color={"grey"}
         size={"xxs"}
-        icon={{ component: CircleDollarSign, classNames: { base: "text-components-badge-success-fg" } }}
+        icon={{
+          component: CircleDollarSign,
+          classNames: { base: "text-components-badge-success-backgroundoutline-fg" },
+        }}
       >
         {rewardAmount} {rewardCode}
       </Badge>
