@@ -11,10 +11,11 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 interface Variants {
   size: "xxs" | "xs" | "sm" | "md";
-  color: "grey" | "brand" | "error" | "warning" | "success";
+  color: "grey" | "brand" | "error" | "warning" | "success" | "inverse";
   shape: "rounded" | "squared";
   isDeletable: boolean;
   iconOnly: boolean;
+  variant: "flat" | "outline" | "solid";
 }
 
 interface ClassNames {
