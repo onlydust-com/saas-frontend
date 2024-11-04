@@ -45,6 +45,13 @@
     "CODE_REVIEW": "Code review",
     "ISSUE": "Issue"
   },
+  "contributorActivityStatus": {
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "NEW": "New",
+    "REACTIVATED": "Reactivated",
+    "CHURNED": "Churned"
+  },
   "rewardedType": {
     "REWARDED": "Rewarded",
     "UNREWARDED": "Unrewarded"

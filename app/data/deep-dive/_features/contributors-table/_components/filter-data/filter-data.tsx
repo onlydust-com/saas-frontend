@@ -2,11 +2,13 @@ import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_feature
 import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
 
 import { bootstrap } from "@/core/bootstrap";
+import { ContributorActivityStatusesUnion } from "@/core/domain/bi/models/bi.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { ActivityStatusesFilter } from "@/shared/features/filters/activity-statuses-filter/activity-statuses-filter";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
@@ -43,6 +45,12 @@ export function FilterData() {
         <CategoryFilter
           selectedCategories={filters.categoryIds}
           onSelect={categories => setFilters({ categoryIds: categories })}
+        />
+        <ActivityStatusesFilter
+          selectedActivityStatus={filters.activityStatuses}
+          onSelect={activityStatuses =>
+            setFilters({ activityStatuses: activityStatuses as ContributorActivityStatusesUnion })
+          }
         />
         <LanguageFilter
           selectedLanguages={filters.languageIds}

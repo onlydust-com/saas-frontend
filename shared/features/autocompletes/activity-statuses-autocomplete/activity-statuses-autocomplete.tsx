@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ContributorActivityStatusesUnion } from "@/core/domain/bi/models/bi.types";
-import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
+import { ContributorActivityStatus } from "@/core/domain/bi/models/bi.types";
 import { AnyType } from "@/core/kernel/types";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
@@ -17,15 +16,27 @@ export function ActivityStatusesAutocomplete({
 }: ActivityStatusesAutocompleteProps) {
   const { t } = useTranslation("common");
 
-  const activityStatusItems: MenuItemPort<ContributorActivityStatusesUnion>[] = useMemo(() => {
+  const activityStatusItems: MenuItemPort[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
-        label: t("rewardedType.REWARDED"),
-        id: RewardedFilterType.REWARDED,
+        label: t("contributorActivityStatus.NEW"),
+        id: ContributorActivityStatus.NEW,
       },
       {
-        label: t("rewardedType.UNREWARDED"),
-        id: RewardedFilterType.UNREWARDED,
+        label: t("contributorActivityStatus.ACTIVE"),
+        id: ContributorActivityStatus.ACTIVE,
+      },
+      {
+        label: t("contributorActivityStatus.INACTIVE"),
+        id: ContributorActivityStatus.INACTIVE,
+      },
+      {
+        label: t("contributorActivityStatus.REACTIVATED"),
+        id: ContributorActivityStatus.REACTIVATED,
+      },
+      {
+        label: t("contributorActivityStatus.CHURNED"),
+        id: ContributorActivityStatus.CHURNED,
       },
     ];
     return [...options];
