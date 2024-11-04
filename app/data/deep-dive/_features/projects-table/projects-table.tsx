@@ -39,14 +39,6 @@ export function ProjectsTable() {
   const { open: openProject } = useProjectSidePanel();
   const searchParams = useSearchParams();
 
-  // TODO @Mehdi activate when new filters implemented
-  // useEffect(() => {
-  //   const seriesName = searchParams.get("seriesName");
-  //   if (seriesName) {
-  //     setFilters({ seriesName });
-  //   }
-  // }, [searchParams]);
-
   const dateRangeTypeParam = useMemo(() => {
     return searchParams.get("dateRangeType") as DateRangeType;
   }, [searchParams]);
@@ -57,6 +49,14 @@ export function ProjectsTable() {
       toDate: searchParams.get("plotPeriodTo") ?? undefined,
     };
   }, [searchParams]);
+
+  // TODO @Mehdi activate when new filters implemented
+  // useEffect(() => {
+  //   const seriesName = searchParams.get("seriesName")?.toUpperCase();
+  //   if (seriesName) {
+  //     setFilters({ activityStatuses: seriesName as unknown as GetBiProjectsPortParams["activityStatuses"] });
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
     const programAndEcosystemParamIds = searchParams.get("programAndEcosystemIds");
