@@ -13,6 +13,7 @@ export interface ProjectInterface extends ProjectResponse {
   isRepoOrganizationMissingPermissions(repoId: number): boolean;
   getOrganizationByRepoId(repoId: number): GithubOrganizationInterface | undefined;
   getGithubUpdatePermissionsUrlByRepo(repoId: number): string | undefined;
+  isIndexingCompleted(): boolean;
 }
 
 export class Project implements ProjectInterface {
@@ -83,5 +84,9 @@ export class Project implements ProjectInterface {
     const organization = this.organizations.find(organization => organization.isContainsRepo([repoId]));
 
     return organization?.getGithubUpdatePermissionsUrl();
+  }
+
+  isIndexingCompleted() {
+    return this.indexingComplete;
   }
 }

@@ -34,15 +34,16 @@ function Column({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
-  const { data, hasNextPage, fetchNextPage, isPending } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      ...queryParams,
-      statuses: [type],
-    },
-    options: {
-      enabled: !!queryParams?.projectSlugs?.length,
-    },
-  });
+  const { data, hasNextPage, fetchNextPage, isPending, isFetchingNextPage } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        ...queryParams,
+        statuses: [type],
+      },
+      options: {
+        enabled: !!queryParams?.projectSlugs?.length,
+      },
+    });
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
@@ -66,6 +67,7 @@ function Column({
       {...kanbanProps}
       hasNextPage={hasNextPage}
       onNext={fetchNextPage}
+      isFetchingNextPage={isFetchingNextPage}
       header={{
         title,
         badge: { children: data?.pages?.[0]?.totalItemNumber ?? "0" },

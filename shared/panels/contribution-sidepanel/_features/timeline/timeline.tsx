@@ -71,7 +71,7 @@ function TimelineItem({ event, isLast }: TimelineItemProps) {
       <div className={"flex items-center justify-start gap-3"}>
         <div className={"flex flex-col items-center justify-start"}>
           <Badge size={"xs"} color={"brand"} shape={"squared"} iconOnly={true} icon={BadgeIcon} />
-          {showSeparator && <div className={"h-3 w-px bg-components-badge-brand-border"} />}
+          {showSeparator && <div className={"bg-components-badge-brand-outline-border h-3 w-px"} />}
         </div>
         <div className={"flex flex-col items-center justify-start"}>
           <Typo size={"xs"} weight={"medium"} as={"div"} translate={Translate} />

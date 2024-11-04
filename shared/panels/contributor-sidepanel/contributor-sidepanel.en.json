@@ -49,5 +49,8 @@
       "repoLabel": "Repo"
     }
   },
+  "comments": {
+    "title": "Comment on issue"
+  },
   "seeContributor": "See public profile"
 }

@@ -12,6 +12,7 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { RepoIndexingAlert } from "@/shared/features/alerts/repo-indexing-alert/repo-indexing-alert";
 import { GithubMissingPermissionsAlert } from "@/shared/features/github-permissions/_components/github-missing-permissions-alert/github-missing-permissions-alert";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -85,6 +86,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
             <AnimatedColumn className="h-full">
               <ScrollView className="flex flex-col gap-md">
                 {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+                <RepoIndexingAlert indexingComplete={projectData?.isIndexingCompleted() ?? true} />
                 <PageContent classNames={{ base: "flex-none" }}>
                   <FinancialSection projectId={data?.id} />
                 </PageContent>
