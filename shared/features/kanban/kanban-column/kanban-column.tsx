@@ -6,7 +6,7 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 
 import { KanbanColumnProps } from "./kanban-column.types";
 
-export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading = false }: KanbanColumnProps) {
+export function KanbanColumn({ header, children, onNext, hasNextPage, isFetchingNextPage = false }: KanbanColumnProps) {
   return (
     <div
       className={
@@ -26,7 +26,9 @@ export function KanbanColumn({ header, children, onNext, hasNextPage, isLoading 
       <ScrollView>
         <div className={"flex w-full flex-col items-start justify-start gap-lg px-xl"}>
           {children}
-          {hasNextPage && onNext ? <ShowMore onNext={onNext} loading={isLoading} /> : null}
+          {hasNextPage && onNext ? (
+            <ShowMore onNext={onNext} loading={isFetchingNextPage} className={"w-full"} />
+          ) : null}
         </div>
       </ScrollView>
     </div>
