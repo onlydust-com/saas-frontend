@@ -37,7 +37,8 @@
       "rewardedAmount": "Rewarded amount",
       "contributionCount": "Contributions",
       "prCount": "PRs",
-      "rewardCount": "Rewards"
+      "rewardCount": "Rewards",
+      "activityStatus": "Activity status"
     },
     "rows": {
       "languages": "{{count}} languages",
