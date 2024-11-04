@@ -37,12 +37,12 @@ const GradientsPreset: Config = {
         [`.${GRADIENTS.gradient_glass_neon_45}`]: {
           opacity: "0.45",
           background:
-            "radial-gradient(179.7% 179.7% at 100% -36.86%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 19.8%, var(--utility-gradient-glassneon-glass-neon-3) 38.24%, var(--utility-gradient-glassneon-glass-neon-4) 48.23%, var(--utility-gradient-glassneon-glass-neon-5) 61.15%, var(--utility-gradient-glassneon-glass-neon-6) 89.58%, var(--utility-gradient-glassneon-glass-neon-7));",
+            "radial-gradient(180% 180% at 100% -37%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 20%, var(--utility-gradient-glassneon-glass-neon-3) 38%, var(--utility-gradient-glassneon-glass-neon-4) 48%, var(--utility-gradient-glassneon-glass-neon-5) 61%, var(--utility-gradient-glassneon-glass-neon-6) 90%, var(--utility-gradient-glassneon-glass-neon-7) 100%);",
         },
         [`.${GRADIENTS.gradient_glass_neon_80}`]: {
           opacity: "0.80",
           background:
-            "radial-gradient(179.7% 179.7% at 100% -36.86%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 19.8%, var(--utility-gradient-glassneon-glass-neon-3) 38.24%, var(--utility-gradient-glassneon-glass-neon-4) 48.23%, var(--utility-gradient-glassneon-glass-neon-5) 61.15%, var(--utility-gradient-glassneon-glass-neon-6) 89.58%, var(--utility-gradient-glassneon-glass-neon-7));",
+            "radial-gradient(180% 180% at 100% -37%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 20%, var(--utility-gradient-glassneon-glass-neon-3) 38%, var(--utility-gradient-glassneon-glass-neon-4) 48%, var(--utility-gradient-glassneon-glass-neon-5) 61%, var(--utility-gradient-glassneon-glass-neon-6) 90%, var(--utility-gradient-glassneon-glass-neon-7) 100%);",
         },
       });
     }),

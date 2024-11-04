@@ -1,3 +1,4 @@
+import enActivityStatuses from "../activity-statuses-filter/activity-statuses-filter.en.json";
 import enAverageRewardCount from "../average-reward-count-filter/average-reward-count-filter.en.json";
 import enBudgetAvailableCount from "../budget-available-count-filter/budget-available-count-filter.en.json";
 import enBudgetUsedCount from "../budget-used-count-filter/budget-used-count-filter.en.json";
@@ -37,6 +38,7 @@ export const enFiltersTranslations = {
     category: enCategory,
     userType: enUserType,
     contributionType: enContributionType,
+    activityStatuses: enActivityStatuses,
     rewarded: enRewarded,
     contributionActivity: enContributionActivity,
     prMergedCount: enPrMergedCount,

@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Flame } from "lucide-react";
+import { Fragment } from "react";
 
 import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
 import { BadgeIcon } from "@/design-system/atoms/badge/variants/badge-icon";
-import { Icon } from "@/design-system/atoms/icon";
 
 import { BadgeAvatarPort, BadgeIconPort, BadgePort } from "./badge.types";
 import { Badge } from "./variants/badge-default";
@@ -16,7 +16,7 @@ const defaultProps: BadgePort<"div"> = {
   classNames: {},
   htmlProps: {},
   isDeletable: false,
-  startContent: <Icon component={Flame} size={"xs"} classNames={{ base: "text-inherit" }} />,
+  icon: { component: Flame },
 };
 
 const defaultBadgeIconProps: BadgeIconPort<"div"> = {
@@ -36,7 +36,8 @@ const defaultBadgeCloseProps: BadgePort<"div"> = {
   isDeletable: true,
 };
 
-const sizes = ["xxs", "xs", "sm", "md"] as const;
+const sizes = ["xxs", "xs", "sm", "md", "lg", "xl"] as const;
+const variant = ["flat", "solid", "outline"] as const;
 const shape = ["rounded", "squared"] as const;
 const colors = ["grey", "brand", "error", "warning", "success"] as const;
 
@@ -183,12 +184,36 @@ export const Colors: Story = {
         {colors.map(c => {
           return (
             <div key={c} className="flex w-full items-center gap-2">
-              {shape.map(s => {
-                return <Badge key={`${c}-${s}`} {...defaultProps} {...args} color={c} shape={s} />;
-              })}
+              {variant.map(v => (
+                <Fragment key={`${c}-${v}`}>
+                  {shape.map(s => {
+                    return <Badge key={`${c}-${s}-${v}`} {...defaultProps} {...args} color={c} shape={s} variant={v} />;
+                  })}
+                </Fragment>
+              ))}
             </div>
           );
         })}
+        <div className="flex w-full items-center gap-2">
+          <Badge
+            {...defaultProps}
+            {...args}
+            color={"inverse"}
+            shape={"rounded"}
+            variant={"solid"}
+            classNames={{ base: "opacity-0" }}
+          />
+          <Badge
+            {...defaultProps}
+            {...args}
+            color={"inverse"}
+            shape={"rounded"}
+            variant={"solid"}
+            classNames={{ base: "opacity-0" }}
+          />
+          <Badge {...defaultProps} {...args} color={"inverse"} shape={"rounded"} variant={"solid"} />
+          <Badge {...defaultProps} {...args} color={"inverse"} shape={"squared"} variant={"solid"} />
+        </div>
       </div>
     );
   },
@@ -202,20 +227,32 @@ export const Deletable: Story = {
   },
   render: args => {
     return (
-      <div className="flex w-full flex-col items-center gap-2">
+      <div className="flex w-fit flex-col items-center gap-2">
         {colors.map(c => {
           return (
-            <div key={c} className="flex w-full items-start gap-2">
+            <div key={c} className="flex flex-col items-start gap-2 px-2">
               {shape.map(d => {
                 return (
-                  <div key={d} className="flex w-full items-start gap-2">
-                    {sizes.map(s => {
-                      return (
-                        <div key={s} className="flex flex-col items-start gap-2">
-                          <Badge {...defaultBadgeCloseProps} {...args} size={s} shape={d} color={c} isDeletable />
-                        </div>
-                      );
-                    })}
+                  <div key={d} className="flex items-start gap-2">
+                    {variant.map(v => (
+                      <>
+                        {sizes.map(s => {
+                          return (
+                            <div key={s} className="flex flex-col items-start gap-2">
+                              <Badge
+                                {...defaultBadgeCloseProps}
+                                {...args}
+                                size={s}
+                                shape={d}
+                                color={c}
+                                isDeletable
+                                variant={v}
+                              />
+                            </div>
+                          );
+                        })}
+                      </>
+                    ))}
                   </div>
                 );
               })}

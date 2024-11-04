@@ -86,7 +86,7 @@ export function TimelineAccordion(props: TimelineAccordionProps) {
       }
     >
       <div className={"flex flex-col gap-md px-md pl-[0.84375rem]"}>
-        <div className={"border-l-1 border-l-components-badge-grey-border"}>
+        <div className={"border-l-1 border-l-border-primary"}>
           <TimelineAccordionContent {...props} />
         </div>
       </div>

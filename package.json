@@ -36,6 +36,7 @@
     "posthog-js": "^1.154.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-emoji-render": "^2.0.1",
     "react-flagpack": "^2.0.5",
     "react-hook-form": "^7.53.0",
     "react-i18next": "^15.0.0",
