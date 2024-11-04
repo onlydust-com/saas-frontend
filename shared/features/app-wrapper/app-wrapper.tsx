@@ -77,7 +77,12 @@ export function AppWrapper({ children }: AppWrapperProps) {
   }, [isAuthenticated, isLoading, loginWithRedirect, error]);
 
   if (isLoading) {
-    return <AppSkeleton />;
+    return (
+      <>
+        <AppGradient />
+        <AppSkeleton />
+      </>
+    );
   }
 
   if (isTablet) {
