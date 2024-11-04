@@ -7,24 +7,12 @@ export const BadgeCloseDefaultVariants = tv({
   },
   variants: {
     color: {
-      grey: {
-        base: "",
-      },
-      brand: {
-        base: "",
-      },
-      error: {
-        base: "",
-      },
-      warning: {
-        base: "",
-      },
-      success: {
-        base: "",
-      },
-      inverse: {
-        base: "",
-      },
+      grey: "",
+      brand: "",
+      error: "",
+      warning: "",
+      success: "",
+      inverse: "",
     },
     shape: {
       rounded: {

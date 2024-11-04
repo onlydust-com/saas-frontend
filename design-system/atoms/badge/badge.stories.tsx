@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Flame } from "lucide-react";
+import { Fragment } from "react";
 
 import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
@@ -184,11 +185,11 @@ export const Colors: Story = {
           return (
             <div key={c} className="flex w-full items-center gap-2">
               {variant.map(v => (
-                <>
+                <Fragment key={`${c}-${v}`}>
                   {shape.map(s => {
                     return <Badge key={`${c}-${s}-${v}`} {...defaultProps} {...args} color={c} shape={s} variant={v} />;
                   })}
-                </>
+                </Fragment>
               ))}
             </div>
           );
@@ -226,7 +227,7 @@ export const Deletable: Story = {
   },
   render: args => {
     return (
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex w-fit flex-col items-center gap-2">
         {colors.map(c => {
           return (
             <div key={c} className="flex flex-col items-start gap-2 px-2">
