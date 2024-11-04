@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AvatarDefaultVariants } from "@/design-system/atoms/avatar/adapters/default/default.variants";
 import { useImageWithFallback } from "@/design-system/atoms/avatar/avatar.hooks";
 import { getAvatarImageSize, getAvatarItemImageSize, getAvatarSrc } from "@/design-system/atoms/avatar/avatar.utils";
-import { Icon } from "@/design-system/atoms/icon";
+import { Icon, IconSize } from "@/design-system/atoms/icon";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -87,13 +87,24 @@ export function AvatarDefaultAdapter({
     className: cn(slots.image(), classNames?.image),
   });
 
+  const iconSizeMapping: Record<NonNullable<AvatarPort["size"]>, IconSize> = {
+    xxs: "xxs",
+    xs: "xxs",
+    sm: "xxs",
+    md: "xs",
+    lg: "sm",
+    xl: "md",
+    "2xl": "lg",
+    "3xl": "lg",
+  };
+
   function renderAvatar() {
     if (name) {
       return <div className={cn(slots.name(), classNames?.name)}>{name}</div>;
     }
 
     if (iconProps) {
-      return <Icon {...iconProps} />;
+      return <Icon size={iconSizeMapping[size ?? "xxs"]} classNames={{ base: "text-inherit" }} {...iconProps} />;
     }
 
     return renderImage;
