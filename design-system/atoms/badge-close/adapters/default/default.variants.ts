@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const BadgeCloseDefaultVariants = tv({
   slots: {
-    base: "group flex size-6 items-center justify-center rounded-full p-0.5 transition-colors data-[clickable=true]:cursor-pointer",
+    base: "group flex size-6 items-center justify-center rounded-full transition-colors data-[clickable=true]:cursor-pointer",
     closeIcon: "text-inherit",
   },
   variants: {

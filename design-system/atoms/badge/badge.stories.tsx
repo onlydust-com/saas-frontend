@@ -4,7 +4,6 @@ import { Flame } from "lucide-react";
 import { BadgeLoading } from "@/design-system/atoms/badge/badge.loading";
 import { BadgeAvatar } from "@/design-system/atoms/badge/variants/badge-avatar";
 import { BadgeIcon } from "@/design-system/atoms/badge/variants/badge-icon";
-import { Icon } from "@/design-system/atoms/icon";
 
 import { BadgeAvatarPort, BadgeIconPort, BadgePort } from "./badge.types";
 import { Badge } from "./variants/badge-default";
@@ -16,7 +15,7 @@ const defaultProps: BadgePort<"div"> = {
   classNames: {},
   htmlProps: {},
   isDeletable: false,
-  startContent: <Icon component={Flame} size={"xs"} classNames={{ base: "text-inherit" }} />,
+  icon: { component: Flame },
 };
 
 const defaultBadgeIconProps: BadgeIconPort<"div"> = {

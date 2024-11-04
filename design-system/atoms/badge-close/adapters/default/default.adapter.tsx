@@ -29,6 +29,8 @@ export function BadgeCloseDefaultAdapter<C extends ElementType = "button">({
     xs: "xxs",
     sm: "sm",
     md: "md",
+    lg: "md",
+    xl: "md",
   };
   return (
     <Component {...htmlProps} onClick={onClose} className={cn(slots.base(), classNames?.base)} data-clickable={true}>
