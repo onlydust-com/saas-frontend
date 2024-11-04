@@ -32,6 +32,7 @@
   },
   "buttons": {
     "edit": "Edit program",
-    "see": "See program"
+    "see": "See program",
+    "allocate": "Allocate"
   }
 }

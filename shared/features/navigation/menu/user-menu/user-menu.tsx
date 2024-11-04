@@ -55,8 +55,8 @@ export function UserMenu({ isFolded }: UserMenuProps) {
         )}
       </div>
 
-      <div className={"flex flex-1 items-center justify-end"}>
-        {!isFolded && (
+      {!isFolded && (
+        <div className={"flex flex-1 items-center justify-end"}>
           <Button
             variant={"tertiary"}
             startIcon={{ component: LogIn }}
@@ -64,8 +64,8 @@ export function UserMenu({ isFolded }: UserMenuProps) {
             size={"xs"}
             onClick={handleLogout}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
