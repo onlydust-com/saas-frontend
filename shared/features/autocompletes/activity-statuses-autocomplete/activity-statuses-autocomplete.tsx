@@ -16,7 +16,7 @@ export function ActivityStatusesAutocomplete({
 }: ActivityStatusesAutocompleteProps) {
   const { t } = useTranslation("common");
 
-  const activityStatusItems: MenuItemPort[] = useMemo(() => {
+  const activityStatusItems: MenuItemPort<ContributorActivityStatusesUnion>[] = useMemo(() => {
     const options: SelectPort<AnyType>["items"] = [
       {
         label: t("contributorActivityStatus.NEW"),
@@ -42,12 +42,12 @@ export function ActivityStatusesAutocomplete({
     return [...options];
   }, []);
 
-  function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as ContributorActivityStatusesUnion);
+  function handleSelect(ids: MenuItemId<ContributorActivityStatusesUnion>[]) {
+    onSelect?.(ids);
   }
 
   return (
-    <Select
+    <Select<ContributorActivityStatusesUnion>
       items={activityStatusItems}
       isAutoComplete={false}
       onSelect={handleSelect}
