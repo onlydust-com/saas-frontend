@@ -16,6 +16,10 @@ import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 import { AppWrapperProps } from "./app-wrapper.types";
 
+function AppGradient() {
+  return <div className="app-gradient absolute inset-0 -z-10" />;
+}
+
 function ImpersonationBanner() {
   const { isImpersonating } = useClientBootstrapImpersonation();
 
@@ -73,14 +77,21 @@ export function AppWrapper({ children }: AppWrapperProps) {
   }, [isAuthenticated, isLoading, loginWithRedirect, error]);
 
   if (isLoading) {
-    return <AppSkeleton />;
+    return (
+      <>
+        <AppGradient />
+        <AppSkeleton />
+      </>
+    );
   }
 
   if (isTablet) {
     return (
       <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-md"}>
+        <AppGradient />
         <ImpersonationBanner />
         <PrimaryNavigation />
+
         {children}
       </div>
     );
@@ -88,7 +99,9 @@ export function AppWrapper({ children }: AppWrapperProps) {
 
   return (
     <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-md"}>
+      <AppGradient />
       <ImpersonationBanner />
+
       <AnimatedColumnGroup className="gap-md">
         <PrimaryNavigation />
         <AnimatedColumn className="size-full overflow-hidden">{children}</AnimatedColumn>
