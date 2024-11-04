@@ -2,7 +2,6 @@ import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_feature
 import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
 
 import { bootstrap } from "@/core/bootstrap";
-import { ContributorActivityStatusesUnion } from "@/core/domain/bi/models/bi.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -48,9 +47,7 @@ export function FilterData() {
         />
         <ActivityStatusesFilter
           selectedActivityStatus={filters.activityStatuses}
-          onSelect={activityStatuses =>
-            setFilters({ activityStatuses: activityStatuses as ContributorActivityStatusesUnion })
-          }
+          onSelect={activityStatuses => setFilters({ activityStatuses })}
         />
         <LanguageFilter
           selectedLanguages={filters.languageIds}

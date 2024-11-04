@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ContributorActivityStatus } from "@/core/domain/bi/models/bi.types";
+import { ContributorActivityStatus, ContributorActivityStatusesUnion } from "@/core/domain/bi/models/bi.types";
 import { AnyType } from "@/core/kernel/types";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
@@ -43,7 +43,7 @@ export function ActivityStatusesAutocomplete({
   }, []);
 
   function handleSelect(ids: MenuItemId[]) {
-    onSelect?.(ids as string[]);
+    onSelect?.(ids as ContributorActivityStatusesUnion);
   }
 
   return (
