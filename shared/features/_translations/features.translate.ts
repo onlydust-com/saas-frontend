@@ -1,4 +1,3 @@
-
 import enRepoIndexingAlert from "@/shared/features/alerts/repo-indexing-alert/_translations/repo-indexing-alert.en.json";
 import enAmountSelector from "@/shared/features/amount-selector/_translations/amount-selector.en.json";
 import enCardContributionKanban from "@/shared/features/card-contribution-kanban/card-contribution-kanban-translate.en.json";

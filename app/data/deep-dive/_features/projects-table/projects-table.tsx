@@ -2,6 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
 import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
@@ -50,13 +51,12 @@ export function ProjectsTable() {
     };
   }, [searchParams]);
 
-  // TODO @Mehdi activate when new filters implemented
-  // useEffect(() => {
-  //   const seriesName = searchParams.get("seriesName")?.toUpperCase();
-  //   if (seriesName) {
-  //     setFilters({ activityStatuses: seriesName as unknown as GetBiProjectsPortParams["activityStatuses"] });
-  //   }
-  // }, [searchParams]);
+  useEffect(() => {
+    const seriesName = searchParams.get("seriesName")?.toUpperCase();
+    if (seriesName) {
+      setFilters({ engagementStatuses: seriesName as unknown as ContributorsTableFilters["engagementStatuses"] });
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const programAndEcosystemParamIds = searchParams.get("programAndEcosystemIds");

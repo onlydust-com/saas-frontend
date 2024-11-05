@@ -38,7 +38,7 @@
       "contributionCount": "Contributions",
       "prCount": "PRs",
       "rewardCount": "Rewards",
-      "activityStatus": "Activity status"
+      "engagementStatuses": "Engagement status"
     },
     "rows": {
       "languages": "{{count}} languages",
@@ -73,7 +73,8 @@
       "activeContributorCount": "Active devs",
       "prCount": "PRs",
       "rewardCount": "Rewards",
-      "contributionCount": "Contributions"
+      "contributionCount": "Contributions",
+      "engagementStatuses": "Engagement status"
     },
     "rows": {
       "projectLead": "Project lead",

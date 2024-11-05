@@ -188,7 +188,6 @@ export function useStackedColumnAreaSplineChartOptions({
                 handleChartClick({
                   dataViewTarget,
                   plotPeriod: this.category.toString(),
-                  seriesName: this.series.name,
                   seriesValue: this.y,
                 });
               },

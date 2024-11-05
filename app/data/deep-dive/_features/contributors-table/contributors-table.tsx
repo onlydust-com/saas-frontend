@@ -55,7 +55,7 @@ export function ContributorsTable() {
   useEffect(() => {
     const seriesName = searchParams.get("seriesName")?.toUpperCase();
     if (seriesName) {
-      setFilters({ activityStatuses: seriesName as unknown as ContributorsTableFilters["activityStatuses"] });
+      setFilters({ engagementStatuses: seriesName as unknown as ContributorsTableFilters["engagementStatuses"] });
     }
   }, [searchParams]);
 

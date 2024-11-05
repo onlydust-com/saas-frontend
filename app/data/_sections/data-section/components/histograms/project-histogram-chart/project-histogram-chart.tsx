@@ -92,6 +92,7 @@ export function ProjectHistogramChart() {
     dataViewTarget: "projects",
     dateRangeType: rangeType,
     timeGroupingType,
+    selectedProgramAndEcosystem,
     yAxisTitle: [t("data:histograms.data.projects"), splineSeries.name],
     categories,
     min: minChurnedProject,

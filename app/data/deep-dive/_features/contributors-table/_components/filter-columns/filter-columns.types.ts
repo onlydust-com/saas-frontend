@@ -14,4 +14,4 @@ export type TableColumns =
   | "contributionCount"
   | "prCount"
   | "rewardCount"
-  | "activityStatus";
+  | "engagementStatus";

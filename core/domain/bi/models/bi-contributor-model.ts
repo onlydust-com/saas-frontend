@@ -27,6 +27,7 @@ export class BiContributor implements BiContributorInterface {
   pendingApplicationCount!: BiContributorResponse["pendingApplicationCount"];
   projectContributorLabels!: BiContributorResponse["projectContributorLabels"];
   rank: UserRankInterface;
+  engagementStatus!: BiContributorResponse["engagementStatus"];
 
   constructor(props: BiContributorResponse) {
     Object.assign(this, props);

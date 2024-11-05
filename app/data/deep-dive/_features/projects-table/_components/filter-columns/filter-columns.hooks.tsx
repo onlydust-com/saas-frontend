@@ -6,6 +6,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
@@ -42,6 +43,7 @@ export function useFilterColumns() {
         "prCount",
         "rewardCount",
         "contributionCount",
+        "engagementStatus",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
@@ -422,6 +424,26 @@ export function useFilterColumns() {
         const formattedValue = Intl.NumberFormat().format(value);
 
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
+      },
+    }),
+    engagementStatus: columnHelper.accessor("engagementStatus", {
+      enableSorting: false,
+      header: () => <Translate token={"data:deepDive.projectsTable.columns.engagementStatuses"} />,
+      cell: info => {
+        const engagementStatuses = info.getValue();
+
+        if (!engagementStatuses) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
+
+        return (
+          <Badge
+            size="sm"
+            shape="squared"
+            classNames={{ base: "w-fit" }}
+            translate={{ token: `common:contributorEngagementStatus.${engagementStatuses}` }}
+          />
+        );
       },
     }),
   } as const;

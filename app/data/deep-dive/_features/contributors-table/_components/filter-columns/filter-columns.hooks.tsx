@@ -39,7 +39,7 @@ export function useFilterColumns() {
         "contributionCount",
         "prCount",
         "rewardCount",
-        "activityStatus",
+        "engagementStatus",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
@@ -281,13 +281,13 @@ export function useFilterColumns() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
-    activityStatus: columnHelper.accessor("activityStatus", {
+    engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.activityStatus"} />,
+      header: () => <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
-        const activityStatus = info.getValue();
+        const engagementStatuses = info.getValue();
 
-        if (!activityStatus) {
+        if (!engagementStatuses) {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
@@ -296,7 +296,7 @@ export function useFilterColumns() {
             size="sm"
             shape="squared"
             classNames={{ base: "w-fit" }}
-            translate={{ token: `common:contributorActivityStatus.${activityStatus}` }}
+            translate={{ token: `common:contributorEngagementStatus.${engagementStatuses}` }}
           />
         );
       },
