@@ -134,6 +134,7 @@ export function ContributorsTable() {
             onSelect={setSelectedProgramAndEcosystem}
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
             buttonProps={{ size: "sm" }}
+            searchParams={"programAndEcosystemIds"}
           />
           <FilterButton onClick={openFilterPanel} />
           <PeriodFilter
