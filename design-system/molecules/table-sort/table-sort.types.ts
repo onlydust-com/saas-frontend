@@ -14,6 +14,6 @@ export enum SortDirection {
 export interface TableSortPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   direction?: SortDirection;
-  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   isSorted?: boolean;
 }
