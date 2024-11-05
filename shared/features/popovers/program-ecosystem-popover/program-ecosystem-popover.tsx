@@ -43,9 +43,9 @@ export function ProgramEcosystemPopover({
     if (searchParams) {
       if (ids.length) {
         updateSearchParams(searchParams, ids.join(","));
-        return;
+      } else {
+        deleteSearchParams(searchParams);
       }
-      deleteSearchParams(searchParams);
     }
     onSelect?.(ids);
   }
