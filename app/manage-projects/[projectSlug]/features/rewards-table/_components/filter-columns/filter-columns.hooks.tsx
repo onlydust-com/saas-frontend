@@ -1,15 +1,17 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect } from "react";
+import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "react-use";
 
 import { TableColumns } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.types";
 
 import { bootstrap } from "@/core/bootstrap";
 import { RewardListItemInterface } from "@/core/domain/reward/models/reward-list-item-model";
+import { GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { CancelReward } from "@/shared/components/mutation/reward/cancel-reward";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
@@ -21,6 +23,13 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
   const idKernelPort = bootstrap.getIdKernelPort();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const columnHelper = createColumnHelper<RewardListItemInterface>();
+
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: "requestedAt",
+      desc: true,
+    },
+  ]);
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
 
@@ -38,6 +47,22 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     }
   }, [selectedIds]);
 
+  const sortingMap: Partial<Record<keyof RewardListItemInterface, GetProjectRewardsQueryParams["sort"]>> = {
+    requestedAt: "REQUESTED_AT",
+    numberOfRewardedContributions: "CONTRIBUTION",
+    amount: "AMOUNT",
+    status: "STATUS",
+  };
+
+  const sortingParams = useMemo(() => {
+    if (sorting.length === 0) return null;
+
+    return {
+      sort: sortingMap[sorting[0].id as keyof typeof sortingMap],
+      direction: sorting[0].desc ? SortDirection.DESC : SortDirection.ASC,
+    };
+  }, [sorting]);
+
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.date"} />,
@@ -52,6 +77,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       },
     }),
     id: columnHelper.accessor("id", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();
@@ -64,6 +90,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       },
     }),
     rewardedUser: columnHelper.accessor("rewardedUser", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.to"} />,
       cell: info => {
         const rewardedUser = info.getValue();
@@ -162,5 +189,5 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<RewardListItemInterface>[];
 
-  return { columns, selectedIds, setSelectedIds };
+  return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

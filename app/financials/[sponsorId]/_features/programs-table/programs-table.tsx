@@ -59,6 +59,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
 
   const columns = [
     columnHelper.accessor("name", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.programName"} />,
       cell: info => (
         <Typo size={"sm"} weight={"medium"} color="secondary" classNames={{ base: "whitespace-nowrap" }}>
@@ -67,6 +68,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       ),
     }),
     columnHelper.accessor("leads", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.programLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -106,6 +108,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       },
     }),
     columnHelper.accessor("totalAvailable", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.budgetsAvailable"} />,
       cell: info => {
         const value = info.getValue();
@@ -178,12 +181,14 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       },
     }),
     columnHelper.accessor("projectCount", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
       },
     }),
     columnHelper.accessor("totalGranted", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.granted"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -203,6 +208,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       },
     }),
     columnHelper.accessor("totalReceived", {
+      enableSorting: false,
       header: () => <Translate token={"financials:details.programs.table.columns.received"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({

@@ -1,12 +1,13 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-table";
 import { CircleCheck, CircleX } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
+import { GetIssueApplicantsQueryParams } from "@/core/domain/issue/issue-contract.types";
 import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applicant-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -14,6 +15,7 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
@@ -29,6 +31,10 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<IssueApplicantInterface>();
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("manage-applicants-table-columns");
 
   const { mutateAsync: updateContributorLabels } = ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
     pathParams: { projectId },
@@ -50,17 +56,28 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     }
   }
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("manage-applicants-table-columns");
-
   useEffect(() => {
     if (!selectedIds) {
       setSelectedIds(["contributor", "labels", "languages", "ecosystems", "country", "rewardedAmount", "actions"]);
     }
   }, [selectedIds, setSelectedIds]);
 
+  const sortingMap: Partial<Record<keyof IssueApplicantInterface, GetIssueApplicantsQueryParams["sort"]>> = {
+    contributor: "CONTRIBUTOR_LOGIN",
+    totalRewardedUsdAmount: "TOTAL_REWARDED_USD_AMOUNT",
+  };
+
+  const sortingParams = useMemo(() => {
+    if (sorting.length === 0) return null;
+
+    return {
+      sort: sortingMap[sorting[0].id as keyof typeof sortingMap],
+      sortDirection: sorting[0].desc ? SortDirection.DESC : SortDirection.ASC,
+    };
+  }, [sorting]);
+
   const columnMap: Partial<Record<TableColumns, object>> = {
-    contributor: columnHelper.display({
-      id: "contributor",
+    contributor: columnHelper.accessor("contributor", {
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
         const { contributor } = info.row.original;
@@ -78,8 +95,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    labels: columnHelper.display({
-      id: "labels",
+    labels: columnHelper.accessor("projectContributorLabels", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageApplicants.table.columns.labels"} />,
       cell: info => {
         const {
@@ -98,8 +115,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    languages: columnHelper.display({
-      id: "languages",
+    languages: columnHelper.accessor("languages", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageApplicants.table.columns.languages"} />,
       cell: info => {
         const { languages } = info.row.original;
@@ -137,8 +154,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    ecosystems: columnHelper.display({
-      id: "ecosystems",
+    ecosystems: columnHelper.accessor("ecosystems", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageApplicants.table.columns.ecosystems"} />,
       cell: info => {
         const { ecosystems } = info.row.original;
@@ -178,8 +195,8 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    country: columnHelper.display({
-      id: "country",
+    country: columnHelper.accessor("country", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;
@@ -197,8 +214,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         );
       },
     }),
-    rewardedAmount: columnHelper.display({
-      id: "rewardedAmount",
+    rewardedAmount: columnHelper.accessor("totalRewardedUsdAmount", {
       header: () => <Translate token={"modals:manageApplicants.table.columns.rewardedAmount"} />,
       cell: info => {
         const { totalRewardedUsdAmount } = info.row.original;
@@ -273,5 +289,5 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<IssueApplicantInterface>[];
 
-  return { columns, selectedIds, setSelectedIds };
+  return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

@@ -71,6 +71,8 @@ export function ContributorsTable() {
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
   const { open: openContributor } = useContributorSidePanel();
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns();
+
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
@@ -79,6 +81,7 @@ export function ContributorsTable() {
     fromDate: period?.fromDate,
     toDate: period?.toDate,
     ...filters,
+    ...sortingParams,
   };
 
   const {
@@ -109,12 +112,16 @@ export function ContributorsTable() {
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
-
   const table = useReactTable({
     data: contributors,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {

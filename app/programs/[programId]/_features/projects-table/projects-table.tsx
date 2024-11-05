@@ -54,6 +54,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
   const columns = [
     columnHelper.accessor("name", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.projectName"} />,
       cell: info => (
         <AvatarLabelGroup
@@ -70,6 +71,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("leads", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.projectLead"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -110,6 +112,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("totalAvailable", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.availableBudgets"} />,
       cell: info => {
         const value = info.getValue();
@@ -182,6 +185,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("averageRewardUsdAmount", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.averageRewardAmount"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -202,6 +206,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("totalGranted", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.totalGrantedAmount"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -222,6 +227,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("totalRewarded", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.totalRewardedAmount"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -242,6 +248,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("percentUsedBudget", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.budgetUsed"} />,
       cell: info => {
         const value = info.getValue() ?? 0;
@@ -251,6 +258,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("mergedPrCount", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.prsMerged"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -260,6 +268,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
 
     columnHelper.accessor("newContributorsCount", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.onboardedDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -268,6 +277,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
       },
     }),
     columnHelper.accessor("activeContributorsCount", {
+      enableSorting: false,
       header: () => <Translate token={"programs:details.projects.table.columns.activeDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};

@@ -92,12 +92,17 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }:
   const [filters, setFilters] = useState<ApplicantsTableFilters>({});
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns({
+    projectId,
+    onAssign,
+    repoId,
+  });
+
   const queryParams: Partial<GetIssueApplicantsQueryParams> = {
     search: debouncedSearch,
     ...filters,
+    ...sortingParams,
   };
-
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId, onAssign, repoId });
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
@@ -110,9 +115,27 @@ export function ApplicantsTable({ projectId, contributionId, onAssign, repoId }:
 
         <ScrollView>
           <div className={"flex flex-col gap-lg"}>
-            <AccordionProjectContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
-            <AccordionNewContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
-            <AccordionIgnoredContributors contributionId={contributionId} queryParams={queryParams} columns={columns} />
+            <AccordionProjectContributors
+              contributionId={contributionId}
+              queryParams={queryParams}
+              columns={columns}
+              sorting={sorting}
+              setSorting={setSorting}
+            />
+            <AccordionNewContributors
+              contributionId={contributionId}
+              queryParams={queryParams}
+              columns={columns}
+              sorting={sorting}
+              setSorting={setSorting}
+            />
+            <AccordionIgnoredContributors
+              contributionId={contributionId}
+              queryParams={queryParams}
+              columns={columns}
+              sorting={sorting}
+              setSorting={setSorting}
+            />
           </div>
         </ScrollView>
       </div>
