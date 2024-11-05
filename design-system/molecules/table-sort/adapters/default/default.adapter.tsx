@@ -10,7 +10,7 @@ import { TableSortDefaultVariants } from "./default.variants";
 export function TableSortDefaultAdapter({
   classNames,
   direction = SortDirection.ASC,
-  handleClick,
+  onClick,
   isSorted,
 }: TableSortPort) {
   const slots = TableSortDefaultVariants({ isSorted });
@@ -21,7 +21,7 @@ export function TableSortDefaultAdapter({
   };
 
   return (
-    <button className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
+    <button className={cn(slots.base(), classNames?.base)} onClick={onClick}>
       <Icon component={sortIcons[direction].component} size="xxs" />
     </button>
   );

@@ -48,7 +48,7 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
                   {header.column.getCanSort() ? (
                     <TableSort
                       direction={direction}
-                      handleClick={header.column.getToggleSortingHandler()}
+                      onClick={header.column.getToggleSortingHandler()}
                       isSorted={!!header.column.getIsSorted()}
                     />
                   ) : null}

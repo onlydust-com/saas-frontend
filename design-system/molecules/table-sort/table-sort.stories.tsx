@@ -9,7 +9,7 @@ type Story = StoryObj<typeof TableSort>;
 
 const defaultProps: TableSortPort = {
   direction: SortDirection.DESC,
-  handleClick: () => {},
+  onClick: () => {},
 };
 
 const meta: Meta<typeof TableSort> = {

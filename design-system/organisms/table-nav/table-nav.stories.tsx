@@ -15,7 +15,7 @@ const defaultProps: TableNavPort = {
   },
   sort: {
     direction: SortDirection.DESC,
-    handleClick: () => {},
+    onClick: () => {},
   },
   groupBy: {
     value: "",
