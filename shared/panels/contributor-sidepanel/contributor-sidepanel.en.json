@@ -41,6 +41,7 @@
     "title": "Contributions activity",
     "showMore": "Show more",
     "filter": {
+      "title": "Activity filters",
       "dataSource": "Data",
       "all": "Github (All Data)",
       "internal": "OnlyDust only"

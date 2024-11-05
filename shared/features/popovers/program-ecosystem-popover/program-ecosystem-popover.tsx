@@ -9,16 +9,22 @@ import { MenuItemId } from "@/design-system/molecules/menu-item";
 import { ProgramEcosystemAutocomplete } from "@/shared/features/autocompletes/program-ecosystem-autocomplete/program-ecosystem-autocomplete";
 import { useProgramEcosystemAutocomplete } from "@/shared/features/autocompletes/program-ecosystem-autocomplete/program-ecosystem-autocomplete.hooks";
 import { ProgramEcosystemPopoverProps } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover.types";
+import { useDeleteSearchParams } from "@/shared/hooks/router/use-delete-search-params";
+import { useUpdateSearchParams } from "@/shared/hooks/router/use-update-search-params";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramEcosystemPopover({
   selectedProgramsEcosystems,
   onSelect,
   buttonProps,
+  searchParams,
   ...selectProps
 }: ProgramEcosystemPopoverProps) {
   const { t } = useTranslation();
   const [selectedValues, setSelectedValues] = useState("");
+  const { updateSearchParams, searchParams: getSearchParams } = useUpdateSearchParams();
+  const { deleteSearchParams } = useDeleteSearchParams();
+  const navigationParams = searchParams ? getSearchParams.get(searchParams) : undefined;
   const { programAndEcosystemItems } = useProgramEcosystemAutocomplete();
 
   function handleSelect(ids: MenuItemId[]) {
@@ -34,8 +40,21 @@ export function ProgramEcosystemPopover({
         })
         .join(", ")
     );
+    if (searchParams) {
+      if (ids.length) {
+        updateSearchParams(searchParams, ids.join(","));
+      } else {
+        deleteSearchParams(searchParams);
+      }
+    }
     onSelect?.(ids);
   }
+
+  useEffect(() => {
+    if (navigationParams && navigationParams !== selectedProgramsEcosystems?.join(",")) {
+      onSelect?.(navigationParams.split(","));
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedProgramsEcosystems) {
