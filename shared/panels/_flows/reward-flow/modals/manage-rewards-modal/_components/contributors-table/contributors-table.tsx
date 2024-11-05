@@ -40,9 +40,12 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns({ projectId });
+
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
+    ...sortingParams,
   };
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -83,8 +86,6 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
     return [...selectedContributors, ...filteredContributors];
   }, [allContributors, selectedContributors]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId });
-
   const initialSelectedRowIds = useMemo(() => {
     return contributors.reduce((acc, contributor) => {
       if (selectedGithubUserIds.includes(contributor.contributor.githubUserId)) {
@@ -123,8 +124,12 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
       setRowSelection(updatedSelection);
       return updatedSelection;
     },
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
     state: {
       rowSelection,
+      sorting,
     },
   });
 

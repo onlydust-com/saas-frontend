@@ -48,8 +48,8 @@ function SafeContributorsTable() {
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
-    ...sortingParams,
     ...filters,
+    ...sortingParams,
   };
 
   const {
