@@ -29,6 +29,7 @@ export function ProgramsTable() {
 
   const columns = [
     columnHelper.accessor("name", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.programName"} />,
       cell: info => (
         <Typo size={"sm"} weight={"medium"} color="secondary">
@@ -37,6 +38,7 @@ export function ProgramsTable() {
       ),
     }),
     columnHelper.accessor("leads", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.programLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -76,6 +78,7 @@ export function ProgramsTable() {
       },
     }),
     columnHelper.accessor("totalAvailable", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.budgetsAvailable"} />,
       cell: info => {
         const value = info.getValue();
@@ -145,12 +148,14 @@ export function ProgramsTable() {
       },
     }),
     columnHelper.accessor("projectCount", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
       },
     }),
     columnHelper.accessor("totalGranted", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.granted"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -170,6 +175,7 @@ export function ProgramsTable() {
       },
     }),
     columnHelper.accessor("totalRewarded", {
+      enableSorting: false,
       header: () => <Translate token={"programs:list.content.table.columns.rewarded"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({

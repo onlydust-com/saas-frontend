@@ -6,4 +6,6 @@ export interface AccordionNewContributorsProps {
   contributionId?: string;
   queryParams: Partial<GetIssueApplicantsQueryParams>;
   columns: ReturnType<typeof useFilterColumns>["columns"];
+  sorting: ReturnType<typeof useFilterColumns>["sorting"];
+  setSorting: ReturnType<typeof useFilterColumns>["setSorting"];
 }

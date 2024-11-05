@@ -34,13 +34,6 @@ export function RewardsTable() {
   // const { open } = useRewardDetailSidepanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
 
-  const queryParams: Partial<GetProjectRewardsQueryParams> = {
-    search: debouncedSearch,
-    sort: "REQUESTED_AT",
-    direction: "DESC",
-    ...filters,
-  };
-
   const {
     data: projectData,
     isLoading: isLoadingProjectData,
@@ -51,6 +44,16 @@ export function RewardsTable() {
       enabled: !!projectSlug,
     },
   });
+
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns({
+    projectId: projectData?.id ?? "",
+  });
+
+  const queryParams: Partial<GetProjectRewardsQueryParams> = {
+    search: debouncedSearch,
+    ...filters,
+    ...sortingParams,
+  };
 
   const {
     data: projectRewardsData,
@@ -75,12 +78,16 @@ export function RewardsTable() {
   const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
   const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId: projectData?.id ?? "" });
-
   const table = useReactTable({
     data: rewards,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {

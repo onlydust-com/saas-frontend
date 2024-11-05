@@ -16,12 +16,12 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { BulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation";
+import { FilterColumns } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/_components/filter-columns/filter-columns";
+import { useFilterColumns } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/_components/filter-columns/filter-columns.hooks";
+import { FilterData } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/_components/filter-data/filter-data";
+import { useContributorsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/_components/filter-data/filter-data.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
-import { FilterColumns } from "./_components/filter-columns/filter-columns";
-import { useFilterColumns } from "./_components/filter-columns/filter-columns.hooks";
-import { FilterData } from "./_components/filter-data/filter-data";
-import { useContributorsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 import { ContributorsTableProps } from "./contributors-table.types";
 
 export type ContributorsTableFilters = Omit<
@@ -40,9 +40,12 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns({ projectId });
+
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     ...filters,
+    ...sortingParams,
   };
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -58,9 +61,30 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
       },
     });
 
-  const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
+  const { data: selectedData, isLoading: isLoadingSelectedContributors } =
+    BiReactQueryAdapter.client.useGetBiContributors({
+      queryParams: {
+        contributorIds: selectedGithubUserIds,
+        projectSlugs: [projectSlug],
+        pageSize: selectedGithubUserIds?.length ?? undefined,
+      },
+    });
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns({ projectId });
+  const allContributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
+  const selectedContributors = useMemo(
+    () => selectedData?.pages.flatMap(page => page.contributors) ?? [],
+    [selectedData]
+  );
+
+  const contributors = useMemo(() => {
+    const filteredContributors = allContributors.filter(contributor => {
+      return !selectedContributors.find(
+        selectedContributor => selectedContributor.contributor.githubUserId === contributor.contributor.githubUserId
+      );
+    });
+
+    return [...selectedContributors, ...filteredContributors];
+  }, [allContributors, selectedContributors]);
 
   const initialSelectedRowIds = useMemo(() => {
     return contributors.reduce((acc, contributor) => {
@@ -72,6 +96,10 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
   }, [contributors, selectedGithubUserIds]);
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(initialSelectedRowIds);
+
+  useEffect(() => {
+    setRowSelection(initialSelectedRowIds);
+  }, [initialSelectedRowIds]);
 
   const table = useReactTable({
     data: contributors,
@@ -96,8 +124,12 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
       setRowSelection(updatedSelection);
       return updatedSelection;
     },
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
     state: {
       rowSelection,
+      sorting,
     },
   });
 
@@ -105,7 +137,7 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
     openBulkContributionSelection();
   }, []);
 
-  if (isLoading) {
+  if (isLoading || isLoadingSelectedContributors) {
     return <TableLoading />;
   }
 

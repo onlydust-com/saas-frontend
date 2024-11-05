@@ -69,6 +69,8 @@ export function ProjectsTable() {
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns();
+
   const queryParams: Partial<GetBiProjectsQueryParams> = {
     dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
@@ -77,6 +79,7 @@ export function ProjectsTable() {
     fromDate: period?.fromDate,
     toDate: period?.toDate,
     ...filters,
+    ...sortingParams,
   };
 
   const {
@@ -103,12 +106,16 @@ export function ProjectsTable() {
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
-
   const table = useReactTable({
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {
@@ -128,6 +135,7 @@ export function ProjectsTable() {
             onSelect={setSelectedProgramAndEcosystem}
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
             buttonProps={{ size: "sm" }}
+            searchParams={"programAndEcosystemIds"}
           />
           <FilterButton onClick={openFilterPanel} />
           <PeriodFilter
