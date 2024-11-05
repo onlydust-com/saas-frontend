@@ -20,6 +20,7 @@ export function SponsorsTable() {
 
   const columns = [
     columnHelper.accessor("name", {
+      enableSorting: false,
       header: () => <Translate token={"financials:list.content.table.columns.sponsorName"} />,
       cell: info => (
         <Typo size={"sm"} weight={"medium"} color="secondary">

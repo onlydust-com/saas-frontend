@@ -34,15 +34,21 @@ export type ContributorsTableFilters = Omit<
 
 function SafeContributorsTable() {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
-  const { open: openFilterPanel } = useContributorFilterDataSidePanel();
+
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
+
   const { rowSelection, setRowSelection, setUserSelected } = useContext(ContributorsTableContext);
+
+  const { open: openFilterPanel } = useContributorFilterDataSidePanel();
   const { open: openContributor } = useContributorSidePanel();
+
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns();
 
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
+    ...sortingParams,
     ...filters,
   };
 
@@ -71,8 +77,6 @@ function SafeContributorsTable() {
   const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
-
   const table = useReactTable({
     data: contributors,
     columns,
@@ -90,8 +94,12 @@ function SafeContributorsTable() {
       setRowSelection(selection);
       return selection;
     },
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
     state: {
       rowSelection,
+      sorting,
     },
   });
 

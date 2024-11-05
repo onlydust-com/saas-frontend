@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 interface Variants {}
 
 interface ClassNames {
@@ -12,6 +14,6 @@ export enum SortDirection {
 export interface TableSortPort extends Partial<Variants> {
   classNames?: Partial<ClassNames>;
   direction?: SortDirection;
-  onDirectionChange: (direction: SortDirection) => void;
-  isSelected?: boolean;
+  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  isSorted?: boolean;
 }

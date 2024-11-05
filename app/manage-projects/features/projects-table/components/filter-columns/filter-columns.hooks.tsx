@@ -43,6 +43,7 @@ export function useFilterColumns() {
 
   const columnMap: Partial<Record<keyof MeProjectProjectListItemResponse, object>> = {
     name: columnHelper.accessor("name", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectName"} />,
       cell: info => {
         return (
@@ -59,6 +60,7 @@ export function useFilterColumns() {
       },
     }),
     leads: columnHelper.accessor("leads", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -100,6 +102,7 @@ export function useFilterColumns() {
       },
     }),
     totalAvailable: columnHelper.accessor("totalAvailable", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.budget"} />,
       cell: info => {
         const value = info.getValue();
@@ -159,6 +162,7 @@ export function useFilterColumns() {
       },
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -167,6 +171,7 @@ export function useFilterColumns() {
       },
     }),
     totalGranted: columnHelper.accessor("totalGranted", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.granted"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -186,6 +191,7 @@ export function useFilterColumns() {
       },
     }),
     totalRewarded: columnHelper.accessor("totalRewarded", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.rewarded"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({

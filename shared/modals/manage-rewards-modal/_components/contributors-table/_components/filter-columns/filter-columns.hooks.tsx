@@ -55,18 +55,17 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
   }, [selectedIds, setSelectedIds]);
 
   const columnMap: Partial<Record<TableColumns, object>> = {
-    select: columnHelper.accessor("contributor", {
+    select: columnHelper.display({
       id: "select",
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
           mixed={table.getIsSomeRowsSelected()}
           value={table.getIsAllRowsSelected()}
-          classNames={{ base: "p-lg" }}
         />
       ),
       cell: ({ row }) => (
-        <div className="px-1">
+        <div className="pl-sm">
           <Checkbox
             onNativeEventChange={row.getToggleSelectedHandler()}
             mixed={row.getIsSomeSelected()}

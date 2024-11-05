@@ -13,7 +13,13 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { AccordionNewContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-new-contributors/accordion-new-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
-export function AccordionNewContributors({ contributionId = "", queryParams, columns }: AccordionNewContributorsProps) {
+export function AccordionNewContributors({
+  contributionId = "",
+  queryParams,
+  columns,
+  sorting,
+  setSorting,
+}: AccordionNewContributorsProps) {
   const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     IssueReactQueryAdapter.client.useGetIssueApplicants({
@@ -29,6 +35,12 @@ export function AccordionNewContributors({ contributionId = "", queryParams, col
     data: applicants,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {
