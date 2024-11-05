@@ -1,8 +1,8 @@
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
-export type ContributorActivityStatusesUnion = NonNullable<GetBiContributorsQueryParams["activityStatuses"]>[0];
+export type ContributorEngagementStatusesUnion = NonNullable<GetBiContributorsQueryParams["engagementStatuses"]>[0];
 
-export enum ContributorActivityStatus {
+export enum ContributorEngagementStatus {
   NEW = "NEW",
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",

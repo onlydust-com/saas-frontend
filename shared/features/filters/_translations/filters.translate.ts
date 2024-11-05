@@ -1,4 +1,3 @@
-import enActivityStatuses from "../activity-statuses-filter/activity-statuses-filter.en.json";
 import enAverageRewardCount from "../average-reward-count-filter/average-reward-count-filter.en.json";
 import enBudgetAvailableCount from "../budget-available-count-filter/budget-available-count-filter.en.json";
 import enBudgetUsedCount from "../budget-used-count-filter/budget-used-count-filter.en.json";
@@ -11,6 +10,7 @@ import enCountry from "../country-filter/country-filter.en.json";
 import enCurrency from "../currency-filter/currency-filter.en.json";
 import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter.en.json";
 import enEcosystem from "../ecosystem-filter/ecosystem-filter.en.json";
+import enEngagementStatuses from "../engagement-statuses-filter/engagement-statuses-filter.en.json";
 import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
 import enLanguage from "../language-filter/language-filter.en.json";
 import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
@@ -38,7 +38,7 @@ export const enFiltersTranslations = {
     category: enCategory,
     userType: enUserType,
     contributionType: enContributionType,
-    activityStatuses: enActivityStatuses,
+    engagementStatuses: enEngagementStatuses,
     rewarded: enRewarded,
     contributionActivity: enContributionActivity,
     prMergedCount: enPrMergedCount,
