@@ -20,7 +20,7 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ContributorsTableFilters } from "../../contributors-table";
+import { ContributorsTableFilters } from "../contributors-table/contributors-table";
 import { useContributorsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
@@ -35,8 +35,8 @@ export function FilterData() {
         title={{
           children: <Translate token={"modals:manageRewards.table.filters.title"} />,
         }}
-        canGoBack={false}
-        canClose={true}
+        canGoBack={true}
+        canClose={false}
       />
       <SidePanelBody>
         <LanguageFilter
