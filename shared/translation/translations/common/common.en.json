@@ -45,7 +45,7 @@
     "CODE_REVIEW": "Code review",
     "ISSUE": "Issue"
   },
-  "contributorActivityStatus": {
+  "contributorEngagementStatus": {
     "ACTIVE": "Active",
     "INACTIVE": "Inactive",
     "NEW": "New",
