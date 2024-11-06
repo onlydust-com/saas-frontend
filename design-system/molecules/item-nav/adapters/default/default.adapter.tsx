@@ -1,6 +1,5 @@
 import { SquareArrowOutUpRight } from "lucide-react";
 
-import { Icon } from "@/design-system/atoms/icon";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { TabItem } from "@/design-system/molecules/tabs/tab-item";
 
@@ -20,15 +19,25 @@ function Content({
   isFolded,
   isActive,
 }: ItemNavPort & { isExternal: boolean; isActive: boolean }) {
+  const endIcon = isExternal
+    ? {
+        component: SquareArrowOutUpRight,
+        classNames: {
+          base: cn("opacity-0 group-hover/link:opacity-100 transition-opacity", { "!opacity-0": isFolded }),
+        },
+      }
+    : undefined;
+
   return (
     <TabItem
       as={"div"}
       id={""}
       variant={"flat"}
       startIcon={iconProps}
+      endIcon={endIcon}
       classNames={{
         ...classNames?.item,
-        base: cn("w-full justify-start !transition-all flex-nowrap whitespace-nowrap", classNames?.item?.base, {
+        base: cn("w-full !transition-all flex-nowrap whitespace-nowrap", classNames?.item?.base, {
           "!gap-0": isFolded,
         }),
         startIcon: "min-w-4",
@@ -38,14 +47,6 @@ function Content({
       <div className={cn("flex flex-1 items-center justify-start truncate", { "opacity-0": isFolded })}>
         {!!translate && <Translate {...translate} />}
         {children}
-        {isExternal ? (
-          <Icon
-            component={SquareArrowOutUpRight}
-            classNames={{
-              base: cn("invisible ml-1 group-hover/link:visible", { "!invisible": isFolded }),
-            }}
-          />
-        ) : null}
       </div>
     </TabItem>
   );
