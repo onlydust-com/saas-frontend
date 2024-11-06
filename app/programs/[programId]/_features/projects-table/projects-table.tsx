@@ -77,7 +77,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
         const leads = info.getValue() ?? [];
 
         if (!leads.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (leads.length === 1) {
@@ -125,7 +129,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
         const totalPerCurrency = value.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (totalPerCurrency.length === 1) {

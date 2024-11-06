@@ -115,7 +115,11 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         const rewardId = info.row.original.id;
 
         if (!numberOfRewardedContributions) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <ContributionsPopover contributionsCount={numberOfRewardedContributions} rewardId={rewardId} />;
@@ -127,7 +131,11 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         const value = info.getValue();
 
         if (!value) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         const totalUsdEquivalent = moneyKernelPort.format({

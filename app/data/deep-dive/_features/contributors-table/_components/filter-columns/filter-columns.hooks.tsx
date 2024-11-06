@@ -86,7 +86,11 @@ export function useFilterColumns() {
         const projects = info.getValue() ?? [];
 
         if (!projects.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (projects.length === 1) {
@@ -126,7 +130,11 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -139,7 +147,11 @@ export function useFilterColumns() {
         const languages = info.getValue() ?? [];
 
         if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (languages.length === 1) {
@@ -180,7 +192,11 @@ export function useFilterColumns() {
         const ecosystems = info.getValue() ?? [];
 
         if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (ecosystems.length === 1) {
@@ -221,7 +237,11 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (
@@ -288,7 +308,11 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (
