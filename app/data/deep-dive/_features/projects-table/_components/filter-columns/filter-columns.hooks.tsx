@@ -96,7 +96,11 @@ export function useFilterColumns() {
         const leads = info.getValue() ?? [];
 
         if (!leads.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (leads.length === 1) {
@@ -136,7 +140,11 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -149,7 +157,11 @@ export function useFilterColumns() {
         const languages = info.getValue() ?? [];
 
         if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (languages.length === 1) {
@@ -188,7 +200,11 @@ export function useFilterColumns() {
         const ecosystems = info.getValue() ?? [];
 
         if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (ecosystems.length === 1) {
@@ -227,7 +243,11 @@ export function useFilterColumns() {
         const programs = info.getValue() ?? [];
 
         if (!programs.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (programs.length === 1) {
@@ -272,7 +292,11 @@ export function useFilterColumns() {
         const totalPerCurrency = value?.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (totalPerCurrency.length === 1) {
@@ -336,7 +360,11 @@ export function useFilterColumns() {
         const value = info.getValue();
 
         if (!value) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{value}%</TableCellKpi>;
@@ -433,7 +461,11 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (

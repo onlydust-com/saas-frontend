@@ -122,7 +122,11 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         const { languages } = info.row.original;
 
         if (!languages?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (languages.length === 1) {
@@ -161,7 +165,11 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         const { ecosystems } = info.row.original;
 
         if (!ecosystems?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (ecosystems.length === 1) {
@@ -202,7 +210,11 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
         const { country } = info.row.original;
 
         if (!country) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (

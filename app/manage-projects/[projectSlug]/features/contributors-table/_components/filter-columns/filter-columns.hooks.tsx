@@ -159,7 +159,11 @@ export function useFilterColumns() {
         const languages = info.getValue() ?? [];
 
         if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (languages.length === 1) {
@@ -200,7 +204,11 @@ export function useFilterColumns() {
         const ecosystems = info.getValue() ?? [];
 
         if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (ecosystems.length === 1) {
@@ -244,7 +252,11 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (

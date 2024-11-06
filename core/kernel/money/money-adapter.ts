@@ -137,7 +137,7 @@ export class MoneyAdapter implements MoneyFacadePort {
   }) => {
     if (amount === null || amount === undefined || !currency) {
       return {
-        amount: "N/A",
+        amount: "-",
         code: undefined,
       };
     }

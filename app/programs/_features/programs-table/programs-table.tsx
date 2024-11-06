@@ -44,7 +44,7 @@ export function ProgramsTable() {
         const leads = info.getValue() ?? [];
 
         if (!leads.length) {
-          return "N/A";
+          return "-";
         }
 
         if (leads.length === 1) {
@@ -91,7 +91,7 @@ export function ProgramsTable() {
         const totalPerCurrency = value.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return "N/A";
+          return "-";
         }
 
         if (totalPerCurrency.length === 1) {
