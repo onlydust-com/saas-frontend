@@ -8,6 +8,7 @@ import { ContributionActivityStatus } from "@/core/domain/contribution/models/co
 
 import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
@@ -164,12 +165,14 @@ export const useContributionActions = (
         return {
           buttons: [],
           endContent: (
-            <Badge
-              size="xs"
-              color="warning"
-              shape="rounded"
-              translate={{ token: "features:cardContributionKanban.actions.insufficientPermissions" }}
-            />
+            <Tooltip content={<Translate token="features:cardContributionKanban.tooltip.insufficientPermissions" />}>
+              <Badge
+                size="xs"
+                color="warning"
+                shape="rounded"
+                translate={{ token: "features:cardContributionKanban.actions.insufficientPermissions" }}
+              />
+            </Tooltip>
           ),
         };
       }
