@@ -16,7 +16,7 @@ function MenuContainer({ children }: { children: ReactNode }) {
 
 export const PrimaryNavigationDesktopSize = {
   folded: 3.375,
-  unfolded: 16.25,
+  unfolded: 14,
 };
 
 export function PrimaryNavigationDesktop() {

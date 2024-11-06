@@ -12,10 +12,9 @@ import { UserMenuProps } from "./user-menu.types";
 
 export function UserMenu({ isFolded }: UserMenuProps) {
   const { user, isLoading } = useAuthUser();
-  const login = user?.login;
-  const email = user?.email;
-
   const handleLogout = useLogout();
+
+  const { avatarUrl, login, email } = user ?? {};
 
   if (isLoading) {
     return <Skeleton className={"h-10 w-full"} />;
@@ -30,7 +29,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
     >
       <div className={"relative flex-1"}>
         <AvatarLabelGroup
-          avatars={[{ src: user?.avatarUrl, alt: user?.login }]}
+          avatars={[{ src: avatarUrl, alt: login }]}
           size={"md"}
           shape={"rounded"}
           title={!isFolded ? { children: login } : undefined}
@@ -40,12 +39,13 @@ export function UserMenu({ isFolded }: UserMenuProps) {
               "flex justify-center !gap-0 transition-all w-full group-hover/user:opacity-0": isFolded,
             }),
           }}
+          truncate
         />
         {isFolded && (
           <Button
             variant={"tertiary"}
             startIcon={{ component: LogIn }}
-            iconOnly={true}
+            iconOnly
             size={"xs"}
             onClick={handleLogout}
             classNames={{
@@ -56,15 +56,7 @@ export function UserMenu({ isFolded }: UserMenuProps) {
       </div>
 
       {!isFolded && (
-        <div className={"flex flex-1 items-center justify-end"}>
-          <Button
-            variant={"tertiary"}
-            startIcon={{ component: LogIn }}
-            iconOnly={true}
-            size={"xs"}
-            onClick={handleLogout}
-          />
-        </div>
+        <Button variant={"tertiary"} startIcon={{ component: LogIn }} iconOnly size={"xs"} onClick={handleLogout} />
       )}
     </div>
   );
