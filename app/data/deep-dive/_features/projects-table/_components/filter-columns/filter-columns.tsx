@@ -125,6 +125,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             searchValue: "Contributions",
             isCheckbox: true,
           },
+          {
+            id: "engagementStatus",
+            label: <Translate token={"data:deepDive.projectsTable.columns.engagementStatuses"} />,
+            searchValue: "Engagement status",
+            isCheckbox: true,
+          },
         ],
         selectedIds,
         onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),

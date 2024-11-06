@@ -16,6 +16,7 @@ interface DataAttributes {
 interface ClassNames {
   base: string;
   startIcon: string;
+  endIcon: string;
   label: string;
   badge: string;
 }
@@ -26,6 +27,7 @@ export interface TabItemPort<C extends ElementType> extends Partial<Variants>, P
   classNames?: Partial<ClassNames>;
   badge?: BadgePort<"div">;
   startIcon?: IconPort;
+  endIcon?: IconPort;
   isSelected?: boolean;
   variant?: TabVariant;
   size?: TabsSize;
