@@ -1,7 +1,7 @@
 import { Info, X } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Icon, IconPort } from "@/design-system/atoms/icon";
+import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -22,7 +22,7 @@ export function AlertDefaultAdapter({
 }: AlertPort) {
   const slots = AlertDefaultVariants({ color });
 
-  const defaultIcon: IconPort = {
+  const defaultIcon: AlertPort["icon"] = {
     component: Info,
   };
 
