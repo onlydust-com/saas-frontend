@@ -16,6 +16,7 @@ export function TabItemDefaultAdapter<C extends ElementType = "button">({
   variant = "flat",
   size = "sm",
   startIcon,
+  endIcon,
   badge,
   isSelected = false,
   children,
@@ -26,11 +27,9 @@ export function TabItemDefaultAdapter<C extends ElementType = "button">({
   const Component = as || "button";
   const slots = TabItemDefaultVariants({ variant, size, isSelected });
 
-  const handleClick = () => {
-    if (onClick) {
-      onClick(id);
-    }
-  };
+  function handleClick() {
+    onClick?.(id);
+  }
 
   return (
     <Component {...attr} {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
@@ -53,6 +52,16 @@ export function TabItemDefaultAdapter<C extends ElementType = "button">({
         >
           {children}
         </Typo>
+      )}
+      {endIcon && (
+        <Icon
+          size={"sm"}
+          {...endIcon}
+          classNames={{
+            ...endIcon?.classNames,
+            base: cn(slots.endIcon(), classNames?.endIcon, endIcon.classNames?.base),
+          }}
+        />
       )}
       {badge && (
         <Badge
