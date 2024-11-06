@@ -62,7 +62,7 @@ export function AvatarDefaultAdapter({
   enableOptimizedImage = true,
   iconProps,
 }: AvatarPort) {
-  const slots = AvatarDefaultVariants({ size, shape, name: !!name });
+  const slots = AvatarDefaultVariants({ size, shape, name: !!name || !!iconProps });
 
   const imageSize = getAvatarImageSize(size);
   const imageSrc = getAvatarSrc(imageSize, src);
