@@ -11,10 +11,8 @@ export const InputDefaultVariants = tv({
     ],
     contentWrapper: "flex flex-col items-center justify-center text-foreground-tertiary",
     inputWrapper: "h-full flex-1",
-    input: [
-      "h-full w-full bg-transparent outline-none",
-      "text-typography-secondary placeholder:text-typography-placeholder",
-    ],
+    input:
+      "h-full w-full bg-transparent text-typography-secondary outline-none placeholder:text-typography-placeholder",
   },
 
   variants: {
@@ -35,13 +33,16 @@ export const InputDefaultVariants = tv({
 
     asOuterElement: {
       true: {
-        base: ["rounded-r-none"],
+        base: "rounded-r-none",
       },
     },
 
     isFocused: {
       true: {
-        base: ["border-border-active", "effect-ring-brand-glued"],
+        base: [
+          "border-border-active effect-ring-brand-glued",
+          "data-[hover=true]:border-border-active hover:border-border-active",
+        ],
       },
     },
 
@@ -53,9 +54,9 @@ export const InputDefaultVariants = tv({
 
     isDisabled: {
       true: {
-        base: ["pointer-events-none border-border-disabled bg-background-disabled-alt"],
-        contentWrapper: ["text-foreground-disabled"],
-        input: ["text-typography-disabled", "placeholder:text-typography-disabled"],
+        base: "pointer-events-none border-border-disabled bg-background-disabled-alt",
+        contentWrapper: "text-foreground-disabled",
+        input: "text-typography-disabled placeholder:text-typography-disabled",
       },
     },
   },
@@ -65,7 +66,10 @@ export const InputDefaultVariants = tv({
       isFocused: true,
       isError: true,
       class: {
-        base: ["border-border-error-primary", "effect-ring-error-glued"],
+        base: [
+          "border-border-error-primary effect-ring-error-glued",
+          "data-[hover=true]:border-border-error-primary hover:border-border-error-primary",
+        ],
       },
     },
   ],
