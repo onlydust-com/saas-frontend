@@ -27,6 +27,7 @@ export function AccordionFilter({ selected, children, title, name, classNames }:
     if (selected) {
       return {
         children: selected.toString(),
+        color: selected ? "brand" : undefined,
       };
     }
 
@@ -34,7 +35,17 @@ export function AccordionFilter({ selected, children, title, name, classNames }:
   }, [selected]);
 
   return (
-    <Accordion startIcon={icon} badgeProps={badge} titleProps={title} id={name}>
+    <Accordion
+      startIcon={icon}
+      badgeProps={badge}
+      titleProps={title}
+      id={name}
+      classNames={{
+        label: cn("transition-none", {
+          "text-typography-brand-secondary-alt": selected,
+        }),
+      }}
+    >
       <div className={cn("p-lg", classNames?.container)}>{children}</div>
     </Accordion>
   );
