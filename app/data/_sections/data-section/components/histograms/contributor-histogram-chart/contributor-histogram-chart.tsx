@@ -154,6 +154,7 @@ export function ContributorHistogramChart() {
             placeholder={t("data:details.allDataFilter.placeholder")}
             onSelect={onProgramEcosystemChange}
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
+            searchParams={"programAndEcosystemIds"}
           />
           <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRangeType} isPopOver>
             <Button
