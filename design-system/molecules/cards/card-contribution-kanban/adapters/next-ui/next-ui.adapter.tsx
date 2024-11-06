@@ -174,7 +174,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       );
     }
 
-    return <div />;
+    return null;
   }
 
   function renderLastUpdatedAt() {
@@ -230,12 +230,14 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         {renderLinkedIssues()}
 
-        <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
-          {renderGithubLabels()}
+        {renderGithubLabels() || (actions?.length && showActions) || endContent ? (
+          <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
+            {renderGithubLabels()}
 
-          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
-          {!!endContent && endContent}
-        </footer>
+            {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+            {!!endContent && endContent}
+          </footer>
+        ) : null}
       </div>
     </Paper>
   );
