@@ -69,7 +69,6 @@ export function DeepDiveSection() {
               translate={{ token: "data:deepDive.header.ctaGraph" }}
               classNames={{
                 base: "max-w-full overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
             />
           </div>
