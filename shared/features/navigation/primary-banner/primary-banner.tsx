@@ -43,7 +43,7 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
         unFolded: { opacity: 1, height: "fit-content", width: "fit-content" },
       }}
     >
-      <div className="h-auto max-h-full w-[246px] min-w-[246px]">
+      <div className="h-auto max-h-full w-full">
         <PlgBanner
           title={bannerData.title}
           subTitle={bannerData.subTitle}

@@ -2,9 +2,10 @@ import { tv } from "tailwind-variants";
 
 export const TabItemDefaultVariants = tv({
   slots: {
-    base: "group/tab flex w-fit flex-row items-center justify-center gap-md transition-background",
+    base: "group/tab flex w-fit flex-row items-center justify-between gap-md transition-background",
     startIcon: "transition-colors",
-    label: "transition-colors",
+    endIcon: "transition-colors",
+    label: "flex-1 transition-colors",
     badge: "transition-colors",
     badgeContent: "",
   },
@@ -46,6 +47,11 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-tertiary-hover",
           "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
         ],
+        endIcon: [
+          "text-foreground-tertiary",
+          "group-hover/tab:text-foreground-tertiary-hover",
+          "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
+        ],
       },
     },
     {
@@ -65,6 +71,11 @@ export const TabItemDefaultVariants = tv({
           "group-data-[hover=true]/tab:text-typography-secondary-hover",
         ],
         startIcon: [
+          "text-foreground-secondary",
+          "group-hover/tab:text-foreground-secondary-hover",
+          "group-data-[hover=true]/tab:text-foreground-secondary-hover",
+        ],
+        endIcon: [
           "text-foreground-secondary",
           "group-hover/tab:text-foreground-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-secondary-hover",
@@ -91,13 +102,18 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-brand-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
         ],
+        endIcon: [
+          "text-foreground-tertiary",
+          "group-hover/tab:text-foreground-brand-secondary-hover",
+          "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
+        ],
         badge: [
-          "group-hover/tab:border-components-badge-brand-border group-hover/tab:bg-components-badge-brand-bg",
-          "group-data-[hover=true]/tab:border-components-badge-brand-border group-data-[hover=true]/tab:bg-components-badge-brand-bg",
+          "group-hover/tab:border-components-badge-brand-backgroundoutline-border group-hover/tab:bg-components-badge-brand-backgroundoutline-bg",
+          "group-data-[hover=true]/tab:border-components-badge-brand-backgroundoutline-border group-data-[hover=true]/tab:bg-components-badge-brand-backgroundoutline-bg",
         ],
         badgeContent: [
-          "group-hover/tab:text-components-badge-brand-typo",
-          "group-data-[hover=true]/tab:text-components-badge-brand-typo",
+          "group-hover/tab:text-components-badge-brand-backgroundoutline-typo",
+          "group-data-[hover=true]/tab:text-components-badge-brand-backgroundoutline-typo",
         ],
       },
     },
@@ -122,8 +138,15 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-brand-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
         ],
-        badge: ["border-components-badge-brand-border bg-components-badge-brand-bg"],
-        badgeContent: ["text-components-badge-brand-typo"],
+        endIcon: [
+          "text-foreground-brand-secondary",
+          "group-hover/tab:text-foreground-brand-secondary-hover",
+          "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
+        ],
+        badge: [
+          "border-components-badge-brand-backgroundoutline-border bg-components-badge-brand-backgroundoutline-bg",
+        ],
+        badgeContent: ["text-components-badge-brand-backgroundoutline-typo"],
       },
     },
     {
@@ -137,6 +160,11 @@ export const TabItemDefaultVariants = tv({
           "group-data-[hover=true]/tab:text-typography-tertiary-hover",
         ],
         startIcon: [
+          "text-foreground-tertiary",
+          "group-hover/tab:text-foreground-tertiary-hover",
+          "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
+        ],
+        endIcon: [
           "text-foreground-tertiary",
           "group-hover/tab:text-foreground-tertiary-hover",
           "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
@@ -162,6 +190,11 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-secondary-hover",
         ],
+        endIcon: [
+          "text-foreground-secondary",
+          "group-hover/tab:text-foreground-secondary-hover",
+          "group-data-[hover=true]/tab:text-foreground-secondary-hover",
+        ],
       },
     },
     {
@@ -183,13 +216,18 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-brand-secondary",
           "group-data-[hover=true]/tab:text-foreground-brand-secondary",
         ],
+        endIcon: [
+          "text-foreground-tertiary",
+          "group-hover/tab:text-foreground-brand-secondary",
+          "group-data-[hover=true]/tab:text-foreground-brand-secondary",
+        ],
         badge: [
-          "group-hover/tab:border-components-badge-brand-border group-hover/tab:bg-components-badge-brand-bg",
-          "group-data-[hover=true]/tab:border-components-badge-brand-border group-data-[hover=true]/tab:bg-components-badge-brand-bg",
+          "group-hover/tab:border-components-badge-brand-backgroundoutline-border group-hover/tab:bg-components-badge-brand-backgroundoutline-bg",
+          "group-data-[hover=true]/tab:border-components-badge-brand-backgroundoutline-border group-data-[hover=true]/tab:bg-components-badge-brand-backgroundoutline-bg",
         ],
         badgeContent: [
-          "group-hover/tab:text-components-badge-brand-typo",
-          "group-data-[hover=true]/tab:text-components-badge-brand-typo",
+          "group-hover/tab:text-components-badge-brand-backgroundoutline-typo",
+          "group-data-[hover=true]/tab:text-components-badge-brand-backgroundoutline-typo",
         ],
       },
     },
@@ -212,8 +250,15 @@ export const TabItemDefaultVariants = tv({
           "group-hover/tab:text-foreground-brand-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
         ],
-        badge: ["border-components-badge-brand-border bg-components-badge-brand-bg"],
-        badgeContent: ["text-components-badge-brand-typo"],
+        endIcon: [
+          "text-foreground-brand-secondary",
+          "group-hover/tab:text-foreground-brand-secondary-hover",
+          "group-data-[hover=true]/tab:text-foreground-brand-secondary-hover",
+        ],
+        badge: [
+          "border-components-badge-brand-backgroundoutline-border bg-components-badge-brand-backgroundoutline-bg",
+        ],
+        badgeContent: ["text-components-badge-brand-backgroundoutline-typo"],
       },
     },
   ],

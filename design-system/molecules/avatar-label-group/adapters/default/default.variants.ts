@@ -10,6 +10,7 @@ export const AvatarLabelGroupDefaultVariants = tv({
     truncate: {
       true: {
         title: "break-all",
+        description: "break-all",
       },
     },
   },

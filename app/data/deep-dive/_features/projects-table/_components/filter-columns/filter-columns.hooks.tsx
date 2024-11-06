@@ -1,20 +1,25 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect } from "react";
+import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
+import { GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
 
+import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
+import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiProjectInterface>();
+
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof BiProjectResponse>>(
     "deep-dive-projects-table-columns"
@@ -38,9 +43,32 @@ export function useFilterColumns() {
         "prCount",
         "rewardCount",
         "contributionCount",
+        "engagementStatus",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
+
+  const sortingMap: Partial<Record<keyof BiProjectInterface, GetBiProjectsQueryParams["sort"]>> = {
+    project: "PROJECT_NAME",
+    availableBudget: "AVAILABLE_BUDGET_USD_AMOUNT",
+    percentUsedBudget: "PERCENT_USED_BUDGET",
+    totalGrantedUsdAmount: "TOTAL_GRANTED_USD_AMOUNT",
+    averageRewardUsdAmount: "AVERAGE_REWARD_USD_AMOUNT",
+    onboardedContributorCount: "ONBOARDED_CONTRIBUTOR_COUNT",
+    activeContributorCount: "ACTIVE_CONTRIBUTOR_COUNT",
+    prCount: "PR_COUNT",
+    rewardCount: "REWARD_COUNT",
+    contributionCount: "CONTRIBUTION_COUNT",
+  };
+
+  const sortingParams = useMemo(() => {
+    if (sorting.length === 0) return null;
+
+    return {
+      sort: sortingMap[sorting[0].id as keyof typeof sortingMap],
+      sortDirection: sorting[0].desc ? SortDirection.DESC : SortDirection.ASC,
+    };
+  }, [sorting]);
 
   const columnMap: Partial<Record<keyof BiProjectResponse, object>> = {
     project: columnHelper.accessor("project", {
@@ -62,6 +90,7 @@ export function useFilterColumns() {
       },
     }),
     projectLeads: columnHelper.accessor("projectLeads", {
+      enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.projectLeads"} />,
       cell: info => {
         const leads = info.getValue() ?? [];
@@ -101,6 +130,7 @@ export function useFilterColumns() {
       },
     }),
     categories: columnHelper.accessor("categories", {
+      enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
       cell: info => {
         const categories = info.getValue();
@@ -113,6 +143,7 @@ export function useFilterColumns() {
       },
     }),
     languages: columnHelper.accessor("languages", {
+      enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.languages"} />,
       cell: info => {
         const languages = info.getValue() ?? [];
@@ -151,6 +182,7 @@ export function useFilterColumns() {
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
+      enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.ecosystems"} />,
       cell: info => {
         const ecosystems = info.getValue() ?? [];
@@ -189,6 +221,7 @@ export function useFilterColumns() {
       },
     }),
     programs: columnHelper.accessor("programs", {
+      enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.programs"} />,
       cell: info => {
         const programs = info.getValue() ?? [];
@@ -393,6 +426,26 @@ export function useFilterColumns() {
         return <TableCellKpi trend={trend}>{formattedValue}</TableCellKpi>;
       },
     }),
+    engagementStatus: columnHelper.accessor("engagementStatus", {
+      enableSorting: false,
+      header: () => <Translate token={"data:deepDive.projectsTable.columns.engagementStatuses"} />,
+      cell: info => {
+        const engagementStatuses = info.getValue();
+
+        if (!engagementStatuses) {
+          return <Typo size={"xs"}>N/A</Typo>;
+        }
+
+        return (
+          <Badge
+            size="sm"
+            shape="squared"
+            classNames={{ base: "w-fit" }}
+            translate={{ token: `common:contributorEngagementStatus.${engagementStatuses}` }}
+          />
+        );
+      },
+    }),
   } as const;
 
   const columnMapKeys = Object.keys(columnMap) as Array<keyof typeof columnMap>;
@@ -402,5 +455,5 @@ export function useFilterColumns() {
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<BiProjectInterface>[];
 
-  return { columns, selectedIds, setSelectedIds };
+  return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

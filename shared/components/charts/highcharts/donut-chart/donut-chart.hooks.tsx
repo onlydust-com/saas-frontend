@@ -1,6 +1,8 @@
 import { Options } from "highcharts";
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import {
   PieChartSubtitlePrimaryStyle,
   tooltipInnerStyle,
@@ -25,6 +27,16 @@ export function useDonnutChartOptions({
   total,
   height,
 }: HighchartsOptionsParams & { total: number; height?: number }): HighchartsOptionsReturn {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
+
+  const { amount: formattedTotal } = moneyKernelPort.format({
+    amount: total,
+    currency: moneyKernelPort.getCurrency("USD"),
+    options: {
+      maximumSignificantDigits: undefined,
+    },
+  });
+
   const options = useMemo<Options>(
     () => ({
       chart: {
@@ -44,11 +56,11 @@ export function useDonnutChartOptions({
         text: undefined,
       },
       subtitle: {
-        text: `${total}`,
+        text: formattedTotal,
         floating: true,
         verticalAlign: "middle",
         style: PieChartSubtitlePrimaryStyle,
-        y: 30,
+        y: 24,
       },
       colors,
       tooltip: {
@@ -57,8 +69,17 @@ export function useDonnutChartOptions({
         shared: true, // Enable shared tooltips
         useHTML: true, // Allow HTML formatting
         headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
-        pointFormat:
-          "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
+        pointFormatter() {
+          const { amount, code } = moneyKernelPort.format({
+            amount: this.y,
+            currency: moneyKernelPort.getCurrency("USD"),
+            options: {
+              maximumSignificantDigits: undefined,
+            },
+          });
+
+          return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span></div>`;
+        },
         outside: true,
         ...tooltip,
       },

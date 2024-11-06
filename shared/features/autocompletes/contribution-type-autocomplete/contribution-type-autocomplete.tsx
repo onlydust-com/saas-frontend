@@ -50,7 +50,7 @@ export function ContributionTypeAutocomplete({
   return (
     <Select<ContributionTypeUnion>
       items={contributionTypesItems}
-      isAutoComplete={true}
+      isAutoComplete={false}
       onSelect={handleSelect}
       selectedIds={selectedContributionType}
       isMultiple

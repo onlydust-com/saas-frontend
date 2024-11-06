@@ -1,12 +1,13 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-table";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
+import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -15,6 +16,7 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
@@ -31,6 +33,8 @@ export function useFilterColumns() {
   const { open: openContributor } = useContributorSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
+
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
@@ -78,19 +82,32 @@ export function useFilterColumns() {
     }
   }, [selectedIds, setSelectedIds]);
 
+  const sortingMap: Partial<Record<keyof BiContributorInterface, GetBiContributorsQueryParams["sort"]>> = {
+    contributor: "CONTRIBUTOR_LOGIN",
+    totalRewardedUsdAmount: "TOTAL_REWARDED_USD_AMOUNT",
+  };
+
+  const sortingParams = useMemo(() => {
+    if (sorting.length === 0) return null;
+
+    return {
+      sort: sortingMap[sorting[0].id as keyof typeof sortingMap],
+      sortDirection: sorting[0].desc ? SortDirection.DESC : SortDirection.ASC,
+    };
+  }, [sorting]);
+
   const columnMap: Partial<Record<TableColumns, object>> = {
-    select: columnHelper.accessor("contributor", {
+    select: columnHelper.display({
       id: "select",
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
           mixed={table.getIsSomeRowsSelected()}
           value={table.getIsAllRowsSelected()}
-          classNames={{ base: "p-lg" }}
         />
       ),
       cell: ({ row }) => (
-        <div className="px-1">
+        <div className="pl-sm">
           <Checkbox
             onNativeEventChange={row.getToggleSelectedHandler()}
             mixed={row.getIsSomeSelected()}
@@ -119,6 +136,7 @@ export function useFilterColumns() {
       },
     }),
     labels: columnHelper.accessor("labels", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.labels.title"} />,
       cell: info => {
         const githubUserId = info.row.original.contributor.githubUserId;
@@ -135,6 +153,7 @@ export function useFilterColumns() {
       },
     }),
     languages: columnHelper.accessor("languages", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.languages"} />,
       cell: info => {
         const languages = info.getValue() ?? [];
@@ -175,6 +194,7 @@ export function useFilterColumns() {
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.ecosystems"} />,
       cell: info => {
         const ecosystems = info.getValue() ?? [];
@@ -218,6 +238,7 @@ export function useFilterColumns() {
       },
     }),
     country: columnHelper.accessor("country", {
+      enableSorting: false,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -282,5 +303,5 @@ export function useFilterColumns() {
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<BiContributorInterface>[];
 
-  return { columns, selectedIds, setSelectedIds };
+  return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

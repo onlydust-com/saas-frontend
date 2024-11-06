@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { CircleDashed } from "lucide-react";
 
 import { AvatarLoading } from "@/design-system/atoms/avatar/avatar.loading";
 
@@ -58,6 +59,11 @@ export const Rounded: Story = {
             <Avatar key={size} {...defaultProps} size={size} name="S" src={undefined} onlineIcon />
           ))}
         </div>
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar key={size} {...defaultProps} size={size} src={undefined} iconProps={{ component: CircleDashed }} />
+          ))}
+        </div>
       </div>
     );
   },
@@ -85,6 +91,18 @@ export const Squared: Story = {
         <div className="flex gap-6">
           {sizes.map(size => (
             <Avatar key={size} {...defaultProps} size={size} shape="squared" name="S" src={undefined} onlineIcon />
+          ))}
+        </div>
+        <div className="flex gap-6">
+          {sizes.map(size => (
+            <Avatar
+              key={size}
+              {...defaultProps}
+              size={size}
+              shape="squared"
+              src={undefined}
+              iconProps={{ component: CircleDashed }}
+            />
           ))}
         </div>
       </div>

@@ -1,11 +1,12 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useEffect } from "react";
+import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
+import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
 import { Checkbox } from "@/design-system/atoms/checkbox";
@@ -13,6 +14,7 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
@@ -25,6 +27,8 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiContributorInterface>();
+
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const { mutateAsync: updateContributorLabels } = ProjectReactQueryAdapter.client.useUpdateProjectContributorLabels({
     pathParams: { projectId },
@@ -54,19 +58,34 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     }
   }, [selectedIds, setSelectedIds]);
 
+  const sortingMap: Partial<Record<keyof BiContributorInterface, GetBiContributorsQueryParams["sort"]>> = {
+    contributor: "CONTRIBUTOR_LOGIN",
+    totalRewardedUsdAmount: "TOTAL_REWARDED_USD_AMOUNT",
+  };
+
+  const sortingParams = useMemo(() => {
+    if (sorting.length === 0) return null;
+
+    return {
+      sort: sortingMap[sorting[0].id as keyof typeof sortingMap],
+      sortDirection: sorting[0].desc ? SortDirection.DESC : SortDirection.ASC,
+    };
+  }, [sorting]);
+
+  console.log(sorting);
+
   const columnMap: Partial<Record<TableColumns, object>> = {
-    select: columnHelper.accessor("contributor", {
+    select: columnHelper.display({
       id: "select",
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
           mixed={table.getIsSomeRowsSelected()}
           value={table.getIsAllRowsSelected()}
-          classNames={{ base: "p-lg" }}
         />
       ),
       cell: ({ row }) => (
-        <div className="px-1">
+        <div className="pl-sm">
           <Checkbox
             onNativeEventChange={row.getToggleSelectedHandler()}
             mixed={row.getIsSomeSelected()}
@@ -76,8 +95,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         </div>
       ),
     }),
-    contributor: columnHelper.display({
-      id: "contributor",
+    contributor: columnHelper.accessor("contributor", {
       header: () => <Translate token={"modals:manageRewards.table.columns.contributor"} />,
       cell: info => {
         const { contributor, rank } = info.row.original;
@@ -95,8 +113,8 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         );
       },
     }),
-    labels: columnHelper.display({
-      id: "labels",
+    labels: columnHelper.accessor("projectContributorLabels", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageRewards.table.columns.labels"} />,
       cell: info => {
         const {
@@ -115,8 +133,8 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         );
       },
     }),
-    languages: columnHelper.display({
-      id: "languages",
+    languages: columnHelper.accessor("languages", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageRewards.table.columns.languages"} />,
       cell: info => {
         const { languages } = info.row.original;
@@ -154,8 +172,8 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         );
       },
     }),
-    ecosystems: columnHelper.display({
-      id: "ecosystems",
+    ecosystems: columnHelper.accessor("ecosystems", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageRewards.table.columns.ecosystems"} />,
       cell: info => {
         const { ecosystems } = info.row.original;
@@ -193,8 +211,8 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         );
       },
     }),
-    country: columnHelper.display({
-      id: "country",
+    country: columnHelper.accessor("country", {
+      enableSorting: false,
       header: () => <Translate token={"modals:manageRewards.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;
@@ -212,8 +230,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
         );
       },
     }),
-    rewardedAmount: columnHelper.display({
-      id: "rewardedAmount",
+    rewardedAmount: columnHelper.accessor("totalRewardedUsdAmount", {
       header: () => <Translate token={"modals:manageRewards.table.columns.rewardedAmount"} />,
       cell: info => {
         const { totalRewardedUsdAmount } = info.row.original;
@@ -239,5 +256,5 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
     .filter(Boolean) as ColumnDef<BiContributorInterface>[];
 
-  return { columns, selectedIds, setSelectedIds };
+  return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

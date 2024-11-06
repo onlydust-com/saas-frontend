@@ -4,4 +4,5 @@ import { ProgramEcosystemAutocompleteProps } from "@/shared/features/autocomplet
 
 export interface ProgramEcosystemPopoverProps extends ProgramEcosystemAutocompleteProps {
   buttonProps?: ButtonPort<"button">;
+  searchParams?: string;
 }

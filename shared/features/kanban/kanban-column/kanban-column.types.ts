@@ -15,5 +15,5 @@ export interface KanbanColumnProps extends PropsWithChildren {
   header: header;
   hasNextPage?: boolean;
   onNext?: () => void;
-  isLoading?: boolean;
+  isFetchingNextPage?: boolean;
 }

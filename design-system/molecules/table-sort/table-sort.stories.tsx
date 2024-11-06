@@ -9,7 +9,7 @@ type Story = StoryObj<typeof TableSort>;
 
 const defaultProps: TableSortPort = {
   direction: SortDirection.DESC,
-  onDirectionChange: () => {},
+  onClick: () => {},
 };
 
 const meta: Meta<typeof TableSort> = {
@@ -39,16 +39,16 @@ export const Default: Story = {
   },
 };
 
-export const Selected: Story = {
+export const Sorted: Story = {
   parameters: {
     docs: {
-      source: { code: "<TableSort isSelected />" },
+      source: { code: "<TableSort isSorted />" },
     },
   },
   render: args => {
     return (
       <div className="flex w-full items-center gap-2">
-        <TableSort {...defaultProps} {...args} isSelected />
+        <TableSort {...defaultProps} {...args} isSorted />
       </div>
     );
   },

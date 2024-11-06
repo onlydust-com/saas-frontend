@@ -17,17 +17,20 @@ export function BadgeCloseDefaultAdapter<C extends ElementType = "button">({
   shape,
   color,
   onClose,
+  variant,
   size = "sm",
 }: BadgeClosePort<C>) {
   const Component = as || "button";
 
-  const slots = BadgeCloseDefaultVariants({ color, shape, size });
+  const slots = BadgeCloseDefaultVariants({ color, shape, size, variant });
 
   const iconSizeMapping: Record<NonNullable<BadgeClosePort<AnyType>["size"]>, IconSize> = {
     xxs: "xxs",
     xs: "xxs",
     sm: "sm",
     md: "md",
+    lg: "md",
+    xl: "md",
   };
   return (
     <Component {...htmlProps} onClick={onClose} className={cn(slots.base(), classNames?.base)} data-clickable={true}>

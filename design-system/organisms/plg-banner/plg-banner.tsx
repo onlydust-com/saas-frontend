@@ -1,6 +1,3 @@
-import PlgMarketing from "@/public/images/banners/plg-marketing.png";
-import Image from "next/image";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
 import { Typo } from "@/design-system/atoms/typo";
@@ -32,43 +29,40 @@ export function PlgBanner({ title, subTitle, date, description, cta }: PlgBanner
   return (
     <div
       className={
-        "relative flex h-auto max-h-full w-full flex-col overflow-hidden rounded-xl border border-border-primary p-6"
+        "relative flex h-auto max-h-full w-full flex-col overflow-hidden rounded-xl border border-border-primary p-xl"
       }
     >
-      <Image
-        src={PlgMarketing}
-        alt={title}
-        className={"pointer-events-none absolute h-full w-full object-cover object-center"}
-        fill
-        priority
-      />
+      <div className="absolute inset-0 gradient-glass-neon-80" />
 
       <div className="relative flex h-auto max-h-full w-full flex-col gap-2.5">
-        <div className={"flex flex-col gap-8"}>
-          <div className={"flex flex-col gap-2"}>
+        <div className={"flex flex-col gap-xl"}>
+          <div className={"flex flex-col gap-xl"}>
             <div className={"flex w-full items-center justify-between"}>
               {title ? (
-                <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
+                <Typo size={"xs"} weight={"regular"} color={"tertiary"}>
                   {title}
                 </Typo>
               ) : null}
               {date ? (
-                <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
+                <Typo size={"xs"} weight={"regular"} color={"tertiary"}>
                   {date}
                 </Typo>
               ) : null}
             </div>
-            {subTitle ? (
-              <Typo size={"md"} color={"secondary"}>
-                {subTitle}
-              </Typo>
-            ) : null}
 
-            {description ? (
-              <Typo size={"sm"} weight={"regular"} color={"tertiary"}>
-                {description}
-              </Typo>
-            ) : null}
+            <div className={"flex flex-col gap-sm"}>
+              {subTitle ? (
+                <Typo variant={"heading"} size={"xs"} color={"secondary"}>
+                  {subTitle}
+                </Typo>
+              ) : null}
+
+              {description ? (
+                <Typo size={"xs"} weight={"regular"} color={"tertiary"}>
+                  {description}
+                </Typo>
+              ) : null}
+            </div>
           </div>
 
           <Cta cta={cta} />

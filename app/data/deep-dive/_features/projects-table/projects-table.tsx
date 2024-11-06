@@ -2,6 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
 import { ExportCsv } from "@/app/data/deep-dive/_features/projects-table/_components/export-csv/export-csv";
 import { FilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns";
 import { useFilterColumns } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.hooks";
@@ -39,14 +40,6 @@ export function ProjectsTable() {
   const { open: openProject } = useProjectSidePanel();
   const searchParams = useSearchParams();
 
-  // TODO @Mehdi activate when new filters implemented
-  // useEffect(() => {
-  //   const seriesName = searchParams.get("seriesName");
-  //   if (seriesName) {
-  //     setFilters({ seriesName });
-  //   }
-  // }, [searchParams]);
-
   const dateRangeTypeParam = useMemo(() => {
     return searchParams.get("dateRangeType") as DateRangeType;
   }, [searchParams]);
@@ -56,6 +49,13 @@ export function ProjectsTable() {
       fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
       toDate: searchParams.get("plotPeriodTo") ?? undefined,
     };
+  }, [searchParams]);
+
+  useEffect(() => {
+    const seriesName = searchParams.get("seriesName")?.toUpperCase();
+    if (seriesName) {
+      setFilters({ engagementStatuses: seriesName as unknown as ContributorsTableFilters["engagementStatuses"] });
+    }
   }, [searchParams]);
 
   useEffect(() => {
@@ -69,6 +69,8 @@ export function ProjectsTable() {
   const userProgramIds = user?.programs?.map(program => program.id) ?? [];
   const userEcosystemIds = user?.ecosystems?.map(ecosystem => ecosystem.id) ?? [];
 
+  const { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams } = useFilterColumns();
+
   const queryParams: Partial<GetBiProjectsQueryParams> = {
     dataSourceIds: selectedProgramAndEcosystem.length
       ? selectedProgramAndEcosystem
@@ -77,6 +79,7 @@ export function ProjectsTable() {
     fromDate: period?.fromDate,
     toDate: period?.toDate,
     ...filters,
+    ...sortingParams,
   };
 
   const {
@@ -103,12 +106,16 @@ export function ProjectsTable() {
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 
-  const { columns, selectedIds, setSelectedIds } = useFilterColumns();
-
   const table = useReactTable({
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {
@@ -128,6 +135,7 @@ export function ProjectsTable() {
             onSelect={setSelectedProgramAndEcosystem}
             selectedProgramsEcosystems={selectedProgramAndEcosystem}
             buttonProps={{ size: "sm" }}
+            searchParams={"programAndEcosystemIds"}
           />
           <FilterButton onClick={openFilterPanel} />
           <PeriodFilter

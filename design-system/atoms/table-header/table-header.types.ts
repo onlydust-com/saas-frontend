@@ -6,6 +6,7 @@ interface ClassNames {
   base: string;
   row: string;
   header: string;
+  headerInner: string;
 }
 
 interface HeaderGroup<H> extends ReactTableHeaderGroup<H> {

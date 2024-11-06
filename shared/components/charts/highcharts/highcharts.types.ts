@@ -65,6 +65,6 @@ export interface handleChartClickParams {
   dateRangeType?: string;
   dataViewTarget?: string;
   plotPeriod: string;
-  seriesName: string;
+  seriesName?: string;
   seriesValue?: number;
 }

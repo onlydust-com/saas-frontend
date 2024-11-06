@@ -9,6 +9,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
+import { EngagementStatusesFilter } from "@/shared/features/filters/engagement-statuses-filter/engagement-statuses-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
 import {
@@ -43,6 +44,10 @@ export function FilterData() {
         <CategoryFilter
           selectedCategories={filters.categoryIds}
           onSelect={categories => setFilters({ categoryIds: categories })}
+        />
+        <EngagementStatusesFilter
+          selectedEngagementStatus={filters.engagementStatuses}
+          onSelect={engagementStatuses => setFilters({ engagementStatuses })}
         />
         <LanguageFilter
           selectedLanguages={filters.languageIds}

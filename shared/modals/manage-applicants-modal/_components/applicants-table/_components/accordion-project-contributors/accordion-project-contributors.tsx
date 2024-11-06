@@ -17,6 +17,8 @@ export function AccordionProjectContributors({
   contributionId = "",
   queryParams,
   columns,
+  sorting,
+  setSorting,
 }: AccordionProjectContributorsProps) {
   const { open: openContributor } = useContributorSidePanel();
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -33,6 +35,12 @@ export function AccordionProjectContributors({
     data: applicants,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   if (isLoading) {

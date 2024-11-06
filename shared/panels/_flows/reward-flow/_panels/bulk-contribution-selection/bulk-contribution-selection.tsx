@@ -10,11 +10,11 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-import { ManageRewardsModal } from "@/shared/modals/manage-rewards-modal/manage-rewards-modal";
-import { useManageRewardsModal } from "@/shared/modals/manage-rewards-modal/manage-rewards-modal.hooks";
 import { SingleUserFlow } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_features/single-user-flow/single-user-flow";
 import { useBulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection.hooks";
 import { useBulkContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/bulk-contribution-validation.hooks";
+import { ManageRewardsModal } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/manage-rewards-modal";
+import { useManageRewardsModal } from "@/shared/panels/_flows/reward-flow/modals/manage-rewards-modal/manage-rewards-modal.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 
 import { BulkContributionSelectionProps } from "./bulk-contribution-selection.types";
@@ -81,7 +81,7 @@ function Content({ headerProps, footerProps }: BulkContributionSelectionProps) {
 
   useEffect(() => {
     setIsRewardValid(prev => {
-      const newIsValid = { ...prev };
+      const newIsValid: Record<number, boolean> = {};
       selectedGithubUserIds.forEach(id => {
         newIsValid[id] = prev[id] ?? false;
       });

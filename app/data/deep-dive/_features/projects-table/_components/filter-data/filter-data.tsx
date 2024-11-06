@@ -13,6 +13,7 @@ import { BudgetUsedCountFilter } from "@/shared/features/filters/budget-used-cou
 import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
 import { DevActiveCountFilter } from "@/shared/features/filters/dev-active-count-filter/dev-active-count-filter";
+import { EngagementStatusesFilter } from "@/shared/features/filters/engagement-statuses-filter/engagement-statuses-filter";
 import { GrantedCountFilter } from "@/shared/features/filters/granted-count-filter/granted-count-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 import { LeadProjectFilter } from "@/shared/features/filters/lead-project-filter/lead-project-filter";
@@ -52,6 +53,10 @@ export function FilterData() {
         <CategoryFilter
           selectedCategories={filters.categoryIds}
           onSelect={categories => setFilters({ categoryIds: categories })}
+        />
+        <EngagementStatusesFilter
+          selectedEngagementStatus={filters.engagementStatuses}
+          onSelect={engagementStatuses => setFilters({ engagementStatuses })}
         />
         <LanguageFilter
           selectedLanguages={filters.languageIds}
