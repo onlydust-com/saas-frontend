@@ -9,10 +9,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { HelperProps } from "./helper.types";
 
 export function Helper({ type, open, onClose }: HelperProps) {
-  if (!open) {
-    return null;
-  }
-
   const alertContent = useMemo(() => {
     switch (type) {
       case ContributionActivityStatus.NOT_ASSIGNED:
@@ -29,6 +25,10 @@ export function Helper({ type, open, onClose }: HelperProps) {
         return null;
     }
   }, [type]);
+
+  if (!open) {
+    return null;
+  }
 
   return <Alert color="brand" title={alertContent?.title} description={alertContent?.description} onClose={onClose} />;
 }

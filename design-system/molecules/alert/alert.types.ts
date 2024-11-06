@@ -16,6 +16,7 @@ export interface AlertPort extends Partial<Variants> {
   title: ReactNode;
   description: ReactNode;
   icon?: IconPort;
+  hasIcon?: boolean;
   primaryButton?: ButtonPort<"button">;
   secondaryButton?: ButtonPort<"button">;
   onClose?: () => void;
