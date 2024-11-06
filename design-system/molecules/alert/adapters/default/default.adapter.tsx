@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { Info, X } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
@@ -14,6 +14,7 @@ export function AlertDefaultAdapter({
   title,
   description,
   icon,
+  hasIcon = true,
   primaryButton,
   secondaryButton,
   color,
@@ -21,9 +22,13 @@ export function AlertDefaultAdapter({
 }: AlertPort) {
   const slots = AlertDefaultVariants({ color });
 
+  const defaultIcon: AlertPort["icon"] = {
+    component: Info,
+  };
+
   return (
     <div className={cn(slots.base(), classNames?.base)}>
-      {icon ? <Icon {...icon} size="md" classNames={{ base: slots.icon() }} /> : null}
+      {hasIcon ? <Icon {...(icon || defaultIcon)} size="md" classNames={{ base: slots.icon() }} /> : null}
 
       <div className="flex w-full flex-col gap-lg">
         <div className="flex w-full justify-between gap-xs">

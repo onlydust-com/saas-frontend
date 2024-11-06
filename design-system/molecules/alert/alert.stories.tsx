@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Rocket } from "lucide-react";
 
 import { AlertLoading } from "./alert.loading";
 import { AlertPort } from "./alert.types";
@@ -42,6 +43,36 @@ export const Colors: Story = {
     <div className="flex w-[480px] flex-col gap-4">
       {colors.map(color => (
         <Alert key={color} {...defaultProps} {...args} color={color} />
+      ))}
+    </div>
+  ),
+};
+
+export const NoIcon: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Alert hasIcon={false} />" },
+    },
+  },
+  render: args => (
+    <div className="flex w-[480px] flex-col gap-4">
+      {colors.map(color => (
+        <Alert key={color} {...defaultProps} {...args} color={color} hasIcon={false} />
+      ))}
+    </div>
+  ),
+};
+
+export const WithCustomIcon: Story = {
+  parameters: {
+    docs: {
+      source: { code: "<Alert icon={{ component: Rocket }} />" },
+    },
+  },
+  render: args => (
+    <div className="flex w-[480px] flex-col gap-4">
+      {colors.map(color => (
+        <Alert key={color} {...defaultProps} {...args} color={color} icon={{ component: Rocket }} />
       ))}
     </div>
   ),
