@@ -35,7 +35,7 @@ function Content({
       }}
       isSelected={isActive}
     >
-      <div className={cn("flex flex-1 items-center justify-start truncate transition-all", { "opacity-0": isFolded })}>
+      <div className={cn("flex flex-1 items-center justify-start truncate", { "opacity-0": isFolded })}>
         {!!translate && <Translate {...translate} />}
         {children}
         {isExternal ? (
