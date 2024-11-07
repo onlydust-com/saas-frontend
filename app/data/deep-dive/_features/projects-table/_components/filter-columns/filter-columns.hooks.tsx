@@ -16,7 +16,7 @@ import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosyst
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
 import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
-import { CellProgramsAvatars } from "@/shared/features/table/cell/cell-programs-avatars/cell-programs-avatars";
+import { CellPrograms } from "@/shared/features/table/cell/cell-programs/cell-programs";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
@@ -139,7 +139,7 @@ export function useFilterColumns() {
       cell: info => {
         const programs = info.getValue() ?? [];
 
-        return <CellProgramsAvatars programs={programs} />;
+        return <CellPrograms programs={programs} />;
       },
     }),
     availableBudget: columnHelper.accessor("availableBudget", {
