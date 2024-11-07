@@ -72,7 +72,7 @@ export function FinancialSection({ projectId }: { projectId?: string }) {
               endIcon={{ component: ChevronRight }}
               isTextButton
               size={"md"}
-              translate={{ token: "manageProjects:detail.financial.buttons.modifyProject" }}
+              translate={{ token: "manageProjects:detail.financial.buttons.editProject" }}
               classNames={{
                 base: "max-w-full overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
