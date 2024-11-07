@@ -35,12 +35,14 @@ export function PrimaryNavigationMobile() {
           <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
       </div>
+
       <Modal
         isOpen={isOpen}
         onOpenChange={isModalOpen => (!isModalOpen ? handleClose() : null)}
         hideHeader={true}
         placement={"bottom"}
-        classNames={{ modal: "min-w-full max-w-full rounded-b-none !m-0" }}
+        size="8xl"
+        classNames={{ modal: "rounded-b-none !m-0" }}
       >
         <div className={"flex w-full flex-col gap-3"}>
           <div className={"flex w-full flex-row items-center gap-1"}>
