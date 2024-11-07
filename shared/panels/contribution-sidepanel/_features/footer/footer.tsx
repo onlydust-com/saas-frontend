@@ -66,7 +66,7 @@ export function Footer({ contribution }: FooterProps) {
         {buttons.map((action, index) => {
           if (action.tooltip) {
             return (
-              <Tooltip key={index} {...action?.tooltip}>
+              <Tooltip key={index} {...action.tooltip}>
                 <Button size={"md"} variant={"secondary"} {...action} />
               </Tooltip>
             );
