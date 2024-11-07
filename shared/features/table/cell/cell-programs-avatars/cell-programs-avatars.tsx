@@ -1,16 +1,15 @@
-import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellBadge } from "@/shared/features/table/cell/cell-badge/cell-badge";
 
 import { CellProgramsAvatarsProps } from "./cell-programs-avatars.types";
 
 export function CellProgramsAvatars({ programs, ...props }: CellProgramsAvatarsProps) {
   return (
-    <CellAvatar
-      avatars={programs.map(program => ({
+    <CellBadge
+      items={programs.map(program => program.name)}
+      popOverAvatars={programs.map(program => ({
         src: program.logoUrl,
         name: program.name,
       }))}
-      quantity={3}
-      {...props}
     />
   );
 }
