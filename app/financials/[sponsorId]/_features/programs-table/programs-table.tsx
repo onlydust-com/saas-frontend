@@ -73,16 +73,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        return (
-          <CellLeads
-            leads={leads}
-            singleProps={{
-              description: {
-                children: <Translate token={"financials:details.programs.table.rows.programLead"} />,
-              },
-            }}
-          />
-        );
+        return <CellLeads leads={leads} />;
       },
     }),
     columnHelper.accessor("totalAvailable", {

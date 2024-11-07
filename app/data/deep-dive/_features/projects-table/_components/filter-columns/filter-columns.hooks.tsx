@@ -108,14 +108,7 @@ export function useFilterColumns() {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
       cell: info => {
         const categories = info.getValue();
-        //
-        // if (!categories?.length) {
-        //   return <CellEmpty />;
-        // }
-
         return <CellBadge items={categories?.map(category => category.name)} />;
-
-        return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
       },
     }),
     languages: columnHelper.accessor("languages", {

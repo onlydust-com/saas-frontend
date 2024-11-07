@@ -43,16 +43,7 @@ export function ProgramsTable() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        return (
-          <CellLeads
-            leads={leads}
-            singleProps={{
-              description: {
-                children: <Translate token={"programs:list.content.table.rows.programLead"} />,
-              },
-            }}
-          />
-        );
+        return <CellLeads leads={leads} />;
       },
     }),
     columnHelper.accessor("totalAvailable", {
