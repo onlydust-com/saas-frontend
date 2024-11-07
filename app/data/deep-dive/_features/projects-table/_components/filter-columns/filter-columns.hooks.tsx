@@ -8,12 +8,12 @@ import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/b
 
 import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
 import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
 import { CellProgramsAvatars } from "@/shared/features/table/cell/cell-programs-avatars/cell-programs-avatars";
@@ -109,11 +109,7 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -160,11 +156,7 @@ export function useFilterColumns() {
         const value = info.getValue();
 
         if (!value) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return <TableCellKpi>{value}%</TableCellKpi>;
@@ -261,11 +253,7 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return (

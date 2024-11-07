@@ -17,6 +17,7 @@ import { CancelReward } from "@/shared/components/mutation/reward/cancel-reward"
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns({ projectId }: { projectId: string }) {
@@ -116,11 +117,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         const rewardId = info.row.original.id;
 
         if (!numberOfRewardedContributions) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return <ContributionsPopover contributionsCount={numberOfRewardedContributions} rewardId={rewardId} />;

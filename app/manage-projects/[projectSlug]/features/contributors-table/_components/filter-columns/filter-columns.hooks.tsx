@@ -14,13 +14,13 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -180,11 +180,7 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return (
