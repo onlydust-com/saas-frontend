@@ -179,7 +179,11 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (

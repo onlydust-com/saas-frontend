@@ -70,7 +70,7 @@ export function ProgramsTable() {
         const totalPerCurrency = value.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return "N/A";
+          return "-";
         }
 
         if (totalPerCurrency.length === 1) {

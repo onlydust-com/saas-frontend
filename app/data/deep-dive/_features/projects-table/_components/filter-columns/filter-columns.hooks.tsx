@@ -109,7 +109,11 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -155,7 +159,11 @@ export function useFilterColumns() {
         const totalPerCurrency = value?.totalPerCurrency ?? [];
 
         if (!totalPerCurrency.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         if (totalPerCurrency.length === 1) {
@@ -219,7 +227,11 @@ export function useFilterColumns() {
         const value = info.getValue();
 
         if (!value) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{value}%</TableCellKpi>;
@@ -316,7 +328,11 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (

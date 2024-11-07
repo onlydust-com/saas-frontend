@@ -98,7 +98,11 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -129,7 +133,11 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (
@@ -196,7 +204,11 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return (
+            <Typo size="xs" color="secondary">
+              -
+            </Typo>
+          );
         }
 
         return (
