@@ -70,7 +70,7 @@ export function ContributionsPopover({ rewardId, contributionsCount, buttonProps
     <Popover>
       <Popover.Trigger>
         {({ isOpen }) => (
-          <div>
+          <div className="w-fit">
             <Button
               as={"div"}
               variant={"secondary"}
