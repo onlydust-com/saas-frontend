@@ -14,7 +14,9 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
-import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
+import { CellProjectsAvatars } from "@/shared/features/table/cell/cell-projects-avatars/cell-projects-avatars";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
@@ -86,19 +88,7 @@ export function useFilterColumns() {
       cell: info => {
         const projects = info.getValue() ?? [];
 
-        if (!projects.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        return (
-          <CellAvatar
-            avatars={projects.map(project => ({
-              src: project.logoUrl,
-              name: project.name,
-            }))}
-            quantity={3}
-          />
-        );
+        return <CellProjectsAvatars projects={projects} />;
       },
     }),
     categories: columnHelper.accessor("categories", {
@@ -120,19 +110,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        return (
-          <CellAvatar
-            avatars={languages.map(language => ({
-              src: language.logoUrl,
-              name: language.name,
-            }))}
-            quantity={3}
-          />
-        );
+        return <CellLanguagesAvatars languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -141,19 +119,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        return (
-          <CellAvatar
-            avatars={ecosystems.map(ecosystem => ({
-              src: ecosystem.logoUrl,
-              name: ecosystem.name,
-            }))}
-            quantity={3}
-          />
-        );
+        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {

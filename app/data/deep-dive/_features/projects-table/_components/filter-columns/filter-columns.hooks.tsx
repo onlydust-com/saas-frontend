@@ -13,6 +13,10 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
+import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
+import { CellProgramsAvatars } from "@/shared/features/table/cell/cell-programs-avatars/cell-programs-avatars";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
@@ -95,38 +99,7 @@ export function useFilterColumns() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        if (!leads.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (leads.length === 1) {
-          const lead = leads[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: lead.avatarUrl,
-                },
-              ]}
-              title={{ children: lead.login }}
-              description={{ children: <Translate token={"data:deepDive.projectsTable.rows.projectLead"} /> }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={leads.map(lead => ({
-              src: lead.avatarUrl,
-              name: lead.login,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.projectsTable.rows.leads"} count={leads?.length} />,
-            }}
-          />
-        );
+        return <CellLeadsAvatars leads={leads} />;
       },
     }),
     categories: columnHelper.accessor("categories", {
@@ -148,37 +121,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (languages.length === 1) {
-          const language = languages[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: language.logoUrl,
-                },
-              ]}
-              title={{ children: language.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={languages.map(language => ({
-              src: language.logoUrl,
-              name: language.name,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.projectsTable.rows.languages"} count={languages?.length} />,
-            }}
-          />
-        );
+        return <CellLanguagesAvatars languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -187,37 +130,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (ecosystems.length === 1) {
-          const ecosystem = ecosystems[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: ecosystem.logoUrl,
-                },
-              ]}
-              title={{ children: ecosystem.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={ecosystems.map(ecosystem => ({
-              src: ecosystem.logoUrl,
-              name: ecosystem.name,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.projectsTable.rows.ecosystems"} count={ecosystems?.length} />,
-            }}
-          />
-        );
+        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
       },
     }),
     programs: columnHelper.accessor("programs", {
@@ -226,37 +139,7 @@ export function useFilterColumns() {
       cell: info => {
         const programs = info.getValue() ?? [];
 
-        if (!programs.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (programs.length === 1) {
-          const program = programs[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: program.logoUrl,
-                },
-              ]}
-              title={{ children: program.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={programs.map(program => ({
-              src: program.logoUrl,
-              name: program.name,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.projectsTable.rows.programs"} count={programs?.length} />,
-            }}
-          />
-        );
+        return <CellProgramsAvatars programs={programs} />;
       },
     }),
     availableBudget: columnHelper.accessor("availableBudget", {
