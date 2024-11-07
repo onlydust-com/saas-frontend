@@ -78,5 +78,8 @@
   "clearSelection": "Clear selection",
   "next": "Next",
   "back": "Back",
-  "reward": "Reward"
+  "reward": "Reward",
+  "tooltip": {
+    "disabledReward": "No budget available"
+  }
 }

@@ -20,6 +20,7 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
+import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -35,6 +36,8 @@ export function useFilterColumns() {
   const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
 
   const [sorting, setSorting] = useState<SortingState>([]);
+
+  const canReward = useCanReward(projectSlug);
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
@@ -290,12 +293,15 @@ export function useFilterColumns() {
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.actions.title"} />,
       cell: info => (
         <div className="flex gap-sm">
-          <Button
-            onClick={() => openRewardFlow({ githubUserIds: [info.row.original.contributor.githubUserId] })}
-            variant={"secondary"}
-            size={"sm"}
-            translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}
-          />
+          <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
+            <Button
+              onClick={() => openRewardFlow({ githubUserIds: [info.row.original.contributor.githubUserId] })}
+              variant={"secondary"}
+              size={"sm"}
+              translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}
+              isDisabled={!canReward}
+            />
+          </Tooltip>
 
           <Button
             onClick={() => openContributor({ githubId: info.row.original.contributor.githubUserId })}
