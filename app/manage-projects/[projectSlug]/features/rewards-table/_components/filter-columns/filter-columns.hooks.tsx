@@ -104,6 +104,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
             ]}
             shape={"rounded"}
             title={{ children: rewardedUser.login }}
+            withPopover={false}
           />
         );
       },

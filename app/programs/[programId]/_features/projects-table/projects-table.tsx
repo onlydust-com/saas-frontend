@@ -66,6 +66,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
           shape={"squared"}
           title={{ children: info.getValue() }}
           description={{ children: info.row.original.truncateDescription(25) }}
+          withPopover={false}
         />
       ),
     }),

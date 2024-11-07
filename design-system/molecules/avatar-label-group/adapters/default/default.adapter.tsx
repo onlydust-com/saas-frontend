@@ -84,7 +84,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
                           shape={shape}
                           avatars={[avatar]}
                           key={index}
-                          title={{ children: avatar?.name }}
+                          title={avatar?.name ? { children: avatar?.name } : title}
                         />
                       ))}
                 </div>

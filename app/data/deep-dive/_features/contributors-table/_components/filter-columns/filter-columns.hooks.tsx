@@ -79,6 +79,7 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: contributor.login }}
+            withPopover={false}
           />
         );
       },

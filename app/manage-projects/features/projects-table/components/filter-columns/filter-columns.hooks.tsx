@@ -56,6 +56,7 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: info.row.original.name }}
+            withPopover={false}
           />
         );
       },
