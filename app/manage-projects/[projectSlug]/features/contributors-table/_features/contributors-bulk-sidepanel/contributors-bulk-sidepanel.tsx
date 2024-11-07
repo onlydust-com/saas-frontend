@@ -10,6 +10,7 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 
@@ -17,7 +18,9 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { cn } from "@/shared/helpers/cn";
+import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ContributorsBulkSidepanelData } from "./contributors-bulk-sidepanel.types";
 
@@ -30,6 +33,8 @@ export function ContributorsBulkSidepanel() {
   const { projectSlug } = useSinglePanelData<ContributorsBulkSidepanelData>(name) ?? { projectSlug: "" };
   const { userSelected, onRemoveSelection } = useContext(ContributorsTableContext);
   const [selectedLabels, setSelectedLabels] = useState<label[]>([]);
+
+  const canReward = useCanReward(projectSlug);
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
@@ -139,7 +144,7 @@ export function ContributorsBulkSidepanel() {
             children: userSelected.length || 0,
           }}
         >
-          <div>
+          <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
             <Button
               size={"md"}
               as={"div"}
@@ -147,8 +152,9 @@ export function ContributorsBulkSidepanel() {
               translate={{ token: "manageProjects:bulk.reward.button" }}
               classNames={{ base: "w-full" }}
               onClick={() => openRewardFlow({ githubUserIds: userSelected.map(user => user.contributor.githubUserId) })}
+              isDisabled={!canReward}
             />
-          </div>
+          </Tooltip>
         </Accordion>
         <Accordion
           defaultSelected={["repositories"]}

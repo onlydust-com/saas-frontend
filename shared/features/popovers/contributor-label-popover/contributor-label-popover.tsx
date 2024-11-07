@@ -20,7 +20,7 @@ export function ContributorLabelPopover({
     <Popover>
       <Popover.Trigger>
         {() => (
-          <div>
+          <div className="w-fit">
             <Button
               as={"div"}
               variant={"secondary"}

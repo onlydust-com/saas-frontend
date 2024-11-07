@@ -63,7 +63,7 @@ export function ProjectUpdateSidepanel() {
 
       const editProjectData: EditProjectBody = {
         ...updatedData,
-        logoUrl: fileUrl?.url || updatedData?.logoUrl,
+        logoUrl: fileUrl?.url || data?.logoUrl, // Cause it's not send in updatedData
         contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
         rewardSettings: {
           ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
