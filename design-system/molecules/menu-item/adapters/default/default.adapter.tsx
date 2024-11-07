@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import { SyntheticEvent } from "react";
 
 import { AnyType } from "@/core/kernel/types";
 
@@ -24,8 +23,7 @@ export function MenuItemDefaultAdapter<T extends AnyType>({
 }: MenuItemPort<T>) {
   const slots = MenuItemDefaultVariants({ isDisabled, isSelected });
 
-  function handleClick(e: SyntheticEvent) {
-    e?.stopPropagation();
+  function handleClick() {
     onClick?.(id);
   }
 
