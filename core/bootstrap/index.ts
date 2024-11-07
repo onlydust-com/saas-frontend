@@ -1,6 +1,7 @@
 import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
+import { BillingProfileStoragePort } from "@/core/domain/billing-profile/outputs/billing-profile-storage-port";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
 import { CountryStoragePort } from "@/core/domain/country/outputs/country-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
@@ -20,6 +21,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
+import { BillingProfileClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/billing-profile-client-adapter";
 import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
 import { CountryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/country-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
@@ -92,6 +94,8 @@ export interface BootstrapConstructor {
   rewardStoragePortForServer: RewardStoragePort;
   issueStoragePortForClient: IssueStoragePort;
   issueStoragePortForServer: IssueStoragePort;
+  billingProfileStoragePortForClient: BillingProfileStoragePort;
+  billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -142,6 +146,8 @@ export class Bootstrap {
   rewardStoragePortForServer: RewardStoragePort;
   issueStoragePortForClient: IssueStoragePort;
   issueStoragePortForServer: IssueStoragePort;
+  billingProfileStoragePortForClient: BillingProfileStoragePort;
+  billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
@@ -188,6 +194,8 @@ export class Bootstrap {
     this.rewardStoragePortForServer = constructor.rewardStoragePortForServer;
     this.issueStoragePortForClient = constructor.issueStoragePortForClient;
     this.issueStoragePortForServer = constructor.issueStoragePortForServer;
+    this.billingProfileStoragePortForClient = constructor.billingProfileStoragePortForClient;
+    this.billingProfileStoragePortForServer = constructor.billingProfileStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
@@ -364,6 +372,14 @@ export class Bootstrap {
     return this.issueStoragePortForClient;
   }
 
+  getBillingProfileStoragePortForClient() {
+    return this.billingProfileStoragePortForClient;
+  }
+
+  getBillingProfileStoragePortForServer() {
+    return this.billingProfileStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -429,6 +445,8 @@ export class Bootstrap {
         rewardStoragePortForClient: new RewardClientAdapter(new FetchHttpClient()),
         issueStoragePortForServer: new IssueClientAdapter(new FetchHttpClient()),
         issueStoragePortForClient: new IssueClientAdapter(new FetchHttpClient()),
+        billingProfileStoragePortForClient: new BillingProfileClientAdapter(new FetchHttpClient()),
+        billingProfileStoragePortForServer: new BillingProfileClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
