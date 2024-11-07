@@ -17,7 +17,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
-import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
+import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -78,7 +78,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
         const leads = info.getValue() ?? [];
 
         return (
-          <CellLeadsAvatars
+          <CellLeads
             leads={leads}
             singleProps={{
               description: {

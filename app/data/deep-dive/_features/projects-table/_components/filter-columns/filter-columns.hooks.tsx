@@ -12,10 +12,10 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
-import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
-import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
-import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
+import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
+import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { CellPrograms } from "@/shared/features/table/cell/cell-programs/cell-programs";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -99,7 +99,7 @@ export function useFilterColumns() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        return <CellLeadsAvatars leads={leads} />;
+        return <CellLeads leads={leads} />;
       },
     }),
     categories: columnHelper.accessor("categories", {
@@ -121,7 +121,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        return <CellLanguagesAvatars languages={languages} />;
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -130,7 +130,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
+        return <CellEcosystems ecosystems={ecosystems} />;
       },
     }),
     programs: columnHelper.accessor("programs", {

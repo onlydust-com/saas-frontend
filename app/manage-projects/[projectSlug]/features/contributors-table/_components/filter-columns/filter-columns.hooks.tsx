@@ -19,9 +19,9 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
-import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
-import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
+import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -161,7 +161,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        return <CellLanguagesAvatars languages={languages} />;
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -170,7 +170,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
+        return <CellEcosystems ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {

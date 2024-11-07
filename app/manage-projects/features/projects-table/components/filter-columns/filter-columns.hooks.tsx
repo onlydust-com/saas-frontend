@@ -15,7 +15,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
-import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
+import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
@@ -67,7 +67,7 @@ export function useFilterColumns() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        return <CellLeadsAvatars leads={leads} />;
+        return <CellLeads leads={leads} />;
       },
     }),
     totalAvailable: columnHelper.accessor("totalAvailable", {
