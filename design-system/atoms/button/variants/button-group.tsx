@@ -2,6 +2,7 @@ import { tv } from "tailwind-variants";
 
 import { cn } from "@/shared/helpers/cn";
 
+import { Tooltip } from "../../tooltip";
 import { ButtonGroupPort } from "../button.types";
 import { Button } from "./button-default";
 
@@ -51,24 +52,32 @@ function ButtonItem({
     }
   }
 
-  return (
-    <Button
-      {...commonProps}
-      {...itemProps}
-      onClick={handleClick}
-      variant={"secondary"}
-      classNames={{
-        base: cn(
-          "rounded-none !shadow-none border-r-0 border-t-0 border-r-0 border-b-0 border-border-primary-alt",
-          {
-            "border-l-0": !hasBorder,
-          },
-          commonProps.classNames?.base,
-          itemProps.classNames?.base
-        ),
-      }}
-    />
-  );
+  function renderButton() {
+    return (
+      <Button
+        {...commonProps}
+        {...itemProps}
+        onClick={handleClick}
+        variant={"secondary"}
+        classNames={{
+          base: cn(
+            "rounded-none !shadow-none border-r-0 border-t-0 border-r-0 border-b-0 border-border-primary-alt",
+            {
+              "border-l-0": !hasBorder,
+            },
+            commonProps.classNames?.base,
+            itemProps.classNames?.base
+          ),
+        }}
+      />
+    );
+  }
+
+  if (itemProps.tooltip) {
+    return <Tooltip {...itemProps.tooltip}>{renderButton()}</Tooltip>;
+  }
+
+  return renderButton();
 }
 
 export function ButtonGroup(props: ButtonGroupPort) {

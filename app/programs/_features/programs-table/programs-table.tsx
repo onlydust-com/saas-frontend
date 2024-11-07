@@ -9,14 +9,14 @@ import { ProgramListItemInterface } from "@/core/domain/program/models/program-l
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
-import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
+import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
@@ -43,38 +43,7 @@ export function ProgramsTable() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        if (!leads.length) {
-          return "N/A";
-        }
-
-        if (leads.length === 1) {
-          const lead = leads[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: lead.avatarUrl,
-                },
-              ]}
-              title={{ children: lead.login }}
-              description={{ children: <Translate token={"programs:list.content.table.rows.programLead"} /> }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={leads.map(lead => ({
-              src: lead.avatarUrl,
-              name: lead.login,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"programs:list.content.table.rows.leads"} count={leads?.length} />,
-            }}
-          />
-        );
+        return <CellLeads leads={leads} />;
       },
     }),
     columnHelper.accessor("totalAvailable", {
@@ -82,69 +51,7 @@ export function ProgramsTable() {
       header: () => <Translate token={"programs:list.content.table.columns.budgetsAvailable"} />,
       cell: info => {
         const value = info.getValue();
-
-        const totalUsdEquivalent = moneyKernelPort.format({
-          amount: value.totalUsdEquivalent,
-          currency: moneyKernelPort.getCurrency("USD"),
-        });
-
-        const totalPerCurrency = value.totalPerCurrency ?? [];
-
-        if (!totalPerCurrency.length) {
-          return "N/A";
-        }
-
-        if (totalPerCurrency.length === 1) {
-          const firstCurrency = totalPerCurrency[0];
-
-          const totalFirstCurrency = moneyKernelPort.format({
-            amount: firstCurrency.amount,
-            currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
-          });
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: firstCurrency.currency.logoUrl,
-                },
-              ]}
-              title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
-              description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={totalPerCurrency?.map(({ currency }) => ({
-              src: currency.logoUrl,
-              name: currency.name,
-            }))}
-            quantity={3}
-            title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            description={{
-              children: (
-                <Translate token={"programs:list.content.table.rows.currencies"} count={totalPerCurrency?.length} />
-              ),
-            }}
-            popoverContent={(totalPerCurrency ?? [])?.map(amount => {
-              return (
-                <CardBudget
-                  key={amount.currency.id}
-                  amount={{
-                    value: amount.amount,
-                    currency: amount.currency,
-                    usdEquivalent: amount.usdEquivalent ?? 0,
-                  }}
-                  background={"secondary"}
-                  border={"primary"}
-                  badgeProps={{ color: "brand", children: amount.currency.name }}
-                />
-              );
-            })}
-          />
-        );
+        return <CellBudget totalUsdEquivalent={value?.totalUsdEquivalent} totalPerCurrency={value?.totalPerCurrency} />;
       },
     }),
     columnHelper.accessor("projectCount", {

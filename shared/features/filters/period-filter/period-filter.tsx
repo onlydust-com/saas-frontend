@@ -82,26 +82,37 @@ export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: Pe
           </div>
         )}
       </Popover.Trigger>
-      <Popover.Content>
+      <Popover.Content className="!px-0 !py-0">
         {() => (
           <div className="flex flex-col gap-4">
-            <Menu items={rangeMenu} selectedIds={[periodType]} onAction={onChangeRangeType} placement={"bottom-end"}>
+            <Menu
+              items={rangeMenu}
+              selectedIds={[periodType]}
+              onAction={onChangeRangeType}
+              placement={"bottom-end"}
+              classNames={{
+                content: "border-0 px-0 py-0",
+              }}
+            >
               <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
                 <Translate token={`common:dateRangeType.${periodType}`} />
               </Button>
             </Menu>
+
             {periodType === DateRangeType.CUSTOM ? (
-              <DateRangePicker
-                label={
-                  <Typo
-                    size="xs"
-                    color="secondary"
-                    translate={{ token: "features:filters.periodDate.periodPickerLabel" }}
-                  />
-                }
-                value={dateRange}
-                onChange={handleDateRange}
-              />
+              <div className={"w-full px-md"}>
+                <DateRangePicker
+                  label={
+                    <Typo
+                      size="xs"
+                      color="secondary"
+                      translate={{ token: "features:filters.periodDate.periodPickerLabel" }}
+                    />
+                  }
+                  value={dateRange}
+                  onChange={handleDateRange}
+                />
+              </div>
             ) : null}
           </div>
         )}

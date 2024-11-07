@@ -17,7 +17,7 @@ export function PopoverNextUiAdapter({ children, defaultOpen = false, placement 
 
   return (
     <PopoverContext.Provider value={{ isOpen, setIsOpen }}>
-      <Popover isOpen={isOpen} onOpenChange={setIsOpen} placement={placement}>
+      <Popover isOpen={isOpen} onOpenChange={setIsOpen} placement={placement} onClick={e => e?.stopPropagation()}>
         {children}
       </Popover>
     </PopoverContext.Provider>

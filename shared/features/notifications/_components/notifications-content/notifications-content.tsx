@@ -10,6 +10,7 @@ import { CardNotification, CardNotificationLoading } from "@/design-system/molec
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NotificationsContentProps } from "@/shared/features/notifications/_components/notifications-content/notifications-content.types";
 
@@ -51,7 +52,8 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
   function renderContent() {
     if (isLoading) {
       return (
-        <div className={"grid gap-lg"}>
+        <div className={"flex flex-col gap-lg"}>
+          <CardNotificationLoading />
           <CardNotificationLoading />
           <CardNotificationLoading />
           <CardNotificationLoading />
@@ -68,7 +70,7 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
     }
 
     return (
-      <div className={"grid gap-lg"}>
+      <ScrollView className={"flex flex-col gap-lg"}>
         {notifications.map(notification => (
           <CardNotification
             key={notification.getId()}
@@ -84,12 +86,12 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
         ))}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-      </div>
+      </ScrollView>
     );
   }
 
   return (
-    <div className={"grid gap-3xl"}>
+    <div className={"flex h-full flex-col gap-3xl"}>
       <header className={"flex items-center justify-between"}>
         <div className={"flex items-center gap-lg"}>
           <Typo

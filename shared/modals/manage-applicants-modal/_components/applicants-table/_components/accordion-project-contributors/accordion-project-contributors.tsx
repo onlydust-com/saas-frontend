@@ -61,6 +61,7 @@ export function AccordionProjectContributors({
   return (
     <Accordion
       id={"project-contributors"}
+      defaultSelected={["project-contributors"]}
       titleProps={{
         children: (
           <div className={"flex items-center gap-md"}>

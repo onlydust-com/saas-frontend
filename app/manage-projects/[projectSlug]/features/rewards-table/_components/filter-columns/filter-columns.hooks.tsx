@@ -16,10 +16,11 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 import { CancelReward } from "@/shared/components/mutation/reward/cancel-reward";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
+import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns({ projectId }: { projectId: string }) {
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const idKernelPort = bootstrap.getIdKernelPort();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const columnHelper = createColumnHelper<RewardListItemInterface>();
@@ -104,6 +105,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
             ]}
             shape={"rounded"}
             title={{ children: rewardedUser.login }}
+            withPopover={false}
           />
         );
       },
@@ -115,7 +117,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
         const rewardId = info.row.original.id;
 
         if (!numberOfRewardedContributions) {
-          return <Typo size={"xs"}>N/A</Typo>;
+          return <CellEmpty />;
         }
 
         return <ContributionsPopover contributionsCount={numberOfRewardedContributions} rewardId={rewardId} />;
@@ -126,27 +128,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
       cell: info => {
         const value = info.getValue();
 
-        if (!value) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        const totalUsdEquivalent = moneyKernelPort.format({
-          amount: value?.usdEquivalent,
-          currency: moneyKernelPort.getCurrency("USD"),
-        });
-
-        return (
-          <AvatarLabelGroup
-            avatars={[
-              {
-                src: value.currency.logoUrl,
-              },
-            ]}
-            title={{ children: `${value.amount} ${value.currency.code}` }}
-            description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            classNames={{ base: "w-fit" }}
-          />
-        );
+        return <CellBudget totalUsdEquivalent={value?.usdEquivalent} totalPerCurrency={value ? [value] : []} />;
       },
     }),
     status: columnHelper.accessor("status", {
