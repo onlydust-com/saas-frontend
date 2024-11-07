@@ -21,7 +21,6 @@ export function SidePanelHeader({
   const { back, close } = useSidePanelsContext();
   const showStartContent = canGoBack || !!startContent;
   const showEndContent = canClose || !!endContent;
-  const showEmptyStartContent = !showStartContent && showEndContent;
   const showEmptyEndContent = !showEndContent && showStartContent;
 
   function handleClose() {
@@ -52,7 +51,6 @@ export function SidePanelHeader({
           {startContent}
         </div>
       )}
-      {showEmptyStartContent && <div />}
       {title && (
         <div className={"item-center flex flex-row justify-start gap-lg overflow-hidden"}>
           <Typo {...title} size={"xs"} weight={"medium"} variant={"heading"} classNames={{ base: "overflow-hidden" }} />
