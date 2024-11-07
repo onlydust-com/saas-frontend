@@ -14,6 +14,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
@@ -89,32 +90,13 @@ export function useFilterColumns() {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        if (projects.length === 1) {
-          const project = projects[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: project.logoUrl,
-                },
-              ]}
-              title={{ children: project.name }}
-              description={{ children: <Translate token={"data:deepDive.projectsTable.rows.projectLead"} /> }}
-            />
-          );
-        }
-
         return (
-          <AvatarLabelGroup
+          <CellAvatar
             avatars={projects.map(project => ({
               src: project.logoUrl,
               name: project.name,
             }))}
             quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.contributorsTable.rows.projects"} count={projects?.length} />,
-            }}
           />
         );
       },
@@ -142,33 +124,13 @@ export function useFilterColumns() {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        if (languages.length === 1) {
-          const language = languages[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: language.logoUrl,
-                },
-              ]}
-              title={{ children: language.name }}
-            />
-          );
-        }
-
         return (
-          <AvatarLabelGroup
+          <CellAvatar
             avatars={languages.map(language => ({
               src: language.logoUrl,
               name: language.name,
             }))}
             quantity={3}
-            title={{
-              children: (
-                <Translate token={"data:deepDive.contributorsTable.rows.languages"} count={languages?.length} />
-              ),
-            }}
           />
         );
       },
@@ -183,33 +145,13 @@ export function useFilterColumns() {
           return <Typo size={"xs"}>N/A</Typo>;
         }
 
-        if (ecosystems.length === 1) {
-          const ecosystem = ecosystems[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: ecosystem.logoUrl,
-                },
-              ]}
-              title={{ children: ecosystem.name }}
-            />
-          );
-        }
-
         return (
-          <AvatarLabelGroup
+          <CellAvatar
             avatars={ecosystems.map(ecosystem => ({
               src: ecosystem.logoUrl,
               name: ecosystem.name,
             }))}
             quantity={3}
-            title={{
-              children: (
-                <Translate token={"data:deepDive.contributorsTable.rows.ecosystems"} count={ecosystems?.length} />
-              ),
-            }}
           />
         );
       },
