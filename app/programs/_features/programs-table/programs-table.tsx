@@ -17,6 +17,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProgramsTable() {
@@ -43,35 +44,13 @@ export function ProgramsTable() {
       cell: info => {
         const leads = info.getValue() ?? [];
 
-        if (!leads.length) {
-          return "N/A";
-        }
-
-        if (leads.length === 1) {
-          const lead = leads[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: lead.avatarUrl,
-                },
-              ]}
-              title={{ children: lead.login }}
-              description={{ children: <Translate token={"programs:list.content.table.rows.programLead"} /> }}
-            />
-          );
-        }
-
         return (
-          <AvatarLabelGroup
-            avatars={leads.map(lead => ({
-              src: lead.avatarUrl,
-              name: lead.login,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"programs:list.content.table.rows.leads"} count={leads?.length} />,
+          <CellLeadsAvatars
+            leads={leads}
+            singleProps={{
+              description: {
+                children: <Translate token={"programs:list.content.table.rows.programLead"} />,
+              },
             }}
           />
         );

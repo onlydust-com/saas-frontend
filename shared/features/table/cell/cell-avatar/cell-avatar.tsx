@@ -1,11 +1,12 @@
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 
 import { CellAvatarProps } from "./cell-avatar.types";
 
 export function CellAvatar({ avatars, singleProps = {}, multipleProps = {}, ...props }: CellAvatarProps) {
   if (!avatars.length) {
-    return <Typo size={"xs"}>N/A</Typo>;
+    return <CellEmpty />;
   }
 
   if (avatars.length === 1) {

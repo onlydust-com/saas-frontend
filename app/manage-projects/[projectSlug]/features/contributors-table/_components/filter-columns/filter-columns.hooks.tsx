@@ -20,6 +20,8 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
+import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -158,39 +160,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        if (!languages.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (languages.length === 1) {
-          const language = languages[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: language.logoUrl,
-                },
-              ]}
-              title={{ children: language.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={languages.map(language => ({
-              src: language.logoUrl,
-              name: language.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate token={"manageProjects:detail.contributorsTable.rows.languages"} count={languages?.length} />
-              ),
-            }}
-          />
-        );
+        return <CellLanguagesAvatars languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -199,42 +169,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        if (!ecosystems.length) {
-          return <Typo size={"xs"}>N/A</Typo>;
-        }
-
-        if (ecosystems.length === 1) {
-          const ecosystem = ecosystems[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: ecosystem.logoUrl,
-                },
-              ]}
-              title={{ children: ecosystem.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={ecosystems.map(ecosystem => ({
-              src: ecosystem.logoUrl,
-              name: ecosystem.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate
-                  token={"manageProjects:detail.contributorsTable.rows.ecosystems"}
-                  count={ecosystems?.length}
-                />
-              ),
-            }}
-          />
-        );
+        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {
