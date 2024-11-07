@@ -1,4 +1,5 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionAs, ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors";
@@ -15,6 +16,7 @@ export function useContributionsSidepanel() {
 }
 
 interface UseContributionBlocks {
+  as?: ContributionAsUnion;
   contribution: ContributionActivityInterface | undefined;
   helperState: {
     isOpen: boolean;
@@ -22,7 +24,7 @@ interface UseContributionBlocks {
   };
 }
 
-export function useContributionBlocks({ contribution, helperState }: UseContributionBlocks) {
+function useContributionBlocksAsMaintainer({ contribution, helperState }: UseContributionBlocks) {
   if (!contribution) {
     return null;
   }
@@ -83,4 +85,27 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       </>
     );
   }
+}
+
+function useContributionBlocksAsContributor({ contribution }: UseContributionBlocks) {
+  if (!contribution) {
+    return null;
+  }
+
+  return null;
+}
+
+export function useContributionBlocks(props: UseContributionBlocks) {
+  const maintainer = useContributionBlocksAsMaintainer(props);
+  const contributor = useContributionBlocksAsContributor(props);
+
+  if (props.as === ContributionAs.MAINTAINER) {
+    return maintainer;
+  }
+
+  if (props.as === ContributionAs.CONTRIBUTOR) {
+    return contributor;
+  }
+
+  return null;
 }
