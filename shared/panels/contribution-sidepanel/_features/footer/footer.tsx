@@ -2,6 +2,7 @@ import { Github } from "lucide-react";
 import { useMemo } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
@@ -62,9 +63,17 @@ export function Footer({ contribution }: FooterProps) {
 
     return (
       <div className="flex gap-sm">
-        {buttons.map((action, index) => (
-          <Button key={index} size={"md"} variant={"secondary"} {...action} />
-        ))}
+        {buttons.map((action, index) => {
+          if (action.tooltip) {
+            return (
+              <Tooltip key={index} {...action.tooltip}>
+                <Button size={"md"} variant={"secondary"} {...action} />
+              </Tooltip>
+            );
+          }
+
+          return <Button key={index} size={"md"} variant={"secondary"} {...action} />;
+        })}
         {endContent}
       </div>
     );
