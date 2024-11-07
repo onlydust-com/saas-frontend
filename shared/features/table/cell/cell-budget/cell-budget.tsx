@@ -55,7 +55,7 @@ export function CellBudget({ totalUsdEquivalent: _totalUsdEquivalent, totalPerCu
           <div className="h-fit w-fit overflow-hidden">
             <ScrollView className={"max-h-[300px]"}>
               <div className="flex w-fit flex-col gap-2">
-                {(totalPerCurrency ?? [])?.map(amount => {
+                {totalPerCurrency?.map(amount => {
                   return (
                     <CardBudget
                       key={amount.currency.id}
