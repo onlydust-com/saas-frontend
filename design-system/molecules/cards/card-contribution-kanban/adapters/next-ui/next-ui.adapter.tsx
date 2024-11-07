@@ -230,14 +230,12 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         {renderLinkedIssues()}
 
-        {renderGithubLabels() || (actions?.length && showActions) || endContent ? (
-          <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
-            {renderGithubLabels()}
+        <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden empty:hidden"}>
+          {renderGithubLabels()}
 
-            {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
-            {!!endContent && endContent}
-          </footer>
-        ) : null}
+          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+          {!!endContent && endContent}
+        </footer>
       </div>
     </Paper>
   );
