@@ -10,10 +10,13 @@ import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-m
 import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
+import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
+import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-projects";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
@@ -76,6 +79,7 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: contributor.login }}
+            withPopover={false}
           />
         );
       },
@@ -85,42 +89,7 @@ export function useFilterColumns() {
       cell: info => {
         const projects = info.getValue() ?? [];
 
-        if (!projects.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (projects.length === 1) {
-          const project = projects[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: project.logoUrl,
-                },
-              ]}
-              title={{ children: project.name }}
-              description={{ children: <Translate token={"data:deepDive.projectsTable.rows.projectLead"} /> }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={projects.map(project => ({
-              src: project.logoUrl,
-              name: project.name,
-            }))}
-            quantity={3}
-            title={{
-              children: <Translate token={"data:deepDive.contributorsTable.rows.projects"} count={projects?.length} />,
-            }}
-          />
-        );
+        return <CellProjects projects={projects} />;
       },
     }),
     categories: columnHelper.accessor("categories", {
@@ -130,11 +99,7 @@ export function useFilterColumns() {
         const categories = info.getValue();
 
         if (!categories?.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
@@ -146,43 +111,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        if (!languages.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (languages.length === 1) {
-          const language = languages[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: language.logoUrl,
-                },
-              ]}
-              title={{ children: language.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={languages.map(language => ({
-              src: language.logoUrl,
-              name: language.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate token={"data:deepDive.contributorsTable.rows.languages"} count={languages?.length} />
-              ),
-            }}
-          />
-        );
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -191,43 +120,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        if (!ecosystems.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (ecosystems.length === 1) {
-          const ecosystem = ecosystems[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: ecosystem.logoUrl,
-                },
-              ]}
-              title={{ children: ecosystem.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={ecosystems.map(ecosystem => ({
-              src: ecosystem.logoUrl,
-              name: ecosystem.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate token={"data:deepDive.contributorsTable.rows.ecosystems"} count={ecosystems?.length} />
-              ),
-            }}
-          />
-        );
+        return <CellEcosystems ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {
@@ -237,11 +130,7 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return (
@@ -308,11 +197,7 @@ export function useFilterColumns() {
         const engagementStatuses = info.getValue();
 
         if (!engagementStatuses) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return (

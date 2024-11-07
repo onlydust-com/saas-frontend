@@ -67,7 +67,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
     );
   }
 
-  if (avatars?.length > 1 && withPopover) {
+  if (withPopover) {
     return (
       <Popover>
         <Popover.Trigger>{() => renderContent()}</Popover.Trigger>
@@ -84,7 +84,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
                           shape={shape}
                           avatars={[avatar]}
                           key={index}
-                          title={{ children: avatar?.name }}
+                          title={avatar?.name ? { children: avatar?.name } : title}
                         />
                       ))}
                 </div>

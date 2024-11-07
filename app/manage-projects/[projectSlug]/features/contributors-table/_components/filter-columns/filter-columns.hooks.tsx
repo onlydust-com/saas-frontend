@@ -14,12 +14,14 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
+import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
+import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -134,6 +136,7 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: contributor.login }}
+            withPopover={false}
           />
         );
       },
@@ -161,43 +164,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        if (!languages.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (languages.length === 1) {
-          const language = languages[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: language.logoUrl,
-                },
-              ]}
-              title={{ children: language.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={languages.map(language => ({
-              src: language.logoUrl,
-              name: language.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate token={"manageProjects:detail.contributorsTable.rows.languages"} count={languages?.length} />
-              ),
-            }}
-          />
-        );
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -206,46 +173,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        if (!ecosystems.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (ecosystems.length === 1) {
-          const ecosystem = ecosystems[0];
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: ecosystem.logoUrl,
-                },
-              ]}
-              title={{ children: ecosystem.name }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={ecosystems.map(ecosystem => ({
-              src: ecosystem.logoUrl,
-              name: ecosystem.name,
-            }))}
-            quantity={3}
-            title={{
-              children: (
-                <Translate
-                  token={"manageProjects:detail.contributorsTable.rows.ecosystems"}
-                  count={ecosystems?.length}
-                />
-              ),
-            }}
-          />
-        );
+        return <CellEcosystems ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {
@@ -255,11 +183,7 @@ export function useFilterColumns() {
         const country = info.getValue();
 
         if (!country) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
+          return <CellEmpty />;
         }
 
         return (
