@@ -12,7 +12,7 @@ import { ManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/m
 import { useManageApplicantsModal } from "@/shared/modals/manage-applicants-modal/manage-applicants-modal.hooks";
 import { FooterProps } from "@/shared/panels/contribution-sidepanel/_features/footer/footer.types";
 
-export function Footer({ contribution }: FooterProps) {
+export function Footer({ contribution, as }: FooterProps) {
   const { isOpen: isManageApplicantsModalOpen, setIsOpen: setIsManageApplicantsModalOpen } = useManageApplicantsModal();
 
   const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
@@ -27,13 +27,14 @@ export function Footer({ contribution }: FooterProps) {
     setIsManageApplicantsModalOpen(true);
   }
 
-  const { buttons, endContent } = useContributionActions(contribution);
+  const { buttons, endContent } = useContributionActions({ as, contribution });
 
   const renderContributionActions = useMemo(() => {
     if (!buttons.length && !endContent && !contribution?.isNotAssigned()) {
       return <div />;
     }
 
+    // TODO MOVE THIS LOGIC LATER TO INCLUDE "AS" CONDITION
     if (contribution?.isNotAssigned()) {
       return (
         <Button

@@ -9,9 +9,10 @@ export function CardContributionKanban({
   contribution,
   classNames,
   showActions,
+  as,
   ...actions
 }: CardContributionKanbanProps) {
-  const { buttons, endContent } = useContributionActions(contribution, actions);
+  const { buttons, endContent } = useContributionActions({ as, contribution, actions });
 
   return (
     <Card

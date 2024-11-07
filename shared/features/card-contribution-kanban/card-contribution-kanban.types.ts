@@ -1,4 +1,5 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban";
 
@@ -9,4 +10,5 @@ export interface CardContributionKanbanProps extends CardContributionKanbanActio
   contribution: ContributionActivityInterface;
   classNames?: CardContributionKanbanPort<"div">["classNames"];
   showActions?: boolean;
+  as?: ContributionAsUnion;
 }

@@ -5,7 +5,11 @@ import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
-import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
+import {
+  ContributionActivityStatus,
+  ContributionAs,
+  ContributionAsUnion,
+} from "@/core/domain/contribution/models/contribution.types";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
@@ -21,10 +25,21 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { useCanReward } from "../rewards/use-can-reward";
 
-export const useContributionActions = (
-  contribution: ContributionActivityInterface,
-  actions?: CardContributionKanbanActions
-): { buttons: ButtonGroupPort["buttons"]; endContent?: ReactNode } => {
+interface UseContributionActionsProps {
+  contribution: ContributionActivityInterface;
+  actions?: CardContributionKanbanActions;
+  as?: ContributionAsUnion;
+}
+
+interface UseContributionActionReturn {
+  buttons: ButtonGroupPort["buttons"];
+  endContent?: ReactNode;
+}
+
+export const useContributionAsMaintainerActions = ({
+  actions,
+  contribution,
+}: UseContributionActionsProps): UseContributionActionReturn => {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
 
   const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
@@ -250,4 +265,42 @@ export const useContributionActions = (
     default:
       return { buttons: [] };
   }
+};
+
+export const useContributionAsContributorActions = ({
+  actions,
+  contribution,
+}: UseContributionActionsProps): UseContributionActionReturn => {
+  function onReview() {
+    actions?.onAction?.(contribution.id);
+  }
+
+  switch (contribution.activityStatus) {
+    case ContributionActivityStatus.NOT_ASSIGNED:
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.review"} />,
+            onClick: onReview,
+          },
+        ],
+      };
+    default:
+      return { buttons: [] };
+  }
+};
+
+export const useContributionActions = (props: UseContributionActionsProps): UseContributionActionReturn => {
+  const maintainer = useContributionAsMaintainerActions(props);
+  const contributor = useContributionAsContributorActions(props);
+
+  if (props.as === ContributionAs.MAINTAINER) {
+    return maintainer;
+  }
+
+  if (props.as === ContributionAs.CONTRIBUTOR) {
+    return contributor;
+  }
+
+  return { buttons: [] };
 };
