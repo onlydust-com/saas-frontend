@@ -1,8 +1,7 @@
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellProjectsProps } from "@/shared/features/table/cell/cell-projects/cell-projects.types";
 
-import { CellProjectsAvatarsProps } from "./cell-projects-avatars.types";
-
-export function CellProjectsAvatars({ projects, ...props }: CellProjectsAvatarsProps) {
+export function CellProjects({ projects, ...props }: CellProjectsProps) {
   return (
     <CellAvatar
       avatars={projects.map(project => ({

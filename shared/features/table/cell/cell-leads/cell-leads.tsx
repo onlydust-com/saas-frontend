@@ -1,9 +1,8 @@
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellLeadsProps } from "@/shared/features/table/cell/cell-leads/cell-leads.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { CellLeadsAvatarsProps } from "./cell-leads-avatars.types";
-
-export function CellLeadsAvatars({ leads, ...props }: CellLeadsAvatarsProps) {
+export function CellLeads({ leads, ...props }: CellLeadsProps) {
   return (
     <CellAvatar
       avatars={leads.map(lead => ({

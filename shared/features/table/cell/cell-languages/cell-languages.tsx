@@ -1,8 +1,7 @@
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellLanguagesProps } from "@/shared/features/table/cell/cell-languages/cell-languages.types";
 
-import { CellLanguagesAvatarsProps } from "./cell-languages-avatars.types";
-
-export function CellLanguagesAvatars({ languages, ...props }: CellLanguagesAvatarsProps) {
+export function CellLanguages({ languages, ...props }: CellLanguagesProps) {
   return (
     <CellAvatar
       avatars={languages.map(language => ({

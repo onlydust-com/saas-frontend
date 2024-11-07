@@ -1,8 +1,7 @@
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellEcosystemsProps } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems.types";
 
-import { CellEcosystemsAvatarsProps } from "./cell-ecosystems-avatars.types";
-
-export function CellEcosystemsAvatars({ ecosystems, ...props }: CellEcosystemsAvatarsProps) {
+export function CellEcosystems({ ecosystems, ...props }: CellEcosystemsProps) {
   return (
     <CellAvatar
       avatars={ecosystems.map(ecosystem => ({

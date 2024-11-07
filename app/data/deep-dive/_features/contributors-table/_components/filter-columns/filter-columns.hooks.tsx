@@ -13,10 +13,10 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
-import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
+import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
-import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
-import { CellProjectsAvatars } from "@/shared/features/table/cell/cell-projects-avatars/cell-projects-avatars";
+import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
+import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-projects";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
@@ -89,7 +89,7 @@ export function useFilterColumns() {
       cell: info => {
         const projects = info.getValue() ?? [];
 
-        return <CellProjectsAvatars projects={projects} />;
+        return <CellProjects projects={projects} />;
       },
     }),
     categories: columnHelper.accessor("categories", {
@@ -111,7 +111,7 @@ export function useFilterColumns() {
       cell: info => {
         const languages = info.getValue() ?? [];
 
-        return <CellLanguagesAvatars languages={languages} />;
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -120,7 +120,7 @@ export function useFilterColumns() {
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
-        return <CellEcosystemsAvatars ecosystems={ecosystems} />;
+        return <CellEcosystems ecosystems={ecosystems} />;
       },
     }),
     country: columnHelper.accessor("country", {
