@@ -68,6 +68,7 @@ export function useStackedColumnAreaSplineChartOptions({
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
         spacingTop: 40,
+        alignThresholds: true,
       },
       credits: {
         enabled: false, // Disable the credits
