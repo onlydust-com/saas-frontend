@@ -1,7 +1,6 @@
 import { Paper } from "@/design-system/atoms/paper";
 import { Popover } from "@/design-system/atoms/popover";
 
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NotificationsButton } from "@/shared/features/notifications/_components/notifications-button/notifications-button";
 import { NotificationsContent } from "@/shared/features/notifications/_components/notifications-content/notifications-content";
 
@@ -18,7 +17,6 @@ export function NotificationsPopover() {
       <Popover.Content unstyled className={"w-[560px]"}>
         {({ setIsOpen }) => (
           <Paper
-            as={ScrollView}
             size={"3xl"}
             background={"primary-alt"}
             border={"primary"}
