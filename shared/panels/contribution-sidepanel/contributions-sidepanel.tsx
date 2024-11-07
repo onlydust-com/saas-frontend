@@ -35,6 +35,7 @@ export function ContributionsSidepanel() {
   });
 
   const blocks = useContributionBlocks({
+    as,
     contribution,
     helperState: {
       isOpen: openHelper,
