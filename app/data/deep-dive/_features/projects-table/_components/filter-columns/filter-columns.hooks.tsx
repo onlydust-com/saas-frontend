@@ -10,9 +10,9 @@ import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
-import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellEcosystemsAvatars } from "@/shared/features/table/cell/cell-ecosystems-avatars/cell-ecosystems-avatars";
 import { CellLanguagesAvatars } from "@/shared/features/table/cell/cell-languages-avatars/cell-languages-avatars";
 import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
@@ -151,74 +151,7 @@ export function useFilterColumns() {
       cell: info => {
         const value = info.getValue();
 
-        const totalUsdEquivalent = moneyKernelPort.format({
-          amount: value?.totalUsdEquivalent,
-          currency: moneyKernelPort.getCurrency("USD"),
-        });
-
-        const totalPerCurrency = value?.totalPerCurrency ?? [];
-
-        if (!totalPerCurrency.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (totalPerCurrency.length === 1) {
-          const firstCurrency = totalPerCurrency[0];
-
-          const totalFirstCurrency = moneyKernelPort.format({
-            amount: firstCurrency.amount,
-            currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
-          });
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: firstCurrency.currency.logoUrl,
-                },
-              ]}
-              title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
-              description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={
-              totalPerCurrency?.map(({ currency }) => ({
-                src: currency.logoUrl,
-                name: currency.name,
-              })) ?? []
-            }
-            quantity={3}
-            title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            description={{
-              children: (
-                <Translate token={"data:deepDive.projectsTable.rows.currencies"} count={totalPerCurrency?.length} />
-              ),
-            }}
-            popoverContent={(totalPerCurrency ?? [])?.map(amount => {
-              return (
-                <CardBudget
-                  key={amount.currency.id}
-                  amount={{
-                    value: amount.amount,
-                    currency: amount.currency,
-                    usdEquivalent: amount.usdEquivalent ?? 0,
-                  }}
-                  background={"secondary"}
-                  border={"primary"}
-                  badgeProps={{ color: "brand", children: amount.currency.name }}
-                />
-              );
-            })}
-          />
-        );
+        return <CellBudget totalUsdEquivalent={value?.totalUsdEquivalent} totalPerCurrency={value?.totalPerCurrency} />;
       },
     }),
     percentUsedBudget: columnHelper.accessor("percentUsedBudget", {

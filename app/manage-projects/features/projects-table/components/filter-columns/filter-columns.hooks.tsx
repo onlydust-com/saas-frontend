@@ -10,11 +10,11 @@ import {
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
-import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeadsAvatars } from "@/shared/features/table/cell/cell-leads-avatars/cell-leads-avatars";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -74,63 +74,7 @@ export function useFilterColumns() {
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.budget"} />,
       cell: info => {
         const value = info.getValue();
-
-        const totalUsdEquivalent = moneyKernelPort.format({
-          amount: value?.totalUsdEquivalent,
-          currency: moneyKernelPort.getCurrency("USD"),
-        });
-
-        const totalPerCurrency = value?.totalPerCurrency ?? [];
-
-        if (!totalPerCurrency.length) {
-          return (
-            <Typo size="xs" color="secondary">
-              -
-            </Typo>
-          );
-        }
-
-        if (totalPerCurrency.length === 1) {
-          const firstCurrency = totalPerCurrency[0];
-
-          const totalFirstCurrency = moneyKernelPort.format({
-            amount: firstCurrency.prettyAmount,
-            currency: moneyKernelPort.getCurrency(firstCurrency.currency.code),
-          });
-
-          return (
-            <AvatarLabelGroup
-              avatars={[
-                {
-                  src: firstCurrency.currency.logoUrl,
-                },
-              ]}
-              title={{ children: `${totalFirstCurrency.amount} ${totalFirstCurrency.code}` }}
-              description={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            />
-          );
-        }
-
-        return (
-          <AvatarLabelGroup
-            avatars={
-              totalPerCurrency?.map(({ currency }) => ({
-                src: currency.logoUrl,
-                name: currency.name,
-              })) ?? []
-            }
-            quantity={3}
-            title={{ children: `~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}` }}
-            description={{
-              children: (
-                <Translate
-                  token={"manageProjects:list.projectsTable.rows.currencies"}
-                  count={totalPerCurrency?.length}
-                />
-              ),
-            }}
-          />
-        );
+        return <CellBudget totalUsdEquivalent={value?.totalUsdEquivalent} totalPerCurrency={value?.totalPerCurrency} />;
       },
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
