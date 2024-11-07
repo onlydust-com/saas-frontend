@@ -9,6 +9,7 @@ import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group"
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
+import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
@@ -32,6 +33,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   rewardUsdAmount,
   applicants,
   contributors,
+  project,
   linkedIssues,
   githubLabels,
   actions,
@@ -108,6 +110,27 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
                 token: "cards:cardContributionKanban.contributors",
                 count: contributors.length,
               },
+            }}
+          />
+        </div>
+      );
+    }
+
+    if (project) {
+      return (
+        <div>
+          <AvatarLabelGroup
+            size={"xs"}
+            avatars={[
+              {
+                src: project.avatarUrl,
+              },
+            ]}
+            title={{
+              size: "xs",
+              weight: "regular",
+              color: "tertiary",
+              children: project.name,
             }}
           />
         </div>

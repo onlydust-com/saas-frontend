@@ -19,6 +19,11 @@ interface User {
   avatarUrl: string;
 }
 
+interface Project {
+  name: string;
+  avatarUrl: string;
+}
+
 export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants>, Partial<PaperPort<C>> {
   classNames?: Partial<ClassNames>;
   type: ContributionTypeUnion;
@@ -29,6 +34,7 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   rewardUsdAmount?: number;
   applicants?: User[];
   contributors?: User[];
+  project?: Project;
   linkedIssues?: {
     type: ContributionTypeUnion;
     githubTitle: string;
