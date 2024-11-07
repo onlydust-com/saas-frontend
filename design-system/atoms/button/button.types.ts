@@ -4,6 +4,8 @@ import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+import { TooltipPort } from "../tooltip";
+
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
 export type ButtonSolidVariant = "primary" | "secondary" | "tertiary";
 export type ButtonSolidTheme = "primary" | "destructive";
@@ -64,6 +66,6 @@ export type ButtonPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextP
 
 export interface ButtonGroupPort
   extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
-  buttons: Omit<ButtonSolidPort<"button">, "variant">[];
+  buttons: (Omit<ButtonSolidPort<"button">, "variant"> & { tooltip?: TooltipPort<"div"> })[];
   onClick?: (index: number) => void;
 }

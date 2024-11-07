@@ -9,6 +9,9 @@
     "close": "Close",
     "insufficientPermissions": "Insufficient permissions"
   },
+  "tooltip": {
+    "insufficientPermissions": "You don't have the necessary rights to perform this action. Please contact the owner of the GitHub app for authorization."
+  },
   "toasts": {
     "unassign": {
       "success": "Contributor unassigned successfully",

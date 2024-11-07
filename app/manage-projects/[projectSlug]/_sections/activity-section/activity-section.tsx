@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { Contributions } from "@/app/manage-projects/[projectSlug]/features/contributions/contributions";
@@ -6,10 +7,12 @@ import { ContributorsTable } from "@/app/manage-projects/[projectSlug]/features/
 import { RewardsTable } from "@/app/manage-projects/[projectSlug]/features/rewards-table/rewards-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -20,11 +23,15 @@ const CONTRIBUTIONS = "contributions";
 const REWARDS = "rewards";
 
 export function ActivitySection({ projectId }: ActivitySectionProps) {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
   const { close } = useSidePanelsContext();
   const { open: openRewardFlow } = useRewardFlow();
   const [toggleFinancialViews, setToggleFinancialViews] = useState<
     typeof CONTRIBUTORS | typeof CONTRIBUTIONS | typeof REWARDS
   >(CONTRIBUTORS);
+
+  const canReward = useCanReward(projectSlug);
 
   const renderActivityView = useMemo(() => {
     if (toggleFinancialViews === CONTRIBUTORS) {
@@ -76,18 +83,21 @@ export function ActivitySection({ projectId }: ActivitySectionProps) {
           />
         </div>
 
-        <Button
-          variant={"primary"}
-          endIcon={{ component: ChevronRight }}
-          isTextButton
-          size={"md"}
-          translate={{ token: "manageProjects:detail.activity.actions.reward" }}
-          onClick={() => openRewardFlow({ githubUserIds: [] })}
-          classNames={{
-            base: "max-w-full overflow-hidden",
-            label: "whitespace-nowrap text-ellipsis overflow-hidden",
-          }}
-        />
+        <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
+          <Button
+            variant={"primary"}
+            endIcon={{ component: ChevronRight }}
+            isTextButton
+            size={"md"}
+            translate={{ token: "manageProjects:detail.activity.actions.reward" }}
+            onClick={() => openRewardFlow({ githubUserIds: [] })}
+            classNames={{
+              base: "max-w-full overflow-hidden",
+              label: "whitespace-nowrap text-ellipsis overflow-hidden",
+            }}
+            isDisabled={!canReward}
+          />
+        </Tooltip>
       </div>
 
       {renderActivityView}

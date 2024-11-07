@@ -7,7 +7,7 @@ export class MoneyAdapterMock implements MoneyFacadePort {
 
   format() {
     return {
-      amount: "N/A",
+      amount: "-",
       code: undefined,
     };
   }

@@ -60,7 +60,8 @@ export function AccordionIgnoredContributors({
   }
   return (
     <Accordion
-      id={"ignored-contributors"}
+      id="ignored-contributors"
+      defaultSelected={["ignored-contributors"]}
       titleProps={{
         children: (
           <div className={"flex items-center gap-md"}>

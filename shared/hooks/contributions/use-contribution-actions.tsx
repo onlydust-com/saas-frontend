@@ -1,3 +1,4 @@
+import { useParams } from "next/navigation";
 import { ReactNode } from "react";
 
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
@@ -7,7 +8,8 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
 
 import { Badge } from "@/design-system/atoms/badge";
-import { ButtonGroupPort, ButtonPort } from "@/design-system/atoms/button/button.types";
+import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { CardContributionKanbanActions } from "@/shared/features/card-contribution-kanban/card-contribution-kanban.types";
@@ -17,14 +19,20 @@ import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { useCanReward } from "../rewards/use-can-reward";
+
 export const useContributionActions = (
   contribution: ContributionActivityInterface,
   actions?: CardContributionKanbanActions
-): { buttons: ButtonGroupPort["buttons"] | ButtonPort<"button">[]; endContent?: ReactNode } => {
+): { buttons: ButtonGroupPort["buttons"]; endContent?: ReactNode } => {
+  const { projectSlug = "" } = useParams<{ projectSlug: string }>();
+
   const { open: openRewardFlow, removeContributorId, selectedGithubUserIds } = useRewardFlow();
   const { startPooling, shouldRefetch } = useActionPooling();
   const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
     useGithubPermissionsContext();
+
+  const canReward = useCanReward(projectSlug);
 
   const { mutate: updatePullRequest, isPending: isUpdatingPullRequest } =
     GithubReactQueryAdapter.client.useUpdatePullRequest({
@@ -164,12 +172,14 @@ export const useContributionActions = (
         return {
           buttons: [],
           endContent: (
-            <Badge
-              size="xs"
-              color="warning"
-              shape="rounded"
-              translate={{ token: "features:cardContributionKanban.actions.insufficientPermissions" }}
-            />
+            <Tooltip content={<Translate token="features:cardContributionKanban.tooltip.insufficientPermissions" />}>
+              <Badge
+                size="xs"
+                color="warning"
+                shape="rounded"
+                translate={{ token: "features:cardContributionKanban.actions.insufficientPermissions" }}
+              />
+            </Tooltip>
           ),
         };
       }
@@ -216,14 +226,15 @@ export const useContributionActions = (
             onClick: onArchive,
             isDisabled: isUpdatingPullRequest || isUpdatingIssue,
           },
-          ...(contribution.totalRewardedUsdAmount !== 0
-            ? []
-            : [
-                {
-                  children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
-                  onClick: onReward,
-                },
-              ]),
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
+            onClick: onReward,
+            isDisabled: !canReward,
+            tooltip: {
+              enabled: !canReward,
+              content: <Translate token={"common:tooltip.disabledReward"} />,
+            },
+          },
         ],
       };
     case ContributionActivityStatus.ARCHIVED:
