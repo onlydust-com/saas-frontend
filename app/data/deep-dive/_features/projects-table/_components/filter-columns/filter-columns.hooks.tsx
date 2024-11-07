@@ -11,6 +11,7 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { CellBadge } from "@/shared/features/table/cell/cell-badge/cell-badge";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
@@ -107,10 +108,12 @@ export function useFilterColumns() {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
       cell: info => {
         const categories = info.getValue();
+        //
+        // if (!categories?.length) {
+        //   return <CellEmpty />;
+        // }
 
-        if (!categories?.length) {
-          return <CellEmpty />;
-        }
+        return <CellBadge items={categories?.map(category => category.name)} />;
 
         return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
       },

@@ -4,10 +4,15 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 
 import { CellBadgeProps } from "./cell-badge.types";
 
 export function CellBadge({ items, badgeProps = {}, popOverAvatars }: CellBadgeProps) {
+  if (!items?.length) {
+    return <CellEmpty />;
+  }
+
   const badgeContent = items[0];
   const additionalBadges = items?.length > 1 ? items.length - 1 : undefined;
 
@@ -15,7 +20,7 @@ export function CellBadge({ items, badgeProps = {}, popOverAvatars }: CellBadgeP
     <Popover>
       <Popover.Trigger>
         {() => (
-          <div>
+          <div className={"flex flex-row gap-1"}>
             <Badge
               {...badgeProps}
               classNames={{

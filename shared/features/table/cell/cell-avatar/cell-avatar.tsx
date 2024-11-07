@@ -5,7 +5,7 @@ import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellAvatarProps } from "./cell-avatar.types";
 
 export function CellAvatar({ avatars, singleProps = {}, multipleProps = {}, ...props }: CellAvatarProps) {
-  if (!avatars.length) {
+  if (!avatars?.length) {
     return <CellEmpty />;
   }
 
