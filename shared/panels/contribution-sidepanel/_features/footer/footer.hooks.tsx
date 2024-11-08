@@ -18,11 +18,17 @@ export const useContributionPanelFooterAsMaintainer = ({
   setIsManageApplicantsModalOpen,
 }: UseContributionPanelFooter) => {
   const { buttons, endContent } = useContributionActions({ as, contribution });
-  const { isProjectOrganisationMissingPermissions, canCurrentUserUpdatePermissions, setIsGithubPermissionModalOpen } =
-    useGithubPermissionsContext();
+  const {
+    isProjectOrganisationMissingPermissions: _isProjectOrganisationMissingPermissions,
+    canCurrentUserUpdatePermissions: _canCurrentUserUpdatePermissions,
+    setIsGithubPermissionModalOpen,
+  } = useGithubPermissionsContext();
+
+  const isProjectOrganisationMissingPermissions = _isProjectOrganisationMissingPermissions(contribution.repo.id);
+  const canCurrentUserUpdatePermissions = _canCurrentUserUpdatePermissions(contribution.repo.id);
 
   function HandleManageApplicants() {
-    if (isProjectOrganisationMissingPermissions(contribution.repo.id)) {
+    if (isProjectOrganisationMissingPermissions) {
       setIsGithubPermissionModalOpen(true);
       return;
     }
@@ -48,8 +54,8 @@ export const useContributionPanelFooterAsMaintainer = ({
   if (
     contribution?.isInProgress() &&
     contribution.type !== "PULL_REQUEST" &&
-    isProjectOrganisationMissingPermissions(contribution.repo.id) &&
-    canCurrentUserUpdatePermissions(contribution.repo.id)
+    isProjectOrganisationMissingPermissions &&
+    canCurrentUserUpdatePermissions
   ) {
     return (
       <Button
