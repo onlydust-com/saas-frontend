@@ -17,5 +17,12 @@
         "complete": "Complete"
       }
     }
+  },
+  "filters": {
+    "titles": {
+      "project": "Filter projects",
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
+    }
   }
 }
