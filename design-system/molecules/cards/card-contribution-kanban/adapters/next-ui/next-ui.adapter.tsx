@@ -6,6 +6,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Applicants } from "@/design-system/molecules/cards/card-contribution-kanban/_components/applicants/applicants";
 import { Contributors } from "@/design-system/molecules/cards/card-contribution-kanban/_components/contributors/contributors";
+import { GithubLabels } from "@/design-system/molecules/cards/card-contribution-kanban/_components/github-labels/github-labels";
 import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
 import { LinkedIssues } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues";
 import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
@@ -14,7 +15,6 @@ import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
-import { LabelPopover } from "@/shared/components/label-popover/label-popover";
 import { cn } from "@/shared/helpers/cn";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
@@ -62,20 +62,22 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return null;
   }
 
-  function renderGithubLabels() {
-    if (githubLabels?.length) {
-      return (
-        <LabelPopover
-          labels={githubLabels.map(({ name }) => name)}
-          badgeProps={{
-            color: "grey",
-            size: "xs",
-          }}
-        />
-      );
+  function renderFooter() {
+    if (!githubLabels?.length && !actions?.length && !endContent) {
+      return null;
     }
 
-    return <div />;
+    return (
+      <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
+        <div>
+          <GithubLabels githubLabels={githubLabels} />
+        </div>
+
+        {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+
+        {endContent}
+      </footer>
+    );
   }
 
   return (
@@ -117,12 +119,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         <LinkedIssues linkedIssues={linkedIssues} />
 
-        <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden empty:hidden"}>
-          {renderGithubLabels()}
-
-          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
-          {!!endContent && endContent}
-        </footer>
+        {renderFooter()}
       </div>
     </Paper>
   );
