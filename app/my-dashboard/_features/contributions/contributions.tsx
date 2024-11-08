@@ -55,7 +55,7 @@ export function Contributions() {
   }
 
   function onOpenContribution(id: string) {
-    openContribution({ id, as: ContributionAs.MAINTAINER });
+    openContribution({ id, as: ContributionAs.CONTRIBUTOR });
   }
 
   const renderView = useMemo(() => {
