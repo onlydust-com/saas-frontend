@@ -11,6 +11,7 @@ export function CardContributionKanban({
   showActions,
   showContributors = true,
   showProject = false,
+  showLanguages = false,
   as,
   ...actions
 }: CardContributionKanbanProps) {
@@ -29,6 +30,7 @@ export function CardContributionKanban({
       contributors={showContributors ? contribution.contributors : []}
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}
+      languages={showLanguages ? contribution.languages : []}
       project={showProject ? contribution.project : undefined}
       actions={buttons as ButtonGroupPort["buttons"]}
       showActions={showActions}

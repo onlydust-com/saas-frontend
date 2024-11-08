@@ -7,6 +7,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Applicants } from "@/design-system/molecules/cards/card-contribution-kanban/_components/applicants/applicants";
 import { Contributors } from "@/design-system/molecules/cards/card-contribution-kanban/_components/contributors/contributors";
 import { GithubLabels } from "@/design-system/molecules/cards/card-contribution-kanban/_components/github-labels/github-labels";
+import { Languages } from "@/design-system/molecules/cards/card-contribution-kanban/_components/languages/languages";
 import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
 import { LinkedIssues } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues";
 import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
@@ -33,6 +34,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   project,
   linkedIssues,
   githubLabels,
+  languages,
   actions,
   showActions = true,
   onClick,
@@ -49,7 +51,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     if (applicants?.length) {
       return (
         <div className="flex">
-          <Applicants applicants={applicants} />;
+          <Applicants applicants={applicants} />
         </div>
       );
     }
@@ -74,14 +76,15 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderFooter() {
-    if (!githubLabels?.length && !actions?.length && !endContent) {
+    if (!githubLabels?.length && !languages?.length && !actions?.length && !endContent) {
       return null;
     }
 
     return (
-      <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden"}>
+      <footer className={"flex flex-wrap items-center justify-between gap-lg overflow-hidden"}>
         <div>
           <GithubLabels githubLabels={githubLabels} />
+          <Languages languages={languages} />
         </div>
 
         {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
