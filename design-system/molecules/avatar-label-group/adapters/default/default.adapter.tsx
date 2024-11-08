@@ -85,6 +85,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
                           avatars={[avatar]}
                           key={index}
                           title={avatar?.name ? { children: avatar?.name } : title}
+                          withPopover={false}
                         />
                       ))}
                 </div>
