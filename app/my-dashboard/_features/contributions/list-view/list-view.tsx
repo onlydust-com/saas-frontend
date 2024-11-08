@@ -78,12 +78,12 @@ function useAccordionItem({
         ))}
 
         {isPending && (
-          <>
+          <div className={"flex flex-col gap-lg p-lg"}>
             <Skeleton classNames={{ base: "h-[100px] w-full" }} />
             <Skeleton classNames={{ base: "h-[100px] w-full" }} />
             <Skeleton classNames={{ base: "h-[100px] w-full" }} />
             <Skeleton classNames={{ base: "h-[100px] w-full" }} />
-          </>
+          </div>
         )}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isLoading} /> : null}
