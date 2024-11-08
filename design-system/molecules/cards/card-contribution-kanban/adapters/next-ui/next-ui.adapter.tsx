@@ -1,15 +1,15 @@
-import { CircleDollarSign, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import dynamic from "next/dynamic";
 import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
@@ -49,29 +49,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   const slots = CardContributionKanbanNextUiVariants();
 
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
-  function renderRewardAmount() {
-    if (!rewardUsdAmount) return null;
-
-    const { amount: rewardAmount, code: rewardCode } = moneyKernelPort.format({
-      amount: rewardUsdAmount,
-      currency: moneyKernelPort.getCurrency("USD"),
-    });
-
-    return (
-      <Badge
-        color={"grey"}
-        size={"xxs"}
-        icon={{
-          component: CircleDollarSign,
-          classNames: { base: "text-components-badge-success-backgroundoutline-fg" },
-        }}
-      >
-        {rewardAmount} {rewardCode}
-      </Badge>
-    );
-  }
 
   function renderUsers() {
     if (applicants?.length) {
@@ -246,7 +223,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
         <div className={"flex items-center gap-md empty:hidden"}>
           {renderLastUpdatedAt()}
 
-          {renderRewardAmount()}
+          <RewardUsdAmount rewardUsdAmount={rewardUsdAmount} />
         </div>
 
         {renderUsers()}
