@@ -27,7 +27,7 @@ export const useContributionPanelFooterAsMaintainer = ({
   const isProjectOrganisationMissingPermissions = _isProjectOrganisationMissingPermissions(contribution.repo.id);
   const canCurrentUserUpdatePermissions = _canCurrentUserUpdatePermissions(contribution.repo.id);
 
-  function HandleManageApplicants() {
+  function handleManageApplicants() {
     if (isProjectOrganisationMissingPermissions) {
       setIsGithubPermissionModalOpen(true);
       return;
@@ -45,7 +45,7 @@ export const useContributionPanelFooterAsMaintainer = ({
       <Button
         size={"md"}
         variant={"secondary"}
-        onClick={HandleManageApplicants}
+        onClick={handleManageApplicants}
         translate={{ token: "panels:contribution.footer.actions.manageInFullPage" }}
       />
     );
