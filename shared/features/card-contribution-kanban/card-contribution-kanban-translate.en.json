@@ -1,13 +1,19 @@
 {
   "actions": {
-    "review": "Review applications",
-    "unassign": "Unassign",
-    "codeReview": "Review",
-    "archive": "Archive",
-    "reward": "Reward",
-    "unarchive": "Unarchive",
-    "close": "Close",
-    "insufficientPermissions": "Insufficient permissions"
+    "insufficientPermissions": "Insufficient permissions",
+    "asMaintainer": {
+      "review": "Review applications",
+      "unassign": "Unassign",
+      "codeReview": "Review",
+      "archive": "Archive",
+      "reward": "Reward",
+      "unarchive": "Unarchive",
+      "close": "Close"
+    },
+    "asContributor": {
+      "seeApplication": "See application",
+      "seeDetail": "See detail"
+    }
   },
   "tooltip": {
     "insufficientPermissions": "You don't have the necessary rights to perform this action. Please contact the owner of the GitHub app for authorization."

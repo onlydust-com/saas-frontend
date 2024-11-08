@@ -157,7 +157,7 @@ export const useContributionAsMaintainerActions = ({
       return {
         buttons: [
           {
-            children: <Translate token={"features:cardContributionKanban.actions.review"} />,
+            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.review"} />,
             onClick: onReview,
           },
         ],
@@ -189,7 +189,7 @@ export const useContributionAsMaintainerActions = ({
           ...(contribution.contributors.length
             ? [
                 {
-                  children: <Translate token={"features:cardContributionKanban.actions.unassign"} />,
+                  children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.unassign"} />,
                   onClick: onUnassign,
                   isLoading: isUnassigningContribution,
                   isDisabled: !!shouldRefetch,
@@ -199,7 +199,7 @@ export const useContributionAsMaintainerActions = ({
           ...(contribution.isIssue()
             ? [
                 {
-                  children: <Translate token={"features:cardContributionKanban.actions.close"} />,
+                  children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.close"} />,
                   onClick: onCloseIssue,
                   isLoading: isUpdatingIssue,
                   isDisabled: !!shouldRefetch,
@@ -212,7 +212,7 @@ export const useContributionAsMaintainerActions = ({
       return {
         buttons: [
           {
-            children: <Translate token={"features:cardContributionKanban.actions.codeReview"} />,
+            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.codeReview"} />,
             onClick: onCodeReview,
             startIcon: { component: Github },
           },
@@ -222,12 +222,12 @@ export const useContributionAsMaintainerActions = ({
       return {
         buttons: [
           {
-            children: <Translate token={"features:cardContributionKanban.actions.archive"} />,
+            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.archive"} />,
             onClick: onArchive,
             isDisabled: isUpdatingPullRequest || isUpdatingIssue,
           },
           {
-            children: <Translate token={"features:cardContributionKanban.actions.reward"} />,
+            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.reward"} />,
             onClick: onReward,
             isDisabled: !canReward,
             tooltip: {
@@ -241,7 +241,7 @@ export const useContributionAsMaintainerActions = ({
       return {
         buttons: [
           {
-            children: <Translate token={"features:cardContributionKanban.actions.unarchive"} />,
+            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.unarchive"} />,
             onClick: onUnarchive,
             isLoading: isUpdatingPullRequest || isUpdatingIssue,
           },

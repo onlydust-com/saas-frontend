@@ -10,17 +10,33 @@ export const useContributionAsContributorActions = ({
   actions,
   contribution,
 }: UseContributionActionsProps): UseContributionActionReturn => {
-  function onReview() {
+  function onSeeApplication() {
+    actions?.onAction?.(contribution.id);
+  }
+
+  function onSeeDetails() {
     actions?.onAction?.(contribution.id);
   }
 
   switch (contribution.activityStatus) {
     case ContributionActivityStatus.NOT_ASSIGNED:
+    case ContributionActivityStatus.IN_PROGRESS:
       return {
         buttons: [
           {
-            children: <Translate token={"features:cardContributionKanban.actions.review"} />,
-            onClick: onReview,
+            children: <Translate token={"features:cardContributionKanban.actions.asContributor.seeApplication"} />,
+            onClick: onSeeApplication,
+          },
+        ],
+      };
+    case ContributionActivityStatus.DONE:
+    case ContributionActivityStatus.ARCHIVED:
+    case ContributionActivityStatus.TO_REVIEW:
+      return {
+        buttons: [
+          {
+            children: <Translate token={"features:cardContributionKanban.actions.asContributor.seeDetail"} />,
+            onClick: onSeeDetails,
           },
         ],
       };
