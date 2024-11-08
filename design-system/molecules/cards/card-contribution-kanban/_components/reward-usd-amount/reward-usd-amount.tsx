@@ -3,7 +3,8 @@ import { CircleDollarSign } from "lucide-react";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Badge } from "@/design-system/atoms/badge";
-import { RewardUsdAmountProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount.types";
+
+import { RewardUsdAmountProps } from "./reward-usd-amount.types";
 
 export function RewardUsdAmount({ rewardUsdAmount }: RewardUsdAmountProps) {
   if (!rewardUsdAmount) return null;

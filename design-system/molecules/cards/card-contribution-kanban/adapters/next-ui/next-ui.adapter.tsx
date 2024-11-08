@@ -1,14 +1,11 @@
-import { Clock } from "lucide-react";
 import dynamic from "next/dynamic";
 import { ElementType } from "react";
 
-import { bootstrap } from "@/core/bootstrap";
-
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
 import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
@@ -47,8 +44,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
-
-  const dateKernelPort = bootstrap.getDateKernelPort();
 
   function renderUsers() {
     if (applicants?.length) {
@@ -177,19 +172,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return <div />;
   }
 
-  function renderLastUpdatedAt() {
-    if (lastUpdatedAt) {
-      return (
-        <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
-          <Icon component={Clock} />
-          {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
-        </Typo>
-      );
-    }
-
-    return null;
-  }
-
   return (
     <Paper
       as={Component}
@@ -221,8 +203,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
       <div className={"grid gap-xl"}>
         <div className={"flex items-center gap-md empty:hidden"}>
-          {renderLastUpdatedAt()}
-
+          <LastUpdatedAt lastUpdatedAt={lastUpdatedAt} />
           <RewardUsdAmount rewardUsdAmount={rewardUsdAmount} />
         </div>
 
