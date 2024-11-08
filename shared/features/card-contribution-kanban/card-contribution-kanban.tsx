@@ -10,6 +10,7 @@ export function CardContributionKanban({
   classNames,
   showActions,
   showContributors = true,
+  showProject = false,
   as,
   ...actions
 }: CardContributionKanbanProps) {
@@ -28,7 +29,7 @@ export function CardContributionKanban({
       contributors={showContributors ? contribution.contributors : []}
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}
-      project={contribution.project}
+      project={showProject ? contribution.project : undefined}
       actions={buttons as ButtonGroupPort["buttons"]}
       showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}

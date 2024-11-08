@@ -6,22 +6,20 @@ export function Project({ project }: ProjectProps) {
   if (!project) return null;
 
   return (
-    <div className={"flex"}>
-      <AvatarLabelGroup
-        size={"xs"}
-        avatars={[
-          {
-            src: project.logoUrl,
-          },
-        ]}
-        title={{
-          size: "xs",
-          weight: "regular",
-          color: "tertiary",
-          children: project.name,
-        }}
-        withPopover={false}
-      />
-    </div>
+    <AvatarLabelGroup
+      size={"xs"}
+      avatars={[
+        {
+          src: project.logoUrl,
+        },
+      ]}
+      title={{
+        size: "xs",
+        weight: "regular",
+        color: "tertiary",
+        children: project.name,
+      }}
+      withPopover={false}
+    />
   );
 }

@@ -47,16 +47,27 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
   function renderUsers() {
     if (applicants?.length) {
-      return <Applicants applicants={applicants} />;
+      return (
+        <div className="flex">
+          <Applicants applicants={applicants} />;
+        </div>
+      );
     }
 
     if (contributors?.length) {
-      return <Contributors contributors={contributors} />;
+      return (
+        <div className="flex">
+          <Contributors contributors={contributors} />
+        </div>
+      );
     }
 
-    // TODO fix this condition
     if (project) {
-      return <Project project={project} />;
+      return (
+        <div className="flex">
+          <Project project={project} />
+        </div>
+      );
     }
 
     return null;

@@ -6,21 +6,19 @@ export function Contributors({ contributors }: ContributorsProps) {
   if (!contributors?.length) return null;
 
   return (
-    <div className={"flex"}>
-      <UserGroup
-        avatarProps={{ size: "xs" }}
-        users={contributors}
-        maxUsers={2}
-        label={{
-          size: "xs",
-          weight: "regular",
-          color: "tertiary",
-          translate: {
-            token: "cards:cardContributionKanban.contributors",
-            count: contributors.length,
-          },
-        }}
-      />
-    </div>
+    <UserGroup
+      avatarProps={{ size: "xs" }}
+      users={contributors}
+      maxUsers={2}
+      label={{
+        size: "xs",
+        weight: "regular",
+        color: "tertiary",
+        translate: {
+          token: "cards:cardContributionKanban.contributors",
+          count: contributors.length,
+        },
+      }}
+    />
   );
 }

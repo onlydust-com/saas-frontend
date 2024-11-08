@@ -77,6 +77,7 @@ function Column({
           onAction={onOpenContribution}
           showContributors={false}
           as={ContributionAs.CONTRIBUTOR}
+          showProject
         />
       ))}
       {isPending && (
