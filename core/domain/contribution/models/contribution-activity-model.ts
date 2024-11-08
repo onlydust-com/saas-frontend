@@ -55,6 +55,10 @@ export class ContributionActivity implements ContributionActivityInterface {
     return this.activityStatus === "NOT_ASSIGNED";
   }
 
+  isAssigned(): boolean {
+    return this.activityStatus === "IN_PROGRESS";
+  }
+
   isInProgress(): boolean {
     return this.activityStatus === "IN_PROGRESS";
   }
