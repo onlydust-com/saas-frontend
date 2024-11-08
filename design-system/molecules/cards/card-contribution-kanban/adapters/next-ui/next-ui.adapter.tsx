@@ -7,13 +7,12 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Applicants } from "@/design-system/molecules/cards/card-contribution-kanban/_components/applicants/applicants";
 import { Contributors } from "@/design-system/molecules/cards/card-contribution-kanban/_components/contributors/contributors";
 import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
+import { LinkedIssues } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues";
 import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
 import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
-import { ContributionInline } from "@/design-system/molecules/contribution-inline";
-import { TimelineContribution } from "@/design-system/molecules/timeline-contribution";
 
 import { LabelPopover } from "@/shared/components/label-popover/label-popover";
 import { cn } from "@/shared/helpers/cn";
@@ -58,50 +57,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     // TODO fix this condition
     if (project) {
       return <Project project={project} />;
-    }
-
-    return null;
-  }
-
-  function renderLinkedIssues() {
-    if (linkedIssues && linkedIssues.length) {
-      const linkedIssuesCount = linkedIssues?.length ?? 0;
-
-      if (linkedIssuesCount === 1) {
-        const [linkedIssue] = linkedIssues;
-        return (
-          <ContributionInline
-            contributionBadgeProps={{
-              type: linkedIssue.type,
-              githubStatus: linkedIssue.githubStatus,
-              number: linkedIssue.githubNumber,
-            }}
-            githubTitle={linkedIssue.githubTitle}
-            truncate
-          />
-        );
-      }
-
-      return (
-        <TimelineContribution
-          titleProps={{
-            translate: {
-              token: "cards:cardContributionKanban.linkedIssues",
-              values: { count: linkedIssuesCount },
-            },
-          }}
-          contributions={linkedIssues.map(issue => {
-            return {
-              githubTitle: issue.githubTitle,
-              contributionBadgeProps: {
-                type: issue.type,
-                githubStatus: issue.githubStatus,
-                number: issue.githubNumber,
-              },
-            };
-          })}
-        />
-      );
     }
 
     return null;
@@ -160,7 +115,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
         {renderUsers()}
 
-        {renderLinkedIssues()}
+        <LinkedIssues linkedIssues={linkedIssues} />
 
         <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden empty:hidden"}>
           {renderGithubLabels()}

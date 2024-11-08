@@ -3,6 +3,8 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { ProjectProps } from "./project.types";
 
 export function Project({ project }: ProjectProps) {
+  if (!project) return null;
+
   return (
     <div className={"flex"}>
       <AvatarLabelGroup

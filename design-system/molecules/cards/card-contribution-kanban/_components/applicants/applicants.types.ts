@@ -1,5 +1,5 @@
 export interface ApplicantsProps {
-  applicants: {
+  applicants?: {
     login: string;
     avatarUrl: string;
   }[];

@@ -1,5 +1,5 @@
 export interface ProjectProps {
-  project: {
+  project?: {
     name: string;
     logoUrl?: string;
   };

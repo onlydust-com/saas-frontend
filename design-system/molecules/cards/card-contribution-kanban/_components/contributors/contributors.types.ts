@@ -1,5 +1,5 @@
 export interface ContributorsProps {
-  contributors: {
+  contributors?: {
     login: string;
     avatarUrl: string;
   }[];
