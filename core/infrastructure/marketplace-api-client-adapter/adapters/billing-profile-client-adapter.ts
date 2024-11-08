@@ -63,18 +63,22 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
 
   getBillingProfileInvoicePreviewById = ({
     pathParams,
+    queryParams,
+    impersonationHeaders,
   }: FirstParameter<BillingProfileStoragePort["getBillingProfileInvoicePreviewById"]>) => {
     const path = this.routes["getBillingProfileInvoicePreviewById"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () => {
       const data = await this.client.request<Blob>({
         path,
         method,
         tag,
         pathParams,
+        queryParams,
         headers: {
           accept: "application/pdf",
+          ...(impersonationHeaders ? { "X-Impersonation-Claims": impersonationHeaders } : {}),
         },
       });
 

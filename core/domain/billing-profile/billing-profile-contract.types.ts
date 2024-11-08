@@ -12,7 +12,7 @@ export type GetBillingProfileByIdResponse = components["schemas"]["BillingProfil
 
 export type GetBillingProfileByIdModel = BillingProfileInterface;
 
-type GetBillingProfileByIdPathParams = operations["getProgram"]["parameters"]["path"];
+type GetBillingProfileByIdPathParams = operations["getBillingProfile"]["parameters"]["path"];
 
 export type GetBillingProfileByIdPortParams = HttpClientParameters<{
   PathParams: GetBillingProfileByIdPathParams;
@@ -26,7 +26,7 @@ export type GetBillingProfilePayoutInfoByIdResponse = components["schemas"]["Bil
 
 export type GetBillingProfilePayoutInfoByIdModel = BillingProfilePayoutInfoInterface;
 
-type GetBillingProfilePayoutInfoByIdPathParams = operations["getProgram"]["parameters"]["path"];
+type GetBillingProfilePayoutInfoByIdPathParams = operations["getPayoutInfo"]["parameters"]["path"];
 
 export type GetBillingProfilePayoutInfoByIdPortParams = HttpClientParameters<{
   PathParams: GetBillingProfilePayoutInfoByIdPathParams;
@@ -38,10 +38,13 @@ export type GetBillingProfilePayoutInfoByIdPortResponse = HttpStorageResponse<Ge
 
 export type GetBillingProfileInvoicePreviewByIdResponse = components["schemas"]["InvoicePreviewResponse"];
 
-type GetBillingProfileInvoicePreviewByIdPathParams = operations["getProgram"]["parameters"]["path"];
+type GetBillingProfileInvoicePreviewByIdPathParams = operations["previewNewInvoiceForRewardIds"]["parameters"]["path"];
+type GetBillingProfileInvoicePreviewByIdQueryParams =
+  operations["previewNewInvoiceForRewardIds"]["parameters"]["query"];
 
 export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters<{
   PathParams: GetBillingProfileInvoicePreviewByIdPathParams;
+  QueryParams: GetBillingProfileInvoicePreviewByIdQueryParams;
 }>;
 
 export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageResponse<Blob>;

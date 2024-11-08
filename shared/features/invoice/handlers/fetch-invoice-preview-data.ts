@@ -1,4 +1,4 @@
-import { BillingProfilesActions } from "actions/billing-profiles/billing-profiles.actions";
+import { bootstrap } from "@/core/bootstrap";
 
 export async function fetchInvoicePreviewData({
   token,
@@ -12,16 +12,19 @@ export async function fetchInvoicePreviewData({
   impersonationHeaders?: string;
 }) {
   if (!token) throw new Error("Token is required");
-  return await BillingProfilesActions.queries
-    .retrieveInvoicePreviewByBillingProfileId(billingProfileId, {
-      accessToken: token,
-      headers: {
-        ...(impersonationHeaders ? { "X-Impersonation-Claims": impersonationHeaders } : {}),
+  const billingProfileStoragePortForServer = bootstrap.getBillingProfileStoragePortForServer();
+
+  return await billingProfileStoragePortForServer
+    .getBillingProfileInvoicePreviewById({
+      pathParams: {
+        billingProfileId,
       },
-      params: {
-        rewardIds,
+      queryParams: {
+        rewardIds: [rewardIds],
       },
+      impersonationHeaders,
     })
+    .request()
     .then(res => res)
     .catch(() => {
       throw new Error("Failed to fetch invoice preview data.");

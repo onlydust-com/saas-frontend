@@ -14,6 +14,8 @@ export interface BillingProfileStoragePort {
     p: GetBillingProfilePayoutInfoByIdPortParams
   ): GetBillingProfilePayoutInfoByIdPortResponse;
   getBillingProfileInvoicePreviewById(
-    p: GetBillingProfileInvoicePreviewByIdPortParams
+    p: GetBillingProfileInvoicePreviewByIdPortParams & {
+      impersonationHeaders?: string;
+    }
   ): GetBillingProfileInvoicePreviewByIdPortResponse;
 }
