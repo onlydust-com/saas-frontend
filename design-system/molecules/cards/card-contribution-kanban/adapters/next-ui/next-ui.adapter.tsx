@@ -4,8 +4,10 @@ import { ElementType } from "react";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { Applicants } from "@/design-system/molecules/cards/card-contribution-kanban/_components/applicants/applicants";
+import { Contributors } from "@/design-system/molecules/cards/card-contribution-kanban/_components/contributors/contributors";
 import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
+import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
 import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
@@ -14,7 +16,6 @@ import { ContributionInline } from "@/design-system/molecules/contribution-inlin
 import { TimelineContribution } from "@/design-system/molecules/timeline-contribution";
 
 import { LabelPopover } from "@/shared/components/label-popover/label-popover";
-import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
@@ -47,66 +48,16 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
   function renderUsers() {
     if (applicants?.length) {
-      return (
-        <div className="flex">
-          <UserGroup
-            avatarProps={{ size: "xs" }}
-            users={applicants}
-            maxUsers={2}
-            label={{
-              size: "xs",
-              weight: "regular",
-              color: "tertiary",
-              translate: {
-                token: "cards:cardContributionKanban.applicants",
-                count: applicants.length,
-              },
-            }}
-          />
-        </div>
-      );
+      return <Applicants applicants={applicants} />;
     }
 
     if (contributors?.length) {
-      return (
-        <div className="flex">
-          <UserGroup
-            avatarProps={{ size: "xs" }}
-            users={contributors}
-            maxUsers={2}
-            label={{
-              size: "xs",
-              weight: "regular",
-              color: "tertiary",
-              translate: {
-                token: "cards:cardContributionKanban.contributors",
-                count: contributors.length,
-              },
-            }}
-          />
-        </div>
-      );
+      return <Contributors contributors={contributors} />;
     }
 
+    // TODO fix this condition
     if (project) {
-      return (
-        <div>
-          <AvatarLabelGroup
-            size={"xs"}
-            avatars={[
-              {
-                src: project.logoUrl,
-              },
-            ]}
-            title={{
-              size: "xs",
-              weight: "regular",
-              color: "tertiary",
-              children: project.name,
-            }}
-          />
-        </div>
-      );
+      return <Project project={project} />;
     }
 
     return null;
