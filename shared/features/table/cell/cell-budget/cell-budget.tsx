@@ -27,7 +27,7 @@ export function CellBudget({ totalUsdEquivalent: _totalUsdEquivalent, totalPerCu
     }
   }, [usdRef, containerRef]);
 
-  if (!totalPerCurrency.length) {
+  if (!totalPerCurrency?.length) {
     return <CellEmpty />;
   }
 
