@@ -114,7 +114,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     );
   }
 
-  if (contribution.isInProgress()) {
+  if (contribution.isToReview()) {
     return (
       <>
         <IssueOverview contribution={contribution} />
