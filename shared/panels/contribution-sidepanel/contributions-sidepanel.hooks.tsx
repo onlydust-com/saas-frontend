@@ -92,7 +92,48 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return null;
   }
 
-  return null;
+  if (contribution.isNotAssigned()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// KPI*/}
+        {/*// Description*/}
+        {/*// GithubComment*/}
+      </>
+    );
+  }
+
+  if (contribution.isInProgress()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// Assignees*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  if (contribution.isInProgress()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  if (contribution.isArchived() && contribution.isDone()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// MergedBy*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
 }
 
 export function useContributionBlocks(props: UseContributionBlocks) {
