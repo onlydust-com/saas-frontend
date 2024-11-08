@@ -14,6 +14,7 @@ import { CardContributionKanban } from "@/shared/features/card-contribution-kanb
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { KanbanViewProps } from "./kanban-view.types";
@@ -28,15 +29,17 @@ function Column({
   queryParams: Partial<GetContributionsQueryParams>;
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
+  const { githubUserId } = useAuthUser();
+
   const { data, hasNextPage, fetchNextPage, isPending, isFetchingNextPage } =
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
         ...queryParams,
         statuses: [type],
+        contributorIds: githubUserId ? [githubUserId] : [],
       },
       options: {
-        // TODO pass contributorIds here
-        enabled: !!queryParams?.projectSlugs?.length,
+        enabled: Boolean(githubUserId),
       },
     });
 
@@ -69,9 +72,10 @@ function Column({
     >
       {contributions?.map(contribution => (
         <CardContributionKanban
-          contribution={contribution}
           key={contribution.id}
+          contribution={contribution}
           onAction={onOpenContribution}
+          showContributors={false}
           as={ContributionAs.CONTRIBUTOR}
         />
       ))}

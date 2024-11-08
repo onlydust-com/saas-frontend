@@ -123,7 +123,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
             size={"xs"}
             avatars={[
               {
-                src: project.avatarUrl,
+                src: project.logoUrl,
               },
             ]}
             title={{
