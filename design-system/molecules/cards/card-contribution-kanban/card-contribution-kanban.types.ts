@@ -21,7 +21,7 @@ interface User {
 
 interface Project {
   name: string;
-  avatarUrl: string;
+  logoUrl?: string;
 }
 
 export interface CardContributionKanbanPort<C extends ElementType> extends Partial<Variants>, Partial<PaperPort<C>> {

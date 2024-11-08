@@ -1,5 +1,28 @@
 {
   "header": {
     "title": "My Dashboard"
+  },
+  "activity": {
+    "title": "Activity",
+    "buttons": {
+      "projects": "Projects",
+      "contributions": "Contributions",
+      "rewards": "Rewards"
+    },
+    "kanban": {
+      "columns": {
+        "applied": "Applied",
+        "assignedIssue": "Assigned issue",
+        "pendingReview": "Pending review",
+        "complete": "Complete"
+      }
+    }
+  },
+  "filters": {
+    "titles": {
+      "project": "Filter projects",
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
+    }
   }
 }

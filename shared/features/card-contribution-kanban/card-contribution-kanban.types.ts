@@ -10,5 +10,6 @@ export interface CardContributionKanbanProps extends CardContributionKanbanActio
   contribution: ContributionActivityInterface;
   classNames?: CardContributionKanbanPort<"div">["classNames"];
   showActions?: boolean;
+  showContributors?: boolean;
   as?: ContributionAsUnion;
 }
