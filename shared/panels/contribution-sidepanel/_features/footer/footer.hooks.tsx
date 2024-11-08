@@ -118,7 +118,7 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
         variant={"secondary"}
         as={BaseLink}
         htmlProps={{ href: contribution?.githubHtmlUrl ?? "", target: "_blank" }}
-        translate={{ token: "panels:contribution.footer.actions.asContributor.seePrInGithub" }}
+        translate={{ token: "panels:contribution.footer.actions.asContributor.seePrOnGithub" }}
       />
     );
   }

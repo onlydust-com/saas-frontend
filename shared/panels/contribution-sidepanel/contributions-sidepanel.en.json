@@ -51,7 +51,7 @@
       "asContributor": {
         "deleteComment": "Delete comment",
         "cancelApplication": "Cancel application",
-        "seePrInGithub": "See PR in GitHub"
+        "seePrOnGithub": "See PR on GitHub"
       }
     }
   },
