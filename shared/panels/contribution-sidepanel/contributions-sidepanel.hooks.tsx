@@ -92,6 +92,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return null;
   }
 
+  // Applied
   if (contribution.isNotAssigned()) {
     return (
       <>
@@ -103,17 +104,19 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     );
   }
 
+  // Assigned issue
   if (contribution.isInProgress()) {
     return (
       <>
         <IssueOverview contribution={contribution} />
-        {/*// Assignees*/}
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}
       </>
     );
   }
 
+  // Pending review
   if (contribution.isToReview()) {
     return (
       <>
@@ -124,11 +127,12 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     );
   }
 
+  // Done
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
         <IssueOverview contribution={contribution} />
-        {/*// MergedBy*/}
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}
       </>
