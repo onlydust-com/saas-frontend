@@ -124,7 +124,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     );
   }
 
-  if (contribution.isArchived() && contribution.isDone()) {
+  if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
         <IssueOverview contribution={contribution} />
