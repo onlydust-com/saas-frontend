@@ -48,3 +48,15 @@ export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters
 }>;
 
 export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageResponse<Blob>;
+
+/* ------------------------ Grant Budget To Project ------------------------ */
+
+export type UploadBillingProfileInvoiceByIdBody = components["schemas"]["GrantRequest"];
+
+type UploadBillingProfileInvoiceByIdPathParams = operations["uploadInvoice"]["parameters"]["path"];
+
+export type UploadBillingProfileInvoiceByIdPortParams = HttpClientParameters<{
+  PathParams: UploadBillingProfileInvoiceByIdPathParams;
+}>;
+
+export type UploadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse;
