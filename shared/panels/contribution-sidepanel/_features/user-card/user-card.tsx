@@ -33,6 +33,7 @@ export function UserCard({ title, user }: UserCardProps) {
           weight: "medium",
           children: user.login,
         }}
+        withPopover={false}
       />
 
       {user.contacts ? (
