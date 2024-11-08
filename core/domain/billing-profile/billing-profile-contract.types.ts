@@ -33,3 +33,15 @@ export type GetBillingProfilePayoutInfoByIdPortParams = HttpClientParameters<{
 }>;
 
 export type GetBillingProfilePayoutInfoByIdPortResponse = HttpStorageResponse<GetBillingProfilePayoutInfoByIdModel>;
+
+/* ------------------------------ Get Billing Profile Invoice Preview by ID ------------------------------ */
+
+export type GetBillingProfileInvoicePreviewByIdResponse = components["schemas"]["InvoicePreviewResponse"];
+
+type GetBillingProfileInvoicePreviewByIdPathParams = operations["getProgram"]["parameters"]["path"];
+
+export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters<{
+  PathParams: GetBillingProfileInvoicePreviewByIdPathParams;
+}>;
+
+export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageResponse<Blob>;
