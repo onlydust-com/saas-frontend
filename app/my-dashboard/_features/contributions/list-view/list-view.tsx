@@ -69,7 +69,7 @@ function useAccordionItem({
             <CardContributionKanban
               contribution={contribution}
               onAction={onOpenContribution}
-              as={ContributionAs.MAINTAINER}
+              as={ContributionAs.CONTRIBUTOR}
               classNames={{
                 base: "bg-transparent border-none rounded-none",
               }}

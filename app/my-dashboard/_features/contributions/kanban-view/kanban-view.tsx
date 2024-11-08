@@ -72,7 +72,7 @@ function Column({
           contribution={contribution}
           key={contribution.id}
           onAction={onOpenContribution}
-          as={ContributionAs.MAINTAINER}
+          as={ContributionAs.CONTRIBUTOR}
         />
       ))}
       {isPending && (
