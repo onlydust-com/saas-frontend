@@ -12,12 +12,25 @@ const PopoverContext = createContext<PopoverContextPort>({
   setIsOpen: () => {},
 });
 
-export function PopoverNextUiAdapter({ children, defaultOpen = false, placement = "bottom-start" }: PopoverPort) {
+export function PopoverNextUiAdapter({
+  children,
+  defaultOpen = false,
+  placement = "bottom-start",
+  controlled,
+}: PopoverPort) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const mixedOpen = controlled ? controlled.isOpen : isOpen;
+  function handleOpenChange(open: boolean) {
+    if (!controlled) {
+      setIsOpen(open);
+      return;
+    }
+    controlled.setIsOpen(open);
+  }
 
   return (
-    <PopoverContext.Provider value={{ isOpen, setIsOpen }}>
-      <Popover isOpen={isOpen} onOpenChange={setIsOpen} placement={placement} onClick={e => e?.stopPropagation()}>
+    <PopoverContext.Provider value={{ isOpen: mixedOpen, setIsOpen: handleOpenChange }}>
+      <Popover isOpen={mixedOpen} onOpenChange={handleOpenChange} placement={placement}>
         {children}
       </Popover>
     </PopoverContext.Provider>

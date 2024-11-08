@@ -6,11 +6,11 @@ import { ContributionReactQueryAdapter } from "@/core/application/react-query-ad
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Popover } from "@/design-system/atoms/popover";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { CardContributionKanban } from "@/design-system/molecules/cards/card-contribution-kanban";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { ContributionsPopoverProps } from "@/shared/features/contributions/contributions-popover/contributions-popover.types";
 
 export function ContributionsPopover({ rewardId, contributionsCount, buttonProps }: ContributionsPopoverProps) {
@@ -54,10 +54,17 @@ export function ContributionsPopover({ rewardId, contributionsCount, buttonProps
         <div className={"flex max-h-lg w-lg flex-col gap-3"}>
           {contributions?.map(contribution => (
             <CardContributionKanban
-              contribution={contribution}
               key={contribution.id}
-              showActions={false}
-              classNames={{ base: "pointer-events-none" }}
+              type={contribution.type}
+              githubTitle={contribution.githubTitle}
+              githubStatus={contribution.githubStatus}
+              githubNumber={contribution.githubNumber}
+              lastUpdatedAt={contribution.lastUpdatedAt}
+              rewardUsdAmount={contribution.totalRewardedUsdAmount}
+              applicants={contribution.isNotAssigned() ? contribution.applicants : []}
+              contributors={contribution.contributors}
+              linkedIssues={contribution.linkedIssues}
+              githubLabels={contribution.githubLabels}
             />
           ))}
         </div>
@@ -67,10 +74,10 @@ export function ContributionsPopover({ rewardId, contributionsCount, buttonProps
   }, [contributions, hasNextPage, isFetchingNextPage]);
 
   return (
-    <Popover>
+    <Popover controlled={{ isOpen: isPopoverOpen, setIsOpen: setIsPopoverOpen }}>
       <Popover.Trigger>
-        {({ isOpen }) => (
-          <div className="w-fit">
+        {() => (
+          <div>
             <Button
               as={"div"}
               variant={"secondary"}
@@ -85,7 +92,6 @@ export function ContributionsPopover({ rewardId, contributionsCount, buttonProps
                 token: "common:contributionsCount",
                 count: contributionsCount,
               }}
-              onClick={() => setIsPopoverOpen(isOpen)}
             />
           </div>
         )}

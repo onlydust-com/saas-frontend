@@ -1,13 +1,17 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 
 export interface PopoverContextPort {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: (open: boolean) => void;
 }
 
 export interface PopoverPort {
   children: ReactNode[];
   defaultOpen?: boolean;
+  controlled?: {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+  };
   placement?:
     | "top-start"
     | "top"
