@@ -13,6 +13,7 @@ import { GithubLabelsProps } from "@/design-system/molecules/cards/card-contribu
 import { LangaugesProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/languages/languages.types";
 import { LinkedIssuesProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues.types";
 import { ProjectProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project.types";
+import { RepoProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/repo/repo.types";
 import { RewardUsdAmountProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount.types";
 
 interface Variants {}
@@ -35,6 +36,7 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   linkedIssues: LinkedIssuesProps["linkedIssues"];
   githubLabels: GithubLabelsProps["githubLabels"];
   languages: LangaugesProps["languages"];
+  repo: RepoProps["repo"];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
   endContent?: ReactNode;

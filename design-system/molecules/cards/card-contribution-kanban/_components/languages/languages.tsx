@@ -1,7 +1,8 @@
 import { Badge } from "@/design-system/atoms/badge";
 import { Popover } from "@/design-system/atoms/popover";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
-import { LangaugesProps } from "@/design-system/molecules/cards/card-contribution-kanban/_components/languages/languages.types";
+
+import { LangaugesProps } from "./languages.types";
 
 export function Languages({ languages }: LangaugesProps) {
   if (!languages?.length) return null;

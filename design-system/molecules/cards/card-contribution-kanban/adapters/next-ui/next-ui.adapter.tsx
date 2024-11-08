@@ -11,6 +11,7 @@ import { Languages } from "@/design-system/molecules/cards/card-contribution-kan
 import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
 import { LinkedIssues } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues";
 import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
+import { Repo } from "@/design-system/molecules/cards/card-contribution-kanban/_components/repo/repo";
 import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
@@ -35,6 +36,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   linkedIssues,
   githubLabels,
   languages,
+  repo,
   actions,
   showActions = true,
   onClick,
@@ -76,15 +78,16 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   }
 
   function renderFooter() {
-    if (!githubLabels?.length && !languages?.length && !actions?.length && !endContent) {
+    if (!githubLabels?.length && !languages?.length && !repo && !actions?.length && !endContent) {
       return null;
     }
 
     return (
       <footer className={"flex flex-wrap items-center justify-between gap-lg overflow-hidden"}>
-        <div>
+        <div className={"flex flex-wrap items-center gap-sm"}>
           <GithubLabels githubLabels={githubLabels} />
           <Languages languages={languages} />
+          <Repo repo={repo} />
         </div>
 
         {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}

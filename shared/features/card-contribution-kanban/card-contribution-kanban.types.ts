@@ -13,5 +13,6 @@ export interface CardContributionKanbanProps extends CardContributionKanbanActio
   showContributors?: boolean;
   showProject?: boolean;
   showLanguages?: boolean;
+  showRepo?: boolean;
   as?: ContributionAsUnion;
 }
