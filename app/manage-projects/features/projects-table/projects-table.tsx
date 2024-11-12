@@ -12,6 +12,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 export function ProjectsTable() {
@@ -27,11 +28,7 @@ export function ProjectsTable() {
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    defaultColumn: {
-      size: 200,
-      minSize: 50,
-      maxSize: 500,
-    },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
     columnResizeMode: "onChange",
   });
 

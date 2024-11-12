@@ -17,6 +17,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -76,7 +77,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     select: columnHelper.display({
       id: "select",
       enableResizing: false,
-      size: 40,
+      size: TABLE_CELL_SIZE.XS,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -221,7 +222,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
-      size: 65,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"modals:manageRewards.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;

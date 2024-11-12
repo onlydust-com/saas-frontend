@@ -19,6 +19,7 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import {
   FilterColumnsHookProps,
@@ -205,7 +206,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
-      size: 65,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;

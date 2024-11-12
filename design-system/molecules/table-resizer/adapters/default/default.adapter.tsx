@@ -17,8 +17,6 @@ export function TableResizerDefaultAdapter({
   useEffect(() => {
     if (isResizing) {
       document.body.style.cursor = "col-resize";
-    } else {
-      document.body.style.cursor = "";
     }
 
     return () => {

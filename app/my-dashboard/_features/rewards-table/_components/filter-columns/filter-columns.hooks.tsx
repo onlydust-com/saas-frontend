@@ -9,6 +9,7 @@ import { GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contra
 import { Typo } from "@/design-system/atoms/typo";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
@@ -31,7 +32,7 @@ export function useFilterColumns() {
     },
   ]);
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("my-project-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
@@ -54,7 +55,7 @@ export function useFilterColumns() {
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
-      size: 90,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -71,7 +72,7 @@ export function useFilterColumns() {
     }),
     id: columnHelper.accessor("id", {
       enableSorting: false,
-      size: 75,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();

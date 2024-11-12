@@ -15,6 +15,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_CELL_SIZE, TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -57,7 +58,7 @@ export function ProgramsTable() {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
-      size: 70,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -124,11 +125,7 @@ export function ProgramsTable() {
     data: programs,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    defaultColumn: {
-      size: 200,
-      minSize: 50,
-      maxSize: 500,
-    },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
     columnResizeMode: "onChange",
   });
 

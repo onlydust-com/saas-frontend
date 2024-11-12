@@ -1,4 +1,4 @@
-import { SortDirection, flexRender } from "@tanstack/react-table";
+import { Header, SortDirection, flexRender } from "@tanstack/react-table";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -22,6 +22,14 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
     return direction === "asc" ? TableSortDirection.ASC : TableSortDirection.DESC;
   }
 
+  function getHeaderStyle(header: Header<H, unknown>) {
+    return {
+      width: styleKernelPort.pxToRem(header.getSize()),
+      minWidth: header.column.columnDef.minSize ? styleKernelPort.pxToRem(header.column.columnDef.minSize) : undefined,
+      maxWidth: header.column.columnDef.maxSize ? styleKernelPort.pxToRem(header.column.columnDef.maxSize) : undefined,
+    };
+  }
+
   return (
     <thead className={cn(slots.base(), classNames?.base)}>
       {headerGroups.map(headerGroup => (
@@ -34,15 +42,7 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
                 key={header.id}
                 className={cn(slots.header(), classNames?.header)}
                 colSpan={header.colSpan}
-                style={{
-                  width: styleKernelPort.pxToRem(header.getSize()),
-                  minWidth: header.column.columnDef.minSize
-                    ? styleKernelPort.pxToRem(header.column.columnDef.minSize)
-                    : undefined,
-                  maxWidth: header.column.columnDef.maxSize
-                    ? styleKernelPort.pxToRem(header.column.columnDef.maxSize)
-                    : undefined,
-                }}
+                style={getHeaderStyle(header)}
               >
                 <div
                   className={cn(slots.headerInner(), classNames?.headerInner, {

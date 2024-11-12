@@ -9,6 +9,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -56,11 +57,7 @@ export function SponsorsTable() {
     data: sponsors,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    defaultColumn: {
-      size: 200,
-      minSize: 50,
-      maxSize: 500,
-    },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
     columnResizeMode: "onChange",
   });
 

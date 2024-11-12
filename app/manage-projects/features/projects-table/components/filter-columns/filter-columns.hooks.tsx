@@ -11,6 +11,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -75,7 +76,7 @@ export function useFilterColumns() {
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
-      size: 80,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();
