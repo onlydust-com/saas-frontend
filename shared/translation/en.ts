@@ -2,6 +2,7 @@ import { enSplashTranslation } from "@/app/(splash)/_translations/splash.transla
 import { enDataTranslation } from "@/app/data/_translations/data.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
 import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
+import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
@@ -34,6 +35,7 @@ export const en = {
   ...enFinancialsTranslation,
   ...enDataTranslation,
   ...enManageProjectsTranslation,
+  ...enMyDashboardTranslation,
   ...enDateRangePickerTranslation,
   ...enCardTranslations,
   ds: {

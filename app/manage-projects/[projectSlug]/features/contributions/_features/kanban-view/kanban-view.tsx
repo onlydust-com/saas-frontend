@@ -8,6 +8,7 @@ import { GetContributionsQueryParams } from "@/core/domain/contribution/contribu
 import {
   ContributionActivityStatus,
   ContributionActivityStatusUnion,
+  ContributionAs,
 } from "@/core/domain/contribution/models/contribution.types";
 import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
@@ -75,7 +76,12 @@ function Column({
       }}
     >
       {contributions?.map(contribution => (
-        <CardContributionKanban contribution={contribution} key={contribution.id} onAction={onOpenContribution} />
+        <CardContributionKanban
+          contribution={contribution}
+          key={contribution.id}
+          onAction={onOpenContribution}
+          as={ContributionAs.MAINTAINER}
+        />
       ))}
       {isPending && (
         <>
