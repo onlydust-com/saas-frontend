@@ -1,3 +1,4 @@
+import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BillingProfileResponse = components["schemas"]["BillingProfileResponse"];
@@ -6,6 +7,9 @@ export interface BillingProfileInterface extends BillingProfileResponse {
   isIndividualLimitReached(): boolean;
   getLimitAmount(): number | null;
   getCurrentYearPaymentAmount(): number;
+  isBillingProfileIndividual(): boolean;
+  isBillingProfileCompany(): boolean;
+  isBillingProfileSelfEmployed(): boolean;
 }
 
 export class BillingProfile implements BillingProfileInterface {
@@ -46,5 +50,17 @@ export class BillingProfile implements BillingProfileInterface {
 
   getCurrentYearPaymentAmount() {
     return this.currentYearPaymentAmount || 0;
+  }
+
+  isBillingProfileIndividual() {
+    return this.type === BillingProfileType.Individual;
+  }
+
+  isBillingProfileCompany() {
+    return this.type === BillingProfileType.Company;
+  }
+
+  isBillingProfileSelfEmployed() {
+    return this.type === BillingProfileType.SelfEmployed;
   }
 }

@@ -23,9 +23,21 @@ export function useInvoicePreview({ rewardIds, billingProfileId, isSample = fals
     }
   }, []);
 
+  function handleInvoiceData(data: { blob?: Blob; invoiceId?: string | null } | undefined) {
+    if (data?.blob) {
+      setFileBlob(data.blob);
+      setFileUrl(window.URL.createObjectURL(data.blob));
+      setInvoiceId(data.invoiceId ?? "");
+    } else {
+      setIsError(true);
+    }
+  }
+
   async function handleInvoiceCreation() {
     fetched.current = true;
     setIsLoading(true);
+    setIsError(false);
+
     try {
       const token = await getAccessTokenSilently();
       const data = await fetchInvoicePreviewBlob({
@@ -35,14 +47,10 @@ export function useInvoicePreview({ rewardIds, billingProfileId, isSample = fals
         isSample,
         impersonationHeaders: getHeaders(),
       });
-      if (data?.blob) {
-        setFileBlob(data.blob);
-        setFileUrl(window.URL.createObjectURL(data.blob));
-        setInvoiceId(data.invoiceId ?? "");
-      } else {
-        setIsError(true);
-      }
+
+      handleInvoiceData(data);
     } catch (error) {
+      console.error("Failed to create invoice:", error);
       setIsError(true);
     } finally {
       setIsLoading(false);

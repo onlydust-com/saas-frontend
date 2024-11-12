@@ -7,7 +7,7 @@
     "toaster": {
       "success": "Invoice successfully sent",
       "error": "We were unable to send the invoice, please try again later",
-      "emptyFile": "We Were unable to find the file, please try again later"
+      "emptyFile": "We were unable to find the file, please try again later"
     },
     "text": {
       "many": "Please send us an invoice for your __count__ pending rewards",

@@ -69,7 +69,6 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
   getBillingProfileInvoicePreviewById = ({
     pathParams,
     queryParams,
-    impersonationHeaders,
   }: FirstParameter<BillingProfileStoragePort["getBillingProfileInvoicePreviewById"]>) => {
     const path = this.routes["getBillingProfileInvoicePreviewById"];
     const method = "GET";
@@ -83,7 +82,6 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         queryParams,
         headers: {
           accept: "application/pdf",
-          ...(impersonationHeaders ? { "X-Impersonation-Claims": impersonationHeaders } : {}),
         },
       });
 

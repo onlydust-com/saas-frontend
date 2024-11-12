@@ -2,8 +2,6 @@ import { Font, renderToStream } from "@react-pdf/renderer";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
-
 import {
   getHeaderProps,
   getInvoiceInfoProps,
@@ -24,7 +22,6 @@ export async function GET(request: NextRequest) {
   ------ */
   const headersList = headers();
   const token = headersList.get("authorization");
-  const impersonationHeaders = headersList.get("X-Impersonation-Claims") ?? undefined;
   if (!token) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -38,7 +35,7 @@ export async function GET(request: NextRequest) {
   const rewardIds = searchParams.get("rewardIds") ?? "";
   let invoicePreviewData;
   try {
-    invoicePreviewData = await fetchInvoicePreviewData({ token, rewardIds, billingProfileId, impersonationHeaders });
+    invoicePreviewData = await fetchInvoicePreviewData({ token, rewardIds, billingProfileId });
   } catch (e) {
     return new NextResponse("Failed Dependency : Invoice Preview ", { status: 424 });
   }
@@ -46,7 +43,7 @@ export async function GET(request: NextRequest) {
   /* ------
   Determine the billing profile type
   ------ */
-  const isUserIndividual = invoicePreviewData?.billingProfileType === BillingProfileType.Individual;
+  const isUserIndividual = invoicePreviewData?.isBillingProfileIndividual();
 
   /* ------
   Build the invoice content

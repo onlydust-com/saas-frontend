@@ -1,8 +1,13 @@
+import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BillingProfileInvoicePreviewResponse = components["schemas"]["InvoicePreviewResponse"];
 
-export interface BillingProfileInvoicePreviewInterface extends BillingProfileInvoicePreviewResponse {}
+export interface BillingProfileInvoicePreviewInterface extends BillingProfileInvoicePreviewResponse {
+  isBillingProfileIndividual(): boolean;
+  isBillingProfileCompany(): boolean;
+  isBillingProfileSelfEmployed(): boolean;
+}
 
 export class BillingProfileInvoicePreview implements BillingProfileInvoicePreviewInterface {
   billingProfileType!: BillingProfileInvoicePreviewResponse["billingProfileType"];
@@ -23,5 +28,17 @@ export class BillingProfileInvoicePreview implements BillingProfileInvoicePrevie
 
   constructor(props: BillingProfileInvoicePreviewResponse) {
     Object.assign(this, props);
+  }
+
+  isBillingProfileIndividual() {
+    return this.billingProfileType === BillingProfileType.Individual;
+  }
+
+  isBillingProfileCompany() {
+    return this.billingProfileType === BillingProfileType.Company;
+  }
+
+  isBillingProfileSelfEmployed() {
+    return this.billingProfileType === BillingProfileType.SelfEmployed;
   }
 }
