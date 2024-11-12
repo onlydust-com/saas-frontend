@@ -21,7 +21,7 @@ export const InvoiceTokens = {
     bic: "BIC",
   },
   rewardSummary: {
-    title: "Rewards granted on: app.onlydust.com",
+    title: "Rewards granted on: onlydust.com",
     table: {
       id: "ID",
       rewardDate: "Reward date",
