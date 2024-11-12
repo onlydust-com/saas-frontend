@@ -1,8 +1,10 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
   GetBillingProfileByIdResponse,
+  GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfilePayoutInfoByIdResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
+import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfile } from "@/core/domain/billing-profile/models/billing-profile-model";
 import { BillingProfilePayoutInfo } from "@/core/domain/billing-profile/models/billing-profile-payout-info-model";
 import { BillingProfileStoragePort } from "@/core/domain/billing-profile/outputs/billing-profile-storage-port";
@@ -73,7 +75,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () => {
-      const data = await this.client.request<Blob>({
+      const data = await this.client.request<GetBillingProfileInvoicePreviewByIdResponse>({
         path,
         method,
         tag,
@@ -85,7 +87,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         },
       });
 
-      return data;
+      return new BillingProfileInvoicePreview(data);
     };
 
     return {

@@ -1,3 +1,4 @@
+import { BillingProfileInvoicePreviewInterface } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInterface } from "@/core/domain/billing-profile/models/billing-profile-model";
 import { BillingProfilePayoutInfoInterface } from "@/core/domain/billing-profile/models/billing-profile-payout-info-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -38,6 +39,8 @@ export type GetBillingProfilePayoutInfoByIdPortResponse = HttpStorageResponse<Ge
 
 export type GetBillingProfileInvoicePreviewByIdResponse = components["schemas"]["InvoicePreviewResponse"];
 
+export type GetBillingProfileInvoicePreviewByIdModel = BillingProfileInvoicePreviewInterface;
+
 type GetBillingProfileInvoicePreviewByIdPathParams = operations["previewNewInvoiceForRewardIds"]["parameters"]["path"];
 type GetBillingProfileInvoicePreviewByIdQueryParams =
   operations["previewNewInvoiceForRewardIds"]["parameters"]["query"];
@@ -47,7 +50,8 @@ export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters
   QueryParams: GetBillingProfileInvoicePreviewByIdQueryParams;
 }>;
 
-export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageResponse<Blob>;
+export type GetBillingProfileInvoicePreviewByIdPortResponse =
+  HttpStorageResponse<GetBillingProfileInvoicePreviewByIdModel>;
 
 /* ------------------------ Upload Billing Profile Invoice by ID ------------------------ */
 
