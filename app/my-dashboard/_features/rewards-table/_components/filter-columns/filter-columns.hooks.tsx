@@ -126,12 +126,13 @@ export function useFilterColumns() {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.status"} />,
       cell: info => {
         const status = info.getValue();
+        const billingProfileId = info.row.original.billingProfileId;
 
         if (!status) {
           return <CellEmpty />;
         }
 
-        return <PayoutStatus status={status} />;
+        return <PayoutStatus status={status} billingProfileId={billingProfileId} shouldRedirect={true} />;
       },
     }),
   } as const;
