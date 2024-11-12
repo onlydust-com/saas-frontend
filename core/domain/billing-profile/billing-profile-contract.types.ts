@@ -1,3 +1,4 @@
+import { BillingProfileInvoicePreviewInterface } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInterface } from "@/core/domain/billing-profile/models/billing-profile-model";
 import { BillingProfilePayoutInfoInterface } from "@/core/domain/billing-profile/models/billing-profile-payout-info-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -12,7 +13,7 @@ export type GetBillingProfileByIdResponse = components["schemas"]["BillingProfil
 
 export type GetBillingProfileByIdModel = BillingProfileInterface;
 
-type GetBillingProfileByIdPathParams = operations["getProgram"]["parameters"]["path"];
+type GetBillingProfileByIdPathParams = operations["getBillingProfile"]["parameters"]["path"];
 
 export type GetBillingProfileByIdPortParams = HttpClientParameters<{
   PathParams: GetBillingProfileByIdPathParams;
@@ -26,10 +27,52 @@ export type GetBillingProfilePayoutInfoByIdResponse = components["schemas"]["Bil
 
 export type GetBillingProfilePayoutInfoByIdModel = BillingProfilePayoutInfoInterface;
 
-type GetBillingProfilePayoutInfoByIdPathParams = operations["getProgram"]["parameters"]["path"];
+type GetBillingProfilePayoutInfoByIdPathParams = operations["getPayoutInfo"]["parameters"]["path"];
 
 export type GetBillingProfilePayoutInfoByIdPortParams = HttpClientParameters<{
   PathParams: GetBillingProfilePayoutInfoByIdPathParams;
 }>;
 
 export type GetBillingProfilePayoutInfoByIdPortResponse = HttpStorageResponse<GetBillingProfilePayoutInfoByIdModel>;
+
+/* ------------------------------ Get Billing Profile Invoice Preview by ID ------------------------------ */
+
+export type GetBillingProfileInvoicePreviewByIdResponse = components["schemas"]["InvoicePreviewResponse"];
+
+export type GetBillingProfileInvoicePreviewByIdModel = BillingProfileInvoicePreviewInterface;
+
+type GetBillingProfileInvoicePreviewByIdPathParams = operations["previewNewInvoiceForRewardIds"]["parameters"]["path"];
+type GetBillingProfileInvoicePreviewByIdQueryParams =
+  operations["previewNewInvoiceForRewardIds"]["parameters"]["query"];
+
+export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters<{
+  PathParams: GetBillingProfileInvoicePreviewByIdPathParams;
+  QueryParams: GetBillingProfileInvoicePreviewByIdQueryParams;
+}>;
+
+export type GetBillingProfileInvoicePreviewByIdPortResponse =
+  HttpStorageResponse<GetBillingProfileInvoicePreviewByIdModel>;
+
+/* ------------------------ Upload Billing Profile Invoice by ID ------------------------ */
+
+type UploadBillingProfileInvoiceByIdPathParams = operations["uploadInvoice"]["parameters"]["path"];
+type UploadBillingProfileInvoiceByIdQueryParams = operations["uploadInvoice"]["parameters"]["query"];
+
+export type UploadBillingProfileInvoiceByIdPortParams = HttpClientParameters<{
+  PathParams: UploadBillingProfileInvoiceByIdPathParams;
+  QueryParams: UploadBillingProfileInvoiceByIdQueryParams;
+}>;
+
+export type UploadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse<Blob>;
+
+/* --------------------- Accept Billing Profile Mandate by ID --------------------- */
+
+export type AcceptOrDeclineBillingProfileMandateBody = components["schemas"]["InvoiceMandateRequest"];
+
+type AcceptOrDeclineBillingProfileMandatePathParams = operations["acceptOrDeclineInvoiceMandate"]["parameters"]["path"];
+
+export type AcceptOrDeclineBillingProfileMandatePortParams = HttpClientParameters<{
+  PathParams: AcceptOrDeclineBillingProfileMandatePathParams;
+}>;
+
+export type AcceptOrDeclineBillingProfileMandatePortResponse = HttpStorageResponse;
