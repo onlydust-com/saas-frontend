@@ -57,6 +57,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     });
   }
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,

@@ -2,7 +2,7 @@ import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { FilterColumnsProps, MyRewardsTableColumns } from "./filter-columns.types";
+import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
@@ -54,7 +54,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
         ],
         selectedIds,
-        onSelect: ids => setSelectedIds(ids as Array<MyRewardsTableColumns>),
+        onSelect: ids => setSelectedIds(ids as Array<TableColumns>),
         isMultiple: true,
       }}
       popoverProps={{

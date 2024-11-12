@@ -1,6 +1,7 @@
-import { FilterColumnsProps } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.types";
-
-import { RewardListItemResponse } from "@/core/domain/reward/models/reward-list-item-model";
+import {
+  FilterColumnsProps,
+  TableColumns,
+} from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-columns/filter-columns.types";
 
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
@@ -64,7 +65,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
         ],
         selectedIds,
-        onSelect: ids => setSelectedIds(ids as Array<keyof RewardListItemResponse>),
+        onSelect: ids => setSelectedIds(ids as Array<TableColumns>),
         isMultiple: true,
       }}
       popoverProps={{

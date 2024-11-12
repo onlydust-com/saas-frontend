@@ -1,6 +1,22 @@
-import { BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
-
 export interface FilterColumnsProps {
-  selectedIds?: Array<keyof BiProjectResponse>;
-  setSelectedIds: (ids: Array<keyof BiProjectResponse>) => void;
+  selectedIds?: Array<TableColumns>;
+  setSelectedIds: (ids: Array<TableColumns>) => void;
 }
+
+export type TableColumns =
+  | "project"
+  | "projectLeads"
+  | "categories"
+  | "languages"
+  | "ecosystems"
+  | "programs"
+  | "availableBudget"
+  | "percentUsedBudget"
+  | "totalGrantedUsdAmount"
+  | "averageRewardUsdAmount"
+  | "onboardedContributorCount"
+  | "activeContributorCount"
+  | "prCount"
+  | "rewardCount"
+  | "contributionCount"
+  | "engagementStatus";

@@ -1,4 +1,9 @@
-export type MyRewardsTableColumns =
+export interface FilterColumnsProps {
+  selectedIds?: Array<TableColumns>;
+  setSelectedIds: (ids: Array<TableColumns>) => void;
+}
+
+export type TableColumns =
   | "requestedAt"
   | "id"
   | "project"
@@ -7,8 +12,3 @@ export type MyRewardsTableColumns =
   | "amount"
   | "status"
   | "actions";
-
-export interface FilterColumnsProps {
-  selectedIds?: Array<MyRewardsTableColumns>;
-  setSelectedIds: (ids: Array<MyRewardsTableColumns>) => void;
-}

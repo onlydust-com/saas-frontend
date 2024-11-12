@@ -11,6 +11,8 @@ export function IssueOverview({ contribution }: IssueOverviewProps) {
       githubNumber={contribution.githubNumber}
       lastUpdatedAt={contribution.lastUpdatedAt}
       githubLabels={contribution.githubLabels}
+      languages={contribution.languages}
+      repo={contribution.repo}
       linkedIssues={contribution.linkedIssues}
       rewardUsdAmount={contribution.totalRewardedUsdAmount}
     />
