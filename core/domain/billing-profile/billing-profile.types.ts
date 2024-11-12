@@ -2,3 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type VatRegulationState =
   components["schemas"]["InvoicePreviewResponseCompanyBillingProfile"]["vatRegulationState"];
+
+export enum BillingProfileType {
+  Company = "COMPANY",
+  Individual = "INDIVIDUAL",
+  SelfEmployed = "SELF_EMPLOYED",
+}
