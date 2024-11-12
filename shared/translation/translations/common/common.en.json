@@ -81,5 +81,9 @@
   "reward": "Reward",
   "tooltip": {
     "disabledReward": "No budget available"
+  },
+  "form": {
+    "reset": "Reset",
+    "save": "Save"
   }
 }

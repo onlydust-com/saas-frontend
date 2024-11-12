@@ -1,5 +1,51 @@
 {
   "header": {
     "title": "My Dashboard"
+  },
+  "activity": {
+    "title": "Activity",
+    "buttons": {
+      "projects": "Projects",
+      "contributions": "Contributions",
+      "rewards": "Rewards"
+    },
+    "kanban": {
+      "columns": {
+        "applied": "Applied",
+        "assignedIssue": "Assigned issue",
+        "pendingReview": "Pending review",
+        "complete": "Complete"
+      }
+    }
+  },
+  "filters": {
+    "titles": {
+      "project": "Filter projects",
+      "contribution": "Filter contributions",
+      "rewards": "Filter rewards"
+    }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "project": "Project",
+      "from": "From",
+      "contributions": "Contributions",
+
+      "amount": "Amount",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "rows": {
+      "cancelReward": "Cancel"
+    },
+    "rewardsCount": "Rewards"
   }
 }

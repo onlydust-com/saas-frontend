@@ -77,7 +77,7 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview contribution={contribution} showLinkedIssues={true} />
+        <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees contribution={contribution} />
         {/* KEEP THIS */}
@@ -92,7 +92,52 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return null;
   }
 
-  return null;
+  // Applied
+  if (contribution.isNotAssigned()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// KPI*/}
+        {/*// Description*/}
+        {/*// GithubComment*/}
+      </>
+    );
+  }
+
+  // Assigned issue
+  if (contribution.isInProgress()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  // Pending review
+  if (contribution.isToReview()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  // Done
+  if (contribution.isArchived() || contribution.isDone()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
 }
 
 export function useContributionBlocks(props: UseContributionBlocks) {

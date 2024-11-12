@@ -9,6 +9,10 @@ export function CardContributionKanban({
   contribution,
   classNames,
   showActions,
+  showContributors = true,
+  showProject = false,
+  showLanguages = false,
+  showRepo = false,
   as,
   ...actions
 }: CardContributionKanbanProps) {
@@ -24,9 +28,12 @@ export function CardContributionKanban({
       lastUpdatedAt={contribution.lastUpdatedAt}
       rewardUsdAmount={contribution.totalRewardedUsdAmount}
       applicants={contribution.isNotAssigned() ? contribution.applicants : []}
-      contributors={contribution.contributors}
+      contributors={showContributors ? contribution.contributors : []}
       linkedIssues={contribution.linkedIssues}
       githubLabels={contribution.githubLabels}
+      languages={showLanguages ? contribution.languages : []}
+      repo={showRepo ? contribution.repo : undefined}
+      project={showProject ? contribution.project : undefined}
       actions={buttons as ButtonGroupPort["buttons"]}
       showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}
