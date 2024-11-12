@@ -7,6 +7,7 @@ import enContributorProfileCheckbox from "@/shared/features/contributors/contrib
 import enContributorProfileExtended from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended-translate.en.json";
 import { enFiltersTranslations } from "@/shared/features/filters/_translations/filters.translate";
 import enGithubMissingPermissionsAlert from "@/shared/features/github-permissions/_components/github-missing-permissions-alert/_translations/github-missing-permissions-alert.en.json";
+import enInvoices from "@/shared/features/invoice/_translations/invoice.en.json";
 import enNotifications from "@/shared/features/notifications/_translations/notifications.en.json";
 import enPayoutStatus from "@/shared/features/payout-status/_translations/payout-status.en.json";
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
@@ -16,6 +17,7 @@ import { enCellTranslation } from "@/shared/features/table/cell/_translations/ce
 export const enFeaturesTranslations = {
   features: {
     amountSelector: enAmountSelector,
+    invoices: enInvoices,
     contributionPopover: enContributionPopover,
     notifications: enNotifications,
     githubMissingPermissionsAlert: enGithubMissingPermissionsAlert,

@@ -96,16 +96,18 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
 
   uploadBillingProfileInvoiceById = ({
     pathParams,
+    queryParams,
   }: FirstParameter<BillingProfileStoragePort["uploadBillingProfileInvoiceById"]>) => {
     const path = this.routes["uploadBillingProfileInvoiceById"];
     const method = "POST";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
     const request = async () =>
       this.client.request<Blob>({
         path,
         method,
         tag,
         pathParams,
+        queryParams,
         headers: {
           "Content-Type": "application/pdf",
         },

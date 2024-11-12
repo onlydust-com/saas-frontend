@@ -52,9 +52,11 @@ export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageRespons
 /* ------------------------ Upload Billing Profile Invoice by ID ------------------------ */
 
 type UploadBillingProfileInvoiceByIdPathParams = operations["uploadInvoice"]["parameters"]["path"];
+type UploadBillingProfileInvoiceByIdQueryParams = operations["uploadInvoice"]["parameters"]["query"];
 
 export type UploadBillingProfileInvoiceByIdPortParams = HttpClientParameters<{
   PathParams: UploadBillingProfileInvoiceByIdPathParams;
+  QueryParams: UploadBillingProfileInvoiceByIdQueryParams;
 }>;
 
 export type UploadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse<Blob>;

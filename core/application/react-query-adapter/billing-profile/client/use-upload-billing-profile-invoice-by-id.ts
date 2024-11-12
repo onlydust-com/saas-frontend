@@ -9,13 +9,14 @@ import { BillingProfileFacadePort } from "@/core/domain/billing-profile/input/bi
 
 export function useUploadBillingProfileInvoiceById({
   pathParams,
+  queryParams,
   options,
 }: UseMutationFacadeParams<BillingProfileFacadePort["uploadBillingProfileInvoiceById"], undefined, never, Blob> = {}) {
   const billingProfileStoragePort = bootstrap.getBillingProfileStoragePortForClient();
 
   return useMutation(
     useMutationAdapter({
-      ...billingProfileStoragePort.uploadBillingProfileInvoiceById({ pathParams }),
+      ...billingProfileStoragePort.uploadBillingProfileInvoiceById({ pathParams, queryParams }),
       ...options,
     })
   );
