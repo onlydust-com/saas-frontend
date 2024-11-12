@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { IconSizeMap } from "@/design-system/atoms/icon/icon.constants";
 
 import { cn } from "@/shared/helpers/cn";
@@ -9,6 +11,8 @@ import { IconRemixIconVariants } from "./remix-icon.variants";
 
 export function IconRemixIconAdapter({ classNames, name, size = "sm", color, ...props }: RemixIconPort) {
   const { base } = IconRemixIconVariants();
+
+  const styleKernelPort = bootstrap.getStyleKernelPort();
 
   const { width } = useMemo(
     () => ({
@@ -22,7 +26,7 @@ export function IconRemixIconAdapter({ classNames, name, size = "sm", color, ...
       <i
         className={name}
         style={{
-          fontSize: width,
+          fontSize: styleKernelPort.pxToRem(width),
           lineHeight: 1,
           color,
         }}

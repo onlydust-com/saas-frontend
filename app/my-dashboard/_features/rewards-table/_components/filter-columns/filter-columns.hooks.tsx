@@ -9,6 +9,7 @@ import { GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contra
 import { Typo } from "@/design-system/atoms/typo";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
@@ -17,7 +18,7 @@ import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-projects";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { MyRewardsTableColumns } from "./filter-columns.types";
+import { TableColumns } from "./filter-columns.types";
 
 export function useFilterColumns() {
   const idKernelPort = bootstrap.getIdKernelPort();
@@ -31,7 +32,7 @@ export function useFilterColumns() {
     },
   ]);
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<MyRewardsTableColumns>>("project-rewards-table-columns");
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("my-project-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
@@ -52,8 +53,9 @@ export function useFilterColumns() {
     };
   }, [sorting]);
 
-  const columnMap: Partial<Record<MyRewardsTableColumns, object>> = {
+  const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -70,6 +72,7 @@ export function useFilterColumns() {
     }),
     id: columnHelper.accessor("id", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();

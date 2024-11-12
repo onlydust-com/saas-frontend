@@ -14,6 +14,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { CancelReward } from "@/shared/components/mutation/reward/cancel-reward";
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
@@ -66,6 +67,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -79,6 +81,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     }),
     id: columnHelper.accessor("id", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();
@@ -141,6 +144,7 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     }),
     actions: columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.actions"} />,
       cell: info => {
         const id = info.row.original.id;

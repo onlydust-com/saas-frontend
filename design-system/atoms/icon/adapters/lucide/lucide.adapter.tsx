@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { cn } from "@/shared/helpers/cn";
 
 import { IconSizeMap } from "../../icon.constants";
@@ -9,6 +11,8 @@ import { IconLucideVariants } from "./lucide.variants";
 export function IconLucideAdapter({ component: Icon, classNames, size = "sm" }: LucideIconPort) {
   const { base } = IconLucideVariants();
 
+  const styleKernelPort = bootstrap.getStyleKernelPort();
+
   const { stroke, width } = useMemo(
     () => ({
       stroke: IconSizeMap.stroke[size],
@@ -17,5 +21,11 @@ export function IconLucideAdapter({ component: Icon, classNames, size = "sm" }: 
     [size]
   );
 
-  return <Icon size={width} strokeWidth={stroke} className={cn(base(), classNames?.base)} />;
+  return (
+    <Icon
+      size={styleKernelPort.pxToRem(width)}
+      strokeWidth={styleKernelPort.pxToRem(stroke)}
+      className={cn(base(), classNames?.base)}
+    />
+  );
 }
