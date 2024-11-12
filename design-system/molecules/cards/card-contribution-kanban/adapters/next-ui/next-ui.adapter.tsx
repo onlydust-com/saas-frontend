@@ -84,15 +84,17 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
     return (
       <footer className={"flex flex-wrap items-center justify-between gap-lg overflow-hidden"}>
-        <div className={"flex flex-wrap items-center gap-sm"}>
+        <div className={"flex flex-wrap items-center gap-sm empty:hidden"}>
           <GithubLabels githubLabels={githubLabels} />
           <Languages languages={languages} />
           <Repo repo={repo} />
         </div>
 
-        {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+        <div className="ml-auto">
+          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
 
-        {endContent}
+          {endContent}
+        </div>
       </footer>
     );
   }
