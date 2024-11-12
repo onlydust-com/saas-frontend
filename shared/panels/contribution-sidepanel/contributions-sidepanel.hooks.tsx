@@ -97,6 +97,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         {/*// KPI*/}
         {/*// Description*/}
         {/*// GithubComment*/}
@@ -109,6 +110,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}
@@ -121,6 +123,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         {/*// Description*/}
         {/*// Timeline*/}
       </>
@@ -132,6 +135,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}

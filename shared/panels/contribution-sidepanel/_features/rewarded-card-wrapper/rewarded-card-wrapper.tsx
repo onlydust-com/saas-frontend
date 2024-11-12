@@ -20,7 +20,7 @@ export function RewardedCardWrapper({ contribution }: RewardedCardWrapperProps) 
     return null;
   }
 
-  return rewards?.map((reward, index) => (
-    <RewardedCard key={`rewarded-card-${index}`} reward={reward.amount} processedAt={reward.processedAt} />
+  return rewards?.map(reward => (
+    <RewardedCard key={`rewarded-card-${reward.id}`} reward={reward.amount} processedAt={reward.processedAt} />
   ));
 }

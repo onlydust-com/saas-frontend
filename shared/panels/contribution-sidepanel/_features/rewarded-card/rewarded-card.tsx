@@ -15,7 +15,7 @@ export function RewardedCard({ reward, processedAt }: RewardedCardProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const titleMoney = moneyKernelPort.format({
-    amount: reward.amount,
+    amount: reward.prettyAmount,
     currency: reward.currency,
   });
 
