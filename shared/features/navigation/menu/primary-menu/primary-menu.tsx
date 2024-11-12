@@ -68,7 +68,8 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
           href: NEXT_ROUTER.myDashboard.root,
         }}
         translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
-        isDisabled={showProjectList.loading || !showProjectList.hasProjects}
+        // isDisabled={showProjectList.loading || !showProjectList.hasProjects}
+        isComingSoon
       />
       <ItemNav
         isFolded={isFolded}
