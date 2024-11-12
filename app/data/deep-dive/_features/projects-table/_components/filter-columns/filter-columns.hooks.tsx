@@ -4,7 +4,7 @@ import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiProjectsQueryParams } from "@/core/domain/bi/bi-contract.types";
-import { BiProjectInterface, BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
+import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -20,15 +20,15 @@ import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { CellPrograms } from "@/shared/features/table/cell/cell-programs/cell-programs";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { TableColumns } from "./filter-columns.types";
+
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<BiProjectInterface>();
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof BiProjectResponse>>(
-    "deep-dive-projects-table-columns"
-  );
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("deep-dive-projects-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
@@ -75,7 +75,7 @@ export function useFilterColumns() {
     };
   }, [sorting]);
 
-  const columnMap: Partial<Record<keyof BiProjectResponse, object>> = {
+  const columnMap: Partial<Record<TableColumns, object>> = {
     project: columnHelper.accessor("project", {
       header: () => <Translate token={"data:deepDive.projectsTable.columns.projectName"} />,
       cell: info => {
