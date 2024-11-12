@@ -1,6 +1,3 @@
-import { useProjectRewardsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/features/rewards-table/_components/filter-data/filter-data.hooks";
-import { RewardsTableFilters } from "@/app/manage-projects/[projectSlug]/features/rewards-table/rewards-table";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
@@ -11,6 +8,9 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
+
+import { RewardsTableFilters } from "../../rewards-table";
+import { useProjectRewardsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
   const { name } = useProjectRewardsFilterDataSidePanel();
