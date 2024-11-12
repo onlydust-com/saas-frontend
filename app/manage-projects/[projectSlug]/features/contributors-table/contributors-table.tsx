@@ -147,6 +147,7 @@ function SafeContributorsTable() {
             onRowClick={row => {
               openContributor({ githubId: row.original.contributor.githubUserId });
             }}
+            rowSelection={rowSelection}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

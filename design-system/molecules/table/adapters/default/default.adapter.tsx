@@ -29,12 +29,16 @@ const TableBody = <R,>({ rows, onRowClick, emptyState, headersLength }: TableBod
 
 const MemoizedTableBody = React.memo(
   TableBody,
-  (prevProps, nextProps) => prevProps.rows === nextProps.rows && prevProps.headersLength === nextProps.headersLength
+  (prevProps, nextProps) =>
+    prevProps.rows === nextProps.rows &&
+    prevProps.headersLength === nextProps.headersLength &&
+    prevProps.rowSelection === nextProps.rowSelection
 ) as typeof TableBody;
 
 export function TableDefaultAdapter<H, R>({
   classNames,
   table,
+  rowSelection,
   header,
   rows,
   onRowClick,
@@ -55,7 +59,13 @@ export function TableDefaultAdapter<H, R>({
       >
         <TableHeader {...header} />
 
-        <MemoizedTableBody rows={rows} onRowClick={onRowClick} emptyState={emptyState} headersLength={headersLength} />
+        <MemoizedTableBody
+          rowSelection={rowSelection}
+          rows={rows}
+          onRowClick={onRowClick}
+          emptyState={emptyState}
+          headersLength={headersLength}
+        />
       </table>
     </>
   );

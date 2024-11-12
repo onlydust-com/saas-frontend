@@ -175,6 +175,7 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
+            rowSelection={rowSelection}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
