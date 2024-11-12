@@ -49,9 +49,7 @@ export type GetBillingProfileInvoicePreviewByIdPortParams = HttpClientParameters
 
 export type GetBillingProfileInvoicePreviewByIdPortResponse = HttpStorageResponse<Blob>;
 
-/* ------------------------ Grant Budget To Project ------------------------ */
-
-export type UploadBillingProfileInvoiceByIdBody = components["schemas"]["GrantRequest"];
+/* ------------------------ Upload Billing Profile Invoice by ID ------------------------ */
 
 type UploadBillingProfileInvoiceByIdPathParams = operations["uploadInvoice"]["parameters"]["path"];
 
@@ -59,4 +57,16 @@ export type UploadBillingProfileInvoiceByIdPortParams = HttpClientParameters<{
   PathParams: UploadBillingProfileInvoiceByIdPathParams;
 }>;
 
-export type UploadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse;
+export type UploadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse<Blob>;
+
+/* --------------------- Accept Billing Profile Mandate by ID --------------------- */
+
+export type AcceptOrDeclineBillingProfileMandateBody = components["schemas"]["InvoiceMandateRequest"];
+
+type AcceptOrDeclineBillingProfileMandatePathParams = operations["acceptOrDeclineInvoiceMandate"]["parameters"]["path"];
+
+export type AcceptOrDeclineBillingProfileMandatePortParams = HttpClientParameters<{
+  PathParams: AcceptOrDeclineBillingProfileMandatePathParams;
+}>;
+
+export type AcceptOrDeclineBillingProfileMandatePortResponse = HttpStorageResponse;

@@ -1,4 +1,5 @@
 import {
+  AcceptOrDeclineBillingProfileMandateBody,
   GetBillingProfileByIdResponse,
   GetBillingProfilePayoutInfoByIdResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -15,6 +16,8 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getBillingProfileById: "billingProfile/:billingProfileId",
     getBillingProfilePayoutInfoById: "billingProfile/:billingProfileId/payout-info",
     getBillingProfileInvoicePreviewById: "billingProfile/:billingProfileId/invoice-preview",
+    uploadBillingProfileInvoiceById: "billingProfile/:billingProfileId/invoices/:invoiceId",
+    acceptOrDeclineBillingProfileMandateById: "billingProfile/:billingProfileId/invoices/mandate",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -84,6 +87,51 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
 
       return data;
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  uploadBillingProfileInvoiceById = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["uploadBillingProfileInvoiceById"]>) => {
+    const path = this.routes["uploadBillingProfileInvoiceById"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        pathParams,
+        headers: {
+          "Content-Type": "application/pdf",
+        },
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  acceptOrDeclineBillingProfileMandateById = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["acceptOrDeclineBillingProfileMandateById"]>) => {
+    const path = this.routes["acceptOrDeclineBillingProfileMandateById"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: AcceptOrDeclineBillingProfileMandateBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

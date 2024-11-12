@@ -1,10 +1,14 @@
 import {
+  AcceptOrDeclineBillingProfileMandatePortParams,
+  AcceptOrDeclineBillingProfileMandatePortResponse,
   GetBillingProfileByIdPortParams,
   GetBillingProfileByIdPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
   GetBillingProfileInvoicePreviewByIdPortResponse,
   GetBillingProfilePayoutInfoByIdPortParams,
   GetBillingProfilePayoutInfoByIdPortResponse,
+  UploadBillingProfileInvoiceByIdPortParams,
+  UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
 
 export interface BillingProfileStoragePort {
@@ -18,4 +22,10 @@ export interface BillingProfileStoragePort {
       impersonationHeaders?: string;
     }
   ): GetBillingProfileInvoicePreviewByIdPortResponse;
+  uploadBillingProfileInvoiceById(
+    p: UploadBillingProfileInvoiceByIdPortParams
+  ): UploadBillingProfileInvoiceByIdPortResponse;
+  acceptOrDeclineBillingProfileMandateById(
+    p: AcceptOrDeclineBillingProfileMandatePortParams
+  ): AcceptOrDeclineBillingProfileMandatePortResponse;
 }
