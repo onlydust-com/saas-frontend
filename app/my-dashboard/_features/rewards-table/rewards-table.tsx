@@ -25,6 +25,7 @@ export type RewardsTableFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
+// TODO Update table @sami
 export function RewardsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();

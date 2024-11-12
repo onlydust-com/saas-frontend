@@ -34,7 +34,7 @@ export function useFilterColumns() {
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["requestedAt", "id", "project"]);
+      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status"]);
     }
   }, [selectedIds]);
 
