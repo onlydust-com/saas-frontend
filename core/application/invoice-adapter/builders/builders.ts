@@ -1,10 +1,10 @@
-import { bootstrap } from "@/core/bootstrap";
-
 import {
   InvoiceHeaderBuilderProps,
   InvoiceInfoBuilderProps,
   RewardsSummaryBuilderProps,
-} from "@/shared/features/invoice/builders/builders.types";
+} from "@/core/application/invoice-adapter/builders/builders.types";
+import { bootstrap } from "@/core/bootstrap";
+
 import {
   InvoiceHeaderProps,
   InvoiceInfoProps,

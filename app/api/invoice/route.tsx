@@ -6,9 +6,10 @@ import {
   getHeaderProps,
   getInvoiceInfoProps,
   getRewardsSummaryProps,
-} from "@/shared/features/invoice/builders/builders";
-import { detectLanguageAndGetFontDynamically } from "@/shared/features/invoice/handlers/fetch-font-info";
-import { fetchInvoicePreviewData } from "@/shared/features/invoice/handlers/fetch-invoice-preview-data";
+} from "@/core/application/invoice-adapter/builders/builders";
+import { detectLanguageAndGetFontDynamically } from "@/core/application/invoice-adapter/handlers/fetch-font-info";
+import { fetchInvoicePreviewData } from "@/core/application/invoice-adapter/handlers/fetch-invoice-preview-data";
+
 import {
   InvoiceHeaderProps,
   InvoiceInfoProps,

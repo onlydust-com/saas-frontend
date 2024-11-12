@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useRef, useState } from "react";
 
+import { fetchInvoicePreviewBlob } from "@/core/application/invoice-adapter/handlers/fetch-invoice-preview-blob";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
-import { fetchInvoicePreviewBlob } from "@/shared/features/invoice/handlers/fetch-invoice-preview-blob";
 import { UseInvoicePreviewProps } from "@/shared/features/invoice/hooks/use-invoice-preview/use-invoice-preview.types";
 
 export function useInvoicePreview({ rewardIds, billingProfileId, isSample = false }: UseInvoicePreviewProps) {
