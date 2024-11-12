@@ -99,17 +99,16 @@ export function useFilterColumns() {
         return <CellAvatar avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []} />;
       },
     }),
-    // TODO BACKEND: Uncomment when contributions are available
     items: columnHelper.accessor("items", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
       cell: info => {
-        const contribution = info.getValue();
+        const contributions = info.getValue();
 
-        if (!contribution?.length) {
+        if (!contributions?.length) {
           return <CellEmpty />;
         }
 
-        return <ContributionsPopover contributionsCount={contribution?.length ?? 0} contributionIds={contribution} />;
+        return <ContributionsPopover contributionsCount={contributions?.length ?? 0} contributionIds={contributions} />;
       },
     }),
     amount: columnHelper.accessor("amount", {

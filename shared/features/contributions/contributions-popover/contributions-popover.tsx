@@ -62,9 +62,6 @@ export function ContributionsPopover({
             <CardContributionKanban
               key={contribution.id}
               type={contribution.type}
-              project={undefined}
-              languages={undefined}
-              repo={undefined}
               githubTitle={contribution.githubTitle}
               githubStatus={contribution.githubStatus}
               githubNumber={contribution.githubNumber}
