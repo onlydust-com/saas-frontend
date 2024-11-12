@@ -77,7 +77,7 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview contribution={contribution} showLinkedIssues={true} />
+        <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees contribution={contribution} />
         {/* KEEP THIS */}
