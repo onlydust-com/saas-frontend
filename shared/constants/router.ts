@@ -21,6 +21,9 @@ export const NEXT_ROUTER = {
       root: (slug: string) => `/manage-projects/${slug}`,
     },
   },
+  myDashboard: {
+    root: "/my-dashboard",
+  },
   data: {
     root: "/data",
     deepDive: {

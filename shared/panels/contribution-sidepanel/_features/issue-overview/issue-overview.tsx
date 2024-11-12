@@ -2,7 +2,7 @@ import { CardContributionKanban as Card } from "@/design-system/molecules/cards/
 
 import { IssueOverviewProps } from "./issue-overview.types";
 
-export function IssueOverview({ contribution, showLinkedIssues }: IssueOverviewProps) {
+export function IssueOverview({ contribution }: IssueOverviewProps) {
   return (
     <Card
       type={contribution.type}
@@ -11,7 +11,7 @@ export function IssueOverview({ contribution, showLinkedIssues }: IssueOverviewP
       githubNumber={contribution.githubNumber}
       lastUpdatedAt={contribution.lastUpdatedAt}
       githubLabels={contribution.githubLabels}
-      linkedIssues={showLinkedIssues ? contribution.linkedIssues : undefined}
+      linkedIssues={contribution.linkedIssues}
       rewardUsdAmount={contribution.totalRewardedUsdAmount}
     />
   );

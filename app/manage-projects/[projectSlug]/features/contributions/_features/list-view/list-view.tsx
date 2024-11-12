@@ -5,6 +5,7 @@ import { GetContributionsQueryParams } from "@/core/domain/contribution/contribu
 import {
   ContributionActivityStatus,
   ContributionActivityStatusUnion,
+  ContributionAs,
 } from "@/core/domain/contribution/models/contribution.types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -69,6 +70,7 @@ function useAccordionItem({
             <CardContributionKanban
               contribution={contribution}
               onAction={onOpenContribution}
+              as={ContributionAs.MAINTAINER}
               classNames={{
                 base: "bg-transparent border-none rounded-none",
               }}

@@ -1,4 +1,4 @@
-import { ChartLine, Clipboard, Compass, FolderKanban, Wallet } from "lucide-react";
+import { ChartLine, Clipboard, Compass, FolderKanban, Gauge, Wallet } from "lucide-react";
 
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
@@ -60,7 +60,16 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
             : NEXT_ROUTER.manageProjects.details.root(showProjectList.firstProject ?? ""),
         }}
         translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
-        isDisabled={showProjectList.loading || !showProjectList.hasProjects}
+      />
+      <ItemNav
+        isFolded={isFolded}
+        iconProps={{ component: Gauge }}
+        linkProps={{
+          href: NEXT_ROUTER.myDashboard.root,
+        }}
+        translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
+        // isDisabled={showProjectList.loading || !showProjectList.hasProjects}
+        isComingSoon
       />
       <ItemNav
         isFolded={isFolded}
