@@ -16,7 +16,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { TABLE_CELL_SIZE, TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
