@@ -17,7 +17,7 @@ import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-projects";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { TableColumns } from "./filter-columns.types";
+import { MyRewardsTableColumns } from "./filter-columns.types";
 
 export function useFilterColumns() {
   const idKernelPort = bootstrap.getIdKernelPort();
@@ -31,11 +31,11 @@ export function useFilterColumns() {
     },
   ]);
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<MyRewardsTableColumns>>("project-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status", "items"]);
+      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status", "contributions"]);
     }
   }, [selectedIds]);
 
@@ -52,7 +52,7 @@ export function useFilterColumns() {
     };
   }, [sorting]);
 
-  const columnMap: Partial<Record<TableColumns, object>> = {
+  const columnMap: Partial<Record<MyRewardsTableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
@@ -99,7 +99,7 @@ export function useFilterColumns() {
         return <CellAvatar avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []} />;
       },
     }),
-    items: columnHelper.accessor("items", {
+    contributions: columnHelper.accessor("items", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
       cell: info => {
         const contributions = info.getValue();
