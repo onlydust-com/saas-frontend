@@ -4,11 +4,12 @@ export interface FilterColumnsProps {
 }
 
 export type TableColumns =
-  | "requestedAt"
   | "id"
-  | "project"
-  | "from"
-  | "contributions"
-  | "amount"
-  | "status"
-  | "actions";
+  | "slug"
+  | "name"
+  | "logoUrl"
+  | "leads"
+  | "totalAvailable"
+  | "contributorCount"
+  | "totalGranted"
+  | "totalRewarded";

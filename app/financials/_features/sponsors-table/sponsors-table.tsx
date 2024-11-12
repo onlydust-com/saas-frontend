@@ -18,6 +18,7 @@ export function SponsorsTable() {
   const router = useRouter();
   const columnHelper = createColumnHelper<{ name: string; id: string }>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,

@@ -27,6 +27,7 @@ export function ProgramsTable() {
   const router = useRouter();
   const columnHelper = createColumnHelper<ProgramListItemInterface>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,

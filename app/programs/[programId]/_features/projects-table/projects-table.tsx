@@ -52,6 +52,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
   const columnHelper = createColumnHelper<ProgramProjectListItemInterface>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,
