@@ -24,5 +24,28 @@
       "contribution": "Filter contributions",
       "rewards": "Filter rewards"
     }
+  },
+  "rewardsTable": {
+    "filters": {
+      "columnList": "Rewards columns",
+      "global": "Global",
+      "financial": "Financial",
+      "activity": "Activity"
+    },
+    "columns": {
+      "date": "Date",
+      "id": "ID",
+      "project": "Project",
+      "from": "From",
+      "contributions": "Contributions",
+
+      "amount": "Amount",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "rows": {
+      "cancelReward": "Cancel"
+    },
+    "rewardsCount": "Rewards"
   }
 }

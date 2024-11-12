@@ -1,22 +1,22 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-export type RewardListItemResponse = components["schemas"]["RewardPageItemResponse"];
+export type RewardListItemResponseV2 = components["schemas"]["RewardPageItemResponse"];
 
-export interface RewardListItemV2Interface extends RewardListItemResponse {}
+export interface RewardListItemV2Interface extends RewardListItemResponseV2 {}
 
 export class RewardListItemV2 implements RewardListItemV2Interface {
-  id!: RewardListItemResponse["id"];
-  amount!: RewardListItemResponse["amount"];
-  status!: RewardListItemResponse["status"];
-  from!: RewardListItemResponse["from"];
-  to!: RewardListItemResponse["to"];
-  requestedAt!: RewardListItemResponse["requestedAt"];
-  processedAt!: RewardListItemResponse["processedAt"];
-  unlockDate!: RewardListItemResponse["unlockDate"];
-  project!: RewardListItemResponse["project"];
-  billingProfileId!: RewardListItemResponse["billingProfileId"];
+  id!: RewardListItemResponseV2["id"];
+  amount!: RewardListItemResponseV2["amount"];
+  status!: RewardListItemResponseV2["status"];
+  from!: RewardListItemResponseV2["from"];
+  to!: RewardListItemResponseV2["to"];
+  requestedAt!: RewardListItemResponseV2["requestedAt"];
+  processedAt!: RewardListItemResponseV2["processedAt"];
+  unlockDate!: RewardListItemResponseV2["unlockDate"];
+  project!: RewardListItemResponseV2["project"];
+  billingProfileId!: RewardListItemResponseV2["billingProfileId"];
 
-  constructor(props: RewardListItemResponse) {
+  constructor(props: RewardListItemResponseV2) {
     Object.assign(this, props);
   }
 }

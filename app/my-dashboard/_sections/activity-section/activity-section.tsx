@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { Contributions } from "@/app/my-dashboard/_features/contributions/contributions";
+import { RewardsTable } from "@/app/my-dashboard/_features/rewards-table/rewards-table";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -28,7 +29,7 @@ export function ActivitySection() {
     }
 
     if (toggleActivityView === ActivityTabs.REWARDS) {
-      return "REWARDS";
+      return <RewardsTable />;
     }
 
     return null;
