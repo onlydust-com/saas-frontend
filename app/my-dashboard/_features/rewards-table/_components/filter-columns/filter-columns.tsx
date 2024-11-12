@@ -1,10 +1,8 @@
-import { RewardListItemResponseV2 } from "@/core/domain/reward/models/reward-list-item-v2-model";
-
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { FilterColumnsProps } from "./filter-columns.types";
+import { FilterColumnsProps, MyRewardsTableColumns } from "./filter-columns.types";
 
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
@@ -36,13 +34,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             searchValue: "From",
             isCheckbox: true,
           },
-          // TODO BACKEND: Uncomment when contributions are available
-          // {
-          //   id: "contributions",
-          //   label: <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
-          //   searchValue: "Contributions",
-          //   isCheckbox: true,
-          // },
+          {
+            id: "contributions",
+            label: <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
+            searchValue: "Contributions",
+            isCheckbox: true,
+          },
           {
             id: "amount",
             label: <Translate token={"myDashboard:detail.rewardsTable.columns.amount"} />,
@@ -57,7 +54,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
         ],
         selectedIds,
-        onSelect: ids => setSelectedIds(ids as Array<keyof RewardListItemResponseV2>),
+        onSelect: ids => setSelectedIds(ids as Array<MyRewardsTableColumns>),
         isMultiple: true,
       }}
       popoverProps={{

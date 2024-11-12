@@ -9,6 +9,7 @@ import { GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contra
 import { Typo } from "@/design-system/atoms/typo";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
@@ -16,7 +17,7 @@ import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-projects";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { TableColumns } from "./filter-columns.types";
+import { MyRewardsTableColumns } from "./filter-columns.types";
 
 export function useFilterColumns() {
   const idKernelPort = bootstrap.getIdKernelPort();
@@ -30,11 +31,11 @@ export function useFilterColumns() {
     },
   ]);
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<MyRewardsTableColumns>>("project-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status"]);
+      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status", "contributions"]);
     }
   }, [selectedIds]);
 
@@ -51,7 +52,7 @@ export function useFilterColumns() {
     };
   }, [sorting]);
 
-  const columnMap: Partial<Record<TableColumns, object>> = {
+  const columnMap: Partial<Record<MyRewardsTableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
@@ -98,20 +99,18 @@ export function useFilterColumns() {
         return <CellAvatar avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []} />;
       },
     }),
-    // TODO BACKEND: Uncomment when contributions are available
-    // contribution: columnHelper.accessor("contribution", {
-    //   header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.contributions"} />,
-    //   cell: info => {
-    //     const contribution = info.getValue();
-    //     const rewardId = info.row.original.id;
-    //
-    //     if (!contribution) {
-    //       return <CellEmpty />;
-    //     }
-    //
-    //     return <ContributionsPopover contributionsCount={contribution} rewardId={rewardId} />;
-    //   },
-    // }),
+    contributions: columnHelper.accessor("items", {
+      header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
+      cell: info => {
+        const contributions = info.getValue();
+
+        if (!contributions?.length) {
+          return <CellEmpty />;
+        }
+
+        return <ContributionsPopover contributionsCount={contributions?.length ?? 0} contributionIds={contributions} />;
+      },
+    }),
     amount: columnHelper.accessor("amount", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.amount"} />,
       cell: info => {
