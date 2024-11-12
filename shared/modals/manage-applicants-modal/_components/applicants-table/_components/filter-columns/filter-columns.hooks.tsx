@@ -205,6 +205,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
+      size: 65,
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;
@@ -245,6 +246,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     }),
     actions: columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => {
         const { applicationId } = info.row.original;

@@ -30,13 +30,14 @@ export function SponsorsTable() {
     }),
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => (
-        <div className={"flex w-full justify-end"}>
+        <div className={"flex w-full"}>
           <Translate token={"financials:list.content.table.columns.actions"} />
         </div>
       ),
       cell: info => (
-        <div className={"flex w-full justify-end"}>
+        <div className={"flex w-full"}>
           <Button
             as={BaseLink}
             htmlProps={{ href: NEXT_ROUTER.financials.details.root(info.row.original.id) }}
@@ -54,6 +55,12 @@ export function SponsorsTable() {
     data: sponsors,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -67,15 +74,13 @@ export function SponsorsTable() {
   return (
     <ScrollView direction={"x"}>
       <Table
+        table={table}
         header={{
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
         onRowClick={row => {
           router.push(NEXT_ROUTER.financials.details.root(row.original.id));
-        }}
-        classNames={{
-          base: "min-w-[1200px]",
         }}
       />
     </ScrollView>

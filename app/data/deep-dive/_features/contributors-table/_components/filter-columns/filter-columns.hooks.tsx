@@ -125,6 +125,7 @@ export function useFilterColumns() {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
+      size: 65,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -160,6 +161,7 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
+      size: 80,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -170,6 +172,7 @@ export function useFilterColumns() {
       },
     }),
     prCount: columnHelper.accessor("prCount", {
+      size: 80,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -181,6 +184,7 @@ export function useFilterColumns() {
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
       enableSorting: false,
+      size: 80,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -192,6 +196,7 @@ export function useFilterColumns() {
     }),
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
+      size: 125,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();

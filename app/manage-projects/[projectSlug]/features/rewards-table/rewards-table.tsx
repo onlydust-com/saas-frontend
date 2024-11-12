@@ -88,6 +88,12 @@ export function RewardsTable() {
     state: {
       sorting,
     },
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -108,14 +114,11 @@ export function RewardsTable() {
         </nav>
         <ScrollView direction={"x"}>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            // TODO @Mehdi enable reward detail sidepanel once feature ready
-            // onRowClick={row => {
-            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
-            // }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

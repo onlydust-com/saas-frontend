@@ -56,6 +56,7 @@ export function ProgramsTable() {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
+      size: 70,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -103,6 +104,7 @@ export function ProgramsTable() {
     }),
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => (
         <Button
@@ -121,6 +123,12 @@ export function ProgramsTable() {
     data: programs,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -142,13 +150,11 @@ export function ProgramsTable() {
   return (
     <ScrollView direction={"x"}>
       <Table
+        table={table}
         header={{
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
-        classNames={{
-          base: "min-w-[1200px]",
-        }}
         onRowClick={row => {
           router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}

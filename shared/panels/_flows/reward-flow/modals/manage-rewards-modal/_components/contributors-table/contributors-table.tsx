@@ -131,6 +131,12 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
       rowSelection,
       sorting,
     },
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   useEffect(() => {
@@ -164,13 +170,11 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
 
         <ScrollView>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            classNames={{
-              base: "min-w-[1200px]",
-            }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

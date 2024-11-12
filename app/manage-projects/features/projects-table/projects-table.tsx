@@ -27,6 +27,12 @@ export function ProjectsTable() {
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -48,13 +54,11 @@ export function ProjectsTable() {
       />
       <ScrollView direction={"x"}>
         <Table
+          table={table}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}
           rows={table.getRowModel().rows}
-          classNames={{
-            base: "min-w-[1200px]",
-          }}
           onRowClick={row => {
             router.push(NEXT_ROUTER.manageProjects.details.root(row.original.slug));
           }}

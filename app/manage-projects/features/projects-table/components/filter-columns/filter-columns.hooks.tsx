@@ -3,10 +3,7 @@ import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
-import {
-  MeProjectListItemInterface,
-  MeProjectProjectListItemResponse,
-} from "@/core/domain/me/models/me-projects-model";
+import { MeProjectListItemInterface } from "@/core/domain/me/models/me-projects-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -18,31 +15,29 @@ import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { TableColumns } from "./filter-columns.types";
+
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<MeProjectListItemInterface>();
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<keyof MeProjectProjectListItemResponse>>(
-    "manage-projects-table-columns"
-  );
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("manage-projects-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
       setSelectedIds([
-        "id",
-        "slug",
         "name",
-        "logoUrl",
         "leads",
         "totalAvailable",
         "contributorCount",
         "totalGranted",
         "totalRewarded",
+        "actions",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
 
-  const columnMap: Partial<Record<keyof MeProjectProjectListItemResponse, object>> = {
+  const columnMap: Partial<Record<TableColumns, object>> = {
     name: columnHelper.accessor("name", {
       enableSorting: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.projectName"} />,
@@ -80,6 +75,7 @@ export function useFilterColumns() {
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
+      size: 80,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -127,8 +123,9 @@ export function useFilterColumns() {
         );
       },
     }),
-    slug: columnHelper.display({
+    actions: columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.actions"} />,
       cell: info => (
         <Button

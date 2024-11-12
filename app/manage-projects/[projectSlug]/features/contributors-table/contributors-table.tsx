@@ -101,6 +101,12 @@ function SafeContributorsTable() {
       rowSelection,
       sorting,
     },
+    defaultColumn: {
+      size: 200,
+      minSize: 50,
+      maxSize: 500,
+    },
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -133,13 +139,11 @@ function SafeContributorsTable() {
         </nav>
         <ScrollView direction={"all"}>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            classNames={{
-              base: "min-w-[1200px]",
-            }}
             onRowClick={row => {
               openContributor({ githubId: row.original.contributor.githubUserId });
             }}

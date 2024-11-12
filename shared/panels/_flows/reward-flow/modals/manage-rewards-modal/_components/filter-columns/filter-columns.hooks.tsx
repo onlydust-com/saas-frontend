@@ -72,11 +72,11 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     };
   }, [sorting]);
 
-  console.log(sorting);
-
   const columnMap: Partial<Record<TableColumns, object>> = {
     select: columnHelper.display({
       id: "select",
+      enableResizing: false,
+      size: 40,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -221,6 +221,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
+      size: 65,
       header: () => <Translate token={"modals:manageRewards.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;
