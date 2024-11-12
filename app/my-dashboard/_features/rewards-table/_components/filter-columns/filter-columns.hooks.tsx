@@ -54,6 +54,7 @@ export function useFilterColumns() {
 
   const columnMap: Partial<Record<MyRewardsTableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
+      size: 90,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -70,6 +71,7 @@ export function useFilterColumns() {
     }),
     id: columnHelper.accessor("id", {
       enableSorting: false,
+      size: 75,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();
