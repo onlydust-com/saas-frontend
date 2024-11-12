@@ -13,15 +13,21 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributionsPopoverProps } from "@/shared/features/contributions/contributions-popover/contributions-popover.types";
 
-export function ContributionsPopover({ rewardId, contributionsCount, buttonProps }: ContributionsPopoverProps) {
+export function ContributionsPopover({
+  rewardId,
+  contributionIds,
+  contributionsCount,
+  buttonProps,
+}: ContributionsPopoverProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
-        rewardIds: [rewardId],
+        rewardIds: rewardId ? [rewardId] : undefined,
+        ids: contributionIds ?? undefined,
       },
       options: {
-        enabled: Boolean(isPopoverOpen && rewardId),
+        enabled: Boolean(isPopoverOpen && (rewardId || contributionIds?.length)),
       },
     });
 
@@ -56,6 +62,9 @@ export function ContributionsPopover({ rewardId, contributionsCount, buttonProps
             <CardContributionKanban
               key={contribution.id}
               type={contribution.type}
+              project={undefined}
+              languages={undefined}
+              repo={undefined}
               githubTitle={contribution.githubTitle}
               githubStatus={contribution.githubStatus}
               githubNumber={contribution.githubNumber}

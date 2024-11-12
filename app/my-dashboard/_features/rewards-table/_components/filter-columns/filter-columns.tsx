@@ -36,13 +36,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
             searchValue: "From",
             isCheckbox: true,
           },
-          // TODO BACKEND: Uncomment when contributions are available
-          // {
-          //   id: "contributions",
-          //   label: <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
-          //   searchValue: "Contributions",
-          //   isCheckbox: true,
-          // },
+          {
+            id: "items",
+            label: <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
+            searchValue: "Contributions",
+            isCheckbox: true,
+          },
           {
             id: "amount",
             label: <Translate token={"myDashboard:detail.rewardsTable.columns.amount"} />,

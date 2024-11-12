@@ -9,6 +9,7 @@ import { GetProjectRewardsQueryParams } from "@/core/domain/reward/reward-contra
 import { Typo } from "@/design-system/atoms/typo";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { PayoutStatus } from "@/shared/features/payout-status/payout-status";
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
@@ -34,7 +35,7 @@ export function useFilterColumns() {
 
   useEffect(() => {
     if (!selectedIds) {
-      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status"]);
+      setSelectedIds(["requestedAt", "id", "project", "from", "amount", "status", "items"]);
     }
   }, [selectedIds]);
 
@@ -99,19 +100,18 @@ export function useFilterColumns() {
       },
     }),
     // TODO BACKEND: Uncomment when contributions are available
-    // contribution: columnHelper.accessor("contribution", {
-    //   header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.contributions"} />,
-    //   cell: info => {
-    //     const contribution = info.getValue();
-    //     const rewardId = info.row.original.id;
-    //
-    //     if (!contribution) {
-    //       return <CellEmpty />;
-    //     }
-    //
-    //     return <ContributionsPopover contributionsCount={contribution} rewardId={rewardId} />;
-    //   },
-    // }),
+    items: columnHelper.accessor("items", {
+      header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.contributions"} />,
+      cell: info => {
+        const contribution = info.getValue();
+
+        if (!contribution?.length) {
+          return <CellEmpty />;
+        }
+
+        return <ContributionsPopover contributionsCount={contribution?.length ?? 0} contributionIds={contribution} />;
+      },
+    }),
     amount: columnHelper.accessor("amount", {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.amount"} />,
       cell: info => {
