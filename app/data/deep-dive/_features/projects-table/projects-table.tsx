@@ -20,6 +20,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
@@ -116,6 +117,8 @@ export function ProjectsTable() {
     state: {
       sorting,
     },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -149,13 +152,11 @@ export function ProjectsTable() {
         </nav>
         <ScrollView direction={"all"}>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            classNames={{
-              base: "min-w-[1200px]",
-            }}
             onRowClick={row => {
               openProject({ projectId: row.original.project.id });
             }}

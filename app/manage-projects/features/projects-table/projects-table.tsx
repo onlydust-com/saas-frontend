@@ -12,6 +12,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 export function ProjectsTable() {
@@ -27,6 +28,8 @@ export function ProjectsTable() {
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -48,13 +51,11 @@ export function ProjectsTable() {
       />
       <ScrollView direction={"x"}>
         <Table
+          table={table}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}
           rows={table.getRowModel().rows}
-          classNames={{
-            base: "min-w-[1200px]",
-          }}
           onRowClick={row => {
             router.push(NEXT_ROUTER.manageProjects.details.root(row.original.slug));
           }}

@@ -11,6 +11,7 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { CellBadge } from "@/shared/features/table/cell/cell-badge/cell-badge";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
@@ -147,6 +148,7 @@ export function useFilterColumns() {
       },
     }),
     percentUsedBudget: columnHelper.accessor("percentUsedBudget", {
+      size: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.percentUsedBudget"} />,
       cell: info => {
         const value = info.getValue();
@@ -193,6 +195,7 @@ export function useFilterColumns() {
       },
     }),
     onboardedContributorCount: columnHelper.accessor("onboardedContributorCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.onboardedContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -203,6 +206,7 @@ export function useFilterColumns() {
       },
     }),
     activeContributorCount: columnHelper.accessor("activeContributorCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.activeContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -213,6 +217,7 @@ export function useFilterColumns() {
       },
     }),
     prCount: columnHelper.accessor("prCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -223,6 +228,7 @@ export function useFilterColumns() {
       },
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -233,6 +239,7 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -244,6 +251,7 @@ export function useFilterColumns() {
     }),
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();

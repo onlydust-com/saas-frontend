@@ -106,6 +106,7 @@ export const Default: Story = {
     return (
       <div className="flex w-full items-center gap-2">
         <Table
+          table={table}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}

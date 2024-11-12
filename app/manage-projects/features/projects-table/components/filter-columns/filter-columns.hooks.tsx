@@ -11,6 +11,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -26,15 +27,13 @@ export function useFilterColumns() {
   useEffect(() => {
     if (!selectedIds) {
       setSelectedIds([
-        "id",
-        "slug",
         "name",
-        "logoUrl",
         "leads",
         "totalAvailable",
         "contributorCount",
         "totalGranted",
         "totalRewarded",
+        "actions",
       ]);
     }
   }, [selectedIds, setSelectedIds]);
@@ -77,6 +76,7 @@ export function useFilterColumns() {
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -124,8 +124,9 @@ export function useFilterColumns() {
         );
       },
     }),
-    slug: columnHelper.display({
+    actions: columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.actions"} />,
       cell: info => (
         <Button

@@ -24,6 +24,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
@@ -101,6 +102,8 @@ function SafeContributorsTable() {
       rowSelection,
       sorting,
     },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -133,16 +136,15 @@ function SafeContributorsTable() {
         </nav>
         <ScrollView direction={"all"}>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            classNames={{
-              base: "min-w-[1200px]",
-            }}
             onRowClick={row => {
               openContributor({ githubId: row.original.contributor.githubUserId });
             }}
+            rowSelection={rowSelection}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

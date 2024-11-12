@@ -10,6 +10,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { AccordionNewContributorsProps } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-new-contributors/accordion-new-contributors.types";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
@@ -41,6 +42,8 @@ export function AccordionNewContributors({
     state: {
       sorting,
     },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -75,13 +78,11 @@ export function AccordionNewContributors({
     >
       <ScrollView direction={"x"}>
         <Table
+          table={table}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}
           rows={table.getRowModel().rows}
-          classNames={{
-            base: "min-w-[1200px]",
-          }}
           onRowClick={row => {
             openContributor({ githubId: row.original.contributor.githubUserId });
           }}
