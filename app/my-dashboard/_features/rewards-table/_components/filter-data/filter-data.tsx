@@ -21,16 +21,16 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"manageProjects:detail.filters.titles.rewards"} />,
+          children: <Translate token={"myDashboard:detail.filters.titles.rewards"} />,
         }}
         canGoBack={false}
         canClose={true}
       />
       <SidePanelBody>
         <ContributorProjectFilter
-          selectedUser={filters.contributors?.map(id => id.toString())}
+          selectedUser={filters.contributors?.map(String)}
           onSelect={(users: string[]) => {
-            setFilters({ contributors: users.map(user => Number(user)) });
+            setFilters({ contributors: users.map(Number) });
           }}
         />
         <CurrencyFilter selectedCurrencies={filters.currencies} onSelect={currencies => setFilters({ currencies })} />
@@ -38,11 +38,11 @@ export function FilterData() {
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
           <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"manageProjects:detail.filters.reset"} />
+            <Translate token={"common:form.reset"} />
           </Button>
 
           <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
-            <Translate token={"manageProjects:detail.filters.save"} />
+            <Translate token={"common:form.save"} />
           </Button>
         </div>
       </SidePanelFooter>

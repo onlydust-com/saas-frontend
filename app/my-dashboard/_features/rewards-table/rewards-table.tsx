@@ -40,7 +40,7 @@ export function RewardsTable() {
     search: debouncedSearch,
     ...filters,
     ...sortingParams,
-    recipientIds: [githubUserId ?? 0],
+    recipientIds: githubUserId ? [githubUserId] : undefined,
   };
 
   const {
