@@ -1,16 +1,18 @@
 import { bootstrap } from "@/core/bootstrap";
 import {
-  GetMeProjectsResponse,
   GetMeResponse,
   GetMyProfileResponse,
+  GetMyProjectsAsContributorResponse,
+  GetMyProjectsAsMaintainerResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyProfileBody,
 } from "@/core/domain/me/me-contract.types";
+import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
+import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { Me } from "@/core/domain/me/models/me-model";
 import { MeProfile } from "@/core/domain/me/models/me-profile-model";
-import { MeProjectListItem } from "@/core/domain/me/models/me-projects-model";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { AnyType, FirstParameter } from "@/core/kernel/types";
@@ -26,6 +28,8 @@ export class MeClientAdapter implements MeStoragePort {
     setMyProfile: "me/profile",
     replaceMyProfile: "me/profile",
     getMeProjects: "me/projects",
+    getMyProjectsAsMaintainer: "me/as-maintainer/projects",
+    getMyProjectsAsContributor: "me/as-contributor/projects",
   } as const;
 
   logoutMe = () => {
@@ -156,12 +160,12 @@ export class MeClientAdapter implements MeStoragePort {
     };
   };
 
-  getMeProjects = ({ queryParams }: FirstParameter<MeStoragePort["getMeProjects"]>) => {
-    const path = this.routes["getMeProjects"];
+  getMyProjectsAsMaintainer = ({ queryParams }: FirstParameter<MeStoragePort["getMyProjectsAsMaintainer"]>) => {
+    const path = this.routes["getMyProjectsAsMaintainer"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, queryParams });
     const request = async () => {
-      const data = await this.client.request<GetMeProjectsResponse>({
+      const data = await this.client.request<GetMyProjectsAsMaintainerResponse>({
         path,
         method,
         tag,
@@ -170,7 +174,31 @@ export class MeClientAdapter implements MeStoragePort {
 
       return {
         ...data,
-        projects: data.projects.map(project => new MeProjectListItem(project)),
+        projects: data.projects.map(project => new MeMaintainerProjects(project)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getMyProjectsAsContributor = ({ queryParams }: FirstParameter<MeStoragePort["getMyProjectsAsContributor"]>) => {
+    const path = this.routes["getMyProjectsAsContributor"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetMyProjectsAsContributorResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new MeContributorProjects(project)),
       };
     };
 
