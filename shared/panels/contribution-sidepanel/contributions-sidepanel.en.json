@@ -27,7 +27,6 @@
     }
   },
   "kpi": {
-    "title": "KPI",
     "items": {
       "applicants": "Applicants",
       "projectContributors": "Project contributors",
