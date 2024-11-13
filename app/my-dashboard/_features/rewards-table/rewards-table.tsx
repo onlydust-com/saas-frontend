@@ -2,7 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
-import { GetProjectRewardsPortParams, GetRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
+import { GetRewardsPortParams, GetRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -22,10 +22,7 @@ import { useFilterColumns } from "./_components/filter-columns/filter-columns.ho
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useProjectRewardsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 
-export type RewardsTableFilters = Omit<
-  NonNullable<GetProjectRewardsPortParams["queryParams"]>,
-  "pageSize" | "pageIndex"
->;
+export type RewardsTableFilters = Omit<NonNullable<GetRewardsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
 export function RewardsTable() {
   const [search, setSearch] = useState<string>();
