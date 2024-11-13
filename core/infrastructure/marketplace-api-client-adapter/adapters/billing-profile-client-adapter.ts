@@ -186,7 +186,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
 
       return {
         ...data,
-        rewards: data.rewards.map(reward => new BillingProfileInvoiceableReward(reward)) ?? [],
+        rewards: data.rewards.map(reward => new BillingProfileInvoiceableReward(reward)),
       };
     };
 
