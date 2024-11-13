@@ -48,6 +48,12 @@ export function getComponentsVariants(type: CardTransactionTypes): {
         classNames: { base: "text-utility-secondary-blue-500" },
       },
     },
+    PAID: {
+      iconProps: {
+        component: ArrowDown,
+        classNames: { base: "text-utility-success-500" },
+      },
+    },
   };
 
   return {
