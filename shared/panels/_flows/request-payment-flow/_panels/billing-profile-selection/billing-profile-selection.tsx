@@ -8,10 +8,12 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { BillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
+import { useRewardsSelectionPanel } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 
 function Content() {
   const { selectBillingProfile, billingProfileId } = useRequestPaymentFlow();
+  const { open: openRewardsSelection } = useRewardsSelectionPanel();
 
   const { data, isLoading, isError } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
 
