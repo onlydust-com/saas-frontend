@@ -1,0 +1,7 @@
+{
+  "rewardsCount": "{{count}} Rewards",
+  "accounts": {
+    "wallet": "{{name}} wallet address",
+    "account": "{{name}} account"
+  }
+}

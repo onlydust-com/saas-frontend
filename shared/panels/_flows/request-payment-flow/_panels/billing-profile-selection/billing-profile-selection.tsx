@@ -50,6 +50,7 @@ function Content() {
             token: "common:next",
           }}
           isDisabled={!billingProfileId}
+          onClick={openRewardsSelection}
           // onClick={() => singleContributionValidation()}
         />
       </SidePanelFooter>
