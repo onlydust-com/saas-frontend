@@ -11,4 +11,22 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
   getBillingProfilePayoutInfoById = mockHttpStorageResponse<
     BillingProfileStoragePort["getBillingProfilePayoutInfoById"]
   >;
+
+  getBillingProfileInvoicePreviewById = mockHttpStorageResponse<
+    BillingProfileStoragePort["getBillingProfileInvoicePreviewById"]
+  >;
+
+  uploadBillingProfileInvoiceById = mockHttpStorageResponse<
+    BillingProfileStoragePort["uploadBillingProfileInvoiceById"]
+  >;
+
+  acceptOrDeclineBillingProfileMandateById = mockHttpStorageResponse<
+    BillingProfileStoragePort["acceptOrDeclineBillingProfileMandateById"]
+  >;
+
+  getMyBillingProfiles = mockHttpStorageResponse<BillingProfileStoragePort["getMyBillingProfiles"]>;
+
+  getBillingProfileInvoiceableRewards = mockHttpStorageResponse<
+    BillingProfileStoragePort["getBillingProfileInvoiceableRewards"]
+  >;
 }

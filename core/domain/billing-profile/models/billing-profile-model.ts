@@ -1,8 +1,16 @@
+import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BillingProfileResponse = components["schemas"]["BillingProfileResponse"];
 
-export interface BillingProfileInterface extends BillingProfileResponse {}
+export interface BillingProfileInterface extends BillingProfileResponse {
+  isIndividualLimitReached(): boolean;
+  getLimitAmount(): number | null;
+  getCurrentYearPaymentAmount(): number;
+  isBillingProfileIndividual(): boolean;
+  isBillingProfileCompany(): boolean;
+  isBillingProfileSelfEmployed(): boolean;
+}
 
 export class BillingProfile implements BillingProfileInterface {
   currentYearPaymentAmount!: BillingProfileResponse["currentYearPaymentAmount"];
@@ -26,5 +34,33 @@ export class BillingProfile implements BillingProfileInterface {
 
   constructor(props: BillingProfileResponse) {
     Object.assign(this, props);
+  }
+
+  isIndividualLimitReached() {
+    return this.individualLimitReached || false;
+  }
+
+  getLimitAmount() {
+    if (!this.currentYearPaymentLimit) {
+      return null;
+    }
+
+    return this.currentYearPaymentLimit > 0 ? this.currentYearPaymentLimit - 1 : this.currentYearPaymentLimit;
+  }
+
+  getCurrentYearPaymentAmount() {
+    return this.currentYearPaymentAmount || 0;
+  }
+
+  isBillingProfileIndividual() {
+    return this.type === BillingProfileType.Individual;
+  }
+
+  isBillingProfileCompany() {
+    return this.type === BillingProfileType.Company;
+  }
+
+  isBillingProfileSelfEmployed() {
+    return this.type === BillingProfileType.SelfEmployed;
   }
 }

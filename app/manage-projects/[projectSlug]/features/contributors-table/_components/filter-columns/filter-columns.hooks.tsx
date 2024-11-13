@@ -18,6 +18,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
@@ -104,6 +105,8 @@ export function useFilterColumns() {
   const columnMap: Partial<Record<TableColumns, object>> = {
     select: columnHelper.display({
       id: "select",
+      enableResizing: false,
+      size: TABLE_CELL_SIZE.XS,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -178,6 +181,7 @@ export function useFilterColumns() {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -214,6 +218,7 @@ export function useFilterColumns() {
     }),
     actions: columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.actions.title"} />,
       cell: info => (
         <div className="flex gap-sm">

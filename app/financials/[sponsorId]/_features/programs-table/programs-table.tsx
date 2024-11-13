@@ -18,6 +18,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_CELL_SIZE, TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { useProgramSidePanel } from "@/shared/panels/program-sidepanel/program-sidepanel.hooks";
@@ -57,6 +58,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     });
   }
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,
@@ -87,6 +89,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"financials:details.programs.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -134,6 +137,7 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     }),
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"financials:details.programs.table.columns.actions"} />,
       cell: info => {
         return (
@@ -175,6 +179,8 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
     data: programs,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -188,13 +194,11 @@ export function ProgramsTable({ onAllocateClick }: ProgramsTableProps) {
   return (
     <ScrollView direction={"x"}>
       <Table
+        table={table}
         header={{
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
-        classNames={{
-          base: "min-w-[1200px]",
-        }}
         onRowClick={row => {
           handleOpenProgram(row.original.id);
         }}

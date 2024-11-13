@@ -143,7 +143,7 @@ export const BadgeDefaultVariants = tv({
       variant: "flat",
       color: "grey",
       class: {
-        base: "bg-components-badge-grey-backgroundoutline-bg border-components-badge-grey-backgroundoutline-border",
+        base: "border-components-badge-grey-backgroundoutline-border bg-components-badge-grey-backgroundoutline-bg",
         content: "text-components-badge-grey-backgroundoutline-typo",
       },
     },
@@ -151,7 +151,7 @@ export const BadgeDefaultVariants = tv({
       variant: "flat",
       color: "warning",
       class: {
-        base: "bg-components-badge-warning-backgroundoutline-bg border-components-badge-warning-backgroundoutline-border",
+        base: "border-components-badge-warning-backgroundoutline-border bg-components-badge-warning-backgroundoutline-bg",
         content: "text-components-badge-warning-backgroundoutline-typo",
       },
     },
@@ -159,7 +159,7 @@ export const BadgeDefaultVariants = tv({
       variant: "flat",
       color: "brand",
       class: {
-        base: "bg-components-badge-brand-backgroundoutline-bg border-components-badge-brand-backgroundoutline-border",
+        base: "border-components-badge-brand-backgroundoutline-border bg-components-badge-brand-backgroundoutline-bg",
         content: "text-components-badge-brand-backgroundoutline-typo",
       },
     },
@@ -167,7 +167,7 @@ export const BadgeDefaultVariants = tv({
       variant: "flat",
       color: "success",
       class: {
-        base: "bg-components-badge-success-backgroundoutline-bg border-components-badge-success-backgroundoutline-border",
+        base: "border-components-badge-success-backgroundoutline-border bg-components-badge-success-backgroundoutline-bg",
         content: "text-components-badge-success-backgroundoutline-typo",
       },
     },
@@ -175,7 +175,7 @@ export const BadgeDefaultVariants = tv({
       variant: "flat",
       color: "error",
       class: {
-        base: "bg-components-badge-error-backgroundoutline-bg border-components-badge-error-backgroundoutline-border",
+        base: "border-components-badge-error-backgroundoutline-border bg-components-badge-error-backgroundoutline-bg",
         content: "text-components-badge-error-backgroundoutline-typo",
       },
     },
@@ -226,7 +226,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "grey",
       class: {
-        base: "bg-components-badge-grey-solid-bg border-0",
+        base: "border-0 bg-components-badge-grey-solid-bg",
         content: "text-components-badge-grey-solid-typo",
       },
     },
@@ -234,7 +234,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "warning",
       class: {
-        base: "bg-components-badge-warning-solid-bg border-0",
+        base: "border-0 bg-components-badge-warning-solid-bg",
         content: "text-components-badge-warning-solid-typo",
       },
     },
@@ -242,7 +242,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "brand",
       class: {
-        base: "bg-components-badge-brand-solid-bg border-0",
+        base: "border-0 bg-components-badge-brand-solid-bg",
         content: "text-components-badge-brand-solid-typo",
       },
     },
@@ -250,7 +250,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "success",
       class: {
-        base: "bg-components-badge-success-solid-bg border-0",
+        base: "border-0 bg-components-badge-success-solid-bg",
         content: "text-components-badge-success-solid-typo",
       },
     },
@@ -258,7 +258,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "error",
       class: {
-        base: "bg-components-badge-error-solid-bg border-0",
+        base: "border-0 bg-components-badge-error-solid-bg",
         content: "text-components-badge-error-solid-typo",
       },
     },
@@ -266,7 +266,7 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "inverse",
       class: {
-        base: "bg-components-badge-invert-solid-bg border-0",
+        base: "border-0 bg-components-badge-invert-solid-bg",
         content: "text-components-badge-invert-solid-typo",
       },
     },

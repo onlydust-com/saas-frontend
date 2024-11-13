@@ -1,6 +1,7 @@
+import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
+import { MeMaintainerProjectsInterface } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { MeInterface } from "@/core/domain/me/models/me-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
-import { MeProjectListItemInterface } from "@/core/domain/me/models/me-projects-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -55,16 +56,34 @@ export type ReplaceMyProfilePortParams = HttpClientParameters<object>;
 
 export type ReplaceMyProfilePortResponse = HttpStorageResponse<never, ReplaceMyProfileBody>;
 
-/* ------------------------------ Get MY Projects ------------------------------ */
+/* ------------------------------ Get My Projects As Maintainer ------------------------------ */
 
-export type GetMeProjectsResponse = components["schemas"]["MyProjectsPageResponse"];
+export type GetMyProjectsAsMaintainerResponse = components["schemas"]["MyProjectsAsMaintainerPageResponse"];
 
-export type GetMeProjectsModel = Omit<GetMeProjectsResponse, "projects"> & {
-  projects: MeProjectListItemInterface[];
+export type GetMyProjectsAsMaintainerModel = Omit<GetMyProjectsAsMaintainerResponse, "projects"> & {
+  projects: MeMaintainerProjectsInterface[];
 };
 
-export type GetMeProjectsQueryParams = operations["getMyProjects"]["parameters"]["query"];
+export type GetMyProjectsAsMaintainerQueryParams = operations["getMyProjectsAsMaintainer"]["parameters"]["query"];
 
-export type GetMeProjectsPortResponse = HttpStorageResponse<GetMeProjectsModel>;
+export type GetMyProjectsAsMaintainerPortParams = HttpClientParameters<{
+  QueryParams: GetMyProjectsAsMaintainerQueryParams;
+}>;
 
-export type GetMeProjectsPortParams = HttpClientParameters<{ QueryParams: GetMeProjectsQueryParams }>;
+export type GetMyProjectsAsMaintainerPortResponse = HttpStorageResponse<GetMyProjectsAsMaintainerModel>;
+
+/* ------------------------------ Get My Projects As Contributor ------------------------------ */
+
+export type GetMyProjectsAsContributorResponse = components["schemas"]["MyProjectsAsContributorPageResponse"];
+
+export type GetMyProjectsAsContributorModel = Omit<GetMyProjectsAsContributorResponse, "projects"> & {
+  projects: MeContributorProjectsInterface[];
+};
+
+export type GetMyProjectsAsContributorQueryParams = operations["getMyProjectsAsContributor"]["parameters"]["query"];
+
+export type GetMyProjectsAsContributorPortParams = HttpClientParameters<{
+  QueryParams: GetMyProjectsAsContributorQueryParams;
+}>;
+
+export type GetMyProjectsAsContributorPortResponse = HttpStorageResponse<GetMyProjectsAsContributorModel>;

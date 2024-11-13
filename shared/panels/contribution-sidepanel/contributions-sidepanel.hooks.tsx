@@ -2,6 +2,7 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 import { ContributionAs, ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors";
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
@@ -88,6 +89,9 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
 }
 
 function useContributionBlocksAsContributor({ contribution }: UseContributionBlocks) {
+  const { githubUserId } = useAuthUser();
+  const recipientIds = githubUserId ? [githubUserId] : undefined;
+
   if (!contribution) {
     return null;
   }
@@ -97,6 +101,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*// KPI*/}
         {/*// Description*/}
         {/*// GithubComment*/}
@@ -109,6 +114,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}
@@ -121,6 +127,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*// Description*/}
         {/*// Timeline*/}
       </>
@@ -132,6 +139,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
         {/*// Description*/}
         {/*// Timeline*/}

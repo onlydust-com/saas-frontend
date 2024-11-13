@@ -9,6 +9,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -18,6 +19,7 @@ export function SponsorsTable() {
   const router = useRouter();
   const columnHelper = createColumnHelper<{ name: string; id: string }>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,
@@ -30,13 +32,14 @@ export function SponsorsTable() {
     }),
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => (
-        <div className={"flex w-full justify-end"}>
+        <div className={"flex w-full"}>
           <Translate token={"financials:list.content.table.columns.actions"} />
         </div>
       ),
       cell: info => (
-        <div className={"flex w-full justify-end"}>
+        <div className={"flex w-full"}>
           <Button
             as={BaseLink}
             htmlProps={{ href: NEXT_ROUTER.financials.details.root(info.row.original.id) }}
@@ -54,6 +57,8 @@ export function SponsorsTable() {
     data: sponsors,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -67,15 +72,13 @@ export function SponsorsTable() {
   return (
     <ScrollView direction={"x"}>
       <Table
+        table={table}
         header={{
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
         onRowClick={row => {
           router.push(NEXT_ROUTER.financials.details.root(row.original.id));
-        }}
-        classNames={{
-          base: "min-w-[1200px]",
         }}
       />
     </ScrollView>

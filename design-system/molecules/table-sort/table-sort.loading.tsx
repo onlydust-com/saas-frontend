@@ -4,7 +4,7 @@ export function TableSortLoading() {
   return (
     <Skeleton
       classNames={{
-        base: "h-xl w-xl rounded",
+        base: "h-4 w-4 rounded",
       }}
     />
   );

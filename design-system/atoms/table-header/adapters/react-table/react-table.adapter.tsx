@@ -1,6 +1,9 @@
-import { SortDirection, flexRender } from "@tanstack/react-table";
+import { Header, SortDirection, flexRender } from "@tanstack/react-table";
+
+import { bootstrap } from "@/core/bootstrap";
 
 import { Typo } from "@/design-system/atoms/typo";
+import { TableResizer } from "@/design-system/molecules/table-resizer";
 import { TableSort, SortDirection as TableSortDirection, TableSortPort } from "@/design-system/molecules/table-sort";
 
 import { cn } from "@/shared/helpers/cn";
@@ -11,10 +14,20 @@ import { TableHeaderReactTableVariants } from "./react-table.variants";
 export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: TableHeaderPort<H>) {
   const slots = TableHeaderReactTableVariants();
 
+  const styleKernelPort = bootstrap.getStyleKernelPort();
+
   function getDirection(direction: SortDirection | false): TableSortPort["direction"] {
     if (!direction) return undefined;
 
     return direction === "asc" ? TableSortDirection.ASC : TableSortDirection.DESC;
+  }
+
+  function getHeaderStyle(header: Header<H, unknown>) {
+    return {
+      width: styleKernelPort.pxToRem(header.getSize()),
+      minWidth: header.column.columnDef.minSize ? styleKernelPort.pxToRem(header.column.columnDef.minSize) : undefined,
+      maxWidth: header.column.columnDef.maxSize ? styleKernelPort.pxToRem(header.column.columnDef.maxSize) : undefined,
+    };
   }
 
   return (
@@ -25,7 +38,12 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
             const direction = getDirection(header.column.getIsSorted());
 
             return (
-              <th key={header.id} className={cn(slots.header(), classNames?.header)}>
+              <th
+                key={header.id}
+                className={cn(slots.header(), classNames?.header)}
+                colSpan={header.colSpan}
+                style={getHeaderStyle(header)}
+              >
                 <div
                   className={cn(slots.headerInner(), classNames?.headerInner, {
                     "hover:bg-background-secondary": header.column.getCanSort(),
@@ -53,6 +71,15 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
                     />
                   ) : null}
                 </div>
+
+                {header.column.getCanResize() ? (
+                  <TableResizer
+                    onDoubleClick={() => header.column.resetSize()}
+                    onMouseDown={header.getResizeHandler()}
+                    onTouchStart={header.getResizeHandler()}
+                    isResizing={header.column.getIsResizing()}
+                  />
+                ) : null}
               </th>
             );
           })}

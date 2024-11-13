@@ -1,6 +1,7 @@
-import { FilterColumnsProps } from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.types";
-
-import { BiProjectResponse } from "@/core/domain/bi/models/bi-project-model";
+import {
+  FilterColumnsProps,
+  TableColumns,
+} from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.types";
 
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
@@ -133,7 +134,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
         ],
         selectedIds,
-        onSelect: ids => setSelectedIds(ids as Array<keyof BiProjectResponse>),
+        onSelect: ids => setSelectedIds(ids as Array<TableColumns>),
         isMultiple: true,
       }}
       popoverProps={{

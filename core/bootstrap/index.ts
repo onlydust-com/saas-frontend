@@ -43,17 +43,18 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { FileAdapter } from "@/core/kernel/file/file-adapter";
+import { FileFacadePort } from "@/core/kernel/file/file-facade-port";
 import { IdAdapter } from "@/core/kernel/id/id-adapter";
 import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
+import { StyleAdapter } from "@/core/kernel/style/style-adapter";
+import { StyleFacadePort } from "@/core/kernel/style/style-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
 import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
-
-import { FileAdapter } from "../kernel/file/file-adapter";
-import { FileFacadePort } from "../kernel/file/file-facade-port";
 
 export interface BootstrapConstructor {
   meStoragePortForClient: MeStoragePort;
@@ -102,6 +103,7 @@ export interface BootstrapConstructor {
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
+  styleKernelPort: StyleFacadePort;
 }
 
 export class Bootstrap {
@@ -154,6 +156,7 @@ export class Bootstrap {
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
+  styleKernelPort: StyleFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -202,6 +205,7 @@ export class Bootstrap {
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
     this.validationKernelPort = constructor.validationKernelPort;
+    this.styleKernelPort = constructor.styleKernelPort;
   }
 
   getAuthProvider() {
@@ -404,6 +408,10 @@ export class Bootstrap {
     return this.validationKernelPort;
   }
 
+  getStyleKernelPort() {
+    return this.styleKernelPort;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -453,6 +461,7 @@ export class Bootstrap {
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,
         validationKernelPort: new ValidationAdapter(),
+        styleKernelPort: StyleAdapter,
       });
     }
 

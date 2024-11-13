@@ -16,6 +16,7 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_CELL_SIZE, TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
@@ -52,6 +53,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
   const columnHelper = createColumnHelper<ProgramProjectListItemInterface>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,
@@ -155,6 +157,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
     columnHelper.accessor("percentUsedBudget", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"programs:details.projects.table.columns.budgetUsed"} />,
       cell: info => {
         const value = info.getValue() ?? 0;
@@ -165,6 +168,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
     columnHelper.accessor("mergedPrCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"programs:details.projects.table.columns.prsMerged"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -175,6 +179,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
     columnHelper.accessor("newContributorsCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"programs:details.projects.table.columns.onboardedDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -184,6 +189,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
     }),
     columnHelper.accessor("activeContributorsCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"programs:details.projects.table.columns.activeDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -194,6 +200,7 @@ export function ProjectsTable({ programId }: { programId: string }) {
 
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"programs:details.projects.table.columns.actions"} />,
       cell: info => {
         const project = info.row.original;
@@ -238,6 +245,8 @@ export function ProjectsTable({ programId }: { programId: string }) {
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -252,13 +261,11 @@ export function ProjectsTable({ programId }: { programId: string }) {
     <>
       <ScrollView direction={"x"}>
         <Table
+          table={table}
           header={{
             headerGroups: table.getHeaderGroups(),
           }}
           rows={table.getRowModel().rows}
-          classNames={{
-            base: "min-w-[1620px]",
-          }}
           onRowClick={row =>
             open({
               projectId: row.original.id,

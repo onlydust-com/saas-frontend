@@ -13,6 +13,7 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
+import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
@@ -125,6 +126,7 @@ export function useFilterColumns() {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -160,6 +162,7 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -170,6 +173,7 @@ export function useFilterColumns() {
       },
     }),
     prCount: columnHelper.accessor("prCount", {
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -181,6 +185,7 @@ export function useFilterColumns() {
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -192,6 +197,7 @@ export function useFilterColumns() {
     }),
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();
