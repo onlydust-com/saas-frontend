@@ -15,6 +15,7 @@ import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useRewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel.hooks";
 
 import { FilterColumns } from "./_components/filter-columns/filter-columns";
 import { useFilterColumns } from "./_components/filter-columns/filter-columns.hooks";
@@ -30,7 +31,7 @@ export function RewardsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
-  // const { open } = useRewardDetailSidepanel();
+  const { open } = useRewardDetailSidepanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
   const { githubUserId } = useAuthUser();
 
@@ -97,10 +98,9 @@ export function RewardsTable() {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            // TODO @Mehdi enable reward detail sidepanel once feature ready
-            // onRowClick={row => {
-            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
-            // }}
+            onRowClick={row => {
+              open({ rewardId: row.original.id });
+            }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

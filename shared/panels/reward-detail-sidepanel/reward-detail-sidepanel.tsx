@@ -13,7 +13,7 @@ export function RewardDetailSidepanel() {
   const { name } = useRewardDetailSidepanel();
   const idKernelPort = bootstrap.getIdKernelPort();
   const { Panel } = useSidePanel({ name });
-  const { rewardId, projectId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {};
+  const { rewardId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {};
 
   const { data } = RewardReactQueryAdapter.client.useGetProjectReward({
     pathParams: { projectId: projectId ?? "", rewardId: rewardId ?? "" },
