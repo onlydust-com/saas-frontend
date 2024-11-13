@@ -27,11 +27,12 @@
     }
   },
   "kpi": {
-    "title": "KPI",
     "items": {
       "applicants": "Applicants",
       "projectContributors": "Project contributors",
-      "newContributors": "New contributors"
+      "newContributors": "New contributors",
+      "comments": "Comments",
+      "days": "Days"
     }
   },
   "header": {
