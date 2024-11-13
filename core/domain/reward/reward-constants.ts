@@ -8,7 +8,7 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 export type PayoutStatus = GetProjectRewardsResponse["rewards"][0]["status"];
 
-interface PayoutStatusContent {
+export interface PayoutStatusContent {
   type: "error" | "warning" | "success";
   label: TranslateProps["token"];
   icon: IconPort;
