@@ -85,5 +85,10 @@
   "form": {
     "reset": "Reset",
     "save": "Save"
+  },
+  "billingProfileType": {
+    "INDIVIDUAL": "Individual",
+    "COMPANY": "Company",
+    "SELF_EMPLOYED": "Self employed"
   }
 }
