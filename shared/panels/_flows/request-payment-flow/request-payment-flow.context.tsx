@@ -20,13 +20,13 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
 
   function open(props?: OpenProps) {
     if (props?.initialState) {
-      // open the rigth panel -> open the selected rewards panels
+      // open the right panel -> open the selected rewards panels
       setSelectedState({
         rewardIds: props.initialState.selectedRewardsIds,
         billingProfileId: props.initialState.selectedBillingProfileId,
       });
     } else {
-      // open the rigth panel -> open the billing profile selection
+      // open the right panel -> open the billing profile selection
     }
   }
 
