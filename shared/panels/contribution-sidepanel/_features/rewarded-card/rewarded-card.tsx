@@ -27,7 +27,7 @@ export function RewardedCard({ reward, processedAt, requestedAt }: RewardedCardP
       return (
         <>
           <Badge color="grey" size="xs">
-            {dateKernelPort.format(new Date(date), "ha O")}
+            {dateKernelPort.format(new Date(date), "h:mma O")}
           </Badge>
 
           <Badge color="grey" size="xs">
