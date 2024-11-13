@@ -1,9 +1,6 @@
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
-import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { BillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card";
@@ -36,21 +33,10 @@ function Content() {
             name={billingProfile.name}
             requestableRewardCount={billingProfile.requestableRewardCount}
             type={billingProfile.type}
+            // onClick={() => selectBillingProfile(billingProfile.id)}
           />
         ))}
       </SidePanelBody>
-
-      <SidePanelFooter>
-        <Button
-          variant={"secondary"}
-          size={"md"}
-          translate={{
-            token: "common:next",
-          }}
-          isDisabled={!billingProfileId}
-          // onClick={() => singleContributionValidation()}
-        />
-      </SidePanelFooter>
     </>
   );
 }
