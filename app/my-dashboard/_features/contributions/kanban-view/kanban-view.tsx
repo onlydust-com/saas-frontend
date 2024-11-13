@@ -30,13 +30,17 @@ function Column({
   onOpenContribution(id: string): void;
 } & Partial<KanbanColumnProps>) {
   const { githubUserId } = useAuthUser();
+  const applicantIds = githubUserId ? [githubUserId] : [];
+  const contributorIds = githubUserId ? [githubUserId] : [];
+  const ids = type == ContributionActivityStatus.NOT_ASSIGNED ? { applicantIds } : { contributorIds };
+  const statuses = [type];
 
   const { data, hasNextPage, fetchNextPage, isPending, isFetchingNextPage } =
     ContributionReactQueryAdapter.client.useGetContributions({
       queryParams: {
         ...queryParams,
-        statuses: [type],
-        contributorIds: githubUserId ? [githubUserId] : [],
+        ...ids,
+        statuses,
       },
       options: {
         enabled: Boolean(githubUserId),
