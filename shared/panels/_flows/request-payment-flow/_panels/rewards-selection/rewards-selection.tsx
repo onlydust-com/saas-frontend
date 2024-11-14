@@ -4,11 +4,13 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { BillingProfileAccordion } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-accordion/billing-profile-accordion";
+import { RewardsCardsSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/rewards-cards-selection/rewards-cards-selection";
 import { useRewardsSelectionPanel } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 
 export function Content() {
   const { billingProfileId } = useRequestPaymentFlow();
+
   const {
     data: billingProfile,
     isLoading: isBillingProfileLoading,
@@ -21,6 +23,20 @@ export function Content() {
       enabled: !!billingProfileId,
     },
   });
+
+  const {
+    data: rewards,
+    isLoading: isRewardsProfileLoading,
+    isError: isRewardsProfileError,
+  } = BillingProfileReactQueryAdapter.client.useGetBillingProfileInvoiceableRewards({
+    pathParams: {
+      billingProfileId: billingProfileId ?? "",
+    },
+    options: {
+      enabled: !!billingProfileId,
+    },
+  });
+
   const {
     data: payoutInformation,
     isLoading: isPayoutInformationLoading,
@@ -34,8 +50,14 @@ export function Content() {
     },
   });
 
-  const isLoading = isBillingProfileLoading || isPayoutInformationLoading;
-  const isError = isBillingProfileError || !billingProfile || isPayoutInformationError || !payoutInformation;
+  const isLoading = isBillingProfileLoading || isPayoutInformationLoading || isRewardsProfileLoading;
+  const isError =
+    isBillingProfileError ||
+    !billingProfile ||
+    isPayoutInformationError ||
+    !payoutInformation ||
+    isRewardsProfileError ||
+    !rewards;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -45,7 +67,7 @@ export function Content() {
     return <div>Error</div>;
   }
 
-  console.log("payoutInformation", payoutInformation);
+  console.log("rewards", rewards);
 
   return (
     <>
@@ -74,6 +96,7 @@ export function Content() {
             stellarAccountId: payoutInformation.stellarAccountId,
           }}
         />
+        <RewardsCardsSelection rewards={rewards} />
       </SidePanelBody>
     </>
   );
