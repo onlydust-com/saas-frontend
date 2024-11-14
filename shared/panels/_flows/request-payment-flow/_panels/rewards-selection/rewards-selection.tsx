@@ -135,7 +135,7 @@ export function RewardsSelection() {
       <SidePanelHeader
         title={{
           translate: {
-            token: "panels:singleContributionSelection.title",
+            token: "panels:requestPaymentFlow.titles.rewardsSelection",
           },
         }}
         canClose

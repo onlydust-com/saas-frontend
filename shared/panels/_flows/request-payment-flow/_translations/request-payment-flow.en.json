@@ -4,6 +4,9 @@
     "wallet": "{{name}} wallet address",
     "account": "{{name}} account"
   },
+  "titles": {
+    "rewardsSelection": "Request payment"
+  },
   "rewards": {
     "title": "Rewards"
   }
