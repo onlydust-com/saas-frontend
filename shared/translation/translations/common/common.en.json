@@ -86,8 +86,7 @@
     "reset": "Reset",
     "save": "Save"
   },
-  "description": "Description"
-  },
+  "description": "Description",
   "billingProfileType": {
     "INDIVIDUAL": "Individual",
     "COMPANY": "Company",

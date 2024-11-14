@@ -40,7 +40,7 @@ export function BillingProfileCard({
       background={"primary-alt"}
       border="primary"
       classNames={{ base: cn("flex gap-md justify-between items-center", { "pointer-events-none": isDisabled }) }}
-      onClick={onClick}
+      onClick={isDisabled ? undefined : onClick}
     >
       <div className="flex gap-lg">
         <Avatar shape="squared" size="lg" iconProps={getIconProps()} />
