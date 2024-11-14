@@ -65,6 +65,7 @@ function Content() {
       <SidePanelHeader
         title={{
           translate: {
+            // TODO update title
             token: "panels:singleContributionSelection.title",
           },
         }}

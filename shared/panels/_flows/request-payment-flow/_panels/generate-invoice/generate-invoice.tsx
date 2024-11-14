@@ -62,6 +62,7 @@ function Content() {
       <SidePanelHeader
         title={{
           translate: {
+            // TODO update title
             token: "panels:singleContributionSelection.title",
           },
         }}
@@ -82,11 +83,10 @@ function Content() {
           variant={"secondary"}
           size={"md"}
           onClick={() => handleSendInvoice({ fileBlob })}
-          isDisabled={isPendingUploadInvoice || !fileBlob}
+          isDisabled={!fileBlob}
           isLoading={isPendingUploadInvoice}
-        >
-          <Translate token={"common:form.send"} />
-        </Button>
+          translate={{ token: "common:form.send" }}
+        />
       </SidePanelFooter>
     </>
   );
