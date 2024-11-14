@@ -1,4 +1,4 @@
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { Money } from "@/core/kernel/money/money.types";
 
 import { CheckboxPort } from "@/design-system/atoms/checkbox";
 
@@ -7,7 +7,7 @@ type CheckBoxProps = Omit<CheckboxPort, "classNames" | "variant" | "mixed">;
 export interface RewardCardCheckboxProps extends CheckBoxProps {
   numberOfRewardedContributions?: number;
   id: string;
-  amount: components["schemas"]["Money"];
+  amount: Money;
   project?: {
     name?: string;
     logoUrl?: string;
