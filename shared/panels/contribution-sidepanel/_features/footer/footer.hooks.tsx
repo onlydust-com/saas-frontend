@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
@@ -92,32 +93,43 @@ export const useContributionPanelFooterAsMaintainer = ({
 export const useContributionPanelFooterAsContributor = ({ contribution }: UseContributionPanelFooter) => {
   const [shouldDeleteComment, setShouldDeleteComment] = useState(false);
   const { close } = useSidePanelsContext();
+  const { handleVerifyPermissions, isAuthorized } = usePublicRepoScope();
+  const { setIsGithubPublicScopePermissionModalOpen } = useGithubPermissionsContext();
 
   const { githubUserId } = useAuthUser();
 
   const applicationId =
     contribution.applicants.find(applicant => applicant.githubUserId === githubUserId)?.applicationId ?? "";
 
-  // TODO handle Github permissions
-  const { mutate, isPending } = ApplicationReactQueryAdapter.client.useDeleteApplication({
-    pathParams: { applicationId },
-    options: {
-      onSuccess: () => {
-        close();
-        toast.success(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.success"} />);
+  const { mutate: deleteApplication, isPending: isDeleteApplicationPending } =
+    ApplicationReactQueryAdapter.client.useDeleteApplication({
+      pathParams: { applicationId },
+      options: {
+        onSuccess: () => {
+          close();
+          toast.success(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.success"} />);
+        },
+        onError: () => {
+          toast.error(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.error"} />);
+        },
       },
-      onError: () => {
-        toast.error(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.error"} />);
-      },
-    },
-  });
+    });
 
   if (contribution.isArchived()) {
     return <div />;
   }
 
   function onCancelApplication() {
-    mutate({ deleteGithubComment: shouldDeleteComment });
+    if (isDeleteApplicationPending) return;
+
+    if (!isAuthorized) {
+      setIsGithubPublicScopePermissionModalOpen(true);
+      return;
+    }
+
+    handleVerifyPermissions(() => {
+      deleteApplication({ deleteGithubComment: shouldDeleteComment });
+    });
   }
 
   if (contribution?.isNotAssigned()) {
@@ -135,7 +147,7 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
           size={"md"}
           variant={"secondary"}
           onClick={onCancelApplication}
-          isLoading={isPending}
+          isLoading={isDeleteApplicationPending}
           translate={{ token: "panels:contribution.footer.actions.asContributor.cancelApplication" }}
         />
       </div>
