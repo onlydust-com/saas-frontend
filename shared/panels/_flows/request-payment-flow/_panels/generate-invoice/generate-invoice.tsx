@@ -85,7 +85,7 @@ function Content() {
           isDisabled={isPendingUploadInvoice || !fileBlob}
           isLoading={isPendingUploadInvoice}
         >
-          <Translate token={"panels:generateInvoice.actions.send"} />
+          <Translate token={"common:form.send"} />
         </Button>
       </SidePanelFooter>
     </>
