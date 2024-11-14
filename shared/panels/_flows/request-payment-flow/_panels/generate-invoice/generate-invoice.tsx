@@ -18,7 +18,7 @@ import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-fl
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function Content() {
-  const { billingProfileId, rewardIds } = useRequestPaymentFlow();
+  const { billingProfileId = "", rewardIds } = useRequestPaymentFlow();
 
   const {
     isLoading: isLoadingInvoicePreview,
@@ -28,12 +28,12 @@ function Content() {
     invoiceId,
   } = useInvoicePreview({
     rewardIds,
-    billingProfileId: billingProfileId ?? "",
+    billingProfileId,
     isSample: false,
   });
 
   const { isPendingUploadInvoice, handleSendInvoice } = useInvoiceUpload({
-    billingProfileId: billingProfileId ?? "",
+    billingProfileId,
     invoiceId,
   });
 
