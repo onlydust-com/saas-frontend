@@ -8,3 +8,12 @@ export enum BillingProfileType {
   Individual = "INDIVIDUAL",
   SelfEmployed = "SELF_EMPLOYED",
 }
+
+export type BillingProfileTypeUnion = components["schemas"]["BillingProfileResponse"]["type"];
+
+export enum BillingProfileRole {
+  Admin = "ADMIN",
+  Member = "MEMBER",
+}
+
+export type BillingProfileRoleUnion = components["schemas"]["ShortBillingProfileResponse"]["role"];
