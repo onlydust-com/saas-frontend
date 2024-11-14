@@ -4,10 +4,8 @@ import { CellProgramsProps } from "@/shared/features/table/cell/cell-programs/ce
 export function CellPrograms({ programs }: CellProgramsProps) {
   return (
     <CellBadge
-      items={programs.map(program => program.name)}
-      popOverAvatars={programs.map(program => ({
-        src: program.logoUrl,
-        name: program.name,
+      items={programs.map(program => ({
+        content: program.name,
       }))}
     />
   );

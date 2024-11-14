@@ -8,7 +8,7 @@ import { ProjectDescriptionProps } from "./project-description.types";
 export function ProjectDescription({ description, moreInfo }: ProjectDescriptionProps) {
   return (
     <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
-      <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:projectDetail.description.title" }} />
+      <Typo size={"sm"} weight={"medium"} translate={{ token: "common:description" }} />
 
       <Typo as={"p"} size={"xs"} color={"secondary"}>
         {description}

@@ -20,7 +20,7 @@ export function ProjectsTable() {
   const router = useRouter();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    MeReactQueryAdapter.client.useGetMeProjects({});
+    MeReactQueryAdapter.client.useGetMyProjectsAsMaintainer({});
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
   const totalItemNumber = useMemo(() => data?.pages[0].totalItemNumber, [data]);
 

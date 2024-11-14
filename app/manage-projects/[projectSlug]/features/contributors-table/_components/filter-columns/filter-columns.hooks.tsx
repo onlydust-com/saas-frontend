@@ -107,6 +107,7 @@ export function useFilterColumns() {
       id: "select",
       enableResizing: false,
       size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -182,6 +183,7 @@ export function useFilterColumns() {
     country: columnHelper.accessor("country", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
