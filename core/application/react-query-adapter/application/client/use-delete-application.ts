@@ -9,13 +9,14 @@ import { DeleteApplicationBody } from "@/core/domain/application/application-con
 import { ApplicationFacadePort } from "@/core/domain/application/input/application-facade-port";
 
 export function useDeleteApplication({
+  pathParams,
   options,
 }: UseMutationFacadeParams<ApplicationFacadePort["deleteApplication"], undefined, never, DeleteApplicationBody>) {
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
 
   return useMutation(
     useMutationAdapter({
-      ...applicationStoragePort.deleteApplication({}),
+      ...applicationStoragePort.deleteApplication({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {

@@ -95,10 +95,10 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
 
   const { githubUserId } = useAuthUser();
 
-  const applicationId = contribution.applicants.find(
-    applicant => applicant.githubUserId === githubUserId
-  )?.applicationId;
+  const applicationId =
+    contribution.applicants.find(applicant => applicant.githubUserId === githubUserId)?.applicationId ?? "";
 
+  // TODO handle Github permissions
   const { mutate, isPending } = ApplicationReactQueryAdapter.client.useDeleteApplication({
     pathParams: { applicationId },
     options: {

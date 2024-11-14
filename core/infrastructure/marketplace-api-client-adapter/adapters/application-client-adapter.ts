@@ -88,6 +88,7 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
         path,
         method,
         tag,
+        pathParams,
         body: JSON.stringify(body),
       });
 
