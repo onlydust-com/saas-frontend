@@ -1,7 +1,9 @@
+import { Info } from "lucide-react";
 import { useMemo } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Alert } from "@/design-system/molecules/alert";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { useInvoicePreview } from "@/shared/features/invoice/hooks/use-invoice-preview/use-invoice-preview";
@@ -66,7 +68,15 @@ function Content() {
         canClose
       />
 
-      <SidePanelBody>{renderInvoicePreview}</SidePanelBody>
+      <SidePanelBody>
+        <Alert
+          color="grey"
+          title={<Translate token="panels:generateInvoice.alert.title" />}
+          description={<Translate token="panels:generateInvoice.alert.description" />}
+          icon={{ component: Info }}
+        />
+        {renderInvoicePreview}
+      </SidePanelBody>
       <SidePanelFooter>
         <Button
           variant={"secondary"}
