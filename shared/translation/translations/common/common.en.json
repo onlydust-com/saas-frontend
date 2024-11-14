@@ -85,5 +85,6 @@
   "form": {
     "reset": "Reset",
     "save": "Save"
-  }
+  },
+  "description": "Description"
 }

@@ -13,6 +13,7 @@ import { enTableGroupByTranslation } from "@/design-system/molecules/table-group
 import { enTableSearchTranslation } from "@/design-system/molecules/table-search/translations/table-search.translate";
 import { enTableNavTranslation } from "@/design-system/organisms/table-nav/translations/table-nav.translate";
 
+import { enComponentsTranslations } from "@/shared/components/_translations/components.translate";
 import { enMutationTranslations } from "@/shared/components/mutation/_translations/mutation.translate";
 import { enFeaturesTranslations } from "@/shared/features/_translations/features.translate";
 import { enFeedbackDrawerTranslate } from "@/shared/features/feedback-drawer/_translations/feedback-drawer.translate";
@@ -48,6 +49,7 @@ export const en = {
     ...enTableSearchTranslation,
   },
   ...enFeaturesTranslations,
+  ...enComponentsTranslations,
   ...enPanelsTranslation,
   ...enSplashTranslation,
   ...enModalsTranslation,

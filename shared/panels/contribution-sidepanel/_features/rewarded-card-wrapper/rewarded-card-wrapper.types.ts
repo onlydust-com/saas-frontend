@@ -2,4 +2,5 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 
 export interface RewardedCardWrapperProps {
   contribution: ContributionActivityInterface;
+  recipientIds?: number[];
 }

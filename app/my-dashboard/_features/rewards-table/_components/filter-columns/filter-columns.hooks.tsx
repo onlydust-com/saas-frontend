@@ -56,6 +56,7 @@ export function useFilterColumns() {
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -73,6 +74,7 @@ export function useFilterColumns() {
     id: columnHelper.accessor("id", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();
@@ -126,12 +128,13 @@ export function useFilterColumns() {
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.status"} />,
       cell: info => {
         const status = info.getValue();
+        const billingProfileId = info.row.original.billingProfileId;
 
         if (!status) {
           return <CellEmpty />;
         }
 
-        return <PayoutStatus status={status} />;
+        return <PayoutStatus status={status} billingProfileId={billingProfileId} shouldRedirect={true} />;
       },
     }),
   } as const;

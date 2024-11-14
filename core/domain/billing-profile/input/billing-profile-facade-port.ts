@@ -5,8 +5,12 @@ import {
   GetBillingProfileByIdPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
   GetBillingProfileInvoicePreviewByIdPortResponse,
+  GetBillingProfileInvoiceableRewardsPortParams,
+  GetBillingProfileInvoiceableRewardsPortResponse,
   GetBillingProfilePayoutInfoByIdPortParams,
   GetBillingProfilePayoutInfoByIdPortResponse,
+  GetMeBillingProfilesPortParams,
+  GetMeBillingProfilesPortResponse,
   UploadBillingProfileInvoiceByIdPortParams,
   UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -25,4 +29,8 @@ export interface BillingProfileFacadePort {
   acceptOrDeclineBillingProfileMandateById(
     p: AcceptOrDeclineBillingProfileMandatePortParams
   ): AcceptOrDeclineBillingProfileMandatePortResponse;
+  getMyBillingProfiles(p: GetMeBillingProfilesPortParams): GetMeBillingProfilesPortResponse;
+  getBillingProfileInvoiceableRewards(
+    p: GetBillingProfileInvoiceableRewardsPortParams
+  ): GetBillingProfileInvoiceableRewardsPortResponse;
 }

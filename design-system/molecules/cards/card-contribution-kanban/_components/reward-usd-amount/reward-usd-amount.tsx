@@ -17,14 +17,7 @@ export function RewardUsdAmount({ rewardUsdAmount }: RewardUsdAmountProps) {
   });
 
   return (
-    <Badge
-      color={"grey"}
-      size={"xxs"}
-      icon={{
-        component: CircleDollarSign,
-        classNames: { base: "text-components-badge-success-backgroundoutline-fg" },
-      }}
-    >
+    <Badge color={"success"} size={"xxs"} icon={{ component: CircleDollarSign }}>
       {amount} {code}
     </Badge>
   );
