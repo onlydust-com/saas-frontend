@@ -7,6 +7,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { AddNewBillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/add-new-billing-profile-card/add-new-billing-profile-card";
 import { BillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
@@ -18,6 +19,10 @@ function Content() {
   const { data, isLoading } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
 
   const { billingProfiles } = data || {};
+
+  function handleAddNewBillingProfile() {
+    window.open(marketplaceRouting("/settings/profile"), "_blank");
+  }
 
   const renderBody = useMemo(() => {
     if (isLoading) {
@@ -43,7 +48,7 @@ function Content() {
             onClick={() => handleClick(billingProfile.id)}
           />
         ))}
-        <AddNewBillingProfileCard onClick={() => {}} />
+        <AddNewBillingProfileCard onClick={handleAddNewBillingProfile} />
       </>
     );
   }, [billingProfiles, isLoading]);
