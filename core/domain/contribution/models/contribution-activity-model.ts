@@ -1,12 +1,12 @@
 import { ContributionItemDto } from "@/core/domain/contribution/dto/contribution-item-dto";
-import { GithubUser, GithubUserInterface } from "@/core/domain/github/models/github-user-model";
+import { Applicant, ApplicantInterface } from "@/core/domain/user/models/applicant-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type ContributionActivityResponse = components["schemas"]["ContributionActivityPageItemResponse"];
 
 export interface ContributionActivityInterface
   extends Omit<ContributionActivityResponse, "applicants" | "contributors" | "assignees" | "uuid"> {
-  applicants: GithubUserInterface[];
+  applicants: ApplicantInterface[];
   contributors: NonNullable<ContributionActivityResponse["contributors"]>;
   isNotAssigned(): boolean;
   isInProgress(): boolean;
@@ -23,7 +23,7 @@ export interface ContributionActivityInterface
 
 export class ContributionActivity implements ContributionActivityInterface {
   activityStatus!: ContributionActivityResponse["activityStatus"];
-  applicants!: GithubUserInterface[];
+  applicants!: ApplicantInterface[];
   completedAt!: ContributionActivityResponse["completedAt"];
   contributors!: NonNullable<ContributionActivityResponse["contributors"]>;
   createdAt!: ContributionActivityResponse["createdAt"];
@@ -46,7 +46,7 @@ export class ContributionActivity implements ContributionActivityInterface {
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);
-    this.applicants = (props.applicants ?? []).map(applicant => new GithubUser(applicant));
+    this.applicants = (props.applicants ?? []).map(applicant => new Applicant(applicant));
     this.contributors = props.contributors ?? [];
     this.id = props.uuid;
   }

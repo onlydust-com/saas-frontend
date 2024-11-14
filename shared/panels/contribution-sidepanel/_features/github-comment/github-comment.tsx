@@ -3,19 +3,19 @@ import dynamic from "next/dynamic";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { DescriptionProps } from "./description.types";
+import { GithubCommentProps } from "@/shared/panels/contribution-sidepanel/_features/github-comment/github-comment.types";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function Description({ description }: DescriptionProps) {
-  if (!description) return null;
+export function GithubComment({ comment }: GithubCommentProps) {
+  if (!comment) return null;
 
   return (
     <Paper size={"lg"} border={"primary"} classNames={{ base: "flex flex-col gap-lg" }}>
-      <Typo size={"sm"} weight={"medium"} translate={{ token: "common:description" }} />
+      <Typo size={"sm"} weight={"medium"} translate={{ token: "panels:contribution.githubComment.title" }} />
 
       <Typo as={"p"} size={"xs"} color={"secondary"}>
-        <Emoji>{description}</Emoji>
+        <Emoji>{comment}</Emoji>
       </Typo>
     </Paper>
   );

@@ -78,11 +78,13 @@
     }
   },
   "rewardedCard": {
-    "title": "Rewarded",
-    "status": "Rewarded"
+    "title": "Rewarded"
   },
   "userCard": {
     "assignedBy": "Assigned by",
     "mergedBy": "Merged by"
+  },
+  "githubComment": {
+    "title": "Github comment"
   }
 }
