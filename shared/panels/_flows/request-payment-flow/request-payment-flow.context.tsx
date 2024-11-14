@@ -4,6 +4,7 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 
 import { BillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
+import { GenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice";
 import { RewardsSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection";
 
 import { OpenProps, RequestPaymentFlowContextInterface, SelectedState } from "./request-payment-flow.types";
@@ -18,7 +19,7 @@ export const RequestPaymentFlowContext = createContext<RequestPaymentFlowContext
 
 export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
   const [selectedState, setSelectedState] = useState<SelectedState>({
-    billingProfileId: "",
+    billingProfileId: undefined,
     rewardIds: [],
   });
 
@@ -63,6 +64,7 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
       {children}
       <BillingProfileSelection />
       <RewardsSelection />
+      <GenerateInvoice />
     </RequestPaymentFlowContext.Provider>
   );
 }

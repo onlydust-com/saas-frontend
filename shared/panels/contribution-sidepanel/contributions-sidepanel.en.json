@@ -27,11 +27,12 @@
     }
   },
   "kpi": {
-    "title": "KPI",
     "items": {
       "applicants": "Applicants",
       "projectContributors": "Project contributors",
-      "newContributors": "New contributors"
+      "newContributors": "New contributors",
+      "comments": "Comments",
+      "days": "Days"
     }
   },
   "header": {
@@ -52,6 +53,12 @@
         "deleteComment": "Delete comment",
         "cancelApplication": "Cancel application",
         "seePrOnGithub": "See PR on GitHub"
+      }
+    },
+    "tooltip": {
+      "cancelApplication": {
+        "success": "Application canceled successfully.",
+        "error": "An error occurred while canceling the application."
       }
     }
   },
@@ -77,11 +84,13 @@
     }
   },
   "rewardedCard": {
-    "title": "Rewarded",
-    "status": "Rewarded"
+    "title": "Rewarded"
   },
   "userCard": {
     "assignedBy": "Assigned by",
     "mergedBy": "Merged by"
+  },
+  "githubComment": {
+    "title": "Github comment"
   }
 }

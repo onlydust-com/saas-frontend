@@ -8,11 +8,13 @@ import {
   HandleSendInvoiceProps,
   UseInvoiceUploadProps,
 } from "@/shared/features/invoice/hooks/use-invoice-upload/use-invoice-upload.types";
+import { useGenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice.hooks";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useInvoiceUpload({ billingProfileId, invoiceId }: UseInvoiceUploadProps) {
   const { capture } = usePosthog();
+  const { open: openGenerateInvoice } = useGenerateInvoice();
 
   const [queryParams, setQueryParams] = useState({});
 
@@ -26,8 +28,9 @@ export function useInvoiceUpload({ billingProfileId, invoiceId }: UseInvoiceUplo
       options: {
         onSuccess: () => {
           toast.success(<Translate token={"features:invoices.invoiceSubmission.toaster.success"} />);
-          // TODO handle close request panel
-          // closeRequestPanel();
+
+          openGenerateInvoice(false);
+          // TODO handle close manual upload panel
         },
         onError: () => {
           toast.error(<Translate token={"features:invoices.invoiceSubmission.toaster.error"} />);

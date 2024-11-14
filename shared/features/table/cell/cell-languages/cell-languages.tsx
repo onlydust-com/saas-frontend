@@ -1,15 +1,18 @@
-import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
+import { CellBadge } from "@/shared/features/table/cell/cell-badge/cell-badge";
 import { CellLanguagesProps } from "@/shared/features/table/cell/cell-languages/cell-languages.types";
 
-export function CellLanguages({ languages, ...props }: CellLanguagesProps) {
+export function CellLanguages({ languages }: CellLanguagesProps) {
   return (
-    <CellAvatar
-      avatars={languages.map(language => ({
-        src: language.logoUrl,
-        name: language.name,
+    <CellBadge
+      items={languages.map(language => ({
+        content: language.name,
+        badgeProps: {
+          avatar: {
+            src: language?.logoUrl,
+            alt: language.name,
+          },
+        },
       }))}
-      quantity={3}
-      {...props}
     />
   );
 }

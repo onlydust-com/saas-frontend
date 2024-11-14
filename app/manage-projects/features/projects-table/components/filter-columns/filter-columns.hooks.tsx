@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
-import { MeProjectListItemInterface } from "@/core/domain/me/models/me-projects-model";
+import { MeMaintainerProjectsInterface } from "@/core/domain/me/models/me-maintainer-projects-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -20,7 +20,7 @@ import { TableColumns } from "./filter-columns.types";
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const columnHelper = createColumnHelper<MeProjectListItemInterface>();
+  const columnHelper = createColumnHelper<MeMaintainerProjectsInterface>();
 
   const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("manage-projects-table-columns");
 
@@ -77,6 +77,7 @@ export function useFilterColumns() {
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -145,7 +146,7 @@ export function useFilterColumns() {
   // Loop on object keys to keep column order
   const columns = columnMapKeys
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
-    .filter(Boolean) as ColumnDef<MeProjectListItemInterface>[];
+    .filter(Boolean) as ColumnDef<MeMaintainerProjectsInterface>[];
 
   return { columns, selectedIds, setSelectedIds };
 }

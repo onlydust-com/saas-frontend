@@ -10,3 +10,10 @@ export enum BillingProfileType {
 }
 
 export type BillingProfileTypeUnion = components["schemas"]["BillingProfileResponse"]["type"];
+
+export enum BillingProfileRole {
+  Admin = "ADMIN",
+  Member = "MEMBER",
+}
+
+export type BillingProfileRoleUnion = components["schemas"]["ShortBillingProfileResponse"]["role"];
