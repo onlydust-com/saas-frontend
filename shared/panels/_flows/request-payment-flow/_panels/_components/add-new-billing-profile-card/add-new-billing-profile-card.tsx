@@ -15,7 +15,13 @@ export function AddNewBillingProfileCard({ onClick }: { onClick: () => void }) {
       onClick={onClick}
     >
       <div className="flex items-center gap-lg">
-        <Avatar shape="squared" size="lg" iconProps={{ component: CirclePlus }} />
+        <Avatar
+          shape="squared"
+          size="lg"
+          iconProps={{
+            component: CirclePlus,
+          }}
+        />
         <Typo
           size={"sm"}
           weight="medium"

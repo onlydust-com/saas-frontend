@@ -1,0 +1,23 @@
+{
+  "choices": {
+    "automatic": {
+      "title": "Onlydust Invoice Generation",
+      "description": "Enjoy fast, secure processing with compliance guaranteed by Onlydust."
+    },
+    "manual": {
+      "title": "Manually Upload an Invoice",
+      "description": "This option may slow down processing times and could be subject to review."
+    },
+    "tags": {
+      "recommended": "Recommended"
+    }
+  },
+  "alert": {
+    "title": "Why should I accept an invoicing order mandate?",
+    "description": "Accepting an invoicing order mandate means that you give us the authorization to generate an invoice on your behalf, in compliance with all legal and regulatory requirements needed.\n\nOur system makes sure that all your information is correct, up to date and according to the recommended norms.\n\nWe take care of calculating the VAT and the total amount to invoice with updated token exchange rates, ensuring that all invoices reflect the most accurate and compliant financial data.\n\nThis is necessary when you file for a tax return, including VAT if applicable."
+  },
+  "footer": {
+    "accept": "I have read and accept",
+    "mandate": "invoicing mandate"
+  }
+}

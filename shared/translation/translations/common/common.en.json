@@ -92,5 +92,6 @@
     "COMPANY": "Company",
     "SELF_EMPLOYED": "Self employed",
     "EMPLOYEE": "Employee"
-  }
+  },
+  "close": "Close"
 }

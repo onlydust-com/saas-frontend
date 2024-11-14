@@ -5,6 +5,8 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { BillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
 
+import { AcceptInvoicingMandate } from "./_panels/accept-invoicing-mandate/accept-invoicing-mandate";
+import { InvoicingMandate } from "./_panels/invoicing-mandate/invoicing-mandate";
 import { OpenProps, RequestPaymentFlowContextInterface, SelectedState } from "./request-payment-flow.types";
 
 export const RequestPaymentFlowContext = createContext<RequestPaymentFlowContextInterface>({
@@ -61,6 +63,8 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
     >
       {children}
       <BillingProfileSelection />
+      <AcceptInvoicingMandate />
+      <InvoicingMandate />
     </RequestPaymentFlowContext.Provider>
   );
 }
