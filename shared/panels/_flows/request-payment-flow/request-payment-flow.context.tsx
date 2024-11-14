@@ -18,7 +18,7 @@ export const RequestPaymentFlowContext = createContext<RequestPaymentFlowContext
 
 export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
   const [selectedState, setSelectedState] = useState<SelectedState>({
-    billingProfileId: "805008c6-01bd-4b15-86df-079af7377916",
+    billingProfileId: "",
     rewardIds: [],
   });
 
