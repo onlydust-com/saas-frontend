@@ -75,6 +75,7 @@ export function ActivitySection() {
             ]}
             selectedId={toggleActivityView}
           />
+          {/*TODO move this button to the right bloc and add rewards count*/}
           <Button
             variant={"primary"}
             endIcon={{ component: ChevronRight }}
