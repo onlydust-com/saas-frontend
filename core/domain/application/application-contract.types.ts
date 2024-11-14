@@ -31,3 +31,13 @@ export type GetApplicationByIdPortParams = HttpClientParameters<{ PathParams: Ge
 export type GetApplicationByIdResponse = components["schemas"]["ProjectApplicationResponse"];
 
 export type GetApplicationByIdPortResponse = HttpStorageResponse<GetApplicationByIdResponse>;
+
+/* ----------------------------- Delete application ---------------------------- */
+
+export type DeleteApplicationBody = components["schemas"]["ProjectApplicationDeleteRequest"];
+
+export type DeleteApplicationPathParams = operations["deleteProjectApplication"]["parameters"]["path"];
+
+export type DeleteApplicationPortParams = HttpClientParameters<{ PathParams: DeleteApplicationPathParams }>;
+
+export type DeleteApplicationPortResponse = HttpStorageResponse;

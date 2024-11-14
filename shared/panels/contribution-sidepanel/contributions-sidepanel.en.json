@@ -54,6 +54,12 @@
         "cancelApplication": "Cancel application",
         "seePrOnGithub": "See PR on GitHub"
       }
+    },
+    "tooltip": {
+      "cancelApplication": {
+        "success": "Application canceled successfully.",
+        "error": "An error occurred while canceling the application."
+      }
     }
   },
   "helper": {
