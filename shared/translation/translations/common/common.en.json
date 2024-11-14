@@ -89,6 +89,7 @@
   "billingProfileType": {
     "INDIVIDUAL": "Individual",
     "COMPANY": "Company",
-    "SELF_EMPLOYED": "Self employed"
+    "SELF_EMPLOYED": "Self employed",
+    "EMPLOYEE": "Employee"
   }
 }

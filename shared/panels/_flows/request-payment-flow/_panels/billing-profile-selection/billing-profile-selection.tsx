@@ -20,6 +20,11 @@ function Content() {
 
   const { billingProfiles } = data || {};
 
+  function handleClick(billingProfileId: string) {
+    selectBillingProfile(billingProfileId);
+    // TODO open reward sidePanel
+  }
+
   function handleAddNewBillingProfile() {
     window.open(marketplaceRouting("/settings/profile"), "_blank");
   }
@@ -44,6 +49,8 @@ function Content() {
             name={billingProfile.name}
             requestableRewardCount={billingProfile.requestableRewardCount}
             type={billingProfile.type}
+            role={billingProfile.role}
+            enabled={billingProfile.enabled}
             isDisabled={billingProfile.requestableRewardCount === 0}
             onClick={() => handleClick(billingProfile.id)}
           />
@@ -52,11 +59,6 @@ function Content() {
       </>
     );
   }, [billingProfiles, isLoading]);
-
-  function handleClick(billingProfileId: string) {
-    selectBillingProfile(billingProfileId);
-    // TODO open reward sidePanel
-  }
 
   return (
     <>
