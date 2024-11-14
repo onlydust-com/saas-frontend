@@ -9,6 +9,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { RequestPaymentFlowProvider } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -26,18 +27,20 @@ function MyDashboardPage() {
         ],
       }}
     >
-      <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />
+      <RequestPaymentFlowProvider>
+        <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />
 
-      <AnimatedColumn className="h-full">
-        <ScrollView className="flex flex-col gap-md">
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <ActivitySection />
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
+        <AnimatedColumn className="h-full">
+          <ScrollView className="flex flex-col gap-md">
+            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+              <ActivitySection />
+            </PageContent>
+          </ScrollView>
+        </AnimatedColumn>
 
-      <ContributorSidepanel />
-      <ContributionsSidepanel />
+        <ContributorSidepanel />
+        <ContributionsSidepanel />
+      </RequestPaymentFlowProvider>
     </PageWrapper>
   );
 }

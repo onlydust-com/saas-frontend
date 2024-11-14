@@ -13,11 +13,15 @@ import enPayoutStatus from "@/shared/features/payout-status/_translations/payout
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
 import enSocialLinkTranslate from "@/shared/features/social-link/social-translate/social-translate.en.json";
 import { enCellTranslation } from "@/shared/features/table/cell/_translations/cell.translate";
+import enAddNewBBillingProfileCard from "@/shared/panels/_flows/request-payment-flow/_panels/_components/add-new-billing-profile-card/add-new-billing-profile-card.en.json";
+import enBillingProfileCard from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card.en.json";
 
 export const enFeaturesTranslations = {
   features: {
     amountSelector: enAmountSelector,
     invoices: enInvoices,
+    billingProfileCard: enBillingProfileCard,
+    addNewBillingProfileCard: enAddNewBBillingProfileCard,
     contributionPopover: enContributionPopover,
     notifications: enNotifications,
     githubMissingPermissionsAlert: enGithubMissingPermissionsAlert,

@@ -1,13 +1,17 @@
 import { useState } from "react";
 
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useContributionActions } from "@/shared/hooks/contributions/use-contribution-actions";
 import { UseContributionPanelFooter } from "@/shared/panels/contribution-sidepanel/_features/footer/footer.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -87,13 +91,33 @@ export const useContributionPanelFooterAsMaintainer = ({
 
 export const useContributionPanelFooterAsContributor = ({ contribution }: UseContributionPanelFooter) => {
   const [shouldDeleteComment, setShouldDeleteComment] = useState(false);
+  const { close } = useSidePanelsContext();
+
+  const { githubUserId } = useAuthUser();
+
+  const applicationId =
+    contribution.applicants.find(applicant => applicant.githubUserId === githubUserId)?.applicationId ?? "";
+
+  // TODO handle Github permissions
+  const { mutate, isPending } = ApplicationReactQueryAdapter.client.useDeleteApplication({
+    pathParams: { applicationId },
+    options: {
+      onSuccess: () => {
+        close();
+        toast.success(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.success"} />);
+      },
+      onError: () => {
+        toast.error(<Translate token={"panels:contribution.footer.tooltip.cancelApplication.error"} />);
+      },
+    },
+  });
 
   if (contribution.isArchived()) {
     return <div />;
   }
 
   function onCancelApplication() {
-    console.log(`Should cancel : true & should delete comment : ${shouldDeleteComment}`);
+    mutate({ deleteGithubComment: shouldDeleteComment });
   }
 
   if (contribution?.isNotAssigned()) {
@@ -111,6 +135,7 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
           size={"md"}
           variant={"secondary"}
           onClick={onCancelApplication}
+          isLoading={isPending}
           translate={{ token: "panels:contribution.footer.actions.asContributor.cancelApplication" }}
         />
       </div>

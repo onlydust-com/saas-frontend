@@ -1,4 +1,8 @@
-import { GetApplicationByIdResponse, PatchApplicationBody } from "@/core/domain/application/application-contract.types";
+import {
+  DeleteApplicationBody,
+  GetApplicationByIdResponse,
+  PatchApplicationBody,
+} from "@/core/domain/application/application-contract.types";
 import { Application } from "@/core/domain/application/model/application-model";
 import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
@@ -11,6 +15,7 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
     patchApplication: "applications/:applicationId",
     acceptApplication: "applications/:applicationId/accept",
     getApplicationById: "applications/:applicationId",
+    deleteApplication: "applications/:applicationId",
   } as const;
 
   patchApplication = ({ pathParams }: FirstParameter<ApplicationStoragePort["patchApplication"]>) => {
@@ -66,6 +71,26 @@ export class ApplicationClientAdapter implements ApplicationStoragePort {
 
       return new Application(data);
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  deleteApplication = ({ pathParams }: FirstParameter<ApplicationStoragePort["deleteApplication"]>) => {
+    const path = this.routes["deleteApplication"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: DeleteApplicationBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

@@ -78,6 +78,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
       id: "select",
       enableResizing: false,
       size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -223,6 +224,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     country: columnHelper.accessor("country", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"modals:manageRewards.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;

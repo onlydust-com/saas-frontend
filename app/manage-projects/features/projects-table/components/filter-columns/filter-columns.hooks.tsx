@@ -77,6 +77,7 @@ export function useFilterColumns() {
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"manageProjects:list.projectsTable.columns.members"} />,
       cell: info => {
         const contributorCount = info.getValue();

@@ -2,6 +2,9 @@
 
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
+import { BillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection";
+import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
+
 import { OpenProps, RequestPaymentFlowContextInterface, SelectedState } from "./request-payment-flow.types";
 
 export const RequestPaymentFlowContext = createContext<RequestPaymentFlowContextInterface>({
@@ -18,6 +21,8 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
     rewardIds: [],
   });
 
+  const { open: openBillingProfileSelection } = useBillingProfileSelection();
+
   function open(props?: OpenProps) {
     if (props?.initialState) {
       // open the right panel -> open the selected rewards panels
@@ -26,7 +31,7 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
         billingProfileId: props.initialState.selectedBillingProfileId,
       });
     } else {
-      // open the right panel -> open the billing profile selection
+      openBillingProfileSelection();
     }
   }
 
@@ -55,6 +60,7 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
       }}
     >
       {children}
+      <BillingProfileSelection />
     </RequestPaymentFlowContext.Provider>
   );
 }
