@@ -12,8 +12,8 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
-import { CellBadge } from "@/shared/features/table/cell/cell-badge/cell-badge";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
+import { CellCategories } from "@/shared/features/table/cell/cell-categories/cell-categories";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
@@ -108,8 +108,9 @@ export function useFilterColumns() {
       enableSorting: false,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.categories"} />,
       cell: info => {
-        const categories = info.getValue();
-        return <CellBadge items={categories?.map(category => category.name)} />;
+        const categories = info.getValue() ?? [];
+
+        return <CellCategories categories={categories} />;
       },
     }),
     languages: columnHelper.accessor("languages", {
@@ -149,6 +150,7 @@ export function useFilterColumns() {
     }),
     percentUsedBudget: columnHelper.accessor("percentUsedBudget", {
       size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.percentUsedBudget"} />,
       cell: info => {
         const value = info.getValue();
@@ -195,7 +197,8 @@ export function useFilterColumns() {
       },
     }),
     onboardedContributorCount: columnHelper.accessor("onboardedContributorCount", {
-      size: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.onboardedContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -206,7 +209,8 @@ export function useFilterColumns() {
       },
     }),
     activeContributorCount: columnHelper.accessor("activeContributorCount", {
-      size: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.activeContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -218,6 +222,7 @@ export function useFilterColumns() {
     }),
     prCount: columnHelper.accessor("prCount", {
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -228,7 +233,8 @@ export function useFilterColumns() {
       },
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
-      size: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -239,7 +245,8 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
-      size: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -252,6 +259,7 @@ export function useFilterColumns() {
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.projectsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();
