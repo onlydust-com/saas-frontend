@@ -132,7 +132,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
   }
 
   function handleChanges(e: ChangeEvent<HTMLInputElement>) {
-    if (onChange) {
+    if (onChange && canInteract) {
       onChange(e);
     }
   }
@@ -140,7 +140,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
   return (
     <FieldContainer name={name} isError={isError} label={label} description={description} info={info} error={error}>
       <div className={cn(slots.wrapper())} {...attr}>
-        <div className={cn(slots.base(), classNames?.base)} {...attr}>
+        <div className={cn(slots.base(), classNames?.base, { "!border-border-primary": !canInteract })} {...attr}>
           <StartContent startContent={startContent} startIcon={startIcon} avatar={avatar} {...variants} />
           <div className={cn(slots.inputWrapper())}>
             <input
