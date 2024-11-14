@@ -14,7 +14,7 @@ import { useRewardsSelectionPanel } from "@/shared/panels/_flows/request-payment
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 
 export function Content() {
-  const { billingProfileId, rewardIds } = useRequestPaymentFlow();
+  const { billingProfileId = "", rewardIds } = useRequestPaymentFlow();
 
   const {
     data: billingProfile,
@@ -22,7 +22,7 @@ export function Content() {
     isError: isBillingProfileError,
   } = BillingProfileReactQueryAdapter.client.useGetBillingProfileById({
     pathParams: {
-      billingProfileId: billingProfileId ?? "",
+      billingProfileId,
     },
     options: {
       enabled: !!billingProfileId,
