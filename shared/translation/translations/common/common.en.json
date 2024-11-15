@@ -94,5 +94,13 @@
     "SELF_EMPLOYED": "Self employed",
     "EMPLOYEE": "Employee"
   },
-  "close": "Close"
+  "close": "Close",
+  "contribution": {
+    "issue_one": "Issue",
+    "issue_other": "Issues",
+    "pullRequest_one": "Pull request",
+    "pullRequest_other": "Pull requests",
+    "codeReview_one": "Code review",
+    "codeReview_other": "Code reviews"
+  }
 }
