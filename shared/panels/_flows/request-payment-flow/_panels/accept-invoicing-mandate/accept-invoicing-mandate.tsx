@@ -20,10 +20,10 @@ import { useAcceptInvoicingMandate } from "./accept-invoicing-mandate.hooks";
 import { UploadSelection } from "./accept-invoicing-mandate.types";
 
 function Content() {
-  const [uploadSelection, setUploadSelection] = useState<UploadSelection>("AUTOMATIC");
+  const [uploadSelection, setUploadSelection] = useState<UploadSelection>("GENERATE");
   const [mandateAccepted, setMandateAccepted] = useState(false);
 
-  const isUploadSelectionAutomatic = uploadSelection === "AUTOMATIC";
+  const isUploadSelectionGenerate = uploadSelection === "GENERATE";
 
   const { billingProfileId } = useRequestPaymentFlow();
   const { open: openInvoicingMandate } = useInvoicingMandate();
@@ -39,15 +39,15 @@ function Content() {
   }
 
   function toggleUploadSelection() {
-    setUploadSelection(uploadSelection === "AUTOMATIC" ? "MANUAL" : "AUTOMATIC");
+    setUploadSelection(isUploadSelectionGenerate ? "MANUAL" : "GENERATE");
   }
 
   function handleNext() {
-    if (isUploadSelectionAutomatic) {
+    if (isUploadSelectionGenerate) {
       mutate({
         hasAcceptedInvoiceMandate: mandateAccepted,
       });
-      // TODO: Redirect to the automatic step
+      // TODO: Redirect to the generate step
     } else {
       // TODO: Redirect to the manual step
     }
@@ -83,10 +83,10 @@ function Content() {
       <SidePanelFooter>
         <div
           className={cn("flex w-full items-center justify-between gap-lg", {
-            "justify-end": !isUploadSelectionAutomatic,
+            "justify-end": !isUploadSelectionGenerate,
           })}
         >
-          {isUploadSelectionAutomatic ? (
+          {isUploadSelectionGenerate ? (
             <Button
               size="md"
               variant="secondary"
@@ -109,7 +109,7 @@ function Content() {
           <Button
             size="md"
             onClick={handleNext}
-            isDisabled={!mandateAccepted && isUploadSelectionAutomatic}
+            isDisabled={!mandateAccepted && isUploadSelectionGenerate}
             isLoading={isPending}
           >
             <Translate token="common:next" />
