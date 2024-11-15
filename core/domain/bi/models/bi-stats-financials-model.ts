@@ -12,7 +12,6 @@ export class BiStatsFinancials implements BiStatsFinancialsInterface {
   totalDeposited!: BiStatsFinancialsResponse["totalDeposited"];
   totalGranted!: BiStatsFinancialsResponse["totalGranted"];
   totalRewarded!: BiStatsFinancialsResponse["totalRewarded"];
-  totalPaid!: BiStatsFinancialsResponse["totalPaid"];
   transactionCount!: BiStatsFinancialsResponse["transactionCount"];
 
   constructor(props: BiStatsFinancialsResponse) {

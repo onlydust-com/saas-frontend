@@ -32,5 +32,11 @@
   "footer": {
     "accept": "I have read and accept",
     "mandate": "invoicing mandate"
+  },
+  "generate": {
+    "alert": {
+      "title": "Please double check that everything is correct",
+      "description": "Once approved it will trigger the payment process and can’t be edited."
+    }
   }
 }
