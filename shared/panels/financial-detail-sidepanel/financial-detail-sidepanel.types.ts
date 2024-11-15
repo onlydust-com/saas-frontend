@@ -1,6 +1,9 @@
 import { DetailedTotalMoney } from "@/core/kernel/money/money.types";
 
-export type PanelType = "totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded";
+export type PanelMaintainerType = "totalAllocated" | "totalAvailable" | "totalGranted" | "totalRewarded";
+export type PanelContributorType = "rewardedAmount" | "rewardPendingAmount" | "rewardPaid";
+
+export type PanelType = PanelMaintainerType | PanelContributorType;
 
 export interface FinancialDetailSidepanelData {
   panelType: PanelType;
@@ -12,4 +15,7 @@ export const colorMapping: Record<PanelType, "gradient" | "grey"> = {
   totalAllocated: "grey",
   totalGranted: "grey",
   totalRewarded: "grey",
+  rewardedAmount: "gradient",
+  rewardPendingAmount: "grey",
+  rewardPaid: "grey",
 };
