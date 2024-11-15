@@ -32,7 +32,7 @@ const GithubPermissionsContext = createContext<GithubPermissionsContextInterface
   setIsGithubPublicScopePermissionModalOpen: () => {},
 });
 
-export function GithubPermissionsProvider({ children, projectSlug }: PropsWithChildren & { projectSlug: string }) {
+export function GithubPermissionsProvider({ children, projectSlug }: PropsWithChildren & { projectSlug?: string }) {
   const [enablePooling, setEnablePooling] = useState(false);
   const [repoId, setRepoId] = useState<number | undefined>();
   const { isOpen: isGithubPermissionModalOpen, setIsOpen: setIsGithubPermissionModalOpen } = useGithubPermissionModal();
