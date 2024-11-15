@@ -59,7 +59,7 @@ export function BillingProfileCard({
         <Badge
           size="xs"
           color={isDisabled ? "grey" : "brand"}
-          translate={{ token: "features:billingProfileCard.requestableRewardCount", count: requestableRewardCount }}
+          translate={{ token: "panels:requestPaymentFlow.rewardsCount", count: requestableRewardCount }}
         />
         {isDisabled ? <div className="w-4" /> : <Icon component={ChevronRight} />}
       </div>

@@ -26,7 +26,7 @@ export function AddNewBillingProfileCard({ onClick }: { onClick: () => void }) {
           size={"sm"}
           weight="medium"
           color={"primary"}
-          translate={{ token: "features:addNewBillingProfileCard.addNewBillingProfile" }}
+          translate={{ token: "panels:requestPaymentFlow.buttons.addNewBillingProfile" }}
         />
       </div>
       <Icon component={ChevronRight} />
