@@ -3,6 +3,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { RewardedCard } from "@/shared/features/rewards/rewarded-card/rewarded-card";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
@@ -37,22 +38,28 @@ export function Content() {
     );
   }
 
-  if (isError || !reward) {
+  if (isError) {
     return (
       <SidePanelBody>
-        <ErrorState key={"panels:rewardDetail.error"} />
+        <ErrorState />
+      </SidePanelBody>
+    );
+  }
+
+  if (!reward) {
+    return (
+      <SidePanelBody>
+        <EmptyStateLite />
       </SidePanelBody>
     );
   }
 
   return (
-    <>
-      <SidePanelBody>
-        <RewardedCard reward={reward.amount} processedAt={reward.processedAt} requestedAt={reward.requestedAt} />
-        {reward.items?.length ? <ContributionsAccordion ids={reward.items} /> : null}
-        <RewardTimeline reward={reward} />
-      </SidePanelBody>
-    </>
+    <SidePanelBody>
+      <RewardedCard reward={reward.amount} processedAt={reward.processedAt} requestedAt={reward.requestedAt} />
+      {reward.items?.length ? <ContributionsAccordion ids={reward.items} /> : null}
+      <RewardTimeline reward={reward} />
+    </SidePanelBody>
   );
 }
 
