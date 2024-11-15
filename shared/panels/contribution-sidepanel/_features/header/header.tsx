@@ -1,5 +1,7 @@
 import { Info } from "lucide-react";
 
+import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
@@ -9,12 +11,12 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { HeaderProps } from "./header.types";
 
-export function Header({ contribution, onToggleHelper }: HeaderProps) {
+export function Header({ as, contribution, onToggleHelper }: HeaderProps) {
   if (!contribution) {
     return null;
   }
 
-  const showHelper = contribution.isNotAssigned() || contribution.isToReview();
+  const showHelper = as === ContributionAs.MAINTAINER && (contribution.isNotAssigned() || contribution.isToReview());
 
   return (
     <SidePanelHeader
