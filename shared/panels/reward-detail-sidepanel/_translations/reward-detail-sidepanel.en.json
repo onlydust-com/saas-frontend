@@ -12,9 +12,60 @@
     "created": "Created by {{login}}",
     "requested": "Requested payment",
     "verificationBlock": {
-      "label": "Verification Blocked",
-      "content": "You need to verify your identity in order to receive rewards.",
-      "button": "Resume verification"
+      "button": "Resume verification",
+      "type": {
+        "PENDING_SIGNUP": {
+          "title": "Complete Your Signup",
+          "text": "The contributor account isn't signed up yet. They need to complete the signup process to continue."
+        },
+        "PENDING_BILLING_PROFILE": {
+          "title": "Billing Profile Missing",
+          "text": "We need a billing profile to access this feature.",
+          "button": "Add billing profile"
+        },
+        "PENDING_COMPANY": {
+          "title": "Company Information Needed",
+          "text": "Company details are required to move forward."
+        },
+        "PENDING_VERIFICATION": {
+          "title": "Verification in Progress",
+          "text": "The account is under review."
+        },
+        "GEO_BLOCKED": {
+          "title": "Location Restricted",
+          "text": "This service is not available in location."
+        },
+        "INDIVIDUAL_LIMIT_REACHED": {
+          "title": "Limit Reached",
+          "text": "You have reached your individual usage limit.",
+          "button": "Update payout information"
+        },
+        "PAYOUT_INFO_MISSING": {
+          "title": "Payout Information Needed",
+          "text": "Please add your payout information (wallet) to proceed.",
+          "button": "Add payout information"
+        },
+        "LOCKED": {
+          "title": "Reward Locked",
+          "text": "Your reward has been locked."
+        },
+        "PENDING_REQUEST": {
+          "title": "",
+          "text": ""
+        },
+        "PENDING_CONTRIBUTOR": {
+          "title": "",
+          "text": ""
+        },
+        "PROCESSING": {
+          "title": "",
+          "text": ""
+        },
+        "COMPLETE": {
+          "title": "",
+          "text": ""
+        }
+      }
     },
     "paid": {
       "label": "Paid",
