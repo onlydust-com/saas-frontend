@@ -1,22 +1,22 @@
-import { CircleDollarSign, Clock } from "lucide-react";
 import dynamic from "next/dynamic";
 import { ElementType } from "react";
 
-import { bootstrap } from "@/core/bootstrap";
-
-import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
+import { Applicants } from "@/design-system/molecules/cards/card-contribution-kanban/_components/applicants/applicants";
+import { Contributors } from "@/design-system/molecules/cards/card-contribution-kanban/_components/contributors/contributors";
+import { GithubLabels } from "@/design-system/molecules/cards/card-contribution-kanban/_components/github-labels/github-labels";
+import { Languages } from "@/design-system/molecules/cards/card-contribution-kanban/_components/languages/languages";
+import { LastUpdatedAt } from "@/design-system/molecules/cards/card-contribution-kanban/_components/last-updated-at/last-updated-at";
+import { LinkedIssues } from "@/design-system/molecules/cards/card-contribution-kanban/_components/linked-issues/linked-issues";
+import { Project } from "@/design-system/molecules/cards/card-contribution-kanban/_components/project/project";
+import { Repo } from "@/design-system/molecules/cards/card-contribution-kanban/_components/repo/repo";
+import { RewardUsdAmount } from "@/design-system/molecules/cards/card-contribution-kanban/_components/reward-usd-amount/reward-usd-amount";
 import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/cards/card-contribution-kanban/adapters/next-ui/next-ui.variants";
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
-import { ContributionInline } from "@/design-system/molecules/contribution-inline";
-import { TimelineContribution } from "@/design-system/molecules/timeline-contribution";
 
-import { LabelPopover } from "@/shared/components/label-popover/label-popover";
-import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
@@ -32,8 +32,11 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   rewardUsdAmount,
   applicants,
   contributors,
+  project,
   linkedIssues,
   githubLabels,
+  languages,
+  repo,
   actions,
   showActions = true,
   onClick,
@@ -46,49 +49,11 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
 
-  const dateKernelPort = bootstrap.getDateKernelPort();
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-
-  function renderRewardAmount() {
-    if (!rewardUsdAmount) return null;
-
-    const { amount: rewardAmount, code: rewardCode } = moneyKernelPort.format({
-      amount: rewardUsdAmount,
-      currency: moneyKernelPort.getCurrency("USD"),
-    });
-
-    return (
-      <Badge
-        color={"grey"}
-        size={"xxs"}
-        icon={{
-          component: CircleDollarSign,
-          classNames: { base: "text-components-badge-success-backgroundoutline-fg" },
-        }}
-      >
-        {rewardAmount} {rewardCode}
-      </Badge>
-    );
-  }
-
   function renderUsers() {
     if (applicants?.length) {
       return (
         <div className="flex">
-          <UserGroup
-            avatarProps={{ size: "xs" }}
-            users={applicants}
-            maxUsers={2}
-            label={{
-              size: "xs",
-              weight: "regular",
-              color: "tertiary",
-              translate: {
-                token: "cards:cardContributionKanban.applicants",
-                count: applicants.length,
-              },
-            }}
-          />
+          <Applicants applicants={applicants} />
         </div>
       );
     }
@@ -96,20 +61,15 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     if (contributors?.length) {
       return (
         <div className="flex">
-          <UserGroup
-            avatarProps={{ size: "xs" }}
-            users={contributors}
-            maxUsers={2}
-            label={{
-              size: "xs",
-              weight: "regular",
-              color: "tertiary",
-              translate: {
-                token: "cards:cardContributionKanban.contributors",
-                count: contributors.length,
-              },
-            }}
-          />
+          <Contributors contributors={contributors} />
+        </div>
+      );
+    }
+
+    if (project) {
+      return (
+        <div className="flex">
+          <Project project={project} />
         </div>
       );
     }
@@ -117,77 +77,26 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return null;
   }
 
-  function renderLinkedIssues() {
-    if (linkedIssues && linkedIssues.length) {
-      const linkedIssuesCount = linkedIssues?.length ?? 0;
-
-      if (linkedIssuesCount === 1) {
-        const [linkedIssue] = linkedIssues;
-        return (
-          <ContributionInline
-            contributionBadgeProps={{
-              type: linkedIssue.type,
-              githubStatus: linkedIssue.githubStatus,
-              number: linkedIssue.githubNumber,
-            }}
-            githubTitle={linkedIssue.githubTitle}
-            truncate
-          />
-        );
-      }
-
-      return (
-        <TimelineContribution
-          titleProps={{
-            translate: {
-              token: "cards:cardContributionKanban.linkedIssues",
-              values: { count: linkedIssuesCount },
-            },
-          }}
-          contributions={linkedIssues.map(issue => {
-            return {
-              githubTitle: issue.githubTitle,
-              contributionBadgeProps: {
-                type: issue.type,
-                githubStatus: issue.githubStatus,
-                number: issue.githubNumber,
-              },
-            };
-          })}
-        />
-      );
+  function renderFooter() {
+    if (!githubLabels?.length && !languages?.length && !repo && !actions?.length && !endContent) {
+      return null;
     }
 
-    return null;
-  }
+    return (
+      <footer className={"flex flex-wrap items-center justify-between gap-lg overflow-hidden"}>
+        <div className={"flex flex-wrap items-center gap-sm empty:hidden"}>
+          <GithubLabels githubLabels={githubLabels} />
+          <Languages languages={languages} />
+          <Repo repo={repo} />
+        </div>
 
-  function renderGithubLabels() {
-    if (githubLabels?.length) {
-      return (
-        <LabelPopover
-          labels={githubLabels.map(({ name }) => name)}
-          badgeProps={{
-            color: "grey",
-            size: "xs",
-          }}
-        />
-      );
-    }
+        <div className="ml-auto">
+          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
 
-    return null;
-  }
-
-  function renderLastUpdatedAt() {
-    if (lastUpdatedAt) {
-      return (
-        <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
-          <Icon component={Clock} />
-          {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
-        </Typo>
-      );
-    }
-
-    return null;
+          {endContent}
+        </div>
+      </footer>
+    );
   }
 
   return (
@@ -221,21 +130,15 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
 
       <div className={"grid gap-xl"}>
         <div className={"flex items-center gap-md empty:hidden"}>
-          {renderLastUpdatedAt()}
-
-          {renderRewardAmount()}
+          <LastUpdatedAt lastUpdatedAt={lastUpdatedAt} />
+          <RewardUsdAmount rewardUsdAmount={rewardUsdAmount} />
         </div>
 
         {renderUsers()}
 
-        {renderLinkedIssues()}
+        <LinkedIssues linkedIssues={linkedIssues} />
 
-        <footer className={"flex flex-wrap justify-between gap-lg overflow-hidden empty:hidden"}>
-          {renderGithubLabels()}
-
-          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
-          {!!endContent && endContent}
-        </footer>
+        {renderFooter()}
       </div>
     </Paper>
   );

@@ -47,7 +47,12 @@
   },
   "footer": {
     "actions": {
-      "manageInFullPage": "Manage in full page"
+      "manageInFullPage": "Manage in full page",
+      "asContributor": {
+        "deleteComment": "Delete comment",
+        "cancelApplication": "Cancel application",
+        "seePrOnGithub": "See PR on GitHub"
+      }
     }
   },
   "helper": {
@@ -74,5 +79,9 @@
   "rewardedCard": {
     "title": "Rewarded",
     "status": "Rewarded"
+  },
+  "userCard": {
+    "assignedBy": "Assigned by",
+    "mergedBy": "Merged by"
   }
 }

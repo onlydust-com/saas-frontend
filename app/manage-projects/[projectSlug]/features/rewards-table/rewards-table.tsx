@@ -18,6 +18,7 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 
@@ -88,6 +89,8 @@ export function RewardsTable() {
     state: {
       sorting,
     },
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -108,14 +111,11 @@ export function RewardsTable() {
         </nav>
         <ScrollView direction={"x"}>
           <Table
+            table={table}
             header={{
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            // TODO @Mehdi enable reward detail sidepanel once feature ready
-            // onRowClick={row => {
-            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
-            // }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>

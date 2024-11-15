@@ -24,3 +24,10 @@ export enum ContributionEventType {
   CLOSED = "CLOSED",
   REWARDED = "REWARDED",
 }
+
+export enum ContributionAs {
+  MAINTAINER = "MAINTAINER",
+  CONTRIBUTOR = "CONTRIBUTOR",
+}
+
+export type ContributionAsUnion = `${ContributionAs}`;

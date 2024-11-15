@@ -4,4 +4,5 @@ export * from "./use-set-me";
 export * from "./use-get-my-profile";
 export * from "./use-set-my-profile";
 export * from "./use-replace-my-profile";
-export * from "./use-get-me-projects";
+export * from "./use-get-my-projects-as-maintainer";
+export * from "./use-get-my-projects-as-contributor";

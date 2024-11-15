@@ -15,6 +15,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TABLE_CELL_SIZE, TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -27,6 +28,7 @@ export function ProgramsTable() {
   const router = useRouter();
   const columnHelper = createColumnHelper<ProgramListItemInterface>();
 
+  // TODO: Update table to the new configuration
   const columns = [
     columnHelper.accessor("name", {
       enableSorting: false,
@@ -56,6 +58,7 @@ export function ProgramsTable() {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
+      size: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -103,6 +106,7 @@ export function ProgramsTable() {
     }),
     columnHelper.display({
       id: "actions",
+      enableResizing: false,
       header: () => <Translate token={"programs:list.content.table.columns.actions"} />,
       cell: info => (
         <Button
@@ -121,6 +125,8 @@ export function ProgramsTable() {
     data: programs,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    defaultColumn: TABLE_DEFAULT_COLUMN,
+    columnResizeMode: "onChange",
   });
 
   if (isLoading) {
@@ -142,13 +148,11 @@ export function ProgramsTable() {
   return (
     <ScrollView direction={"x"}>
       <Table
+        table={table}
         header={{
           headerGroups: table.getHeaderGroups(),
         }}
         rows={table.getRowModel().rows}
-        classNames={{
-          base: "min-w-[1200px]",
-        }}
         onRowClick={row => {
           router.push(NEXT_ROUTER.programs.details.root(row.original.id));
         }}

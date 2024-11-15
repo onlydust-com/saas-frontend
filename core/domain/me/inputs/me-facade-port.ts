@@ -1,10 +1,12 @@
 import {
-  GetMeProjectsPortParams,
-  GetMeProjectsPortResponse,
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
   GetMyProfilePortParams,
   GetMyProfilePortResponse,
+  GetMyProjectsAsContributorPortParams,
+  GetMyProjectsAsContributorPortResponse,
+  GetMyProjectsAsMaintainerPortParams,
+  GetMyProjectsAsMaintainerPortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
   ReplaceMyProfilePortParams,
@@ -22,5 +24,6 @@ export interface MeFacadePort {
   getMyProfile(params: GetMyProfilePortParams): GetMyProfilePortResponse;
   setMyProfile(params: SetMyProfilePortParams): SetMyProfilePortResponse;
   replaceMyProfile(params: ReplaceMyProfilePortParams): ReplaceMyProfilePortResponse;
-  getMeProjects(p: GetMeProjectsPortParams): GetMeProjectsPortResponse;
+  getMyProjectsAsMaintainer(p: GetMyProjectsAsMaintainerPortParams): GetMyProjectsAsMaintainerPortResponse;
+  getMyProjectsAsContributor(p: GetMyProjectsAsContributorPortParams): GetMyProjectsAsContributorPortResponse;
 }

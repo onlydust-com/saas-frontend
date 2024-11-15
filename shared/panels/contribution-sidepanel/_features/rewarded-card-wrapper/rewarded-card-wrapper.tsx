@@ -6,11 +6,15 @@ import { RewardedCard } from "@/shared/panels/contribution-sidepanel/_features/r
 
 import { RewardedCardWrapperProps } from "./rewarded-card-wrapper.types";
 
-export function RewardedCardWrapper({ contribution }: RewardedCardWrapperProps) {
+export function RewardedCardWrapper({ contribution, recipientIds }: RewardedCardWrapperProps) {
   const { data } = RewardReactQueryAdapter.client.useGetRewards({
     queryParams: {
       contributionUUIDs: [contribution.id],
+      recipientIds,
       pageSize: 30,
+    },
+    options: {
+      enabled: Boolean(contribution.id),
     },
   });
 
@@ -20,7 +24,12 @@ export function RewardedCardWrapper({ contribution }: RewardedCardWrapperProps) 
     return null;
   }
 
-  return rewards?.map((reward, index) => (
-    <RewardedCard key={`rewarded-card-${index}`} reward={reward.amount} processedAt={reward.processedAt} />
+  return rewards?.map(reward => (
+    <RewardedCard
+      key={`rewarded-card-${reward.id}`}
+      reward={reward.amount}
+      processedAt={reward.processedAt}
+      requestedAt={reward.requestedAt}
+    />
   ));
 }

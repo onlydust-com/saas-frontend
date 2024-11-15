@@ -17,7 +17,7 @@ import { Header } from "./_features/header/header";
 export function ContributionsSidepanel() {
   const { name } = useContributionsSidepanel();
   const { Panel, isOpen } = useSidePanel({ name });
-  const { id } = useSinglePanelData<ContributionsPanelData>(name) ?? {
+  const { id, as } = useSinglePanelData<ContributionsPanelData>(name) ?? {
     id: "",
   };
 
@@ -35,6 +35,7 @@ export function ContributionsSidepanel() {
   });
 
   const blocks = useContributionBlocks({
+    as,
     contribution,
     helperState: {
       isOpen: openHelper,
@@ -50,7 +51,7 @@ export function ContributionsSidepanel() {
         <>
           <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
           <SidePanelBody>{blocks}</SidePanelBody>
-          {contribution ? <Footer contribution={contribution} /> : null}
+          {contribution ? <Footer as={as} contribution={contribution} /> : null}
         </>
       )}
     </Panel>

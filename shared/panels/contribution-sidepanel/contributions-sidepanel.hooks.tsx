@@ -1,6 +1,8 @@
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ContributionAs, ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors";
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
@@ -15,6 +17,7 @@ export function useContributionsSidepanel() {
 }
 
 interface UseContributionBlocks {
+  as?: ContributionAsUnion;
   contribution: ContributionActivityInterface | undefined;
   helperState: {
     isOpen: boolean;
@@ -22,7 +25,7 @@ interface UseContributionBlocks {
   };
 }
 
-export function useContributionBlocks({ contribution, helperState }: UseContributionBlocks) {
+function useContributionBlocksAsMaintainer({ contribution, helperState }: UseContributionBlocks) {
   if (!contribution) {
     return null;
   }
@@ -75,7 +78,7 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview contribution={contribution} showLinkedIssues={true} />
+        <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees contribution={contribution} />
         {/* KEEP THIS */}
@@ -83,4 +86,79 @@ export function useContributionBlocks({ contribution, helperState }: UseContribu
       </>
     );
   }
+}
+
+function useContributionBlocksAsContributor({ contribution }: UseContributionBlocks) {
+  const { githubUserId } = useAuthUser();
+  const recipientIds = githubUserId ? [githubUserId] : undefined;
+
+  if (!contribution) {
+    return null;
+  }
+
+  // Applied
+  if (contribution.isNotAssigned()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        {/*// KPI*/}
+        {/*// Description*/}
+        {/*// GithubComment*/}
+      </>
+    );
+  }
+
+  // Assigned issue
+  if (contribution.isInProgress()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  // Pending review
+  if (contribution.isToReview()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+
+  // Done
+  if (contribution.isArchived() || contribution.isDone()) {
+    return (
+      <>
+        <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
+        {/*// Description*/}
+        {/*// Timeline*/}
+      </>
+    );
+  }
+}
+
+export function useContributionBlocks(props: UseContributionBlocks) {
+  const maintainer = useContributionBlocksAsMaintainer(props);
+  const contributor = useContributionBlocksAsContributor(props);
+
+  if (props.as === ContributionAs.MAINTAINER) {
+    return maintainer;
+  }
+
+  if (props.as === ContributionAs.CONTRIBUTOR) {
+    return contributor;
+  }
+
+  return null;
 }

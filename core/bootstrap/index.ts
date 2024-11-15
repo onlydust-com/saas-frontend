@@ -1,6 +1,7 @@
 import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
 import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
+import { BillingProfileStoragePort } from "@/core/domain/billing-profile/outputs/billing-profile-storage-port";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
 import { CountryStoragePort } from "@/core/domain/country/outputs/country-storage-port";
 import { CurrencyStoragePort } from "@/core/domain/currency/output/currency-storage-port";
@@ -20,6 +21,7 @@ import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
+import { BillingProfileClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/billing-profile-client-adapter";
 import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
 import { CountryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/country-client-adapter";
 import { CurrencyClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/currency-client-adapter";
@@ -41,17 +43,18 @@ import { FetchHttpClient } from "@/core/infrastructure/marketplace-api-client-ad
 import { ImpersonationProvider } from "@/core/infrastructure/marketplace-api-client-adapter/impersonation/impersonation-provider";
 import { DateFacadePort } from "@/core/kernel/date/date-facade-port";
 import { DateFnsAdapter } from "@/core/kernel/date/date-fns-adapter";
+import { FileAdapter } from "@/core/kernel/file/file-adapter";
+import { FileFacadePort } from "@/core/kernel/file/file-facade-port";
 import { IdAdapter } from "@/core/kernel/id/id-adapter";
 import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
+import { StyleAdapter } from "@/core/kernel/style/style-adapter";
+import { StyleFacadePort } from "@/core/kernel/style/style-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
 import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
-
-import { FileAdapter } from "../kernel/file/file-adapter";
-import { FileFacadePort } from "../kernel/file/file-facade-port";
 
 export interface BootstrapConstructor {
   meStoragePortForClient: MeStoragePort;
@@ -92,12 +95,15 @@ export interface BootstrapConstructor {
   rewardStoragePortForServer: RewardStoragePort;
   issueStoragePortForClient: IssueStoragePort;
   issueStoragePortForServer: IssueStoragePort;
+  billingProfileStoragePortForClient: BillingProfileStoragePort;
+  billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
+  styleKernelPort: StyleFacadePort;
 }
 
 export class Bootstrap {
@@ -142,12 +148,15 @@ export class Bootstrap {
   rewardStoragePortForServer: RewardStoragePort;
   issueStoragePortForClient: IssueStoragePort;
   issueStoragePortForServer: IssueStoragePort;
+  billingProfileStoragePortForClient: BillingProfileStoragePort;
+  billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
+  styleKernelPort: StyleFacadePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -188,12 +197,15 @@ export class Bootstrap {
     this.rewardStoragePortForServer = constructor.rewardStoragePortForServer;
     this.issueStoragePortForClient = constructor.issueStoragePortForClient;
     this.issueStoragePortForServer = constructor.issueStoragePortForServer;
+    this.billingProfileStoragePortForClient = constructor.billingProfileStoragePortForClient;
+    this.billingProfileStoragePortForServer = constructor.billingProfileStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
     this.validationKernelPort = constructor.validationKernelPort;
+    this.styleKernelPort = constructor.styleKernelPort;
   }
 
   getAuthProvider() {
@@ -364,6 +376,14 @@ export class Bootstrap {
     return this.issueStoragePortForClient;
   }
 
+  getBillingProfileStoragePortForClient() {
+    return this.billingProfileStoragePortForClient;
+  }
+
+  getBillingProfileStoragePortForServer() {
+    return this.billingProfileStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -386,6 +406,10 @@ export class Bootstrap {
 
   getValidationKernelPort() {
     return this.validationKernelPort;
+  }
+
+  getStyleKernelPort() {
+    return this.styleKernelPort;
   }
 
   public static get getBootstrap(): Bootstrap {
@@ -429,12 +453,15 @@ export class Bootstrap {
         rewardStoragePortForClient: new RewardClientAdapter(new FetchHttpClient()),
         issueStoragePortForServer: new IssueClientAdapter(new FetchHttpClient()),
         issueStoragePortForClient: new IssueClientAdapter(new FetchHttpClient()),
+        billingProfileStoragePortForClient: new BillingProfileClientAdapter(new FetchHttpClient()),
+        billingProfileStoragePortForServer: new BillingProfileClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,
         validationKernelPort: new ValidationAdapter(),
+        styleKernelPort: StyleAdapter,
       });
     }
 

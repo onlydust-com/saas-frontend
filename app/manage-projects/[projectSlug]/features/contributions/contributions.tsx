@@ -8,6 +8,7 @@ import {
   GetContributionsPortParams,
   GetContributionsQueryParams,
 } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -56,7 +57,7 @@ export function Contributions(_: ContributionsProps) {
   }
 
   function onOpenContribution(id: string) {
-    openContribution({ id });
+    openContribution({ id, as: ContributionAs.MAINTAINER });
   }
 
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
