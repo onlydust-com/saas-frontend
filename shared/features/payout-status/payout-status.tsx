@@ -37,6 +37,9 @@ export function PayoutStatus({ status, billingProfileId, shouldRedirect }: Payou
         rel: "noopener noreferrer",
       },
     },
+    info: {
+      color: "grey",
+    },
     success: {
       color: "grey",
     },
