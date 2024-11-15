@@ -1,3 +1,5 @@
+import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
+
 import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 import { CardContributionKanban as Card } from "@/design-system/molecules/cards/card-contribution-kanban";
 
@@ -17,6 +19,8 @@ export function CardContributionKanban({
   ...actions
 }: CardContributionKanbanProps) {
   const { buttons, endContent } = useContributionActions({ as, contribution, actions });
+  const rewardUsdAmount =
+    as === ContributionAs.CONTRIBUTOR ? contribution.callerTotalRewardedUsdAmount : contribution.totalRewardedUsdAmount;
 
   return (
     <Card
@@ -26,7 +30,7 @@ export function CardContributionKanban({
       githubStatus={contribution.githubStatus}
       githubNumber={contribution.githubNumber}
       lastUpdatedAt={contribution.lastUpdatedAt}
-      rewardUsdAmount={contribution.totalRewardedUsdAmount}
+      rewardUsdAmount={rewardUsdAmount}
       applicants={contribution.isNotAssigned() ? contribution.applicants : []}
       contributors={showContributors ? contribution.contributors : []}
       linkedIssues={contribution.linkedIssues}

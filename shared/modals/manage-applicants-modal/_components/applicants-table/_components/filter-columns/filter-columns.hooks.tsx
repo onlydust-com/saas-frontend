@@ -207,6 +207,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     country: columnHelper.accessor("country", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"modals:manageApplicants.table.columns.country"} />,
       cell: info => {
         const { country } = info.row.original;

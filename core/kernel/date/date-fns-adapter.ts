@@ -1,3 +1,4 @@
+import { FormatDistanceStrictUnit } from "date-fns";
 import * as DateFns from "date-fns";
 
 import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
@@ -103,8 +104,17 @@ export class DateFnsAdapter implements DateFacadePort {
     return DateFns.setYear(date, year);
   }
 
-  formatDistanceToNow(date: Date): string {
-    return DateFns.formatDistanceToNowStrict(date, { addSuffix: true });
+  formatDistanceToNow(
+    date: Date,
+    {
+      addSuffix = true,
+      ...options
+    }: {
+      addSuffix?: boolean;
+      unit?: FormatDistanceStrictUnit;
+    } = {}
+  ): string {
+    return DateFns.formatDistanceToNowStrict(date, { addSuffix, ...options });
   }
 
   isValid(date: Date) {

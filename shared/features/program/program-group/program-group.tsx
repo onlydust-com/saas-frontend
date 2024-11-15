@@ -35,6 +35,7 @@ export function ProgramGroup({ programs, maxPrograms = 4, avatarProps }: Program
                 src: logoUrl,
                 name,
               }))}
+              size={avatarProps?.size}
               quantity={maxPrograms}
               totalAvatarsCount={programsCount}
             />

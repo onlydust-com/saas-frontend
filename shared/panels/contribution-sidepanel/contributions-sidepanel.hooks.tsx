@@ -1,9 +1,15 @@
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { bootstrap } from "@/core/bootstrap";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionAs, ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { AssignContributors } from "@/shared/panels/contribution-sidepanel/_features/assign-contributors/assign-contributors";
 import { Assignees } from "@/shared/panels/contribution-sidepanel/_features/assignees/assignees";
+import { Description } from "@/shared/panels/contribution-sidepanel/_features/description/description";
+import { GithubComment } from "@/shared/panels/contribution-sidepanel/_features/github-comment/github-comment";
+import { IssueAppliedKpi } from "@/shared/panels/contribution-sidepanel/_features/issue-applied-kpi/issue-applied-kpi";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
@@ -88,6 +94,20 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
 }
 
 function useContributionBlocksAsContributor({ contribution }: UseContributionBlocks) {
+  const { githubUserId } = useAuthUser();
+  const recipientIds = githubUserId ? [githubUserId] : undefined;
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
+  const contributorApplicationId =
+    contribution?.applicants.find(applicant => applicant.githubUserId === githubUserId)?.applicationId ?? "";
+
+  const { data: application } = ApplicationReactQueryAdapter.client.useGetApplicationById({
+    pathParams: { applicationId: contributorApplicationId },
+    options: {
+      enabled: !!contributorApplicationId,
+    },
+  });
+
   if (!contribution) {
     return null;
   }
@@ -97,9 +117,14 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
-        {/*// KPI*/}
-        {/*// Description*/}
-        {/*// GithubComment*/}
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        <IssueAppliedKpi
+          applicants={contribution.applicants.length}
+          comments={contribution.githubCommentCount}
+          openSince={parseInt(dateKernelPort.formatDistanceToNow(new Date(contribution.createdAt), { unit: "day" }))}
+        />
+        <Description description={contribution.githubBody} />
+        <GithubComment comment={application?.githubComment} />
       </>
     );
   }
@@ -109,8 +134,9 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
-        {/*// Description*/}
+        <Description description={contribution.githubBody} />
         {/*// Timeline*/}
       </>
     );
@@ -121,7 +147,8 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
-        {/*// Description*/}
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
+        <Description description={contribution.githubBody} />
         {/*// Timeline*/}
       </>
     );
@@ -132,8 +159,9 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
-        {/*// Description*/}
+        <Description description={contribution.githubBody} />
         {/*// Timeline*/}
       </>
     );

@@ -1,6 +1,8 @@
 import { BillingProfileInvoicePreviewInterface } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
+import { BillingProfileInvoiceableRewardInterface } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
 import { BillingProfileInterface } from "@/core/domain/billing-profile/models/billing-profile-model";
 import { BillingProfilePayoutInfoInterface } from "@/core/domain/billing-profile/models/billing-profile-payout-info-model";
+import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -76,3 +78,32 @@ export type AcceptOrDeclineBillingProfileMandatePortParams = HttpClientParameter
 }>;
 
 export type AcceptOrDeclineBillingProfileMandatePortResponse = HttpStorageResponse;
+
+/* ------------------------ Get Me Billing Profiles ------------------------ */
+
+export type GetMeBillingProfilesResponse = components["schemas"]["MyBillingProfilesResponse"];
+
+export type GetMeBillingProfilesModel = Omit<GetMeBillingProfilesResponse, "billingProfiles"> & {
+  billingProfiles: BillingProfileShortInterface[];
+};
+
+export type GetMeBillingProfilesPortParams = HttpClientParameters<object>;
+
+export type GetMeBillingProfilesPortResponse = HttpStorageResponse<GetMeBillingProfilesModel>;
+
+/* ------------------------ Get Billing Profile Invoiceable Rewards ------------------------ */
+
+export type GetBillingProfileInvoiceableRewardsResponse =
+  components["schemas"]["BillingProfileInvoiceableRewardsResponse"];
+export type GetBillingProfileInvoiceableRewardsModel = Omit<GetBillingProfileInvoiceableRewardsResponse, "rewards"> & {
+  rewards: BillingProfileInvoiceableRewardInterface[];
+};
+
+type GetBillingProfileInvoiceableRewardsPathParams = operations["getInvoiceableRewards"]["parameters"]["path"];
+
+export type GetBillingProfileInvoiceableRewardsPortParams = HttpClientParameters<{
+  PathParams: GetBillingProfileInvoiceableRewardsPathParams;
+}>;
+
+export type GetBillingProfileInvoiceableRewardsPortResponse =
+  HttpStorageResponse<GetBillingProfileInvoiceableRewardsModel>;

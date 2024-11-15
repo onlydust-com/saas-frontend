@@ -47,5 +47,8 @@
       "cancelReward": "Cancel"
     },
     "rewardsCount": "Rewards"
+  },
+  "requestPayment": {
+    "trigger": "Request payment ({{count}})"
   }
 }
