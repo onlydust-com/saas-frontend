@@ -14,13 +14,9 @@
     "verificationBlock": {
       "button": "Resume verification",
       "type": {
-        "PENDING_SIGNUP": {
-          "title": "Complete Your Signup",
-          "text": "The contributor account isn't signed up yet. They need to complete the signup process to continue."
-        },
         "PENDING_BILLING_PROFILE": {
           "title": "Billing Profile Missing",
-          "text": "We need a billing profile to access this feature.",
+          "text": "You need a billing profile to access this feature.",
           "button": "Add billing profile"
         },
         "PENDING_COMPANY": {
@@ -29,11 +25,11 @@
         },
         "PENDING_VERIFICATION": {
           "title": "Verification in Progress",
-          "text": "The account is under review."
+          "text": "Your billing profile is under review."
         },
         "GEO_BLOCKED": {
           "title": "Location Restricted",
-          "text": "This service is not available in location."
+          "text": "This service is not available in your location."
         },
         "INDIVIDUAL_LIMIT_REACHED": {
           "title": "Limit Reached",
@@ -62,6 +58,10 @@
           "text": ""
         },
         "COMPLETE": {
+          "title": "",
+          "text": ""
+        },
+        "PENDING_SIGNUP": {
           "title": "",
           "text": ""
         }
