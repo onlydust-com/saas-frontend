@@ -32,7 +32,10 @@ export function FilterData() {
           onSelect={projectIds => setFilters({ projectIds })}
           mine={false}
         />
-        <CurrencyFilter selectedCurrencies={filters.currencies} onSelect={currencies => setFilters({ currencies })} />
+        <CurrencyFilter
+          selectedCurrencies={filters.currencyIds}
+          onSelect={currencyIds => setFilters({ currencyIds })}
+        />
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
