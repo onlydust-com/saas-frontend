@@ -1,12 +1,20 @@
 {
   "guidelinesTitle": "Guidelines",
-  "summary": {
-    "requirement": "Informations required on your invoice for acceptance:",
-    "rule_1": "Date of issuance",
-    "rule_2": "Your legal information (Name, address, country, VAT Number if in UE)",
-    "rule_3": "The invoice must be issued to WAGMI , 54 rue du Faubourg Montmartre 75009 PARIS, France, VAT Number : FR 26 908233638",
-    "rule_4": "Reward date, Reward ID number, name of the project for each reward",
-    "rule_5": "Your invoice should be issued in $ with the following mention: “[number] [type of tokens] received and accepted as payment for this invoice.”"
+  "guidelineAll": {
+    "subtitle": "Please, make sure your invoice includes the following:",
+    "rule_1": "Total amount should be 1200 USDC excluding taxes",
+    "rule_2": "Make sure to send your invoice in US Dollars ($)",
+    "rule_3": "Apply taxes according to your local legislation"
+  },
+  "guidelineSender": {
+    "subtitle": "Sender",
+    "rule_1": "First name, Last name",
+    "rule_2": "10 Rue voltaire,75002, Paris, France"
+  },
+  "guidelineRecipient": {
+    "subtitle": "Recipient",
+    "rule_1": "Wagmi",
+    "rule_2": "60 rue François 1er, 75008 Paris, France"
   },
   "sample_to_download": "We highly recommend downloading our invoice sample to help you create your own correctly.",
   "sample_link_label": "Click here to download and get started",

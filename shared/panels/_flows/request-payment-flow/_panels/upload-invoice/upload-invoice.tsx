@@ -47,12 +47,14 @@ function Content() {
 
   const requirementList = useMemo(
     () => (
-      <ul>
-        {Array.from({ length: 5 }, (_, index) => {
-          const token = `panels:uploadInvoice.summary.rule_${index + 1}`;
-          return <li key={token}>{t(token)}</li>;
-        })}
-      </ul>
+      <Typo size="xs" color="secondary">
+        <ul>
+          {Array.from({ length: 5 }, (_, index) => {
+            const token = `panels:uploadInvoice.summary.rule_${index + 1}`;
+            return <li key={token}>{t(token)}</li>;
+          })}
+        </ul>
+      </Typo>
     ),
     []
   );
@@ -62,8 +64,6 @@ function Content() {
       return (
         <div className="flex flex-col gap-2">
           <Skeleton classNames={{ base: "h-2" }} />
-          <Skeleton classNames={{ base: "h-1" }} />
-          <Skeleton classNames={{ base: "h-1" }} />
         </div>
       );
     }
@@ -107,18 +107,15 @@ function Content() {
           description={<Translate token="panels:uploadInvoice.alert.description" />}
           icon={{ component: Info }}
         />
-        <Paper background={"primary-alt"}>
-          <div className="text-greyscale-50 prose leading-normal">
-            <Translate token="panels:uploadInvoice.summary.requirement" />
-            <br />
-            {requirementList}
-            {renderUploadSample}
-          </div>
+        <Paper background={"primary-alt"} border={"primary"} classNames={{ base: "prose leading-normal" }}>
+          <Typo size="sm" weight="medium" translate={{ token: "panels:uploadInvoice.guidelinesTitle" }} />
+          {requirementList}
         </Paper>
         <Typo color="primary" translate={{ token: "panels:uploadInvoice.uploadInvoiceTitle" }} />
         {renderUploadFile()}
       </SidePanelBody>
       <SidePanelFooter>
+        {renderUploadSample}
         {selectedFileBlob ? (
           <Alert
             color="grey"
