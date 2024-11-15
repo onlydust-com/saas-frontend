@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   UseMutationFacadeParams,
@@ -13,6 +13,8 @@ export function useDeleteApplication({
   options,
 }: UseMutationFacadeParams<ApplicationFacadePort["deleteApplication"], undefined, never, DeleteApplicationBody>) {
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
+  const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
@@ -20,7 +22,11 @@ export function useDeleteApplication({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          // TODO invalidate application list query
+          //  Invalidate application kanban list
+          await queryClient.invalidateQueries({
+            queryKey: contributionStoragePort.getContributions({}).tag,
+            exact: false,
+          });
 
           options?.onSuccess?.(data, variables, context);
         },

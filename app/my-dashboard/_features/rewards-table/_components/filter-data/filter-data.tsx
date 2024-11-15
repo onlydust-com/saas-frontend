@@ -1,8 +1,8 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
-import { ContributorProjectFilter } from "@/shared/features/filters/contributor-project-filter/contributor-project-filter";
 import { CurrencyFilter } from "@/shared/features/filters/currency-filter/currency-filter";
+import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -27,11 +27,10 @@ export function FilterData() {
         canClose={true}
       />
       <SidePanelBody>
-        <ContributorProjectFilter
-          selectedUser={filters.contributors?.map(String)}
-          onSelect={(users: string[]) => {
-            setFilters({ contributors: users.map(Number) });
-          }}
+        <ProjectFilter
+          selectedProjects={filters.projectIds}
+          onSelect={projectIds => setFilters({ projectIds })}
+          mine={false}
         />
         <CurrencyFilter selectedCurrencies={filters.currencies} onSelect={currencies => setFilters({ currencies })} />
       </SidePanelBody>

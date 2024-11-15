@@ -1,6 +1,5 @@
 import {
   CircleCheck,
-  CircleDashed,
   CircleDot,
   CircleSlash,
   Clipboard,
@@ -39,7 +38,7 @@ const PullRequestBadgeMapping: Partial<singleMapping> = {
     color: "brand",
   },
   DRAFT: {
-    icon: { component: CircleDashed },
+    icon: { component: GitPullRequestArrow },
     color: "grey",
   },
   CLOSED: { icon: { component: GitPullRequestClosed }, color: "error" },

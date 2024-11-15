@@ -9,7 +9,7 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 export type PayoutStatus = GetProjectRewardsResponse["rewards"][0]["status"];
 
 export interface PayoutStatusContent {
-  type: "error" | "warning" | "success";
+  type: "error" | "warning" | "success" | "info";
   label: TranslateProps["token"];
   icon: IconPort;
 }
@@ -40,7 +40,7 @@ export const PayoutStatusMapping: Record<PayoutStatus, PayoutStatusContent> = {
   PENDING_CONTRIBUTOR: {
     icon: { component: Users },
     label: "features:payoutStatus.statuses.pendingContributor",
-    type: "warning",
+    type: "info",
   },
   PENDING_BILLING_PROFILE: {
     icon: { component: TriangleAlert },
@@ -75,17 +75,17 @@ export const PayoutStatusMapping: Record<PayoutStatus, PayoutStatusContent> = {
   LOCKED: {
     icon: { component: Lock },
     label: "features:payoutStatus.statuses.locked",
-    type: "warning",
+    type: "info",
   },
   PENDING_REQUEST: {
     icon: { component: Hourglass },
     label: "features:payoutStatus.statuses.pendingRequest",
-    type: "warning",
+    type: "info",
   },
   PROCESSING: {
     icon: { component: Hourglass },
     label: "features:payoutStatus.statuses.processing",
-    type: "warning",
+    type: "info",
   },
   COMPLETE: {
     icon: { component: Check },

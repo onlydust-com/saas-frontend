@@ -34,7 +34,6 @@ export function Contributions() {
     search: debouncedSearch,
     projectSlugs: projectSlug ? [projectSlug] : undefined,
     types: ["ISSUE", "PULL_REQUEST"],
-    showLinkedIssues: false,
     sort: "UPDATED_AT",
     sortDirection: "DESC",
     ...filters,

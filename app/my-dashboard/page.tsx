@@ -7,12 +7,14 @@ import { ActivitySection } from "@/app/my-dashboard/_sections/activity-section/a
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { RequestPaymentFlowProvider } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -30,24 +32,27 @@ function MyDashboardPage() {
         ],
       }}
     >
-      <RequestPaymentFlowProvider>
-        <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />
+      <GithubPermissionsProvider>
+        <RequestPaymentFlowProvider>
+          <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />
 
-        <AnimatedColumn className="h-full">
-          <ScrollView className="flex flex-col gap-md">
-            <PageContent classNames={{ base: "flex-none" }}>
-              <FinancialSection />
-            </PageContent>
-            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-              <ActivitySection />
-            </PageContent>
-          </ScrollView>
-        </AnimatedColumn>
+          <AnimatedColumn className="h-full">
+            <ScrollView className="flex flex-col gap-md">
+              <PageContent classNames={{ base: "flex-none" }}>
+                <FinancialSection />
+              </PageContent>
+              <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+                <ActivitySection />
+              </PageContent>
+            </ScrollView>
+          </AnimatedColumn>
 
-        <FinancialDetailSidepanel />
-        <ContributorSidepanel />
-        <ContributionsSidepanel />
-      </RequestPaymentFlowProvider>
+          <FinancialDetailSidepanel />
+          <ContributorSidepanel />
+          <ContributionsSidepanel />
+          <RewardDetailSidepanel />
+        </RequestPaymentFlowProvider>
+      </GithubPermissionsProvider>
     </PageWrapper>
   );
 }
