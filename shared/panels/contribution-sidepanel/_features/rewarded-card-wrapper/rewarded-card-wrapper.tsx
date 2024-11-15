@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 
-import { RewardedCard } from "@/shared/panels/contribution-sidepanel/_features/rewarded-card/rewarded-card";
+import { RewardedCard } from "@/shared/features/rewards/rewarded-card/rewarded-card";
 
 import { RewardedCardWrapperProps } from "./rewarded-card-wrapper.types";
 
