@@ -1,5 +1,6 @@
 {
   "title": "Reward detail",
+  "error": "An error occurred while loading the reward details.",
   "emptyState": {
     "title": "No reward details available",
     "description": "There are no reward details available."

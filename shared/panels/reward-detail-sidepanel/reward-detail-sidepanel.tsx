@@ -3,7 +3,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { RewardedCard } from "@/shared/features/rewards/rewarded-card/rewarded-card";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -40,7 +40,7 @@ export function Content() {
   if (isError || !reward) {
     return (
       <SidePanelBody>
-        <EmptyStateLite />
+        <ErrorState key={"panels:rewardDetail.error"} />
       </SidePanelBody>
     );
   }
