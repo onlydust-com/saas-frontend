@@ -23,6 +23,7 @@ export interface AccordionItemProps {
   startIcon?: IconPort;
   startContent?: ReactNode;
   endTitleContent?: ReactNode;
+  endContent?: ReactNode;
 }
 
 export interface AccordionBasePort {
