@@ -9,6 +9,7 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { ContributionsAccordion } from "@/shared/panels/reward-detail-sidepanel/_features/contributions-accordion/contributions-accordion";
+import { RewardTimeline } from "@/shared/panels/reward-detail-sidepanel/_features/reward-timeline/reward-timeline";
 import { useRewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel.hooks";
 import { RewardDetailSidepanelData } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel.types";
 
@@ -49,6 +50,7 @@ export function Content() {
       <SidePanelBody>
         <RewardedCard reward={reward.amount} processedAt={reward.processedAt} requestedAt={reward.requestedAt} />
         {reward.items?.length ? <ContributionsAccordion ids={reward.items} /> : null}
+        <RewardTimeline reward={reward} />
       </SidePanelBody>
     </>
   );

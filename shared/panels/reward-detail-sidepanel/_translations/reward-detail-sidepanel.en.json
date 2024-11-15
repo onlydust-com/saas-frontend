@@ -6,5 +6,20 @@
   },
   "contribution": {
     "title": "Contribution"
+  },
+  "timeline": {
+    "title": "Timeline",
+    "created": "Created by {{login}}",
+    "requested": "Requested payment",
+    "verificationBlock": {
+      "label": "Verification Blocked",
+      "content": "You need to verify your identity in order to receive rewards.",
+      "button": "Resume verification"
+    },
+    "paid": {
+      "label": "Paid",
+      "title": "Transaction",
+      "button": "See in detail"
+    }
   }
 }

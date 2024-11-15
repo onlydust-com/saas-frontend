@@ -27,9 +27,8 @@ export function ContributionsAccordion({ ids }: ContributionsAccordionProps) {
 
   return (
     <Accordion
-      id={"linked-issues"}
-      titleProps={{ translate: { token: "panels:contribution.linkedIssues.title" } }}
-      defaultSelected={["linked-issues"]}
+      id={"contributions"}
+      titleProps={{ translate: { token: "panels:rewardDetail.contribution.title" } }}
       badgeProps={{ children: contributions.length }}
     >
       {contributions.map(contribution => (
