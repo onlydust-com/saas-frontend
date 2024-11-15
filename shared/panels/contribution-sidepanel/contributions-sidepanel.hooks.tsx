@@ -12,6 +12,7 @@ import { GithubComment } from "@/shared/panels/contribution-sidepanel/_features/
 import { IssueAppliedKpi } from "@/shared/panels/contribution-sidepanel/_features/issue-applied-kpi/issue-applied-kpi";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
+import { Timeline } from "@/shared/panels/contribution-sidepanel/_features/timeline/timeline";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
 import { Helper } from "./_features/helper/helper";
@@ -138,6 +139,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -150,6 +152,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -163,6 +166,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
         {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }

@@ -28,6 +28,20 @@ export type GetRewardsPortParams = HttpClientParameters<{
   QueryParams: GetRewardsQueryParams;
 }>;
 
+/* ------------------------------ Get Reward by id ------------------------------ */
+
+export type GetRewardByIdResponse = components["schemas"]["RewardPageItemResponse"];
+
+export type GetRewardByIdModel = RewardListItemV2Interface;
+
+type GetRewardByIdPathParams = operations["getReward"]["parameters"]["path"];
+
+export type GetRewardByIdPortResponse = HttpStorageResponse<GetRewardByIdModel>;
+
+export type GetRewardByIdPortParams = HttpClientParameters<{
+  PathParams: GetRewardByIdPathParams;
+}>;
+
 /* ------------------------------ Get Project Rewards ------------------------------ */
 
 export type GetProjectRewardsResponse = components["schemas"]["RewardsPageResponse"];

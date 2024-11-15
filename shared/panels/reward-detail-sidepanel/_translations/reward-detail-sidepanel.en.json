@@ -3,5 +3,8 @@
   "emptyState": {
     "title": "No reward details available",
     "description": "There are no reward details available."
+  },
+  "contribution": {
+    "title": "Contribution"
   }
 }
