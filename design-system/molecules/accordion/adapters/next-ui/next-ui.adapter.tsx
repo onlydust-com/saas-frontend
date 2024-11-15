@@ -44,27 +44,30 @@ export function AccordionNextUiAdapter({
             content: cn(slots.content(), classNames?.content),
           }}
           title={
-            <div className="flex items-center gap-md">
-              {!!item.startIcon && (
-                <Icon
-                  {...item.startIcon}
-                  classNames={{
-                    ...(item.startIcon.classNames || {}),
-                    base: cn(slots.startIcon(), classNames?.startIcon, item.startIcon.classNames?.base),
-                  }}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-md">
+                {!!item.startIcon && (
+                  <Icon
+                    {...item.startIcon}
+                    classNames={{
+                      ...(item.startIcon.classNames || {}),
+                      base: cn(slots.startIcon(), classNames?.startIcon, item.startIcon.classNames?.base),
+                    }}
+                  />
+                )}
+                {!!item.startContent && item.startContent}
+
+                <Typo
+                  {...item.titleProps}
+                  size="xs"
+                  weight="medium"
+                  classNames={{ base: cn(slots.label(), classNames?.label) }}
                 />
-              )}
-              {!!item.startContent && item.startContent}
 
-              <Typo
-                {...item.titleProps}
-                size="xs"
-                weight="medium"
-                classNames={{ base: cn(slots.label(), classNames?.label) }}
-              />
-
-              {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
-              {!!item.endTitleContent && item.endTitleContent}
+                {!!item.badgeProps && <Badge size={"xxs"} color={"grey"} {...item.badgeProps} />}
+                {!!item.endTitleContent && item.endTitleContent}
+              </div>
+              {item.endContent ? item.endContent : <div />}
             </div>
           }
           indicator={

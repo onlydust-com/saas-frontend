@@ -84,7 +84,8 @@
   },
   "form": {
     "reset": "Reset",
-    "save": "Save"
+    "save": "Save",
+    "send": "Send"
   },
   "description": "Description",
   "billingProfileType": {
