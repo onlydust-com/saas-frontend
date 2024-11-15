@@ -5,6 +5,7 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { BillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
 import { GenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice";
+import { UploadInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/upload-invoice/upload-invoice";
 
 import { OpenProps, RequestPaymentFlowContextInterface, SelectedState } from "./request-payment-flow.types";
 
@@ -63,6 +64,7 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
       {children}
       <BillingProfileSelection />
       <GenerateInvoice />
+      <UploadInvoice />
     </RequestPaymentFlowContext.Provider>
   );
 }

@@ -9,6 +9,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useUploadInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/upload-invoice/upload-invoice.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -21,6 +22,7 @@ enum ActivityTabs {
 export function ActivitySection() {
   const { close } = useSidePanelsContext();
   const { open: openRequestPaymentFlow } = useRequestPaymentFlow();
+  const { open: openUploadInvoice } = useUploadInvoice();
   const [toggleActivityView, setToggleActivityView] = useState<ActivityTabs>(ActivityTabs.CONTRIBUTIONS);
 
   const renderActivityView = useMemo(() => {
@@ -82,7 +84,7 @@ export function ActivitySection() {
             isTextButton
             size={"md"}
             translate={{ token: "myDashboard:detail.requestPayment.trigger" }}
-            onClick={() => openRequestPaymentFlow({})}
+            onClick={() => openUploadInvoice({})}
             classNames={{
               base: "max-w-full overflow-hidden",
               label: "whitespace-nowrap text-ellipsis overflow-hidden",
