@@ -72,8 +72,8 @@ function Content() {
       <SidePanelBody>
         <Alert
           color="grey"
-          title={<Translate token="panels:generateInvoice.alert.title" />}
-          description={<Translate token="panels:generateInvoice.alert.description" />}
+          title={<Translate token="panels:requestPaymentFlow.generate.alert.title" />}
+          description={<Translate token="panels:requestPaymentFlow.generate.alert.description" />}
           icon={{ component: Info }}
         />
         {renderInvoicePreview}

@@ -42,7 +42,7 @@ export function RewardsTable() {
   };
 
   const {
-    data: projectRewardsData,
+    data: rewardsData,
     isLoading,
     isError,
     hasNextPage,
@@ -55,8 +55,8 @@ export function RewardsTable() {
     },
   });
 
-  const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
-  const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
+  const rewards = useMemo(() => rewardsData?.pages.flatMap(page => page.rewards) ?? [], [rewardsData]);
+  const totalItemNumber = useMemo(() => rewardsData?.pages[0].totalItemNumber, [rewardsData]);
 
   const table = useReactTable({
     data: rewards,

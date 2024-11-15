@@ -25,20 +25,20 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
-        translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        isComingSoon={!pageDataAvailable}
         linkProps={pageDataAvailable ? { href: NEXT_ROUTER.data.root } : undefined}
+        translate={{ token: "primaryNavigation:primaryMenu.data" }}
+        isDisabled={!pageDataAvailable}
       />
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: Wallet }}
-        translate={{ token: "primaryNavigation:primaryMenu.financial" }}
-        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
             : NEXT_ROUTER.financials.details.root(showSponsorList.firstSponsor ?? ""),
         }}
+        translate={{ token: "primaryNavigation:primaryMenu.financial" }}
+        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
       />
       <ItemNav
         isFolded={isFolded}

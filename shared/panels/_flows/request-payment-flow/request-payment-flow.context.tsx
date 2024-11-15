@@ -7,6 +7,8 @@ import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payme
 import { GenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice";
 import { RewardsSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection";
 
+import { AcceptInvoicingMandate } from "./_panels/accept-invoicing-mandate/accept-invoicing-mandate";
+import { InvoicingMandate } from "./_panels/invoicing-mandate/invoicing-mandate";
 import { OpenProps, RequestPaymentFlowContextInterface, SelectedState } from "./request-payment-flow.types";
 
 export const RequestPaymentFlowContext = createContext<RequestPaymentFlowContextInterface>({
@@ -64,6 +66,8 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
       {children}
       <BillingProfileSelection />
       <RewardsSelection />
+      <AcceptInvoicingMandate />
+      <InvoicingMandate />
       <GenerateInvoice />
     </RequestPaymentFlowContext.Provider>
   );

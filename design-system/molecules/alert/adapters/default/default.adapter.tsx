@@ -37,7 +37,7 @@ export function AlertDefaultAdapter({
               {title}
             </Typo>
 
-            <Typo size="sm" color="secondary">
+            <Typo size="sm" color="secondary" classNames={{ base: classNames?.description }}>
               {description}
             </Typo>
           </div>

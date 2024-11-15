@@ -49,6 +49,6 @@
     "rewardsCount": "Rewards"
   },
   "requestPayment": {
-    "trigger": "Request payment ({{count}})"
+    "trigger": "Request payment ({{ count }})"
   }
 }

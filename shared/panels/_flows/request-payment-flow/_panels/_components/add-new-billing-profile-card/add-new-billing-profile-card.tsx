@@ -15,12 +15,18 @@ export function AddNewBillingProfileCard({ onClick }: { onClick: () => void }) {
       onClick={onClick}
     >
       <div className="flex items-center gap-lg">
-        <Avatar shape="squared" size="lg" iconProps={{ component: CirclePlus }} />
+        <Avatar
+          shape="squared"
+          size="lg"
+          iconProps={{
+            component: CirclePlus,
+          }}
+        />
         <Typo
           size={"sm"}
           weight="medium"
           color={"primary"}
-          translate={{ token: "features:addNewBillingProfileCard.addNewBillingProfile" }}
+          translate={{ token: "panels:requestPaymentFlow.buttons.addNewBillingProfile" }}
         />
       </div>
       <Icon component={ChevronRight} />

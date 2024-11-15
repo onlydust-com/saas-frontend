@@ -9,6 +9,7 @@ interface Variants {
 
 interface ClassNames {
   base: string;
+  description: string;
 }
 
 export interface AlertPort extends Partial<Variants> {
