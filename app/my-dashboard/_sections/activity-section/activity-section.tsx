@@ -9,6 +9,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useAcceptInvoicingMandate } from "@/shared/panels/_flows/request-payment-flow/_panels/accept-invoicing-mandate/accept-invoicing-mandate.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -21,6 +22,8 @@ enum ActivityTabs {
 export function ActivitySection() {
   const { close } = useSidePanelsContext();
   const { open: openRequestPaymentFlow } = useRequestPaymentFlow();
+  const { open: openMandate } = useAcceptInvoicingMandate();
+
   const [toggleActivityView, setToggleActivityView] = useState<ActivityTabs>(ActivityTabs.CONTRIBUTIONS);
 
   const renderActivityView = useMemo(() => {
@@ -88,6 +91,8 @@ export function ActivitySection() {
               label: "whitespace-nowrap text-ellipsis overflow-hidden",
             }}
           />
+
+          <button onClick={() => openMandate()}>Mandate</button>
         </div>
       </div>
 
