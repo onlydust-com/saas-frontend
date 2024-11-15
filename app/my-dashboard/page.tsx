@@ -15,6 +15,8 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { FinancialSection } from "./_sections/financial-section/financial-section";
+
 function MyDashboardPage() {
   return (
     <PageWrapper
@@ -32,6 +34,9 @@ function MyDashboardPage() {
 
         <AnimatedColumn className="h-full">
           <ScrollView className="flex flex-col gap-md">
+            <PageContent classNames={{ base: "flex-none" }}>
+              <FinancialSection />
+            </PageContent>
             <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
               <ActivitySection />
             </PageContent>

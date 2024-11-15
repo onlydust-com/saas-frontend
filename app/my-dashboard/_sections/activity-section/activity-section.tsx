@@ -1,16 +1,12 @@
-import { ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { Contributions } from "@/app/my-dashboard/_features/contributions/contributions";
 import { RewardsTable } from "@/app/my-dashboard/_features/rewards-table/rewards-table";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
-import { useAcceptInvoicingMandate } from "@/shared/panels/_flows/request-payment-flow/_panels/accept-invoicing-mandate/accept-invoicing-mandate.hooks";
-import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum ActivityTabs {
@@ -21,8 +17,6 @@ enum ActivityTabs {
 
 export function ActivitySection() {
   const { close } = useSidePanelsContext();
-  const { open: openRequestPaymentFlow } = useRequestPaymentFlow();
-  const { open: openMandate } = useAcceptInvoicingMandate();
 
   const [toggleActivityView, setToggleActivityView] = useState<ActivityTabs>(ActivityTabs.CONTRIBUTIONS);
 
@@ -78,21 +72,6 @@ export function ActivitySection() {
             ]}
             selectedId={toggleActivityView}
           />
-          {/*TODO move this button to the right bloc and add rewards count*/}
-          <Button
-            variant={"primary"}
-            endIcon={{ component: ChevronRight }}
-            isTextButton
-            size={"md"}
-            translate={{ token: "myDashboard:detail.requestPayment.trigger" }}
-            onClick={() => openRequestPaymentFlow({})}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-          />
-
-          <button onClick={() => openMandate()}>Mandate</button>
         </div>
       </div>
 

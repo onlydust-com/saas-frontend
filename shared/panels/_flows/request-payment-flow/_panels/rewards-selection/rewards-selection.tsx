@@ -13,8 +13,14 @@ import { RewardsCardsSelection } from "@/shared/panels/_flows/request-payment-fl
 import { useRewardsSelectionPanel } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 
+import { useAcceptInvoicingMandate } from "../accept-invoicing-mandate/accept-invoicing-mandate.hooks";
+import { useGenerateInvoice } from "../generate-invoice/generate-invoice.hooks";
+
 export function Content() {
   const { billingProfileId = "", rewardIds } = useRequestPaymentFlow();
+
+  const { open: openAcceptMandate } = useAcceptInvoicingMandate();
+  const { open: openGenerateInvoice } = useGenerateInvoice();
 
   const {
     data: billingProfile,
@@ -67,10 +73,10 @@ export function Content() {
   const canSubmit = !!billingProfileId && rewardIds.length;
 
   function onSubmit() {
-    if (billingProfile?.invoiceMandateAccepted) {
-      // TODO redirect to invoice generation
+    if (billingProfile?.invoiceMandateAccepted || billingProfile?.type === "INDIVIDUAL") {
+      openGenerateInvoice();
     } else {
-      // TODO redirect to mandate
+      openAcceptMandate();
     }
   }
 
@@ -135,7 +141,7 @@ export function RewardsSelection() {
       <SidePanelHeader
         title={{
           translate: {
-            token: "panels:requestPaymentFlow.titles.rewardsSelection",
+            token: "panels:requestPaymentFlow.title",
           },
         }}
         canClose

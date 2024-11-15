@@ -22,12 +22,12 @@ function CustomRadioComponent({ type, children }: { type: UploadSelection } & Pr
       isRecommended: boolean;
     };
   } = {
-    AUTOMATIC: {
+    GENERATE: {
       title: {
-        token: "panels:requestPaymentFlow.choices.automatic.title",
+        token: "panels:requestPaymentFlow.choices.generate.title",
       },
       description: {
-        token: "panels:requestPaymentFlow.choices.automatic.description",
+        token: "panels:requestPaymentFlow.choices.generate.description",
       },
       iconProps: {
         component: MonitorCheck,
@@ -93,7 +93,7 @@ export function InvoiceUploadSelection({ value, onChange }: InvoiceUploadSelecti
       value={value}
       onChange={onChange}
       items={[
-        { value: "AUTOMATIC", componentProps: { type: "AUTOMATIC" } },
+        { value: "GENERATE", componentProps: { type: "GENERATE" } },
         { value: "MANUAL", componentProps: { type: "MANUAL" } },
       ]}
       classNames={{

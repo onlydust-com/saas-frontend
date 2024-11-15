@@ -13,8 +13,12 @@ import { BillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 
+import { useRewardsSelectionPanel } from "../rewards-selection/rewards-selection.hooks";
+
 function Content() {
   const { selectBillingProfile } = useRequestPaymentFlow();
+
+  const { open: openRewardsSelection } = useRewardsSelectionPanel();
 
   const { data, isLoading } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
 
@@ -22,7 +26,7 @@ function Content() {
 
   function handleClick(billingProfileId: string) {
     selectBillingProfile(billingProfileId);
-    // TODO open reward sidePanel
+    openRewardsSelection();
   }
 
   function handleAddNewBillingProfile() {
