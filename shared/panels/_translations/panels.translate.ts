@@ -1,3 +1,4 @@
+import enUploadInvoice from "@/shared/panels/_flows/request-payment-flow/_panels/upload-invoice/_translations/upload-invoice.en.json";
 import enRequestPaymentFlow from "@/shared/panels/_flows/request-payment-flow/_translations/request-payment-flow.en.json";
 import enBulkContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/_translations/bulk-contribution-selection.en.json";
 import enBulkContributionValidation from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-validation/_translations/bulk-contribution-validation.en.json";
@@ -45,5 +46,6 @@ export const enPanelsTranslation = {
     singleContributionValidation: enSingleContributionValidation,
     rewardFlow: enRewardFlow,
     requestPaymentFlow: enRequestPaymentFlow,
+    uploadInvoice: enUploadInvoice,
   },
 };
