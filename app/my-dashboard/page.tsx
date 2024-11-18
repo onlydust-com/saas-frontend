@@ -13,6 +13,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { RequestPaymentFlowProvider } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -46,6 +47,7 @@ function MyDashboardPage() {
             </ScrollView>
           </AnimatedColumn>
 
+          <FinancialDetailSidepanel />
           <ContributorSidepanel />
           <ContributionsSidepanel />
           <RewardDetailSidepanel />

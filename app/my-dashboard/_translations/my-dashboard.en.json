@@ -2,6 +2,18 @@
   "header": {
     "title": "My Dashboard"
   },
+  "financial": {
+    "title": "Financial",
+    "buttons": {
+      "budgetAvailable": "Budget available",
+      "rewardChart": "Reward chart",
+      "requestPayment": "Request payment ({{ count }})",
+      "seeTransactions": "See transactions"
+    },
+    "tooltip": {
+      "disabledRequestPayment": "No rewards available"
+    }
+  },
   "activity": {
     "title": "Activity",
     "buttons": {
@@ -47,8 +59,5 @@
       "cancelReward": "Cancel"
     },
     "rewardsCount": "Rewards"
-  },
-  "requestPayment": {
-    "trigger": "Request payment ({{ count }})"
   }
 }

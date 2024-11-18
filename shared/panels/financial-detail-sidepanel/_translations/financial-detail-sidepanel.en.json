@@ -12,6 +12,15 @@
   "totalRewarded": {
     "title": "Rewarded"
   },
+  "rewardedAmount": {
+    "title": "Rewarded amount"
+  },
+  "rewardPendingAmount": {
+    "title": "Pending amount"
+  },
+  "rewardPaid": {
+    "title": "Paid"
+  },
   "emptyState": {
     "title": "No financial details available",
     "description": "There are no financial details available."
