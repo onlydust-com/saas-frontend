@@ -165,7 +165,10 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
       <>
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
-        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.mergedBy" }}} user={} />*/}
+        <UserCard
+          title={{ translate: { token: "panels:contribution.userCard.mergedBy" } }}
+          user={contribution.mergedBy}
+        />
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
       </>
