@@ -12,6 +12,7 @@ import { GithubComment } from "@/shared/panels/contribution-sidepanel/_features/
 import { IssueAppliedKpi } from "@/shared/panels/contribution-sidepanel/_features/issue-applied-kpi/issue-applied-kpi";
 import { IssueOverview } from "@/shared/panels/contribution-sidepanel/_features/issue-overview/issue-overview";
 import { LinkedIssues } from "@/shared/panels/contribution-sidepanel/_features/linked-issues/linked-issues";
+import { UserCard } from "@/shared/panels/contribution-sidepanel/_features/user-card/user-card";
 import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.types";
 
 import { Helper } from "./_features/helper/helper";
@@ -131,11 +132,15 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
 
   // Assigned issue
   if (contribution.isInProgress()) {
+    const assignedBy = contribution.contributors.find(
+      contributor => contributor.githubUserId === githubUserId
+    )?.assignedBy;
+
     return (
       <>
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
-        {/*<UserCard title={{ translate: {token: "panels:contribution.userCard.assignedBy" }}} user={} />*/}
+        <UserCard title={{ translate: { token: "panels:contribution.userCard.assignedBy" } }} user={assignedBy} />
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
       </>
