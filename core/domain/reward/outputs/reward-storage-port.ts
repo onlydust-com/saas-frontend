@@ -15,6 +15,8 @@ import {
   GetProjectRewardPortResponse,
   GetProjectRewardsPortParams,
   GetProjectRewardsPortResponse,
+  GetRewardByIdPortParams,
+  GetRewardByIdPortResponse,
   GetRewardsPortParams,
   GetRewardsPortResponse,
 } from "@/core/domain/reward/reward-contract.types";
@@ -22,6 +24,7 @@ import {
 export interface RewardStoragePort {
   routes: Record<string, string>;
   getRewards(p: GetRewardsPortParams): GetRewardsPortResponse;
+  getRewardById(p: GetRewardByIdPortParams): GetRewardByIdPortResponse;
   getProjectRewards(p: GetProjectRewardsPortParams): GetProjectRewardsPortResponse;
   getProjectReward(p: GetProjectRewardPortParams): GetProjectRewardPortResponse;
   getProjectRewardItems(p: GetProjectRewardItemsPortParams): GetProjectRewardItemsPortResponse;

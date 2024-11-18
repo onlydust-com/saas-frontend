@@ -92,7 +92,9 @@ export function useFilterColumns() {
       cell: info => {
         const project = info.getValue();
 
-        return <CellProjects projects={project ? [project] : []} singleProps={{ shape: "squared" }} />;
+        return (
+          <CellProjects projects={project ? [project] : []} singleProps={{ shape: "squared", withPopover: false }} />
+        );
       },
     }),
     from: columnHelper.accessor("from", {
@@ -101,7 +103,12 @@ export function useFilterColumns() {
       cell: info => {
         const from = info.getValue();
 
-        return <CellAvatar avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []} />;
+        return (
+          <CellAvatar
+            avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []}
+            singleProps={{ withPopover: false }}
+          />
+        );
       },
     }),
     contributions: columnHelper.accessor("items", {

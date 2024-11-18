@@ -6,17 +6,17 @@ import {
 } from "@/core/application/react-query-adapter/helpers/use-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
 import { RewardFacadePort } from "@/core/domain/reward/input/reward-facade-port";
-import { RewardInterface } from "@/core/domain/reward/models/reward-model";
+import { RewardListItemV2Interface } from "@/core/domain/reward/models/reward-list-item-v2-model";
 
-export function useGetProjectReward({
+export function useGetRewardId({
   options,
   pathParams,
-}: UseQueryFacadeParams<RewardFacadePort["getProjectReward"], RewardInterface>) {
+}: UseQueryFacadeParams<RewardFacadePort["getRewardById"], RewardListItemV2Interface>) {
   const rewardStoragePort = bootstrap.getRewardStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...rewardStoragePort.getProjectReward({ pathParams }),
+      ...rewardStoragePort.getRewardById({ pathParams }),
       options,
     })
   );

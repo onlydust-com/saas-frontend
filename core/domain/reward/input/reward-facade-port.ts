@@ -15,12 +15,15 @@ import {
   GetProjectRewardPortResponse,
   GetProjectRewardsPortParams,
   GetProjectRewardsPortResponse,
+  GetRewardByIdPortParams,
+  GetRewardByIdPortResponse,
   GetRewardsPortParams,
   GetRewardsPortResponse,
 } from "@/core/domain/reward/reward-contract.types";
 
 export interface RewardFacadePort {
   getRewards(p: GetRewardsPortParams): GetRewardsPortResponse;
+  getRewardById(p: GetRewardByIdPortParams): GetRewardByIdPortResponse;
   getProjectRewards(p: GetProjectRewardsPortParams): GetProjectRewardsPortResponse;
   getProjectReward(p: GetProjectRewardPortParams): GetProjectRewardPortResponse;
   getProjectRewardItems(p: GetProjectRewardItemsPortParams): GetProjectRewardItemsPortResponse;

@@ -2,7 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
-import { GetProjectRewardsPortParams, GetRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
+import { GetRewardsPortParams, GetRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -15,22 +15,20 @@ import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useRewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel.hooks";
 
 import { FilterColumns } from "./_components/filter-columns/filter-columns";
 import { useFilterColumns } from "./_components/filter-columns/filter-columns.hooks";
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useProjectRewardsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 
-export type RewardsTableFilters = Omit<
-  NonNullable<GetProjectRewardsPortParams["queryParams"]>,
-  "pageSize" | "pageIndex"
->;
+export type RewardsTableFilters = Omit<NonNullable<GetRewardsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
 export function RewardsTable() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useProjectRewardsFilterDataSidePanel();
-  // const { open } = useRewardDetailSidepanel();
+  const { open } = useRewardDetailSidepanel();
   const [filters, setFilters] = useState<RewardsTableFilters>({});
   const { githubUserId } = useAuthUser();
 
@@ -44,7 +42,7 @@ export function RewardsTable() {
   };
 
   const {
-    data: projectRewardsData,
+    data: rewardsData,
     isLoading,
     isError,
     hasNextPage,
@@ -57,8 +55,8 @@ export function RewardsTable() {
     },
   });
 
-  const rewards = useMemo(() => projectRewardsData?.pages.flatMap(page => page.rewards) ?? [], [projectRewardsData]);
-  const totalItemNumber = useMemo(() => projectRewardsData?.pages[0].totalItemNumber, [projectRewardsData]);
+  const rewards = useMemo(() => rewardsData?.pages.flatMap(page => page.rewards) ?? [], [rewardsData]);
+  const totalItemNumber = useMemo(() => rewardsData?.pages[0].totalItemNumber, [rewardsData]);
 
   const table = useReactTable({
     data: rewards,
@@ -97,10 +95,9 @@ export function RewardsTable() {
               headerGroups: table.getHeaderGroups(),
             }}
             rows={table.getRowModel().rows}
-            // TODO @Mehdi enable reward detail sidepanel once feature ready
-            // onRowClick={row => {
-            //   open({ rewardId: row.original.id, projectId: projectData?.id ?? "" });
-            // }}
+            onRowClick={row => {
+              open({ rewardId: row.original.id });
+            }}
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
