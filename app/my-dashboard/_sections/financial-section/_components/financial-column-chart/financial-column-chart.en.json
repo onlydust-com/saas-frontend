@@ -1,1 +1,10 @@
-{}
+{
+  "legends": {
+    "rewarded": "Rewarded",
+    "paid": "Paid"
+  },
+  "emptyState": {
+    "title": "No data available",
+    "description": "There is no data available for the selected period."
+  }
+}
