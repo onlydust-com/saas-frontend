@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
@@ -23,6 +25,41 @@ export function BudgetAvailableCards() {
     },
   });
 
+  const [firstStat] = data?.stats ?? [];
+
+  const fallback = {
+    totalUsdEquivalent: 0,
+    totalPerCurrency: [],
+  };
+
+  const rewardPendingAmount = useMemo(() => {
+    if (firstStat) {
+      return {
+        totalUsdEquivalent: firstStat.totalRewarded.totalUsdEquivalent - firstStat.totalPaid.totalUsdEquivalent,
+        totalPerCurrency: firstStat.totalRewarded.totalPerCurrency
+          ?.map(rewarded => {
+            const paid = firstStat.totalPaid.totalPerCurrency?.find(p => p.currency.id === rewarded.currency.id) || {
+              usdEquivalent: 0,
+            };
+
+            const pendingUsdEquivalent = (rewarded.usdEquivalent || 0) - (paid.usdEquivalent || 0);
+
+            if (pendingUsdEquivalent !== 0) {
+              return {
+                ...rewarded,
+                usdEquivalent: pendingUsdEquivalent,
+              };
+            }
+
+            return null;
+          })
+          .filter(item => item !== null),
+      };
+    }
+
+    return fallback;
+  }, [firstStat]);
+
   if (isLoading) {
     return (
       <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
@@ -36,28 +73,6 @@ export function BudgetAvailableCards() {
   if (!data) {
     return null;
   }
-
-  const rewardPendingAmount = {
-    totalUsdEquivalent: data.stats[0].totalRewarded.totalUsdEquivalent - data.stats[0].totalPaid.totalUsdEquivalent,
-    totalPerCurrency: data.stats[0].totalRewarded.totalPerCurrency
-      ?.map(rewarded => {
-        const paid = data.stats[0].totalPaid.totalPerCurrency?.find(p => p.currency.id === rewarded.currency.id) || {
-          usdEquivalent: 0,
-        };
-
-        const pendingUsdEquivalent = (rewarded.usdEquivalent || 0) - (paid.usdEquivalent || 0);
-
-        if (pendingUsdEquivalent !== 0) {
-          return {
-            ...rewarded,
-            usdEquivalent: pendingUsdEquivalent,
-          };
-        }
-
-        return null;
-      })
-      .filter(item => item !== null),
-  };
 
   function openPanel(
     panelType: PanelContributorType,
@@ -75,9 +90,9 @@ export function BudgetAvailableCards() {
     <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
       <FinancialCardItem
         title="myDashboard:budgetAvailable.rewarded.title"
-        total={data.stats[0].totalRewarded}
+        total={firstStat?.totalRewarded ?? fallback}
         color="gradient"
-        onClick={() => openPanel("rewardedAmount", data.stats[0].totalRewarded)}
+        onClick={() => openPanel("rewardedAmount", firstStat?.totalRewarded)}
       />
 
       <FinancialCardItem
@@ -89,9 +104,9 @@ export function BudgetAvailableCards() {
 
       <FinancialCardItem
         title="myDashboard:budgetAvailable.paid.title"
-        total={data.stats[0].totalPaid}
+        total={firstStat?.totalPaid ?? fallback}
         color="grey"
-        onClick={() => openPanel("rewardPaid", data.stats[0].totalPaid)}
+        onClick={() => openPanel("rewardPaid", firstStat?.totalPaid)}
       />
     </div>
   );
