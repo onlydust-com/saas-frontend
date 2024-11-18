@@ -46,7 +46,7 @@ export function useInvoiceUpload({ billingProfileId, invoiceId }: UseInvoiceUplo
     }
     if (fileBlob) {
       uploadInvoice(fileBlob);
-      capture("invoice_submitted", { type: isManualUpload ? "manuel" : "auto-generated" });
+      capture("invoice_submitted", { type: isManualUpload ? "manual" : "auto-generated" });
     } else {
       toast.error(<Translate token="features:invoices.invoiceSubmission.toaster.emptyFile" />);
     }
