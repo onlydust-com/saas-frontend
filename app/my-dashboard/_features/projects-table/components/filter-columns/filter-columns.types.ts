@@ -10,4 +10,5 @@ export type TableColumns =
   | "contributionCount"
   | "rewardedUsdAmount"
   | "languages"
+  | "repos"
   | "actions";
