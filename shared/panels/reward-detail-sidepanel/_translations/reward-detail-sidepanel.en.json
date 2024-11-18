@@ -1,5 +1,6 @@
 {
   "title": "Reward detail",
+  "download": "Invoice",
   "emptyState": {
     "title": "No reward details available",
     "description": "There are no reward details available."
