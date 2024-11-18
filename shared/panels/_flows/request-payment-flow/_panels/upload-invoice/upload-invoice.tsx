@@ -1,10 +1,12 @@
-import { Info } from "lucide-react";
+import { Download, Info } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Spinner } from "@/design-system/atoms/spinner";
 import { Typo } from "@/design-system/atoms/typo";
 import { Alert } from "@/design-system/molecules/alert";
 
@@ -45,16 +47,53 @@ function Content() {
     setSelectedFileBlob(undefined);
   }
 
-  const requirementList = useMemo(
+  const renderGuidelineAll = useMemo(
     () => (
-      <Typo size="xs" color="secondary">
-        <ul>
-          {Array.from({ length: 5 }, (_, index) => {
-            const token = `panels:uploadInvoice.summary.rule_${index + 1}`;
-            return <li key={token}>{t(token)}</li>;
-          })}
-        </ul>
-      </Typo>
+      <>
+        <Typo size="xs" color="secondary" translate={{ token: "panels:uploadInvoice.guidelineAll.subtitle" }} />
+        <Typo size="xs" color="secondary">
+          <ul>
+            {Array.from({ length: 3 }, (_, index) => {
+              const token = `panels:uploadInvoice.guidelineAll.rule_${index + 1}`;
+              return <li key={token}>{t(token)}</li>;
+            })}
+          </ul>
+        </Typo>
+      </>
+    ),
+    []
+  );
+
+  const renderGuidelineSender = useMemo(
+    () => (
+      <>
+        <Typo size="xs" color="secondary" translate={{ token: "panels:uploadInvoice.guidelineSender.subtitle" }} />
+        <Typo size="xs" color="secondary">
+          <ul>
+            {Array.from({ length: 2 }, (_, index) => {
+              const token = `panels:uploadInvoice.guidelineSender.rule_${index + 1}`;
+              return <li key={token}>{t(token)}</li>;
+            })}
+          </ul>
+        </Typo>
+      </>
+    ),
+    []
+  );
+
+  const renderGuidelineRecipient = useMemo(
+    () => (
+      <>
+        <Typo size="xs" color="secondary" translate={{ token: "panels:uploadInvoice.guidelineRecipient.subtitle" }} />
+        <Typo size="xs" color="secondary">
+          <ul>
+            {Array.from({ length: 2 }, (_, index) => {
+              const token = `panels:uploadInvoice.guidelineRecipient.rule_${index + 1}`;
+              return <li key={token}>{t(token)}</li>;
+            })}
+          </ul>
+        </Typo>
+      </>
     ),
     []
   );
@@ -107,37 +146,54 @@ function Content() {
           description={<Translate token="panels:uploadInvoice.alert.description" />}
           icon={{ component: Info }}
         />
-        <Paper background={"primary-alt"} border={"primary"} classNames={{ base: "prose leading-normal" }}>
-          <Typo size="sm" weight="medium" translate={{ token: "panels:uploadInvoice.guidelinesTitle" }} />
-          {requirementList}
+        <Paper
+          background={"primary-alt"}
+          border={"primary"}
+          classNames={{ base: "prose leading-normal flex flex-col gap-lg" }}
+        >
+          <Typo as={"div"} size="sm" weight="medium" translate={{ token: "panels:uploadInvoice.guidelinesTitle" }} />
+          <div>
+            {renderGuidelineAll}
+            {renderGuidelineSender}
+            {renderGuidelineRecipient}
+          </div>
+          <Typo size="xs" color="secondary" translate={{ token: "panels:uploadInvoice.sample_to_download" }} />
         </Paper>
-        <Typo color="primary" translate={{ token: "panels:uploadInvoice.uploadInvoiceTitle" }} />
         {renderUploadFile()}
       </SidePanelBody>
       <SidePanelFooter>
-        {renderUploadSample}
-        {selectedFileBlob ? (
-          <Alert
-            color="grey"
-            title={<Translate token="panels:uploadInvoice.submission.alert.title" />}
-            description={<Translate token="panels:uploadInvoice.submission.alert.description" />}
-            icon={{ component: Info }}
+        <div className="flex w-full items-center justify-between">
+          {selectedFileBlob ? (
+            <Alert
+              color="grey"
+              title={<Translate token="panels:uploadInvoice.submission.alert.title" />}
+              description={<Translate token="panels:uploadInvoice.submission.alert.description" />}
+              icon={{ component: Info }}
+            />
+          ) : null}
+          <a
+            className="flex cursor-pointer items-center gap-md rounded-md border border-border-primary px-lg py-md effect-box-shadow-xs"
+            href={fileUrl}
+            download="invoice-sample.pdf"
+          >
+            {isLoadingInvoicePreview ? <Spinner /> : <Icon component={Download} size="sm" />}
+            <Typo size="sm" color="secondary" translate={{ token: "panels:uploadInvoice.sample_link_label" }} />
+          </a>
+          <Button
+            variant={"secondary"}
+            size={"md"}
+            onClick={() =>
+              handleSendInvoice({
+                fileBlob: selectedFileBlob as Blob,
+                isManualUpload: true,
+                fileName: selectedFileBlob?.name,
+              })
+            }
+            isDisabled={!selectedFileBlob}
+            isLoading={isPendingUploadInvoice}
+            translate={{ token: "common:form.send" }}
           />
-        ) : null}
-        <Button
-          variant={"secondary"}
-          size={"md"}
-          onClick={() =>
-            handleSendInvoice({
-              fileBlob: selectedFileBlob as Blob,
-              isManualUpload: true,
-              fileName: selectedFileBlob?.name,
-            })
-          }
-          isDisabled={!selectedFileBlob}
-          isLoading={isPendingUploadInvoice}
-          translate={{ token: "common:form.send" }}
-        />
+        </div>
       </SidePanelFooter>
     </>
   );

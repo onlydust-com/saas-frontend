@@ -23,13 +23,14 @@ export function UploadFile({ setSelectedFile }: UploadFileProps) {
   }
 
   return (
-    <Paper classNames={{ base: "relative z-[0] flex flex-col items-center gap-4 border-dashed !py-10" }}>
+    <Paper
+      classNames={{
+        base: "relative z-[0] flex flex-col items-center gap-lg border-border-primary border border-dashed !py-10",
+      }}
+    >
       <Icon component={CloudUpload} />
       <div className="flex flex-col gap-1 text-center">
-        <div>
-          <Typo color="brand-primary" translate={{ token: "panels:uploadInvoice.clickToUpload" }} />{" "}
-          <Typo color="primary" translate={{ token: "panels:uploadInvoice.dragAndDrop" }} />
-        </div>
+        <Typo color="brand-secondary-alt" translate={{ token: "panels:uploadInvoice.clickToUpload" }} />
         <Typo size="sm" color="secondary" translate={{ token: "panels:uploadInvoice.fileType" }} />
       </div>
       <input
