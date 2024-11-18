@@ -50,7 +50,6 @@
       "project": "Project",
       "from": "From",
       "contributions": "Contributions",
-
       "amount": "Amount",
       "status": "Status",
       "actions": "Actions"
@@ -59,5 +58,20 @@
       "cancelReward": "Cancel"
     },
     "rewardsCount": "Rewards"
+  },
+  "projectsTable": {
+    "filters": {
+      "columnList": "Projects columns"
+    },
+    "columns": {
+      "projectName": "Project name",
+      "projectLeads": "Project leads",
+      "contributors": "Contributors",
+      "contributions": "Contributions",
+      "rewardedUsdAmount": "Rewarded",
+      "languages": "Languages",
+      "actions": "Actions"
+    },
+    "seeProject": "See project"
   }
 }
