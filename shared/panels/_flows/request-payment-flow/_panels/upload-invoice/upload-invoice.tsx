@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Spinner } from "@/design-system/atoms/spinner";
 import { Typo } from "@/design-system/atoms/typo";
 import { Alert } from "@/design-system/molecules/alert";
@@ -29,7 +28,6 @@ function Content() {
 
   const {
     isLoading: isLoadingInvoicePreview,
-    isError,
     fileUrl,
     invoiceId,
   } = useInvoicePreview({
@@ -98,27 +96,6 @@ function Content() {
     []
   );
 
-  const renderUploadSample = useMemo(() => {
-    if (isLoadingInvoicePreview) {
-      return (
-        <div className="flex flex-col gap-2">
-          <Skeleton classNames={{ base: "h-2" }} />
-        </div>
-      );
-    }
-    if (!isError && !isLoadingInvoicePreview) {
-      return (
-        <>
-          <Typo weight="medium" translate={{ token: "panels:uploadInvoice.sample_to_download" }} />
-          <a className="text-snow hover:text-text-2 active:text-text-2" href={fileUrl} download="invoice-sample.pdf">
-            <Typo weight="medium" translate={{ token: "panels:uploadInvoice.sample_link_label" }} />
-          </a>
-        </>
-      );
-    }
-    return null;
-  }, [fileUrl, isError, isLoadingInvoicePreview]);
-
   function renderUploadFile() {
     if (selectedFileBlob) {
       return <UploadedFileDisplay fileName={selectedFileBlob.name} onRemoveFile={removeFile} />;
@@ -163,22 +140,19 @@ function Content() {
       </SidePanelBody>
       <SidePanelFooter>
         <div className="flex w-full items-center justify-between">
-          {selectedFileBlob ? (
-            <Alert
-              color="grey"
-              title={<Translate token="panels:uploadInvoice.submission.alert.title" />}
-              description={<Translate token="panels:uploadInvoice.submission.alert.description" />}
-              icon={{ component: Info }}
-            />
-          ) : null}
-          <a
-            className="flex cursor-pointer items-center gap-md rounded-md border border-border-primary px-lg py-md effect-box-shadow-xs"
-            href={fileUrl}
-            download="invoice-sample.pdf"
-          >
-            {isLoadingInvoicePreview ? <Spinner /> : <Icon component={Download} size="sm" />}
-            <Typo size="sm" color="secondary" translate={{ token: "panels:uploadInvoice.sample_link_label" }} />
-          </a>
+          {isLoadingInvoicePreview ? <Spinner /> : null}
+          {fileUrl ? (
+            <a
+              className="flex cursor-pointer items-center gap-md rounded-md border border-border-primary px-lg py-md effect-box-shadow-xs"
+              href={fileUrl}
+              download="invoice-sample.pdf"
+            >
+              <Icon component={Download} size="sm" />
+              <Typo size="sm" color="secondary" translate={{ token: "panels:uploadInvoice.sample_link_label" }} />
+            </a>
+          ) : (
+            <div />
+          )}
           <Button
             variant={"secondary"}
             size={"md"}
