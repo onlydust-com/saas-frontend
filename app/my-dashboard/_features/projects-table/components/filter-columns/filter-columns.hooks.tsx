@@ -9,6 +9,8 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { ReposPopover } from "@/shared/features/repos/repos-popover/repos-popover";
+import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -101,6 +103,21 @@ export function useFilterColumns() {
         const languages = info.getValue() ?? [];
 
         return <CellLanguages languages={languages} />;
+      },
+    }),
+    repos: columnHelper.accessor("repos", {
+      enableSorting: false,
+      size: TABLE_CELL_SIZE.LG,
+      minSize: TABLE_CELL_SIZE.LG,
+      header: () => <Translate token={"myDashboard:detail.projectsTable.columns.repositories"} />,
+      cell: info => {
+        const repos = info.getValue() ?? [];
+
+        if (repos.length === 0) {
+          return <CellEmpty />;
+        }
+
+        return <ReposPopover repos={repos} />;
       },
     }),
     actions: columnHelper.display({

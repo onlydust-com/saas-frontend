@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, GithubIcon } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -14,6 +14,16 @@ export function ReposPopover({ repos }: ReposPopoverProps) {
 
   const repoCount = repos.length;
 
+  if (repoCount === 1) {
+    const [repo] = repos;
+
+    return (
+      <Button as={"div"} variant={"secondary"} size={"sm"} startIcon={{ component: GithubIcon }} canInteract={false}>
+        {repo.owner}/{repo.name}
+      </Button>
+    );
+  }
+
   return (
     <Popover controlled={{ isOpen: isPopoverOpen, setIsOpen: setIsPopoverOpen }}>
       <Popover.Trigger>
@@ -22,12 +32,9 @@ export function ReposPopover({ repos }: ReposPopoverProps) {
             <Button
               as={"div"}
               variant={"secondary"}
-              size={"md"}
+              size={"sm"}
+              startIcon={{ component: GithubIcon }}
               endIcon={{ component: ChevronDown }}
-              classNames={{
-                base: "max-w-xs overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
               translate={{
                 token: "common:reposCount",
                 count: repoCount,
