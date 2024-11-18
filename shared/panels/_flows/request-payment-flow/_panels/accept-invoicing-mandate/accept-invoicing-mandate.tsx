@@ -11,6 +11,8 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { cn } from "@/shared/helpers/cn";
+import { useGenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice.hooks";
+import { useUploadInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/upload-invoice/upload-invoice.hooks";
 import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -27,6 +29,8 @@ function Content() {
 
   const { billingProfileId } = useRequestPaymentFlow();
   const { open: openInvoicingMandate } = useInvoicingMandate();
+  const { open: openGenerateInvoice } = useGenerateInvoice();
+  const { open: openUploadInvoice } = useUploadInvoice();
 
   const { mutate, isPending } = BillingProfileReactQueryAdapter.client.useAcceptOrDeclineBillingProfileMandateById({
     pathParams: {
@@ -47,9 +51,9 @@ function Content() {
       mutate({
         hasAcceptedInvoiceMandate: mandateAccepted,
       });
-      // TODO: Redirect to the generate step
+      openGenerateInvoice();
     } else {
-      // TODO: Redirect to the manual step
+      openUploadInvoice();
     }
   }
 

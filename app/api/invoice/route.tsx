@@ -37,7 +37,6 @@ export async function GET(request: NextRequest) {
   const rewardIds = searchParams.get("rewardIds") ?? "";
   let invoicePreviewData;
   try {
-    console.log("----> invoicePreviewData");
     invoicePreviewData = await fetchInvoicePreviewData({ token, rewardIds, billingProfileId, impersonationHeaders });
   } catch (e) {
     return new NextResponse("Failed Dependency : Invoice Preview ", { status: 424 });
