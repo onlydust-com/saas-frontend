@@ -14,7 +14,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useInvoiceUpload({ billingProfileId, invoiceId }: UseInvoiceUploadProps) {
   const { capture } = usePosthog();
-  const { open: openGenerateInvoice } = useGenerateInvoice();
+  const { close: closeGenerateInvoice } = useGenerateInvoice();
 
   const [queryParams, setQueryParams] = useState({});
 
@@ -28,8 +28,7 @@ export function useInvoiceUpload({ billingProfileId, invoiceId }: UseInvoiceUplo
       options: {
         onSuccess: () => {
           toast.success(<Translate token={"features:invoices.invoiceSubmission.toaster.success"} />);
-
-          openGenerateInvoice(false);
+          closeGenerateInvoice();
           // TODO handle close manual upload panel
         },
         onError: () => {

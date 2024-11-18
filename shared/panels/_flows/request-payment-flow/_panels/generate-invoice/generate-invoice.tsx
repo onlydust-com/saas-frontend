@@ -2,10 +2,12 @@ import { Info } from "lucide-react";
 import { useMemo } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Alert } from "@/design-system/molecules/alert";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { useInvoicePreview } from "@/shared/features/invoice/hooks/use-invoice-preview/use-invoice-preview";
 import { useInvoiceUpload } from "@/shared/features/invoice/hooks/use-invoice-upload/use-invoice-upload";
 import InvoiceViewer from "@/shared/features/invoice/viewer/invoice-viewer";
@@ -52,7 +54,15 @@ function Content() {
       return <ErrorState />;
     }
     if (fileUrl) {
-      return <InvoiceViewer fileUrl={fileUrl} />;
+      return (
+        <Paper border={"primary"} classNames={{ base: "overflow-hidden" }}>
+          <ScrollView>
+            <div className="flex flex-col gap-lg">
+              <InvoiceViewer fileUrl={fileUrl} />
+            </div>
+          </ScrollView>
+        </Paper>
+      );
     }
     return null;
   }, [isLoadingInvoicePreview, isError, fileUrl]);
