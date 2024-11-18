@@ -11,4 +11,5 @@ export type TableColumns =
   | "rewardedUsdAmount"
   | "languages"
   | "repos"
+  | "issues"
   | "actions";

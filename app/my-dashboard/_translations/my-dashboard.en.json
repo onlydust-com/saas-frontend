@@ -71,8 +71,10 @@
       "rewardedUsdAmount": "Rewarded",
       "languages": "Languages",
       "repositories": "Repositories",
-      "actions": "Actions"
+      "actions": "Actions",
+      "issues": "Issues availables"
     },
-    "seeProject": "See project"
+    "seeProject": "See project",
+    "gfi": "{{count}} GFI"
   }
 }
