@@ -17,9 +17,9 @@ export type GetRewardsModel = Omit<GetRewardsResponse, "rewards"> & {
   rewards: RewardListItemV2Interface[];
 };
 
-type GetRewardsPathParams = operations["getRewards"]["parameters"]["path"];
+type GetRewardsPathParams = operations["getRewards_1"]["parameters"]["path"];
 
-export type GetRewardsQueryParams = operations["getRewards"]["parameters"]["query"]["queryParams"];
+export type GetRewardsQueryParams = operations["getRewards_1"]["parameters"]["query"]["queryParams"];
 
 export type GetRewardsPortResponse = HttpStorageResponse<GetRewardsModel>;
 
