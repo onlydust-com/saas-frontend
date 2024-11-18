@@ -4,9 +4,6 @@
   "information": {
     "title": "Information"
   },
-  "description": {
-    "title": "Description"
-  },
   "languages": {
     "title": "Languages"
   },
@@ -14,7 +11,6 @@
     "title": "Categories"
   },
   "kpi": {
-    "title": "KPI",
     "activeDev": {
       "title": "Devs Active"
     },

@@ -4,5 +4,5 @@ import { TypoPort } from "@/design-system/atoms/typo";
 
 export interface UserCardProps {
   title?: TypoPort<"span">;
-  user: UserPublicInterface;
+  user?: Pick<UserPublicInterface, "avatarUrl" | "login" | "contacts">;
 }

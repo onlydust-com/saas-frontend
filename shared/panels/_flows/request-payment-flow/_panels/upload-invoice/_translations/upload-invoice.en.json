@@ -1,0 +1,38 @@
+{
+  "guidelinesTitle": "Guidelines",
+  "guidelineAll": {
+    "subtitle": "Please, make sure your invoice includes the following:",
+    "rule_1": "Total amount should be 1200 USDC excluding taxes",
+    "rule_2": "Make sure to send your invoice in US Dollars ($)",
+    "rule_3": "Apply taxes according to your local legislation"
+  },
+  "guidelineSender": {
+    "subtitle": "Sender",
+    "rule_1": "First name, Last name",
+    "rule_2": "10 Rue voltaire,75002, Paris, France"
+  },
+  "guidelineRecipient": {
+    "subtitle": "Recipient",
+    "rule_1": "Wagmi",
+    "rule_2": "60 rue François 1er, 75008 Paris, France"
+  },
+  "sample_to_download": "We highly recommend downloading our invoice sample to help you create your own correctly.",
+  "sample_link_label": "Download invoice sample",
+  "clickToUpload": "Click to upload or drag and drop",
+  "errorMaxSizeFile": "The file is too large, please upload a file smaller than 3MB",
+  "fileType": "Only PDF files smaller than 3MB are accepted",
+  "alert": {
+    "title": "Find some guidlines on how to properly generate your invoice",
+    "description": "We’ll have to reject it if it doesn’t match requirements."
+  },
+  "submission": {
+    "alert": {
+      "title": "Please double check that everything is correct",
+      "description": "Once approved it will trigger the payment process and can’t be edited."
+    },
+    "error": {
+      "title": "An error occurred",
+      "description": "We were unable to generate the invoice, please try again later"
+    }
+  }
+}

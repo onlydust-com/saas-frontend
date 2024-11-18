@@ -2,7 +2,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 export type RewardListItemResponseV2 = components["schemas"]["RewardPageItemResponse"];
 
-export interface RewardListItemV2Interface extends RewardListItemResponseV2 {}
+export interface RewardListItemV2Interface extends RewardListItemResponseV2 {
+  isBlocked(): boolean;
+}
 
 export class RewardListItemV2 implements RewardListItemV2Interface {
   id!: RewardListItemResponseV2["id"];
@@ -18,5 +20,9 @@ export class RewardListItemV2 implements RewardListItemV2Interface {
 
   constructor(props: RewardListItemResponseV2) {
     Object.assign(this, props);
+  }
+
+  isBlocked() {
+    return this.status !== "PENDING_REQUEST" && this.status !== "PROCESSING" && this.status !== "COMPLETE";
   }
 }

@@ -17,6 +17,7 @@ enum ActivityTabs {
 
 export function ActivitySection() {
   const { close } = useSidePanelsContext();
+
   const [toggleActivityView, setToggleActivityView] = useState<ActivityTabs>(ActivityTabs.CONTRIBUTIONS);
 
   const renderActivityView = useMemo(() => {

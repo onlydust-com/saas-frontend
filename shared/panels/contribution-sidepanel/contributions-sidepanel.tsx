@@ -49,7 +49,7 @@ export function ContributionsSidepanel() {
         <SidePanelLoading />
       ) : (
         <>
-          <Header contribution={contribution} onToggleHelper={handleToggleHelper} />
+          <Header as={as} contribution={contribution} onToggleHelper={handleToggleHelper} />
           <SidePanelBody>{blocks}</SidePanelBody>
           {contribution ? <Footer as={as} contribution={contribution} /> : null}
         </>

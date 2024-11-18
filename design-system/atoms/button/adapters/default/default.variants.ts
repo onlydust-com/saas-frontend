@@ -4,9 +4,9 @@ export const ButtonDefaultVariants = tv({
   slots: {
     base: "group relative box-border flex h-fit w-fit cursor-pointer items-center justify-center transition-all",
     content: "flex w-full flex-row items-center justify-center",
-    startIcon: "transition-color",
-    endIcon: "transition-color",
-    label: "transition-color whitespace-nowrap leading-none text-inherit",
+    startIcon: "transition-colors",
+    endIcon: "transition-colors",
+    label: "whitespace-nowrap leading-none text-inherit transition-colors",
     spinner: "",
     spinnerCircle: "",
   },

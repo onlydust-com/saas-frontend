@@ -56,6 +56,7 @@ export function useFilterColumns() {
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -73,6 +74,7 @@ export function useFilterColumns() {
     id: columnHelper.accessor("id", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();
@@ -90,7 +92,9 @@ export function useFilterColumns() {
       cell: info => {
         const project = info.getValue();
 
-        return <CellProjects projects={project ? [project] : []} singleProps={{ shape: "squared" }} />;
+        return (
+          <CellProjects projects={project ? [project] : []} singleProps={{ shape: "squared", withPopover: false }} />
+        );
       },
     }),
     from: columnHelper.accessor("from", {
@@ -99,7 +103,12 @@ export function useFilterColumns() {
       cell: info => {
         const from = info.getValue();
 
-        return <CellAvatar avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []} />;
+        return (
+          <CellAvatar
+            avatars={from ? [{ src: from.avatarUrl, name: from.login }] : []}
+            singleProps={{ withPopover: false }}
+          />
+        );
       },
     }),
     contributions: columnHelper.accessor("items", {

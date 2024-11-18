@@ -595,8 +595,6 @@
     --utility-gradient-app-bg-linear-2-3: #fbf7ff;
 
     /* COMPONENTS BADGE */
-
-
     --components-badge-grey-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
     --components-badge-grey-backgroundoutline-closexitem-bg_hover: var(--background-tertiary);
     --components-badge-grey-backgroundoutline-closexitem-fg: var(--foreground-quaternary);
@@ -747,11 +745,13 @@
 
     /* COMPONENTS AVATAR */
     --components-avatar-bg: var(--background-tertiary);
+    --components-avatar-fg: var(--foreground-quaternary);
     --components-avatar-typo: var(--typography-quaternary);
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-5);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
 
+    /* -- */
     --scrollbar-thumb: var(--foreground-senary);
     --scrollbar-track: transparent;
   }
@@ -1039,7 +1039,7 @@
     --utility-gradient-app-bg-linear-2-2: #26014a;
     --utility-gradient-app-bg-linear-2-3: #250059;
 
-    /** COMPONENTS BADGE **/
+    /* COMPONENTS BADGE */
     --components-badge-grey-backgroundoutline-closexitem-bg: var(--utility-alpha-white-0);
     --components-badge-grey-backgroundoutline-closexitem-bg_hover: var(--background-tertiary);
     --components-badge-grey-backgroundoutline-closexitem-fg: var(--foreground-quaternary);
@@ -1135,14 +1135,13 @@
     --components-badge-inverse-solid-closexitem-fg: var(--utility-grey-400);
     --components-badge-inverse-solid-closexitem-fg_hover: var(--utility-grey-50);
 
-
-    /** COMPONENTS TEXT BUTTONS **/
+    /* COMPONENTS TEXT BUTTONS */
     --components-textbutton-primary-fg_hover: var(--typography-brand-secondary_alt_hover);
     --components-textbutton-primary-fg: var(--typography-brand-secondary_alt);
     --components-textbutton-secondary-fg_hover: var(--typography-secondary_hover);
     --components-textbutton-secondary-fg: var(--typography-secondary);
 
-    /** COMPONENTS BUTTONS **/
+    /* COMPONENTS BUTTONS */
     --components-buttons-button-primary-bg: var(--background-brand-primary-solid);
     --components-buttons-button-primary-bg_hover: var(--background-brand-primary-solid_hover);
     --components-buttons-button-primary-fg: var(--typography-primary_on-brand);
@@ -1168,29 +1167,31 @@
     --components-buttons-destructive-tertiary-fg: var(--typography-error);
     --components-buttons-destructive-tertiary-fg_hover: var(--typography-error_hover);
 
-    /** COMPONENTS ACCORDION **/
+    /* COMPONENTS ACCORDION */
     --components-accordion-open-bg: var(--background-primary);
     --components-accordion-open-bg_hover: var(--_grey-700);
     --components-accordion-open-border: var(--utility-alpha-white-0);
 
-    /** COMPONENTS TOOLTIP **/
+    /* COMPONENTS TOOLTIP */
     --components-tooltip-title: var(--typography-primary_on-solid);
     --components-tooltip-typo: var(--_grey-500-primary);
 
-    /** COMPONENTS SWITCH **/
+    /* COMPONENTS SWITCH */
     --components-switch-pill-disabled: var(--utility-alpha-black-30);
 
-    /** COMPONENTS CARD **/
+    /* COMPONENTS CARD */
     --components-card-border_1: var(--_grey-700);
     --components-card-border_2: var(--_grey-950);
 
-    /** COMPONENTS AVATAR **/
+    /* COMPONENTS AVATAR */
     --components-avatar-bg: var(--background-tertiary);
+    --components-avatar-fg: var(--foreground-quaternary);
     --components-avatar-typo: var(--typography-quaternary);
     --components-avatar-border: var(--border-primary_alt);
     --components-avatar-contrast-border: var(--utility-alpha-black-10);
     --components-avatar-avatargroup-separator-border: var(--background-primary_alt);
-    /*--*/
+
+    /* -- */
     --scrollbar-thumb: var(--foreground-senary);
     --scrollbar-track: transparent;
   }
@@ -1237,8 +1238,7 @@
     }
   }
 
-  /*DOM STYLES*/
-
+  /* DOM STYLES */
   body {
     @apply font-inter;
   }

@@ -22,7 +22,13 @@ export interface DateFacadePort {
   compareAsc: (dateLeft: Date, dateRight: Date) => number;
   compareDesc: (dateLeft: Date, dateRight: Date) => number;
   format: (date: Date, pattern: string) => string;
-  formatDistanceToNow: (date: Date) => string;
+  formatDistanceToNow: (
+    date: Date,
+    options?: {
+      addSuffix?: boolean;
+      unit?: "second" | "minute" | "hour" | "day" | "month" | "year";
+    }
+  ) => string;
   isValid: (date: Date) => boolean;
   addMinutes: (date: Date, minutes: number) => Date;
   eachDayOfInterval: (start: Date, end: Date) => Date[];

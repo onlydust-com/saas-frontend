@@ -2,6 +2,7 @@ import apt from "@/public/images/money/currencies/apt.png";
 import eth from "@/public/images/money/currencies/eth.png";
 import eur from "@/public/images/money/currencies/eur.png";
 import lords from "@/public/images/money/currencies/lords.png";
+import near from "@/public/images/money/currencies/near.png";
 import op from "@/public/images/money/currencies/op.png";
 import strk from "@/public/images/money/currencies/strk.png";
 import usd from "@/public/images/money/currencies/usd.png";
@@ -84,6 +85,13 @@ export class MoneyAdapter implements MoneyFacadePort {
       decimals: 7,
       logoUrl: xlm.src,
       name: "Stellar",
+    },
+    NEAR: {
+      code: "NEAR",
+      id: "",
+      decimals: 24,
+      logoUrl: near.src,
+      name: "Near",
     },
   };
 
