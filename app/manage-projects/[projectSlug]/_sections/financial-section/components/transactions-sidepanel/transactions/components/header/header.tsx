@@ -52,13 +52,18 @@ export function Header() {
           {() => (
             <div>
               <Button
+                variant={count ? "primary" : "secondary"}
                 size="sm"
-                variant="secondary"
-                iconOnly
                 startIcon={{ component: Filter }}
+                iconOnly={!count}
                 endContent={
                   count ? (
-                    <Badge size="sm" shape="rounded">
+                    <Badge
+                      size="sm"
+                      shape="rounded"
+                      color={count ? "brand" : "grey"}
+                      variant={count ? "solid" : "flat"}
+                    >
                       {count}
                     </Badge>
                   ) : null

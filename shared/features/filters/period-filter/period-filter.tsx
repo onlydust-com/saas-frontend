@@ -1,14 +1,11 @@
-import { Calendar } from "lucide-react";
+import { Calendar, ChevronDown } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
-import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
-import { Popover } from "@/design-system/atoms/popover";
-import { Typo } from "@/design-system/atoms/typo";
+import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Menu } from "@/design-system/molecules/menu";
 
 import { PeriodFilterProps } from "@/shared/features/filters/period-filter/period-filter.types";
@@ -18,32 +15,28 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 const START_DEFAULT_DATE = new Date();
 START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
 
-export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: PeriodFilterProps) {
+export function PeriodFilter({ onChange, value, dateRangeType }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [periodType, setPeriodType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
   const rangeMenu = usePeriodSelectOptions();
 
   const { fromDate, toDate } = useMemo(() => {
-    const { from, to } = dateKernelPort.getRangeOfDates(periodType);
+    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
 
     return {
       fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
       toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
     };
-  }, [periodType, dateKernelPort]);
+  }, [rangeType, dateKernelPort]);
 
   function onChangeRangeType(value: string) {
-    if (dateKernelPort.isDateRangeType(value)) setPeriodType(value);
-  }
-
-  function handleDateRange(value: DateRangePickerValue) {
-    setDateRange(value);
+    if (dateKernelPort.isDateRangeType(value)) setRangeType(value);
   }
 
   useEffect(() => {
     if (dateRangeType === DateRangeType.CUSTOM && value?.fromDate && value?.toDate) {
-      setPeriodType(DateRangeType.CUSTOM);
+      setRangeType(DateRangeType.CUSTOM);
       setDateRange({
         start: new Date(value.fromDate),
         end: new Date(value.toDate),
@@ -52,7 +45,7 @@ export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: Pe
   }, []);
 
   useEffect(() => {
-    if (periodType === DateRangeType.CUSTOM) {
+    if (rangeType === DateRangeType.CUSTOM) {
       const { start, end } = dateRange;
       return onChange?.({
         fromDate: start ? dateKernelPort.format(start, "yyyy-MM-dd") : undefined,
@@ -60,63 +53,27 @@ export function PeriodFilter({ onChange, value, dateRangeType, size = "sm" }: Pe
       });
     }
     onChange?.({ fromDate, toDate });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromDate, toDate, dateRange, dateKernelPort, periodType]);
+  }, [fromDate, toDate, dateRange, dateKernelPort, rangeType]);
 
   return (
-    <Popover>
-      <Popover.Trigger>
-        {() => (
-          <div>
-            <Button
-              as={"div"}
-              variant={"secondary"}
-              size={size}
-              endIcon={{ component: Calendar }}
-              classNames={{
-                base: "max-w-xs overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
-              endContent={<Badge size={"xxs"}>1</Badge>}
-            />
-          </div>
-        )}
-      </Popover.Trigger>
-      <Popover.Content className="!px-0 !py-0">
-        {() => (
-          <div className="flex flex-col gap-4">
-            <Menu
-              items={rangeMenu}
-              selectedIds={[periodType]}
-              onAction={onChangeRangeType}
-              placement={"bottom-end"}
-              classNames={{
-                content: "border-0 px-0 py-0",
-              }}
-            >
-              <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
-                <Translate token={`common:dateRangeType.${periodType}`} />
-              </Button>
-            </Menu>
-
-            {periodType === DateRangeType.CUSTOM ? (
-              <div className={"w-full px-md"}>
-                <DateRangePicker
-                  label={
-                    <Typo
-                      size="xs"
-                      color="secondary"
-                      translate={{ token: "features:filters.periodDate.periodPickerLabel" }}
-                    />
-                  }
-                  value={dateRange}
-                  onChange={handleDateRange}
-                />
-              </div>
-            ) : null}
-          </div>
-        )}
-      </Popover.Content>
-    </Popover>
+    <Menu
+      items={rangeMenu}
+      selectedIds={[rangeType]}
+      onAction={onChangeRangeType}
+      isPopOver
+      classNames={{
+        content: "max-h-64",
+      }}
+    >
+      <Button
+        as={"div"}
+        variant={"secondary"}
+        size={"sm"}
+        startIcon={{ component: Calendar }}
+        endIcon={{ component: ChevronDown }}
+      >
+        <Translate token={`common:dateRangeType.${rangeType}`} />
+      </Button>
+    </Menu>
   );
 }

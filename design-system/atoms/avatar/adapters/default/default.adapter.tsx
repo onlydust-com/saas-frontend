@@ -104,7 +104,13 @@ export function AvatarDefaultAdapter({
     }
 
     if (iconProps) {
-      return <Icon size={iconSizeMapping[size ?? "xxs"]} classNames={{ base: "text-inherit" }} {...iconProps} />;
+      return (
+        <Icon
+          size={iconSizeMapping[size ?? "xxs"]}
+          classNames={{ base: "text-inherit text-components-avatar-fg" }}
+          {...iconProps}
+        />
+      );
     }
 
     return renderImage;

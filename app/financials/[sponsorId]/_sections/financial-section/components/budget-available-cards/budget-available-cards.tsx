@@ -6,7 +6,7 @@ import { CardFinancialLoading } from "@/design-system/molecules/cards/card-finan
 
 import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
 import { useFinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.hooks";
-import { PanelType } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.types";
+import { PanelMaintainerType } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
 export function BudgetAvailableCards() {
   const { sponsorId = "" } = useParams<{ sponsorId: string }>();
@@ -37,7 +37,7 @@ export function BudgetAvailableCards() {
     return null;
   }
 
-  function openPanel(panelType: PanelType) {
+  function openPanel(panelType: PanelMaintainerType) {
     if (data) {
       open({
         panelType,

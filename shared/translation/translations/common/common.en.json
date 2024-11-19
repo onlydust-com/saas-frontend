@@ -72,6 +72,9 @@
   "contributions": "Contributions",
   "contributionsCount_one": "{{count}} contribution",
   "contributionsCount_other": "{{count}} contributions",
+  "repos": "Repositories",
+  "reposCount_one": "{{count}} repository",
+  "reposCount_other": "{{count}} repositories",
   "select": "Select",
   "unselect": "Unselect",
   "selectAll": "Select all",
@@ -84,6 +87,23 @@
   },
   "form": {
     "reset": "Reset",
-    "save": "Save"
+    "save": "Save",
+    "send": "Send"
+  },
+  "description": "Description",
+  "billingProfileType": {
+    "INDIVIDUAL": "Individual",
+    "COMPANY": "Company",
+    "SELF_EMPLOYED": "Self employed",
+    "EMPLOYEE": "Employee"
+  },
+  "close": "Close",
+  "contribution": {
+    "issue_one": "Issue",
+    "issue_other": "Issues",
+    "pullRequest_one": "Pull request",
+    "pullRequest_other": "Pull requests",
+    "codeReview_one": "Code review",
+    "codeReview_other": "Code reviews"
   }
 }

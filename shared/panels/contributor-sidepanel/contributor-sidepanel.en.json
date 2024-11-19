@@ -1,7 +1,6 @@
 {
   "rank": "Top {{count}}%",
   "kpi": {
-    "title": "KPI",
     "maintainedProjects": {
       "title": "Maintained Projects"
     },

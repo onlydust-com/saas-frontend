@@ -442,6 +442,7 @@ export const COLORS = {
     },
     avatar: {
       bg: "var(--components-avatar-bg)",
+      fg: "var(--components-avatar-fg)",
       typo: "var(--components-avatar-typo)",
       border: "var(--components-avatar-border)",
       "contrast-border": "var(--components-avatar-contrast-border)",

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useLocalStorage } from "react-use";
 
+import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
@@ -14,6 +15,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { CellCategories } from "@/shared/features/table/cell/cell-categories/cell-categories";
 import { CellEcosystems } from "@/shared/features/table/cell/cell-ecosystems/cell-ecosystems";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
@@ -21,6 +23,27 @@ import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-pr
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
+
+function CellUserLanguages({ githubId }: { githubId: number }) {
+  const { data, isLoading } = UserReactQueryAdapter.client.useGetUserLanguages({
+    pathParams: { githubId },
+    options: {
+      enabled: !!githubId,
+    },
+  });
+
+  if (isLoading) {
+    return null;
+  }
+
+  const languages = data?.pages.flatMap(page => page.languages).map(languages => languages.language);
+
+  if (!languages?.length) {
+    return <CellEmpty />;
+  }
+
+  return <CellLanguages languages={languages} />;
+}
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -97,22 +120,16 @@ export function useFilterColumns() {
       enableSorting: false,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.categories"} />,
       cell: info => {
-        const categories = info.getValue();
+        const categories = info.getValue() ?? [];
 
-        if (!categories?.length) {
-          return <CellEmpty />;
-        }
-
-        return <TableCellKpi>{categories.map(category => category.name).join(", ")}</TableCellKpi>;
+        return <CellCategories categories={categories} />;
       },
     }),
     languages: columnHelper.accessor("languages", {
       enableSorting: false,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.languages"} />,
       cell: info => {
-        const languages = info.getValue() ?? [];
-
-        return <CellLanguages languages={languages} />;
+        return <CellUserLanguages githubId={info.row.original.contributor.githubUserId} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
@@ -127,6 +144,7 @@ export function useFilterColumns() {
     country: columnHelper.accessor("country", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -162,7 +180,8 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
-      size: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -174,6 +193,7 @@ export function useFilterColumns() {
     }),
     prCount: columnHelper.accessor("prCount", {
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -186,6 +206,7 @@ export function useFilterColumns() {
     rewardCount: columnHelper.accessor("rewardCount", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -198,6 +219,7 @@ export function useFilterColumns() {
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();

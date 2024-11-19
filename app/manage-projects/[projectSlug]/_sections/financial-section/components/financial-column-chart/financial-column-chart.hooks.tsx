@@ -8,7 +8,7 @@ export function useFinancialColumnChart(stats?: GetBiStatsFinancialsModel["stats
   const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
 
   const calculateSeries = (key: keyof BiStatsFinancialsResponse) => {
-    return stats?.map(stat => stat?.getStatTotalUsdEquivalent(key)) ?? [];
+    return stats?.map(stat => stat.getStatTotalUsdEquivalent(key)) ?? [];
   };
 
   const depositedSeries = calculateSeries("totalDeposited");

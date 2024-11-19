@@ -17,15 +17,29 @@ export type GetRewardsModel = Omit<GetRewardsResponse, "rewards"> & {
   rewards: RewardListItemV2Interface[];
 };
 
-type GetRewardsPathParams = operations["getRewards"]["parameters"]["path"];
+type GetRewardsPathParams = operations["getRewards_1"]["parameters"]["path"];
 
-export type GetRewardsQueryParams = operations["getRewards"]["parameters"]["query"]["queryParams"];
+export type GetRewardsQueryParams = operations["getRewards_1"]["parameters"]["query"]["queryParams"];
 
 export type GetRewardsPortResponse = HttpStorageResponse<GetRewardsModel>;
 
 export type GetRewardsPortParams = HttpClientParameters<{
   PathParams: GetRewardsPathParams;
   QueryParams: GetRewardsQueryParams;
+}>;
+
+/* ------------------------------ Get Reward by id ------------------------------ */
+
+export type GetRewardByIdResponse = components["schemas"]["RewardPageItemResponse"];
+
+export type GetRewardByIdModel = RewardListItemV2Interface;
+
+type GetRewardByIdPathParams = operations["getReward"]["parameters"]["path"];
+
+export type GetRewardByIdPortResponse = HttpStorageResponse<GetRewardByIdModel>;
+
+export type GetRewardByIdPortParams = HttpClientParameters<{
+  PathParams: GetRewardByIdPathParams;
 }>;
 
 /* ------------------------------ Get Project Rewards ------------------------------ */

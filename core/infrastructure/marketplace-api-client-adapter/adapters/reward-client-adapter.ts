@@ -16,6 +16,7 @@ import {
   GetProjectRewardItemsResponse,
   GetProjectRewardResponse,
   GetProjectRewardsResponse,
+  GetRewardByIdResponse,
   GetRewardsResponse,
 } from "@/core/domain/reward/reward-contract.types";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
@@ -27,6 +28,7 @@ export class RewardClientAdapter implements RewardStoragePort {
 
   routes = {
     getRewards: "rewards",
+    getRewardById: "rewards/:rewardId",
     getProjectRewards: "projects/:projectId/rewards",
     getProjectReward: "projects/:projectId/rewards/:rewardId",
     cancelProjectReward: "projects/:projectId/rewards/:rewardId",
@@ -61,6 +63,28 @@ export class RewardClientAdapter implements RewardStoragePort {
       tag,
     };
   };
+
+  getRewardById = ({ pathParams }: FirstParameter<RewardStoragePort["getRewardById"]>) => {
+    const path = this.routes["getRewardById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetRewardByIdResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new RewardListItemV2(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
   getProjectRewards = ({ queryParams, pathParams }: FirstParameter<RewardStoragePort["getProjectRewards"]>) => {
     const path = this.routes["getProjectRewards"];
     const method = "GET";

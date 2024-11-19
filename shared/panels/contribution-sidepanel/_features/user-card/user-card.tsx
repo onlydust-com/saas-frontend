@@ -8,6 +8,8 @@ import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/s
 import { UserCardProps } from "./user-card.types";
 
 export function UserCard({ title, user }: UserCardProps) {
+  if (!user) return null;
+
   return (
     <Paper
       size={"lg"}

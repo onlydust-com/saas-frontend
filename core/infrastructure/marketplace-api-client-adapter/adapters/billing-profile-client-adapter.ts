@@ -19,13 +19,13 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
   constructor(private readonly client: HttpClient) {}
 
   routes = {
-    getBillingProfileById: "billingProfile/:billingProfileId",
-    getBillingProfilePayoutInfoById: "billingProfile/:billingProfileId/payout-info",
-    getBillingProfileInvoicePreviewById: "billingProfile/:billingProfileId/invoice-preview",
-    uploadBillingProfileInvoiceById: "billingProfile/:billingProfileId/invoices/:invoiceId",
-    acceptOrDeclineBillingProfileMandateById: "billingProfile/:billingProfileId/invoices/mandate",
+    getBillingProfileById: "billing-profiles/:billingProfileId",
+    getBillingProfilePayoutInfoById: "billing-profiles/:billingProfileId/payout-info",
+    getBillingProfileInvoicePreviewById: "billing-profiles/:billingProfileId/invoice-preview",
+    uploadBillingProfileInvoiceById: "billing-profiles/:billingProfileId/invoices/:invoiceId",
+    acceptOrDeclineBillingProfileMandateById: "billing-profiles/:billingProfileId/invoices/mandate",
     getMyBillingProfiles: "me/billing-profiles",
-    getBillingProfileInvoiceableRewards: "billingProfile/:billingProfileId/invoiceable-rewards",
+    getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -106,8 +106,9 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
   }: FirstParameter<BillingProfileStoragePort["uploadBillingProfileInvoiceById"]>) => {
     const path = this.routes["uploadBillingProfileInvoiceById"];
     const method = "POST";
+
     const tag = HttpClient.buildTag({ path, pathParams, queryParams });
-    const request = async () =>
+    const request = async (body: Blob) =>
       this.client.request<Blob>({
         path,
         method,
@@ -117,6 +118,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         headers: {
           "Content-Type": "application/pdf",
         },
+        body,
       });
 
     return {
