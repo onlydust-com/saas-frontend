@@ -10,7 +10,7 @@ import { useTransactionsContext } from "./context/transactions.context";
 import { ExportCsv } from "./export-csv/export-csv";
 
 export function TransactionsSidepanel() {
-  const { Panel, open } = useSidePanel({ name: "transaction-export" });
+  const { Panel, open } = useSidePanel({ name: "program-transaction-export" });
   const {
     filters: { clear },
   } = useTransactionsContext();

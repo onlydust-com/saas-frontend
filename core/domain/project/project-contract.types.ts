@@ -94,14 +94,15 @@ export type GetProjectFinancialDetailsByIdPortParams = HttpClientParameters<{
 /* ------------------------------ Get Project Transactions ------------------------------ */
 
 export type GetProjectTransactionsResponse = components["schemas"]["ProjectTransactionPageResponse"];
+
 export type GetProjectTransactionsModel = Omit<GetProjectTransactionsResponse, "transactions"> & {
   transactions: ProjectTransactionInterface[];
 };
 
-export type GetProjectTransactionsPortResponse = HttpStorageResponse<GetProjectTransactionsResponse>;
-
-type GetProjectTransactionsQueryParams = operations["getProjectTransactions_1"]["parameters"]["query"];
 type GetProjectTransactionsPathParams = operations["getProjectTransactions_1"]["parameters"]["path"];
+type GetProjectTransactionsQueryParams = operations["getProjectTransactions_1"]["parameters"]["query"];
+
+export type GetProjectTransactionsPortResponse = HttpStorageResponse<GetProjectTransactionsResponse>;
 
 export type GetProjectTransactionsPortParams = HttpClientParameters<{
   QueryParams: GetProjectTransactionsQueryParams;

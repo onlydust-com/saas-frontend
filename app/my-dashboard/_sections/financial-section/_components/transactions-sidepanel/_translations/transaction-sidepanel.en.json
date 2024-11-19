@@ -1,0 +1,48 @@
+{
+  "transactions": {
+    "title": "Transactions",
+    "export": "Export CSV",
+    "search": {
+      "placeholder": "Search program..."
+    },
+    "empty": {
+      "title": "No transactions found",
+      "description": "No transactions found with the selected filters"
+    }
+  },
+  "filters": {
+    "title": "Add Filters",
+    "clear": "Clear all",
+    "options": {
+      "types": {
+        "title": "Types",
+        "choices": {
+          "GRANTED": "Granted",
+          "REWARDED": "Rewarded",
+          "UNGRANTED": "Ungranted",
+          "UNALLOCATED": "Unallocated"
+        }
+      },
+      "period": {
+        "title": "Period"
+      }
+    }
+  },
+  "export": {
+    "title": "Export CSV",
+    "data": {
+      "title": "Data",
+      "columns": {
+        "id": "ID",
+        "timestamp": "Timestamp",
+        "transactionType": "Transaction type",
+        "depositStatus": "Deposit status",
+        "programId": "Program ID",
+        "amount": "Amount",
+        "currency": "Currency",
+        "usdAmount": "USD Amount"
+      }
+    },
+    "button": "Export"
+  }
+}

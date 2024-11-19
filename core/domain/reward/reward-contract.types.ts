@@ -17,9 +17,8 @@ export type GetRewardsModel = Omit<GetRewardsResponse, "rewards"> & {
   rewards: RewardListItemV2Interface[];
 };
 
-type GetRewardsPathParams = operations["getRewards"]["parameters"]["path"];
-
-export type GetRewardsQueryParams = operations["getRewards"]["parameters"]["query"]["queryParams"];
+type GetRewardsPathParams = operations["getRewards_1"]["parameters"]["path"];
+type GetRewardsQueryParams = operations["getRewards_1"]["parameters"]["query"]["queryParams"];
 
 export type GetRewardsPortResponse = HttpStorageResponse<GetRewardsModel>;
 
@@ -27,6 +26,10 @@ export type GetRewardsPortParams = HttpClientParameters<{
   PathParams: GetRewardsPathParams;
   QueryParams: GetRewardsQueryParams;
 }>;
+
+/* ----------------------------- Get Rewards CSV ---------------------------- */
+
+export type GetRewardsCsvResponse = HttpStorageResponse<Blob>;
 
 /* ------------------------------ Get Reward by id ------------------------------ */
 
