@@ -1,96 +1,24 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
-import { useMemo } from "react";
 
-import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
-import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
-import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
-import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
-import { Menu } from "@/design-system/molecules/menu";
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { ReposPopover } from "@/shared/features/repos/repos-popover/repos-popover";
+import { CellBillingProfile } from "@/shared/features/table/cell/cell-billing-profile/cell-billing-profile";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { useBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
-
-function CellBillingProfile({
-  projectId,
-  billingProfile,
-}: {
-  projectId: string;
-  billingProfile?: BillingProfileShortInterface;
-}) {
-  const { billingProfilesIcons } = useBillingProfileIcons();
-  const { githubUserId } = useAuthUser();
-
-  const { data: rewardsData } = RewardReactQueryAdapter.client.useGetRewards({
-    queryParams: {
-      recipientIds: githubUserId ? [githubUserId] : undefined,
-      projectIds: [projectId],
-    },
-    options: {
-      // Only fetch rewards if the user is authenticated and has no billing profile set for the project
-      enabled: Boolean(!billingProfile && githubUserId),
-    },
-  });
-  const rewards = rewardsData?.pages.flatMap(page => page.rewards) ?? [];
-
-  const { data: myBillingProfilesData } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({
-    options: {
-      // User can only select a billing profile if they already have a billing profile set for the project or if they have been rewarded on the project
-      enabled: Boolean(billingProfile || rewards.length),
-    },
-  });
-  const myBillingProfiles = useMemo(() => myBillingProfilesData?.billingProfiles ?? [], [myBillingProfilesData]);
-
-  const { mutate, isPending } = MeReactQueryAdapter.client.useSetMyPreferenceForProject({});
-
-  const menuItems: MenuItemPort[] =
-    myBillingProfiles.map(billingProfile => ({
-      id: billingProfile.id,
-      label: billingProfile.name,
-      icon: billingProfilesIcons[billingProfile.type],
-    })) ?? [];
-
-  function handleMenuAction(billingProfileId: string) {
-    mutate({ billingProfileId, projectId });
-  }
-
-  // User can only select a billing profile if they already have a billing profile set for the project or if they have been rewarded on the project
-  if (!billingProfile && rewards.length === 0) {
-    return <CellEmpty />;
-  }
-
-  return (
-    <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-start">
-      <Button
-        variant={"secondary"}
-        size={"sm"}
-        startIcon={billingProfile ? billingProfilesIcons[billingProfile.type] : undefined}
-        endIcon={{ component: ChevronDown }}
-        isLoading={isPending}
-      >
-        {billingProfile?.name ?? <Translate token={"myDashboard:detail.projectsTable.pendingBillingProfile"} />}
-      </Button>
-    </Menu>
-  );
-}
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
