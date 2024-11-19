@@ -5,10 +5,11 @@ import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-cli
 import { MARKETPLACE_API_BASE_URL } from "@/core/infrastructure/marketplace-api-client-adapter/config/base-url";
 
 export async function retrieveInvoicePreviewByBillingProfileId(billingProfileId: string, options?: BaseQueriesOptions) {
+  "use server";
   return BaseQueries<GetBillingProfileInvoicePreviewByIdResponse>(
     `${MARKETPLACE_API_BASE_URL}/api/${MarketplaceApiVersion.v1}/billing-profiles/${billingProfileId}/invoice-preview`,
     {
-      provideTag: [`BILLING_PROFILES-${billingProfileId}-invoice-preview`],
+      provideTag: [`billing-profiles-${billingProfileId}-invoice-preview`],
       ...(options || {}),
     }
   );

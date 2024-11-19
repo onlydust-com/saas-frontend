@@ -26,8 +26,7 @@ export async function fetchInvoicePreviewData({
     .then(res => {
       return new BillingProfileInvoicePreview(res);
     })
-    .catch(e => {
-      console.log("****** e ", e);
+    .catch(() => {
       throw new Error("Failed to fetch invoice preview data.");
     });
 }
