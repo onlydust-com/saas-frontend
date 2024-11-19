@@ -71,10 +71,13 @@
       "rewardedUsdAmount": "Rewarded",
       "languages": "Languages",
       "repositories": "Repositories",
+      "billingProfile": "Billing profile",
       "actions": "Actions",
       "issues": "Issues availables"
     },
     "seeProject": "See project",
     "gfi": "{{count}} GFI"
+    "seeProject": "See project",
+    "pendingBillingProfile": "Pending billing profile"
   }
 }

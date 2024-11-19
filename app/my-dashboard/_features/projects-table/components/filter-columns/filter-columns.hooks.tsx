@@ -1,11 +1,17 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ChevronDown } from "lucide-react";
+import { useMemo } from "react";
 
+import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { bootstrap } from "@/core/bootstrap";
+import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+import { Menu } from "@/design-system/molecules/menu";
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
@@ -15,9 +21,41 @@ import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { useBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
+
+function CellBillingProfile({ billingProfile }: { billingProfile?: BillingProfileShortInterface }) {
+  const { billingProfilesIcons } = useBillingProfileIcons();
+  const { data } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
+
+  const myBillingProfiles = useMemo(() => data?.billingProfiles ?? [], [data]);
+
+  const menuItems: MenuItemPort[] =
+    myBillingProfiles.map(billingProfile => ({
+      id: billingProfile.id,
+      label: billingProfile.name,
+      icon: billingProfilesIcons[billingProfile.type],
+    })) ?? [];
+
+  function handleMenuAction(id: string) {
+    console.log({ id });
+  }
+
+  return (
+    <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-start">
+      <Button
+        variant={"secondary"}
+        size={"sm"}
+        startIcon={billingProfile ? billingProfilesIcons[billingProfile.type] : undefined}
+        endIcon={{ component: ChevronDown }}
+      >
+        {billingProfile?.name ?? <Translate token={"myDashboard:detail.projectsTable.pendingBillingProfile"} />}
+      </Button>
+    </Menu>
+  );
+}
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -146,7 +184,17 @@ export function useFilterColumns() {
         return <ReposPopover repos={repos} />;
       },
     }),
+    billingProfile: columnHelper.accessor("billingProfile", {
+      enableSorting: false,
+      size: TABLE_CELL_SIZE.LG,
+      minSize: TABLE_CELL_SIZE.LG,
+      header: () => <Translate token={"myDashboard:detail.projectsTable.columns.billingProfile"} />,
+      cell: info => {
+        const billingProfile = info.getValue();
 
+        return <CellBillingProfile billingProfile={billingProfile} />;
+      },
+    }),
     actions: columnHelper.display({
       id: "actions",
       enableResizing: false,
