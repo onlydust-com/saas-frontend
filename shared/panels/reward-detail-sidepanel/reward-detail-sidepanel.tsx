@@ -103,7 +103,7 @@ export function Header() {
         as={"a"}
         htmlProps={{
           href: window.URL.createObjectURL(downloadedInvoice),
-          download: idKernelPort.prettyId(rewardId) ?? "invoice.pdf",
+          download: reward?.invoiceNumber ?? "invoice.pdf",
         }}
       />
     );
