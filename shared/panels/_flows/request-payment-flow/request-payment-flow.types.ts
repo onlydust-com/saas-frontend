@@ -21,5 +21,3 @@ export interface RequestPaymentFlowContextInterface {
   selectBillingProfile: (billingProfileId: string) => void;
   selectRewards: (billingProfileId: string, rewardsIds: string[]) => void;
 }
-
-// const useInvoicePreview -> call the context with billing profile and rewards id and return the preview data

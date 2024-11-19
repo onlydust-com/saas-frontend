@@ -144,6 +144,7 @@ export function RewardsSelection() {
             token: "panels:requestPaymentFlow.title",
           },
         }}
+        canGoBack
         canClose
       />
       <Content />
