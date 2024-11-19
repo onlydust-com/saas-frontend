@@ -33,6 +33,11 @@ export function useSetMyPreferenceForProject({
             exact: false,
           });
 
+          await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMyProjectsAsContributor({}).tag,
+            exact: false,
+          });
+
           // TODO: Invalidate my payout preferences
 
           await queryClient.invalidateQueries({
