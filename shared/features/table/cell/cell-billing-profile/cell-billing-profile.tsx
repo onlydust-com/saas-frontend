@@ -80,7 +80,7 @@ export function CellBillingProfile({ projectId, billingProfile }: CellBillingPro
         endIcon={{ component: ChevronDown }}
         isLoading={isPending}
       >
-        {billingProfile?.name ?? <Translate token={"myDashboard:detail.projectsTable.pendingBillingProfile"} />}
+        {billingProfile?.name ?? <Translate token={"features:cell.cellBillingProfile.pendingBillingProfile"} />}
       </Button>
     </Menu>
   );

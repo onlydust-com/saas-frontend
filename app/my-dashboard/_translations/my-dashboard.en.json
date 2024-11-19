@@ -76,7 +76,6 @@
       "issues": "Issues availables"
     },
     "seeProject": "See project",
-    "gfi": "{{count}} GFI",
-    "pendingBillingProfile": "Pending billing profile"
+    "gfi": "{{count}} GFI"
   }
 }
