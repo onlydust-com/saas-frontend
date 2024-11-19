@@ -1,6 +1,8 @@
 import {
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
+  GetMyPayoutPreferencesPortParams,
+  GetMyPayoutPreferencesPortResponse,
   GetMyProfilePortParams,
   GetMyProfilePortResponse,
   GetMyProjectsAsContributorPortParams,
@@ -28,6 +30,7 @@ export interface MeFacadePort {
   replaceMyProfile(params: ReplaceMyProfilePortParams): ReplaceMyProfilePortResponse;
   getMyProjectsAsMaintainer(p: GetMyProjectsAsMaintainerPortParams): GetMyProjectsAsMaintainerPortResponse;
   getMyProjectsAsContributor(p: GetMyProjectsAsContributorPortParams): GetMyProjectsAsContributorPortResponse;
+  getMyPayoutPreferences(p: GetMyPayoutPreferencesPortParams): GetMyPayoutPreferencesPortResponse;
   setMyPayoutPreferenceForProject(
     p: SetMyPayoutPreferenceForProjectPortParams
   ): SetMyPayoutPreferenceForProjectPortResponse;
