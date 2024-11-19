@@ -1,34 +1,19 @@
 import { revalidateTag as NextRevalidateTag } from "next/cache";
 
-import { BaseQueriesDefaultParams, BaseQueriesOptions } from "./type.actions";
+import { bootstrap } from "@/core/bootstrap";
+
+import { BaseQueriesOptions } from "./type.actions";
 
 const defaultRevalidateValue = 60;
 
-function convertParamsToURLSearchParams(params?: BaseQueriesDefaultParams) {
-  if (!params) return undefined;
-  return Object.entries(params).reduce((acc, [key, value]) => {
-    if (value !== undefined) {
-      if (typeof value === "string" || typeof value === "number") {
-        acc.append(key, value.toString());
-      }
-      if (typeof value === "boolean") {
-        if (value) {
-          acc.append(key, "true");
-        } else {
-          acc.append(key, "false");
-        }
-      }
-    }
-    return acc;
-  }, new URLSearchParams());
-}
-
+// TODO Mehdi Refactor using Core Http-client
 export async function BaseQueries<RESPONSE extends object>(
   url: string,
   options: BaseQueriesOptions | undefined
 ): Promise<RESPONSE> {
   const { provideTag, revalidate, revalidateTag, onSuccess, onError, ...baseOptions } = options || {};
-  const queriesParams = convertParamsToURLSearchParams(options?.params);
+  const urlKernelPort = bootstrap.getUrlKernelPort();
+  const queriesParams = urlKernelPort.convertParamsToURLSearchParams(options?.params);
   const data = await fetch(`${url}${queriesParams ? `?${queriesParams}` : ""}`, {
     cache: "no-store",
     ...(baseOptions || {}),

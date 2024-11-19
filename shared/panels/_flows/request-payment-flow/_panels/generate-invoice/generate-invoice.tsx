@@ -42,11 +42,8 @@ function Content() {
   const renderInvoicePreview = useMemo(() => {
     if (isLoadingInvoicePreview) {
       return (
-        <div className={"grid gap-md"}>
-          <Skeleton classNames={{ base: "h-16" }} />
-          <Skeleton classNames={{ base: "h-16" }} />
-          <Skeleton classNames={{ base: "h-16" }} />
-          <Skeleton classNames={{ base: "h-16" }} />
+        <div className={"grid h-full gap-md"}>
+          <Skeleton className={"h-full"} />
         </div>
       );
     }
