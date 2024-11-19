@@ -36,7 +36,7 @@ function Content() {
     isSample: true,
   });
 
-  const { isPendingUploadInvoice, handleSendInvoice } = useInvoiceUpload({
+  const { isPendingUploadInvoice, handleSetFileName, handleSendManualInvoice } = useInvoiceUpload({
     billingProfileId,
     invoiceId,
   });
@@ -96,12 +96,17 @@ function Content() {
     []
   );
 
+  function handleSetSelectedFile(file: File) {
+    setSelectedFileBlob(file);
+    handleSetFileName(file.name);
+  }
+
   function renderUploadFile() {
     if (selectedFileBlob) {
       return <UploadedFileDisplay fileName={selectedFileBlob.name} onRemoveFile={removeFile} />;
     }
 
-    return <UploadFile setSelectedFile={setSelectedFileBlob} />;
+    return <UploadFile setSelectedFile={handleSetSelectedFile} />;
   }
 
   return (
@@ -156,13 +161,7 @@ function Content() {
           <Button
             variant={"secondary"}
             size={"md"}
-            onClick={() =>
-              handleSendInvoice({
-                fileBlob: selectedFileBlob as Blob,
-                isManualUpload: true,
-                fileName: selectedFileBlob?.name,
-              })
-            }
+            onClick={() => handleSendManualInvoice(selectedFileBlob as Blob)}
             isDisabled={!selectedFileBlob}
             isLoading={isPendingUploadInvoice}
             translate={{ token: "common:form.send" }}
