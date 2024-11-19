@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { Contributions } from "@/app/my-dashboard/_features/contributions/contributions";
+import { ProjectsTable } from "@/app/my-dashboard/_features/projects-table/projects-table";
 import { RewardsTable } from "@/app/my-dashboard/_features/rewards-table/rewards-table";
 
 import { Typo } from "@/design-system/atoms/typo";
@@ -22,7 +23,7 @@ export function ActivitySection() {
 
   const renderActivityView = useMemo(() => {
     if (toggleActivityView === ActivityTabs.PROJECTS) {
-      return "PROJECTS";
+      return <ProjectsTable />;
     }
 
     if (toggleActivityView === ActivityTabs.CONTRIBUTIONS) {

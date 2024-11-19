@@ -15,7 +15,7 @@ export function UploadFile({ setSelectedFile }: UploadFileProps) {
   function handleOnChange(event: ChangeEvent<HTMLInputElement>): void {
     if (event.target.files) {
       if (event.target.files[0].size > 3000000) {
-        toast.error(<Translate token={"panels:uploadInvoice.errorMaxSizeFile"} />);
+        toast.error(<Translate token={"panels:requestPaymentFlow.upload.errorMaxSizeFile"} />);
       } else {
         setSelectedFile(event.target.files[0]);
       }
@@ -30,8 +30,8 @@ export function UploadFile({ setSelectedFile }: UploadFileProps) {
     >
       <Icon component={CloudUpload} />
       <div className="flex flex-col gap-1 text-center">
-        <Typo color="brand-secondary-alt" translate={{ token: "panels:uploadInvoice.clickToUpload" }} />
-        <Typo size="sm" color="secondary" translate={{ token: "panels:uploadInvoice.fileType" }} />
+        <Typo color="brand-secondary-alt" translate={{ token: "panels:requestPaymentFlow.upload.clickToUpload" }} />
+        <Typo size="sm" color="secondary" translate={{ token: "panels:requestPaymentFlow.upload.fileType" }} />
       </div>
       <input
         type="file"
