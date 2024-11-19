@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
   ------ */
   const headersList = headers();
   const token = headersList.get("authorization");
+  const impersonationHeaders = headersList.get("X-Impersonation-Claims") ?? undefined;
   if (!token) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
   const rewardIds = searchParams.get("rewardIds") ?? "";
   let invoicePreviewData;
   try {
-    invoicePreviewData = await fetchInvoicePreviewData({ token, rewardIds, billingProfileId });
+    invoicePreviewData = await fetchInvoicePreviewData({ token, rewardIds, billingProfileId, impersonationHeaders });
   } catch (e) {
     return new NextResponse("Failed Dependency : Invoice Preview ", { status: 424 });
   }

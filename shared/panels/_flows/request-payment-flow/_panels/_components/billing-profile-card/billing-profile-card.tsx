@@ -43,6 +43,7 @@ export function BillingProfileCard({
       onClick={isDisabled ? undefined : onClick}
     >
       <div className="flex gap-lg">
+        {/*TODO @Mehdi use avatar label group*/}
         <Avatar shape="squared" size="lg" iconProps={getIconProps()} />
         <div className="flex flex-col gap-xs">
           <Typo size={"sm"} weight="medium" color={"primary"}>

@@ -6,6 +6,7 @@ import { BillingProfileSelection } from "@/shared/panels/_flows/request-payment-
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
 import { GenerateInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/generate-invoice/generate-invoice";
 import { RewardsSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/rewards-selection/rewards-selection";
+import { UploadInvoice } from "@/shared/panels/_flows/request-payment-flow/_panels/upload-invoice/upload-invoice";
 
 import { AcceptInvoicingMandate } from "./_panels/accept-invoicing-mandate/accept-invoicing-mandate";
 import { InvoicingMandate } from "./_panels/invoicing-mandate/invoicing-mandate";
@@ -69,6 +70,7 @@ export function RequestPaymentFlowProvider({ children }: PropsWithChildren) {
       <AcceptInvoicingMandate />
       <InvoicingMandate />
       <GenerateInvoice />
+      <UploadInvoice />
     </RequestPaymentFlowContext.Provider>
   );
 }
