@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { useMeasure } from "react-use";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -12,15 +13,18 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.min.j
 
 export default function InvoiceViewer({ fileUrl, className }: { fileUrl: string; className?: string }) {
   const [numPages, setNumPages] = useState(0);
+  const [measureRef, { width }] = useMeasure<HTMLDivElement>();
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
 
   return (
-    <Document className={cn("w-fit", className)} file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
-      {Array.from(new Array(numPages), (_el, index) => (
-        <Page key={`page_${index + 1}`} pageNumber={index + 1} className="mb-2" />
-      ))}
-    </Document>
+    <div ref={measureRef}>
+      <Document className={cn("w-fit", className)} file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.from(new Array(numPages), (_el, index) => (
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} className="mb-2" width={width} />
+        ))}
+      </Document>
+    </div>
   );
 }

@@ -12,7 +12,7 @@ export function FilterButton({ onClick }: FilterButtonProps) {
 
   return (
     <Button
-      variant={"secondary"}
+      variant={filterCount ? "primary" : "secondary"}
       size="sm"
       startIcon={{ component: Filter }}
       iconOnly={!filterCount}
@@ -20,7 +20,13 @@ export function FilterButton({ onClick }: FilterButtonProps) {
       classNames={{
         content: "w-fit",
       }}
-      endContent={filterCount ? <Badge size={"xxs"}>{filterCount}</Badge> : undefined}
+      endContent={
+        filterCount ? (
+          <Badge size={"xxs"} color={filterCount ? "brand" : "grey"} variant={filterCount ? "solid" : "flat"}>
+            {filterCount}
+          </Badge>
+        ) : null
+      }
     />
   );
 }

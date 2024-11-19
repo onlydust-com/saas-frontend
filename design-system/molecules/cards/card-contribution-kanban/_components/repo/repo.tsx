@@ -1,4 +1,4 @@
-import { CircleDashed } from "lucide-react";
+import { GithubIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -11,7 +11,7 @@ export function Repo({ repo }: RepoProps) {
   if (!repo) return null;
 
   return (
-    <Badge icon={{ component: CircleDashed }}>
+    <Badge icon={{ component: GithubIcon }}>
       <Emoji>{repo.name}</Emoji>
     </Badge>
   );

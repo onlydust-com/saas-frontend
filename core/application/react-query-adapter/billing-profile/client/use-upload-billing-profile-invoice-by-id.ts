@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   UseMutationFacadeParams,
@@ -11,13 +11,24 @@ export function useUploadBillingProfileInvoiceById({
   pathParams,
   queryParams,
   options,
-}: UseMutationFacadeParams<BillingProfileFacadePort["uploadBillingProfileInvoiceById"], undefined, never, Blob> = {}) {
+}: UseMutationFacadeParams<BillingProfileFacadePort["uploadBillingProfileInvoiceById"], undefined, Blob, Blob> = {}) {
   const billingProfileStoragePort = bootstrap.getBillingProfileStoragePortForClient();
+  const rewardStoragePort = bootstrap.getRewardStoragePortForClient();
+  const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
       ...billingProfileStoragePort.uploadBillingProfileInvoiceById({ pathParams, queryParams }),
-      ...options,
+      options: {
+        ...options,
+        onSuccess: async (data, variables, context) => {
+          await queryClient.invalidateQueries({
+            queryKey: rewardStoragePort.getRewards({}).tag,
+            exact: false,
+          });
+          options?.onSuccess?.(data, variables, context);
+        },
+      },
     })
   );
 }

@@ -73,9 +73,9 @@ function Content({ onClose }: { onClose: () => void }) {
               <ol className="flex list-outside list-decimal flex-col gap-md pl-3xl">
                 <li>
                   Wagmi SAS, a French simplified joint stock company, registered with the Register of Trade and
-                  Companies of Paris under number 908 233 638, with registered offices located at 54 rue du Faubourg
-                  Montmartre 75009 PARIS, France, represented by Gregoire Gambatto, CEO, duly authorized for the purpose
-                  hereof. Hereinafter referred to as the &quot;Wagmi&quot; or the &quot;Company&quot;.
+                  Companies of Paris under number 908 233 638, with registered offices located at 60 rue François 1er
+                  75008 Paris, France, represented by Gregoire Gambatto, CEO, duly authorized for the purpose hereof.
+                  Hereinafter referred to as the &quot;Wagmi&quot; or the &quot;Company&quot;.
                 </li>
 
                 <li>

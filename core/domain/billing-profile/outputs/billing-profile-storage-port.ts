@@ -1,6 +1,8 @@
 import {
   AcceptOrDeclineBillingProfileMandatePortParams,
   AcceptOrDeclineBillingProfileMandatePortResponse,
+  DownloadBillingProfileInvoiceByIdPortParams,
+  DownloadBillingProfileInvoiceByIdPortResponse,
   GetBillingProfileByIdPortParams,
   GetBillingProfileByIdPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
@@ -27,6 +29,9 @@ export interface BillingProfileStoragePort {
   uploadBillingProfileInvoiceById(
     p: UploadBillingProfileInvoiceByIdPortParams
   ): UploadBillingProfileInvoiceByIdPortResponse;
+  downloadBillingProfileInvoiceById(
+    p: DownloadBillingProfileInvoiceByIdPortParams
+  ): DownloadBillingProfileInvoiceByIdPortResponse;
   acceptOrDeclineBillingProfileMandateById(
     p: AcceptOrDeclineBillingProfileMandatePortParams
   ): AcceptOrDeclineBillingProfileMandatePortResponse;
