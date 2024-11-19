@@ -64,7 +64,6 @@ export function Header() {
                       color={count ? "brand" : "grey"}
                       variant={count ? "solid" : "flat"}
                     >
-                      {" "}
                       {count}
                     </Badge>
                   ) : null
