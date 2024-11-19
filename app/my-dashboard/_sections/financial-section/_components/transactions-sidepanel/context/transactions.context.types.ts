@@ -1,17 +1,17 @@
 import { PropsWithChildren } from "react";
 
-import { GetRewardsPortParams, GetRewardsResponse } from "@/core/domain/reward/reward-contract.types";
+import { GetBiStatsFinancialsPortParams, GetBiStatsFinancialsResponse } from "@/core/domain/bi/bi-contract.types";
 
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 
 export interface TransactionsContextProps extends PropsWithChildren {}
 
-type Transactions = GetRewardsResponse;
-export type TransactionsContextQueryParams = GetRewardsPortParams["queryParams"];
+type TransactionsStats = GetBiStatsFinancialsResponse["stats"];
+export type TransactionsContextQueryParams = GetBiStatsFinancialsPortParams["queryParams"];
 
 export interface TransactionsContextReturn {
   githubUserId: number;
-  transactions?: Transactions;
+  transactionsStats?: TransactionsStats;
   queryParams: TransactionsContextQueryParams;
   filters: {
     values: TransactionsContextFilter;

@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
-import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { bootstrap } from "@/core/bootstrap";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-// TODO: change it with financials
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -18,11 +18,8 @@ import {
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   githubUserId: 0,
-  transactions: undefined,
-  queryParams: {
-    pageIndex: 0,
-    pageSize: 100,
-  },
+  transactionsStats: [],
+  queryParams: {},
   filters: {
     values: DEFAULT_FILTER,
     isCleared: true,
@@ -45,12 +42,10 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
       TransactionsContextFilterType.UNALLOCATED,
     ],
   });
-  const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({
-    pageIndex: 0,
-    pageSize: 100,
-    recipientIds: [],
-  });
+  const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
+
+  const dateKernelPort = bootstrap.getDateKernelPort();
 
   const { githubUserId } = useAuthUser();
 
@@ -62,19 +57,25 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
     [queryParams]
   );
 
-  const { data: transactions } = RewardReactQueryAdapter.client.useGetRewards({
+  const { data: transactionsStats } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       ...debouncedQueryParams,
-      recipientIds: [githubUserId || 0],
+      sort: "DATE",
+      sortDirection: "DESC",
+      showEmpty: true,
+      recipientId: githubUserId,
+    },
+    options: {
+      enabled: Boolean(githubUserId),
     },
   });
 
   useEffect(() => {
     setQueryParams({
-      pageIndex: 0,
-      pageSize: 100,
-      recipientIds: [githubUserId || 0],
       search: filters.search || undefined,
+      types: filters.types.length ? filters.types : undefined,
+      fromDate: filters.dateRange?.start ? dateKernelPort.format(filters.dateRange.start, "yyyy-MM-dd") : undefined,
+      toDate: filters.dateRange?.end ? dateKernelPort.format(filters.dateRange.end, "yyyy-MM-dd") : undefined,
     });
   }, [filters, githubUserId]);
 
@@ -97,7 +98,7 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
     <TransactionsContext.Provider
       value={{
         githubUserId: githubUserId || 0,
-        transactions: transactions?.pages || [],
+        transactionsStats: transactionsStats?.stats,
         queryParams: debouncedQueryParams,
         filters: {
           values: filters,

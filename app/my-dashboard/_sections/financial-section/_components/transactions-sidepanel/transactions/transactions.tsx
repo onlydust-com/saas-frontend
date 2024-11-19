@@ -13,27 +13,24 @@ import { TransactionsWrapper } from "./components/transactions-wrapper/transacti
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const { transactions } = useTransactionsContext();
-
-  console.log("aziuhdjzoaijdaodohd", transactions);
-  console.log(transactions?.rewards);
+  const { transactionsStats } = useTransactionsContext();
 
   const items: AccordionItemProps[] = useMemo(() => {
     return (
-      transactions?.rewards.map((t, index) => {
+      transactionsStats?.map((t, index) => {
         return {
           id: `dashboard-transaction-stats-${index}`,
           titleProps: {
-            children: dateKernelPort.format(new Date(t.requestedAt), "MMMM yyyy"),
+            children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },
           badgeProps: {
-            children: transactions["totalItemNumber"],
+            children: t.transactionCount,
           },
-          content: <TransactionsWrapper date={new Date(t.requestedAt)} />,
+          content: <TransactionsWrapper date={new Date(t.date)} />,
         };
       }) || []
     );
-  }, [dateKernelPort, transactions]);
+  }, [dateKernelPort, transactionsStats]);
 
   return (
     <>
