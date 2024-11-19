@@ -38,7 +38,7 @@ export function ProjectSidepanel() {
     canGoBack = false,
   } = useSinglePanelData<ProjectSidePanelData>(name) ?? { projectId: "" };
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
