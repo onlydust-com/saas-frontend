@@ -18,7 +18,7 @@ export function CardContributionKanban({
   as,
   ...actions
 }: CardContributionKanbanProps) {
-  const { buttons, endContent } = useContributionActions({ as, contribution, actions });
+  const { buttons } = useContributionActions({ as, contribution, actions });
   const rewardUsdAmount =
     as === ContributionAs.CONTRIBUTOR ? contribution.callerTotalRewardedUsdAmount : contribution.totalRewardedUsdAmount;
 
@@ -41,7 +41,6 @@ export function CardContributionKanban({
       actions={buttons as ButtonGroupPort["buttons"]}
       showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}
-      endContent={endContent}
     />
   );
 }

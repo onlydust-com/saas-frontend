@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ContributionAs, ContributionAsUnion } from "@/core/domain/contribution/models/contribution.types";
 
@@ -17,7 +15,6 @@ export interface UseContributionActionsProps {
 
 export interface UseContributionActionReturn {
   buttons: ButtonGroupPort["buttons"];
-  endContent?: ReactNode;
 }
 
 export const useContributionActions = (props: UseContributionActionsProps): UseContributionActionReturn => {
