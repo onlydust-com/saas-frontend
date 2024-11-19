@@ -68,19 +68,20 @@ export function useFilterColumns() {
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.issues"} />,
       cell: info => {
         const issues = info.getValue();
+        const issuesCount = issues?.length ?? 0;
 
-        if (!issues?.length) {
+        if (!issuesCount) {
           return <CellEmpty />;
         }
 
         return (
           <ContributionsPopover
-            contributionsCount={issues?.length ?? 0}
+            contributionsCount={issuesCount}
             contributionIds={issues}
             buttonProps={{
               translate: {
                 token: "myDashboard:detail.projectsTable.gfi",
-                count: issues?.length ?? 0,
+                count: issuesCount,
               },
             }}
           />
