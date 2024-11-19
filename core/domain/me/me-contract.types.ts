@@ -87,3 +87,14 @@ export type GetMyProjectsAsContributorPortParams = HttpClientParameters<{
 }>;
 
 export type GetMyProjectsAsContributorPortResponse = HttpStorageResponse<GetMyProjectsAsContributorModel>;
+
+/* ------------------------------ Set My Payout Preference For Project ------------------------------ */
+
+export type SetMyPayoutPreferenceForProjectBody = components["schemas"]["PayoutPreferenceRequest"];
+
+export type SetMyPayoutPreferenceForProjectPortParams = HttpClientParameters<object>;
+
+export type SetMyPayoutPreferenceForProjectPortResponse = HttpStorageResponse<
+  never,
+  SetMyPayoutPreferenceForProjectBody
+>;

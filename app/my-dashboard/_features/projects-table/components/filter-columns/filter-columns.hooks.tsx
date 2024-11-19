@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { useMemo } from "react";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
 import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
@@ -26,11 +27,19 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
 
-function CellBillingProfile({ billingProfile }: { billingProfile?: BillingProfileShortInterface }) {
+function CellBillingProfile({
+  projectId,
+  billingProfile,
+}: {
+  projectId: string;
+  billingProfile?: BillingProfileShortInterface;
+}) {
   const { billingProfilesIcons } = useBillingProfileIcons();
   const { data } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
 
   const myBillingProfiles = useMemo(() => data?.billingProfiles ?? [], [data]);
+
+  const { mutate, isPending } = MeReactQueryAdapter.client.useSetMyPreferenceForProject({});
 
   const menuItems: MenuItemPort[] =
     myBillingProfiles.map(billingProfile => ({
@@ -39,8 +48,8 @@ function CellBillingProfile({ billingProfile }: { billingProfile?: BillingProfil
       icon: billingProfilesIcons[billingProfile.type],
     })) ?? [];
 
-  function handleMenuAction(id: string) {
-    console.log({ id });
+  function handleMenuAction(billingProfileId: string) {
+    mutate({ billingProfileId, projectId });
   }
 
   return (
@@ -50,6 +59,7 @@ function CellBillingProfile({ billingProfile }: { billingProfile?: BillingProfil
         size={"sm"}
         startIcon={billingProfile ? billingProfilesIcons[billingProfile.type] : undefined}
         endIcon={{ component: ChevronDown }}
+        isLoading={isPending}
       >
         {billingProfile?.name ?? <Translate token={"myDashboard:detail.projectsTable.pendingBillingProfile"} />}
       </Button>
@@ -192,7 +202,7 @@ export function useFilterColumns() {
       cell: info => {
         const billingProfile = info.getValue();
 
-        return <CellBillingProfile billingProfile={billingProfile} />;
+        return <CellBillingProfile projectId={info.row.original.id} billingProfile={billingProfile} />;
       },
     }),
     actions: columnHelper.display({

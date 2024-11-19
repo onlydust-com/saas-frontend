@@ -21,4 +21,6 @@ export class MeClientAdapterMock implements MeStoragePort {
   getMyProjectsAsMaintainer = mockHttpStorageResponse<MeStoragePort["getMyProjectsAsMaintainer"]>;
 
   getMyProjectsAsContributor = mockHttpStorageResponse<MeStoragePort["getMyProjectsAsContributor"]>;
+
+  setMyPayoutPreferenceForProject = mockHttpStorageResponse<MeStoragePort["setMyPayoutPreferenceForProject"]>;
 }

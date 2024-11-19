@@ -7,6 +7,7 @@ import {
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SetMeBody,
+  SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
@@ -30,6 +31,7 @@ export class MeClientAdapter implements MeStoragePort {
     getMeProjects: "me/projects",
     getMyProjectsAsMaintainer: "me/as-maintainer/projects",
     getMyProjectsAsContributor: "me/as-contributor/projects",
+    setMyPayoutPreferenceForProject: "me/payout-preferences",
   } as const;
 
   logoutMe = () => {
@@ -201,6 +203,25 @@ export class MeClientAdapter implements MeStoragePort {
         projects: data.projects.map(project => new MeContributorProjects(project)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  setMyPayoutPreferenceForProject = () => {
+    const path = this.routes["setMyPayoutPreferenceForProject"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: SetMyPayoutPreferenceForProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,
