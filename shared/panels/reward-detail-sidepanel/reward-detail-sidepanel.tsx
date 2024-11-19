@@ -71,20 +71,26 @@ export function Content() {
 export function Header() {
   const { name } = useRewardDetailSidepanel();
   const idKernelPort = bootstrap.getIdKernelPort();
-  const { rewardId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {};
+  const { rewardId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {
+    rewardId: "",
+  };
+
   const { data: reward } = RewardReactQueryAdapter.client.useGetRewardId({
-    pathParams: { rewardId: rewardId ?? "" },
+    pathParams: { rewardId },
     options: {
       enabled: Boolean(rewardId),
     },
   });
 
+  const billingProfileId = reward?.billingProfileId ?? "";
+  const invoiceId = reward?.invoiceId ?? "";
+
   const { data: downloadedInvoice } = BillingProfileReactQueryAdapter.client.useDownloadBillingProfileInvoiceById({
     pathParams: {
-      billingProfileId: reward?.billingProfileId ?? "",
-      invoiceId: reward?.invoiceId ?? "",
+      billingProfileId,
+      invoiceId,
     },
-    options: { enabled: Boolean(reward?.invoiceId && reward?.billingProfileId) },
+    options: { enabled: Boolean(billingProfileId && invoiceId) },
   });
 
   const downloadButton = useMemo(() => {
