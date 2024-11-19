@@ -93,11 +93,11 @@ export function ContributionsPopover({
                 base: "max-w-xs overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
-              {...buttonProps}
               translate={{
                 token: "common:contributionsCount",
                 count: contributionsCount,
               }}
+              {...buttonProps}
             />
           </div>
         )}

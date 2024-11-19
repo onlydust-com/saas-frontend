@@ -9,6 +9,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { ReposPopover } from "@/shared/features/repos/repos-popover/repos-popover";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
@@ -52,8 +53,8 @@ export function useFilterColumns() {
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.contributors"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -61,10 +62,36 @@ export function useFilterColumns() {
         return <TableCellKpi>{contributorCount}</TableCellKpi>;
       },
     }),
+    issues: columnHelper.accessor("goodFirstIssueIds", {
+      enableSorting: false,
+      enableResizing: false,
+      header: () => <Translate token={"myDashboard:detail.projectsTable.columns.issues"} />,
+      cell: info => {
+        const issues = info.getValue();
+        const issuesCount = issues?.length ?? 0;
+
+        if (!issuesCount) {
+          return <CellEmpty />;
+        }
+
+        return (
+          <ContributionsPopover
+            contributionsCount={issuesCount}
+            contributionIds={issues}
+            buttonProps={{
+              translate: {
+                token: "myDashboard:detail.projectsTable.gfi",
+                count: issuesCount,
+              },
+            }}
+          />
+        );
+      },
+    }),
     contributionCount: columnHelper.accessor("contributionCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.contributions"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -74,8 +101,8 @@ export function useFilterColumns() {
     }),
     rewardedUsdAmount: columnHelper.accessor("rewardedUsdAmount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.rewardedUsdAmount"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -96,8 +123,8 @@ export function useFilterColumns() {
     }),
     languages: columnHelper.accessor("languages", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.MD,
+      minSize: TABLE_CELL_SIZE.MD,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.languages"} />,
       cell: info => {
         const languages = info.getValue() ?? [];
@@ -107,8 +134,7 @@ export function useFilterColumns() {
     }),
     repos: columnHelper.accessor("repos", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.LG,
-      minSize: TABLE_CELL_SIZE.LG,
+      enableResizing: false,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.repositories"} />,
       cell: info => {
         const repos = info.getValue() ?? [];
@@ -120,6 +146,7 @@ export function useFilterColumns() {
         return <ReposPopover repos={repos} />;
       },
     }),
+
     actions: columnHelper.display({
       id: "actions",
       enableResizing: false,
