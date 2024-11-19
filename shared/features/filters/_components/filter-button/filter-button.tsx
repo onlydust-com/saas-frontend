@@ -25,7 +25,7 @@ export function FilterButton({ onClick }: FilterButtonProps) {
           <Badge size={"xxs"} color={filterCount ? "brand" : "grey"} variant={filterCount ? "solid" : "flat"}>
             {filterCount}
           </Badge>
-        ) : undefined
+        ) : null
       }
     />
   );
