@@ -1,5 +1,5 @@
 import { useClipboard } from "@nextui-org/use-clipboard";
-import { CircleDashed, Copy } from "lucide-react";
+import { Copy } from "lucide-react";
 import { ReactNode, useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -12,12 +12,14 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 
+import { UseBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BillingProfileAccordionProps } from "./billing-profile-accordion.types";
 
 export function BillingProfileAccordion({ id, type, name, rewardCount, accounts }: BillingProfileAccordionProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const { billingProfilesIcons } = UseBillingProfileIcons();
   const { copy } = useClipboard();
 
   const accountsArray: { code: string; label: ReactNode; icon: ReactNode; value: string }[] = useMemo(() => {
@@ -103,7 +105,7 @@ export function BillingProfileAccordion({ id, type, name, rewardCount, accounts 
           ),
         }}
         inline={true}
-        startContent={<Avatar shape="squared" size="lg" iconProps={{ component: CircleDashed }} />}
+        startContent={<Avatar shape="squared" size="lg" iconProps={billingProfilesIcons[type]} />}
         endContent={
           <Badge
             color={"brand"}
