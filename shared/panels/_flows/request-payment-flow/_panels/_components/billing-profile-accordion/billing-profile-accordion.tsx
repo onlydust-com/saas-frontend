@@ -12,14 +12,14 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { UseBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
+import { useBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BillingProfileAccordionProps } from "./billing-profile-accordion.types";
 
 export function BillingProfileAccordion({ id, type, name, rewardCount, accounts }: BillingProfileAccordionProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { billingProfilesIcons } = UseBillingProfileIcons();
+  const { billingProfilesIcons } = useBillingProfileIcons();
   const { copy } = useClipboard();
 
   const accountsArray: { code: string; label: ReactNode; icon: ReactNode; value: string }[] = useMemo(() => {
