@@ -170,6 +170,11 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       <div className={"grid gap-lg"}>
         {otherWorks.map(contribution => {
           const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
+
+          function selectContribution() {
+            handleSelect(contribution.toItemDto(), isSelected);
+          }
+
           return (
             <CardContributionKanban
               key={contribution.id}
@@ -180,18 +185,22 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               actions={[
                 {
                   translate: { token: isSelected ? "common:unselect" : "common:select" },
-                  onClick: () => {
-                    handleSelect(contribution.toItemDto(), isSelected);
-                  },
+                  onClick: selectContribution,
                 },
               ]}
               border={isSelected ? "brand-primary" : undefined}
               githubHtmlUrl={contribution.htmlUrl}
+              onClick={selectContribution}
             />
           );
         })}
         {mixedContributions.map(contribution => {
           const isSelected = !!selectedContributions.find(c => c.isEqualTo(contribution.toItemDto())) || false;
+
+          function selectContribution() {
+            handleSelect(contribution.toItemDto(), isSelected);
+          }
+
           return (
             <CardContributionKanban
               key={contribution.id}
@@ -207,13 +216,12 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
               actions={[
                 {
                   translate: { token: isSelected ? "common:unselect" : "common:select" },
-                  onClick: () => {
-                    handleSelect(contribution.toItemDto(), isSelected);
-                  },
+                  onClick: selectContribution,
                 },
               ]}
               border={isSelected ? "brand-primary" : undefined}
               githubHtmlUrl={contribution.githubHtmlUrl}
+              onClick={selectContribution}
             />
           );
         })}
