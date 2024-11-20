@@ -14,7 +14,7 @@ export function TransactionsTrigger() {
     if (!isOpen) {
       open();
     } else {
-      close;
+      close();
     }
   }
 
