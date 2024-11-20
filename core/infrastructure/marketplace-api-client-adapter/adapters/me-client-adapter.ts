@@ -1,12 +1,15 @@
 import { bootstrap } from "@/core/bootstrap";
+import { BillingProfileShort } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import {
   GetMeResponse,
+  GetMyPayoutPreferencesResponse,
   GetMyProfileResponse,
   GetMyProjectsAsContributorResponse,
   GetMyProjectsAsMaintainerResponse,
   LogoutMeResponse,
   ReplaceMyProfileBody,
   SetMeBody,
+  SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
@@ -14,6 +17,7 @@ import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-proj
 import { Me } from "@/core/domain/me/models/me-model";
 import { MeProfile } from "@/core/domain/me/models/me-profile-model";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
+import { ProjectShort } from "@/core/domain/project/models/project-short-model";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { AnyType, FirstParameter } from "@/core/kernel/types";
 
@@ -30,6 +34,8 @@ export class MeClientAdapter implements MeStoragePort {
     getMeProjects: "me/projects",
     getMyProjectsAsMaintainer: "me/as-maintainer/projects",
     getMyProjectsAsContributor: "me/as-contributor/projects",
+    getMyPayoutPreferences: "me/payout-preferences",
+    setMyPayoutPreferenceForProject: "me/payout-preferences",
   } as const;
 
   logoutMe = () => {
@@ -201,6 +207,48 @@ export class MeClientAdapter implements MeStoragePort {
         projects: data.projects.map(project => new MeContributorProjects(project)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getMyPayoutPreferences = () => {
+    const path = this.routes["getMyPayoutPreferences"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+    const request = async () => {
+      const data = await this.client.request<GetMyPayoutPreferencesResponse>({
+        path,
+        method,
+        tag,
+      });
+
+      return data.map(item => ({
+        project: new ProjectShort(item.project),
+        billingProfile: item.billingProfile ? new BillingProfileShort(item.billingProfile) : undefined,
+      }));
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  setMyPayoutPreferenceForProject = () => {
+    const path = this.routes["setMyPayoutPreferenceForProject"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: SetMyPayoutPreferenceForProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

@@ -5,7 +5,7 @@ import { BillingProfileType, BillingProfileTypeUnion } from "@/core/domain/billi
 
 import { IconPort } from "@/design-system/atoms/icon";
 
-export function UseBillingProfileIcons() {
+export function useBillingProfileIcons() {
   const billingProfilesIcons: Record<BillingProfileTypeUnion, IconPort> = useMemo(() => {
     return {
       [BillingProfileType.Individual]: { component: User },
