@@ -17,6 +17,7 @@ import { ContributionsPanelData } from "@/shared/panels/contribution-sidepanel/c
 
 import { Helper } from "./_features/helper/helper";
 import { RewardedCardWrapper } from "./_features/rewarded-card-wrapper/rewarded-card-wrapper";
+import { Timeline } from "./_features/timeline/timeline";
 
 export function useContributionsSidepanel() {
   return useSinglePanelContext<ContributionsPanelData>("contribution-details");
@@ -57,8 +58,7 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees showRemove={true} contribution={contribution} />
-        {/* KEEP THIS */}
-        {/*<Timeline id={contribution.id} />*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -75,8 +75,7 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
         <RewardedCardWrapper contribution={contribution} />
         <LinkedIssues issues={contribution.linkedIssues} />
         <Assignees contribution={contribution} />
-        {/* KEEP THIS */}
-        {/*<Timeline id={contribution.id} />*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -87,8 +86,7 @@ function useContributionBlocksAsMaintainer({ contribution, helperState }: UseCon
         <IssueOverview contribution={contribution} />
         <RewardedCardWrapper contribution={contribution} />
         <Assignees contribution={contribution} />
-        {/* KEEP THIS */}
-        {/*<Timeline id={contribution.id} />*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -142,7 +140,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <UserCard title={{ translate: { token: "panels:contribution.userCard.assignedBy" } }} user={assignedBy} />
         <Description description={contribution.githubBody} />
-        {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -152,9 +150,10 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <LinkedIssues issues={contribution.linkedIssues} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <Description description={contribution.githubBody} />
-        {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
@@ -164,13 +163,14 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
     return (
       <>
         <IssueOverview contribution={contribution} />
+        <LinkedIssues issues={contribution.linkedIssues} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <UserCard
           title={{ translate: { token: "panels:contribution.userCard.mergedBy" } }}
           user={contribution.mergedBy}
         />
         <Description description={contribution.githubBody} />
-        {/*// Timeline*/}
+        <Timeline id={contribution.id} />
       </>
     );
   }
