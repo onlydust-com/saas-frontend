@@ -1,5 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 
@@ -23,6 +24,8 @@ import { TableColumns } from "./filter-columns.types";
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<MeContributorProjectsInterface>();
+
+  const { data: myPayoutPreferences } = MeReactQueryAdapter.client.useGetMyPayoutPreferences({});
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     name: columnHelper.accessor("name", {
@@ -154,8 +157,18 @@ export function useFilterColumns() {
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.billingProfile"} />,
       cell: info => {
         const billingProfile = info.getValue();
+        const projectId = info.row.original.id;
 
-        return <CellBillingProfile projectId={info.row.original.id} billingProfile={billingProfile} />;
+        const projectExistsInPayoutPreferences = Boolean(
+          myPayoutPreferences?.find(item => item.project.id === projectId)
+        );
+
+        // To select a billing profile, a billing profile must already be set or the project must exist in the payout preferences
+        if (!billingProfile && !projectExistsInPayoutPreferences) {
+          return <CellEmpty />;
+        }
+
+        return <CellBillingProfile projectId={projectId} billingProfile={billingProfile} />;
       },
     }),
     actions: columnHelper.display({

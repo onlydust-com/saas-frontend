@@ -38,7 +38,10 @@ export function useSetMyPreferenceForProject({
             exact: false,
           });
 
-          // TODO: Invalidate my payout preferences
+          await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMyPayoutPreferences({}).tag,
+            exact: false,
+          });
 
           await queryClient.invalidateQueries({
             queryKey: rewardStoragePort.getRewards({}).tag,
