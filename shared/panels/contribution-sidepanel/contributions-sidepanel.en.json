@@ -2,13 +2,14 @@
   "timeline": {
     "title": "Timeline",
     "items": {
-      "prCreated": "PR Created",
-      "contributorAssigned": "Contributor assigned",
-      "contributorRemoved": "Contributor removed",
-      "issueCreated": "Issue Created",
-      "toReview": "To review",
-      "closed": "Closed",
-      "rewarded": "Rewarded"
+      "ISSUE_CREATED": "Issue created",
+      "PR_CREATED": "PR Created",
+      "ISSUE_ASSIGNED": "Issue assigned",
+      "PR_MERGED": "PR Merged",
+      "ISSUE_CLOSED": "Issue closed",
+      "LINKED_ISSUE_CREATED": "Linked issue created",
+      "LINKED_ISSUE_ASSIGNED": "Linked issue assigned",
+      "LINKED_ISSUE_CLOSED": "Linked issue closed"
     }
   },
   "contributors": {
