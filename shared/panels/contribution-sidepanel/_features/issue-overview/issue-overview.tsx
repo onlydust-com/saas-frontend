@@ -67,25 +67,27 @@ function LinkedIssues({ issueIds }: { issueIds?: string[] }) {
   );
 }
 
-export function IssueOverview({ contribution }: IssueOverviewProps) {
-  if (contribution.isPullRequest()) {
-    return (
-      <LinkedIssues issueIds={contribution.linkedIssues?.map(issue => issue.contributionUuid ?? "").filter(Boolean)} />
-    );
-  }
-
+export function IssueOverview({ contribution, showLinkedIssues }: IssueOverviewProps) {
   return (
-    <Card
-      type={contribution.type}
-      githubTitle={contribution.githubTitle}
-      githubStatus={contribution.githubStatus}
-      githubNumber={contribution.githubNumber}
-      lastUpdatedAt={contribution.lastUpdatedAt}
-      githubLabels={contribution.githubLabels}
-      languages={contribution.languages}
-      repo={contribution.repo}
-      linkedIssues={contribution.linkedIssues}
-      rewardUsdAmount={contribution.totalRewardedUsdAmount}
-    />
+    <>
+      <Card
+        type={contribution.type}
+        githubTitle={contribution.githubTitle}
+        githubStatus={contribution.githubStatus}
+        githubNumber={contribution.githubNumber}
+        lastUpdatedAt={contribution.lastUpdatedAt}
+        githubLabels={contribution.githubLabels}
+        languages={contribution.languages}
+        repo={contribution.repo}
+        linkedIssues={contribution.linkedIssues}
+        rewardUsdAmount={contribution.totalRewardedUsdAmount}
+      />
+
+      {showLinkedIssues && contribution.isPullRequest() ? (
+        <LinkedIssues
+          issueIds={contribution.linkedIssues?.map(issue => issue.contributionUuid ?? "").filter(Boolean)}
+        />
+      ) : null}
+    </>
   );
 }

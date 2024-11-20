@@ -151,7 +151,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
   if (contribution.isToReview()) {
     return (
       <>
-        <IssueOverview contribution={contribution} />
+        <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <Description description={contribution.githubBody} />
         {/*// Timeline*/}
@@ -163,7 +163,7 @@ function useContributionBlocksAsContributor({ contribution }: UseContributionBlo
   if (contribution.isArchived() || contribution.isDone()) {
     return (
       <>
-        <IssueOverview contribution={contribution} />
+        <IssueOverview contribution={contribution} showLinkedIssues={true} />
         <RewardedCardWrapper contribution={contribution} recipientIds={recipientIds} />
         <UserCard
           title={{ translate: { token: "panels:contribution.userCard.mergedBy" } }}
