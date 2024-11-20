@@ -148,6 +148,7 @@ export function AmountSelector({
             <AvatarLabelGroup
               avatars={[{ src: budget.currency.logoUrl, alt: budget.currency.name }]}
               size={"sm"}
+              withPopover={false}
               title={{
                 children: showBudgetAmount
                   ? `${budget.currency.name} • ${formattedBudgetAmount} ${budget.currency.code}`
