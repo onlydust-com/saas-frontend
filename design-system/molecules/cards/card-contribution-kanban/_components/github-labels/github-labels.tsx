@@ -8,7 +8,7 @@ export function GithubLabels({ githubLabels }: GithubLabelsProps) {
   if (!githubLabels?.length) return null;
 
   return githubLabels.map(({ name }) => (
-    <Badge key={name} size="xxs" shape="squared" variant="outline" icon={{ component: Tag }}>
+    <Badge key={name} size="xxs" shape="squared" icon={{ component: Tag }}>
       {name}
     </Badge>
   ));

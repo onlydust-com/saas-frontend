@@ -107,7 +107,6 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return null;
   }
 
-  // TODO: finish that
   function renderTags() {
     return (
       <div className="flex flex-wrap items-center gap-sm empty:hidden">

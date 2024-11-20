@@ -11,7 +11,7 @@ export function Repo({ repo }: RepoProps) {
   if (!repo) return null;
 
   return (
-    <Badge size="xxs" shape="squared" variant="outline" icon={{ component: GithubIcon }}>
+    <Badge size="xxs" shape="squared" icon={{ component: GithubIcon }}>
       <Emoji>{repo.name}</Emoji>
     </Badge>
   );

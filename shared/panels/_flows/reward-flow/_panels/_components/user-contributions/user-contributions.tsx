@@ -186,6 +186,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
                 },
               ]}
               border={isSelected ? "brand-primary" : undefined}
+              githubHtmlUrl={contribution.htmlUrl}
             />
           );
         })}
@@ -212,6 +213,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
                 },
               ]}
               border={isSelected ? "brand-primary" : undefined}
+              githubHtmlUrl={contribution.githubHtmlUrl}
             />
           );
         })}

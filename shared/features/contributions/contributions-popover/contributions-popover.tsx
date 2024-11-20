@@ -71,6 +71,7 @@ export function ContributionsPopover({
               contributors={contribution.contributors}
               linkedIssues={contribution.linkedIssues}
               githubLabels={contribution.githubLabels}
+              githubHtmlUrl={contribution.githubHtmlUrl}
             />
           ))}
         </div>
