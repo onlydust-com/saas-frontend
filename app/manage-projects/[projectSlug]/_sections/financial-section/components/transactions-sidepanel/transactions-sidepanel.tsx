@@ -9,7 +9,7 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 
 export function TransactionsSidepanel() {
-  const { Panel, open } = useSidePanel({ name: "financial-transaction-export" });
+  const { Panel, open } = useSidePanel({ name: "manage-project-transaction-export" });
   const {
     filters: { clear },
   } = useTransactionsContext();

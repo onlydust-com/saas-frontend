@@ -10,7 +10,7 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 import { BillingProfileCardProps } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card.types";
-import { UseBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
+import { useBillingProfileIcons } from "@/shared/panels/_flows/request-payment-flow/_panels/hooks/use-billing-profile-icons/use-billing-profile-icons";
 
 export function BillingProfileCard({
   type,
@@ -21,7 +21,7 @@ export function BillingProfileCard({
   isDisabled,
   onClick,
 }: BillingProfileCardProps) {
-  const { billingProfilesIcons } = UseBillingProfileIcons();
+  const { billingProfilesIcons } = useBillingProfileIcons();
 
   function getIconProps(): IconPort {
     if (!enabled) {

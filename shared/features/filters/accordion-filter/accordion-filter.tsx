@@ -28,6 +28,8 @@ export function AccordionFilter({ selected, children, title, name, classNames }:
       return {
         children: selected.toString(),
         color: selected ? "brand" : undefined,
+        shape: "rounded",
+        classNames: { base: "min-w-6 min-h-6" },
       };
     }
 

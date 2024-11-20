@@ -20,6 +20,10 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
     BillingProfileStoragePort["uploadBillingProfileInvoiceById"]
   >;
 
+  downloadBillingProfileInvoiceById = mockHttpStorageResponse<
+    BillingProfileStoragePort["downloadBillingProfileInvoiceById"]
+  >;
+
   acceptOrDeclineBillingProfileMandateById = mockHttpStorageResponse<
     BillingProfileStoragePort["acceptOrDeclineBillingProfileMandateById"]
   >;

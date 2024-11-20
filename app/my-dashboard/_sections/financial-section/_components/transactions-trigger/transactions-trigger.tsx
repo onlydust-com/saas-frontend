@@ -2,9 +2,20 @@ import { ChevronRight } from "lucide-react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+
+import { TransactionsContextProvider } from "../transactions-sidepanel/context/transactions.context";
+import { TransactionsSidepanel } from "../transactions-sidepanel/transactions-sidepanel";
+
 export function TransactionsTrigger() {
+  const { Panel, open, close, isOpen } = useSidePanel({ name: "dashboard-transaction" });
+
   function togglePanel() {
-    console.log("togglePanel");
+    if (!isOpen) {
+      open();
+    } else {
+      close();
+    }
   }
 
   return (
@@ -22,7 +33,11 @@ export function TransactionsTrigger() {
         }}
       />
 
-      {/* TODO: Add panel */}
+      <TransactionsContextProvider>
+        <Panel>
+          <TransactionsSidepanel />
+        </Panel>
+      </TransactionsContextProvider>
     </>
   );
 }

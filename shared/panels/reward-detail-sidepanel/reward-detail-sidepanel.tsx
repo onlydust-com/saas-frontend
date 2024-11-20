@@ -1,6 +1,11 @@
+import { CloudDownload } from "lucide-react";
+import { useMemo } from "react";
+
+import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -63,19 +68,70 @@ export function Content() {
   );
 }
 
-export function RewardDetailSidepanel() {
+export function Header() {
   const { name } = useRewardDetailSidepanel();
   const idKernelPort = bootstrap.getIdKernelPort();
+  const { rewardId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {
+    rewardId: "",
+  };
+
+  const { data: reward } = RewardReactQueryAdapter.client.useGetRewardId({
+    pathParams: { rewardId },
+    options: {
+      enabled: Boolean(rewardId),
+    },
+  });
+
+  const billingProfileId = reward?.billingProfileId ?? "";
+  const invoiceId = reward?.invoiceId ?? "";
+
+  const { data: downloadedInvoice } = BillingProfileReactQueryAdapter.client.useDownloadBillingProfileInvoiceById({
+    pathParams: {
+      billingProfileId,
+      invoiceId,
+    },
+    options: { enabled: Boolean(billingProfileId && invoiceId) },
+  });
+
+  const downloadButton = useMemo(() => {
+    if (!downloadedInvoice || !rewardId) {
+      return null;
+    }
+
+    return (
+      <Button
+        size={"sm"}
+        variant={"secondary"}
+        startIcon={{ component: CloudDownload }}
+        translate={{
+          token: "panels:rewardDetail.download",
+        }}
+        as={"a"}
+        htmlProps={{
+          href: window.URL.createObjectURL(downloadedInvoice),
+          download: reward?.invoiceNumber ?? "invoice.pdf",
+        }}
+      />
+    );
+  }, [reward, downloadedInvoice]);
+
+  return (
+    <SidePanelHeader
+      canGoBack={false}
+      canClose={true}
+      title={{ children: rewardId ? `#${idKernelPort.prettyId(rewardId)}` : "" }}
+      titleEndContent={downloadButton}
+    />
+  );
+}
+
+export function RewardDetailSidepanel() {
+  const { name } = useRewardDetailSidepanel();
   const { Panel } = useSidePanel({ name });
-  const { rewardId } = useSinglePanelData<RewardDetailSidepanelData>(name) ?? {};
 
   return (
     <Panel>
-      <SidePanelHeader
-        canGoBack={false}
-        canClose={true}
-        title={{ children: rewardId ? `#${idKernelPort.prettyId(rewardId)}` : "" }}
-      />
+      <Header />
       <Content />
     </Panel>
   );
