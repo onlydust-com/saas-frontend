@@ -1,6 +1,8 @@
 import {
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
+  GetMyPayoutPreferencesPortParams,
+  GetMyPayoutPreferencesPortResponse,
   GetMyProfilePortParams,
   GetMyProfilePortResponse,
   GetMyProjectsAsContributorPortParams,
@@ -13,6 +15,8 @@ import {
   ReplaceMyProfilePortResponse,
   SetMePortParams,
   SetMePortResponse,
+  SetMyPayoutPreferenceForProjectPortParams,
+  SetMyPayoutPreferenceForProjectPortResponse,
   SetMyProfilePortParams,
   SetMyProfilePortResponse,
 } from "@/core/domain/me/me-contract.types";
@@ -27,4 +31,8 @@ export interface MeStoragePort {
   replaceMyProfile(params: ReplaceMyProfilePortParams): ReplaceMyProfilePortResponse;
   getMyProjectsAsMaintainer(p: GetMyProjectsAsMaintainerPortParams): GetMyProjectsAsMaintainerPortResponse;
   getMyProjectsAsContributor(p: GetMyProjectsAsContributorPortParams): GetMyProjectsAsContributorPortResponse;
+  getMyPayoutPreferences(p: GetMyPayoutPreferencesPortParams): GetMyPayoutPreferencesPortResponse;
+  setMyPayoutPreferenceForProject(
+    p: SetMyPayoutPreferenceForProjectPortParams
+  ): SetMyPayoutPreferenceForProjectPortResponse;
 }

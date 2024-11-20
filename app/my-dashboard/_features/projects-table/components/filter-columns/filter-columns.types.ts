@@ -12,4 +12,5 @@ export type TableColumns =
   | "languages"
   | "repos"
   | "issues"
+  | "billingProfile"
   | "actions";

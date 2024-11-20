@@ -24,7 +24,7 @@ import { useFinancialColumnChart } from "./financial-column-chart.hooks";
 export function FinancialColumnChart() {
   const { t } = useTranslation();
 
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
 
   const rangeMenu = useRangeSelectOptions();
   const { githubUserId } = useAuthUser();
