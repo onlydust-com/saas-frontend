@@ -25,40 +25,36 @@ export function BudgetAvailableCards() {
     },
   });
 
-  const [firstStat] = data?.stats ?? [];
-
-  const fallback = {
-    totalUsdEquivalent: 0,
-    totalPerCurrency: [],
-  };
-
   const rewardPendingAmount = useMemo(() => {
-    if (firstStat) {
+    if (!data) {
       return {
-        totalUsdEquivalent: firstStat.totalRewarded.totalUsdEquivalent - firstStat.totalPaid.totalUsdEquivalent,
-        totalPerCurrency: firstStat.totalRewarded.totalPerCurrency
-          ?.map(rewarded => {
-            const paid = firstStat.totalPaid.totalPerCurrency?.find(p => p.currency.id === rewarded.currency.id) || {
-              usdEquivalent: 0,
-            };
-
-            const pendingUsdEquivalent = (rewarded.usdEquivalent || 0) - (paid.usdEquivalent || 0);
-
-            if (pendingUsdEquivalent !== 0) {
-              return {
-                ...rewarded,
-                usdEquivalent: pendingUsdEquivalent,
-              };
-            }
-
-            return null;
-          })
-          .filter(item => item !== null),
+        totalUsdEquivalent: 0,
+        totalPerCurrency: [],
       };
     }
 
-    return fallback;
-  }, [firstStat]);
+    return {
+      totalUsdEquivalent: data.totalRewarded.totalUsdEquivalent - data.totalPaid.totalUsdEquivalent,
+      totalPerCurrency: data.totalRewarded.totalPerCurrency
+        ?.map(rewarded => {
+          const paid = data.totalPaid.totalPerCurrency?.find(p => p.currency.id === rewarded.currency.id) || {
+            usdEquivalent: 0,
+          };
+
+          const pendingUsdEquivalent = (rewarded.usdEquivalent || 0) - (paid.usdEquivalent || 0);
+
+          if (pendingUsdEquivalent !== 0) {
+            return {
+              ...rewarded,
+              usdEquivalent: pendingUsdEquivalent,
+            };
+          }
+
+          return null;
+        })
+        .filter(item => item !== null),
+    };
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -90,9 +86,9 @@ export function BudgetAvailableCards() {
     <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
       <FinancialCardItem
         title="myDashboard:budgetAvailable.rewarded.title"
-        total={firstStat?.totalRewarded ?? fallback}
+        total={data.totalRewarded}
         color="gradient"
-        onClick={() => openPanel("rewardedAmount", firstStat?.totalRewarded)}
+        onClick={() => openPanel("rewardedAmount", data.totalRewarded)}
       />
 
       <FinancialCardItem
@@ -104,9 +100,9 @@ export function BudgetAvailableCards() {
 
       <FinancialCardItem
         title="myDashboard:budgetAvailable.paid.title"
-        total={firstStat?.totalPaid ?? fallback}
+        total={data.totalPaid}
         color="grey"
-        onClick={() => openPanel("rewardPaid", firstStat?.totalPaid)}
+        onClick={() => openPanel("rewardPaid", data.totalPaid)}
       />
     </div>
   );

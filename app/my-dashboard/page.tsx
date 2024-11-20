@@ -48,9 +48,9 @@ function MyDashboardPage() {
           </AnimatedColumn>
 
           <FinancialDetailSidepanel />
+          <RewardDetailSidepanel />
           <ContributorSidepanel />
           <ContributionsSidepanel />
-          <RewardDetailSidepanel />
         </RequestPaymentFlowProvider>
       </GithubPermissionsProvider>
     </PageWrapper>
