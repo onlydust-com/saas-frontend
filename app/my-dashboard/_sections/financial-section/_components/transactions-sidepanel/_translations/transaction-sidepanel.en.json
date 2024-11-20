@@ -3,7 +3,7 @@
     "title": "Transactions",
     "export": "Export CSV",
     "search": {
-      "placeholder": "Search program..."
+      "placeholder": "Search reward..."
     },
     "empty": {
       "title": "No transactions found",
@@ -17,10 +17,8 @@
       "types": {
         "title": "Types",
         "choices": {
-          "GRANTED": "Granted",
           "REWARDED": "Rewarded",
-          "UNGRANTED": "Ungranted",
-          "UNALLOCATED": "Unallocated"
+          "PAID": "Paid"
         }
       },
       "period": {

@@ -15,6 +15,7 @@ import { TransactionsContextFilterTypes } from "../context/transactions.context.
 
 export function ExportCsv() {
   const {
+    githubUserId,
     queryParams,
     filters: {
       set,
@@ -39,14 +40,14 @@ export function ExportCsv() {
     set({ dateRange: value });
   }
 
-  // TODO: update si je change les filtres
   async function handleClick() {
     const data = await rewardStoragePortForClient
       .getRewardsCsv({
         queryParams: {
           ...queryParams,
-          pageIndex: 0,
+          recipientIds: [githubUserId],
           pageSize: 100,
+          pageIndex: 0,
         },
       })
       .request();

@@ -35,12 +35,7 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
 export function TransactionsContextProvider({ children }: TransactionsContextProps) {
   const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
   const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
-    types: [
-      TransactionsContextFilterType.GRANTED,
-      TransactionsContextFilterType.REWARDED,
-      TransactionsContextFilterType.UNGRANTED,
-      TransactionsContextFilterType.UNALLOCATED,
-    ],
+    types: [TransactionsContextFilterType.REWARDED, TransactionsContextFilterType.PAID],
   });
   const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
@@ -77,7 +72,7 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
       fromDate: filters.dateRange?.start ? dateKernelPort.format(filters.dateRange.start, "yyyy-MM-dd") : undefined,
       toDate: filters.dateRange?.end ? dateKernelPort.format(filters.dateRange.end, "yyyy-MM-dd") : undefined,
     });
-  }, [filters, githubUserId]);
+  }, [dateKernelPort, filters]);
 
   const isCleared = useMemo(() => JSON.stringify(filters) == JSON.stringify(DEFAULT_FILTER), [filters]);
 

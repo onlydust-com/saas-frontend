@@ -52,13 +52,18 @@ export function Header() {
           {() => (
             <div>
               <Button
+                variant={count ? "primary" : "secondary"}
                 size="sm"
-                variant="secondary"
-                iconOnly
                 startIcon={{ component: Filter }}
+                iconOnly={!count}
                 endContent={
                   count ? (
-                    <Badge size="sm" shape="rounded">
+                    <Badge
+                      size="sm"
+                      shape="rounded"
+                      color={count ? "brand" : "grey"}
+                      variant={count ? "solid" : "flat"}
+                    >
                       {count}
                     </Badge>
                   ) : null
@@ -70,16 +75,16 @@ export function Header() {
 
         <Popover.Content>
           {() => (
-            <div className="flex max-w-[360px] flex-col gap-3">
+            <div className="flex min-w-[250px] max-w-[360px] flex-col gap-3">
               <div className="flex items-center justify-between gap-2">
-                <Typo translate={{ token: "manageProjects:transactionPanel.filters.title" }} />
+                <Typo translate={{ token: "myDashboard:transactionPanel.filters.title" }} />
 
                 {!isCleared ? (
                   <Button
                     onClick={clear}
                     size="sm"
                     variant="secondary"
-                    translate={{ token: "manageProjects:transactionPanel.filters.clear" }}
+                    translate={{ token: "myDashboard:transactionPanel.filters.clear" }}
                   />
                 ) : null}
               </div>
@@ -88,7 +93,7 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="secondary"
-                  translate={{ token: "manageProjects:transactionPanel.filters.options.types.title" }}
+                  translate={{ token: "myDashboard:transactionPanel.filters.options.types.title" }}
                 />
 
                 <div className="flex flex-wrap gap-1">
@@ -98,7 +103,7 @@ export function Header() {
                       value={types.includes(type)}
                       onChange={checked => handleTypes(type, checked)}
                     >
-                      <Translate token={`manageProjects:transactionPanel.filters.options.types.choices.${type}`} />
+                      <Translate token={`myDashboard:transactionPanel.filters.options.types.choices.${type}`} />
                     </CheckboxButton>
                   ))}
                 </div>
@@ -108,7 +113,7 @@ export function Header() {
                 <Typo
                   size="xs"
                   color="secondary"
-                  translate={{ token: "manageProjects:transactionPanel.filters.options.period.title" }}
+                  translate={{ token: "myDashboard:transactionPanel.filters.options.period.title" }}
                 />
 
                 <DateRangePicker value={dateRange} onChange={handleDateRange} />

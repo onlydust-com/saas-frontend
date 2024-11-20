@@ -24,10 +24,8 @@ export interface TransactionsContextReturn {
 }
 
 export enum TransactionsContextFilterType {
-  GRANTED = "GRANTED",
   REWARDED = "REWARDED",
-  UNGRANTED = "UNGRANTED",
-  UNALLOCATED = "UNALLOCATED",
+  PAID = "PAID",
 }
 
 export type TransactionsContextFilterTypes = `${TransactionsContextFilterType}`;
