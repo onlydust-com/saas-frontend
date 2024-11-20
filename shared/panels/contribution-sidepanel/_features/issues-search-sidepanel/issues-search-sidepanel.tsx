@@ -86,6 +86,7 @@ export function IssuesSearchSidepanel() {
                 applicants={[]}
                 contributors={[]}
                 githubLabels={issue.githubLabels}
+                githubHtmlUrl={issue.githubHtmlUrl}
               />
             ))}
             {hasNextPage ? (

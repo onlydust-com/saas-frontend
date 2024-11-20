@@ -10,7 +10,6 @@ import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 export function CardContributionKanban({
   contribution,
   classNames,
-  showActions,
   showContributors = true,
   showProject = false,
   showLanguages = false,
@@ -18,7 +17,7 @@ export function CardContributionKanban({
   as,
   ...actions
 }: CardContributionKanbanProps) {
-  const { buttons, endContent } = useContributionActions({ as, contribution, actions });
+  const { buttons, customContent } = useContributionActions({ as, contribution, actions });
   const rewardUsdAmount =
     as === ContributionAs.CONTRIBUTOR ? contribution.callerTotalRewardedUsdAmount : contribution.totalRewardedUsdAmount;
 
@@ -39,9 +38,9 @@ export function CardContributionKanban({
       repo={showRepo ? contribution.repo : undefined}
       project={showProject ? contribution.project : undefined}
       actions={buttons as ButtonGroupPort["buttons"]}
-      showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}
-      endContent={endContent}
+      githubHtmlUrl={contribution.githubHtmlUrl}
+      customContent={customContent}
     />
   );
 }

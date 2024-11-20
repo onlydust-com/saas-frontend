@@ -22,7 +22,7 @@ export const useContributionPanelFooterAsMaintainer = ({
   contribution,
   setIsManageApplicantsModalOpen,
 }: UseContributionPanelFooter) => {
-  const { buttons, endContent } = useContributionActions({ as, contribution });
+  const { buttons, customContent } = useContributionActions({ as, contribution });
   const {
     isProjectOrganisationMissingPermissions: _isProjectOrganisationMissingPermissions,
     canCurrentUserUpdatePermissions: _canCurrentUserUpdatePermissions,
@@ -41,7 +41,7 @@ export const useContributionPanelFooterAsMaintainer = ({
     setIsManageApplicantsModalOpen?.(true);
   }
 
-  if (!buttons.length && !endContent && !contribution?.isNotAssigned()) {
+  if (!buttons.length && !customContent && !contribution?.isNotAssigned()) {
     return <div />;
   }
 
@@ -85,7 +85,8 @@ export const useContributionPanelFooterAsMaintainer = ({
 
         return <Button key={index} size={"md"} variant={"secondary"} {...action} />;
       })}
-      {endContent}
+
+      {customContent}
     </div>
   );
 };
@@ -167,6 +168,7 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
   }
 };
 
+// TODO: Check that for the github icon
 export const useContributionPanelFooter = (props: UseContributionPanelFooter) => {
   const maintainer = useContributionPanelFooterAsMaintainer(props);
   const contributor = useContributionPanelFooterAsContributor(props);

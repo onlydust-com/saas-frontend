@@ -7,7 +7,7 @@ export function Project({ project }: ProjectProps) {
 
   return (
     <AvatarLabelGroup
-      size={"xs"}
+      size="sm"
       avatars={[
         {
           src: project.logoUrl,
