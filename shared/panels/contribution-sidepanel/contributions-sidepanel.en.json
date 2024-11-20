@@ -92,5 +92,8 @@
   },
   "githubComment": {
     "title": "Github comment"
+  },
+  "description": {
+    "empty": "No description provided"
   }
 }
