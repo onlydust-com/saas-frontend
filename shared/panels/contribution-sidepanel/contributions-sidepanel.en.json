@@ -8,7 +8,8 @@
       "PR_MERGED": "PR Merged",
       "ISSUE_CLOSED": "Issue closed",
       "LINKED_ISSUE_CREATED": "Linked issue created",
-      "LINKED_ISSUE_ASSIGNED": "Linked issue assigned"
+      "LINKED_ISSUE_ASSIGNED": "Linked issue assigned",
+      "LINKED_ISSUE_CLOSED": "Linked issue closed"
     }
   },
   "contributors": {
