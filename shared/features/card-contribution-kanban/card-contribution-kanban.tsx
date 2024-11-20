@@ -10,7 +10,6 @@ import { CardContributionKanbanProps } from "./card-contribution-kanban.types";
 export function CardContributionKanban({
   contribution,
   classNames,
-  showActions,
   showContributors = true,
   showProject = false,
   showLanguages = false,
@@ -39,8 +38,8 @@ export function CardContributionKanban({
       repo={showRepo ? contribution.repo : undefined}
       project={showProject ? contribution.project : undefined}
       actions={buttons as ButtonGroupPort["buttons"]}
-      showActions={showActions}
       onClick={() => actions?.onAction?.(contribution.id)}
+      githubHtmlUrl={contribution.githubHtmlUrl}
     />
   );
 }

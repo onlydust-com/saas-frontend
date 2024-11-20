@@ -41,11 +41,11 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   languages,
   repo,
   actions,
-  showActions = true,
   onClick,
   size = "lg",
   background = "secondary",
   border = "primary",
+  githubHtmlUrl,
   ...restProps
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
@@ -110,30 +110,26 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   // TODO: finish that
   function renderTags() {
     return (
-      <>
-        <LinkedIssues linkedIssues={linkedIssues} />
-
-        <div className="flex flex-wrap items-center gap-sm empty:hidden">
-          <GithubLabels githubLabels={githubLabels} />
-          <Languages languages={languages} />
-          <Repo repo={repo} />
-        </div>
-      </>
+      <div className="flex flex-wrap items-center gap-sm empty:hidden">
+        <Repo repo={repo} />
+        <GithubLabels githubLabels={githubLabels} />
+        <Languages languages={languages} />
+      </div>
     );
   }
 
-  // TODO: finish that with href and check if needed showActions and how work showProject
+  // TODO: Check for the end content with "badge" et non endContent
   function renderFooter() {
     return (
       <footer className="flex items-center justify-between gap-md">
-        {actions?.length && showActions ? <ButtonGroup buttons={actions} size="xs" /> : <div />}
+        {actions?.length ? <ButtonGroup buttons={actions} size="xs" /> : <div />}
 
         <Button
           size="xs"
           variant="secondary"
           as={BaseLink}
           iconOnly
-          htmlProps={{ href: "", target: "_blank" }}
+          htmlProps={{ href: githubHtmlUrl, target: "_blank" }}
           startIcon={{
             component: Github,
           }}
@@ -158,6 +154,10 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     >
       {renderHeader()}
       {renderUsers()}
+
+      {/* TODO: Change it */}
+      <LinkedIssues linkedIssues={linkedIssues} />
+
       {renderTags()}
       {renderFooter()}
     </Paper>

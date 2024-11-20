@@ -4,6 +4,7 @@ import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { LangaugesProps } from "./languages.types";
 
+// TODO: DO IT
 export function Languages({ languages }: LangaugesProps) {
   if (!languages?.length) return null;
 
