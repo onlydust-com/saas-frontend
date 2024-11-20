@@ -23,6 +23,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getBillingProfilePayoutInfoById: "billing-profiles/:billingProfileId/payout-info",
     getBillingProfileInvoicePreviewById: "billing-profiles/:billingProfileId/invoice-preview",
     uploadBillingProfileInvoiceById: "billing-profiles/:billingProfileId/invoices/:invoiceId",
+    downloadBillingProfileInvoiceById: "billing-profiles/:billingProfileId/invoices/:invoiceId",
     acceptOrDeclineBillingProfileMandateById: "billing-profiles/:billingProfileId/invoices/mandate",
     getMyBillingProfiles: "me/billing-profiles",
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
@@ -119,6 +120,31 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
           "Content-Type": "application/pdf",
         },
         body,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  downloadBillingProfileInvoiceById = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<BillingProfileStoragePort["downloadBillingProfileInvoiceById"]>) => {
+    const path = this.routes["downloadBillingProfileInvoiceById"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        headers: {
+          "Content-Type": "application/pdf",
+        },
       });
 
     return {

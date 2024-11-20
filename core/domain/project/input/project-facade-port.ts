@@ -13,7 +13,7 @@ import {
   GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
-  GetProjectTransactionsCsvResponse,
+  GetProjectTransactionsCsvPortResponse,
   GetProjectTransactionsPortParams,
   GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
@@ -39,7 +39,7 @@ export interface ProjectFacadePort {
     p: GetProjectFinancialDetailsByIdPortParams
   ): GetProjectFinancialDetailsByIdPortResponse;
   getProjectTransactions(p: GetProjectTransactionsPortParams): GetProjectTransactionsPortResponse;
-  getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvResponse;
+  getProjectTransactionsCsv(p: GetProjectTransactionsPortParams): GetProjectTransactionsCsvPortResponse;
   getProjectBySlug(params: GetProjectBySlugPortParams): GetProjectBySlugPortResponse;
   getProjectContributorLabels(p: GetProjectContributorLabelsPortParams): GetProjectContributorLabelsPortResponse;
   updateProjectContributorLabels(

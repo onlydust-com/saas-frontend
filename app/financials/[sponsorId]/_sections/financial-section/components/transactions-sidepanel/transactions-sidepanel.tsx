@@ -9,7 +9,7 @@ import { ExportCsv } from "./export-csv/export-csv";
 import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
-  const { Panel, open } = useSidePanel({ name: "financial-transaction-export" });
+  const { Panel, open } = useSidePanel({ name: "sponsor-transaction-export" });
   const {
     filters: { clear },
   } = useTransactionsContext();

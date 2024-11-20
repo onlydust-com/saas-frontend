@@ -34,6 +34,7 @@ export function TransactionsTrigger() {
           label: "whitespace-nowrap text-ellipsis overflow-hidden",
         }}
       />
+
       <TransactionsContextProvider projectSlug={projectSlug}>
         <Panel>
           <TransactionsSidepanel />

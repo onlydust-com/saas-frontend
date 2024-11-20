@@ -1,5 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 
@@ -11,6 +12,7 @@ import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { ReposPopover } from "@/shared/features/repos/repos-popover/repos-popover";
+import { CellBillingProfile } from "@/shared/features/table/cell/cell-billing-profile/cell-billing-profile";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
@@ -22,6 +24,8 @@ import { TableColumns } from "./filter-columns.types";
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const columnHelper = createColumnHelper<MeContributorProjectsInterface>();
+
+  const { data: myPayoutPreferences } = MeReactQueryAdapter.client.useGetMyPayoutPreferences({});
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     name: columnHelper.accessor("name", {
@@ -146,7 +150,27 @@ export function useFilterColumns() {
         return <ReposPopover repos={repos} />;
       },
     }),
+    billingProfile: columnHelper.accessor("billingProfile", {
+      enableSorting: false,
+      size: TABLE_CELL_SIZE.LG,
+      minSize: TABLE_CELL_SIZE.LG,
+      header: () => <Translate token={"myDashboard:detail.projectsTable.columns.billingProfile"} />,
+      cell: info => {
+        const billingProfile = info.getValue();
+        const projectId = info.row.original.id;
 
+        const projectExistsInPayoutPreferences = Boolean(
+          myPayoutPreferences?.find(item => item.project.id === projectId)
+        );
+
+        // To select a billing profile, a billing profile must already be set or the project must exist in the payout preferences
+        if (!billingProfile && !projectExistsInPayoutPreferences) {
+          return <CellEmpty />;
+        }
+
+        return <CellBillingProfile projectId={projectId} billingProfile={billingProfile} />;
+      },
+    }),
     actions: columnHelper.display({
       id: "actions",
       enableResizing: false,

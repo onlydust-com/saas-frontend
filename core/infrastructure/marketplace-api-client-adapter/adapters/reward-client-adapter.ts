@@ -28,6 +28,7 @@ export class RewardClientAdapter implements RewardStoragePort {
 
   routes = {
     getRewards: "rewards",
+    getRewardsCsv: "rewards",
     getRewardById: "rewards/:rewardId",
     getProjectRewards: "projects/:projectId/rewards",
     getProjectReward: "projects/:projectId/rewards/:rewardId",
@@ -57,6 +58,28 @@ export class RewardClientAdapter implements RewardStoragePort {
         rewards: data.rewards.map(reward => new RewardListItemV2(reward)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getRewardsCsv = ({ pathParams, queryParams }: FirstParameter<RewardStoragePort["getRewardsCsv"]>) => {
+    const path = this.routes["getRewardsCsv"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () =>
+      this.client.request<Blob>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        headers: {
+          accept: "text/csv",
+        },
+      });
 
     return {
       request,
