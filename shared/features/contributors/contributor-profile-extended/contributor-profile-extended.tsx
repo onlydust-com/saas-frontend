@@ -4,11 +4,10 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
+import { SocialLinkTag } from "@/shared/features/social-link/social-link-tag/social-link-tag";
 import { Github } from "@/shared/icons";
 
 import { ContributorProfileExtendedProps } from "./contributor-profile-extended.types";
@@ -81,19 +80,7 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
         <div className={"flex w-full flex-row items-center justify-between gap-1"}>
           <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
             {contributor.contacts.map(contact => (
-              <Button
-                key={contact.contact}
-                iconOnly={true}
-                as={"a"}
-                size={"sm"}
-                variant={"secondary"}
-                htmlProps={{
-                  href: contact.contact,
-                  target: "_blank",
-                  rel: "noreferrer",
-                }}
-                startContent={<SocialIconLink url={contact.contact} />}
-              />
+              <SocialLinkTag key={contact.contact} url={contact.contact} channel={contact.channel} />
             ))}
           </div>
 
