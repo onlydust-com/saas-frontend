@@ -29,7 +29,7 @@ export type GetRewardsPortParams = HttpClientParameters<{
 
 /* ----------------------------- Get Rewards CSV ---------------------------- */
 
-export type GetRewardsCsvResponse = HttpStorageResponse<Blob>;
+export type GetRewardsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* ------------------------------ Get Reward by id ------------------------------ */
 

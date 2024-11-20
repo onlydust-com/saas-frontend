@@ -102,7 +102,7 @@ export type GetProjectTransactionsModel = Omit<GetProjectTransactionsResponse, "
 type GetProjectTransactionsPathParams = operations["getProjectTransactions_1"]["parameters"]["path"];
 type GetProjectTransactionsQueryParams = operations["getProjectTransactions_1"]["parameters"]["query"];
 
-export type GetProjectTransactionsPortResponse = HttpStorageResponse<GetProjectTransactionsResponse>;
+export type GetProjectTransactionsPortResponse = HttpStorageResponse<GetProjectTransactionsModel>;
 
 export type GetProjectTransactionsPortParams = HttpClientParameters<{
   QueryParams: GetProjectTransactionsQueryParams;
@@ -111,7 +111,7 @@ export type GetProjectTransactionsPortParams = HttpClientParameters<{
 
 /* ------------------------------ Get Project Transactions CSV ------------------------------ */
 
-export type GetProjectTransactionsCsvResponse = HttpStorageResponse<Blob>;
+export type GetProjectTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* --------------------------------- Get project by slug -------------------------------- */
 
