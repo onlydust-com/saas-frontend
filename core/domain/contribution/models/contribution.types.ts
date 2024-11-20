@@ -1,4 +1,5 @@
 import { GetContributionsResponse } from "@/core/domain/contribution/contribution-contract.types";
+import { ContributionEventResponse } from "@/core/domain/contribution/models/contribution-event-model";
 
 type status = GetContributionsResponse["contributions"][0]["activityStatus"];
 
@@ -15,14 +16,16 @@ export type ContributionActivityStatusUnion = keyof typeof ContributionActivityS
 export type ContributionGithubStatusUnion = GetContributionsResponse["contributions"][0]["githubStatus"];
 export type ContributionTypeUnion = GetContributionsResponse["contributions"][0]["type"];
 
+export type ContributionEventTypeUnion = ContributionEventResponse["type"];
+
 export enum ContributionEventType {
-  PR_CREATED = "PR_CREATED",
-  CONTRIBUTOR_ASSIGNED = "CONTRIBUTOR_ASSIGNED",
-  CONTRIBUTOR_REMOVED = "CONTRIBUTOR_REMOVED",
   ISSUE_CREATED = "ISSUE_CREATED",
-  TO_REVIEW = "TO_REVIEW",
-  CLOSED = "CLOSED",
-  REWARDED = "REWARDED",
+  PR_CREATED = "PR_CREATED",
+  ISSUE_ASSIGNED = "ISSUE_ASSIGNED",
+  PR_MERGED = "PR_MERGED",
+  ISSUE_CLOSED = "ISSUE_CLOSED",
+  LINKED_ISSUE_CREATED = "LINKED_ISSUE_CREATED",
+  LINKED_ISSUE_ASSIGNED = "LINKED_ISSUE_ASSIGNED",
 }
 
 export enum ContributionAs {

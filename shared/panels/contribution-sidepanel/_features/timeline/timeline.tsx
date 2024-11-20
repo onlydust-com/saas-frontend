@@ -1,4 +1,4 @@
-import { CircleCheck, CircleDashed, CircleDollarSign, CircleDotDashed, UserRoundPlus, UserX } from "lucide-react";
+import { CircleCheck, CircleDashed, GitMerge, UserRoundPlus } from "lucide-react";
 import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
@@ -20,26 +20,26 @@ export function Timeline({ id }: TimelineProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const { data: events } = ContributionReactQueryAdapter.client.useGetContributionEvents({
-    pathParams: { contributionId: id },
+    pathParams: { contributionUuid: id },
   });
 
   function getTranslate(event: ContributionEventInterface): TranslateProps | undefined {
     const type = event.getEventType();
     switch (type) {
-      case ContributionEventType.CONTRIBUTOR_ASSIGNED:
-        return { token: "panels:contribution.timeline.items.contributorAssigned" };
-      case ContributionEventType.PR_CREATED:
-        return { token: "panels:contribution.timeline.items.prCreated" };
-      case ContributionEventType.CONTRIBUTOR_REMOVED:
-        return { token: "panels:contribution.timeline.items.contributorRemoved" };
       case ContributionEventType.ISSUE_CREATED:
-        return { token: "panels:contribution.timeline.items.issueCreated" };
-      case ContributionEventType.TO_REVIEW:
-        return { token: "panels:contribution.timeline.items.toReview" };
-      case ContributionEventType.CLOSED:
-        return { token: "panels:contribution.timeline.items.closed" };
-      case ContributionEventType.REWARDED:
-        return { token: "panels:contribution.timeline.items.rewarded" };
+        return { token: "panels:contribution.timeline.items.ISSUE_CREATED" };
+      case ContributionEventType.PR_CREATED:
+        return { token: "panels:contribution.timeline.items.PR_CREATED" };
+      case ContributionEventType.ISSUE_ASSIGNED:
+        return { token: "panels:contribution.timeline.items.ISSUE_ASSIGNED" };
+      case ContributionEventType.PR_MERGED:
+        return { token: "panels:contribution.timeline.items.PR_MERGED" };
+      case ContributionEventType.ISSUE_CLOSED:
+        return { token: "panels:contribution.timeline.items.ISSUE_CLOSED" };
+      case ContributionEventType.LINKED_ISSUE_CREATED:
+        return { token: "panels:contribution.timeline.items.LINKED_ISSUE_CREATED" };
+      case ContributionEventType.LINKED_ISSUE_ASSIGNED:
+        return { token: "panels:contribution.timeline.items.LINKED_ISSUE_ASSIGNED" };
       default:
         return undefined;
     }
@@ -48,20 +48,20 @@ export function Timeline({ id }: TimelineProps) {
   function getIcon(event: ContributionEventInterface) {
     const type = event.getEventType();
     switch (type) {
-      case ContributionEventType.CONTRIBUTOR_ASSIGNED:
-        return { component: UserRoundPlus };
-      case ContributionEventType.PR_CREATED:
-        return { component: CircleDashed };
-      case ContributionEventType.CONTRIBUTOR_REMOVED:
-        return { component: UserX };
       case ContributionEventType.ISSUE_CREATED:
         return { component: CircleDashed };
-      case ContributionEventType.TO_REVIEW:
-        return { component: CircleDotDashed };
-      case ContributionEventType.CLOSED:
+      case ContributionEventType.LINKED_ISSUE_CREATED:
+        return { component: CircleDashed };
+      case ContributionEventType.ISSUE_ASSIGNED:
+        return { component: UserRoundPlus };
+      case ContributionEventType.LINKED_ISSUE_ASSIGNED:
+        return { component: UserRoundPlus };
+      case ContributionEventType.ISSUE_CLOSED:
         return { component: CircleCheck };
-      case ContributionEventType.REWARDED:
-        return { component: CircleDollarSign };
+      case ContributionEventType.PR_CREATED:
+        return { component: CircleDashed };
+      case ContributionEventType.PR_MERGED:
+        return { component: GitMerge };
       default:
         return undefined;
     }
