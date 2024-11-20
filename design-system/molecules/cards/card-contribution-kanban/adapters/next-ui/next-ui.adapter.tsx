@@ -46,6 +46,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   background = "secondary",
   border = "primary",
   githubHtmlUrl,
+  customContent,
   ...restProps
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
@@ -107,6 +108,10 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return null;
   }
 
+  function renderIssues() {
+    return <LinkedIssues linkedIssues={linkedIssues} />;
+  }
+
   function renderTags() {
     return (
       <div className="flex flex-wrap items-center gap-sm empty:hidden">
@@ -117,11 +122,13 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     );
   }
 
-  // TODO: Check for the end content with "badge" et non endContent
   function renderFooter() {
     return (
       <footer className="flex items-center justify-between gap-md">
-        {actions?.length ? <ButtonGroup buttons={actions} size="xs" /> : <div />}
+        {actions?.length ? <ButtonGroup buttons={actions} size="xs" /> : null}
+        {customContent}
+
+        {!actions?.length && !customContent ? <div /> : null}
 
         <Button
           size="xs"
@@ -153,10 +160,7 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     >
       {renderHeader()}
       {renderUsers()}
-
-      {/* TODO: Change it */}
-      <LinkedIssues linkedIssues={linkedIssues} />
-
+      {renderIssues()}
       {renderTags()}
       {renderFooter()}
     </Paper>
