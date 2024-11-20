@@ -27,7 +27,7 @@ export function FinancialColumnChart() {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { programId = "" } = useParams<{ programId: string }>();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_WEEK);
+  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
 
   const { fromDate, toDate } = useMemo(() => {
     const { from, to } = dateKernelPort.getRangeOfDates(rangeType);

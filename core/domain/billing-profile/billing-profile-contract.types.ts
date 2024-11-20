@@ -57,6 +57,18 @@ export type GetBillingProfileInvoicePreviewByIdPortResponse =
 
 /* ------------------------ Upload Billing Profile Invoice by ID ------------------------ */
 
+type DownloadBillingProfileInvoiceByIdPathParams = operations["downloadInvoice"]["parameters"]["path"];
+type DownloadBillingProfileInvoiceByIdQueryParams = operations["downloadInvoice"]["parameters"]["query"];
+
+export type DownloadBillingProfileInvoiceByIdPortParams = HttpClientParameters<{
+  PathParams: DownloadBillingProfileInvoiceByIdPathParams;
+  QueryParams: DownloadBillingProfileInvoiceByIdQueryParams;
+}>;
+
+export type DownloadBillingProfileInvoiceByIdPortResponse = HttpStorageResponse<Blob>;
+
+/* ------------------------ Download Billing Profile Invoice by ID ------------------------ */
+
 type UploadBillingProfileInvoiceByIdPathParams = operations["uploadInvoice"]["parameters"]["path"];
 type UploadBillingProfileInvoiceByIdQueryParams = operations["uploadInvoice"]["parameters"]["query"];
 

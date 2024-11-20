@@ -1,4 +1,4 @@
-import { CircleCheck, CircleDashed, CircleDollarSign, CircleDotDashed, UserRoundPlus, UserX } from "lucide-react";
+import { CircleCheck, CircleDashed, GitMerge, UserRoundPlus } from "lucide-react";
 import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
@@ -12,7 +12,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Timeline as TimelineComponent, TimelinePort } from "@/design-system/organisms/timeline";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
-import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
 import { TimelineProps } from "./timeline.types";
 
@@ -20,48 +19,28 @@ export function Timeline({ id }: TimelineProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const { data: events } = ContributionReactQueryAdapter.client.useGetContributionEvents({
-    pathParams: { contributionId: id },
+    pathParams: { contributionUuid: id },
   });
-
-  function getTranslate(event: ContributionEventInterface): TranslateProps | undefined {
-    const type = event.getEventType();
-    switch (type) {
-      case ContributionEventType.CONTRIBUTOR_ASSIGNED:
-        return { token: "panels:contribution.timeline.items.contributorAssigned" };
-      case ContributionEventType.PR_CREATED:
-        return { token: "panels:contribution.timeline.items.prCreated" };
-      case ContributionEventType.CONTRIBUTOR_REMOVED:
-        return { token: "panels:contribution.timeline.items.contributorRemoved" };
-      case ContributionEventType.ISSUE_CREATED:
-        return { token: "panels:contribution.timeline.items.issueCreated" };
-      case ContributionEventType.TO_REVIEW:
-        return { token: "panels:contribution.timeline.items.toReview" };
-      case ContributionEventType.CLOSED:
-        return { token: "panels:contribution.timeline.items.closed" };
-      case ContributionEventType.REWARDED:
-        return { token: "panels:contribution.timeline.items.rewarded" };
-      default:
-        return undefined;
-    }
-  }
 
   function getIcon(event: ContributionEventInterface) {
     const type = event.getEventType();
     switch (type) {
-      case ContributionEventType.CONTRIBUTOR_ASSIGNED:
-        return { component: UserRoundPlus };
-      case ContributionEventType.PR_CREATED:
-        return { component: CircleDashed };
-      case ContributionEventType.CONTRIBUTOR_REMOVED:
-        return { component: UserX };
       case ContributionEventType.ISSUE_CREATED:
         return { component: CircleDashed };
-      case ContributionEventType.TO_REVIEW:
-        return { component: CircleDotDashed };
-      case ContributionEventType.CLOSED:
+      case ContributionEventType.LINKED_ISSUE_CREATED:
+        return { component: CircleDashed };
+      case ContributionEventType.ISSUE_ASSIGNED:
+        return { component: UserRoundPlus };
+      case ContributionEventType.LINKED_ISSUE_ASSIGNED:
+        return { component: UserRoundPlus };
+      case ContributionEventType.ISSUE_CLOSED:
         return { component: CircleCheck };
-      case ContributionEventType.REWARDED:
-        return { component: CircleDollarSign };
+      case ContributionEventType.LINKED_ISSUE_CLOSED:
+        return { component: CircleCheck };
+      case ContributionEventType.PR_CREATED:
+        return { component: CircleDashed };
+      case ContributionEventType.PR_MERGED:
+        return { component: GitMerge };
       default:
         return undefined;
     }
@@ -70,12 +49,12 @@ export function Timeline({ id }: TimelineProps) {
   const timelineItems: TimelinePort<AnyType>["items"] = useMemo(() => {
     return (events || [])
       .map(event => {
-        const translate = getTranslate(event);
+        const eventType = event?.getEventType();
         const icon = getIcon(event);
-        if (!translate?.token || !icon) return null;
+        if (!eventType || !icon) return null;
 
         return {
-          label: translate?.token ? <Translate token={translate.token} /> : undefined,
+          label: <Translate token={`panels:contribution.timeline.items.${eventType}`} />,
           icon,
           endContent: dateKernelPort.format(new Date(event.timestamp), "dd MMM yyyy"),
         };

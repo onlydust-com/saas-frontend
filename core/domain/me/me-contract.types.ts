@@ -1,7 +1,9 @@
+import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 import { MeMaintainerProjectsInterface } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { MeInterface } from "@/core/domain/me/models/me-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
+import { ProjectShortInterface } from "@/core/domain/project/models/project-short-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -87,3 +89,27 @@ export type GetMyProjectsAsContributorPortParams = HttpClientParameters<{
 }>;
 
 export type GetMyProjectsAsContributorPortResponse = HttpStorageResponse<GetMyProjectsAsContributorModel>;
+
+/* ------------------------------ Get My Payout Preferences ------------------------------ */
+
+export type GetMyPayoutPreferencesResponse = components["schemas"]["PayoutPreferencesItemResponse"][];
+
+export type GetMyPayoutPreferencesModel = {
+  project: ProjectShortInterface;
+  billingProfile?: BillingProfileShortInterface;
+}[];
+
+export type GetMyPayoutPreferencesPortParams = HttpClientParameters<object>;
+
+export type GetMyPayoutPreferencesPortResponse = HttpStorageResponse<GetMyPayoutPreferencesModel>;
+
+/* ------------------------------ Set My Payout Preference For Project ------------------------------ */
+
+export type SetMyPayoutPreferenceForProjectBody = components["schemas"]["PayoutPreferenceRequest"];
+
+export type SetMyPayoutPreferenceForProjectPortParams = HttpClientParameters<object>;
+
+export type SetMyPayoutPreferenceForProjectPortResponse = HttpStorageResponse<
+  never,
+  SetMyPayoutPreferenceForProjectBody
+>;

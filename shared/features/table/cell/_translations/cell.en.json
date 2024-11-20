@@ -1,5 +1,8 @@
 {
   "cellLeadsAvatars": {
     "projectLead": "Project lead"
+  },
+  "cellBillingProfile": {
+    "pendingBillingProfile": "Pending billing profile"
   }
 }
