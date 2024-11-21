@@ -22,7 +22,7 @@ export type SelectableContributorsFilters = Omit<
 >;
 
 export function SelectableContributorsAccordion() {
-  const { selectedGithubUserIds, addContributorId, removeContributorId, projectId } = useRewardFlow();
+  const { selectedGithubUserIds, addContributorId, removeContributorId } = useRewardFlow();
   const [filters, setFilters] = useState<SelectableContributorsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -34,7 +34,6 @@ export function SelectableContributorsAccordion() {
   const queryParams: Partial<GetBiContributorsQueryParams> = {
     search: debouncedSearch,
     contributorIds: localSelectedContributorsIds.current,
-    projectIds: projectId ? [projectId] : undefined,
     ...filters,
   };
 
