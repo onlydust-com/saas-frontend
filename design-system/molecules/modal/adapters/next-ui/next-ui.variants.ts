@@ -5,7 +5,7 @@ import { cn } from "@/shared/helpers/cn";
 export const ModalNextUiVariants = tv({
   slots: {
     modal:
-      "group !mx-0 !my-0 flex max-h-full max-w-full flex-col gap-lg overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt",
+      "group z-[999] !mx-0 !my-0 flex max-h-full max-w-full flex-col gap-lg overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt",
     wrapper: "flex flex-1 flex-col overflow-hidden",
     body: "overflow-hidden !p-3xl",
     backdrop: "bg-background-overlay",
