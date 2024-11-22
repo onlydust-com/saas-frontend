@@ -1,6 +1,9 @@
 import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
+import { TransactionsContextFilterTypes } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context.types";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePicker, DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
@@ -11,9 +14,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { useTransactionsContext } from "../../../context/transactions.context";
-import { TransactionsContextFilterTypes } from "../../../context/transactions.context.types";
 
 export function Header() {
   const { t } = useTranslation("programs");
