@@ -4,7 +4,6 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useEffect, useRef, useState } from "react";
 
 import { ActivitySection } from "@/app/manage-projects/[projectSlug]/_sections/activity-section/activity-section";
-import { FinancialSection } from "@/app/manage-projects/[projectSlug]/_sections/financial-section/financial-section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -87,9 +86,6 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
               <ScrollView className="flex flex-col gap-md">
                 {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
                 <RepoIndexingAlert indexingComplete={projectData?.isIndexingCompleted() ?? true} />
-                <PageContent classNames={{ base: "flex-none" }}>
-                  <FinancialSection projectId={data?.id} />
-                </PageContent>
                 <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
                   <ActivitySection projectId={data?.id} />
                 </PageContent>
