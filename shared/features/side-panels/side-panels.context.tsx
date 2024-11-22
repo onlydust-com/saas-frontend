@@ -147,8 +147,6 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
     return closedWidth;
   }, [openedPanels, gap, width, closedWidth, type]);
 
-  console.log("CONFIG", { gap, width, closedWidth, type, panelSize }, openedPanels);
-
   return (
     <SidePanelsContext.Provider
       value={{
