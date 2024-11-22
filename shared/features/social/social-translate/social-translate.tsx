@@ -1,8 +1,7 @@
 import { SOCIAL_PLATFORM } from "@/shared/constants/social-platform";
+import { SocialTranslateProps } from "@/shared/features/social/social-translate/social-translate.types";
 import { useSocialPlatform } from "@/shared/hooks/social-platform/use-social-platform";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { SocialTranslateProps } from "./social-translate.types";
 
 export function SocialLinkTranslate({ url }: SocialTranslateProps) {
   const platform = useSocialPlatform(url);

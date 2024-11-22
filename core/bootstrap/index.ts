@@ -49,6 +49,8 @@ import { IdAdapter } from "@/core/kernel/id/id-adapter";
 import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
+import { SocialAdapter } from "@/core/kernel/social/social-adapter";
+import { SocialFacadePort } from "@/core/kernel/social/social-facade-port";
 import { StyleAdapter } from "@/core/kernel/style/style-adapter";
 import { StyleFacadePort } from "@/core/kernel/style/style-facade-port";
 import { UrlAdapter } from "@/core/kernel/url/url-adapter";
@@ -99,6 +101,7 @@ export interface BootstrapConstructor {
   billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
+  socialKernelPort: SocialFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
@@ -152,6 +155,7 @@ export class Bootstrap {
   billingProfileStoragePortForServer: BillingProfileStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
+  socialKernelPort: SocialFacadePort;
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
@@ -201,6 +205,7 @@ export class Bootstrap {
     this.billingProfileStoragePortForServer = constructor.billingProfileStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
+    this.socialKernelPort = constructor.socialKernelPort;
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
@@ -392,6 +397,10 @@ export class Bootstrap {
     return this.moneyKernelPort;
   }
 
+  getSocialKernelPort() {
+    return this.socialKernelPort;
+  }
+
   getFileKernelPort() {
     return this.fileKernelPort;
   }
@@ -457,6 +466,7 @@ export class Bootstrap {
         billingProfileStoragePortForServer: new BillingProfileClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
+        socialKernelPort: new SocialAdapter(),
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,

@@ -5,5 +5,8 @@
   "GITHUB": "GitHub",
   "LINKEDIN": "LinkedIn",
   "WHATSAPP": "WhatsApp",
-  "WEB": "Website"
+  "WEB": "Website",
+  "toast": {
+    "copied": "Copied"
+  }
 }
