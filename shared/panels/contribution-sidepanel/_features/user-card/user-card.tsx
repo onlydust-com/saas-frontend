@@ -3,7 +3,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
-import { SocialIconLink } from "@/shared/features/social-link/social-icon-link/social-icon-link";
+import { SocialIconLink } from "@/shared/features/social/social-icon-link/social-icon-link";
 
 import { UserCardProps } from "./user-card.types";
 

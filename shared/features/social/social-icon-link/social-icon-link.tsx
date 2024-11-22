@@ -3,10 +3,9 @@ import { Link } from "lucide-react";
 import { Icon } from "@/design-system/atoms/icon";
 
 import { SOCIAL_PLATFORM } from "@/shared/constants/social-platform";
+import { SocialIconLinkProps } from "@/shared/features/social/social-icon-link/social-icon-link.types";
 import { useSocialPlatform } from "@/shared/hooks/social-platform/use-social-platform";
 import { Discord, Github, Linkedin, Telegram, Twitter, Whatsapp } from "@/shared/icons";
-
-import { SocialIconLinkProps } from "./social-icon-link.types";
 
 export function SocialIconLink({ url }: SocialIconLinkProps) {
   const platform = useSocialPlatform(url);

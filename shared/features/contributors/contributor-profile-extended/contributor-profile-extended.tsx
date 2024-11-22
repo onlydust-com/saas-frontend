@@ -7,7 +7,7 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { SocialLinkTag } from "@/shared/features/social-link/social-link-tag/social-link-tag";
+import { SocialContact } from "@/shared/features/social/social-contact/social-contact";
 import { Github } from "@/shared/icons";
 
 import { ContributorProfileExtendedProps } from "./contributor-profile-extended.types";
@@ -80,7 +80,7 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
         <div className={"flex w-full flex-row items-center justify-between gap-1"}>
           <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
             {contributor.contacts.map(contact => (
-              <SocialLinkTag key={contact.contact} url={contact.contact} channel={contact.channel} />
+              <SocialContact key={contact.contact} contact={contact} />
             ))}
           </div>
 
