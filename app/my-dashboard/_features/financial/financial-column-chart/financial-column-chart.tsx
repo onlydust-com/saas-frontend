@@ -2,6 +2,8 @@ import { Calendar } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useFinancialColumnChart } from "@/app/my-dashboard/_features/financial/financial-column-chart/financial-column-chart.hooks";
+
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
@@ -18,8 +20,6 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
-
-import { useFinancialColumnChart } from "./financial-column-chart.hooks";
 
 export function FinancialColumnChart() {
   const { t } = useTranslation();

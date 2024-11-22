@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 
+import { useTransactionsContext } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/context/transactions.context";
+
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
 
 import { CardTransaction, CardTransactionLoading } from "@/design-system/molecules/cards/card-transaction";
-
-import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
