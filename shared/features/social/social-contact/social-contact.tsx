@@ -31,7 +31,7 @@ export function SocialContact({ contact, buttonProps }: SocialContactProps) {
     return {
       onClick: () => handleCopy(contact.contact),
     };
-  }, [url]);
+  }, [url, contact]);
 
   return (
     <Button variant={"secondary"} size={"sm"} startContent={<Icon component={icon} />} {...buttonProps} {...args} />
