@@ -1,9 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
-import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { bootstrap } from "@/core/bootstrap";
-
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -12,7 +9,10 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "./transactions.context.types";
+} from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context.types";
+
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { bootstrap } from "@/core/bootstrap";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   programId: "",

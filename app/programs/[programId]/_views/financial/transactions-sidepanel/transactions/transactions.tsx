@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 
+import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
+import { Header } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/transactions/components/header/header";
+import { TransactionsWrapper } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/transactions/components/transactions-wrapper/transactions-wrapper";
+
 import { bootstrap } from "@/core/bootstrap";
 
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
-
-import { useTransactionsContext } from "../context/transactions.context";
-import { Header } from "./components/header/header";
-import { TransactionsWrapper } from "./components/transactions-wrapper/transactions-wrapper";
 
 export function Transactions() {
   const dateKernelPort = bootstrap.getDateKernelPort();

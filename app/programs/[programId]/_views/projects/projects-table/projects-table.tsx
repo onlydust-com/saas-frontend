@@ -2,6 +2,7 @@ import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/re
 import { useMemo } from "react";
 
 import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
+import { ProjectsTableProps } from "@/app/programs/[programId]/_views/projects/projects-table/projects-table.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
@@ -22,7 +23,7 @@ import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProjectsTable({ programId }: { programId: string }) {
+export function ProjectsTable({ programId }: ProjectsTableProps) {
   const { open } = useProjectSidePanel();
 
   const { open: openGrantForm } = useGrantFromPanel();

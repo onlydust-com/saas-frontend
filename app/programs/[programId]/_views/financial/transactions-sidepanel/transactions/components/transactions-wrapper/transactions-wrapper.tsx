@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
+
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
@@ -12,8 +14,6 @@ import {
 } from "@/design-system/molecules/cards/card-transaction";
 
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
-
-import { useTransactionsContext } from "../../../context/transactions.context";
 
 export function TransactionsWrapper({ date }: { date: Date }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
