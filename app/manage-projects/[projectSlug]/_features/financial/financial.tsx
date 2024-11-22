@@ -3,7 +3,7 @@ import { RewardsTable } from "@/app/manage-projects/[projectSlug]/_features/fina
 
 export function Financial() {
   return (
-    <div className="flex h-full flex-col gap-lg">
+    <div className="flex flex-col gap-lg">
       <BudgetAvailableCards />
       <RewardsTable />
     </div>

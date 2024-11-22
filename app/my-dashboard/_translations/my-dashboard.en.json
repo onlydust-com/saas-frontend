@@ -2,24 +2,11 @@
   "header": {
     "title": "My Dashboard"
   },
-  "financial": {
-    "title": "Financial",
-    "buttons": {
-      "budgetAvailable": "Budget available",
-      "rewardChart": "Reward chart",
-      "requestPayment": "Request payment ({{ count }})",
-      "seeTransactions": "See transactions"
-    },
-    "tooltip": {
-      "disabledRequestPayment": "No rewards available"
-    }
-  },
   "activity": {
-    "title": "Activity",
     "buttons": {
       "projects": "Projects",
       "contributions": "Contributions",
-      "rewards": "Rewards"
+      "financial": "Financial"
     },
     "kanban": {
       "columns": {
@@ -28,6 +15,13 @@
         "pendingReview": "Pending review",
         "complete": "Complete"
       }
+    },
+    "actions": {
+      "requestPayment": "Request payment",
+      "seeTransactions": "See transactions"
+    },
+    "tooltip": {
+      "disabledRequestPayment": "No rewards available"
     }
   },
   "filters": {

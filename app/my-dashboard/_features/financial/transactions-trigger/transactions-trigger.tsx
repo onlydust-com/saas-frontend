@@ -1,11 +1,9 @@
-import { ChevronRight } from "lucide-react";
+import { TransactionsContextProvider } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/context/transactions.context";
+import { TransactionsSidepanel } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/transactions-sidepanel";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-import { TransactionsContextProvider } from "../transactions-sidepanel/context/transactions.context";
-import { TransactionsSidepanel } from "../transactions-sidepanel/transactions-sidepanel";
 
 export function TransactionsTrigger() {
   const { Panel, open, close, isOpen } = useSidePanel({ name: "dashboard-transaction" });
@@ -21,11 +19,9 @@ export function TransactionsTrigger() {
   return (
     <>
       <Button
-        variant="primary"
-        endIcon={{ component: ChevronRight }}
-        isTextButton
-        size="md"
-        translate={{ token: "myDashboard:detail.financial.buttons.seeTransactions" }}
+        variant="secondary"
+        size="sm"
+        translate={{ token: "myDashboard:detail.activity.actions.seeTransactions" }}
         onClick={togglePanel}
         classNames={{
           base: "max-w-full overflow-hidden",

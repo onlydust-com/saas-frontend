@@ -1,12 +1,12 @@
+import { useTransactionsContext } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/context/transactions.context";
+import { ExportCsv } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/export-csv/export-csv";
+import { Transactions } from "@/app/my-dashboard/_features/financial/transactions-sidepanel/transactions/transactions";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-
-import { useTransactionsContext } from "./context/transactions.context";
-import { ExportCsv } from "./export-csv/export-csv";
-import { Transactions } from "./transactions/transactions";
 
 export function TransactionsSidepanel() {
   const { Panel, open } = useSidePanel({ name: "dashboard-transaction-export" });

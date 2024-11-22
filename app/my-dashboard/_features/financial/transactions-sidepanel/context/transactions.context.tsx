@@ -1,11 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
-import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { bootstrap } from "@/core/bootstrap";
-
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-
 import {
   DEFAULT_FILTER,
   TransactionsContextFilter,
@@ -14,7 +9,12 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "./transactions.context.types";
+} from "@/app/my-dashboard/_features/financial/transactions-sidepanel/context/transactions.context.types";
+
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { bootstrap } from "@/core/bootstrap";
+
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   githubUserId: 0,
