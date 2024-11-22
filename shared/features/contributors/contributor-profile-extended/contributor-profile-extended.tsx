@@ -80,7 +80,7 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
         <div className={"flex w-full flex-row items-center justify-between gap-1"}>
           <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
             {contributor.contacts.map(contact => (
-              <SocialContact key={contact.contact} contact={contact} />
+              <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
             ))}
           </div>
 

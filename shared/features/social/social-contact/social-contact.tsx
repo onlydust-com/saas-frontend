@@ -11,7 +11,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function SocialContact({ contact, buttonProps }: SocialContactProps) {
   const socialKernelPort = bootstrap.getSocialKernelPort();
-  const isIconOnly = buttonProps?.iconOnly === undefined ? true : buttonProps.iconOnly;
 
   function handleCopy(url: string) {
     copy(url);
@@ -35,7 +34,7 @@ export function SocialContact({ contact, buttonProps }: SocialContactProps) {
 
   return (
     <Button variant={"secondary"} size={"sm"} {...buttonProps} {...args} startIcon={{ component: icon }}>
-      {!isIconOnly ? label : null}
+      {label}
     </Button>
   );
 }
