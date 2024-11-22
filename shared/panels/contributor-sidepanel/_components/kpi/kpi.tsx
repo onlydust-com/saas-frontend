@@ -14,7 +14,7 @@ export function Kpi({ user }: KpiProps) {
     {
       key: "contributedProjects",
       title: <Translate token={"panels:contributor.kpi.contributedProjects.title"} />,
-      value: user.projects.length ?? 0,
+      value: user.projects?.length ?? 0,
     },
     {
       key: "rewards",
