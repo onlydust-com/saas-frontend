@@ -23,6 +23,7 @@ export function useColumnChartOptions({
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
+  height,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const options = useMemo<Options>(
     () => ({
@@ -30,6 +31,7 @@ export function useColumnChartOptions({
         type: "column",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
+        height,
       },
       credits: {
         enabled: false, // Disable the credits
@@ -48,6 +50,7 @@ export function useColumnChartOptions({
           style: yAxisPrimaryStyle,
         },
         crosshair: true,
+        lineWidth: 0,
       },
       yAxis: {
         min: 0,
@@ -59,6 +62,7 @@ export function useColumnChartOptions({
           style: yAxisPrimaryStyle,
         },
         gridLineColor: "#4C4C5C",
+        visible: false,
       },
       legend: {
         ...legend,

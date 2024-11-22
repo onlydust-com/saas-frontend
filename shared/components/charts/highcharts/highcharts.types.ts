@@ -50,6 +50,7 @@ export interface HighchartsOptionsParams {
   legend?: Options["legend"];
   tooltip?: Options["tooltip"];
   min?: number;
+  height?: number;
 }
 
 export interface HighchartsOptionsReturn {

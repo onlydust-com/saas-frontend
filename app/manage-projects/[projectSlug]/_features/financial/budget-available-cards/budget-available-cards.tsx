@@ -1,5 +1,7 @@
 import { useParams } from "next/navigation";
 
+import { FinancialColumnChart } from "@/app/manage-projects/[projectSlug]/_features/financial/financial-column-chart/financial-column-chart";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
@@ -56,6 +58,7 @@ export function BudgetAvailableCards() {
         color="grey"
         onClick={() => openPanel("totalRewarded")}
       />
+      <FinancialColumnChart />
     </div>
   );
 }

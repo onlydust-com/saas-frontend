@@ -1,4 +1,3 @@
-import { Calendar } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,17 +8,13 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { ChartLegend } from "@/design-system/atoms/chart-legend";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Menu } from "@/design-system/molecules/menu";
 
 import { useColumnChartOptions } from "@/shared/components/charts/highcharts/column-chart/column-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function FinancialColumnChart() {
   const { t } = useTranslation();
@@ -73,6 +68,7 @@ export function FinancialColumnChart() {
         return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
       },
     },
+    height: 120,
   });
 
   function onChangeRangeType(value: string) {
@@ -83,7 +79,7 @@ export function FinancialColumnChart() {
     return (
       <Skeleton
         classNames={{
-          base: "w-full min-h-[300px]",
+          base: "w-full max-h-[150px]",
         }}
       />
     );
@@ -99,42 +95,50 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <div className="flex min-h-[300px] flex-col gap-4">
-      <HighchartsDefault options={options} />
-      <div className="flex items-center gap-4">
-        <Paper
-          size={"lg"}
-          classNames={{ base: "grid tablet:grid-cols-4 tablet:items-center gap-3 flex-1" }}
-          background={"secondary"}
-        >
-          <ChartLegend color="primary">
-            <Translate token={"manageProjects:financialColumnChart.legends.deposit"} />
-          </ChartLegend>
+    <div className="flex max-h-[150px] flex-col gap-4">
+      <Paper
+        // classNames={{ base: cn(slots.base(), classNames?.base) }}
+        background={"secondary"}
+        border={"none"}
+        as={"div"}
+        classNames={{ base: "h-full w-full" }}
+      >
+        <HighchartsDefault options={options} />
+      </Paper>
+      {/*<div className="flex items-center gap-4">*/}
+      {/*  <Paper*/}
+      {/*    size={"lg"}*/}
+      {/*    classNames={{ base: "grid tablet:grid-cols-4 tablet:items-center gap-3 flex-1" }}*/}
+      {/*    background={"secondary"}*/}
+      {/*  >*/}
+      {/*    <ChartLegend color="primary">*/}
+      {/*      <Translate token={"manageProjects:financialColumnChart.legends.deposit"} />*/}
+      {/*    </ChartLegend>*/}
 
-          <ChartLegend color="secondary">
-            <Translate token={"manageProjects:financialColumnChart.legends.allocated"} />
-          </ChartLegend>
+      {/*    <ChartLegend color="secondary">*/}
+      {/*      <Translate token={"manageProjects:financialColumnChart.legends.allocated"} />*/}
+      {/*    </ChartLegend>*/}
 
-          <ChartLegend color="tertiary">
-            <Translate token={"manageProjects:financialColumnChart.legends.granted"} />
-          </ChartLegend>
+      {/*    <ChartLegend color="tertiary">*/}
+      {/*      <Translate token={"manageProjects:financialColumnChart.legends.granted"} />*/}
+      {/*    </ChartLegend>*/}
 
-          <ChartLegend color="quaternary">
-            <Translate token={"manageProjects:financialColumnChart.legends.rewarded"} />
-          </ChartLegend>
-        </Paper>
-        <Menu
-          items={rangeMenu}
-          selectedIds={[rangeType]}
-          onAction={onChangeRangeType}
-          isPopOver
-          placement={"bottom-end"}
-        >
-          <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>
-            <Translate token={`common:dateRangeType.${rangeType}`} />
-          </Button>
-        </Menu>
-      </div>
+      {/*    <ChartLegend color="quaternary">*/}
+      {/*      <Translate token={"manageProjects:financialColumnChart.legends.rewarded"} />*/}
+      {/*    </ChartLegend>*/}
+      {/*  </Paper>*/}
+      {/*  <Menu*/}
+      {/*    items={rangeMenu}*/}
+      {/*    selectedIds={[rangeType]}*/}
+      {/*    onAction={onChangeRangeType}*/}
+      {/*    isPopOver*/}
+      {/*    placement={"bottom-end"}*/}
+      {/*  >*/}
+      {/*    <Button variant={"secondary"} size={"md"} startIcon={{ component: Calendar }}>*/}
+      {/*      <Translate token={`common:dateRangeType.${rangeType}`} />*/}
+      {/*    </Button>*/}
+      {/*  </Menu>*/}
+      {/*</div>*/}
     </div>
   );
 }
