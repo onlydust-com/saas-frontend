@@ -13,12 +13,13 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useDebounce } from "react-use";
 
 import { AnyType } from "@/core/kernel/types";
 
 import { Paper } from "@/design-system/atoms/paper";
 
-import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { SIDE_PANEL_ANIMATION_DURATION, useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { SidePanelConfig } from "@/shared/features/side-panels/side-panels.types";
 import { cn } from "@/shared/helpers/cn";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
@@ -32,8 +33,18 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
   const { open, close, container, isOpen, isOpenLast, getPanelIndex, getConfig, back, openedPanels, getData } =
     useSidePanelsContext();
 
+  const [showContent, setShowContent] = useState(false);
+  const [debouncedShowContent, setDebouncedShowContent] = useState(false);
   const isTablet = useIsTablet("lower");
   const panelConfig = getConfig(name);
+
+  useDebounce(
+    () => {
+      setDebouncedShowContent(showContent);
+    },
+    SIDE_PANEL_ANIMATION_DURATION * 1000,
+    [showContent]
+  );
 
   const animate: Variants = {
     isClosed: { transform: "translateX(100%)", opacity: 0 },
@@ -60,12 +71,21 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
   const animateKey = isOpenLast(name) ? "isOpen" : "isClosed";
 
   const panelContent = useMemo(() => {
-    if (openedPanels.length && isOpen(name)) {
+    if (debouncedShowContent) {
       return children;
     }
 
     return null;
-  }, [openedPanels, isOpen, name, children]);
+  }, [debouncedShowContent, children]);
+
+  useEffect(() => {
+    if (openedPanels.length && isOpen(name)) {
+      setShowContent(true);
+      setDebouncedShowContent(true);
+    } else {
+      setShowContent(false);
+    }
+  }, [openedPanels, isOpen, name]);
 
   return (
     <>
@@ -79,10 +99,10 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
         <motion.div
           variants={isTablet ? animateTablet : animate}
           animate={animateKey}
-          transition={{ type: "ease", duration: 0.25 }}
+          transition={{ type: "ease", duration: SIDE_PANEL_ANIMATION_DURATION }}
           initial={false}
           className={cn(
-            "absolute right-0 translate-x-full opacity-0",
+            "absolute right-0 translate-x-full overflow-hidden opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
             { "fixed bottom-0 h-[calc(100%_-_64px)] translate-y-full p-md": isTablet },
             { invisible: !isOpenLast(name) },
@@ -91,7 +111,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
           style={{
             minWidth: isTablet ? "100%" : `${panelConfig.width}rem`,
             width: isTablet ? "100%" : `${panelConfig.width}rem`,
-            zIndex: getPanelIndex(name),
+            zIndex: getPanelIndex(name) ?? 1,
           }}
         >
           <Paper
@@ -102,6 +122,10 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
             classNames={{
               base: cn(
                 "h-full w-full flex flex-col gap-px overflow-hidden",
+                {
+                  "border-l-border-primary !border-l !border-solid effect-box-shadow-sm rounded-l-none":
+                    panelConfig.type === "drawer",
+                },
                 { "max-h-dvh": isTablet },
                 classNames?.content
               ),

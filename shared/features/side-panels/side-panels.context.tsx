@@ -19,7 +19,10 @@ const defaultConfig: SidePanelConfig = {
   width: SIDE_PANEL_SIZE.m,
   gap: SIDE_PANEL_GAP.m,
   closedWidth: 0,
+  type: "drawer",
 };
+
+export const SIDE_PANEL_ANIMATION_DURATION = 0.25;
 
 export const SidePanelsContext = createContext<SidePanelsContextInterface>({
   isOpen: () => false,
@@ -47,6 +50,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
       width: config.width ?? defaultConfig.width,
       gap: config.gap ?? defaultConfig.gap,
       closedWidth: config.closedWidth ?? defaultConfig.closedWidth,
+      type: config.type ?? defaultConfig.type,
     };
   }
 
@@ -93,8 +97,11 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
 
   function openPanel<T = AnyType>(name: string, panelData?: T, config?: SidePanelConfig) {
     if (openedPanels.includes(name)) {
-      setOpenedPanels([...openedPanels.filter(panel => panel !== name), name]);
+      setOpenedPanels(openedPanels.filter(panel => panel !== name));
       setData([...data.filter(([panel]) => panel !== name), [name, panelData]]);
+      setTimeout(() => {
+        setOpenedPanels([...openedPanels, name]);
+      }, SIDE_PANEL_ANIMATION_DURATION * 1000);
     } else {
       setOpenedPanels([...openedPanels, name]);
       setData([...data, [name, panelData]]);
@@ -117,8 +124,9 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
 
   const {
     gap,
-    width,
+    width = 0,
     closedWidth = 0,
+    type = "drawer",
   } = useMemo(() => {
     if (openedPanels.length === 0) {
       return defaultConfig;
@@ -132,8 +140,14 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
       return closedWidth;
     }
 
-    return width + (gap || 0);
-  }, [openedPanels, gap, width, closedWidth]);
+    if (type === "container") {
+      return width + (gap || 0);
+    }
+
+    return closedWidth;
+  }, [openedPanels, gap, width, closedWidth, type]);
+
+  console.log("CONFIG", { gap, width, closedWidth, type, panelSize }, openedPanels);
 
   return (
     <SidePanelsContext.Provider
@@ -156,7 +170,13 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
         {!isTablet && (
           <AnimatedColumn width={panelSize} initialWidth={closedWidth} className={cn("h-full", classNames?.column)}>
             <div
-              className={cn("relative h-full w-full overflow-hidden", classNames?.inner)}
+              className={cn(
+                "relative z-[99] h-full w-full",
+                {
+                  "overflow-hidden": type === "container",
+                },
+                classNames?.inner
+              )}
               ref={container}
               style={{
                 paddingLeft: `${gap}rem` || 0,
