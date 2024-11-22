@@ -2,12 +2,12 @@
 
 import { CreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel";
 import { EditProgramPanel } from "@/app/financials/[sponsorId]/_features/edit-program-panel/edit-program-panel";
-import { FinancialSection } from "@/app/financials/[sponsorId]/_sections/financial-section/financial-section";
-import { ProgramsSection } from "@/app/financials/[sponsorId]/_sections/programs-section/programs-section";
+import { Views } from "@/app/financials/[sponsorId]/_views/views";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
@@ -20,32 +20,14 @@ import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-side
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function SafeFinancialPage({ sponsorId }: { sponsorId: string }) {
+export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
 
+  // TODO @hayden refactor this
   function handleOpenAllocateProgram(programId: string, canGoBack?: boolean) {
     openAllocateProgramSidepanel({ programId, sponsorId, canGoBack });
   }
 
-  return (
-    <ProgramListSidepanelProvider sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram}>
-      <AnimatedColumn className="flex h-full flex-1 flex-col gap-md overflow-auto">
-        <div className="h-auto">
-          <PageContent>
-            <FinancialSection sponsorId={sponsorId} />
-          </PageContent>
-        </div>
-        <PageContent>
-          <ProgramsSection onAllocateClick={handleOpenAllocateProgram} />
-        </PageContent>
-      </AnimatedColumn>
-      <AllocateProgramSidepanel />
-      <DepositFlow />
-    </ProgramListSidepanelProvider>
-  );
-}
-
-export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
   const { data } = SponsorReactQueryAdapter.client.useGetSponsor({
     pathParams: {
       sponsorId,
@@ -79,7 +61,18 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         paramsReady={Boolean(sponsorId)}
       />
 
-      <SafeFinancialPage sponsorId={sponsorId} />
+      <ProgramListSidepanelProvider sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram}>
+        <AnimatedColumn className="h-full">
+          <ScrollView className={"flex flex-col"}>
+            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+              <Views sponsorId={sponsorId} />
+            </PageContent>
+          </ScrollView>
+        </AnimatedColumn>
+
+        <AllocateProgramSidepanel />
+        <DepositFlow />
+      </ProgramListSidepanelProvider>
 
       <FinancialDetailSidepanel />
       <EditProgramPanel />
