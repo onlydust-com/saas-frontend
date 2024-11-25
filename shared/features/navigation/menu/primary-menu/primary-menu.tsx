@@ -65,7 +65,11 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         linkProps={{
           href: showProjectList.hasMultipleProjects
             ? NEXT_ROUTER.manageProjects.root
-            : NEXT_ROUTER.manageProjects.details.root(showProjectList.firstProject ?? ""),
+            : NEXT_ROUTER.manageProjects.contributors.root(showProjectList.firstProject ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.manageProjects.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
       />

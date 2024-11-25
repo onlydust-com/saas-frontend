@@ -1,3 +1,3 @@
 export interface ContributionsProps {
-  projectId?: string;
+  projectSlug: string;
 }

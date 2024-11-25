@@ -1,7 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Columns4, Table } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+
+import { FilterData } from "@/app/manage-projects/[projectSlug]/contributions/_components/filter-data/filter-data";
+import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/contributions/_components/filter-data/filter-data.hooks";
+import { KanbanView } from "@/app/manage-projects/[projectSlug]/contributions/_features/kanban-view/kanban-view";
+import { ListView } from "@/app/manage-projects/[projectSlug]/contributions/_features/list-view/list-view";
 
 import { bootstrap } from "@/core/bootstrap";
 import {
@@ -19,10 +23,6 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 
-import { FilterData } from "./_components/filter-data/filter-data";
-import { useContributionsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
-import { KanbanView } from "./_features/kanban-view/kanban-view";
-import { ListView } from "./_features/list-view/list-view";
 import { ContributionsProps } from "./contributions.types";
 
 const LIST = "list";
@@ -33,12 +33,11 @@ export type ContributionKanbanFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function Contributions(_: ContributionsProps) {
+export function Contributions({ projectSlug }: ContributionsProps) {
   const [toggleViews, setToggleViews] = useState<typeof LIST | typeof KANBAN>(KANBAN);
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
-  const { projectSlug } = useParams<{ projectSlug: string }>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const { open: openContribution } = useContributionsSidepanel();
 
