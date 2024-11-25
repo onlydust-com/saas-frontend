@@ -10,6 +10,12 @@ const nextConfig = {
         destination: "/programs",
         permanent: false,
       },
+      // DATA
+      {
+        source: '/data',
+        destination: '/data/overview',
+        permanent: true,
+      },
     ];
   },
 }

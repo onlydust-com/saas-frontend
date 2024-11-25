@@ -56,7 +56,7 @@ export default function DataLayout({ children }: { children: ReactNode }) {
               tabs={[
                 {
                   id: tabs.OVERVIEW,
-                  children: <Translate token={"manageProjects:detail.activity.buttons.contributors"} />,
+                  children: <Translate token={"data:details.tabs.overview"} />,
                   as: BaseLink,
                   htmlProps: {
                     href: NEXT_ROUTER.data.overview,
@@ -64,18 +64,18 @@ export default function DataLayout({ children }: { children: ReactNode }) {
                 },
                 {
                   id: tabs.CONTRIBUTORS,
-                  children: <Translate token={"manageProjects:detail.activity.buttons.contributions"} />,
+                  children: <Translate token={"data:details.tabs.contributor"} />,
                   as: BaseLink,
                   htmlProps: {
-                    href: NEXT_ROUTER.data.projects,
+                    href: NEXT_ROUTER.data.contributors,
                   },
                 },
                 {
                   id: tabs.PROJECTS,
-                  children: <Translate token={"manageProjects:detail.activity.buttons.financial"} />,
+                  children: <Translate token={"data:details.tabs.project"} />,
                   as: BaseLink,
                   htmlProps: {
-                    href: NEXT_ROUTER.data.contributors,
+                    href: NEXT_ROUTER.data.projects,
                   },
                 },
               ]}
