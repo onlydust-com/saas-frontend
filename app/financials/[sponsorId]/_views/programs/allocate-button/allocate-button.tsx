@@ -5,7 +5,7 @@ import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
-import { useProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
+import { useProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function AllocateButton({ sponsorId }: AllocateButtonProps) {

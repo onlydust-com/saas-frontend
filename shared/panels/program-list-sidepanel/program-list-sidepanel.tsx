@@ -12,8 +12,9 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
+import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { useProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.hooks";
 import { ProgramListSidepanelProps } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.types";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 function Programs({
   sponsorId,
@@ -77,7 +78,7 @@ function Programs({
             description={program.leads?.[0]?.login}
             logoUrl={program.logoUrl}
             projectCount={Intl.NumberFormat().format(program.projectCount)}
-            // TODO @hayden handle user count
+            userCount={Intl.NumberFormat().format(program.userCount)}
             buttonProps={{
               children: `${totalUsdAvailable} USD`,
             }}
@@ -90,26 +91,29 @@ function Programs({
 }
 
 export function ProgramListSidepanel({ sponsorId, onProgramClick }: ProgramListSidepanelProps) {
+  const { name } = useProgramListSidepanel();
+  const { Panel } = useSidePanel({ name });
   const { open: openCreateProgramPanel } = useCreateProgramPanel();
 
   return (
-    <>
+    <Panel>
       <SidePanelHeader
         title={{
           translate: { token: "panels:programList.title" },
         }}
         canClose
       />
-
       <SidePanelBody>
         <Programs sponsorId={sponsorId} onProgramClick={onProgramClick} />
       </SidePanelBody>
-
       <SidePanelFooter>
-        <Button variant={"secondary"} size={"md"} onClick={openCreateProgramPanel}>
-          <Translate token={"panels:programList.createProgram"} />
-        </Button>
+        <Button
+          variant={"secondary"}
+          size={"md"}
+          onClick={openCreateProgramPanel}
+          translate={{ token: "panels:programList.createProgram" }}
+        />
       </SidePanelFooter>
-    </>
+    </Panel>
   );
 }

@@ -15,19 +15,21 @@ import { DepositFlow } from "@/shared/panels/_flows/deposit-flow/deposit-flow";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
-import { ProgramListSidepanelProvider } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.context";
+import { ProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel";
 import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
+function SafePanel({ sponsorId }: { sponsorId: string }) {
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
 
-  // TODO @hayden refactor this
   function handleOpenAllocateProgram(programId: string, canGoBack?: boolean) {
     openAllocateProgramSidepanel({ programId, sponsorId, canGoBack });
   }
+  return <ProgramListSidepanel sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram} />;
+}
 
+export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
   const { data } = SponsorReactQueryAdapter.client.useGetSponsor({
     pathParams: {
       sponsorId,
@@ -61,19 +63,17 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         paramsReady={Boolean(sponsorId)}
       />
 
-      <ProgramListSidepanelProvider sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram}>
-        <AnimatedColumn className="h-full">
-          <ScrollView className={"flex flex-col"}>
-            <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-              <Views sponsorId={sponsorId} />
-            </PageContent>
-          </ScrollView>
-        </AnimatedColumn>
+      <AnimatedColumn className="h-full">
+        <ScrollView className={"flex flex-col"}>
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <Views sponsorId={sponsorId} />
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
 
-        <AllocateProgramSidepanel />
-        <DepositFlow />
-      </ProgramListSidepanelProvider>
-
+      <SafePanel sponsorId={sponsorId} />
+      <AllocateProgramSidepanel />
+      <DepositFlow />
       <FinancialDetailSidepanel />
       <EditProgramPanel />
       <CreateProgramPanel />

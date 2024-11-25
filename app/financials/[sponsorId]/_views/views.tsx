@@ -67,11 +67,11 @@ export function Views({ sponsorId }: ViewsProps) {
           tabs={[
             {
               id: FinancialViews.PROGRAMS,
-              children: <Translate token={"programs:details.views.projects"} />,
+              children: <Translate token={"financials:details.views.programs"} />,
             },
             {
               id: FinancialViews.FINANCIAL,
-              children: <Translate token={"programs:details.views.financial"} />,
+              children: <Translate token={"financials:details.views.financial"} />,
             },
           ]}
           selectedId={view}

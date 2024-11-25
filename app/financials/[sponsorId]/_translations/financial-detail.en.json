@@ -1,9 +1,9 @@
 {
-  "header": {
-    "title": "Financial"
+  "views": {
+    "programs": "Programs",
+    "financial": "Financial"
   },
   "financial": {
-    "title": "Financials",
     "buttons": {
       "budgetAvailable": "Budget",
       "budgetChart": "Chart",
@@ -12,7 +12,6 @@
     }
   },
   "programs": {
-    "title": "Programs",
     "actions": {
       "allocate": {
         "button": "Allocate a Program",
