@@ -18,14 +18,14 @@ export function useColumnChartOptions({
   title,
   categories,
   series,
-  yAxisTitle,
   xAxisTitle,
   colors = ["#B654FC", "#4EA7FC", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
   height,
-  isYAxisVisible = false,
+  yAxis,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
+  const { title: yAxisTitle, visible: isYAxisVisible = false } = yAxis ?? {};
   const options = useMemo<Options>(
     () => ({
       chart: {
