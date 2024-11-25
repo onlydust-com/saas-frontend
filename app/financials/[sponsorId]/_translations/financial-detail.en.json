@@ -4,7 +4,7 @@
     "financial": "Financial"
   },
   "financial": {
-    "buttons": {
+    "actions": {
       "budgetAvailable": "Budget",
       "budgetChart": "Chart",
       "seeTransactions": "See transactions",

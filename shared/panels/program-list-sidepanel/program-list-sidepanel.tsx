@@ -1,4 +1,4 @@
-import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/_features/create-program-panel/create-program-panel.hooks";
+import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.hooks";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";

@@ -37,7 +37,7 @@ export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInter
 
   getUrl() {
     return this.data?.sponsor.id
-      ? NEXT_ROUTER.financials.details.root(this.data.sponsor.id)
+      ? NEXT_ROUTER.financials.programs.root(this.data.sponsor.id)
       : NEXT_ROUTER.financials.root;
   }
 }
