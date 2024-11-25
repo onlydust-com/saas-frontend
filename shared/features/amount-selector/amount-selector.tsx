@@ -110,7 +110,8 @@ export function AmountSelector({
             onChange={handleChangeAmount}
             readOnly={readOnly}
             placeholder={"_"}
-            autoFocus={!readOnly}
+            // COMMENT THIS BECAUSE IT CAUSES A TRANSLATE ERROR ON DRAWERS
+            // autoFocus={!readOnly}
           />
           <div onClick={handleFocusInput}>
             <span

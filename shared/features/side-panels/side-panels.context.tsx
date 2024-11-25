@@ -62,7 +62,12 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
     });
   }
 
+  function safeBlur() {
+    (document?.activeElement as HTMLElement)?.blur?.();
+  }
+
   function closePanel(name?: string) {
+    safeBlur();
     if (name) {
       setOpenedPanels(openedPanels.filter(panel => panel !== name));
       setData(data.filter(([panel]) => panel !== name));
@@ -75,6 +80,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
   }
 
   function onBack() {
+    safeBlur();
     if (openedPanels.length === 1) {
       setOpenedPanels([]);
       setData([]);
