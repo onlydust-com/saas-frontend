@@ -56,11 +56,10 @@ export function useStackedColumnAreaSplineChartOptions({
       ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}`
       : "";
 
-    if (dataViewTarget === "contributor") {
-      router.push(`${NEXT_ROUTER.data.contributors}?${dateRangeType}${period}${series}${programAndEcosystemIds}`);
-    } else {
-      router.push(`${NEXT_ROUTER.data.projects}?${dateRangeType}${period}${series}${programAndEcosystemIds}`);
-    }
+    const basePath =
+      dataViewTarget === "contributor" ? NEXT_ROUTER.data.contributors.root : NEXT_ROUTER.data.projects.root;
+
+    router.push(`${basePath}?${dateRangeType}${period}${series}${programAndEcosystemIds}`);
   }
 
   const options = useMemo<Options>(

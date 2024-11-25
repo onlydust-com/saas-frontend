@@ -80,13 +80,13 @@ export function FilterData({ user }: FilterDataProps) {
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
-          <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"common:form.reset"} />
-          </Button>
-
-          <Button size={"md"} variant={"secondary"} onClick={onSave}>
-            <Translate token={"common:form.save"} />
-          </Button>
+          <Button
+            size={"md"}
+            variant={"secondary"}
+            onClick={() => resetFilters()}
+            translate={{ token: "common:form.reset" }}
+          />
+          <Button size={"md"} variant={"secondary"} onClick={onSave} translate={{ token: "common:form.save" }} />
         </div>
       </SidePanelFooter>
     </Panel>

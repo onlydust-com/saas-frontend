@@ -15,26 +15,26 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-enum tabs {
+enum Views {
   "OVERVIEW" = "OVERVIEW",
   "PROJECTS" = "PROJECTS",
   "CONTRIBUTORS" = "CONTRIBUTORS",
 }
 
 export default function DataLayout({ children }: { children: ReactNode }) {
-  const isOverview = useMatchPath(NEXT_ROUTER.data.overview);
-  const isContributors = useMatchPath(NEXT_ROUTER.data.contributors);
-  const isProjects = useMatchPath(NEXT_ROUTER.data.projects);
+  const isOverview = useMatchPath(NEXT_ROUTER.data.overview.root);
+  const isContributors = useMatchPath(NEXT_ROUTER.data.contributors.root);
+  const isProjects = useMatchPath(NEXT_ROUTER.data.projects.root);
 
   const selectedId = useMemo(() => {
     if (isOverview) {
-      return tabs.OVERVIEW;
+      return Views.OVERVIEW;
     }
     if (isContributors) {
-      return tabs.CONTRIBUTORS;
+      return Views.CONTRIBUTORS;
     }
     if (isProjects) {
-      return tabs.PROJECTS;
+      return Views.PROJECTS;
     }
   }, [isOverview, isContributors, isProjects]);
 
@@ -57,27 +57,27 @@ export default function DataLayout({ children }: { children: ReactNode }) {
               searchParams={"data-view"}
               tabs={[
                 {
-                  id: tabs.OVERVIEW,
+                  id: Views.OVERVIEW,
                   children: <Translate token={"data:details.tabs.overview"} />,
                   as: BaseLink,
                   htmlProps: {
-                    href: NEXT_ROUTER.data.overview,
+                    href: NEXT_ROUTER.data.overview.root,
                   },
                 },
                 {
-                  id: tabs.CONTRIBUTORS,
+                  id: Views.CONTRIBUTORS,
                   children: <Translate token={"data:details.tabs.contributor"} />,
                   as: BaseLink,
                   htmlProps: {
-                    href: NEXT_ROUTER.data.contributors,
+                    href: NEXT_ROUTER.data.contributors.root,
                   },
                 },
                 {
-                  id: tabs.PROJECTS,
+                  id: Views.PROJECTS,
                   children: <Translate token={"data:details.tabs.project"} />,
                   as: BaseLink,
                   htmlProps: {
-                    href: NEXT_ROUTER.data.projects,
+                    href: NEXT_ROUTER.data.projects.root,
                   },
                 },
               ]}
