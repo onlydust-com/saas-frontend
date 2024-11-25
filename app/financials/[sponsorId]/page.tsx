@@ -20,13 +20,40 @@ import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-side
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function SafePanel({ sponsorId }: { sponsorId: string }) {
+// This component is required for the ProgramListSidepanel to open a child panel correctly
+function Safe({ sponsorId }: { sponsorId: string }) {
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
 
   function handleOpenAllocateProgram(programId: string, canGoBack?: boolean) {
     openAllocateProgramSidepanel({ programId, sponsorId, canGoBack });
   }
-  return <ProgramListSidepanel sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram} />;
+  return (
+    <>
+      <PosthogCaptureOnMount
+        eventName={"sponsor_viewed"}
+        params={{
+          sponsor_id: sponsorId,
+        }}
+        paramsReady={Boolean(sponsorId)}
+      />
+
+      <AnimatedColumn className="h-full">
+        <ScrollView className={"flex flex-col"}>
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <Views sponsorId={sponsorId} />
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
+
+      <ProgramListSidepanel sponsorId={sponsorId} onProgramClick={handleOpenAllocateProgram} />
+      <AllocateProgramSidepanel />
+      <DepositFlow />
+      <FinancialDetailSidepanel />
+      <EditProgramPanel />
+      <CreateProgramPanel />
+      <ProgramSidepanel />
+    </>
+  );
 }
 
 export default function FinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
@@ -55,29 +82,7 @@ export default function FinancialPage({ params: { sponsorId } }: { params: { spo
         ],
       }}
     >
-      <PosthogCaptureOnMount
-        eventName={"sponsor_viewed"}
-        params={{
-          sponsor_id: sponsorId,
-        }}
-        paramsReady={Boolean(sponsorId)}
-      />
-
-      <AnimatedColumn className="h-full">
-        <ScrollView className={"flex flex-col"}>
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <Views sponsorId={sponsorId} />
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
-
-      <SafePanel sponsorId={sponsorId} />
-      <AllocateProgramSidepanel />
-      <DepositFlow />
-      <FinancialDetailSidepanel />
-      <EditProgramPanel />
-      <CreateProgramPanel />
-      <ProgramSidepanel />
+      <Safe sponsorId={sponsorId} />
     </PageWrapper>
   );
 }
