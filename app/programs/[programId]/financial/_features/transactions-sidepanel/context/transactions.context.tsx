@@ -9,7 +9,7 @@ import {
   TransactionsContextProps,
   TransactionsContextQueryParams,
   TransactionsContextReturn,
-} from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context.types";
+} from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context.types";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";

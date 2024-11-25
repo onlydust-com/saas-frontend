@@ -50,7 +50,11 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         linkProps={{
           href: showProgramList.hasMultiplePrograms
             ? NEXT_ROUTER.programs.root
-            : NEXT_ROUTER.programs.details.root(showProgramList.firstProgram ?? ""),
+            : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.programs.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
         isDisabled={showProgramList.loading || !showProgramList.hasPrograms}

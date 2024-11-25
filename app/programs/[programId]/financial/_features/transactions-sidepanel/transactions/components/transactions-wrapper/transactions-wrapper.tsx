@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
+import { useTransactionsContext } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";

@@ -1,5 +1,5 @@
-import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
-import { TransactionsContextFilterTypes } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context.types";
+import { useTransactionsContext } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context";
+import { TransactionsContextFilterTypes } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context.types";
 
 import { bootstrap } from "@/core/bootstrap";
 
