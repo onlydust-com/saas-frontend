@@ -1,4 +1,3 @@
-import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
 import { ContributorsTableFilters } from "@/app/manage-projects/[projectSlug]/_features/contributors-table/contributors-table";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -21,6 +20,8 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { useContributorFilterDataSidePanel } from "./filter-data.hooks";
+
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useContributorFilterDataSidePanel();
@@ -31,7 +32,7 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"data:deepDive.filters.titles.contributor"} />,
+          children: <Translate token={"manageProjects:detail.filters.titles.contributor"} />,
         }}
         canGoBack={false}
         canClose={true}
@@ -91,11 +92,11 @@ export function FilterData() {
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
           <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"data:deepDive.filters.reset"} />
+            <Translate token={"manageProjects:detail.filters.reset"} />
           </Button>
 
           <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
-            <Translate token={"data:deepDive.filters.save"} />
+            <Translate token={"manageProjects:detail.filters.save"} />
           </Button>
         </div>
       </SidePanelFooter>

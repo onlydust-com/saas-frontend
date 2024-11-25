@@ -47,7 +47,6 @@ export function useStackedColumnAreaSplineChartOptions({
     const currentDate = dateKernelPort.isValid(new Date(plotPeriod)) ? new Date(plotPeriod) : new Date();
     const { plotPeriodFrom, plotPeriodTo } = getPlotPeriod(currentDate, timeGroupingType);
 
-    const dataView = dataViewTarget ? `dataView=${dataViewTarget}` : "";
     const dateRangeType = "&dateRangeType=CUSTOM";
     const period =
       plotPeriodFrom && plotPeriodTo ? `&plotPeriodFrom=${plotPeriodFrom}&plotPeriodTo=${plotPeriodTo}` : "";
@@ -56,9 +55,11 @@ export function useStackedColumnAreaSplineChartOptions({
       ? `&programAndEcosystemIds=${selectedProgramAndEcosystem?.join(",")}`
       : "";
 
-    router.push(
-      `${NEXT_ROUTER.data.deepDive.root}?${dataView}${dateRangeType}${period}${series}${programAndEcosystemIds}`
-    );
+    if (dataViewTarget === "contributor") {
+      router.push(`${NEXT_ROUTER.data.contributors}?${dateRangeType}${period}${series}${programAndEcosystemIds}`);
+    } else {
+      router.push(`${NEXT_ROUTER.data.projects}?${dateRangeType}${period}${series}${programAndEcosystemIds}`);
+    }
   }
 
   const options = useMemo<Options>(

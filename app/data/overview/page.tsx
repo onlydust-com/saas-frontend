@@ -6,7 +6,7 @@ import { Paper } from "@/design-system/atoms/paper";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 
-import { ActiveUsersChart } from "./_features/active-users-section/components/active-users-chart/active-users-chart";
+import { ActiveUsersChart } from "./_features/active-users-chart/active-users-chart";
 import { ContributorHistogramChart } from "./_features/contributor-histogram-chart/contributor-histogram-chart";
 import { ProjectHistogramChart } from "./_features/project-histogram-chart/project-histogram-chart";
 

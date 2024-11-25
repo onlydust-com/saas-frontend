@@ -81,11 +81,11 @@ export function FilterData({ user }: FilterDataProps) {
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
           <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"data:deepDive.filters.reset"} />
+            <Translate token={"common:form.reset"} />
           </Button>
 
           <Button size={"md"} variant={"secondary"} onClick={onSave}>
-            <Translate token={"data:deepDive.filters.save"} />
+            <Translate token={"common:form.save"} />
           </Button>
         </div>
       </SidePanelFooter>

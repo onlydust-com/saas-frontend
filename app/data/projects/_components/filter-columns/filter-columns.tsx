@@ -1,11 +1,8 @@
-import {
-  FilterColumnsProps,
-  TableColumns,
-} from "@/app/data/deep-dive/_features/projects-table/_components/filter-columns/filter-columns.types";
-
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
+
+import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (

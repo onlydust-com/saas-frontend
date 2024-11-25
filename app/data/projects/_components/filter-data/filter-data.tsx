@@ -1,5 +1,5 @@
-import { useProjectFilterDataSidePanel } from "@/app/data/deep-dive/_features/projects-table/_components/filter-data/filter-data.hooks";
-import { ProjectTableFilters } from "@/app/data/deep-dive/_features/projects-table/projects-table";
+import { useProjectFilterDataSidePanel } from "@/app/data/projects/_components/filter-data/filter-data.hooks";
+import { ProjectTableFilters } from "@/app/data/projects/page";
 
 import { bootstrap } from "@/core/bootstrap";
 

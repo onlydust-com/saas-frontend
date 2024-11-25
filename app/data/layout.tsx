@@ -11,6 +11,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
+import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum tabs {
@@ -85,6 +87,8 @@ export default function DataLayout({ children }: { children: ReactNode }) {
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
+      <ContributorSidepanel />
+      <ProjectSidepanel />
     </PageWrapper>
   );
 }

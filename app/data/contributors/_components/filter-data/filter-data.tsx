@@ -1,5 +1,5 @@
-import { useContributorFilterDataSidePanel } from "@/app/data/deep-dive/_features/contributors-table/_components/filter-data/filter-data.hooks";
-import { ContributorsTableFilters } from "@/app/data/deep-dive/_features/contributors-table/contributors-table";
+import { useContributorFilterDataSidePanel } from "@/app/data/contributors/_components/filter-data/filter-data.hooks";
+import { ContributorsTableFilters } from "@/app/data/contributors/page";
 
 import { bootstrap } from "@/core/bootstrap";
 
