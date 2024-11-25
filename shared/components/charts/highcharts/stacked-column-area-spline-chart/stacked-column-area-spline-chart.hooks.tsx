@@ -32,13 +32,14 @@ export function useStackedColumnAreaSplineChartOptions({
   title,
   categories,
   series,
-  yAxisTitle,
   xAxisTitle,
   colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
   min,
+  yAxis,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
+  const { title: yAxisTitle } = yAxis ?? {};
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const router = useRouter();

@@ -1,9 +1,8 @@
 {
+  "title": "Rewards Charts",
   "legends": {
-    "deposit": "Deposited",
-    "allocated": "Allocated",
-    "granted": "Granted",
-    "rewarded": "Rewarded"
+    "rewarded": "Rewarded",
+    "paid": "Paid"
   },
   "emptyState": {
     "title": "No data available",

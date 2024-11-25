@@ -25,7 +25,7 @@ function withSponsorList<P extends object>(Component: ComponentType<P>) {
       if (showSponsorList.loading) return;
 
       if (!showSponsorList.hasMultipleSponsors) {
-        router.push(NEXT_ROUTER.financials.details.root(showSponsorList.firstSponsor ?? ""));
+        router.push(NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""));
       }
     }, [showSponsorList, router]);
 

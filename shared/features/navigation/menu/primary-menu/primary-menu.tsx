@@ -35,7 +35,11 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
-            : NEXT_ROUTER.financials.details.root(showSponsorList.firstSponsor ?? ""),
+            : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.financials.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
