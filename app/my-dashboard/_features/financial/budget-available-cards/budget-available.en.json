@@ -2,9 +2,6 @@
   "rewarded": {
     "title": "Rewarded amount"
   },
-  "pending": {
-    "title": "Pending amount"
-  },
   "paid": {
     "title": "Paid"
   }

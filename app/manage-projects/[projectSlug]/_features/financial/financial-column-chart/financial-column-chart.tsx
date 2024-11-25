@@ -44,13 +44,13 @@ export function FinancialColumnChart() {
 
   const { stats } = data ?? {};
 
-  const { categories, rewardedSeries, paidSeries } = useFinancialColumnChart(stats);
+  const { categories, rewardedSeries, allocatedSeries } = useFinancialColumnChart(stats);
 
   const { options } = useColumnChartOptions({
     categories,
     series: [
+      { name: t("manageProjects:financialColumnChart.legends.available"), data: allocatedSeries },
       { name: t("manageProjects:financialColumnChart.legends.rewarded"), data: rewardedSeries },
-      { name: t("manageProjects:financialColumnChart.legends.paid"), data: paidSeries },
     ],
     legend: { enabled: false },
     tooltip: {
@@ -67,7 +67,7 @@ export function FinancialColumnChart() {
                 </div>`;
       },
     },
-    height: 120,
+    height: 100,
   });
 
   if (isLoading) {
@@ -80,7 +80,7 @@ export function FinancialColumnChart() {
     );
   }
 
-  if (!paidSeries.length && !rewardedSeries.length) {
+  if (!allocatedSeries.length && !rewardedSeries.length) {
     return (
       <EmptyState
         titleTranslate={{ token: "manageProjects:financialColumnChart.emptyState.title" }}
