@@ -38,10 +38,7 @@ enum Views {
   "FINANCIAL" = "FINANCIAL",
 }
 
-export default function ManageProjectsLayout({
-  children,
-  params: { projectSlug },
-}: PropsWithChildren<{ params: { projectSlug: string } }>) {
+function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string }>) {
   const isContributors = useMatchPath(NEXT_ROUTER.manageProjects.contributors.root(projectSlug));
   const isContributions = useMatchPath(NEXT_ROUTER.manageProjects.contributions.root(projectSlug));
   const isFinancial = useMatchPath(NEXT_ROUTER.manageProjects.financial.root(projectSlug));
@@ -67,14 +64,7 @@ export default function ManageProjectsLayout({
   const { open: openRewardFlow } = useRewardFlow();
   const canReward = useCanReward(projectSlug);
 
-  const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
-    pathParams: { projectSlug },
-    options: {
-      enabled: Boolean(projectSlug),
-    },
-  });
-
-  const { data: projectData } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug },
     options: {
       enabled: Boolean(projectSlug),
@@ -84,10 +74,10 @@ export default function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   useEffect(() => {
-    if (projectData?.isSomeOrganizationMissingPermissions() && !hasAlreadyClosedAlert.current) {
+    if (data?.isSomeOrganizationMissingPermissions() && !hasAlreadyClosedAlert.current) {
       setOpenAlert(true);
     }
-  }, [projectData]);
+  }, [data]);
 
   function handleCloseAlert() {
     setOpenAlert(false);
@@ -130,6 +120,88 @@ export default function ManageProjectsLayout({
   }, [projectId, isFinancial, canReward]);
 
   return (
+    <>
+      <PosthogCaptureOnMount
+        eventName={"project_dashboard_viewed"}
+        params={{
+          project_id: projectId,
+        }}
+        paramsReady={Boolean(projectId)}
+      />
+
+      <AnimatedColumn className="h-full">
+        <ScrollView className="flex flex-col gap-md">
+          {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+
+          <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
+
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <div className="flex h-full flex-col gap-lg">
+              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+                <Tabs
+                  variant={"solid"}
+                  searchParams={"data-view"}
+                  tabs={[
+                    {
+                      id: Views.CONTRIBUTORS,
+                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                      },
+                    },
+                    {
+                      id: Views.CONTRIBUTIONS,
+                      children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                      },
+                    },
+                    {
+                      id: Views.FINANCIAL,
+                      children: <Translate token={"manageProjects:detail.views.financial"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                      },
+                    },
+                  ]}
+                  selectedId={selectedId}
+                />
+
+                {renderActions()}
+              </header>
+
+              {children}
+            </div>
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
+
+      <FinancialDetailSidepanel />
+      <RewardDetailSidepanel />
+      <ContributorSidepanel />
+      <ProjectUpdateSidepanel />
+      <ContributionsSidepanel />
+    </>
+  );
+}
+
+export default function ManageProjectsLayout({
+  children,
+  params: { projectSlug },
+}: PropsWithChildren<{ params: { projectSlug: string } }>) {
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: { slug: projectSlug },
+    options: {
+      enabled: Boolean(projectSlug),
+    },
+  });
+
+  const projectId = useMemo(() => data?.id, [data]);
+
+  return (
     <PageWrapper
       navigation={{
         breadcrumbs: [
@@ -147,68 +219,8 @@ export default function ManageProjectsLayout({
     >
       <ActionPoolingProvider interval={2000} limit={4}>
         <GithubPermissionsProvider projectSlug={projectSlug}>
-          <RewardFlowProvider projectId={data?.id}>
-            <PosthogCaptureOnMount
-              eventName={"project_dashboard_viewed"}
-              params={{
-                project_id: data?.id,
-              }}
-              paramsReady={Boolean(data?.id)}
-            />
-
-            <AnimatedColumn className="h-full">
-              <ScrollView className="flex flex-col gap-md">
-                {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
-                <RepoIndexingAlert indexingComplete={projectData?.isIndexingCompleted() ?? true} />
-                <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-                  <div className="flex h-full flex-col gap-lg">
-                    <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-                      <Tabs
-                        variant={"solid"}
-                        searchParams={"data-view"}
-                        tabs={[
-                          {
-                            id: Views.CONTRIBUTORS,
-                            children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                            as: BaseLink,
-                            htmlProps: {
-                              href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                            },
-                          },
-                          {
-                            id: Views.CONTRIBUTIONS,
-                            children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                            as: BaseLink,
-                            htmlProps: {
-                              href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
-                            },
-                          },
-                          {
-                            id: Views.FINANCIAL,
-                            children: <Translate token={"manageProjects:detail.views.financial"} />,
-                            as: BaseLink,
-                            htmlProps: {
-                              href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
-                            },
-                          },
-                        ]}
-                        selectedId={selectedId}
-                      />
-
-                      {renderActions()}
-                    </header>
-
-                    {children}
-                  </div>
-                </PageContent>
-              </ScrollView>
-            </AnimatedColumn>
-
-            <FinancialDetailSidepanel />
-            <RewardDetailSidepanel />
-            <ContributorSidepanel />
-            <ProjectUpdateSidepanel />
-            <ContributionsSidepanel />
+          <RewardFlowProvider projectId={projectId}>
+            <Safe projectSlug={projectSlug}>{children}</Safe>
           </RewardFlowProvider>
         </GithubPermissionsProvider>
       </ActionPoolingProvider>
