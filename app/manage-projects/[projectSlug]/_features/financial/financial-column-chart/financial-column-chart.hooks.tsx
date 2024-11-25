@@ -5,22 +5,19 @@ import { BiStatsFinancialsResponse } from "@/core/domain/bi/models/bi-stats-fina
 export function useFinancialColumnChart(stats?: GetBiStatsFinancialsModel["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
+  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMM")) ?? [];
 
   const calculateSeries = (key: keyof BiStatsFinancialsResponse) => {
     return stats?.map(stat => stat.getStatTotalUsdEquivalent(key)) ?? [];
   };
 
-  const depositedSeries = calculateSeries("totalDeposited");
-  const allocatedSeries = calculateSeries("totalAllocated");
-  const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
+  // TODO @Mehdi update with totalPaid once backend ready
+  const paidSeries = calculateSeries("totalGranted");
 
   return {
     categories,
-    depositedSeries,
-    allocatedSeries,
-    grantedSeries,
     rewardedSeries,
+    paidSeries,
   };
 }
