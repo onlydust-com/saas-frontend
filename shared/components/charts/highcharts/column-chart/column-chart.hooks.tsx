@@ -20,10 +20,11 @@ export function useColumnChartOptions({
   series,
   yAxisTitle,
   xAxisTitle,
-  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
+  colors = ["#B654FC", "#4EA7FC", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
   height,
+  isYAxisVisible = false,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const options = useMemo<Options>(
     () => ({
@@ -62,7 +63,7 @@ export function useColumnChartOptions({
           style: yAxisPrimaryStyle,
         },
         gridLineColor: "#4C4C5C",
-        visible: false,
+        visible: isYAxisVisible,
       },
       legend: {
         ...legend,

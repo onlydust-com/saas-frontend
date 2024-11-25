@@ -51,6 +51,7 @@ export interface HighchartsOptionsParams {
   tooltip?: Options["tooltip"];
   min?: number;
   height?: number;
+  isYAxisVisible?: boolean;
 }
 
 export interface HighchartsOptionsReturn {

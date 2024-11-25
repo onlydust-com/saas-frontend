@@ -11,16 +11,13 @@ export function useFinancialColumnChart(stats?: GetBiStatsFinancialsModel["stats
     return stats?.map(stat => stat.getStatTotalUsdEquivalent(key)) ?? [];
   };
 
-  const depositedSeries = calculateSeries("totalDeposited");
-  const allocatedSeries = calculateSeries("totalAllocated");
-  const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
+  // TODO @Mehdi update with totalPaid once backend ready
+  const paidSeries = calculateSeries("totalGranted");
 
   return {
     categories,
-    depositedSeries,
-    allocatedSeries,
-    grantedSeries,
     rewardedSeries,
+    paidSeries,
   };
 }
