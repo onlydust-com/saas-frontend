@@ -49,7 +49,7 @@ export default function DataLayout({ children }: { children: ReactNode }) {
     >
       <AnimatedColumn className="h-full">
         <ScrollView className="flex flex-col gap-md">
-          <PageContent>
+          <PageContent classNames={{ base: "flex flex-col gap-3" }}>
             <Tabs
               variant={"solid"}
               searchParams={"data-view"}

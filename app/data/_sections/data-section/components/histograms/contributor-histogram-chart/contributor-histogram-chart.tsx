@@ -147,7 +147,7 @@ export function ContributorHistogramChart() {
 
   return (
     <div className="flex min-h-[300px] flex-col gap-4">
-      <div className="flex flex-wrap justify-between gap-2 tablet:flex-nowrap">
+      <div className="flex flex-col justify-between gap-2 tablet:flex-nowrap">
         <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
           <ProgramEcosystemPopover
             name={"programAndEcosystem"}
