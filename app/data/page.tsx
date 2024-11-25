@@ -1,42 +1,46 @@
 "use client";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { useMemo, useState } from "react";
 
-import { ActiveUsersSection } from "@/app/data/_sections/active-users-section/active-users-section";
-import { DataSection } from "@/app/data/_sections/data-section/data-section";
+import { ContributorsViews } from "@/app/data/views/contributors-views/contributors-views";
+import { OverviewView } from "@/app/data/views/overview-view/overview-view";
+import { ProjectsViews } from "@/app/data/views/projects-views/projects-views";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
+enum tabs {
+  "OVERVIEW" = "OVERVIEW",
+  "PROJECTS" = "PROJECTS",
+  "CONTRIBUTORS" = "CONTRIBUTORS",
+}
 function DataPage() {
-  return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"data:details.header.title"} />,
-          },
-        ],
-      }}
-    >
-      <AnimatedColumn className="h-full">
-        <ScrollView className="flex flex-col gap-md">
-          <PageContent>
-            <DataSection />
-          </PageContent>
+  const [toggleViews, setToggleViews] = useState<tabs>(tabs.OVERVIEW);
 
-          <PageContent>
-            <ActiveUsersSection />
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
-    </PageWrapper>
-  );
+  const renderActivityView = useMemo(() => {
+    const isViewOverview = toggleViews === tabs.OVERVIEW;
+    const isViewProjects = toggleViews === tabs.PROJECTS;
+    const isViewContributors = toggleViews === tabs.CONTRIBUTORS;
+
+    if (isViewOverview) {
+      return <OverviewView />;
+    }
+
+    if (isViewProjects) {
+      return <ProjectsViews />;
+    }
+
+    if (isViewContributors) {
+      return <ContributorsViews />;
+    }
+  }, [toggleViews]);
+
+  function handleToggleActivityViews(view: string) {
+    close();
+    setToggleViews(view as tabs);
+  }
+
+  return <div>coucou</div>;
 }
 
 export default withClientOnly(withAuthenticationRequired(DataPage));

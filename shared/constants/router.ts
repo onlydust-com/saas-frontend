@@ -26,6 +26,9 @@ export const NEXT_ROUTER = {
   },
   data: {
     root: "/data",
+    contributors: "/data/contributors",
+    projects: "/data/projects",
+    overview: "/data/overview",
     deepDive: {
       root: "/data/deep-dive",
     },
