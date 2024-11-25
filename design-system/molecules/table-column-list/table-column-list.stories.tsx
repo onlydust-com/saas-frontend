@@ -9,7 +9,7 @@ type Story = StoryObj<typeof TableColumnList>;
 
 const defaultProps: TableColumnListPort = {
   titleProps: {
-    token: "data:deepDive.projectsTable.filters.columnList",
+    token: "common:submit",
   },
   menuProps: {
     items: [

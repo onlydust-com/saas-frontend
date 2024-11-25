@@ -1,0 +1,35 @@
+{
+  "filters": {
+    "columnList": "Contributors columns",
+    "global": "Global",
+    "financial": "Financial",
+    "activity": "Activity",
+    "title": "Contributors filters",
+    "save": "Validate",
+    "reset": "Reset filters"
+  },
+  "export": {
+    "tooltip": "Export contributors",
+    "success": "Contributors exported successfully.",
+    "error": "Error exporting contributors."
+  },
+  "columns": {
+    "contributorName": "Contributor name",
+    "projects": "Projects",
+    "categories": "Categories",
+    "languages": "Languages",
+    "ecosystems": "Ecosystems",
+    "country": "Country",
+    "rewardedAmount": "Rewarded amount",
+    "contributionCount": "Contributions",
+    "prCount": "PRs",
+    "rewardCount": "Rewards",
+    "engagementStatuses": "Engagement status"
+  },
+  "rows": {
+    "languages": "{{count}} languages",
+    "ecosystems": "{{count}} ecosystems",
+    "projects": "{{count}} projects"
+  },
+  "contributorCount": "Contributors"
+}

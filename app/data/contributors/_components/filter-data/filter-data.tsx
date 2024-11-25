@@ -1,4 +1,5 @@
-import { ContributorsTableFilters } from "@/app/manage-projects/[projectSlug]/_features/contributors-table/contributors-table";
+import { useContributorFilterDataSidePanel } from "@/app/data/contributors/_components/filter-data/filter-data.hooks";
+import { ContributorsTableFilters } from "@/app/data/contributors/page";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -6,8 +7,11 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { useFilterData } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { CategoryFilter } from "@/shared/features/filters/category-filter/category-filter";
 import { ContributionsActivityFilter } from "@/shared/features/filters/contributions-activity-filter/contributions-activity-filter";
+import { EngagementStatusesFilter } from "@/shared/features/filters/engagement-statuses-filter/engagement-statuses-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
+import { ProjectFilter } from "@/shared/features/filters/project-filter/project-filter";
 import {
   getQuantityFilterAmount,
   getQuantityFilterType,
@@ -20,8 +24,6 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { useContributorFilterDataSidePanel } from "./filter-data.hooks";
-
 export function FilterData() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { name } = useContributorFilterDataSidePanel();
@@ -32,12 +34,21 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"manageProjects:detail.filters.titles.contributor"} />,
+          children: <Translate token={"data:contributorsTable.filters.title"} />,
         }}
         canGoBack={false}
         canClose={true}
       />
       <SidePanelBody>
+        <ProjectFilter selectedProjects={filters.projectIds} onSelect={projectIds => setFilters({ projectIds })} />
+        <CategoryFilter
+          selectedCategories={filters.categoryIds}
+          onSelect={categories => setFilters({ categoryIds: categories })}
+        />
+        <EngagementStatusesFilter
+          selectedEngagementStatus={filters.engagementStatuses}
+          onSelect={engagementStatuses => setFilters({ engagementStatuses })}
+        />
         <LanguageFilter
           selectedLanguages={filters.languageIds}
           onSelect={languages => setFilters({ languageIds: languages })}
@@ -92,11 +103,11 @@ export function FilterData() {
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
           <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"manageProjects:detail.filters.reset"} />
+            <Translate token={"data:contributorsTable.filters.reset"} />
           </Button>
 
           <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
-            <Translate token={"manageProjects:detail.filters.save"} />
+            <Translate token={"data:contributorsTable.filters.save"} />
           </Button>
         </div>
       </SidePanelFooter>

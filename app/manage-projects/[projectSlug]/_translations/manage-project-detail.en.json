@@ -62,6 +62,7 @@
         "reward": "Reward"
       }
     },
+    "contributorCount": "Contributors",
     "rows": {
       "languages": "{{count}} languages",
       "ecosystems": "{{count}} ecosystems"
