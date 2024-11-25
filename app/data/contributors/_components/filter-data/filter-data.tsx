@@ -34,7 +34,7 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"data:deepDive.filters.titles.contributor"} />,
+          children: <Translate token={"data:contributorsTable.filters.title"} />,
         }}
         canGoBack={false}
         canClose={true}
@@ -103,11 +103,11 @@ export function FilterData() {
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
           <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"data:deepDive.filters.reset"} />
+            <Translate token={"data:contributorsTable.filters.reset"} />
           </Button>
 
           <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
-            <Translate token={"data:deepDive.filters.save"} />
+            <Translate token={"data:contributorsTable.filters.save"} />
           </Button>
         </div>
       </SidePanelFooter>

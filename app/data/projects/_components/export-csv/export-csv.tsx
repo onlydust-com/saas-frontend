@@ -29,10 +29,10 @@ export function ExportCsv({ queryParams }: { queryParams: Partial<GetBiProjectsQ
           extension: "csv",
         });
 
-        toast.success(<Translate token={"data:deepDive.projectsTable.export.success"} />);
+        toast.success(<Translate token={"data:projectsTable.export.success"} />);
       },
       onError: () => {
-        toast.error(<Translate token={"data:deepDive.projectsTable.export.error"} />);
+        toast.error(<Translate token={"data:projectsTable.export.error"} />);
       },
     },
   });
@@ -42,7 +42,7 @@ export function ExportCsv({ queryParams }: { queryParams: Partial<GetBiProjectsQ
   }
 
   return (
-    <Tooltip content={<Translate token={"data:deepDive.projectsTable.export.tooltip"} />}>
+    <Tooltip content={<Translate token={"data:projectsTable.export.tooltip"} />}>
       <Button
         variant={"secondary"}
         size="sm"

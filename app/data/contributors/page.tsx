@@ -174,7 +174,7 @@ function DataContributorsPage() {
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
         <div className="flex gap-2">
-          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:deepDive.projectsTable.contributorCount" }} />
+          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:contributorsTable.contributorCount" }} />
           <Typo size={"sm"} color={"primary"}>
             {totalItemNumber}
           </Typo>

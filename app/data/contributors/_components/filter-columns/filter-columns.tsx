@@ -7,47 +7,47 @@ import { FilterColumnsProps, TableColumns } from "./filter-columns.types";
 export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProps) {
   return (
     <TableColumnList
-      titleProps={{ token: "data:deepDive.contributorsTable.filters.columnList" }}
+      titleProps={{ token: "data:contributorsTable.filters.columnList" }}
       menuProps={{
         items: [
           {
             id: "global",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.global"} />,
+            label: <Translate token={"data:contributorsTable.filters.global"} />,
             isLabel: true,
           },
           {
             id: "contributor",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.contributorName"} />,
+            label: <Translate token={"data:contributorsTable.columns.contributorName"} />,
             searchValue: "Contributor name",
             isCheckbox: true,
           },
           {
             id: "projects",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.projects"} />,
+            label: <Translate token={"data:contributorsTable.columns.projects"} />,
             searchValue: "Projects",
             isCheckbox: true,
           },
           {
             id: "categories",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.categories"} />,
+            label: <Translate token={"data:contributorsTable.columns.categories"} />,
             searchValue: "Categories",
             isCheckbox: true,
           },
           {
             id: "languages",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.languages"} />,
+            label: <Translate token={"data:contributorsTable.columns.languages"} />,
             searchValue: "Languages",
             isCheckbox: true,
           },
           {
             id: "ecosystems",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.ecosystems"} />,
+            label: <Translate token={"data:contributorsTable.columns.ecosystems"} />,
             searchValue: "Ecosystems",
             isCheckbox: true,
           },
           {
             id: "country",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
+            label: <Translate token={"data:contributorsTable.columns.country"} />,
             searchValue: "Country",
             isCheckbox: true,
           },
@@ -57,12 +57,12 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
           {
             id: "financial",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.financial"} />,
+            label: <Translate token={"data:contributorsTable.filters.financial"} />,
             isLabel: true,
           },
           {
             id: "rewardedAmount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.rewardedAmount"} />,
+            label: <Translate token={"data:contributorsTable.columns.rewardedAmount"} />,
             searchValue: "Rewarded amount",
             isCheckbox: true,
           },
@@ -72,30 +72,30 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
           },
           {
             id: "activity",
-            label: <Translate token={"data:deepDive.contributorsTable.filters.activity"} />,
+            label: <Translate token={"data:contributorsTable.filters.activity"} />,
             isLabel: true,
           },
           {
             id: "contributionCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
+            label: <Translate token={"data:contributorsTable.columns.contributionCount"} />,
             searchValue: "Contributions",
             isCheckbox: true,
           },
           {
             id: "prCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
+            label: <Translate token={"data:contributorsTable.columns.prCount"} />,
             searchValue: "PRs",
             isCheckbox: true,
           },
           {
             id: "rewardCount",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
+            label: <Translate token={"data:contributorsTable.columns.rewardCount"} />,
             searchValue: "Rewards",
             isCheckbox: true,
           },
           {
             id: "engagementStatus",
-            label: <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
+            label: <Translate token={"data:contributorsTable.columns.engagementStatuses"} />,
             searchValue: "Engagement status",
             isCheckbox: true,
           },

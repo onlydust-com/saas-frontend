@@ -2,13 +2,13 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { ActiveUsersChart } from "@/app/data/_sections/active-users-section/components/active-users-chart/active-users-chart";
-import { ContributorHistogramChart } from "@/app/data/_sections/data-section/components/histograms/contributor-histogram-chart/contributor-histogram-chart";
-import { ProjectHistogramChart } from "@/app/data/_sections/data-section/components/histograms/project-histogram-chart/project-histogram-chart";
-
 import { Paper } from "@/design-system/atoms/paper";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+
+import { ActiveUsersChart } from "./_features/active-users-section/components/active-users-chart/active-users-chart";
+import { ContributorHistogramChart } from "./_features/contributor-histogram-chart/contributor-histogram-chart";
+import { ProjectHistogramChart } from "./_features/project-histogram-chart/project-histogram-chart";
 
 function DataOverviewPage() {
   return (

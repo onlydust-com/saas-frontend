@@ -169,7 +169,7 @@ function DataProjectsPage() {
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
         <div className="flex gap-2">
-          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:deepDive.projectsTable.projectCount" }} />
+          <Typo size={"sm"} color={"secondary"} translate={{ token: "data:projectsTable.projectCount" }} />
           <Typo size={"sm"} color={"primary"}>
             {totalItemNumber}
           </Typo>

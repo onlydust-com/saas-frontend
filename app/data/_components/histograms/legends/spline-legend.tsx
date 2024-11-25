@@ -1,7 +1,7 @@
 import { GitCommitHorizontal } from "lucide-react";
 import { PropsWithChildren, useMemo } from "react";
 
-import { SplineType } from "@/app/data/_sections/data-section/components/histograms/histograms.types";
+import { SplineType } from "@/app/data/_components/histograms/histograms.types";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Typo } from "@/design-system/atoms/typo";

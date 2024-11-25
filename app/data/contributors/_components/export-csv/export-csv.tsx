@@ -31,10 +31,10 @@ export function ExportCsv({ queryParams }: { queryParams: Partial<GetBiContribut
           extension: "csv",
         });
 
-        toast.success(<Translate token={"data:deepDive.contributorsTable.export.success"} />);
+        toast.success(<Translate token={"data:contributorsTable.export.success"} />);
       },
       onError: () => {
-        toast.error(<Translate token={"data:deepDive.contributorsTable.export.error"} />);
+        toast.error(<Translate token={"data:contributorsTable.export.error"} />);
       },
     },
   });
@@ -44,7 +44,7 @@ export function ExportCsv({ queryParams }: { queryParams: Partial<GetBiContribut
   }
 
   return (
-    <Tooltip content={<Translate token={"data:deepDive.contributorsTable.export.tooltip"} />}>
+    <Tooltip content={<Translate token={"data:contributorsTable.export.tooltip"} />}>
       <Button
         variant={"secondary"}
         size="sm"

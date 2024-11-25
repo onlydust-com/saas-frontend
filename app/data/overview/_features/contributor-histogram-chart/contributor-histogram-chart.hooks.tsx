@@ -1,4 +1,4 @@
-import { buildCategories } from "@/app/data/_sections/data-section/components/histograms/histograms.utils";
+import { buildCategories } from "@/app/data/_components/histograms/histograms.utils";
 
 import { GetBiContributorsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorsStatsResponse } from "@/core/domain/bi/models/bi-contributors-stats-model";

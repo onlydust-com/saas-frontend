@@ -2,9 +2,9 @@ import { Calendar, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useContributorHistogramChart } from "@/app/data/_sections/data-section/components/histograms/contributor-histogram-chart/contributor-histogram-chart.hooks";
-import { SplineType } from "@/app/data/_sections/data-section/components/histograms/histograms.types";
-import { SplineLegend } from "@/app/data/_sections/data-section/components/histograms/legends/spline-legend";
+import { SplineType } from "@/app/data/_components/histograms/histograms.types";
+import { SplineLegend } from "@/app/data/_components/histograms/legends/spline-legend";
+import { useProjectHistogramChart } from "@/app/data/overview/_features/project-histogram-chart/project-histogram-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -25,7 +25,7 @@ import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-op
 import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ContributorHistogramChart() {
+export function ProjectHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const rangeMenu = useRangeSelectOptions();
@@ -44,7 +44,7 @@ export function ContributorHistogramChart() {
     };
   }, [rangeType, dateKernelPort]);
 
-  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorsStats({
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiProjectsStats({
     queryParams: {
       fromDate,
       toDate,
@@ -57,15 +57,15 @@ export function ContributorHistogramChart() {
 
   const {
     categories,
+    mergedPrSeries,
     grantedSeries,
     rewardedSeries,
-    mergedPrSeries,
-    newContributorSeries,
-    activeContributorSeries,
-    reactivatedContributorSeries,
-    churnedContributorSeries,
-    minChurnedContributor,
-  } = useContributorHistogramChart(stats, timeGroupingType);
+    newProjectSeries,
+    activeProjectSeries,
+    reactivatedProjectSeries,
+    churnedProjectSeries,
+    minChurnedProject,
+  } = useProjectHistogramChart(stats, timeGroupingType);
 
   const splineSeries = useMemo(() => {
     switch (splineType) {
@@ -89,18 +89,18 @@ export function ContributorHistogramChart() {
   }, [t, splineType, grantedSeries, rewardedSeries, mergedPrSeries]);
 
   const { options } = useStackedColumnAreaSplineChartOptions({
-    dataViewTarget: "contributor",
+    dataViewTarget: "projects",
     dateRangeType: rangeType,
     timeGroupingType,
     selectedProgramAndEcosystem,
-    yAxisTitle: [t("data:histograms.data.contributors"), splineSeries.name],
+    yAxisTitle: [t("data:histograms.data.projects"), splineSeries.name],
     categories,
-    min: minChurnedContributor,
+    min: minChurnedProject,
     series: [
-      { name: t("data:histograms.legends.new"), data: newContributorSeries },
-      { name: t("data:histograms.legends.reactivated"), data: reactivatedContributorSeries },
-      { name: t("data:histograms.legends.active"), data: activeContributorSeries },
-      { name: t("data:histograms.legends.churned"), data: churnedContributorSeries },
+      { name: t("data:histograms.legends.new"), data: newProjectSeries },
+      { name: t("data:histograms.legends.reactivated"), data: reactivatedProjectSeries },
+      { name: t("data:histograms.legends.active"), data: activeProjectSeries },
+      { name: t("data:histograms.legends.churned"), data: churnedProjectSeries },
       {
         ...splineSeries,
         type: "areaspline",
@@ -131,10 +131,10 @@ export function ContributorHistogramChart() {
   }
 
   if (
-    !newContributorSeries.length &&
-    !reactivatedContributorSeries.length &&
-    !activeContributorSeries.length &&
-    !churnedContributorSeries.length &&
+    !newProjectSeries.length &&
+    !reactivatedProjectSeries.length &&
+    !activeProjectSeries.length &&
+    !churnedProjectSeries.length &&
     !mergedPrSeries.length
   ) {
     return (
@@ -197,7 +197,11 @@ export function ContributorHistogramChart() {
       </div>
       <HighchartsDefault options={options} />
       <div className="flex items-center gap-4">
-        <Paper size={"lg"} classNames={{ base: "grid tablet:grid-cols-5 gap-3 flex-1" }} background={"secondary"}>
+        <Paper
+          size={"lg"}
+          classNames={{ base: "grid laptop:grid-cols-5 laptop:items-center gap-3 flex-1" }}
+          background={"secondary"}
+        >
           <ChartLegend color="primary">
             <Translate token={"data:histograms.legends.new"} />
           </ChartLegend>

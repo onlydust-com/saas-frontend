@@ -90,7 +90,7 @@ export function useFilterColumns() {
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     contributor: columnHelper.accessor("contributor", {
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributorName"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.contributorName"} />,
       cell: info => {
         const contributor = info.getValue();
 
@@ -109,7 +109,7 @@ export function useFilterColumns() {
       },
     }),
     projects: columnHelper.accessor("projects", {
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.projects"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.projects"} />,
       cell: info => {
         const projects = info.getValue() ?? [];
 
@@ -118,7 +118,7 @@ export function useFilterColumns() {
     }),
     categories: columnHelper.accessor("categories", {
       enableSorting: false,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.categories"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.categories"} />,
       cell: info => {
         const categories = info.getValue() ?? [];
 
@@ -127,14 +127,14 @@ export function useFilterColumns() {
     }),
     languages: columnHelper.accessor("languages", {
       enableSorting: false,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.languages"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.languages"} />,
       cell: info => {
         return <CellUserLanguages githubId={info.row.original.contributor.githubUserId} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
       enableSorting: false,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.ecosystems"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.ecosystems"} />,
       cell: info => {
         const ecosystems = info.getValue() ?? [];
 
@@ -145,7 +145,7 @@ export function useFilterColumns() {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
       minSize: TABLE_CELL_SIZE.SM,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.country"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
 
@@ -163,7 +163,7 @@ export function useFilterColumns() {
       },
     }),
     rewardedAmount: columnHelper.accessor("totalRewardedUsdAmount", {
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardedAmount"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.rewardedAmount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
 
@@ -182,7 +182,7 @@ export function useFilterColumns() {
     contributionCount: columnHelper.accessor("contributionCount", {
       size: TABLE_CELL_SIZE.MD,
       minSize: TABLE_CELL_SIZE.MD,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.contributionCount"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
 
@@ -194,7 +194,7 @@ export function useFilterColumns() {
     prCount: columnHelper.accessor("prCount", {
       size: TABLE_CELL_SIZE.SM,
       minSize: TABLE_CELL_SIZE.SM,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.prCount"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
 
@@ -207,7 +207,7 @@ export function useFilterColumns() {
       enableSorting: false,
       size: TABLE_CELL_SIZE.SM,
       minSize: TABLE_CELL_SIZE.SM,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.rewardCount"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
 
@@ -220,7 +220,7 @@ export function useFilterColumns() {
       enableSorting: false,
       size: TABLE_CELL_SIZE.MD,
       minSize: TABLE_CELL_SIZE.MD,
-      header: () => <Translate token={"data:deepDive.contributorsTable.columns.engagementStatuses"} />,
+      header: () => <Translate token={"data:contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();
 
