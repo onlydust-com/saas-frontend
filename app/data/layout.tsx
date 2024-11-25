@@ -65,10 +65,18 @@ export default function DataLayout({ children }: { children: ReactNode }) {
                 {
                   id: tabs.CONTRIBUTORS,
                   children: <Translate token={"manageProjects:detail.activity.buttons.contributions"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.data.projects,
+                  },
                 },
                 {
                   id: tabs.PROJECTS,
                   children: <Translate token={"manageProjects:detail.activity.buttons.financial"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.data.contributors,
+                  },
                 },
               ]}
               selectedId={selectedId}
