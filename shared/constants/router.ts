@@ -11,8 +11,11 @@ export const NEXT_ROUTER = {
   },
   financials: {
     root: "/financials",
-    details: {
-      root: (id: string) => `/financials/${id}`,
+    programs: {
+      root: (id: string) => `/financials/${id}/programs`,
+    },
+    financial: {
+      root: (id: string) => `/financials/${id}/financial`,
     },
   },
   manageProjects: {
