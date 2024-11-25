@@ -61,8 +61,6 @@ export default function ManageProjectsLayout({
   }, [isContributions, isContributors, isFinancial]);
 
   const [openAlert, setOpenAlert] = useState(false);
-
-  // TODO try to remove ref
   const hasAlreadyClosedAlert = useRef(false);
 
   const { open: openProject } = useProjectUpdateSidePanel();
