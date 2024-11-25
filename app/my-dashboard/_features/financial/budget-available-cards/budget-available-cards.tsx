@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { FinancialColumnChart } from "@/app/my-dashboard/_features/financial/financial-column-chart/financial-column-chart";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
@@ -24,37 +24,6 @@ export function BudgetAvailableCards() {
       enabled: Boolean(githubUserId),
     },
   });
-
-  const rewardPendingAmount = useMemo(() => {
-    if (!data) {
-      return {
-        totalUsdEquivalent: 0,
-        totalPerCurrency: [],
-      };
-    }
-
-    return {
-      totalUsdEquivalent: data.totalRewarded.totalUsdEquivalent - data.totalPaid.totalUsdEquivalent,
-      totalPerCurrency: data.totalRewarded.totalPerCurrency
-        ?.map(rewarded => {
-          const paid = data.totalPaid.totalPerCurrency?.find(p => p.currency.id === rewarded.currency.id) || {
-            usdEquivalent: 0,
-          };
-
-          const pendingUsdEquivalent = (rewarded.usdEquivalent || 0) - (paid.usdEquivalent || 0);
-
-          if (pendingUsdEquivalent !== 0) {
-            return {
-              ...rewarded,
-              usdEquivalent: pendingUsdEquivalent,
-            };
-          }
-
-          return null;
-        })
-        .filter(item => item !== null),
-    };
-  }, [data]);
 
   if (isLoading) {
     return (
@@ -92,18 +61,12 @@ export function BudgetAvailableCards() {
       />
 
       <FinancialCardItem
-        title="myDashboard:budgetAvailable.pending.title"
-        total={rewardPendingAmount}
-        color="grey"
-        onClick={() => openPanel("rewardPendingAmount", rewardPendingAmount)}
-      />
-
-      <FinancialCardItem
         title="myDashboard:budgetAvailable.paid.title"
         total={data.totalPaid}
         color="grey"
         onClick={() => openPanel("rewardPaid", data.totalPaid)}
       />
+      <FinancialColumnChart />
     </div>
   );
 }

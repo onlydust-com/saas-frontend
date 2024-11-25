@@ -1,8 +1,8 @@
 {
   "title": "Rewards Charts",
   "legends": {
-    "rewarded": "Rewarded",
-    "paid": "Paid"
+    "available": "Available",
+    "rewarded": "Rewarded"
   },
   "emptyState": {
     "title": "No data available",
