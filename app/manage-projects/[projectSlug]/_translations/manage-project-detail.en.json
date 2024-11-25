@@ -1,24 +1,22 @@
 {
-  "activity": {
-    "buttons": {
-      "contributors": "Contributors",
-      "contributions": "Contributions",
-      "financial": "Financial"
-    },
-    "kanban": {
-      "columns": {
-        "notAssigned": "Not assigned",
-        "inProgress": "In Progress",
-        "toReview": "To Review",
-        "done": "Done",
-        "archived": "Archived"
-      }
-    },
-    "actions": {
-      "seeTransactions": "See transactions",
-      "editProject": "Edit project",
-      "reward": "Reward a contributor"
+  "views": {
+    "contributors": "Contributors",
+    "contributions": "Contributions",
+    "financial": "Financial"
+  },
+  "kanban": {
+    "columns": {
+      "notAssigned": "Not assigned",
+      "inProgress": "In Progress",
+      "toReview": "To Review",
+      "done": "Done",
+      "archived": "Archived"
     }
+  },
+  "actions": {
+    "seeTransactions": "See transactions",
+    "editProject": "Edit project",
+    "reward": "Reward a contributor"
   },
   "filters": {
     "titles": {

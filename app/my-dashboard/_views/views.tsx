@@ -62,7 +62,7 @@ export function Views() {
     return null;
   }, [isViewProjects, isViewContributions, isViewFinancial]);
 
-  function handleToggleActivityViews(view: string) {
+  function handleToggleView(view: string) {
     close();
     setView(view as MyDashboardViews);
   }
@@ -71,7 +71,7 @@ export function Views() {
     <div className="flex h-full flex-col gap-lg">
       <div className="flex flex-col flex-wrap items-start justify-between gap-2 tablet:flex-row tablet:items-center">
         <Tabs
-          onTabClick={handleToggleActivityViews}
+          onTabClick={handleToggleView}
           variant={"solid"}
           searchParams={"activity-view"}
           tabs={[

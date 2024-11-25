@@ -3,7 +3,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useEffect, useRef, useState } from "react";
 
-import { ActivitySection } from "@/app/manage-projects/[projectSlug]/_sections/activity-section/activity-section";
+import { Views } from "@/app/manage-projects/[projectSlug]/_views/views";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -28,8 +28,8 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const [openAlert, setOpenAlert] = useState(false);
-
   const hasAlreadyClosedAlert = useRef(false);
+
   const { data } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsBySlug({
     pathParams: { projectSlug },
     options: {
@@ -38,9 +38,9 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
   });
 
   const { data: projectData } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
-    pathParams: { slug: projectSlug ?? "" },
+    pathParams: { slug: projectSlug },
     options: {
-      enabled: !!projectSlug,
+      enabled: Boolean(projectSlug),
     },
   });
 
@@ -87,7 +87,7 @@ function ManageProjectsSinglePage({ params: { projectSlug } }: { params: { proje
                 {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
                 <RepoIndexingAlert indexingComplete={projectData?.isIndexingCompleted() ?? true} />
                 <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-                  <ActivitySection projectId={data?.id} />
+                  <Views projectId={data?.id} projectSlug={projectSlug} />
                 </PageContent>
               </ScrollView>
             </AnimatedColumn>
