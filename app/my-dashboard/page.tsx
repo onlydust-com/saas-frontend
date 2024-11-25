@@ -2,7 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { ActivitySection } from "@/app/my-dashboard/_sections/activity-section/activity-section";
+import { Views } from "@/app/my-dashboard/_views/views";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -37,7 +37,7 @@ function MyDashboardPage() {
           <AnimatedColumn className="h-full">
             <ScrollView className="flex flex-col">
               <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-                <ActivitySection />
+                <Views />
               </PageContent>
             </ScrollView>
           </AnimatedColumn>
