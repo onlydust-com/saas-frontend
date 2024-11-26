@@ -2,6 +2,12 @@
 
 import { ReactNode, useMemo } from "react";
 
+import { GlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter";
+import {
+  GlobalDataFilterProvider,
+  useGlobalDataFilter,
+} from "@/app/data/_features/global-data-filter/global-data-filter.context";
+
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
@@ -21,7 +27,8 @@ enum Views {
   "CONTRIBUTORS" = "CONTRIBUTORS",
 }
 
-export default function DataLayout({ children }: { children: ReactNode }) {
+function Navigation() {
+  const { params } = useGlobalDataFilter();
   const isOverview = useMatchPath(NEXT_ROUTER.data.overview.root);
   const isContributors = useMatchPath(NEXT_ROUTER.data.contributors.root);
   const isProjects = useMatchPath(NEXT_ROUTER.data.projects.root);
@@ -38,6 +45,46 @@ export default function DataLayout({ children }: { children: ReactNode }) {
     }
   }, [isOverview, isContributors, isProjects]);
 
+  function addSearchParamsToUrl(url: string) {
+    return `${url}?${params}`;
+  }
+
+  return (
+    <Tabs
+      variant={"solid"}
+      searchParams={"data-view"}
+      tabs={[
+        {
+          id: Views.OVERVIEW,
+          children: <Translate token={"data:details.tabs.overview"} />,
+          as: BaseLink,
+          htmlProps: {
+            href: addSearchParamsToUrl(NEXT_ROUTER.data.overview.root),
+          },
+        },
+        {
+          id: Views.CONTRIBUTORS,
+          children: <Translate token={"data:details.tabs.contributor"} />,
+          as: BaseLink,
+          htmlProps: {
+            href: addSearchParamsToUrl(NEXT_ROUTER.data.contributors.root),
+          },
+        },
+        {
+          id: Views.PROJECTS,
+          children: <Translate token={"data:details.tabs.project"} />,
+          as: BaseLink,
+          htmlProps: {
+            href: addSearchParamsToUrl(NEXT_ROUTER.data.projects.root),
+          },
+        },
+      ]}
+      selectedId={selectedId}
+    />
+  );
+}
+
+export default function DataLayout({ children }: { children: ReactNode }) {
   return (
     <PageWrapper
       navigation={{
@@ -49,46 +96,21 @@ export default function DataLayout({ children }: { children: ReactNode }) {
         ],
       }}
     >
-      <AnimatedColumn className="h-full">
-        <ScrollView className="flex flex-col gap-md">
-          <PageContent classNames={{ base: "flex flex-col gap-3" }}>
-            <Tabs
-              variant={"solid"}
-              searchParams={"data-view"}
-              tabs={[
-                {
-                  id: Views.OVERVIEW,
-                  children: <Translate token={"data:details.tabs.overview"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.overview.root,
-                  },
-                },
-                {
-                  id: Views.CONTRIBUTORS,
-                  children: <Translate token={"data:details.tabs.contributor"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.contributors.root,
-                  },
-                },
-                {
-                  id: Views.PROJECTS,
-                  children: <Translate token={"data:details.tabs.project"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.projects.root,
-                  },
-                },
-              ]}
-              selectedId={selectedId}
-            />
-            {children}
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
-      <ContributorSidepanel />
-      <ProjectSidepanel />
+      <GlobalDataFilterProvider>
+        <AnimatedColumn className="h-full">
+          <ScrollView className="flex flex-col gap-md">
+            <PageContent classNames={{ base: "flex flex-col gap-3" }}>
+              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+                <Navigation />
+                <GlobalDataFilter />
+              </div>
+              {children}
+            </PageContent>
+          </ScrollView>
+        </AnimatedColumn>
+        <ContributorSidepanel />
+        <ProjectSidepanel />
+      </GlobalDataFilterProvider>
     </PageWrapper>
   );
 }

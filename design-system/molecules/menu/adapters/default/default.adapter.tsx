@@ -19,6 +19,7 @@ export function MenuDefaultAdapter<T = string>({
   isLoading,
   onAction,
   isMultiple,
+  endContent,
 }: ListMenuPort<T>) {
   const slots = MenuDefaultVariants();
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -91,6 +92,7 @@ export function MenuDefaultAdapter<T = string>({
         {showMore ? (
           <ShowMore className={"py-2"} onNext={() => onNextPage?.()} loading={isLoading || false} skip={!hasNextPage} />
         ) : undefined}
+        {endContent}
       </div>
     </div>
   );

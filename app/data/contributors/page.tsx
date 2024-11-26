@@ -5,9 +5,10 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter.context";
+
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
-import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Typo } from "@/design-system/atoms/typo";
 import { Table, TableLoading } from "@/design-system/molecules/table";
@@ -20,9 +21,6 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
-import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
-import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
-import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 
@@ -39,35 +37,16 @@ export type ContributorsTableFilters = Omit<
 
 function DataContributorsPage() {
   const { open: openFilterPanel } = useContributorFilterDataSidePanel();
-  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
-  const [period, setPeriod] = useState<PeriodValue>();
   const searchParams = useSearchParams();
-
-  const dateRangeTypeParam = useMemo(() => {
-    return searchParams.get("dateRangeType") as DateRangeType;
-  }, [searchParams]);
-
-  const plotPeriodParam = useMemo(() => {
-    return {
-      fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
-      toDate: searchParams.get("plotPeriodTo") ?? undefined,
-    };
-  }, [searchParams]);
+  const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
 
   useEffect(() => {
     const seriesName = searchParams.get("seriesName")?.toUpperCase();
     if (seriesName) {
       setFilters({ engagementStatuses: seriesName as unknown as ContributorsTableFilters["engagementStatuses"] });
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    const programAndEcosystemParamIds = searchParams.get("programAndEcosystemIds");
-    if (programAndEcosystemParamIds) {
-      setSelectedProgramAndEcosystem(programAndEcosystemParamIds.split(","));
     }
   }, [searchParams]);
 
@@ -83,8 +62,8 @@ function DataContributorsPage() {
       ? selectedProgramAndEcosystem
       : [...userProgramIds, ...userEcosystemIds],
     search: debouncedSearch,
-    fromDate: period?.fromDate,
-    toDate: period?.toDate,
+    fromDate: period?.from,
+    toDate: period?.to,
     ...filters,
     ...sortingParams,
   };
@@ -106,10 +85,6 @@ function DataContributorsPage() {
       enabled: Boolean(user),
     },
   });
-
-  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
-    setPeriod({ fromDate, toDate });
-  }
 
   const isLoading = isLoadingUser || isLoadingBiContributors;
   const isError = isErrorUser || isErrorBiContributors;
@@ -143,19 +118,7 @@ function DataContributorsPage() {
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
-          <ProgramEcosystemPopover
-            name={"programAndEcosystem"}
-            onSelect={setSelectedProgramAndEcosystem}
-            selectedProgramsEcosystems={selectedProgramAndEcosystem}
-            buttonProps={{ size: "sm" }}
-            searchParams={"programAndEcosystemIds"}
-          />
           <FilterButton onClick={openFilterPanel} />
-          <PeriodFilter
-            onChange={handleOnPeriodChange}
-            value={{ fromDate: plotPeriodParam?.fromDate, toDate: plotPeriodParam?.toDate }}
-            dateRangeType={dateRangeTypeParam}
-          />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
           <ExportCsv queryParams={queryParams} />
