@@ -1,4 +1,4 @@
-import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/_features/contributions/contributions";
+import { ContributionKanbanFilters } from "@/app/my-dashboard/_features/contributions/filter-data/filter-data.types";
 
 import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
 

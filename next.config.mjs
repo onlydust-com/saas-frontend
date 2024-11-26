@@ -22,6 +22,12 @@ const nextConfig = {
         destination: '/programs/:programId/projects',
         permanent: true,
       },
+      // MANAGE PROJECTS
+      {
+        source: '/manage-projects/:projectSlug',
+        destination: '/manage-projects/:projectSlug/contributors',
+        permanent: true,
+      },
     ];
   },
 }
