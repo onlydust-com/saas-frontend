@@ -12,10 +12,10 @@
     "rewarded": "Rewarded"
   },
   "tooltips": {
-    "churned": "User that are inactive for a long time period and stop contributing to your project.",
-    "active": "User that we indentified as your best profiles and that would match a maintainer role.",
-    "reactivated": "User that were inactive for a long time period and start contributing again to your project.",
-    "new": "All contributors that have joined one of your repositories during last month."
+    "churned": "Users that were inactive for a long time period and have stopped contributing to your project.",
+    "active": "Users that we identified as your best profiles and would match a maintainer role.",
+    "reactivated": "Users that were inactive for a long time period and have started contributing to your project again.",
+    "new": "All contributors that have joined one of your repositories during the last month."
   },
   "data": {
     "contributors": "Contributors",
