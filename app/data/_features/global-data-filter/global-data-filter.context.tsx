@@ -38,8 +38,8 @@ export function GlobalDataFilterProvider({ children }: PropsWithChildren) {
     rangeType: (searchParams.get("period.range") as DateRangeType) ?? defaultPeriod.rangeType,
   });
 
-  const { updateSearchParams } = useUpdateMultipleSearchParams();
-  const { deleteSearchParams } = useDeleteMultipleSearchParams();
+  const { updateMultipleSearchParams } = useUpdateMultipleSearchParams();
+  const { deleteMultipleSearchParams } = useDeleteMultipleSearchParams();
 
   const periodSearchParams: PeriodValue = useMemo(() => {
     return {
@@ -51,13 +51,13 @@ export function GlobalDataFilterProvider({ children }: PropsWithChildren) {
 
   function onPeriodChange(period: PeriodValue) {
     if (period.from && period.to) {
-      updateSearchParams({
+      updateMultipleSearchParams({
         "period.from": period.from,
         "period.to": period.to,
         "period.range": period.rangeType,
       });
     } else {
-      deleteSearchParams(["period.from", "period.to", "period.range"]);
+      deleteMultipleSearchParams(["period.from", "period.to", "period.range"]);
     }
 
     setPeriod(period);

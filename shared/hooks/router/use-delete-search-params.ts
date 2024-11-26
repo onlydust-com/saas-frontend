@@ -23,7 +23,7 @@ export const useDeleteMultipleSearchParams = () => {
   const pathname = usePathname();
   const router = useRouter();
   return {
-    deleteSearchParams: useCallback(
+    deleteMultipleSearchParams: useCallback(
       (values: string[]) => {
         const params = new URLSearchParams(searchParams.toString());
         values.forEach(value => {

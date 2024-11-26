@@ -23,7 +23,7 @@ export const useUpdateMultipleSearchParams = () => {
   const pathname = usePathname();
   const router = useRouter();
   return {
-    updateSearchParams: useCallback(
+    updateMultipleSearchParams: useCallback(
       (value: Record<string, string>) => {
         const params = new URLSearchParams(searchParams.toString());
         Object.entries(value).forEach(([key, value]) => {
