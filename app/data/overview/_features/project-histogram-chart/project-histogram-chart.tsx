@@ -1,4 +1,3 @@
-import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,15 +20,12 @@ import { Typo } from "@/design-system/atoms/typo";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
-import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
-  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: period.rangeType });
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>(SplineType.PR);
 

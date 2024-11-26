@@ -1,4 +1,3 @@
-import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,14 +20,12 @@ import { Typo } from "@/design-system/atoms/typo";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
-  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: period.rangeType });
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>(SplineType.PR);
 
@@ -143,36 +140,6 @@ export function ContributorHistogramChart() {
           onAction={onChangeTimeGroupingType}
           relatedDateRangeType={period.rangeType}
         />
-    <div className="flex min-h-[300px] flex-col gap-4">
-      <div className="flex flex-col justify-between gap-2 tablet:flex-nowrap">
-        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
-          <Menu items={timeGroupingMenu} selectedIds={[timeGroupingType]} onAction={onChangeTimeGroupingType} isPopOver>
-            <Button variant={"secondary"} size={"md"} endIcon={{ component: ChevronDown }}>
-              <Translate token={`common:timeGroupingType.${timeGroupingType}`} />
-            </Button>
-          </Menu>
-        </div>
-
-        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
-          <RadioButtonGroup
-            items={[
-              {
-                value: "grant",
-                label: t("data:histograms.splineTypes.totalGranted"),
-              },
-              {
-                value: "reward",
-                label: t("data:histograms.splineTypes.totalRewarded"),
-              },
-              {
-                value: "pr",
-                label: t("data:histograms.splineTypes.prMerged"),
-              },
-            ]}
-            value={splineType}
-            onChange={v => setSplineType(v)}
-          />
-        </div>
       </div>
       <HighchartsDefault options={options} />
       <Paper size={"lg"} classNames={{ base: "flex gap-lg items-center" }} background={"secondary"}>
