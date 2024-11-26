@@ -1,5 +1,8 @@
+import { Info } from "lucide-react";
 import { ElementType } from "react";
 
+import { Icon } from "@/design-system/atoms/icon";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
@@ -15,6 +18,7 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
   color,
   rawColor,
   size = "m",
+  tooltipProps,
 }: ChartLegendPort<C>) {
   const Component = as || "div";
   const slots = ChartLegendDefaultVariants({ size, color });
@@ -27,9 +31,15 @@ export function ChartLegendDefaultAdapter<C extends ElementType = "div">({
         style={rawColor ? { background: rawColor } : undefined}
       ></div>
 
-      <Typo as={"div"} size={typoSize} weight={"medium"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+      <Typo as={"div"} size={typoSize} weight={"regular"} classNames={{ base: cn(slots.label(), classNames?.label) }}>
         {children}
       </Typo>
+
+      {tooltipProps ? (
+        <Tooltip {...tooltipProps}>
+          <Icon component={Info} />
+        </Tooltip>
+      ) : null}
     </Component>
   );
 }

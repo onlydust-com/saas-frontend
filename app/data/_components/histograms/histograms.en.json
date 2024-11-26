@@ -11,6 +11,12 @@
     "granted": "Granted",
     "rewarded": "Rewarded"
   },
+  "tooltips": {
+    "churned": "User that are inactive for a long time period and stop contributing to your project.",
+    "active": "User that we indentified as your best profiles and that would match a maintainer role.",
+    "reactivated": "User that were inactive for a long time period and start contributing again to your project.",
+    "new": "All contributors that have joined one of your repositories during last month."
+  },
   "data": {
     "contributors": "Contributors",
     "projects": "Projects"
@@ -23,5 +29,7 @@
   "emptyState": {
     "title": "No data available",
     "description": "There is no data available."
-  }
+  },
+  "contributorActivity": "Contributor activity",
+  "projectActivity": "Project activity"
 }

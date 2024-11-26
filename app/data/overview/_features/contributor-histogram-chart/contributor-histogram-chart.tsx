@@ -1,4 +1,3 @@
-import { Calendar, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,16 +11,14 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
 import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Menu } from "@/design-system/molecules/menu";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -107,20 +104,12 @@ export function ContributorHistogramChart() {
     ],
   });
 
-  function onChangeRangeType(value: string) {
-    if (dateKernelPort.isDateRangeType(value)) setRangeType(value);
-  }
-
   function onChangeTimeGroupingType(value: string) {
     if (dateKernelPort.isTimeGroupingType(value)) setTimeGroupingType(value);
   }
 
   function onChangeSplineType(value: string) {
     if (isSplineType(value)) setSplineType(value);
-  }
-
-  function onProgramEcosystemChange(ids: string[]) {
-    setSelectedProgramAndEcosystem(ids);
   }
 
   if (isLoading) {
@@ -149,52 +138,41 @@ export function ContributorHistogramChart() {
   }
 
   return (
-    <div className="flex min-h-[300px] flex-col gap-4">
-      <div className="flex flex-col justify-between gap-2 tablet:flex-nowrap">
-        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
-          <ProgramEcosystemPopover
-            name={"programAndEcosystem"}
-            placeholder={t("data:details.allDataFilter.placeholder")}
-            onSelect={onProgramEcosystemChange}
-            selectedProgramsEcosystems={selectedProgramAndEcosystem}
-            searchParams={"programAndEcosystemIds"}
-          />
-          <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRangeType} isPopOver>
-            <Button
-              as={"div"}
-              variant={"secondary"}
-              size={"md"}
-              startIcon={{ component: Calendar }}
-              endIcon={{ component: ChevronDown }}
-            >
-              <Translate token={`common:dateRangeType.${rangeType}`} />
-            </Button>
-          </Menu>
-          <TimeGroupingMenu
-            selectedTimeGrouping={timeGroupingType}
-            onAction={onChangeTimeGroupingType}
-            relatedDateRangeType={rangeType}
-          />
-        </div>
+    <div className="flex min-h-[300px] flex-col gap-lg divide-y divide-border-primary">
+      <div className="flex items-start justify-between gap-lg">
+        <Typo
+          weight={"medium"}
+          size={"md"}
+          color={"primary"}
+          translate={{ token: "data:histograms.contributorActivity" }}
+        />
+        <TimeGroupingMenu
+          selectedTimeGrouping={timeGroupingType}
+          onAction={onChangeTimeGroupingType}
+          // TODO @Mehdi use rangeType from new global filter context
+          relatedDateRangeType={DateRangeType.LAST_SEMESTER}
+        />
       </div>
       <HighchartsDefault options={options} />
       <Paper size={"lg"} classNames={{ base: "flex gap-lg items-center" }} background={"secondary"}>
-        <ChartLegend color="primary">
+        <ChartLegend color="primary" tooltipProps={{ content: <Translate token="data:histograms.tooltips.new" /> }}>
           <Translate token={"data:histograms.legends.new"} />
         </ChartLegend>
-
-        <ChartLegend color="secondary">
+        <ChartLegend
+          color="secondary"
+          tooltipProps={{ content: <Translate token="data:histograms.tooltips.reactivated" /> }}
+        >
           <Translate token={"data:histograms.legends.reactivated"} />
         </ChartLegend>
-
-        <ChartLegend color="septenary">
+        <ChartLegend color="tertiary" tooltipProps={{ content: <Translate token="data:histograms.tooltips.active" /> }}>
           <Translate token={"data:histograms.legends.active"} />
         </ChartLegend>
-
-        <ChartLegend color="quaternary">
+        <ChartLegend
+          color="quaternary"
+          tooltipProps={{ content: <Translate token="data:histograms.tooltips.churned" /> }}
+        >
           <Translate token={"data:histograms.legends.churned"} />
         </ChartLegend>
-
         <SplineTypeMenu selectedSplineType={splineType} onAction={onChangeSplineType} />
       </Paper>
     </div>
