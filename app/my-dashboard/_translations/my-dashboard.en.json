@@ -2,26 +2,22 @@
   "header": {
     "title": "My Dashboard"
   },
-  "activity": {
-    "buttons": {
-      "projects": "Projects",
-      "contributions": "Contributions",
-      "financial": "Financial"
-    },
-    "kanban": {
-      "columns": {
-        "applied": "Applied",
-        "assignedIssue": "Assigned issue",
-        "pendingReview": "Pending review",
-        "complete": "Complete"
-      }
-    },
-    "actions": {
-      "requestPayment": "Request payment",
-      "seeTransactions": "See transactions"
-    },
-    "tooltip": {
-      "disabledRequestPayment": "No rewards available"
+  "views": {
+    "projects": "Projects",
+    "contributions": "Contributions",
+    "financial": "Financial"
+  },
+  "actions": {
+    "requestPayment": "Request payment",
+    "disabledRequestPayment": "No rewards available",
+    "seeTransactions": "See transactions"
+  },
+  "kanban": {
+    "columns": {
+      "applied": "Applied",
+      "assignedIssue": "Assigned issue",
+      "pendingReview": "Pending review",
+      "complete": "Complete"
     }
   },
   "filters": {

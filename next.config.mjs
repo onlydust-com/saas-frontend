@@ -28,6 +28,12 @@ const nextConfig = {
         destination: '/manage-projects/:projectSlug/contributors',
         permanent: true,
       },
+      // MY DASHBOARD
+      {
+        source: '/my-dashboard',
+        destination: '/my-dashboard/contributions',
+        permanent: true,
+      },
     ];
   },
 }

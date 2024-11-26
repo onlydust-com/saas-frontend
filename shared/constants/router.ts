@@ -35,6 +35,15 @@ export const NEXT_ROUTER = {
   },
   myDashboard: {
     root: "/my-dashboard",
+    contributions: {
+      root: "/my-dashboard/contributions",
+    },
+    projects: {
+      root: "/my-dashboard/projects",
+    },
+    financial: {
+      root: "/my-dashboard/financial",
+    },
   },
   data: {
     root: "/data",
