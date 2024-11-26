@@ -1,3 +1,5 @@
+import { SplineType } from "@/app/data/_components/histograms/menus/spline-type-menu/spline-type-menu.types";
+
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsStatsModel, GetBiProjectsStatsModel } from "@/core/domain/bi/bi-contract.types";
 import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
@@ -19,4 +21,8 @@ export function buildCategories({
   }
 
   return stats?.map(stat => dateKernelPort.format(new Date(stat.timestamp), "MMMM yyyy")) ?? [];
+}
+
+export function isSplineType(value: string): value is SplineType {
+  return Object.values(SplineType).includes(value as SplineType);
 }

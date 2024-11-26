@@ -44,7 +44,6 @@ export function useStackedColumnAreaSplineChartOptions({
   const dateKernelPort = bootstrap.getDateKernelPort();
   const router = useRouter();
 
-  // TODO @Mehdi refactor chart Click redirections
   function handleChartClick({ dataViewTarget, plotPeriod, seriesName }: handleChartClickParams) {
     const currentDate = dateKernelPort.isValid(new Date(plotPeriod)) ? new Date(plotPeriod) : new Date();
     const { plotPeriodFrom, plotPeriodTo } = getPlotPeriod(currentDate, timeGroupingType);
