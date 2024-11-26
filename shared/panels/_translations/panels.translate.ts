@@ -20,6 +20,7 @@ import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
 import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
 import enRewardDetail from "@/shared/panels/reward-detail-sidepanel/_translations/reward-detail-sidepanel.en.json";
+import enTransactions from "@/shared/panels/transactions-sidepanel/_translations/transactions-sidepanel.en.json";
 
 export const enPanelsTranslation = {
   panels: {
@@ -45,5 +46,6 @@ export const enPanelsTranslation = {
     singleContributionValidation: enSingleContributionValidation,
     rewardFlow: enRewardFlow,
     requestPaymentFlow: enRequestPaymentFlow,
+    transactions: enTransactions,
   },
 };
