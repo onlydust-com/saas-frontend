@@ -206,7 +206,7 @@ export function ContributorHistogramChart() {
             <Translate token={"data:histograms.legends.reactivated"} />
           </ChartLegend>
 
-          <ChartLegend color="tertiary">
+          <ChartLegend color="septenary">
             <Translate token={"data:histograms.legends.active"} />
           </ChartLegend>
 
