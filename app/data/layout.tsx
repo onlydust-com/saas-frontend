@@ -2,6 +2,8 @@
 
 import { ReactNode, useMemo } from "react";
 
+import { GlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter";
+
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
@@ -52,37 +54,40 @@ export default function DataLayout({ children }: { children: ReactNode }) {
       <AnimatedColumn className="h-full">
         <ScrollView className="flex flex-col gap-md">
           <PageContent classNames={{ base: "flex flex-col gap-3" }}>
-            <Tabs
-              variant={"solid"}
-              searchParams={"data-view"}
-              tabs={[
-                {
-                  id: Views.OVERVIEW,
-                  children: <Translate token={"data:details.tabs.overview"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.overview.root,
+            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <Tabs
+                variant={"solid"}
+                searchParams={"data-view"}
+                tabs={[
+                  {
+                    id: Views.OVERVIEW,
+                    children: <Translate token={"data:details.tabs.overview"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.data.overview.root,
+                    },
                   },
-                },
-                {
-                  id: Views.CONTRIBUTORS,
-                  children: <Translate token={"data:details.tabs.contributor"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.contributors.root,
+                  {
+                    id: Views.CONTRIBUTORS,
+                    children: <Translate token={"data:details.tabs.contributor"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.data.contributors.root,
+                    },
                   },
-                },
-                {
-                  id: Views.PROJECTS,
-                  children: <Translate token={"data:details.tabs.project"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.data.projects.root,
+                  {
+                    id: Views.PROJECTS,
+                    children: <Translate token={"data:details.tabs.project"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.data.projects.root,
+                    },
                   },
-                },
-              ]}
-              selectedId={selectedId}
-            />
+                ]}
+                selectedId={selectedId}
+              />
+              <GlobalDataFilter />
+            </div>
             {children}
           </PageContent>
         </ScrollView>
