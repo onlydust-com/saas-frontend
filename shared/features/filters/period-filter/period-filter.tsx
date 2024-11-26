@@ -8,17 +8,16 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Menu } from "@/design-system/molecules/menu";
 
+import { useDefaultPeriod } from "@/shared/features/filters/period-filter/period-filter.hooks";
 import { PeriodFilterProps } from "@/shared/features/filters/period-filter/period-filter.types";
 import { usePeriodSelectOptions } from "@/shared/hooks/select/use-period-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-const START_DEFAULT_DATE = new Date();
-START_DEFAULT_DATE.setDate(new Date().getDate() - 20);
-
 export function PeriodFilter({ onChange, value, dateRangeType }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_MONTH);
-  const [dateRange, setDateRange] = useState<DateRangePickerValue>({ start: START_DEFAULT_DATE, end: new Date() });
+  const defaultPeriod = useDefaultPeriod();
+  const [rangeType, setRangeType] = useState<DateRangeType>(defaultPeriod.rangeType);
+  const [dateRange, setDateRange] = useState<DateRangePickerValue>(defaultPeriod.range);
   const rangeMenu = usePeriodSelectOptions();
 
   const { fromDate, toDate } = useMemo(() => {
