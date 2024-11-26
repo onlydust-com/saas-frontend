@@ -13,13 +13,13 @@ interface SplineLegendProps extends PropsWithChildren {
 export function SplineLegend({ splineType, children }: SplineLegendProps) {
   const legendToken = useMemo(() => {
     switch (splineType) {
-      case "grant":
-        return "data:histograms.legends.grant";
-      case "reward":
-        return "data:histograms.legends.reward";
-      case "pr":
+      case SplineType.GRANTED:
+        return "data:histograms.legends.granted";
+      case SplineType.REWARDED:
+        return "data:histograms.legends.rewarded";
+      case SplineType.PR:
       default:
-        return "data:histograms.legends.pr";
+        return "data:histograms.legends.prMerged";
     }
   }, [splineType]);
   return (
