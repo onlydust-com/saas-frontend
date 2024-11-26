@@ -5,12 +5,10 @@ import { useState } from "react";
 
 import { FilterData } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data";
 import { useContributorContributionsFilterDataSidePanel } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
+import { ContributionKanbanFilters } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.types";
 import { KanbanView } from "@/app/my-dashboard/contributions/_features/kanban-view/kanban-view";
 
-import {
-  GetContributionsPortParams,
-  GetContributionsQueryParams,
-} from "@/core/domain/contribution/contribution-contract.types";
+import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
 import { TableSearch } from "@/design-system/molecules/table-search";
@@ -18,11 +16,6 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
-
-export type ContributionKanbanFilters = Omit<
-  NonNullable<GetContributionsPortParams["queryParams"]>,
-  "pageSize" | "pageIndex"
->;
 
 export default function MyDashboardContributionsPage() {
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});

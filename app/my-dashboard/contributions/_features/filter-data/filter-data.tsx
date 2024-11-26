@@ -1,5 +1,5 @@
-import { ContributionKanbanFilters } from "@/app/my-dashboard/_features/contributions/filter-data/filter-data.types";
 import { useContributorContributionsFilterDataSidePanel } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
+import { ContributionKanbanFilters } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.types";
 
 import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
 
@@ -17,8 +17,8 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function FilterData() {
   const { name } = useContributorContributionsFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
-  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ContributionKanbanFilters>();
 
+  const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ContributionKanbanFilters>();
   function getSelectedRewardedType(hasBeenRewarded: boolean | undefined): RewardedFilterType[] {
     if (hasBeenRewarded === undefined) return [RewardedFilterType.REWARDED, RewardedFilterType.UNREWARDED];
     return hasBeenRewarded ? [RewardedFilterType.REWARDED] : [RewardedFilterType.UNREWARDED];
