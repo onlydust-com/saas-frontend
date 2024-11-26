@@ -12,14 +12,10 @@ export const useDefaultPeriod = () => {
     start: from ?? START_DEFAULT_DATE,
     end: to ?? new Date(),
   };
-  const defaultStringRange = {
-    fromDate: from ? dateKernelPort.format(defaultRange.start, "yyyy-MM-dd") : undefined,
-    toDate: to ? dateKernelPort.format(defaultRange.end, "yyyy-MM-dd") : undefined,
-  };
 
   return {
     rangeType: DateRangeType.LAST_MONTH,
-    range: defaultRange,
-    stringRange: defaultStringRange,
+    from: from ? dateKernelPort.format(defaultRange.start, "yyyy-MM-dd") : undefined,
+    to: to ? dateKernelPort.format(defaultRange.end, "yyyy-MM-dd") : undefined,
   };
 };

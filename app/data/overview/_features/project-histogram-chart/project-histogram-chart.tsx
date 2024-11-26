@@ -1,14 +1,15 @@
-import { Calendar, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { SplineType } from "@/app/data/_components/histograms/histograms.types";
 import { SplineLegend } from "@/app/data/_components/histograms/legends/spline-legend";
+import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter.context";
 import { useProjectHistogramChart } from "@/app/data/overview/_features/project-histogram-chart/project-histogram-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
-import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
+import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
@@ -20,34 +21,21 @@ import { RadioButtonGroup } from "@/design-system/molecules/radio-button-group";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
-import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ProjectHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const rangeMenu = useRangeSelectOptions();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
-  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: rangeType });
+  const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
+  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: period.rangeType });
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>("pr");
-  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
-
-  const { fromDate, toDate } = useMemo(() => {
-    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
-
-    return {
-      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
-      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
-    };
-  }, [rangeType, dateKernelPort]);
 
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiProjectsStats({
     queryParams: {
-      fromDate,
-      toDate,
+      fromDate: period.from,
+      toDate: period.to,
       timeGrouping: timeGroupingType,
       ...(selectedProgramAndEcosystem.length && { dataSourceIds: selectedProgramAndEcosystem }),
     },
@@ -90,7 +78,7 @@ export function ProjectHistogramChart() {
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     dataViewTarget: "projects",
-    dateRangeType: rangeType,
+    dateRangeType: period.rangeType,
     timeGroupingType,
     selectedProgramAndEcosystem,
     yAxis: { title: [t("data:histograms.data.projects"), splineSeries.name] },
@@ -108,16 +96,8 @@ export function ProjectHistogramChart() {
     ],
   });
 
-  function onChangeRangeType(value: string) {
-    if (dateKernelPort.isDateRangeType(value)) setRangeType(value);
-  }
-
   function onChangeTimeGroupingType(value: string) {
     if (dateKernelPort.isTimeGroupingType(value)) setTimeGroupingType(value);
-  }
-
-  function onProgramEcosystemChange(ids: string[]) {
-    setSelectedProgramAndEcosystem(ids);
   }
 
   if (isLoading) {
@@ -149,24 +129,6 @@ export function ProjectHistogramChart() {
     <div className="flex min-h-[300px] flex-col gap-4">
       <div className="flex flex-col justify-between gap-2 tablet:flex-nowrap">
         <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
-          <ProgramEcosystemPopover
-            name={"programAndEcosystem"}
-            placeholder={t("data:details.allDataFilter.placeholder")}
-            onSelect={onProgramEcosystemChange}
-            selectedProgramsEcosystems={selectedProgramAndEcosystem}
-            searchParams={"programAndEcosystemIds"}
-          />
-          <Menu items={rangeMenu} selectedIds={[rangeType]} onAction={onChangeRangeType} isPopOver>
-            <Button
-              as={"div"}
-              variant={"secondary"}
-              size={"md"}
-              startIcon={{ component: Calendar }}
-              endIcon={{ component: ChevronDown }}
-            >
-              <Translate token={`common:dateRangeType.${rangeType}`} />
-            </Button>
-          </Menu>
           <Menu items={timeGroupingMenu} selectedIds={[timeGroupingType]} onAction={onChangeTimeGroupingType} isPopOver>
             <Button variant={"secondary"} size={"md"} endIcon={{ component: ChevronDown }}>
               <Translate token={`common:timeGroupingType.${timeGroupingType}`} />

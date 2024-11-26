@@ -1,40 +1,13 @@
-import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
-
-import { DateRangeType } from "@/core/kernel/date/date-facade-port";
+import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter.context";
 
 import { PeriodFilter } from "@/shared/features/filters/period-filter/period-filter";
-import { PeriodValue } from "@/shared/features/filters/period-filter/period-filter.types";
 import { ProgramEcosystemPopover } from "@/shared/features/popovers/program-ecosystem-popover/program-ecosystem-popover";
 
-import { GlobalDataFilterProps } from "./global-data-filter.types";
+export function GlobalDataFilter() {
+  const { selectedProgramAndEcosystem, setSelectedProgramAndEcosystem, period, setPeriod } = useGlobalDataFilter();
 
-export function GlobalDataFilter({ children }: GlobalDataFilterProps) {
-  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
-  const [period, setPeriod] = useState<PeriodValue>();
-  const searchParams = useSearchParams();
-
-  const dateRangeTypeParam = useMemo(() => {
-    return searchParams.get("dateRangeType") as DateRangeType;
-  }, [searchParams]);
-
-  const plotPeriodParam = useMemo(() => {
-    return {
-      fromDate: searchParams.get("plotPeriodFrom") ?? undefined,
-      toDate: searchParams.get("plotPeriodTo") ?? undefined,
-    };
-  }, [searchParams]);
-
-  function handleOnPeriodChange({ fromDate, toDate }: PeriodValue) {
-    setPeriod({ fromDate, toDate });
-  }
   return (
-    <div className={"flex flex-row items-center justify-end"}>
-      <PeriodFilter
-        onChange={handleOnPeriodChange}
-        value={{ fromDate: plotPeriodParam?.fromDate, toDate: plotPeriodParam?.toDate }}
-        dateRangeType={dateRangeTypeParam}
-      />
+    <div className={"flex flex-row items-center justify-end gap-2"}>
       <ProgramEcosystemPopover
         name={"programAndEcosystem"}
         onSelect={setSelectedProgramAndEcosystem}
@@ -42,6 +15,7 @@ export function GlobalDataFilter({ children }: GlobalDataFilterProps) {
         buttonProps={{ size: "sm" }}
         searchParams={"programAndEcosystemIds"}
       />
+      <PeriodFilter onChange={setPeriod} value={period} />
     </div>
   );
 }
