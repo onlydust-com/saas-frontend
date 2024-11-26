@@ -93,7 +93,7 @@ export function ProgramSidepanel() {
                   size={"md"}
                   as={BaseLink}
                   htmlProps={{
-                    href: NEXT_ROUTER.programs.details.root(data.id),
+                    href: NEXT_ROUTER.programs.projects.root(data.id),
                   }}
                 >
                   <Translate token={"panels:program.buttons.see"} />

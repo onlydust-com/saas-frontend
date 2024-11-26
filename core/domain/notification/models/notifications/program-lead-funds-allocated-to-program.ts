@@ -36,6 +36,6 @@ export class ProgramLeadFundsAllocatedToProgram implements NotificationInterface
   }
 
   getUrl() {
-    return this.data?.program.id ? NEXT_ROUTER.programs.details.root(this.data.program.id) : NEXT_ROUTER.programs.root;
+    return this.data?.program.id ? NEXT_ROUTER.programs.projects.root(this.data.program.id) : NEXT_ROUTER.programs.root;
   }
 }
