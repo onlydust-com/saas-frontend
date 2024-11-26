@@ -41,7 +41,6 @@ export const NEXT_ROUTER = {
   },
   splash: {
     githubCallback: "/github-callback",
-    maintenance: "/maintenance",
   },
 } as const;
 
