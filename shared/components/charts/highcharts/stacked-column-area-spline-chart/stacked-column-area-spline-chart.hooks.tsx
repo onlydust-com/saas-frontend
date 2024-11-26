@@ -24,7 +24,7 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
   negative: boolean;
   h: number;
 }
-
+// #A03AE9
 export function useStackedColumnAreaSplineChartOptions({
   dataViewTarget,
   timeGroupingType,
@@ -33,7 +33,7 @@ export function useStackedColumnAreaSplineChartOptions({
   categories,
   series,
   xAxisTitle,
-  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
+  colors = ["#460066", "#7A0EBB", "#A03AE9", "#F04438"],
   legend,
   tooltip,
   min,
@@ -84,9 +84,11 @@ export function useStackedColumnAreaSplineChartOptions({
           style: yAxisQuaternaryStyle,
         },
         crosshair: false,
+        lineWidth: 0,
       },
       yAxis: [
         {
+          visible: false,
           min: min ?? 0,
           title: {
             text: yAxisTitle?.[0],
@@ -104,10 +106,10 @@ export function useStackedColumnAreaSplineChartOptions({
           stackLabels: {
             enabled: false, // Disable stack labels to hide totals
           },
-          gridLineColor: "#697586",
-          gridLineDashStyle: "Dash",
+          gridLineWidth: 0,
         },
         {
+          visible: false,
           min: min ?? 0,
           title: {
             text: yAxisTitle?.[1],
@@ -197,7 +199,7 @@ export function useStackedColumnAreaSplineChartOptions({
           },
         },
         series: {
-          borderRadius: 10, // Set the radius for rounded corners
+          borderRadius: 6, // Set the radius for rounded corners
           pointPadding: 0.2,
           borderWidth: 0,
         },
@@ -208,31 +210,18 @@ export function useStackedColumnAreaSplineChartOptions({
         data: s.data,
         color: s.type === "areaspline" ? "#C434FF" : colors[index % colors.length],
         yAxis: s.type === "areaspline" ? 1 : undefined,
-        fillColor:
-          s.type === "areaspline"
-            ? {
-                linearGradient: {
-                  x1: 0,
-                  y1: 0,
-                  x2: 0,
-                  y2: 1,
-                },
-                stops: [
-                  [0, "rgba(196, 52, 255, 0.30)"], // Start color
-                  [1, "rgba(196, 52, 255, 0.00)"], // End color
-                ],
-              }
-            : undefined,
+        fillColor: "transparent",
         marker:
           s.type === "areaspline"
             ? {
-                enabled: true,
-                radius: 3,
+                enabled: false,
+                radius: 2,
                 fillColor: "white", // Set the marker color to white
                 lineColor: "white", // Optional: set the border color of the marker to white
               }
             : undefined,
         lineColor: s.type === "areaspline" ? "#ffffff" : undefined,
+        lineWidth: 2,
       })),
     }),
     [title, min, moneyKernelPort, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]

@@ -63,19 +63,19 @@ function Navigation() {
           },
         },
         {
-          id: Views.CONTRIBUTORS,
-          children: <Translate token={"data:details.tabs.contributor"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: addSearchParamsToUrl(NEXT_ROUTER.data.contributors.root),
-          },
-        },
-        {
           id: Views.PROJECTS,
           children: <Translate token={"data:details.tabs.project"} />,
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.projects.root),
+          },
+        },
+        {
+          id: Views.CONTRIBUTORS,
+          children: <Translate token={"data:details.tabs.contributor"} />,
+          as: BaseLink,
+          htmlProps: {
+            href: addSearchParamsToUrl(NEXT_ROUTER.data.contributors.root),
           },
         },
       ]}

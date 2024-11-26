@@ -4,24 +4,32 @@
     "reactivated": "Reactivated",
     "active": "Active",
     "churned": "Churned",
-    "prMerged": "PRs merged",
+    "prMerged": "PR merged",
     "devs": "Devs",
     "pr": "PR",
     "projects": "Projects",
     "granted": "Granted",
     "rewarded": "Rewarded"
   },
+  "tooltips": {
+    "churned": "Users that were inactive for a long time period and have stopped contributing to your project.",
+    "active": "Users that we identified as your best profiles and would match a maintainer role.",
+    "reactivated": "Users that were inactive for a long time period and have started contributing to your project again.",
+    "new": "All contributors that have joined one of your repositories during the last month."
+  },
   "data": {
     "contributors": "Contributors",
     "projects": "Projects"
   },
   "splineTypes": {
-    "totalGranted": "Total granted to project",
-    "totalRewarded": "Total rewarded to contributors",
-    "prMerged": "PRs Merged"
+    "PR": "PR merged",
+    "GRANTED": "Granted",
+    "REWARDED": "Rewarded"
   },
   "emptyState": {
     "title": "No data available",
     "description": "There is no data available."
-  }
+  },
+  "contributorActivity": "Contributor activity",
+  "projectActivity": "Project activity"
 }

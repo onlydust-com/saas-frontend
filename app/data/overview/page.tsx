@@ -15,10 +15,10 @@ function DataOverviewPage() {
     <div className={"flex flex-row justify-between gap-3"}>
       <div className={"flex flex-1 flex-col gap-3"}>
         <Paper border={"primary"}>
-          <ContributorHistogramChart />
+          <ProjectHistogramChart />
         </Paper>
         <Paper border={"primary"}>
-          <ProjectHistogramChart />
+          <ContributorHistogramChart />
         </Paper>
       </div>
       <Paper classNames={{ base: "flex flex-1 flex-col gap-3" }} border={"primary"}>

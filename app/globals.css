@@ -355,10 +355,10 @@
     --border-success-secondary: var(--_success-300);
 
     /* Charts */
-    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-primary: var(--_brand-crystalizedviolet-950);
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
-    --chart-quaternary: var(--_brand-brightorange-500-primary);
+    --chart-quaternary: var(--_error-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
     --chart-senary: #7a0ebb;
@@ -800,10 +800,10 @@
     --border-success-secondary: var(--_success-400);
 
     /* Chart */
-    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-primary: var(--_brand-crystalizedviolet-950);
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
-    --chart-quaternary: var(--_brand-brightorange-500-primary);
+    --chart-quaternary: var(--_error-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
     --chart-senary: #7a0ebb;
