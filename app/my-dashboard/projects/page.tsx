@@ -40,7 +40,7 @@ export default function MyDashboardProjectsPage() {
 
   return (
     <div>
-      <ScrollView direction={"x"}>
+      <ScrollView direction={"all"}>
         <Table
           table={table}
           header={{

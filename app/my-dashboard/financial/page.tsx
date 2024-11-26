@@ -9,7 +9,7 @@ import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/r
 export default function MyDashboardFinancialPage() {
   return (
     <>
-      <div className="flex flex-col gap-lg">
+      <div className="flex h-full flex-col gap-lg">
         <BudgetAvailableCards />
         <RewardsTable />
       </div>
