@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { TransactionsTrigger } from "@/app/manage-projects/[projectSlug]/financial/_features/transactions-trigger/transactions-trigger";
@@ -12,6 +13,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { RepoIndexingAlert } from "@/shared/features/alerts/repo-indexing-alert/repo-indexing-alert";
@@ -172,7 +174,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   );
 }
 
-export default function ManageProjectsLayout({
+function ManageProjectsLayout({
   children,
   params: { projectSlug },
 }: PropsWithChildren<{ params: { projectSlug: string } }>) {
@@ -225,3 +227,5 @@ export default function ManageProjectsLayout({
     </PageWrapper>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(ManageProjectsLayout));

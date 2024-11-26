@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useMemo } from "react";
 
 import { GrantButton } from "@/app/programs/[programId]/_features/grant-button/grant-button";
@@ -12,6 +13,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -27,10 +29,7 @@ enum Views {
   "FINANCIAL" = "FINANCIAL",
 }
 
-export default function ProgramsLayout({
-  children,
-  params: { programId },
-}: PropsWithChildren<{ params: { programId: string } }>) {
+function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{ params: { programId: string } }>) {
   const isProjects = useMatchPath(NEXT_ROUTER.programs.projects.root(programId));
   const isFinancial = useMatchPath(NEXT_ROUTER.programs.financial.root(programId));
 
@@ -114,3 +113,5 @@ export default function ProgramsLayout({
     </PageWrapper>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(ProgramsLayout));

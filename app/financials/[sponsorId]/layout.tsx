@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
 import { DepositButton } from "@/app/financials/[sponsorId]/financial/_features/deposit-button/deposit-button";
@@ -12,6 +13,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
@@ -25,7 +27,7 @@ enum Views {
   "FINANCIAL" = "FINANCIAL",
 }
 
-export default function FinancialDetailLayout({
+function FinancialDetailLayout({
   children,
   params: { sponsorId },
 }: PropsWithChildren<{ params: { sponsorId: string } }>) {
@@ -131,3 +133,5 @@ export default function FinancialDetailLayout({
     </PageWrapper>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(FinancialDetailLayout));
