@@ -2,7 +2,7 @@ import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/re
 import { useMemo } from "react";
 
 import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
-import { ProjectsTableProps } from "@/app/programs/[programId]/_views/projects/projects-table/projects-table.types";
+import { ProjectsTableProps } from "@/app/programs/[programId]/projects/_features/projects-table/projects-table.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";

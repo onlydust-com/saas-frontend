@@ -25,7 +25,7 @@ function withProgramList<P extends object>(Component: ComponentType<P>) {
       if (showProgramList.loading) return;
 
       if (!showProgramList.hasMultiplePrograms) {
-        router.push(NEXT_ROUTER.programs.details.root(showProgramList.firstProgram ?? ""));
+        router.push(NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""));
       }
     }, [showProgramList, router]);
 

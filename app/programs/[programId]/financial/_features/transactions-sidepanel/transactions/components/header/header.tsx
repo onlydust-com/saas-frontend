@@ -1,8 +1,8 @@
 import { Filter, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
-import { TransactionsContextFilterTypes } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context.types";
+import { useTransactionsContext } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context";
+import { TransactionsContextFilterTypes } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context.types";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";

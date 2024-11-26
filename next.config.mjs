@@ -16,6 +16,12 @@ const nextConfig = {
         destination: '/data/overview',
         permanent: true,
       },
+      // PROGRAMS
+      {
+        source: '/programs/:programId',
+        destination: '/programs/:programId/projects',
+        permanent: true,
+      },
     ];
   },
 }

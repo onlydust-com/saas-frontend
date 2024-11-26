@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
-import { useTransactionsContext } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/context/transactions.context";
-import { Header } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/transactions/components/header/header";
-import { TransactionsWrapper } from "@/app/programs/[programId]/_views/financial/transactions-sidepanel/transactions/components/transactions-wrapper/transactions-wrapper";
+import { useTransactionsContext } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/context/transactions.context";
+import { Header } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/transactions/components/header/header";
+import { TransactionsWrapper } from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/transactions/components/transactions-wrapper/transactions-wrapper";
 
 import { bootstrap } from "@/core/bootstrap";
 

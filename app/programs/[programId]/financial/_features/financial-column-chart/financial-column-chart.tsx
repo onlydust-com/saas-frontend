@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useFinancialColumnChart } from "@/app/programs/[programId]/_views/financial/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/programs/[programId]/financial/_features/financial-column-chart/financial-column-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
