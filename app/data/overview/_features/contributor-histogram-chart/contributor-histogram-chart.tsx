@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -5,11 +6,12 @@ import { isSplineType } from "@/app/data/_components/histograms/histograms.utils
 import { SplineTypeMenu } from "@/app/data/_components/histograms/menus/spline-type-menu/spline-type-menu";
 import { SplineType } from "@/app/data/_components/histograms/menus/spline-type-menu/spline-type-menu.types";
 import { TimeGroupingMenu } from "@/app/data/_components/histograms/menus/time-grouping-menu/time-grouping-menu";
+import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter.context";
 import { useContributorHistogramChart } from "@/app/data/overview/_features/contributor-histogram-chart/contributor-histogram-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
-import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
+import { TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
 import { ChartLegend } from "@/design-system/atoms/chart-legend";
 import { Paper } from "@/design-system/atoms/paper";
@@ -19,31 +21,21 @@ import { Typo } from "@/design-system/atoms/typo";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { useStackedColumnAreaSplineChartOptions } from "@/shared/components/charts/highcharts/stacked-column-area-spline-chart/stacked-column-area-spline-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
+import { useTimeGroupingSelectOptions } from "@/shared/hooks/select/use-time-grouping-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function ContributorHistogramChart() {
   const { t } = useTranslation();
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const rangeMenu = useRangeSelectOptions();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_SEMESTER);
+  const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
+  const timeGroupingMenu = useTimeGroupingSelectOptions({ relatedDateRangeType: period.rangeType });
   const [timeGroupingType, setTimeGroupingType] = useState<TimeGroupingType>(TimeGroupingType.MONTH);
   const [splineType, setSplineType] = useState<SplineType>(SplineType.PR);
-  const [selectedProgramAndEcosystem, setSelectedProgramAndEcosystem] = useState<string[]>([]);
-
-  const { fromDate, toDate } = useMemo(() => {
-    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
-
-    return {
-      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
-      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
-    };
-  }, [rangeType, dateKernelPort]);
 
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorsStats({
     queryParams: {
-      fromDate,
-      toDate,
+      fromDate: period.from,
+      toDate: period.to,
       timeGrouping: timeGroupingType,
       ...(selectedProgramAndEcosystem.length && { dataSourceIds: selectedProgramAndEcosystem }),
     },
@@ -86,7 +78,7 @@ export function ContributorHistogramChart() {
 
   const { options } = useStackedColumnAreaSplineChartOptions({
     dataViewTarget: "contributor",
-    dateRangeType: rangeType,
+    dateRangeType: period.rangeType,
     timeGroupingType,
     selectedProgramAndEcosystem,
     yAxis: { title: [t("data:histograms.data.contributors"), splineSeries.name] },
@@ -149,9 +141,38 @@ export function ContributorHistogramChart() {
         <TimeGroupingMenu
           selectedTimeGrouping={timeGroupingType}
           onAction={onChangeTimeGroupingType}
-          // TODO @Mehdi use rangeType from new global filter context
-          relatedDateRangeType={DateRangeType.LAST_SEMESTER}
+          relatedDateRangeType={period.rangeType}
         />
+    <div className="flex min-h-[300px] flex-col gap-4">
+      <div className="flex flex-col justify-between gap-2 tablet:flex-nowrap">
+        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
+          <Menu items={timeGroupingMenu} selectedIds={[timeGroupingType]} onAction={onChangeTimeGroupingType} isPopOver>
+            <Button variant={"secondary"} size={"md"} endIcon={{ component: ChevronDown }}>
+              <Translate token={`common:timeGroupingType.${timeGroupingType}`} />
+            </Button>
+          </Menu>
+        </div>
+
+        <div className="flex flex-wrap gap-2 tablet:flex-nowrap">
+          <RadioButtonGroup
+            items={[
+              {
+                value: "grant",
+                label: t("data:histograms.splineTypes.totalGranted"),
+              },
+              {
+                value: "reward",
+                label: t("data:histograms.splineTypes.totalRewarded"),
+              },
+              {
+                value: "pr",
+                label: t("data:histograms.splineTypes.prMerged"),
+              },
+            ]}
+            value={splineType}
+            onChange={v => setSplineType(v)}
+          />
+        </div>
       </div>
       <HighchartsDefault options={options} />
       <Paper size={"lg"} classNames={{ base: "flex gap-lg items-center" }} background={"secondary"}>
