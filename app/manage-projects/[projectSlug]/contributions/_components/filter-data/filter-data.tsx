@@ -1,5 +1,5 @@
-import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/_features/contributions/contributions";
 import { useContributionsFilterDataSidePanel } from "@/app/manage-projects/[projectSlug]/contributions/_components/filter-data/filter-data.hooks";
+import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/contributions/_components/filter-data/filter-data.types";
 
 import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
 

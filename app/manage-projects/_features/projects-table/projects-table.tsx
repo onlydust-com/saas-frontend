@@ -2,7 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
-import { useFilterColumns } from "@/app/manage-projects/features/projects-table/components/filter-columns/filter-columns.hooks";
+import { useFilterColumns } from "@/app/manage-projects/_features/projects-table/components/filter-columns/filter-columns.hooks";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 

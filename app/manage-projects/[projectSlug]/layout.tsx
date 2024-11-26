@@ -120,71 +120,55 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   }, [projectId, isFinancial, canReward]);
 
   return (
-    <>
-      <PosthogCaptureOnMount
-        eventName={"project_dashboard_viewed"}
-        params={{
-          project_id: projectId,
-        }}
-        paramsReady={Boolean(projectId)}
-      />
+    <AnimatedColumn className="h-full">
+      <ScrollView className="flex flex-col gap-md">
+        {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
 
-      <AnimatedColumn className="h-full">
-        <ScrollView className="flex flex-col gap-md">
-          {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+        <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
 
-          <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
-
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <div className="flex h-full flex-col gap-lg">
-              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-                <Tabs
-                  variant={"solid"}
-                  searchParams={"data-view"}
-                  tabs={[
-                    {
-                      id: Views.CONTRIBUTORS,
-                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                      },
+        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+          <div className="flex h-full flex-col gap-lg">
+            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+              <Tabs
+                variant={"solid"}
+                searchParams={"data-view"}
+                tabs={[
+                  {
+                    id: Views.CONTRIBUTORS,
+                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
                     },
-                    {
-                      id: Views.CONTRIBUTIONS,
-                      children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
-                      },
+                  },
+                  {
+                    id: Views.CONTRIBUTIONS,
+                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
                     },
-                    {
-                      id: Views.FINANCIAL,
-                      children: <Translate token={"manageProjects:detail.views.financial"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
-                      },
+                  },
+                  {
+                    id: Views.FINANCIAL,
+                    children: <Translate token={"manageProjects:detail.views.financial"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
                     },
-                  ]}
-                  selectedId={selectedId}
-                />
+                  },
+                ]}
+                selectedId={selectedId}
+              />
 
-                {renderActions()}
-              </header>
+              {renderActions()}
+            </header>
 
-              {children}
-            </div>
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
-
-      <FinancialDetailSidepanel />
-      <RewardDetailSidepanel />
-      <ContributorSidepanel />
-      <ProjectUpdateSidepanel />
-      <ContributionsSidepanel />
-    </>
+            {children}
+          </div>
+        </PageContent>
+      </ScrollView>
+    </AnimatedColumn>
   );
 }
 
@@ -217,6 +201,14 @@ export default function ManageProjectsLayout({
         ],
       }}
     >
+      <PosthogCaptureOnMount
+        eventName={"project_dashboard_viewed"}
+        params={{
+          project_id: projectId,
+        }}
+        paramsReady={Boolean(projectId)}
+      />
+
       <ActionPoolingProvider interval={2000} limit={4}>
         <GithubPermissionsProvider projectSlug={projectSlug}>
           <RewardFlowProvider projectId={projectId}>
@@ -224,6 +216,12 @@ export default function ManageProjectsLayout({
           </RewardFlowProvider>
         </GithubPermissionsProvider>
       </ActionPoolingProvider>
+
+      <FinancialDetailSidepanel />
+      <RewardDetailSidepanel />
+      <ContributorSidepanel />
+      <ProjectUpdateSidepanel />
+      <ContributionsSidepanel />
     </PageWrapper>
   );
 }
