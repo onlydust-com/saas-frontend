@@ -25,7 +25,17 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
       <ItemNav
         isFolded={isFolded}
         iconProps={{ component: ChartLine }}
-        linkProps={pageDataAvailable ? { href: NEXT_ROUTER.data.root } : undefined}
+        linkProps={
+          pageDataAvailable
+            ? {
+                href: NEXT_ROUTER.data.root,
+                matchPathOptions: {
+                  exact: false,
+                  pattern: NEXT_ROUTER.data.root,
+                },
+              }
+            : undefined
+        }
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
         isDisabled={!pageDataAvailable}
       />
@@ -78,6 +88,10 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         iconProps={{ component: Gauge }}
         linkProps={{
           href: NEXT_ROUTER.myDashboard.root,
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.myDashboard.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
       />
