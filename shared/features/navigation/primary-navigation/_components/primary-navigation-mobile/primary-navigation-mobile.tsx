@@ -1,5 +1,5 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Modal } from "@/design-system/molecules/modal";
@@ -12,7 +12,7 @@ import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
 import { NotificationsModal } from "@/shared/features/notifications/notifications-modal";
 
-export function PrimaryNavigationMobile() {
+export function PrimaryNavigationMobile({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {
@@ -54,6 +54,7 @@ export function PrimaryNavigationMobile() {
           <SecondaryMenu />
         </div>
       </Modal>
+      {children}
     </>
   );
 }

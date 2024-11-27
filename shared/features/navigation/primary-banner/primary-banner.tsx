@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ComponentProps } from "react";
 
 import { BannerReactQueryAdapter } from "@/core/application/react-query-adapter/banner";
@@ -8,9 +7,7 @@ import { RemixIconPort } from "@/design-system/atoms/icon";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { PlgBanner } from "@/design-system/organisms/plg-banner/plg-banner";
 
-import { PrimaryBannerProps } from "@/shared/features/navigation/primary-banner/primary-banner.types";
-
-export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
+export function PrimaryBanner() {
   const { format } = bootstrap.getDateKernelPort();
   const { data: bannerData, isLoading, isError } = BannerReactQueryAdapter.client.useGetBanner({});
 
@@ -33,25 +30,14 @@ export function PrimaryBanner({ isFolded }: PrimaryBannerProps) {
   }
 
   return (
-    <motion.div
-      className="flex w-full overflow-hidden"
-      animate={isFolded ? "folded" : "unFolded"}
-      initial={"unFolded"}
-      layout={true}
-      variants={{
-        folded: { opacity: 0, height: "0px", width: "0px" },
-        unFolded: { opacity: 1, height: "fit-content", width: "fit-content" },
-      }}
-    >
-      <div className="h-auto max-h-full w-full">
-        <PlgBanner
-          title={bannerData.title}
-          subTitle={bannerData.subTitle}
-          date={bannerData.date ? format(new Date(bannerData.date), "MM.dd.yyyy") : undefined}
-          description={bannerData.longDescription}
-          cta={getCta()}
-        />
-      </div>
-    </motion.div>
+    <div className="h-auto max-h-full w-full overflow-hidden">
+      <PlgBanner
+        title={bannerData.title}
+        subTitle={bannerData.subTitle}
+        date={bannerData.date ? format(new Date(bannerData.date), "MM.dd.yyyy") : undefined}
+        description={bannerData.longDescription}
+        cta={getCta()}
+      />
+    </div>
   );
 }

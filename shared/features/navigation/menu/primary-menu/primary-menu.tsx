@@ -9,9 +9,7 @@ import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-l
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
-import { PrimaryMenuProps } from "./primary-menu.types";
-
-export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
+export function PrimaryMenu() {
   const [showSponsorList] = useShowSponsorList();
   const [showProgramList] = useShowProgramsList();
   const [showEcosystemList] = useShowEcosystemList();
@@ -23,7 +21,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
   return (
     <>
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: ChartLine }}
         linkProps={
           pageDataAvailable
@@ -40,7 +37,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isDisabled={!pageDataAvailable}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Wallet }}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
@@ -55,7 +51,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Clipboard }}
         linkProps={{
           href: showProgramList.hasMultiplePrograms
@@ -70,7 +65,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: FolderKanban }}
         linkProps={{
           href: showProjectList.hasMultipleProjects
@@ -84,7 +78,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Gauge }}
         linkProps={{
           href: NEXT_ROUTER.myDashboard.root,
@@ -96,7 +89,6 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
         translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Compass }}
         linkProps={{ href: marketplaceRouting("/projects") }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}
