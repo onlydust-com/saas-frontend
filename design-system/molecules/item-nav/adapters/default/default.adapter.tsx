@@ -16,14 +16,13 @@ function Content({
   translate,
   iconProps,
   isExternal,
-  isFolded,
   isActive,
 }: ItemNavPort & { isExternal: boolean; isActive: boolean }) {
   const endIcon = isExternal
     ? {
         component: SquareArrowOutUpRight,
         classNames: {
-          base: cn("opacity-0 group-hover/link:opacity-100 transition-opacity", { "!opacity-0": isFolded }),
+          base: cn("opacity-0 group-hover/link:opacity-100 transition-opacity"),
         },
       }
     : undefined;
@@ -37,14 +36,12 @@ function Content({
       endIcon={endIcon}
       classNames={{
         ...classNames?.item,
-        base: cn("w-full !transition-all flex-nowrap whitespace-nowrap", classNames?.item?.base, {
-          "!gap-0": isFolded,
-        }),
+        base: cn("w-full !transition-all flex-nowrap whitespace-nowrap", classNames?.item?.base),
         startIcon: "min-w-4",
       }}
       isSelected={isActive}
     >
-      <div className={cn("flex flex-1 items-center justify-start truncate", { "opacity-0": isFolded })}>
+      <div className={cn("flex flex-1 items-center justify-start truncate")}>
         {!!translate && <Translate {...translate} />}
         {children}
       </div>
@@ -67,7 +64,7 @@ export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavP
       >
         <BaseLink {...linkProps} className={cn(slots.base(), classNames?.base)}>
           {({ isExternal, isActive: active }) => (
-            <Content {...props} isFolded={isFolded} isExternal={isExternal} isActive={active || isActive || false} />
+            <Content {...props} isExternal={isExternal} isActive={active || isActive || false} />
           )}
         </BaseLink>
       </Tooltip>

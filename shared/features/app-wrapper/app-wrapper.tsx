@@ -9,8 +9,6 @@ import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { PrimaryNavigation } from "@/shared/features/navigation/primary-navigation/primary-navigation";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
@@ -90,22 +88,16 @@ export function AppWrapper({ children }: AppWrapperProps) {
       <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-md"}>
         <AppGradient />
         <ImpersonationBanner />
-        <PrimaryNavigation />
-
-        {children}
+        <PrimaryNavigation>{children}</PrimaryNavigation>
       </div>
     );
   }
 
   return (
-    <div className={"mx-auto h-dvh w-dvw max-w-[2560px] overflow-hidden p-md"}>
+    <div className={"mx-auto flex h-dvh w-dvw max-w-[2560px] flex-col overflow-hidden"}>
       <AppGradient />
       <ImpersonationBanner />
-
-      <AnimatedColumnGroup className="gap-md">
-        <PrimaryNavigation />
-        <AnimatedColumn className="size-full overflow-hidden">{children}</AnimatedColumn>
-      </AnimatedColumnGroup>
+      <PrimaryNavigation>{children}</PrimaryNavigation>
     </div>
   );
 }

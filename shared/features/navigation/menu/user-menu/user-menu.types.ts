@@ -1,3 +1,3 @@
 export interface UserMenuProps {
-  isFolded?: boolean;
+  isCompact?: boolean;
 }

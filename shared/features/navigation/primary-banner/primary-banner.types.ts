@@ -1,3 +1,1 @@
-export interface PrimaryBannerProps {
-  isFolded?: boolean;
-}
+export interface PrimaryBannerProps {}

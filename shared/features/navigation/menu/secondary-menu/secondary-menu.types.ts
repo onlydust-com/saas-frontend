@@ -1,3 +1,1 @@
-export interface SecondaryMenuProps {
-  isFolded?: boolean;
-}
+export interface SecondaryMenuProps {}
