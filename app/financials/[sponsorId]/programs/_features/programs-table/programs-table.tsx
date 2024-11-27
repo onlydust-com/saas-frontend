@@ -143,8 +143,8 @@ export function ProgramsTable({ sponsorId }: ProgramsTableProps) {
     columnHelper.display({
       id: "actions",
       enableResizing: false,
-      size: TABLE_CELL_SIZE.XL,
-      minSize: TABLE_CELL_SIZE.XL,
+      size: TABLE_CELL_SIZE.XXL,
+      minSize: TABLE_CELL_SIZE.XXL,
       header: () => <Translate token={"financials:details.programs.table.columns.actions"} />,
       cell: info => {
         return (

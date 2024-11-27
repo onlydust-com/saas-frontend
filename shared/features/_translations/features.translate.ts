@@ -13,6 +13,7 @@ import enPayoutStatus from "@/shared/features/payout-status/_translations/payout
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
 import enSocialLinkTranslate from "@/shared/features/social/social-translate/social-translate.en.json";
 import { enCellTranslation } from "@/shared/features/table/cell/_translations/cell.translate";
+import { enTransactionsTranslation } from "@/shared/features/transactions/_translations/transactions.translate";
 
 export const enFeaturesTranslations = {
   features: {
@@ -31,5 +32,6 @@ export const enFeaturesTranslations = {
     ...enCellTranslation,
     ...enFiltersTranslations,
     ...enPopoversTranslations,
+    ...enTransactionsTranslation,
   },
 };
