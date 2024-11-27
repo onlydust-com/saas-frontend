@@ -13,7 +13,7 @@ import { HeaderProps } from "./header.types";
 
 export function Header({ onToggle, isOpen }: HeaderProps) {
   return (
-    <header className={"border-b-xs flex w-full justify-between gap-xs border-border-primary px-2xl py-xl"}>
+    <header className={"flex w-full justify-between gap-xs border-b-1 border-border-primary px-2xl py-xl"}>
       <Button
         variant={"tertiary"}
         iconOnly={true}
