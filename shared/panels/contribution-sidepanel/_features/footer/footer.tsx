@@ -17,6 +17,7 @@ export function Footer({ contribution, as }: FooterProps) {
   return (
     <SidePanelFooter>
       <div className={"flex w-full flex-row items-center justify-between gap-lg"}>
+        {actions}
         <Button
           size="md"
           variant="secondary"
@@ -27,8 +28,6 @@ export function Footer({ contribution, as }: FooterProps) {
             component: Github,
           }}
         />
-
-        {actions}
       </div>
       <ManageApplicantsModal
         isOpen={isManageApplicantsModalOpen}
