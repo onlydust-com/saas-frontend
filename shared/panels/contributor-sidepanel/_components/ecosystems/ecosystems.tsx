@@ -1,7 +1,4 @@
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
-
 import { Paper } from "@/design-system/atoms/paper";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -9,20 +6,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
 import { EcosystemsProps } from "./ecosystems.types";
 
-export function Ecosystems({ githubId }: EcosystemsProps) {
-  const { data, isLoading } = UserReactQueryAdapter.client.useGetUserEcosystems({
-    pathParams: { githubId },
-    options: {
-      enabled: !!githubId,
-    },
-  });
-
-  if (isLoading) {
-    return <Skeleton className={"h-[170px] w-full"} />;
-  }
-
-  const ecosystems = data?.pages.flatMap(page => page.ecosystems);
-
+export function Ecosystems({ ecosystems }: EcosystemsProps) {
   if (!ecosystems?.length) {
     return null;
   }
@@ -33,7 +17,7 @@ export function Ecosystems({ githubId }: EcosystemsProps) {
 
       <ScrollView direction={"x"}>
         <div className={"flex flex-row gap-md"}>
-          {ecosystems?.map(({ ecosystem: { logoUrl, name } }) => (
+          {ecosystems?.map(({ logoUrl, name }) => (
             <Tag key={name} size={"md"} avatar={{ src: logoUrl, alt: name }}>
               {name}
             </Tag>

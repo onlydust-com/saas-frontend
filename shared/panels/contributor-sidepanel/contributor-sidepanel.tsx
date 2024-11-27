@@ -65,8 +65,8 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
         <ContributorProfileExtended user={data} />
         {data?.contributor.githubUserId ? (
           <>
-            <Languages githubId={data?.contributor.githubUserId} />
-            <Ecosystems githubId={data?.contributor.githubUserId} />
+            <Languages languages={data?.languages} />
+            <Ecosystems ecosystems={data?.ecosystems} />
             <Kpi user={data} />
             {applicationId ? <ApplicationComments applicationId={applicationId} /> : null}
             <RewardsGraph githubId={data?.contributor.githubUserId} />

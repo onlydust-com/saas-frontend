@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useLocalStorage } from "react-use";
 
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
@@ -23,27 +22,6 @@ import { CellProjects } from "@/shared/features/table/cell/cell-projects/cell-pr
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TableColumns } from "./filter-columns.types";
-
-function CellUserLanguages({ githubId }: { githubId: number }) {
-  const { data, isLoading } = UserReactQueryAdapter.client.useGetUserLanguages({
-    pathParams: { githubId },
-    options: {
-      enabled: !!githubId,
-    },
-  });
-
-  if (isLoading) {
-    return null;
-  }
-
-  const languages = data?.pages.flatMap(page => page.languages).map(languages => languages.language);
-
-  if (!languages?.length) {
-    return <CellEmpty />;
-  }
-
-  return <CellLanguages languages={languages} />;
-}
 
 export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -129,7 +107,9 @@ export function useFilterColumns() {
       enableSorting: false,
       header: () => <Translate token={"data:contributorsTable.columns.languages"} />,
       cell: info => {
-        return <CellUserLanguages githubId={info.row.original.contributor.githubUserId} />;
+        const languages = info.getValue() ?? [];
+
+        return <CellLanguages languages={languages} />;
       },
     }),
     ecosystems: columnHelper.accessor("ecosystems", {
