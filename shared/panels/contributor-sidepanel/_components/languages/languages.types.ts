@@ -1,3 +1,5 @@
+import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
+
 export interface LanguagesProps {
-  githubId: number;
+  languages: BiContributor["languages"];
 }
