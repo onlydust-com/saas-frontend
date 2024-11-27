@@ -49,7 +49,7 @@ function Content({
   );
 }
 
-export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavPort) {
+export function ItemNavDefaultAdapter({ isActive, ...props }: ItemNavPort) {
   const { isDisabled, classNames, onClick, linkProps, isComingSoon = false } = props;
   const slots = ItemNavDefaultVariants({
     isDisabled: isDisabled || isComingSoon,
@@ -74,7 +74,7 @@ export function ItemNavDefaultAdapter({ isFolded, isActive, ...props }: ItemNavP
   return (
     <Tooltip placement={"bottom-start"} content={<Translate token={"ds:itemNav.comingSoon"} />} enabled={isComingSoon}>
       <button className={cn(slots.base(), classNames?.base)} onClick={onClick} disabled={isDisabled || isComingSoon}>
-        <Content {...props} isExternal={false} isActive={isActive || false} isFolded={isFolded} />
+        <Content {...props} isExternal={false} isActive={isActive || false} />
       </button>
     </Tooltip>
   );
