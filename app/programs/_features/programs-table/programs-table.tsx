@@ -58,8 +58,8 @@ export function ProgramsTable() {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;

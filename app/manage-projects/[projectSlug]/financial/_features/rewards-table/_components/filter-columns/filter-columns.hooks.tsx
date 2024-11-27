@@ -67,8 +67,8 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
 
   const columnMap: Partial<Record<TableColumns, object>> = {
     requestedAt: columnHelper.accessor("requestedAt", {
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.date"} />,
       cell: info => {
         const requestedAt = info.getValue();
@@ -82,8 +82,8 @@ export function useFilterColumns({ projectId }: { projectId: string }) {
     }),
     id: columnHelper.accessor("id", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"manageProjects:detail.rewardsTable.columns.id"} />,
       cell: info => {
         const id = info.getValue();

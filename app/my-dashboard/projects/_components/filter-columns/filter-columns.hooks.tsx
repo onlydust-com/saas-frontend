@@ -57,8 +57,8 @@ export function useFilterColumns() {
     }),
     contributorCount: columnHelper.accessor("contributorCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.contributors"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -94,8 +94,8 @@ export function useFilterColumns() {
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.contributions"} />,
       cell: info => {
         const contributorCount = info.getValue();
@@ -105,8 +105,8 @@ export function useFilterColumns() {
     }),
     rewardedUsdAmount: columnHelper.accessor("rewardedUsdAmount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.rewardedUsdAmount"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
@@ -127,8 +127,8 @@ export function useFilterColumns() {
     }),
     languages: columnHelper.accessor("languages", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.languages"} />,
       cell: info => {
         const languages = info.getValue() ?? [];
@@ -152,8 +152,8 @@ export function useFilterColumns() {
     }),
     billingProfile: columnHelper.accessor("billingProfile", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.LG,
-      minSize: TABLE_CELL_SIZE.LG,
+      size: TABLE_CELL_SIZE.SM,
+      minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.billingProfile"} />,
       cell: info => {
         const billingProfile = info.getValue();

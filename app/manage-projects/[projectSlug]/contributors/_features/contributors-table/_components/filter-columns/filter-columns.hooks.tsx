@@ -106,8 +106,8 @@ export function useFilterColumns() {
     select: columnHelper.display({
       id: "select",
       enableResizing: false,
-      size: TABLE_CELL_SIZE.XS,
-      minSize: TABLE_CELL_SIZE.XS,
+      size: TABLE_CELL_SIZE.XXXS,
+      minSize: TABLE_CELL_SIZE.XXXS,
       header: ({ table }) => (
         <Checkbox
           onNativeEventChange={table.getToggleAllRowsSelectedHandler()}
@@ -182,8 +182,8 @@ export function useFilterColumns() {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"manageProjects:detail.contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();

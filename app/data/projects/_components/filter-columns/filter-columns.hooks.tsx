@@ -149,8 +149,8 @@ export function useFilterColumns() {
       },
     }),
     percentUsedBudget: columnHelper.accessor("percentUsedBudget", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.percentUsedBudget"} />,
       cell: info => {
         const value = info.getValue();
@@ -197,8 +197,8 @@ export function useFilterColumns() {
       },
     }),
     onboardedContributorCount: columnHelper.accessor("onboardedContributorCount", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.onboardedContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -209,8 +209,8 @@ export function useFilterColumns() {
       },
     }),
     activeContributorCount: columnHelper.accessor("activeContributorCount", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.activeContributorCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -221,8 +221,8 @@ export function useFilterColumns() {
       },
     }),
     prCount: columnHelper.accessor("prCount", {
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"data:projectsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -233,8 +233,8 @@ export function useFilterColumns() {
       },
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -245,8 +245,8 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -258,8 +258,8 @@ export function useFilterColumns() {
     }),
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:projectsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();
