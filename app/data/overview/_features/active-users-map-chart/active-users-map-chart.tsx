@@ -11,7 +11,7 @@ import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcha
 import { useMapChartOptions } from "@/shared/components/charts/highcharts/map-chart/map-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 
-export function ActiveUsersChart() {
+export function ActiveUsersMapChart() {
   const { t } = useTranslation();
   const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
 
@@ -32,6 +32,7 @@ export function ActiveUsersChart() {
         data: data?.map(item => item.getChartFormattedData(item)) ?? [],
       },
     ],
+    height: 300,
   });
 
   if (isLoading) {

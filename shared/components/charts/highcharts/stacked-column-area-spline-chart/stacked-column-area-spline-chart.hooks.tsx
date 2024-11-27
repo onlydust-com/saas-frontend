@@ -24,7 +24,7 @@ interface ExtendedTooltipPositionerPointObject extends Highcharts.TooltipPositio
   negative: boolean;
   h: number;
 }
-// #A03AE9
+
 export function useStackedColumnAreaSplineChartOptions({
   dataViewTarget,
   timeGroupingType,

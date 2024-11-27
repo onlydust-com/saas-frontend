@@ -1,7 +1,6 @@
 {
   "header": {
-    "title": "Active users",
-    "content": "View users with verified profiles relative to you. The data is adjustable with the filters below."
+    "title": "Contributors map"
   },
   "emptyState": {
     "title": "No data available",
