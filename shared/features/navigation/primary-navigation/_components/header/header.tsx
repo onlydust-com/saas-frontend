@@ -13,7 +13,7 @@ import { HeaderProps } from "./header.types";
 
 export function Header({ onToggle, isOpen }: HeaderProps) {
   return (
-    <div className={"flex w-full justify-between gap-1 border-b-1 border-border-primary px-5 py-4"}>
+    <header className={"border-b-xs flex w-full justify-between gap-xs border-border-primary px-2xl py-xl"}>
       <Button
         variant={"tertiary"}
         iconOnly={true}
@@ -34,6 +34,6 @@ export function Header({ onToggle, isOpen }: HeaderProps) {
         <NotificationsPopover />
         <UserMenu isCompact={true} />
       </div>
-    </div>
+    </header>
   );
 }

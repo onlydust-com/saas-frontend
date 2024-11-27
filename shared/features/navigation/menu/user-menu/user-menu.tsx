@@ -26,6 +26,7 @@ export function UserMenu({ isCompact }: UserMenuProps) {
           avatars={[{ src: avatarUrl, alt: login }]}
           size={"md"}
           shape={"rounded"}
+          withPopover={false}
           classNames={{
             base: "transition-all flex justify-center !gap-0 w-full group-hover/user:opacity-0",
           }}
