@@ -93,8 +93,8 @@ export function ProgramsTable({ sponsorId }: ProgramsTableProps) {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"financials:details.programs.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -143,6 +143,8 @@ export function ProgramsTable({ sponsorId }: ProgramsTableProps) {
     columnHelper.display({
       id: "actions",
       enableResizing: false,
+      size: TABLE_CELL_SIZE.XL,
+      minSize: TABLE_CELL_SIZE.XL,
       header: () => <Translate token={"financials:details.programs.table.columns.actions"} />,
       cell: info => {
         return (

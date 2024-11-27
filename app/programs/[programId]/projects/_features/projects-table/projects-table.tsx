@@ -158,8 +158,8 @@ export function ProjectsTable({ programId }: ProjectsTableProps) {
 
     columnHelper.accessor("percentUsedBudget", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"programs:details.projects.table.columns.budgetUsed"} />,
       cell: info => {
         const value = info.getValue() ?? 0;
@@ -170,8 +170,8 @@ export function ProjectsTable({ programId }: ProjectsTableProps) {
 
     columnHelper.accessor("mergedPrCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"programs:details.projects.table.columns.prsMerged"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -182,8 +182,8 @@ export function ProjectsTable({ programId }: ProjectsTableProps) {
 
     columnHelper.accessor("newContributorsCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"programs:details.projects.table.columns.onboardedDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -193,8 +193,8 @@ export function ProjectsTable({ programId }: ProjectsTableProps) {
     }),
     columnHelper.accessor("activeContributorsCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"programs:details.projects.table.columns.activeDevs"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};

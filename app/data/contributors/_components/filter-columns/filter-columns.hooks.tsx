@@ -143,8 +143,8 @@ export function useFilterColumns() {
     }),
     country: columnHelper.accessor("country", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"data:contributorsTable.columns.country"} />,
       cell: info => {
         const country = info.getValue();
@@ -180,8 +180,8 @@ export function useFilterColumns() {
       },
     }),
     contributionCount: columnHelper.accessor("contributionCount", {
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:contributorsTable.columns.contributionCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -192,8 +192,8 @@ export function useFilterColumns() {
       },
     }),
     prCount: columnHelper.accessor("prCount", {
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"data:contributorsTable.columns.prCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -205,8 +205,8 @@ export function useFilterColumns() {
     }),
     rewardCount: columnHelper.accessor("rewardCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"data:contributorsTable.columns.rewardCount"} />,
       cell: info => {
         const { value, trend } = info.getValue() ?? {};
@@ -218,8 +218,8 @@ export function useFilterColumns() {
     }),
     engagementStatus: columnHelper.accessor("engagementStatus", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.MD,
-      minSize: TABLE_CELL_SIZE.MD,
+      size: TABLE_CELL_SIZE.XS,
+      minSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"data:contributorsTable.columns.engagementStatuses"} />,
       cell: info => {
         const engagementStatuses = info.getValue();
