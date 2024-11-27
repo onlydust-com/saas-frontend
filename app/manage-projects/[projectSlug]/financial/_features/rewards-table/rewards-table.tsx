@@ -109,7 +109,7 @@ export function RewardsTable() {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
-        <ScrollView direction={"x"}>
+        <ScrollView direction={"all"}>
           <Table
             table={table}
             header={{

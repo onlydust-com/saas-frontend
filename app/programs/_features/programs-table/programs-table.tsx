@@ -147,7 +147,7 @@ export function ProgramsTable() {
   }
 
   return (
-    <ScrollView direction={"x"}>
+    <ScrollView direction={"all"}>
       <Table
         table={table}
         header={{

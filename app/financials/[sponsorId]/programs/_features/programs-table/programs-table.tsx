@@ -198,7 +198,7 @@ export function ProgramsTable({ sponsorId }: ProgramsTableProps) {
   }
 
   return (
-    <ScrollView direction={"x"}>
+    <ScrollView direction={"all"}>
       <Table
         table={table}
         header={{
