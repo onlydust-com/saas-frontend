@@ -6,15 +6,17 @@ import { QuickActionProps } from "./quick-action.types";
 
 export function QuickAction({ actions, onAmountChange, budget }: QuickActionProps) {
   function onActionClick(action: AmountSelectorActions) {
+    let amount = 0;
+
     if (action.type === "USD") {
-      const amount = action.value / (budget.usdConversionRate ?? 0);
-      return onAmountChange(`${amount ?? 0}`);
+      amount = action.value / (budget.usdConversionRate ?? 0);
     }
 
     if (action.type === "PERCENT") {
-      const amount = budget.amount * (action.value / 100);
-      return onAmountChange(`${amount ?? 0}`);
+      amount = budget.amount * (action.value / 100);
     }
+
+    return onAmountChange(`${amount ?? 0}`);
   }
 
   return (
