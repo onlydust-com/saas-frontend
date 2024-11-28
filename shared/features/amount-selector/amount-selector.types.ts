@@ -1,9 +1,18 @@
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
+export type AmountSelectorActionsTypes = "USD" | "PERCENT";
+
+export interface AmountSelectorActions {
+  type: AmountSelectorActionsTypes;
+  value: number;
+  label: string;
+}
+
 interface BaseProps {
   amount: string;
   budget?: DetailedTotalMoneyTotalPerCurrency;
   showBudgetAmount?: boolean;
+  actions?: AmountSelectorActions[];
 }
 
 interface AmountSelectorReadOnlyProps extends BaseProps {
