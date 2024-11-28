@@ -16,6 +16,9 @@ export const ChartLegendDefaultVariants = tv({
       senary: { square: "bg-chart-senary" },
       septenary: { square: "bg-chart-septenary" },
       octonary: { square: "bg-chart-octonary" },
+      "areaspline-primary": { square: "bg-chart-areaspline-primary" },
+      "areaspline-secondary": { square: "bg-chart-areaspline-secondary" },
+      "areaspline-tertiary": { square: "bg-chart-areaspline-tertiary" },
     },
     size: {
       s: {

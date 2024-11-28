@@ -4,6 +4,18 @@
     "financial": "Financial"
   },
   "financial": {
+    "budgetInTime": {
+      "title": "Budget in time",
+      "legend": {
+        "allocated": "Allocated",
+        "granted": "Granted",
+        "rewarded": "Rewarded"
+      },
+      "empty": {
+        "title": "No data available",
+        "description": "There is no data available for this sponsor."
+      }
+    },
     "actions": {
       "budgetAvailable": "Budget",
       "budgetChart": "Chart",
