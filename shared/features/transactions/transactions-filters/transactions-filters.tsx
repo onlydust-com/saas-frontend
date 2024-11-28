@@ -106,9 +106,8 @@ export function TransactionsFilters({
         </Popover.Content>
       </Popover>
 
-      {/* TODO: Le mettre en primary quand active */}
       <Button
-        variant="secondary"
+        variant={sortDirection ? "primary" : "secondary"}
         size="sm"
         iconOnly
         startIcon={{
