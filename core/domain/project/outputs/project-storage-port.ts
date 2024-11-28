@@ -11,6 +11,8 @@ import {
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
   GetProjectFinancialDetailsBySlugPortResponse,
+  GetProjectProgramsPortParams,
+  GetProjectProgramsPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectTransactionsCsvPortResponse,
@@ -49,4 +51,5 @@ export interface ProjectStoragePort {
   unassignContributorFromProjectContribution(
     p: UnassignContributorFromProjectContributionPortParams
   ): UnassignContributorFromProjectContributionPortResponse;
+  getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
 }
