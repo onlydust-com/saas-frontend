@@ -365,6 +365,10 @@
     --chart-septenary: #a03ae9;
     --chart-octonary: #ca75ff;
 
+    --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
+    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
+
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
     --foreground-primary_on-solid: var(--_white);
@@ -809,6 +813,10 @@
     --chart-senary: #7a0ebb;
     --chart-septenary: #a03ae9;
     --chart-octonary: #ca75ff;
+
+    --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
+    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);

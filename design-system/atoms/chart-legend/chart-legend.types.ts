@@ -6,7 +6,18 @@ import { TooltipPort } from "@/design-system/atoms/tooltip";
 
 interface Variants {
   size: "s" | "m";
-  color: "primary" | "secondary" | "tertiary" | "quaternary" | "quinary" | "senary" | "septenary" | "octonary";
+  color:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "quaternary"
+    | "quinary"
+    | "senary"
+    | "septenary"
+    | "octonary"
+    | "areaspline-primary"
+    | "areaspline-secondary"
+    | "areaspline-tertiary";
   rawColor: string;
 }
 

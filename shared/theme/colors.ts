@@ -48,6 +48,9 @@ export const COLORS = {
     senary: "var(--chart-senary)",
     septenary: "var(--chart-septenary)",
     octonary: "var(--chart-octonary)",
+    "areaspline-primary": "var(--chart-areaspline-primary)",
+    "areaspline-secondary": "var(--chart-areaspline-secondary)",
+    "areaspline-tertiary": "var(--chart-areaspline-tertiary)",
   },
   foreground: {
     primary: "var(--foreground-primary)",
