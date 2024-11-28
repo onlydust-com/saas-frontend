@@ -4,6 +4,7 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
+import { TransactionsEmptyState } from "../transactions-empty-state/transactions-empty-state";
 import { TransactionsAccordionProps } from "./transactions-accordion.types";
 
 export function TransactionsAccordion({ monthlyTransactions, ContentComponent }: TransactionsAccordionProps) {
@@ -25,6 +26,10 @@ export function TransactionsAccordion({ monthlyTransactions, ContentComponent }:
       }) || []
     );
   }, [monthlyTransactions, dateKernelPort]);
+
+  if (!items.length) {
+    return <TransactionsEmptyState />;
+  }
 
   return (
     <Accordion

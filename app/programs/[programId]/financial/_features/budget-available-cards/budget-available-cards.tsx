@@ -2,6 +2,8 @@ import { useParams } from "next/navigation";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
+import { Paper } from "@/design-system/atoms/paper";
+import { Typo } from "@/design-system/atoms/typo";
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
 import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
@@ -46,25 +48,42 @@ export function BudgetAvailableCards() {
   }
 
   return (
-    <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
-      <FinancialCardItem
-        title="programs:budgetAvailable.available.title"
-        total={data.totalAvailable}
-        color="gradient"
-        onClick={() => openPanel("totalAvailable")}
+    <Paper
+      border="primary"
+      classNames={{
+        base: "flex flex-col gap-lg",
+      }}
+    >
+      <Typo
+        weight="medium"
+        size="md"
+        color="primary"
+        translate={{
+          token: "programs:budgetAvailable.title",
+        }}
       />
-      <FinancialCardItem
-        title="programs:budgetAvailable.granted.title"
-        total={data.totalGranted}
-        color="grey"
-        onClick={() => openPanel("totalGranted")}
-      />
-      <FinancialCardItem
-        title="programs:budgetAvailable.rewarded.title"
-        total={data.totalRewarded}
-        color="grey"
-        onClick={() => openPanel("totalRewarded")}
-      />
-    </div>
+
+      {/* TODO: Revoir ça avant de merge */}
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
+        <FinancialCardItem
+          title="programs:budgetAvailable.available.title"
+          total={data.totalAvailable}
+          color="gradient"
+          onClick={() => openPanel("totalAvailable")}
+        />
+        <FinancialCardItem
+          title="programs:budgetAvailable.granted.title"
+          total={data.totalGranted}
+          color="grey"
+          onClick={() => openPanel("totalGranted")}
+        />
+        <FinancialCardItem
+          title="programs:budgetAvailable.rewarded.title"
+          total={data.totalRewarded}
+          color="grey"
+          onClick={() => openPanel("totalRewarded")}
+        />
+      </div>
+    </Paper>
   );
 }
