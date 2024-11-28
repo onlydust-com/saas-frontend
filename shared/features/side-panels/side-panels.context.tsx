@@ -183,7 +183,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
               )}
               ref={container}
               style={{
-                paddingLeft: `${gap}rem` || 0,
+                paddingLeft: type === "container" ? `${gap}rem` || 0 : 0,
               }}
             ></div>
           </AnimatedColumn>
