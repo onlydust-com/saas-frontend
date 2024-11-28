@@ -19,6 +19,7 @@ export function AlertDefaultAdapter({
   secondaryButton,
   color,
   onClose,
+  endContent,
 }: AlertPort) {
   const slots = AlertDefaultVariants({ color });
 
@@ -32,7 +33,7 @@ export function AlertDefaultAdapter({
 
       <div className="flex w-full flex-col gap-lg">
         <div className="flex w-full justify-between gap-xs">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-1 flex-col gap-1">
             <Typo size="sm" weight="medium" classNames={{ base: slots.title() }}>
               {title}
             </Typo>
@@ -41,6 +42,8 @@ export function AlertDefaultAdapter({
               {description}
             </Typo>
           </div>
+
+          {endContent}
 
           {onClose ? (
             <Button

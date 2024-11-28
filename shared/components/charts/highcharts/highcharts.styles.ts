@@ -22,6 +22,7 @@ const yAxisStyle = {
   letterSpacing: "-0.12px",
   color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
+  textShadow: "none",
 };
 
 const yAxisPrimaryStyle = {

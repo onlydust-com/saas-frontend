@@ -18,6 +18,7 @@ export function useMapChartOptions({
   series,
   legend,
   tooltip,
+  height,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const options = useMemo<Options>(
     () => ({
@@ -25,6 +26,7 @@ export function useMapChartOptions({
         map: worldMap,
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
+        height,
       },
       tooltip: {
         ...tooltip,

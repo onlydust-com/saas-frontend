@@ -4,14 +4,13 @@ import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/glo
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 
-import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
+import { useBarChartOptions } from "@/shared/components/charts/highcharts/bar-chart/bar-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
-import { useMapChartOptions } from "@/shared/components/charts/highcharts/map-chart/map-chart.hooks";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 
-export function ActiveUsersChart() {
+export function ActiveUsersBarChart() {
   const { t } = useTranslation();
   const { selectedProgramAndEcosystem, period } = useGlobalDataFilter();
 
@@ -24,14 +23,15 @@ export function ActiveUsersChart() {
     },
   });
 
-  const { options } = useMapChartOptions({
-    title: t("data:activeUsers.legends.contributors"),
+  const { options } = useBarChartOptions({
+    categories: data?.map(item => item.countryName) ?? [],
     series: [
       {
         name: t("data:activeUsers.legends.contributors"),
-        data: data?.map(item => item.getChartFormattedData(item)) ?? [],
+        data: data?.map(item => item.value) ?? [],
       },
     ],
+    height: data?.length ? data?.length * 36 : 300,
   });
 
   if (isLoading) {
@@ -53,11 +53,5 @@ export function ActiveUsersChart() {
     );
   }
 
-  return (
-    <div className="flex min-h-[300px] flex-col gap-4">
-      <Paper size={"xs"} background={"secondary"}>
-        <HighchartsDefault options={options} constructorType={"mapChart"} />
-      </Paper>
-    </div>
-  );
+  return <HighchartsDefault options={options} constructorType={"mapChart"} />;
 }
