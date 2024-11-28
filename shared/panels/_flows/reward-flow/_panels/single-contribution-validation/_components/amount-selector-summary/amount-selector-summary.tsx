@@ -65,13 +65,35 @@ export function AmountSelectorSummary({ amount, budget, onAmountChange, onBudget
 
   return (
     <>
-      <div className="flex max-h-72 flex-1 items-center">
+      <div className="flex items-center">
         <AmountSelector
           amount={amount}
           onAmountChange={onAmountChange}
           budget={budget}
           allBudgets={allBudgets}
           onBudgetChange={onBudgetChange}
+          actions={[
+            {
+              value: 150,
+              label: "150 USD",
+              type: "USD",
+            },
+            {
+              value: 500,
+              label: "500 USD",
+              type: "USD",
+            },
+            {
+              value: 1000,
+              label: "1000 USD",
+              type: "USD",
+            },
+            {
+              value: 2000,
+              label: "2000 USD",
+              type: "USD",
+            },
+          ]}
         />
       </div>
 

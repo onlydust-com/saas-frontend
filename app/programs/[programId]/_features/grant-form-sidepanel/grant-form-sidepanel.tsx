@@ -146,13 +146,35 @@ export function GrantFormSidepanel() {
             }}
           />
 
-          <div className="flex max-h-72 flex-1 items-center">
+          <div className="flex items-center">
             <AmountSelector
               amount={amount}
               onAmountChange={handleAmountChange}
               budget={selectedBudget}
               allBudgets={program.totalAvailable.totalPerCurrency}
               onBudgetChange={handleBudgetChange}
+              actions={[
+                {
+                  value: 25,
+                  label: "25 %",
+                  type: "PERCENT",
+                },
+                {
+                  value: 50,
+                  label: "50 %",
+                  type: "PERCENT",
+                },
+                {
+                  value: 75,
+                  label: "75 %",
+                  type: "PERCENT",
+                },
+                {
+                  value: 100,
+                  label: "100 %",
+                  type: "PERCENT",
+                },
+              ]}
             />
           </div>
 
