@@ -1,9 +1,6 @@
 import { Calendar, ChevronDown } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-import { useBudgetInTimeChart } from "@/app/financials/[sponsorId]/financial/_features/budget-in-time/budget-in-time.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -16,18 +13,19 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { Menu } from "@/design-system/molecules/menu";
 
+import { useBudgetInTimeChart } from "@/shared/charts/budget-in-time/budget-in-time.hooks";
+import { BudgetInTimeProps } from "@/shared/charts/budget-in-time/budget-in-time.types";
 import { useAreaSplineChartOptions } from "@/shared/components/charts/highcharts/areaspline-chart/areaspline-chart.hooks";
 import { HighchartsDefault } from "@/shared/components/charts/highcharts/highcharts-default";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function BudgetInTime() {
+export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: BudgetInTimeProps) {
   const { t } = useTranslation();
   const rangeMenu = useRangeSelectOptions();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { sponsorId = "" } = useParams<{ sponsorId: string }>();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
 
   const { fromDate, toDate } = useMemo(() => {
@@ -47,6 +45,9 @@ export function BudgetInTime() {
       sortDirection: "ASC",
       showEmpty: true,
       sponsorId,
+      programId,
+      projectId,
+      projectSlug,
     },
   });
 
