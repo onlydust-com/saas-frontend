@@ -25,6 +25,7 @@ import { ActionPoolingProvider } from "@/shared/hooks/action-pooling/action-pool
 import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { RewardFlowProvider, useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { UngrantFlowProvider, useUngrantFlow } from "@/shared/panels/_flows/ungrant-flow/ungrant-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
@@ -64,6 +65,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
   const { open: openProject } = useProjectUpdateSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
+  const { open: openUngrantFlow } = useUngrantFlow();
   const canReward = useCanReward(projectSlug);
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -102,7 +104,21 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
           />
         ) : null}
 
-        {isFinancial ? <TransactionsTrigger /> : null}
+        {isFinancial ? (
+          <>
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              translate={{ token: "manageProjects:detail.activity.actions.returnFunds" }}
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+              onClick={openUngrantFlow}
+            />
+            <TransactionsTrigger />
+          </>
+        ) : null}
 
         <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
           <Button
@@ -214,7 +230,9 @@ function ManageProjectsLayout({
       <ActionPoolingProvider interval={2000} limit={4}>
         <GithubPermissionsProvider projectSlug={projectSlug}>
           <RewardFlowProvider projectId={projectId}>
-            <Safe projectSlug={projectSlug}>{children}</Safe>
+            <UngrantFlowProvider projectId={projectId}>
+              <Safe projectSlug={projectSlug}>{children}</Safe>
+            </UngrantFlowProvider>
           </RewardFlowProvider>
         </GithubPermissionsProvider>
       </ActionPoolingProvider>

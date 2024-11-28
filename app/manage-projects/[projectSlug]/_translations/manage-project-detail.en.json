@@ -16,6 +16,7 @@
     },
     "actions": {
       "seeTransactions": "See transactions",
+      "returnFunds": "Return funds",
       "editProject": "Edit project",
       "reward": "Reward a contributor"
     }
