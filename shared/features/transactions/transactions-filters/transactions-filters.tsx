@@ -14,6 +14,11 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { SortDirection, TransactionsFiltersProps } from "./transactions-filters.types";
 
+const sortIcons: Record<SortDirection, LucideIconPort> = {
+  ASC: { component: ArrowDownWideNarrow },
+  DESC: { component: ArrowUpNarrowWide },
+};
+
 export function TransactionsFilters({
   filters: { count, clear, isCleared },
   types,
@@ -26,11 +31,6 @@ export function TransactionsFilters({
   onOpenExport,
 }: TransactionsFiltersProps) {
   const { t } = useTranslation("features");
-
-  const sortIcons: Record<SortDirection, LucideIconPort> = {
-    ASC: { component: ArrowDownWideNarrow },
-    DESC: { component: ArrowUpNarrowWide },
-  };
 
   function handleSort() {
     onSort(sortDirection === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC);
