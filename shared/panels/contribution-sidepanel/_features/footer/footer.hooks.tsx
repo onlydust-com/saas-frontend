@@ -178,7 +178,7 @@ export const useContributionPanelFooter = (props: UseContributionPanelFooter) =>
   }
 
   if (props.as === ContributionAs.CONTRIBUTOR) {
-    return contributor;
+    return contributor ?? <div />;
   }
 
   return <div />;
