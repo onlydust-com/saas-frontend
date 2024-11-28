@@ -49,14 +49,6 @@ export function useBarChartOptions({
           text: xAxisTitle,
           style: xAxisStyle,
         },
-        // labels: {
-        //   style: yAxisPrimaryStyle,
-        //   align: "left", // Align labels to the left
-        //   x: 10, // Move labels slightly to the left
-        //   y: 4, // Vertical alignment
-        //   verticalAlign: "middle", // Center the labels vertically
-        //   format: "{point.category}: {point.y}",
-        // },
         crosshair: true,
         lineWidth: 0,
       },
@@ -100,12 +92,8 @@ export function useBarChartOptions({
         dataLabels: {
           style: yAxisPrimaryStyle,
           enabled: true,
-          align: "left", // Align the labels to the right of the bars
-          verticalAlign: "middle", // Center the labels vertically
-          x: 0, // Move the labels outside of the bars
-          // formatter() {
-          //   return this.point.y && this.point.y >= 10 ? this.point.y : ""; // Show value if it's 10 or more
-          // },
+          verticalAlign: "middle",
+          x: 0,
           format: "{point.category}: {point.y}",
         },
       })),

@@ -2,6 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import { ActiveContributorsAlert } from "@/app/data/_components/active-contributors-alert/active-contributors-alert";
 import { ActiveUsersBarChart } from "@/app/data/overview/_features/active-users-bar-chart/active-users-bar-chart";
 import { ActiveUsersMapChart } from "@/app/data/overview/_features/active-users-map-chart/active-users-map-chart";
 
@@ -39,7 +40,7 @@ function DataOverviewPage() {
               <ActiveUsersBarChart />
             </ScrollView>
           </div>
-          <div className="h-[300px] bg-red-500"></div>
+          <ActiveContributorsAlert />
         </Paper>
       </div>
     </div>
