@@ -61,7 +61,7 @@ export function Transactions() {
         }}
         types={typesOptions.map(type => ({
           label: `programs:transactions.filters.options.types.choices.${type}`,
-          value: typesOptions.includes(type),
+          value: types.includes(type),
           onChange: (checked: boolean) => handleTypes(type, checked),
         }))}
         dateRange={dateRange}
