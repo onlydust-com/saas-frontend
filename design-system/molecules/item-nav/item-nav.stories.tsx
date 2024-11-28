@@ -13,7 +13,6 @@ const defaultProps: ItemNavPort = {
   iconProps: { component: House },
   children: "Item Nav",
   isDisabled: false,
-  isFolded: false,
 };
 
 const meta: Meta<typeof ItemNav> = {
@@ -53,21 +52,6 @@ export const Disabled: Story = {
     return (
       <div className="flex w-[236px]">
         <ItemNav {...defaultProps} isDisabled />
-      </div>
-    );
-  },
-};
-
-export const Folded: Story = {
-  parameters: {
-    docs: {
-      source: { code: "<ItemNav isFolded />" },
-    },
-  },
-  render: () => {
-    return (
-      <div className="flex w-[40px]">
-        <ItemNav {...defaultProps} isFolded />
       </div>
     );
   },
