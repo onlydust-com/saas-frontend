@@ -20,8 +20,7 @@ export function AllocateButton({ sponsorId }: AllocateButtonProps) {
     },
   });
 
-  // const isDisabled = isLoading || isError || !data?.totalAvailable.totalUsdEquivalent;
-  const isDisabled = false;
+  const isDisabled = isLoading || isError || !data?.totalAvailable.totalUsdEquivalent;
 
   return (
     <Tooltip

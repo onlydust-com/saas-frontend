@@ -10,15 +10,12 @@ export function Summary({
 }: {
   summary: {
     usdConversionRate: number;
-    allocatedAmount: number;
+    ungrantedAmount: number;
     newBudgetBalance: number;
-    currentProgramBalance: number;
-    newProjectBalance: number;
     budget?: DetailedTotalMoneyTotalPerCurrency;
   };
 }) {
-  const { usdConversionRate, allocatedAmount, newBudgetBalance, currentProgramBalance, newProjectBalance, budget } =
-    summary;
+  const { usdConversionRate, ungrantedAmount, newBudgetBalance, budget } = summary;
 
   if (!budget) return null;
 
@@ -30,7 +27,7 @@ export function Summary({
           id: "budgetBalance",
           titleProps: {
             translate: {
-              token: "programs:grantForm.summary.budgetBalance",
+              token: "panels:ungrantAmountSelection.summary.budgetBalance",
               values: { budget: budget.currency.name },
             },
           },
@@ -41,16 +38,16 @@ export function Summary({
                 currency: budget.currency,
                 usdEquivalent: budget.usdEquivalent ?? 0,
               },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.currentBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:ungrantAmountSelection.summary.currentBalance"} /> },
             },
             {
               amount: {
-                value: allocatedAmount,
+                value: ungrantedAmount,
                 currency: budget.currency,
-                usdEquivalent: allocatedAmount * usdConversionRate,
+                usdEquivalent: ungrantedAmount * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.allocated"} /> },
-              type: CardBudgetType.GRANTED,
+              badgeProps: { children: <Translate token={"panels:ungrantAmountSelection.summary.ungrant"} /> },
+              type: CardBudgetType.UNGRANTED,
             },
             {
               amount: {
@@ -58,39 +55,23 @@ export function Summary({
                 currency: budget.currency,
                 usdEquivalent: newBudgetBalance * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.finalBalance"} /> },
+              badgeProps: { children: <Translate token={"panels:ungrantAmountSelection.summary.finalBalance"} /> },
               isError: newBudgetBalance < 0,
             },
           ],
         },
         {
           id: "programBalance",
-          titleProps: { translate: { token: "panels:allocateProgram.summary.programBalance" } },
+          titleProps: { translate: { token: "panels:ungrantAmountSelection.summary.programBalance" } },
           cards: [
             {
               amount: {
-                value: currentProgramBalance,
+                value: ungrantedAmount,
                 currency: budget.currency,
-                usdEquivalent: currentProgramBalance * usdConversionRate,
+                usdEquivalent: ungrantedAmount * usdConversionRate,
               },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.currentBalance"} /> },
-            },
-            {
-              amount: {
-                value: allocatedAmount,
-                currency: budget.currency,
-                usdEquivalent: allocatedAmount * usdConversionRate,
-              },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.allocated"} /> },
+              badgeProps: { children: <Translate token={"panels:ungrantAmountSelection.summary.ungrant"} /> },
               type: CardBudgetType.RECEIVED,
-            },
-            {
-              amount: {
-                value: newProjectBalance,
-                currency: budget.currency,
-                usdEquivalent: newProjectBalance * usdConversionRate,
-              },
-              badgeProps: { children: <Translate token={"panels:allocateProgram.summary.finalBalance"} /> },
             },
           ],
         },

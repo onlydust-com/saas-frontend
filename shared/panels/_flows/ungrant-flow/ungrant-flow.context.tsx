@@ -2,8 +2,9 @@
 
 import { createContext, useContext, useState } from "react";
 
+import { AmountSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection";
+import { useAmountSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection.hooks";
 import { ProgramSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection";
-import { useProgramSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection.hooks";
 import {
   UngrantFlowContextInterface,
   UngrantFlowContextProps,
@@ -18,16 +19,21 @@ export const UngrantFlowContext = createContext<UngrantFlowContextInterface>({
 
 export function UngrantFlowProvider({ projectId = "", children }: UngrantFlowContextProps) {
   const [programId, setProgramId] = useState("");
-  const { open: openProgramSelection } = useProgramSelection();
+  // const { open: openProgramSelection } = useProgramSelection();
+  const { open: openAmountSelection } = useAmountSelection();
 
   function open() {
-    openProgramSelection();
+    // TODO revert this
+    // openProgramSelection();
+
+    setProgramId("3d1addd0-713e-4923-963a-2ec1f3c198c4");
+    openAmountSelection();
   }
 
   function selectProgramId(programId: string) {
     setProgramId(programId);
 
-    alert("open amount selection panel");
+    openAmountSelection();
   }
 
   return (
@@ -42,7 +48,7 @@ export function UngrantFlowProvider({ projectId = "", children }: UngrantFlowCon
       {children}
 
       <ProgramSelection projectId={projectId} />
-      {/* Amount selection */}
+      <AmountSelection projectId={projectId} programId={programId} />
     </UngrantFlowContext.Provider>
   );
 }

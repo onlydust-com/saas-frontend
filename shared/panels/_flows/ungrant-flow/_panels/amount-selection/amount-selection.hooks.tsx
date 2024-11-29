@@ -1,12 +1,15 @@
+import { useEffect, useState } from "react";
+
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
+
 import { toast } from "@/design-system/molecules/toaster";
+
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
-import { useEffect, useState } from "react";
 
 const PANEL_NAME = "ungrant-amount-selection";
 
@@ -14,12 +17,13 @@ export function useAmountSelection() {
   return useSinglePanelContext(PANEL_NAME);
 }
 
-export function useUngrantProgram({ sponsorId, programId = "" }: { sponsorId: string; programId?: string }) {
+export function useUngrantProgram({ projectId, programId }: { projectId: string; programId: string }) {
   const { close, isOpen } = useSidePanelsContext();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
   const isPanelOpen = isOpen(PANEL_NAME);
 
+  // TODO cant do this because only leads can viw
   const {
     data: program,
     isLoading: isLoadingProgram,
@@ -34,23 +38,23 @@ export function useUngrantProgram({ sponsorId, programId = "" }: { sponsorId: st
   });
 
   const {
-    data: sponsor,
-    isLoading: isLoadingSponsor,
-    isError: isErrorSponsor,
-  } = SponsorReactQueryAdapter.client.useGetSponsor({
+    data: projectFinancialDetails,
+    isLoading: isLoadingProjectFinancialDetails,
+    isError: isErrorProjectFinancialDetails,
+  } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsById({
     pathParams: {
-      sponsorId,
+      projectId,
     },
     options: {
-      enabled: Boolean(sponsorId),
+      enabled: Boolean(projectId),
     },
   });
 
-  const allBudgets = sponsor?.totalAvailable.totalPerCurrency ?? [];
+  const allBudgets = projectFinancialDetails?.totalAvailable.totalPerCurrency ?? [];
 
   useEffect(() => {
-    if (isPanelOpen && sponsor) {
-      setBudget(sponsor.totalAvailable.totalPerCurrency?.[0]);
+    if (isPanelOpen && projectFinancialDetails) {
+      setBudget(projectFinancialDetails.totalAvailable.totalPerCurrency?.[0]);
       setAmount("0");
       return;
     }
@@ -60,45 +64,40 @@ export function useUngrantProgram({ sponsorId, programId = "" }: { sponsorId: st
       setAmount("0");
       return;
     }
-  }, [isPanelOpen, sponsor]);
+  }, [isPanelOpen, projectFinancialDetails]);
 
-  const { mutate, isPending } = SponsorReactQueryAdapter.client.useAllocateBudgetToProgram({
+  const { mutate, isPending } = ProjectReactQueryAdapter.client.useUngrantProject({
     pathParams: {
-      sponsorId,
+      projectId,
     },
     options: {
       onSuccess: () => {
         close();
         toast.success(
           <Translate
-            token={"panels:allocateProgram.success.toast"}
-        values={{
-          program: program?.name,
-            amount,
-            code: budget?.currency.code,
-        }}
-        />
-      );
+            token={"panels:ungrantAmountSelection.toast.success"}
+            values={{
+              program: program?.name,
+              amount,
+              code: budget?.currency.code,
+            }}
+          />
+        );
       },
       onError: () => {
-        toast.error(<Translate token={"panels:allocateProgram.error.toast"} />);
+        toast.error(<Translate token={"panels:ungrantAmountSelection.toast.error"} />);
       },
     },
     invalidateTagParams: {
-      sponsor: {
+      project: {
         pathParams: {
-          sponsorId,
-        },
-      },
-      program: {
-        pathParams: {
-          programId,
+          projectSlug: projectFinancialDetails?.slug ?? "",
         },
       },
     },
   });
 
-  function handleAllocateBudget() {
+  function handleUngrant() {
     const currencyId = budget?.currency.id;
 
     if (!programId || !currencyId) return;
@@ -126,16 +125,9 @@ export function useUngrantProgram({ sponsorId, programId = "" }: { sponsorId: st
 
   const usdConversionRate = budget?.usdConversionRate ?? 0;
 
-  const allocatedAmount = parseFloat(amount);
-  const newBudgetBalance = (budget?.amount ?? 0) - allocatedAmount;
+  const ungrantedAmount = parseFloat(amount);
+  const newBudgetBalance = (budget?.amount ?? 0) - ungrantedAmount;
   const newBalanceIsNegative = newBudgetBalance < 0;
-
-  const programBudget = program?.totalAvailable.totalPerCurrency?.find(b => {
-    return b.currency.id === budget?.currency.id;
-  });
-
-  const currentProgramBalance = programBudget?.amount ?? 0;
-  const newProjectBalance = currentProgramBalance + allocatedAmount;
 
   return {
     amount,
@@ -143,20 +135,18 @@ export function useUngrantProgram({ sponsorId, programId = "" }: { sponsorId: st
     allBudgets,
     handleAmountChange,
     handleBudgetChange,
-    isLoading: isLoadingProgram || isLoadingSponsor,
-    isError: isErrorProgram || isErrorSponsor,
+    isLoading: isLoadingProgram || isLoadingProjectFinancialDetails,
+    isError: isErrorProgram || isErrorProjectFinancialDetails,
     program,
     programUsdAmount,
     summary: {
       usdConversionRate,
-      allocatedAmount,
+      ungrantedAmount,
       newBudgetBalance,
-      currentProgramBalance,
-      newProjectBalance,
       budget,
     },
-    allocate: {
-      post: handleAllocateBudget,
+    ungrant: {
+      post: handleUngrant,
       isPending,
       newBalanceIsNegative,
     },
