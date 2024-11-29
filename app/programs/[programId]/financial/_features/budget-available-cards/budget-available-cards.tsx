@@ -63,7 +63,6 @@ export function BudgetAvailableCards() {
         }}
       />
 
-      {/* TODO: Revoir ça avant de merge */}
       <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-3">
         <FinancialCardItem
           title="programs:budgetAvailable.available.title"

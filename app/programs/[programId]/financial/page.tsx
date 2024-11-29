@@ -15,9 +15,12 @@ export default function ProgramsFinancialPage({ params: { programId } }: { param
         <BudgetInTime programId={programId} />
       </div>
 
-      <TransactionsContextProvider programId={programId}>
-        <Transactions />
-      </TransactionsContextProvider>
+      {/* TODO: Responsive because of chart */}
+      <div className="max-w-[500px]">
+        <TransactionsContextProvider programId={programId}>
+          <Transactions />
+        </TransactionsContextProvider>
+      </div>
     </div>
   );
 }

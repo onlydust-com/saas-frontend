@@ -48,7 +48,7 @@ export function Transactions() {
     <Paper
       border="primary"
       classNames={{
-        base: "flex flex-col gap-lg max-w-[500px]", // TODO: Voir si c'est bien
+        base: "flex flex-col gap-lg",
       }}
     >
       <TransactionsHeader count={monthlyTransactions?.transactionCount} />
