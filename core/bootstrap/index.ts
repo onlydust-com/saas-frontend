@@ -16,6 +16,7 @@ import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storag
 import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
+import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
@@ -36,6 +37,7 @@ import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-clie
 import { ProjectCategoryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-category-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
 import { RewardClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/reward-client-adapter";
+import { SearchClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/search-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
@@ -79,6 +81,8 @@ export interface BootstrapConstructor {
   depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
+  searchStoragePortForClient: SearchStoragePort;
+  searchStoragePortForServer: SearchStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
   countryStoragePortForClient: CountryStoragePort;
@@ -133,6 +137,8 @@ export class Bootstrap {
   depositStoragePortForServer: DepositStoragePort;
   notificationStoragePortForClient: NotificationStoragePort;
   notificationStoragePortForServer: NotificationStoragePort;
+  searchStoragePortForClient: SearchStoragePort;
+  searchStoragePortForServer: SearchStoragePort;
   languageStoragePortForClient: LanguageStoragePort;
   languageStoragePortForServer: LanguageStoragePort;
   countryStoragePortForClient: CountryStoragePort;
@@ -183,6 +189,8 @@ export class Bootstrap {
     this.depositStoragePortForServer = constructor.depositStoragePortForServer;
     this.notificationStoragePortForClient = constructor.notificationStoragePortForClient;
     this.notificationStoragePortForServer = constructor.notificationStoragePortForServer;
+    this.searchStoragePortForServer = constructor.searchStoragePortForServer;
+    this.searchStoragePortForClient = constructor.searchStoragePortForClient;
     this.languageStoragePortForClient = constructor.languageStoragePortForClient;
     this.languageStoragePortForServer = constructor.languageStoragePortForServer;
     this.countryStoragePortForClient = constructor.countryStoragePortForClient;
@@ -307,6 +315,14 @@ export class Bootstrap {
 
   getNotificationStoragePortForServer() {
     return this.notificationStoragePortForServer;
+  }
+
+  getSearchStoragePortForClient() {
+    return this.searchStoragePortForClient;
+  }
+
+  getSearchStoragePortForServer() {
+    return this.searchStoragePortForServer;
   }
 
   getLanguagesStoragePortForServer() {
@@ -444,6 +460,8 @@ export class Bootstrap {
         depositStoragePortForServer: new DepositClientAdapter(new FetchHttpClient()),
         notificationStoragePortForClient: new NotificationClientAdapter(new FetchHttpClient()),
         notificationStoragePortForServer: new NotificationClientAdapter(new FetchHttpClient()),
+        searchStoragePortForClient: new SearchClientAdapter(),
+        searchStoragePortForServer: new SearchClientAdapter(),
         languageStoragePortForClient: new LanguageClientAdapter(new FetchHttpClient()),
         languageStoragePortForServer: new LanguageClientAdapter(new FetchHttpClient()),
         countryStoragePortForClient: new CountryClientAdapter(new FetchHttpClient()),
