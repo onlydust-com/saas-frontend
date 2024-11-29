@@ -9,4 +9,5 @@ export interface ExportCsvSidepanelProps {
   onExport: () => void;
   canGoBack?: boolean;
   onClose?: () => void;
+  isPending?: boolean;
 }

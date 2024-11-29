@@ -21,6 +21,7 @@ export function ExportCsvSidepanel({
   onExport,
   canGoBack,
   onClose,
+  isPending,
 }: ExportCsvSidepanelProps) {
   const { name } = useExportCsvSidepanel();
   const { Panel } = useSidePanel({ name });
@@ -81,6 +82,7 @@ export function ExportCsvSidepanel({
             token: "panels:exportCsv.button",
           }}
           onClick={onExport}
+          isLoading={isPending}
         />
       </SidePanelFooter>
     </Panel>
