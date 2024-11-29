@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const TypoDefaultVariants = tv({
   slots: {
-    base: "transition-colors",
+    base: "",
   },
   variants: {
     align: {
@@ -51,7 +51,7 @@ export const TypoDefaultVariants = tv({
       heading: { base: "font-clash" },
     },
     canHover: {
-      true: { base: "" },
+      true: { base: "transition-colors" },
     },
   },
   compoundVariants: [
