@@ -8,7 +8,6 @@ import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidep
 import { TransactionsContextProvider } from "./_features/transactions/context/transactions.context";
 import { Transactions } from "./_features/transactions/transactions";
 
-// TODO: Delete sidepanel after everything is done
 export default function ProgramsFinancialPage({ params: { programId } }: { params: { programId: string } }) {
   return (
     <>

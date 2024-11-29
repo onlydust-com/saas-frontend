@@ -1,10 +1,22 @@
+import { useMemo } from "react";
+
+import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
+
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Paper } from "@/design-system/atoms/paper";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { TransactionsAccordion } from "@/shared/features/transactions/transactions-accordion/transactions-accordion";
 import { TransactionsFilters } from "@/shared/features/transactions/transactions-filters/transactions-filters";
-import { SortDirection } from "@/shared/features/transactions/transactions-filters/transactions-filters.types";
+import {
+  SortDirection,
+  TransactionsFiltersProps,
+} from "@/shared/features/transactions/transactions-filters/transactions-filters.types";
 import { TransactionsHeader } from "@/shared/features/transactions/transactions-header/transactions-header";
+import { ExportCsvSidepanel } from "@/shared/panels/export-csv-sidepanel/export-csv-sidepanel";
+import { useExportCsvSidepanel } from "@/shared/panels/export-csv-sidepanel/export-csv-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TransactionsWrapper } from "./_components/transactions-wrapper/transactions-wrapper";
 import { useTransactionsContext } from "./context/transactions.context";
@@ -12,6 +24,8 @@ import { TransactionsContextFilterTypes } from "./context/transactions.context.t
 
 export function Transactions() {
   const {
+    programId,
+    queryParams,
     monthlyTransactions,
     filters: {
       count,
@@ -22,6 +36,35 @@ export function Transactions() {
       options: { types: typesOptions },
     },
   } = useTransactionsContext();
+
+  const { open: openExportCsv } = useExportCsvSidepanel();
+
+  const fileKernelPort = bootstrap.getFileKernelPort();
+
+  const { mutate, isPending } = ProgramReactQueryAdapter.client.useGetProgramTransactionsCsv({
+    pathParams: {
+      programId,
+    },
+    queryParams: {
+      ...queryParams,
+      pageIndex: 0,
+      pageSize: 10000,
+    },
+    options: {
+      onSuccess: data => {
+        fileKernelPort.download({
+          blob: data,
+          name: `projects-transactions-${new Date().getTime()}`,
+          extension: "csv",
+        });
+
+        toast.success(<Translate token="programs:transactions.export.tooltip.success" />);
+      },
+      onError: () => {
+        toast.error(<Translate token="programs:transactions.export.tooltip.error" />);
+      },
+    },
+  });
 
   function handleTypes(newType: TransactionsContextFilterTypes, checked: boolean) {
     if (checked) {
@@ -43,41 +86,71 @@ export function Transactions() {
     set({ search: value });
   }
 
-  return (
-    <Paper
-      border="primary"
-      classNames={{
-        base: "flex flex-col gap-lg h-full",
-      }}
-    >
-      <TransactionsHeader count={monthlyTransactions?.transactionCount} />
+  function handleExport() {
+    mutate({});
+  }
 
-      <TransactionsFilters
-        filters={{
-          count,
-          clear,
-          isCleared,
+  const typeFilters: TransactionsFiltersProps["types"] = useMemo(
+    () =>
+      typesOptions.map(type => ({
+        label: `programs:transactions.filters.options.types.choices.${type}`,
+        value: types.includes(type),
+        onChange: (checked: boolean) => handleTypes(type, checked),
+      })),
+    [typesOptions, types]
+  );
+
+  return (
+    <>
+      <Paper
+        border="primary"
+        classNames={{
+          base: "flex flex-col gap-lg h-full",
         }}
-        types={typesOptions.map(type => ({
-          label: `programs:transactions.filters.options.types.choices.${type}`,
-          value: types.includes(type),
-          onChange: (checked: boolean) => handleTypes(type, checked),
-        }))}
+      >
+        <TransactionsHeader count={monthlyTransactions?.transactionCount} />
+
+        <TransactionsFilters
+          filters={{
+            count,
+            clear,
+            isCleared,
+          }}
+          types={typeFilters}
+          dateRange={dateRange}
+          onDateRange={handleDateRange}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+          search={search}
+          onSearch={handleSearch}
+          onOpenExport={openExportCsv}
+        />
+
+        <TransactionsAccordion
+          monthlyTransactions={
+            monthlyTransactions?.stats.map(({ date, transactionCount }) => ({ date, count: transactionCount })) ?? []
+          }
+          ContentComponent={TransactionsWrapper}
+        />
+      </Paper>
+
+      <ExportCsvSidepanel
+        types={typeFilters}
         dateRange={dateRange}
         onDateRange={handleDateRange}
-        sortDirection={sortDirection}
-        onSort={handleSort}
-        search={search}
-        onSearch={handleSearch}
-        onOpenExport={() => console.log("Export")}
+        exportedData={[
+          "programs:transactions.export.data.id",
+          "programs:transactions.export.data.timestamp",
+          "programs:transactions.export.data.transactionType",
+          "programs:transactions.export.data.projectId",
+          "programs:transactions.export.data.sponsorId",
+          "programs:transactions.export.data.amount",
+          "programs:transactions.export.data.currency",
+          "programs:transactions.export.data.usdAmount",
+        ]}
+        onExport={handleExport}
+        isPending={isPending}
       />
-
-      <TransactionsAccordion
-        monthlyTransactions={
-          monthlyTransactions?.stats.map(({ date, transactionCount }) => ({ date, count: transactionCount })) ?? []
-        }
-        ContentComponent={TransactionsWrapper}
-      />
-    </Paper>
+    </>
   );
 }
