@@ -1,0 +1,13 @@
+{
+  "filters": {
+    "options": {
+      "types": {
+        "choices": {
+          "DEPOSITED": "Deposited",
+          "ALLOCATED": "Allocated",
+          "UNALLOCATED": "Unallocated"
+        }
+      }
+    }
+  }
+}
