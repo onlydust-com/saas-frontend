@@ -23,8 +23,8 @@
       "usdAmount": "USD Amount"
     },
     "tooltip": {
-      "success": "Projects transactions exported successfully.",
-      "error": "Error exporting projects transactions."
+      "success": "Programs transactions exported successfully.",
+      "error": "Error exporting programs transactions."
     }
   }
 }

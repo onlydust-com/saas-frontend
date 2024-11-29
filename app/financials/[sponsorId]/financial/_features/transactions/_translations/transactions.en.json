@@ -22,8 +22,8 @@
       "usdAmount": "USD Amount"
     },
     "tooltip": {
-      "success": "Programs transactions exported successfully.",
-      "error": "Error exporting programs transactions."
+      "success": "Sponsors transactions exported successfully.",
+      "error": "Error exporting sponsors transactions."
     }
   }
 }

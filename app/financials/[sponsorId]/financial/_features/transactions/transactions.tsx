@@ -54,7 +54,7 @@ export function Transactions() {
       onSuccess: data => {
         fileKernelPort.download({
           blob: data,
-          name: `programs-transactions-${new Date().getTime()}`,
+          name: `sponsors-transactions-${new Date().getTime()}`,
           extension: "csv",
         });
 
