@@ -7,5 +7,6 @@ export interface ExportCsvSidepanelProps {
   onDateRange: TransactionsFiltersProps["onDateRange"];
   exportedData: TranslateProps["token"][];
   onExport: () => void;
+  canGoBack?: boolean;
   onClose?: () => void;
 }

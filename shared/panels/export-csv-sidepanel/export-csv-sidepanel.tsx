@@ -19,6 +19,7 @@ export function ExportCsvSidepanel({
   onDateRange,
   exportedData,
   onExport,
+  canGoBack,
   onClose,
 }: ExportCsvSidepanelProps) {
   const { name } = useExportCsvSidepanel();
@@ -30,7 +31,7 @@ export function ExportCsvSidepanel({
         title={{
           translate: { token: "panels:exportCsv.title" },
         }}
-        canGoBack
+        canGoBack={canGoBack}
         canClose
         onClose={onClose}
       />
