@@ -6,6 +6,7 @@ import { CardTemplatePort } from "@/design-system/molecules/cards/card-template"
 export enum CardBudgetType {
   GRANTED = "GRANTED",
   RECEIVED = "RECEIVED",
+  UNGRANTED = "UNGRANTED",
 }
 
 interface Variants {
