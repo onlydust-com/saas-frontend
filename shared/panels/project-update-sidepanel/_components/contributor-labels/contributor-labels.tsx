@@ -74,7 +74,10 @@ export function ContributorLabels() {
                   }}
                   closeProps={{
                     as: "span",
-                    onClose: () => remove(index),
+                    onClose: e => {
+                      e.stopPropagation();
+                      remove(index);
+                    },
                   }}
                 >
                   {field.value.name}

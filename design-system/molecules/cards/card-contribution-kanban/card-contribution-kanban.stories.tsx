@@ -33,6 +33,7 @@ const defaultProps: CardContributionKanbanPort<"div"> = {
     },
   ],
   githubLabels: [{ name: "Label" }],
+  githubHtmlUrl: "",
 };
 
 const meta: Meta<typeof CardContributionKanban> = {

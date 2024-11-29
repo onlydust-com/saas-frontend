@@ -12,12 +12,14 @@ import {
   GetProjectContributorLabelsResponse,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
+  GetProjectProgramsResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
+import { SponsorProgramsListItem } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -40,6 +42,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     updateProjectContributorLabels: "projects/:projectId/contributors",
     unassignContributorFromProjectContribution:
       "projects/:projectId/contributions/:contributionUuid/unassign/:contributorId",
+    getProjectPrograms: "projects/:projectId/programs",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -338,6 +341,31 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         tag,
         pathParams,
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectPrograms = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectPrograms"]>) => {
+    const path = this.routes["getProjectPrograms"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectProgramsResponse>({
+        path,
+        method,
+        tag,
+        queryParams,
+        pathParams,
+      });
+
+      return {
+        ...data,
+        programs: data.programs.map(program => new SponsorProgramsListItem(program)),
+      };
+    };
 
     return {
       request,

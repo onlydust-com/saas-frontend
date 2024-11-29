@@ -1,5 +1,5 @@
 import { Placement } from "@floating-ui/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { MenuItemId, MenuItemPort } from "@/design-system/molecules/menu-item";
 
@@ -20,6 +20,7 @@ export interface MenuBasePort<T = string> extends Partial<Variants> {
   isLoading?: boolean;
   onAction?: (id: MenuItemId<T>) => void;
   isMultiple?: boolean;
+  endContent?: ReactNode;
 }
 
 export interface ListMenuPort<T = string> extends MenuBasePort<T> {

@@ -93,12 +93,18 @@ export const DateRangePickerNextUiAdapter = forwardRef(function InputNextUiAdapt
       value={formattedValue}
       minValue={minValue ? parseAbsolute(minValue.toISOString(), DEFAULT_TZ) : undefined}
       maxValue={maxValue ? parseAbsolute(maxValue.toISOString(), DEFAULT_TZ) : undefined}
-      errorMessage={validation => (
-        <div className="flex items-center gap-1.5">
-          <Icon component={CircleAlert} classNames={{ base: "text-foreground-error" }} />
-          {getErrorMessage({ validation, minValue, maxValue })}
-        </div>
-      )}
+      errorMessage={validation => {
+        const errorMessage = getErrorMessage({ validation, minValue, maxValue });
+
+        if (!errorMessage) return null;
+
+        return (
+          <div className="flex items-center gap-1.5">
+            <Icon component={CircleAlert} classNames={{ base: "text-foreground-error" }} />
+            {errorMessage}
+          </div>
+        );
+      }}
     />
   );
 });

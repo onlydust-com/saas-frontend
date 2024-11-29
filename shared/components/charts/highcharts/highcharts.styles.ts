@@ -22,6 +22,7 @@ const yAxisStyle = {
   letterSpacing: "-0.12px",
   color: "var(--typography-primary)",
   fontFamily: "Inter 24pt",
+  textShadow: "none",
 };
 
 const yAxisPrimaryStyle = {
@@ -39,7 +40,7 @@ const legendStyle = {
 };
 
 const tooltipWrapperStyle = {
-  backgroundColor: "var(--background-secondary)",
+  backgroundColor: "var(--background-tertiary)",
   padding: 16,
   borderWidth: 1,
   borderColor: "var(--border-primary)",
@@ -49,8 +50,8 @@ const tooltipWrapperStyle = {
 
 const tooltipInnerStyle = {
   color: "var(--typography-primary)",
-  fontSize: "14px",
-  lineHeight: "20px",
+  fontSize: "12px",
+  lineHeight: "18px",
   fontFamily: "Inter 24pt",
 };
 

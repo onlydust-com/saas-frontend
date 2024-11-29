@@ -17,7 +17,7 @@ export interface UseContributionActionsProps {
 
 export interface UseContributionActionReturn {
   buttons: ButtonGroupPort["buttons"];
-  endContent?: ReactNode;
+  customContent?: ReactNode;
 }
 
 export const useContributionActions = (props: UseContributionActionsProps): UseContributionActionReturn => {

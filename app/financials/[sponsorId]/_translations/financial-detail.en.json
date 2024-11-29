@@ -1,10 +1,22 @@
 {
-  "header": {
-    "title": "Financial"
+  "views": {
+    "programs": "Programs",
+    "financial": "Financial"
   },
   "financial": {
-    "title": "Financials",
-    "buttons": {
+    "budgetInTime": {
+      "title": "Budget in time",
+      "legend": {
+        "allocated": "Allocated",
+        "granted": "Granted",
+        "rewarded": "Rewarded"
+      },
+      "empty": {
+        "title": "No data available",
+        "description": "There is no data available for this sponsor."
+      }
+    },
+    "actions": {
       "budgetAvailable": "Budget",
       "budgetChart": "Chart",
       "seeTransactions": "See transactions",
@@ -12,7 +24,6 @@
     }
   },
   "programs": {
-    "title": "Programs",
     "actions": {
       "allocate": {
         "button": "Allocate a Program",

@@ -15,7 +15,6 @@ import {
   UseContributionActionReturn,
   UseContributionActionsProps,
 } from "@/shared/hooks/contributions/use-contribution-actions";
-import { Github } from "@/shared/icons";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -97,15 +96,6 @@ export const useContributionAsMaintainerActions = ({
     unassignContribution({});
   }
 
-  function onCodeReview() {
-    if (!contribution.githubHtmlUrl) {
-      actions?.onAction?.(contribution.id);
-      return;
-    }
-
-    window.open(contribution.githubHtmlUrl, "_blank");
-  }
-
   async function onArchive() {
     if (contribution.isIssue()) {
       updateIssues({
@@ -171,7 +161,7 @@ export const useContributionAsMaintainerActions = ({
       ) {
         return {
           buttons: [],
-          endContent: (
+          customContent: (
             <Tooltip content={<Translate token="features:cardContributionKanban.tooltip.insufficientPermissions" />}>
               <Badge
                 size="xs"
@@ -210,13 +200,7 @@ export const useContributionAsMaintainerActions = ({
       };
     case ContributionActivityStatus.TO_REVIEW:
       return {
-        buttons: [
-          {
-            children: <Translate token={"features:cardContributionKanban.actions.asMaintainer.codeReview"} />,
-            onClick: onCodeReview,
-            startIcon: { component: Github },
-          },
-        ],
+        buttons: [],
       };
     case ContributionActivityStatus.DONE:
       return {

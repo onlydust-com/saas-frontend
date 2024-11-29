@@ -38,7 +38,9 @@ export function Header({ as, contribution, onToggleHelper }: HeaderProps) {
               as={"div"}
               classNames={{ base: "flex-1 overflow-ellipsis overflow-hidden whitespace-nowrap" }}
             >
-              <Translate token={`panels:contribution.header.${contribution.type}.title`} />
+              {contribution.githubTitle ?? (
+                <Translate token={`panels:contribution.header.${contribution.type}.title`} />
+              )}
             </Typo>
 
             {showHelper ? (

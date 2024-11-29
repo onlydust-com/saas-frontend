@@ -44,6 +44,7 @@ export function LinkedIssues({ issues }: LinkedIssuesProps) {
           githubLabels={contribution.githubLabels}
           languages={contribution.languages}
           repo={contribution.repo}
+          githubHtmlUrl={contribution.githubHtmlUrl}
         />
       </div>
     ));

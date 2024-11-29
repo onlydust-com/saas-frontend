@@ -1,0 +1,12 @@
+{
+  "DISCORD": "Discord",
+  "TELEGRAM": "Telegram",
+  "TWITTER": "Twitter",
+  "GITHUB": "GitHub",
+  "LINKEDIN": "LinkedIn",
+  "WHATSAPP": "WhatsApp",
+  "WEB": "Website",
+  "toast": {
+    "copied": "Copied"
+  }
+}

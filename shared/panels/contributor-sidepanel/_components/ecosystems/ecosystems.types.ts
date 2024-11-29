@@ -1,3 +1,5 @@
+import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
+
 export interface EcosystemsProps {
-  githubId: number;
+  ecosystems: BiContributor["ecosystems"];
 }

@@ -17,22 +17,17 @@ export function Footer({ contribution, as }: FooterProps) {
   return (
     <SidePanelFooter>
       <div className={"flex w-full flex-row items-center justify-between gap-lg"}>
-        {!contribution.isToReview() ? (
-          <Button
-            size={"md"}
-            variant={"secondary"}
-            as={BaseLink}
-            iconOnly
-            htmlProps={{ href: contribution?.githubHtmlUrl ?? "", target: "_blank" }}
-            startIcon={{
-              component: Github,
-            }}
-          />
-        ) : (
-          <div />
-        )}
-
         {actions}
+        <Button
+          size="md"
+          variant="secondary"
+          as={BaseLink}
+          iconOnly
+          htmlProps={{ href: contribution?.githubHtmlUrl, target: "_blank" }}
+          startIcon={{
+            component: Github,
+          }}
+        />
       </div>
       <ManageApplicantsModal
         isOpen={isManageApplicantsModalOpen}

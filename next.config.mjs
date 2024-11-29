@@ -10,6 +10,30 @@ const nextConfig = {
         destination: "/programs",
         permanent: false,
       },
+      // DATA
+      {
+        source: '/data',
+        destination: '/data/overview',
+        permanent: true,
+      },
+      // PROGRAMS
+      {
+        source: '/programs/:programId',
+        destination: '/programs/:programId/projects',
+        permanent: true,
+      },
+      // MANAGE PROJECTS
+      {
+        source: '/manage-projects/:projectSlug',
+        destination: '/manage-projects/:projectSlug/contributors',
+        permanent: true,
+      },
+      // MY DASHBOARD
+      {
+        source: '/my-dashboard',
+        destination: '/my-dashboard/contributions',
+        permanent: true,
+      },
     ];
   },
 }

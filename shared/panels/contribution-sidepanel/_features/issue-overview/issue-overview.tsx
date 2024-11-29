@@ -15,6 +15,7 @@ export function IssueOverview({ contribution }: IssueOverviewProps) {
       repo={contribution.repo}
       linkedIssues={contribution.linkedIssues}
       rewardUsdAmount={contribution.totalRewardedUsdAmount}
+      githubHtmlUrl={contribution.githubHtmlUrl}
     />
   );
 }

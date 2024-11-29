@@ -3,7 +3,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { ChevronRight } from "lucide-react";
 
-import { ProjectsTable } from "@/app/manage-projects/features/projects-table/projects-table";
+import { ProjectsTable } from "@/app/manage-projects/_features/projects-table/projects-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";

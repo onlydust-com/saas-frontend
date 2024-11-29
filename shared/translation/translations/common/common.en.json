@@ -57,11 +57,11 @@
     "UNREWARDED": "Unrewarded"
   },
   "timeGroupingType": {
-    "DAY": "Day",
-    "WEEK": "Week",
-    "MONTH": "Month",
-    "QUARTER": "Quarter",
-    "YEAR": "Year"
+    "DAY": "Daily interval",
+    "WEEK": "Weekly interval",
+    "MONTH": "Monthly interval",
+    "QUARTER": "Quarterly interval",
+    "YEAR": "Yearly interval"
   },
   "languages": "Languages +{{count}}",
   "sponsors": "Sponsors +{{count}}",

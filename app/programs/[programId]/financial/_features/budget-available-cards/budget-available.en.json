@@ -1,0 +1,12 @@
+{
+  "title": "Budget",
+  "available": {
+    "title": "Available"
+  },
+  "granted": {
+    "title": "Granted"
+  },
+  "rewarded": {
+    "title": "Rewarded"
+  }
+}

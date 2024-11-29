@@ -1,21 +1,14 @@
 {
-  "header": {
-    "title": "Program"
+  "views": {
+    "projects": "Projects",
+    "financial": "Financial"
   },
-  "financial": {
-    "title": "Financials",
-    "buttons": {
-      "budgetAvailable": "Budget",
-      "budgetChart": "Chart",
-      "seeTransactions": "See transactions"
-    }
+  "grant": {
+    "button": "Grant project",
+    "tooltip": "No budget available"
   },
+  "financial": {},
   "projects": {
-    "title": "Projects",
-    "grant": {
-      "button": "Grant project",
-      "tooltip": "No budget available"
-    },
     "table": {
       "emptyState": {
         "message": "No projects available"

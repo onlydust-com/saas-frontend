@@ -21,7 +21,9 @@ export function AccordionProjectContributors({
   sorting,
   setSorting,
 }: AccordionProjectContributorsProps) {
-  const { open: openContributor } = useContributorSidePanel();
+  const { open: openContributor } = useContributorSidePanel({
+    type: "container",
+  });
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     IssueReactQueryAdapter.client.useGetIssueApplicants({
       pathParams: { contributionUuid: contributionId },

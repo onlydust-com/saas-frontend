@@ -17,6 +17,11 @@ interface MapDataType {
   color: string;
 }
 
+interface YAxis {
+  title: string[];
+  visible?: boolean;
+}
+
 export interface PieDataType {
   y: number;
   name: string;
@@ -44,12 +49,13 @@ export interface HighchartsOptionsParams {
     yAxis?: number;
     color?: string;
   }>;
-  yAxisTitle?: string[];
   xAxisTitle?: string;
   colors?: string[];
   legend?: Options["legend"];
   tooltip?: Options["tooltip"];
   min?: number;
+  height?: number;
+  yAxis?: YAxis;
 }
 
 export interface HighchartsOptionsReturn {

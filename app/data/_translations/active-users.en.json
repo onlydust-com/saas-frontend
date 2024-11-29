@@ -1,7 +1,6 @@
 {
   "header": {
-    "title": "Active users",
-    "content": "View users with verified profiles relative to you. The data is adjustable with the filters below."
+    "title": "Contributors map"
   },
   "emptyState": {
     "title": "No data available",
@@ -13,5 +12,10 @@
     "range2": "10 001 - 20 000",
     "range3": "5 001 - 10 000",
     "range4": ">5000"
+  },
+  "alert": {
+    "title": "Information",
+    "description": "Only data from contributors who have completed a KYC are included. Contributors without a completed KYC are excluded from the map.",
+    "totalContributorsPerCountries": "Total contributors / Countries"
   }
 }

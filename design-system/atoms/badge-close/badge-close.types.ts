@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from "react";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
 
 interface Variants {
   shape: "rounded" | "squared";
@@ -16,5 +16,5 @@ export interface BadgeClosePort<C extends ElementType> extends Partial<Variants>
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
-  onClose?: () => void;
+  onClose?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

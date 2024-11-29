@@ -11,8 +11,9 @@ import enInvoices from "@/shared/features/invoice/_translations/invoice.en.json"
 import enNotifications from "@/shared/features/notifications/_translations/notifications.en.json";
 import enPayoutStatus from "@/shared/features/payout-status/_translations/payout-status.en.json";
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
-import enSocialLinkTranslate from "@/shared/features/social-link/social-translate/social-translate.en.json";
+import enSocialLinkTranslate from "@/shared/features/social/social-translate/social-translate.en.json";
 import { enCellTranslation } from "@/shared/features/table/cell/_translations/cell.translate";
+import { enTransactionsTranslation } from "@/shared/features/transactions/_translations/transactions.translate";
 
 export const enFeaturesTranslations = {
   features: {
@@ -31,5 +32,6 @@ export const enFeaturesTranslations = {
     ...enCellTranslation,
     ...enFiltersTranslations,
     ...enPopoversTranslations,
+    ...enTransactionsTranslation,
   },
 };

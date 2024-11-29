@@ -1,7 +1,7 @@
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { SocialLinkTag } from "@/shared/features/social-link/social-link-tag/social-link-tag";
+import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 
 import { ProjectDescriptionProps } from "./project-description.types";
 
@@ -15,7 +15,7 @@ export function ProjectDescription({ description, moreInfo }: ProjectDescription
       </Typo>
 
       <div className={"flex flex-row flex-wrap gap-md"}>
-        {moreInfo?.map(({ url, value }) => <SocialLinkTag key={url} url={url} value={value} />)}
+        {moreInfo?.map(moreInfoItem => <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} />)}
       </div>
     </Paper>
   );

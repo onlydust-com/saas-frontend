@@ -39,6 +39,6 @@ export interface CardContributionKanbanPort<C extends ElementType> extends Parti
   repo?: RepoProps["repo"];
   onClick?(): void;
   actions?: ButtonGroupPort["buttons"];
-  endContent?: ReactNode;
-  showActions?: boolean;
+  githubHtmlUrl: string;
+  customContent?: ReactNode;
 }

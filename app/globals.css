@@ -355,15 +355,19 @@
     --border-success-secondary: var(--_success-300);
 
     /* Charts */
-    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-primary: var(--_brand-crystalizedviolet-950);
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
-    --chart-quaternary: var(--_brand-brightorange-500-primary);
+    --chart-quaternary: var(--_error-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
     --chart-senary: #7a0ebb;
     --chart-septenary: #a03ae9;
     --chart-octonary: #ca75ff;
+
+    --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
+    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_grey-900);
@@ -800,15 +804,19 @@
     --border-success-secondary: var(--_success-400);
 
     /* Chart */
-    --chart-primary: var(--utility-secondary-pink-500);
+    --chart-primary: var(--_brand-crystalizedviolet-950);
     --chart-secondary: var(--_brand-crystalizedviolet-700);
     --chart-tertiary: var(--_brand-crystalizedviolet-600);
-    --chart-quaternary: var(--_brand-brightorange-500-primary);
+    --chart-quaternary: var(--_error-500-primary);
     /*TODO temp colors until we update the design system*/
     --chart-quinary: #510077;
     --chart-senary: #7a0ebb;
     --chart-septenary: #a03ae9;
     --chart-octonary: #ca75ff;
+
+    --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
+    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
     --foreground-primary: var(--_white);

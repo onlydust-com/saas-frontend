@@ -4,11 +4,10 @@
     "asMaintainer": {
       "review": "Review applications",
       "unassign": "Unassign",
-      "codeReview": "Review",
       "archive": "Archive",
       "reward": "Reward",
       "unarchive": "Unarchive",
-      "close": "Close"
+      "close": "Close issue"
     },
     "asContributor": {
       "seeApplication": "See application",

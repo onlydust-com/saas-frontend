@@ -58,8 +58,8 @@ export function ProgramsTable() {
     }),
     columnHelper.accessor("projectCount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.SM,
-      minSize: TABLE_CELL_SIZE.SM,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"programs:list.content.table.columns.projects"} />,
       cell: info => {
         return <TableCellKpi>{info.getValue()}</TableCellKpi>;
@@ -112,7 +112,7 @@ export function ProgramsTable() {
       cell: info => (
         <Button
           as={BaseLink}
-          htmlProps={{ href: NEXT_ROUTER.programs.details.root(info.row.original.id) }}
+          htmlProps={{ href: NEXT_ROUTER.programs.projects.root(info.row.original.id) }}
           variant={"secondary"}
           size={"sm"}
         >
@@ -147,7 +147,7 @@ export function ProgramsTable() {
   }
 
   return (
-    <ScrollView direction={"x"}>
+    <ScrollView direction={"all"}>
       <Table
         table={table}
         header={{
@@ -155,7 +155,7 @@ export function ProgramsTable() {
         }}
         rows={table.getRowModel().rows}
         onRowClick={row => {
-          router.push(NEXT_ROUTER.programs.details.root(row.original.id));
+          router.push(NEXT_ROUTER.programs.projects.root(row.original.id));
         }}
       />
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

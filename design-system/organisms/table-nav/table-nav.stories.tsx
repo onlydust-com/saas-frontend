@@ -38,7 +38,7 @@ const defaultProps: TableNavPort = {
   },
   columnList: {
     titleProps: {
-      token: "data:deepDive.projectsTable.filters.columnList",
+      token: "common:submit",
     },
     menuProps: {
       items: [

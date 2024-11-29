@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Database } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -80,13 +80,14 @@ export function ProgramEcosystemPopover({
           <div>
             <Button
               as={"div"}
-              variant={"secondary"}
+              variant={selectedProgramsEcosystems?.length ? "primary" : "secondary"}
               size={"md"}
               endIcon={{ component: ChevronDown }}
               classNames={{
                 base: "max-w-xs overflow-hidden",
                 label: "whitespace-nowrap text-ellipsis overflow-hidden",
               }}
+              startIcon={{ component: Database }}
               {...buttonProps}
             >
               {selectedValues ? selectedValues : <Translate token="features:popovers.programEcosystem.trigger" />}
