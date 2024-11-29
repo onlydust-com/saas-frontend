@@ -11,7 +11,7 @@ import { SearchIndice } from "@/core/domain/search/search-contract.types";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 
-export function PocSearch() {
+function SearchPage() {
   const [inputValue, setInputValue] = useState<string | null>(null);
   const { data } = SearchReactQueryAdapter.client.useSearch({
     queryParams: {
@@ -48,4 +48,4 @@ export function PocSearch() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(PocSearch));
+export default withClientOnly(withAuthenticationRequired(SearchPage));
