@@ -1,0 +1,13 @@
+{
+  "title": "Export CSV",
+  "types": {
+    "title": "Types"
+  },
+  "period": {
+    "title": "Period"
+  },
+  "data": {
+    "title": "Data"
+  },
+  "button": "Export"
+}
