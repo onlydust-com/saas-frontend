@@ -11,6 +11,7 @@ import {
   GetProgramTransactionsResponse,
   GetProgramsResponse,
   GrantBudgetToProjectBody,
+  UnallocateFundsFromProgramBody,
   UploadProgramLogoResponse,
 } from "@/core/domain/program/program-contract.types";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
@@ -30,6 +31,7 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     getProgramProject: "programs/:programId/projects/:projectId",
     uploadProgramLogo: "programs/logos",
     editProgram: "programs/:programId",
+    unallocateProgram: "programs/:programId/unallocate",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -227,6 +229,26 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: EditProgramBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  unallocateProgram = ({ pathParams }: FirstParameter<ProgramStoragePort["unallocateProgram"]>) => {
+    const path = this.routes["unallocateProgram"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UnallocateFundsFromProgramBody) =>
       this.client.request<never>({
         path,
         method,

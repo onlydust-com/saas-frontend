@@ -113,3 +113,15 @@ export type EditProgramPortParams = HttpClientParameters<{
 }>;
 
 export type EditProgramPortResponse = HttpStorageResponse;
+
+/* --------------------- Unallocate Program --------------------- */
+
+export type UnallocateFundsFromProgramBody = components["schemas"]["UnallocateRequest"];
+
+type UnallocateFundsFromProgramPathParams = operations["unallocateFundsFromProgram"]["parameters"]["path"];
+
+export type UnallocateFundsFromProgramPortParams = HttpClientParameters<{
+  PathParams: UnallocateFundsFromProgramPathParams;
+}>;
+
+export type UnallocateFundsFromProgramPortResponse = HttpStorageResponse;
