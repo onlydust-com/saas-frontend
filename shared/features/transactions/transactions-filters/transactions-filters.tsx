@@ -87,8 +87,8 @@ export function TransactionsFilters({
                   {types.map((type, index) => (
                     <CheckboxButton
                       key={`transaction-filter-type-${index}`}
-                      value={types.includes(type)}
-                      onChange={checked => type.onChange(checked)}
+                      value={type.value}
+                      onChange={type.onChange}
                     >
                       <Translate token={type.label} />
                     </CheckboxButton>

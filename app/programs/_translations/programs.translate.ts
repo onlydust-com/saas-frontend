@@ -3,6 +3,7 @@ import enGrantList from "@/app/programs/[programId]/_features/grant-list-sidepan
 import enProgramsDetails from "@/app/programs/[programId]/_translations/programs-detail.en.json";
 import enBudgetAvailable from "@/app/programs/[programId]/financial/_features/budget-available-cards/budget-available.en.json";
 import enTransactionPanel from "@/app/programs/[programId]/financial/_features/transactions-sidepanel/_translations/transaction-sidepanel.en.json";
+import enTransactions from "@/app/programs/[programId]/financial/_features/transactions/_translations/transactions.en.json";
 
 import enPrograms from "./programs.en.json";
 
@@ -14,5 +15,6 @@ export const enProgramsTranslation = {
     budgetAvailable: enBudgetAvailable,
     grantList: enGrantList,
     grantForm: enGrantForm,
+    transactions: enTransactions,
   },
 };

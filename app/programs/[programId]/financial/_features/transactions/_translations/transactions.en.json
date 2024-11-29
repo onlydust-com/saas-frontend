@@ -1,0 +1,14 @@
+{
+  "filters": {
+    "options": {
+      "types": {
+        "choices": {
+          "ALLOCATED": "Allocated",
+          "GRANTED": "Granted",
+          "UNALLOCATED": "Unallocated",
+          "UNGRANTED": "Ungranted"
+        }
+      }
+    }
+  }
+}

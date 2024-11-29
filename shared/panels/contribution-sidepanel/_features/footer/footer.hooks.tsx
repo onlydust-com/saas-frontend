@@ -168,7 +168,6 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
   }
 };
 
-// TODO: Check that for the github icon
 export const useContributionPanelFooter = (props: UseContributionPanelFooter) => {
   const maintainer = useContributionPanelFooterAsMaintainer(props);
   const contributor = useContributionPanelFooterAsContributor(props);
