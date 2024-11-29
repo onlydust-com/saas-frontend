@@ -34,7 +34,11 @@ export function PocSearch() {
   return (
     <div className={"flex w-full flex-row items-start justify-center py-2md"}>
       <div className={"w-full max-w-[600px]"}>
-        <SearchBar value={inputValue} onChange={onSearch} prediction={data?.autoComplete?.getName()}>
+        <SearchBar
+          value={inputValue}
+          onChange={onSearch}
+          prediction={inputValue ? data?.autoComplete?.getName() : undefined}
+        >
           {groups.map(item => (
             <ResultGroup data={item.data} indice={item.indice} key={item?.indice} />
           ))}

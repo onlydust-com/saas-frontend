@@ -30,6 +30,14 @@ export class SearchClientAdapter implements SearchStoragePort {
               query: queryParams?.search,
             },
           },
+          indices_boost: [
+            {
+              ecosystems: 50,
+            },
+            {
+              languages: 50,
+            },
+          ],
         }),
         headers: {
           Authorization: `ApiKey ${process.env.NEXT_PUBLIC_ELASTICSEARCH_API_KEY}`,

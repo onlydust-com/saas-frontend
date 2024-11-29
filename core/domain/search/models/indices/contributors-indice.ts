@@ -21,7 +21,7 @@ export class ContributorsIndice implements IndiceInterface {
   }
 
   isFilter() {
-    return true;
+    return false;
   }
 
   getFilterValue() {
