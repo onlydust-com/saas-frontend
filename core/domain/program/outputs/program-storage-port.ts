@@ -14,6 +14,8 @@ import {
   GetProgramsPortResponse,
   GrantBudgetToProjectPortParams,
   GrantBudgetToProjectPortResponse,
+  UnallocateFundsFromProgramPortParams,
+  UnallocateFundsFromProgramPortResponse,
   UploadProgramLogoPortParams,
   UploadProgramLogoPortResponse,
 } from "../program-contract.types";
@@ -29,4 +31,5 @@ export interface ProgramStoragePort {
   getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;
   uploadProgramLogo(p: UploadProgramLogoPortParams): UploadProgramLogoPortResponse;
   editProgram(p: EditProgramPortParams): EditProgramPortResponse;
+  unallocateProgram(p: UnallocateFundsFromProgramPortParams): UnallocateFundsFromProgramPortResponse;
 }
