@@ -5,7 +5,7 @@ import { BiStatsFinancialsResponse } from "@/core/domain/bi/models/bi-stats-fina
 export function useFinancialColumnChart(stats?: GetBiStatsFinancialsModel["stats"]) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMMM yyyy")) ?? [];
+  const categories = stats?.map(stat => dateKernelPort.format(new Date(stat.date), "MMM")) ?? [];
 
   const calculateSeries = (key: keyof BiStatsFinancialsResponse) => {
     return stats?.map(stat => stat.getStatTotalUsdEquivalent(key)) ?? [];

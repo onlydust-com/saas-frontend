@@ -45,7 +45,7 @@ export function BudgetAvailableCards() {
   }
 
   return (
-    <div className="grid min-h-[150px] grid-cols-1 gap-lg tablet:grid-cols-2 desktop:grid-cols-3">
+    <div className="grid h-fit grid-cols-1 gap-lg tablet:grid-cols-2 desktop:grid-cols-3">
       <FinancialCardItem
         title="manageProjects:budgetAvailable.available.title"
         total={data.totalAvailable}
