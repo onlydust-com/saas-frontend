@@ -17,6 +17,7 @@ import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-
 import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
 import { RewardClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reward-client-adapter-mock";
+import { SearchClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/search-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
@@ -69,6 +70,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   issueStoragePortForServer: new IssueClientAdapterMock(),
   billingProfileStoragePortForClient: new BillingProfileClientAdapterMock(),
   billingProfileStoragePortForServer: new BillingProfileClientAdapterMock(),
+  searchStoragePortForServer: new SearchClientAdapterMock(),
+  searchStoragePortForClient: new SearchClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   socialKernelPort: new SocialAdapterMock(),
