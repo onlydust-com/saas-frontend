@@ -22,6 +22,8 @@ import {
   GetProjectsPortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
+  UngrantFundsFromProjectPortParams,
+  UngrantFundsFromProjectPortResponse,
   UpdateProjectContributorLabelsPortParams,
   UpdateProjectContributorLabelsPortResponse,
   UploadProjectLogoPortParams,
@@ -52,4 +54,5 @@ export interface ProjectStoragePort {
     p: UnassignContributorFromProjectContributionPortParams
   ): UnassignContributorFromProjectContributionPortResponse;
   getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
+  ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
 }

@@ -183,3 +183,15 @@ export type GetProjectProgramsPortParams = HttpClientParameters<{
 }>;
 
 export type GetProjectProgramsPortResponse = HttpStorageResponse<GetProjectProgramsModel>;
+
+/* ---------------------------- Ungrant project --------------------------- */
+
+export type UngrantFundsFromProjectBody = components["schemas"]["UngrantRequest"];
+
+type UngrantFundsFromProjectPathParams = operations["ungrantFundsFromProject"]["parameters"]["path"];
+
+export type UngrantFundsFromProjectPortParams = HttpClientParameters<{
+  PathParams: UngrantFundsFromProjectPathParams;
+}>;
+
+export type UngrantFundsFromProjectPortResponse = HttpStorageResponse;

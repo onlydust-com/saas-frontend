@@ -16,6 +16,7 @@ import {
   GetProjectProgramsResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
@@ -43,6 +44,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     unassignContributorFromProjectContribution:
       "projects/:projectId/contributions/:contributionUuid/unassign/:contributorId",
     getProjectPrograms: "projects/:projectId/programs",
+    ungrantProject: "projects/:projectId/ungrant",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -366,6 +368,26 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         programs: data.programs.map(program => new ProjectProgramListItem(program)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  ungrantProject = ({ pathParams }: FirstParameter<ProjectStoragePort["ungrantProject"]>) => {
+    const path = this.routes["ungrantProject"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UngrantFundsFromProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,
