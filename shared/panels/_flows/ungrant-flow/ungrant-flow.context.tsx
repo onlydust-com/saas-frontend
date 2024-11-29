@@ -41,7 +41,7 @@ export function UngrantFlowProvider({ projectId = "", children }: UngrantFlowCon
     >
       {children}
 
-      <ProgramSelection />
+      <ProgramSelection projectId={projectId} />
       {/* Amount selection */}
     </UngrantFlowContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 
 import { CardProject, CardProjectLoading } from "@/design-system/molecules/cards/card-project";
@@ -10,21 +10,19 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useProgramSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection.hooks";
-import { ProgramListSidepanelProps } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel.types";
+import { ProgramSelectionProps } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection.types";
+import { useUngrantFlow } from "@/shared/panels/_flows/ungrant-flow/ungrant-flow.context";
 
-function Programs({
-  sponsorId,
-  onProgramClick,
-}: {
-  sponsorId: ProgramListSidepanelProps["sponsorId"];
-  onProgramClick: ProgramListSidepanelProps["onProgramClick"];
-}) {
+function Programs({ projectId }: ProgramSelectionProps) {
+  const { selectProgramId } = useUngrantFlow();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
-  // TODO get project programs
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    SponsorReactQueryAdapter.client.useGetSponsorPrograms({
-      pathParams: { sponsorId },
+    ProjectReactQueryAdapter.client.useGetProjectPrograms({
+      pathParams: { projectId },
+      options: {
+        enabled: Boolean(projectId),
+      },
     });
 
   if (isLoading) {
@@ -42,20 +40,13 @@ function Programs({
   }
 
   if (!data) {
-    return (
-      <EmptyState
-        titleTranslate={{ token: "panels:programList.empty.title" }}
-        descriptionTranslate={{ token: "panels:programList.empty.description" }}
-      />
-    );
+    return <EmptyState titleTranslate={{ token: "panels:programSelection.empty.title" }} />;
   }
 
   const flatPrograms = data.pages.flatMap(page => page.programs);
 
   function handleProgramClick(programId: string) {
-    if (onProgramClick) {
-      onProgramClick(programId);
-    }
+    selectProgramId(programId);
   }
 
   return (
@@ -69,8 +60,8 @@ function Programs({
         return (
           <CardProject
             key={program.id}
-            as={onProgramClick ? "button" : "div"}
-            onClick={onProgramClick ? () => handleProgramClick(program.id) : undefined}
+            as={"button"}
+            onClick={() => handleProgramClick(program.id)}
             title={program.name}
             description={program.leads?.[0]?.login}
             logoUrl={program.logoUrl}
@@ -87,7 +78,7 @@ function Programs({
   );
 }
 
-export function ProgramSelection() {
+export function ProgramSelection({ projectId }: ProgramSelectionProps) {
   const { name } = useProgramSelection();
   const { Panel } = useSidePanel({ name });
 
@@ -96,14 +87,14 @@ export function ProgramSelection() {
       <SidePanelHeader
         title={{
           translate: {
-            token: "panels:singleContributionSelection.title",
+            token: "panels:programSelection.title",
           },
         }}
         canClose
       />
 
       <SidePanelBody>
-        <Programs />
+        <Programs projectId={projectId} />
       </SidePanelBody>
     </Panel>
   );
