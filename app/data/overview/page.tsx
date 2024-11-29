@@ -17,33 +17,35 @@ import { ProjectHistogramChart } from "./_features/project-histogram-chart/proje
 
 function DataOverviewPage() {
   return (
-    <div className={"flex flex-1 flex-row justify-between gap-3 overflow-hidden"}>
-      <div className={"flex flex-1 flex-col gap-3"}>
-        <Paper border={"primary"}>
-          <ProjectHistogramChart />
-        </Paper>
-        <Paper border={"primary"}>
-          <ContributorHistogramChart />
-        </Paper>
+    <ScrollView>
+      <div className={"flex flex-1 flex-row justify-between gap-3 overflow-hidden"}>
+        <div className={"flex flex-1 flex-col gap-3"}>
+          <Paper border={"primary"}>
+            <ProjectHistogramChart />
+          </Paper>
+          <Paper border={"primary"}>
+            <ContributorHistogramChart />
+          </Paper>
+        </div>
+        <div className="flex flex-1 flex-col gap-lg">
+          <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg h-full" }}>
+            <Typo
+              weight={"medium"}
+              size={"md"}
+              color={"primary"}
+              translate={{ token: "data:activeUsers.header.title" }}
+            />
+            <ActiveUsersMapChart />
+            <div className="flex-1 overflow-hidden">
+              <ScrollView>
+                <ActiveUsersBarChart />
+              </ScrollView>
+            </div>
+            <ActiveContributorsAlert />
+          </Paper>
+        </div>
       </div>
-      <div className="flex flex-1 flex-col gap-lg">
-        <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg h-full" }}>
-          <Typo
-            weight={"medium"}
-            size={"md"}
-            color={"primary"}
-            translate={{ token: "data:activeUsers.header.title" }}
-          />
-          <ActiveUsersMapChart />
-          <div className="flex-1 overflow-hidden">
-            <ScrollView>
-              <ActiveUsersBarChart />
-            </ScrollView>
-          </div>
-          <ActiveContributorsAlert />
-        </Paper>
-      </div>
-    </div>
+    </ScrollView>
   );
 }
 

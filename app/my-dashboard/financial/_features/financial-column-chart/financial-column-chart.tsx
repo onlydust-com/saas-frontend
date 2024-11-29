@@ -70,14 +70,14 @@ export function FinancialColumnChart() {
                 </div>`;
       },
     },
-    height: 100,
+    height: 130,
   });
 
   if (isLoading) {
     return (
       <Skeleton
         classNames={{
-          base: "w-full max-h-[150px]",
+          base: "w-full max-h-[180px] col-span-1 tablet:col-span-2 desktop:col-span-1",
         }}
       />
     );
@@ -93,7 +93,12 @@ export function FinancialColumnChart() {
   }
 
   return (
-    <Paper background={"secondary"} border={"none"} as={"div"} classNames={{ base: "h-full max-h-[150px] w-full" }}>
+    <Paper
+      background={"secondary"}
+      border={"none"}
+      as={"div"}
+      classNames={{ base: "h-full max-h-[180px] w-full col-span-1 gap-sm tablet:col-span-2 desktop:col-span-1" }}
+    >
       <Typo size="sm" translate={{ token: "manageProjects:financialColumnChart.title" }} color={"secondary"} />
       <HighchartsDefault options={options} />
     </Paper>
