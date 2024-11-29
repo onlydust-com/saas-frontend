@@ -59,7 +59,7 @@ export function Transactions() {
           isCleared,
         }}
         types={typesOptions.map(type => ({
-          label: `programs:transactions.filters.options.types.choices.${type}`,
+          label: `financials:transactions.filters.options.types.choices.${type}`,
           value: types.includes(type),
           onChange: (checked: boolean) => handleTypes(type, checked),
         }))}

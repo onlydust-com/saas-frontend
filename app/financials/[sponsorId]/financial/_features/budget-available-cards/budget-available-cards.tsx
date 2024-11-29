@@ -2,6 +2,8 @@ import { useParams } from "next/navigation";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 
+import { Paper } from "@/design-system/atoms/paper";
+import { Typo } from "@/design-system/atoms/typo";
 import { CardFinancialLoading } from "@/design-system/molecules/cards/card-financial/card-financial.loading";
 
 import { FinancialCardItem } from "@/shared/features/financial-card-item/financial-card-item";
@@ -47,31 +49,47 @@ export function BudgetAvailableCards() {
   }
 
   return (
-    <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-4">
-      <FinancialCardItem
-        title="financials:budgetAvailable.available.title"
-        total={data.totalAvailable}
-        color="gradient"
-        onClick={() => openPanel("totalAvailable")}
+    <Paper
+      border="primary"
+      classNames={{
+        base: "flex flex-col gap-lg",
+      }}
+    >
+      <Typo
+        weight="medium"
+        size="md"
+        color="primary"
+        translate={{
+          token: "financials:budgetAvailable.title",
+        }}
       />
-      <FinancialCardItem
-        title="financials:budgetAvailable.allocated.title"
-        total={data.totalAllocated}
-        color="grey"
-        onClick={() => openPanel("totalAllocated")}
-      />
-      <FinancialCardItem
-        title="financials:budgetAvailable.granted.title"
-        total={data.totalGranted}
-        color="grey"
-        onClick={() => openPanel("totalGranted")}
-      />
-      <FinancialCardItem
-        title="financials:budgetAvailable.rewarded.title"
-        total={data.totalRewarded}
-        color="grey"
-        onClick={() => openPanel("totalRewarded")}
-      />
-    </div>
+
+      <div className="grid min-h-[150px] grid-cols-1 gap-2 tablet:grid-cols-2 desktop:grid-cols-4">
+        <FinancialCardItem
+          title="financials:budgetAvailable.available.title"
+          total={data.totalAvailable}
+          color="gradient"
+          onClick={() => openPanel("totalAvailable")}
+        />
+        <FinancialCardItem
+          title="financials:budgetAvailable.allocated.title"
+          total={data.totalAllocated}
+          color="grey"
+          onClick={() => openPanel("totalAllocated")}
+        />
+        <FinancialCardItem
+          title="financials:budgetAvailable.granted.title"
+          total={data.totalGranted}
+          color="grey"
+          onClick={() => openPanel("totalGranted")}
+        />
+        <FinancialCardItem
+          title="financials:budgetAvailable.rewarded.title"
+          total={data.totalRewarded}
+          color="grey"
+          onClick={() => openPanel("totalRewarded")}
+        />
+      </div>
+    </Paper>
   );
 }

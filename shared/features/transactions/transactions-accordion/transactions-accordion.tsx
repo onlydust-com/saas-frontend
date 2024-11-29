@@ -4,6 +4,8 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+
 import { TransactionsEmptyState } from "../transactions-empty-state/transactions-empty-state";
 import { TransactionsAccordionProps } from "./transactions-accordion.types";
 
@@ -32,10 +34,10 @@ export function TransactionsAccordion({ monthlyTransactions, ContentComponent }:
   }
 
   return (
-    <Accordion
-      classNames={{ base: "gap-lg" }}
-      items={items}
-      defaultSelected={items?.[0] ? [items?.[0].id] : undefined}
-    />
+    <div className="overflow-hidden">
+      <ScrollView>
+        <Accordion items={items} defaultSelected={items?.[0] ? [items?.[0].id] : undefined} />
+      </ScrollView>
+    </div>
   );
 }

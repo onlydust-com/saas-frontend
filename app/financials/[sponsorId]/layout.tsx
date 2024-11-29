@@ -19,6 +19,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { DepositFlow } from "@/shared/panels/_flows/deposit-flow/deposit-flow";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -130,6 +132,9 @@ function FinancialDetailLayout({
           </PageContent>
         </ScrollView>
       </AnimatedColumn>
+
+      <FinancialDetailSidepanel />
+      <DepositFlow />
     </PageWrapper>
   );
 }
