@@ -107,7 +107,7 @@ export function DepositSummarySidepanel() {
 
     return (
       <>
-        <div className="flex max-h-72 flex-1 items-center">
+        <div className="flex items-center">
           <AmountSelector readOnly amount={String(deposit.amount.amount)} budget={deposit.amount} />
         </div>
 
