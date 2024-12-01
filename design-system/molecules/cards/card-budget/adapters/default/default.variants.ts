@@ -18,6 +18,9 @@ export const CardBudgetDefaultVariants = tv({
       UNGRANTED: {
         icon: "text-border-error-primary",
       },
+      UNALLOCATED: {
+        icon: "text-border-error-primary",
+      },
     },
     isError: {
       true: {
