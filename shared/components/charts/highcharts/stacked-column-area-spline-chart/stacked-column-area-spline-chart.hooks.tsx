@@ -88,44 +88,32 @@ export function useStackedColumnAreaSplineChartOptions({
       },
       yAxis: [
         {
-          visible: false,
           min: min ?? 0,
           title: {
             text: yAxisTitle?.[0],
             style: yAxisQuaternaryStyle,
-            align: "high",
-            offset: 0,
-            rotation: 0,
-            y: -20,
-            reserveSpace: false,
-            textAlign: "left",
           },
           labels: {
+            enabled: false,
             style: yAxisQuaternaryStyle,
           },
           stackLabels: {
             enabled: false, // Disable stack labels to hide totals
           },
-          gridLineWidth: 0,
+          gridLineColor: "var(--border-primary)",
         },
         {
-          visible: false,
           min: min ?? 0,
           title: {
             text: yAxisTitle?.[1],
             style: yAxisPrimaryStyle,
-            align: "high",
-            offset: 0,
-            rotation: 0,
-            y: -20,
-            reserveSpace: false,
-            textAlign: "right",
           },
           labels: {
+            enabled: false,
             style: yAxisPrimaryStyle,
           },
           opposite: true,
-          gridLineWidth: 0,
+          gridLineColor: "var(--border-primary)",
         },
       ],
       legend: {
