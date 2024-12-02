@@ -1,6 +1,6 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-type ProgramProjectListItemResponse = components["schemas"]["ProgramProjectsPageItemResponse"];
+type ProgramProjectListItemResponse = components["schemas"]["ProgramProjectPageItemResponse"];
 
 export interface ProgramProjectListItemInterface extends ProgramProjectListItemResponse {
   truncateDescription(max: number): string;

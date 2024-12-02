@@ -56,7 +56,8 @@ export type GetProgramTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* ------------------------ Get Program Projects ------------------------ */
 
-export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];
+export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectPageResponse"];
+
 export type GetProgramProjectsModel = Omit<GetProgramProjectsResponse, "projects"> & {
   projects: ProgramProjectListItemInterface[];
 };
