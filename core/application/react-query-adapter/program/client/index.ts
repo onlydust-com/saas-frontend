@@ -8,3 +8,4 @@ export * from "./use-get-programs";
 export * from "./use-grant-budget-to-project";
 export * from "./use-unallocate-program";
 export * from "./use-upload-program-logo";
+export * from "./use-get-program-sponsors";

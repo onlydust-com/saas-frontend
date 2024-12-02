@@ -25,4 +25,6 @@ export class ProgramClientAdapterMock implements ProgramStoragePort {
   editProgram = mockHttpStorageResponse<ProgramStoragePort["editProgram"]>;
 
   unallocateProgram = mockHttpStorageResponse<ProgramStoragePort["unallocateProgram"]>;
+
+  getProgramSponsors = mockHttpStorageResponse<ProgramStoragePort["getProgramSponsors"]>;
 }
