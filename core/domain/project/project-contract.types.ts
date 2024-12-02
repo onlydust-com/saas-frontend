@@ -2,8 +2,8 @@ import { ProjectContributorLabelsInterface } from "@/core/domain/project/models/
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
+import { ProjectProgramListItemInterface } from "@/core/domain/project/models/project-program-list-item";
 import { ProjectTransactionInterface } from "@/core/domain/project/models/project-transaction-model";
-import { SponsorProgramsListItemInterface } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -169,9 +169,9 @@ export type UnassignContributorFromProjectContributionPortResponse = HttpStorage
 
 /* ------------------------------ Get Project Programs ------------------------------ */
 
-export type GetProjectProgramsResponse = components["schemas"]["SponsorProgramPageResponse"];
+export type GetProjectProgramsResponse = components["schemas"]["ProjectProgramPageResponse"];
 export type GetProjectProgramsModel = Omit<GetProjectProgramsResponse, "programs"> & {
-  programs: SponsorProgramsListItemInterface[];
+  programs: ProjectProgramListItemInterface[];
 };
 
 type GetProjectProgramsPathParams = operations["getProjectPrograms"]["parameters"]["path"];
