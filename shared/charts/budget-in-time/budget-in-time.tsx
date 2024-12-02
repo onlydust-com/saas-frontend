@@ -73,6 +73,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
         return `<div><span style="color:${this.color}">\u25CF</span> <span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
       },
     },
+    height: 300,
   });
 
   function onChangeRangeType(value: string) {
@@ -83,7 +84,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
     return (
       <Skeleton
         classNames={{
-          base: "w-full min-h-[300px]",
+          base: "w-full min-h-[400px]",
         }}
       />
     );
@@ -100,7 +101,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
 
   return (
     <Paper border={"primary"}>
-      <div className="flex min-h-[300px] flex-col gap-lg">
+      <div className="flex flex-1 flex-col gap-lg">
         <div className="flex items-center justify-between gap-lg">
           <Typo
             weight={"medium"}
