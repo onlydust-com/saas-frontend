@@ -17,6 +17,7 @@ import {
 export const TransactionsContext = createContext<TransactionsContextReturn>({
   programId: "",
   monthlyTransactions: undefined,
+  isLoadingTransactions: false,
   queryParams: {},
   filters: {
     values: DEFAULT_FILTER,
@@ -53,7 +54,7 @@ export function TransactionsContextProvider({ children, programId }: Transaction
     [queryParams]
   );
 
-  const { data: monthlyTransactions } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
+  const { data: monthlyTransactions, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       ...debouncedQueryParams,
       sort: "DATE",
@@ -96,6 +97,7 @@ export function TransactionsContextProvider({ children, programId }: Transaction
         programId,
         monthlyTransactions,
         queryParams: debouncedQueryParams,
+        isLoadingTransactions: isLoading,
         filters: {
           values: filters,
           isCleared,
