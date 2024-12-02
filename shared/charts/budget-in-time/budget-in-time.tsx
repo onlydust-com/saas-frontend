@@ -70,7 +70,11 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
-        return `<div><span style="color:${this.color}">\u25CF</span> <span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
+        return `<div class='flex gap-sm items-center'>
+                  <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${this.color}'></div> 
+                  <div class='text-typography-secondary'>${this.series.name}</div> 
+                  <div class='font-medium'>${amount} ${code}</div>
+                </div>`;
       },
     },
   });
