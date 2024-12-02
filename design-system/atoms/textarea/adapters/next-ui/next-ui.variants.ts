@@ -12,7 +12,8 @@ export const TextareaNextUiVariants = tv({
       "group-data-[focus=true]:border-border-active group-data-[focus=true]:effect-ring-brand-glued",
     ],
     innerWrapper: "",
-    input: "text-typography-secondary placeholder:text-typography-placeholder",
+    input:
+      "scrollbar-thumb-white/12 scrollbar-thumb-rounded scrollbar-w-1.5 size-full text-typography-secondary scrollbar-thin placeholder:text-typography-placeholder",
   },
   variants: {
     isError: {
