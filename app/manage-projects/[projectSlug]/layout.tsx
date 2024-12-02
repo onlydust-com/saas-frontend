@@ -88,6 +88,21 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     hasAlreadyClosedAlert.current = true;
   }
 
+  function renderUngrantButton() {
+    return (
+      <Button
+        variant={"secondary"}
+        size={"sm"}
+        translate={{ token: "manageProjects:detail.activity.actions.returnFunds" }}
+        classNames={{
+          base: "max-w-full overflow-hidden",
+          label: "whitespace-nowrap text-ellipsis overflow-hidden",
+        }}
+        onClick={openUngrantFlow}
+      />
+    );
+  }
+
   const renderActions = useCallback(() => {
     return (
       <div className="flex items-center gap-lg">
@@ -106,16 +121,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
         {isFinancial ? (
           <>
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              translate={{ token: "manageProjects:detail.activity.actions.returnFunds" }}
-              classNames={{
-                base: "max-w-full overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
-              onClick={openUngrantFlow}
-            />
+            {renderUngrantButton()}
             <TransactionsTrigger />
           </>
         ) : null}
@@ -138,55 +144,59 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   }, [projectId, isFinancial, canReward]);
 
   return (
-    <AnimatedColumn className="h-full">
-      <ScrollView className="flex flex-col gap-md">
-        {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+    <>
+      <AnimatedColumn className="h-full">
+        <ScrollView className="flex flex-col gap-md">
+          {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
 
-        <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
+          <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
 
-        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-          <div className="flex h-full flex-col gap-lg">
-            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-              <Tabs
-                variant={"solid"}
-                searchParams={"data-view"}
-                tabs={[
-                  {
-                    id: Views.CONTRIBUTORS,
-                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <div className="flex h-full flex-col gap-lg">
+              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+                <Tabs
+                  variant={"solid"}
+                  searchParams={"data-view"}
+                  tabs={[
+                    {
+                      id: Views.CONTRIBUTORS,
+                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                      },
                     },
-                  },
-                  {
-                    id: Views.CONTRIBUTIONS,
-                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                    {
+                      id: Views.CONTRIBUTIONS,
+                      children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                      },
                     },
-                  },
-                  {
-                    id: Views.FINANCIAL,
-                    children: <Translate token={"manageProjects:detail.views.financial"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                    {
+                      id: Views.FINANCIAL,
+                      children: <Translate token={"manageProjects:detail.views.financial"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                      },
                     },
-                  },
-                ]}
-                selectedId={selectedId}
-              />
+                  ]}
+                  selectedId={selectedId}
+                />
 
-              {renderActions()}
-            </header>
+                {renderActions()}
+              </header>
 
-            {children}
-          </div>
-        </PageContent>
-      </ScrollView>
-    </AnimatedColumn>
+              {children}
+            </div>
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
+
+      <FinancialDetailSidepanel footer={renderUngrantButton()} />
+    </>
   );
 }
 
@@ -237,7 +247,6 @@ function ManageProjectsLayout({
         </GithubPermissionsProvider>
       </ActionPoolingProvider>
 
-      <FinancialDetailSidepanel />
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
