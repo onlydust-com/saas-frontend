@@ -7,6 +7,8 @@ import {
   GetProgramProjectPortResponse,
   GetProgramProjectsPortParams,
   GetProgramProjectsPortResponse,
+  GetProgramSponsorsPortParams,
+  GetProgramSponsorsPortResponse,
   GetProgramTransactionsCsvPortResponse,
   GetProgramTransactionsPortParams,
   GetProgramTransactionsPortResponse,
@@ -32,4 +34,5 @@ export interface ProgramStoragePort {
   uploadProgramLogo(p: UploadProgramLogoPortParams): UploadProgramLogoPortResponse;
   editProgram(p: EditProgramPortParams): EditProgramPortResponse;
   unallocateProgram(p: UnallocateFundsFromProgramPortParams): UnallocateFundsFromProgramPortResponse;
+  getProgramSponsors(p: GetProgramSponsorsPortParams): GetProgramSponsorsPortResponse;
 }
