@@ -4,6 +4,7 @@ import { UpdateDepositBody } from "@/core/domain/deposit/deposit-contract.types"
 
 export interface DepositSummarySidepanelData {
   depositId: string;
+  sponsorId: string;
 }
 
 export type DepositSummaryFormValues = UpdateDepositBody;

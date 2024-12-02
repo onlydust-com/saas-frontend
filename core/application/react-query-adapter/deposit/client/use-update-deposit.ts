@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 
 import {
   UseMutationFacadeParams,
@@ -12,12 +11,21 @@ import { DepositFacadePort } from "@/core/domain/deposit/input/deposit-facade-po
 export function useUpdateDeposit({
   pathParams,
   options,
-}: UseMutationFacadeParams<DepositFacadePort["updateDeposit"], undefined, never, UpdateDepositBody> = {}) {
-  // TODO Revamp this
-  const { sponsorId } = useParams<{ sponsorId?: string }>();
+  invalidateTagParams,
+}: UseMutationFacadeParams<
+  DepositFacadePort["updateDeposit"],
+  {
+    sponsor: {
+      pathParams: { sponsorId: string };
+    };
+  },
+  never,
+  UpdateDepositBody
+> = {}) {
   const depositStoragePort = bootstrap.getDepositStoragePortForClient();
   const sponsorStoragePort = bootstrap.getSponsorStoragePortForClient();
   const biStoragePort = bootstrap.getBiStoragePortForClient();
+
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -26,7 +34,9 @@ export function useUpdateDeposit({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          if (sponsorId) {
+          if (invalidateTagParams) {
+            const { sponsorId } = invalidateTagParams.sponsor.pathParams;
+
             // Invalidate sponsor detail
             await queryClient.invalidateQueries({
               queryKey: sponsorStoragePort.getSponsor({ pathParams: { sponsorId } }).tag,
@@ -39,6 +49,7 @@ export function useUpdateDeposit({
               exact: false,
             });
           }
+
           options?.onSuccess?.(data, variables, context);
         },
       },
