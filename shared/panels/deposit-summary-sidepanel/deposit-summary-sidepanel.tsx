@@ -30,8 +30,9 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function DepositSummarySidepanel() {
   const { name } = useDepositSummarySidepanel();
   const { Panel, close } = useSidePanel({ name });
-  const { depositId } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
+  const { depositId, sponsorId } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
     depositId: "",
+    sponsorId: "",
   };
   const { t } = useTranslation();
 
@@ -69,6 +70,11 @@ export function DepositSummarySidepanel() {
         },
         onError: () => {
           toast.error(t("panels:depositSummary.toast.error"));
+        },
+      },
+      invalidateTagParams: {
+        sponsor: {
+          pathParams: { sponsorId },
         },
       },
     }

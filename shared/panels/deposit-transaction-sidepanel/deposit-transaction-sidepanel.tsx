@@ -49,7 +49,7 @@ export function DepositTransactionSidepanel() {
     pathParams: { sponsorId },
     options: {
       onSuccess: data => {
-        openDepositSummarySidepanel({ depositId: data.id });
+        openDepositSummarySidepanel({ depositId: data.id, sponsorId });
       },
     },
   });
