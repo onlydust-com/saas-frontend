@@ -50,6 +50,8 @@ export function GlobalDataFilterProvider({ children }: PropsWithChildren) {
   }, [searchParams, defaultPeriod]);
 
   function onPeriodChange(period: PeriodValue) {
+    setPeriod(period);
+
     if (period.from && period.to) {
       updateMultipleSearchParams({
         "period.from": period.from,
@@ -59,8 +61,6 @@ export function GlobalDataFilterProvider({ children }: PropsWithChildren) {
     } else {
       deleteMultipleSearchParams(["period.from", "period.to", "period.range"]);
     }
-
-    setPeriod(period);
   }
 
   const params = useMemo(() => {
