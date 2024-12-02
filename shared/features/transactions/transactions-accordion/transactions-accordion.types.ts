@@ -8,4 +8,5 @@ interface MonthlyTransaction {
 export interface TransactionsAccordionProps {
   monthlyTransactions: MonthlyTransaction[];
   ContentComponent: ComponentType<{ date: Date }>;
+  isLoading?: boolean;
 }

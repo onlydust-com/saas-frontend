@@ -16,6 +16,7 @@ export interface TransactionsContextReturn {
   sponsorId: string;
   monthlyTransactions?: GetBiStatsFinancialsResponse;
   queryParams: TransactionsContextQueryParams;
+  isLoadingTransactions: boolean;
   filters: {
     values: TransactionsContextFilter;
     isCleared: boolean;

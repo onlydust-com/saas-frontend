@@ -2,6 +2,7 @@ import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion, AccordionItemProps } from "@/design-system/molecules/accordion";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -9,7 +10,11 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { TransactionsEmptyState } from "../transactions-empty-state/transactions-empty-state";
 import { TransactionsAccordionProps } from "./transactions-accordion.types";
 
-export function TransactionsAccordion({ monthlyTransactions, ContentComponent }: TransactionsAccordionProps) {
+export function TransactionsAccordion({
+  monthlyTransactions,
+  ContentComponent,
+  isLoading,
+}: TransactionsAccordionProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   const items: AccordionItemProps[] = useMemo(() => {
@@ -28,6 +33,16 @@ export function TransactionsAccordion({ monthlyTransactions, ContentComponent }:
       }) || []
     );
   }, [monthlyTransactions, dateKernelPort]);
+
+  if (isLoading) {
+    return (
+      <div className={"flex w-full flex-col gap-3"}>
+        <Skeleton classNames={{ base: "w-full h-24" }} />
+        <Skeleton classNames={{ base: "w-full h-24" }} />
+        <Skeleton classNames={{ base: "w-full h-24" }} />
+      </div>
+    );
+  }
 
   if (!items.length) {
     return <TransactionsEmptyState />;
