@@ -1,10 +1,8 @@
 interface classNames {
   base: string;
-  illustration: string;
-  wordmark: string;
+  image: string;
 }
 
 export interface LogoProps {
-  type?: "illustration" | "word-mark" | "full";
   classNames?: Partial<classNames>;
 }
