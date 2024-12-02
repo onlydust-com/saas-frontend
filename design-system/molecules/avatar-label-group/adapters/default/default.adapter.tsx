@@ -67,7 +67,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
     );
   }
 
-  if (withPopover) {
+  if (withPopover && avatars?.length > 0) {
     return (
       <Popover>
         <Popover.Trigger>{() => renderContent()}</Popover.Trigger>
