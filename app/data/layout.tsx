@@ -97,7 +97,7 @@ export default function DataLayout({ children }: { children: ReactNode }) {
       }}
     >
       <GlobalDataFilterProvider>
-        <AnimatedColumn className="h-full">
+        <AnimatedColumn className="h-full max-w-full">
           <ScrollView className="flex flex-col gap-md">
             <PageContent classNames={{ base: "flex flex-col gap-3 h-full overflow-hidden" }}>
               <div className={"flex w-full flex-row items-center justify-between gap-1"}>
