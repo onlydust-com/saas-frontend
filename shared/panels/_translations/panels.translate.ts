@@ -8,7 +8,7 @@ import enSingleContributionSelection from "@/shared/panels/_flows/reward-flow/_p
 import enSingleContributionValidation from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_translations/single-contribution-validation.en.json";
 import enRewardFlow from "@/shared/panels/_flows/reward-flow/_translations/reward-flow.en.json";
 import enUngrantAmountSelection from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/_translations/amount-selection.en.json";
-import enProgramSelection from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/_translations/program-selection.en.json";
+import enUngrantProgramSelection from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/_translations/program-selection.en.json";
 import enAllocateProgram from "@/shared/panels/allocate-program-sidepanel/_translations/allocate-program-sidepanel.en.json";
 import enContribution from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.en.json";
 import enContributor from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.en.json";
@@ -49,7 +49,7 @@ export const enPanelsTranslation = {
     rewardFlow: enRewardFlow,
     requestPaymentFlow: enRequestPaymentFlow,
     exportCsv: enExportCsv,
-    programSelection: enProgramSelection,
+    ungrantProgramSelection: enUngrantProgramSelection,
     ungrantAmountSelection: enUngrantAmountSelection,
   },
 };

@@ -2,9 +2,12 @@
 
 import { createContext, useContext, useState } from "react";
 
+import { ProjectProgramListItemInterface } from "@/core/domain/project/models/project-program-list-item";
+
 import { AmountSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection";
 import { useAmountSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection.hooks";
 import { ProgramSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection";
+import { useProgramSelection } from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/program-selection.hooks";
 import {
   UngrantFlowContextInterface,
   UngrantFlowContextProps,
@@ -12,26 +15,22 @@ import {
 
 export const UngrantFlowContext = createContext<UngrantFlowContextInterface>({
   projectId: "",
-  programId: "",
-  selectProgramId: () => {},
+  program: undefined,
+  selectProgram: () => {},
   open: () => {},
 });
 
 export function UngrantFlowProvider({ projectId = "", children }: UngrantFlowContextProps) {
-  const [programId, setProgramId] = useState("");
-  // const { open: openProgramSelection } = useProgramSelection();
+  const [program, setProgram] = useState<ProjectProgramListItemInterface>();
+  const { open: openProgramSelection } = useProgramSelection();
   const { open: openAmountSelection } = useAmountSelection();
 
   function open() {
-    // TODO revert this
-    // openProgramSelection();
-
-    setProgramId("3d1addd0-713e-4923-963a-2ec1f3c198c4");
-    openAmountSelection();
+    openProgramSelection();
   }
 
-  function selectProgramId(programId: string) {
-    setProgramId(programId);
+  function selectProgram(program: ProjectProgramListItemInterface) {
+    setProgram(program);
 
     openAmountSelection();
   }
@@ -40,15 +39,15 @@ export function UngrantFlowProvider({ projectId = "", children }: UngrantFlowCon
     <UngrantFlowContext.Provider
       value={{
         projectId,
-        programId,
-        selectProgramId,
+        program,
+        selectProgram,
         open,
       }}
     >
       {children}
 
-      <ProgramSelection projectId={projectId} />
-      <AmountSelection projectId={projectId} programId={programId} />
+      <ProgramSelection />
+      <AmountSelection />
     </UngrantFlowContext.Provider>
   );
 }

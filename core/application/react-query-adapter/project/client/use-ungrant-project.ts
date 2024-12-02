@@ -36,11 +36,13 @@ export function useUngrantProject({
         ...options,
         onSuccess: async (data, variables, context) => {
           if (pathParams?.projectId) {
+            // Invalidate project details
             await queryClient.invalidateQueries({
               queryKey: projectStoragePort.getProjectById({ pathParams: { projectId: pathParams.projectId } }).tag,
               exact: false,
             });
 
+            // Invalidate project rewards table
             await queryClient.invalidateQueries({
               queryKey: rewardStoragePort.getProjectRewards({
                 pathParams: { projectId: pathParams.projectId },
@@ -50,6 +52,7 @@ export function useUngrantProject({
           }
 
           if (invalidateTagParams) {
+            // Invalidate project financial details
             await queryClient.invalidateQueries({
               queryKey: projectStoragePort.getProjectFinancialDetailsBySlug({
                 pathParams: { projectSlug: invalidateTagParams.project.pathParams.projectSlug },
@@ -57,6 +60,7 @@ export function useUngrantProject({
               exact: false,
             });
 
+            // Invalidate project rewards chart
             await queryClient.invalidateQueries({
               queryKey: biStoragePort.getBiStatsFinancials({
                 pathParams: { projectSlug: invalidateTagParams.project.pathParams.projectSlug },

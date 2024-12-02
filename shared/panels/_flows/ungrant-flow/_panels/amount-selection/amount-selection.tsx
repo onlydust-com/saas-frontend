@@ -1,6 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { AccordionLoading } from "@/design-system/molecules/accordion";
-import { CardProject, CardProjectLoading } from "@/design-system/molecules/cards/card-project";
+import { CardProjectLoading } from "@/design-system/molecules/cards/card-project";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
@@ -9,34 +9,21 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { CardProgram } from "@/shared/panels/_flows/ungrant-flow/_components/card-program/card-program";
 import { Summary } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/_components/summary";
 import {
   useAmountSelection,
   useUngrantProgram,
 } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection.hooks";
-import { AmountSelectionProps } from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/amount-selection.types";
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { useUngrantFlow } from "@/shared/panels/_flows/ungrant-flow/ungrant-flow.context";
 
-export function AmountSelection({ projectId, programId }: AmountSelectionProps) {
+export function AmountSelection() {
   const { name } = useAmountSelection();
   const { Panel } = useSidePanel({ name });
+  const { program } = useUngrantFlow();
 
-  const {
-    amount,
-    budget,
-    allBudgets,
-    handleAmountChange,
-    handleBudgetChange,
-    isLoading,
-    isError,
-    program,
-    programUsdAmount,
-    summary,
-    ungrant,
-  } = useUngrantProgram({
-    projectId,
-    programId,
-  });
+  const { amount, budget, allBudgets, handleAmountChange, handleBudgetChange, isLoading, isError, summary, ungrant } =
+    useUngrantProgram();
 
   function renderBody() {
     if (isLoading) {
@@ -59,13 +46,7 @@ export function AmountSelection({ projectId, programId }: AmountSelectionProps) 
 
     return (
       <div className="flex h-full flex-col gap-3">
-        <CardProject
-          title={program.name}
-          logoUrl={program.logoUrl}
-          buttonProps={{
-            children: `${programUsdAmount} USD`,
-          }}
-        />
+        <CardProgram program={program} />
 
         <div className="flex items-center">
           <AmountSelector
@@ -123,10 +104,10 @@ export function AmountSelection({ projectId, programId }: AmountSelectionProps) 
           variant={"secondary"}
           size={"md"}
           onClick={() => ungrant.post()}
-          isDisabled={isLoading || ungrant.isPending || ungrant.newBalanceIsNegative}
-        >
-          <Translate token={"panels:ungrantAmountSelection.ungrant"} />
-        </Button>
+          isLoading={ungrant.isPending}
+          isDisabled={isLoading || ungrant.newBalanceIsNegative}
+          translate={{ token: "panels:ungrantAmountSelection.ungrant" }}
+        />
       </SidePanelFooter>
     </Panel>
   );

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { bootstrap } from "@/core/bootstrap";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { toast } from "@/design-system/molecules/toaster";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
+import { useUngrantFlow } from "@/shared/panels/_flows/ungrant-flow/ungrant-flow.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 const PANEL_NAME = "ungrant-amount-selection";
@@ -17,25 +16,12 @@ export function useAmountSelection() {
   return useSinglePanelContext(PANEL_NAME);
 }
 
-export function useUngrantProgram({ projectId, programId }: { projectId: string; programId: string }) {
+export function useUngrantProgram() {
   const { close, isOpen } = useSidePanelsContext();
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
   const isPanelOpen = isOpen(PANEL_NAME);
-
-  // TODO cant do this because only leads can viw
-  const {
-    data: program,
-    isLoading: isLoadingProgram,
-    isError: isErrorProgram,
-  } = ProgramReactQueryAdapter.client.useGetProgramById({
-    pathParams: {
-      programId,
-    },
-    options: {
-      enabled: Boolean(programId),
-    },
-  });
+  const { projectId, program } = useUngrantFlow();
 
   const {
     data: projectFinancialDetails,
@@ -100,20 +86,14 @@ export function useUngrantProgram({ projectId, programId }: { projectId: string;
   function handleUngrant() {
     const currencyId = budget?.currency.id;
 
-    if (!programId || !currencyId) return;
+    if (!program || !currencyId) return;
 
     mutate({
-      programId,
+      programId: program.id,
       amount: parseFloat(amount),
       currencyId,
     });
   }
-
-  const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { amount: programUsdAmount } = moneyKernelPort.format({
-    amount: program?.totalAvailable.totalUsdEquivalent,
-    currency: moneyKernelPort.getCurrency("USD"),
-  });
 
   function handleAmountChange(amount: string) {
     setAmount(amount);
@@ -135,10 +115,8 @@ export function useUngrantProgram({ projectId, programId }: { projectId: string;
     allBudgets,
     handleAmountChange,
     handleBudgetChange,
-    isLoading: isLoadingProgram || isLoadingProjectFinancialDetails,
-    isError: isErrorProgram || isErrorProjectFinancialDetails,
-    program,
-    programUsdAmount,
+    isLoading: isLoadingProjectFinancialDetails,
+    isError: isErrorProjectFinancialDetails,
     summary: {
       usdConversionRate,
       ungrantedAmount,
