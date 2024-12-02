@@ -53,10 +53,11 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
 
   const { stats } = data ?? {};
 
-  const { categories, allocatedSeries, grantedSeries, rewardedSeries } = useBudgetInTimeChart(stats);
+  const { categories, allocatedSeries, grantedSeries, rewardedSeries, minTotal } = useBudgetInTimeChart(stats);
 
   const { options } = useAreaSplineChartOptions({
     categories,
+    min: minTotal,
     series: [
       { name: t("financials:details.financial.budgetInTime.legend.allocated"), data: allocatedSeries },
       { name: t("financials:details.financial.budgetInTime.legend.granted"), data: grantedSeries },

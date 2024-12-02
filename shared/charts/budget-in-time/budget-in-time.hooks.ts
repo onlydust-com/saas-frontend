@@ -14,11 +14,16 @@ export function useBudgetInTimeChart(stats?: GetBiStatsFinancialsModel["stats"])
   const allocatedSeries = calculateSeries("totalAllocated");
   const grantedSeries = calculateSeries("totalGranted");
   const rewardedSeries = calculateSeries("totalRewarded");
+  const minAllocated = Math.min(...allocatedSeries.map(value => value));
+  const minGranted = Math.min(...grantedSeries.map(value => value));
+  const minRewarded = Math.min(...rewardedSeries.map(value => value));
+  const minTotal = Math.min(minAllocated, minGranted, minRewarded);
 
   return {
     categories,
     allocatedSeries,
     grantedSeries,
     rewardedSeries,
+    minTotal,
   };
 }
