@@ -24,6 +24,7 @@ import {
   UnallocateFlowProvider,
   useUnallocateFlow,
 } from "@/shared/panels/_flows/unallocate-flow/unallocate-flow.context";
+import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -47,21 +48,25 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
 
   const { open: openUnallocateFlow } = useUnallocateFlow();
 
+  function renderUnallocateButton() {
+    return (
+      <Button
+        variant={"secondary"}
+        size={"sm"}
+        translate={{ token: "programs:details.actions.returnFunds" }}
+        classNames={{
+          base: "max-w-full overflow-hidden",
+          label: "whitespace-nowrap text-ellipsis overflow-hidden",
+        }}
+        onClick={openUnallocateFlow}
+      />
+    );
+  }
+
   const renderActions = useCallback(() => {
     return (
       <div className="flex items-center gap-lg">
-        {isFinancial ? (
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            translate={{ token: "programs:details.actions.returnFunds" }}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            onClick={openUnallocateFlow}
-          />
-        ) : null}
+        {isFinancial ? renderUnallocateButton() : null}
 
         <GrantButton programId={programId} />
       </div>
@@ -69,43 +74,47 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
   }, [isProjects, isFinancial]);
 
   return (
-    <AnimatedColumn className="h-full">
-      <ScrollView className={"flex flex-col"}>
-        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-          <div className="flex h-full flex-col gap-lg">
-            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-              <Tabs
-                variant={"solid"}
-                searchParams={"data-view"}
-                tabs={[
-                  {
-                    id: Views.PROJECTS,
-                    children: <Translate token={"programs:details.views.projects"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.programs.projects.root(programId),
+    <>
+      <AnimatedColumn className="h-full">
+        <ScrollView className={"flex flex-col"}>
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <div className="flex h-full flex-col gap-lg">
+              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+                <Tabs
+                  variant={"solid"}
+                  searchParams={"data-view"}
+                  tabs={[
+                    {
+                      id: Views.PROJECTS,
+                      children: <Translate token={"programs:details.views.projects"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.programs.projects.root(programId),
+                      },
                     },
-                  },
-                  {
-                    id: Views.FINANCIAL,
-                    children: <Translate token={"programs:details.views.financial"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.programs.financial.root(programId),
+                    {
+                      id: Views.FINANCIAL,
+                      children: <Translate token={"programs:details.views.financial"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.programs.financial.root(programId),
+                      },
                     },
-                  },
-                ]}
-                selectedId={selectedId}
-              />
+                  ]}
+                  selectedId={selectedId}
+                />
 
-              {renderActions()}
-            </header>
+                {renderActions()}
+              </header>
 
-            {children}
-          </div>
-        </PageContent>
-      </ScrollView>
-    </AnimatedColumn>
+              {children}
+            </div>
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
+
+      <FinancialDetailSidepanel footer={renderUnallocateButton()} />
+    </>
   );
 }
 
