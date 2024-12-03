@@ -18,13 +18,12 @@ export function useAmountSelection() {
 
 export function useUnallocateProgram() {
   const { close, isOpen } = useSidePanelsContext();
-  const isPanelOpen = isOpen(PANEL_NAME);
-
-  const { programId, sponsor } = useUnallocateFlow();
-  const sponsorId = sponsor?.id ?? "";
-
   const [budget, setBudget] = useState<DetailedTotalMoneyTotalPerCurrency>();
   const [amount, setAmount] = useState("0");
+  const isPanelOpen = isOpen(PANEL_NAME);
+  const { programId, sponsor } = useUnallocateFlow();
+
+  const sponsorId = sponsor?.id ?? "";
 
   const {
     data: program,
@@ -66,7 +65,7 @@ export function useUnallocateProgram() {
           <Translate
             token={"panels:unallocateAmountSelection.toast.success"}
             values={{
-              sponsor: program?.name,
+              sponsor: sponsor?.name,
               amount,
               code: budget?.currency.code,
             }}

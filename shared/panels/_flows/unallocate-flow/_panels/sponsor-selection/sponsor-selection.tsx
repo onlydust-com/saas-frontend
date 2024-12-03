@@ -8,7 +8,7 @@ import { ProgramSponsorListItemInterface } from "@/core/domain/program/models/pr
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
-import { CardProject, CardProjectLoading } from "@/design-system/molecules/cards/card-project";
+import { CardProjectLoading } from "@/design-system/molecules/cards/card-project";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
@@ -16,6 +16,7 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
+import { CardSponsor } from "@/shared/panels/_flows/unallocate-flow/_components/card-sponsor/card-sponsor";
 import { useSponsorSelection } from "@/shared/panels/_flows/unallocate-flow/_panels/sponsor-selection/sponsor-selection.hooks";
 import { useUnallocateFlow } from "@/shared/panels/_flows/unallocate-flow/unallocate-flow.context";
 
@@ -71,16 +72,7 @@ function Sponsors() {
     return (
       <>
         {flatSponsors.map(sponsor => {
-          return (
-            <CardProject
-              key={sponsor.id}
-              as={"button"}
-              onClick={() => handleSponsorClick(sponsor)}
-              title={sponsor.name}
-              description={sponsor.leads?.[0]?.login}
-              logoUrl={sponsor.logoUrl}
-            />
-          );
+          return <CardSponsor key={sponsor.id} sponsor={sponsor} onClick={handleSponsorClick} />;
         })}
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </>
