@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-import { SponsorInterface } from "@/core/domain/sponsor/models/sponsor-model";
+import { ProgramSponsorListItemInterface } from "@/core/domain/program/models/program-sponsor-list-item";
 
 import { AmountSelection } from "@/shared/panels/_flows/unallocate-flow/_panels/amount-selection/amount-selection";
 import { useAmountSelection } from "@/shared/panels/_flows/unallocate-flow/_panels/amount-selection/amount-selection.hooks";
@@ -21,7 +21,7 @@ export const UnallocateFlowContext = createContext<UnallocateFlowContextInterfac
 });
 
 export function UnallocateFlowProvider({ programId = "", children }: UnallocateFlowContextProps) {
-  const [sponsor, setSponsor] = useState<SponsorInterface>();
+  const [sponsor, setSponsor] = useState<ProgramSponsorListItemInterface>();
   const { open: openSponsorSelection } = useSponsorSelection();
   const { open: openAmountSelection } = useAmountSelection();
 
@@ -29,7 +29,7 @@ export function UnallocateFlowProvider({ programId = "", children }: UnallocateF
     openSponsorSelection();
   }
 
-  function selectSponsor(sponsor: SponsorInterface) {
+  function selectSponsor(sponsor: ProgramSponsorListItemInterface) {
     setSponsor(sponsor);
 
     openAmountSelection();

@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
 
-import { SponsorInterface } from "@/core/domain/sponsor/models/sponsor-model";
+import { ProgramSponsorListItemInterface } from "@/core/domain/program/models/program-sponsor-list-item";
 
 export interface UnallocateFlowContextInterface {
   programId: string;
-  sponsor?: SponsorInterface;
-  selectSponsor: (sponsor: SponsorInterface) => void;
+  sponsor?: ProgramSponsorListItemInterface;
+  selectSponsor: (sponsor: ProgramSponsorListItemInterface) => void;
   open: () => void;
 }
 

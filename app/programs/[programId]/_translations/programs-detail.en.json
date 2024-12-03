@@ -3,9 +3,12 @@
     "projects": "Projects",
     "financial": "Financial"
   },
-  "grant": {
-    "button": "Grant project",
-    "tooltip": "No budget available"
+  "actions": {
+    "grant": {
+      "button": "Grant project",
+      "tooltip": "No budget available"
+    },
+    "returnFunds": "Return funds"
   },
   "financial": {},
   "projects": {

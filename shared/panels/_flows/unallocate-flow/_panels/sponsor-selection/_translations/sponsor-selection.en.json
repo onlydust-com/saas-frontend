@@ -1,6 +1,6 @@
 {
   "title": "Sponsors",
-  "empty": {
-    "title": "No Sponsors"
+  "search": {
+    "placeholder": "Search sponsors"
   }
 }
