@@ -34,7 +34,7 @@ export function ActiveContributorsAlert() {
           <Typo
             size={"xs"}
             color={"primary"}
-            translate={{ token: "data:activeUsers.alert.totalContributorsWithBillingProfiles" }}
+            translate={{ token: "data:activeUsers.alert.totalContributorsWithBillingProfile" }}
           />
           <Typo variant={"heading"} size={"sm"} color={"primary"}>
             {totalCountriesWithKyc} / {totalContributors}
