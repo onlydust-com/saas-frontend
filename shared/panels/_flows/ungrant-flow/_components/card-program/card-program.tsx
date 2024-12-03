@@ -14,6 +14,27 @@ export function CardProgram({ program, onClick }: CardProgramProps) {
     currency: moneyKernelPort.getCurrency("USD"),
   });
 
+  function renderContent() {
+    if (!program.totalGranted.totalPerCurrency) return null;
+
+    return (
+      <div className={"flex flex-wrap gap-md"}>
+        {program.totalGranted.totalPerCurrency.map(budget => {
+          const { amount, code } = moneyKernelPort.format({
+            amount: budget.amount,
+            currency: budget.currency,
+          });
+
+          return (
+            <Badge key={budget.currency.id} size={"md"} avatar={{ src: budget.currency.logoUrl }}>
+              {amount} {code}
+            </Badge>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <CardTemplate<"button" | "div">
       key={program.id}
@@ -33,24 +54,7 @@ export function CardProgram({ program, onClick }: CardProgramProps) {
           {totalUsdGranted} {totalUsdCode}
         </Button>
       }
-      contentSlot={
-        program.totalGranted.totalPerCurrency ? (
-          <div className={"flex flex-wrap gap-md"}>
-            {program.totalGranted.totalPerCurrency.map(budget => {
-              const { amount, code } = moneyKernelPort.format({
-                amount: budget.amount,
-                currency: budget.currency,
-              });
-
-              return (
-                <Badge key={budget.currency.id} size={"md"} avatar={{ src: budget.currency.logoUrl }}>
-                  {amount} {code}
-                </Badge>
-              );
-            })}
-          </div>
-        ) : null
-      }
+      contentSlot={renderContent()}
     />
   );
 }

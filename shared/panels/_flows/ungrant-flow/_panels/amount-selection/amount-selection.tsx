@@ -103,7 +103,7 @@ export function AmountSelection() {
         <Button
           variant={"secondary"}
           size={"md"}
-          onClick={() => ungrant.post()}
+          onClick={() => ungrant.mutate()}
           isLoading={ungrant.isPending}
           isDisabled={isLoading || ungrant.newBalanceIsNegative}
           translate={{ token: "panels:ungrantAmountSelection.ungrant" }}

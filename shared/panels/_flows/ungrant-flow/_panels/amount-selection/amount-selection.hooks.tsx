@@ -124,7 +124,7 @@ export function useUngrantProgram() {
       budget,
     },
     ungrant: {
-      post: handleUngrant,
+      mutate: handleUngrant,
       isPending,
       newBalanceIsNegative,
     },
