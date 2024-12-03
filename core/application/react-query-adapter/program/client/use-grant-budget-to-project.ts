@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 
 import {
   UseMutationFacadeParams,
@@ -18,8 +17,9 @@ export function useGrantBudgetToProject({
   never,
   GrantBudgetToProjectBody
 > = {}) {
-  const { programId } = useParams<{ programId?: string }>();
   const programStoragePort = bootstrap.getProgramStoragePortForClient();
+  const biStoragePort = bootstrap.getBiStoragePortForClient();
+
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -28,8 +28,10 @@ export function useGrantBudgetToProject({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
+          const { programId } = pathParams ?? {};
+
           if (programId) {
-            // Invalidate program detail
+            // Invalidate program detail + financial budget
             await queryClient.invalidateQueries({
               queryKey: programStoragePort.getProgramById({ pathParams: { programId } }).tag,
               exact: false,
@@ -38,6 +40,12 @@ export function useGrantBudgetToProject({
             // Invalidate program project list
             await queryClient.invalidateQueries({
               queryKey: programStoragePort.getProgramProjects({ pathParams: { programId } }).tag,
+              exact: false,
+            });
+
+            // Invalidate budget in time chart + transactions
+            await queryClient.invalidateQueries({
+              queryKey: biStoragePort.getBiStatsFinancials({ queryParams: { programId } }).tag,
               exact: false,
             });
           }

@@ -42,7 +42,7 @@ export function SponsorsTable() {
         <div className={"flex w-full"}>
           <Button
             as={BaseLink}
-            htmlProps={{ href: NEXT_ROUTER.financials.details.root(info.row.original.id) }}
+            htmlProps={{ href: NEXT_ROUTER.financials.programs.root(info.row.original.id) }}
             variant={"secondary"}
             size={"sm"}
           >
@@ -78,7 +78,7 @@ export function SponsorsTable() {
         }}
         rows={table.getRowModel().rows}
         onRowClick={row => {
-          router.push(NEXT_ROUTER.financials.details.root(row.original.id));
+          router.push(NEXT_ROUTER.financials.programs.root(row.original.id));
         }}
       />
     </ScrollView>

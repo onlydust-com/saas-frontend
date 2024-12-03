@@ -23,6 +23,7 @@ export const DatePickerNextUiVariants = tv({
       "[&>[data-slot=input-wrapper]]:hover:border-border-primary-hover",
       "[&>[data-slot=input-wrapper]]:focus-within:hover:border-border-active",
       "[&>[data-slot=input-wrapper]]:group-data-[invalid=true]:hover:border-border-error-secondary-hover",
+      "[&>[data-slot=input-wrapper]>[data-slot=inner-wrapper]>[data-slot=input-field]>[data-slot=segment]]:!normal-nums",
     ],
     popoverContent: "effect-shadow-lg rounded-lg bg-background-primary",
     inputWrapper:
@@ -31,7 +32,7 @@ export const DatePickerNextUiVariants = tv({
     input: "flex items-center text-[0.875rem] leading-[1.25rem] text-typography-secondary",
     label: "text-[0.875rem] font-medium leading-[1.25rem] !text-typography-secondary",
     segment:
-      "my-0 text-typography-placeholder data-[editable=true]:data-[placeholder=true]:text-typography-placeholder data-[editable=true]:text-typography-secondary data-[invalid=true]:data-[editable=true]:text-typography-secondary data-[invalid=true]:text-typography-secondary focus:!bg-components-buttons-button-tertiary-bg-hover focus:effect-box-shadow-xs data-[editable=true]:focus:text-typography-secondary data-[invalid=true]:data-[editable=true]:focus:text-typography-secondary",
+      "my-0 !normal-nums text-typography-placeholder data-[editable=true]:data-[placeholder=true]:text-typography-placeholder data-[editable=true]:text-typography-secondary data-[invalid=true]:data-[editable=true]:text-typography-secondary data-[invalid=true]:text-typography-secondary focus:!bg-components-buttons-button-tertiary-bg-hover focus:effect-box-shadow-xs data-[editable=true]:focus:text-typography-secondary data-[invalid=true]:data-[editable=true]:focus:text-typography-secondary",
     separator: "text-typography-placeholder",
     selectorButton: "absolute left-0 flex w-full justify-end rounded-none !bg-transparent px-3",
     errorMessage: "text-[0.875rem] leading-[1.25rem] text-typography-error",

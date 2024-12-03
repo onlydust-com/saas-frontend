@@ -1,14 +1,16 @@
 "use client";
 
-import { PrimaryNavigationDesktop } from "@/shared/features/navigation/primary-navigation-desktop/primary-navigation-desktop";
-import { PrimaryNavigationMobile } from "@/shared/features/navigation/primary-navigation-mobile/primary-navigation-mobile";
+import { PropsWithChildren } from "react";
+
+import { PrimaryNavigationDesktop } from "@/shared/features/navigation/primary-navigation/_components/primary-navigation-desktop/primary-navigation-desktop";
+import { PrimaryNavigationMobile } from "@/shared/features/navigation/primary-navigation/_components/primary-navigation-mobile/primary-navigation-mobile";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
-export function PrimaryNavigation() {
+export function PrimaryNavigation({ children }: PropsWithChildren) {
   const isTablet = useIsTablet("lower");
 
   if (isTablet) {
-    return <PrimaryNavigationMobile />;
+    return <PrimaryNavigationMobile>{children}</PrimaryNavigationMobile>;
   }
-  return <PrimaryNavigationDesktop />;
+  return <PrimaryNavigationDesktop>{children}</PrimaryNavigationDesktop>;
 }

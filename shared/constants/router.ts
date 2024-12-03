@@ -5,34 +5,60 @@ export const NEXT_ROUTER = {
   },
   programs: {
     root: "/programs",
-    details: {
-      root: (id: string) => `/programs/${id}`,
+    projects: {
+      root: (id: string) => `/programs/${id}/projects`,
+    },
+    financial: {
+      root: (id: string) => `/programs/${id}/financial`,
     },
   },
   financials: {
     root: "/financials",
-    details: {
-      root: (id: string) => `/financials/${id}`,
+    programs: {
+      root: (id: string) => `/financials/${id}/programs`,
+    },
+    financial: {
+      root: (id: string) => `/financials/${id}/financial`,
     },
   },
   manageProjects: {
     root: "/manage-projects",
-    details: {
-      root: (slug: string) => `/manage-projects/${slug}`,
+    contributions: {
+      root: (slug: string) => `/manage-projects/${slug}/contributions`,
+    },
+    contributors: {
+      root: (slug: string) => `/manage-projects/${slug}/contributors`,
+    },
+    financial: {
+      root: (slug: string) => `/manage-projects/${slug}/financial`,
     },
   },
   myDashboard: {
     root: "/my-dashboard",
+    contributions: {
+      root: "/my-dashboard/contributions",
+    },
+    projects: {
+      root: "/my-dashboard/projects",
+    },
+    financial: {
+      root: "/my-dashboard/financial",
+    },
   },
   data: {
     root: "/data",
-    deepDive: {
-      root: "/data/deep-dive",
+    contributors: {
+      root: "/data/contributors",
+    },
+    projects: {
+      root: "/data/projects",
+    },
+    overview: {
+      root: "/data/overview",
     },
   },
   splash: {
     githubCallback: "/github-callback",
-    maintenance: "/maintenance",
   },
 } as const;
 
@@ -90,7 +116,6 @@ export const MARKETPLACE_ROUTER = {
     root: (githubLogin: string) => `/u/${githubLogin}`,
   },
   notFound: "/not-found",
-  maintenance: "/maintenance",
   hackathons: {
     root: "/hackathons",
     details: {

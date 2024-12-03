@@ -4,15 +4,17 @@ import { CardBudget } from "@/design-system/molecules/cards/card-budget";
 import { CardFinancial } from "@/design-system/molecules/cards/card-financial/variants/card-financial-default";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
+import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useFinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.hooks";
 import {
   FinancialDetailSidepanelData,
+  FinancialDetailSidepanelProps,
   colorMapping,
 } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel.types";
 
-export function FinancialDetailSidepanel() {
+export function FinancialDetailSidepanel({ footer }: FinancialDetailSidepanelProps) {
   const { name } = useFinancialDetailSidepanel();
   const { Panel } = useSidePanel({ name });
   const { panelType, total } = useSinglePanelData<FinancialDetailSidepanelData>(name) ?? {
@@ -62,6 +64,8 @@ export function FinancialDetailSidepanel() {
           ))}
         </div>
       </SidePanelBody>
+
+      {footer ? <SidePanelFooter>{footer}</SidePanelFooter> : null}
     </Panel>
   );
 }

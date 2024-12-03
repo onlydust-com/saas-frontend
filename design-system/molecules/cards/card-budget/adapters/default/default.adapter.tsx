@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight, Undo2 } from "lucide-react";
 import { ElementType } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -39,6 +39,8 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
   const iconComponents: Record<CardBudgetType, NonNullable<IconPort["component"]>> = {
     [CardBudgetType.GRANTED]: ArrowRight,
     [CardBudgetType.RECEIVED]: ArrowDown,
+    [CardBudgetType.UNGRANTED]: Undo2,
+    [CardBudgetType.UNALLOCATED]: Undo2,
   };
 
   return (

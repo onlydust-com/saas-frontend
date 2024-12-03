@@ -1,0 +1,16 @@
+{
+  "title": "Add Filters",
+  "clear": "Clear all",
+  "types": {
+    "title": "Types"
+  },
+  "period": {
+    "title": "Period"
+  },
+  "search": {
+    "placeholder": "Search a transaction..."
+  },
+  "export": {
+    "button": "Export CSV"
+  }
+}

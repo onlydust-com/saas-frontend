@@ -1,0 +1,15 @@
+{
+  "title": "Unallocate",
+  "summary": {
+    "budgetBalance": "{{budget}} balance from this sponsor",
+    "sponsorBalance": "Sponsor balance",
+    "currentBalance": "Current balance",
+    "unallocate": "Unallocate",
+    "finalBalance": "Final balance"
+  },
+  "unallocate": "Unallocate",
+  "toast": {
+    "success": "{{sponsor}} has been returned {{amount}} {{code}}.",
+    "error": "An error occurred while returning funds."
+  }
+}

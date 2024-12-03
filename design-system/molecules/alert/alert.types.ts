@@ -21,4 +21,5 @@ export interface AlertPort extends Partial<Variants> {
   primaryButton?: ButtonPort<"button">;
   secondaryButton?: ButtonPort<"button">;
   onClose?: () => void;
+  endContent?: ReactNode;
 }

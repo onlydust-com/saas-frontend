@@ -9,9 +9,7 @@ import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-l
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
 
-import { PrimaryMenuProps } from "./primary-menu.types";
-
-export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
+export function PrimaryMenu() {
   const [showSponsorList] = useShowSponsorList();
   const [showProgramList] = useShowProgramsList();
   const [showEcosystemList] = useShowEcosystemList();
@@ -23,54 +21,74 @@ export function PrimaryMenu({ isFolded }: PrimaryMenuProps) {
   return (
     <>
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: ChartLine }}
-        linkProps={pageDataAvailable ? { href: NEXT_ROUTER.data.root } : undefined}
+        linkProps={
+          pageDataAvailable
+            ? {
+                href: NEXT_ROUTER.data.root,
+                matchPathOptions: {
+                  exact: false,
+                  pattern: NEXT_ROUTER.data.root,
+                },
+              }
+            : undefined
+        }
         translate={{ token: "primaryNavigation:primaryMenu.data" }}
         isDisabled={!pageDataAvailable}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Wallet }}
         linkProps={{
           href: showSponsorList.hasMultipleSponsors
             ? NEXT_ROUTER.financials.root
-            : NEXT_ROUTER.financials.details.root(showSponsorList.firstSponsor ?? ""),
+            : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.financials.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.financial" }}
         isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Clipboard }}
         linkProps={{
           href: showProgramList.hasMultiplePrograms
             ? NEXT_ROUTER.programs.root
-            : NEXT_ROUTER.programs.details.root(showProgramList.firstProgram ?? ""),
+            : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.programs.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.program" }}
         isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: FolderKanban }}
         linkProps={{
           href: showProjectList.hasMultipleProjects
             ? NEXT_ROUTER.manageProjects.root
-            : NEXT_ROUTER.manageProjects.details.root(showProjectList.firstProject ?? ""),
+            : NEXT_ROUTER.manageProjects.contributors.root(showProjectList.firstProject ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.manageProjects.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Gauge }}
         linkProps={{
           href: NEXT_ROUTER.myDashboard.root,
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.myDashboard.root,
+          },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
       />
       <ItemNav
-        isFolded={isFolded}
         iconProps={{ component: Compass }}
         linkProps={{ href: marketplaceRouting("/projects") }}
         translate={{ token: "primaryNavigation:primaryMenu.projects" }}

@@ -30,8 +30,9 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 export function DepositSummarySidepanel() {
   const { name } = useDepositSummarySidepanel();
   const { Panel, close } = useSidePanel({ name });
-  const { depositId } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
+  const { depositId, sponsorId } = useSinglePanelData<DepositSummarySidepanelData>(name) ?? {
     depositId: "",
+    sponsorId: "",
   };
   const { t } = useTranslation();
 
@@ -71,6 +72,11 @@ export function DepositSummarySidepanel() {
           toast.error(t("panels:depositSummary.toast.error"));
         },
       },
+      invalidateTagParams: {
+        sponsor: {
+          pathParams: { sponsorId },
+        },
+      },
     }
   );
 
@@ -107,7 +113,7 @@ export function DepositSummarySidepanel() {
 
     return (
       <>
-        <div className="flex max-h-72 flex-1 items-center">
+        <div className="flex items-center">
           <AmountSelector readOnly amount={String(deposit.amount.amount)} budget={deposit.amount} />
         </div>
 

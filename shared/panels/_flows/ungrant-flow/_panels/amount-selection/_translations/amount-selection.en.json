@@ -1,0 +1,15 @@
+{
+  "title": "Ungrant",
+  "summary": {
+    "budgetBalance": "{{budget}} balance from this program",
+    "programBalance": "Program balance",
+    "currentBalance": "Current balance",
+    "ungrant": "Ungrant",
+    "finalBalance": "Final balance"
+  },
+  "ungrant": "Ungrant",
+  "toast": {
+    "success": "{{program}} has been returned {{amount}} {{code}}.",
+    "error": "An error occurred while returning funds."
+  }
+}

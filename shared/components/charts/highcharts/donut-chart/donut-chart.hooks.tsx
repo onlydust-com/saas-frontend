@@ -19,14 +19,15 @@ export function useDonnutChartOptions({
   title,
   categories,
   series,
-  yAxisTitle,
   xAxisTitle,
   colors = DonnutChartColors,
   legend,
   tooltip,
   total,
   height,
+  yAxis,
 }: HighchartsOptionsParams & { total: number; height?: number }): HighchartsOptionsReturn {
+  const { title: yAxisTitle } = yAxis ?? {};
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
 
   const { amount: formattedTotal } = moneyKernelPort.format({

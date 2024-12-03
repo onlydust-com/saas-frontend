@@ -11,6 +11,8 @@ import {
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
   GetProjectFinancialDetailsBySlugPortResponse,
+  GetProjectProgramsPortParams,
+  GetProjectProgramsPortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectTransactionsCsvPortResponse,
@@ -20,6 +22,8 @@ import {
   GetProjectsPortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
+  UngrantFundsFromProjectPortParams,
+  UngrantFundsFromProjectPortResponse,
   UpdateProjectContributorLabelsPortParams,
   UpdateProjectContributorLabelsPortResponse,
   UploadProjectLogoPortParams,
@@ -48,4 +52,6 @@ export interface ProjectFacadePort {
   unassignContributorFromProjectContribution(
     p: UnassignContributorFromProjectContributionPortParams
   ): UnassignContributorFromProjectContributionPortResponse;
+  getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
+  ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
 }

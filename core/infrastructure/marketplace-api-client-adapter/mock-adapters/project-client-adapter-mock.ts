@@ -33,4 +33,8 @@ export class ProjectClientAdapterMock implements ProjectStoragePort {
   unassignContributorFromProjectContribution = mockHttpStorageResponse<
     ProjectStoragePort["unassignContributorFromProjectContribution"]
   >;
+
+  getProjectPrograms = mockHttpStorageResponse<ProjectStoragePort["getProjectPrograms"]>;
+
+  ungrantProject = mockHttpStorageResponse<ProjectStoragePort["ungrantProject"]>;
 }

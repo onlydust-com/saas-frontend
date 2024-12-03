@@ -1,0 +1,29 @@
+{
+  "filters": {
+    "options": {
+      "types": {
+        "choices": {
+          "DEPOSITED": "Deposited",
+          "ALLOCATED": "Allocated",
+          "UNALLOCATED": "Unallocated"
+        }
+      }
+    }
+  },
+  "export": {
+    "data": {
+      "id": "ID",
+      "timestamp": "Timestamp",
+      "transactionType": "Transaction type",
+      "depositStatus": "Deposit status",
+      "programId": "Program ID",
+      "amount": "Amount",
+      "currency": "Currency",
+      "usdAmount": "USD Amount"
+    },
+    "tooltip": {
+      "success": "Sponsors transactions exported successfully.",
+      "error": "Error exporting sponsors transactions."
+    }
+  }
+}

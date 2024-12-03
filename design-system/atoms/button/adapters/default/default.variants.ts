@@ -6,7 +6,7 @@ export const ButtonDefaultVariants = tv({
     content: "flex w-full flex-row items-center justify-center",
     startIcon: "transition-colors",
     endIcon: "transition-colors",
-    label: "whitespace-nowrap leading-none text-inherit transition-colors",
+    label: "whitespace-nowrap leading-none text-inherit",
     spinner: "",
     spinnerCircle: "",
   },

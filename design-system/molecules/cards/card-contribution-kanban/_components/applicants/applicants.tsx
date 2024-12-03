@@ -7,9 +7,9 @@ export function Applicants({ applicants }: ApplicantsProps) {
 
   return (
     <UserGroup
-      avatarProps={{ size: "xs" }}
+      avatarProps={{ size: "sm" }}
       users={applicants}
-      maxUsers={2}
+      maxUsers={3}
       label={{
         size: "xs",
         weight: "regular",

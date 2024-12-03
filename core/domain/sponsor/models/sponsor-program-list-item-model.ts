@@ -10,9 +10,9 @@ export class SponsorProgramsListItem implements SponsorProgramsListItemInterface
   logoUrl!: SponsorProgramsListItemResponse["logoUrl"];
   name!: SponsorProgramsListItemResponse["name"];
   projectCount!: SponsorProgramsListItemResponse["projectCount"];
+  totalAllocated!: SponsorProgramsListItemResponse["totalAllocated"];
   totalAvailable!: SponsorProgramsListItemResponse["totalAvailable"];
   totalGranted!: SponsorProgramsListItemResponse["totalGranted"];
-  totalReceived!: SponsorProgramsListItemResponse["totalReceived"];
   userCount!: SponsorProgramsListItemResponse["userCount"];
 
   constructor(props: SponsorProgramsListItemResponse) {

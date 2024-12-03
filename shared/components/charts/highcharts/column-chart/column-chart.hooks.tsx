@@ -18,18 +18,21 @@ export function useColumnChartOptions({
   title,
   categories,
   series,
-  yAxisTitle,
   xAxisTitle,
-  colors = ["#EE46BC", "#8400b0", "#9a00d7", "#ff9000"],
+  colors = ["#B654FC", "#4EA7FC", "#9a00d7", "#ff9000"],
   legend,
   tooltip,
+  height,
+  yAxis,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
+  const { title: yAxisTitle, visible: isYAxisVisible = false } = yAxis ?? {};
   const options = useMemo<Options>(
     () => ({
       chart: {
         type: "column",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
+        height,
       },
       credits: {
         enabled: false, // Disable the credits
@@ -48,6 +51,7 @@ export function useColumnChartOptions({
           style: yAxisPrimaryStyle,
         },
         crosshair: true,
+        lineWidth: 0,
       },
       yAxis: {
         min: 0,
@@ -59,6 +63,7 @@ export function useColumnChartOptions({
           style: yAxisPrimaryStyle,
         },
         gridLineColor: "#4C4C5C",
+        visible: isYAxisVisible,
       },
       legend: {
         ...legend,
@@ -76,7 +81,7 @@ export function useColumnChartOptions({
         positioner(labelWidth, _labelHeight, point) {
           const chart = this.chart;
           const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = 24; // Position above the point
+          const y = -90; // Position above the point
 
           return { x, y };
         },

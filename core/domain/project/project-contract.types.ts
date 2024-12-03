@@ -2,6 +2,7 @@ import { ProjectContributorLabelsInterface } from "@/core/domain/project/models/
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
+import { ProjectProgramListItemInterface } from "@/core/domain/project/models/project-program-list-item";
 import { ProjectTransactionInterface } from "@/core/domain/project/models/project-transaction-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
@@ -165,3 +166,32 @@ export type UnassignContributorFromProjectContributionPortParams = HttpClientPar
 }>;
 
 export type UnassignContributorFromProjectContributionPortResponse = HttpStorageResponse;
+
+/* ------------------------------ Get Project Programs ------------------------------ */
+
+export type GetProjectProgramsResponse = components["schemas"]["ProjectProgramPageResponse"];
+export type GetProjectProgramsModel = Omit<GetProjectProgramsResponse, "programs"> & {
+  programs: ProjectProgramListItemInterface[];
+};
+
+type GetProjectProgramsPathParams = operations["getProjectPrograms"]["parameters"]["path"];
+type GetProjectProgramsQueryParams = operations["getProjectPrograms"]["parameters"]["query"];
+
+export type GetProjectProgramsPortParams = HttpClientParameters<{
+  PathParams: GetProjectProgramsPathParams;
+  QueryParams: GetProjectProgramsQueryParams;
+}>;
+
+export type GetProjectProgramsPortResponse = HttpStorageResponse<GetProjectProgramsModel>;
+
+/* ---------------------------- Ungrant project --------------------------- */
+
+export type UngrantFundsFromProjectBody = components["schemas"]["UngrantRequest"];
+
+type UngrantFundsFromProjectPathParams = operations["ungrantFundsFromProject"]["parameters"]["path"];
+
+export type UngrantFundsFromProjectPortParams = HttpClientParameters<{
+  PathParams: UngrantFundsFromProjectPathParams;
+}>;
+
+export type UngrantFundsFromProjectPortResponse = HttpStorageResponse;

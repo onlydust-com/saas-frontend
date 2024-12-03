@@ -7,9 +7,9 @@ export function Contributors({ contributors }: ContributorsProps) {
 
   return (
     <UserGroup
-      avatarProps={{ size: "xs" }}
+      avatarProps={{ size: "sm" }}
       users={contributors}
-      maxUsers={2}
+      maxUsers={3}
       label={{
         size: "xs",
         weight: "regular",

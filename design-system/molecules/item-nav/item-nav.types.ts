@@ -20,7 +20,6 @@ export interface ItemNavPort extends PropsWithChildren {
   iconProps: IconPort;
   translate?: TranslateProps;
   isDisabled?: boolean;
-  isFolded?: boolean;
   isActive?: boolean;
   onClick?: () => void;
   isComingSoon?: boolean;

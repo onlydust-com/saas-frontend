@@ -1,7 +1,5 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
-
 import { useGrantListSidePanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
@@ -30,17 +28,14 @@ export function GrantButton({ programId }: { programId: string }) {
   const isDisabled = isLoading || isError || !program?.totalAvailable.totalUsdEquivalent;
 
   return (
-    <Tooltip content={<Translate token={"programs:details.projects.grant.tooltip"} />} enabled={isDisabled}>
+    <Tooltip content={<Translate token={"programs:details.actions.grant.tooltip"} />} enabled={isDisabled}>
       <Button
         variant={"primary"}
-        endIcon={{ component: ChevronRight }}
-        isTextButton
-        size={"md"}
-        onClick={() => open()}
+        size={"sm"}
+        onClick={open}
         isDisabled={isDisabled}
-      >
-        <Translate token={"programs:details.projects.grant.button"} />
-      </Button>
+        translate={{ token: "programs:details.actions.grant.button" }}
+      />
     </Tooltip>
   );
 }

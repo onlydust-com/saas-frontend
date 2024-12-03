@@ -2,15 +2,18 @@ import { ProgramListItem } from "@/core/domain/program/models/program-list-item-
 import { Program } from "@/core/domain/program/models/program-model";
 import { ProgramProjectListItem } from "@/core/domain/program/models/program-project-list-item-model";
 import { ProgramProject } from "@/core/domain/program/models/program-project-model";
+import { ProgramSponsorListItem } from "@/core/domain/program/models/program-sponsor-list-item";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
 import {
   EditProgramBody,
   GetProgramProjectResponse,
   GetProgramProjectsResponse,
   GetProgramResponse,
+  GetProgramSponsorsResponse,
   GetProgramTransactionsResponse,
   GetProgramsResponse,
   GrantBudgetToProjectBody,
+  UnallocateFundsFromProgramBody,
   UploadProgramLogoResponse,
 } from "@/core/domain/program/program-contract.types";
 import { TransactionListItem } from "@/core/domain/transaction/models/transaction-list-item-model";
@@ -30,6 +33,8 @@ export class ProgramClientAdapter implements ProgramStoragePort {
     getProgramProject: "programs/:programId/projects/:projectId",
     uploadProgramLogo: "programs/logos",
     editProgram: "programs/:programId",
+    unallocateProgram: "programs/:programId/unallocate",
+    getProgramSponsors: "programs/:programId/sponsors",
   } as const;
 
   getProgramById = ({ pathParams }: FirstParameter<ProgramStoragePort["getProgramById"]>) => {
@@ -234,6 +239,51 @@ export class ProgramClientAdapter implements ProgramStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  unallocateProgram = ({ pathParams }: FirstParameter<ProgramStoragePort["unallocateProgram"]>) => {
+    const path = this.routes["unallocateProgram"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UnallocateFundsFromProgramBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProgramSponsors = ({ pathParams, queryParams }: FirstParameter<ProgramStoragePort["getProgramSponsors"]>) => {
+    const path = this.routes["getProgramSponsors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProgramSponsorsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        sponsors: data.sponsors.map(sponsor => new ProgramSponsorListItem(sponsor)),
+      };
+    };
 
     return {
       request,

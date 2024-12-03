@@ -1,6 +1,8 @@
+import { Github } from "lucide-react";
 import dynamic from "next/dynamic";
 import { ElementType } from "react";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
@@ -17,6 +19,7 @@ import { CardContributionKanbanNextUiVariants } from "@/design-system/molecules/
 import { CardContributionKanbanPort } from "@/design-system/molecules/cards/card-contribution-kanban/card-contribution-kanban.types";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
@@ -38,16 +41,44 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   languages,
   repo,
   actions,
-  showActions = true,
   onClick,
   size = "lg",
   background = "secondary",
   border = "primary",
-  endContent,
+  githubHtmlUrl,
+  customContent,
   ...restProps
 }: CardContributionKanbanPort<C>) {
   const Component = as || "div";
   const slots = CardContributionKanbanNextUiVariants();
+
+  function renderHeader() {
+    return (
+      <header className="flex w-full justify-between gap-md">
+        <div className="flex flex-col gap-lg">
+          <Typo
+            htmlProps={{ title: githubTitle }}
+            size="xs"
+            weight="medium"
+            classNames={{
+              base: "text-wrap line-clamp-2",
+            }}
+          >
+            <Emoji>{githubTitle}</Emoji>
+          </Typo>
+
+          <div className="flex items-center gap-md empty:hidden">
+            <LastUpdatedAt lastUpdatedAt={lastUpdatedAt} />
+            <RewardUsdAmount rewardUsdAmount={rewardUsdAmount} />
+          </div>
+        </div>
+
+        <div>
+          <ContributionBadge type={type} githubStatus={githubStatus} number={githubNumber} />
+        </div>
+      </header>
+    );
+  }
 
   function renderUsers() {
     if (applicants?.length) {
@@ -77,24 +108,38 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
     return null;
   }
 
-  function renderFooter() {
-    if (!githubLabels?.length && !languages?.length && !repo && !actions?.length && !endContent) {
-      return null;
-    }
+  function renderIssues() {
+    return <LinkedIssues linkedIssues={linkedIssues} />;
+  }
 
+  function renderTags() {
     return (
-      <footer className={"flex flex-wrap items-center justify-between gap-lg overflow-hidden"}>
-        <div className={"flex flex-wrap items-center gap-sm empty:hidden"}>
-          <GithubLabels githubLabels={githubLabels} />
-          <Languages languages={languages} />
-          <Repo repo={repo} />
-        </div>
+      <div className="flex flex-wrap items-center gap-sm empty:hidden">
+        <Repo repo={repo} />
+        <GithubLabels githubLabels={githubLabels} />
+        <Languages languages={languages} />
+      </div>
+    );
+  }
 
-        <div className="ml-auto">
-          {actions?.length && showActions ? <ButtonGroup buttons={actions} size={"xs"} /> : null}
+  function renderFooter() {
+    return (
+      <footer className="flex items-center justify-between gap-md">
+        {actions?.length ? <ButtonGroup buttons={actions} size="xs" /> : null}
+        {customContent}
 
-          {endContent}
-        </div>
+        {!actions?.length && !customContent ? <div /> : null}
+
+        <Button
+          size="xs"
+          variant="secondary"
+          as={BaseLink}
+          iconOnly
+          htmlProps={{ href: githubHtmlUrl, target: "_blank" }}
+          startIcon={{
+            component: Github,
+          }}
+        />
       </footer>
     );
   }
@@ -104,42 +149,20 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
       as={Component}
       {...restProps}
       classNames={{
-        base: cn(slots.base(), classNames?.base, { "cursor-pointer": Boolean(onClick) }),
+        base: cn(slots.base(), classNames?.base, {
+          "cursor-pointer": Boolean(onClick),
+        }),
       }}
       size={size}
       background={background}
       border={border}
       onClick={onClick}
     >
-      <header className={"flex w-full items-start justify-between gap-lg overflow-hidden"}>
-        <Typo
-          htmlProps={{ title: githubTitle }}
-          size={"xs"}
-          weight={"medium"}
-          classNames={{
-            base: "text-wrap line-clamp-2",
-          }}
-        >
-          <Emoji>{githubTitle}</Emoji>
-        </Typo>
-
-        <div>
-          <ContributionBadge type={type} githubStatus={githubStatus} number={githubNumber} />
-        </div>
-      </header>
-
-      <div className={"grid gap-xl"}>
-        <div className={"flex items-center gap-md empty:hidden"}>
-          <LastUpdatedAt lastUpdatedAt={lastUpdatedAt} />
-          <RewardUsdAmount rewardUsdAmount={rewardUsdAmount} />
-        </div>
-
-        {renderUsers()}
-
-        <LinkedIssues linkedIssues={linkedIssues} />
-
-        {renderFooter()}
-      </div>
+      {renderHeader()}
+      {renderUsers()}
+      {renderIssues()}
+      {renderTags()}
+      {renderFooter()}
     </Paper>
   );
 }

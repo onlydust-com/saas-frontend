@@ -7,6 +7,10 @@ import enLinkContribution from "@/shared/panels/_flows/reward-flow/_panels/link-
 import enSingleContributionSelection from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/_translations/single-contribution-selection.en.json";
 import enSingleContributionValidation from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_translations/single-contribution-validation.en.json";
 import enRewardFlow from "@/shared/panels/_flows/reward-flow/_translations/reward-flow.en.json";
+import enUnallocateAmountSelection from "@/shared/panels/_flows/unallocate-flow/_panels/amount-selection/_translations/amount-selection.en.json";
+import enUnallocateSponsorSelection from "@/shared/panels/_flows/unallocate-flow/_panels/sponsor-selection/_translations/sponsor-selection.en.json";
+import enUngrantAmountSelection from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/_translations/amount-selection.en.json";
+import enUngrantProgramSelection from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/_translations/program-selection.en.json";
 import enAllocateProgram from "@/shared/panels/allocate-program-sidepanel/_translations/allocate-program-sidepanel.en.json";
 import enContribution from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.en.json";
 import enContributor from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.en.json";
@@ -14,6 +18,7 @@ import enCurrencyList from "@/shared/panels/currency-list-sidepanel/_translation
 import enCurrencyNetwork from "@/shared/panels/currency-network-sidepanel/_translations/currency-network-sidepanel.en.json";
 import enDepositSummary from "@/shared/panels/deposit-summary-sidepanel/_translations/deposit-summary-sidepanel.en.json";
 import enDepositTransaction from "@/shared/panels/deposit-transaction-sidepanel/_translations/deposit-transaction-sidepanel.en.json";
+import enExportCsv from "@/shared/panels/export-csv-sidepanel/_translations/export-csv-sidepanel.en.json";
 import enFinancialDetail from "@/shared/panels/financial-detail-sidepanel/_translations/financial-detail-sidepanel.en.json";
 import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/program-list-sidepanel.en.json";
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
@@ -45,5 +50,10 @@ export const enPanelsTranslation = {
     singleContributionValidation: enSingleContributionValidation,
     rewardFlow: enRewardFlow,
     requestPaymentFlow: enRequestPaymentFlow,
+    exportCsv: enExportCsv,
+    unallocateAmountSelection: enUnallocateAmountSelection,
+    unallocateSponsorSelection: enUnallocateSponsorSelection,
+    ungrantProgramSelection: enUngrantProgramSelection,
+    ungrantAmountSelection: enUngrantAmountSelection,
   },
 };

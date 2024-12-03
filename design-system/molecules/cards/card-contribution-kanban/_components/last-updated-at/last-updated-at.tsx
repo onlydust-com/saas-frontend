@@ -13,7 +13,7 @@ export function LastUpdatedAt({ lastUpdatedAt }: LastUpdatedAtProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   return (
-    <Typo size={"xs"} classNames={{ base: "flex gap-sm" }} color={"tertiary"}>
+    <Typo size="xs" classNames={{ base: "flex items-center gap-sm" }} color="tertiary">
       <Icon component={Clock} />
       {dateKernelPort.formatDistanceToNow(new Date(lastUpdatedAt))}
     </Typo>

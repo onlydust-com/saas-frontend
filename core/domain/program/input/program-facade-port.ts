@@ -7,6 +7,8 @@ import {
   GetProgramProjectPortResponse,
   GetProgramProjectsPortParams,
   GetProgramProjectsPortResponse,
+  GetProgramSponsorsPortParams,
+  GetProgramSponsorsPortResponse,
   GetProgramTransactionsCsvPortResponse,
   GetProgramTransactionsPortParams,
   GetProgramTransactionsPortResponse,
@@ -14,6 +16,8 @@ import {
   GetProgramsPortResponse,
   GrantBudgetToProjectPortParams,
   GrantBudgetToProjectPortResponse,
+  UnallocateFundsFromProgramPortParams,
+  UnallocateFundsFromProgramPortResponse,
   UploadProgramLogoPortParams,
   UploadProgramLogoPortResponse,
 } from "../program-contract.types";
@@ -28,4 +32,6 @@ export interface ProgramFacadePort {
   getProgramProject(p: GetProgramProjectPortParams): GetProgramProjectPortResponse;
   uploadProgramLogo(p: UploadProgramLogoPortParams): UploadProgramLogoPortResponse;
   editProgram(p: EditProgramPortParams): EditProgramPortResponse;
+  unallocateProgram(p: UnallocateFundsFromProgramPortParams): UnallocateFundsFromProgramPortResponse;
+  getProgramSponsors(p: GetProgramSponsorsPortParams): GetProgramSponsorsPortResponse;
 }

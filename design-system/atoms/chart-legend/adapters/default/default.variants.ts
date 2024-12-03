@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ChartLegendDefaultVariants = tv({
   slots: {
-    base: "group flex items-center gap-2 overflow-hidden",
+    base: "group flex items-center gap-sm overflow-hidden",
     square: "rounded",
     label: "text-text-1",
   },
@@ -16,6 +16,9 @@ export const ChartLegendDefaultVariants = tv({
       senary: { square: "bg-chart-senary" },
       septenary: { square: "bg-chart-septenary" },
       octonary: { square: "bg-chart-octonary" },
+      "areaspline-primary": { square: "bg-chart-areaspline-primary" },
+      "areaspline-secondary": { square: "bg-chart-areaspline-secondary" },
+      "areaspline-tertiary": { square: "bg-chart-areaspline-tertiary" },
     },
     size: {
       s: {
