@@ -25,24 +25,11 @@ export function useUnallocateProgram() {
 
   const sponsorId = sponsor?.id ?? "";
 
-  const {
-    data: program,
-    isLoading: isLoadingProgram,
-    isError: isErrorProgram,
-  } = ProgramReactQueryAdapter.client.useGetProgramById({
-    pathParams: {
-      programId,
-    },
-    options: {
-      enabled: Boolean(programId),
-    },
-  });
-
-  const allBudgets = program?.totalAvailable.totalPerCurrency ?? [];
+  const allBudgets = sponsor?.totalGranted.totalPerCurrency ?? [];
 
   useEffect(() => {
-    if (isPanelOpen && program) {
-      setBudget(program.totalAvailable.totalPerCurrency?.[0]);
+    if (isPanelOpen) {
+      setBudget(allBudgets[0]);
       setAmount("0");
       return;
     }
@@ -52,7 +39,7 @@ export function useUnallocateProgram() {
       setAmount("0");
       return;
     }
-  }, [isPanelOpen, program]);
+  }, [isPanelOpen]);
 
   const { mutate, isPending } = ProgramReactQueryAdapter.client.useUnallocateProgram({
     pathParams: {
@@ -117,8 +104,6 @@ export function useUnallocateProgram() {
     allBudgets,
     handleAmountChange,
     handleBudgetChange,
-    isLoading: isLoadingProgram,
-    isError: isErrorProgram,
     summary: {
       usdConversionRate,
       unallocatedAmount,

@@ -1,7 +1,7 @@
 {
   "title": "Ungrant",
   "summary": {
-    "budgetBalance": "{{budget}} balance",
+    "budgetBalance": "{{budget}} balance from this program",
     "programBalance": "Program balance",
     "currentBalance": "Current balance",
     "ungrant": "Ungrant",
