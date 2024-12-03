@@ -53,10 +53,11 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
 
   const { stats } = data ?? {};
 
-  const { categories, allocatedSeries, grantedSeries, rewardedSeries } = useBudgetInTimeChart(stats);
+  const { categories, allocatedSeries, grantedSeries, rewardedSeries, minTotal } = useBudgetInTimeChart(stats);
 
   const { options } = useAreaSplineChartOptions({
     categories,
+    min: minTotal,
     series: [
       { name: t("financials:details.financial.budgetInTime.legend.allocated"), data: allocatedSeries },
       { name: t("financials:details.financial.budgetInTime.legend.granted"), data: grantedSeries },
@@ -70,9 +71,14 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
           currency: moneyKernelPort.getCurrency("USD"),
         });
 
-        return `<div><span style="color:${this.color}">\u25CF</span> <span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
+        return `<div class='flex gap-sm items-center'>
+                  <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${this.color}'></div> 
+                  <div class='text-typography-secondary'>${this.series.name}</div> 
+                  <div class='font-medium'>${amount} ${code}</div>
+                </div>`;
       },
     },
+    height: 300,
   });
 
   function onChangeRangeType(value: string) {
@@ -83,7 +89,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
     return (
       <Skeleton
         classNames={{
-          base: "w-full min-h-[300px]",
+          base: "w-full min-h-[400px]",
         }}
       />
     );
@@ -100,7 +106,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
 
   return (
     <Paper border={"primary"}>
-      <div className="flex min-h-[300px] flex-col gap-lg">
+      <div className="flex flex-1 flex-col gap-lg">
         <div className="flex items-center justify-between gap-lg">
           <Typo
             weight={"medium"}

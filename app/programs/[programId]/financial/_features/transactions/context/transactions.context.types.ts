@@ -15,6 +15,7 @@ export type TransactionsContextQueryParams = GetBiStatsFinancialsPortParams["que
 export interface TransactionsContextReturn {
   programId: string;
   monthlyTransactions?: GetBiStatsFinancialsResponse;
+  isLoadingTransactions?: boolean;
   queryParams: TransactionsContextQueryParams;
   filters: {
     values: TransactionsContextFilter;

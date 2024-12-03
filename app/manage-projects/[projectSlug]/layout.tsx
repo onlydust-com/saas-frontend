@@ -25,6 +25,7 @@ import { ActionPoolingProvider } from "@/shared/hooks/action-pooling/action-pool
 import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { RewardFlowProvider, useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { UngrantFlowProvider, useUngrantFlow } from "@/shared/panels/_flows/ungrant-flow/ungrant-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
@@ -64,6 +65,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
   const { open: openProject } = useProjectUpdateSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
+  const { open: openUngrantFlow } = useUngrantFlow();
   const canReward = useCanReward(projectSlug);
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
@@ -86,6 +88,21 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     hasAlreadyClosedAlert.current = true;
   }
 
+  function renderUngrantButton() {
+    return (
+      <Button
+        variant={"secondary"}
+        size={"sm"}
+        translate={{ token: "manageProjects:detail.activity.actions.returnFunds" }}
+        classNames={{
+          base: "max-w-full overflow-hidden",
+          label: "whitespace-nowrap text-ellipsis overflow-hidden",
+        }}
+        onClick={openUngrantFlow}
+      />
+    );
+  }
+
   const renderActions = useCallback(() => {
     return (
       <div className="flex items-center gap-lg">
@@ -102,7 +119,12 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
           />
         ) : null}
 
-        {isFinancial ? <TransactionsTrigger /> : null}
+        {isFinancial ? (
+          <>
+            {renderUngrantButton()}
+            <TransactionsTrigger />
+          </>
+        ) : null}
 
         <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
           <Button
@@ -122,55 +144,59 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   }, [projectId, isFinancial, canReward]);
 
   return (
-    <AnimatedColumn className="h-full">
-      <ScrollView className="flex flex-col gap-md">
-        {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+    <>
+      <AnimatedColumn className="h-full">
+        <ScrollView className="flex flex-col gap-md">
+          {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
 
-        <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
+          <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
 
-        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-          <div className="flex h-full flex-col gap-lg">
-            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-              <Tabs
-                variant={"solid"}
-                searchParams={"data-view"}
-                tabs={[
-                  {
-                    id: Views.CONTRIBUTORS,
-                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+            <div className="flex h-full flex-col gap-lg">
+              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+                <Tabs
+                  variant={"solid"}
+                  searchParams={"data-view"}
+                  tabs={[
+                    {
+                      id: Views.CONTRIBUTORS,
+                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                      },
                     },
-                  },
-                  {
-                    id: Views.CONTRIBUTIONS,
-                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                    {
+                      id: Views.CONTRIBUTIONS,
+                      children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                      },
                     },
-                  },
-                  {
-                    id: Views.FINANCIAL,
-                    children: <Translate token={"manageProjects:detail.views.financial"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                    {
+                      id: Views.FINANCIAL,
+                      children: <Translate token={"manageProjects:detail.views.financial"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                      },
                     },
-                  },
-                ]}
-                selectedId={selectedId}
-              />
+                  ]}
+                  selectedId={selectedId}
+                />
 
-              {renderActions()}
-            </header>
+                {renderActions()}
+              </header>
 
-            {children}
-          </div>
-        </PageContent>
-      </ScrollView>
-    </AnimatedColumn>
+              {children}
+            </div>
+          </PageContent>
+        </ScrollView>
+      </AnimatedColumn>
+
+      <FinancialDetailSidepanel footer={renderUngrantButton()} />
+    </>
   );
 }
 
@@ -214,12 +240,13 @@ function ManageProjectsLayout({
       <ActionPoolingProvider interval={2000} limit={4}>
         <GithubPermissionsProvider projectSlug={projectSlug}>
           <RewardFlowProvider projectId={projectId}>
-            <Safe projectSlug={projectSlug}>{children}</Safe>
+            <UngrantFlowProvider projectId={projectId}>
+              <Safe projectSlug={projectSlug}>{children}</Safe>
+            </UngrantFlowProvider>
           </RewardFlowProvider>
         </GithubPermissionsProvider>
       </ActionPoolingProvider>
 
-      <FinancialDetailSidepanel />
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />

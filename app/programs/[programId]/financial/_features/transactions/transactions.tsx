@@ -27,6 +27,7 @@ export function Transactions() {
     programId,
     queryParams,
     monthlyTransactions,
+    isLoadingTransactions,
     filters: {
       count,
       set,
@@ -131,6 +132,7 @@ export function Transactions() {
             monthlyTransactions?.stats.map(({ date, transactionCount }) => ({ date, count: transactionCount })) ?? []
           }
           ContentComponent={TransactionsWrapper}
+          isLoading={isLoadingTransactions}
         />
       </Paper>
 

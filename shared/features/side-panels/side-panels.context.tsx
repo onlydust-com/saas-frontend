@@ -103,11 +103,15 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
 
   function openPanel<T = AnyType>(name: string, panelData?: T, config?: SidePanelConfig) {
     if (openedPanels.includes(name)) {
-      setOpenedPanels(openedPanels.filter(panel => panel !== name));
+      const savedPanels = openedPanels.filter(panel => panel !== name);
+      setOpenedPanels([]);
       setData([...data.filter(([panel]) => panel !== name), [name, panelData]]);
-      setTimeout(() => {
-        setOpenedPanels([...openedPanels, name]);
-      }, SIDE_PANEL_ANIMATION_DURATION * 1000);
+      setTimeout(
+        () => {
+          setOpenedPanels([...savedPanels, name]);
+        },
+        (SIDE_PANEL_ANIMATION_DURATION / 2) * 1000
+      );
     } else {
       setOpenedPanels([...openedPanels, name]);
       setData([...data, [name, panelData]]);

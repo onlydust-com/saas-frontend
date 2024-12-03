@@ -78,7 +78,6 @@ export function ContributorHistogramChart() {
     dateRangeType: period.rangeType,
     timeGroupingType,
     selectedProgramAndEcosystem,
-    yAxis: { title: [t("data:histograms.data.contributors"), splineSeries.name] },
     categories,
     min: minChurnedContributor,
     series: [

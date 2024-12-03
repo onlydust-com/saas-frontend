@@ -27,12 +27,7 @@ export function PrimaryNavigationMobile({ children }: PropsWithChildren) {
     <>
       <div className={"flex items-center justify-between gap-2 pt-xs"}>
         <BaseLink href={NEXT_ROUTER.home.root}>
-          <Logo
-            classNames={{
-              illustration: "min-w-[25px] w-[25px]",
-              wordmark: "min-w-[70px] w-[70px]",
-            }}
-          />
+          <Logo />
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>

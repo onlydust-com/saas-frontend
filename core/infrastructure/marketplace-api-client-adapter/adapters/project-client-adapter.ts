@@ -2,6 +2,7 @@ import { ProjectContributorLabels } from "@/core/domain/project/models/project-c
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { Project } from "@/core/domain/project/models/project-model";
+import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
@@ -15,11 +16,11 @@ import {
   GetProjectProgramsResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
 import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
-import { SponsorProgramsListItem } from "@/core/domain/sponsor/models/sponsor-program-list-item-model";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -43,6 +44,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     unassignContributorFromProjectContribution:
       "projects/:projectId/contributions/:contributionUuid/unassign/:contributorId",
     getProjectPrograms: "projects/:projectId/programs",
+    ungrantProject: "projects/:projectId/ungrant",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -363,9 +365,29 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
       return {
         ...data,
-        programs: data.programs.map(program => new SponsorProgramsListItem(program)),
+        programs: data.programs.map(program => new ProjectProgramListItem(program)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  ungrantProject = ({ pathParams }: FirstParameter<ProjectStoragePort["ungrantProject"]>) => {
+    const path = this.routes["ungrantProject"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UngrantFundsFromProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

@@ -1,5 +1,6 @@
 import { ProgramListItemInterface } from "@/core/domain/program/models/program-list-item-model";
 import { ProgramProjectListItemInterface } from "@/core/domain/program/models/program-project-list-item-model";
+import { ProgramSponsorListItemInterface } from "@/core/domain/program/models/program-sponsor-list-item";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -55,7 +56,8 @@ export type GetProgramTransactionsCsvPortResponse = HttpStorageResponse<Blob>;
 
 /* ------------------------ Get Program Projects ------------------------ */
 
-export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectsPageResponse"];
+export type GetProgramProjectsResponse = components["schemas"]["ProgramProjectPageResponse"];
+
 export type GetProgramProjectsModel = Omit<GetProgramProjectsResponse, "projects"> & {
   projects: ProgramProjectListItemInterface[];
 };
@@ -125,3 +127,21 @@ export type UnallocateFundsFromProgramPortParams = HttpClientParameters<{
 }>;
 
 export type UnallocateFundsFromProgramPortResponse = HttpStorageResponse;
+
+/* ------------------------ Get Program Sponsors ------------------------ */
+
+export type GetProgramSponsorsResponse = components["schemas"]["ProgramSponsorPageResponse"];
+
+export type GetProgramSponsorsModel = Omit<GetProgramSponsorsResponse, "sponsors"> & {
+  sponsors: ProgramSponsorListItemInterface[];
+};
+
+type GetProgramSponsorsPathParams = operations["getProgramSponsors"]["parameters"]["path"];
+type GetProgramSponsorsQueryParams = operations["getProgramSponsors"]["parameters"]["query"];
+
+export type GetProgramSponsorsPortParams = HttpClientParameters<{
+  QueryParams: GetProgramSponsorsQueryParams;
+  PathParams: GetProgramSponsorsPathParams;
+}>;
+
+export type GetProgramSponsorsPortResponse = HttpStorageResponse<GetProgramSponsorsModel>;

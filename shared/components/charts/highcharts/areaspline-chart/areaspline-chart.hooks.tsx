@@ -28,6 +28,7 @@ export function useAreaSplineChartOptions({
   tooltip,
   height,
   yAxis,
+  min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const { title: yAxisTitle, visible: isYAxisVisible = true } = yAxis ?? {};
 
@@ -57,7 +58,7 @@ export function useAreaSplineChartOptions({
         lineWidth: 0,
       },
       yAxis: {
-        min: 0,
+        min: min ?? 0,
         title: {
           text: yAxisTitle?.[0],
           style: yAxisPrimaryStyle,
@@ -126,7 +127,7 @@ export function useAreaSplineChartOptions({
         };
       }),
     }),
-    [title, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip]
+    [title, categories, series, yAxisTitle, xAxisTitle, colors, legend, tooltip, min]
   );
 
   return { options };

@@ -81,7 +81,7 @@ export function useColumnChartOptions({
         positioner(labelWidth, _labelHeight, point) {
           const chart = this.chart;
           const x = point.plotX + chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
-          const y = 24; // Position above the point
+          const y = -90; // Position above the point
 
           return { x, y };
         },

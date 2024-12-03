@@ -120,9 +120,9 @@ export function ProgramsTable({ sponsorId }: ProgramsTableProps) {
         );
       },
     }),
-    columnHelper.accessor("totalReceived", {
+    columnHelper.accessor("totalAllocated", {
       enableSorting: false,
-      header: () => <Translate token={"financials:details.programs.table.columns.received"} />,
+      header: () => <Translate token={"financials:details.programs.table.columns.allocated"} />,
       cell: info => {
         const { amount, code } = moneyKernelPort.format({
           amount: info?.getValue()?.totalUsdEquivalent,
