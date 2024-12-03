@@ -28,13 +28,13 @@ export function GrantButton({ programId }: { programId: string }) {
   const isDisabled = isLoading || isError || !program?.totalAvailable.totalUsdEquivalent;
 
   return (
-    <Tooltip content={<Translate token={"programs:details.grant.tooltip"} />} enabled={isDisabled}>
+    <Tooltip content={<Translate token={"programs:details.actions.grant.tooltip"} />} enabled={isDisabled}>
       <Button
         variant={"primary"}
         size={"sm"}
         onClick={open}
         isDisabled={isDisabled}
-        translate={{ token: "programs:details.grant.button" }}
+        translate={{ token: "programs:details.actions.grant.button" }}
       />
     </Tooltip>
   );

@@ -7,6 +7,7 @@ export enum CardBudgetType {
   GRANTED = "GRANTED",
   RECEIVED = "RECEIVED",
   UNGRANTED = "UNGRANTED",
+  UNALLOCATED = "UNALLOCATED",
 }
 
 interface Variants {

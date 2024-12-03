@@ -40,6 +40,7 @@ export function CardBudgetDefaultAdapter<C extends ElementType = "div">({
     [CardBudgetType.GRANTED]: ArrowRight,
     [CardBudgetType.RECEIVED]: ArrowDown,
     [CardBudgetType.UNGRANTED]: Undo2,
+    [CardBudgetType.UNALLOCATED]: Undo2,
   };
 
   return (
