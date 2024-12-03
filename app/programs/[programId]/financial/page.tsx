@@ -4,7 +4,6 @@ import { BudgetAvailableCards } from "@/app/programs/[programId]/financial/_feat
 
 import { BudgetInTime } from "@/shared/charts/budget-in-time/budget-in-time";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 
 import { TransactionsContextProvider } from "./_features/transactions/context/transactions.context";
 import { Transactions } from "./_features/transactions/transactions";
@@ -24,8 +23,6 @@ export default function ProgramsFinancialPage({ params: { programId } }: { param
           </TransactionsContextProvider>
         </div>
       </div>
-
-      <FinancialDetailSidepanel />
     </ScrollView>
   );
 }
