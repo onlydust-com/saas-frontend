@@ -24,10 +24,10 @@ export function useUngrantProgram() {
   const { projectId, program } = useUngrantFlow();
 
   const {
-    data: projectFinancialDetails,
-    isLoading: isLoadingProjectFinancialDetails,
-    isError: isErrorProjectFinancialDetails,
-  } = ProjectReactQueryAdapter.client.useGetProjectFinancialDetailsById({
+    data: project,
+    isLoading: isLoadingProjectDetails,
+    isError: isErrorProjectDetails,
+  } = ProjectReactQueryAdapter.client.useGetProjectById({
     pathParams: {
       projectId,
     },
@@ -36,11 +36,11 @@ export function useUngrantProgram() {
     },
   });
 
-  const allBudgets = projectFinancialDetails?.totalAvailable.totalPerCurrency ?? [];
+  const allBudgets = program?.totalGranted?.totalPerCurrency ?? [];
 
   useEffect(() => {
-    if (isPanelOpen && projectFinancialDetails) {
-      setBudget(projectFinancialDetails.totalAvailable.totalPerCurrency?.[0]);
+    if (isPanelOpen) {
+      setBudget(allBudgets[0]);
       setAmount("0");
       return;
     }
@@ -50,7 +50,7 @@ export function useUngrantProgram() {
       setAmount("0");
       return;
     }
-  }, [isPanelOpen, projectFinancialDetails]);
+  }, [isPanelOpen]);
 
   const { mutate, isPending } = ProjectReactQueryAdapter.client.useUngrantProject({
     pathParams: {
@@ -77,7 +77,7 @@ export function useUngrantProgram() {
     invalidateTagParams: {
       project: {
         pathParams: {
-          projectSlug: projectFinancialDetails?.slug ?? "",
+          projectSlug: project?.slug ?? "",
         },
       },
     },
@@ -115,8 +115,8 @@ export function useUngrantProgram() {
     allBudgets,
     handleAmountChange,
     handleBudgetChange,
-    isLoading: isLoadingProjectFinancialDetails,
-    isError: isErrorProjectFinancialDetails,
+    isLoading: isLoadingProjectDetails,
+    isError: isErrorProjectDetails,
     summary: {
       usdConversionRate,
       ungrantedAmount,
