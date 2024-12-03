@@ -47,9 +47,11 @@ export type GetBiProjectsStatsPortResponse = HttpStorageResponse<GetBiProjectsSt
 
 /* --------------------- Get Bi World map --------------------- */
 
-export type GetBiWorldMapResponse = components["schemas"]["BiWorldMapItemResponse"][];
+export type GetBiWorldMapResponse = components["schemas"]["BiWorldMapListResponse"];
 
-export type GetBiWorldMapModel = BiWorldMapInterface[];
+export type GetBiWorldMapModel = Omit<GetBiWorldMapResponse, "countries"> & {
+  countries: BiWorldMapInterface[];
+};
 
 type GetBiWorldMapQueryParams = operations["getBIWorldMap"]["parameters"]["query"];
 

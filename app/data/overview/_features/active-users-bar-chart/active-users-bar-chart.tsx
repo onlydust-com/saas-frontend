@@ -24,14 +24,14 @@ export function ActiveUsersBarChart() {
   });
 
   const { options } = useBarChartOptions({
-    categories: data?.map(item => item.countryName) ?? [],
+    categories: data?.countries?.map(item => item.countryName) ?? [],
     series: [
       {
         name: t("data:activeUsers.legends.contributors"),
-        data: data?.map(item => item.value) ?? [],
+        data: data?.countries?.map(item => item.value) ?? [],
       },
     ],
-    height: data?.length ? data?.length * 36 : 300,
+    height: data?.countries?.length ? data?.countries?.length * 36 : 300,
   });
 
   if (isLoading) {
