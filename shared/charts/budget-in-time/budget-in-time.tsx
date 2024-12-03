@@ -1,5 +1,5 @@
 import { Calendar, ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
@@ -53,7 +53,16 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
 
   const { stats } = data ?? {};
 
-  const { categories, allocatedSeries, grantedSeries, rewardedSeries, minTotal } = useBudgetInTimeChart(stats);
+  const {
+    categories,
+    allocatedSeries,
+    grantedSeries,
+    rewardedSeries,
+    minTotal,
+    allocatedTotal,
+    grantedTotal,
+    rewardedTotal,
+  } = useBudgetInTimeChart(stats);
 
   const { options } = useAreaSplineChartOptions({
     categories,
@@ -81,6 +90,19 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
     height: 300,
   });
 
+  const renderChart = useCallback(() => {
+    if (!allocatedTotal && !grantedTotal && !rewardedTotal) {
+      return (
+        <EmptyState
+          titleTranslate={{ token: "financials:details.financial.budgetInTime.empty.title" }}
+          descriptionTranslate={{ token: "financials:details.financial.budgetInTime.empty.description" }}
+        />
+      );
+    }
+
+    return <HighchartsDefault options={options} />;
+  }, [allocatedTotal, grantedTotal, rewardedTotal, options]);
+
   function onChangeRangeType(value: string) {
     setRangeType(value as DateRangeType);
   }
@@ -91,15 +113,6 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
         classNames={{
           base: "w-full min-h-[400px]",
         }}
-      />
-    );
-  }
-
-  if (!allocatedSeries.length && !grantedSeries.length && !rewardedSeries.length) {
-    return (
-      <EmptyState
-        titleTranslate={{ token: "financials:details.financial.budgetInTime.empty.title" }}
-        descriptionTranslate={{ token: "financials:details.financial.budgetInTime.empty.description" }}
       />
     );
   }
@@ -132,7 +145,7 @@ export function BudgetInTime({ sponsorId, programId, projectId, projectSlug }: B
           </Menu>
         </div>
 
-        <HighchartsDefault options={options} />
+        {renderChart()}
 
         <div className={"flex items-center gap-xl"}>
           <ChartLegend color="areaspline-primary">
