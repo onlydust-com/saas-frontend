@@ -1,6 +1,6 @@
 {
   "title": "Programs",
-  "empty": {
-    "title": "No Programs"
+  "search": {
+    "placeholder": "Search programs"
   }
 }
