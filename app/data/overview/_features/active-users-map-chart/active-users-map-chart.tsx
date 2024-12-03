@@ -29,7 +29,7 @@ export function ActiveUsersMapChart() {
     series: [
       {
         name: t("data:activeUsers.legends.contributors"),
-        data: data?.map(item => item.getChartFormattedData(item)) ?? [],
+        data: data?.countries?.map(item => item.getChartFormattedData(item)) ?? [],
       },
     ],
     height: 300,
