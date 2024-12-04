@@ -28,7 +28,7 @@ function DataOverviewPage() {
           </Paper>
         </div>
         <div className="flex flex-1 flex-col gap-lg">
-          <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg h-full" }}>
+          <Paper border={"primary"} classNames={{ base: "flex flex-col gap-lg h-full w-full overflow-hidden" }}>
             <Typo
               weight={"medium"}
               size={"md"}
