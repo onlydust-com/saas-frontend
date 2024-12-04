@@ -27,7 +27,6 @@ import { UngrantFlowProvider, useUngrantFlow } from "@/shared/panels/_flows/ungr
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
-import { ProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel";
 import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel.hooks";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
@@ -258,7 +257,6 @@ function ManageProjectsLayout({
         </GithubPermissionsProvider>
       </ActionPoolingProvider>
 
-      <ProjectTransactionsSidepanel projectSlug={projectSlug} />
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
