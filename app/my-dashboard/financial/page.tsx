@@ -4,6 +4,7 @@ import { BudgetAvailableCards } from "@/app/my-dashboard/financial/_features/bud
 import { RewardsTable } from "@/app/my-dashboard/financial/_features/rewards-table/rewards-table";
 
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { MyRewardsTransactionsSidepanel } from "@/shared/panels/my-rewards-transactions-sidepanel/my-rewards-transactions-sidepanel";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 
 export default function MyDashboardFinancialPage() {
@@ -16,6 +17,7 @@ export default function MyDashboardFinancialPage() {
 
       <FinancialDetailSidepanel />
       <RewardDetailSidepanel />
+      <MyRewardsTransactionsSidepanel />
     </>
   );
 }
