@@ -1,0 +1,38 @@
+{
+  "title": "Transactions",
+  "empty": {
+    "title": "No transactions found",
+    "description": "No transactions found with the selected filters"
+  },
+  "filters": {
+    "options": {
+      "types": {
+        "choices": {
+          "GRANTED": "Granted",
+          "REWARDED": "Rewarded",
+          "UNGRANTED": "Ungranted",
+          "UNALLOCATED": "Unallocated"
+        }
+      }
+    }
+  },
+  "export": {
+    "title": "Export CSV",
+    "data": {
+      "columns": {
+        "id": "ID",
+        "timestamp": "Timestamp",
+        "transactionType": "Transaction type",
+        "depositStatus": "Deposit status",
+        "programId": "Program ID",
+        "amount": "Amount",
+        "currency": "Currency",
+        "usdAmount": "USD Amount"
+      }
+    },
+    "tooltip": {
+      "success": "Project transactions exported successfully.",
+      "error": "Error exporting project transactions."
+    }
+  }
+}

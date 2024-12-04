@@ -23,6 +23,7 @@ import enFinancialDetail from "@/shared/panels/financial-detail-sidepanel/_trans
 import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/program-list-sidepanel.en.json";
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
+import enProjectTransactions from "@/shared/panels/project-transactions-sidepanel/_translations/project-transactions-sidepanel.en.json";
 import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
 import enRewardDetail from "@/shared/panels/reward-detail-sidepanel/_translations/reward-detail-sidepanel.en.json";
 
@@ -55,5 +56,6 @@ export const enPanelsTranslation = {
     unallocateSponsorSelection: enUnallocateSponsorSelection,
     ungrantProgramSelection: enUngrantProgramSelection,
     ungrantAmountSelection: enUngrantAmountSelection,
+    projectTransactions: enProjectTransactions,
   },
 };
