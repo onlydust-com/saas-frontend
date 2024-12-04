@@ -44,6 +44,7 @@ export function useSankeyChartOptions({
       },
       plotOptions: {
         sankey: {
+          cursor: "pointer",
           events: {
             click(e: SeriesClickEventObject) {
               if (e.point.options.from) {
