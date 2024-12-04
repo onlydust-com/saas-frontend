@@ -8,7 +8,7 @@
     "title": "Period"
   },
   "search": {
-    "placeholder": "Search a transaction..."
+    "placeholder": "Search transactions"
   },
   "export": {
     "button": "Export CSV"

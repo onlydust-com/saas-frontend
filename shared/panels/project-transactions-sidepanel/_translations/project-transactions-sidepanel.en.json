@@ -1,37 +1,24 @@
 {
-  "transactions": {
-    "title": "Transactions",
-    "export": "Export CSV",
-    "search": {
-      "placeholder": "Search program..."
-    },
-    "empty": {
-      "title": "No transactions found",
-      "description": "No transactions found with the selected filters"
-    }
+  "title": "Transactions",
+  "empty": {
+    "title": "No transactions found",
+    "description": "No transactions found with the selected filters"
   },
   "filters": {
-    "title": "Add Filters",
-    "clear": "Clear all",
     "options": {
       "types": {
-        "title": "Types",
         "choices": {
           "GRANTED": "Granted",
           "REWARDED": "Rewarded",
           "UNGRANTED": "Ungranted",
           "UNALLOCATED": "Unallocated"
         }
-      },
-      "period": {
-        "title": "Period"
       }
     }
   },
   "export": {
     "title": "Export CSV",
     "data": {
-      "title": "Data",
       "columns": {
         "id": "ID",
         "timestamp": "Timestamp",
@@ -43,6 +30,9 @@
         "usdAmount": "USD Amount"
       }
     },
-    "button": "Export"
+    "tooltip": {
+      "success": "Project transactions exported successfully.",
+      "error": "Error exporting project transactions."
+    }
   }
 }
