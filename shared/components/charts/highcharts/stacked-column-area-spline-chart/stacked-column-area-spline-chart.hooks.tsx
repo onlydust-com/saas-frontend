@@ -68,7 +68,7 @@ export function useStackedColumnAreaSplineChartOptions({
         type: "column",
         backgroundColor: "transparent",
         plotBackgroundColor: "rgba(255, 255, 255, 0)",
-        spacingTop: 40,
+        spacingTop: 0,
         alignThresholds: true,
       },
       credits: {
