@@ -18,7 +18,7 @@ import { ProjectHistogramChart } from "./_features/project-histogram-chart/proje
 function DataOverviewPage() {
   return (
     <ScrollView>
-      <div className={"flex h-full flex-1 flex-row justify-between gap-3 overflow-hidden"}>
+      <div className={"flex h-full flex-1 flex-row justify-between gap-3"}>
         <div className={"flex flex-1 flex-col gap-3"}>
           <Paper border={"primary"}>
             <ProjectHistogramChart />
