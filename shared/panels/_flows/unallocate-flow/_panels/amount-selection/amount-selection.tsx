@@ -1,10 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { AccordionLoading } from "@/design-system/molecules/accordion";
-import { CardProjectLoading } from "@/design-system/molecules/cards/card-project";
 
-import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";
-import { AmountSelectorLoading } from "@/shared/features/amount-selector/amount-selector.loading";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -22,35 +18,10 @@ export function AmountSelection() {
   const { Panel } = useSidePanel({ name });
   const { sponsor } = useUnallocateFlow();
 
-  const {
-    amount,
-    budget,
-    allBudgets,
-    handleAmountChange,
-    handleBudgetChange,
-    isLoading,
-    isError,
-    summary,
-    unallocate,
-  } = useUnallocateProgram();
+  const { amount, budget, allBudgets, handleAmountChange, handleBudgetChange, summary, unallocate } =
+    useUnallocateProgram();
 
   function renderBody() {
-    if (isLoading) {
-      return (
-        <div className="flex h-full flex-col gap-3">
-          <CardProjectLoading />
-
-          <AmountSelectorLoading />
-
-          <AccordionLoading />
-        </div>
-      );
-    }
-
-    if (isError) {
-      return <ErrorState />;
-    }
-
     if (!sponsor || !budget) return null;
 
     return (
@@ -114,7 +85,7 @@ export function AmountSelection() {
           size={"md"}
           onClick={() => unallocate.post()}
           isLoading={unallocate.isPending}
-          isDisabled={isLoading || unallocate.newBalanceIsNegative}
+          isDisabled={unallocate.newBalanceIsNegative}
           translate={{ token: "panels:unallocateAmountSelection.unallocate" }}
         />
       </SidePanelFooter>

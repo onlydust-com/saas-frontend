@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import { useGlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter.context";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
@@ -22,8 +20,9 @@ export function ActiveContributorsAlert() {
     },
   });
 
-  const totalContributors = useMemo(() => data?.reduce((acc, item) => acc + item.value, 0) ?? 0, [data]);
-  const totalCountries = useMemo(() => data?.length ?? 0, [data]);
+  const totalContributors = data?.totalContributorCount ?? 0;
+  const totalCountriesWithKyc = data?.totalContributorWithCountryCount ?? 0;
+
   return (
     <Alert
       hasIcon={false}
@@ -35,10 +34,10 @@ export function ActiveContributorsAlert() {
           <Typo
             size={"xs"}
             color={"primary"}
-            translate={{ token: "data:activeUsers.alert.totalContributorsPerCountries" }}
+            translate={{ token: "data:activeUsers.alert.totalContributorsWithBillingProfile" }}
           />
           <Typo variant={"heading"} size={"sm"} color={"primary"}>
-            {totalContributors} / {totalCountries}
+            {totalCountriesWithKyc} / {totalContributors}
           </Typo>
         </Paper>
       }
