@@ -58,6 +58,7 @@ export interface HighchartsOptionsParams {
   min?: number;
   height?: number;
   yAxis?: YAxis;
+  onAction?: (dataSourceId: string) => void;
 }
 
 export interface HighchartsOptionsReturn {

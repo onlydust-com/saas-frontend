@@ -14,24 +14,24 @@ export function buildNodesAndDataForSankey(payload: AnyType) {
   };
 
   // Add sponsor nodes
-  payload.sponsors.forEach((sponsor: AnyType) => {
+  payload.sponsors.map((sponsor: AnyType) => {
     addNode(sponsor.id, sponsor.name, sponsor.color);
   });
 
   // Add program nodes and links
-  payload.programs.forEach((program: AnyType) => {
+  payload.programs.map((program: AnyType) => {
     addNode(program.id, program.name, program.color);
     data.push([program.sponsorId, program.id, program.funding]);
   });
 
   // Add project nodes and links
-  payload.projects.forEach((project: AnyType) => {
+  payload.projects.map((project: AnyType) => {
     addNode(project.id, project.name, project.color);
     data.push([project.programId, project.id, project.funding]);
   });
 
   // Add contributor nodes and links
-  payload.contributors.forEach((contributor: AnyType) => {
+  payload.contributors.map((contributor: AnyType) => {
     addNode(contributor.id, contributor.name);
     data.push([contributor.projectId, contributor.id, contributor.amount]);
   });

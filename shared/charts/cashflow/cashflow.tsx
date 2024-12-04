@@ -1,7 +1,6 @@
 import { Calendar, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-import { bootstrap } from "@/core/bootstrap";
 import { DateRangeType } from "@/core/kernel/date/date-facade-port";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -65,18 +64,44 @@ const mockData = {
 
 export function Cashflow() {
   const rangeMenu = useRangeSelectOptions();
-  const dateKernelPort = bootstrap.getDateKernelPort();
+  // const dateKernelPort = bootstrap.getDateKernelPort();
   const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
+  const [filteredData, setFilteredData] = useState(mockData);
 
-  const { nodes, data } = buildNodesAndDataForSankey(mockData);
+  const { nodes, data } = buildNodesAndDataForSankey(filteredData);
 
-  const { options } = useSankeyChartOptions({
-    series: [{ nodes, data }],
-  });
+  function handleOnChartAction(dataSourceId: string) {
+    // TODO temp code to simulate data filtering, this will work as other charts with query params passed to API
+
+    const filteredSponsors = mockData.sponsors.filter(sponsor => sponsor.id === dataSourceId);
+    const filteredPrograms = mockData.programs.filter(program =>
+      filteredSponsors.length > 0 ? program.sponsorId === dataSourceId : program.id === dataSourceId
+    );
+    const filteredProjects = mockData.projects.filter(project =>
+      filteredPrograms.length > 0
+        ? filteredPrograms.some(program => program.id === project.programId)
+        : project.id === dataSourceId
+    );
+    const filteredContributors = mockData.contributors.filter(contributor =>
+      filteredProjects.some(project => project.id === contributor.projectId)
+    );
+
+    setFilteredData({
+      sponsors: filteredSponsors.length > 0 ? filteredSponsors : mockData.sponsors,
+      programs: filteredPrograms,
+      projects: filteredProjects,
+      contributors: filteredContributors,
+    });
+  }
 
   function onChangeRangeType(value: string) {
     setRangeType(value as DateRangeType);
   }
+
+  const { options } = useSankeyChartOptions({
+    series: [{ nodes, data }],
+    onAction: handleOnChartAction,
+  });
 
   return (
     <Paper border={"primary"} classNames={{ base: "w-full" }}>

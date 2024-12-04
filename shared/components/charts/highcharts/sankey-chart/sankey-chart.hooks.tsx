@@ -1,4 +1,4 @@
-import { Options, SeriesSankeyPointOptionsObject } from "highcharts";
+import { Options, SeriesClickEventObject, SeriesSankeyPointOptionsObject } from "highcharts";
 import Highcharts from "highcharts";
 import SankeyModule from "highcharts/modules/sankey";
 import { useMemo } from "react";
@@ -21,6 +21,7 @@ export function useSankeyChartOptions({
   tooltip,
   min,
   yAxis,
+  onAction,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
   const { nodes, data } = series[0];
   const options = useMemo<Options>(
@@ -43,11 +44,11 @@ export function useSankeyChartOptions({
       },
       plotOptions: {
         sankey: {
-          point: {
-            events: {
-              click() {
-                console.log("Sankey point clicked", this);
-              },
+          events: {
+            click(e: SeriesClickEventObject) {
+              if (e.point.options.from) {
+                onAction?.(e.point.options.from);
+              }
             },
           },
         },
