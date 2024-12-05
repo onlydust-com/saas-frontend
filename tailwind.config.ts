@@ -38,6 +38,13 @@ const config: Config = withTV({
         desktop: `${BREAKPOINTS.desktop}px`,
         wide: `${BREAKPOINTS.wide}px`,
       },
+      maxWidth: {
+        mobile: `${BREAKPOINTS.mobile}px`,
+        tablet: `${BREAKPOINTS.tablet}px`,
+        laptop: `${BREAKPOINTS.laptop}px`,
+        desktop: `${BREAKPOINTS.desktop}px`,
+        wide: `${BREAKPOINTS.wide}px`,
+      },
     },
   },
   plugins: [
