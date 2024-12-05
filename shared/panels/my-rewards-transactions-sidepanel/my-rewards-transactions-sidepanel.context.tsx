@@ -1,25 +1,25 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
-import {
-  DEFAULT_FILTER,
-  TransactionsContextFilter,
-  TransactionsContextFilterType,
-  TransactionsContextFiltersOptions,
-  TransactionsContextProps,
-  TransactionsContextQueryParams,
-  TransactionsContextReturn,
-} from "@/app/my-dashboard/financial/_features/transactions-sidepanel/context/transactions.context.types";
-
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import {
+  DEFAULT_FILTER,
+  MyRewardsTransactionsContextFilter,
+  MyRewardsTransactionsContextFilterType,
+  MyRewardsTransactionsContextFiltersOptions,
+  MyRewardsTransactionsContextProps,
+  MyRewardsTransactionsContextQueryParams,
+  MyRewardsTransactionsContextReturn,
+} from "@/shared/panels/my-rewards-transactions-sidepanel/my-rewards-transactions-sidepanel.types";
 
-export const TransactionsContext = createContext<TransactionsContextReturn>({
+export const MyRewardsTransactionsContext = createContext<MyRewardsTransactionsContextReturn>({
   githubUserId: 0,
-  transactionsStats: [],
+  monthlyTransactions: undefined,
   queryParams: {},
+  isLoadingTransactions: false,
   filters: {
     values: DEFAULT_FILTER,
     isCleared: true,
@@ -32,17 +32,18 @@ export const TransactionsContext = createContext<TransactionsContextReturn>({
   },
 });
 
-export function TransactionsContextProvider({ children }: TransactionsContextProps) {
-  const [filters, setFilters] = useState<TransactionsContextFilter>(DEFAULT_FILTER);
-  const [filtersOptions] = useState<TransactionsContextFiltersOptions>({
-    types: [TransactionsContextFilterType.REWARDED, TransactionsContextFilterType.PAID],
+export function MyRewardsTransactionsContextProvider({ children }: MyRewardsTransactionsContextProps) {
+  const [filters, setFilters] = useState<MyRewardsTransactionsContextFilter>(DEFAULT_FILTER);
+  const [filtersOptions] = useState<MyRewardsTransactionsContextFiltersOptions>({
+    types: [MyRewardsTransactionsContextFilterType.REWARDED, MyRewardsTransactionsContextFilterType.PAID],
   });
-  const [queryParams, setQueryParams] = useState<TransactionsContextQueryParams>({});
-  const [debouncedQueryParams, setDebouncedQueryParams] = useState<TransactionsContextQueryParams>(queryParams);
+  const [queryParams, setQueryParams] = useState<MyRewardsTransactionsContextQueryParams>({});
+  const [debouncedQueryParams, setDebouncedQueryParams] =
+    useState<MyRewardsTransactionsContextQueryParams>(queryParams);
 
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const { githubUserId } = useAuthUser();
+  const { githubUserId = 0 } = useAuthUser();
 
   useDebounce(
     () => {
@@ -52,11 +53,10 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
     [queryParams]
   );
 
-  const { data: transactionsStats } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
+  const { data: monthlyTransactions, isLoading } = BiReactQueryAdapter.client.useGetBiStatsFinancials({
     queryParams: {
       ...debouncedQueryParams,
       sort: "DATE",
-      sortDirection: "DESC",
       showEmpty: true,
       recipientId: githubUserId,
     },
@@ -69,6 +69,7 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
     setQueryParams({
       search: filters.search || undefined,
       types: filters.types.length ? filters.types : undefined,
+      sortDirection: filters.sortDirection ? filters.sortDirection : undefined,
       fromDate: filters.dateRange?.start ? dateKernelPort.format(filters.dateRange.start, "yyyy-MM-dd") : undefined,
       toDate: filters.dateRange?.end ? dateKernelPort.format(filters.dateRange.end, "yyyy-MM-dd") : undefined,
     });
@@ -80,21 +81,22 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
     return filters.types.length + (filters.dateRange ? 1 : 0);
   }, [filters]);
 
-  const setFilter = (filter: Partial<TransactionsContextFilter>) => {
+  function setFilter(filter: Partial<MyRewardsTransactionsContextFilter>) {
     const newFilters = { ...filters, ...filter };
     setFilters(newFilters);
-  };
+  }
 
-  const clearFilters = () => {
+  function clearFilters() {
     setFilters(DEFAULT_FILTER);
-  };
+  }
 
   return (
-    <TransactionsContext.Provider
+    <MyRewardsTransactionsContext.Provider
       value={{
-        githubUserId: githubUserId || 0,
-        transactionsStats: transactionsStats?.stats,
+        githubUserId,
+        monthlyTransactions,
         queryParams: debouncedQueryParams,
+        isLoadingTransactions: isLoading,
         filters: {
           values: filters,
           isCleared,
@@ -106,15 +108,15 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
       }}
     >
       {children}
-    </TransactionsContext.Provider>
+    </MyRewardsTransactionsContext.Provider>
   );
 }
 
-export function useTransactionsContext() {
-  const context = useContext(TransactionsContext);
+export function useMyRewardsTransactionsContext() {
+  const context = useContext(MyRewardsTransactionsContext);
 
   if (!context) {
-    throw new Error("TransactionsContext must be used inside a TransactionsContextProvider");
+    throw new Error("MyRewardsTransactionsContext must be used inside a MyRewardsTransactionsContextProvider");
   }
 
   return context;
