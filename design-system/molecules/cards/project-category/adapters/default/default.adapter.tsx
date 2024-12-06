@@ -14,7 +14,7 @@ export function ProjectCategoryCardDefaultAdapter<C extends ElementType = "div">
   htmlProps,
   classNames,
   category,
-  color = "primary",
+  color = "cosmic_night",
 }: ProjectCategoryCardPort<C>) {
   const Component = as || "div";
   const slots = ProjectCategoryCardDefaultVariants({ color });
