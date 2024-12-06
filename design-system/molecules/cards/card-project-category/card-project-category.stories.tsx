@@ -2,11 +2,11 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { ProjectCategory } from "@/core/domain/project-category/models/project-category-model";
 
-import { ProjectCategoryCardLoading } from "./project-category.loading";
-import { ProjectCategoryCardPort } from "./project-category.types";
-import { ProjectCategoryCard } from "./variants/project-category-card-default";
+import { CardProjectCategoryLoading } from "./card-project-category.loading";
+import { CardProjectCategoryPort } from "./card-project-category.types";
+import { CardProjectCategory } from "./variants/card-project-category-default";
 
-type Story = StoryObj<typeof ProjectCategoryCard>;
+type Story = StoryObj<typeof CardProjectCategory>;
 
 const mockCategory = new ProjectCategory({
   id: "1",
@@ -16,7 +16,7 @@ const mockCategory = new ProjectCategory({
   iconSlug: "ri-robot-line",
 });
 
-const colors: ProjectCategoryCardPort<"div">["color"][] = [
+const colors: CardProjectCategoryPort<"div">["color"][] = [
   "cosmic_night",
   "deep_ocean",
   "velvet_dusk",
@@ -25,8 +25,8 @@ const colors: ProjectCategoryCardPort<"div">["color"][] = [
   "mystic_twilight",
 ];
 
-const meta: Meta<typeof ProjectCategoryCard> = {
-  component: ProjectCategoryCard,
+const meta: Meta<typeof CardProjectCategory> = {
+  component: CardProjectCategory,
   title: "Molecules/Cards/ProjectCategory",
   tags: ["autodocs"],
 };
@@ -39,7 +39,7 @@ export const Default: Story = {
   },
   render: args => (
     <div className="w-[300px]">
-      <ProjectCategoryCard {...args} category={mockCategory} />
+      <CardProjectCategory {...args} category={mockCategory} />
     </div>
   ),
 };
@@ -53,7 +53,7 @@ export const Colors: Story = {
   render: args => (
     <div className="flex w-[300px] flex-col gap-4">
       {colors.map(color => (
-        <ProjectCategoryCard key={color} {...args} category={mockCategory} color={color} />
+        <CardProjectCategory key={color} {...args} category={mockCategory} color={color} />
       ))}
     </div>
   ),
@@ -68,7 +68,7 @@ export const Skeleton: Story = {
   render: () => {
     return (
       <div className="w-[300px]">
-        <ProjectCategoryCardLoading />
+        <CardProjectCategoryLoading />
       </div>
     );
   },

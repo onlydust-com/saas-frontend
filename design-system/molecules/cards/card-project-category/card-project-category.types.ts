@@ -13,7 +13,7 @@ interface ClassNames {
   name: string;
 }
 
-export interface ProjectCategoryCardPort<C extends ElementType = "div"> extends Partial<Variants> {
+export interface CardProjectCategoryPort<C extends ElementType = "div"> extends Partial<Variants> {
   as?: C;
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;

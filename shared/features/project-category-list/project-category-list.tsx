@@ -2,8 +2,7 @@
 
 import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
 
-import { ProjectCategoryCard } from "@/design-system/molecules/cards/project-category";
-import { ProjectCategoryCardLoading } from "@/design-system/molecules/cards/project-category/project-category.loading";
+import { CardProjectCategory, CardProjectCategoryLoading } from "@/design-system/molecules/cards/card-project-category";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -14,9 +13,9 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
 
   if (isLoading) {
     return (
-      <div className={cn("flex flex-wrap gap-4", className)}>
+      <div className={cn("flex flex-wrap gap-xl", className)}>
         {Array.from({ length: 6 }).map((_, index) => (
-          <ProjectCategoryCardLoading key={index} />
+          <CardProjectCategoryLoading key={index} />
         ))}
       </div>
     );
@@ -32,9 +31,9 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
   ] as const;
 
   return (
-    <div className={cn("flex flex-wrap gap-4", className)}>
+    <div className={cn("flex flex-wrap gap-xl", className)}>
       {data?.categories.map((category, index) => (
-        <ProjectCategoryCard key={category.id} category={category} color={gradients[index % gradients.length]} />
+        <CardProjectCategory key={category.id} category={category} color={gradients[index % gradients.length]} />
       ))}
     </div>
   );

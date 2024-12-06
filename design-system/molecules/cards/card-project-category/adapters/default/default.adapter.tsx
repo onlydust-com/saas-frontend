@@ -6,18 +6,18 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
-import { ProjectCategoryCardPort } from "../../project-category.types";
-import { ProjectCategoryCardDefaultVariants } from "./default.variants";
+import { CardProjectCategoryPort } from "../../card-project-category.types";
+import { CardProjectCategoryDefaultVariants } from "./default.variants";
 
-export function ProjectCategoryCardDefaultAdapter<C extends ElementType = "div">({
+export function CardProjectCategoryDefaultAdapter<C extends ElementType = "div">({
   as,
   htmlProps,
   classNames,
   category,
   color = "cosmic_night",
-}: ProjectCategoryCardPort<C>) {
+}: CardProjectCategoryPort<C>) {
   const Component = as || "div";
-  const slots = ProjectCategoryCardDefaultVariants({ color });
+  const slots = CardProjectCategoryDefaultVariants({ color });
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>

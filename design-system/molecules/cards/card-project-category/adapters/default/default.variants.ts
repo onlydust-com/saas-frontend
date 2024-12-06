@@ -1,12 +1,13 @@
 import { tv } from "tailwind-variants";
 
-export const ProjectCategoryCardDefaultVariants = tv({
+export const CardProjectCategoryDefaultVariants = tv({
   slots: {
-    base: "flex h-40 w-40 flex-col items-center justify-center gap-3 rounded-lg p-4 transition-colors",
+    base: "flex size-48 flex-col items-center justify-center gap-lg rounded-lg p-md transition-colors",
     icon: "text-inherit",
     name: "capitalize",
   },
   variants: {
+    // TODO @Mehdi refactor color definition
     color: {
       cosmic_night: {
         base: "gradient-cosmic-night",
