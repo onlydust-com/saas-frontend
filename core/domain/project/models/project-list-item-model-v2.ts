@@ -1,10 +1,12 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { ProjectCategoryInterface } from "../../project-category/models/project-category-model";
+import { ProjectCategory, ProjectCategoryInterface } from "../../project-category/models/project-category-model";
 
 export type ProjectListItemResponseV2 = components["schemas"]["ProjectShortResponseV2"];
 
-export interface ProjectListItemInterfaceV2 extends ProjectListItemResponseV2 {}
+export interface ProjectListItemInterfaceV2 extends ProjectListItemResponseV2 {
+  categories?: ProjectCategoryInterface[];
+}
 
 export class ProjectListItemV2 implements ProjectListItemInterfaceV2 {
   id!: ProjectListItemResponseV2["id"];
@@ -21,5 +23,6 @@ export class ProjectListItemV2 implements ProjectListItemInterfaceV2 {
 
   constructor(props: ProjectListItemResponseV2) {
     Object.assign(this, props);
+    this.categories = (props.categories || []).map(category => new ProjectCategory(category));
   }
 }

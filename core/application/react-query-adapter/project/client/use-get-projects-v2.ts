@@ -6,17 +6,17 @@ import {
 } from "@/core/application/react-query-adapter/helpers/use-infinite-query-adapter";
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectFacadePort } from "@/core/domain/project/input/project-facade-port";
-import { GetProjectsModel } from "@/core/domain/project/project-contract.types";
+import { GetProjectsV2Model } from "@/core/domain/project/project-contract.types";
 
 export function useGetProjectsV2({
   pathParams,
   queryParams,
   options,
-}: UseInfiniteQueryFacadeParams<ProjectFacadePort["getProjectsV2"], GetProjectsModel>) {
+}: UseInfiniteQueryFacadeParams<ProjectFacadePort["getProjectsV2"], GetProjectsV2Model>) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
 
   return useInfiniteQuery(
-    useInfiniteQueryAdapter<ProjectFacadePort["getProjectsV2"], GetProjectsModel>({
+    useInfiniteQueryAdapter<ProjectFacadePort["getProjectsV2"], GetProjectsV2Model>({
       pathParams,
       queryParams,
       options,
