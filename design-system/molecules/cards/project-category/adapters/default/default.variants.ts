@@ -8,27 +8,33 @@ export const ProjectCategoryCardDefaultVariants = tv({
   },
   variants: {
     color: {
-      primary: {
-        base: "bg-background-primary hover:bg-background-primary-hover",
+      cosmic_night: {
+        base: "gradient-cosmic-night",
+        icon: "text-inherit",
       },
-      secondary: {
-        base: "bg-background-secondary hover:bg-background-secondary-hover",
+      deep_ocean: {
+        base: "gradient-deep-ocean",
+        icon: "text-[#6DA0EF]",
       },
-      brand: {
-        base: "hover:bg-background-brand-primary-hover bg-background-brand-primary",
+      velvet_dusk: {
+        base: "gradient-velvet-dusk",
+        icon: "text-[#CB6B9F]",
       },
-      error: {
-        base: "hover:bg-background-error-hover bg-background-error",
+      arctic_abyss: {
+        base: "gradient-arctic-abyss",
+        icon: "text-[#6AD09D]",
       },
-      warning: {
-        base: "hover:bg-background-warning-hover bg-background-warning",
+      ember_shadow: {
+        base: "gradient-ember-shadow",
+        icon: "text-[#CDA142]",
       },
-      success: {
-        base: "hover:bg-background-success-hover bg-background-success",
+      mystic_twilight: {
+        base: "gradient-mystic-twilight",
+        icon: "text-[#8D79D7]",
       },
     },
   },
   defaultVariants: {
-    color: "primary",
+    color: "cosmic_night",
   },
 });

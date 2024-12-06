@@ -10,19 +10,19 @@ type Story = StoryObj<typeof ProjectCategoryCard>;
 
 const mockCategory = new ProjectCategory({
   id: "1",
-  name: "Development",
-  slug: "development",
-  description: "Development projects",
-  iconSlug: "Code",
+  name: "Ai",
+  slug: "Ai",
+  description: "Ai stuff",
+  iconSlug: "ri-robot-line",
 });
 
 const colors: ProjectCategoryCardPort<"div">["color"][] = [
-  "primary",
-  "secondary",
-  "brand",
-  "error",
-  "warning",
-  "success",
+  "cosmic_night",
+  "deep_ocean",
+  "velvet_dusk",
+  "arctic_abyss",
+  "ember_shadow",
+  "mystic_twilight",
 ];
 
 const meta: Meta<typeof ProjectCategoryCard> = {

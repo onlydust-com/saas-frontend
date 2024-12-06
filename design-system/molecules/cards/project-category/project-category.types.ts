@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { ProjectCategory } from "@/core/domain/project-category/models/project-category-model";
 
 interface Variants {
-  color: "primary" | "secondary" | "brand" | "error" | "warning" | "success";
+  color: "cosmic_night" | "deep_ocean" | "velvet_dusk" | "arctic_abyss" | "ember_shadow" | "mystic_twilight";
 }
 
 interface ClassNames {
