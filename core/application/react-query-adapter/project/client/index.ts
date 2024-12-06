@@ -13,3 +13,4 @@ export * from "./use-update-project-contributor-labels";
 export * from "./use-unassign-contributor-from-project-contribution";
 export * from "./use-get-project-programs";
 export * from "./use-ungrant-project";
+export * from "./use-get-projects-v2";
