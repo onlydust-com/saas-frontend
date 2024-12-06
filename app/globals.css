@@ -1244,6 +1244,22 @@
         var(--utility-gradient-app-bg-radial-1) 100%
       );
     }
+
+    .shine-text {
+      color: transparent;
+      background-clip: text !important;
+      animation: shine 3s linear infinite;
+      background: radial-gradient(circle at center, var(--typography-primary), transparent) -200% 50% / 200% 100% no-repeat, var(--typography-quaternary);
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
   }
 
   /* DOM STYLES */

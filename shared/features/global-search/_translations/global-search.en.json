@@ -1,0 +1,14 @@
+{
+  "menu": {
+    "placeholder": "Search"
+  },
+  "modal": {
+    "placeholder": "Search projects, contributors.."
+  },
+  "result": {
+    "type": {
+      "project": "Project",
+      "contributor": "Contributor"
+    }
+  }
+}
