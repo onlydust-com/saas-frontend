@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const ProjectCategoryCardDefaultVariants = tv({
   slots: {
-    base: "flex flex-col items-center gap-3 rounded-lg p-4 transition-colors",
+    base: "flex h-40 w-40 flex-col items-center justify-center gap-3 rounded-lg p-4 transition-colors",
     icon: "text-inherit",
     name: "capitalize",
   },

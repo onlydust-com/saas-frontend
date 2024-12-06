@@ -12,7 +12,7 @@ export default function ExplorePage() {
     <div className="mx-auto flex max-w-laptop flex-col gap-6xl py-4xl">
       <Typo variant="heading" size="xl" translate={{ token: "explore:title" }} />
 
-      <div className="grid grid-cols-1 gap-md sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="flex flex-wrap gap-md">
         {data?.categories?.map(category => <ProjectCategoryCard key={category.id} category={category} color="brand" />)}
       </div>
     </div>
