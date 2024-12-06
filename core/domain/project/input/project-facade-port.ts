@@ -20,6 +20,8 @@ import {
   GetProjectTransactionsPortResponse,
   GetProjectsPortParams,
   GetProjectsPortResponse,
+  GetProjectsV2PortParams,
+  GetProjectsV2PortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
   UngrantFundsFromProjectPortParams,
@@ -54,4 +56,5 @@ export interface ProjectFacadePort {
   ): UnassignContributorFromProjectContributionPortResponse;
   getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
   ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
+  getProjectsV2(p: GetProjectsV2PortParams): GetProjectsV2PortResponse;
 }
