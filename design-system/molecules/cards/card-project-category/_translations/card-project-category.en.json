@@ -1,1 +1,3 @@
-{"projectCount": "{{count}} projects"}
+{
+  "projectCount": "{{count}} projects"
+}
