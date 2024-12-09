@@ -10,7 +10,7 @@ import { Suggestion } from "../suggestion/suggestion";
 
 export function Header() {
   const { t } = useTranslation("features");
-  const { onOpenFilterChange, onOpenChange, inputValue, onInputChange } = useGlobalSearch();
+  const { onOpenFilterChange, onOpenChange, inputValue, onInputChange, isOpenFilter } = useGlobalSearch();
 
   return (
     <div
@@ -34,10 +34,10 @@ export function Header() {
       <div className={"flex flex-row items-center justify-end gap-1"}>
         <Button
           iconOnly={true}
-          variant={"tertiary"}
+          variant={isOpenFilter ? "primary" : "tertiary"}
           size={"sm"}
           startIcon={{ component: Filter }}
-          onClick={() => onOpenFilterChange(false)}
+          onClick={() => onOpenFilterChange(!isOpenFilter)}
         />
         <Button
           iconOnly={true}

@@ -10,5 +10,22 @@
       "project": "Project",
       "contributor": "Contributor"
     }
+  },
+  "filters": {
+    "clearAll": "Clear all",
+    "type": {
+      "name": "Type",
+      "project": "Project",
+      "contributor": "Contributor"
+    },
+    "language": {
+      "name": "Language"
+    },
+    "ecosystem": {
+      "name": "Ecosystem"
+    },
+    "category": {
+      "name": "Category"
+    }
   }
 }
