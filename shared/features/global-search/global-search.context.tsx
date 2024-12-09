@@ -2,6 +2,13 @@
 
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
+interface Filters {
+  type?: "project" | "contributor";
+  languages?: string[];
+  ecosystems?: string[];
+  categories?: string[];
+}
+
 interface GlobalSearchContextInterface {
   isOpen: boolean;
   onOpenChange: (value: boolean) => void;
@@ -10,6 +17,10 @@ interface GlobalSearchContextInterface {
   suggestion?: string;
   isOpenFilter: boolean;
   onOpenFilterChange: (value: boolean) => void;
+  onClearAllFilters: () => void;
+  filters: Filters;
+  onFiltersChange: (value: Filters) => void;
+  onFiltersTypeChange: (value: "project" | "contributor") => void;
 }
 
 export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
@@ -20,6 +31,10 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   suggestion: "",
   isOpenFilter: false,
   onOpenFilterChange: () => {},
+  onClearAllFilters: () => {},
+  filters: {},
+  onFiltersChange: () => {},
+  onFiltersTypeChange: () => {},
 });
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
@@ -28,6 +43,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [inputValue, setInputValue] = useState<string | null>("Kak");
+  const [filters, setFilters] = useState<Filters>({});
   // const [inputValue, setInputValue] = useState<string | null>(null);
 
   function onOpenChange(v: boolean) {
@@ -42,9 +58,25 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     setOpenFilter(v);
   }
 
-  // Toggle the menu when ⌘K is pressed
+  function onClearAllFilters() {
+    setFilters({});
+    setOpenFilter(false);
+  }
+
+  function onFiltersChange(value: Filters) {
+    setFilters(value);
+  }
+
+  function onFiltersTypeChange(value?: "project" | "contributor") {
+    if (value) {
+      setFilters({ type: value });
+    } else {
+      setFilters({});
+    }
+  }
+
   useEffect(() => {
-    const down = e => {
+    const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen(open => !open);
@@ -69,6 +101,10 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         suggestion,
         isOpenFilter: openFilter,
         onOpenFilterChange,
+        onClearAllFilters,
+        filters,
+        onFiltersChange,
+        onFiltersTypeChange,
       }}
     >
       {children}

@@ -1,0 +1,32 @@
+import { X } from "lucide-react";
+
+import { Badge } from "@/design-system/atoms/badge";
+import { Button } from "@/design-system/atoms/button/variants/button-default";
+
+import { useGlobalSearch } from "../../../../global-search.context";
+
+export function CollapsedFilters() {
+  const { onClearAllFilters, filters, onOpenFilterChange } = useGlobalSearch();
+
+  const openFilter = () => onOpenFilterChange(true);
+
+  return (
+    <div className="relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4">
+      <div className="flex flex-row items-center justify-start gap-2">
+        {filters.type && (
+          <Badge
+            translate={{ token: `features:globalSearch.filters.type.${filters.type}` }}
+            htmlProps={{ onClick: openFilter }}
+          />
+        )}
+      </div>
+      <Button
+        variant="tertiary"
+        size="sm"
+        startIcon={{ component: X }}
+        translate={{ token: "features:globalSearch.filters.clearAll" }}
+        onClick={onClearAllFilters}
+      />
+    </div>
+  );
+}

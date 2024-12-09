@@ -1,68 +1,23 @@
-import { LayoutGrid, X } from "lucide-react";
-
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Tag } from "@/design-system/atoms/tag";
-
 import { useGlobalSearch } from "../../global-search.context";
-import { FilterRow } from "../filter-row/filter-row";
+import { CollapsedFilters } from "./_components/collapsed-filters/collapsed-filters";
+import { ProjectFilters } from "./_components/project-filters/project-filters";
+import { TypeFilters } from "./_components/type-filters/type-filters";
 
 export function Filters() {
-  const { isOpenFilter } = useGlobalSearch();
+  const { isOpenFilter, onClearAllFilters, filters } = useGlobalSearch();
+
+  if (!isOpenFilter && !filters.type) {
+    return null;
+  }
 
   if (!isOpenFilter) {
-    return (
-      <div
-        className={
-          "relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4"
-        }
-      >
-        <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.type.name" }}>
-          <Tag onSelect={() => {}} isSelected translate={{ token: "features:globalSearch.filters.type.project" }} />
-          <Tag onSelect={() => {}} isSelected translate={{ token: "features:globalSearch.filters.type.contributor" }} />
-        </FilterRow>
-        <Button
-          variant={"tertiary"}
-          size={"sm"}
-          startIcon={{ component: X }}
-          translate={{ token: "features:globalSearch.filters.clearAll" }}
-        />
-      </div>
-    );
+    return <CollapsedFilters />;
   }
 
   return (
     <>
-      <div
-        className={
-          "relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4"
-        }
-      >
-        <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.type.name" }}>
-          <Tag onSelect={() => {}} isSelected translate={{ token: "features:globalSearch.filters.type.project" }} />
-          <Tag onSelect={() => {}} isSelected translate={{ token: "features:globalSearch.filters.type.contributor" }} />
-        </FilterRow>
-        <Button
-          variant={"tertiary"}
-          size={"sm"}
-          startIcon={{ component: X }}
-          translate={{ token: "features:globalSearch.filters.clearAll" }}
-        />
-      </div>
-      <div
-        className={
-          "relative flex w-full flex-col items-start justify-start gap-1 border-b border-b-border-primary px-6 py-4"
-        }
-      >
-        <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.language.name" }}>
-          LANGUAGES
-        </FilterRow>
-        <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.ecosystem.name" }}>
-          ECOSYSTEMS
-        </FilterRow>
-        <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.category.name" }}>
-          CATEGORIES
-        </FilterRow>
-      </div>
+      <TypeFilters onClearAll={onClearAllFilters} />
+      {filters.type === "project" && <ProjectFilters />}
     </>
   );
 }
