@@ -11,6 +11,7 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { cn } from "@/shared/helpers/cn";
 
 import { CardProjectMarketplacePort, LanguageProps, MetricProps } from "../../card-project-marketplace.types";
@@ -166,7 +167,6 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           </ul>
         ) : null}
 
-        {/* TODO: handle overflowing languages */}
         {languages?.length ? (
           <div className="flex flex-col gap-2md pt-md">
             <div className="flex h-1.5 w-full overflow-hidden rounded-full">
@@ -187,14 +187,16 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
               ))}
             </div>
 
-            <div className="flex max-w-full gap-lg">
-              {languages
-                .sort((a, b) => b.percentage - a.percentage)
-                .slice(0, 3)
-                .map(language => (
-                  <Language key={language.id} {...language} nameClassNames="truncate" />
-                ))}
-            </div>
+            <ScrollView>
+              <div className="flex max-w-full gap-lg">
+                {languages
+                  .sort((a, b) => b.percentage - a.percentage)
+                  .slice(0, 3)
+                  .map(language => (
+                    <Language key={language.id} {...language} nameClassNames="truncate" />
+                  ))}
+              </div>
+            </ScrollView>
           </div>
         ) : null}
       </div>
