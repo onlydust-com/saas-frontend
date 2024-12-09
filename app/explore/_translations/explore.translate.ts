@@ -9,5 +9,13 @@ export const enExploreTranslation = {
       title: "Expertise",
       description: "Browse projects by your area of expertise",
     },
+    projectLeaderboard: {
+      title: "Most active projects",
+      description: "Projects with highest commit activity",
+      emptyState: {
+        title: "No projects found",
+        description: "There are no projects with highest commit activity",
+      },
+    },
   },
 };

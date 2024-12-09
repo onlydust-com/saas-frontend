@@ -108,6 +108,7 @@
   },
   "count": {
     "issues": "{{count}} issues",
-    "goodFirstIssues": "{{count}} Good First Issues"
+    "goodFirstIssues": "{{count}} Good First Issues",
+    "prCount": "{{count}} PRs"
   }
 }
