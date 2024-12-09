@@ -49,7 +49,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         e.preventDefault();
         setOpen(open => !open);
       }
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && open) {
         e.preventDefault();
         setOpen(false);
       }
