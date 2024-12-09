@@ -10,7 +10,7 @@ import { SearchItemInterface } from "./models/search-item-model";
 
 export type SearchResponse = components["schemas"]["SearchResponse"];
 
-type SearchQueryParams = operations["search"]["parameters"]["query"];
+type SearchQueryParams = components["schemas"]["SearchPostRequest"];
 type SearchPathParams = operations["search"]["parameters"]["path"];
 
 export type SearchPortParams = HttpClientParameters<{

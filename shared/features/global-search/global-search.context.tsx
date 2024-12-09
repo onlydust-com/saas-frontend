@@ -2,6 +2,8 @@
 
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
+import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
+
 interface Filters {
   type?: "project" | "contributor";
   languages?: string[];
@@ -45,6 +47,14 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   const [inputValue, setInputValue] = useState<string | null>("Kak");
   const [filters, setFilters] = useState<Filters>({});
   // const [inputValue, setInputValue] = useState<string | null>(null);
+
+  const { data } = SearchReactQueryAdapter.client.useSearch({
+    queryParams: {
+      keyword: inputValue ?? undefined,
+    },
+  });
+
+  console.log("data", data);
 
   function onOpenChange(v: boolean) {
     setOpen(v);

@@ -13,7 +13,7 @@ export class SearchClientAdapter implements SearchStoragePort {
 
   search = ({ queryParams, pathParams }: FirstParameter<SearchStoragePort["search"]>) => {
     const path = this.routes["search"];
-    const method = "GET";
+    const method = "POST";
     const tag = HttpClient.buildTag({ path, queryParams, pathParams });
 
     const request = async () => {
@@ -21,7 +21,7 @@ export class SearchClientAdapter implements SearchStoragePort {
         path,
         method,
         tag,
-        queryParams,
+        body: JSON.stringify(queryParams),
         pathParams,
       });
 
