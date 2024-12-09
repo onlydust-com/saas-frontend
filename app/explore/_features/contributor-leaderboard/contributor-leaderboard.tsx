@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 
 import { Badge } from "@/design-system/atoms/badge/variants/badge-default";
 import { Paper } from "@/design-system/atoms/paper";
@@ -12,15 +12,17 @@ import { AvatarLabelSingle, AvatarLabelSingleLoading } from "@/design-system/mol
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
-export function ProjectLeaderboard() {
+export function ContributorLeaderboard() {
   // TODO @Mehdi check for the appropriate endpoints once ready
-  const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
+  const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributors({
     queryParams: {
+      sortDirection: "ASC",
+      sort: "PR_COUNT",
       pageSize: 6,
     },
   });
 
-  const renderProjects = useCallback(() => {
+  const renderContributors = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 6 }).map((_, index) => <AvatarLabelSingleLoading key={index} size="md" />);
     }
@@ -32,30 +34,30 @@ export function ProjectLeaderboard() {
     if (!data) {
       return (
         <EmptyState
-          titleTranslate={{ token: "explore:projectLeaderboard.emptyState.title" }}
-          descriptionTranslate={{ token: "explore:projectLeaderboard.emptyState.description" }}
+          titleTranslate={{ token: "explore:contributorLeaderboard.emptyState.title" }}
+          descriptionTranslate={{ token: "explore:contributorLeaderboard.emptyState.description" }}
         />
       );
     }
 
-    return data.pages.flatMap(({ projects }) =>
-      projects.map((project, index) => (
-        <div key={project.id} className="flex items-center gap-md">
+    return data.pages.flatMap(({ contributors }) =>
+      contributors.map((contributor, index) => (
+        <div key={contributor.contributor.id} className="flex items-center gap-md">
           <Typo size="sm" weight="medium" color="tertiary">
             {index + 1}
           </Typo>
           <div className="flex flex-1 items-center justify-between">
             <AvatarLabelSingle
               size="md"
-              avatar={{ src: project.logoUrl, alt: project.name }}
-              title={{ children: project.name }}
-              description={{ children: project.shortDescription }}
+              avatar={{ src: contributor.contributor.avatarUrl, alt: contributor.contributor.login }}
+              title={{ children: contributor.contributor.login }}
+              description={{ children: contributor.contributor.bio || "" }}
             />
             <Badge
               classNames={{ base: "w-fit" }}
               translate={{
                 token: "common:count.prCount",
-                count: project.pullRequestCount,
+                count: contributor.prCount.value,
               }}
             />
           </div>
@@ -67,10 +69,15 @@ export function ProjectLeaderboard() {
   return (
     <Paper background="primary-alt" px="xl" py="xl">
       <div className="flex flex-col gap-md">
-        <Typo variant="heading" size="xs" weight="medium" translate={{ token: "explore:projectLeaderboard.title" }} />
-        <Typo color="secondary" size="xs" translate={{ token: "explore:projectLeaderboard.description" }} />
+        <Typo
+          variant="heading"
+          size="xs"
+          weight="medium"
+          translate={{ token: "explore:contributorLeaderboard.title" }}
+        />
+        <Typo color="secondary" size="xs" translate={{ token: "explore:contributorLeaderboard.description" }} />
       </div>
-      <div className="mt-xl flex flex-col gap-md">{renderProjects()}</div>
+      <div className="mt-xl flex flex-col gap-md">{renderContributors()}</div>
     </Paper>
   );
 }

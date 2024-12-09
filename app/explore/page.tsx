@@ -4,6 +4,7 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
+import { ContributorLeaderboard } from "./_features/contributor-leaderboard/contributor-leaderboard";
 import { ProjectCategoryList } from "./_features/project-category-list/project-category-list";
 import { ProjectLeaderboard } from "./_features/project-leaderboard/project-leaderboard";
 import { TrendingProjects } from "./_features/trending-projects/trending-projects";
@@ -37,6 +38,7 @@ export default function ExplorePage() {
         </section>
 
         <div className="grid grid-cols-2 gap-xl">
+          <ContributorLeaderboard />
           <ProjectLeaderboard />
         </div>
       </div>
