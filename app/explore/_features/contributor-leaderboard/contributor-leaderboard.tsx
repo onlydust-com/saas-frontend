@@ -43,7 +43,7 @@ export function ContributorLeaderboard() {
     return data.pages.flatMap(({ contributors }) =>
       contributors.map((contributor, index) => (
         <div key={contributor.contributor.id} className="flex items-center gap-md">
-          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "w-5" }}>
+          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "tabular-nums" }}>
             {index + 1}
           </Typo>
           <div className="flex flex-1 items-center justify-between gap-md">

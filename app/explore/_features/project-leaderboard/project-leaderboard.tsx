@@ -41,7 +41,7 @@ export function ProjectLeaderboard() {
     return data.pages.flatMap(({ projects }) =>
       projects.map((project, index) => (
         <div key={project.id} className="flex items-center gap-md">
-          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "w-5" }}>
+          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "tabular-nums" }}>
             {index + 1}
           </Typo>
           <div className="flex flex-1 items-center justify-between gap-md">
