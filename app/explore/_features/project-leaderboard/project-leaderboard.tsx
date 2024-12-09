@@ -53,7 +53,7 @@ export function ProjectLeaderboard() {
             <Badge
               classNames={{ base: "w-fit" }}
               translate={{
-                token: "explore:projectLeaderboard.prCount",
+                token: "common:count.prCount",
                 count: project.pullRequestCount,
               }}
             />

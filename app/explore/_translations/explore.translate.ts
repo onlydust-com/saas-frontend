@@ -16,7 +16,6 @@ export const enExploreTranslation = {
         title: "No projects found",
         description: "There are no projects with highest commit activity",
       },
-      prCount: "{{count}} PRs",
     },
   },
 };
