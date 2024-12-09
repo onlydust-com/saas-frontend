@@ -13,7 +13,7 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
 
   if (isLoading) {
     return (
-      <div className={cn("flex flex-wrap gap-xl", className)}>
+      <div className={cn("grid grid-cols-2 gap-xl md:grid-cols-3 lg:grid-cols-6", className)}>
         {Array.from({ length: 6 }).map((_, index) => (
           <CardProjectCategoryLoading key={index} />
         ))}
@@ -31,7 +31,7 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
   ] as const;
 
   return (
-    <div className={cn("flex flex-wrap gap-xl", className)}>
+    <div className={cn("grid grid-cols-2 gap-xl md:grid-cols-3 lg:grid-cols-6", className)}>
       {data?.categories.map((category, index) => (
         <CardProjectCategory key={category.id} category={category} color={gradients[index % gradients.length]} />
       ))}
