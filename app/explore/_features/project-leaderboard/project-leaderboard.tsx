@@ -41,10 +41,10 @@ export function ProjectLeaderboard() {
     return data.pages.flatMap(({ projects }) =>
       projects.map((project, index) => (
         <div key={project.id} className="flex items-center gap-md">
-          <Typo size="sm" weight="medium" color="tertiary">
+          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "tabular-nums" }}>
             {index + 1}
           </Typo>
-          <div className="flex flex-1 items-center justify-between">
+          <div className="flex flex-1 items-center justify-between gap-md">
             <AvatarLabelSingle
               size="md"
               avatar={{ src: project.logoUrl, alt: project.name }}
@@ -70,7 +70,7 @@ export function ProjectLeaderboard() {
         <Typo variant="heading" size="xs" weight="medium" translate={{ token: "explore:projectLeaderboard.title" }} />
         <Typo color="secondary" size="xs" translate={{ token: "explore:projectLeaderboard.description" }} />
       </div>
-      <div className="mt-xl flex flex-col gap-md">{renderProjects()}</div>
+      <div className="mt-xl flex flex-col gap-lg">{renderProjects()}</div>
     </Paper>
   );
 }

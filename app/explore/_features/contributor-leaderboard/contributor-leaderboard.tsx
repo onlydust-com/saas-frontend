@@ -43,10 +43,10 @@ export function ContributorLeaderboard() {
     return data.pages.flatMap(({ contributors }) =>
       contributors.map((contributor, index) => (
         <div key={contributor.contributor.id} className="flex items-center gap-md">
-          <Typo size="sm" weight="medium" color="tertiary">
+          <Typo size="sm" weight="medium" color="tertiary" classNames={{ base: "tabular-nums" }}>
             {index + 1}
           </Typo>
-          <div className="flex flex-1 items-center justify-between">
+          <div className="flex flex-1 items-center justify-between gap-md">
             <AvatarLabelSingle
               size="md"
               avatar={{ src: contributor.contributor.avatarUrl, alt: contributor.contributor.login }}
@@ -77,7 +77,7 @@ export function ContributorLeaderboard() {
         />
         <Typo color="secondary" size="xs" translate={{ token: "explore:contributorLeaderboard.description" }} />
       </div>
-      <div className="mt-xl flex flex-col gap-md">{renderContributors()}</div>
+      <div className="mt-xl flex flex-col gap-lg">{renderContributors()}</div>
     </Paper>
   );
 }
