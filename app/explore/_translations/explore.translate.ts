@@ -5,5 +5,9 @@ export const enExploreTranslation = {
       title: "Expertise",
       description: "Browse projects by your area of expertise",
     },
+    leaderboard: {
+      title: "Most active projects",
+      description: "Projects with highest commit activity",
+    },
   },
 };

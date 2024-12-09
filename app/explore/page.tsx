@@ -3,6 +3,7 @@
 import { Typo } from "@/design-system/atoms/typo";
 
 import { ProjectCategoryList } from "./_features/project-category-list/project-category-list";
+import { ProjectLeaderboard } from "./_features/project-leaderboard/project-leaderboard";
 
 export default function ExplorePage() {
   return (
@@ -14,6 +15,9 @@ export default function ExplorePage() {
           <Typo color="secondary" size="xs" translate={{ token: "explore:expertise.description" }} />
         </div>
         <ProjectCategoryList />
+      </div>
+      <div className="grid grid-cols-2 gap-xl">
+        <ProjectLeaderboard />
       </div>
     </div>
   );
