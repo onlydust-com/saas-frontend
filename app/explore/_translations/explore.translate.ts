@@ -17,5 +17,13 @@ export const enExploreTranslation = {
         description: "There are no projects with highest commit activity",
       },
     },
+    contributorLeaderboard: {
+      title: "Top Contributors",
+      description: "Contributors with the most pull requests",
+      emptyState: {
+        title: "No contributors found",
+        description: "There are no contributors to display",
+      },
+    },
   },
 };
