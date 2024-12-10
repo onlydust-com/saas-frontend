@@ -55,7 +55,7 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const [inputValue, setInputValue] = useState<string | null>("Onlydust");
+  const [inputValue, setInputValue] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({});
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({

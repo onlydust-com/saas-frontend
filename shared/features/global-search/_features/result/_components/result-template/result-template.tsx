@@ -21,8 +21,8 @@ export function ResultTemplate({ name, description, type, tags, metrics }: Resul
         </div>
         {metrics?.length ? (
           <div className="flex flex-row items-center justify-start gap-2">
-            {metrics.map(({ icon, count }) => (
-              <ResultMetric key={icon.toString()} icon={icon} count={count} />
+            {metrics.map(({ icon, count, label }, i) => (
+              <ResultMetric key={i} icon={icon} count={count} label={label} />
             ))}
           </div>
         ) : null}

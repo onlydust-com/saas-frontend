@@ -9,6 +9,12 @@
     "type": {
       "PROJECT": "Project",
       "CONTRIBUTOR": "Contributor"
+    },
+    "metrics": {
+      "contributions": "Contributions",
+      "projects": "Projects",
+      "prs": "PRs",
+      "issues": "Issues"
     }
   },
   "filters": {

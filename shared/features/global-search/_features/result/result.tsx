@@ -22,8 +22,14 @@ export function Result({ data }: ResultProps) {
           type={SearchRessourceType.PROJECT}
           tags={tags}
           metrics={[
-            { icon: User, count: data?.project?.contributorCount ?? 0 },
-            { icon: Star, count: data?.project?.starCount ?? 0 },
+            {
+              icon: User,
+              count: data?.project?.contributorCount ?? 0,
+            },
+            {
+              icon: Star,
+              count: data?.project?.starCount ?? 0,
+            },
             { icon: GitFork, count: data?.project?.forkCount ?? 0 },
           ]}
         />
@@ -38,11 +44,24 @@ export function Result({ data }: ResultProps) {
           name={data.contributor?.githubLogin}
           description={data.contributor?.bio}
           type={SearchRessourceType.CONTRIBUTOR}
-          // metrics={[
-          //   { icon: User, count: data?.project?.contributorCount ?? 0 },
-          //   { icon: Star, count: data?.project?.starCount ?? 0 },
-          //   { icon: GitFork, count: data?.project?.forkCount ?? 0 },
-          // ]}
+          metrics={[
+            {
+              count: data?.contributor?.contributionCount ?? 0,
+              label: { token: "features:globalSearch.result.metrics.contributions" },
+            },
+            {
+              count: data?.contributor?.projectCount ?? 0,
+              label: { token: "features:globalSearch.result.metrics.projects" },
+            },
+            {
+              count: data?.contributor?.pullRequestCount ?? 0,
+              label: { token: "features:globalSearch.result.metrics.prs" },
+            },
+            {
+              count: data?.contributor?.issueCount ?? 0,
+              label: { token: "features:globalSearch.result.metrics.issues" },
+            },
+          ]}
         />
       </Command.Item>
     );
