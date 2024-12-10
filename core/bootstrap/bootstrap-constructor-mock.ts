@@ -28,6 +28,8 @@ import { StyleAdapterMock } from "@/core/kernel/style/style-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapter-mock";
 
+import { RecoClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/reco-client-adapter-mock";
+
 export const bootstrapConstructorMock: BootstrapConstructor = {
   meStoragePortForClient: new MeClientAdapterMock(),
   meStoragePortForServer: new MeClientAdapterMock(),
@@ -69,6 +71,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   issueStoragePortForServer: new IssueClientAdapterMock(),
   billingProfileStoragePortForClient: new BillingProfileClientAdapterMock(),
   billingProfileStoragePortForServer: new BillingProfileClientAdapterMock(),
+  recoStoragePortForClient: new RecoClientAdapterMock(),
+  recoStoragePortForServer: new RecoClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   socialKernelPort: new SocialAdapterMock(),
