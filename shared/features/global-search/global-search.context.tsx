@@ -55,7 +55,7 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string | null>("Onlydust");
   const [filters, setFilters] = useState<Filters>({});
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
@@ -125,6 +125,10 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       if (e.key === "Escape" && open) {
         e.preventDefault();
         setOpen(false);
+      }
+      if (e.key === "Tab" && Suggestion?.value) {
+        e.preventDefault();
+        setInputValue(Suggestion.value);
       }
     };
 
