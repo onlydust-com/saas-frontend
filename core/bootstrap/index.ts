@@ -16,6 +16,7 @@ import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storag
 import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
+import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
@@ -36,6 +37,7 @@ import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-clie
 import { ProjectCategoryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-category-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
 import { RewardClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/reward-client-adapter";
+import { SearchClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/search-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
 import { UserClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/user-client-adapter";
 import { AuthProvider } from "@/core/infrastructure/marketplace-api-client-adapter/auth/auth-provider";
@@ -112,6 +114,8 @@ export interface BootstrapConstructor {
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
+  searchStoragePortForClient: SearchStoragePort;
+  searchStoragePortForServer: SearchStoragePort;
 }
 
 export class Bootstrap {
@@ -168,6 +172,8 @@ export class Bootstrap {
   idKernelPort: IdFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
+  searchStoragePortForClient: SearchStoragePort;
+  searchStoragePortForServer: SearchStoragePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -220,6 +226,8 @@ export class Bootstrap {
     this.idKernelPort = constructor.idKernelPort;
     this.validationKernelPort = constructor.validationKernelPort;
     this.styleKernelPort = constructor.styleKernelPort;
+    this.searchStoragePortForClient = constructor.searchStoragePortForClient;
+    this.searchStoragePortForServer = constructor.searchStoragePortForServer;
   }
 
   getAuthProvider() {
@@ -438,6 +446,14 @@ export class Bootstrap {
     return this.styleKernelPort;
   }
 
+  getSearchStoragePortForClient() {
+    return this.searchStoragePortForClient;
+  }
+
+  getSearchStoragePortForServer() {
+    return this.searchStoragePortForServer;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -491,6 +507,8 @@ export class Bootstrap {
         idKernelPort: IdAdapter,
         validationKernelPort: new ValidationAdapter(),
         styleKernelPort: StyleAdapter,
+        searchStoragePortForClient: new SearchClientAdapter(new FetchHttpClient()),
+        searchStoragePortForServer: new SearchClientAdapter(new FetchHttpClient()),
       });
     }
 
