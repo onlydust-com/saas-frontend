@@ -5,6 +5,7 @@ import { enFinancialsTranslation } from "@/app/financials/_translations/financia
 import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
+import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTranslations } from "@/design-system/molecules/cards/_translations/cards.translate";
@@ -34,6 +35,7 @@ export const en = {
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
   ...enProgramsTranslation,
+  ...enProjectRecommendationTranslation,
   ...enFinancialsTranslation,
   ...enDataTranslation,
   ...enManageProjectsTranslation,
