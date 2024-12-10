@@ -40,6 +40,9 @@ export const BadgeDefaultVariants = tv({
     iconOnly: {
       true: {},
     },
+    fixedSize: {
+      true: {},
+    },
     color: {
       grey: {
         base: "",
@@ -136,6 +139,34 @@ export const BadgeDefaultVariants = tv({
       iconOnly: true,
       class: {
         base: "px-md py-md",
+      },
+    },
+    {
+      size: "xxs",
+      fixedSize: true,
+      class: {
+        base: "size-5 p-0",
+      },
+    },
+    {
+      size: "xs",
+      fixedSize: true,
+      class: {
+        base: "size-6 p-0",
+      },
+    },
+    {
+      size: "sm",
+      fixedSize: true,
+      class: {
+        base: "size-7 p-0",
+      },
+    },
+    {
+      size: "md",
+      fixedSize: true,
+      class: {
+        base: "size-8 p-0",
       },
     },
     // FLAT

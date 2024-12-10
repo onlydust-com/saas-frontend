@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { Input } from "@/design-system/atoms/input";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { GlobalSearchProvider, useGlobalSearch } from "@/shared/features/global-search/global-search.context";
@@ -15,26 +16,28 @@ import { Result } from "./_features/result/result";
 
 export function SafeGlobalSearch() {
   const { t } = useTranslation("features");
-  const { isOpen, hasNextPage, fetchNextPage, isFetchingNextPage, results } = useGlobalSearch();
+  const { isOpen, hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange } = useGlobalSearch();
 
   return (
     <>
-      <Input
-        name={"global-search"}
-        placeholder={t("globalSearch.menu.placeholder")}
-        readOnly={true}
-        canInteract={false}
-        endContent={
-          <Kbd
-            keys={["command"]}
-            classNames={{
-              base: "bg-background-primary rounded-sm shadow-none",
-            }}
-          >
-            K
-          </Kbd>
-        }
-      />
+      <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
+        <Input
+          name={"global-search"}
+          placeholder={t("globalSearch.menu.placeholder")}
+          readOnly={true}
+          canInteract={false}
+          endContent={
+            <Kbd
+              keys={["command"]}
+              classNames={{
+                base: "bg-background-primary rounded-sm shadow-none",
+              }}
+            >
+              K
+            </Kbd>
+          }
+        />
+      </div>
       <ModalPortal isOpen={isOpen}>
         <div className={"w-full max-w-[730px] overflow-hidden rounded-xl bg-background-primary effect-box-shadow-sm"}>
           <Command>
@@ -42,11 +45,13 @@ export function SafeGlobalSearch() {
             <Filters />
             <div className={"h-auto overflow-hidden p-2"}>
               <ScrollView className="max-h-[400px]">
+                <Command.Empty>
+                  <EmptyStateLite />
+                </Command.Empty>
                 <Command.List className="flex w-full flex-col gap-3 outline-none">
                   {results.map((r, i) => (
                     <Result data={r} key={i} />
                   ))}
-
                   {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
                 </Command.List>
               </ScrollView>

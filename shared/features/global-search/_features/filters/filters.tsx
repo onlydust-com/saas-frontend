@@ -17,7 +17,7 @@ export function Filters() {
   return (
     <>
       <TypeFilters onClearAll={onClearAllFilters} />
-      {filters.type === "project" && <ProjectFilters />}
+      {filters.type === "PROJECT" && <ProjectFilters />}
     </>
   );
 }

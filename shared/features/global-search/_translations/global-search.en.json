@@ -15,8 +15,8 @@
     "clearAll": "Clear all",
     "type": {
       "name": "Type",
-      "project": "Project",
-      "contributor": "Contributor"
+      "PROJECT": "Project",
+      "CONTRIBUTOR": "Contributor"
     },
     "language": {
       "name": "Language"

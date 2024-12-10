@@ -3,10 +3,11 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
+import { SearchFacets, SearchFacetsInterface } from "@/core/domain/search/models/search-facets-model";
 import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
 
 interface Filters {
-  type?: "project" | "contributor";
+  type?: "PROJECT" | "CONTRIBUTOR";
   languages?: string[];
   ecosystems?: string[];
   categories?: string[];
@@ -23,11 +24,12 @@ interface GlobalSearchContextInterface {
   onClearAllFilters: () => void;
   filters: Filters;
   onFiltersChange: (value: Filters) => void;
-  onFiltersTypeChange: (value: "project" | "contributor") => void;
+  onFiltersTypeChange: (value: "PROJECT" | "CONTRIBUTOR") => void;
   hasNextPage: boolean;
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
   results: SearchItemInterface[];
+  facets: SearchFacetsInterface;
 }
 
 export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
@@ -46,6 +48,7 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   fetchNextPage: () => {},
   isFetchingNextPage: false,
   results: [],
+  facets: new SearchFacets({ facets: [] }),
 });
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
@@ -60,6 +63,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       languages: filters.languages,
       ecosystems: filters.ecosystems,
       categories: filters.categories,
+      type: filters.type,
     },
     options: {
       enabled: open,
@@ -72,8 +76,6 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       languages: filters.languages,
       ecosystems: filters.ecosystems,
       categories: filters.categories,
-      pageSize: 1,
-      pageIndex: 0,
     },
     options: {
       enabled: open,
@@ -101,7 +103,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     setFilters(value);
   }
 
-  function onFiltersTypeChange(value?: "project" | "contributor") {
+  function onFiltersTypeChange(value?: "PROJECT" | "CONTRIBUTOR") {
     if (value) {
       setFilters({ type: value });
     } else {
@@ -143,6 +145,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         fetchNextPage,
         isFetchingNextPage,
         results: data?.pages.flatMap(page => page.results) ?? [],
+        facets: new SearchFacets({ facets: data?.pages.flatMap(page => page.facets) ?? [] }),
       }}
     >
       {children}

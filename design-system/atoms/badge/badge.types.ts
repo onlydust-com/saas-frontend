@@ -15,6 +15,7 @@ interface Variants {
   shape: "rounded" | "squared";
   isDeletable: boolean;
   iconOnly: boolean;
+  fixedSize: boolean;
   variant: "flat" | "outline" | "solid";
 }
 
