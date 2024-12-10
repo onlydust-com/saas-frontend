@@ -5,9 +5,10 @@ import { PropsWithChildren, createContext, useContext, useEffect, useState } fro
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
 import { SearchFacets, SearchFacetsInterface } from "@/core/domain/search/models/search-facets-model";
 import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
+import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
 
 interface Filters {
-  type?: "PROJECT" | "CONTRIBUTOR";
+  type?: SearchRessourceType;
   languages?: string[];
   ecosystems?: string[];
   categories?: string[];
@@ -24,7 +25,7 @@ interface GlobalSearchContextInterface {
   onClearAllFilters: () => void;
   filters: Filters;
   onFiltersChange: (value: Filters) => void;
-  onFiltersTypeChange: (value: "PROJECT" | "CONTRIBUTOR") => void;
+  onFiltersTypeChange: (value: SearchRessourceType) => void;
   hasNextPage: boolean;
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
@@ -107,7 +108,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     setFilters(value);
   }
 
-  function onFiltersTypeChange(value?: "PROJECT" | "CONTRIBUTOR") {
+  function onFiltersTypeChange(value?: SearchRessourceType) {
     if (value) {
       setFilters({ type: value });
     } else {

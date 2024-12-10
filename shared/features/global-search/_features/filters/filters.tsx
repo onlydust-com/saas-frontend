@@ -1,3 +1,5 @@
+import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+
 import { useGlobalSearch } from "../../global-search.context";
 import { CollapsedFilters } from "./_components/collapsed-filters/collapsed-filters";
 import { ProjectFilters } from "./_components/project-filters/project-filters";
@@ -17,7 +19,7 @@ export function Filters() {
   return (
     <>
       <TypeFilters onClearAll={onClearAllFilters} />
-      {filters.type === "PROJECT" && <ProjectFilters />}
+      {filters.type === SearchRessourceType.PROJECT && <ProjectFilters />}
     </>
   );
 }

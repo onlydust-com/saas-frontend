@@ -1,5 +1,7 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
+import { SearchRessourceType } from "../search-contract.types";
+
 export type SearchItemResponse = components["schemas"]["SearchItemResponse"];
 
 export interface SearchItemInterface extends SearchItemResponse {
@@ -17,10 +19,10 @@ export class SearchItem implements SearchItemInterface {
   }
 
   isProject(): boolean {
-    return this.type === "PROJECT" && !!this.project;
+    return this.type === SearchRessourceType.PROJECT && !!this.project;
   }
 
   isContributor(): boolean {
-    return this.type === "CONTRIBUTOR" && !!this.contributor;
+    return this.type === SearchRessourceType.CONTRIBUTOR && !!this.contributor;
   }
 }

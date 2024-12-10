@@ -1,6 +1,8 @@
 import { Command } from "cmdk";
 import { GitFork, Star, User } from "lucide-react";
 
+import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+
 import { ResultTemplate } from "./_components/result-template/result-template";
 import { ResultProps } from "./result.types";
 
@@ -17,7 +19,7 @@ export function Result({ data }: ResultProps) {
         <ResultTemplate
           name={data.project?.name}
           description={data.project?.shortDescription}
-          type="project"
+          type={SearchRessourceType.PROJECT}
           tags={tags}
           metrics={[
             { icon: User, count: data?.project?.contributorCount ?? 0 },
@@ -35,7 +37,7 @@ export function Result({ data }: ResultProps) {
         <ResultTemplate
           name={data.contributor?.githubLogin}
           description={data.contributor?.bio}
-          type="contributor"
+          type={SearchRessourceType.CONTRIBUTOR}
           // metrics={[
           //   { icon: User, count: data?.project?.contributorCount ?? 0 },
           //   { icon: Star, count: data?.project?.starCount ?? 0 },

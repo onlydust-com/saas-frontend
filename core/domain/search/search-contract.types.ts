@@ -25,6 +25,11 @@ export type SearchModel = Omit<SearchResponse, "results" | "facets"> & {
   facets: SearchFacetInterface[];
 };
 
+export enum SearchRessourceType {
+  PROJECT = "PROJECT",
+  CONTRIBUTOR = "CONTRIBUTOR",
+}
+
 export type SearchPortResponse = HttpStorageResponse<SearchModel>;
 
 /* --------------------------------- Suggest -------------------------------- */

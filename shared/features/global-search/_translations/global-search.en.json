@@ -7,8 +7,8 @@
   },
   "result": {
     "type": {
-      "project": "Project",
-      "contributor": "Contributor"
+      "PROJECT": "Project",
+      "CONTRIBUTOR": "Contributor"
     }
   },
   "filters": {

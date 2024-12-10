@@ -10,7 +10,6 @@ export function ResultMetric({ icon, count, label }: ResultMetricProps) {
       <Typo size="xs" weight="medium">
         {count}
       </Typo>
-      {}
     </div>
   );
 }
