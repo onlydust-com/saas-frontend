@@ -12,7 +12,7 @@ const defaultProps: CardProjectMarketplacePort<"div"> = {
   logoUrl: "https://onlydust-app-images.s3.eu-west-1.amazonaws.com/566368398222658517.png",
   contributorCount: 10,
   starCount: 10,
-  forkCount: 10,
+  pullRequestCount: 10,
   issueCount: 10,
   goodFirstIssueCount: 5,
   categories: [
