@@ -52,7 +52,9 @@ export function SafeGlobalSearch() {
                   {results.map((r, i) => (
                     <Result data={r} key={i} />
                   ))}
-                  {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+                  {hasNextPage && results.length > 0 ? (
+                    <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+                  ) : null}
                 </Command.List>
               </ScrollView>
             </div>

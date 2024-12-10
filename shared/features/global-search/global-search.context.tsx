@@ -83,6 +83,10 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   });
 
   function onOpenChange(v: boolean) {
+    if (!v) {
+      setFilters({});
+      setInputValue(null);
+    }
     setOpen(v);
   }
 

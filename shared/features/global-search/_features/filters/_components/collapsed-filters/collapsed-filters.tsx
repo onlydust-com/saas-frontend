@@ -10,6 +10,8 @@ export function CollapsedFilters() {
 
   const openFilter = () => onOpenFilterChange(true);
 
+  const otherFilters = [...(filters.languages ?? []), ...(filters.ecosystems ?? []), ...(filters.categories ?? [])];
+
   return (
     <div className="relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4">
       <div className="flex flex-row items-center justify-start gap-2">
@@ -19,6 +21,11 @@ export function CollapsedFilters() {
             htmlProps={{ onClick: openFilter }}
           />
         )}
+        {otherFilters?.map(filter => (
+          <Badge key={filter} htmlProps={{ onClick: openFilter }}>
+            {filter}
+          </Badge>
+        ))}
       </div>
       <Button
         variant="tertiary"
