@@ -126,6 +126,14 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         e.preventDefault();
         setOpen(false);
       }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
       if (e.key === "Tab" && Suggestion?.value) {
         e.preventDefault();
         setInputValue(Suggestion.value);
@@ -134,7 +142,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, []);
+  }, [Suggestion]);
 
   return (
     <GlobalSearchContext.Provider
