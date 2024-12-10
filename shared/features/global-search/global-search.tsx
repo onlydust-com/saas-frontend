@@ -1,21 +1,21 @@
 import { Kbd } from "@nextui-org/kbd";
 import { Command } from "cmdk";
-import { Star, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Input } from "@/design-system/atoms/input";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { GlobalSearchProvider, useGlobalSearch } from "@/shared/features/global-search/global-search.context";
 
-import { Filters } from "./_components/filters/filters";
 import { Header } from "./_components/header/header";
 import { ModalPortal } from "./_components/modal-container/modal-container";
-import { Result } from "./_components/result/result";
+import { Filters } from "./_features/filters/filters";
+import { Result } from "./_features/result/result";
 
 export function SafeGlobalSearch() {
   const { t } = useTranslation("features");
-  const { isOpen } = useGlobalSearch();
+  const { isOpen, hasNextPage, fetchNextPage, isFetchingNextPage, results } = useGlobalSearch();
 
   return (
     <>
@@ -43,30 +43,11 @@ export function SafeGlobalSearch() {
             <div className={"h-auto overflow-hidden p-2"}>
               <ScrollView className="max-h-[400px]">
                 <Command.List className="flex w-full flex-col gap-3 outline-none">
-                  <Command.Item value="kakarot" className="group/item">
-                    <Result
-                      name="Kakarot"
-                      description="Kakarot is the best project for kaka open source"
-                      type="project"
-                      tags={["typescript", "IA"]}
-                      metrics={[
-                        { icon: User, count: 100 },
-                        { icon: Star, count: 100 },
-                      ]}
-                    />
-                  </Command.Item>
-                  <Command.Item value="starknet" className="group/item">
-                    <Result
-                      name="Starknet"
-                      description="Kakarot is the best project for kaka open source"
-                      type="project"
-                      tags={["typescript", "IA"]}
-                      metrics={[
-                        { icon: User, count: 100 },
-                        { icon: Star, count: 100 },
-                      ]}
-                    />
-                  </Command.Item>
+                  {results.map((r, i) => (
+                    <Result data={r} key={i} />
+                  ))}
+
+                  {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
                 </Command.List>
               </ScrollView>
             </div>

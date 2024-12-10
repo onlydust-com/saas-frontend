@@ -1,9 +1,9 @@
 import { LucideIcon } from "lucide-react";
 
-export interface ResultProps {
+export interface ResultTemplateProps {
   name?: string;
   description?: string;
   type: "project" | "contributor";
-  tags: string[];
-  metrics: { icon: LucideIcon; count: number }[];
+  tags?: string[];
+  metrics?: { icon: LucideIcon; count: number | string }[];
 }

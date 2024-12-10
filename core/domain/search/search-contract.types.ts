@@ -4,7 +4,9 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { SearchFacetInterface } from "./models/search-facet-model";
 import { SearchItemInterface } from "./models/search-item-model";
+import { SuggestInterface } from "./models/suggest-model";
 
 /* --------------------------------- Search -------------------------------- */
 
@@ -18,8 +20,25 @@ export type SearchPortParams = HttpClientParameters<{
   PathParams: SearchPathParams;
 }>;
 
-export type SearchModel = Omit<SearchResponse, "results"> & {
+export type SearchModel = Omit<SearchResponse, "results" | "facets"> & {
   results: SearchItemInterface[];
+  facets: SearchFacetInterface[];
 };
 
 export type SearchPortResponse = HttpStorageResponse<SearchModel>;
+
+/* --------------------------------- Suggest -------------------------------- */
+
+export type SuggestResponse = components["schemas"]["SuggestResponse"];
+
+type SuggestQueryParams = components["schemas"]["SuggestPostRequest"];
+type SuggestPathParams = operations["suggest"]["parameters"]["path"];
+
+export type SuggestPortParams = HttpClientParameters<{
+  QueryParams: SuggestQueryParams;
+  PathParams: SuggestPathParams;
+}>;
+
+export type SuggestModel = SuggestInterface;
+
+export type SuggestPortResponse = HttpStorageResponse<SuggestModel>;

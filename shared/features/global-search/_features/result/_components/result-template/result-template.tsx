@@ -1,11 +1,11 @@
 import { Badge } from "@/design-system/atoms/badge";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { ResultHighlight } from "../../_features/result/_components/result-highlight/result-highlight";
-import { ResultMetric } from "../../_features/result/_components/result-metric/result-metric";
-import { ResultProps } from "./result.types";
+import { ResultHighlight } from "../result-highlight/result-highlight";
+import { ResultMetric } from "../result-metric/result-metric";
+import { ResultTemplateProps } from "./result-template.types";
 
-export function Result({ name, description, type, tags, metrics }: ResultProps) {
+export function ResultTemplate({ name, description, type, tags, metrics }: ResultTemplateProps) {
   return (
     <div
       className={

@@ -7,4 +7,6 @@ export class SearchClientAdapterMock implements SearchStoragePort {
   routes = {};
 
   search = mockHttpStorageResponse<SearchStoragePort["search"]>;
+
+  suggest = mockHttpStorageResponse<SearchStoragePort["suggest"]>;
 }

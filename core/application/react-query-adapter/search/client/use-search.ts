@@ -11,14 +11,18 @@ export function useSearch({
   queryParams,
   options,
 }: UseInfiniteQueryFacadeParams<SearchFacadePort["search"], SearchModel>) {
-  const notificationStoragePort = bootstrap.getSearchStoragePortForClient();
+  const searchStoragePort = bootstrap.getSearchStoragePortForClient();
 
   return useInfiniteQuery(
     useInfiniteQueryAdapter<SearchFacadePort["search"], SearchModel>({
       pathParams,
       queryParams,
-      options,
-      httpStorage: notificationStoragePort.search,
+      options: {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        ...options,
+      },
+      httpStorage: searchStoragePort.search,
     })
   );
 }

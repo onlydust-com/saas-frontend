@@ -3,6 +3,7 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
+import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
 
 interface Filters {
   type?: "project" | "contributor";
@@ -23,6 +24,10 @@ interface GlobalSearchContextInterface {
   filters: Filters;
   onFiltersChange: (value: Filters) => void;
   onFiltersTypeChange: (value: "project" | "contributor") => void;
+  hasNextPage: boolean;
+  fetchNextPage: () => void;
+  isFetchingNextPage: boolean;
+  results: SearchItemInterface[];
 }
 
 export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
@@ -37,24 +42,43 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   filters: {},
   onFiltersChange: () => {},
   onFiltersTypeChange: () => {},
+  hasNextPage: false,
+  fetchNextPage: () => {},
+  isFetchingNextPage: false,
+  results: [],
 });
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
-  const suggestion = "Kakarot";
-  // const suggestion = "";
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const [inputValue, setInputValue] = useState<string | null>("Kak");
+  const [inputValue, setInputValue] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({});
-  // const [inputValue, setInputValue] = useState<string | null>(null);
 
-  const { data } = SearchReactQueryAdapter.client.useSearch({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
     queryParams: {
       keyword: inputValue ?? undefined,
+      languages: filters.languages,
+      ecosystems: filters.ecosystems,
+      categories: filters.categories,
+    },
+    options: {
+      enabled: open,
     },
   });
 
-  console.log("data", data);
+  const { data: Suggestion } = SearchReactQueryAdapter.client.useSuggest({
+    queryParams: {
+      keyword: inputValue ?? "",
+      languages: filters.languages,
+      ecosystems: filters.ecosystems,
+      categories: filters.categories,
+      pageSize: 1,
+      pageIndex: 0,
+    },
+    options: {
+      enabled: open,
+    },
+  });
 
   function onOpenChange(v: boolean) {
     setOpen(v);
@@ -108,13 +132,17 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         onOpenChange,
         inputValue,
         onInputChange,
-        suggestion,
+        suggestion: Suggestion?.value,
         isOpenFilter: openFilter,
         onOpenFilterChange,
         onClearAllFilters,
         filters,
         onFiltersChange,
         onFiltersTypeChange,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        results: data?.pages.flatMap(page => page.results) ?? [],
       }}
     >
       {children}
