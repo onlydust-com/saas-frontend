@@ -66,9 +66,13 @@ export function SafeGlobalSearch() {
 }
 
 export function GlobalSearch() {
-  return (
-    <GlobalSearchProvider>
-      <SafeGlobalSearch />
-    </GlobalSearchProvider>
-  );
+  if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true") {
+    return (
+      <GlobalSearchProvider>
+        <SafeGlobalSearch />
+      </GlobalSearchProvider>
+    );
+  }
+
+  return null;
 }
