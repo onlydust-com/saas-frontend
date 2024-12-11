@@ -20,9 +20,11 @@ import enDepositSummary from "@/shared/panels/deposit-summary-sidepanel/_transla
 import enDepositTransaction from "@/shared/panels/deposit-transaction-sidepanel/_translations/deposit-transaction-sidepanel.en.json";
 import enExportCsv from "@/shared/panels/export-csv-sidepanel/_translations/export-csv-sidepanel.en.json";
 import enFinancialDetail from "@/shared/panels/financial-detail-sidepanel/_translations/financial-detail-sidepanel.en.json";
+import enMyRewardsTransactions from "@/shared/panels/my-rewards-transactions-sidepanel/_translations/my-rewards-transactions-sidepanel.en.json";
 import enProgramList from "@/shared/panels/program-list-sidepanel/_translations/program-list-sidepanel.en.json";
 import enProgramDetail from "@/shared/panels/program-sidepanel/program-sidepanel.en.json";
 import enProjectDetail from "@/shared/panels/project-sidepanel/project-sidepanel.en.json";
+import enProjectTransactions from "@/shared/panels/project-transactions-sidepanel/_translations/project-transactions-sidepanel.en.json";
 import enProjectUpdate from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.en.json";
 import enRewardDetail from "@/shared/panels/reward-detail-sidepanel/_translations/reward-detail-sidepanel.en.json";
 
@@ -55,5 +57,7 @@ export const enPanelsTranslation = {
     unallocateSponsorSelection: enUnallocateSponsorSelection,
     ungrantProgramSelection: enUngrantProgramSelection,
     ungrantAmountSelection: enUngrantAmountSelection,
+    projectTransactions: enProjectTransactions,
+    myRewardsTransactions: enMyRewardsTransactions,
   },
 };

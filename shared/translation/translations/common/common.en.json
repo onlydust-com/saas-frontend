@@ -105,5 +105,11 @@
     "pullRequest_other": "Pull requests",
     "codeReview_one": "Code review",
     "codeReview_other": "Code reviews"
-  }
+  },
+  "count": {
+    "issues": "{{count}} issues",
+    "goodFirstIssues": "{{count}} Good First Issues",
+    "prCount": "{{count}} PRs"
+  },
+  "all": "All"
 }

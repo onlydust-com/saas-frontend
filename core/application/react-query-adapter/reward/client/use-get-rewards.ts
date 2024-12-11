@@ -9,7 +9,6 @@ import { RewardFacadePort } from "@/core/domain/reward/input/reward-facade-port"
 import { GetRewardsModel } from "@/core/domain/reward/reward-contract.types";
 
 export function useGetRewards({
-  pathParams,
   queryParams,
   options,
 }: UseInfiniteQueryFacadeParams<RewardFacadePort["getRewards"], GetRewardsModel>) {
@@ -17,7 +16,6 @@ export function useGetRewards({
 
   return useInfiniteQuery(
     useInfiniteQueryAdapter<RewardFacadePort["getRewards"], GetRewardsModel>({
-      pathParams,
       queryParams,
       options,
       httpStorage: rewardStoragePort.getRewards,

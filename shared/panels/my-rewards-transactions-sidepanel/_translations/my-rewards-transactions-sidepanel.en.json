@@ -1,0 +1,45 @@
+{
+  "title": "Transactions",
+  "empty": {
+    "title": "No transactions found",
+    "description": "No transactions found with the selected filters"
+  },
+  "filters": {
+    "options": {
+      "types": {
+        "choices": {
+          "REWARDED": "Rewarded",
+          "PAID": "Paid"
+        }
+      }
+    }
+  },
+  "export": {
+    "title": "Export CSV",
+    "data": {
+      "columns": {
+        "id": "ID",
+        "status": "Status",
+        "requestAt": "Request at",
+        "invoicedAt": "Invoiced at",
+        "processedAt": "Processed at",
+        "unlockDate": "Unlock date",
+        "requestor": "Requestor",
+        "recipient": "Recipient",
+        "projectId": "Project ID",
+        "billingProfileId": "Billing profile ID",
+        "invoiceId": "Invoice ID",
+        "invoiceNumber": "Invoice number",
+        "amount": "Amount",
+        "currencyCode": "Currency code",
+        "usdAmount": "USD amount",
+        "transactionReference": "Transaction reference",
+        "transactionReferenceLink": "Transaction reference link"
+      }
+    },
+    "tooltip": {
+      "success": "Reward transactions exported successfully.",
+      "error": "Error exporting reward transactions."
+    }
+  }
+}

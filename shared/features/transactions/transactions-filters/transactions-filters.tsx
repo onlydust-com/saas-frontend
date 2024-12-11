@@ -126,15 +126,19 @@ export function TransactionsFilters({
         placeholder={t("transactions.filters.search.placeholder")}
       />
 
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={onOpenExport}
-        translate={{
-          token: "features:transactions.filters.export.button",
-        }}
-        endContent={<Icon component={Download} classNames={{ base: "text-components-buttons-button-secondary-fg" }} />}
-      />
+      {onOpenExport ? (
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={onOpenExport}
+          translate={{
+            token: "features:transactions.filters.export.button",
+          }}
+          endContent={
+            <Icon component={Download} classNames={{ base: "text-components-buttons-button-secondary-fg" }} />
+          }
+        />
+      ) : null}
     </div>
   );
 }
