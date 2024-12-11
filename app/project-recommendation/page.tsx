@@ -2,6 +2,8 @@
 
 import { Typo } from "@/design-system/atoms/typo";
 
+import { MatchingQuestions } from "./_features/matching-questions/matching-questions";
+
 export default function ProjectRecommendationPage() {
   return (
     <div className="mx-auto flex max-w-laptop flex-col gap-6xl py-4xl">
@@ -23,7 +25,7 @@ export default function ProjectRecommendationPage() {
         />
       </div>
 
-      {/* Add your content here */}
+      <MatchingQuestions />
     </div>
   );
 }
