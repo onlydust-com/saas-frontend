@@ -1,15 +1,8 @@
 import { RadioGroup } from "@/design-system/atoms/radio-group";
 
-import { type Answer } from "../matching-questions.types";
-import { MultipleChoiceAnswer } from "./multiple-choice-answer";
-import { SingleChoiceAnswer } from "./single-choice-answer";
-
-interface AnswerGridProps {
-  answers: Answer[];
-  selectedAnswers: Answer[];
-  onAnswerSelect: (answer: Answer) => void;
-  isMultipleChoice: boolean;
-}
+import { MultipleChoiceAnswer } from "../multiple-choice-answer/multiple-choice-answer";
+import { SingleChoiceAnswer } from "../single-choice-answer/single-choice-answer";
+import { AnswerGridProps } from "./answer-grid.types";
 
 export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipleChoice }: AnswerGridProps) {
   if (isMultipleChoice) {

@@ -4,13 +4,7 @@ import { Checkbox } from "@/design-system/atoms/checkbox";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { type Answer } from "../matching-questions.types";
-
-interface MultipleChoiceAnswerProps {
-  answer: Answer;
-  isSelected: boolean;
-  onSelect: () => void;
-}
+import { MultipleChoiceAnswerProps } from "./multiple-choice-answer.types";
 
 export function MultipleChoiceAnswer({ answer, isSelected, onSelect }: MultipleChoiceAnswerProps) {
   return (

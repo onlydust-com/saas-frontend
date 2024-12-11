@@ -1,14 +1,8 @@
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { Answer, Question } from "../matching-questions.types";
-import { AnswerGrid } from "./answer-grid";
-
-interface QuestionCardProps {
-  question: Question;
-  selectedAnswers: Answer[];
-  onAnswerSelect: (answer: Answer) => void;
-}
+import { AnswerGrid } from "../answer-grid/answer-grid";
+import { type QuestionCardProps } from "./question-card.types";
 
 export function QuestionCard({ question, selectedAnswers, onAnswerSelect }: QuestionCardProps) {
   return (

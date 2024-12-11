@@ -1,14 +1,6 @@
-"use client";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-interface NavigationButtonsProps {
-  onNext: () => void;
-  onBack: () => void;
-  isFirstQuestion: boolean;
-  isLastQuestion: boolean;
-  isSavingAnswers: boolean;
-}
+import { type NavigationButtonsProps } from "./navigation-buttons.types";
 
 export function NavigationButtons({
   onNext,

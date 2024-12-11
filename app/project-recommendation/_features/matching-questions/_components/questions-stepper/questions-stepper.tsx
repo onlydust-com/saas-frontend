@@ -1,9 +1,6 @@
-import { Stepper } from "@/design-system/molecules/stepper/variants/stepper-default";
+import { Stepper } from "@/design-system/molecules/stepper";
 
-interface QuestionsStepperProps {
-  currentQuestionIndex: number;
-  totalQuestions: number;
-}
+import { type QuestionsStepperProps } from "./questions-stepper.types";
 
 export function QuestionsStepper({ currentQuestionIndex, totalQuestions }: QuestionsStepperProps) {
   const steps = Array.from({ length: totalQuestions }, (_, index) => ({

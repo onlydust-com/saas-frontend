@@ -1,16 +1,9 @@
-"use client";
-
 import { PropsWithChildren } from "react";
 
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { Answer } from "../matching-questions.types";
-
-interface SingleChoiceAnswerProps {
-  answer: Answer;
-  isSelected: boolean;
-}
+import { type SingleChoiceAnswerProps } from "./single-choice-answer.types";
 
 export function SingleChoiceAnswer({ children, answer, isSelected }: PropsWithChildren<SingleChoiceAnswerProps>) {
   return (

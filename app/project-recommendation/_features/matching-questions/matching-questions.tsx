@@ -1,8 +1,8 @@
 "use client";
 
-import { NavigationButtons } from "./_components/navigation-buttons";
-import { QuestionCard } from "./_components/question-card";
-import { QuestionsStepper } from "./_components/questions-stepper";
+import { NavigationButtons } from "./_components/navigation-buttons/navigation-buttons";
+import { QuestionCard } from "./_components/question-card/question-card";
+import { QuestionsStepper } from "./_components/questions-stepper/questions-stepper";
 import { useMatchingQuestions } from "./matching-question.hooks";
 
 export function MatchingQuestions() {
