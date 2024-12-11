@@ -3,13 +3,15 @@ import { toast } from "sonner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
+import { Translate } from "@/shared/translation/components/translate/translate";
+
 import { Answer, MatchingQuestionsState } from "./matching-questions.types";
 
 export function useMatchingQuestions() {
   const { data: matchingQuestions, isLoading: isLoadingMatchingQuestions } =
     RecoReactQueryAdapter.client.useGetMatchingQuestions({
       queryParams: {
-        v: "REPLACE_WITH_ALGO_ID",
+        v: "REPLACE_WITH_POSTHOG_ALGO_ID",
       },
     });
 
@@ -36,10 +38,10 @@ export function useMatchingQuestions() {
           }));
         }
 
-        toast.success("Answers saved");
+        toast.success(<Translate token="projectRecommendation:details.toast.success" />);
       },
       onError: () => {
-        toast.error("Failed to save answers");
+        toast.error(<Translate token="projectRecommendation:details.toast.error" />);
       },
     },
   });

@@ -2,5 +2,9 @@
   "header": {
     "title": "Find Your Perfect Project",
     "description": "Answer a few questions to discover projects that match your interests and skills"
+  },
+  "toast": {
+    "success": "Answers saved successfully",
+    "error": "Error saving answers"
   }
 }
