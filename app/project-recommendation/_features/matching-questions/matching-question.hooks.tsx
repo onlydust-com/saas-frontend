@@ -60,22 +60,22 @@ export function useMatchingQuestions() {
     }
   }, [matchingQuestions?.questions, currentQuestionId]);
 
-  const handleNext = () => {
+  function handleNext() {
     saveAnswers({
       answerIndexes: questionState.selectedAnswers[Number(currentQuestionId)].map(answer => answer.index ?? 0),
     });
-  };
+  }
 
-  const handleBack = () => {
+  function handleBack() {
     if (!isFirstQuestion) {
       setQuestionState(prev => ({
         ...prev,
         currentQuestionIndex: prev.currentQuestionIndex - 1,
       }));
     }
-  };
+  }
 
-  const handleAnswerSelect = (answer: Answer) => {
+  function handleAnswerSelect(answer: Answer) {
     if (!currentQuestion) return;
 
     setQuestionState(prev => {
@@ -115,7 +115,7 @@ export function useMatchingQuestions() {
         };
       }
     });
-  };
+  }
 
   return {
     isLoadingMatchingQuestions,
