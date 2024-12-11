@@ -10,11 +10,11 @@ export function QuestionCard({ question, selectedAnswers, onAnswerSelect }: Ques
       <Typo variant="heading" size="xs">
         {question.body}
       </Typo>
-      {question.description && (
+      {question.description ? (
         <Typo color="secondary" size="sm">
           {question.description}
         </Typo>
-      )}
+      ) : null}
       <AnswerGrid
         answers={question.answers}
         selectedAnswers={selectedAnswers}

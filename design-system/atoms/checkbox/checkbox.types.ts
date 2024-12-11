@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from "react";
+import { HTMLProps } from "react";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
@@ -24,7 +24,7 @@ export interface CheckboxPort extends Partial<Variants> {
   value?: boolean;
   isDisabled?: boolean;
   mixed?: boolean;
-  label?: TranslateProps | { children: ReactNode };
+  label?: TranslateProps;
   description?: TranslateProps;
   attr?: DataAttributes;
 }

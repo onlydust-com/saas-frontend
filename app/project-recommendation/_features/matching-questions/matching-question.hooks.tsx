@@ -82,11 +82,9 @@ export function useMatchingQuestions() {
       const currentAnswers = prev.selectedAnswers[Number(currentQuestion.id)] ?? [];
 
       if (currentQuestion.multipleChoice) {
-        // For multiple choice, toggle the chosen answer
         const existingAnswerIndex = currentAnswers.findIndex(a => a.index === answer.index);
 
         if (existingAnswerIndex >= 0) {
-          // Remove if already selected
           return {
             ...prev,
             selectedAnswers: {
@@ -95,7 +93,6 @@ export function useMatchingQuestions() {
             },
           };
         } else {
-          // Add new answer
           return {
             ...prev,
             selectedAnswers: {
@@ -105,7 +102,6 @@ export function useMatchingQuestions() {
           };
         }
       } else {
-        // For single choice, replace existing answer
         return {
           ...prev,
           selectedAnswers: {
