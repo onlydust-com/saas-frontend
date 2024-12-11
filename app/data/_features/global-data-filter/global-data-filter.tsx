@@ -15,7 +15,7 @@ export function GlobalDataFilter() {
         buttonProps={{ size: "sm" }}
         searchParams={"programAndEcosystemIds"}
       />
-      <PeriodFilter onChange={setPeriod} value={period} />
+      <PeriodFilter onChange={setPeriod} value={period} placement={"bottom-end"} />
     </div>
   );
 }
