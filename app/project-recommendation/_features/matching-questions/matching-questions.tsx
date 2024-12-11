@@ -1,8 +1,8 @@
 "use client";
 
-import { NavigationButtons } from "./components/navigation-buttons";
-import { QuestionCard } from "./components/question-card";
-import { useMatchingQuestions } from "./matching-questions.hooks";
+import { NavigationButtons } from "./_components/navigation-buttons";
+import { QuestionCard } from "./_components/question-card";
+import { useMatchingQuestions } from "./matching-question.hooks";
 
 export function MatchingQuestions() {
   const {
@@ -13,7 +13,7 @@ export function MatchingQuestions() {
     isFirstQuestion,
     handleNext,
     handleBack,
-    handleAnswerSelection,
+    handleAnswerSelect,
   } = useMatchingQuestions();
 
   if (isLoading || !currentQuestion) {
@@ -24,8 +24,8 @@ export function MatchingQuestions() {
     <div className="flex flex-col gap-xl">
       <QuestionCard
         question={currentQuestion}
-        selectedAnswers={selectedAnswers}
-        onAnswerSelect={handleAnswerSelection}
+        selectedAnswers={selectedAnswers[Number(currentQuestion.id)] ?? []}
+        onAnswerSelect={handleAnswerSelect}
       />
       <NavigationButtons
         onNext={handleNext}

@@ -5,6 +5,7 @@ export interface Answer {
 }
 
 export interface Question {
+  id: string;
   body: string;
   description?: string;
   answers: Answer[];
@@ -13,5 +14,5 @@ export interface Question {
 
 export interface MatchingQuestionsState {
   currentQuestionIndex: number;
-  selectedAnswers: Record<number, string[]>;
+  selectedAnswers: Record<number, Answer[]>;
 }

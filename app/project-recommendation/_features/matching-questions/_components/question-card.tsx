@@ -1,15 +1,13 @@
-"use client";
-
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { type Question } from "../matching-questions.types";
+import { Answer, Question } from "../matching-questions.types";
 import { AnswerGrid } from "./answer-grid";
 
 interface QuestionCardProps {
   question: Question;
-  selectedAnswers: string[];
-  onAnswerSelect: (answerId: string) => void;
+  selectedAnswers: Answer[];
+  onAnswerSelect: (answer: Answer) => void;
 }
 
 export function QuestionCard({ question, selectedAnswers, onAnswerSelect }: QuestionCardProps) {

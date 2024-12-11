@@ -1,5 +1,3 @@
-"use client";
-
 import { RadioGroup } from "@/design-system/atoms/radio-group";
 
 import { type Answer } from "../matching-questions.types";
@@ -8,8 +6,8 @@ import { SingleChoiceAnswer } from "./single-choice-answer";
 
 interface AnswerGridProps {
   answers: Answer[];
-  selectedAnswers: string[];
-  onAnswerSelect: (answerId: string) => void;
+  selectedAnswers: Answer[];
+  onAnswerSelect: (answer: Answer) => void;
   isMultipleChoice: boolean;
 }
 
@@ -21,8 +19,8 @@ export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipl
           <MultipleChoiceAnswer
             key={answer.index}
             answer={answer}
-            isSelected={selectedAnswers.includes(String(answer.index))}
-            onSelect={() => onAnswerSelect(String(answer.index))}
+            isSelected={selectedAnswers.find(a => a.index === answer.index)?.chosen ?? false}
+            onSelect={() => onAnswerSelect(answer)}
           />
         ))}
       </div>
@@ -31,13 +29,13 @@ export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipl
 
   return (
     <RadioGroup
-      value={selectedAnswers[0] ?? "-1"}
-      onChange={onAnswerSelect}
+      value={String(selectedAnswers[0]?.index ?? "-1")}
+      onChange={value => onAnswerSelect(answers.find(a => a.index === Number(value)) ?? answers[0])}
       as={SingleChoiceAnswer}
       items={answers.map(answer => ({
         value: String(answer.index),
         componentProps: {
-          isSelected: selectedAnswers[0] === String(answer.index),
+          isSelected: selectedAnswers[0]?.index === answer.index,
           answer,
         },
       }))}
