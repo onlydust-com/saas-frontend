@@ -1,6 +1,6 @@
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 
-import { type NavigationButtonsProps } from "./navigation-buttons.types";
+import { NavigationButtonsProps } from "./navigation-buttons.types";
 
 export function NavigationButtons({
   onNext,

@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { type SingleChoiceAnswerProps } from "./single-choice-answer.types";
+import { SingleChoiceAnswerProps } from "./single-choice-answer.types";
 
 export function SingleChoiceAnswer({ children, answer, isSelected }: PropsWithChildren<SingleChoiceAnswerProps>) {
   return (
