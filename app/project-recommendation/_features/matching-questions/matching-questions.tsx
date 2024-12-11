@@ -1,13 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { Paper } from "@/design-system/atoms/paper";
+import { RadioGroup } from "@/design-system/atoms/radio-group";
 import { Typo } from "@/design-system/atoms/typo";
+
+function CustomRadioComponent({
+  children,
+  body,
+  isSelected,
+}: PropsWithChildren<{
+  isSelected: boolean;
+  body: string;
+}>) {
+  return (
+    <Paper size="lg" background="tertiary" hasBorderHover border={isSelected ? "brand-primary" : "tertiary"}>
+      <div className="flex items-center justify-between gap-md">
+        <Typo>{body}</Typo>
+        {children}
+      </div>
+    </Paper>
+  );
+}
 
 export function MatchingQuestions() {
   const { data: matchingQuestions, isLoading } = RecoReactQueryAdapter.client.useGetMatchingQuestions({
@@ -70,28 +89,49 @@ export function MatchingQuestions() {
             {currentQuestion.description}
           </Typo>
         )}
-        <div className="grid grid-cols-2 gap-md">
-          {currentQuestion.answers.map(answer => {
-            const index = answer.index?.toString() ?? "";
-            return (
-              <Paper
-                key={index}
-                size="lg"
-                onClick={() => handleAnswerSelection(index)}
-                background={"tertiary"}
-                hasBorderHover
-                border={selectedAnswers[currentQuestionIndex]?.includes(index) ? "brand-primary" : "tertiary"}
-              >
-                <div className="flex items-center justify-between gap-md">
-                  <Typo>{answer.body}</Typo>
-                  <Checkbox
-                    value={selectedAnswers[currentQuestionIndex]?.includes(index)}
-                    onChange={() => handleAnswerSelection(index)}
-                  />
-                </div>
-              </Paper>
-            );
-          })}
+        <div className="flex flex-col gap-md">
+          {currentQuestion.multipleChoice ? (
+            <div className="grid grid-cols-2 gap-md">
+              {currentQuestion.answers.map(answer => (
+                <Paper
+                  key={String(answer.index)}
+                  size="lg"
+                  onClick={() => handleAnswerSelection(String(answer.index))}
+                  background="tertiary"
+                  hasBorderHover
+                  border={
+                    selectedAnswers[currentQuestionIndex]?.includes(String(answer.index)) ? "brand-primary" : "tertiary"
+                  }
+                >
+                  <div className="flex items-center justify-between gap-md">
+                    <Typo>{answer.body}</Typo>
+                    <Checkbox
+                      value={Boolean(selectedAnswers[currentQuestionIndex]?.includes(String(answer.index)))}
+                      onChange={() => {}}
+                    />
+                  </div>
+                </Paper>
+              ))}
+            </div>
+          ) : (
+            // Radio version
+            <RadioGroup
+              value={String(selectedAnswers[currentQuestionIndex]?.[0] ?? -1)}
+              onChange={value => handleAnswerSelection(value)}
+              as={CustomRadioComponent}
+              items={currentQuestion.answers.map(answer => ({
+                value: String(answer.index),
+                componentProps: {
+                  isSelected: selectedAnswers[currentQuestionIndex]?.[0] === String(answer.index),
+                  body: answer.body,
+                },
+              }))}
+              classNames={{
+                base: "grid grid-cols-2 gap-md",
+                item: "w-full",
+              }}
+            />
+          )}
         </div>
       </Paper>
 
