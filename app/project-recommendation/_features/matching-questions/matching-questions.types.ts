@@ -14,5 +14,5 @@ export interface Question {
 
 export interface MatchingQuestionsState {
   currentQuestionIndex: number;
-  selectedAnswers: Record<number, Answer[]>;
+  selectedAnswers: Record<string, Answer[]>;
 }

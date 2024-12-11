@@ -50,7 +50,7 @@ export function MatchingQuestions() {
       <QuestionsStepper currentQuestionIndex={currentQuestionIndex} totalQuestions={totalQuestions} />
       <QuestionCard
         question={currentQuestion}
-        selectedAnswers={selectedAnswers[Number(currentQuestion.id)] ?? []}
+        selectedAnswers={selectedAnswers[currentQuestion.id] ?? []}
         onAnswerSelect={handleAnswerSelect}
       />
       <NavigationButtons

@@ -48,7 +48,7 @@ export function useMatchingQuestions() {
 
   function handleNext() {
     saveAnswers({
-      answerIndexes: questionState.selectedAnswers[Number(currentQuestionId)].map(answer => answer.index ?? 0),
+      answerIndexes: questionState.selectedAnswers[currentQuestionId ?? ""].map(answer => answer.index ?? 0),
     });
   }
 
@@ -65,7 +65,7 @@ export function useMatchingQuestions() {
     if (!currentQuestion) return;
 
     setQuestionState(prev => {
-      const currentAnswers = prev.selectedAnswers[Number(currentQuestion.id)] ?? [];
+      const currentAnswers = prev.selectedAnswers[currentQuestion.id] ?? [];
 
       if (currentQuestion.multipleChoice) {
         const existingAnswerIndex = currentAnswers.findIndex(a => a.index === answer.index);
@@ -75,7 +75,7 @@ export function useMatchingQuestions() {
             ...prev,
             selectedAnswers: {
               ...prev.selectedAnswers,
-              [Number(currentQuestion.id)]: currentAnswers.filter((_, i) => i !== existingAnswerIndex),
+              [currentQuestion.id]: currentAnswers.filter((_, i) => i !== existingAnswerIndex),
             },
           };
         } else {
@@ -83,7 +83,7 @@ export function useMatchingQuestions() {
             ...prev,
             selectedAnswers: {
               ...prev.selectedAnswers,
-              [Number(currentQuestion.id)]: [...currentAnswers, { ...answer, chosen: true }],
+              [currentQuestion.id]: [...currentAnswers, { ...answer, chosen: true }],
             },
           };
         }
@@ -92,7 +92,7 @@ export function useMatchingQuestions() {
           ...prev,
           selectedAnswers: {
             ...prev.selectedAnswers,
-            [Number(currentQuestion.id)]: [{ ...answer, chosen: true }],
+            [currentQuestion.id]: [{ ...answer, chosen: true }],
           },
         };
       }
@@ -105,7 +105,7 @@ export function useMatchingQuestions() {
         ...prev,
         selectedAnswers: {
           ...prev.selectedAnswers,
-          [Number(currentQuestionId)]: matchingQuestions.questions[questionState.currentQuestionIndex].answers.filter(
+          [currentQuestionId]: matchingQuestions.questions[questionState.currentQuestionIndex].answers.filter(
             answer => answer.chosen
           ),
         },
