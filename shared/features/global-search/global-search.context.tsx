@@ -1,6 +1,7 @@
 "use client";
 
 import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import { useDebounce } from "react-use";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
 import { SearchFacets, SearchFacetsInterface } from "@/core/domain/search/models/search-facets-model";
@@ -54,9 +55,18 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
   const [open, setOpen] = useState(false);
+  const [debouncedOpen, setDebouncedOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({});
+
+  useDebounce(
+    () => {
+      setDebouncedOpen(open);
+    },
+    300,
+    [open]
+  );
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
     queryParams: {
@@ -67,7 +77,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       type: filters.type,
     },
     options: {
-      enabled: open,
+      enabled: debouncedOpen,
     },
   });
 
@@ -79,7 +89,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       categories: filters.categories,
     },
     options: {
-      enabled: open,
+      enabled: debouncedOpen,
     },
   });
 
@@ -87,8 +97,11 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     if (!v) {
       setFilters({});
       setInputValue(null);
+      setOpen(false);
+    } else {
+      setOpen(true);
+      setDebouncedOpen(true);
     }
-    setOpen(v);
   }
 
   function onInputChange(v: string) {
@@ -134,7 +147,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [Suggestion]);
+  }, [Suggestion, open]);
 
   return (
     <GlobalSearchContext.Provider

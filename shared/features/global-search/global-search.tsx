@@ -1,5 +1,6 @@
 import { Kbd } from "@nextui-org/kbd";
 import { Command } from "cmdk";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 import { Input } from "@/design-system/atoms/input";
@@ -16,7 +17,7 @@ import { Result } from "./_features/result/result";
 
 export function SafeGlobalSearch() {
   const { t } = useTranslation("features");
-  const { isOpen, hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange } = useGlobalSearch();
+  const { hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange, inputValue } = useGlobalSearch();
 
   return (
     <>
@@ -38,29 +39,42 @@ export function SafeGlobalSearch() {
           }
         />
       </div>
-      <ModalPortal isOpen={isOpen}>
+      <ModalPortal>
         <Command
           className={
-            "flex h-[500px] w-full max-w-[730px] flex-col overflow-hidden rounded-xl bg-background-primary effect-box-shadow-sm"
+            "flex h-fit w-[730px] max-w-full flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt effect-box-shadow-sm"
           }
         >
           <Header />
-          <Filters />
-          <div className={"flex-1 overflow-hidden p-2"}>
-            <ScrollView>
-              <Command.Empty>
-                <EmptyStateLite />
-              </Command.Empty>
-              <Command.List className="flex w-full flex-col gap-3 outline-none">
-                {results.map((r, i) => (
-                  <Result data={r} key={i} />
-                ))}
-                {hasNextPage && results.length > 0 ? (
-                  <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
-                ) : null}
-              </Command.List>
-            </ScrollView>
-          </div>
+          <AnimatePresence>
+            {!!inputValue && (
+              <motion.div
+                className="flex flex-col overflow-hidden"
+                initial={{ height: 0 }}
+                animate={{ height: 400 }}
+                transition={{ duration: 0.2 }}
+                exit={{ height: 0 }}
+                key={"container"}
+              >
+                <Filters />
+                <div className={"flex-1 overflow-hidden p-2"}>
+                  <ScrollView>
+                    <Command.Empty>
+                      <EmptyStateLite />
+                    </Command.Empty>
+                    <Command.List className="flex w-full flex-col gap-3 outline-none">
+                      {results.map((r, i) => (
+                        <Result data={r} key={i} />
+                      ))}
+                      {hasNextPage && results.length > 0 ? (
+                        <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+                      ) : null}
+                    </Command.List>
+                  </ScrollView>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Command>
       </ModalPortal>
     </>
