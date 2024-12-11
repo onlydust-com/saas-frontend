@@ -68,36 +68,35 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
         </Typo>
       )}
 
-      {/*// TODO KEEP THIS WHEN BACKEND IS READY*/}
-      {/*<Typo*/}
-      {/*  size={"xs"}*/}
-      {/*  color={"primary"}*/}
-      {/*  weight={"medium"}*/}
-      {/*  translate={{ token: "features:contributorProfileExtended.followers", count: 12 }}*/}
-      {/*/>*/}
+      <Typo
+        size={"xs"}
+        color={"primary"}
+        weight={"medium"}
+        translate={{ token: "features:contributorProfileExtended.followers", count: contributor.followerCount }}
+      />
 
-      {contributor.contacts?.length ? (
-        <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+      <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+        {contributor.contacts?.length ? (
           <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
             {contributor.contacts.map(contact => (
               <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
             ))}
           </div>
+        ) : null}
 
-          <div className={"flex flex-row flex-wrap items-center justify-end gap-md"}>
-            {!!signedUpAt && (
-              <Badge shape={"squared"} avatar={{ src: "" }}>
-                {signedUpAt}
-              </Badge>
-            )}
-            {!!signedUpOnGithubAt && (
-              <Badge shape={"squared"} icon={{ component: Github }}>
-                {signedUpOnGithubAt}
-              </Badge>
-            )}
-          </div>
+        <div className={"flex flex-row flex-wrap items-center justify-end gap-md"}>
+          {!!signedUpAt && (
+            <Badge shape={"squared"} avatar={{ src: "" }}>
+              {signedUpAt}
+            </Badge>
+          )}
+          {!!signedUpOnGithubAt && (
+            <Badge shape={"squared"} icon={{ component: Github }}>
+              {signedUpOnGithubAt}
+            </Badge>
+          )}
         </div>
-      ) : null}
+      </div>
       {footerContent}
     </Paper>
   );
