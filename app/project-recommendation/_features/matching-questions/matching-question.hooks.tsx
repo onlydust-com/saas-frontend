@@ -46,20 +46,6 @@ export function useMatchingQuestions() {
     },
   });
 
-  useEffect(() => {
-    if (matchingQuestions?.questions && currentQuestionId) {
-      setQuestionState(prev => ({
-        ...prev,
-        selectedAnswers: {
-          ...prev.selectedAnswers,
-          [Number(currentQuestionId)]: matchingQuestions.questions[questionState.currentQuestionIndex].answers.filter(
-            answer => answer.chosen
-          ),
-        },
-      }));
-    }
-  }, [matchingQuestions?.questions, currentQuestionId]);
-
   function handleNext() {
     saveAnswers({
       answerIndexes: questionState.selectedAnswers[Number(currentQuestionId)].map(answer => answer.index ?? 0),
@@ -112,6 +98,20 @@ export function useMatchingQuestions() {
       }
     });
   }
+
+  useEffect(() => {
+    if (matchingQuestions?.questions && currentQuestionId) {
+      setQuestionState(prev => ({
+        ...prev,
+        selectedAnswers: {
+          ...prev.selectedAnswers,
+          [Number(currentQuestionId)]: matchingQuestions.questions[questionState.currentQuestionIndex].answers.filter(
+            answer => answer.chosen
+          ),
+        },
+      }));
+    }
+  }, [matchingQuestions?.questions, currentQuestionId]);
 
   return {
     isLoadingMatchingQuestions,
