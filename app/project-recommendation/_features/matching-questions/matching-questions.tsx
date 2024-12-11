@@ -1,5 +1,9 @@
 "use client";
 
+import { Skeleton } from "@/design-system/atoms/skeleton";
+
+import { EmptyState } from "@/shared/components/empty-state/empty-state";
+
 import { NavigationButtons } from "./_components/navigation-buttons/navigation-buttons";
 import { QuestionCard } from "./_components/question-card/question-card";
 import { QuestionsStepper } from "./_components/questions-stepper/questions-stepper";
@@ -20,8 +24,25 @@ export function MatchingQuestions() {
     totalQuestions,
   } = useMatchingQuestions();
 
-  if (isLoadingMatchingQuestions || !currentQuestion) {
-    return null;
+  if (isLoadingMatchingQuestions) {
+    return (
+      <Skeleton
+        classNames={{
+          base: "w-full min-h-[300px]",
+        }}
+      />
+    );
+  }
+
+  if (!currentQuestion) {
+    return (
+      <EmptyState
+        titleTranslate={{ token: "projectRecommendation:details.matching-questions.emptyState.title" }}
+        descriptionTranslate={{
+          token: "projectRecommendation:details.matching-questions.emptyState.description",
+        }}
+      />
+    );
   }
 
   return (

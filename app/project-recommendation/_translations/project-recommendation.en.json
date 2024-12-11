@@ -6,5 +6,11 @@
   "toast": {
     "success": "Answers saved successfully",
     "error": "Error saving answers"
+  },
+  "matching-questions": {
+    "emptyState": {
+      "title": "No questions found",
+      "description": "We couldn't find any questions for you. Please try again later."
+    }
   }
 }
