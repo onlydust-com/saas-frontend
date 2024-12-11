@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import {
@@ -33,28 +33,30 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
     [queryParams]
   );
 
-  useEffect(() => {
-    setQueryParams({
-      tags: filters.tags.length ? filters.tags : undefined,
-      languageSlugs: filters.languageSlugs.length ? filters.languageSlugs : undefined,
-      ecosystemSlugs: filters.ecosystemSlugs.length ? filters.ecosystemSlugs : undefined,
-      categorySlugs: filters.categorySlugs.length ? filters.categorySlugs : undefined,
-    });
-  }, [filters]);
-
   const isCleared = useMemo(() => JSON.stringify(filters) === JSON.stringify(DEFAULT_FILTER), [filters]);
 
   const filtersCount = useMemo(() => {
     return filters.languageSlugs.length + filters.ecosystemSlugs.length + filters.categorySlugs.length;
   }, [filters]);
 
+  function handleQueryParams(filters: BrowseProjectsContextFilter) {
+    setQueryParams({
+      tags: filters.tags.length ? filters.tags : undefined,
+      languageSlugs: filters.languageSlugs.length ? filters.languageSlugs : undefined,
+      ecosystemSlugs: filters.ecosystemSlugs.length ? filters.ecosystemSlugs : undefined,
+      categorySlugs: filters.categorySlugs.length ? filters.categorySlugs : undefined,
+    });
+  }
+
   function setFilter(filter: Partial<BrowseProjectsContextFilter>) {
     const newFilters = { ...filters, ...filter };
     setFilters(newFilters);
+    handleQueryParams(newFilters);
   }
 
   function clearFilters() {
     setFilters(DEFAULT_FILTER);
+    handleQueryParams(DEFAULT_FILTER);
   }
 
   return (
