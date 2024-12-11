@@ -25,7 +25,7 @@ interface GlobalSearchContextInterface {
   onClearAllFilters: () => void;
   filters: Filters;
   onFiltersChange: (value: Filters) => void;
-  onFiltersTypeChange: (value: SearchRessourceType) => void;
+  onFiltersTypeChange: (value?: SearchRessourceType) => void;
   hasNextPage: boolean;
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
@@ -120,20 +120,12 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen(open => !open);
+        onOpenChange(!open);
       }
       if (e.key === "Escape" && open) {
         e.preventDefault();
-        setOpen(false);
+        onOpenChange(false);
       }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
       if (e.key === "Tab" && Suggestion?.value) {
         e.preventDefault();
         setInputValue(Suggestion.value);
