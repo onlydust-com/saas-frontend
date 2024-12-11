@@ -24,17 +24,18 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BrowseProjectsFilters } from "../browse-projects-filters/browse-projects-filters";
 
-const tabs: { id: PROJECT_TAG | "ALL"; children: ReactNode }[] = Object.values(PROJECT_TAG).map(tag => ({
-  id: tag,
-  children: <Translate token={PROJECT_TAG_METADATA[tag].label} />,
-}));
-
 const ALL_TAB = {
   id: "ALL",
   children: <Translate token={"common:all"} />,
 } as const;
 
-tabs.unshift(ALL_TAB);
+const TABS: { id: PROJECT_TAG | "ALL"; children: ReactNode }[] = [
+  ALL_TAB,
+  ...Object.values(PROJECT_TAG).map(tag => ({
+    id: tag,
+    children: <Translate token={PROJECT_TAG_METADATA[tag].label} />,
+  })),
+];
 
 function Safe() {
   const { filters, queryParams } = useBrowseProjectsContext();
@@ -102,7 +103,7 @@ function Safe() {
         <header className="flex flex-row items-start justify-between gap-xl">
           <Tabs
             variant={"flat"}
-            tabs={tabs}
+            tabs={TABS}
             selectedId={filters.values.tags[0] ?? ALL_TAB.id}
             onTabClick={id => {
               filters.set({ tags: id === ALL_TAB.id ? [] : [id as PROJECT_TAG] });
