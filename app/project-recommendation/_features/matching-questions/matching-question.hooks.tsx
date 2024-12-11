@@ -127,5 +127,7 @@ export function useMatchingQuestions() {
     handleBack,
     handleAnswerSelect,
     selectedAnswers: questionState.selectedAnswers,
+    currentQuestionIndex: questionState.currentQuestionIndex,
+    totalQuestions: matchingQuestions?.questions.length ?? 0,
   };
 }

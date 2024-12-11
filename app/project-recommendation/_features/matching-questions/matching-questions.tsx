@@ -2,6 +2,7 @@
 
 import { NavigationButtons } from "./_components/navigation-buttons";
 import { QuestionCard } from "./_components/question-card";
+import { QuestionsStepper } from "./_components/questions-stepper";
 import { useMatchingQuestions } from "./matching-question.hooks";
 
 export function MatchingQuestions() {
@@ -15,6 +16,8 @@ export function MatchingQuestions() {
     handleNext,
     handleBack,
     handleAnswerSelect,
+    currentQuestionIndex,
+    totalQuestions,
   } = useMatchingQuestions();
 
   if (isLoadingMatchingQuestions || !currentQuestion) {
@@ -23,6 +26,7 @@ export function MatchingQuestions() {
 
   return (
     <div className="flex flex-col gap-xl">
+      <QuestionsStepper currentQuestionIndex={currentQuestionIndex} totalQuestions={totalQuestions} />
       <QuestionCard
         question={currentQuestion}
         selectedAnswers={selectedAnswers[Number(currentQuestion.id)] ?? []}
