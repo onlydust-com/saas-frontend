@@ -1,12 +1,11 @@
 "use client";
 
-import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
-import { SearchFacets, SearchFacetsInterface } from "@/core/domain/search/models/search-facets-model";
 import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
-import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+import { SearchModel, SearchRessourceType } from "@/core/domain/search/search-contract.types";
 
 interface Filters {
   type?: SearchRessourceType;
@@ -31,7 +30,8 @@ interface GlobalSearchContextInterface {
   fetchNextPage: () => void;
   isFetchingNextPage: boolean;
   results: SearchItemInterface[];
-  facets: SearchFacetsInterface;
+  projectFacets: SearchModel["projectFacets"];
+  typeFacets: SearchModel["typeFacets"];
 }
 
 export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
@@ -50,7 +50,14 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   fetchNextPage: () => {},
   isFetchingNextPage: false,
   results: [],
-  facets: new SearchFacets({ facets: [] }),
+  projectFacets: {
+    ecosystems: [],
+    categories: [],
+    languages: [],
+  },
+  typeFacets: {
+    types: [],
+  },
 });
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
@@ -149,6 +156,20 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     return () => document.removeEventListener("keydown", down);
   }, [Suggestion, open]);
 
+  const projectFacets: SearchModel["projectFacets"] = useMemo(() => {
+    return {
+      ecosystems: data?.pages.flatMap(page => page.projectFacets?.ecosystems ?? []),
+      categories: data?.pages.flatMap(page => page.projectFacets?.categories ?? []),
+      languages: data?.pages.flatMap(page => page.projectFacets?.languages ?? []),
+    };
+  }, [data]);
+
+  const typeFacets: SearchModel["typeFacets"] = useMemo(() => {
+    return {
+      types: data?.pages.flatMap(page => page.typeFacets?.types ?? []),
+    };
+  }, [data]);
+
   return (
     <GlobalSearchContext.Provider
       value={{
@@ -167,7 +188,8 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         fetchNextPage,
         isFetchingNextPage,
         results: data?.pages.flatMap(page => page.results) ?? [],
-        facets: new SearchFacets({ facets: data?.pages.flatMap(page => page.facets) ?? [] }),
+        projectFacets,
+        typeFacets,
       }}
     >
       {children}
