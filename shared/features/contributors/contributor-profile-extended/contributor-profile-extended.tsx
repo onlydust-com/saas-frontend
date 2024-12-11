@@ -82,7 +82,7 @@ export function ContributorProfileExtended({ user, headerProps, footerContent }:
               <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
             ))}
           </div>
-        ) : null}
+        ) : <div />}
 
         <div className={"flex flex-row flex-wrap items-center justify-end gap-md"}>
           {!!signedUpAt && (
