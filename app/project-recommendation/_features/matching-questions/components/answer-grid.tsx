@@ -38,7 +38,7 @@ export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipl
         value: String(answer.index),
         componentProps: {
           isSelected: selectedAnswers[0] === String(answer.index),
-          body: answer.body,
+          answer,
         },
       }))}
       classNames={{

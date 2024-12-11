@@ -1,6 +1,7 @@
 export interface Answer {
-  index: number;
+  index?: number;
   body: string;
+  chosen: boolean;
 }
 
 export interface Question {
