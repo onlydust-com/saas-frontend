@@ -324,6 +324,7 @@
     --typography-tertiary_hover: var(--_grey-600);
     --typography-quaternary: var(--_grey-500-primary);
     --typography-white: var(--_white);
+    --typography-black: var(--_black);
     --typography-disabled: var(--_grey-400);
     --typography-placeholder: var(--_grey-500-primary);
     --typography-error: var(--_error-600);
@@ -773,6 +774,7 @@
     --typography-tertiary_hover: var(--_grey-300);
     --typography-quaternary: var(--_grey-500-primary);
     --typography-white: var(--_white);
+    --typography-black: var(--_black);
     --typography-disabled: var(--_grey-500-primary);
     --typography-placeholder: var(--_grey-400);
     --typography-error: var(--_error-400);

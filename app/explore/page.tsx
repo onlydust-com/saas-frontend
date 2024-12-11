@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/app/explore/_components/section/section";
+import { ProjectBanner } from "@/app/explore/_features/project-banner/project-banner";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
@@ -14,6 +15,22 @@ export default function ExplorePage() {
   return (
     <ScrollView>
       <div className="mx-auto flex max-w-laptop flex-col gap-6xl py-4xl">
+        <ProjectBanner
+          title="Project Banner"
+          subtitle="Project Banner"
+          theme="dark"
+          image="https://placehold.co/600x500"
+          backgroundColor="#F5F5F5"
+          ctaPrimary={{
+            label: "See on Onlydust",
+            href: "https://onlydust.xyz",
+          }}
+          ctaSecondary={{
+            label: "See on Onlydust",
+            href: "https://onlydust.xyz",
+          }}
+        />
+
         <TrendingProjects />
 
         <Section

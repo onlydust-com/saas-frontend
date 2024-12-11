@@ -9,6 +9,7 @@ export const COLORS = {
     "tertiary-hover": "var(--typography-tertiary_hover)",
     quaternary: "var(--typography-quaternary)",
     white: "var(--typography-white)",
+    black: "var(--typography-black)",
     disabled: "var(--typography-disabled)",
     placeholder: "var(--typography-placeholder)",
     error: "var(--typography-error)",
