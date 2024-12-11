@@ -8,15 +8,22 @@ interface NavigationButtonsProps {
   onBack: () => void;
   isFirstQuestion: boolean;
   isLastQuestion: boolean;
+  isSavingAnswers: boolean;
 }
 
-export function NavigationButtons({ onNext, onBack, isFirstQuestion, isLastQuestion }: NavigationButtonsProps) {
+export function NavigationButtons({
+  onNext,
+  onBack,
+  isFirstQuestion,
+  isLastQuestion,
+  isSavingAnswers,
+}: NavigationButtonsProps) {
   return (
     <div className="mt-xl flex justify-between">
-      <Button onClick={onBack} isDisabled={isFirstQuestion} theme="primary" variant="secondary">
+      <Button onClick={onBack} isDisabled={isFirstQuestion} variant="secondary">
         <Typo>Back</Typo>
       </Button>
-      <Button onClick={onNext} isDisabled={isLastQuestion} theme="primary">
+      <Button onClick={onNext} isLoading={isSavingAnswers}>
         <Typo>{isLastQuestion ? "Finish" : "Next"}</Typo>
       </Button>
     </div>

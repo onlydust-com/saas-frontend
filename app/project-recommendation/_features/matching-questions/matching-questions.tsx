@@ -6,7 +6,8 @@ import { useMatchingQuestions } from "./matching-question.hooks";
 
 export function MatchingQuestions() {
   const {
-    isLoading,
+    isLoadingMatchingQuestions,
+    isSavingAnswers,
     currentQuestion,
     selectedAnswers,
     isLastQuestion,
@@ -16,7 +17,7 @@ export function MatchingQuestions() {
     handleAnswerSelect,
   } = useMatchingQuestions();
 
-  if (isLoading || !currentQuestion) {
+  if (isLoadingMatchingQuestions || !currentQuestion) {
     return null;
   }
 
@@ -32,6 +33,7 @@ export function MatchingQuestions() {
         onBack={handleBack}
         isFirstQuestion={isFirstQuestion}
         isLastQuestion={isLastQuestion}
+        isSavingAnswers={isSavingAnswers}
       />
     </div>
   );

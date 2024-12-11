@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { Answer, MatchingQuestionsState } from "./matching-questions.types";
 
 export function useMatchingQuestions() {
-  const { data: matchingQuestions, isLoading } = RecoReactQueryAdapter.client.useGetMatchingQuestions({
-    queryParams: {
-      v: "REPLACE_WITH_ALGO_ID",
-    },
-  });
+  const { data: matchingQuestions, isLoading: isLoadingMatchingQuestions } =
+    RecoReactQueryAdapter.client.useGetMatchingQuestions({
+      queryParams: {
+        v: "REPLACE_WITH_ALGO_ID",
+      },
+    });
 
   const [questionState, setQuestionState] = useState<MatchingQuestionsState>({
     currentQuestionIndex: 0,
@@ -20,6 +22,27 @@ export function useMatchingQuestions() {
   const isLastQuestion = questionState.currentQuestionIndex === (matchingQuestions?.questions.length ?? 0) - 1;
   const isFirstQuestion = questionState.currentQuestionIndex === 0;
   const currentQuestionId = currentQuestion?.id;
+
+  const { mutate: saveAnswers, isPending: isSavingAnswers } = RecoReactQueryAdapter.client.useSaveMatchingQuestions({
+    pathParams: {
+      questionId: currentQuestionId ?? "",
+    },
+    options: {
+      onSuccess: () => {
+        if (!isLastQuestion) {
+          setQuestionState(prev => ({
+            ...prev,
+            currentQuestionIndex: prev.currentQuestionIndex + 1,
+          }));
+        }
+
+        toast.success("Answers saved");
+      },
+      onError: () => {
+        toast.error("Failed to save answers");
+      },
+    },
+  });
 
   useEffect(() => {
     if (matchingQuestions?.questions && currentQuestionId) {
@@ -36,12 +59,9 @@ export function useMatchingQuestions() {
   }, [matchingQuestions?.questions, currentQuestionId]);
 
   const handleNext = () => {
-    if (!isLastQuestion) {
-      setQuestionState(prev => ({
-        ...prev,
-        currentQuestionIndex: prev.currentQuestionIndex + 1,
-      }));
-    }
+    saveAnswers({
+      answerIndexes: questionState.selectedAnswers[Number(currentQuestionId)].map(answer => answer.index ?? 0),
+    });
   };
 
   const handleBack = () => {
@@ -96,7 +116,8 @@ export function useMatchingQuestions() {
   };
 
   return {
-    isLoading,
+    isLoadingMatchingQuestions,
+    isSavingAnswers,
     currentQuestion,
     isLastQuestion,
     isFirstQuestion,
