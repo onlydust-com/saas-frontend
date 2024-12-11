@@ -1,4 +1,5 @@
 import { BiContributorActivityInterface } from "@/core/domain/bi/models/bi-contributor-activity-model";
+import { BiContributorListItemInterface } from "@/core/domain/bi/models/bi-contributor-list-item-model";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStatsInterface } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProjectInterface } from "@/core/domain/bi/models/bi-project-model";
@@ -86,7 +87,7 @@ export type GetBiProjectsCsvPortResponse = HttpStorageResponse<Blob>;
 
 export type GetBiContributorsResponse = components["schemas"]["BiContributorsPageResponse"];
 export type GetBiContributorsModel = Omit<GetBiContributorsResponse, "contributors"> & {
-  contributors: BiContributorInterface[];
+  contributors: BiContributorListItemInterface[];
 };
 
 export type GetBiContributorsQueryParams = operations["getBIContributors_1"]["parameters"]["query"]["queryParams"];
@@ -99,7 +100,7 @@ export type GetBiContributorsPortResponse = HttpStorageResponse<GetBiContributor
 
 /* --------------------- Get Bi contributor by Id --------------------- */
 
-export type GetBiContributorByIdResponse = components["schemas"]["BiContributorsPageItemResponse"];
+export type GetBiContributorByIdResponse = components["schemas"]["BiContributorResponse"];
 
 export type GetBiContributorByIdModel = BiContributorInterface;
 
