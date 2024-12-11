@@ -17,7 +17,7 @@ export function MultipleChoiceAnswer({ answer, isSelected, onSelect }: MultipleC
     >
       <div className="flex items-center justify-between gap-md">
         <Typo>{answer.body}</Typo>
-        <Checkbox value={isSelected} onChange={() => {}} />
+        <Checkbox value={isSelected} />
       </div>
     </Paper>
   );
