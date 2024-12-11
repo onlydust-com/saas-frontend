@@ -78,24 +78,23 @@ export function useMatchingQuestions() {
               [currentQuestion.id]: currentAnswers.filter((_, i) => i !== existingAnswerIndex),
             },
           };
-        } else {
-          return {
-            ...prev,
-            selectedAnswers: {
-              ...prev.selectedAnswers,
-              [currentQuestion.id]: [...currentAnswers, { ...answer, chosen: true }],
-            },
-          };
         }
-      } else {
         return {
           ...prev,
           selectedAnswers: {
             ...prev.selectedAnswers,
-            [currentQuestion.id]: [{ ...answer, chosen: true }],
+            [currentQuestion.id]: [...currentAnswers, { ...answer, chosen: true }],
           },
         };
       }
+
+      return {
+        ...prev,
+        selectedAnswers: {
+          ...prev.selectedAnswers,
+          [currentQuestion.id]: [{ ...answer, chosen: true }],
+        },
+      };
     });
   }
 
