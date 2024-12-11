@@ -38,10 +38,10 @@ export class RecoClientAdapter implements RecoStoragePort {
     };
   };
 
-  saveMatchingQuestions = ({ pathParams, queryParams }: FirstParameter<RecoStoragePort["saveMatchingQuestions"]>) => {
+  saveMatchingQuestions = ({ pathParams }: FirstParameter<RecoStoragePort["saveMatchingQuestions"]>) => {
     const path = this.routes["saveMatchingQuestions"];
     const method = "PUT";
-    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: SaveMatchingQuestionsBody) =>
       this.client.request<never>({

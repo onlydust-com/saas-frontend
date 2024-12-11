@@ -27,11 +27,9 @@ export type GetMatchingQuestionsPortParams = HttpClientParameters<{
 export type SaveMatchingQuestionsBody = components["schemas"]["SaveMatchingAnswersRequest"];
 
 type SaveMatchingQuestionsPathParams = operations["saveMatchingQuestionAnswers"]["parameters"]["path"];
-type SaveMatchingQuestionsQueryParams = operations["saveMatchingQuestionAnswers"]["parameters"]["query"];
 
 export type SaveMatchingQuestionsPortParams = HttpClientParameters<{
   PathParams: SaveMatchingQuestionsPathParams;
-  QueryParams: SaveMatchingQuestionsQueryParams;
 }>;
 
-export type SaveMatchingQuestionsPortResponse = HttpStorageResponse<never>;
+export type SaveMatchingQuestionsPortResponse = HttpStorageResponse;
