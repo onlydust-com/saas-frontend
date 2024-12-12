@@ -1,6 +1,6 @@
 import { LayoutGrid, X } from "lucide-react";
 
-import { SearchRessourceTypeMapping } from "@/core/domain/search/search-contract.types";
+import { SearchDto } from "@/core/domain/search/dto/search-dto";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -15,7 +15,7 @@ export function TypeFilters({ onClearAll }: TypeFiltersProps) {
   const types = typeFacets?.types ?? [];
 
   function onTypeChange(type: string) {
-    const mappedType = SearchRessourceTypeMapping[type];
+    const mappedType = SearchDto.typeStringToRessourceType(type);
     if (!mappedType || mappedType === filters.type) {
       onFiltersTypeChange(undefined);
       return;
@@ -31,7 +31,7 @@ export function TypeFilters({ onClearAll }: TypeFiltersProps) {
           <Tag
             key={item.name}
             onSelect={() => onTypeChange(item.name)}
-            isSelected={filters?.type?.includes(SearchRessourceTypeMapping[item.name])}
+            isSelected={filters?.type?.includes(SearchDto.typeStringToRessourceType(item.name))}
             endContent={
               <Badge fixedSize={item.count <= 9} size="xxs">
                 {item.count}

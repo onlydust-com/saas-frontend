@@ -1,6 +1,6 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { SearchRessourceType } from "../search-contract.types";
+import { SearchRessourceType } from "./search.types";
 
 export type SearchItemResponse = components["schemas"]["SearchItemResponse"];
 

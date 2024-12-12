@@ -23,16 +23,6 @@ export type SearchModel = Omit<SearchResponse, "results"> & {
   results: SearchItemInterface[];
 };
 
-export enum SearchRessourceType {
-  PROJECT = "PROJECT",
-  CONTRIBUTOR = "CONTRIBUTOR",
-}
-
-export const SearchRessourceTypeMapping: { [key: string]: SearchRessourceType } = {
-  Projects: SearchRessourceType.PROJECT,
-  Contributors: SearchRessourceType.CONTRIBUTOR,
-};
-
 export type SearchPortResponse = HttpStorageResponse<SearchModel>;
 
 /* --------------------------------- Suggest -------------------------------- */

@@ -4,9 +4,12 @@ import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useSt
 import { useDebounce } from "react-use";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
+import { SearchDto } from "@/core/domain/search/dto/search-dto";
 import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
-import { SearchModel, SearchRessourceType } from "@/core/domain/search/search-contract.types";
+import { SearchFacet, SearchRessourceType } from "@/core/domain/search/models/search.types";
+import { SearchModel } from "@/core/domain/search/search-contract.types";
 
+// Define types for filters and context
 interface Filters {
   type?: SearchRessourceType;
   languages?: string[];
@@ -34,6 +37,7 @@ interface GlobalSearchContextInterface {
   typeFacets: SearchModel["typeFacets"];
 }
 
+// Initialize context with default values
 export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   isOpen: false,
   onOpenChange: () => {},
@@ -61,12 +65,14 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
 });
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
+  // State management
   const [open, setOpen] = useState(false);
   const [debouncedOpen, setDebouncedOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>({});
 
+  // Debounce the search modal open state
   useDebounce(
     () => {
       setDebouncedOpen(open);
@@ -75,31 +81,71 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     [open]
   );
 
+  const queryParams = useMemo(
+    () =>
+      new SearchDto({
+        keyword: inputValue ?? "",
+        languages: filters.languages,
+        ecosystems: filters.ecosystems,
+        categories: filters.categories,
+        type: filters.type,
+      }).toBody(),
+    [inputValue, filters]
+  );
+
+  // Fetch search results and suggestions
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
-    queryParams: {
-      keyword: inputValue ?? undefined,
-      languages: filters.languages,
-      ecosystems: filters.ecosystems,
-      categories: filters.categories,
-      type: filters.type,
-    },
+    queryParams: queryParams,
     options: {
       enabled: debouncedOpen,
     },
   });
 
   const { data: Suggestion } = SearchReactQueryAdapter.client.useSuggest({
-    queryParams: {
-      keyword: inputValue ?? "",
-      languages: filters.languages,
-      ecosystems: filters.ecosystems,
-      categories: filters.categories,
-    },
+    queryParams: queryParams,
     options: {
       enabled: debouncedOpen,
     },
   });
 
+  // Helper functions for facet handling
+  const mergeFacetsWithFilters = (facets: SearchFacet[], filters: string[] = []): SearchFacet[] => {
+    const result = [...facets];
+    filters.forEach(filter => {
+      if (!result.find(f => f.name === filter)) {
+        result.push({ name: filter, count: 0 });
+      }
+    });
+
+    return result;
+  };
+
+  const extractFacetsFromPages = (accessor: (page: SearchModel) => SearchFacet[] | undefined): SearchFacet[] => {
+    return data?.pages.flatMap(page => accessor(page) ?? []) ?? [];
+  };
+
+  // Memoized facets
+  const projectFacets: SearchModel["projectFacets"] = useMemo(() => {
+    const ecosystems = extractFacetsFromPages(page => page.projectFacets?.ecosystems);
+    const categories = extractFacetsFromPages(page => page.projectFacets?.categories);
+    const languages = extractFacetsFromPages(page => page.projectFacets?.languages);
+
+    return {
+      ecosystems: mergeFacetsWithFilters(ecosystems, filters.ecosystems),
+      categories: mergeFacetsWithFilters(categories, filters.categories),
+      languages: mergeFacetsWithFilters(languages, filters.languages),
+    };
+  }, [data]);
+
+  const typeFacets: SearchModel["typeFacets"] = useMemo(() => {
+    const types = extractFacetsFromPages(page => page.typeFacets?.types);
+
+    return {
+      types: mergeFacetsWithFilters(types, filters.type ? [SearchDto.ressourceTypeToString(filters.type)] : []),
+    };
+  }, [data]);
+
+  // Event handlers
   function onOpenChange(v: boolean) {
     if (!v) {
       setFilters({});
@@ -136,6 +182,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     }
   }
 
+  // Keyboard event handlers
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -156,20 +203,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     return () => document.removeEventListener("keydown", down);
   }, [Suggestion, open]);
 
-  const projectFacets: SearchModel["projectFacets"] = useMemo(() => {
-    return {
-      ecosystems: data?.pages.flatMap(page => page.projectFacets?.ecosystems ?? []),
-      categories: data?.pages.flatMap(page => page.projectFacets?.categories ?? []),
-      languages: data?.pages.flatMap(page => page.projectFacets?.languages ?? []),
-    };
-  }, [data]);
-
-  const typeFacets: SearchModel["typeFacets"] = useMemo(() => {
-    return {
-      types: data?.pages.flatMap(page => page.typeFacets?.types ?? []),
-    };
-  }, [data]);
-
+  // Render provider
   return (
     <GlobalSearchContext.Provider
       value={{
@@ -197,6 +231,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   );
 }
 
+// Hook for consuming the context
 export function useGlobalSearch() {
   return useContext(GlobalSearchContext);
 }

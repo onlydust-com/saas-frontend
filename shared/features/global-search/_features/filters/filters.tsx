@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 
-import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+import { SearchRessourceType } from "@/core/domain/search/models/search.types";
 
 import { useGlobalSearch } from "../../global-search.context";
 import { CollapsedFilters } from "./_components/collapsed-filters/collapsed-filters";

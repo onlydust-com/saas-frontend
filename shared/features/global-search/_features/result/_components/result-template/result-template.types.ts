@@ -1,4 +1,4 @@
-import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+import { SearchRessourceType } from "@/core/domain/search/models/search.types";
 
 import { ResultMetricProps } from "../result-metric/result-metric.types";
 
