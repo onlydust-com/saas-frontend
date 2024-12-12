@@ -366,7 +366,7 @@
     --chart-octonary: #ca75ff;
 
     --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
-    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-secondary: #4ea7fc;
     --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
@@ -408,7 +408,7 @@
     --background-active: var(--_grey-50);
     --background-disabled: var(--_grey-100);
     --background-disabled_alt: var(--_grey-50);
-    --background-overlay: var(--_alpha-black-50);
+    --background-overlay: var(--_alpha-grey-70);
     --background-error: var(--_error-50);
     --background-error_alt: var(--_error-50);
     --background-error-solid: var(--_error-600);
@@ -815,7 +815,7 @@
     --chart-octonary: #ca75ff;
 
     --chart-areaspline-primary: var(--_brand-crystalizedviolet-400);
-    --chart-areaspline-secondary: #4EA7FC;
+    --chart-areaspline-secondary: #4ea7fc;
     --chart-areaspline-tertiary: var(--_brand-brightorange-500-primary);
 
     /* FOREGROUND */
@@ -1249,7 +1249,9 @@
       color: transparent;
       background-clip: text !important;
       animation: shine 3s linear infinite;
-      background: radial-gradient(circle at center, var(--typography-primary), transparent) -200% 50% / 200% 100% no-repeat, var(--typography-quaternary);
+      background:
+        radial-gradient(circle at center, var(--typography-primary), transparent) -200% 50% / 200% 100% no-repeat,
+        var(--typography-quaternary);
     }
 
     @keyframes shine {

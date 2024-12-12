@@ -11,7 +11,7 @@ export function Suggestion() {
   return (
     <p
       className={cn([
-        "font-inter text-[1rem] font-normal leading-[1.5rem] text-typography-primary outline-none",
+        "pointer-events-none font-inter text-[1rem] font-normal leading-[1.5rem] text-typography-primary outline-none",
         "absolute left-0 top-1/2 -translate-y-1/2 overflow-hidden",
       ])}
     >

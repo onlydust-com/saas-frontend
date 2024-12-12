@@ -1,4 +1,3 @@
-import { SearchFacet } from "@/core/domain/search/models/search-facet-model";
 import { SearchItem } from "@/core/domain/search/models/search-item-model";
 import { Suggest } from "@/core/domain/search/models/suggest-model";
 import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
@@ -31,7 +30,6 @@ export class SearchClientAdapter implements SearchStoragePort {
       return {
         ...data,
         results: data.results.map(result => new SearchItem(result)),
-        facets: (data.facets ?? []).map(result => new SearchFacet(result)),
       };
     };
 
