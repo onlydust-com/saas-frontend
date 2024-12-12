@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Answer, MatchingQuestionsState } from "./matching-questions.types";
@@ -43,7 +44,7 @@ export function useMatchingQuestions() {
           return;
         }
 
-        router.push("/project-recommendation/results");
+        router.push(NEXT_ROUTER.projectRecommendation.results.root);
       },
       onError: () => {
         toast.error(<Translate token="projectRecommendation:details.toast.error" />);
