@@ -7,6 +7,7 @@ import { Modal } from "@/design-system/molecules/modal";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Logo } from "@/shared/components/logo/logo";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
 import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
 import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
@@ -31,6 +32,7 @@ export function PrimaryNavigationMobile({ children }: PropsWithChildren) {
         </BaseLink>
 
         <div className={"flex flex-row gap-3"}>
+          <GlobalSearch isMobile={true} />
           <NotificationsModal />
           <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Menu }} iconOnly onClick={handleOpen} />
         </div>
