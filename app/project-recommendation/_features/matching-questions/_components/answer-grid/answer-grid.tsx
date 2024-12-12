@@ -7,7 +7,7 @@ import { AnswerGridProps } from "./answer-grid.types";
 export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipleChoice }: AnswerGridProps) {
   if (isMultipleChoice) {
     return (
-      <div className="grid grid-cols-2 gap-md">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 gap-md">
         {answers.map(answer => (
           <MultipleChoiceAnswer
             key={answer.index}
