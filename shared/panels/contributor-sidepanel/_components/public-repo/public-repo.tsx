@@ -3,34 +3,7 @@ import { CardGithubRepo } from "@/design-system/molecules/cards/card-github-repo
 
 import { PublicRepoProps } from "./public-repo.types";
 
-export function PublicRepo(_: PublicRepoProps) {
-  const repos = [
-    {
-      id: 650626566,
-      owner: "onlydustxyz",
-      name: "marketplace-backend",
-      description: "Awesome repo",
-      htmlUrl: "https://github.com/onlydustxyz/marketplace-backend",
-      stars: 625,
-      forkCount: 3,
-      hasIssues: true,
-      isIncludedInProject: true,
-      isAuthorizedInGithubApp: true,
-    },
-    {
-      id: 650626567,
-      owner: "onlydustxyz",
-      name: "marketplace-backend",
-      description: "Awesome repo",
-      htmlUrl: "https://github.com/onlydustxyz/marketplace-backend",
-      stars: 625,
-      forkCount: 3,
-      hasIssues: true,
-      isIncludedInProject: true,
-      isAuthorizedInGithubApp: true,
-    },
-  ];
-
+export function PublicRepo({ repos }: PublicRepoProps) {
   if (!repos.length) {
     return null;
   }
