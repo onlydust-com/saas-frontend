@@ -7,4 +7,5 @@ export class RecoClientAdapterMock implements RecoStoragePort {
   routes = {};
 
   getMatchingQuestions = mockHttpStorageResponse<RecoStoragePort["getMatchingQuestions"]>;
+  saveMatchingQuestions = mockHttpStorageResponse<RecoStoragePort["saveMatchingQuestions"]>;
 }

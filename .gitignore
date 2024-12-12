@@ -38,3 +38,6 @@ next-env.d.ts
 # API generated types
 core/infrastructure/marketplace-api-client-adapter/__generated/api.d.ts
 .idea/
+
+# vscode
+.vscode/

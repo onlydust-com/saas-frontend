@@ -18,11 +18,12 @@ export function CollapsedFilters() {
         {filters.type && (
           <Badge
             translate={{ token: `features:globalSearch.filters.type.${filters.type}` }}
+            classNames={{ base: "cursor-pointer" }}
             htmlProps={{ onClick: openFilter }}
           />
         )}
         {otherFilters?.map(filter => (
-          <Badge key={filter} htmlProps={{ onClick: openFilter }}>
+          <Badge key={filter} htmlProps={{ onClick: openFilter }} classNames={{ base: "cursor-pointer" }}>
             {filter}
           </Badge>
         ))}

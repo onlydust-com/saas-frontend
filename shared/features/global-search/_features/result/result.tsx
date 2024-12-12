@@ -1,7 +1,7 @@
 import { Command } from "cmdk";
 import { GitFork, Star, User } from "lucide-react";
 
-import { SearchRessourceType } from "@/core/domain/search/search-contract.types";
+import { SearchRessourceType } from "@/core/domain/search/models/search.types";
 
 import { ResultTemplate } from "./_components/result-template/result-template";
 import { ResultProps } from "./result.types";

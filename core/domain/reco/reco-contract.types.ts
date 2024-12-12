@@ -21,3 +21,15 @@ export type GetMatchingQuestionsPortResponse = HttpStorageResponse<GetMatchingQu
 export type GetMatchingQuestionsPortParams = HttpClientParameters<{
   QueryParams: GetMatchingQuestionsQueryParams;
 }>;
+
+/* ------------------------------ Save Matching Questions ------------------------------ */
+
+export type SaveMatchingQuestionsBody = components["schemas"]["SaveMatchingAnswersRequest"];
+
+type SaveMatchingQuestionsPathParams = operations["saveMatchingQuestionAnswers"]["parameters"]["path"];
+
+export type SaveMatchingQuestionsPortParams = HttpClientParameters<{
+  PathParams: SaveMatchingQuestionsPathParams;
+}>;
+
+export type SaveMatchingQuestionsPortResponse = HttpStorageResponse;
