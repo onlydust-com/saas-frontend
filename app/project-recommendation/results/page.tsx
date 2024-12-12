@@ -16,30 +16,34 @@ export default function ProjectRecommendationResultsPage() {
       },
     });
 
-  if (isLoadingRecommendedProjects) {
-    return (
-      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
-        {[...Array(3)].map((_, i) => (
-          <Skeleton
-            key={i}
-            classNames={{
-              base: "w-full min-h-[300px]",
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
+  function renderContent() {
+    if (isLoadingRecommendedProjects) {
+      return (
+        <>
+          {[...Array(3)].map((_, i) => (
+            <Skeleton
+              key={i}
+              classNames={{
+                base: "w-full min-h-[300px]",
+              }}
+            />
+          ))}
+        </>
+      );
+    }
 
-  if (!recommendedProjects?.projects.length) {
-    return (
-      <EmptyState
-        titleTranslate={{ token: "projectRecommendation:details.results.emptyState.title" }}
-        descriptionTranslate={{
-          token: "projectRecommendation:details.results.emptyState.description",
-        }}
-      />
-    );
+    if (!recommendedProjects?.projects.length) {
+      return (
+        <EmptyState
+          titleTranslate={{ token: "projectRecommendation:details.results.emptyState.title" }}
+          descriptionTranslate={{
+            token: "projectRecommendation:details.results.emptyState.description",
+          }}
+        />
+      );
+    }
+
+    return recommendedProjects?.projects.map(project => <CardProjectMarketplace key={project.id} {...project} />);
   }
 
   return (
@@ -52,9 +56,7 @@ export default function ProjectRecommendationResultsPage() {
           token: "projectRecommendation:details.results.title",
         }}
       />
-      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">
-        {recommendedProjects?.projects.map(project => <CardProjectMarketplace key={project.id} {...project} />)}
-      </div>
+      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">{renderContent()}</div>
     </div>
   );
 }
