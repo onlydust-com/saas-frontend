@@ -9,6 +9,7 @@ import {
   GetBiWorldMapResponse,
 } from "@/core/domain/bi/bi-contract.types";
 import { BiContributorActivity } from "@/core/domain/bi/models/bi-contributor-activity-model";
+import { BiContributorListItem } from "@/core/domain/bi/models/bi-contributor-list-item-model";
 import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProject } from "@/core/domain/bi/models/bi-project-model";
@@ -169,7 +170,7 @@ export class BiClientAdapter implements BiStoragePort {
 
       return {
         ...data,
-        contributors: data.contributors.map(contributor => new BiContributor(contributor)),
+        contributors: data.contributors.map(contributor => new BiContributorListItem(contributor)),
       };
     };
 

@@ -38,10 +38,10 @@ function FilterSection({ items, icon, label, selectedItems, onItemChange }: Filt
 }
 
 export function ProjectFilters() {
-  const { filters, facets, onFiltersChange } = useGlobalSearch();
-  const languages = facets.getLanguagesfacets();
-  const ecosystems = facets.getEcosystemsfacets();
-  const categories = facets.getCategoriesfacets();
+  const { filters, projectFacets, onFiltersChange } = useGlobalSearch();
+  const languages = projectFacets?.languages ?? [];
+  const ecosystems = projectFacets?.ecosystems ?? [];
+  const categories = projectFacets?.categories ?? [];
 
   function onLanguageChange(language: string) {
     if (filters.languages?.includes(language)) {

@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
+import { useGlobalSearch } from "../../global-search.context";
 import { ModalContainerProps } from "./modal-container.types";
 
-function ModalContainer({ children, isOpen }: ModalContainerProps) {
+function ModalContainer({ children }: ModalContainerProps) {
+  const { isOpen, onOpenChange } = useGlobalSearch();
   return (
-    <div className={"fixed inset-0 z-[999999]"} style={{ pointerEvents: isOpen ? "auto" : "none" }}>
+    <div className={"fixed inset-0 z-[999999] w-full"} style={{ pointerEvents: isOpen ? "auto" : "none" }}>
       <AnimatePresence>
         {isOpen && (
           <>
@@ -16,18 +18,21 @@ function ModalContainer({ children, isOpen }: ModalContainerProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className={"absolute inset-0 -z-[1] bg-background-overlay"}
+              onClick={() => onOpenChange(false)}
             />
             <motion.div
               key="modal"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.95, translateX: "-50%", opacity: 0 }}
+              animate={{ scale: 1, translateX: "-50%", opacity: 1 }}
+              exit={{ scale: 0.95, translateX: "-50%", opacity: 0 }}
               transition={{
                 type: "spring",
                 stiffness: 260,
                 damping: 20,
               }}
-              className={"absolute inset-0 z-[1] flex items-center justify-center"}
+              className={
+                "absolute left-1/2 top-[15%] z-[1] flex h-fit w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+              }
             >
               {children}
             </motion.div>
@@ -38,6 +43,6 @@ function ModalContainer({ children, isOpen }: ModalContainerProps) {
   );
 }
 
-export function ModalPortal({ children, isOpen }: ModalContainerProps) {
-  return createPortal(<ModalContainer isOpen={isOpen}>{children}</ModalContainer>, document.body);
+export function ModalPortal({ children }: ModalContainerProps) {
+  return createPortal(<ModalContainer>{children}</ModalContainer>, document.body);
 }

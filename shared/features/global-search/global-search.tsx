@@ -1,7 +1,10 @@
 import { Kbd } from "@nextui-org/kbd";
 import { Command } from "cmdk";
+import { AnimatePresence, motion } from "framer-motion";
+import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -14,62 +17,87 @@ import { ModalPortal } from "./_components/modal-container/modal-container";
 import { Filters } from "./_features/filters/filters";
 import { Result } from "./_features/result/result";
 
-export function SafeGlobalSearch() {
+export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
   const { t } = useTranslation("features");
-  const { isOpen, hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange } = useGlobalSearch();
+  const { hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange, inputValue } = useGlobalSearch();
 
   return (
     <>
-      <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
-        <Input
-          name={"global-search"}
-          placeholder={t("globalSearch.menu.placeholder")}
-          readOnly={true}
-          canInteract={false}
-          endContent={
-            <Kbd
-              keys={["command"]}
-              classNames={{
-                base: "bg-background-primary rounded-sm shadow-none",
-              }}
-            >
-              K
-            </Kbd>
-          }
-        />
-      </div>
-      <ModalPortal isOpen={isOpen}>
-        <div className={"w-full max-w-[730px] overflow-hidden rounded-xl bg-background-primary effect-box-shadow-sm"}>
-          <Command>
-            <Header />
-            <Filters />
-            <div className={"h-auto overflow-hidden p-2"}>
-              <ScrollView className="max-h-[400px]">
-                <Command.Empty>
-                  <EmptyStateLite />
-                </Command.Empty>
-                <Command.List className="flex w-full flex-col gap-3 outline-none">
-                  {results.map((r, i) => (
-                    <Result data={r} key={i} />
-                  ))}
-                  {hasNextPage && results.length > 0 ? (
-                    <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
-                  ) : null}
-                </Command.List>
-              </ScrollView>
-            </div>
-          </Command>
+      {!isMobile ? (
+        <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
+          <Input
+            name={"global-search"}
+            placeholder={t("globalSearch.menu.placeholder")}
+            readOnly={true}
+            canInteract={false}
+            endContent={
+              <Kbd
+                keys={["command"]}
+                classNames={{
+                  base: "bg-background-primary rounded-sm shadow-none",
+                }}
+              >
+                K
+              </Kbd>
+            }
+          />
         </div>
+      ) : (
+        <Button
+          iconOnly={true}
+          variant={"tertiary"}
+          size={"xs"}
+          startIcon={{ component: Search }}
+          onClick={() => onOpenChange(true)}
+        />
+      )}
+      <ModalPortal>
+        <Command
+          className={
+            "flex h-fit w-[730px] max-w-[95%] flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt effect-box-shadow-sm"
+          }
+        >
+          <Header />
+          <AnimatePresence>
+            {!!inputValue && (
+              <motion.div
+                className="flex flex-col overflow-hidden"
+                initial={{ height: 0 }}
+                animate={{ height: 400 }}
+                transition={{ duration: 0.2 }}
+                exit={{ height: 0 }}
+                key={"container"}
+              >
+                <Filters />
+                <div className={"flex-1 overflow-hidden p-2"}>
+                  <ScrollView>
+                    <Command.Empty>
+                      <EmptyStateLite />
+                    </Command.Empty>
+                    <Command.List className="flex w-full flex-col gap-3 outline-none">
+                      {results.map((r, i) => (
+                        <Result data={r} key={i} />
+                      ))}
+                      {hasNextPage && results.length > 0 ? (
+                        <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+                      ) : null}
+                    </Command.List>
+                  </ScrollView>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Command>
       </ModalPortal>
     </>
   );
 }
 
-export function GlobalSearch() {
+export function GlobalSearch({ isMobile = false }: { isMobile?: boolean }) {
   if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true") {
     return (
       <GlobalSearchProvider>
-        <SafeGlobalSearch />
+        <SafeGlobalSearch isMobile={isMobile} />
       </GlobalSearchProvider>
     );
   }

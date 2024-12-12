@@ -32,13 +32,15 @@ export function Header() {
         <Suggestion />
       </div>
       <div className={"flex flex-row items-center justify-end gap-1"}>
-        <Button
-          iconOnly={true}
-          variant={isOpenFilter ? "primary" : "tertiary"}
-          size={"sm"}
-          startIcon={{ component: Filter }}
-          onClick={() => onOpenFilterChange(!isOpenFilter)}
-        />
+        {!!inputValue && (
+          <Button
+            iconOnly={true}
+            variant={isOpenFilter ? "primary" : "tertiary"}
+            size={"sm"}
+            startIcon={{ component: Filter }}
+            onClick={() => onOpenFilterChange(!isOpenFilter)}
+          />
+        )}
         <Button
           iconOnly={true}
           variant={"tertiary"}

@@ -4,7 +4,6 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { SearchFacetInterface } from "./models/search-facet-model";
 import { SearchItemInterface } from "./models/search-item-model";
 import { SuggestInterface } from "./models/suggest-model";
 
@@ -20,15 +19,9 @@ export type SearchPortParams = HttpClientParameters<{
   PathParams: SearchPathParams;
 }>;
 
-export type SearchModel = Omit<SearchResponse, "results" | "facets"> & {
+export type SearchModel = Omit<SearchResponse, "results"> & {
   results: SearchItemInterface[];
-  facets: SearchFacetInterface[];
 };
-
-export enum SearchRessourceType {
-  PROJECT = "PROJECT",
-  CONTRIBUTOR = "CONTRIBUTOR",
-}
 
 export type SearchPortResponse = HttpStorageResponse<SearchModel>;
 

@@ -14,17 +14,21 @@ import { HeaderProps } from "./header.types";
 export function Header({ onToggle, isOpen }: HeaderProps) {
   return (
     <header className={"flex w-full justify-between gap-xs border-b-1 border-border-primary px-2xl py-xl"}>
-      <Button
-        variant={"tertiary"}
-        iconOnly={true}
-        size={"sm"}
-        startIcon={{ component: isOpen ? ChevronsLeft : Menu }}
-        onClick={onToggle}
-      />
-      <BaseLink href={NEXT_ROUTER.home.root} className={"flex flex-row items-center justify-center"}>
-        <Logo />
-      </BaseLink>
-      <div className={"flex flex-row items-center justify-end gap-6"}>
+      <div className="flex flex-1 flex-row items-center justify-start">
+        <Button
+          variant={"tertiary"}
+          iconOnly={true}
+          size={"sm"}
+          startIcon={{ component: isOpen ? ChevronsLeft : Menu }}
+          onClick={onToggle}
+        />
+      </div>
+      <div className="flex flex-1 flex-row items-center justify-center">
+        <BaseLink href={NEXT_ROUTER.home.root} className={"flex flex-row items-center justify-center"}>
+          <Logo />
+        </BaseLink>
+      </div>
+      <div className={"flex flex-1 flex-row items-center justify-end gap-6"}>
         <GlobalSearch />
         <NotificationsPopover />
         <UserMenu isCompact={true} />
