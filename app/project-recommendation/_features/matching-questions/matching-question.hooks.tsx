@@ -1,13 +1,17 @@
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Answer, MatchingQuestionsState } from "./matching-questions.types";
 
 export function useMatchingQuestions() {
+  const router = useRouter();
+
   const { data: matchingQuestions, isLoading: isLoadingMatchingQuestions } =
     RecoReactQueryAdapter.client.useGetMatchingQuestions({
       queryParams: {
@@ -31,14 +35,16 @@ export function useMatchingQuestions() {
     },
     options: {
       onSuccess: () => {
+        toast.success(<Translate token="projectRecommendation:details.toast.success" />);
         if (!isLastQuestion) {
           setQuestionState(prev => ({
             ...prev,
             currentQuestionIndex: prev.currentQuestionIndex + 1,
           }));
+          return;
         }
 
-        toast.success(<Translate token="projectRecommendation:details.toast.success" />);
+        router.push(NEXT_ROUTER.projectRecommendation.results.root);
       },
       onError: () => {
         toast.error(<Translate token="projectRecommendation:details.toast.error" />);
