@@ -34,12 +34,14 @@ export default function ProjectRecommendationResultsPage() {
 
     if (!recommendedProjects?.projects.length) {
       return (
-        <EmptyState
-          titleTranslate={{ token: "projectRecommendation:details.results.emptyState.title" }}
-          descriptionTranslate={{
-            token: "projectRecommendation:details.results.emptyState.description",
-          }}
-        />
+        <div className="col-span-full">
+          <EmptyState
+            titleTranslate={{ token: "projectRecommendation:details.results.emptyState.title" }}
+            descriptionTranslate={{
+              token: "projectRecommendation:details.results.emptyState.description",
+            }}
+          />
+        </div>
       );
     }
 
@@ -56,7 +58,7 @@ export default function ProjectRecommendationResultsPage() {
           token: "projectRecommendation:details.results.title",
         }}
       />
-      <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">{renderContent()}</div>
+      <div className="grid w-full grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">{renderContent()}</div>
     </div>
   );
 }
