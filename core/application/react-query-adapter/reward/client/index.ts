@@ -6,3 +6,4 @@ export * from "./use-add-other-issue";
 export * from "./use-cancel-project-reward";
 export * from "./use-get-rewards";
 export * from "./use-get-reward-by-id";
+export * from "./use-get-rewards-csv";

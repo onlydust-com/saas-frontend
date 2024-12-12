@@ -7,7 +7,7 @@ import { useLocalStorage } from "react-use";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
-import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
+import { BiContributorListItemInterface } from "@/core/domain/bi/models/bi-contributor-list-item-model";
 
 import { Checkbox } from "@/design-system/atoms/checkbox";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
@@ -27,7 +27,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
   const { t } = useTranslation();
 
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const columnHelper = createColumnHelper<BiContributorInterface>();
+  const columnHelper = createColumnHelper<BiContributorListItemInterface>();
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -59,7 +59,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
     }
   }, [selectedIds, setSelectedIds]);
 
-  const sortingMap: Partial<Record<keyof BiContributorInterface, GetBiContributorsQueryParams["sort"]>> = {
+  const sortingMap: Partial<Record<keyof BiContributorListItemInterface, GetBiContributorsQueryParams["sort"]>> = {
     contributor: "CONTRIBUTOR_LOGIN",
     totalRewardedUsdAmount: "TOTAL_REWARDED_USD_AMOUNT",
   };
@@ -270,7 +270,7 @@ export function useFilterColumns({ projectId }: FilterColumnsHookProps) {
   // Loop on object keys to keep column order
   const columns = columnMapKeys
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
-    .filter(Boolean) as ColumnDef<BiContributorInterface>[];
+    .filter(Boolean) as ColumnDef<BiContributorListItemInterface>[];
 
   return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

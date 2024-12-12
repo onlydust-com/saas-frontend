@@ -17,6 +17,7 @@ import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-
 import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
 import { RewardClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reward-client-adapter-mock";
+import { SearchClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/search-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
@@ -27,6 +28,8 @@ import { SocialAdapterMock } from "@/core/kernel/social/social-adapter-mock";
 import { StyleAdapterMock } from "@/core/kernel/style/style-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapter-mock";
+
+import { RecoClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/reco-client-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
   meStoragePortForClient: new MeClientAdapterMock(),
@@ -69,6 +72,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   issueStoragePortForServer: new IssueClientAdapterMock(),
   billingProfileStoragePortForClient: new BillingProfileClientAdapterMock(),
   billingProfileStoragePortForServer: new BillingProfileClientAdapterMock(),
+  recoStoragePortForClient: new RecoClientAdapterMock(),
+  recoStoragePortForServer: new RecoClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   socialKernelPort: new SocialAdapterMock(),
@@ -77,4 +82,6 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   idKernelPort: IdAdapterMock,
   validationKernelPort: new ValidationAdapterMock(),
   styleKernelPort: StyleAdapterMock,
+  searchStoragePortForClient: new SearchClientAdapterMock(),
+  searchStoragePortForServer: new SearchClientAdapterMock(),
 };

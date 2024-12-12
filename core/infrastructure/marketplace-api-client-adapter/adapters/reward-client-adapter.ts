@@ -40,17 +40,16 @@ export class RewardClientAdapter implements RewardStoragePort {
     addOtherIssue: "projects/:projectId/rewardable-items/other-issues",
   } as const;
 
-  getRewards = ({ queryParams, pathParams }: FirstParameter<RewardStoragePort["getRewards"]>) => {
+  getRewards = ({ queryParams }: FirstParameter<RewardStoragePort["getRewards"]>) => {
     const path = this.routes["getRewards"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, queryParams, pathParams });
+    const tag = HttpClient.buildTag({ path, queryParams });
     const request = async () => {
       const data = await this.client.request<GetRewardsResponse>({
         path,
         method,
         tag,
         queryParams,
-        pathParams,
       });
 
       return {
@@ -65,16 +64,15 @@ export class RewardClientAdapter implements RewardStoragePort {
     };
   };
 
-  getRewardsCsv = ({ pathParams, queryParams }: FirstParameter<RewardStoragePort["getRewardsCsv"]>) => {
+  getRewardsCsv = ({ queryParams }: FirstParameter<RewardStoragePort["getRewardsCsv"]>) => {
     const path = this.routes["getRewardsCsv"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const tag = HttpClient.buildTag({ path, queryParams });
     const request = async () =>
       this.client.request<Blob>({
         path,
         method,
         tag,
-        pathParams,
         queryParams,
         headers: {
           accept: "text/csv",

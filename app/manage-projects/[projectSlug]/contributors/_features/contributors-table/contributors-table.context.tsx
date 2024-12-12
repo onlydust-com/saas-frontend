@@ -6,13 +6,13 @@ import { PropsWithChildren, createContext, useContext, useEffect, useState } fro
 import { ContributorsBulkSidepanel } from "@/app/manage-projects/[projectSlug]/contributors/_features/contributors-table/_features/contributors-bulk-sidepanel/contributors-bulk-sidepanel";
 import { useContributorsBulkSidePanel } from "@/app/manage-projects/[projectSlug]/contributors/_features/contributors-table/_features/contributors-bulk-sidepanel/contributors-bulk-sidepanel.hooks";
 
-import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
+import { BiContributorListItemInterface } from "@/core/domain/bi/models/bi-contributor-list-item-model";
 
 interface ContributorsTableContextInterface {
   rowSelection: RowSelectionState;
-  userSelected: BiContributorInterface[];
+  userSelected: BiContributorListItemInterface[];
   setRowSelection: OnChangeFn<RowSelectionState>;
-  setUserSelected: (userSelected: BiContributorInterface[]) => void;
+  setUserSelected: (userSelected: BiContributorListItemInterface[]) => void;
   onRemoveSelection: (id: number) => void;
 }
 
@@ -26,7 +26,7 @@ export const ContributorsTableContext = createContext<ContributorsTableContextIn
 
 export function ContributorsTableProvider({ children, projectSlug }: PropsWithChildren & { projectSlug: string }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [userSelected, setUserSelected] = useState<BiContributorInterface[]>([]);
+  const [userSelected, setUserSelected] = useState<BiContributorListItemInterface[]>([]);
   const { open, close } = useContributorsBulkSidePanel();
 
   useEffect(() => {

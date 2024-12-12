@@ -26,5 +26,5 @@ export interface TransactionsFiltersProps {
   onSort: (direction: SortDirection) => void;
   search: string;
   onSearch: (search: string) => void;
-  onOpenExport: () => void;
+  onOpenExport?: () => void;
 }
