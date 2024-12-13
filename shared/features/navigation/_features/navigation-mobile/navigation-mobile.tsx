@@ -7,12 +7,12 @@ import { Modal } from "@/design-system/molecules/modal";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Logo } from "@/shared/components/logo/logo";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
-import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
-import { UserMenu } from "@/shared/features/navigation/menu/user-menu/user-menu";
+import { PrimaryMenu } from "@/shared/features/navigation/_components/primary-menu/primary-menu";
+import { SecondaryMenu } from "@/shared/features/navigation/_components/secondary-menu/secondary-menu";
+import { UserMenu } from "@/shared/features/navigation/_components/user-menu/user-menu";
 import { NotificationsModal } from "@/shared/features/notifications/notifications-modal";
 
-export function PrimaryNavigationMobile({ children }: PropsWithChildren) {
+export function NavigationMobile({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpen() {

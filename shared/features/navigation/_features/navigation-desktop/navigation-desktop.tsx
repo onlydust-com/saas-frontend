@@ -4,10 +4,10 @@ import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
-import { PrimaryMenu } from "@/shared/features/navigation/menu/primary-menu/primary-menu";
-import { SecondaryMenu } from "@/shared/features/navigation/menu/secondary-menu/secondary-menu";
-import { PrimaryBanner } from "@/shared/features/navigation/primary-banner/primary-banner";
-import { Header } from "@/shared/features/navigation/primary-navigation/_components/header/header";
+import { Header } from "@/shared/features/navigation/_components/header/header";
+import { PrimaryBanner } from "@/shared/features/navigation/_components/primary-banner/primary-banner";
+import { PrimaryMenu } from "@/shared/features/navigation/_components/primary-menu/primary-menu";
+import { SecondaryMenu } from "@/shared/features/navigation/_components/secondary-menu/secondary-menu";
 import { cn } from "@/shared/helpers/cn";
 import { useIsDesktop } from "@/shared/hooks/ui/use-media-query";
 
@@ -15,12 +15,12 @@ function MenuContainer({ children }: PropsWithChildren) {
   return <div className={"flex w-full flex-col gap-xs"}>{children}</div>;
 }
 
-export const PrimaryNavigationDesktopSize = {
+export const NavigationDesktopSize = {
   closed: 0,
   opened: 14,
 };
 
-export function PrimaryNavigationDesktop({ children }: PropsWithChildren) {
+export function NavigationDesktop({ children }: PropsWithChildren) {
   const mounted = useRef(false);
   const isLowerThanDesktop = useIsDesktop("lower");
   const isLargerThanDesktop = useIsDesktop("greater");
@@ -44,7 +44,7 @@ export function PrimaryNavigationDesktop({ children }: PropsWithChildren) {
     }
   }, [isLargerThanDesktop]);
 
-  const navSize = opened ? PrimaryNavigationDesktopSize.opened : PrimaryNavigationDesktopSize.closed;
+  const navSize = opened ? NavigationDesktopSize.opened : NavigationDesktopSize.closed;
 
   return (
     <>
@@ -52,7 +52,7 @@ export function PrimaryNavigationDesktop({ children }: PropsWithChildren) {
       <AnimatedColumnGroup className="gap-md pr-md">
         <AnimatedColumn
           width={navSize}
-          initialWidth={PrimaryNavigationDesktopSize.opened}
+          initialWidth={NavigationDesktopSize.opened}
           className={cn("flex h-full flex-col overflow-hidden", {
             "border-r-1 border-border-primary": opened,
           })}
@@ -60,7 +60,7 @@ export function PrimaryNavigationDesktop({ children }: PropsWithChildren) {
           <div
             className={"flex h-full flex-col justify-between gap-lg overflow-hidden px-sm py-3"}
             style={{
-              width: `${PrimaryNavigationDesktopSize.opened}rem`,
+              width: `${NavigationDesktopSize.opened}rem`,
             }}
           >
             <MenuContainer>
