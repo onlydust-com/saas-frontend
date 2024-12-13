@@ -30,7 +30,7 @@ export function CardProjectCategoryDefaultAdapter<C extends ElementType = "div">
       />
       <div className="flex flex-col items-center gap-xs">
         <Typo
-          size="sm"
+          size="xs"
           weight="medium"
           variant="heading"
           color="primary"

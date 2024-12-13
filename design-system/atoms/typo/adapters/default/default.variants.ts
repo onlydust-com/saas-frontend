@@ -28,6 +28,7 @@ export const TypoDefaultVariants = tv({
       "tertiary-hover": { base: "text-typography-tertiary-hover" },
       quaternary: { base: "text-typography-quaternary" },
       white: { base: "text-typography-white" },
+      black: { base: "text-typography-black" },
       disabled: { base: "text-typography-disabled" },
       placeholder: { base: "text-typography-placeholder" },
       error: { base: "text-typography-error" },

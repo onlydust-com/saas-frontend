@@ -86,16 +86,7 @@ function Navigation() {
 
 export default function DataLayout({ children }: { children: ReactNode }) {
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"data:details.header.title"} />,
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <GlobalDataFilterProvider>
         <AnimatedColumn className="h-full max-w-full">
           <ScrollView className="flex flex-col gap-md">

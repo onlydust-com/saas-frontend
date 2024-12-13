@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/app/explore/_components/section/section";
+import { ProjectBanners } from "@/app/explore/_features/project-banners/project-banners";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
@@ -14,6 +15,8 @@ export default function ExplorePage() {
   return (
     <ScrollView>
       <div className="mx-auto flex max-w-laptop flex-col gap-6xl py-4xl">
+        <ProjectBanners />
+
         <TrendingProjects />
 
         <Section

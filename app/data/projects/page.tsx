@@ -19,11 +19,14 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ExportCsv } from "./_components/export-csv/export-csv";
 import { FilterColumns } from "./_components/filter-columns/filter-columns";
@@ -111,6 +114,19 @@ function DataProjectsPage() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: <Translate token={"data:details.header.title"} />,
+            href: NEXT_ROUTER.data.overview.root,
+          },
+          {
+            id: "project",
+            label: <Translate token={"data:details.tabs.project"} />,
+          },
+        ]}
+      />
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <FilterButton onClick={openFilterPanel} />
