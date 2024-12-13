@@ -40,7 +40,7 @@ export default function ManageProgramsContributorsPage({
           },
         ]}
       />
-      <ContributorsTable projectSlug={projectSlug} />;
+      <ContributorsTable projectSlug={projectSlug} />
     </>
   );
 }
