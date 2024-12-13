@@ -1,17 +1,12 @@
-import { ThemedButton } from "@/app/explore/_features/project-banner/_components/themed-button/themed-button";
-import { ProjectBannerProps } from "@/app/explore/_features/project-banner/project-banner.types";
+import { ThemedButton } from "@/app/explore/_features/project-banners/_components/themed-button/themed-button";
+
+import { bootstrap } from "@/core/bootstrap";
 
 import { Typo } from "@/design-system/atoms/typo";
 
-export function ProjectBanner({
-  title,
-  subtitle,
-  theme = "light",
-  image,
-  backgroundColor,
-  ctaPrimary,
-  ctaSecondary,
-}: ProjectBannerProps) {
+export function ProjectBanners() {
+  const projectBannerAdapter = bootstrap.projectBannerStoragePortForClient;
+  const [{ title, subtitle, theme, image, backgroundColor, ctas }] = projectBannerAdapter.getProjectBanners({});
   const typoColor = theme === "dark" ? "black" : "white";
 
   return (
@@ -28,19 +23,18 @@ export function ProjectBanner({
         </div>
 
         <div className="flex gap-lg">
-          <ThemedButton bannerTheme={theme} as="a" htmlProps={{ href: ctaPrimary.href }} size="md">
-            {ctaPrimary.label}
-          </ThemedButton>
-
-          <ThemedButton
-            bannerTheme={theme}
-            as="a"
-            htmlProps={{ href: ctaSecondary.href }}
-            size="md"
-            variant="secondary"
-          >
-            {ctaSecondary.label}
-          </ThemedButton>
+          {ctas.map(cta => (
+            <ThemedButton
+              key={cta.label}
+              bannerTheme={theme}
+              as="a"
+              htmlProps={{ href: cta.href }}
+              variant={cta.variant}
+              size="md"
+            >
+              {cta.label}
+            </ThemedButton>
+          ))}
         </div>
       </div>
 

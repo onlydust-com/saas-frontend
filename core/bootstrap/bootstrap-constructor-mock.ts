@@ -1,4 +1,5 @@
 import { BootstrapConstructor } from "@/core/bootstrap/index";
+import { ProjectBannerAdapterMock } from "@/core/infrastructure/json-storage-adapter/mock-adapters/project-banner-adapter-mock";
 import { ApplicationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/application-client-adapter-mock";
 import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
@@ -16,6 +17,7 @@ import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
 import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
+import { RecoClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reco-client-adapter-mock";
 import { RewardClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reward-client-adapter-mock";
 import { SearchClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/search-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
@@ -28,8 +30,6 @@ import { SocialAdapterMock } from "@/core/kernel/social/social-adapter-mock";
 import { StyleAdapterMock } from "@/core/kernel/style/style-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapter-mock";
-
-import { RecoClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/reco-client-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
   meStoragePortForClient: new MeClientAdapterMock(),
@@ -84,4 +84,6 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   styleKernelPort: StyleAdapterMock,
   searchStoragePortForClient: new SearchClientAdapterMock(),
   searchStoragePortForServer: new SearchClientAdapterMock(),
+  projectBannerStoragePortForClient: new ProjectBannerAdapterMock(),
+  projectBannerStoragePortForServer: new ProjectBannerAdapterMock(),
 };

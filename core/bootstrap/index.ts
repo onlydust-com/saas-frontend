@@ -13,12 +13,15 @@ import { LanguageStoragePort } from "@/core/domain/language/outputs/language-sto
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
+import { ProjectBannerStoragePort } from "@/core/domain/project-banner/outputs/project-banner-storage-port";
 import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
+import { RecoStoragePort } from "@/core/domain/reco/output/reco-storage-port";
 import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-port";
 import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
+import { ProjectBannerAdapter } from "@/core/infrastructure/json-storage-adapter/adapters/project-banner-adapter";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
@@ -36,6 +39,7 @@ import { NotificationClientAdapter } from "@/core/infrastructure/marketplace-api
 import { ProgramClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/program-client-adapter";
 import { ProjectCategoryClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-category-client-adapter";
 import { ProjectClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/project-client-adapter";
+import { RecoClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/reco-client-adapter";
 import { RewardClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/reward-client-adapter";
 import { SearchClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/search-client-adapter";
 import { SponsorClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/sponsor-client-adapter";
@@ -59,9 +63,6 @@ import { UrlAdapter } from "@/core/kernel/url/url-adapter";
 import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
-
-import { RecoStoragePort } from "../domain/reco/output/reco-storage-port";
-import { RecoClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/reco-client-adapter";
 
 export interface BootstrapConstructor {
   meStoragePortForClient: MeStoragePort;
@@ -116,6 +117,8 @@ export interface BootstrapConstructor {
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
   searchStoragePortForServer: SearchStoragePort;
+  projectBannerStoragePortForClient: ProjectBannerStoragePort;
+  projectBannerStoragePortForServer: ProjectBannerStoragePort;
 }
 
 export class Bootstrap {
@@ -174,6 +177,8 @@ export class Bootstrap {
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
   searchStoragePortForServer: SearchStoragePort;
+  projectBannerStoragePortForClient: ProjectBannerStoragePort;
+  projectBannerStoragePortForServer: ProjectBannerStoragePort;
 
   constructor(constructor: BootstrapConstructor) {
     this.meStoragePortForClient = constructor.meStoragePortForClient;
@@ -228,6 +233,8 @@ export class Bootstrap {
     this.styleKernelPort = constructor.styleKernelPort;
     this.searchStoragePortForClient = constructor.searchStoragePortForClient;
     this.searchStoragePortForServer = constructor.searchStoragePortForServer;
+    this.projectBannerStoragePortForClient = constructor.projectBannerStoragePortForClient;
+    this.projectBannerStoragePortForServer = constructor.projectBannerStoragePortForServer;
   }
 
   getAuthProvider() {
@@ -454,6 +461,14 @@ export class Bootstrap {
     return this.searchStoragePortForServer;
   }
 
+  getProjectBannerStoragePortForClient() {
+    return this.projectBannerStoragePortForClient;
+  }
+
+  getProjectBannerStoragePortForServer() {
+    return this.projectBannerStoragePortForServer;
+  }
+
   public static get getBootstrap(): Bootstrap {
     if (!Bootstrap.#instance) {
       this.newBootstrap({
@@ -509,6 +524,8 @@ export class Bootstrap {
         styleKernelPort: StyleAdapter,
         searchStoragePortForClient: new SearchClientAdapter(new FetchHttpClient()),
         searchStoragePortForServer: new SearchClientAdapter(new FetchHttpClient()),
+        projectBannerStoragePortForClient: new ProjectBannerAdapter(),
+        projectBannerStoragePortForServer: new ProjectBannerAdapter(),
       });
     }
 
