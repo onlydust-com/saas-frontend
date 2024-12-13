@@ -7,7 +7,7 @@ import { ModalContainerProps } from "./modal-container.types";
 function ModalContainer({ children }: ModalContainerProps) {
   const { isOpen, onOpenChange } = useGlobalSearch();
   return (
-    <div className={"fixed inset-0 z-[999999]"} style={{ pointerEvents: isOpen ? "auto" : "none" }}>
+    <div className={"fixed inset-0 z-[999999] w-full"} style={{ pointerEvents: isOpen ? "auto" : "none" }}>
       <AnimatePresence>
         {isOpen && (
           <>
@@ -31,7 +31,7 @@ function ModalContainer({ children }: ModalContainerProps) {
                 damping: 20,
               }}
               className={
-                "absolute left-1/2 top-[15%] z-[1] h-fit w-fit -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+                "absolute left-1/2 top-[15%] z-[1] flex h-fit w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center"
               }
             >
               {children}

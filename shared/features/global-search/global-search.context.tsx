@@ -151,6 +151,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       setFilters({});
       setInputValue(null);
       setOpen(false);
+      setOpenFilter(false);
     } else {
       setOpen(true);
       setDebouncedOpen(true);
@@ -158,6 +159,10 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   }
 
   function onInputChange(v: string) {
+    if (!v) {
+      setFilters({});
+      setOpenFilter(false);
+    }
     setInputValue(v);
   }
 

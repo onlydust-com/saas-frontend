@@ -25,7 +25,7 @@ export function TypeFilters({ onClearAll }: TypeFiltersProps) {
   }
 
   return (
-    <div className="relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4">
+    <div className="relative flex w-full flex-row items-center justify-between gap-1 border-b border-b-border-primary px-6 py-4">
       <FilterRow icon={{ component: LayoutGrid }} label={{ token: "features:globalSearch.filters.type.name" }}>
         {types.map(item => (
           <Tag
