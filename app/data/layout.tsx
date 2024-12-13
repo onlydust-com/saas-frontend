@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useLayoutEffect, useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 import { GlobalDataFilter } from "@/app/data/_features/global-data-filter/global-data-filter";
 import {
@@ -14,7 +14,6 @@ import { AnimatedColumn } from "@/shared/components/animated-column-group/animat
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { useNavigation } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";

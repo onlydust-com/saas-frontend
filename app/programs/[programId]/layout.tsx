@@ -7,8 +7,6 @@ import { GrantButton } from "@/app/programs/[programId]/_features/grant-button/g
 import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
 import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 
-import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
-
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
