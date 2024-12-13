@@ -13,9 +13,12 @@ import { ContributionAs } from "@/core/domain/contribution/models/contribution.t
 
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function MyDashboardContributionsPage() {
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
@@ -40,6 +43,19 @@ export default function MyDashboardContributionsPage() {
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: <Translate token={"myDashboard:detail.header.title"} />,
+            href: NEXT_ROUTER.myDashboard.root,
+          },
+          {
+            id: "contributors",
+            label: <Translate token={"myDashboard:detail.views.contributions"} />,
+          },
+        ]}
+      />
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <FilterButton onClick={openFilterPanel} />
