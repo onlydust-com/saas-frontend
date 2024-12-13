@@ -1,4 +1,4 @@
-import { components } from "@/core/infrastructure/json-storage-adapter/contract/api";
+import { components } from "@/core/infrastructure/json-storage-client-adapter/contract/api";
 
 export type ProjectBannerResponse = components["schemas"]["ProjectBannerResponse"];
 

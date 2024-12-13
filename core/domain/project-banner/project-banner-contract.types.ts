@@ -1,5 +1,5 @@
 import { ProjectBannerInterface } from "@/core/domain/project-banner/models/project-banner-model";
-import { components } from "@/core/infrastructure/json-storage-adapter/contract/api";
+import { components } from "@/core/infrastructure/json-storage-client-adapter/contract/api";
 
 /* --------------------------------- Get Project Banners -------------------------------- */
 

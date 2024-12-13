@@ -1,9 +1,10 @@
 import { ProjectBanner, ProjectBannerResponse } from "@/core/domain/project-banner/models/project-banner-model";
 import { ProjectBannerStoragePort } from "@/core/domain/project-banner/outputs/project-banner-storage-port";
+import ProjectBannerData from "@/core/infrastructure/json-storage-client-adapter/data/project-banner-client-data.json";
 
-import ProjectBannerData from "../data/project-banner-data.json";
+export class ProjectBannerClientAdapter implements ProjectBannerStoragePort {
+  constructor() {}
 
-export class ProjectBannerAdapter implements ProjectBannerStoragePort {
   routes = {};
 
   getProjectBanners = () => {

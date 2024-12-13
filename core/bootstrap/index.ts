@@ -21,7 +21,7 @@ import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-p
 import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
-import { ProjectBannerAdapter } from "@/core/infrastructure/json-storage-adapter/adapters/project-banner-adapter";
+import { ProjectBannerClientAdapter } from "@/core/infrastructure/json-storage-client-adapter/adapters/project-banner-client-adapter";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
@@ -524,8 +524,8 @@ export class Bootstrap {
         styleKernelPort: StyleAdapter,
         searchStoragePortForClient: new SearchClientAdapter(new FetchHttpClient()),
         searchStoragePortForServer: new SearchClientAdapter(new FetchHttpClient()),
-        projectBannerStoragePortForClient: new ProjectBannerAdapter(),
-        projectBannerStoragePortForServer: new ProjectBannerAdapter(),
+        projectBannerStoragePortForClient: new ProjectBannerClientAdapter(),
+        projectBannerStoragePortForServer: new ProjectBannerClientAdapter(),
       });
     }
 
