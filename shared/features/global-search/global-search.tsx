@@ -1,8 +1,10 @@
 import { Kbd } from "@nextui-org/kbd";
 import { Command } from "cmdk";
 import { AnimatePresence, motion } from "framer-motion";
+import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -15,34 +17,44 @@ import { ModalPortal } from "./_components/modal-container/modal-container";
 import { Filters } from "./_features/filters/filters";
 import { Result } from "./_features/result/result";
 
-export function SafeGlobalSearch() {
+export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
   const { t } = useTranslation("features");
   const { hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange, inputValue } = useGlobalSearch();
 
   return (
     <>
-      <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
-        <Input
-          name={"global-search"}
-          placeholder={t("globalSearch.menu.placeholder")}
-          readOnly={true}
-          canInteract={false}
-          endContent={
-            <Kbd
-              keys={["command"]}
-              classNames={{
-                base: "bg-background-primary rounded-sm shadow-none",
-              }}
-            >
-              K
-            </Kbd>
-          }
+      {!isMobile ? (
+        <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
+          <Input
+            name={"global-search"}
+            placeholder={t("globalSearch.menu.placeholder")}
+            readOnly={true}
+            canInteract={false}
+            endContent={
+              <Kbd
+                keys={["command"]}
+                classNames={{
+                  base: "bg-background-primary rounded-sm shadow-none",
+                }}
+              >
+                K
+              </Kbd>
+            }
+          />
+        </div>
+      ) : (
+        <Button
+          iconOnly={true}
+          variant={"tertiary"}
+          size={"xs"}
+          startIcon={{ component: Search }}
+          onClick={() => onOpenChange(true)}
         />
-      </div>
+      )}
       <ModalPortal>
         <Command
           className={
-            "flex h-fit w-[730px] max-w-full flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt effect-box-shadow-sm"
+            "flex h-fit w-[730px] max-w-[95%] flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary-alt effect-box-shadow-sm"
           }
         >
           <Header />
@@ -81,11 +93,11 @@ export function SafeGlobalSearch() {
   );
 }
 
-export function GlobalSearch() {
+export function GlobalSearch({ isMobile = false }: { isMobile?: boolean }) {
   if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true") {
     return (
       <GlobalSearchProvider>
-        <SafeGlobalSearch />
+        <SafeGlobalSearch isMobile={isMobile} />
       </GlobalSearchProvider>
     );
   }

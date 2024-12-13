@@ -60,6 +60,12 @@ export const NEXT_ROUTER = {
   splash: {
     githubCallback: "/github-callback",
   },
+  projectRecommendation: {
+    root: "/project-recommendation",
+    results: {
+      root: "/project-recommendation/results",
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
