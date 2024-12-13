@@ -119,28 +119,8 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
 }
 
 function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{ params: { programId: string } }>) {
-  const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
-    pathParams: {
-      programId,
-    },
-  });
-
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"programs:list.header.title"} />,
-            href: NEXT_ROUTER.programs.root,
-          },
-          {
-            id: "details",
-            label: data?.name,
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <PosthogCaptureOnMount eventName={"program_viewed"} />
 
       <UnallocateFlowProvider programId={programId}>
