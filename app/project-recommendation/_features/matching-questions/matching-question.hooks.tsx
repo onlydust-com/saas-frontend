@@ -5,17 +5,24 @@ import { toast } from "sonner";
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Answer, MatchingQuestionsState } from "./matching-questions.types";
 
 export function useMatchingQuestions() {
   const router = useRouter();
+  const variantValue = useFeatureFlagVariant({
+    flagName: "project-recommendation-a-a",
+  });
 
   const { data: matchingQuestions, isLoading: isLoadingMatchingQuestions } =
     RecoReactQueryAdapter.client.useGetMatchingQuestions({
       queryParams: {
-        v: "REPLACE_WITH_POSTHOG_ALGO_ID",
+        v: variantValue ?? "",
+      },
+      options: {
+        enabled: Boolean(variantValue),
       },
     });
 

@@ -7,12 +7,20 @@ import { Typo } from "@/design-system/atoms/typo";
 import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
 
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
 
 export default function ProjectRecommendationResultsPage() {
+  const variantValue = useFeatureFlagVariant({
+    flagName: "project-recommendation-a-a",
+  });
+
   const { data: recommendedProjects, isLoading: isLoadingRecommendedProjects } =
     RecoReactQueryAdapter.client.useGetRecommendedProjects({
       queryParams: {
-        v: "REPLACE_WITH_POSTHOG_ALGO_ID",
+        v: variantValue ?? "",
+      },
+      options: {
+        enabled: Boolean(variantValue),
       },
     });
 
