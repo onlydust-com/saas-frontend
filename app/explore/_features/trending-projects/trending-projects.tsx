@@ -46,6 +46,7 @@ export function TrendingProjects() {
         <CardProjectMarketplace
           key={project.id}
           name={project.name}
+          slug={project.slug}
           description={project.shortDescription}
           logoUrl={project.logoUrl}
           contributorCount={project.contributorCount}
