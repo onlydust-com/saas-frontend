@@ -224,21 +224,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"manageProjects:list.header.title"} />,
-            href: NEXT_ROUTER.manageProjects.root,
-          },
-          {
-            id: "details",
-            label: data?.name ?? "",
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{
