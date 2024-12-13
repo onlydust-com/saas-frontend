@@ -12,7 +12,7 @@ export function useFeatureFlagVariant({ flagName }: UseFeatureFlagVariantProps) 
   useEffect(() => {
     if (variant) {
       if (variant === "control" && controlValueEnvVar) {
-        setVariantValue(controlValueEnvVar ?? "");
+        setVariantValue(controlValueEnvVar);
         return;
       }
 
