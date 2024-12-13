@@ -7,8 +7,6 @@ import { DepositButton } from "@/app/financials/[sponsorId]/financial/_features/
 import { AllocateButton } from "@/app/financials/[sponsorId]/programs/_features/allocate-button/allocate-button";
 import { CreateButton } from "@/app/financials/[sponsorId]/programs/_features/create-button/create-button";
 
-import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
-
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
@@ -60,31 +58,8 @@ function FinancialDetailLayout({
     return null;
   }, [isPrograms, isFinancial]);
 
-  const { data } = SponsorReactQueryAdapter.client.useGetSponsor({
-    pathParams: {
-      sponsorId,
-    },
-    options: {
-      enabled: Boolean(sponsorId),
-    },
-  });
-
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"financials:list.header.title"} />,
-            href: NEXT_ROUTER.financials.root,
-          },
-          {
-            id: "details",
-            label: data?.name,
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <PosthogCaptureOnMount
         eventName={"sponsor_viewed"}
         params={{

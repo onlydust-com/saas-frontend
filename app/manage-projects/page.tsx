@@ -11,6 +11,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -18,16 +19,15 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 function ManageProjectsPage() {
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
+    <PageWrapper>
+      <NavigationBreadcrumb
+        breadcrumb={[
           {
             id: "root",
             label: <Translate token={"manageProjects:list.header.title"} />,
           },
-        ],
-      }}
-    >
+        ]}
+      />
       <ScrollView>
         <PageContent>
           <div className="flex flex-col gap-4">
