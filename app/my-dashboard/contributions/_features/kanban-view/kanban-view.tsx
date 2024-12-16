@@ -62,6 +62,8 @@ function Column({
     }
   }, [type]);
 
+  const count = data?.pages?.[0]?.totalItemNumber ?? 0;
+
   return (
     <KanbanColumn
       {...kanbanProps}
@@ -70,7 +72,7 @@ function Column({
       isFetchingNextPage={isFetchingNextPage}
       header={{
         title,
-        badge: { children: data?.pages?.[0]?.totalItemNumber ?? "0" },
+        badge: { children: count, count },
         ...(kanbanProps.header || {}),
       }}
     >

@@ -21,13 +21,15 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   closeProps,
   variant,
   fixedSize = false,
+  count,
   ...props
 }: BadgePort<C>) {
   const { isDeletable, shape = "rounded", size = "sm", color, iconOnly } = props;
   const DefaultComponent = isDeletable ? "button" : "span";
   const Component = as || DefaultComponent;
+  const _fixedSize = fixedSize || (count !== undefined && count < 10);
 
-  const slots = BadgeDefaultVariants({ isDeletable, size, color, shape, iconOnly, variant, fixedSize });
+  const slots = BadgeDefaultVariants({ isDeletable, size, color, shape, iconOnly, variant, fixedSize: _fixedSize });
   const showChildren = !!children || children === 0 || !!translate;
 
   return (
