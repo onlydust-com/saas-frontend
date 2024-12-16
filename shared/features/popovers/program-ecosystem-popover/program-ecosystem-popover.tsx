@@ -36,8 +36,9 @@ export function ProgramEcosystemPopover({
             return findInItems.label;
           }
 
-          return id;
+          return "";
         })
+        .filter(Boolean)
         .join(", ")
     );
     if (searchParams) {
@@ -66,12 +67,13 @@ export function ProgramEcosystemPopover({
               return findInItems.label;
             }
 
-            return id;
+            return "";
           })
+          .filter(Boolean)
           .join(", ")
       );
     }
-  }, [selectedProgramsEcosystems]);
+  }, [selectedProgramsEcosystems, programAndEcosystemItems]);
 
   return (
     <Popover>
