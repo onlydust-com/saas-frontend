@@ -43,7 +43,7 @@ export function CardProjectCategoryDefaultAdapter<C extends ElementType = "div">
         <Typo
           size="xs"
           color="secondary"
-          translate={{ token: "features:cardProjectCategory.projectCount", count: 42 }}
+          translate={{ token: "features:cardProjectCategory.projectCount", count: category.projectCount }}
         />
       </div>
     </Component>

@@ -14,6 +14,7 @@ const mockCategory = new ProjectCategory({
   slug: "Ai",
   description: "Ai stuff",
   iconSlug: "ri-robot-line",
+  projectCount: 42,
 });
 
 const colors: CardProjectCategoryPort<"div">["color"][] = [
