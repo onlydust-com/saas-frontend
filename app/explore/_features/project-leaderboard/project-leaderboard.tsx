@@ -13,7 +13,6 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
 export function ProjectLeaderboard() {
-  // TODO @Mehdi check for the appropriate endpoints once ready
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
     queryParams: {
       pageSize: 6,
