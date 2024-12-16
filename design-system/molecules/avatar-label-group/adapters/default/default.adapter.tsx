@@ -2,7 +2,7 @@ import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Popover } from "@/design-system/atoms/popover";
-import { Typo } from "@/design-system/atoms/typo";
+import { Typo, TypoSize } from "@/design-system/atoms/typo";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
@@ -30,6 +30,21 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
 
   const slots = AvatarLabelGroupDefaultVariants({ truncate });
 
+  let titleSize: TypoSize = "sm";
+  let descriptionSize: TypoSize = "sm";
+
+  switch (size) {
+    case "md":
+    case "sm":
+    case "xs":
+      descriptionSize = "xs";
+      break;
+    case "xxs":
+      titleSize = "xs";
+      descriptionSize = "xs";
+      break;
+  }
+
   function renderContent() {
     return (
       <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
@@ -42,7 +57,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
         <div className="flex flex-col">
           {title ? (
             <Typo
-              size="sm"
+              size={titleSize}
               weight="medium"
               color="secondary"
               classNames={{
@@ -54,7 +69,7 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
 
           {description ? (
             <Typo
-              size={size === "md" ? "xs" : "sm"}
+              size={descriptionSize}
               color="tertiary"
               classNames={{
                 base: slots.description(),

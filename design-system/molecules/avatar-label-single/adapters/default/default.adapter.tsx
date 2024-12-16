@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { Typo } from "@/design-system/atoms/typo";
+import { Typo, TypoSize } from "@/design-system/atoms/typo";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -22,6 +22,21 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
   const Component = as || "div";
   const slots = AvatarLabelSingleDefaultVariants({ truncate });
 
+  let titleSize: TypoSize = "sm";
+  let descriptionSize: TypoSize = "sm";
+
+  switch (size) {
+    case "md":
+    case "sm":
+    case "xs":
+      descriptionSize = "xs";
+      break;
+    case "xxs":
+      titleSize = "xs";
+      descriptionSize = "xs";
+      break;
+  }
+
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
       <Avatar src={avatar.src} alt={avatar.alt} fallback={avatar.fallback} size={size} shape={shape} />
@@ -29,7 +44,7 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
       <div className="flex flex-col">
         {title ? (
           <Typo
-            size="sm"
+            size={titleSize}
             weight="medium"
             color="secondary"
             classNames={{
@@ -41,7 +56,7 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
 
         {description ? (
           <Typo
-            size={size === "md" ? "xs" : "sm"}
+            size={descriptionSize}
             color="tertiary"
             classNames={{
               base: slots.description(),
