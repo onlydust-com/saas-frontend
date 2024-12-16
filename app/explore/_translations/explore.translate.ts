@@ -11,7 +11,7 @@ export const enExploreTranslation = {
     },
     projectLeaderboard: {
       title: "Most active projects",
-      description: "Projects with highest commit activity",
+      description: "Projects with the most pull requests",
       emptyState: {
         title: "No projects found",
         description: "There are no projects with highest commit activity",
