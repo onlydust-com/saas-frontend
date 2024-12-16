@@ -73,7 +73,7 @@ function Column({
       isFetchingNextPage={isFetchingNextPage}
       header={{
         title,
-        badge: { children: count, count },
+        badge: { count },
         ...(kanbanProps.header || {}),
       }}
     >
