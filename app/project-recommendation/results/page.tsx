@@ -57,8 +57,8 @@ export default function ProjectRecommendationResultsPage() {
       <CardProjectMarketplace
         key={project.id}
         {...project}
-        pullRequestCount={project.forkCount}
-        issueCount={project.availableIssueCount}
+        forkCount={project.forkCount}
+        availableIssueCount={project.availableIssueCount}
       />
     ));
   }

@@ -13,10 +13,9 @@ import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
 export function ContributorLeaderboard() {
-  // TODO @Mehdi check for the appropriate endpoints once ready
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributors({
     queryParams: {
-      sortDirection: "ASC",
+      sortDirection: "DESC",
       sort: "PR_COUNT",
       pageSize: 6,
     },
