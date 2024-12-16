@@ -125,26 +125,37 @@ export function useStackedColumnAreaSplineChartOptions({
       tooltip: {
         ...tooltipWrapperStyle,
         style: tooltipInnerStyle,
-        useHTML: true, // Allow HTML formatting
-        headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>", // Category name
-        pointFormat:
-          "<div><span class='text-typography-secondary'>{series.name}</span> <span class='font-medium'>{point.y}</span></div>", // Series name and value
-        pointFormatter() {
-          if (this.series.name === "Granted" || this.series.name === "Rewarded") {
-            const { amount, code } = moneyKernelPort.format({
-              amount: this.y,
-              currency: moneyKernelPort.getCurrency("USD"),
-            });
+        useHTML: true,
+        shared: true,
+        headerFormat: "<div class='font-medium mb-xs'>{point.key}</div>",
+        formatter() {
+          let tooltipContent = `<div class='font-medium mb-xs'>${this.x}</div>`;
 
-            return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${amount} ${code}</span</div>`;
-          }
+          this.points?.forEach(point => {
+            if (point.series.name === "Granted" || point.series.name === "Rewarded") {
+              const { amount, code } = moneyKernelPort.format({
+                amount: point.y ?? 0,
+                currency: moneyKernelPort.getCurrency("USD"),
+              });
+              tooltipContent += `<div class='flex gap-sm items-center'>
+                <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
+                <span class='text-typography-secondary'>${point.series.name}</span>
+                <span class='font-medium'>${amount} ${code}</span>
+              </div>`;
+            } else {
+              tooltipContent += `<div class='flex gap-sm items-center'>
+                <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
+                <span class='text-typography-secondary'>${point.series.name}</span>
+                <span class='font-medium'>${Intl.NumberFormat().format(point.y ?? 0)}</span>
+              </div>`;
+            }
+          });
 
-          return `<div><span class='text-typography-secondary'>${this.series.name}</span> <span class='font-medium'>${this.y ? Intl.NumberFormat().format(this.y) : ""}</span></div>`;
+          return tooltipContent;
         },
         positioner(labelWidth, labelHeight, point) {
-          // Need to cast extended point object to avoid TypeScript error, Highcharts types are wrong.
           const _point = point as ExtendedTooltipPositionerPointObject;
-          const x = _point.plotX + this.chart.plotLeft - labelWidth / 2; // Center the tooltip horizontally
+          const x = _point.plotX + this.chart.plotLeft - labelWidth / 2;
           let y = _point.plotY - labelHeight;
 
           if (_point.negative) {
