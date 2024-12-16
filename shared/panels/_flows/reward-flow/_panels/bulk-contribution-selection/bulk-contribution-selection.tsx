@@ -71,13 +71,20 @@ function TotalAmounts() {
 
 function Content({ headerProps, footerProps }: BulkContributionSelectionProps) {
   const { open } = useBulkContributionValidation();
-  const { isOpen } = useBulkContributionSelection();
+  const { isOpen, close: closeBulkContributionSelection } = useBulkContributionSelection();
   const { selectedGithubUserIds, amountPerCurrency, projectId } = useRewardFlow();
   const { isOpen: isManageRewardsModalOpen, setIsOpen: setIsManageRewardsModalOpen } = useManageRewardsModal();
   const [isRewardValid, setIsRewardValid] = useState<Record<number, boolean>>({});
   const isAmountInvalid = Boolean(
     Object.values(amountPerCurrency).find(({ amount, budget }) => (budget ? Number(amount) > budget.amount : false))
   );
+
+  useEffect(() => {
+    if (selectedGithubUserIds.length === 0) {
+      setIsManageRewardsModalOpen(false);
+      closeBulkContributionSelection();
+    }
+  }, [selectedGithubUserIds]);
 
   useEffect(() => {
     setIsRewardValid(prev => {
