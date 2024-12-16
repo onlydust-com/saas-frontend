@@ -12,6 +12,7 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   classNames?: Partial<ClassNames>;
   logoUrl?: string;
   name: string;
+  slug: string;
   contributorCount: number;
   starCount: number;
   pullRequestCount: number;
