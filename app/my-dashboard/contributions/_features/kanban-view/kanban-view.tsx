@@ -62,7 +62,7 @@ function Column({
     }
   }, [type]);
 
-  const count = data?.pages?.[0]?.totalItemNumber ?? 0;
+  const count = useMemo(() => data?.pages?.[0]?.totalItemNumber ?? 0, [data]);
 
   return (
     <KanbanColumn
