@@ -68,8 +68,8 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   slug,
   contributorCount,
   starCount,
-  pullRequestCount,
-  issueCount,
+  forkCount,
+  availableIssueCount,
   goodFirstIssueCount,
   description,
   categories,
@@ -117,7 +117,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
             <div className="flex items-center gap-md">
               <Metric icon={UserRound} count={contributorCount} />
               <Metric icon={Star} count={starCount} />
-              <Metric icon={GitFork} count={pullRequestCount} />
+              <Metric icon={GitFork} count={forkCount} />
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
                 },
                 translate: {
                   token: "common:count.openIssues",
-                  values: { count: issueCount },
+                  values: { count: availableIssueCount },
                 },
                 classNames: {
                   startIcon: "text-utility-secondary-green-500",

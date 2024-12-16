@@ -7,13 +7,14 @@ type Story = StoryObj<typeof CardProjectMarketplace>;
 
 const defaultProps: CardProjectMarketplacePort<"div"> = {
   name: "Dojo",
+  slug: "dojo",
   description:
     "Sin autem ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel ",
   logoUrl: "https://onlydust-app-images.s3.eu-west-1.amazonaws.com/566368398222658517.png",
   contributorCount: 10,
   starCount: 10,
-  pullRequestCount: 10,
-  issueCount: 10,
+  forkCount: 10,
+  availableIssueCount: 10,
   goodFirstIssueCount: 5,
   categories: [
     { id: "defi", name: "DeFi" },
