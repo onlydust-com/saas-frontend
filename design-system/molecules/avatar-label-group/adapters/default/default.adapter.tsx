@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ElementType, useMemo } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Popover } from "@/design-system/atoms/popover";
@@ -27,23 +27,26 @@ export function AvatarLabelGroupDefaultAdapter<C extends ElementType = "div">({
   popoverContent,
 }: AvatarLabelGroupPort<C>) {
   const Component = as || "div";
-
   const slots = AvatarLabelGroupDefaultVariants({ truncate });
 
-  let titleSize: TypoSize = "sm";
-  let descriptionSize: TypoSize = "sm";
+  const { titleSize, descriptionSize } = useMemo(() => {
+    let titleSize: TypoSize = "sm";
+    let descriptionSize: TypoSize = "sm";
 
-  switch (size) {
-    case "md":
-    case "sm":
-    case "xs":
-      descriptionSize = "xs";
-      break;
-    case "xxs":
-      titleSize = "xs";
-      descriptionSize = "xs";
-      break;
-  }
+    switch (size) {
+      case "md":
+      case "sm":
+      case "xs":
+        descriptionSize = "xs";
+        break;
+      case "xxs":
+        titleSize = "xs";
+        descriptionSize = "xs";
+        break;
+    }
+
+    return { titleSize, descriptionSize };
+  }, [size]);
 
   function renderContent() {
     return (

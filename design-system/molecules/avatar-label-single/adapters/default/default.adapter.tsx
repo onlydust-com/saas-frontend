@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ElementType, useMemo } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Typo, TypoSize } from "@/design-system/atoms/typo";
@@ -22,20 +22,24 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
   const Component = as || "div";
   const slots = AvatarLabelSingleDefaultVariants({ truncate });
 
-  let titleSize: TypoSize = "sm";
-  let descriptionSize: TypoSize = "sm";
+  const { titleSize, descriptionSize } = useMemo(() => {
+    let titleSize: TypoSize = "sm";
+    let descriptionSize: TypoSize = "sm";
 
-  switch (size) {
-    case "md":
-    case "sm":
-    case "xs":
-      descriptionSize = "xs";
-      break;
-    case "xxs":
-      titleSize = "xs";
-      descriptionSize = "xs";
-      break;
-  }
+    switch (size) {
+      case "md":
+      case "sm":
+      case "xs":
+        descriptionSize = "xs";
+        break;
+      case "xxs":
+        titleSize = "xs";
+        descriptionSize = "xs";
+        break;
+    }
+
+    return { titleSize, descriptionSize };
+  }, [size]);
 
   return (
     <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
