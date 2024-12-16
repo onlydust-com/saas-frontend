@@ -4,12 +4,7 @@ import { TransactionsWrapperProps } from "./transactions-wrapper.types";
 
 export function TransactionsWrapper({ isLoading, transactions }: TransactionsWrapperProps) {
   if (isLoading) {
-    return (
-      <div className="flex flex-col gap-lg">
-        <CardTransactionLoading />
-        <CardTransactionLoading />
-      </div>
-    );
+    return <CardTransactionLoading />
   }
 
   if (!transactions.length) {

@@ -8,4 +8,10 @@ export const GRADIENTS = {
   component_card_bg_gradient_1: "component-card-bg-gradient-1",
   gradient_glass_neon_45: "gradient-glass-neon-45",
   gradient_glass_neon_80: "gradient-glass-neon-80",
+  cosmic_night: "gradient-cosmic-night",
+  deep_ocean: "gradient-deep-ocean",
+  velvet_dusk: "gradient-velvet-dusk",
+  arctic_abyss: "gradient-arctic-abyss",
+  ember_shadow: "gradient-ember-shadow",
+  mystic_twilight: "gradient-mystic-twilight",
 } as const;

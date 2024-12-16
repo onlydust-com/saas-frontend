@@ -11,6 +11,9 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ContributorHistogramChart } from "./_features/contributor-histogram-chart/contributor-histogram-chart";
 import { ProjectHistogramChart } from "./_features/project-histogram-chart/project-histogram-chart";
@@ -18,6 +21,19 @@ import { ProjectHistogramChart } from "./_features/project-histogram-chart/proje
 function DataOverviewPage() {
   return (
     <ScrollView>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: <Translate token={"data:details.header.title"} />,
+            href: NEXT_ROUTER.data.overview.root,
+          },
+          {
+            id: "overview",
+            label: <Translate token={"data:details.tabs.overview"} />,
+          },
+        ]}
+      />
       <div className={"flex h-full flex-1 flex-row justify-between gap-3"}>
         <div className={"flex flex-1 flex-col gap-3"}>
           <Paper border={"primary"}>

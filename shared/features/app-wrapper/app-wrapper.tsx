@@ -9,7 +9,7 @@ import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 
-import { PrimaryNavigation } from "@/shared/features/navigation/primary-navigation/primary-navigation";
+import { Navigation } from "@/shared/features/navigation/navigation";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 import { AppWrapperProps } from "./app-wrapper.types";
@@ -88,7 +88,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
       <div className={"mx-auto flex h-dvh w-dvw flex-col gap-3 overflow-hidden p-md"}>
         <AppGradient />
         <ImpersonationBanner />
-        <PrimaryNavigation>{children}</PrimaryNavigation>
+        <Navigation>{children}</Navigation>
       </div>
     );
   }
@@ -97,7 +97,7 @@ export function AppWrapper({ children }: AppWrapperProps) {
     <div className={"mx-auto flex h-dvh w-dvw max-w-[2560px] flex-col overflow-hidden"}>
       <AppGradient />
       <ImpersonationBanner />
-      <PrimaryNavigation>{children}</PrimaryNavigation>
+      <Navigation>{children}</Navigation>
     </div>
   );
 }

@@ -3,8 +3,6 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { TransactionsTrigger } from "@/app/manage-projects/[projectSlug]/financial/_features/transactions-trigger/transactions-trigger";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -29,6 +27,7 @@ import { UngrantFlowProvider, useUngrantFlow } from "@/shared/panels/_flows/ungr
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel.hooks";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
@@ -63,6 +62,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   const [openAlert, setOpenAlert] = useState(false);
   const hasAlreadyClosedAlert = useRef(false);
 
+  const { open: openProjectTransactions } = useProjectTransactionsSidepanel();
   const { open: openProject } = useProjectUpdateSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
   const { open: openUngrantFlow } = useUngrantFlow();
@@ -122,7 +122,17 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
         {isFinancial ? (
           <>
             {renderUngrantButton()}
-            <TransactionsTrigger />
+
+            <Button
+              variant={"secondary"}
+              size={"sm"}
+              translate={{ token: "manageProjects:detail.activity.actions.seeTransactions" }}
+              onClick={openProjectTransactions}
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+            />
           </>
         ) : null}
 
@@ -214,21 +224,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"manageProjects:list.header.title"} />,
-            href: NEXT_ROUTER.manageProjects.root,
-          },
-          {
-            id: "details",
-            label: data?.name ?? "",
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{

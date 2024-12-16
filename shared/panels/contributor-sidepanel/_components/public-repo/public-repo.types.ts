@@ -1,3 +1,5 @@
-import { PropsWithChildren } from "react";
+import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
 
-export interface PublicRepoProps extends PropsWithChildren {}
+export interface PublicRepoProps {
+  repos: BiContributorInterface["repos"];
+}

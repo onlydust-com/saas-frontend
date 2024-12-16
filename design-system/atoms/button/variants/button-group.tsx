@@ -38,7 +38,7 @@ function ButtonItem({
   index,
 }: {
   itemProps: ButtonGroupPort["buttons"][0];
-  commonProps: ButtonGroupPort;
+  commonProps: Omit<ButtonGroupPort, "buttons">;
   index: number;
   hasBorder?: boolean;
 }) {
@@ -60,6 +60,8 @@ function ButtonItem({
         onClick={handleClick}
         variant={"secondary"}
         classNames={{
+          ...commonProps.classNames,
+          ...itemProps.classNames,
           base: cn(
             "rounded-none !shadow-none border-r-0 border-t-0 border-r-0 border-b-0 border-border-primary-alt",
             {
@@ -80,13 +82,14 @@ function ButtonItem({
   return renderButton();
 }
 
-export function ButtonGroup(props: ButtonGroupPort) {
-  const { base } = ButtonGroupVariant({ size: props.size });
+export function ButtonGroup({ buttons, ...commonProps }: ButtonGroupPort) {
+  const { base } = ButtonGroupVariant({ size: commonProps.size });
+
   return (
     <div className={base()}>
-      {props.buttons.map((itemProps, index) => (
+      {buttons.map((itemProps, index) => (
         <div key={index}>
-          <ButtonItem itemProps={itemProps} commonProps={props} hasBorder={index !== 0} index={index} />
+          <ButtonItem itemProps={itemProps} commonProps={commonProps} hasBorder={index !== 0} index={index} />
         </div>
       ))}
     </div>

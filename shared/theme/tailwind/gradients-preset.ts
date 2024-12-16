@@ -44,6 +44,24 @@ const GradientsPreset: Config = {
           background:
             "radial-gradient(180% 180% at 100% -37%, var(--utility-gradient-glassneon-glass-neon-1) 0%, var(--utility-gradient-glassneon-glass-neon-2) 20%, var(--utility-gradient-glassneon-glass-neon-3) 38%, var(--utility-gradient-glassneon-glass-neon-4) 48%, var(--utility-gradient-glassneon-glass-neon-5) 61%, var(--utility-gradient-glassneon-glass-neon-6) 90%, var(--utility-gradient-glassneon-glass-neon-7) 100%);",
         },
+        [`.${GRADIENTS.cosmic_night}`]: {
+          background: "linear-gradient(132deg, #1C123E 6.3%, #0E183E 97.35%)",
+        },
+        [`.${GRADIENTS.deep_ocean}`]: {
+          background: "linear-gradient(132deg, #112525 6.3%, #0E1A3E 97.35%)",
+        },
+        [`.${GRADIENTS.velvet_dusk}`]: {
+          background: "linear-gradient(132deg, #2B1129 6.3%, #2D181C 97.35%)",
+        },
+        [`.${GRADIENTS.arctic_abyss}`]: {
+          background: "linear-gradient(132deg, #0F2228 6.3%, #0F2234 97.35%)",
+        },
+        [`.${GRADIENTS.ember_shadow}`]: {
+          background: "linear-gradient(132deg, #2B1D1B 6.3%, #2B131C 97.35%)",
+        },
+        [`.${GRADIENTS.mystic_twilight}`]: {
+          background: "linear-gradient(132deg, #1A1240 6.3%, #25103B 97.35%)",
+        },
       });
     }),
   ],

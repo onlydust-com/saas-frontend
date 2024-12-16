@@ -1,6 +1,7 @@
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
+import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
@@ -16,6 +17,7 @@ import {
   GetProjectProgramsResponse,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  GetProjectsV2Response,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
@@ -388,6 +390,31 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         pathParams,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectsV2 = ({ queryParams }: FirstParameter<ProjectStoragePort["getProjectsV2"]>) => {
+    const path = this.routes["getProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectsV2Response>({
+        path,
+        method,
+        tag,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new ProjectListItemV2(project)),
+      };
+    };
 
     return {
       request,

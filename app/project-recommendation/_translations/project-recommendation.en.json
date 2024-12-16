@@ -1,0 +1,23 @@
+{
+  "header": {
+    "title": "Find Your Perfect Project",
+    "description": "Answer a few questions to discover projects that match your interests and skills"
+  },
+  "toast": {
+    "success": "Answers saved successfully",
+    "error": "Error saving answers"
+  },
+  "matching-questions": {
+    "emptyState": {
+      "title": "No questions found",
+      "description": "We couldn't find any questions for you. Please try again later."
+    }
+  },
+  "results": {
+    "title": "Recommended projects for you",
+    "emptyState": {
+      "title": "No projects found",
+      "description": "We couldn't find any projects for you. Please try again later."
+    }
+  }
+}

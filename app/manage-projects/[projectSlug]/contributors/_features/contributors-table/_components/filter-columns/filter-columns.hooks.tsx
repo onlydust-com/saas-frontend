@@ -10,7 +10,7 @@ import { TableColumns } from "@/app/manage-projects/[projectSlug]/contributors/_
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
-import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
+import { BiContributorListItemInterface } from "@/core/domain/bi/models/bi-contributor-list-item-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Checkbox } from "@/design-system/atoms/checkbox";
@@ -36,7 +36,7 @@ export function useFilterColumns() {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const { open: openContributor } = useContributorSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
-  const columnHelper = createColumnHelper<BiContributorInterface & { labels: string[] }>();
+  const columnHelper = createColumnHelper<BiContributorListItemInterface & { labels: string[] }>();
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -88,7 +88,7 @@ export function useFilterColumns() {
     }
   }, [selectedIds, setSelectedIds]);
 
-  const sortingMap: Partial<Record<keyof BiContributorInterface, GetBiContributorsQueryParams["sort"]>> = {
+  const sortingMap: Partial<Record<keyof BiContributorListItemInterface, GetBiContributorsQueryParams["sort"]>> = {
     contributor: "CONTRIBUTOR_LOGIN",
     totalRewardedUsdAmount: "TOTAL_REWARDED_USD_AMOUNT",
   };
@@ -250,7 +250,7 @@ export function useFilterColumns() {
   // Loop on object keys to keep column order
   const columns = columnMapKeys
     .map(key => (selectedIds?.includes(key) ? columnMap[key] : null))
-    .filter(Boolean) as ColumnDef<BiContributorInterface>[];
+    .filter(Boolean) as ColumnDef<BiContributorListItemInterface>[];
 
   return { columns, selectedIds, setSelectedIds, sorting, setSorting, sortingParams };
 }

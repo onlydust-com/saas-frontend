@@ -1,56 +1,18 @@
-import { UserPublic, UserPublicInterface } from "@/core/domain/user/models/user-public-model";
-import { UserRank, UserRankInterface } from "@/core/domain/user/models/user-rank-model";
+import {
+  BiContributorListItem,
+  BiContributorListItemInterface,
+} from "@/core/domain/bi/models/bi-contributor-list-item-model";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-export type BiContributorResponse = components["schemas"]["BiContributorsPageItemResponse"];
+export type BiContributorResponse = components["schemas"]["BiContributorResponse"];
 
-export interface BiContributorInterface extends BiContributorResponse {
-  rank: UserRankInterface;
-  toContributorPublicModel(): UserPublicInterface;
-}
+export interface BiContributorInterface extends BiContributorResponse, BiContributorListItemInterface {}
 
-export class BiContributor implements BiContributorInterface {
-  categories!: BiContributorResponse["categories"];
-  codeReviewCount!: BiContributorResponse["codeReviewCount"];
-  contributionCount!: BiContributorResponse["contributionCount"];
-  contributor!: BiContributorResponse["contributor"];
-  country!: BiContributorResponse["country"];
-  ecosystems!: BiContributorResponse["ecosystems"];
-  issueCount!: BiContributorResponse["issueCount"];
-  languages!: BiContributorResponse["languages"];
-  prCount!: BiContributorResponse["prCount"];
-  projects!: BiContributorResponse["projects"];
-  rewardCount!: BiContributorResponse["rewardCount"];
-  totalRewardedUsdAmount!: BiContributorResponse["totalRewardedUsdAmount"];
-  inProgressIssueCount!: BiContributorResponse["inProgressIssueCount"];
-  maintainedProjectCount!: BiContributorResponse["maintainedProjectCount"];
-  pendingApplicationCount!: BiContributorResponse["pendingApplicationCount"];
-  projectContributorLabels!: BiContributorResponse["projectContributorLabels"];
-  rank: UserRankInterface;
-  engagementStatus!: BiContributorResponse["engagementStatus"];
+export class BiContributor extends BiContributorListItem implements BiContributorInterface {
+  repos!: BiContributorResponse["repos"];
 
   constructor(props: BiContributorResponse) {
+    super(props);
     Object.assign(this, props);
-
-    this.rank = new UserRank({
-      rankCategory: this.contributor.globalRankCategory,
-      rank: this.contributor.globalRank,
-      rankPercentile: this.contributor.globalRankPercentile,
-    });
-  }
-
-  toContributorPublicModel(): UserPublicInterface {
-    return new UserPublic({
-      ...this.contributor,
-      statsSummary: {
-        rank: this.contributor?.globalRank,
-        rankPercentile: this?.contributor?.globalRankPercentile,
-        rankCategory: this?.contributor?.globalRankCategory,
-        contributedProjectCount: 0,
-        leadedProjectCount: 0,
-        contributionCount: this.contributionCount.value,
-        rewardCount: this.rewardCount.value,
-      },
-    });
   }
 }

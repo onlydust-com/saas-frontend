@@ -1,0 +1,37 @@
+{
+  "menu": {
+    "placeholder": "Search"
+  },
+  "modal": {
+    "placeholder": "Search projects, contributors.."
+  },
+  "result": {
+    "type": {
+      "PROJECT": "Project",
+      "CONTRIBUTOR": "Contributor"
+    },
+    "metrics": {
+      "contributions": "Contributions",
+      "projects": "Projects",
+      "prs": "PRs",
+      "issues": "Issues"
+    }
+  },
+  "filters": {
+    "clearAll": "Clear all",
+    "type": {
+      "name": "Type",
+      "PROJECT": "Project",
+      "CONTRIBUTOR": "Contributor"
+    },
+    "language": {
+      "name": "Language"
+    },
+    "ecosystem": {
+      "name": "Ecosystem"
+    },
+    "category": {
+      "name": "Category"
+    }
+  }
+}

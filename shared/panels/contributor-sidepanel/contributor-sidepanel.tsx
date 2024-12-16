@@ -17,6 +17,7 @@ import { Activity } from "@/shared/panels/contributor-sidepanel/_components/acti
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
 import { Languages } from "@/shared/panels/contributor-sidepanel/_components/languages/languages";
+import { PublicRepo } from "@/shared/panels/contributor-sidepanel/_components/public-repo/public-repo";
 import { RewardsGraph } from "@/shared/panels/contributor-sidepanel/_components/rewards-graph/rewards-graph";
 import { Timeline } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -37,9 +38,8 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     applicationId: undefined,
   };
 
-  const { data: data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorById({
+  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorById({
     pathParams: { contributorId: githubId },
-
     options: {
       enabled: Boolean(githubId && isOpen),
     },
@@ -56,7 +56,6 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
     }
 
     if (!data) {
-      // TODO WORDING
       return <EmptyStateLite />;
     }
 
@@ -70,9 +69,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
             <Kpi user={data} />
             {applicationId ? <ApplicationComments applicationId={applicationId} /> : null}
             <RewardsGraph githubId={data?.contributor.githubUserId} />
-            {/* !KEEP this
-             * <PublicRepo />
-             */}
+            <PublicRepo repos={data?.repos} />
             <Activity user={data} />
             <Timeline user={data} />
           </>

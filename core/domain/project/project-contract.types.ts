@@ -10,6 +10,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
+
 type GetProjectResponse = components["schemas"]["ProjectResponse"];
 
 /* ------------------------------ Get Project By Id ------------------------------ */
@@ -195,3 +197,17 @@ export type UngrantFundsFromProjectPortParams = HttpClientParameters<{
 }>;
 
 export type UngrantFundsFromProjectPortResponse = HttpStorageResponse;
+
+/* ------------------------------ Get Projects V2 ------------------------------ */
+
+export type GetProjectsV2Response = components["schemas"]["ProjectPageResponseV2"];
+
+export type GetProjectsV2Model = Omit<GetProjectsV2Response, "projects"> & {
+  projects: ProjectListItemInterfaceV2[];
+};
+
+type GetProjectsV2QueryParams = operations["getProjectsV2"]["parameters"]["query"];
+
+export type GetProjectsV2PortResponse = HttpStorageResponse<GetProjectsV2Model>;
+
+export type GetProjectsV2PortParams = HttpClientParameters<{ QueryParams: GetProjectsV2QueryParams }>;

@@ -1,4 +1,5 @@
 import { BootstrapConstructor } from "@/core/bootstrap/index";
+import { ProjectBannerClientAdapterMock } from "@/core/infrastructure/json-storage-client-adapter/mock-adapters/project-banner-client-adapter-mock";
 import { ApplicationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/application-client-adapter-mock";
 import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
@@ -16,7 +17,9 @@ import { NotificationClientAdapterMock } from "@/core/infrastructure/marketplace
 import { ProgramClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/program-client-adapter-mock";
 import { ProjectCategoryClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-category-client-adapter-mock";
 import { ProjectClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/project-client-adapter-mock";
+import { RecoClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reco-client-adapter-mock";
 import { RewardClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/reward-client-adapter-mock";
+import { SearchClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/search-client-adapter-mock";
 import { SponsorClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/sponsor-client-adapter-mock";
 import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/user-client-adapter-mock";
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
@@ -69,6 +72,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   issueStoragePortForServer: new IssueClientAdapterMock(),
   billingProfileStoragePortForClient: new BillingProfileClientAdapterMock(),
   billingProfileStoragePortForServer: new BillingProfileClientAdapterMock(),
+  recoStoragePortForClient: new RecoClientAdapterMock(),
+  recoStoragePortForServer: new RecoClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   socialKernelPort: new SocialAdapterMock(),
@@ -77,4 +82,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   idKernelPort: IdAdapterMock,
   validationKernelPort: new ValidationAdapterMock(),
   styleKernelPort: StyleAdapterMock,
+  searchStoragePortForClient: new SearchClientAdapterMock(),
+  searchStoragePortForServer: new SearchClientAdapterMock(),
+  projectBannerStoragePortForClient: new ProjectBannerClientAdapterMock(),
+  projectBannerStoragePortForServer: new ProjectBannerClientAdapterMock(),
 };

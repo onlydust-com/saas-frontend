@@ -8,7 +8,6 @@ import { bootstrap } from "@/core/bootstrap";
 import { RewardFacadePort } from "@/core/domain/reward/input/reward-facade-port";
 
 export function useGetRewardsCsv({
-  pathParams,
   queryParams,
   options,
 }: UseMutationFacadeParams<RewardFacadePort["getRewardsCsv"], undefined, Blob>) {
@@ -16,7 +15,7 @@ export function useGetRewardsCsv({
 
   return useMutation(
     useMutationAdapter({
-      ...rewardStoragePort.getRewardsCsv({ pathParams, queryParams }),
+      ...rewardStoragePort.getRewardsCsv({ queryParams }),
       options,
     })
   );
