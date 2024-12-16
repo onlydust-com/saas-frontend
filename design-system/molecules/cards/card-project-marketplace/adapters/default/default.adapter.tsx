@@ -130,6 +130,39 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
   );
 }
 
+function CategoryBadges({ categories }: { categories: { id: string; name: string }[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [maxVisible, setMaxVisible] = useState(3);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    const containerWidth = container.offsetWidth;
+    const badgeWidth = 100; // Approximate width of each badge including gap
+    const maxBadges = Math.floor(containerWidth / badgeWidth);
+
+    setMaxVisible(Math.min(maxBadges - 1, categories.length)); // -1 to leave space for the +N badge
+  }, [categories.length]);
+
+  return categories?.length ? (
+    <div className="flex items-center gap-xs overflow-hidden">
+      <div ref={containerRef} className="flex w-full items-center gap-xs">
+        {categories.slice(0, maxVisible).map(category => (
+          <Badge key={category.name} color="grey" shape="squared" size="xs">
+            {category.name}
+          </Badge>
+        ))}
+        {categories.length > maxVisible && (
+          <Badge color="grey" shape="squared" size="xs">
+            +{categories.length - maxVisible}
+          </Badge>
+        )}
+      </div>
+    </div>
+  ) : null;
+}
+
 export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "div">({
   as,
   htmlProps,
@@ -148,6 +181,22 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   ecosystems,
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
+
+  categories = [
+    { id: "1", name: "Web3" },
+    { id: "2", name: "Blockchain" },
+    { id: "3", name: "DeFi" },
+    { id: "4", name: "NFT" },
+    { id: "5", name: "Gaming" },
+    { id: "6", name: "DAO" },
+    { id: "7", name: "Infrastructure" },
+    { id: "8", name: "Privacy" },
+    { id: "9", name: "Security" },
+    { id: "10", name: "Scalability" },
+    { id: "11", name: "Interoperability" },
+    { id: "12", name: "Social" },
+    { id: "13", name: "Metaverse" },
+  ];
 
   return (
     <Paper
@@ -172,7 +221,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
           <div className="flex flex-col gap-xs">
-            <Typo variant="heading" size="xs" weight="medium" color="primary">
+            <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
               {name}
             </Typo>
 
@@ -224,23 +273,15 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           />
         </div>
 
-        <div>
-          <Typo size="sm" color="tertiary">
-            {description}
-          </Typo>
-        </div>
-
-        {categories?.length ? (
-          <ul className="flex flex-wrap gap-xs">
-            {categories.map(category => (
-              <li key={category.name}>
-                <Badge color="grey" shape="squared" size="xs">
-                  {category.name}
-                </Badge>
-              </li>
-            ))}
-          </ul>
+        {description ? (
+          <div>
+            <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+              {description}
+            </Typo>
+          </div>
         ) : null}
+
+        <CategoryBadges categories={categories} />
 
         {languages?.length ? (
           <div className="flex flex-col gap-2md pt-md">
