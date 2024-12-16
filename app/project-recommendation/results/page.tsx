@@ -53,7 +53,14 @@ export default function ProjectRecommendationResultsPage() {
       );
     }
 
-    return recommendedProjects?.projects.map(project => <CardProjectMarketplace key={project.id} {...project} />);
+    return recommendedProjects?.projects.map(project => (
+      <CardProjectMarketplace
+        key={project.id}
+        {...project}
+        forkCount={project.forkCount}
+        availableIssueCount={project.availableIssueCount}
+      />
+    ));
   }
 
   return (
