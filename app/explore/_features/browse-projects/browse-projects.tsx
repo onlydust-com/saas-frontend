@@ -73,12 +73,13 @@ function Safe() {
       <CardProjectMarketplace
         key={project.id}
         name={project.name}
+        slug={project.slug}
         description={project.shortDescription}
         logoUrl={project.logoUrl}
         contributorCount={project.contributorCount}
         starCount={project.starCount}
-        pullRequestCount={project.pullRequestCount}
-        issueCount={project.issueCount}
+        forkCount={project.forkCount}
+        availableIssueCount={project.availableIssueCount}
         goodFirstIssueCount={project.goodFirstIssueCount}
         categories={project.categories}
         languages={project.languages}

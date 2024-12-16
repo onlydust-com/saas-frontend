@@ -6,17 +6,16 @@ import { ProjectTagUnion } from "@/shared/constants/project-tags";
 
 export type BrowseProjectsContextFilter = {
   tags: ProjectTagUnion[];
-  // TODO @hayden from slugs to ids
-  languageSlugs: string[];
-  ecosystemSlugs: string[];
-  categorySlugs: string[];
+  languageIds: string[];
+  ecosystemIds: string[];
+  categoryIds: string[];
 };
 
 export const DEFAULT_FILTER: BrowseProjectsContextFilter = {
   tags: [],
-  languageSlugs: [],
-  ecosystemSlugs: [],
-  categorySlugs: [],
+  languageIds: [],
+  ecosystemIds: [],
+  categoryIds: [],
 };
 
 export type BrowseProjectsContextReturn = {

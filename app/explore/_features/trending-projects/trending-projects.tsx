@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 import { Section } from "@/app/explore/_components/section/section";
 
@@ -19,10 +19,6 @@ export function TrendingProjects() {
       pageSize: 4,
     },
   });
-
-  const count = useMemo(() => {
-    return data?.pages[0]?.totalItemNumber ?? 0;
-  }, [data]);
 
   const renderProjects = useCallback(() => {
     if (isLoading) {
@@ -46,12 +42,13 @@ export function TrendingProjects() {
         <CardProjectMarketplace
           key={project.id}
           name={project.name}
+          slug={project.slug}
           description={project.shortDescription}
           logoUrl={project.logoUrl}
           contributorCount={project.contributorCount}
           starCount={project.starCount}
-          pullRequestCount={project.pullRequestCount}
-          issueCount={project.issueCount}
+          forkCount={project.forkCount}
+          availableIssueCount={project.availableIssueCount}
           goodFirstIssueCount={project.goodFirstIssueCount}
           categories={project.categories}
           languages={project.languages}
@@ -65,7 +62,6 @@ export function TrendingProjects() {
       title={{
         translate: { token: "explore:trending.title" },
       }}
-      count={count}
       description={{
         translate: { token: "explore:trending.description" },
       }}

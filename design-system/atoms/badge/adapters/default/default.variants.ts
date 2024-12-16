@@ -41,7 +41,9 @@ export const BadgeDefaultVariants = tv({
       true: {},
     },
     fixedSize: {
-      true: {},
+      true: {
+        base: "flex items-center justify-center !p-0",
+      },
     },
     color: {
       grey: {

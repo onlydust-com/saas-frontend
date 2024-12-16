@@ -16,6 +16,7 @@ interface Variants {
   isDeletable: boolean;
   iconOnly: boolean;
   fixedSize: boolean;
+  count?: number;
   variant: "flat" | "outline" | "solid";
 }
 

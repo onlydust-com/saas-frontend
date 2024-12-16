@@ -63,6 +63,8 @@ function Column({
     }
   }, [type]);
 
+  const count = useMemo(() => data?.pages?.[0]?.totalItemNumber ?? 0, [data]);
+
   return (
     <KanbanColumn
       {...kanbanProps}
@@ -71,7 +73,7 @@ function Column({
       isFetchingNextPage={isFetchingNextPage}
       header={{
         title,
-        badge: { children: data?.pages?.[0]?.totalItemNumber ?? "0" },
+        badge: { count },
         ...(kanbanProps.header || {}),
       }}
     >
