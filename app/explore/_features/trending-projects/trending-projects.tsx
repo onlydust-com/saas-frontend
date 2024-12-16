@@ -51,8 +51,8 @@ export function TrendingProjects() {
           logoUrl={project.logoUrl}
           contributorCount={project.contributorCount}
           starCount={project.starCount}
-          pullRequestCount={project.pullRequestCount}
-          issueCount={project.issueCount}
+          forkCount={project.forkCount}
+          availableIssueCount={project.availableIssueCount}
           goodFirstIssueCount={project.goodFirstIssueCount}
           categories={project.categories}
           languages={project.languages}
