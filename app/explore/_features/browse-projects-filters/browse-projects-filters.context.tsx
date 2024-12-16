@@ -36,15 +36,15 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
   const isCleared = useMemo(() => JSON.stringify(filters) === JSON.stringify(DEFAULT_FILTER), [filters]);
 
   const filtersCount = useMemo(() => {
-    return filters.languageSlugs.length + filters.ecosystemSlugs.length + filters.categorySlugs.length;
+    return filters.languageIds.length + filters.ecosystemIds.length + filters.categoryIds.length;
   }, [filters]);
 
   function handleQueryParams(filters: BrowseProjectsContextFilter) {
     setQueryParams({
       tags: filters.tags.length ? filters.tags : undefined,
-      languageSlugs: filters.languageSlugs.length ? filters.languageSlugs : undefined,
-      ecosystemSlugs: filters.ecosystemSlugs.length ? filters.ecosystemSlugs : undefined,
-      categorySlugs: filters.categorySlugs.length ? filters.categorySlugs : undefined,
+      languageIds: filters.languageIds.length ? filters.languageIds : undefined,
+      ecosystemIds: filters.ecosystemIds.length ? filters.ecosystemIds : undefined,
+      categoryIds: filters.categoryIds.length ? filters.categoryIds : undefined,
     });
   }
 

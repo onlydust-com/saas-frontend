@@ -15,8 +15,8 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   slug: string;
   contributorCount: number;
   starCount: number;
-  pullRequestCount: number;
-  issueCount: number;
+  forkCount: number;
+  availableIssueCount: number;
   goodFirstIssueCount: number;
   description?: string;
   categories?: {

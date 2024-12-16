@@ -60,14 +60,11 @@ export function BrowseProjectsFilters() {
               ) : null}
             </div>
 
-            <LanguageFilter
-              selectedLanguages={filters.languageSlugs}
-              onSelect={languages => set({ languageSlugs: languages })}
-            />
+            <LanguageFilter selectedLanguages={filters.languageIds} onSelect={languageIds => set({ languageIds })} />
 
             <EcosystemFilter
-              selectedEcosystems={filters.ecosystemSlugs}
-              onSelect={ecosystems => set({ ecosystemSlugs: ecosystems })}
+              selectedEcosystems={filters.ecosystemIds}
+              onSelect={ecosystemIds => set({ ecosystemIds })}
             />
 
             {categories.length ? (
@@ -78,12 +75,12 @@ export function BrowseProjectsFilters() {
                   {categories.map(category => (
                     <CheckboxButton
                       key={`project-category-${category.id}`}
-                      value={filters.categorySlugs.includes(category.slug)}
+                      value={filters.categoryIds.includes(category.id)}
                       onChange={checked => {
                         set({
-                          categorySlugs: checked
-                            ? [...filters.categorySlugs, category.slug]
-                            : filters.categorySlugs.filter(slug => slug !== category.slug),
+                          categoryIds: checked
+                            ? [...filters.categoryIds, category.id]
+                            : filters.categoryIds.filter(id => id !== category.id),
                         });
                       }}
                     >
