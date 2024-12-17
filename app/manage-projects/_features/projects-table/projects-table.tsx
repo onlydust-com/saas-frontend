@@ -57,7 +57,7 @@ export function ProjectsTable() {
           }}
           rows={table.getRowModel().rows}
           onRowClick={row => {
-            router.push(NEXT_ROUTER.manageProjects.contributors.root(row.original.slug));
+            router.push(NEXT_ROUTER.manageProjects.default.root(row.original.slug));
           }}
         />
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
