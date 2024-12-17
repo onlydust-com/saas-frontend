@@ -116,14 +116,14 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
         >
           <Paper
             border={"none"}
-            background={"primary"}
+            background={"transparent"}
             py={"none"}
             px={"none"}
             classNames={{
               base: cn(
-                "h-full w-full flex flex-col gap-px overflow-hidden",
+                "h-full w-full flex flex-col overflow-hidden",
                 {
-                  "border-l-border-primary !border-l !border-solid effect-box-shadow-sm rounded-l-none":
+                  "tablet:border-l-border-primary tablet:border-l tablet:border-solid effect-box-shadow-sm tablet:rounded-l-none":
                     panelConfig.type === "drawer",
                 },
                 { "max-h-dvh": isTablet },
