@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 import { Section } from "@/app/explore/_components/section/section";
 
@@ -19,10 +19,6 @@ export function TrendingProjects() {
       pageSize: 4,
     },
   });
-
-  const count = useMemo(() => {
-    return data?.pages[0]?.totalItemNumber ?? 0;
-  }, [data]);
 
   const renderProjects = useCallback(() => {
     if (isLoading) {
@@ -66,7 +62,6 @@ export function TrendingProjects() {
       title={{
         translate: { token: "explore:trending.title" },
       }}
-      count={count}
       description={{
         translate: { token: "explore:trending.description" },
       }}

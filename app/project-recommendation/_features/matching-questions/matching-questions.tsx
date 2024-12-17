@@ -46,7 +46,7 @@ export function MatchingQuestions() {
   }
 
   return (
-    <div className="flex flex-col gap-xl">
+    <div className="flex flex-col gap-xl overflow-hidden">
       <QuestionsStepper currentQuestionIndex={currentQuestionIndex} totalQuestions={totalQuestions} />
       <QuestionCard
         question={currentQuestion}

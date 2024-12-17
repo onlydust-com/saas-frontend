@@ -4,6 +4,7 @@ import { Section } from "@/app/explore/_components/section/section";
 import { ProjectBanners } from "@/app/explore/_features/project-banners/project-banners";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { GlobalSearch } from "@/shared/features/global-search/global-search";
 
 import { BrowseProjects } from "./_features/browse-projects/browse-projects";
 import { ContributorLeaderboard } from "./_features/contributor-leaderboard/contributor-leaderboard";
@@ -15,6 +16,7 @@ export default function ExplorePage() {
   return (
     <ScrollView>
       <div className="mx-auto flex max-w-laptop flex-col gap-6xl py-4xl">
+        {process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH !== "true" && <GlobalSearch byPassFlag={true} />}
         <ProjectBanners />
 
         <TrendingProjects />

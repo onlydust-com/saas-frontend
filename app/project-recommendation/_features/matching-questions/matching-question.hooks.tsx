@@ -61,7 +61,7 @@ export function useMatchingQuestions() {
 
   function handleNext() {
     saveAnswers({
-      answerIndexes: questionState.selectedAnswers[currentQuestionId ?? ""].map(answer => answer.index ?? 0),
+      answerValues: questionState.selectedAnswers[currentQuestionId ?? ""].map(answer => answer.value ?? ""),
     });
   }
 
@@ -81,7 +81,7 @@ export function useMatchingQuestions() {
       const currentAnswers = prev.selectedAnswers[currentQuestion.id] ?? [];
 
       if (currentQuestion.multipleChoice) {
-        const existingAnswerIndex = currentAnswers.findIndex(a => a.index === answer.index);
+        const existingAnswerIndex = currentAnswers.findIndex(a => a.value === answer.value);
 
         if (existingAnswerIndex >= 0) {
           return {

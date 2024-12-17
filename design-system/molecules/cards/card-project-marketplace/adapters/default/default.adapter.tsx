@@ -13,6 +13,7 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
+import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -20,7 +21,12 @@ import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
-import { CardProjectMarketplacePort, LanguageProps, MetricProps } from "../../card-project-marketplace.types";
+import {
+  AvatarProps,
+  CardProjectMarketplacePort,
+  LanguageProps,
+  MetricProps,
+} from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 import Header from "./header.png";
 
@@ -57,6 +63,71 @@ function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) 
       <Typo size="xs" color="quaternary">
         {percentage}%
       </Typo>
+    </div>
+  );
+}
+
+function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const [avatarOffset, setAvatarOffset] = useState(0);
+
+  useEffect(() => {
+    if (avatarRef.current) {
+      setAvatarOffset(-avatarRef.current.offsetHeight / 2);
+    }
+  }, [avatarRef.current]);
+
+  function renderBadge() {
+    if (!ecosystems) return null;
+
+    const ecosystemCount = ecosystems.length;
+
+    return (
+      <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4">
+        <Tooltip
+          content={
+            <ul className="flex flex-col gap-md">
+              {ecosystems.map(ecosystem => (
+                <li key={ecosystem.id}>
+                  <AvatarLabelSingle
+                    avatar={{
+                      src: ecosystem.logoUrl,
+                      alt: ecosystem.name,
+                    }}
+                    size="xxs"
+                    shape="squared"
+                    title={{
+                      children: ecosystem.name,
+                    }}
+                  />
+                </li>
+              ))}
+            </ul>
+          }
+          placement="right-start"
+          background="primary"
+        >
+          <Avatar
+            src={ecosystemCount === 1 ? ecosystems[0].logoUrl : undefined}
+            name={ecosystemCount > 1 ? String(ecosystemCount) : undefined}
+            size="xxs"
+            shape="squared"
+            classNames={{
+              base: "bg-background-primary outline-[#4945FF]/30 cursor-default",
+              name: "text-foreground-primary",
+            }}
+          />
+        </Tooltip>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex">
+      <div ref={avatarRef} style={{ marginTop: avatarOffset }} className="relative">
+        <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
+        {renderBadge()}
+      </div>
     </div>
   );
 }
@@ -158,17 +229,10 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   description,
   categories,
   languages,
+  ecosystems,
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const [avatarOffset, setAvatarOffset] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (avatarRef.current) {
-      setAvatarOffset(-avatarRef.current.offsetHeight / 2);
-    }
-  }, [avatarRef.current]);
 
   return (
     <Paper
@@ -193,9 +257,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
 
         <div className="relative z-20 flex flex-col gap-2lg rounded-b-md p-lg pt-0">
           <div className="flex flex-col gap-sm">
-            <div ref={avatarRef} style={{ marginTop: avatarOffset }}>
-              <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
-            </div>
+            <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
             <div className="flex flex-col gap-xs">
               <Typo variant="heading" size="xs" weight="medium" color="primary">
