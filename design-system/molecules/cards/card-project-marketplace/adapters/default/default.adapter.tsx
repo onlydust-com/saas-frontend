@@ -1,8 +1,10 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
 import { ElementType, useEffect, useRef, useState } from "react";
+import { useDebounce } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -62,6 +64,43 @@ function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) 
 function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredDebounced, setIsHoveredDebounced] = useState(false);
+
+  useDebounce(
+    () => {
+      setIsHoveredDebounced(isHovered);
+    },
+    450,
+    [isHovered]
+  );
+
+  const createBorderPolygon = () => {
+    const right = "100%";
+    const bottom = "100%";
+    const borderWidth = "1.5px";
+
+    return `polygon(
+			0 0,                                    /* Top-left start */
+			${borderWidth} 0,                       /* Top border start */
+			${borderWidth} ${bottom},               /* Right inner border */
+			0 ${bottom},                           /* Bottom-left corner */
+			0 0,                                    /* Back to top-left */
+			${right} 0,                            /* Top-right corner */
+			${right} ${bottom},                    /* Right border full length */
+			calc(${right} - ${borderWidth}) ${bottom},  /* Bottom-right inner corner */
+			calc(${right} - ${borderWidth}) ${borderWidth},  /* Top-right inner corner */
+			${borderWidth} ${borderWidth},         /* Top-left inner corner */
+			${borderWidth} calc(${bottom} - ${borderWidth}),  /* Inner bottom */
+			calc(${right} - ${borderWidth}) calc(${bottom} - ${borderWidth}),  /* Inner bottom-right */
+			${right} ${bottom},                    /* Back to bottom-right */
+			0 ${bottom}                            /* Bottom-left end */
+		)`
+      .replace(/\s+/g, " ")
+      .trim();
+  };
+
+  const polygonPath = createBorderPolygon();
 
   useEffect(() => {
     if (cardRef.current) {
@@ -79,12 +118,15 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
         if (cursorRef.current) {
           cursorRef.current.style.opacity = "0";
         }
+        setIsHovered(false);
       };
 
       const handleMouseEnter = () => {
         if (cursorRef.current) {
           cursorRef.current.style.opacity = "1";
         }
+        setIsHovered(true);
+        setIsHoveredDebounced(true);
       };
 
       cardRef.current.addEventListener("mousemove", handleMouseMove);
@@ -100,13 +142,32 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
   }, [cursorRef.current, cardRef.current, followerRef.current]);
 
   return (
-    <div
-      className="absolute inset-0 -z-[1] opacity-0"
-      ref={cursorRef}
-      style={{ transition: "all linear 0.2s, opacity 0.5s ease-in" }}
-    >
-      <div className="card-hover-gradient absolute inset-0 -z-[1]" />
-    </div>
+    <>
+      <div
+        className="absolute inset-0 -z-[1] opacity-0"
+        ref={cursorRef}
+        style={{ transition: "all linear 0.2s, opacity 0.5s ease-in" }}
+      >
+        <div className="card-hover-gradient absolute inset-0 -z-[1]" />
+      </div>
+      <div
+        className={cn("absolute inset-0 z-10 opacity-0", isHovered && "opacity-100")}
+        style={{
+          clipPath: polygonPath,
+          transition: "opacity 0.5s ease-in",
+        }}
+      >
+        <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2">
+          {isHoveredDebounced && (
+            <motion.div
+              className="card-hover-gradient-solid absolute inset-0"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+            />
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -143,7 +204,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
       htmlProps={htmlProps}
       size="none"
       background="glass"
-      border="primary"
+      border="none"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
       <div ref={cardRef}>

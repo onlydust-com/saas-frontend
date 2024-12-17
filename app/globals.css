@@ -1229,7 +1229,12 @@
 			background: radial-gradient(54.31% 54.31% at 46.17% 104.31%, #460066 0%, rgba(70, 0, 102, 0) 100%), 
 			radial-gradient(33.14% 35.91% at 79.7% 35.51%, #001866 0%, rgba(0, 24, 102, 0) 100%),
 			radial-gradient(32.53% 32.53% at 19.85% 27.43%, #660058 0%, rgba(102, 0, 88, 0) 100%);
+		}
 
+
+		.card-hover-gradient-solid {
+			background: conic-gradient(from 225.01deg at 50% 50%, #9A0688 0deg, #1A1D2F 63deg, #6413A6 126deg, #1A1D2F 201.6deg, #0029B0 297deg, #9A0688 360deg)
+			
 		}
 
     .shine-text {
@@ -1249,6 +1254,19 @@
         background-position: -200% 0;
       }
     }
+
+		.shine-card {
+      animation: shine 3s linear infinite;
+      background:
+        radial-gradient(circle at center, var(--typography-primary), transparent) -200% 50% / 200% 100% no-repeat,
+        var(--typography-quaternary);
+    }
+
+		@keyframes rotate {
+      100% {
+        transform: rotate(360deg) translateZ(0);
+      }
+		}
   }
 
   /* DOM STYLES */
