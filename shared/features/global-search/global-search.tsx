@@ -93,8 +93,8 @@ export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-export function GlobalSearch({ isMobile = false }: { isMobile?: boolean }) {
-  if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true") {
+export function GlobalSearch({ isMobile = false, byPassFlag = false }: { isMobile?: boolean; byPassFlag?: boolean }) {
+  if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true" || byPassFlag) {
     return (
       <GlobalSearchProvider>
         <SafeGlobalSearch isMobile={isMobile} />
