@@ -62,8 +62,8 @@ function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) 
 }
 
 function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredDebounced, setIsHoveredDebounced] = useState(false);
 
@@ -75,31 +75,26 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
     [isHovered]
   );
 
+  const maskSize = useTransform([mouseX, mouseY], ([x, y]) => Math.min(150, Math.sqrt(x * x + y * y)));
+
   useEffect(() => {
     if (cardRef.current) {
-      const handleMouseMove = (e: MouseEvent) => {
+      const handleMouseMove = (event: MouseEvent) => {
         const rect = cardRef.current?.getBoundingClientRect();
-        if (!rect || !cursorRef.current) return;
+        if (!rect) return;
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        cursorRef.current.style.mask = `radial-gradient(circle ${Math.min(150, Math.sqrt(x * x + y * y))}px at ${x}px ${y}px, black, transparent)`;
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        mouseX.set(x);
+        mouseY.set(y);
       };
 
       const handleMouseLeave = () => {
-        if (cursorRef.current) {
-          cursorRef.current.style.opacity = "0";
-        }
         setIsHovered(false);
       };
 
       const handleMouseEnter = () => {
-        if (cursorRef.current) {
-          cursorRef.current.style.opacity = "1";
-        }
         setIsHovered(true);
-        setIsHoveredDebounced(true);
       };
 
       cardRef.current.addEventListener("mousemove", handleMouseMove);
@@ -112,41 +107,39 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
         cardRef.current?.removeEventListener("mouseenter", handleMouseEnter);
       };
     }
-  }, [cursorRef.current, cardRef.current, followerRef.current]);
+  }, [cardRef.current]);
 
   return (
-    <>
-      <div
-        className={cn("absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-0", {
+    <motion.div
+      className={cn(
+        "absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-0 transition-opacity duration-500 ease-in",
+        {
           "opacity-100": isHovered,
-        })}
-        style={{
-          transition: "opacity 0.5s ease-in",
-        }}
-      >
-        <div
-          className={cn(
-            "absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px]"
-          )}
-        >
-          {isHoveredDebounced && (
-            <motion.div
-              className="card-hover-gradient-solid absolute inset-0"
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-            />
-          )}
-        </div>
-        <div className={cn("app-gradient absolute inset-[2px] overflow-hidden rounded-[10px]")} />
-        <div
-          className="absolute inset-0 z-20 opacity-0"
-          ref={cursorRef}
-          style={{ transition: "all linear 0.2s, opacity 0.5s ease-in" }}
-        >
-          <div className="card-hover-gradient absolute inset-0 -z-[1]" />
-        </div>
+        }
+      )}
+    >
+      <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px]">
+        {isHoveredDebounced && (
+          <motion.div
+            className="card-hover-gradient-solid absolute inset-0"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+          />
+        )}
       </div>
-    </>
+      <div className="app-gradient absolute inset-[2px] overflow-hidden rounded-[10px]" />
+      <motion.div
+        className="card-hover-gradient absolute inset-0 z-20"
+        style={{
+          mask: useTransform(
+            [mouseX, mouseY, maskSize],
+            ([x, y, size]) => `radial-gradient(circle ${size}px at ${x}px ${y}px, black, transparent)`
+          ),
+          opacity: isHovered ? 1 : 0,
+          transition: "opacity 500ms ease-in",
+        }}
+      />
+    </motion.div>
   );
 }
 
