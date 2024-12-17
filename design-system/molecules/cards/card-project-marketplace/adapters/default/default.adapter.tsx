@@ -71,14 +71,15 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
     () => {
       setIsHoveredDebounced(isHovered);
     },
-    450,
+    250,
     [isHovered]
   );
 
   const createBorderPolygon = () => {
     const right = "100%";
     const bottom = "100%";
-    const borderWidth = "1.5px";
+    // const borderWidth = "1.5px";
+    const borderWidth = "5px";
 
     return `polygon(
 			0 0,                                    /* Top-left start */
@@ -144,20 +145,24 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
   return (
     <>
       <div
-        className="absolute inset-0 -z-[1] opacity-0"
-        ref={cursorRef}
-        style={{ transition: "all linear 0.2s, opacity 0.5s ease-in" }}
-      >
-        <div className="card-hover-gradient absolute inset-0 -z-[1]" />
-      </div>
-      <div
-        className={cn("absolute inset-0 z-10 opacity-0", isHovered && "opacity-100")}
+        className={cn("absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-100", {
+          "opacity-100": isHovered,
+        })}
         style={{
-          clipPath: polygonPath,
           transition: "opacity 0.5s ease-in",
         }}
       >
-        <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2">
+        <div
+          className={cn(
+            "absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px] opacity-0",
+            {
+              "opacity-100": isHovered,
+            }
+          )}
+          style={{
+            transition: "opacity 0.5s ease-in",
+          }}
+        >
           {isHoveredDebounced && (
             <motion.div
               className="card-hover-gradient-solid absolute inset-0"
@@ -166,19 +171,22 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
             />
           )}
         </div>
+        <div
+          className={cn("app-gradient absolute inset-[2px] overflow-hidden rounded-[10px] opacity-0", {
+            "opacity-100": isHovered,
+          })}
+          style={{
+            transition: "opacity 0.5s ease-in",
+          }}
+        />
+        <div
+          className="absolute inset-0 z-20 opacity-0"
+          ref={cursorRef}
+          style={{ transition: "all linear 0.2s, opacity 0.5s ease-in" }}
+        >
+          <div className="card-hover-gradient absolute inset-0 -z-[1]" />
+        </div>
       </div>
-      {/* <div
-        className="absolute inset-0 z-10"
-        style={{
-          width: "calc(100% - 3px)",
-          height: "calc(100% - 3px)",
-          maskImage:
-            "linear-gradient(to bottom, transparent calc(100% - 1.5px), black 100%), linear-gradient(to top, transparent calc(100% - 1.5px), black 100%), linear-gradient(to left, transparent calc(100% - 1.5px), black 100%), linear-gradient(to right, transparent calc(100% - 1.5px), black 100%), radial-gradient(23.8% 23.8% at 2.16% 98.89%, transparent 22%, black 100%)",
-        }}
-      >
-        <div className="absolute inset-0 rounded-lg bg-red-500" />
-      </div> */}
-      {/* </div> */}
     </>
   );
 }
@@ -221,7 +229,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     >
       <div ref={cardRef}>
         <HoverEffect cardRef={cardRef} />
-        <header className="relative h-[100px] w-full overflow-hidden">
+        <header className="relative z-10 h-[100px] w-full overflow-hidden rounded-t-md">
           <img src={logoUrl} alt={name} className="h-full w-full object-cover" />
 
           <Image
@@ -231,7 +239,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           />
         </header>
 
-        <div className="relative z-10 flex flex-col gap-2lg p-lg pt-0">
+        <div className="relative z-20 flex flex-col gap-2lg rounded-b-md p-lg pt-0">
           <div className="flex flex-col gap-sm">
             <div ref={avatarRef} style={{ marginTop: avatarOffset }}>
               <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
