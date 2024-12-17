@@ -146,7 +146,7 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
     [isHovered]
   );
 
-  const maskSize = useTransform([mouseX, mouseY], ([x, y]) => Math.min(150, Math.sqrt(x * x + y * y)));
+  const maskSize = useTransform<number, number>([mouseX, mouseY], ([x, y]) => Math.min(150, Math.sqrt(x * x + y * y)));
 
   useEffect(() => {
     if (cardRef.current) {
