@@ -132,9 +132,11 @@ export function useStackedColumnAreaSplineChartOptions({
           let tooltipContent = `<div class='font-medium mb-xs'>${this.x}</div>`;
 
           this.points?.forEach(point => {
+            const value = Object.is(point.y, -0) ? 0 : point.y;
+            
             if (point.series.name === "Granted" || point.series.name === "Rewarded") {
               const { amount, code } = moneyKernelPort.format({
-                amount: point.y ?? 0,
+                amount: value ?? 0,
                 currency: moneyKernelPort.getCurrency("USD"),
               });
               tooltipContent += `<div class='flex gap-sm items-center'>
@@ -146,7 +148,7 @@ export function useStackedColumnAreaSplineChartOptions({
               tooltipContent += `<div class='flex gap-sm items-center'>
                 <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
                 <span class='text-typography-secondary'>${point.series.name}</span>
-                <span class='font-medium'>${Intl.NumberFormat().format(point.y ?? 0)}</span>
+                <span class='font-medium'>${Intl.NumberFormat().format(value ?? 0)}</span>
               </div>`;
             }
           });
