@@ -167,6 +167,18 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
           )}
         </div>
       </div>
+      {/* <div
+        className="absolute inset-0 z-10"
+        style={{
+          width: "calc(100% - 3px)",
+          height: "calc(100% - 3px)",
+          maskImage:
+            "linear-gradient(to bottom, transparent calc(100% - 1.5px), black 100%), linear-gradient(to top, transparent calc(100% - 1.5px), black 100%), linear-gradient(to left, transparent calc(100% - 1.5px), black 100%), linear-gradient(to right, transparent calc(100% - 1.5px), black 100%), radial-gradient(23.8% 23.8% at 2.16% 98.89%, transparent 22%, black 100%)",
+        }}
+      >
+        <div className="absolute inset-0 rounded-lg bg-red-500" />
+      </div> */}
+      {/* </div> */}
     </>
   );
 }
