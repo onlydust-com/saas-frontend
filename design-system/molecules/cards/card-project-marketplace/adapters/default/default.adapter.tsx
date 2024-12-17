@@ -136,7 +136,7 @@ function Categories({ categories = [] }: CategoriesProps) {
 
     if (innerWidth > containerWidth) {
       setVisibleCategories(prev => prev.slice(0, -1));
-      setHiddenCategories(prev => [...prev, categories[categories.length - 1]]);
+      setHiddenCategories(prev => [visibleCategories[visibleCategories.length - 1], ...prev]);
     }
   }, [containerWidth, innerWidth, categories?.length]);
 
@@ -152,9 +152,23 @@ function Categories({ categories = [] }: CategoriesProps) {
         ))}
 
         {hiddenCategories.length ? (
-          <Badge color="brand" shape="rounded" size="xs" variant="outline">
-            +{hiddenCategories.length}
-          </Badge>
+          <Tooltip
+            background="primary"
+            placement="bottom"
+            content={
+              <ul className="flex flex-col gap-md">
+                {hiddenCategories.map(category => (
+                  <Typo key={category.name} as="li" size="xs" weight="medium">
+                    {category.name}
+                  </Typo>
+                ))}
+              </ul>
+            }
+          >
+            <Badge color="brand" shape="rounded" size="xs" variant="outline" classNames={{ base: "cursor-default" }}>
+              +{hiddenCategories.length}
+            </Badge>
+          </Tooltip>
         ) : null}
       </div>
     </div>
@@ -179,22 +193,6 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   ecosystems,
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
-
-  categories = [
-    { id: "1", name: "Web3" },
-    { id: "2", name: "Blockchain" },
-    { id: "3", name: "DeFi" },
-    { id: "4", name: "NFT" },
-    { id: "5", name: "Gaming" },
-    { id: "6", name: "DAO" },
-    { id: "7", name: "Infrastructure" },
-    { id: "8", name: "Privacy" },
-    { id: "9", name: "Security" },
-    { id: "10", name: "Scalability" },
-    { id: "11", name: "Interoperability" },
-    { id: "12", name: "Social" },
-    { id: "13", name: "Metaverse" },
-  ];
 
   return (
     <Paper
