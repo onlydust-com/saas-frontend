@@ -8,23 +8,23 @@ import { QuestionCardProps } from "./question-card.types";
 
 export function QuestionCard({ question, selectedAnswers, onAnswerSelect }: QuestionCardProps) {
   return (
-    <Paper size="4xl" classNames={{ base: "flex flex-col gap-lg overflow-hidden" }} background="secondary">
-      <ScrollView>
-        <Typo variant="heading" size="xs">
-          {question.body}
+    <Paper as={ScrollView} size="4xl" classNames={{ base: "flex flex-col gap-lg" }} background="secondary">
+      <Typo as="div" variant="heading" size="xs">
+        {question.body}
+      </Typo>
+
+      {question.description ? (
+        <Typo as="div" color="secondary" size="sm">
+          {question.description}
         </Typo>
-        {question.description ? (
-          <Typo color="secondary" size="sm">
-            {question.description}
-          </Typo>
-        ) : null}
-        <AnswerGrid
-          answers={question.answers}
-          selectedAnswers={selectedAnswers}
-          onAnswerSelect={onAnswerSelect}
-          isMultipleChoice={question.multipleChoice}
-        />
-      </ScrollView>
+      ) : null}
+
+      <AnswerGrid
+        answers={question.answers}
+        selectedAnswers={selectedAnswers}
+        onAnswerSelect={onAnswerSelect}
+        isMultipleChoice={question.multipleChoice}
+      />
     </Paper>
   );
 }
