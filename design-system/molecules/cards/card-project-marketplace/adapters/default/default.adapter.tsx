@@ -2,7 +2,8 @@
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
-import { ElementType, useEffect, useRef, useState } from "react";
+import { ElementType, useEffect, useState } from "react";
+import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -22,6 +23,7 @@ import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import {
   AvatarProps,
   CardProjectMarketplacePort,
+  CategoriesProps,
   LanguageProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
@@ -66,14 +68,7 @@ function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) 
 }
 
 function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const [avatarOffset, setAvatarOffset] = useState(0);
-
-  useEffect(() => {
-    if (avatarRef.current) {
-      setAvatarOffset(-avatarRef.current.offsetHeight / 2);
-    }
-  }, [avatarRef.current]);
+  const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
 
   function renderBadge() {
     if (!ecosystems) return null;
@@ -122,7 +117,7 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
 
   return (
     <div className="flex">
-      <div ref={avatarRef} style={{ marginTop: avatarOffset }} className="relative">
+      <div ref={avatarRef} style={{ marginTop: -height / 2 }} className="relative">
         <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
         {renderBadge()}
       </div>
@@ -130,37 +125,40 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
   );
 }
 
-function CategoryBadges({ categories }: { categories: { id: string; name: string }[] }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [maxVisible, setMaxVisible] = useState(3);
+function Categories({ categories = [] }: CategoriesProps) {
+  const [containerRef, { width: containerWidth }] = useMeasure<HTMLDivElement>();
+  const [innerRef, { width: innerWidth }] = useMeasure<HTMLDivElement>();
+  const [visibleCategories, setVisibleCategories] = useState<NonNullable<CategoriesProps["categories"]>>(categories);
+  const [hiddenCategories, setHiddenCategories] = useState<NonNullable<CategoriesProps["categories"]>>([]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerWidth || !innerWidth || !categories?.length) return;
 
-    const container = containerRef.current;
-    const containerWidth = container.offsetWidth;
-    const badgeWidth = 100; // Approximate width of each badge including gap
-    const maxBadges = Math.floor(containerWidth / badgeWidth);
+    if (innerWidth > containerWidth) {
+      setVisibleCategories(prev => prev.slice(0, -1));
+      setHiddenCategories(prev => [...prev, categories[categories.length - 1]]);
+    }
+  }, [containerWidth, innerWidth, categories?.length]);
 
-    setMaxVisible(Math.min(maxBadges - 1, categories.length)); // -1 to leave space for the +N badge
-  }, [categories.length]);
+  if (!categories.length) return null;
 
-  return categories?.length ? (
-    <div className="flex items-center gap-xs overflow-hidden">
-      <div ref={containerRef} className="flex w-full items-center gap-xs">
-        {categories.slice(0, maxVisible).map(category => (
-          <Badge key={category.name} color="grey" shape="squared" size="xs">
+  return (
+    <div ref={containerRef} className="w-full overflow-hidden">
+      <div ref={innerRef} className="inline-flex items-center gap-xs">
+        {visibleCategories.map(category => (
+          <Badge key={category.name} color="grey" shape="rounded" size="xs" classNames={{ base: "js-badge" }}>
             {category.name}
           </Badge>
         ))}
-        {categories.length > maxVisible && (
-          <Badge color="grey" shape="squared" size="xs">
-            +{categories.length - maxVisible}
+
+        {hiddenCategories.length ? (
+          <Badge color="brand" shape="rounded" size="xs" variant="outline">
+            +{hiddenCategories.length}
           </Badge>
-        )}
+        ) : null}
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "div">({
@@ -281,7 +279,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           </div>
         ) : null}
 
-        <CategoryBadges categories={categories} />
+        <Categories categories={categories} />
 
         {languages?.length ? (
           <div className="flex flex-col gap-2md pt-md">

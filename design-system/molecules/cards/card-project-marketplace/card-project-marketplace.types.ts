@@ -55,3 +55,7 @@ export interface AvatarProps {
   logoUrl?: string;
   ecosystems?: CardProjectMarketplacePort<AnyType>["ecosystems"];
 }
+
+export interface CategoriesProps {
+  categories: CardProjectMarketplacePort<AnyType>["categories"];
+}
