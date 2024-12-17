@@ -1209,43 +1209,28 @@
   @layer components {
     .app-gradient {
       position: relative;
-      background: linear-gradient(
-        180deg,
-        var(--utility-gradient-app-bg-linear-2-1) 0%,
-        var(--utility-gradient-app-bg-linear-2-2) 80%,
-        var(--utility-gradient-app-bg-linear-2-3) 100%
-      );
-    }
-
-    .app-gradient::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.05;
-      background: linear-gradient(
-        270deg,
-        var(--utility-gradient-app-bg-linear-1-2) 0%,
-        var(--utility-gradient-app-bg-linear-1-1) 10%,
-        var(--utility-gradient-app-bg-linear-1-2) 20%,
-        var(--utility-gradient-app-bg-linear-1-1) 35%,
-        var(--utility-gradient-app-bg-linear-1-2) 50%,
-        var(--utility-gradient-app-bg-linear-1-1) 58%,
-        var(--utility-gradient-app-bg-linear-1-2) 65%,
-        var(--utility-gradient-app-bg-linear-1-1) 81%,
-        var(--utility-gradient-app-bg-linear-1-2) 100%
-      );
+      background: radial-gradient(112.56% 95.25% at 50% 100%, #100e33 0%, #09040e 100%), #0d121c;
     }
 
     .app-gradient::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        100% 100% at 50% 100%,
-        var(--utility-gradient-app-bg-radial-2) 0%,
-        var(--utility-gradient-app-bg-radial-1) 100%
+      background: linear-gradient(
+        270deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0) 28.84%,
+        rgba(0, 0, 0, 0) 70.55%,
+        rgba(0, 0, 0, 0.2) 100%
       );
     }
+
+		.card-hover-gradient {
+			background: radial-gradient(54.31% 54.31% at 46.17% 104.31%, #460066 0%, rgba(70, 0, 102, 0) 100%), 
+			radial-gradient(33.14% 35.91% at 79.7% 35.51%, #001866 0%, rgba(0, 24, 102, 0) 100%),
+			radial-gradient(32.53% 32.53% at 19.85% 27.43%, #660058 0%, rgba(102, 0, 88, 0) 100%);
+
+		}
 
     .shine-text {
       color: transparent;
