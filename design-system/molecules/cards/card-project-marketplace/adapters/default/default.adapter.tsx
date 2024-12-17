@@ -2,7 +2,8 @@
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
-import { ElementType, useEffect, useRef, useState } from "react";
+import { ElementType, useEffect, useState } from "react";
+import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -22,6 +23,7 @@ import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import {
   AvatarProps,
   CardProjectMarketplacePort,
+  CategoriesProps,
   LanguageProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
@@ -66,14 +68,7 @@ function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) 
 }
 
 function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const [avatarOffset, setAvatarOffset] = useState(0);
-
-  useEffect(() => {
-    if (avatarRef.current) {
-      setAvatarOffset(-avatarRef.current.offsetHeight / 2);
-    }
-  }, [avatarRef.current]);
+  const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
 
   function renderBadge() {
     if (!ecosystems) return null;
@@ -122,9 +117,59 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
 
   return (
     <div className="flex">
-      <div ref={avatarRef} style={{ marginTop: avatarOffset }} className="relative">
+      <div ref={avatarRef} style={{ marginTop: -height / 2 }} className="relative">
         <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
         {renderBadge()}
+      </div>
+    </div>
+  );
+}
+
+function Categories({ categories = [] }: CategoriesProps) {
+  const [containerRef, { width: containerWidth }] = useMeasure<HTMLDivElement>();
+  const [innerRef, { width: innerWidth }] = useMeasure<HTMLDivElement>();
+  const [visibleCategories, setVisibleCategories] = useState<NonNullable<CategoriesProps["categories"]>>(categories);
+  const [hiddenCategories, setHiddenCategories] = useState<NonNullable<CategoriesProps["categories"]>>([]);
+
+  useEffect(() => {
+    if (!containerWidth || !innerWidth || !categories?.length) return;
+
+    if (innerWidth > containerWidth) {
+      setVisibleCategories(prev => prev.slice(0, -1));
+      setHiddenCategories(prev => [visibleCategories[visibleCategories.length - 1], ...prev]);
+    }
+  }, [containerWidth, innerWidth, categories?.length]);
+
+  if (!categories.length) return null;
+
+  return (
+    <div ref={containerRef} className="w-full overflow-hidden">
+      <div ref={innerRef} className="inline-flex items-center gap-xs">
+        {visibleCategories.map(category => (
+          <Badge key={category.name} color="grey" shape="rounded" size="xs" classNames={{ base: "js-badge" }}>
+            {category.name}
+          </Badge>
+        ))}
+
+        {hiddenCategories.length ? (
+          <Tooltip
+            background="primary"
+            placement="bottom"
+            content={
+              <ul className="flex flex-col gap-md">
+                {hiddenCategories.map(category => (
+                  <Typo key={category.name} as="li" size="xs" weight="medium">
+                    {category.name}
+                  </Typo>
+                ))}
+              </ul>
+            }
+          >
+            <Badge color="brand" shape="rounded" size="xs" variant="outline" classNames={{ base: "cursor-default" }}>
+              +{hiddenCategories.length}
+            </Badge>
+          </Tooltip>
+        ) : null}
       </div>
     </div>
   );
@@ -172,7 +217,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
           <div className="flex flex-col gap-xs">
-            <Typo variant="heading" size="xs" weight="medium" color="primary">
+            <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
               {name}
             </Typo>
 
@@ -224,23 +269,15 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           />
         </div>
 
-        <div>
-          <Typo size="sm" color="tertiary">
-            {description}
-          </Typo>
-        </div>
-
-        {categories?.length ? (
-          <ul className="flex flex-wrap gap-xs">
-            {categories.map(category => (
-              <li key={category.name}>
-                <Badge color="grey" shape="squared" size="xs">
-                  {category.name}
-                </Badge>
-              </li>
-            ))}
-          </ul>
+        {description ? (
+          <div>
+            <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+              {description}
+            </Typo>
+          </div>
         ) : null}
+
+        <Categories categories={categories} />
 
         {languages?.length ? (
           <div className="flex flex-col gap-2md pt-md">
