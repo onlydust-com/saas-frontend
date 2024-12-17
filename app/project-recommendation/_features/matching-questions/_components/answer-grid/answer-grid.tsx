@@ -10,9 +10,9 @@ export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipl
       <div className="grid grid-cols-1 gap-md tablet:grid-cols-2">
         {answers.map(answer => (
           <MultipleChoiceAnswer
-            key={answer.index}
+            key={answer.value}
             answer={answer}
-            isSelected={selectedAnswers.find(a => a.index === answer.index)?.chosen ?? false}
+            isSelected={selectedAnswers.find(a => a.value === answer.value)?.chosen ?? false}
             onSelect={() => onAnswerSelect(answer)}
           />
         ))}
@@ -22,13 +22,13 @@ export function AnswerGrid({ answers, selectedAnswers, onAnswerSelect, isMultipl
 
   return (
     <RadioGroup
-      value={String(selectedAnswers[0]?.index ?? "-1")}
-      onChange={value => onAnswerSelect(answers.find(a => a.index === Number(value)) ?? answers[0])}
+      value={String(selectedAnswers[0]?.value ?? "-1")}
+      onChange={value => onAnswerSelect(answers.find(a => a.value === value) ?? answers[0])}
       as={SingleChoiceAnswer}
       items={answers.map(answer => ({
-        value: String(answer.index),
+        value: String(answer.value),
         componentProps: {
-          isSelected: selectedAnswers[0]?.index === answer.index,
+          isSelected: selectedAnswers[0]?.value === answer.value,
           answer,
         },
       }))}
