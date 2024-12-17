@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
 import { ElementType, useEffect, useRef, useState } from "react";
@@ -75,34 +75,6 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
     [isHovered]
   );
 
-  const createBorderPolygon = () => {
-    const right = "100%";
-    const bottom = "100%";
-    // const borderWidth = "1.5px";
-    const borderWidth = "5px";
-
-    return `polygon(
-			0 0,                                    /* Top-left start */
-			${borderWidth} 0,                       /* Top border start */
-			${borderWidth} ${bottom},               /* Right inner border */
-			0 ${bottom},                           /* Bottom-left corner */
-			0 0,                                    /* Back to top-left */
-			${right} 0,                            /* Top-right corner */
-			${right} ${bottom},                    /* Right border full length */
-			calc(${right} - ${borderWidth}) ${bottom},  /* Bottom-right inner corner */
-			calc(${right} - ${borderWidth}) ${borderWidth},  /* Top-right inner corner */
-			${borderWidth} ${borderWidth},         /* Top-left inner corner */
-			${borderWidth} calc(${bottom} - ${borderWidth}),  /* Inner bottom */
-			calc(${right} - ${borderWidth}) calc(${bottom} - ${borderWidth}),  /* Inner bottom-right */
-			${right} ${bottom},                    /* Back to bottom-right */
-			0 ${bottom}                            /* Bottom-left end */
-		)`
-      .replace(/\s+/g, " ")
-      .trim();
-  };
-
-  const polygonPath = createBorderPolygon();
-
   useEffect(() => {
     if (cardRef.current) {
       const handleMouseMove = (e: MouseEvent) => {
@@ -145,7 +117,7 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
   return (
     <>
       <div
-        className={cn("absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-100", {
+        className={cn("absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-0", {
           "opacity-100": isHovered,
         })}
         style={{
@@ -154,14 +126,8 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
       >
         <div
           className={cn(
-            "absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px] opacity-0",
-            {
-              "opacity-100": isHovered,
-            }
+            "absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px]"
           )}
-          style={{
-            transition: "opacity 0.5s ease-in",
-          }}
         >
           {isHoveredDebounced && (
             <motion.div
@@ -171,14 +137,7 @@ function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) 
             />
           )}
         </div>
-        <div
-          className={cn("app-gradient absolute inset-[2px] overflow-hidden rounded-[10px] opacity-0", {
-            "opacity-100": isHovered,
-          })}
-          style={{
-            transition: "opacity 0.5s ease-in",
-          }}
-        />
+        <div className={cn("app-gradient absolute inset-[2px] overflow-hidden rounded-[10px]")} />
         <div
           className="absolute inset-0 z-20 opacity-0"
           ref={cursorRef}
