@@ -1,6 +1,7 @@
 import { Options, SeriesAreasplineOptions, SeriesColumnOptions } from "highcharts";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -39,6 +40,7 @@ export function useStackedColumnAreaSplineChartOptions({
   min,
   yAxis,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
+  const { t } = useTranslation();
   const { title: yAxisTitle } = yAxis ?? {};
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -133,24 +135,25 @@ export function useStackedColumnAreaSplineChartOptions({
 
           this.points?.forEach(point => {
             const value = Object.is(point.y, -0) ? 0 : point.y;
-            
-            if (point.series.name === "Granted" || point.series.name === "Rewarded") {
-              const { amount, code } = moneyKernelPort.format({
-                amount: value ?? 0,
-                currency: moneyKernelPort.getCurrency("USD"),
-              });
-              tooltipContent += `<div class='flex gap-sm items-center'>
-                <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
-                <span class='text-typography-secondary'>${point.series.name}</span>
-                <span class='font-medium'>${amount} ${code}</span>
-              </div>`;
-            } else {
-              tooltipContent += `<div class='flex gap-sm items-center'>
-                <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
-                <span class='text-typography-secondary'>${point.series.name}</span>
-                <span class='font-medium'>${Intl.NumberFormat().format(value ?? 0)}</span>
-              </div>`;
-            }
+            const isMoneyValue = [t("data:histograms.legends.granted"), t("data:histograms.legends.rewarded")].includes(
+              point.series.name
+            );
+
+            const formattedValue = isMoneyValue
+              ? (() => {
+                  const { amount, code } = moneyKernelPort.format({
+                    amount: value ?? 0,
+                    currency: moneyKernelPort.getCurrency("USD"),
+                  });
+                  return `${amount} ${code}`;
+                })()
+              : Intl.NumberFormat().format(value ?? 0);
+
+            tooltipContent += `<div class='flex gap-sm items-center'>
+              <div class='rounded h-3 min-h-3 w-3 min-w-3' style='background-color: ${point.color}'></div>
+              <span class='text-typography-secondary'>${point.series.name}</span>
+              <span class='font-medium'>${formattedValue}</span>
+            </div>`;
           });
 
           return tooltipContent;
