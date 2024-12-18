@@ -30,10 +30,6 @@ import {
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 import Header from "./header.png";
 
-function getLanguageColor(id: string) {
-  return `hsl(${(parseInt(id, 36) * 137.5) % 360}deg, 65%, 50%)`;
-}
-
 function Metric({ icon, count }: MetricProps) {
   return (
     <div className="flex items-center gap-sm">
@@ -46,17 +42,11 @@ function Metric({ icon, count }: MetricProps) {
   );
 }
 
-function Language({ name, percentage, logoUrl, nameClassNames = "" }: LanguageProps) {
+function Language({ name, percentage, transparentLogoUrl, nameClassNames = "" }: LanguageProps) {
   return (
     <div className="flex items-center justify-between gap-lg">
       <div className="flex items-center gap-xs">
-        <Avatar
-          src={logoUrl}
-          alt={name}
-          size="xs"
-          shape="rounded"
-          classNames={{ base: "!outline-none", image: "rounded-xs" }}
-        />
+        <img src={transparentLogoUrl} loading="lazy" width={20} height={20} alt={name} />
 
         <Typo size="xs" classNames={{ base: nameClassNames }}>
           {name}
@@ -287,6 +277,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           <Categories categories={categories} />
           {languages?.length ? (
             <Tooltip
+            background="primary"
             content={
               <div className="flex flex-col gap-1">
                 {languages
@@ -309,13 +300,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
                       backgroundColor: language.color,
                     }}
                   >
-                    <Avatar
-                      src={language.logoUrl}
-                      alt={language.name}
-                      size="xs"
-                      shape="squared"
-                      classNames={{ base: "!outline-none", image: "rounded-none" }}
-                    />
+                    <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} />
                   </div>
                 ))}
             </div>

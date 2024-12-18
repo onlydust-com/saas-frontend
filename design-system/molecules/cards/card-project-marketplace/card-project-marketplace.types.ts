@@ -31,6 +31,7 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     percentage: number;
     logoUrl: string;
     color: string;
+    transparentLogoUrl?: string;
   }[];
   ecosystems?: {
     id: string;
@@ -52,6 +53,7 @@ export interface LanguageProps {
   nameClassNames?: string;
   color: string;
   logoUrl: string;
+  transparentLogoUrl?: string;
 }
 
 export interface AvatarProps {
