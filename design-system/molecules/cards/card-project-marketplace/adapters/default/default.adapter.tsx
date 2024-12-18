@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
+import { CircleDot, GitFork, Plus, Star, UserRound } from "lucide-react";
 import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
@@ -159,7 +159,7 @@ function Languages({ languages }: LanguagesProps) {
   const sortedLanguages = useMemo(() => languages?.sort((a, b) => b.percentage - a.percentage), [languages]);
 
   const { main, other, otherPercent } = useMemo(() => {
-    if (!sortedLanguages) return { main: [], other: [] };
+    if (!sortedLanguages) return { main: [], other: [], otherPercent: 0 };
 
     if (sortedLanguages.length <= 2) {
       return {
@@ -171,7 +171,7 @@ function Languages({ languages }: LanguagesProps) {
     const main = sortedLanguages.filter((lang, index) => index < 3 && lang.percentage > 20);
     const other = sortedLanguages.filter((lang, index) => index >= 3 || lang.percentage <= 20);
 
-    const otherPercent = other.reduce((sum, lang) => sum + lang.percentage, 0);
+    const otherPercent = other.reduce((sum, lang) => sum + lang.percentage, 0) ?? 0;
 
     return { main, other, otherPercent };
   }, [sortedLanguages]);
@@ -230,12 +230,26 @@ function Languages({ languages }: LanguagesProps) {
               </Badge>
             </div>
           ))}
+          {other?.length ? (
+            <div
+              className="min-w-fit"
+              style={{
+                width: `${otherPercent}%`,
+              }}
+            >
+              <Badge
+                color="grey"
+                variant="outline"
+                shape="rounded"
+                size="xs"
+                classNames={{ content: "justify-between" }}
+                icon={{ component: Plus }}
+              >
+                {Math.ceil(otherPercent)}%
+              </Badge>
+            </div>
+          ) : null}
         </div>
-        {other?.length ? (
-          <Badge color="grey" variant="outline" shape="rounded" size="xs">
-            {Math.ceil(otherPercent || 0)}%
-          </Badge>
-        ) : null}
       </div>
     </Tooltip>
   );
