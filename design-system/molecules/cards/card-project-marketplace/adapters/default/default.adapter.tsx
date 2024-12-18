@@ -251,6 +251,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           <div className="flex w-full">
             <ButtonGroup
               fullWidth
+              variant="tertiary"
               buttons={[
                 {
                   as: BaseLink,
@@ -266,6 +267,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
                   },
                   startIcon: {
                     component: CircleDot,
+                    size: "xs",
                   },
                 },
                 {

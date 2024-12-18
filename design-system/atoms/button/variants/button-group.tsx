@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 import { cn } from "@/shared/helpers/cn";
 
 import { Tooltip } from "../../tooltip";
-import { ButtonGroupPort } from "../button.types";
+import { ButtonGroupPort, ButtonSolidVariant } from "../button.types";
 import { Button } from "./button-default";
 
 const ButtonGroupVariant = tv({
@@ -42,12 +42,14 @@ function ButtonItem({
   hasBorder,
   index,
   fullWidth,
+  variant = "secondary",
 }: {
   itemProps: ButtonGroupPort["buttons"][0];
   commonProps: Omit<ButtonGroupPort, "buttons">;
   index: number;
   hasBorder?: boolean;
   fullWidth?: boolean;
+  variant?: ButtonSolidVariant;
 }) {
   function handleClick() {
     if (commonProps.onClick) {
@@ -65,8 +67,7 @@ function ButtonItem({
         {...commonProps}
         {...itemProps}
         onClick={handleClick}
-        variant={"tertiary"}
-        startIcon={itemProps.startIcon ? { ...itemProps.startIcon, size: "xs" } : undefined}
+        variant={variant}
         classNames={{
           ...commonProps.classNames,
           ...itemProps.classNames,
@@ -93,7 +94,7 @@ function ButtonItem({
   return renderButton();
 }
 
-export function ButtonGroup({ buttons, fullWidth, ...commonProps }: ButtonGroupPort) {
+export function ButtonGroup({ buttons, fullWidth, variant, ...commonProps }: ButtonGroupPort) {
   const { base } = ButtonGroupVariant({ size: commonProps.size, fullWidth });
 
   return (
@@ -106,6 +107,7 @@ export function ButtonGroup({ buttons, fullWidth, ...commonProps }: ButtonGroupP
             hasBorder={index !== 0}
             index={index}
             fullWidth={fullWidth}
+            variant={variant}
           />
         </div>
       ))}

@@ -71,4 +71,5 @@ export interface ButtonGroupPort
   buttons: (Omit<ButtonSolidPort<AnyType>, "variant"> & { tooltip?: TooltipPort<"div"> })[];
   onClick?: (index: number) => void;
   fullWidth?: boolean;
+  variant?: ButtonSolidVariant;
 }
