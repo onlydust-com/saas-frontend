@@ -46,7 +46,7 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystem
   const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
 
   function renderBadge() {
-    if (!ecosystems) return null;
+    if (!ecosystems?.length) return null;
 
     const ecosystemCount = ecosystems.length;
 
