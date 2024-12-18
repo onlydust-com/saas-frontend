@@ -1,15 +1,19 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
 
-export default function ProjectRecommendationResultsPage() {
+function ProjectRecommendationResultsPage() {
   const variantValue = useFeatureFlagVariant({
     flagName: "project-recommendation-a-a",
   });
@@ -28,7 +32,7 @@ export default function ProjectRecommendationResultsPage() {
     if (isLoadingRecommendedProjects) {
       return (
         <>
-          {[...Array(3)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <Skeleton
               key={i}
               classNames={{
@@ -56,15 +60,24 @@ export default function ProjectRecommendationResultsPage() {
     return recommendedProjects?.projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
-        {...project}
+        name={project.name}
+        slug={project.slug}
+        description={project.shortDescription}
+        logoUrl={project.logoUrl}
+        contributorCount={project.contributorCount}
+        starCount={project.starCount}
         forkCount={project.forkCount}
         availableIssueCount={project.availableIssueCount}
+        goodFirstIssueCount={project.goodFirstIssueCount}
+        categories={project.categories}
+        languages={project.languages}
+        ecosystems={project.ecosystems}
       />
     ));
   }
 
   return (
-    <div className="flex flex-col items-center gap-xl">
+    <div className="flex h-full flex-col items-center gap-xl overflow-hidden">
       <Typo
         variant="heading"
         size="xs"
@@ -73,7 +86,13 @@ export default function ProjectRecommendationResultsPage() {
           token: "projectRecommendation:details.results.title",
         }}
       />
-      <div className="grid w-full grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3">{renderContent()}</div>
+      <ScrollView>
+        <div className="grid gap-xl overflow-hidden mobile:grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 laptop:gap-3xl">
+          {renderContent()}
+        </div>
+      </ScrollView>
     </div>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(ProjectRecommendationResultsPage));
