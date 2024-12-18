@@ -117,7 +117,14 @@ function Categories({ categories = [] }: CategoriesProps) {
     <div ref={containerRef} className="w-full overflow-hidden">
       <div ref={innerRef} className="inline-flex items-center gap-xs">
         {visibleCategories.map(category => (
-          <Badge key={category.name} color="grey" shape="rounded" size="xs" classNames={{ base: "js-badge" }}>
+          <Badge
+            key={category.name}
+            color="grey"
+            variant="outline"
+            shape="rounded"
+            size="xs"
+            classNames={{ base: "js-badge" }}
+          >
             {category.name}
           </Badge>
         ))}
@@ -178,13 +185,13 @@ function Languages({ languages }: LanguagesProps) {
         {sortedLanguages.map(language => (
           <div
             key={language.id}
-            className="relative flex h-full min-w-6 items-center justify-start overflow-hidden rounded-md p-xs"
+            className="relative flex h-full min-w-7 items-center justify-start overflow-hidden rounded-md p-xxs"
             style={{
-              width: `${Math.max(language.percentage, 24)}%`,
+              width: `${language.percentage}%`,
               backgroundColor: language.color,
             }}
           >
-            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} className="min-w-5" />
           </div>
         ))}
       </div>

@@ -1058,6 +1058,9 @@
     --components-badge-grey-backgroundoutline-fg: var(--foreground-quaternary);
     --components-badge-grey-backgroundoutline-typo: var(--typography-tertiary);
     --components-badge-grey-backgroundoutline-border: var(--border-primary);
+    --components-badge-grey-outline-fg: var(--foreground-quaternary);
+    --components-badge-grey-outline-typo: var(--typography-tertiary);
+    --components-badge-grey-outline-border: var(--utility-grey-400);
     --components-badge-grey-solid-typo: var(--typography-white);
     --components-badge-grey-solid-bg: var(--utility-grey-500-primary);
     --components-badge-grey-solid-fg: var(--utility-grey-800);
