@@ -206,7 +206,7 @@ function Languages({ languages }: LanguagesProps) {
           {main.map(language => (
             <div
               key={language.id}
-              className="relative flex h-full min-w-7 items-center justify-between overflow-hidden"
+              className="relative flex h-full min-w-fit items-center justify-between overflow-hidden"
               style={{
                 width: `${language.percentage}%`,
               }}
