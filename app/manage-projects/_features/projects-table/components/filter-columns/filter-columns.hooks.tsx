@@ -132,7 +132,7 @@ export function useFilterColumns() {
       cell: info => (
         <Button
           as={BaseLink}
-          htmlProps={{ href: NEXT_ROUTER.manageProjects.contributors.root(info.row.original.slug) }}
+          htmlProps={{ href: NEXT_ROUTER.manageProjects.default.root(info.row.original.slug) }}
           variant={"secondary"}
           size={"sm"}
           translate={{ token: "manageProjects:list.projectsTable.rows.seeProject" }}
