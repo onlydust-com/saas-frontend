@@ -12,11 +12,11 @@ export function Section({ children, title, description, count, action, className
       <header className="flex justify-between">
         <div className="flex flex-col gap-md">
           <div>
-            <Typo variant="heading" size="xs" weight="medium" {...title} />
+            <Typo variant="heading" size="sm" weight="medium" {...title} />
             {hasCount ? (
               <>
                 {" "}
-                <Typo variant="heading" size="xs" weight="medium" color="tertiary">
+                <Typo variant="heading" size="sm" weight="medium" color="tertiary">
                   ({count})
                 </Typo>
               </>
