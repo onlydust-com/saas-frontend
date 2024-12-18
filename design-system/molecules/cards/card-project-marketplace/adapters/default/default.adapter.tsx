@@ -226,7 +226,7 @@ function Languages({ languages }: LanguagesProps) {
                   backgroundColor: language.color,
                 }}
               >
-                {`${language.percentage?.toFixed(0)}%`}
+                {`${language.percentage.toFixed(0)}%`}
               </Badge>
             </div>
           ))}
