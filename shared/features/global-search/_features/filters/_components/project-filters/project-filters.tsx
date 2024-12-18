@@ -24,6 +24,9 @@ function FilterSection({ items, icon, label, selectedItems, onItemChange }: Filt
           key={item.name}
           onSelect={() => onItemChange(item.name)}
           isSelected={selectedItems?.includes(item.name)}
+          classNames={{
+            label: "whitespace-nowrap",
+          }}
           endContent={
             <Badge fixedSize={item.count <= 9} size="xxs">
               {item.count}
