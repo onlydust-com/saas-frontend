@@ -14,7 +14,7 @@ import { TrendingProjects } from "./_features/trending-projects/trending-project
 
 function ExplorePage() {
   return (
-    <ScrollView>
+    <ScrollView className="pb-7xl">
       <div className="mx-auto flex max-w-laptop flex-col gap-7xl py-4xl">
         {process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH !== "true" && <GlobalSearch byPassFlag={true} />}
         <ProjectBanners />
