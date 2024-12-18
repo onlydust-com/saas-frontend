@@ -46,17 +46,7 @@ export interface MetricProps {
   count: number;
 }
 
-export interface LanguageProps {
-  id: string;
-  name: string;
-  percentage: number;
-  nameClassNames?: string;
-  color: string;
-  logoUrl: string;
-  transparentLogoUrl?: string;
-}
-
-export interface AvatarProps {
+export interface AvatarWithEcosystemsProps {
   name: string;
   logoUrl?: string;
   ecosystems?: CardProjectMarketplacePort<AnyType>["ecosystems"];
@@ -64,4 +54,8 @@ export interface AvatarProps {
 
 export interface CategoriesProps {
   categories: CardProjectMarketplacePort<AnyType>["categories"];
+}
+
+export interface LanguagesProps {
+  languages: CardProjectMarketplacePort<AnyType>["languages"];
 }

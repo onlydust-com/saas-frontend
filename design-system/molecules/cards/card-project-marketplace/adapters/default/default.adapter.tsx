@@ -2,7 +2,7 @@
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
-import { ElementType, useEffect, useRef, useState } from "react";
+import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -21,10 +21,10 @@ import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
-  AvatarProps,
+  AvatarWithEcosystemsProps,
   CardProjectMarketplacePort,
   CategoriesProps,
-  LanguageProps,
+  LanguagesProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
@@ -42,25 +42,7 @@ function Metric({ icon, count }: MetricProps) {
   );
 }
 
-function Language({ name, percentage, transparentLogoUrl, nameClassNames = "" }: LanguageProps) {
-  return (
-    <div className="flex items-center justify-between gap-lg">
-      <div className="flex items-center gap-xs">
-        <img src={transparentLogoUrl} loading="lazy" width={20} height={20} alt={name} />
-
-        <Typo size="xs" classNames={{ base: nameClassNames }}>
-          {name}
-        </Typo>
-      </div>
-
-      <Typo size="xs" color="quaternary">
-        {percentage}%
-      </Typo>
-    </div>
-  );
-}
-
-function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
+function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
   const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
 
   function renderBadge() {
@@ -165,6 +147,52 @@ function Categories({ categories = [] }: CategoriesProps) {
         ) : null}
       </div>
     </div>
+  );
+}
+
+function Languages({ languages }: LanguagesProps) {
+  if (!languages?.length) return null;
+
+  const sortedLanguages = useMemo(() => languages.sort((a, b) => b.percentage - a.percentage), [languages]);
+
+  return (
+    <Tooltip
+      background="primary"
+      content={
+        <div className="flex flex-col gap-1">
+          {sortedLanguages.map(language => (
+            <div key={language.id} className="flex items-center justify-between gap-md">
+              <div className="flex items-center gap-md">
+                <img src={language.transparentLogoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+
+                <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                  {language.name}
+                </Typo>
+              </div>
+
+              <Typo size="xs" color="quaternary">
+                {language.percentage}%
+              </Typo>
+            </div>
+          ))}
+        </div>
+      }
+    >
+      <div className="flex h-6 w-full gap-xs">
+        {sortedLanguages.map(language => (
+          <div
+            key={language.id}
+            className="relative flex h-full min-w-6 items-center justify-start overflow-hidden rounded-md p-xs"
+            style={{
+              width: `${Math.max(language.percentage, 24)}%`,
+              backgroundColor: language.color,
+            }}
+          >
+            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+          </div>
+        ))}
+      </div>
+    </Tooltip>
   );
 }
 
@@ -275,37 +303,8 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           ) : null}
 
           <Categories categories={categories} />
-          {languages?.length ? (
-            <Tooltip
-            background="primary"
-            content={
-              <div className="flex flex-col gap-1">
-                {languages
-                  .sort((a, b) => b.percentage - a.percentage)
-                  .map(language => (
-                    <Language key={language.id} {...language} nameClassNames="text-inherit" />
-                  ))}
-              </div>
-            }
-          >
-            <div className="flex h-7 w-full gap-xs">
-              {languages
-                .sort((a, b) => b.percentage - a.percentage)
-                .map(language => (
-                  <div
-                    key={language.id}
-                    className="relative flex h-full min-w-6 items-center justify-start rounded-md p-xs"
-                    style={{
-                      width: `${Math.max(language.percentage, 24)}%`,
-                      backgroundColor: language.color,
-                    }}
-                  >
-                    <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} />
-                  </div>
-                ))}
-            </div>
-          </Tooltip>
-          ) : null}
+
+          <Languages languages={languages} />
         </div>
       </div>
     </Paper>
