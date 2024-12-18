@@ -239,7 +239,6 @@ function Languages({ languages }: LanguagesProps) {
             >
               <Badge
                 color="grey"
-                variant="outline"
                 shape="rounded"
                 size="xs"
                 classNames={{ content: "justify-between" }}
