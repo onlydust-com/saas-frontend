@@ -34,7 +34,7 @@ function Metric({ icon, count }: MetricProps) {
       <Icon component={icon} size="xxs" classNames={{ base: "text-foreground-quinary" }} />
 
       <Typo size="xs" weight="medium">
-        {count}
+        {Intl.NumberFormat().format(count)}
       </Typo>
     </div>
   );
