@@ -1,16 +1,19 @@
 "use client";
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
 
-export default function ProjectRecommendationResultsPage() {
+function ProjectRecommendationResultsPage() {
   const variantValue = useFeatureFlagVariant({
     flagName: "project-recommendation-a-a",
   });
@@ -29,7 +32,7 @@ export default function ProjectRecommendationResultsPage() {
     if (isLoadingRecommendedProjects) {
       return (
         <>
-          {[...Array(3)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <Skeleton
               key={i}
               classNames={{
@@ -91,3 +94,5 @@ export default function ProjectRecommendationResultsPage() {
     </div>
   );
 }
+
+export default withClientOnly(withAuthenticationRequired(ProjectRecommendationResultsPage));
