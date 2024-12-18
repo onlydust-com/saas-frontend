@@ -37,7 +37,6 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
     if (styles) {
       return {
         ...(styles?.backgroundColor && { backgroundColor: styles?.backgroundColor }),
-        ...(styles?.textColor && { color: styles?.textColor }),
       };
     }
     return {};

@@ -11,7 +11,6 @@ import { TranslateProps } from "@/shared/translation/components/translate/transl
 
 interface Styles {
   backgroundColor: string;
-  textColor: string;
 }
 
 interface Variants {
