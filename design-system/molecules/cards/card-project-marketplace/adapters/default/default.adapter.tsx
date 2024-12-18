@@ -154,9 +154,9 @@ function Categories({ categories = [] }: CategoriesProps) {
 }
 
 function Languages({ languages }: LanguagesProps) {
-  if (!languages?.length) return null;
+  const sortedLanguages = useMemo(() => languages?.sort((a, b) => b.percentage - a.percentage), [languages]);
 
-  const sortedLanguages = useMemo(() => languages.sort((a, b) => b.percentage - a.percentage), [languages]);
+  if (!sortedLanguages?.length) return null;
 
   return (
     <Tooltip
