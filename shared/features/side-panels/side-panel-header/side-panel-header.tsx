@@ -38,7 +38,7 @@ export function SidePanelHeader({
       as={"header"}
       background={"primary-alt"}
       classNames={{
-        base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-none overflow-hidden",
+        base: "relative flex w-full flex-row items-center justify-between gap-lg rounded-none overflow-hidden border-b border-solid border-b-border-primary",
       }}
       py={"lg"}
       px={"xl"}
