@@ -174,7 +174,7 @@ function Languages({ languages }: LanguagesProps) {
         </div>
       }
     >
-      <div className="flex h-6 w-full gap-xs">
+      <div className="flex h-auto w-full gap-xs">
         {sortedLanguages.map(language => (
           <div
             key={language.id}
