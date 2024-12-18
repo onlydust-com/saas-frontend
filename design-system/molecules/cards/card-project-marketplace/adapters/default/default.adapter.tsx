@@ -20,6 +20,7 @@ import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
+import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
   AvatarProps,
   CardProjectMarketplacePort,
@@ -193,124 +194,128 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   ecosystems,
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <Paper
       as={as}
       htmlProps={htmlProps}
       size="none"
-      background="primary-alt"
+      background="glass"
+      border="none"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
-      <header className="relative h-[100px] w-full overflow-hidden">
-        <img src={logoUrl} alt={name} className="h-full w-full object-cover" />
+      <div ref={cardRef}>
+        <HoverEffect cardRef={cardRef} />
+        <header className="relative z-10 h-[100px] w-full overflow-hidden rounded-t-md">
+          <img src={logoUrl} alt={name} className="h-full w-full object-cover" />
 
-        <Image
-          src={Header}
-          alt={name}
-          className="absolute inset-0 object-cover mix-blend-luminosity backdrop-blur-xl backdrop-saturate-150"
-        />
-      </header>
+          <Image
+            src={Header}
+            alt={name}
+            className="absolute inset-0 object-cover mix-blend-luminosity backdrop-blur-xl backdrop-saturate-150"
+          />
+        </header>
 
-      <div className="relative z-10 flex flex-col gap-2lg p-lg pt-0">
-        <div className="flex flex-col gap-sm">
-          <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
+        <div className="relative z-20 flex flex-col gap-2lg rounded-b-md p-lg pt-0">
+          <div className="flex flex-col gap-sm">
+            <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
-          <div className="flex flex-col gap-xs">
-            <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
-              {name}
-            </Typo>
+            <div className="flex flex-col gap-xs">
+              <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
+                {name}
+              </Typo>
 
-            <div className="flex items-center gap-md">
-              <Metric icon={UserRound} count={contributorCount} />
-              <Metric icon={Star} count={starCount} />
-              <Metric icon={GitFork} count={forkCount} />
+              <div className="flex items-center gap-md">
+                <Metric icon={UserRound} count={contributorCount} />
+                <Metric icon={Star} count={starCount} />
+                <Metric icon={GitFork} count={forkCount} />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex">
-          <ButtonGroup
-            buttons={[
-              {
-                as: BaseLink,
-                htmlProps: {
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+          <div className="flex">
+            <ButtonGroup
+              buttons={[
+                {
+                  as: BaseLink,
+                  htmlProps: {
+                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                  },
+                  translate: {
+                    token: "common:count.openIssues",
+                    values: { count: availableIssueCount },
+                  },
+                  classNames: {
+                    startIcon: "text-utility-secondary-green-500",
+                  },
+                  startIcon: {
+                    component: CircleDot,
+                  },
                 },
-                translate: {
-                  token: "common:count.openIssues",
-                  values: { count: availableIssueCount },
+                {
+                  as: BaseLink,
+                  htmlProps: {
+                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                  },
+                  translate: {
+                    token: "common:count.goodFirstIssues",
+                    values: { count: goodFirstIssueCount },
+                  },
+                  startContent: (
+                    <div className="relative mr-0.5 size-1.5">
+                      <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
+                      <div className="size-full rounded-full bg-utility-secondary-green-500" />
+                    </div>
+                  ),
                 },
-                classNames: {
-                  startIcon: "text-utility-secondary-green-500",
-                },
-                startIcon: {
-                  component: CircleDot,
-                },
-              },
-              {
-                as: BaseLink,
-                htmlProps: {
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                },
-                translate: {
-                  token: "common:count.goodFirstIssues",
-                  values: { count: goodFirstIssueCount },
-                },
-                startContent: (
-                  <div className="relative mr-0.5 size-1.5">
-                    <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
-                    <div className="size-full rounded-full bg-utility-secondary-green-500" />
-                  </div>
-                ),
-              },
-            ]}
-            size="xs"
-          />
-        </div>
+              ]}
+              size="xs"
+            />
+          </div>
 
-        {description ? (
-          <div>
-            <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+          {description ? (<div>
+            <Typo size="sm" color="tertiary"classNames={{ base: "line-clamp-4" }}>
               {description}
             </Typo>
           </div>
-        ) : null}
 
-        <Categories categories={categories} />
 
-        {languages?.length ? (
-          <div className="flex flex-col gap-2md pt-md">
-            <div className="flex h-1.5 w-full overflow-hidden rounded-full">
-              {languages.map(language => (
-                <div
-                  key={language.id}
-                  className="h-full"
-                  style={{
-                    width: `${language.percentage}%`,
-                    backgroundColor: getLanguageColor(language.id),
-                  }}
-                >
-                  <Tooltip
-                    content={<Language {...language} nameClassNames="text-inherit" />}
-                    classNames={{ wrapper: "size-full" }}
-                  />
-                </div>
-              ))}
-            </div>
+          ) : null}
 
-            <ScrollView>
-              <div className="flex max-w-full gap-lg">
-                {languages
-                  .sort((a, b) => b.percentage - a.percentage)
-                  .slice(0, 3)
-                  .map(language => (
-                    <Language key={language.id} {...language} nameClassNames="truncate" />
-                  ))}
+          <Categories categories={categories} />{languages?.length ? (
+            <div className="flex flex-col gap-2md pt-md">
+              <div className="flex h-1.5 w-full overflow-hidden rounded-full">
+                {languages.map(language => (
+                  <div
+                    key={language.id}
+                    className="h-full"
+                    style={{
+                      width: `${language.percentage}%`,
+                      backgroundColor: getLanguageColor(language.id),
+                    }}
+                  >
+                    <Tooltip
+                      content={<Language {...language} nameClassNames="text-inherit" />}
+                      classNames={{ wrapper: "size-full" }}
+                    />
+                  </div>
+                ))}
               </div>
-            </ScrollView>
-          </div>
-        ) : null}
+
+              <ScrollView>
+                <div className="flex max-w-full gap-lg">
+                  {languages
+                    .sort((a, b) => b.percentage - a.percentage)
+                    .slice(0, 3)
+                    .map(language => (
+                      <Language key={language.id} {...language} nameClassNames="truncate" />
+                    ))}
+                </div>
+              </ScrollView>
+            </div>
+          ) : null}
+        </div>
       </div>
     </Paper>
   );

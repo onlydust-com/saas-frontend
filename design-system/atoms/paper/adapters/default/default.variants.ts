@@ -49,6 +49,7 @@ export const PaperDefaultVariants = tv({
     },
     background: {
       transparent: { base: "bg-transparent" },
+      glass: { base: "bg-glass-white" },
       primary: { base: "bg-background-primary data-[clickable=true]:hover:bg-background-primary-hover" },
       "primary-alt": { base: "bg-background-primary-alt data-[clickable=true]:hover:bg-background-primary-alt-hover" },
       "primary-solid": { base: "bg-background-primary-solid" },

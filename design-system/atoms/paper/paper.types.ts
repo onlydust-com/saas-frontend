@@ -27,7 +27,7 @@ interface Variants {
   size?: paperSpacing;
   px?: paperSpacing;
   py?: paperSpacing;
-  background: "transparent" | keyof typeof COLORS.background;
+  background: "transparent" | keyof typeof COLORS.background | "glass";
   border: "none" | keyof typeof COLORS.border;
   hasBorderHover?: boolean;
 }
