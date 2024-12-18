@@ -186,7 +186,7 @@ function Languages({ languages }: LanguagesProps) {
           {sortedLanguages.map(language => (
             <div key={language.id} className="flex items-center justify-between gap-md">
               <div className="flex items-center gap-md">
-                <img src={language.transparentLogoUrl} loading="lazy" alt={language.name} className="w-5" />
+                <Avatar src={language.logoUrl} alt={language.name} size="xxs" shape="squared" />
 
                 <Typo size="xs" classNames={{ base: "text-inherit" }}>
                   {language.name}
