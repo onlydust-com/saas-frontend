@@ -169,19 +169,19 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                   searchParams={"data-view"}
                   tabs={[
                     {
-                      id: Views.CONTRIBUTORS,
-                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                      },
-                    },
-                    {
                       id: Views.CONTRIBUTIONS,
                       children: <Translate token={"manageProjects:detail.views.contributions"} />,
                       as: BaseLink,
                       htmlProps: {
                         href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                      },
+                    },
+                    {
+                      id: Views.CONTRIBUTORS,
+                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
                       },
                     },
                     {

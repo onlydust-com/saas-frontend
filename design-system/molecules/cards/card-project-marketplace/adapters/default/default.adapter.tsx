@@ -1,8 +1,8 @@
 "use client";
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
-import Image from "next/image";
-import { ElementType, useEffect, useRef, useState } from "react";
+import { ElementType, useEffect, useMemo, useRef, useState } from "react";
+import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
@@ -14,23 +14,19 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
+import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
-  AvatarProps,
+  AvatarWithEcosystemsProps,
   CardProjectMarketplacePort,
-  LanguageProps,
+  CategoriesProps,
+  LanguagesProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
-import Header from "./header.png";
-
-function getLanguageColor(id: string) {
-  return `hsl(${(parseInt(id, 36) * 137.5) % 360}deg, 65%, 50%)`;
-}
 
 function Metric({ icon, count }: MetricProps) {
   return (
@@ -44,39 +40,9 @@ function Metric({ icon, count }: MetricProps) {
   );
 }
 
-function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) {
-  return (
-    <div className="flex items-center gap-xs">
-      <div
-        className="size-1.5 rounded-full"
-        style={{
-          backgroundColor: getLanguageColor(id),
-        }}
-      />
-
-      <Typo size="xs" classNames={{ base: nameClassNames }}>
-        {name}
-      </Typo>
-
-      <Typo size="xs" color="quaternary">
-        {percentage}%
-      </Typo>
-    </div>
-  );
-}
-
-function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const [avatarOffset, setAvatarOffset] = useState(0);
-
-  useEffect(() => {
-    if (avatarRef.current) {
-      setAvatarOffset(-avatarRef.current.offsetHeight / 2);
-    }
-  }, [avatarRef.current]);
-
+function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
   function renderBadge() {
-    if (!ecosystems) return null;
+    if (!ecosystems?.length) return null;
 
     const ecosystemCount = ecosystems.length;
 
@@ -122,11 +88,114 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
 
   return (
     <div className="flex">
-      <div ref={avatarRef} style={{ marginTop: avatarOffset }} className="relative">
+      <div className="relative">
         <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
         {renderBadge()}
       </div>
     </div>
+  );
+}
+
+function Categories({ categories = [] }: CategoriesProps) {
+  const [containerRef, { width: containerWidth }] = useMeasure<HTMLDivElement>();
+  const [innerRef, { width: innerWidth }] = useMeasure<HTMLDivElement>();
+  const [visibleCategories, setVisibleCategories] = useState<NonNullable<CategoriesProps["categories"]>>(categories);
+  const [hiddenCategories, setHiddenCategories] = useState<NonNullable<CategoriesProps["categories"]>>([]);
+
+  useEffect(() => {
+    if (!containerWidth || !innerWidth || !categories?.length) return;
+
+    if (innerWidth > containerWidth) {
+      setVisibleCategories(prev => prev.slice(0, -1));
+      setHiddenCategories(prev => [visibleCategories[visibleCategories.length - 1], ...prev]);
+    }
+  }, [containerWidth, innerWidth, categories?.length]);
+
+  if (!categories.length) return null;
+
+  return (
+    <div ref={containerRef} className="w-full overflow-hidden">
+      <div ref={innerRef} className="inline-flex items-center gap-xs">
+        {visibleCategories.map(category => (
+          <Badge
+            key={category.name}
+            color="grey"
+            variant="outline"
+            shape="rounded"
+            size="xs"
+            classNames={{ base: "js-badge" }}
+          >
+            {category.name}
+          </Badge>
+        ))}
+
+        {hiddenCategories.length ? (
+          <Tooltip
+            background="primary"
+            placement="bottom"
+            content={
+              <ul className="flex flex-col gap-md">
+                {hiddenCategories.map(category => (
+                  <Typo key={category.name} as="li" size="xs" weight="medium">
+                    {category.name}
+                  </Typo>
+                ))}
+              </ul>
+            }
+          >
+            <Badge color="brand" shape="rounded" size="xs" variant="outline" classNames={{ base: "cursor-default" }}>
+              +{hiddenCategories.length}
+            </Badge>
+          </Tooltip>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function Languages({ languages }: LanguagesProps) {
+  const sortedLanguages = useMemo(() => languages?.sort((a, b) => b.percentage - a.percentage), [languages]);
+
+  if (!sortedLanguages?.length) return null;
+
+  return (
+    <Tooltip
+      background="primary"
+      content={
+        <div className="flex flex-col gap-1">
+          {sortedLanguages.map(language => (
+            <div key={language.id} className="flex items-center justify-between gap-md">
+              <div className="flex items-center gap-md">
+                <img src={language.transparentLogoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+
+                <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                  {language.name}
+                </Typo>
+              </div>
+
+              <Typo size="xs" color="quaternary">
+                {language.percentage}%
+              </Typo>
+            </div>
+          ))}
+        </div>
+      }
+    >
+      <div className="flex h-auto w-full gap-xs">
+        {sortedLanguages.map(language => (
+          <div
+            key={language.id}
+            className="relative flex h-full min-w-7 items-center justify-start overflow-hidden rounded-md p-xxs"
+            style={{
+              width: `${language.percentage}%`,
+              backgroundColor: language.color,
+            }}
+          >
+            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} className="min-w-5" />
+          </div>
+        ))}
+      </div>
+    </Tooltip>
   );
 }
 
@@ -148,132 +217,92 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   ecosystems,
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <Paper
       as={as}
       htmlProps={htmlProps}
       size="none"
-      background="primary-alt"
+      background="transparent"
+      border="primary"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
-      <header className="relative h-[100px] w-full overflow-hidden">
-        <img src={logoUrl} alt={name} className="h-full w-full object-cover" />
+      <div ref={cardRef}>
+        <HoverEffect cardRef={cardRef} />
 
-        <Image
-          src={Header}
-          alt={name}
-          className="absolute inset-0 object-cover mix-blend-luminosity backdrop-blur-xl backdrop-saturate-150"
-        />
-      </header>
+        <div className="relative z-20 flex flex-col gap-2lg rounded-md border-border-primary p-xl">
+          <div className="flex flex-row gap-2lg">
+            <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
-      <div className="relative z-10 flex flex-col gap-2lg p-lg pt-0">
-        <div className="flex flex-col gap-sm">
-          <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
+            <div className="justify-betweenoverflow-hidden flex h-full flex-col">
+              <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
+                {name}
+              </Typo>
 
-          <div className="flex flex-col gap-xs">
-            <Typo variant="heading" size="xs" weight="medium" color="primary">
-              {name}
-            </Typo>
-
-            <div className="flex items-center gap-md">
-              <Metric icon={UserRound} count={contributorCount} />
-              <Metric icon={Star} count={starCount} />
-              <Metric icon={GitFork} count={forkCount} />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex">
-          <ButtonGroup
-            buttons={[
-              {
-                as: BaseLink,
-                htmlProps: {
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                },
-                translate: {
-                  token: "common:count.openIssues",
-                  values: { count: availableIssueCount },
-                },
-                classNames: {
-                  startIcon: "text-utility-secondary-green-500",
-                },
-                startIcon: {
-                  component: CircleDot,
-                },
-              },
-              {
-                as: BaseLink,
-                htmlProps: {
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                },
-                translate: {
-                  token: "common:count.goodFirstIssues",
-                  values: { count: goodFirstIssueCount },
-                },
-                startContent: (
-                  <div className="relative mr-0.5 size-1.5">
-                    <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
-                    <div className="size-full rounded-full bg-utility-secondary-green-500" />
-                  </div>
-                ),
-              },
-            ]}
-            size="xs"
-          />
-        </div>
-
-        <div>
-          <Typo size="sm" color="tertiary">
-            {description}
-          </Typo>
-        </div>
-
-        {categories?.length ? (
-          <ul className="flex flex-wrap gap-xs">
-            {categories.map(category => (
-              <li key={category.name}>
-                <Badge color="grey" shape="squared" size="xs">
-                  {category.name}
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        {languages?.length ? (
-          <div className="flex flex-col gap-2md pt-md">
-            <div className="flex h-1.5 w-full overflow-hidden rounded-full">
-              {languages.map(language => (
-                <div
-                  key={language.id}
-                  className="h-full"
-                  style={{
-                    width: `${language.percentage}%`,
-                    backgroundColor: getLanguageColor(language.id),
-                  }}
-                >
-                  <Tooltip
-                    content={<Language {...language} nameClassNames="text-inherit" />}
-                    classNames={{ wrapper: "size-full" }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <ScrollView>
-              <div className="flex max-w-full gap-lg">
-                {languages
-                  .sort((a, b) => b.percentage - a.percentage)
-                  .slice(0, 3)
-                  .map(language => (
-                    <Language key={language.id} {...language} nameClassNames="truncate" />
-                  ))}
+              <div className="flex items-center gap-md">
+                <Metric icon={Star} count={starCount} />
+                <Metric icon={GitFork} count={forkCount} />
+                <Metric icon={UserRound} count={contributorCount} />
               </div>
-            </ScrollView>
+            </div>
           </div>
-        ) : null}
+
+          <div className="flex w-full">
+            <ButtonGroup
+              fullWidth
+              variant="tertiary"
+              buttons={[
+                {
+                  as: BaseLink,
+                  htmlProps: {
+                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                  },
+                  translate: {
+                    token: "common:count.openIssues",
+                    values: { count: availableIssueCount },
+                  },
+                  classNames: {
+                    startIcon: "text-utility-secondary-green-500",
+                  },
+                  startIcon: {
+                    component: CircleDot,
+                    size: "xs",
+                  },
+                },
+                {
+                  as: BaseLink,
+                  htmlProps: {
+                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                  },
+                  translate: {
+                    token: "common:count.goodFirstIssues",
+                    values: { count: goodFirstIssueCount },
+                  },
+                  startContent: (
+                    <div className="relative mr-0.5 size-1.5">
+                      <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
+                      <div className="size-full rounded-full bg-utility-secondary-green-500" />
+                    </div>
+                  ),
+                },
+              ]}
+              size="xs"
+            />
+          </div>
+
+          {description ? (
+            <div>
+              <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+                {description}
+              </Typo>
+            </div>
+          ) : null}
+
+          <Categories categories={categories} />
+
+          <Languages languages={languages} />
+        </div>
       </div>
     </Paper>
   );

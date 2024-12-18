@@ -52,6 +52,7 @@ export function TrendingProjects() {
           goodFirstIssueCount={project.goodFirstIssueCount}
           categories={project.categories}
           languages={project.languages}
+          ecosystems={project.ecosystems}
         />
       ))
     );
@@ -66,7 +67,7 @@ export function TrendingProjects() {
         translate: { token: "explore:trending.description" },
       }}
       classNames={{
-        base: "gap-lg",
+        base: "gap-3xl",
       }}
     >
       <div className="grid gap-xl mobile:grid-cols-2 laptop:grid-cols-4 laptop:gap-3xl">{renderProjects()}</div>

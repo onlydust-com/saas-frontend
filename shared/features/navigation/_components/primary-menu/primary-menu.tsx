@@ -69,7 +69,7 @@ export function PrimaryMenu() {
         linkProps={{
           href: showProjectList.hasMultipleProjects
             ? NEXT_ROUTER.manageProjects.root
-            : NEXT_ROUTER.manageProjects.contributors.root(showProjectList.firstProject ?? ""),
+            : NEXT_ROUTER.manageProjects.default.root(showProjectList.firstProject ?? ""),
           matchPathOptions: {
             exact: false,
             pattern: NEXT_ROUTER.manageProjects.root,

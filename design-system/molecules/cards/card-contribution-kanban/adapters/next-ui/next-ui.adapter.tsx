@@ -55,16 +55,16 @@ export function CardContributionKanbanNextUiAdapter<C extends ElementType = "div
   function renderHeader() {
     return (
       <header className="flex w-full justify-between gap-md">
-        <div className="flex flex-col gap-lg">
+        <div className="flex flex-col gap-lg" style={{ wordBreak: "break-word" }}>
           <Typo
-            htmlProps={{ title: githubTitle }}
+            as={Emoji}
             size="xs"
             weight="medium"
             classNames={{
               base: "text-wrap line-clamp-2",
             }}
           >
-            <Emoji>{githubTitle}</Emoji>
+            {githubTitle}
           </Typo>
 
           <div className="flex items-center gap-md empty:hidden">

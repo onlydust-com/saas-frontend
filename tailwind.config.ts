@@ -30,6 +30,9 @@ const config: Config = withTV({
       },
       colors: {
         ...COLORS,
+        glass: {
+          white: "rgba(255, 255, 255, 0.03)",
+        },
       },
       screens: {
         mobile: `${BREAKPOINTS.mobile}px`,
