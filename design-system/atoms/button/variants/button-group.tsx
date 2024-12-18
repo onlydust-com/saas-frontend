@@ -11,6 +11,11 @@ const ButtonGroupVariant = tv({
     base: "flex flex-row overflow-hidden border-1 border-border-primary-alt effect-box-shadow-xs",
   },
   variants: {
+    fullWidth: {
+      true: {
+        base: "w-full",
+      },
+    },
     size: {
       xs: {
         base: "rounded-sm",
@@ -36,11 +41,13 @@ function ButtonItem({
   commonProps,
   hasBorder,
   index,
+  fullWidth,
 }: {
   itemProps: ButtonGroupPort["buttons"][0];
   commonProps: Omit<ButtonGroupPort, "buttons">;
   index: number;
   hasBorder?: boolean;
+  fullWidth?: boolean;
 }) {
   function handleClick() {
     if (commonProps.onClick) {
@@ -58,14 +65,18 @@ function ButtonItem({
         {...commonProps}
         {...itemProps}
         onClick={handleClick}
-        variant={"secondary"}
+        variant={"tertiary"}
+        startIcon={itemProps.startIcon ? { ...itemProps.startIcon, size: "xs" } : undefined}
         classNames={{
           ...commonProps.classNames,
           ...itemProps.classNames,
           base: cn(
-            "rounded-none !shadow-none border-r-0 border-t-0 border-r-0 border-b-0 border-border-primary-alt",
+            "rounded-none !shadow-none border-l-1 border-t-0 border-r-0 border-b-0 !border-border-primary-alt",
             {
               "border-l-0": !hasBorder,
+            },
+            {
+              "w-full": fullWidth,
             },
             commonProps.classNames?.base,
             itemProps.classNames?.base
@@ -82,14 +93,20 @@ function ButtonItem({
   return renderButton();
 }
 
-export function ButtonGroup({ buttons, ...commonProps }: ButtonGroupPort) {
-  const { base } = ButtonGroupVariant({ size: commonProps.size });
+export function ButtonGroup({ buttons, fullWidth, ...commonProps }: ButtonGroupPort) {
+  const { base } = ButtonGroupVariant({ size: commonProps.size, fullWidth });
 
   return (
     <div className={base()}>
       {buttons.map((itemProps, index) => (
-        <div key={index}>
-          <ButtonItem itemProps={itemProps} commonProps={commonProps} hasBorder={index !== 0} index={index} />
+        <div key={index} className={cn({ "flex-1": fullWidth })}>
+          <ButtonItem
+            itemProps={itemProps}
+            commonProps={commonProps}
+            hasBorder={index !== 0}
+            index={index}
+            fullWidth={fullWidth}
+          />
         </div>
       ))}
     </div>

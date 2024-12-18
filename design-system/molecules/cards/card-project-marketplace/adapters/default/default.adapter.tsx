@@ -1,7 +1,6 @@
 "use client";
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
-import Image from "next/image";
 import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
@@ -28,7 +27,6 @@ import {
   MetricProps,
 } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
-import Header from "./header.png";
 
 function Metric({ icon, count }: MetricProps) {
   return (
@@ -43,8 +41,6 @@ function Metric({ icon, count }: MetricProps) {
 }
 
 function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
-  const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
-
   function renderBadge() {
     if (!ecosystems) return null;
 
@@ -92,7 +88,7 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystem
 
   return (
     <div className="flex">
-      <div ref={avatarRef} style={{ marginTop: -height / 2 }} className="relative">
+      <div className="relative">
         <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
         {renderBadge()}
       </div>
@@ -221,24 +217,15 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
       as={as}
       htmlProps={htmlProps}
       size="none"
-      background="glass"
-      border="none"
+      background="transparent"
+      border="primary"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
       <div ref={cardRef}>
         <HoverEffect cardRef={cardRef} />
-        <header className="relative z-10 h-[100px] w-full overflow-hidden rounded-t-md">
-          <img src={logoUrl} alt={name} className="h-full w-full object-cover" />
 
-          <Image
-            src={Header}
-            alt={name}
-            className="absolute inset-0 object-cover mix-blend-luminosity backdrop-blur-xl backdrop-saturate-150"
-          />
-        </header>
-
-        <div className="relative z-20 flex flex-col gap-2lg rounded-b-md p-lg pt-0">
-          <div className="flex flex-col gap-sm">
+        <div className="relative z-20 flex flex-col gap-2lg rounded-md border-border-primary p-xl">
+          <div className="flex flex-row gap-2lg">
             <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
             <div className="flex flex-col gap-xs">
@@ -247,15 +234,16 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
               </Typo>
 
               <div className="flex items-center gap-md">
-                <Metric icon={UserRound} count={contributorCount} />
                 <Metric icon={Star} count={starCount} />
                 <Metric icon={GitFork} count={forkCount} />
+                <Metric icon={UserRound} count={contributorCount} />
               </div>
             </div>
           </div>
 
-          <div className="flex">
+          <div className="flex w-full">
             <ButtonGroup
+              fullWidth
               buttons={[
                 {
                   as: BaseLink,

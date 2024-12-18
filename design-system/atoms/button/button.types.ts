@@ -70,4 +70,5 @@ export interface ButtonGroupPort
   extends Pick<ButtonSolidPort<AnyType>, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
   buttons: (Omit<ButtonSolidPort<AnyType>, "variant"> & { tooltip?: TooltipPort<"div"> })[];
   onClick?: (index: number) => void;
+  fullWidth?: boolean;
 }
