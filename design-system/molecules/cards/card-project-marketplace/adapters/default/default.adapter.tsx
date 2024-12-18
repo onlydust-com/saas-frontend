@@ -2,7 +2,7 @@
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
-import { ElementType, useEffect, useState } from "react";
+import { ElementType, useEffect, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -274,16 +274,16 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
             />
           </div>
 
-          {description ? (<div>
-            <Typo size="sm" color="tertiary"classNames={{ base: "line-clamp-4" }}>
-              {description}
-            </Typo>
-          </div>
-
-
+          {description ? (
+            <div>
+              <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+                {description}
+              </Typo>
+            </div>
           ) : null}
 
-          <Categories categories={categories} />{languages?.length ? (
+          <Categories categories={categories} />
+          {languages?.length ? (
             <div className="flex flex-col gap-2md pt-md">
               <div className="flex h-1.5 w-full overflow-hidden rounded-full">
                 {languages.map(language => (
