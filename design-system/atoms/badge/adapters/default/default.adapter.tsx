@@ -1,4 +1,4 @@
-import { ElementType } from "react";
+import { ElementType, useMemo } from "react";
 
 import { BadgeClose } from "@/design-system/atoms/badge-close/variants/badge-close-default";
 import { BadgeDefaultVariants } from "@/design-system/atoms/badge/adapters/default/default.variants";
@@ -22,6 +22,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   variant,
   fixedSize = false,
   count,
+  styles,
   ...props
 }: BadgePort<C>) {
   const { isDeletable, shape = "rounded", size = "sm", color, iconOnly } = props;
@@ -32,8 +33,18 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   const slots = BadgeDefaultVariants({ isDeletable, size, color, shape, iconOnly, variant, fixedSize: _fixedSize });
   const showChildren = !!children || children === 0 || !!translate || !!count || count === 0;
 
+  const s = useMemo(() => {
+    if (styles) {
+      return {
+        ...(styles?.backgroundColor && { backgroundColor: styles?.backgroundColor }),
+        ...(styles?.textColor && { color: styles?.textColor }),
+      };
+    }
+    return {};
+  }, [styles]);
+
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)}>
+    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} style={s}>
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
 

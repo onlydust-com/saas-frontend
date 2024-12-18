@@ -9,6 +9,11 @@ import { TypoPort } from "@/design-system/atoms/typo";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
 
+interface Styles {
+  backgroundColor: string;
+  textColor: string;
+}
+
 interface Variants {
   size: "xxs" | "xs" | "sm" | "md" | "lg" | "xl";
   color: "grey" | "brand" | "error" | "warning" | "success" | "inverse";
@@ -18,6 +23,7 @@ interface Variants {
   fixedSize: boolean;
   count?: number;
   variant: "flat" | "outline" | "solid";
+  styles?: Partial<Styles>;
 }
 
 interface ClassNames {
