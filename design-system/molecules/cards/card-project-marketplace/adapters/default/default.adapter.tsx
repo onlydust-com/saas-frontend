@@ -166,7 +166,7 @@ function Languages({ languages }: LanguagesProps) {
           {sortedLanguages.map(language => (
             <div key={language.id} className="flex items-center justify-between gap-md">
               <div className="flex items-center gap-md">
-                <img src={language.transparentLogoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+                <img src={language.transparentLogoUrl} loading="lazy" alt={language.name} className="w-5" />
 
                 <Typo size="xs" classNames={{ base: "text-inherit" }}>
                   {language.name}
@@ -191,7 +191,7 @@ function Languages({ languages }: LanguagesProps) {
               backgroundColor: language.color,
             }}
           >
-            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} className="min-w-5" />
+            <img src={language.logoUrl} loading="lazy" alt={language.name} className="w-5" />
           </div>
         ))}
       </div>
