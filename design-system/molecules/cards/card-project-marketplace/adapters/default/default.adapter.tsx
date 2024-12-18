@@ -228,79 +228,80 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
       border="primary"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
-      <div ref={cardRef}>
+      <div ref={cardRef} className="flex h-full w-full flex-col">
         <HoverEffect cardRef={cardRef} />
 
-        <div className="relative z-20 flex flex-col gap-2lg rounded-md border-border-primary p-xl">
-          <div className="flex flex-row gap-2lg">
-            <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
+        <div className="relative z-20 flex h-full flex-col justify-between gap-2lg rounded-md border-border-primary p-xl">
+          <div className="flex flex-col gap-2lg">
+            <div className="flex flex-row gap-2lg">
+              <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
-            <div className="justify-betweenoverflow-hidden flex h-full flex-col">
-              <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
-                {name}
-              </Typo>
+              <div className="flex h-full flex-col justify-between overflow-hidden">
+                <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
+                  {name}
+                </Typo>
 
-              <div className="flex items-center gap-md">
-                <Metric icon={Star} count={starCount} />
-                <Metric icon={GitFork} count={forkCount} />
-                <Metric icon={UserRound} count={contributorCount} />
+                <div className="flex items-center gap-md">
+                  <Metric icon={Star} count={starCount} />
+                  <Metric icon={GitFork} count={forkCount} />
+                  <Metric icon={UserRound} count={contributorCount} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex w-full">
-            <ButtonGroup
-              fullWidth
-              variant="tertiary"
-              buttons={[
-                {
-                  as: BaseLink,
-                  htmlProps: {
-                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+            <div className="flex w-full">
+              <ButtonGroup
+                fullWidth
+                variant="tertiary"
+                buttons={[
+                  {
+                    as: BaseLink,
+                    htmlProps: {
+                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                    },
+                    translate: {
+                      token: "common:count.openIssues",
+                      values: { count: availableIssueCount },
+                    },
+                    classNames: {
+                      startIcon: "text-utility-secondary-green-500",
+                    },
+                    startIcon: {
+                      component: CircleDot,
+                      size: "xs",
+                    },
                   },
-                  translate: {
-                    token: "common:count.openIssues",
-                    values: { count: availableIssueCount },
+                  {
+                    as: BaseLink,
+                    htmlProps: {
+                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+                    },
+                    translate: {
+                      token: "common:count.goodFirstIssues",
+                      values: { count: goodFirstIssueCount },
+                    },
+                    startContent: (
+                      <div className="relative mr-0.5 size-1.5">
+                        <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
+                        <div className="size-full rounded-full bg-utility-secondary-green-500" />
+                      </div>
+                    ),
                   },
-                  classNames: {
-                    startIcon: "text-utility-secondary-green-500",
-                  },
-                  startIcon: {
-                    component: CircleDot,
-                    size: "xs",
-                  },
-                },
-                {
-                  as: BaseLink,
-                  htmlProps: {
-                    href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                  },
-                  translate: {
-                    token: "common:count.goodFirstIssues",
-                    values: { count: goodFirstIssueCount },
-                  },
-                  startContent: (
-                    <div className="relative mr-0.5 size-1.5">
-                      <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
-                      <div className="size-full rounded-full bg-utility-secondary-green-500" />
-                    </div>
-                  ),
-                },
-              ]}
-              size="xs"
-            />
-          </div>
-
-          {description ? (
-            <div>
-              <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
-                {description}
-              </Typo>
+                ]}
+                size="xs"
+              />
             </div>
-          ) : null}
 
-          <Categories categories={categories} />
+            {description ? (
+              <div>
+                <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+                  {description}
+                </Typo>
+              </div>
+            ) : null}
 
+            <Categories categories={categories} />
+          </div>
           <Languages languages={languages} />
         </div>
       </div>
