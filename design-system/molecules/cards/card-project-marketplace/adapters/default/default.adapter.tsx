@@ -182,7 +182,7 @@ function Languages({ languages }: LanguagesProps) {
     <Tooltip
       background="primary"
       content={
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-md">
           {sortedLanguages.map(language => (
             <div key={language.id} className="flex items-center justify-between gap-md">
               <div className="flex items-center gap-md">
