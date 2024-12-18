@@ -235,7 +235,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           <div className="flex flex-row gap-2lg">
             <AvatarWithEcosystems name={name} logoUrl={logoUrl} ecosystems={ecosystems} />
 
-            <div className="flex flex-col gap-xs">
+            <div className="justify-betweenoverflow-hidden flex h-full flex-col">
               <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
                 {name}
               </Typo>
