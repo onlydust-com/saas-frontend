@@ -301,7 +301,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
 
             {description ? (
               <div>
-                <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-4" }}>
+                <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-3" }}>
                   {description}
                 </Typo>
               </div>
