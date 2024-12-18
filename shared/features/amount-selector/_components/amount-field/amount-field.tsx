@@ -102,7 +102,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
     };
   }, [isCurrencyFirst, isConversionFirst, budget, amount]);
 
-  const inputWidth = useMemo(() => Math.min(Math.max(primary.value.length, 2), 50) + "ch", [primary]);
+  const inputWidth = useMemo(() => Math.min(Math.max(primary.value.length, 1), 50) + "ch", [primary]);
 
   return (
     <div className={"grid justify-center gap-2"}>
