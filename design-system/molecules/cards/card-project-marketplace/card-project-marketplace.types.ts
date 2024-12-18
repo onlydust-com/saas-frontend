@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { IconPort } from "@/design-system/atoms/icon";
 
 interface ClassNames {
@@ -12,10 +14,11 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   classNames?: Partial<ClassNames>;
   logoUrl?: string;
   name: string;
+  slug: string;
   contributorCount: number;
   starCount: number;
-  pullRequestCount: number;
-  issueCount: number;
+  forkCount: number;
+  availableIssueCount: number;
   goodFirstIssueCount: number;
   description?: string;
   categories?: {
@@ -26,6 +29,14 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     id: string;
     name: string;
     percentage: number;
+    logoUrl: string;
+    color?: string;
+    transparentLogoUrl?: string;
+  }[];
+  ecosystems?: {
+    id: string;
+    name: string;
+    logoUrl: string;
   }[];
   onClick?: () => void;
 }
@@ -35,9 +46,16 @@ export interface MetricProps {
   count: number;
 }
 
-export interface LanguageProps {
-  id: string;
+export interface AvatarWithEcosystemsProps {
   name: string;
-  percentage: number;
-  nameClassNames?: string;
+  logoUrl?: string;
+  ecosystems?: CardProjectMarketplacePort<AnyType>["ecosystems"];
+}
+
+export interface CategoriesProps {
+  categories: CardProjectMarketplacePort<AnyType>["categories"];
+}
+
+export interface LanguagesProps {
+  languages: CardProjectMarketplacePort<AnyType>["languages"];
 }

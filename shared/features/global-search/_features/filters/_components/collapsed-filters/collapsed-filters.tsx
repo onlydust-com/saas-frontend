@@ -13,7 +13,7 @@ export function CollapsedFilters() {
   const otherFilters = [...(filters.languages ?? []), ...(filters.ecosystems ?? []), ...(filters.categories ?? [])];
 
   return (
-    <div className="relative flex w-full flex-row items-start justify-between gap-1 border-b border-b-border-primary px-6 py-4">
+    <div className="relative flex w-full flex-row items-center justify-between gap-1 border-b border-b-border-primary px-6 py-4">
       <div className="flex flex-row items-center justify-start gap-2">
         {filters.type && (
           <Badge

@@ -12,5 +12,12 @@
       "title": "No questions found",
       "description": "We couldn't find any questions for you. Please try again later."
     }
+  },
+  "results": {
+    "title": "Recommended projects for you",
+    "emptyState": {
+      "title": "No projects found",
+      "description": "We couldn't find any projects for you. Please try again later."
+    }
   }
 }

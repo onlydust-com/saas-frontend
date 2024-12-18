@@ -11,6 +11,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
@@ -39,16 +40,15 @@ function withSponsorList<P extends object>(Component: ComponentType<P>) {
 
 function FinancialPage() {
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
+    <PageWrapper>
+      <NavigationBreadcrumb
+        breadcrumb={[
           {
             id: "root",
             label: <Translate token={"financials:list.header.title"} />,
           },
-        ],
-      }}
-    >
+        ]}
+      />
       <ScrollView>
         <PageContent>
           <div className="grid h-full gap-3">

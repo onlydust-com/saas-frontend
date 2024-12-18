@@ -73,15 +73,17 @@ function Safe() {
       <CardProjectMarketplace
         key={project.id}
         name={project.name}
+        slug={project.slug}
         description={project.shortDescription}
         logoUrl={project.logoUrl}
         contributorCount={project.contributorCount}
         starCount={project.starCount}
-        pullRequestCount={project.pullRequestCount}
-        issueCount={project.issueCount}
+        forkCount={project.forkCount}
+        availableIssueCount={project.availableIssueCount}
         goodFirstIssueCount={project.goodFirstIssueCount}
         categories={project.categories}
         languages={project.languages}
+        ecosystems={project.ecosystems}
       />
     ));
   }, [projects, isError, isLoading]);
@@ -96,7 +98,7 @@ function Safe() {
         translate: { token: "explore:browse.description" },
       }}
       classNames={{
-        base: "gap-4xl",
+        base: "gap-3xl",
       }}
     >
       <div className="flex flex-col gap-3xl">

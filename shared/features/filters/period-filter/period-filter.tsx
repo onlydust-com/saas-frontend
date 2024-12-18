@@ -12,7 +12,7 @@ import { PeriodFilterProps } from "@/shared/features/filters/period-filter/perio
 import { usePeriodSelectOptions } from "@/shared/hooks/select/use-period-select-options";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function PeriodFilter({ onChange, value }: PeriodFilterProps) {
+export function PeriodFilter({ onChange, value, placement }: PeriodFilterProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const rangeMenu = usePeriodSelectOptions();
 
@@ -74,6 +74,7 @@ export function PeriodFilter({ onChange, value }: PeriodFilterProps) {
         content: "max-h-[initial]",
       }}
       endContent={renderCalendar()}
+      placement={placement}
     >
       <Button
         as={"div"}

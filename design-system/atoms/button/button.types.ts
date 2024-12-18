@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren, ReactNode } from "react";
 
+import { AnyType } from "@/core/kernel/types";
+
 import { IconPort } from "@/design-system/atoms/icon";
 
 import { TranslateProps } from "@/shared/translation/components/translate/translate.types";
@@ -65,7 +67,9 @@ export interface ButtonTextPort<C extends ElementType>
 export type ButtonPort<C extends ElementType> = ButtonSolidPort<C> | ButtonTextPort<C>;
 
 export interface ButtonGroupPort
-  extends Pick<ButtonSolidPort<"button">, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
-  buttons: (Omit<ButtonSolidPort<"button">, "variant"> & { tooltip?: TooltipPort<"div"> })[];
+  extends Pick<ButtonSolidPort<AnyType>, "theme" | "classNames" | "size" | "isDisabled" | "iconOnly"> {
+  buttons: (Omit<ButtonSolidPort<AnyType>, "variant"> & { tooltip?: TooltipPort<"div"> })[];
   onClick?: (index: number) => void;
+  fullWidth?: boolean;
+  variant?: ButtonSolidVariant;
 }

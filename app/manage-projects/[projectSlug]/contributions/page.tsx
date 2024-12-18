@@ -10,6 +10,7 @@ import { ContributionKanbanFilters } from "@/app/manage-projects/[projectSlug]/c
 import { KanbanView } from "@/app/manage-projects/[projectSlug]/contributions/_features/kanban-view/kanban-view";
 import { ListView } from "@/app/manage-projects/[projectSlug]/contributions/_features/list-view/list-view";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
@@ -18,10 +19,13 @@ import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum View {
   LIST = "list",
@@ -39,6 +43,13 @@ export default function ManageProgramsContributionsPage({
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const { open: openFilterPanel } = useContributionsFilterDataSidePanel();
   const { open: openContribution } = useContributionsSidepanel();
+
+  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+    pathParams: { slug: projectSlug },
+    options: {
+      enabled: Boolean(projectSlug),
+    },
+  });
 
   const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
@@ -96,6 +107,24 @@ export default function ManageProgramsContributionsPage({
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: <Translate token={"manageProjects:list.header.title"} />,
+            href: NEXT_ROUTER.manageProjects.root,
+          },
+          {
+            id: "details",
+            label: data?.name ?? "",
+            href: NEXT_ROUTER.manageProjects.default.root(projectSlug),
+          },
+          {
+            id: "contributions",
+            label: <Translate token={"manageProjects:detail.views.contributions"} />,
+          },
+        ]}
+      />
       <div className={"flex h-full flex-col gap-lg overflow-hidden"}>
         <nav className={"flex gap-md"}>
           <FilterButton onClick={openFilterPanel} />

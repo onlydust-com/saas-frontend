@@ -15,12 +15,13 @@ export class ProjectListItemV2 implements ProjectListItemInterfaceV2 {
   shortDescription!: ProjectListItemResponseV2["shortDescription"];
   contributorCount!: ProjectListItemResponseV2["contributorCount"];
   starCount!: ProjectListItemResponseV2["starCount"];
-  pullRequestCount!: ProjectListItemResponseV2["pullRequestCount"];
-  issueCount!: ProjectListItemResponseV2["issueCount"];
+  forkCount!: ProjectListItemResponseV2["forkCount"];
+  availableIssueCount!: ProjectListItemResponseV2["availableIssueCount"];
   goodFirstIssueCount!: ProjectListItemResponseV2["goodFirstIssueCount"];
   categories!: ProjectCategoryInterface[];
   languages!: ProjectListItemResponseV2["languages"];
   logoUrl!: ProjectListItemResponseV2["logoUrl"];
+  ecosystems!: ProjectListItemResponseV2["ecosystems"];
 
   constructor(props: ProjectListItemResponseV2) {
     Object.assign(this, props);

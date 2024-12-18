@@ -4,6 +4,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { ProjectListItemInterfaceV2 } from "../project/models/project-list-item-model-v2";
 import { MatchingQuestionsInterface } from "./models/matching-questions-model";
 
 /* ------------------------------ Get Matching Questions ------------------------------ */
@@ -33,3 +34,19 @@ export type SaveMatchingQuestionsPortParams = HttpClientParameters<{
 }>;
 
 export type SaveMatchingQuestionsPortResponse = HttpStorageResponse;
+
+/* ------------------------------ Get Recommended Projects ------------------------------ */
+
+export type GetRecommendedProjectsResponse = components["schemas"]["RecommendedProjectsResponse"];
+
+export type GetRecommendedProjectsModel = Omit<GetRecommendedProjectsResponse, "projects"> & {
+  projects: ProjectListItemInterfaceV2[];
+};
+
+type GetRecommendedProjectsQueryParams = operations["getRecommendedProjects"]["parameters"]["query"];
+
+export type GetRecommendedProjectsPortResponse = HttpStorageResponse<GetRecommendedProjectsModel>;
+
+export type GetRecommendedProjectsPortParams = HttpClientParameters<{
+  QueryParams: GetRecommendedProjectsQueryParams;
+}>;

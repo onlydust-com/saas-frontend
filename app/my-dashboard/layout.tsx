@@ -123,16 +123,7 @@ function Safe({ children }: PropsWithChildren) {
 
 function MyDashboardLayout({ children }: PropsWithChildren) {
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"myDashboard:detail.header.title"} />,
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <GithubPermissionsProvider>
         <RequestPaymentFlowProvider>
           <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />

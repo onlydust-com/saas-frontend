@@ -30,7 +30,7 @@ export function CardProjectCategoryDefaultAdapter<C extends ElementType = "div">
       />
       <div className="flex flex-col items-center gap-xs">
         <Typo
-          size="sm"
+          size="xs"
           weight="medium"
           variant="heading"
           color="primary"
@@ -43,7 +43,7 @@ export function CardProjectCategoryDefaultAdapter<C extends ElementType = "div">
         <Typo
           size="xs"
           color="secondary"
-          translate={{ token: "features:cardProjectCategory.projectCount", count: 42 }}
+          translate={{ token: "features:cardProjectCategory.projectCount", count: category.projectCount }}
         />
       </div>
     </Component>

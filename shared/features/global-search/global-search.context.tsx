@@ -95,14 +95,14 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
 
   // Fetch search results and suggestions
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
-    queryParams: queryParams,
+    queryParams,
     options: {
       enabled: debouncedOpen,
     },
   });
 
   const { data: Suggestion } = SearchReactQueryAdapter.client.useSuggest({
-    queryParams: queryParams,
+    queryParams,
     options: {
       enabled: debouncedOpen,
     },
@@ -138,10 +138,8 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   }, [data]);
 
   const typeFacets: SearchModel["typeFacets"] = useMemo(() => {
-    const types = extractFacetsFromPages(page => page.typeFacets?.types);
-
     return {
-      types: mergeFacetsWithFilters(types, filters.type ? [SearchDto.ressourceTypeToString(filters.type)] : []),
+      types: extractFacetsFromPages(page => page.typeFacets?.types),
     };
   }, [data]);
 
@@ -151,6 +149,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       setFilters({});
       setInputValue(null);
       setOpen(false);
+      setOpenFilter(false);
     } else {
       setOpen(true);
       setDebouncedOpen(true);
@@ -158,6 +157,10 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   }
 
   function onInputChange(v: string) {
+    if (!v) {
+      setFilters({});
+      setOpenFilter(false);
+    }
     setInputValue(v);
   }
 

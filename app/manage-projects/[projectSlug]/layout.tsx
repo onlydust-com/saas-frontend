@@ -169,19 +169,19 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                   searchParams={"data-view"}
                   tabs={[
                     {
-                      id: Views.CONTRIBUTORS,
-                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                      },
-                    },
-                    {
                       id: Views.CONTRIBUTIONS,
                       children: <Translate token={"manageProjects:detail.views.contributions"} />,
                       as: BaseLink,
                       htmlProps: {
                         href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                      },
+                    },
+                    {
+                      id: Views.CONTRIBUTORS,
+                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                      as: BaseLink,
+                      htmlProps: {
+                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
                       },
                     },
                     {
@@ -224,21 +224,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper
-      navigation={{
-        breadcrumbs: [
-          {
-            id: "root",
-            label: <Translate token={"manageProjects:list.header.title"} />,
-            href: NEXT_ROUTER.manageProjects.root,
-          },
-          {
-            id: "details",
-            label: data?.name ?? "",
-          },
-        ],
-      }}
-    >
+    <PageWrapper>
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{

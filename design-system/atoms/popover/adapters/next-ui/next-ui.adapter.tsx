@@ -40,7 +40,7 @@ export function PopoverNextUiAdapter({
 PopoverNextUiAdapter.Trigger = function PopoverNextUiAdapterTrigger({ children }: PopoverTriggerPort) {
   const context = useContext(PopoverContext);
 
-  return <PopoverTrigger>{children(context)}</PopoverTrigger>;
+  return <PopoverTrigger className="z-0">{children(context)}</PopoverTrigger>;
 };
 
 PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({

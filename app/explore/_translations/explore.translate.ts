@@ -3,31 +3,17 @@ export const enExploreTranslation = {
     title: "Explore",
     trending: {
       title: "Trending projects",
-      description: "Popular open-source projects this week",
+      description:
+        "Discover the most popular open-source projects of the week, handpicked based on community engagement, contributions, and activity. Explore innovative tools, frameworks, and libraries making waves in the developer ecosystem.",
     },
     expertise: {
       title: "Expertise",
-      description: "Browse projects by your area of expertise",
-    },
-    projectLeaderboard: {
-      title: "Most active projects",
-      description: "Projects with highest commit activity",
-      emptyState: {
-        title: "No projects found",
-        description: "There are no projects with highest commit activity",
-      },
-    },
-    contributorLeaderboard: {
-      title: "Top Contributors",
-      description: "Contributors with the most pull requests",
-      emptyState: {
-        title: "No contributors found",
-        description: "There are no contributors to display",
-      },
+      description: "Filter projects by specific categories to find exactly what you’re looking for",
     },
     browse: {
       title: "Browse projects",
-      description: "Browse projects by category",
+      description:
+        "Discover innovative ideas, creative solutions, and detailed work that showcases unique expertise and impactful results.",
       filters: {
         title: "Add filters",
         clear: "Clear all",

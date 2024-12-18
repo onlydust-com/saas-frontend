@@ -12,7 +12,10 @@ import { Table, TableLoading } from "@/design-system/molecules/table";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function MyDashboardProjectsPage() {
   const { columns } = useFilterColumns();
@@ -40,6 +43,19 @@ export default function MyDashboardProjectsPage() {
 
   return (
     <div>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: <Translate token={"myDashboard:detail.header.title"} />,
+            href: NEXT_ROUTER.myDashboard.root,
+          },
+          {
+            id: "projects",
+            label: <Translate token={"myDashboard:detail.views.projects"} />,
+          },
+        ]}
+      />
       <ScrollView direction={"all"}>
         <Table
           table={table}
