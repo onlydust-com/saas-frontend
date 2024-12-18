@@ -2,7 +2,7 @@
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
 import Image from "next/image";
-import { ElementType, useEffect, useRef, useState } from "react";
+import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -15,25 +15,20 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
-  AvatarProps,
+  AvatarWithEcosystemsProps,
   CardProjectMarketplacePort,
   CategoriesProps,
-  LanguageProps,
+  LanguagesProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 import Header from "./header.png";
-
-function getLanguageColor(id: string) {
-  return `hsl(${(parseInt(id, 36) * 137.5) % 360}deg, 65%, 50%)`;
-}
 
 function Metric({ icon, count }: MetricProps) {
   return (
@@ -47,28 +42,7 @@ function Metric({ icon, count }: MetricProps) {
   );
 }
 
-function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) {
-  return (
-    <div className="flex items-center gap-xs">
-      <div
-        className="size-1.5 rounded-full"
-        style={{
-          backgroundColor: getLanguageColor(id),
-        }}
-      />
-
-      <Typo size="xs" classNames={{ base: nameClassNames }}>
-        {name}
-      </Typo>
-
-      <Typo size="xs" color="quaternary">
-        {percentage}%
-      </Typo>
-    </div>
-  );
-}
-
-function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarProps) {
+function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
   const [avatarRef, { height }] = useMeasure<HTMLDivElement>();
 
   function renderBadge() {
@@ -173,6 +147,52 @@ function Categories({ categories = [] }: CategoriesProps) {
         ) : null}
       </div>
     </div>
+  );
+}
+
+function Languages({ languages }: LanguagesProps) {
+  if (!languages?.length) return null;
+
+  const sortedLanguages = useMemo(() => languages.sort((a, b) => b.percentage - a.percentage), [languages]);
+
+  return (
+    <Tooltip
+      background="primary"
+      content={
+        <div className="flex flex-col gap-1">
+          {sortedLanguages.map(language => (
+            <div key={language.id} className="flex items-center justify-between gap-md">
+              <div className="flex items-center gap-md">
+                <img src={language.transparentLogoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+
+                <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                  {language.name}
+                </Typo>
+              </div>
+
+              <Typo size="xs" color="quaternary">
+                {language.percentage}%
+              </Typo>
+            </div>
+          ))}
+        </div>
+      }
+    >
+      <div className="flex h-6 w-full gap-xs">
+        {sortedLanguages.map(language => (
+          <div
+            key={language.id}
+            className="relative flex h-full min-w-6 items-center justify-start overflow-hidden rounded-md p-xs"
+            style={{
+              width: `${Math.max(language.percentage, 24)}%`,
+              backgroundColor: language.color,
+            }}
+          >
+            <img src={language.logoUrl} loading="lazy" width={20} height={20} alt={language.name} />
+          </div>
+        ))}
+      </div>
+    </Tooltip>
   );
 }
 
@@ -283,38 +303,8 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           ) : null}
 
           <Categories categories={categories} />
-          {languages?.length ? (
-            <div className="flex flex-col gap-2md pt-md">
-              <div className="flex h-1.5 w-full overflow-hidden rounded-full">
-                {languages.map(language => (
-                  <div
-                    key={language.id}
-                    className="h-full"
-                    style={{
-                      width: `${language.percentage}%`,
-                      backgroundColor: getLanguageColor(language.id),
-                    }}
-                  >
-                    <Tooltip
-                      content={<Language {...language} nameClassNames="text-inherit" />}
-                      classNames={{ wrapper: "size-full" }}
-                    />
-                  </div>
-                ))}
-              </div>
 
-              <ScrollView>
-                <div className="flex max-w-full gap-lg">
-                  {languages
-                    .sort((a, b) => b.percentage - a.percentage)
-                    .slice(0, 3)
-                    .map(language => (
-                      <Language key={language.id} {...language} nameClassNames="truncate" />
-                    ))}
-                </div>
-              </ScrollView>
-            </div>
-          ) : null}
+          <Languages languages={languages} />
         </div>
       </div>
     </Paper>
