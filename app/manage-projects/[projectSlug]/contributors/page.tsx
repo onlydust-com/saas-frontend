@@ -32,7 +32,7 @@ export default function ManageProgramsContributorsPage({
           {
             id: "details",
             label: data?.name ?? "",
-            href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+            href: NEXT_ROUTER.manageProjects.default.root(projectSlug),
           },
           {
             id: "contributors",
