@@ -83,6 +83,7 @@ function Safe() {
         goodFirstIssueCount={project.goodFirstIssueCount}
         categories={project.categories}
         languages={project.languages}
+        ecosystems={project.ecosystems}
       />
     ));
   }, [projects, isError, isLoading]);

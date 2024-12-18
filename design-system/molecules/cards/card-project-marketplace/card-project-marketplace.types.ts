@@ -30,7 +30,7 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     name: string;
     percentage: number;
     logoUrl: string;
-    color: string;
+    color?: string;
     transparentLogoUrl?: string;
   }[];
   ecosystems?: {

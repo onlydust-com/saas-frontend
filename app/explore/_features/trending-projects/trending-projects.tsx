@@ -52,6 +52,7 @@ export function TrendingProjects() {
           goodFirstIssueCount={project.goodFirstIssueCount}
           categories={project.categories}
           languages={project.languages}
+          ecosystems={project.ecosystems}
         />
       ))
     );
