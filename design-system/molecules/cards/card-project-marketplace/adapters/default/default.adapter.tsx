@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
+import { CircleDot, GitFork, Plus, Star, UserRound } from "lucide-react";
 import { ElementType, useEffect, useMemo, useRef, useState } from "react";
 import { useMeasure } from "react-use";
 
@@ -158,6 +158,24 @@ function Categories({ categories = [] }: CategoriesProps) {
 function Languages({ languages }: LanguagesProps) {
   const sortedLanguages = useMemo(() => languages?.sort((a, b) => b.percentage - a.percentage), [languages]);
 
+  const { main, other, otherPercent } = useMemo(() => {
+    if (!sortedLanguages) return { main: [], other: [], otherPercent: 0 };
+
+    if (sortedLanguages.length <= 2) {
+      return {
+        main: sortedLanguages,
+        other: [],
+        otherPercent: 0,
+      };
+    }
+    const main = sortedLanguages.filter((lang, index) => index < 3 && lang.percentage > 20);
+    const other = sortedLanguages.filter((lang, index) => index >= 3 || lang.percentage <= 20);
+
+    const otherPercent = other.reduce((sum, lang) => sum + lang.percentage, 0) ?? 0;
+
+    return { main, other, otherPercent };
+  }, [sortedLanguages]);
+
   if (!sortedLanguages?.length) return null;
 
   return (
@@ -168,7 +186,7 @@ function Languages({ languages }: LanguagesProps) {
           {sortedLanguages.map(language => (
             <div key={language.id} className="flex items-center justify-between gap-md">
               <div className="flex items-center gap-md">
-                <img src={language.transparentLogoUrl} loading="lazy" alt={language.name} className="w-5" />
+                <Avatar src={language.logoUrl} alt={language.name} size="xxs" shape="squared" />
 
                 <Typo size="xs" classNames={{ base: "text-inherit" }}>
                   {language.name}
@@ -184,18 +202,54 @@ function Languages({ languages }: LanguagesProps) {
       }
     >
       <div className="flex h-auto w-full gap-xs">
-        {sortedLanguages.map(language => (
-          <div
-            key={language.id}
-            className="relative flex h-full min-w-7 items-center justify-start overflow-hidden rounded-md p-xxs"
-            style={{
-              width: `${language.percentage}%`,
-              backgroundColor: language.color,
-            }}
-          >
-            <img src={language.logoUrl} loading="lazy" alt={language.name} className="w-5" />
-          </div>
-        ))}
+        <div className="flex h-auto flex-1 gap-xs">
+          {main.map(language => (
+            <div
+              key={language.id}
+              className="relative flex h-full min-w-7 items-center justify-between overflow-hidden"
+              style={{
+                width: `${language.percentage}%`,
+              }}
+            >
+              <Badge
+                key={language.id}
+                color="brand"
+                variant="outline"
+                shape="rounded"
+                size="xs"
+                classNames={{ base: "border-none w-full", content: "justify-between text-typography-primary-on-solid" }}
+                avatar={{
+                  src: language.logoUrl,
+                  alt: language.name,
+                }}
+                styles={{
+                  backgroundColor: language.color,
+                }}
+              >
+                {`${language.percentage.toFixed(0)}%`}
+              </Badge>
+            </div>
+          ))}
+          {other?.length ? (
+            <div
+              className="min-w-fit"
+              style={{
+                width: `${otherPercent}%`,
+              }}
+            >
+              <Badge
+                color="grey"
+                variant="outline"
+                shape="rounded"
+                size="xs"
+                classNames={{ content: "justify-between" }}
+                icon={{ component: Plus }}
+              >
+                {Math.ceil(otherPercent)}%
+              </Badge>
+            </div>
+          ) : null}
+        </div>
       </div>
     </Tooltip>
   );
