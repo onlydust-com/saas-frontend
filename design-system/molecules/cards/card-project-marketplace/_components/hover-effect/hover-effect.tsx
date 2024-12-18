@@ -70,7 +70,7 @@ export function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivEleme
           />
         )}
       </div>
-      <div className="app-gradient absolute inset-[2px] overflow-hidden rounded-[10px]" />
+      <div className="purple-halo-gradient absolute inset-[2px] overflow-hidden rounded-[10px]" />
       <motion.div
         className="card-hover-gradient absolute inset-0 z-20"
         style={{
