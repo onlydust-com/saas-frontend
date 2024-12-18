@@ -6,6 +6,7 @@ import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
+import { ButtonGroupPort } from "@/design-system/atoms/button/button.types";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
@@ -17,6 +18,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
@@ -218,6 +220,50 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
   const cardRef = useRef<HTMLDivElement>(null);
+  const isGreaterThanTablet = useIsTablet("greater");
+
+  const buttons = useMemo(() => {
+    const buttons: ButtonGroupPort["buttons"] = [
+      {
+        as: BaseLink,
+        htmlProps: {
+          href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+        },
+        translate: {
+          token: "common:count.goodFirstIssues",
+          values: { count: goodFirstIssueCount },
+        },
+        startContent: (
+          <div className="relative mr-0.5 size-1.5">
+            <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
+            <div className="size-full rounded-full bg-utility-secondary-green-500" />
+          </div>
+        ),
+      },
+    ];
+
+    if (isGreaterThanTablet) {
+      buttons.unshift({
+        as: BaseLink,
+        htmlProps: {
+          href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
+        },
+        translate: {
+          token: "common:count.openIssues",
+          values: { count: availableIssueCount },
+        },
+        classNames: {
+          startIcon: "text-utility-secondary-green-500",
+        },
+        startIcon: {
+          component: CircleDot,
+          size: "xs",
+        },
+      });
+    }
+
+    return buttons;
+  }, [isGreaterThanTablet]);
 
   return (
     <Paper
@@ -250,46 +296,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
             </div>
 
             <div className="flex w-full">
-              <ButtonGroup
-                fullWidth
-                variant="tertiary"
-                buttons={[
-                  {
-                    as: BaseLink,
-                    htmlProps: {
-                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                    },
-                    translate: {
-                      token: "common:count.openIssues",
-                      values: { count: availableIssueCount },
-                    },
-                    classNames: {
-                      startIcon: "text-utility-secondary-green-500",
-                    },
-                    startIcon: {
-                      component: CircleDot,
-                      size: "xs",
-                    },
-                  },
-                  {
-                    as: BaseLink,
-                    htmlProps: {
-                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                    },
-                    translate: {
-                      token: "common:count.goodFirstIssues",
-                      values: { count: goodFirstIssueCount },
-                    },
-                    startContent: (
-                      <div className="relative mr-0.5 size-1.5">
-                        <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
-                        <div className="size-full rounded-full bg-utility-secondary-green-500" />
-                      </div>
-                    ),
-                  },
-                ]}
-                size="xs"
-              />
+              <ButtonGroup fullWidth variant="tertiary" buttons={buttons} size="xs" />
             </div>
 
             {description ? (
