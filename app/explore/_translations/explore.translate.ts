@@ -13,7 +13,7 @@ export const enExploreTranslation = {
     browse: {
       title: "Browse projects",
       description:
-        "Discover innovative ideas, creative solutions, and detailed work that showcase unique expertise and impactful results.",
+        "Discover innovative ideas, creative solutions, and detailed work that showcases unique expertise and impactful results.",
       filters: {
         title: "Add filters",
         clear: "Clear all",
