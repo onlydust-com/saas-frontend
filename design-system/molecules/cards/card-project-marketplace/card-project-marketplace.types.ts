@@ -29,6 +29,8 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     id: string;
     name: string;
     percentage: number;
+    logoUrl: string;
+    color: string;
   }[];
   ecosystems?: {
     id: string;
@@ -48,6 +50,8 @@ export interface LanguageProps {
   name: string;
   percentage: number;
   nameClassNames?: string;
+  color: string;
+  logoUrl: string;
 }
 
 export interface AvatarProps {

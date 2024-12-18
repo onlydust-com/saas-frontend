@@ -15,7 +15,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -47,19 +46,22 @@ function Metric({ icon, count }: MetricProps) {
   );
 }
 
-function Language({ id, name, percentage, nameClassNames = "" }: LanguageProps) {
+function Language({ name, percentage, logoUrl, nameClassNames = "" }: LanguageProps) {
   return (
-    <div className="flex items-center gap-xs">
-      <div
-        className="size-1.5 rounded-full"
-        style={{
-          backgroundColor: getLanguageColor(id),
-        }}
-      />
+    <div className="flex items-center justify-between gap-lg">
+      <div className="flex items-center gap-xs">
+        <Avatar
+          src={logoUrl}
+          alt={name}
+          size="xs"
+          shape="rounded"
+          classNames={{ base: "!outline-none", image: "rounded-xs" }}
+        />
 
-      <Typo size="xs" classNames={{ base: nameClassNames }}>
-        {name}
-      </Typo>
+        <Typo size="xs" classNames={{ base: nameClassNames }}>
+          {name}
+        </Typo>
+      </div>
 
       <Typo size="xs" color="quaternary">
         {percentage}%
@@ -284,36 +286,40 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
 
           <Categories categories={categories} />
           {languages?.length ? (
-            <div className="flex flex-col gap-2md pt-md">
-              <div className="flex h-1.5 w-full overflow-hidden rounded-full">
-                {languages.map(language => (
+            <Tooltip
+            content={
+              <div className="flex flex-col gap-1">
+                {languages
+                  .sort((a, b) => b.percentage - a.percentage)
+                  .map(language => (
+                    <Language key={language.id} {...language} nameClassNames="text-inherit" />
+                  ))}
+              </div>
+            }
+          >
+            <div className="flex h-7 w-full gap-xs">
+              {languages
+                .sort((a, b) => b.percentage - a.percentage)
+                .map(language => (
                   <div
                     key={language.id}
-                    className="h-full"
+                    className="relative flex h-full min-w-6 items-center justify-start rounded-md p-xs"
                     style={{
-                      width: `${language.percentage}%`,
-                      backgroundColor: getLanguageColor(language.id),
+                      width: `${Math.max(language.percentage, 24)}%`,
+                      backgroundColor: language.color,
                     }}
                   >
-                    <Tooltip
-                      content={<Language {...language} nameClassNames="text-inherit" />}
-                      classNames={{ wrapper: "size-full" }}
+                    <Avatar
+                      src={language.logoUrl}
+                      alt={language.name}
+                      size="xs"
+                      shape="squared"
+                      classNames={{ base: "!outline-none", image: "rounded-none" }}
                     />
                   </div>
                 ))}
-              </div>
-
-              <ScrollView>
-                <div className="flex max-w-full gap-lg">
-                  {languages
-                    .sort((a, b) => b.percentage - a.percentage)
-                    .slice(0, 3)
-                    .map(language => (
-                      <Language key={language.id} {...language} nameClassNames="truncate" />
-                    ))}
-                </div>
-              </ScrollView>
             </div>
+          </Tooltip>
           ) : null}
         </div>
       </div>
