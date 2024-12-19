@@ -217,13 +217,17 @@ function Languages({ languages }: LanguagesProps) {
                 variant="outline"
                 shape="rounded"
                 size="xs"
-                classNames={{ base: "border-none w-full", content: "justify-between text-typography-primary-on-solid" }}
+                classNames={{
+                  base: "border-none w-full bg-opacity-20",
+                  content: "justify-between",
+                }}
                 avatar={{
                   src: language.logoUrl,
                   alt: language.name,
                 }}
                 styles={{
-                  backgroundColor: language.color,
+                  backgroundColor: language.color + "33", // 33 is 20% opacity
+                  labelColor: language.color,
                 }}
               >
                 {`${language.percentage.toFixed(0)}%`}
