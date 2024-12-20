@@ -10,6 +10,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
 
@@ -225,4 +226,22 @@ type GetProjectBySlugOrIdV2QueryParams = operations["getProjectV2"]["parameters"
 export type GetProjectBySlugOrIdV2PortParams = HttpClientParameters<{
   QueryParams: GetProjectBySlugOrIdV2QueryParams;
   PathParams: GetProjectBySlugOrIdV2PathParams;
+}>;
+
+/* ------------------------------ Get Project Available Issuers ------------------------------ */
+
+export type GetProjectAvailableIssuesResponse = components["schemas"]["GithubIssuePageResponse"];
+
+export type GetProjectAvailableIssuesModel = Omit<GetProjectAvailableIssuesResponse, "issues"> & {
+  issues: ProjectAvailableIssuesInterface[];
+};
+
+type GetProjectAvailableIssuesPathParams = operations["getProjectAvailableIssues"]["parameters"]["path"];
+type GetProjectAvailableIssuesQueryParams = operations["getProjectAvailableIssues"]["parameters"]["query"];
+
+export type GetProjectAvailableIssuesPortResponse = HttpStorageResponse<GetProjectAvailableIssuesModel>;
+
+export type GetProjectAvailableIssuesPortParams = HttpClientParameters<{
+  QueryParams: GetProjectAvailableIssuesQueryParams;
+  PathParams: GetProjectAvailableIssuesPathParams;
 }>;

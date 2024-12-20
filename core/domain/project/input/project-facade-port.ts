@@ -1,6 +1,8 @@
 import {
   EditProjectPortParams,
   EditProjectPortResponse,
+  GetProjectAvailableIssuesPortParams,
+  GetProjectAvailableIssuesPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
   GetProjectBySlugOrIdV2PortParams,
@@ -60,4 +62,5 @@ export interface ProjectFacadePort {
   ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
   getProjectsV2(p: GetProjectsV2PortParams): GetProjectsV2PortResponse;
   getProjectBySlugOrIdV2(p: GetProjectBySlugOrIdV2PortParams): GetProjectBySlugOrIdV2PortResponse;
+  getProjectAvailableIssues(p: GetProjectAvailableIssuesPortParams): GetProjectAvailableIssuesPortResponse;
 }

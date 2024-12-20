@@ -1,3 +1,4 @@
+import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
@@ -10,6 +11,7 @@ import { ProjectTransaction } from "@/core/domain/project/models/project-transac
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import {
   EditProjectBody,
+  GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
   GetProjectBySlugOrIdV2Response,
   GetProjectBySlugResponse,
@@ -50,6 +52,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectPrograms: "projects/:projectId/programs",
     ungrantProject: "projects/:projectId/ungrant",
     getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
+    getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -440,9 +443,38 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         tag,
         pathParams,
         queryParams,
+        version: MarketplaceApiVersion.v2,
       });
 
       return new ProjectV2(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectAvailableIssues = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectAvailableIssues"]>) => {
+    const path = this.routes["getProjectAvailableIssues"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectAvailableIssuesResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        issues: data.issues.map(issue => new ProjectAvailableIssues(issue)),
+      };
     };
 
     return {
