@@ -11,6 +11,7 @@ import {
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
+import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
 
@@ -244,4 +245,22 @@ export type GetProjectAvailableIssuesPortResponse = HttpStorageResponse<GetProje
 export type GetProjectAvailableIssuesPortParams = HttpClientParameters<{
   QueryParams: GetProjectAvailableIssuesQueryParams;
   PathParams: GetProjectAvailableIssuesPathParams;
+}>;
+
+/* ------------------------------ Get Project contributors ------------------------------ */
+
+export type GetProjectContributorsV2Response = components["schemas"]["ContributorsPageResponseV2"];
+
+export type GetProjectContributorsV2Model = Omit<GetProjectContributorsV2Response, "contributors"> & {
+  contributors: ProjectContributorsInterfaceV2[];
+};
+
+type GetProjectContributorsV2PathParams = operations["getProjectContributorsV2"]["parameters"]["path"];
+type GetProjectContributorsV2QueryParams = operations["getProjectContributorsV2"]["parameters"]["query"];
+
+export type GetProjectContributorsV2PortResponse = HttpStorageResponse<GetProjectContributorsV2Model>;
+
+export type GetProjectContributorsV2PortParams = HttpClientParameters<{
+  QueryParams: GetProjectContributorsV2QueryParams;
+  PathParams: GetProjectContributorsV2PathParams;
 }>;

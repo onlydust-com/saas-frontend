@@ -11,6 +11,8 @@ import {
   GetProjectBySlugPortResponse,
   GetProjectContributorLabelsPortParams,
   GetProjectContributorLabelsPortResponse,
+  GetProjectContributorsV2PortParams,
+  GetProjectContributorsV2PortResponse,
   GetProjectFinancialDetailsByIdPortParams,
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
@@ -63,4 +65,5 @@ export interface ProjectFacadePort {
   getProjectsV2(p: GetProjectsV2PortParams): GetProjectsV2PortResponse;
   getProjectBySlugOrIdV2(p: GetProjectBySlugOrIdV2PortParams): GetProjectBySlugOrIdV2PortResponse;
   getProjectAvailableIssues(p: GetProjectAvailableIssuesPortParams): GetProjectAvailableIssuesPortResponse;
+  getProjectContributorsV2(p: GetProjectContributorsV2PortParams): GetProjectContributorsV2PortResponse;
 }

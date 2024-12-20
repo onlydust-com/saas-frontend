@@ -1,5 +1,6 @@
 import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
+import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
@@ -16,6 +17,7 @@ import {
   GetProjectBySlugOrIdV2Response,
   GetProjectBySlugResponse,
   GetProjectContributorLabelsResponse,
+  GetProjectContributorsV2Response,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectProgramsResponse,
@@ -53,6 +55,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     ungrantProject: "projects/:projectId/ungrant",
     getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
     getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
+    getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -474,6 +477,36 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       return {
         ...data,
         issues: data.issues.map(issue => new ProjectAvailableIssues(issue)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectContributorsV2 = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectContributorsV2"]>) => {
+    const path = this.routes["getProjectContributorsV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectContributorsV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        contributors: data.contributors.map(contributor => new ProjectContributorsV2(contributor)),
       };
     };
 
