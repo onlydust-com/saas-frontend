@@ -1,0 +1,14 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "openIssues": "Open Issues",
+    "contributors": "Contributors",
+    "rewards": "Rewards"
+  },
+  "events": {
+    "title": "Events"
+  },
+  "similarProjects": {
+    "title": "Similar Projects"
+  }
+}
