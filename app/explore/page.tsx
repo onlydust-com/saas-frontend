@@ -26,7 +26,7 @@ function ExplorePage() {
         ]}
       />
 
-      <div className="mx-auto flex max-w-laptop flex-col gap-7xl py-4xl">
+      <div className="mx-auto flex flex-col gap-7xl py-4xl">
         {process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH !== "true" && <GlobalSearch byPassFlag={true} />}
         <ProjectBanners />
 
