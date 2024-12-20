@@ -49,10 +49,8 @@ export function TransactionsAccordion({
   }
 
   return (
-    <div className="overflow-hidden">
-      <ScrollView>
-        <Accordion items={items} defaultSelected={items?.[0] ? [items?.[0].id] : undefined} />
-      </ScrollView>
-    </div>
+    <ScrollView>
+      <Accordion items={items} defaultSelected={items?.[0] ? [items?.[0].id] : undefined} />
+    </ScrollView>
   );
 }
