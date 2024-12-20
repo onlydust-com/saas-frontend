@@ -2,8 +2,6 @@ import { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { AnyType } from "@/core/kernel/types";
 
-import { IconPort } from "@/design-system/atoms/icon";
-
 import { CategoriesProps } from "@/shared/features/projects/categories/categories.types";
 import { LanguagesProps } from "@/shared/features/projects/languages/languages.types";
 
@@ -32,11 +30,6 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     logoUrl: string;
   }[];
   onClick?: () => void;
-}
-
-export interface MetricProps {
-  icon: NonNullable<IconPort["component"]>;
-  count: number;
 }
 
 export interface AvatarWithEcosystemsProps {

@@ -5,7 +5,6 @@ import { ElementType, useRef } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
-import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -15,29 +14,14 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
+import { Metric } from "@/shared/features/projects/metric/metric";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
-import {
-  AvatarWithEcosystemsProps,
-  CardProjectMarketplacePort,
-  MetricProps,
-} from "../../card-project-marketplace.types";
+import { AvatarWithEcosystemsProps, CardProjectMarketplacePort } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
-
-function Metric({ icon, count }: MetricProps) {
-  return (
-    <div className="flex items-center gap-sm">
-      <Icon component={icon} size="xxs" classNames={{ base: "text-foreground-quinary" }} />
-
-      <Typo size="xs" weight="medium">
-        {Intl.NumberFormat().format(count)}
-      </Typo>
-    </div>
-  );
-}
 
 function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
   function renderBadge() {
