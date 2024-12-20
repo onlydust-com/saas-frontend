@@ -6,6 +6,7 @@ import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query
 
 import { CardProjectCategory, CardProjectCategoryLoading } from "@/design-system/molecules/cards/card-project-category";
 
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { BREAKPOINTS } from "@/shared/constants/breakpoints";
 import { cn } from "@/shared/helpers/cn";
 
@@ -13,7 +14,7 @@ import { Section } from "../../_components/section/section";
 import { ProjectCategoryListProps } from "./project-category-list.types";
 
 export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
-  const { data, isLoading } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
+  const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
@@ -63,6 +64,10 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
           <CardProjectCategoryLoading />
         </div>
       ));
+    }
+
+    if (isError) {
+      return <ErrorState />;
     }
 
     if (!data?.categories.length) return null;
