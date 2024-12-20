@@ -19,6 +19,8 @@ import {
   GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectProgramsPortParams,
   GetProjectProgramsPortResponse,
+  GetProjectRewardsV2PortParams,
+  GetProjectRewardsV2PortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectTransactionsCsvPortResponse,
@@ -67,4 +69,5 @@ export interface ProjectStoragePort {
   getProjectBySlugOrIdV2(p: GetProjectBySlugOrIdV2PortParams): GetProjectBySlugOrIdV2PortResponse;
   getProjectAvailableIssues(p: GetProjectAvailableIssuesPortParams): GetProjectAvailableIssuesPortResponse;
   getProjectContributorsV2(p: GetProjectContributorsV2PortParams): GetProjectContributorsV2PortResponse;
+  getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
 }

@@ -7,6 +7,7 @@ import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-ite
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectV2 } from "@/core/domain/project/models/project-model-v2";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
+import { ProjectRewardsV2 } from "@/core/domain/project/models/project-rewards-model-v2";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
@@ -21,6 +22,7 @@ import {
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectProgramsResponse,
+  GetProjectRewardsV2Response,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
   GetProjectsV2Response,
@@ -56,6 +58,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
     getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
     getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
+    getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -507,6 +510,33 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       return {
         ...data,
         contributors: data.contributors.map(contributor => new ProjectContributorsV2(contributor)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectRewardsV2 = ({ pathParams, queryParams }: FirstParameter<ProjectStoragePort["getProjectRewardsV2"]>) => {
+    const path = this.routes["getProjectRewardsV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectRewardsV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        rewards: data.rewards.map(reward => new ProjectRewardsV2(reward)),
       };
     };
 

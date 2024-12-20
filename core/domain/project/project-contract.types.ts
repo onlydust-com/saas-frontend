@@ -14,6 +14,7 @@ import { ProjectAvailableIssuesInterface } from "./models/project-available-issu
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
+import { ProjectRewardsInterfaceV2 } from "./models/project-rewards-model-v2";
 
 type GetProjectResponse = components["schemas"]["ProjectResponse"];
 
@@ -247,7 +248,7 @@ export type GetProjectAvailableIssuesPortParams = HttpClientParameters<{
   PathParams: GetProjectAvailableIssuesPathParams;
 }>;
 
-/* ------------------------------ Get Project contributors ------------------------------ */
+/* ------------------------------ Get Project contributors V2 ------------------------------ */
 
 export type GetProjectContributorsV2Response = components["schemas"]["ContributorsPageResponseV2"];
 
@@ -263,4 +264,22 @@ export type GetProjectContributorsV2PortResponse = HttpStorageResponse<GetProjec
 export type GetProjectContributorsV2PortParams = HttpClientParameters<{
   QueryParams: GetProjectContributorsV2QueryParams;
   PathParams: GetProjectContributorsV2PathParams;
+}>;
+
+/* ------------------------------ Get Project rewards V2 ------------------------------ */
+
+export type GetProjectRewardsV2Response = components["schemas"]["RewardsPageResponseV2"];
+
+export type GetProjectRewardsV2Model = Omit<GetProjectRewardsV2Response, "rewards"> & {
+  rewards: ProjectRewardsInterfaceV2[];
+};
+
+type GetProjectRewardsV2PathParams = operations["getProjectRewardsV2"]["parameters"]["path"];
+type GetProjectRewardsV2QueryParams = operations["getProjectRewardsV2"]["parameters"]["query"];
+
+export type GetProjectRewardsV2PortResponse = HttpStorageResponse<GetProjectRewardsV2Model>;
+
+export type GetProjectRewardsV2PortParams = HttpClientParameters<{
+  QueryParams: GetProjectRewardsV2QueryParams;
+  PathParams: GetProjectRewardsV2PathParams;
 }>;
