@@ -21,7 +21,7 @@ enum Views {
 
 function Navigation({ params }: { params: { projectSlug: string } }) {
   const isOverview = useMatchPath(NEXT_ROUTER.projects.overview.root(params.projectSlug));
-  const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.openIssues.root(params.projectSlug));
+  const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.issues.root(params.projectSlug));
   const isContributors = useMatchPath(NEXT_ROUTER.projects.contributors.root(params.projectSlug));
   const isRewards = useMatchPath(NEXT_ROUTER.projects.rewards.root(params.projectSlug));
 
@@ -58,7 +58,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           children: <Translate token={"project:details.tabs.openIssues"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.projects.openIssues.root(params.projectSlug),
+            href: NEXT_ROUTER.projects.issues.root(params.projectSlug),
           },
         },
         {
