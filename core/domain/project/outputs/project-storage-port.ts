@@ -1,18 +1,26 @@
 import {
   EditProjectPortParams,
   EditProjectPortResponse,
+  GetProjectAvailableIssuesPortParams,
+  GetProjectAvailableIssuesPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
+  GetProjectBySlugOrIdV2PortParams,
+  GetProjectBySlugOrIdV2PortResponse,
   GetProjectBySlugPortParams,
   GetProjectBySlugPortResponse,
   GetProjectContributorLabelsPortParams,
   GetProjectContributorLabelsPortResponse,
+  GetProjectContributorsV2PortParams,
+  GetProjectContributorsV2PortResponse,
   GetProjectFinancialDetailsByIdPortParams,
   GetProjectFinancialDetailsByIdPortResponse,
   GetProjectFinancialDetailsBySlugPortParams,
   GetProjectFinancialDetailsBySlugPortResponse,
   GetProjectProgramsPortParams,
   GetProjectProgramsPortResponse,
+  GetProjectRewardsV2PortParams,
+  GetProjectRewardsV2PortResponse,
   GetProjectStatsPortParams,
   GetProjectStatsPortResponse,
   GetProjectTransactionsCsvPortResponse,
@@ -58,4 +66,8 @@ export interface ProjectStoragePort {
   getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
   ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
   getProjectsV2(p: GetProjectsV2PortParams): GetProjectsV2PortResponse;
+  getProjectBySlugOrIdV2(p: GetProjectBySlugOrIdV2PortParams): GetProjectBySlugOrIdV2PortResponse;
+  getProjectAvailableIssues(p: GetProjectAvailableIssuesPortParams): GetProjectAvailableIssuesPortResponse;
+  getProjectContributorsV2(p: GetProjectContributorsV2PortParams): GetProjectContributorsV2PortResponse;
+  getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
 }

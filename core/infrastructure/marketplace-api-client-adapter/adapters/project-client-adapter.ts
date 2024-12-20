@@ -1,20 +1,28 @@
+import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
+import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { Project } from "@/core/domain/project/models/project-model";
+import { ProjectV2 } from "@/core/domain/project/models/project-model-v2";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
+import { ProjectRewardsV2 } from "@/core/domain/project/models/project-rewards-model-v2";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import {
   EditProjectBody,
+  GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
+  GetProjectBySlugOrIdV2Response,
   GetProjectBySlugResponse,
   GetProjectContributorLabelsResponse,
+  GetProjectContributorsV2Response,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
   GetProjectProgramsResponse,
+  GetProjectRewardsV2Response,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
   GetProjectsV2Response,
@@ -47,6 +55,10 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       "projects/:projectId/contributions/:contributionUuid/unassign/:contributorId",
     getProjectPrograms: "projects/:projectId/programs",
     ungrantProject: "projects/:projectId/ungrant",
+    getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
+    getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
+    getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
+    getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -413,6 +425,118 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       return {
         ...data,
         projects: data.projects.map(project => new ProjectListItemV2(project)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectBySlugOrIdV2 = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectBySlugOrIdV2"]>) => {
+    const path = this.routes["getProjectBySlugOrIdV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectBySlugOrIdV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return new ProjectV2(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectAvailableIssues = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectAvailableIssues"]>) => {
+    const path = this.routes["getProjectAvailableIssues"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectAvailableIssuesResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        issues: data.issues.map(issue => new ProjectAvailableIssues(issue)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectContributorsV2 = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectContributorsV2"]>) => {
+    const path = this.routes["getProjectContributorsV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectContributorsV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        contributors: data.contributors.map(contributor => new ProjectContributorsV2(contributor)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectRewardsV2 = ({ pathParams, queryParams }: FirstParameter<ProjectStoragePort["getProjectRewardsV2"]>) => {
+    const path = this.routes["getProjectRewardsV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectRewardsV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        rewards: data.rewards.map(reward => new ProjectRewardsV2(reward)),
       };
     };
 
