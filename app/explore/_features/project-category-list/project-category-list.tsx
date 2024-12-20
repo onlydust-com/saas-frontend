@@ -1,6 +1,7 @@
 "use client";
 
 import { useKeenSlider } from "keen-slider/react";
+import { useCallback } from "react";
 
 import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
 
@@ -57,7 +58,7 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
     },
   });
 
-  function renderCategories() {
+  const renderCategories = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 8 }).map((_, index) => (
         <div key={index} className="keen-slider__slide">
@@ -77,7 +78,7 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
         <CardProjectCategory category={category} color={gradients[index % gradients.length]} />
       </div>
     ));
-  }
+  }, [data, isLoading, isError]);
 
   const gradients = [
     "cosmic_night",
