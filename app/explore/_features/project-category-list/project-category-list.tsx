@@ -18,6 +18,7 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
+    disabled: !data?.categories.length,
     initial: 0,
     mode: "snap",
     slides: {
@@ -67,13 +68,11 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
       ));
     }
 
-    if (isError) {
-      return <ErrorState />;
-    }
+    if (isError) return <ErrorState />;
 
     if (!data?.categories.length) return null;
 
-    return data.categories.map((category, index) => (
+    return data?.categories.map((category, index) => (
       <div key={category.id} className="keen-slider__slide">
         <CardProjectCategory category={category} color={gradients[index % gradients.length]} />
       </div>
