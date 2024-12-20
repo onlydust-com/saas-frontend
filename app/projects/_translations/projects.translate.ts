@@ -1,7 +1,7 @@
-import enProjects from "./project-details.en.json";
+import enProjectDetails from "./project-details.en.json";
 
 export const enProjectsTranslation = {
   project: {
-    details: enProjects,
+    details: enProjectDetails,
   },
 };
