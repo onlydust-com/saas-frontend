@@ -23,9 +23,9 @@ import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import { AvatarWithEcosystemsProps, CardProjectMarketplacePort } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 
-function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystemsProps) {
+function AvatarWithEcosystems({ name, logoUrl, ecosystems = [] }: AvatarWithEcosystemsProps) {
   function renderBadge() {
-    if (!ecosystems?.length) return null;
+    if (!ecosystems.length) return null;
 
     const ecosystemCount = ecosystems.length;
 
