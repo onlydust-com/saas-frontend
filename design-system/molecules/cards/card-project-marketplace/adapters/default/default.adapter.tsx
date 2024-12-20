@@ -1,11 +1,9 @@
 "use client";
 
 import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
-import { ElementType, useEffect, useRef, useState } from "react";
-import { useMeasure } from "react-use";
+import { ElementType, useRef } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { Badge } from "@/design-system/atoms/badge";
 import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
@@ -15,6 +13,7 @@ import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { cn } from "@/shared/helpers/cn";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
@@ -24,7 +23,6 @@ import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import {
   AvatarWithEcosystemsProps,
   CardProjectMarketplacePort,
-  CategoriesProps,
   MetricProps,
 } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
@@ -92,63 +90,6 @@ function AvatarWithEcosystems({ name, logoUrl, ecosystems }: AvatarWithEcosystem
       <div className="relative">
         <Avatar src={logoUrl} alt={name} size="xl" shape="squared" />
         {renderBadge()}
-      </div>
-    </div>
-  );
-}
-
-function Categories({ categories = [] }: CategoriesProps) {
-  const [containerRef, { width: containerWidth }] = useMeasure<HTMLDivElement>();
-  const [innerRef, { width: innerWidth }] = useMeasure<HTMLDivElement>();
-  const [visibleCategories, setVisibleCategories] = useState<NonNullable<CategoriesProps["categories"]>>(categories);
-  const [hiddenCategories, setHiddenCategories] = useState<NonNullable<CategoriesProps["categories"]>>([]);
-
-  useEffect(() => {
-    if (!containerWidth || !innerWidth || !categories?.length) return;
-
-    if (innerWidth > containerWidth) {
-      setVisibleCategories(prev => prev.slice(0, -1));
-      setHiddenCategories(prev => [visibleCategories[visibleCategories.length - 1], ...prev]);
-    }
-  }, [containerWidth, innerWidth, categories?.length]);
-
-  if (!categories.length) return null;
-
-  return (
-    <div ref={containerRef} className="w-full overflow-hidden">
-      <div ref={innerRef} className="inline-flex items-center gap-xs">
-        {visibleCategories.map(category => (
-          <Badge
-            key={category.name}
-            color="grey"
-            variant="outline"
-            shape="rounded"
-            size="xs"
-            classNames={{ base: "js-badge" }}
-          >
-            {category.name}
-          </Badge>
-        ))}
-
-        {hiddenCategories.length ? (
-          <Tooltip
-            background="primary"
-            placement="bottom"
-            content={
-              <ul className="flex flex-col gap-md">
-                {hiddenCategories.map(category => (
-                  <Typo key={category.name} as="li" size="xs" weight="medium">
-                    {category.name}
-                  </Typo>
-                ))}
-              </ul>
-            }
-          >
-            <Badge color="brand" shape="rounded" size="xs" variant="outline" classNames={{ base: "cursor-default" }}>
-              +{hiddenCategories.length}
-            </Badge>
-          </Tooltip>
-        ) : null}
       </div>
     </div>
   );

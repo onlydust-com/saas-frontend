@@ -8,8 +8,8 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { LanguagesProps } from "./languages.types";
 
-export function Languages({ languages }: LanguagesProps) {
-  const sortedLanguages = useMemo(() => languages?.sort((a, b) => b.percentage - a.percentage) ?? [], [languages]);
+export function Languages({ languages = [] }: LanguagesProps) {
+  const sortedLanguages = useMemo(() => languages.sort((a, b) => b.percentage - a.percentage), [languages]);
 
   const { main, other, otherPercent } = useMemo(() => {
     if (!sortedLanguages.length) return { main: [], other: [], otherPercent: 0 };
