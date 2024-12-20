@@ -53,4 +53,4 @@ export class BiContributorListItem implements BiContributorListItemInterface {
       },
     });
   }
-} 
+}
