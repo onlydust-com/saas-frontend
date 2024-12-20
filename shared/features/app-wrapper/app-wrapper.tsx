@@ -39,11 +39,23 @@ export function AppWrapper({ children }: AppWrapperProps) {
     }
   }, [isAuthenticated, isLoading, loginWithRedirect, error]);
 
+  function renderApp() {
+    if (!isLoading) {
+      return (
+        <>
+          <ImpersonationBanner />
+          <Navigation>{children}</Navigation>
+        </>
+      );
+    }
+
+    return null;
+  }
+
   return (
     <div className={"flex h-dvh w-dvw flex-col overflow-hidden"}>
       <AppGradient />
-      <ImpersonationBanner />
-      <Navigation>{children}</Navigation>
+      {renderApp()}
     </div>
   );
 }
