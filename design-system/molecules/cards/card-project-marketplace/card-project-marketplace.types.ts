@@ -55,7 +55,3 @@ export interface AvatarWithEcosystemsProps {
 export interface CategoriesProps {
   categories: CardProjectMarketplacePort<AnyType>["categories"];
 }
-
-export interface LanguagesProps {
-  languages: CardProjectMarketplacePort<AnyType>["languages"];
-}
