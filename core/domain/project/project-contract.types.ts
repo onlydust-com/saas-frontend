@@ -11,6 +11,7 @@ import {
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
+import { ProjectInterfaceV2 } from "./models/project-model-v2";
 
 type GetProjectResponse = components["schemas"]["ProjectResponse"];
 
@@ -211,3 +212,17 @@ type GetProjectsV2QueryParams = operations["getProjectsV2"]["parameters"]["query
 export type GetProjectsV2PortResponse = HttpStorageResponse<GetProjectsV2Model>;
 
 export type GetProjectsV2PortParams = HttpClientParameters<{ QueryParams: GetProjectsV2QueryParams }>;
+
+/* ------------------------------ Get Project By Slug or ID V2 ------------------------------ */
+
+export type GetProjectBySlugOrIdV2Response = components["schemas"]["ProjectResponseV2"];
+
+export type GetProjectBySlugOrIdV2PortResponse = HttpStorageResponse<ProjectInterfaceV2>;
+
+type GetProjectBySlugOrIdV2PathParams = operations["getProjectV2"]["parameters"]["path"];
+type GetProjectBySlugOrIdV2QueryParams = operations["getProjectV2"]["parameters"]["query"];
+
+export type GetProjectBySlugOrIdV2PortParams = HttpClientParameters<{
+  QueryParams: GetProjectBySlugOrIdV2QueryParams;
+  PathParams: GetProjectBySlugOrIdV2PathParams;
+}>;

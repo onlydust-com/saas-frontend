@@ -3,6 +3,8 @@ import {
   EditProjectPortResponse,
   GetProjectByIdPortParams,
   GetProjectByIdPortResponse,
+  GetProjectBySlugOrIdV2PortParams,
+  GetProjectBySlugOrIdV2PortResponse,
   GetProjectBySlugPortParams,
   GetProjectBySlugPortResponse,
   GetProjectContributorLabelsPortParams,
@@ -57,4 +59,5 @@ export interface ProjectFacadePort {
   getProjectPrograms(p: GetProjectProgramsPortParams): GetProjectProgramsPortResponse;
   ungrantProject(p: UngrantFundsFromProjectPortParams): UngrantFundsFromProjectPortResponse;
   getProjectsV2(p: GetProjectsV2PortParams): GetProjectsV2PortResponse;
+  getProjectBySlugOrIdV2(p: GetProjectBySlugOrIdV2PortParams): GetProjectBySlugOrIdV2PortResponse;
 }

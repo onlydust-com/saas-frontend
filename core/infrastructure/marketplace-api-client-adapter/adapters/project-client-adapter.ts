@@ -3,6 +3,7 @@ import { ProjectFinancial } from "@/core/domain/project/models/project-financial
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { Project } from "@/core/domain/project/models/project-model";
+import { ProjectV2 } from "@/core/domain/project/models/project-model-v2";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
@@ -10,6 +11,7 @@ import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storag
 import {
   EditProjectBody,
   GetProjectByIdResponse,
+  GetProjectBySlugOrIdV2Response,
   GetProjectBySlugResponse,
   GetProjectContributorLabelsResponse,
   GetProjectFinancialDetailsByIdResponse,
@@ -47,6 +49,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       "projects/:projectId/contributions/:contributionUuid/unassign/:contributorId",
     getProjectPrograms: "projects/:projectId/programs",
     ungrantProject: "projects/:projectId/ungrant",
+    getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -414,6 +417,32 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         ...data,
         projects: data.projects.map(project => new ProjectListItemV2(project)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectBySlugOrIdV2 = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectBySlugOrIdV2"]>) => {
+    const path = this.routes["getProjectBySlugOrIdV2"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectBySlugOrIdV2Response>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return new ProjectV2(data);
     };
 
     return {
