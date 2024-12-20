@@ -1,7 +1,7 @@
 import { LogIn } from "lucide-react";
 
+import { AvatarLoading } from "@/design-system/atoms/avatar/avatar.loading";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
@@ -16,7 +16,7 @@ export function UserMenu({ isCompact }: UserMenuProps) {
   const { avatarUrl, login, email } = user ?? {};
 
   if (isLoading) {
-    return <Skeleton className={"h-10 w-full"} />;
+    return <AvatarLoading size={"md"} />;
   }
 
   if (isCompact) {

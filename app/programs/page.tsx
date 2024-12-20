@@ -50,8 +50,8 @@ function ProgramsPage() {
         ]}
       />
       <ScrollView>
-        <PageContent>
-          <div className="grid h-full gap-3">
+        <PageContent classNames={{ base: "h-full" }}>
+          <div className="flex flex-col gap-4">
             <Typo
               size={"xs"}
               weight={"medium"}
