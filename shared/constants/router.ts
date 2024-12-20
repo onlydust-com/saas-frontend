@@ -69,6 +69,21 @@ export const NEXT_ROUTER = {
       root: "/project-recommendation/results",
     },
   },
+  projects: {
+    root: "/projects",
+    overview: {
+      root: (slug: string) => `/projects/${slug}/overview`,
+    },
+    openIssues: {
+      root: (slug: string) => `/projects/${slug}/open-issues`,
+    },
+    contributors: {
+      root: (slug: string) => `/projects/${slug}/contributors`,
+    },
+    rewards: {
+      root: (slug: string) => `/projects/${slug}/rewards`,
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
