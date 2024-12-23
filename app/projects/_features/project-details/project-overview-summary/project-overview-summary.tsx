@@ -6,9 +6,9 @@ import { CardProjectOverview, CardProjectOverviewLoading } from "@/design-system
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
-import { IdCardProps } from "./id-card.types";
+import { ProjectOverviewSummaryProps } from "./project-overview-summary.types";
 
-export function IdCard({ projectIdOrSlug }: IdCardProps) {
+export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSummaryProps) {
   const {
     data: project,
     isLoading,

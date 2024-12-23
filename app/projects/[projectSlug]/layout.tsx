@@ -12,7 +12,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { IdCard } from "../_features/project-details/id-card/id-card";
+import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
@@ -91,7 +91,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="desktop:col-span-1">
-            <IdCard projectIdOrSlug={params.projectSlug} />
+            <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
           </div>
           <Paper classNames={{ base: "desktop:col-span-2" }}>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
