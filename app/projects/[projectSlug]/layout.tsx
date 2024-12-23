@@ -91,7 +91,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="desktop:col-span-1">
-            <IdCard projectSlug={params.projectSlug} />
+            <IdCard projectIdOrSlug={params.projectSlug} />
           </div>
           <Paper classNames={{ base: "desktop:col-span-2" }}>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>

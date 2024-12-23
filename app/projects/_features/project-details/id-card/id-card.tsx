@@ -6,14 +6,16 @@ import { CardProjectOverview, CardProjectOverviewLoading } from "@/design-system
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
-export function IdCard({ projectSlug }: { projectSlug: string }) {
+import { IdCardProps } from "./id-card.types";
+
+export function IdCard({ projectIdOrSlug }: IdCardProps) {
   const {
     data: project,
     isLoading,
     isError,
   } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
-      projectIdOrSlug: projectSlug,
+      projectIdOrSlug,
     },
   });
 

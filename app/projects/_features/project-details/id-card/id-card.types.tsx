@@ -1,1 +1,3 @@
-export interface IdCardProps {}
+export interface IdCardProps {
+  projectIdOrSlug: string;
+}
