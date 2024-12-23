@@ -1,5 +1,8 @@
 import { bootstrap } from "@/core/bootstrap";
-import { marketplaceApiConfig } from "@/core/infrastructure/marketplace-api-client-adapter/config";
+import {
+  marketplaceApiConfig,
+  marketplaceMockApiConfig,
+} from "@/core/infrastructure/marketplace-api-client-adapter/config";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import {
   HttpClientBody,
@@ -19,6 +22,7 @@ export class HttpClient {
     pathParams?: HttpClientPathParams;
     queryParams?: HttpClientQueryParams;
     version?: MarketplaceApiVersion;
+    mock?: boolean;
     body?: HttpClientBody;
     next?: NextFetchRequestConfig;
     headers?: HeadersInit;
@@ -83,11 +87,13 @@ export class HttpClient {
     pathParams,
     queryParams,
     version = MarketplaceApiVersion.v1,
+    mock = false,
   }: {
     path: string;
     pathParams?: HttpClientPathParams;
     queryParams?: HttpClientQueryParams;
     version?: MarketplaceApiVersion;
+    mock?: boolean;
   }) {
     const searchParams = this.buildSearchParams(queryParams);
 
@@ -97,6 +103,10 @@ export class HttpClient {
         const key = pathParamSegment.replace(":", "");
         path = path.replace(pathParamSegment, String(pathParams[key]));
       });
+    }
+
+    if (mock) {
+      return `${marketplaceMockApiConfig.basePaths[version](path)}${searchParams ? `?${searchParams}` : ""}`;
     }
 
     return `${marketplaceApiConfig.basePaths[version](path)}${searchParams ? `?${searchParams}` : ""}`;

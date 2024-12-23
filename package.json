@@ -14,7 +14,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "storybook start",
-    "postinstall": "react-flagpack"
+    "postinstall": "react-flagpack",
+    "mock:start": "npx counterfact@latest https://develop-api.onlydust.com/v3/api-docs ./.mock"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
@@ -34,6 +35,7 @@
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
     "i18next": "^23.12.2",
+    "keen-slider": "^6.8.6",
     "lucide-react": "^0.429.0",
     "next": "14.2.5",
     "posthog-js": "^1.154.5",
