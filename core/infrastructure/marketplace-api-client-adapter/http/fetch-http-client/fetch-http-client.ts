@@ -18,8 +18,9 @@ export class FetchHttpClient extends HttpClient implements FetchHttpClientInterf
     body,
     next: nextParams = {},
     headers,
+    mock = false,
   }: FirstParameter<FetchHttpClientInterface["request"]>): Promise<R> {
-    const url = this.buildUrl({ path, pathParams, queryParams, version });
+    const url = this.buildUrl({ path, pathParams, queryParams, version, mock });
     const defaultHeaders = await this.getHeaders();
     const next = { ...nextParams, tags };
     const cache = !nextParams?.revalidate ? "no-cache" : undefined;

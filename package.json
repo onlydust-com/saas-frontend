@@ -14,7 +14,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "storybook start",
-    "postinstall": "react-flagpack"
+    "postinstall": "react-flagpack",
+    "mock:start": "npx counterfact@latest https://develop-api.onlydust.com/v3/api-docs ./.mock"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
