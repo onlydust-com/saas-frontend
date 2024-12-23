@@ -40,6 +40,8 @@ export function IdCard({ projectSlug }: { projectSlug: string }) {
         forkCount={project.forkCount}
         categories={project.categories}
         languages={project.languages}
+        moreInfos={project.moreInfos}
+        leaders={project.leads}
       />
     );
   }, [isLoading, isError, project]);

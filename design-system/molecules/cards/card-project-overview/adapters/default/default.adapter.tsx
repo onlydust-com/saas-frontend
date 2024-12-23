@@ -10,6 +10,8 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Metric } from "@/shared/features/projects/metric/metric";
+import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
+import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
 
 import { CardProjectOverviewPort } from "../../card-project-overview.types";
@@ -27,6 +29,8 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
   description,
   categories,
   languages,
+  moreInfos,
+  leaders,
 }: CardProjectOverviewPort<C>) {
   const slots = CardProjectOverviewDefaultVariants();
 
@@ -57,17 +61,51 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
         <div className="flex flex-col gap-lg p-xl">
           <div className="flex flex-col gap-lg">
             {description ? (
-              <div>
-                <Typo size="sm" color="tertiary" classNames={{ base: "line-clamp-3" }}>
+              <div className="flex flex-col gap-sm">
+                <Typo
+                  size="xs"
+                  weight="medium"
+                  color="primary"
+                  translate={{ token: "features:cardProjectOverview.description" }}
+                />
+                <Typo size="xs" color="primary" classNames={{ base: "line-clamp-3" }}>
                   {description}
                 </Typo>
               </div>
             ) : null}
-
-            <Categories categories={categories} />
+            <div className="flex items-center justify-between gap-md">
+              <Categories categories={categories} />
+              {leaders ? (
+                <div className="w-fit">
+                  <UserGroup avatarProps={{ size: "sm" }} users={leaders} maxUsers={3} />
+                </div>
+              ) : null}
+            </div>
           </div>
 
-          <Languages languages={languages} />
+          <div className="flex flex-col gap-lg">
+            <Typo
+              size="xs"
+              weight="medium"
+              color="primary"
+              translate={{ token: "features:cardProjectOverview.languages" }}
+            />
+            <Languages languages={languages} />
+          </div>
+
+          <div className="flex flex-col gap-lg">
+            <Typo
+              size="xs"
+              weight="medium"
+              color="primary"
+              translate={{ token: "features:cardProjectOverview.socials" }}
+            />
+            <div className={"flex flex-row flex-wrap gap-sm"}>
+              {moreInfos?.map(moreInfoItem => (
+                <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Paper>

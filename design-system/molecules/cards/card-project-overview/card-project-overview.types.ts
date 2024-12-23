@@ -1,8 +1,9 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
-import { LanguagesProps } from "@/shared/features/projects/languages/languages.types";
 import { CategoriesProps } from "@/shared/features/projects/categories/categories.types";
+import { LanguagesProps } from "@/shared/features/projects/languages/languages.types";
 
 interface ClassNames {
   base: string;
@@ -19,5 +20,7 @@ export interface CardProjectOverviewPort<C extends ElementType> {
   forkCount: number;
   description?: string;
   categories?: CategoriesProps["categories"];
+  leaders?: ProjectInterfaceV2["leads"];
   languages?: LanguagesProps["languages"];
+  moreInfos?: ProjectInterfaceV2["moreInfos"];
 }
