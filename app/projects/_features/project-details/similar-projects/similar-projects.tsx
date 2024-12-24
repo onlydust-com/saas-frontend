@@ -4,6 +4,7 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
@@ -48,9 +49,11 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
                 src: project.logoUrl,
               },
             ]}
+            shape={"squared"}
+            withPopover={false}
             title={{ children: project.name }}
             description={{ children: project.shortDescription }}
-            size="sm"
+            size="md"
             truncate
           />
         ))}
@@ -59,8 +62,18 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
   }, [isLoading, isError, projects]);
 
   return (
-    <Paper background="glass" border="secondary" classNames={{ base: "flex flex-col gap-lg" }}>
-      {renderProjects()}
+    <Paper size="none" background="glass" border="secondary">
+      <div className="flex flex-col divide-y divide-border-primary">
+        <div className="p-xl">
+          <Typo
+            size="xs"
+            variant="heading"
+            color="primary"
+            translate={{ token: "project:details.similarProjects.title" }}
+          />
+        </div>
+        <div className="flex flex-col gap-xl p-xl">{renderProjects()}</div>
+      </div>
     </Paper>
   );
 }
