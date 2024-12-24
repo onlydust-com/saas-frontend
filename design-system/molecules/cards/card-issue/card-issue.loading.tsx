@@ -1,3 +1,5 @@
+import { Skeleton } from "@/design-system/atoms/skeleton";
+
 export function CardIssueLoading() {
-  return <div />;
+  return <Skeleton className="h-20 w-full" />;
 }
