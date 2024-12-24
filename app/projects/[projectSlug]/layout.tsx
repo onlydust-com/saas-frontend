@@ -46,6 +46,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"project-view"}
+      classNames={{ base: "w-full" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -93,7 +94,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
           <div className="desktop:col-span-1">
             <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
           </div>
-          <Paper background="glass" border="primary" classNames={{ base: "desktop:col-span-2" }}>
+          <Paper background="glass" border="primary" classNames={{ base: "desktop:col-span-2" }} px="none">
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
               <Navigation params={params} />
             </div>

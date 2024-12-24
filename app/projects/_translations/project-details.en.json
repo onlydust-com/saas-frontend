@@ -10,5 +10,16 @@
   },
   "similarProjects": {
     "title": "Similar Projects"
+  },
+  "overview": {
+    "stats": {
+      "contributors": "Contributors",
+      "prMerged": "PR Merged",
+      "stars": "Stars",
+      "issues": "Open Issues"
+    },
+    "description": {
+      "title": "Description"
+    }
   }
 }
