@@ -48,7 +48,6 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
         content: showNumberOnHover ? "gap-0" : undefined,
       }}
     >
-      {!showNumberOnHover ? number : null}
       {showNumberOnHover ? (
         <div
           className={cn(
@@ -58,7 +57,9 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
         >
           {number}
         </div>
-      ) : null}
+      ) : (
+        number
+      )}
     </Badge>
   );
 }
