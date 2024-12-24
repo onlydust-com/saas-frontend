@@ -12,6 +12,7 @@ import {
 
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
+import { ProjectLinkWithDescriptionInterface } from "./models/project-link-with-description-model";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
 import { ProjectRewardsInterfaceV2 } from "./models/project-rewards-model-v2";
@@ -282,4 +283,22 @@ export type GetProjectRewardsV2PortResponse = HttpStorageResponse<GetProjectRewa
 export type GetProjectRewardsV2PortParams = HttpClientParameters<{
   QueryParams: GetProjectRewardsV2QueryParams;
   PathParams: GetProjectRewardsV2PathParams;
+}>;
+
+/* ------------------------------ Get Project Available Issuers ------------------------------ */
+
+export type GetSimilarProjectsResponse = components["schemas"]["ProjectLinkPageResponse"];
+
+export type GetSimilarProjectsModel = Omit<GetSimilarProjectsResponse, "projects"> & {
+  projects: ProjectLinkWithDescriptionInterface[];
+};
+
+type GetSimilarProjectsPathParams = operations["getSimilarProjects"]["parameters"]["path"];
+type GetSimilarProjectsQueryParams = operations["getSimilarProjects"]["parameters"]["query"];
+
+export type GetSimilarProjectsPortResponse = HttpStorageResponse<GetSimilarProjectsModel>;
+
+export type GetSimilarProjectsPortParams = HttpClientParameters<{
+  QueryParams: GetSimilarProjectsQueryParams;
+  PathParams: GetSimilarProjectsPathParams;
 }>;

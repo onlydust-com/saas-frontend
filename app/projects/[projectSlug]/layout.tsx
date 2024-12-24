@@ -13,6 +13,7 @@ import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
+import { SimilarProjects } from "../_features/project-details/similar-projects/similar-projects";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
@@ -90,8 +91,9 @@ export default function ProjectsLayout({ params, children }: { params: { project
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-          <div className="desktop:col-span-1">
+          <div className="flex flex-col gap-lg desktop:col-span-1">
             <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
+            <SimilarProjects projectIdOrSlug={params.projectSlug} />
           </div>
           <Paper background="glass" border="primary" classNames={{ base: "desktop:col-span-2" }}>
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>

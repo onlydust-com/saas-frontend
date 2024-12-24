@@ -30,6 +30,8 @@ import {
   GetProjectsPortResponse,
   GetProjectsV2PortParams,
   GetProjectsV2PortResponse,
+  GetSimilarProjectsPortParams,
+  GetSimilarProjectsPortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
   UngrantFundsFromProjectPortParams,
@@ -70,4 +72,5 @@ export interface ProjectStoragePort {
   getProjectAvailableIssues(p: GetProjectAvailableIssuesPortParams): GetProjectAvailableIssuesPortResponse;
   getProjectContributorsV2(p: GetProjectContributorsV2PortParams): GetProjectContributorsV2PortResponse;
   getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
+  getSimilarProjects(p: GetSimilarProjectsPortParams): GetSimilarProjectsPortResponse;
 }
