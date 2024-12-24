@@ -2,6 +2,7 @@ import { ProjectAvailableIssues } from "@/core/domain/project/models/project-ava
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
+import { ProjectLinkWithDescription } from "@/core/domain/project/models/project-link-with-description-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { Project } from "@/core/domain/project/models/project-model";
@@ -26,6 +27,7 @@ import {
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
   GetProjectsV2Response,
+  GetSimilarProjectsResponse,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
@@ -59,6 +61,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
     getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
+    getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -537,6 +540,32 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       return {
         ...data,
         rewards: data.rewards.map(reward => new ProjectRewardsV2(reward)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getSimilarProjects = ({ pathParams, queryParams }: FirstParameter<ProjectStoragePort["getSimilarProjects"]>) => {
+    const path = this.routes["getSimilarProjects"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetSimilarProjectsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new ProjectLinkWithDescription(project)),
       };
     };
 

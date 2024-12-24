@@ -17,6 +17,9 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
     pathParams: {
       projectIdOrSlug,
     },
+    options: {
+      enabled: Boolean(projectIdOrSlug),
+    },
   });
 
   const renderProject = useCallback(() => {
