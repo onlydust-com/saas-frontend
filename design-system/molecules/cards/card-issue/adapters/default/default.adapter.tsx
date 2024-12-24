@@ -23,25 +23,31 @@ import { CardIssueDefaultVariants } from "./default.variants";
 function GithubLabel({
   githubLabels,
   githubLabelsProps,
-}: Pick<CardIssuePort<AnyType>, "githubLabels" | "githubLabelsProps">) {
+  selectedLabels,
+}: Pick<CardIssuePort<AnyType>, "githubLabels" | "githubLabelsProps" | "selectedLabels">) {
   if (!githubLabels?.length) return <div />;
 
   const limitedLabels = githubLabels?.slice(0, 4);
 
+  function renderLabel({ label, onClick }: NonNullable<CardIssuePort<AnyType>["githubLabels"]>[number]) {
+    const isSelected = selectedLabels?.includes(label);
+    return (
+      <Badge key={label} color={isSelected ? "brand" : "grey"} {...(githubLabelsProps ?? {})} htmlProps={{ onClick }}>
+        {label}
+      </Badge>
+    );
+  }
+
   function renderContent(clickable: boolean) {
     return (
       <div className={cn("flex flex-row items-center gap-1", clickable && "cursor-pointer")}>
-        {limitedLabels?.map(({ label, description }) =>
+        {limitedLabels?.map(({ label, description, onClick }) =>
           description ? (
             <Tooltip key={label} content={description}>
-              <Badge key={label} color="grey" {...(githubLabelsProps ?? {})}>
-                {label}
-              </Badge>
+              {renderLabel({ label, description, onClick })}
             </Tooltip>
           ) : (
-            <Badge key={label} color="grey" {...(githubLabelsProps ?? {})}>
-              {label}
-            </Badge>
+            renderLabel({ label, description, onClick })
           )
         )}
       </div>
@@ -58,11 +64,7 @@ function GithubLabel({
             <div className="h-fit w-fit overflow-hidden">
               <ScrollView className={"max-h-[300px]"}>
                 <div className="flex w-fit flex-col gap-2">
-                  {githubLabels?.map(({ label }) => (
-                    <Badge key={label} color="grey" {...(githubLabelsProps ?? {})}>
-                      {label}
-                    </Badge>
-                  ))}
+                  {githubLabels?.map(({ label, description }) => renderLabel({ label, description }))}
                 </div>
               </ScrollView>
             </div>

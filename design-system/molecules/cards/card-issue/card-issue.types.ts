@@ -52,5 +52,7 @@ export interface CardIssuePort<C extends ElementType> extends Partial<Variants>,
   githubLabels?: {
     label: string;
     description?: string;
+    onClick?: () => void;
   }[];
+  selectedLabels?: string[];
 }
