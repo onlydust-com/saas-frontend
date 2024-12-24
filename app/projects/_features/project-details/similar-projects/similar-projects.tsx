@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -26,7 +26,7 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
-  const renderProjects = useCallback(() => {
+  const renderProjects = useMemo(() => {
     if (isLoading) {
       return <Skeleton className="h-[200px] w-full" />;
     }
@@ -72,7 +72,7 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
             translate={{ token: "project:details.similarProjects.title" }}
           />
         </div>
-        <div className="flex flex-col gap-xl p-xl">{renderProjects()}</div>
+        <div className="flex flex-col gap-xl p-xl">{renderProjects}</div>
       </div>
     </Paper>
   );
