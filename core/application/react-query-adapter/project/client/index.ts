@@ -15,3 +15,4 @@ export * from "./use-get-project-programs";
 export * from "./use-ungrant-project";
 export * from "./use-get-projects-v2";
 export * from "./use-get-project-by-slug-or-id";
+export * from "./use-get-project-available-issues";

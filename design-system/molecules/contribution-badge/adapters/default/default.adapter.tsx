@@ -17,6 +17,7 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
   shape = "rounded",
   type,
   githubStatus,
+  showNumberOnHover,
   number,
 }: ContributionBadgePort<C>) {
   const Component = as || "div";
@@ -40,12 +41,24 @@ export function ContributionBadgeDefaultAdapter<C extends ElementType = "div">({
       {...formatedProps}
       size={size}
       shape={shape}
+      iconOnly={showNumberOnHover}
       classNames={{
         ...classNames,
         base: cn("w-fit overflow-visible", classNames?.base),
+        content: showNumberOnHover ? "gap-0" : undefined,
       }}
     >
-      {number}
+      {!showNumberOnHover ? number : null}
+      {showNumberOnHover ? (
+        <div
+          className={cn(
+            "w-fit max-w-0 overflow-hidden pl-0 opacity-0 transition-all",
+            "group-hover:max-w-[100px] group-hover:pl-1 group-hover:opacity-100"
+          )}
+        >
+          {number}
+        </div>
+      ) : null}
     </Badge>
   );
 }
