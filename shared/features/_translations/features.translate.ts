@@ -1,4 +1,5 @@
 import enCardProjectCategory from "@/design-system/molecules/cards/card-project-category/_translations/card-project-category.en.json";
+import enCardProjectOverview from "@/design-system/molecules/cards/card-project-overview/_translations/card-project-overview.en.json";
 
 import enRepoIndexingAlert from "@/shared/features/alerts/repo-indexing-alert/_translations/repo-indexing-alert.en.json";
 import enAmountSelector from "@/shared/features/amount-selector/_translations/amount-selector.en.json";
@@ -30,6 +31,7 @@ export const enFeaturesTranslations = {
     socialLink: enSocialLinkTranslate,
     cardContributionKanban: enCardContributionKanban,
     cardProjectCategory: enCardProjectCategory,
+    cardProjectOverview: enCardProjectOverview,
     contributorProfileExtended: enContributorProfileExtended,
     contributorProfileCheckbox: enContributorProfileCheckbox,
     contributorActivityGraph: enContributorActivityGraph,
