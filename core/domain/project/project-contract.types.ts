@@ -10,6 +10,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { GithubLabelWithCountInterface } from "../github/models/github-label-model";
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
 import { ProjectLinkWithDescriptionInterface } from "./models/project-link-with-description-model";
@@ -233,14 +234,15 @@ export type GetProjectBySlugOrIdV2PortParams = HttpClientParameters<{
 
 /* ------------------------------ Get Project Available Issuers ------------------------------ */
 
-export type GetProjectAvailableIssuesResponse = components["schemas"]["GithubIssuePageResponse"];
+export type GetProjectAvailableIssuesResponse = components["schemas"]["GithubIssuePageWithLabelsResponse"];
 
-export type GetProjectAvailableIssuesModel = Omit<GetProjectAvailableIssuesResponse, "issues"> & {
+export type GetProjectAvailableIssuesModel = Omit<GetProjectAvailableIssuesResponse, "issues" | "labels"> & {
   issues: ProjectAvailableIssuesInterface[];
+  labels: GithubLabelWithCountInterface[];
 };
 
 type GetProjectAvailableIssuesPathParams = operations["getProjectAvailableIssues"]["parameters"]["path"];
-type GetProjectAvailableIssuesQueryParams = operations["getProjectAvailableIssues"]["parameters"]["query"];
+export type GetProjectAvailableIssuesQueryParams = operations["getProjectAvailableIssues"]["parameters"]["query"];
 
 export type GetProjectAvailableIssuesPortResponse = HttpStorageResponse<GetProjectAvailableIssuesModel>;
 

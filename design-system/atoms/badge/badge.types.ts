@@ -43,6 +43,7 @@ export interface BadgeBasePort<C extends ElementType> extends Partial<Variants>,
   labelProps?: Partial<TypoPort<"span">>;
   closeProps?: Partial<BadgeClosePort<AnyType>>;
   iconOnly?: boolean;
+  onClick?: () => void;
 }
 
 export interface BadgeIconPort<C extends ElementType> extends BadgeBasePort<C> {

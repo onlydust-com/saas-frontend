@@ -71,7 +71,7 @@ export function ContributorsTable() {
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
-        <nav className={"flex gap-md p-xl"}>
+        <nav className={"flex gap-md p-lg"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>

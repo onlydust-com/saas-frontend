@@ -46,5 +46,8 @@
       "columnList": "Columns"
     },
     "rewardsCount": "Rewards"
+  },
+  "issues": {
+    "issuesCount": "Issues"
   }
 }
