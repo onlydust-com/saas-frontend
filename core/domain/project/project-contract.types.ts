@@ -276,7 +276,7 @@ export type GetProjectRewardsV2Model = Omit<GetProjectRewardsV2Response, "reward
 };
 
 type GetProjectRewardsV2PathParams = operations["getProjectRewardsV2"]["parameters"]["path"];
-type GetProjectRewardsV2QueryParams = operations["getProjectRewardsV2"]["parameters"]["query"];
+export type GetProjectRewardsV2QueryParams = operations["getProjectRewardsV2"]["parameters"]["query"];
 
 export type GetProjectRewardsV2PortResponse = HttpStorageResponse<GetProjectRewardsV2Model>;
 

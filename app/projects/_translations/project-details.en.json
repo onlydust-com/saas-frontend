@@ -33,5 +33,18 @@
       "columnList": "Columns"
     },
     "contributorsCount": "Contributors"
+  },
+  "rewards": {
+    "columns": {
+      "date": "Date",
+      "from": "From",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount"
+    },
+    "filters": {
+      "columnList": "Columns"
+    },
+    "rewardsCount": "Rewards"
   }
 }
