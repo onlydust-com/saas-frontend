@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
 import { bootstrap } from "@/core/bootstrap";
-import { ProjectContributorsInterfaceV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectRewardsInterfaceV2 } from "@/core/domain/project/models/project-rewards-model-v2";
 
 import { Typo } from "@/design-system/atoms/typo";
