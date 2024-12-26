@@ -99,7 +99,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
           <Paper
             background="glass"
             border="primary"
-            classNames={{ base: "desktop:col-span-2 overflow-hidden h-full" }}
+            classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
             px="none"
           >
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>

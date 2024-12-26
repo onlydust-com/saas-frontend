@@ -75,30 +75,28 @@ export function ContributorsTable() {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
-        <div className="overflow-hidden p-lg">
-          <ScrollView direction={"x"}>
-            <Table
-              table={table}
-              header={{
-                headerGroups: table.getHeaderGroups(),
-                classNames: {
-                  base: "bg-transparent relative",
-                },
-              }}
-              rows={table.getRowModel().rows}
-            />
-            {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-          </ScrollView>
-          <div className="flex gap-2">
-            <Typo
-              size={"sm"}
-              color={"secondary"}
-              translate={{ token: "project:details.contributors.contributorsCount" }}
-            />
-            <Typo size={"sm"} color={"primary"}>
-              {totalItemNumber}
-            </Typo>
-          </div>
+        <ScrollView direction={"x"} className="p-lg">
+          <Table
+            table={table}
+            header={{
+              headerGroups: table.getHeaderGroups(),
+              classNames: {
+                base: "bg-transparent relative",
+              },
+            }}
+            rows={table.getRowModel().rows}
+          />
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+        </ScrollView>
+        <div className="flex gap-md p-lg">
+          <Typo
+            size={"sm"}
+            color={"secondary"}
+            translate={{ token: "project:details.contributors.contributorsCount" }}
+          />
+          <Typo size={"sm"} color={"primary"}>
+            {totalItemNumber}
+          </Typo>
         </div>
       </div>
     </FilterDataProvider>
