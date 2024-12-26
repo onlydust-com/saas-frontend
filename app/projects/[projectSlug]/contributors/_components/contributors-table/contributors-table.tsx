@@ -88,7 +88,7 @@ export function ContributorsTable() {
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
-        <div className="flex gap-md p-lg">
+        <div className="flex gap-md p-lg pb-0">
           <Typo
             size={"sm"}
             color={"secondary"}
