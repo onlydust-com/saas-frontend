@@ -11,4 +11,5 @@ export interface ContributionBadgePort<C extends ElementType> extends Partial<Ba
   type: ContributionTypeUnion;
   githubStatus: ContributionGithubStatusUnion;
   number: ReactNode;
+  showNumberOnHover?: boolean;
 }

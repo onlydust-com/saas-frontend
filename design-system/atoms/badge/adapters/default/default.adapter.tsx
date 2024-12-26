@@ -41,7 +41,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
     }
     return {};
   }, [styles]);
- 
+
   const labelStyles = useMemo(() => {
     if (styles) {
       return {
@@ -57,7 +57,13 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
         {startContent}
 
         {showChildren && (
-          <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }} style={labelStyles}>
+          <Typo
+            size={"xs"}
+            as={"span"}
+            {...labelProps}
+            classNames={{ base: cn(slots.label(), classNames?.label) }}
+            style={labelStyles}
+          >
             {children}
             {translate && <Translate {...translate} />}
             {count}
