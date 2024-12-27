@@ -1,4 +1,4 @@
-import { Bug, CircleDot, GitMerge, Star, User } from "lucide-react";
+import { CircleDot, GitMerge, Star, User } from "lucide-react";
 import { ReactNode } from "react";
 
 import { Icon, IconPort } from "@/design-system/atoms/icon";

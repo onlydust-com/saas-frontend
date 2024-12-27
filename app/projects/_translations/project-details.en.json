@@ -13,10 +13,10 @@
   },
   "overview": {
     "stats": {
-      "contributors": "Contributors",
-      "prMerged": "PR Merged",
+      "contributors": "Active Contributors",
+      "prMerged": "Merged Pull Requests",
       "stars": "Stars",
-      "issues": "Open Issues"
+      "issues": "Available Issues"
     },
     "description": {
       "title": "Description"
