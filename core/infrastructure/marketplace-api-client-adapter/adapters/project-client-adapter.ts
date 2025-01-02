@@ -1,3 +1,4 @@
+import { GithubLabelWithCount } from "@/core/domain/github/models/github-label-model";
 import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
@@ -484,6 +485,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       return {
         ...data,
         issues: data.issues.map(issue => new ProjectAvailableIssues(issue)),
+        labels: data.labels.map(label => new GithubLabelWithCount(label)),
       };
     };
 
@@ -536,6 +538,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         pathParams,
         queryParams,
         version: MarketplaceApiVersion.v2,
+        mock: true,
       });
 
       return {
@@ -562,6 +565,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         tag,
         pathParams,
         queryParams,
+        mock: true,
       });
 
       return {

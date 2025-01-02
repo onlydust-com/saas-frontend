@@ -10,6 +10,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { GithubLabelWithCountInterface } from "../github/models/github-label-model";
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
 import { ProjectLinkWithDescriptionInterface } from "./models/project-link-with-description-model";
@@ -233,14 +234,15 @@ export type GetProjectBySlugOrIdV2PortParams = HttpClientParameters<{
 
 /* ------------------------------ Get Project Available Issuers ------------------------------ */
 
-export type GetProjectAvailableIssuesResponse = components["schemas"]["GithubIssuePageResponse"];
+export type GetProjectAvailableIssuesResponse = components["schemas"]["GithubIssuePageWithLabelsResponse"];
 
-export type GetProjectAvailableIssuesModel = Omit<GetProjectAvailableIssuesResponse, "issues"> & {
+export type GetProjectAvailableIssuesModel = Omit<GetProjectAvailableIssuesResponse, "issues" | "labels"> & {
   issues: ProjectAvailableIssuesInterface[];
+  labels: GithubLabelWithCountInterface[];
 };
 
 type GetProjectAvailableIssuesPathParams = operations["getProjectAvailableIssues"]["parameters"]["path"];
-type GetProjectAvailableIssuesQueryParams = operations["getProjectAvailableIssues"]["parameters"]["query"];
+export type GetProjectAvailableIssuesQueryParams = operations["getProjectAvailableIssues"]["parameters"]["query"];
 
 export type GetProjectAvailableIssuesPortResponse = HttpStorageResponse<GetProjectAvailableIssuesModel>;
 
@@ -258,7 +260,7 @@ export type GetProjectContributorsV2Model = Omit<GetProjectContributorsV2Respons
 };
 
 type GetProjectContributorsV2PathParams = operations["getProjectContributorsV2"]["parameters"]["path"];
-type GetProjectContributorsV2QueryParams = operations["getProjectContributorsV2"]["parameters"]["query"];
+export type GetProjectContributorsV2QueryParams = operations["getProjectContributorsV2"]["parameters"]["query"];
 
 export type GetProjectContributorsV2PortResponse = HttpStorageResponse<GetProjectContributorsV2Model>;
 
@@ -276,7 +278,7 @@ export type GetProjectRewardsV2Model = Omit<GetProjectRewardsV2Response, "reward
 };
 
 type GetProjectRewardsV2PathParams = operations["getProjectRewardsV2"]["parameters"]["path"];
-type GetProjectRewardsV2QueryParams = operations["getProjectRewardsV2"]["parameters"]["query"];
+export type GetProjectRewardsV2QueryParams = operations["getProjectRewardsV2"]["parameters"]["query"];
 
 export type GetProjectRewardsV2PortResponse = HttpStorageResponse<GetProjectRewardsV2Model>;
 
@@ -285,7 +287,7 @@ export type GetProjectRewardsV2PortParams = HttpClientParameters<{
   PathParams: GetProjectRewardsV2PathParams;
 }>;
 
-/* ------------------------------ Get Project Available Issuers ------------------------------ */
+/* ------------------------------ Get Similar Projects ------------------------------ */
 
 export type GetSimilarProjectsResponse = components["schemas"]["ProjectLinkPageResponse"];
 

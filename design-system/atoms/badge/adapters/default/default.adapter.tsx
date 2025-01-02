@@ -23,6 +23,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   fixedSize = false,
   count,
   styles,
+  onClick,
   ...props
 }: BadgePort<C>) {
   const { isDeletable, shape = "rounded", size = "sm", color, iconOnly } = props;
@@ -52,7 +53,12 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   }, [styles]);
 
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} style={baseStyles}>
+    <Component
+      {...htmlProps}
+      onClick={onClick}
+      className={cn(slots.base(), classNames?.base, { "cursor-pointer": onClick })}
+      style={baseStyles}
+    >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
 

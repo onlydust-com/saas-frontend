@@ -17,3 +17,5 @@ export * from "./use-get-projects-v2";
 export * from "./use-get-project-by-slug-or-id";
 export * from "./use-get-project-available-issues";
 export * from "./use-get-similar-projects";
+export * from "./use-get-project-contributors-v2";
+export * from "./use-get-project-rewards-v2";

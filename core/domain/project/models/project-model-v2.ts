@@ -25,6 +25,8 @@ export class ProjectV2 implements ProjectInterfaceV2 {
   leads!: ProjectResponseV2["leads"];
   moreInfos!: ProjectResponseV2["moreInfos"];
   mergedPrCount!: ProjectResponseV2["mergedPrCount"];
+  currentWeekAvailableIssueCount!: ProjectResponseV2["currentWeekAvailableIssueCount"];
+  currentWeekMergedPrCount!: ProjectResponseV2["currentWeekMergedPrCount"];
 
   constructor(props: ProjectResponseV2) {
     Object.assign(this, props);

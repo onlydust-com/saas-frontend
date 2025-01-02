@@ -1,7 +1,13 @@
 "use client";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { useMemo, useState } from "react";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
+import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
+
+import { Badge } from "@/design-system/atoms/badge";
+import { Typo } from "@/design-system/atoms/typo";
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -9,6 +15,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function ProjectIssuesPage({ params }: { params: { projectSlug: string } }) {
+  const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>([]);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
@@ -18,16 +25,32 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
     },
   });
 
+  const queryParams: Partial<GetProjectAvailableIssuesQueryParams> = {
+    githubLabels: selectedLabels.map(label => label.name),
+  };
+
   const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
     },
+    queryParams,
     options: {
       enabled: Boolean(params.projectSlug),
     },
   });
 
-  const issues = issuesData?.pages.flatMap(page => page.issues);
+  const issues = useMemo(() => issuesData?.pages.flatMap(page => page.issues) ?? [], [issuesData]);
+  const totalItemNumber = useMemo(() => issuesData?.pages[0]?.totalItemNumber, [issuesData]);
+  const labels = useMemo(() => issuesData?.pages[0]?.labels ?? [], [issuesData]);
+
+  function handleLabelClick(label: GithubLabelWithCountInterface) {
+    setSelectedLabels(prev => {
+      if (prev.includes(label)) {
+        return prev.filter(l => l.name !== label.name);
+      }
+      return [...prev, label];
+    });
+  }
 
   return (
     <ScrollView>
@@ -43,35 +66,54 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           },
         ]}
       />
-      <div className="flex flex-col gap-4 p-4">
-        {issues?.map(issue => (
-          <CardIssue
-            key={issue.id}
-            title={issue.title}
-            contribution={{
-              type: "ISSUE",
-              githubStatus: issue.status,
-              number: issue.number,
-            }}
-            createdAt={issue.createdAt}
-            users={issue.applicants.map(a => ({
-              login: a.login,
-              avatarUrl: a.avatarUrl,
-            }))}
-            githubLabels={issue.labels.map(label => ({
-              label: label.name,
-              description: label.description,
-            }))}
-            createdBy={{
-              login: issue.author.login,
-              avatarUrl: issue.author.avatarUrl,
-            }}
-            repo={{
-              name: issue.repo.name,
-              url: issue.repo.htmlUrl,
-            }}
-          />
-        ))}
+      <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
+        <div className="flex flex-wrap gap-md p-lg">
+          {labels?.map(label => (
+            <Badge
+              key={label.name}
+              onClick={() => handleLabelClick(label)}
+              color={selectedLabels.includes(label) ? "brand" : "grey"}
+            >
+              {label.name} ({label.count})
+            </Badge>
+          ))}
+        </div>
+        <ScrollView direction={"x"} className="flex flex-col gap-4 p-lg">
+          {issues?.map(issue => (
+            <CardIssue
+              key={issue.id}
+              title={issue.title}
+              contribution={{
+                type: "ISSUE",
+                githubStatus: issue.status,
+                number: issue.number,
+              }}
+              createdAt={issue.createdAt}
+              users={issue.applicants.map(a => ({
+                login: a.login,
+                avatarUrl: a.avatarUrl,
+              }))}
+              githubLabels={issue.labels.map(label => ({
+                label: label.name,
+                description: label.description,
+              }))}
+              createdBy={{
+                login: issue.author.login,
+                avatarUrl: issue.author.avatarUrl,
+              }}
+              repo={{
+                name: issue.repo.name,
+                url: issue.repo.htmlUrl,
+              }}
+            />
+          ))}
+        </ScrollView>
+        <div className="flex gap-md p-lg pb-0">
+          <Typo size={"sm"} color={"secondary"} translate={{ token: "project:details.issues.issuesCount" }} />
+          <Typo size={"sm"} color={"primary"}>
+            {totalItemNumber}
+          </Typo>
+        </div>
       </div>
     </ScrollView>
   );
