@@ -9,11 +9,9 @@ import { Typo } from "@/design-system/atoms/typo";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 
 import { BadgePopoverPort } from "../../badge-popover.types";
-import { BadgePopoverDefaultVariants } from "./default.variants";
 
 export function BadgePopoverDefaultAdapter<C extends ElementType = "div">({
   as,
-  classNames,
   htmlProps,
   title,
   content,
@@ -22,9 +20,6 @@ export function BadgePopoverDefaultAdapter<C extends ElementType = "div">({
   items,
   count,
 }: BadgePopoverPort<C>) {
-  const slots = BadgePopoverDefaultVariants();
-  // cn(slots.base(), classNames?.base)
-
   if (!items?.length) {
     return (
       <Badge as={as} {...htmlProps} size="md" {...(badgeProps ?? {})} icon={icon}>

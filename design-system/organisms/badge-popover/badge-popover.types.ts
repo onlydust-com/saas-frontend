@@ -7,9 +7,7 @@ import { IconPort } from "@/design-system/atoms/icon";
 
 interface Variants {}
 
-interface ClassNames {
-  base: string;
-}
+interface ClassNames {}
 
 interface ExtendableProps {
   badgeProps?: BadgePort<AnyType>;
