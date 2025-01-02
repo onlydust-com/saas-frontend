@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
@@ -41,16 +41,22 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
 
   const issues = useMemo(() => issuesData?.pages.flatMap(page => page.issues) ?? [], [issuesData]);
   const totalItemNumber = useMemo(() => issuesData?.pages[0]?.totalItemNumber, [issuesData]);
-  const labels = useMemo(() => issuesData?.pages[0]?.labels ?? [], [issuesData]);
+
+  const labels = useMemo(() => {
+    const allLabels = issuesData?.pages.flatMap(page => page.labels) ?? [];
+    return [...new Map(allLabels.map(label => [label.name, label])).values()] as GithubLabelWithCountInterface[];
+  }, [issuesData]);
 
   function handleLabelClick(label: GithubLabelWithCountInterface) {
     setSelectedLabels(prev => {
-      if (prev.includes(label)) {
+      if (prev.some(l => l.name === label.name)) {
         return prev.filter(l => l.name !== label.name);
       }
       return [...prev, label];
     });
   }
+
+  console.log("selectedLabels", selectedLabels);
 
   return (
     <ScrollView>
@@ -72,7 +78,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             <Badge
               key={label.name}
               onClick={() => handleLabelClick(label)}
-              color={selectedLabels.includes(label) ? "brand" : "grey"}
+              color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
             >
               {label.name} ({label.count})
             </Badge>
