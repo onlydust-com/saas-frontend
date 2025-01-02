@@ -56,8 +56,6 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
     });
   }
 
-  console.log("selectedLabels", selectedLabels);
-
   return (
     <ScrollView>
       <NavigationBreadcrumb
