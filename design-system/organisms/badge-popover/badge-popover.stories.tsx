@@ -12,12 +12,97 @@ const defaultProps: BadgePopoverPort<"div"> = {
   content: "1 popover",
   items: [
     {
-      content: "coucou",
+      content: "item 1",
       onSelect: () => {},
       isSelected: false,
     },
     {
-      content: () => <div>coucou</div>,
+      content: () => <div>item 2</div>,
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 3",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 4",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 5",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 6",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 7",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 4",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 5",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 6",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 7",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 4",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 5",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 6",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 7",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 4",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 5",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 6",
+      onSelect: () => {},
+      isSelected: false,
+    },
+    {
+      content: "item 7",
       onSelect: () => {},
       isSelected: false,
     },

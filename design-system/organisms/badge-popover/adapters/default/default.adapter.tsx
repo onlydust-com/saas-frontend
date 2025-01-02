@@ -65,7 +65,7 @@ export function BadgePopoverDefaultAdapter<C extends ElementType = "div">({
                 ) : null}
               </Typo>
             </div>
-            <ScrollView className={"max-h-[300px] px-4 pt-2"}>
+            <ScrollView className={"max-h-[160px] px-4 pt-2"}>
               <div className="flex w-fit flex-col gap-2">
                 {items?.map(({ isSelected, onSelect, content }, index) => (
                   <div key={index} onClick={() => onSelect?.()}>
