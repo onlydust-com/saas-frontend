@@ -111,6 +111,21 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  users: {
+    root: "/users",
+    details: {
+      root: (userSlug: string) => `/users/${userSlug}`,
+      overview: {
+        root: (userSlug: string) => `/users/${userSlug}/overview`,
+      },
+      projects: {
+        root: (userSlug: string) => `/users/${userSlug}/projects`,
+      },
+      analytics: {
+        root: (userSlug: string) => `/users/${userSlug}/analytics`,
+      },
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
