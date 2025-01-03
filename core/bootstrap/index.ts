@@ -64,6 +64,8 @@ import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
 
+import { HackathonStoragePort } from "../domain/hackathon/outputs/hackathon-storage-port";
+import { HackathonClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/hackathon-client-adapter";
 import { MarkdownAdapter } from "../kernel/markdown/markdown-adapter";
 import { MarkdownFacadePort } from "../kernel/markdown/markdown-facade-port";
 
@@ -110,6 +112,8 @@ export interface BootstrapConstructor {
   billingProfileStoragePortForServer: BillingProfileStoragePort;
   recoStoragePortForClient: RecoStoragePort;
   recoStoragePortForServer: RecoStoragePort;
+  hackathonStoragePortForClient: HackathonStoragePort;
+  hackathonStoragePortForServer: HackathonStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -171,6 +175,8 @@ export class Bootstrap {
   billingProfileStoragePortForServer: BillingProfileStoragePort;
   recoStoragePortForClient: RecoStoragePort;
   recoStoragePortForServer: RecoStoragePort;
+  hackathonStoragePortForClient: HackathonStoragePort;
+  hackathonStoragePortForServer: HackathonStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -228,6 +234,8 @@ export class Bootstrap {
     this.billingProfileStoragePortForServer = constructor.billingProfileStoragePortForServer;
     this.recoStoragePortForClient = constructor.recoStoragePortForClient;
     this.recoStoragePortForServer = constructor.recoStoragePortForServer;
+    this.hackathonStoragePortForClient = constructor.hackathonStoragePortForClient;
+    this.hackathonStoragePortForServer = constructor.hackathonStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.socialKernelPort = constructor.socialKernelPort;
@@ -427,6 +435,14 @@ export class Bootstrap {
     return this.recoStoragePortForServer;
   }
 
+  getHackathonStoragePortForClient() {
+    return this.hackathonStoragePortForClient;
+  }
+
+  getHackathonStoragePortForServer() {
+    return this.hackathonStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -524,6 +540,8 @@ export class Bootstrap {
         billingProfileStoragePortForServer: new BillingProfileClientAdapter(new FetchHttpClient()),
         recoStoragePortForClient: new RecoClientAdapter(new FetchHttpClient()),
         recoStoragePortForServer: new RecoClientAdapter(new FetchHttpClient()),
+        hackathonStoragePortForClient: new HackathonClientAdapter(new FetchHttpClient()),
+        hackathonStoragePortForServer: new HackathonClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         socialKernelPort: new SocialAdapter(),
