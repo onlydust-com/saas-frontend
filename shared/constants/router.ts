@@ -99,6 +99,18 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  repositories: {
+    root: "/repositories",
+    details: {
+      root: (slug: string) => `/repositories/${slug}`,
+      readme: {
+        root: (slug: string) => `/repositories/${slug}/readme`,
+      },
+      issues: {
+        root: (slug: string) => `/repositories/${slug}/issues`,
+      },
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {

@@ -8,6 +8,7 @@ import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-da
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";
+import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTranslations } from "@/design-system/molecules/cards/_translations/cards.translate";
@@ -43,6 +44,7 @@ export const en = {
   ...enDataTranslation,
   ...enProjectsTranslation,
   ...enHackathonsTranslation,
+  ...enRepositoriesTranslation,
   ...enManageProjectsTranslation,
   ...enMyDashboardTranslation,
   ...enExploreTranslation,
@@ -66,4 +68,4 @@ export const en = {
   projects: {
     ...enProjectTagsTranslation,
   },
-};
+} as const;
