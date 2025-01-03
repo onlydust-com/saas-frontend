@@ -70,4 +70,4 @@ export const en = {
   projects: {
     ...enProjectTagsTranslation,
   },
-} as const;
+};
