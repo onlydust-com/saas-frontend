@@ -7,6 +7,5 @@ export function Markdown({ content }: MarkdownProps) {
   const markdownKernelPort = bootstrap.getMarkdownKernelPort();
   const md = markdownKernelPort.format({ content });
 
-  console.log("markdownKernelPort", md);
   return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: md }} />;
 }
