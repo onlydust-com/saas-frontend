@@ -64,6 +64,9 @@ import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
 
+import { MarkdownAdapter } from "../kernel/markdown/markdown-adapter";
+import { MarkdownFacadePort } from "../kernel/markdown/markdown-facade-port";
+
 export interface BootstrapConstructor {
   meStoragePortForClient: MeStoragePort;
   meStoragePortForServer: MeStoragePort;
@@ -113,6 +116,7 @@ export interface BootstrapConstructor {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  markdownKernelPort: MarkdownFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
@@ -173,6 +177,7 @@ export class Bootstrap {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  markdownKernelPort: MarkdownFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
@@ -229,6 +234,7 @@ export class Bootstrap {
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
+    this.markdownKernelPort = constructor.markdownKernelPort;
     this.validationKernelPort = constructor.validationKernelPort;
     this.styleKernelPort = constructor.styleKernelPort;
     this.searchStoragePortForClient = constructor.searchStoragePortForClient;
@@ -445,6 +451,10 @@ export class Bootstrap {
     return this.idKernelPort;
   }
 
+  getMarkdownKernelPort() {
+    return this.markdownKernelPort;
+  }
+
   getValidationKernelPort() {
     return this.validationKernelPort;
   }
@@ -520,6 +530,7 @@ export class Bootstrap {
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,
+        markdownKernelPort: new MarkdownAdapter(),
         validationKernelPort: new ValidationAdapter(),
         styleKernelPort: StyleAdapter,
         searchStoragePortForClient: new SearchClientAdapter(new FetchHttpClient()),
