@@ -84,6 +84,21 @@ export const NEXT_ROUTER = {
       root: (slug: string) => `/projects/${slug}/rewards`,
     },
   },
+  hackathons: {
+    root: "/hackathons",
+    details: {
+      root: (slug: string) => `/hackathons/${slug}`,
+      overview: {
+        root: (slug: string) => `/hackathons/${slug}/overview`,
+      },
+      projects: {
+        root: (slug: string) => `/hackathons/${slug}/projects`,
+      },
+      community: {
+        root: (slug: string) => `/hackathons/${slug}/community`,
+      },
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {

@@ -2,6 +2,7 @@ import { enSplashTranslation } from "@/app/(splash)/_translations/splash.transla
 import { enDataTranslation } from "@/app/data/_translations/data.translate";
 import { enExploreTranslation } from "@/app/explore/_translations/explore.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
+import { enHackathonsTranslation } from "@/app/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
@@ -41,6 +42,7 @@ export const en = {
   ...enFinancialsTranslation,
   ...enDataTranslation,
   ...enProjectsTranslation,
+  ...enHackathonsTranslation,
   ...enManageProjectsTranslation,
   ...enMyDashboardTranslation,
   ...enExploreTranslation,
