@@ -68,8 +68,8 @@ export class HackathonsList implements HackathonsListInterface {
     const endDate = new Date(this.endDate);
 
     return {
-      startDate: this.dateKernelPort.format(startDate, "dd MMM, yyyy"),
-      endDate: this.dateKernelPort.format(endDate, "dd MMM, yyyy"),
+      startDate: this.dateKernelPort.format(startDate, "d MMM, yyyy"),
+      endDate: this.dateKernelPort.format(endDate, "d MMM, yyyy"),
       startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
       endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
     };
