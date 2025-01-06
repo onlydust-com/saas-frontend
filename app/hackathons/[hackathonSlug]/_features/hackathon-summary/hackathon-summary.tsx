@@ -122,7 +122,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
             translate={{ token: "hackathon:details.summary.links" }}
           />
 
-          <div className="grid grid-cols-2 gap-md">
+          <div className="grid gap-md mobile:grid-cols-2">
             {allLinks.map((link, index) => {
               const isFirst = index === 0;
 
