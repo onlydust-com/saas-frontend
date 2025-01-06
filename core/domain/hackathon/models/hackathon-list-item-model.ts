@@ -3,9 +3,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 import { HackathonStatus } from "./hackathon.types";
 
-export type HackathonsListResponse = components["schemas"]["HackathonsListItemResponse"];
+export type HackathonListItemResponse = components["schemas"]["HackathonsListItemResponse"];
 
-export interface HackathonsListInterface extends HackathonsListResponse {
+export interface HackathonListItemInterface extends HackathonListItemResponse {
   isComingSoon(): boolean;
   isLive(): boolean;
   isPast(): boolean;
@@ -18,21 +18,21 @@ export interface HackathonsListInterface extends HackathonsListResponse {
   };
 }
 
-export class HackathonsList implements HackathonsListInterface {
-  endDate!: HackathonsListResponse["endDate"];
-  githubLabels!: HackathonsListResponse["githubLabels"];
-  id!: HackathonsListResponse["id"];
-  index!: HackathonsListResponse["index"];
-  issueCount!: HackathonsListResponse["issueCount"];
-  location!: HackathonsListResponse["location"];
-  openIssueCount!: HackathonsListResponse["openIssueCount"];
-  projects!: HackathonsListResponse["projects"];
-  slug!: HackathonsListResponse["slug"];
-  startDate!: HackathonsListResponse["startDate"];
-  subscriberCount!: HackathonsListResponse["subscriberCount"];
-  title!: HackathonsListResponse["title"];
+export class HackathonListItem implements HackathonListItemInterface {
+  endDate!: HackathonListItemResponse["endDate"];
+  githubLabels!: HackathonListItemResponse["githubLabels"];
+  id!: HackathonListItemResponse["id"];
+  index!: HackathonListItemResponse["index"];
+  issueCount!: HackathonListItemResponse["issueCount"];
+  location!: HackathonListItemResponse["location"];
+  openIssueCount!: HackathonListItemResponse["openIssueCount"];
+  projects!: HackathonListItemResponse["projects"];
+  slug!: HackathonListItemResponse["slug"];
+  startDate!: HackathonListItemResponse["startDate"];
+  subscriberCount!: HackathonListItemResponse["subscriberCount"];
+  title!: HackathonListItemResponse["title"];
 
-  constructor(props: HackathonsListResponse) {
+  constructor(props: HackathonListItemResponse) {
     Object.assign(this, props);
   }
 
@@ -50,16 +50,16 @@ export class HackathonsList implements HackathonsListInterface {
     return this.dateKernelPort.isPast(new Date(this.endDate));
   }
 
-  getStatus() {
+  getStatus(): HackathonStatus {
     if (this.isLive()) {
-      return "live";
+      return HackathonStatus.Live;
     }
 
     if (this.isComingSoon()) {
-      return "open";
+      return HackathonStatus.Open;
     }
 
-    return "closed";
+    return HackathonStatus.Closed;
   }
 
   formatDisplayDates() {

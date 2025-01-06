@@ -1,5 +1,5 @@
 import { GetHackathonBySlugResponse, GetHackathonsResponse } from "@/core/domain/hackathon/hackathon-contract.types";
-import { HackathonsList } from "@/core/domain/hackathon/models/hackathon-list-model";
+import { HackathonListItem } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { Hackathon } from "@/core/domain/hackathon/models/hackathon-model";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
@@ -29,7 +29,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
 
       return {
         ...data,
-        hackathons: data.hackathons.map(hackathon => new HackathonsList(hackathon)),
+        hackathons: data.hackathons.map(hackathon => new HackathonListItem(hackathon)),
       };
     };
 

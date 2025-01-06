@@ -3,9 +3,9 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 import { HackathonEventStatus } from "./hackathon.types";
 
-export type HackathonsEventsResponse = components["schemas"]["HackathonsEventItemResponse"];
+export type HackathonEventResponse = components["schemas"]["HackathonsEventItemResponse"];
 
-export interface HackathonsEventsInterface extends HackathonsEventsResponse {
+export interface HackathonEventInterface extends HackathonEventResponse {
   isToday(): boolean;
   isAfterToday(): boolean;
   isBeforeToday(): boolean;
@@ -14,15 +14,15 @@ export interface HackathonsEventsInterface extends HackathonsEventsResponse {
   getStatus(): HackathonEventStatus;
 }
 
-export class HackathonsEvents implements HackathonsEventsInterface {
-  name!: HackathonsEventsResponse["name"];
-  subtitle!: HackathonsEventsResponse["subtitle"];
-  iconSlug!: HackathonsEventsResponse["iconSlug"];
-  startDate!: HackathonsEventsResponse["startDate"];
-  endDate!: HackathonsEventsResponse["endDate"];
-  links!: HackathonsEventsResponse["links"];
+export class HackathonEvent implements HackathonEventInterface {
+  name!: HackathonEventResponse["name"];
+  subtitle!: HackathonEventResponse["subtitle"];
+  iconSlug!: HackathonEventResponse["iconSlug"];
+  startDate!: HackathonEventResponse["startDate"];
+  endDate!: HackathonEventResponse["endDate"];
+  links!: HackathonEventResponse["links"];
 
-  constructor(props: HackathonsEventsResponse) {
+  constructor(props: HackathonEventResponse) {
     Object.assign(this, props);
   }
 
@@ -50,15 +50,15 @@ export class HackathonsEvents implements HackathonsEventsInterface {
     return this.dateKernelPort.format(new Date(this.startDate), "hh aa OOO");
   }
 
-  getStatus() {
+  getStatus(): HackathonEventStatus {
     if (this.isLive()) {
-      return "highlight";
+      return HackathonEventStatus.Highlight;
     }
 
     if (this.dateKernelPort.isPast(new Date(this.endDate))) {
-      return "terminated";
+      return HackathonEventStatus.Terminated;
     }
 
-    return "planned";
+    return HackathonEventStatus.Planned;
   }
 }

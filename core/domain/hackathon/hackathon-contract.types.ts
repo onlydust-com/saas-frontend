@@ -1,8 +1,10 @@
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
-import { HttpClientParameters } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
-import { HttpStorageResponse } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+import {
+  HttpClientParameters,
+  HttpStorageResponse,
+} from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { HackathonsListInterface } from "./models/hackathon-list-model";
+import { HackathonListItemInterface } from "./models/hackathon-list-item-model";
 import { HackathonInterface } from "./models/hackathon-model";
 
 /* --------------------------------- Get hackathons -------------------------------- */
@@ -10,7 +12,7 @@ import { HackathonInterface } from "./models/hackathon-model";
 export type GetHackathonsResponse = components["schemas"]["HackathonsListResponse"];
 
 export type GetHackathonsModel = Omit<GetHackathonsResponse, "hackathons"> & {
-  hackathons: HackathonsListInterface[];
+  hackathons: HackathonListItemInterface[];
 };
 
 export type GetHackathonsPortResponse = HttpStorageResponse<GetHackathonsModel>;
