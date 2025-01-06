@@ -6,12 +6,18 @@ import { HackathonEventStatus } from "./hackathon.types";
 export type HackathonEventResponse = components["schemas"]["HackathonsEventItemResponse"];
 
 export interface HackathonEventInterface extends HackathonEventResponse {
-  isToday(): boolean;
-  isAfterToday(): boolean;
-  isBeforeToday(): boolean;
+  isComingSoon(): boolean;
   isLive(): boolean;
-  getFormattedTime(): string;
+  isPast(): boolean;
   getStatus(): HackathonEventStatus;
+  formatDisplayDates(): {
+    startDate: string;
+    startMonth: string;
+    startDay: string;
+    startTime: string;
+    endDate: string;
+    endTime: string;
+  };
 }
 
 export class HackathonEvent implements HackathonEventInterface {
@@ -28,37 +34,41 @@ export class HackathonEvent implements HackathonEventInterface {
 
   protected dateKernelPort = bootstrap.getDateKernelPort();
 
-  isToday(): boolean {
-    const eachDays = this.dateKernelPort.eachDayOfInterval(new Date(this.startDate), new Date(this.endDate));
-
-    return eachDays.some(day => this.dateKernelPort.isToday(day));
+  isComingSoon() {
+    return this.dateKernelPort.isFuture(new Date(this.startDate));
   }
 
-  isAfterToday(): boolean {
-    return !this.isToday() && this.dateKernelPort.isFuture(new Date(this.startDate));
-  }
-
-  isBeforeToday(): boolean {
-    return !this.isToday() && this.dateKernelPort.isPast(new Date(this.endDate));
-  }
-
-  isLive(): boolean {
+  isLive() {
     return this.dateKernelPort.isPast(new Date(this.startDate)) && this.dateKernelPort.isFuture(new Date(this.endDate));
   }
 
-  getFormattedTime(): string {
-    return this.dateKernelPort.format(new Date(this.startDate), "hh aa OOO");
+  isPast() {
+    return this.dateKernelPort.isPast(new Date(this.endDate));
   }
 
-  getStatus(): HackathonEventStatus {
+  getStatus() {
     if (this.isLive()) {
       return HackathonEventStatus.Highlight;
     }
 
-    if (this.dateKernelPort.isPast(new Date(this.endDate))) {
+    if (this.isPast()) {
       return HackathonEventStatus.Terminated;
     }
 
     return HackathonEventStatus.Planned;
+  }
+
+  formatDisplayDates() {
+    const startDate = new Date(this.startDate);
+    const endDate = new Date(this.endDate);
+
+    return {
+      startDate: this.dateKernelPort.format(startDate, "d MMM. yyyy"),
+      startMonth: this.dateKernelPort.format(startDate, "MMM."),
+      startDay: this.dateKernelPort.format(startDate, "d"),
+      startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
+      endDate: this.dateKernelPort.format(endDate, "d MMM. yyyy"),
+      endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
+    };
   }
 }
