@@ -5,5 +5,10 @@
       "projects": "Projects",
       "community": "Community"
     }
+  },
+  "summary": {
+    "date": "Date",
+    "location": "Location",
+    "links": "Links"
   }
 }

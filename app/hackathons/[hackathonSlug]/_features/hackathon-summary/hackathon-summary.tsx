@@ -4,6 +4,7 @@ import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapt
 
 import { PaperLoading } from "@/design-system/atoms/paper";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
+import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single/variants/avatar-label-single-default";
 
 export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
@@ -52,9 +53,39 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
           classNames={{ title: "line-clamp-none" }}
         />
       </div>
-      <div className="p-lg">Date</div>
-      <div className="p-lg">Location</div>
-      <div className="p-lg">Links</div>
+      <div className="p-lg">
+        <Typo
+          variant="heading"
+          size="xs"
+          color="tertiary"
+          weight="medium"
+          classNames={{ base: "text-sm" }}
+          translate={{ token: "hackathon:details.summary.date" }}
+        />
+      </div>
+      <div className="flex flex-col gap-lg p-lg">
+        <Typo
+          variant="heading"
+          size="xs"
+          color="tertiary"
+          weight="medium"
+          classNames={{ base: "text-sm" }}
+          translate={{ token: "hackathon:details.summary.location" }}
+        />
+        <Typo variant="heading" size="xs">
+          {hackathon.location}
+        </Typo>
+      </div>
+      <div className="p-lg">
+        <Typo
+          variant="heading"
+          size="xs"
+          color="tertiary"
+          weight="medium"
+          classNames={{ base: "text-sm" }}
+          translate={{ token: "hackathon:details.summary.links" }}
+        />
+      </div>
     </Paper>
   );
 }
