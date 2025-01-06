@@ -1,6 +1,8 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
+import { PropsWithChildren, useMemo } from "react";
+
+import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -74,16 +76,15 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
 export default function HackathonsLayout({
   params,
   children,
-}: {
+}: PropsWithChildren<{
   params: { hackathonSlug: string };
-  children: ReactNode;
-}) {
+}>) {
   return (
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">
-            {/* Placeholder for Hackathon Summary Component */}
+            <HackathonSummary hackathonSlug={params.hackathonSlug} />
           </div>
           <Paper
             background="glass"

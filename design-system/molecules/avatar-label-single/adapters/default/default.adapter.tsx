@@ -52,7 +52,7 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
             weight="medium"
             color="secondary"
             classNames={{
-              base: slots.title(),
+              base: cn(slots.title(), classNames?.title),
             }}
             {...title}
           />
@@ -63,7 +63,7 @@ export function AvatarLabelSingleDefaultAdapter<C extends ElementType = "div">({
             size={descriptionSize}
             color="tertiary"
             classNames={{
-              base: slots.description(),
+              base: cn(slots.description(), classNames?.description),
             }}
             {...description}
           />
