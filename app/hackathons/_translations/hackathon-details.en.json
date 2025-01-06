@@ -8,5 +8,8 @@
     "date": "Date",
     "location": "Location",
     "links": "Links"
+  },
+  "events": {
+    "title": "Events"
   }
 }

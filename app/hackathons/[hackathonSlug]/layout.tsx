@@ -2,6 +2,7 @@
 
 import { PropsWithChildren, useMemo } from "react";
 
+import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
@@ -82,9 +83,10 @@ export default function HackathonsLayout({
   return (
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
-        <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
+        <div className="grid-col-1 grid gap-lg desktop:h-full desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">
             <HackathonSummary hackathonSlug={params.hackathonSlug} />
+            <HackathonEvents hackathonSlug={params.hackathonSlug} />
           </div>
           <Paper
             background="glass"
