@@ -14,6 +14,7 @@ export interface HackathonsListInterface extends HackathonsListResponse {
     startDate: string;
     endDate: string;
     startTime: string;
+    endTime: string;
   };
   getBackgroundImage(): string;
 }
@@ -67,9 +68,10 @@ export class HackathonsList implements HackathonsListInterface {
     const endDate = new Date(this.endDate);
 
     return {
-      startDate: this.dateKernelPort.format(startDate, "MMMM dd, yyyy"),
-      endDate: this.dateKernelPort.format(endDate, "MMMM dd, yyyy"),
-      startTime: this.dateKernelPort.format(startDate, "hh:mm aa OOO"),
+      startDate: this.dateKernelPort.format(startDate, "dd MMM, yyyy"),
+      endDate: this.dateKernelPort.format(endDate, "dd MMM, yyyy"),
+      startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
+      endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
     };
   }
 
