@@ -46,7 +46,7 @@ export class HackathonEvent implements HackathonEventInterface {
     return this.dateKernelPort.isPast(new Date(this.endDate));
   }
 
-  getStatus(): HackathonEventStatus {
+  getStatus() {
     if (this.isLive()) {
       return HackathonEventStatus.Highlight;
     }
