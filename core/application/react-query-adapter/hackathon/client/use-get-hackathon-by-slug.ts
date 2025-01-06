@@ -9,12 +9,12 @@ import { UseQueryFacadeParams, useQueryAdapter } from "../../helpers/use-query-a
 export function useGetHackathonBySlug({
   pathParams,
   options,
-}: UseQueryFacadeParams<HackathonFacadePort["getHackathonDetails"], HackathonInterface>) {
+}: UseQueryFacadeParams<HackathonFacadePort["getHackathonBySlug"], HackathonInterface>) {
   const hackathonStoragePort = bootstrap.getHackathonStoragePortForClient();
 
   return useQuery(
     useQueryAdapter({
-      ...hackathonStoragePort.getHackathonDetails({ pathParams }),
+      ...hackathonStoragePort.getHackathonBySlug({ pathParams }),
       options,
     })
   );
