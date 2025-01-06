@@ -11,7 +11,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
 
   routes = {
     getHackathons: "hackathons",
-    getHackathonDetails: "hackathons/:slug",
+    getHackathonDetails: "hackathons/slug/:hackathonSlug",
   } as const;
 
   getHackathons = () => {
