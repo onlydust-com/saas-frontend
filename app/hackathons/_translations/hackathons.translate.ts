@@ -5,7 +5,7 @@ import enHackathonsShared from "./hackathon-shared.en.json";
 export const enHackathonsTranslation = {
   hackathon: {
     details: enHackathonDetails,
-    shared: enHackathonsShared,
     list: enHackathonList,
+    shared: enHackathonsShared,
   },
 };
