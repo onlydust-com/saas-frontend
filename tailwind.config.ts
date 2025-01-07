@@ -28,6 +28,7 @@ const config: Config = withTV({
         clash: "Clash Display",
         inter: "Inter",
       },
+
       colors: {
         ...COLORS,
         glass: {

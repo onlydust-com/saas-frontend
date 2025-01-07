@@ -47,7 +47,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"project-view"}
-      classNames={{ base: "w-full" }}
+      classNames={{ base: "w-full pt-8 px-4" }}
       tabs={[
         {
           id: Views.OVERVIEW,
