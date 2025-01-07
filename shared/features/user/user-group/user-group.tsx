@@ -63,6 +63,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
                   },
                 ]}
                 title={{ children: login }}
+                withPopover={false}
               />
             ))}
           </div>

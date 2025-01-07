@@ -49,11 +49,19 @@ export function RewardsTable({ params }: { params: { projectSlug: string } }) {
   });
 
   if (isLoading) {
-    return <TableLoading />;
+    return (
+      <div className="p-lg">
+        <TableLoading background="glass" />
+      </div>
+    );
   }
 
   if (isError) {
-    return <ErrorState />;
+    return (
+      <div className="p-lg">
+        <ErrorState />
+      </div>
+    );
   }
 
   return (

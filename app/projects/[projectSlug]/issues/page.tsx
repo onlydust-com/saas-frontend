@@ -1,5 +1,6 @@
 "use client";
 
+import { FolderOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -63,6 +64,9 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           {
             id: "root",
             label: data?.name,
+            iconProps: {
+              component: FolderOpen,
+            },
           },
           {
             id: "open-issues",

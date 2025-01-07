@@ -28,7 +28,7 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
 
   const renderProjects = useMemo(() => {
     if (isLoading) {
-      return <Skeleton className="h-[200px] w-full" />;
+      return <Skeleton className="h-[200px] w-full" background="glass" />;
     }
 
     if (isError) {
