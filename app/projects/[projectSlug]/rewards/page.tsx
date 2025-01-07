@@ -21,7 +21,7 @@ export default function ProjectRewardsPage({ params }: { params: { projectSlug: 
           },
         ]}
       />
-      <RewardsTable />
+      <RewardsTable params={params} />
     </ScrollView>
   );
 }

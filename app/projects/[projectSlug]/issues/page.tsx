@@ -97,9 +97,15 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
                 login: a.login,
                 avatarUrl: a.avatarUrl,
               }))}
+              selectedLabels={selectedLabels.map(label => label.name)}
               githubLabels={issue.labels.map(label => ({
                 label: label.name,
                 description: label.description,
+                onClick: () =>
+                  handleLabelClick({
+                    ...label,
+                    count: 0,
+                  }),
               }))}
               createdBy={{
                 login: issue.author.login,

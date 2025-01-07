@@ -13,6 +13,7 @@ interface Variants {
   isError: boolean;
   isFocused: boolean;
   size: InputSize;
+  isTransparent: boolean;
 }
 
 interface ClassNames {

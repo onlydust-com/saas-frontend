@@ -21,7 +21,7 @@ export default function ProjectContributorsPage({ params }: { params: { projectS
           },
         ]}
       />
-      <ContributorsTable />
+      <ContributorsTable params={{ projectSlug: params.projectSlug }} />
     </ScrollView>
   );
 }

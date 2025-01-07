@@ -47,7 +47,7 @@ export function useFilterColumns() {
             ]}
             shape={"squared"}
             title={{ children: login }}
-            description={{ children: `${rank.rankCategory} ${rank.rank} ${rank.rankPercentile}` }}
+            description={{ children: `${rank.getRankSummary({ hideTitle: true })}` }}
             withPopover={false}
           />
         );

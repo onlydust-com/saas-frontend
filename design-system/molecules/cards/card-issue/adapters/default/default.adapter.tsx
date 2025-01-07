@@ -32,7 +32,7 @@ function GithubLabel({
   function renderLabel({ label, onClick }: NonNullable<CardIssuePort<AnyType>["githubLabels"]>[number]) {
     const isSelected = selectedLabels?.includes(label);
     return (
-      <Badge key={label} color={isSelected ? "brand" : "grey"} {...(githubLabelsProps ?? {})} htmlProps={{ onClick }}>
+      <Badge key={label} color={isSelected ? "brand" : "grey"} {...(githubLabelsProps ?? {})} onClick={onClick}>
         {label}
       </Badge>
     );
@@ -56,21 +56,32 @@ function GithubLabel({
 
   if (limitedLabels?.length < githubLabels?.length) {
     return (
-      <Popover>
-        <Popover.Trigger>{() => renderContent(true)}</Popover.Trigger>
+      <div className="flex flex-row items-center gap-1">
+        {renderContent(true)}
+        <Popover>
+          <Popover.Trigger>
+            {() => (
+              <div className="cursor-pointer">
+                <Badge key={"more"} color={"grey"} {...(githubLabelsProps ?? {})}>
+                  +{githubLabels?.length - limitedLabels?.length}
+                </Badge>
+              </div>
+            )}
+          </Popover.Trigger>
 
-        <Popover.Content>
-          {() => (
-            <div className="h-fit w-fit overflow-hidden">
-              <ScrollView className={"max-h-[300px]"}>
-                <div className="flex w-fit flex-col gap-2">
-                  {githubLabels?.map(({ label, description }) => renderLabel({ label, description }))}
-                </div>
-              </ScrollView>
-            </div>
-          )}
-        </Popover.Content>
-      </Popover>
+          <Popover.Content>
+            {() => (
+              <div className="h-fit w-fit overflow-hidden">
+                <ScrollView className={"max-h-[300px]"}>
+                  <div className="flex w-fit flex-col gap-2">
+                    {githubLabels?.map(({ label, description }) => renderLabel({ label, description }))}
+                  </div>
+                </ScrollView>
+              </div>
+            )}
+          </Popover.Content>
+        </Popover>
+      </div>
     );
   }
 
@@ -92,6 +103,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
   usersAvatarsProps,
   githubLabels,
   githubLabelsProps,
+  selectedLabels,
 }: CardIssuePort<C>) {
   const slots = CardIssueDefaultVariants();
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -134,7 +146,13 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
           ) : null}
         </div>
         <div className="flex flex-row items-center justify-between gap-1">
-          {<GithubLabel githubLabels={githubLabels} githubLabelsProps={githubLabelsProps} />}
+          {
+            <GithubLabel
+              githubLabels={githubLabels}
+              githubLabelsProps={githubLabelsProps}
+              selectedLabels={selectedLabels}
+            />
+          }
           <div className="flex flex-row items-center justify-end gap-2">
             {!!createdSince && (
               <div className="flex flex-row items-center justify-start gap-1">

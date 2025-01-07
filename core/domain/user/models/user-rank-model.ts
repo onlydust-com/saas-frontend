@@ -15,7 +15,7 @@ export interface UserRankInterface extends UserRankInterfaceContract {
     emoji?: string;
     full?: string;
   };
-  getRankSummary(): string;
+  getRankSummary(options?: { hideRank?: boolean; hideRankPercentile?: boolean; hideTitle?: boolean }): string;
 }
 
 export class UserRank implements UserRankInterface {
@@ -75,16 +75,20 @@ export class UserRank implements UserRankInterface {
     return !!this.rankPercentile && this.rankPercentile !== 100;
   }
 
-  getRankSummary() {
+  getRankSummary(options?: { hideRank?: boolean; hideRankPercentile?: boolean; hideTitle?: boolean }) {
     const title = this.getTitle().wording ?? "";
     const rank = this.getRank();
-    let summary = `${title}`;
+    let summary = options?.hideTitle ? "" : `${title}`;
 
-    if (rank) {
-      summary += ` • ${rank}`;
+    if (rank && !options?.hideRank) {
+      if (options?.hideTitle) {
+        summary += `${rank}`;
+      } else {
+        summary += ` • ${rank}`;
+      }
     }
 
-    if (this.shouldShowRankPercentile()) {
+    if (this.shouldShowRankPercentile() && !options?.hideRankPercentile) {
       summary += ` • Top ${this.rankPercentile}%`;
     }
 
