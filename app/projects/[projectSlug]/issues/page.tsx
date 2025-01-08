@@ -13,9 +13,11 @@ import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function ProjectIssuesPage({ params }: { params: { projectSlug: string } }) {
+  const { open } = useApplyIssueSidePanel();
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>([]);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
@@ -91,6 +93,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             <CardIssue
               key={issue.id}
               title={issue.title}
+              onClick={() => open({ issueId: issue.id })}
               contribution={{
                 type: "ISSUE",
                 githubStatus: issue.status,

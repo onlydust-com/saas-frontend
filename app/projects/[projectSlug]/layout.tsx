@@ -10,6 +10,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
@@ -109,6 +110,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
           </Paper>
         </div>
       </AnimatedColumn>
+      <ApplyIssueSidepanel />
     </PageWrapper>
   );
 }

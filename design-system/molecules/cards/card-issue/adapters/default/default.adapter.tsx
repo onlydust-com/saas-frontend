@@ -104,6 +104,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
   githubLabels,
   githubLabelsProps,
   selectedLabels,
+  onClick,
 }: CardIssuePort<C>) {
   const slots = CardIssueDefaultVariants();
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -116,6 +117,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
       classNames={{ base: cn(slots.base(), classNames?.base) }}
       background="glass"
       border="primary"
+      onClick={onClick}
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between gap-1">
