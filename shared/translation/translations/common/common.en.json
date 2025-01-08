@@ -111,7 +111,7 @@
     "issues": "{{count}} issues",
     "openIssues": "Open issues",
     "goodFirstIssues": "Good first issues",
-    "odhack": "ODHack availabe issues",
+    "odhack": "ODHack available issues",
     "prCount": "{{count}} PRs"
   },
   "all": "All"
