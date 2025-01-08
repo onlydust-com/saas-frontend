@@ -1,7 +1,8 @@
-import { GetHackathonDetailsResponse, GetHackathonsResponse } from "@/core/domain/hackathon/hackathon-contract.types";
+import { GetHackathonBySlugResponse, GetHackathonsResponse } from "@/core/domain/hackathon/hackathon-contract.types";
 import { HackathonsList } from "@/core/domain/hackathon/models/hackathon-list-model";
 import { Hackathon } from "@/core/domain/hackathon/models/hackathon-model";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
+import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { FirstParameter } from "@/core/kernel/types";
 
 import { HttpClient } from "../http/http-client/http-client";
@@ -11,7 +12,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
 
   routes = {
     getHackathons: "hackathons",
-    getHackathonDetails: "hackathons/:slug",
+    getHackathonBySlug: "hackathons/slug/:hackathonSlug",
   } as const;
 
   getHackathons = () => {
@@ -38,17 +39,18 @@ export class HackathonClientAdapter implements HackathonStoragePort {
     };
   };
 
-  getHackathonDetails = ({ pathParams }: FirstParameter<HackathonStoragePort["getHackathonDetails"]>) => {
-    const path = this.routes["getHackathonDetails"];
+  getHackathonBySlug = ({ pathParams }: FirstParameter<HackathonStoragePort["getHackathonBySlug"]>) => {
+    const path = this.routes["getHackathonBySlug"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async () => {
-      const data = await this.client.request<GetHackathonDetailsResponse>({
+      const data = await this.client.request<GetHackathonBySlugResponse>({
         path,
         method,
         tag,
         pathParams,
+        version: MarketplaceApiVersion.v2,
       });
 
       return new Hackathon(data);

@@ -1,11 +1,11 @@
 import {
-  GetHackathonDetailsPortParams,
-  GetHackathonDetailsPortResponse,
+  GetHackathonBySlugPortParams,
+  GetHackathonBySlugPortResponse,
   GetHackathonsPortParams,
   GetHackathonsPortResponse,
 } from "../hackathon-contract.types";
 
 export interface HackathonStoragePort {
   getHackathons(p: GetHackathonsPortParams): GetHackathonsPortResponse;
-  getHackathonDetails(p: GetHackathonDetailsPortParams): GetHackathonDetailsPortResponse;
+  getHackathonBySlug(p: GetHackathonBySlugPortParams): GetHackathonBySlugPortResponse;
 }

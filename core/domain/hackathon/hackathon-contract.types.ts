@@ -19,12 +19,12 @@ export type GetHackathonsPortParams = HttpClientParameters<object>;
 
 /* --------------------------------- Get hackathon by slug -------------------------------- */
 
-export type GetHackathonDetailsResponse = components["schemas"]["HackathonsDetailsResponse"];
+export type GetHackathonBySlugResponse = components["schemas"]["HackathonResponseV2"];
 
-type GetHackathonDetailsPathParams = operations["getHackathonBySlug"]["parameters"]["path"];
+type GetHackathonBySlugPathParams = operations["getHackathonBySlugV2"]["parameters"]["path"];
 
-export type GetHackathonDetailsPortResponse = HttpStorageResponse<HackathonInterface>;
+export type GetHackathonBySlugPortResponse = HttpStorageResponse<HackathonInterface>;
 
-export type GetHackathonDetailsPortParams = HttpClientParameters<{
-  PathParams: GetHackathonDetailsPathParams;
+export type GetHackathonBySlugPortParams = HttpClientParameters<{
+  PathParams: GetHackathonBySlugPathParams;
 }>;

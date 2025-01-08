@@ -1,9 +1,12 @@
 {
-  "details": {
-    "tabs": {
-      "overview": "Overview",
-      "projects": "Projects",
-      "community": "Community"
-    }
+  "tabs": {
+    "overview": "Overview",
+    "projects": "Projects",
+    "community": "Community"
+  },
+  "summary": {
+    "date": "Date",
+    "location": "Location",
+    "links": "Links"
   }
 }

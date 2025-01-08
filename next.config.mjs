@@ -35,6 +35,12 @@ const nextConfig = {
         destination: "/projects/:projectSlug/overview",
         permanent: true,
       },
+      // HACKATHONS
+      {
+        source: "/hackathons/:hackathonSlug",
+        destination: "/hackathons/:hackathonSlug/overview",
+        permanent: true,
+      },
     ];
   },
 };

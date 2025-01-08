@@ -1,6 +1,8 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
+import { PropsWithChildren, useMemo } from "react";
+
+import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -43,7 +45,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
       tabs={[
         {
           id: Views.OVERVIEW,
-          children: <Translate token={"hackathon:details.details.tabs.overview"} />,
+          children: <Translate token={"hackathon:details.tabs.overview"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.overview.root(params.hackathonSlug),
@@ -51,7 +53,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
         },
         {
           id: Views.PROJECTS,
-          children: <Translate token={"hackathon:details.details.tabs.projects"} />,
+          children: <Translate token={"hackathon:details.tabs.projects"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug),
@@ -59,7 +61,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
         },
         {
           id: Views.COMMUNITY,
-          children: <Translate token={"hackathon:details.details.tabs.community"} />,
+          children: <Translate token={"hackathon:details.tabs.community"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
@@ -74,16 +76,15 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
 export default function HackathonsLayout({
   params,
   children,
-}: {
+}: PropsWithChildren<{
   params: { hackathonSlug: string };
-  children: ReactNode;
-}) {
+}>) {
   return (
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">
-            {/* Placeholder for Hackathon Summary Component */}
+            <HackathonSummary hackathonSlug={params.hackathonSlug} />
           </div>
           <Paper
             background="glass"

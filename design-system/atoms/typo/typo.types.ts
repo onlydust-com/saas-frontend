@@ -1,4 +1,4 @@
-import { ComponentProps, ComponentPropsWithoutRef, CSSProperties, ElementType, PropsWithChildren } from "react";
+import { CSSProperties, ComponentProps, ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
 
 import { COLORS } from "@/shared/theme/colors";
 import { Translate } from "@/shared/translation/components/translate/translate";

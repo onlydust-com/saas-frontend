@@ -1,48 +1,50 @@
+import { bootstrap } from "@/core/bootstrap";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { HackathonsEventsInterface } from "./hackathon-event-model";
+export type HackathonResponse = components["schemas"]["HackathonResponseV2"];
 
-export type HackathonsDetailsResponse = components["schemas"]["HackathonsDetailsResponse"];
-
-export interface HackathonInterface extends HackathonsDetailsResponse {
-  getTodayEvents(): HackathonsEventsInterface[];
-  getPreviousEvents(): HackathonsEventsInterface[];
-  getNextEvents(): HackathonsEventsInterface[];
-  events: HackathonsEventsInterface[];
+export interface HackathonInterface extends HackathonResponse {
+  formatDisplayDates(): null | {
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
 export class Hackathon implements HackathonInterface {
-  communityLinks!: HackathonsDetailsResponse["communityLinks"];
-  description!: HackathonsDetailsResponse["description"];
-  links!: HackathonsDetailsResponse["links"];
-  totalBudget!: HackathonsDetailsResponse["totalBudget"];
-  id!: HackathonsDetailsResponse["id"];
-  slug!: HackathonsDetailsResponse["slug"];
-  index!: HackathonsDetailsResponse["index"];
-  title!: HackathonsDetailsResponse["title"];
-  githubLabels!: HackathonsDetailsResponse["githubLabels"];
-  location!: HackathonsDetailsResponse["location"];
-  startDate!: HackathonsDetailsResponse["startDate"];
-  endDate!: HackathonsDetailsResponse["endDate"];
-  projects!: HackathonsDetailsResponse["projects"];
-  subscriberCount!: HackathonsDetailsResponse["subscriberCount"];
-  issueCount!: HackathonsDetailsResponse["issueCount"];
-  openIssueCount!: HackathonsDetailsResponse["openIssueCount"];
-  events!: HackathonsEventsInterface[];
+  availableIssueCount!: HackathonResponse["availableIssueCount"];
+  communityLinks!: HackathonResponse["communityLinks"];
+  description!: HackathonResponse["description"];
+  endDate!: HackathonResponse["endDate"];
+  id!: HackathonResponse["id"];
+  index!: HackathonResponse["index"];
+  issueCount!: HackathonResponse["issueCount"];
+  links!: HackathonResponse["links"];
+  location!: HackathonResponse["location"];
+  projectCount!: HackathonResponse["projectCount"];
+  slug!: HackathonResponse["slug"];
+  startDate!: HackathonResponse["startDate"];
+  subscriberCount!: HackathonResponse["subscriberCount"];
+  title!: HackathonResponse["title"];
 
-  constructor(props: HackathonsDetailsResponse) {
+  constructor(props: HackathonResponse) {
     Object.assign(this, props);
   }
 
-  getTodayEvents() {
-    return this.events.filter(event => event.isToday());
-  }
+  protected dateKernelPort = bootstrap.getDateKernelPort();
 
-  getPreviousEvents() {
-    return this.events.filter(event => event.isBeforeToday());
-  }
+  formatDisplayDates() {
+    if (!this.startDate || !this.endDate) return null;
 
-  getNextEvents() {
-    return this.events.filter(event => event.isAfterToday());
+    const startDate = new Date(this.startDate);
+    const endDate = new Date(this.endDate);
+
+    return {
+      startDate: this.dateKernelPort.format(startDate, "d MMM, yyyy"),
+      endDate: this.dateKernelPort.format(endDate, "d MMM, yyyy"),
+      startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
+      endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
+    };
   }
 }
