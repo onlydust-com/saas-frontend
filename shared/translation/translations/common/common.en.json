@@ -109,8 +109,9 @@
   },
   "count": {
     "issues": "{{count}} issues",
-    "openIssues": "{{count}} Open issues",
-    "goodFirstIssues": "{{count}} Good first issues",
+    "openIssues": "Open issues",
+    "goodFirstIssues": "Good first issues",
+    "odhack": "ODHack availabe issues",
     "prCount": "{{count}} PRs"
   },
   "all": "All"

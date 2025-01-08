@@ -19,8 +19,9 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   contributorCount: number;
   starCount: number;
   forkCount: number;
-  availableIssueCount: number;
-  goodFirstIssueCount: number;
+  availableIssueCount?: number;
+  goodFirstIssueCount?: number;
+  odhackIssueCount?: number;
   description?: string;
   categories?: CategoriesProps["categories"];
   languages?: LanguagesProps["languages"];
