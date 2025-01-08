@@ -58,39 +58,41 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-lg px-xl py-lg">
-        <Typo
-          variant="heading"
-          size="xs"
-          color="tertiary"
-          weight="medium"
-          classNames={{ base: "text-sm" }}
-          translate={{ token: "hackathon:details.summary.date" }}
-        />
-        <div className="flex items-center justify-between gap-lg">
-          <div className="flex flex-col">
-            <Typo variant="heading" size="xs">
-              {formattedDates.startDate}
-            </Typo>
+      {formattedDates ? (
+        <div className="flex flex-col gap-lg px-xl py-lg">
+          <Typo
+            variant="heading"
+            size="xs"
+            color="tertiary"
+            weight="medium"
+            classNames={{ base: "text-sm" }}
+            translate={{ token: "hackathon:details.summary.date" }}
+          />
+          <div className="flex items-center justify-between gap-lg">
+            <div className="flex flex-col">
+              <Typo variant="heading" size="xs">
+                {formattedDates.startDate}
+              </Typo>
 
-            <Typo weight="medium" size="xs" color="tertiary">
-              {formattedDates.startTime}
-            </Typo>
-          </div>
+              <Typo weight="medium" size="xs" color="tertiary">
+                {formattedDates.startTime}
+              </Typo>
+            </div>
 
-          <Icon component={ArrowRight} color="purple" />
+            <Icon component={ArrowRight} color="purple" />
 
-          <div className="flex flex-col text-right">
-            <Typo variant="heading" size="xs">
-              {formattedDates.endDate}
-            </Typo>
+            <div className="flex flex-col text-right">
+              <Typo variant="heading" size="xs">
+                {formattedDates.endDate}
+              </Typo>
 
-            <Typo weight="medium" size="xs" color="tertiary">
-              {formattedDates.endTime}
-            </Typo>
+              <Typo weight="medium" size="xs" color="tertiary">
+                {formattedDates.endTime}
+              </Typo>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="flex flex-col gap-lg px-xl py-lg">
         <Typo
