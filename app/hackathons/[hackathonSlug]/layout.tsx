@@ -45,7 +45,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
       tabs={[
         {
           id: Views.OVERVIEW,
-          children: <Translate token={"hackathon:details.details.tabs.overview"} />,
+          children: <Translate token={"hackathon:details.tabs.overview"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.overview.root(params.hackathonSlug),
@@ -53,7 +53,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
         },
         {
           id: Views.PROJECTS,
-          children: <Translate token={"hackathon:details.details.tabs.projects"} />,
+          children: <Translate token={"hackathon:details.tabs.projects"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug),
@@ -61,7 +61,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
         },
         {
           id: Views.COMMUNITY,
-          children: <Translate token={"hackathon:details.details.tabs.community"} />,
+          children: <Translate token={"hackathon:details.tabs.community"} />,
           as: BaseLink,
           htmlProps: {
             href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
