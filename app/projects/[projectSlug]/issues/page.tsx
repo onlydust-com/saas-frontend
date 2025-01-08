@@ -1,5 +1,6 @@
 "use client";
 
+import { FolderOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -63,6 +64,9 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           {
             id: "root",
             label: data?.name,
+            iconProps: {
+              component: FolderOpen,
+            },
           },
           {
             id: "open-issues",
@@ -97,9 +101,15 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
                 login: a.login,
                 avatarUrl: a.avatarUrl,
               }))}
+              selectedLabels={selectedLabels.map(label => label.name)}
               githubLabels={issue.labels.map(label => ({
                 label: label.name,
                 description: label.description,
+                onClick: () =>
+                  handleLabelClick({
+                    ...label,
+                    count: 0,
+                  }),
               }))}
               createdBy={{
                 login: issue.author.login,

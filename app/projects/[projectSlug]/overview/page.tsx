@@ -1,5 +1,7 @@
 "use client";
 
+import { FolderOpen } from "lucide-react";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -26,6 +28,9 @@ export default function ProjectOverviewPage({ params }: { params: { projectSlug:
           {
             id: "root",
             label: data?.name,
+            iconProps: {
+              component: FolderOpen,
+            },
           },
           {
             id: "overview",

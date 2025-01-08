@@ -26,7 +26,7 @@ export type ContributorsTableFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function ContributorsTable() {
+export function ContributorsTable({ params }: { params: { projectSlug: string } }) {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
@@ -45,6 +45,9 @@ export function ContributorsTable() {
     isFetchingNextPage,
   } = ProjectReactQueryAdapter.client.useGetProjectContributorsV2({
     queryParams,
+    pathParams: {
+      projectIdOrSlug: params.projectSlug,
+    },
   });
 
   const contributors = useMemo(
@@ -61,18 +64,31 @@ export function ContributorsTable() {
   });
 
   if (isLoading) {
-    return <TableLoading />;
+    return (
+      <div className="p-lg">
+        <TableLoading background="glass" />
+      </div>
+    );
   }
 
   if (isError) {
-    return <ErrorState />;
+    return (
+      <div className="p-lg">
+        <ErrorState />;
+      </div>
+    );
   }
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
         <nav className={"flex gap-md p-lg"}>
-          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          <TableSearch
+            value={search}
+            onChange={setSearch}
+            onDebouncedChange={setDebouncedSearch}
+            inputProps={{ isTransparent: true }}
+          />
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
         <ScrollView direction={"x"} className="p-lg">

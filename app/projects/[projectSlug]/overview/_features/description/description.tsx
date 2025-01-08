@@ -1,3 +1,5 @@
+import { Markdown } from "@/shared/features/markdown/markdown";
+
 import { CommonBlock } from "../common-block/common-block";
 import { DescriptionProps } from "./description.types";
 
@@ -12,7 +14,9 @@ export function Description({ description }: DescriptionProps) {
         defaultSelected: ["description"],
       }}
     >
-      <div className="w-full">{description}</div>
+      <div className="w-full">
+        <Markdown content={description} />
+      </div>
     </CommonBlock>
   );
 }

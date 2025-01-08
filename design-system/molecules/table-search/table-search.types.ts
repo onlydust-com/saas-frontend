@@ -1,3 +1,5 @@
+import { InputPort } from "@/design-system/atoms/input";
+
 interface Variants {}
 
 interface ClassNames {
@@ -9,4 +11,5 @@ export interface TableSearchPort extends Partial<Variants> {
   value?: string;
   onChange: (value?: string) => void;
   onDebouncedChange: (value?: string) => void;
+  inputProps?: Partial<InputPort>;
 }

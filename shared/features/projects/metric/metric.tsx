@@ -8,7 +8,7 @@ export function Metric({ icon, count, iconSize = "xxs" }: MetricProps) {
     <div className="flex items-center gap-sm">
       <Icon component={icon} size={iconSize} classNames={{ base: "text-foreground-quinary" }} />
 
-      <Typo size="xs" weight="medium">
+      <Typo size="xs" weight="medium" color="secondary">
         {Intl.NumberFormat().format(count)}
       </Typo>
     </div>

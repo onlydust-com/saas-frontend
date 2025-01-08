@@ -47,7 +47,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"project-view"}
-      classNames={{ base: "w-full" }}
+      classNames={{ base: "w-full pt-8 px-4" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -91,15 +91,15 @@ export default function ProjectsLayout({ params, children }: { params: { project
   return (
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
-        <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-          <div className="flex flex-col gap-lg desktop:col-span-1">
+        <div className="flex h-full flex-col items-start justify-start gap-md laptop:flex-row laptop:gap-lg">
+          <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
             <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
             <SimilarProjects projectIdOrSlug={params.projectSlug} />
           </div>
           <Paper
             background="glass"
             border="primary"
-            classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
+            classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
             px="none"
           >
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>

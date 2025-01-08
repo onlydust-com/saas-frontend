@@ -59,6 +59,11 @@ export const InputDefaultVariants = tv({
         input: "text-typography-disabled placeholder:text-typography-disabled",
       },
     },
+    isTransparent: {
+      true: {
+        base: "!border-none !bg-transparent !shadow-none !outline-none",
+      },
+    },
   },
 
   compoundVariants: [
@@ -77,5 +82,6 @@ export const InputDefaultVariants = tv({
   defaultVariants: {
     size: "sm",
     isFocused: false,
+    isTransparent: false,
   },
 });

@@ -21,7 +21,7 @@ export type RewardsTableFilters = Omit<
   "pageSize" | "pageIndex"
 >;
 
-export function RewardsTable() {
+export function RewardsTable({ params }: { params: { projectSlug: string } }) {
   const [filters, setFilters] = useState<RewardsTableFilters>({});
   const { columns } = useFilterColumns();
 
@@ -32,7 +32,11 @@ export function RewardsTable() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = ProjectReactQueryAdapter.client.useGetProjectRewardsV2({});
+  } = ProjectReactQueryAdapter.client.useGetProjectRewardsV2({
+    pathParams: {
+      projectIdOrSlug: params.projectSlug,
+    },
+  });
 
   const rewards = useMemo(() => rewardsData?.pages.flatMap(page => page.rewards) ?? [], [rewardsData]);
 
@@ -45,11 +49,19 @@ export function RewardsTable() {
   });
 
   if (isLoading) {
-    return <TableLoading />;
+    return (
+      <div className="p-lg">
+        <TableLoading background="glass" />
+      </div>
+    );
   }
 
   if (isError) {
-    return <ErrorState />;
+    return (
+      <div className="p-lg">
+        <ErrorState />
+      </div>
+    );
   }
 
   return (
