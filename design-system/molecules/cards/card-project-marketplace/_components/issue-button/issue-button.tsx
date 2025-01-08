@@ -11,19 +11,19 @@ import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 import { IssueButtonProps } from "./issue-button.types";
 
-export function IssueButton({ issueCount, issueType, slug }: IssueButtonProps) {
+export function IssueButton({ issueCount, issueCountType, slug }: IssueButtonProps) {
   const issueTypeLabel = useMemo(() => {
-    if (issueType === "AVAILABLE_ISSUE") {
+    if (issueCountType === "AVAILABLE_ISSUE") {
       return "common:count.openIssues";
     }
-    if (issueType === "GOOD_FIRST_ISSUE") {
+    if (issueCountType === "GOOD_FIRST_ISSUE") {
       return "common:count.goodFirstIssues";
     }
     return "common:count.odhack";
-  }, [issueType]);
+  }, [issueCountType]);
 
   const startContent = useMemo(() => {
-    if (issueType === "AVAILABLE_ISSUE") {
+    if (issueCountType === "AVAILABLE_ISSUE") {
       return <Icon component={CircleDot} size="lg" classNames={{ base: "text-utility-secondary-green-500" }} />;
     }
     return (
@@ -32,7 +32,7 @@ export function IssueButton({ issueCount, issueType, slug }: IssueButtonProps) {
         <div className="size-full rounded-full bg-utility-secondary-green-500" />
       </div>
     );
-  }, [issueType]);
+  }, [issueCountType]);
 
   return (
     <Paper

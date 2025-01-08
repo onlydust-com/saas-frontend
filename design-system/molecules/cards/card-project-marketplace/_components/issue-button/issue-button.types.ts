@@ -1,5 +1,7 @@
+export type IssueCountType = "AVAILABLE_ISSUE" | "GOOD_FIRST_ISSUE" | "ODHACK";
+
 export interface IssueButtonProps {
   issueCount: number;
-  issueType: "AVAILABLE_ISSUE" | "GOOD_FIRST_ISSUE" | "ODHACK";
+  issueCountType: IssueCountType;
   slug: string;
 }

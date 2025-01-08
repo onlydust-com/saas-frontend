@@ -16,6 +16,7 @@ import { cn } from "@/shared/helpers/cn";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
 import { IssueButton } from "../../_components/issue-button/issue-button";
+import { IssueCountType } from "../../_components/issue-button/issue-button.types";
 import { AvatarWithEcosystemsProps, CardProjectMarketplacePort } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 
@@ -104,12 +105,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     ]
       .filter(({ count }) => count !== undefined)
       .map(({ count, type }) => (
-        <IssueButton
-          key={type}
-          issueCount={count!}
-          issueType={type as "AVAILABLE_ISSUE" | "GOOD_FIRST_ISSUE" | "ODHACK"}
-          slug={slug}
-        />
+        <IssueButton key={type} issueCount={count!} issueCountType={type as IssueCountType} slug={slug} />
       ));
 
     return buttons;
