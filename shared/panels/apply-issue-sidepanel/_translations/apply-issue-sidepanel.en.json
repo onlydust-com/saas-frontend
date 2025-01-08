@@ -1,0 +1,16 @@
+{
+  "metrics": {
+    "applicants": "Applicants",
+    "commentary": "Commentary",
+    "openedSince": "Opened since",
+    "days": "{{count}} Days"
+  },
+  "summary": {
+    "title": "Description"
+  },
+  "apply": {
+    "title": "My applications",
+    "githubComment": "Github comment",
+    "info": "Your application will be publicly visible on GitHub."
+  }
+}

@@ -8,7 +8,7 @@ interface ClassNames {
 
 export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
 
-export type IconColor = "green" | "red" | "purple" | "blue" | "quaternary";
+export type IconColor = "green" | "red" | "purple" | "blue" | "quaternary" | "yellow" | "pink";
 
 interface BaseIconPort {
   classNames?: Partial<ClassNames>;
