@@ -16,7 +16,6 @@ export interface HackathonsListInterface extends HackathonsListResponse {
     startTime: string;
     endTime: string;
   };
-  getBackgroundImage(): string;
 }
 
 export class HackathonsList implements HackathonsListInterface {
@@ -73,17 +72,5 @@ export class HackathonsList implements HackathonsListInterface {
       startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
       endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
     };
-  }
-
-  getBackgroundImage() {
-    const NB_AVAILABLE_BACKGROUNDS = 16;
-
-    let backgroundIndex = this.index;
-
-    if (backgroundIndex >= NB_AVAILABLE_BACKGROUNDS) {
-      backgroundIndex = backgroundIndex % NB_AVAILABLE_BACKGROUNDS;
-    }
-
-    return `${process.env.NEXT_PUBLIC_METADATA_ASSETS_S3_BUCKET}/cover-${backgroundIndex + 1}.png`;
   }
 }

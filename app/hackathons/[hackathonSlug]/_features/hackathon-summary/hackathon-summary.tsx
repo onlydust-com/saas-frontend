@@ -1,4 +1,6 @@
+import logoWhite from "@/public/images/logos/logo-white.svg";
 import { ArrowRight, CornerDownLeft } from "lucide-react";
+import Image from "next/image";
 
 import { HackathonSummaryProps } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary.types";
 
@@ -9,7 +11,6 @@ import { Icon } from "@/design-system/atoms/icon";
 import { PaperLoading } from "@/design-system/atoms/paper";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single/variants/avatar-label-single-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
@@ -46,21 +47,15 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
       size="none"
     >
       <div className="px-xl py-lg">
-        <AvatarLabelSingle
-          avatar={{
-            // src: hackathon.avatar,
-            alt: hackathon.title,
-          }}
-          title={{
-            children: hackathon.title,
-            variant: "heading",
-            size: "xs",
-          }}
-          size="xl"
-          shape="squared"
-          truncate={false}
-          classNames={{ title: "line-clamp-none" }}
-        />
+        <div className="flex items-center gap-xl">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-utility-brand-electricroyalblue-600 outline outline-2 -outline-offset-1 outline-components-avatar-border">
+            <Image src={logoWhite} alt={hackathon.title} width={24} height={24} className={"size-7"} />
+          </div>
+
+          <Typo size={"xs"} variant="heading">
+            {hackathon.title}
+          </Typo>
+        </div>
       </div>
 
       <div className="flex flex-col gap-lg px-xl py-lg">
