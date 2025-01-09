@@ -22,7 +22,7 @@ export interface LucideIconPort extends BaseIconPort {
 
 export interface RemixIconPort extends BaseIconPort {
   name: RemixIconsName;
-  color?: string;
+  color?: IconColor;
   component?: never;
 }
 

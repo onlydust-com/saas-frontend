@@ -31,7 +31,6 @@ import { useApplyIssuePrefillLabel, useApplyIssueSidePanel } from "./apply-issue
 import {
   ApplyIssueSidepanelData,
   ApplyIssueSidepanelForm,
-  ApplyIssueSidepanelProps,
   ApplyIssueSidepanelValidation,
 } from "./apply-issue-sidepanel.types";
 
@@ -226,7 +225,7 @@ function Content() {
           <Metrics issue={issue} />
           <Summary issue={issue} />
           {/* // TODO MAKE OD HACK CARD */}
-          <Apply issue={issue} />
+          <Apply />
         </SidePanelBody>
         <Footer
           hasCurrentUserApplication={hasCurrentUserApplication}

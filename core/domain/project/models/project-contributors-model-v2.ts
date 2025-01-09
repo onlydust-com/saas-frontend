@@ -14,8 +14,8 @@ export class ProjectContributorsV2 implements ProjectContributorsInterfaceV2 {
   avatarUrl!: ProjectContributorsResponseV2["avatarUrl"];
   isRegistered!: ProjectContributorsResponseV2["isRegistered"];
   id!: ProjectContributorsResponseV2["id"];
-  mergedPullRequestCount!: ProjectContributorsResponseV2["mergedPullRequestCount"];
-  rewardCount!: ProjectContributorsResponseV2["rewardCount"];
+  mergedPullRequests!: ProjectContributorsResponseV2["mergedPullRequests"];
+  rewards!: ProjectContributorsResponseV2["rewards"];
   totalEarnedUsdAmount!: ProjectContributorsResponseV2["totalEarnedUsdAmount"];
   rank: UserRankInterface;
   globalRank!: ProjectContributorsResponseV2["globalRank"];

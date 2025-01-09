@@ -8,9 +8,8 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 
 import { ApplyIssueSidepanelForm } from "../../apply-issue-sidepanel.types";
-import { ApplyProps } from "./apply.types";
 
-export function Apply({ issue }: ApplyProps) {
+export function Apply() {
   const { control } = useFormContext<ApplyIssueSidepanelForm>();
 
   return (

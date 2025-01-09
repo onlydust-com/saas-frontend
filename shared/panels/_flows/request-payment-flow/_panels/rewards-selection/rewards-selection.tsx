@@ -1,4 +1,4 @@
-import { AlertTriangle, RefreshCw } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
