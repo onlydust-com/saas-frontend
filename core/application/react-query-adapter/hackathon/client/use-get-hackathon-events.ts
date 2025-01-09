@@ -7,9 +7,13 @@ import { HackathonFacadePort } from "@/core/domain/hackathon/inputs/hackathon-fa
 import { UseQueryFacadeParams, useQueryAdapter } from "../../helpers/use-query-adapter";
 
 export function useGetHackathonEvents({
+  pathParams,
+  queryParams,
   options,
 }: UseQueryFacadeParams<HackathonFacadePort["getHackathonEvents"], GetHackathonEventsModel>) {
   const hackathonStoragePort = bootstrap.getHackathonStoragePortForClient();
 
-  return useQuery(useQueryAdapter({ ...hackathonStoragePort.getHackathonEvents({}), options }));
+  return useQuery(
+    useQueryAdapter({ ...hackathonStoragePort.getHackathonEvents({ pathParams, queryParams }), options })
+  );
 }

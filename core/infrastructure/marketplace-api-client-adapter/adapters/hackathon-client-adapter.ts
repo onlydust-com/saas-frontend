@@ -80,7 +80,6 @@ export class HackathonClientAdapter implements HackathonStoragePort {
         tag,
         pathParams,
         queryParams,
-        mock: true,
       });
 
       return {
