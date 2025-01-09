@@ -36,9 +36,10 @@ export function IssueAvailableAutocomplete({
   return (
     <Select
       items={availabilityItems}
-      isAutoComplete={true}
+      isAutoComplete={false}
       onSelect={handleSelect}
       selectedIds={selectedAvailability}
+      disabledAutoOrdering
       {...selectProps}
     />
   );
