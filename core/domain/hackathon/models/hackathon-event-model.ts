@@ -66,9 +66,9 @@ export class HackathonEvent implements HackathonEventInterface {
       startDate: this.dateKernelPort.format(startDate, "d MMM. yyyy"),
       startMonth: this.dateKernelPort.format(startDate, "MMM."),
       startDay: this.dateKernelPort.format(startDate, "d"),
-      startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
+      startTime: this.dateKernelPort.format(startDate, "haa (OOO)"),
       endDate: this.dateKernelPort.format(endDate, "d MMM. yyyy"),
-      endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
+      endTime: this.dateKernelPort.format(endDate, "haa (OOO)"),
     };
   }
 }
