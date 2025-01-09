@@ -1,5 +1,5 @@
-import { FormatDistanceStrictUnit } from "date-fns";
 import * as DateFns from "date-fns";
+import { FormatDistanceStrictUnit } from "date-fns";
 
 import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 
@@ -200,5 +200,13 @@ export class DateFnsAdapter implements DateFacadePort {
       return this.format(date, "w yyyy");
     }
     return this.format(date, "w, MMM yyyy");
+  }
+
+  startOfToday(): Date {
+    return DateFns.startOfToday();
+  }
+
+  endOfToday(): Date {
+    return DateFns.endOfToday();
   }
 }
