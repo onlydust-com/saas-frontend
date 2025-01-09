@@ -114,5 +114,9 @@
     "odhack": "ODHack available issues",
     "prCount": "{{count}} PRs"
   },
-  "all": "All"
+  "all": "All",
+  "issueAvailable": {
+    "AVAILABLE": "Available",
+    "UNAVAILABLE": "Unavailable"
+  }
 }
