@@ -82,8 +82,9 @@ export class HackathonClientAdapter implements HackathonStoragePort {
         method,
         tag,
         pathParams,
-        version: MarketplaceApiVersion.v2,
+        // version: MarketplaceApiVersion.v2,
         queryParams,
+        mock: true,
       });
 
       return {
