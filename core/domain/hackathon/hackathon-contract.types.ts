@@ -4,6 +4,7 @@ import { HttpStorageResponse } from "@/core/infrastructure/marketplace-api-clien
 
 import { HackathonsListInterface } from "./models/hackathon-list-model";
 import { HackathonInterface } from "./models/hackathon-model";
+import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-list-item-model-v2";
 
 /* --------------------------------- Get hackathons -------------------------------- */
 
@@ -27,4 +28,22 @@ export type GetHackathonBySlugPortResponse = HttpStorageResponse<HackathonInterf
 
 export type GetHackathonBySlugPortParams = HttpClientParameters<{
   PathParams: GetHackathonBySlugPathParams;
+}>;
+
+/* ------------------------------ Get Hackathon Projects V2 ------------------------------ */
+
+export type GetHackathonProjectsV2Response = components["schemas"]["ProjectPageResponseV2"];
+
+export type GetHackathonProjectsV2Model = Omit<GetHackathonProjectsV2Response, "projects"> & {
+  projects: HackathonProjectListItemInterfaceV2[];
+};
+
+type GetHackathonProjectsV2QueryParams = operations["getProjectsV2"]["parameters"]["query"];
+type GetHackathonProjectsV2PathParams = operations["getProjectsV2"]["parameters"]["path"];
+
+export type GetHackathonProjectsV2PortResponse = HttpStorageResponse<GetHackathonProjectsV2Model>;
+
+export type GetHackathonProjectsV2PortParams = HttpClientParameters<{
+  QueryParams: GetHackathonProjectsV2QueryParams;
+  PathParams: GetHackathonProjectsV2PathParams;
 }>;
