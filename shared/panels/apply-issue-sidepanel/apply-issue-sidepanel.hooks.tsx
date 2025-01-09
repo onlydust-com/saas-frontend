@@ -1,7 +1,7 @@
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { SidePanelConfig } from "@/shared/features/side-panels/side-panels.types";
 
-import { ApplyIssuesPrefillLabels } from "./apply-issue-sidepanel.constants";
+import { ApplyIssuesPrefillLabels } from "./apply-issue-drawer.constants";
 import { ApplyIssueSidepanelData } from "./apply-issue-sidepanel.types";
 
 export function useApplyIssueSidePanel(config?: SidePanelConfig) {

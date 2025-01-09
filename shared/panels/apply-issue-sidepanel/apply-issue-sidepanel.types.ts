@@ -5,6 +5,7 @@ export interface ApplyIssueSidepanelProps extends PropsWithChildren {}
 
 export interface ApplyIssueSidepanelData {
   issueId: number;
+  projectId: string;
   canGoBack?: boolean;
 }
 

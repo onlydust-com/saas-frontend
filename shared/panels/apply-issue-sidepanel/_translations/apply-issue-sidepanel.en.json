@@ -11,6 +11,9 @@
   "apply": {
     "title": "My applications",
     "githubComment": "Github comment",
-    "info": "Your application will be publicly visible on GitHub."
+    "info": "Your application will be publicly visible on GitHub.",
+    "deleteComment": "Delete comment",
+    "cancelApplication": "Cancel application",
+    "sendApplication": "Send an application"
   }
 }

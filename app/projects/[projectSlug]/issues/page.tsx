@@ -93,7 +93,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             <CardIssue
               key={issue.id}
               title={issue.title}
-              onClick={() => open({ issueId: issue.id })}
+              onClick={() => open({ issueId: issue.id, projectId: data?.id ?? "" })}
               contribution={{
                 type: "ISSUE",
                 githubStatus: issue.status,
