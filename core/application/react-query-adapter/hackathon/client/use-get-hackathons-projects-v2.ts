@@ -7,8 +7,7 @@ import {
 import { bootstrap } from "@/core/bootstrap";
 import { GetHackathonProjectsV2Model } from "@/core/domain/hackathon/hackathon-contract.types";
 import { HackathonFacadePort } from "@/core/domain/hackathon/inputs/hackathon-facade-port";
-import { ProjectFacadePort } from "@/core/domain/project/input/project-facade-port";
-import { GetProjectsV2Model } from "@/core/domain/project/project-contract.types";
+import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
 
 export function useGetHackathonProjectsV2({
   pathParams,
@@ -18,7 +17,7 @@ export function useGetHackathonProjectsV2({
   const hackathonStoragePort = bootstrap.getHackathonStoragePortForClient();
 
   return useInfiniteQuery(
-    useInfiniteQueryAdapter<ProjectFacadePort["getProjectsV2"], GetProjectsV2Model>({
+    useInfiniteQueryAdapter<HackathonStoragePort["getHackathonProjects"], GetHackathonProjectsV2Model>({
       pathParams,
       queryParams,
       options,

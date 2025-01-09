@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { GetHackathonProjectsV2QueryParams } from "@/core/domain/hackathon/hackathon-contract.types";
 
+import { Typo } from "@/design-system/atoms/typo";
 import {
   CardProjectMarketplace,
   CardProjectMarketplaceLoading,
@@ -48,7 +49,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
     });
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
-  const count = useMemo(() => data?.pages[0]?.totalItemNumber ?? 0, [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0]?.totalItemNumber ?? 0, [data]);
 
   const renderProjects = useMemo(() => {
     if (isLoading) {
@@ -57,7 +58,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
     if (isError) {
       return (
-        <div className="col-span-full py-40">
+        <div className="col-span-full p-lg">
           <ErrorState />
         </div>
       );
@@ -65,7 +66,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
     if (!projects.length) {
       return (
-        <div className="col-span-full py-40">
+        <div className="col-span-full p-lg">
           <EmptyStateLite />
         </div>
       );
@@ -82,6 +83,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         starCount={project.starCount}
         forkCount={project.forkCount}
         odhackIssueCount={project.odHackStats?.issueCount}
+        availableIssueCount={project.odHackStats?.availableIssueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
@@ -103,7 +105,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
           },
         ]}
       />
-      <div className="flex h-full flex-col gap-lg overflow-hidden p-lg">
+      <div className="flex h-full flex-col gap-lg overflow-hidden p-lg pb-0">
         <nav className={"flex gap-md"}>
           <FilterButton onClick={openFilterPanel} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
@@ -118,6 +120,12 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
             ) : null}
           </div>
         </ScrollView>
+        <div className="flex gap-md">
+          <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
+          <Typo size={"sm"} color={"primary"}>
+            {totalItemNumber}
+          </Typo>
+        </div>
       </div>
       <FilterData />
     </FilterDataProvider>

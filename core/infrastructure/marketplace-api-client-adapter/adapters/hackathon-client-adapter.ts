@@ -74,7 +74,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
   }: FirstParameter<HackathonStoragePort["getHackathonProjects"]>) => {
     const path = this.routes["getHackathonProjects"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetHackathonProjectsV2Response>({
@@ -82,9 +82,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
         method,
         tag,
         pathParams,
-        // version: MarketplaceApiVersion.v2,
         queryParams,
-        mock: true,
       });
 
       return {
