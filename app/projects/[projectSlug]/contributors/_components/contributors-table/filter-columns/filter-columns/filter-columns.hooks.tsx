@@ -53,32 +53,32 @@ export function useFilterColumns() {
         );
       },
     }),
-    rewardCount: columnHelper.accessor("rewardCount", {
+    rewardCount: columnHelper.accessor("rewards", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.XXXS,
       maxSize: TABLE_CELL_SIZE.XXXS,
       header: () => <Translate token={"project:details.contributors.columns.rewards"} />,
       cell: info => {
-        const rewardCount = info.getValue();
+        const rewards = info.getValue();
 
-        if (!rewardCount) {
+        if (!rewards?.length) {
           return <CellEmpty />;
         }
-        return <Metric icon={Medal} count={rewardCount} iconSize="sm" />;
+        return <Metric icon={Medal} count={rewards.length} iconSize="sm" />;
       },
     }),
-    mergedPullRequestCount: columnHelper.accessor("mergedPullRequestCount", {
+    mergedPullRequestCount: columnHelper.accessor("mergedPullRequests", {
       enableSorting: false,
       size: TABLE_CELL_SIZE.XXXS,
       maxSize: TABLE_CELL_SIZE.XXXS,
       header: () => <Translate token={"project:details.contributors.columns.mergedPr"} />,
       cell: info => {
-        const mergedPullRequestCount = info.getValue();
+        const mergedPullRequests = info.getValue();
 
-        if (!mergedPullRequestCount) {
+        if (!mergedPullRequests?.length) {
           return <CellEmpty />;
         }
-        return <Metric icon={GitMerge} count={mergedPullRequestCount} iconSize="sm" />;
+        return <Metric icon={GitMerge} count={mergedPullRequests?.length} iconSize="sm" />;
       },
     }),
     totalEarnedUsdAmount: columnHelper.accessor("totalEarnedUsdAmount", {
