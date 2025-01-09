@@ -32,7 +32,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
     <Popover>
       <Popover.Trigger>
         {() => (
-          <div className={"flex max-w-full cursor-pointer items-center gap-md overflow-hidden"}>
+          <div className={"flex max-w-full cursor-pointer items-center gap-md overflow-hidden p-xxs"}>
             <AvatarGroup
               avatars={
                 users?.map(({ avatarUrl, login }) => ({
@@ -63,6 +63,7 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
                   },
                 ]}
                 title={{ children: login }}
+                withPopover={false}
               />
             ))}
           </div>

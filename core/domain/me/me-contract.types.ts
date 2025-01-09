@@ -113,3 +113,11 @@ export type SetMyPayoutPreferenceForProjectPortResponse = HttpStorageResponse<
   never,
   SetMyPayoutPreferenceForProjectBody
 >;
+
+/* ------------------------------ Post My Application ------------------------------ */
+
+export type PostMyApplicationBody = components["schemas"]["ProjectApplicationCreateRequest"];
+
+export type PostMyApplicationPortParams = HttpClientParameters<object>;
+
+export type PostMyApplicationPortResponse = HttpStorageResponse<never, PostMyApplicationBody>;

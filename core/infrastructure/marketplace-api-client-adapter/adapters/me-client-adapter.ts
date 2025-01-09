@@ -7,6 +7,7 @@ import {
   GetMyProjectsAsContributorResponse,
   GetMyProjectsAsMaintainerResponse,
   LogoutMeResponse,
+  PostMyApplicationBody,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyPayoutPreferenceForProjectBody,
@@ -36,6 +37,7 @@ export class MeClientAdapter implements MeStoragePort {
     getMyProjectsAsContributor: "me/as-contributor/projects",
     getMyPayoutPreferences: "me/payout-preferences",
     setMyPayoutPreferenceForProject: "me/payout-preferences",
+    postMyApplication: "me/applications",
   } as const;
 
   logoutMe = () => {
@@ -243,6 +245,25 @@ export class MeClientAdapter implements MeStoragePort {
     const tag = HttpClient.buildTag({ path });
 
     const request = async (body: SetMyPayoutPreferenceForProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  postMyApplication = () => {
+    const path = this.routes["postMyApplication"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: PostMyApplicationBody) =>
       this.client.request<never>({
         path,
         method,

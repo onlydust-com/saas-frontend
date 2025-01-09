@@ -28,10 +28,13 @@ const config: Config = withTV({
         clash: "Clash Display",
         inter: "Inter",
       },
+
       colors: {
         ...COLORS,
         glass: {
           white: "rgba(255, 255, 255, 0.03)",
+          "white-gradient":
+            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255,255,255,0) 100%)",
         },
       },
       screens: {

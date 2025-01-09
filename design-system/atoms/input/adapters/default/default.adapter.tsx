@@ -106,6 +106,7 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
     type,
     size = defaultSize,
     isFocused: _isFocused,
+    isTransparent = false,
   }: InputPort,
   ref: ForwardedRef<HTMLInputElement>
 ) {
@@ -120,7 +121,14 @@ export const InputDefaultAdapter = forwardRef(function InputDefaultAdapter(
     return false;
   }, [button]);
 
-  const variants = { isFocused: isFocused || _isFocused, size, isDisabled, isError, asOuterElement: isOuterButton };
+  const variants = {
+    isFocused: isFocused || _isFocused,
+    size,
+    isDisabled,
+    isError,
+    asOuterElement: isOuterButton,
+    isTransparent,
+  };
   const slots = InputDefaultVariants(variants);
 
   function onFocus() {

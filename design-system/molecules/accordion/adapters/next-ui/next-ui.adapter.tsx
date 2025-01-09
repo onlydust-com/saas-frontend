@@ -58,9 +58,9 @@ export function AccordionNextUiAdapter({
                 {!!item.startContent && item.startContent}
 
                 <Typo
-                  {...item.titleProps}
                   size="xs"
                   weight="medium"
+                  {...item.titleProps}
                   classNames={{ base: cn(slots.label(), classNames?.label) }}
                 />
 

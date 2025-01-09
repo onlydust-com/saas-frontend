@@ -12,7 +12,13 @@ import { cn } from "@/shared/helpers/cn";
 import { TableSearchPort } from "../../table-search.types";
 import { TableSearchDefaultVariants } from "./default.variants";
 
-export function TableSearchDefaultAdapter({ classNames, value, onChange, onDebouncedChange }: TableSearchPort) {
+export function TableSearchDefaultAdapter({
+  classNames,
+  value,
+  onChange,
+  onDebouncedChange,
+  inputProps,
+}: TableSearchPort) {
   const { t } = useTranslation("table");
   const slots = TableSearchDefaultVariants();
 
@@ -31,6 +37,7 @@ export function TableSearchDefaultAdapter({ classNames, value, onChange, onDebou
 
   return (
     <Input
+      {...(inputProps ?? {})}
       name={"table-search"}
       placeholder={t("tableSearch.placeholder")}
       startIcon={{ component: Search }}

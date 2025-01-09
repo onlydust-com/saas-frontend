@@ -8,8 +8,8 @@ import { IconSizeMap } from "../../icon.constants";
 import { LucideIconPort } from "../../icon.types";
 import { IconLucideVariants } from "./lucide.variants";
 
-export function IconLucideAdapter({ component: Icon, classNames, size = "sm" }: LucideIconPort) {
-  const { base } = IconLucideVariants();
+export function IconLucideAdapter({ component: Icon, classNames, size = "sm", color }: LucideIconPort) {
+  const { base } = IconLucideVariants({ color });
 
   const styleKernelPort = bootstrap.getStyleKernelPort();
 

@@ -1,0 +1,53 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "openIssues": "Open Issues",
+    "contributors": "Contributors",
+    "rewards": "Rewards"
+  },
+  "events": {
+    "title": "Events"
+  },
+  "similarProjects": {
+    "title": "Similar Projects"
+  },
+  "overview": {
+    "stats": {
+      "contributors": "Active Contributors",
+      "prMerged": "Merged Pull Requests",
+      "stars": "Stars",
+      "issues": "Available Issues"
+    },
+    "description": {
+      "title": "Description"
+    }
+  },
+  "contributors": {
+    "columns": {
+      "from": "From",
+      "rewards": "Rewards",
+      "mergedPr": "Merged PR",
+      "rewardAmount": "Reward Amount"
+    },
+    "filters": {
+      "columnList": "Columns"
+    },
+    "contributorsCount": "Contributors"
+  },
+  "rewards": {
+    "columns": {
+      "date": "Date",
+      "from": "From",
+      "to": "To",
+      "contributions": "Contributions",
+      "amount": "Amount"
+    },
+    "filters": {
+      "columnList": "Columns"
+    },
+    "rewardsCount": "Rewards"
+  },
+  "issues": {
+    "issuesCount": "Issues"
+  }
+}

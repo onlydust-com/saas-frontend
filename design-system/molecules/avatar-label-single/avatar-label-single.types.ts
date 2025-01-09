@@ -9,6 +9,8 @@ interface Variants {
 
 interface ClassNames {
   base: string;
+  title: string;
+  description: string;
 }
 
 export interface AvatarLabelSinglePort<C extends ElementType> extends Partial<Variants> {

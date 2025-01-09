@@ -9,6 +9,7 @@
   },
   "secondaryMenu": {
     "support": "Support",
-    "settings": "Settings"
+    "settings": "Settings",
+    "logout": "Logout"
   }
 }
