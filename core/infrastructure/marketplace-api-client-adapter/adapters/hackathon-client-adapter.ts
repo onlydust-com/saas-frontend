@@ -1,4 +1,9 @@
-import { GetHackathonBySlugResponse, GetHackathonsResponse } from "@/core/domain/hackathon/hackathon-contract.types";
+import {
+  GetHackathonBySlugResponse,
+  GetHackathonEventsResponse,
+  GetHackathonsResponse,
+} from "@/core/domain/hackathon/hackathon-contract.types";
+import { HackathonEvent } from "@/core/domain/hackathon/models/hackathon-event-model";
 import { HackathonListItem } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { Hackathon } from "@/core/domain/hackathon/models/hackathon-model";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
@@ -13,6 +18,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
   routes = {
     getHackathons: "hackathons",
     getHackathonBySlug: "hackathons/slug/:hackathonSlug",
+    getHackathonEvents: "hackathons/slug/:hackathonSlug/events",
   } as const;
 
   getHackathons = () => {
@@ -54,6 +60,33 @@ export class HackathonClientAdapter implements HackathonStoragePort {
       });
 
       return new Hackathon(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getHackathonEvents = ({ pathParams, queryParams }: FirstParameter<HackathonStoragePort["getHackathonEvents"]>) => {
+    const path = this.routes["getHackathonEvents"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetHackathonEventsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        mock: true,
+      });
+
+      return {
+        ...data,
+        events: data.events.map(event => new HackathonEvent(event)),
+      };
     };
 
     return {

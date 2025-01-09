@@ -9,4 +9,6 @@ export class HackathonClientAdapterMock implements HackathonStoragePort {
   getHackathons = mockHttpStorageResponse<HackathonStoragePort["getHackathons"]>;
 
   getHackathonBySlug = mockHttpStorageResponse<HackathonStoragePort["getHackathonBySlug"]>;
+
+  getHackathonEvents = mockHttpStorageResponse<HackathonStoragePort["getHackathonEvents"]>;
 }

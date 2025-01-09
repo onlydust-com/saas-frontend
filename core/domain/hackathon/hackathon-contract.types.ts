@@ -1,3 +1,4 @@
+import { HackathonEventInterface } from "@/core/domain/hackathon/models/hackathon-event-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -29,4 +30,21 @@ export type GetHackathonBySlugPortResponse = HttpStorageResponse<HackathonInterf
 
 export type GetHackathonBySlugPortParams = HttpClientParameters<{
   PathParams: GetHackathonBySlugPathParams;
+}>;
+
+/* --------------------------------- Get hackathon events -------------------------------- */
+
+export type GetHackathonEventsResponse = components["schemas"]["HackathonEventsResponse"];
+export type GetHackathonEventsModel = Omit<GetHackathonEventsResponse, "events"> & {
+  events: HackathonEventInterface[];
+};
+
+type GetHackathonEventsPathParams = operations["getHackathonEvents"]["parameters"]["path"];
+type GetHackathonEventsQueryParams = operations["getHackathonEvents"]["parameters"]["query"];
+
+export type GetHackathonEventsPortResponse = HttpStorageResponse<GetHackathonEventsModel>;
+
+export type GetHackathonEventsPortParams = HttpClientParameters<{
+  PathParams: GetHackathonEventsPathParams;
+  QueryParams: GetHackathonEventsQueryParams;
 }>;
