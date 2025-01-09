@@ -34,4 +34,6 @@ export const DateAdapterMock: DateFacadePort = {
   subYears: (_date: Date, _years: number) => new Date(),
   startOfYear: (_date: Date) => new Date(),
   setYear: (_date: Date, _year: number) => new Date(),
+  startOfToday: () => new Date(2024, 0, 1, 0, 0, 0),
+  endOfToday: () => new Date(2024, 0, 1, 23, 59, 59),
 };

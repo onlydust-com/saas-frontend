@@ -2,6 +2,7 @@
 
 import { PropsWithChildren, useMemo } from "react";
 
+import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
@@ -9,6 +10,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
@@ -82,22 +84,25 @@ export default function HackathonsLayout({
   return (
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
-        <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-          <div className="flex flex-col gap-lg desktop:col-span-1">
-            <HackathonSummary hackathonSlug={params.hackathonSlug} />
-          </div>
-          <Paper
-            background="glass"
-            border="primary"
-            classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
-            px="none"
-          >
-            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-              <Navigation params={params} />
+        <ScrollView>
+          <div className="grid-col-1 grid gap-lg desktop:h-full desktop:grid-cols-3">
+            <div className="flex flex-col gap-lg desktop:col-span-1">
+              <HackathonSummary hackathonSlug={params.hackathonSlug} />
+              <HackathonEvents hackathonSlug={params.hackathonSlug} />
             </div>
-            {children}
-          </Paper>
-        </div>
+            <Paper
+              background="glass"
+              border="primary"
+              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
+              px="none"
+            >
+              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+                <Navigation params={params} />
+              </div>
+              {children}
+            </Paper>
+          </div>
+        </ScrollView>
       </AnimatedColumn>
     </PageWrapper>
   );

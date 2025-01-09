@@ -41,10 +41,10 @@ export class Hackathon implements HackathonInterface {
     const endDate = new Date(this.endDate);
 
     return {
-      startDate: this.dateKernelPort.format(startDate, "d MMM, yyyy"),
-      endDate: this.dateKernelPort.format(endDate, "d MMM, yyyy"),
-      startTime: this.dateKernelPort.format(startDate, "Kaa (OOO)"),
-      endTime: this.dateKernelPort.format(endDate, "Kaa (OOO)"),
+      startDate: this.dateKernelPort.format(startDate, "d MMM. yyyy"),
+      endDate: this.dateKernelPort.format(endDate, "d MMM. yyyy"),
+      startTime: this.dateKernelPort.format(startDate, "haa (OOO)"),
+      endTime: this.dateKernelPort.format(endDate, "haa (OOO)"),
     };
   }
 }

@@ -8,5 +8,11 @@
     "date": "Date",
     "location": "Location",
     "links": "Links"
+  },
+  "events": {
+    "title": "Events",
+    "allEvents": "All events",
+    "pastEvents": "Past events",
+    "upcomingEvents": "Upcoming events"
   }
 }
