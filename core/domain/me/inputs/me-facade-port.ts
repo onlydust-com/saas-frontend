@@ -11,6 +11,8 @@ import {
   GetMyProjectsAsMaintainerPortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
+  PostMyApplicationPortParams,
+  PostMyApplicationPortResponse,
   ReplaceMyProfilePortParams,
   ReplaceMyProfilePortResponse,
   SetMePortParams,
@@ -34,4 +36,5 @@ export interface MeFacadePort {
   setMyPayoutPreferenceForProject(
     p: SetMyPayoutPreferenceForProjectPortParams
   ): SetMyPayoutPreferenceForProjectPortResponse;
+  postMyApplication(p: PostMyApplicationPortParams): PostMyApplicationPortResponse;
 }

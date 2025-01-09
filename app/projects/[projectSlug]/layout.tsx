@@ -8,8 +8,10 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
@@ -89,26 +91,29 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
 
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
-    <PageWrapper>
-      <AnimatedColumn className="h-full max-w-full">
-        <div className="flex h-full flex-col items-start justify-start gap-md laptop:flex-row laptop:gap-lg">
-          <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-            <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
-            <SimilarProjects projectIdOrSlug={params.projectSlug} />
-          </div>
-          <Paper
-            background="glass"
-            border="primary"
-            classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
-            px="none"
-          >
-            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-              <Navigation params={params} />
+    <GithubPermissionsProvider projectSlug={params.projectSlug}>
+      <PageWrapper>
+        <AnimatedColumn className="h-full max-w-full">
+          <div className="flex h-full flex-col items-start justify-start gap-md laptop:flex-row laptop:gap-lg">
+            <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
+              <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
+              <SimilarProjects projectIdOrSlug={params.projectSlug} />
             </div>
-            {children}
-          </Paper>
-        </div>
-      </AnimatedColumn>
-    </PageWrapper>
+            <Paper
+              background="glass"
+              border="primary"
+              classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
+              px="none"
+            >
+              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+                <Navigation params={params} />
+              </div>
+              {children}
+            </Paper>
+          </div>
+        </AnimatedColumn>
+        <ApplyIssueSidepanel />
+      </PageWrapper>
+    </GithubPermissionsProvider>
   );
 }

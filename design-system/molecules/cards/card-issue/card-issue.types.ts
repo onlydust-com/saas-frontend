@@ -34,6 +34,7 @@ export interface CardIssuePort<C extends ElementType> extends Partial<Variants>,
     url?: string;
   };
   title?: string;
+  onClick?: () => void;
   contribution?: {
     type: ContributionTypeUnion;
     githubStatus: ContributionGithubStatusUnion;

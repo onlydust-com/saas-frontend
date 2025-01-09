@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
+import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -13,9 +14,11 @@ import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function ProjectIssuesPage({ params }: { params: { projectSlug: string } }) {
+  const { open } = useApplyIssueSidePanel();
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>([]);
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
@@ -57,6 +60,10 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
     });
   }
 
+  function handleIssueClick(issue: ProjectAvailableIssuesInterface) {
+    open({ issueId: issue.id, projectId: data?.id ?? "" });
+  }
+
   return (
     <ScrollView>
       <NavigationBreadcrumb
@@ -91,6 +98,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             <CardIssue
               key={issue.id}
               title={issue.title}
+              onClick={() => handleIssueClick(issue)}
               contribution={{
                 type: "ISSUE",
                 githubStatus: issue.status,

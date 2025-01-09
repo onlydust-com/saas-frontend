@@ -18,7 +18,6 @@ export class Hackathon implements HackathonInterface {
   description!: HackathonResponse["description"];
   endDate!: HackathonResponse["endDate"];
   id!: HackathonResponse["id"];
-  index!: HackathonResponse["index"];
   issueCount!: HackathonResponse["issueCount"];
   links!: HackathonResponse["links"];
   location!: HackathonResponse["location"];

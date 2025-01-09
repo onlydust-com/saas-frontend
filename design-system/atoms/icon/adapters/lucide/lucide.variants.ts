@@ -18,6 +18,12 @@ export const IconLucideVariants = tv({
       purple: {
         base: "!text-utility-brand-crystalizedviolet-500",
       },
+      yellow: {
+        base: "!text-utility-secondary-yellow-500",
+      },
+      pink: {
+        base: "!text-utility-secondary-pink-500",
+      },
       quaternary: {
         base: "!text-typography-quaternary",
       },
