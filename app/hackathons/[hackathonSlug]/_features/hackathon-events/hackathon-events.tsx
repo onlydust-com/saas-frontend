@@ -6,11 +6,13 @@ import { HackathonEventMenuItem } from "@/app/hackathons/[hackathonSlug]/_compon
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { bootstrap } from "@/core/bootstrap";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
 import { Paper, PaperLoading } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { cn } from "@/shared/helpers/cn";
 
 import { HackathonEventsProps } from "./hackathon-events.types";
@@ -118,6 +120,16 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
               <Typo size="xs">
                 {formattedDates.startDate} - {formattedDates.startTime}
               </Typo>
+
+              {event?.links.length ? (
+                <div className="flex gap-sm">
+                  {event.links.map(({ url, value }) => (
+                    <Button key={url} variant="secondary" size={"xs"} as={BaseLink} htmlProps={{ href: url }}>
+                      {value}
+                    </Button>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <div className="flex h-full items-center justify-center">
