@@ -1,25 +1,22 @@
 "use client";
 
-import { CircleDot, GitFork, Star, UserRound } from "lucide-react";
+import { GitFork, Star, UserRound } from "lucide-react";
 import { ElementType, useMemo, useRef } from "react";
-import { useMeasure } from "react-use";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { ButtonGroup } from "@/design-system/atoms/button/variants/button-group";
 import { Paper } from "@/design-system/atoms/paper";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
 import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Metric } from "@/shared/features/projects/metric/metric";
 import { cn } from "@/shared/helpers/cn";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 import { HoverEffect } from "../../_components/hover-effect/hover-effect";
+import { IssueButton } from "../../_components/issue-button/issue-button";
+import { IssueCountType } from "../../_components/issue-button/issue-button.types";
 import { AvatarWithEcosystemsProps, CardProjectMarketplacePort } from "../../card-project-marketplace.types";
 import { CardProjectMarketplaceDefaultVariants } from "./default.variants";
 
@@ -91,6 +88,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   forkCount,
   availableIssueCount,
   goodFirstIssueCount,
+  odhackIssueCount,
   description,
   categories,
   languages,
@@ -98,10 +96,20 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
   const cardRef = useRef<HTMLDivElement>(null);
-  const [buttonsRef, { width }] = useMeasure<HTMLDivElement>();
-  const buttonsLayout = useMemo(() => {
-    return width > 245 ? "horizontal" : "vertical";
-  }, [width]);
+
+  const issueButtons = useMemo(() => {
+    const buttons = [
+      { count: availableIssueCount, type: "AVAILABLE_ISSUE" },
+      { count: goodFirstIssueCount, type: "GOOD_FIRST_ISSUE" },
+      { count: odhackIssueCount, type: "ODHACK" },
+    ]
+      .filter(({ count }) => count !== undefined)
+      .map(({ count, type }) => (
+        <IssueButton key={type} issueCount={count!} issueCountType={type as IssueCountType} slug={slug} />
+      ));
+
+    return buttons;
+  }, [availableIssueCount, goodFirstIssueCount, odhackIssueCount, slug]);
 
   return (
     <Paper
@@ -133,50 +141,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
               </div>
             </div>
 
-            <div className="flex w-full">
-              <ButtonGroup
-                ref={buttonsRef}
-                fullWidth
-                variant="tertiary"
-                buttons={[
-                  {
-                    as: BaseLink,
-                    htmlProps: {
-                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                    },
-                    translate: {
-                      token: "common:count.openIssues",
-                      values: { count: availableIssueCount },
-                    },
-                    classNames: {
-                      startIcon: "text-utility-secondary-green-500",
-                    },
-                    startIcon: {
-                      component: CircleDot,
-                      size: "xs",
-                    },
-                  },
-                  {
-                    as: BaseLink,
-                    htmlProps: {
-                      href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-                    },
-                    translate: {
-                      token: "common:count.goodFirstIssues",
-                      values: { count: goodFirstIssueCount },
-                    },
-                    startContent: (
-                      <div className={cn("relative mr-0.5 size-1.5", { "ml-1": buttonsLayout === "vertical" })}>
-                        <div className="absolute -inset-px animate-ping rounded-full bg-utility-secondary-green-500 opacity-75" />
-                        <div className="size-full rounded-full bg-utility-secondary-green-500" />
-                      </div>
-                    ),
-                  },
-                ]}
-                size="xs"
-                layout={buttonsLayout}
-              />
-            </div>
+            {issueButtons.length ? <div className="flex gap-sm">{issueButtons.map(button => button)}</div> : null}
 
             {description ? (
               <div>
