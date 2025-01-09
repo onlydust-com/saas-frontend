@@ -11,7 +11,7 @@ export function HackathonStats({
   countAvailableIssues = 0,
   totalAvailableIssues = 0,
   countProjects = 0,
-  endsAt = "-",
+  endsAt,
 }: HackathonStatsProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
@@ -56,7 +56,7 @@ export function HackathonStats({
       <div className="px-4">
         <Stat
           label={{ token: "hackathon:shared.stats.endsIn" }}
-          value={endsAt ? dateKernelPort.formatDistanceToNow(new Date(endsAt), { addSuffix: false }) : endsAt}
+          value={endsAt ? dateKernelPort.formatDistanceToNow(new Date(endsAt), { addSuffix: false }) : "-"}
           iconProps={{
             component: Clock,
             classNames: {
