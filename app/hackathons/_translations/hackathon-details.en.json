@@ -10,6 +10,9 @@
     "links": "Links"
   },
   "events": {
-    "title": "Events"
+    "title": "Events",
+    "allEvents": "All events",
+    "pastEvents": "Past events",
+    "upcomingEvents": "Upcoming events"
   }
 }
