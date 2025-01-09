@@ -1,4 +1,10 @@
+import { useState } from "react";
+
+import { HackathonEventMenu } from "@/app/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu";
+import { HackathonEventMenuItem } from "@/app/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu.types";
+
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
+import { bootstrap } from "@/core/bootstrap";
 
 import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
@@ -10,10 +16,14 @@ import { cn } from "@/shared/helpers/cn";
 import { HackathonEventsProps } from "./hackathon-events.types";
 
 export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
+  const [selectedEvent, setSelectedEvent] = useState<HackathonEventMenuItem>(HackathonEventMenuItem.ALL_EVENTS);
+
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
   const {
     data: hackathon,
-    isLoading,
-    isError,
+    isLoading: isLoadingHackathon,
+    isError: isErrorHackathon,
   } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
     pathParams: {
       hackathonSlug,
@@ -23,11 +33,39 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
     },
   });
 
-  if (isLoading) {
+  const periods = {
+    [HackathonEventMenuItem.ALL_EVENTS]: {
+      fromDate: undefined,
+      toDate: undefined,
+    },
+    [HackathonEventMenuItem.PAST_EVENTS]: {
+      fromDate: hackathon?.startDate,
+      toDate: dateKernelPort.startOfToday().toISOString(),
+    },
+    [HackathonEventMenuItem.UPCOMING_EVENTS]: {
+      fromDate: dateKernelPort.endOfToday().toISOString(),
+      toDate: hackathon?.endDate,
+    },
+  };
+
+  const { data, isLoading, isError } = HackathonReactQueryAdapter.client.useGetHackathonEvents({
+    pathParams: {
+      hackathonSlug,
+    },
+    queryParams: {
+      fromDate: periods[selectedEvent].fromDate,
+      toDate: periods[selectedEvent].toDate,
+    },
+    options: {
+      enabled: Boolean(hackathonSlug),
+    },
+  });
+
+  if (isLoading || isLoadingHackathon) {
     return <PaperLoading classNames={{ base: "h-[200px]" }} />;
   }
 
-  if (isError || !hackathon) return null;
+  if (isError || isErrorHackathon || !data || !hackathon) return null;
 
   return (
     <Paper
@@ -36,7 +74,7 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
       classNames={{ base: "flex flex-col divide-y divide-border-primary" }}
       size="none"
     >
-      <div className="p-xl">
+      <div className="flex items-center justify-between p-xl">
         <Typo
           variant="heading"
           size="xs"
@@ -44,9 +82,11 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
           classNames={{ base: "text-sm" }}
           translate={{ token: "hackathon:details.events.title" }}
         />
+
+        <HackathonEventMenu selectedEvent={selectedEvent} onAction={setSelectedEvent} />
       </div>
 
-      {hackathon.events.map(event => {
+      {data.events.map(event => {
         const formattedDates = event.formatDisplayDates();
 
         return (
