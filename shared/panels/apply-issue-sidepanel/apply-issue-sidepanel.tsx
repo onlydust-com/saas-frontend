@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -13,6 +14,7 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -108,6 +110,18 @@ function Footer({
 function Content() {
   const [shouldDeleteComment, setShouldDeleteComment] = useState(false);
   const { name, close } = useApplyIssueSidePanel();
+  const { handleVerifyPermissions, isAuthorized } = usePublicRepoScope();
+  const { setIsGithubPublicScopePermissionModalOpen } = useGithubPermissionsContext();
+
+  function handlePermissions(fn: () => void) {
+    if (!isAuthorized) {
+      setIsGithubPublicScopePermissionModalOpen(true);
+      return;
+    }
+
+    handleVerifyPermissions(fn);
+  }
+
   const {
     issueId,
     canGoBack = false,
@@ -207,7 +221,10 @@ function Content() {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(handleCreate)} className={"flex h-full w-full flex-col gap-px"}>
+      <form
+        onSubmit={form.handleSubmit((values: ApplyIssueSidepanelForm) => handlePermissions(() => handleCreate(values)))}
+        className={"flex h-full w-full flex-col gap-px"}
+      >
         <Header issue={issue} canGoBack={canGoBack} />
 
         <SidePanelBody>
@@ -220,7 +237,7 @@ function Content() {
           hasCurrentUserApplication={hasCurrentUserApplication}
           shouldDeleteComment={shouldDeleteComment}
           onDeleteCommentChange={setShouldDeleteComment}
-          onCancel={handleCancel}
+          onCancel={() => handlePermissions(handleCancel)}
           isPending={createApplication.isPending || deleteApplication.isPending}
         />
       </form>

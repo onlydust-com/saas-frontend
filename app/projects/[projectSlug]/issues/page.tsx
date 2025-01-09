@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
+import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -59,6 +60,10 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
     });
   }
 
+  function handleIssueClick(issue: ProjectAvailableIssuesInterface) {
+    open({ issueId: issue.id, projectId: data?.id ?? "" });
+  }
+
   return (
     <ScrollView>
       <NavigationBreadcrumb
@@ -93,7 +98,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             <CardIssue
               key={issue.id}
               title={issue.title}
-              onClick={() => open({ issueId: issue.id, projectId: data?.id ?? "" })}
+              onClick={() => handleIssueClick(issue)}
               contribution={{
                 type: "ISSUE",
                 githubStatus: issue.status,
