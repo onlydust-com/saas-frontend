@@ -5,6 +5,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { ContributorListItemInterface } from "@/core/domain/user/models/contributor-list-item-model";
 import { HackathonListItemInterface } from "./models/hackathon-list-item-model";
 import { HackathonInterface } from "./models/hackathon-model";
 import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-list-item-model-v2";
@@ -66,4 +67,21 @@ export type GetHackathonEventsPortResponse = HttpStorageResponse<GetHackathonEve
 export type GetHackathonEventsPortParams = HttpClientParameters<{
   PathParams: GetHackathonEventsPathParams;
   QueryParams: GetHackathonEventsQueryParams;
+}>;
+
+/* --------------------------------- Get hackathon contributors -------------------------------- */
+
+export type GetHackathonContributorsResponse = components["schemas"]["ContributorsPageResponseV2"];
+export type GetHackathonContributorsModel = Omit<GetHackathonContributorsResponse, "contributors"> & {
+  contributors: ContributorListItemInterface[];
+};
+
+type GetHackathonContributorsPathParams = operations["getHackathonContributors"]["parameters"]["path"];
+type GetHackathonContributorsQueryParams = operations["getHackathonContributors"]["parameters"]["query"];
+
+export type GetHackathonContributorsPortResponse = HttpStorageResponse<GetHackathonContributorsModel>;
+
+export type GetHackathonContributorsPortParams = HttpClientParameters<{
+  PathParams: GetHackathonContributorsPathParams;
+  QueryParams: GetHackathonContributorsQueryParams;
 }>;
