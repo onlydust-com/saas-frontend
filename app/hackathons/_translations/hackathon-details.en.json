@@ -14,5 +14,10 @@
     "allEvents": "All events",
     "pastEvents": "Past events",
     "upcomingEvents": "Upcoming events"
+  },
+  "overview": {
+    "description": {
+      "title": "Description"
+    }
   }
 }
