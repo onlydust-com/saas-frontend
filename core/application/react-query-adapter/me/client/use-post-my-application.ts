@@ -12,6 +12,7 @@ export function usePostMyApplication({
   options,
 }: UseMutationFacadeParams<MeFacadePort["postMyApplication"], undefined, never, PostMyApplicationBody> = {}) {
   const meStoragePort = bootstrap.getMeStoragePortForClient();
+  const projectStoragePort = bootstrap.getProjectStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -22,6 +23,11 @@ export function usePostMyApplication({
         onSuccess: async (data, variables, context) => {
           await queryClient.invalidateQueries({
             queryKey: meStoragePort.getMe({}).tag,
+            exact: false,
+          });
+
+          await queryClient.invalidateQueries({
+            queryKey: projectStoragePort.getProjectAvailableIssues({}).tag,
             exact: false,
           });
 
