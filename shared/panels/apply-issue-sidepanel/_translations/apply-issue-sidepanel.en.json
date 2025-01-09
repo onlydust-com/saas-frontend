@@ -14,6 +14,10 @@
     "info": "Your application will be publicly visible on GitHub.",
     "deleteComment": "Delete comment",
     "cancelApplication": "Cancel application",
-    "sendApplication": "Send an application"
+    "sendApplication": "Send an application",
+    "successApply": "Application sent successfully",
+    "errorApply": "Error sending application",
+    "successCancel": "Application canceled successfully",
+    "errorCancel": "Error canceling application"
   }
 }

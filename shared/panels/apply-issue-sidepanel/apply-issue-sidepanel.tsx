@@ -5,11 +5,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+import { IssueInterface } from "@/core/domain/issue/models/issue-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
+import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -28,6 +30,80 @@ import {
   ApplyIssueSidepanelProps,
   ApplyIssueSidepanelValidation,
 } from "./apply-issue-sidepanel.types";
+
+function Header({ issue, canGoBack }: { issue: IssueInterface; canGoBack: boolean }) {
+  return (
+    <SidePanelHeader
+      title={{
+        children: (
+          <div className="flex w-full flex-row items-center justify-start gap-lg overflow-hidden">
+            <ContributionBadge type="ISSUE" number={issue.number} githubStatus={issue.status} />
+            <Typo
+              size="xs"
+              weight="medium"
+              variant="heading"
+              as="div"
+              classNames={{ base: "flex-1 overflow-ellipsis overflow-hidden whitespace-nowrap" }}
+            >
+              {issue.title}
+            </Typo>
+          </div>
+        ),
+      }}
+      canGoBack={canGoBack}
+      canClose={true}
+    />
+  );
+}
+
+function Footer({
+  hasCurrentUserApplication,
+  shouldDeleteComment,
+  onDeleteCommentChange,
+  onCancel,
+  isPending,
+}: {
+  hasCurrentUserApplication: boolean;
+  shouldDeleteComment: boolean;
+  onDeleteCommentChange: (value: boolean) => void;
+  onCancel: () => void;
+  isPending: boolean;
+}) {
+  return (
+    <SidePanelFooter>
+      <div className="flex w-full flex-row items-center justify-between gap-1">
+        {hasCurrentUserApplication ? (
+          <>
+            <CheckboxButton
+              value={shouldDeleteComment}
+              onChange={onDeleteCommentChange}
+              variant="secondary"
+              isDisabled={isPending}
+            >
+              <Translate token="panels:applyIssue.apply.deleteComment" />
+            </CheckboxButton>
+            <Button
+              variant="secondary"
+              translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
+              onClick={onCancel}
+              isLoading={isPending}
+            />
+          </>
+        ) : (
+          <>
+            <div />
+            <Button
+              variant="primary"
+              translate={{ token: "panels:applyIssue.apply.sendApplication" }}
+              type="submit"
+              isLoading={isPending}
+            />
+          </>
+        )}
+      </div>
+    </SidePanelFooter>
+  );
+}
 
 function Content() {
   const [shouldDeleteComment, setShouldDeleteComment] = useState(false);
@@ -55,11 +131,28 @@ function Content() {
   const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
   const hasCurrentUserApplication = !!currentUserApplication;
 
-  const { mutateAsync: createAsync, ...createApplication } = MeReactQueryAdapter.client.usePostMyApplication();
+  const { mutateAsync: createAsync, ...createApplication } = MeReactQueryAdapter.client.usePostMyApplication({
+    options: {
+      onSuccess: () => {
+        toast.success(<Translate token="panels:applyIssue.apply.successApply" />);
+      },
+      onError: () => {
+        toast.error(<Translate token="panels:applyIssue.apply.errorApply" />);
+      },
+    },
+  });
 
   const { mutateAsync: deleteAsync, ...deleteApplication } = ApplicationReactQueryAdapter.client.useDeleteApplication({
     pathParams: {
       applicationId: currentUserApplication?.id ?? "",
+    },
+    options: {
+      onSuccess: () => {
+        toast.success(<Translate token="panels:applyIssue.apply.successCancel" />);
+      },
+      onError: () => {
+        toast.error(<Translate token="panels:applyIssue.apply.errorCancel" />);
+      },
     },
   });
 
@@ -107,58 +200,21 @@ function Content() {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(handleCreate)} className={"flex h-full w-full flex-col gap-px"}>
-        <SidePanelHeader
-          title={{
-            children: (
-              <div className={"flex w-full flex-row items-center justify-start gap-lg overflow-hidden"}>
-                <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.status} />
+        <Header issue={issue} canGoBack={canGoBack} />
 
-                <Typo
-                  size={"xs"}
-                  weight={"medium"}
-                  variant={"heading"}
-                  as={"div"}
-                  classNames={{ base: "flex-1 overflow-ellipsis overflow-hidden whitespace-nowrap" }}
-                >
-                  {issue.title}
-                </Typo>
-              </div>
-            ),
-          }}
-          canGoBack={canGoBack}
-          canClose={true}
-        />
         <SidePanelBody>
           <Metrics issue={issue} />
           <Summary issue={issue} />
           {/* // TODO MAKE OD HACK CARD */}
           <Apply issue={issue} />
         </SidePanelBody>
-        <SidePanelFooter>
-          <div className="flex w-full flex-row items-center justify-between gap-1">
-            {hasCurrentUserApplication ? (
-              <>
-                <CheckboxButton value={shouldDeleteComment} onChange={setShouldDeleteComment} variant="secondary">
-                  <Translate token={"panels:applyIssue.apply.deleteComment"} />
-                </CheckboxButton>
-                <Button
-                  variant="secondary"
-                  translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
-                  onClick={handleCancel}
-                />
-              </>
-            ) : (
-              <>
-                <div />
-                <Button
-                  variant="primary"
-                  translate={{ token: "panels:applyIssue.apply.sendApplication" }}
-                  type="submit"
-                />
-              </>
-            )}
-          </div>
-        </SidePanelFooter>
+        <Footer
+          hasCurrentUserApplication={hasCurrentUserApplication}
+          shouldDeleteComment={shouldDeleteComment}
+          onDeleteCommentChange={setShouldDeleteComment}
+          onCancel={handleCancel}
+          isPending={createApplication.isPending || deleteApplication.isPending}
+        />
       </form>
     </FormProvider>
   );
