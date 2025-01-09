@@ -6,7 +6,8 @@
     "days": "{{count}} Days"
   },
   "summary": {
-    "title": "Description"
+    "title": "Description",
+    "by": "By"
   },
   "apply": {
     "title": "My applications",

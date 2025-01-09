@@ -9,8 +9,10 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { Accordion } from "@/design-system/molecules/accordion";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { cn } from "@/shared/helpers/cn";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { SummaryProps } from "./summary.types";
 
@@ -63,7 +65,7 @@ function Stats({ issue }: SummaryProps) {
           <Avatar shape="squared" size="xs" src={createdBy.avatarUrl} />
           <Typo size="xs" weight="medium" color="secondary">
             <Typo as="span" size="xs" weight="medium" color="tertiary">
-              By &nbsp;
+              <Translate token="panels:applyIssue.summary.by" /> &nbsp;
             </Typo>
             {createdBy.login}
           </Typo>
@@ -72,13 +74,7 @@ function Stats({ issue }: SummaryProps) {
       {!!repo && (
         <div className="flex flex-row items-center justify-start gap-1">
           <Icon component={Book} />
-          <Typo
-            size="xs"
-            weight="medium"
-            color="secondary"
-            as="a"
-            htmlProps={{ href: repo.url, target: "_blank", rel: "noopener noreferrer" }}
-          >
+          <Typo size="xs" weight="medium" color="secondary" as={BaseLink} htmlProps={{ href: repo.url }}>
             {repo.name}
           </Typo>
         </div>
@@ -90,14 +86,19 @@ function Stats({ issue }: SummaryProps) {
 export function Summary({ issue }: SummaryProps) {
   return (
     <>
-      <Accordion
-        inline={true}
-        classNames={{ heading: "after:hidden", base: "p-0", content: "py-4" }}
-        id={"summary"}
-        titleProps={{ size: "md", weight: "medium", translate: { token: "panels:applyIssue.summary.title" } }}
-      >
-        <div className="flex w-full flex-col gap-4">{issue.body && <Markdown content={issue.body} />}</div>
-      </Accordion>
+      {issue.body ? (
+        <Accordion
+          inline={true}
+          classNames={{ heading: "after:hidden", base: "p-0", content: "py-4" }}
+          id={"summary"}
+          titleProps={{ size: "md", weight: "medium", translate: { token: "panels:applyIssue.summary.title" } }}
+        >
+          <div className="flex w-full flex-col gap-4">
+            <Markdown content={issue.body} />
+          </div>
+        </Accordion>
+      ) : null}
+
       <Labels issue={issue} />
       <Stats issue={issue} />
     </>

@@ -14,6 +14,8 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
@@ -123,7 +125,7 @@ function Content() {
   }
 
   const {
-    issueId,
+    issueId = 0,
     canGoBack = false,
     projectId,
   } = useSinglePanelData<ApplyIssueSidepanelData>(name) ?? {
@@ -136,7 +138,7 @@ function Content() {
     isLoading,
     isError,
   } = IssueReactQueryAdapter.client.useGetIssue({
-    pathParams: { issueId: issueId ?? 0 },
+    pathParams: { issueId },
     options: { enabled: !!issueId },
   });
 
@@ -145,57 +147,50 @@ function Content() {
   const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
   const hasCurrentUserApplication = !!currentUserApplication;
 
-  const { mutateAsync: createAsync, ...createApplication } = MeReactQueryAdapter.client.usePostMyApplication({
-    options: {
-      onSuccess: () => {
-        toast.success(<Translate token="panels:applyIssue.apply.successApply" />);
+  const { mutateAsync: createApplication, ...createApplicationState } = MeReactQueryAdapter.client.usePostMyApplication(
+    {
+      options: {
+        onSuccess: () => {
+          toast.success(<Translate token="panels:applyIssue.apply.successApply" />);
+          close();
+        },
+        onError: () => {
+          toast.error(<Translate token="panels:applyIssue.apply.errorApply" />);
+        },
       },
-      onError: () => {
-        toast.error(<Translate token="panels:applyIssue.apply.errorApply" />);
-      },
-    },
-  });
+    }
+  );
 
-  const { mutateAsync: deleteAsync, ...deleteApplication } = ApplicationReactQueryAdapter.client.useDeleteApplication({
-    pathParams: {
-      applicationId: currentUserApplication?.id ?? "",
-    },
-    options: {
-      onSuccess: () => {
-        toast.success(<Translate token="panels:applyIssue.apply.successCancel" />);
+  const { mutateAsync: deleteApplication, ...deleteApplicationState } =
+    ApplicationReactQueryAdapter.client.useDeleteApplication({
+      pathParams: {
+        applicationId: currentUserApplication?.id ?? "",
       },
-      onError: () => {
-        toast.error(<Translate token="panels:applyIssue.apply.errorCancel" />);
+      options: {
+        onSuccess: () => {
+          toast.success(<Translate token="panels:applyIssue.apply.successCancel" />);
+          close();
+        },
+        onError: () => {
+          toast.error(<Translate token="panels:applyIssue.apply.errorCancel" />);
+        },
       },
-    },
-  });
+    });
 
   function handleCreate(values: ApplyIssueSidepanelForm) {
     if (!projectId || !issueId) return;
 
-    createAsync({
+    createApplication({
       projectId,
       issueId,
       githubComment: values.githubComment,
-    })
-      .then(() => {
-        close();
-      })
-      .catch(() => {
-        // TODO: handle error
-      });
+    });
   }
 
   function handleCancel() {
-    deleteAsync({
+    deleteApplication({
       deleteGithubComment: shouldDeleteComment,
-    })
-      .then(() => {
-        close();
-      })
-      .catch(() => {
-        // TODO: handle error
-      });
+    });
   }
 
   const prefillLabel = useApplyIssuePrefillLabel();
@@ -216,8 +211,8 @@ function Content() {
   }, [currentUserApplication]);
 
   if (isLoading) return <SidePanelLoading />;
-  if (isError) return <div>Error loading issue</div>;
-  if (!issue) return null;
+  if (isError) return <ErrorState />;
+  if (!issue) return <EmptyStateLite />;
 
   return (
     <FormProvider {...form}>
@@ -238,14 +233,14 @@ function Content() {
           shouldDeleteComment={shouldDeleteComment}
           onDeleteCommentChange={setShouldDeleteComment}
           onCancel={() => handlePermissions(handleCancel)}
-          isPending={createApplication.isPending || deleteApplication.isPending}
+          isPending={createApplicationState.isPending || deleteApplicationState.isPending}
         />
       </form>
     </FormProvider>
   );
 }
 
-export function ApplyIssueSidepanel({ children }: ApplyIssueSidepanelProps) {
+export function ApplyIssueSidepanel() {
   const { name, isOpen } = useApplyIssueSidePanel();
   const { Panel } = useSidePanel({ name });
 
