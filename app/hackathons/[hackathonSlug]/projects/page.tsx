@@ -1,27 +1,47 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
+import { GetHackathonProjectsV2QueryParams } from "@/core/domain/hackathon/hackathon-contract.types";
 
 import {
   CardProjectMarketplace,
   CardProjectMarketplaceLoading,
 } from "@/design-system/molecules/cards/card-project-marketplace";
+import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
+import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { FilterData } from "./_components/filter-data/filter-data";
+import { useHackathonProjectsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
+
+export type HackathonProjectsFilters = Omit<NonNullable<GetHackathonProjectsV2QueryParams>, "pageSize" | "pageIndex">;
+
 export default function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }) {
+  const [search, setSearch] = useState<string>();
+  const { open: openFilterPanel } = useHackathonProjectsFilterDataSidePanel();
+  const [filters, setFilters] = useState<HackathonProjectsFilters>({});
+  const [debouncedSearch, setDebouncedSearch] = useState<string>();
+
+  const queryParams: Partial<GetHackathonProjectsV2QueryParams> = {
+    search: debouncedSearch,
+    ...filters,
+  };
+
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     HackathonReactQueryAdapter.client.useGetHackathonProjectsV2({
       pathParams: {
         hackathonSlug: params.hackathonSlug,
       },
+      queryParams,
       options: {
         enabled: Boolean(params.hackathonSlug),
       },
@@ -61,8 +81,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        availableIssueCount={project.availableIssueCount}
-        goodFirstIssueCount={project.goodFirstIssueCount}
+        odhackIssueCount={project.odHackStats?.issueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
@@ -71,7 +90,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
   }, [isLoading, isError, projects]);
 
   return (
-    <ScrollView>
+    <FilterDataProvider filters={filters} setFilters={setFilters}>
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -84,14 +103,23 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
           },
         ]}
       />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {renderProjects}
-        {hasNextPage ? (
-          <div className="col-span-full">
-            <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+      <div className="flex h-full flex-col gap-lg overflow-hidden p-lg">
+        <nav className={"flex gap-md"}>
+          <FilterButton onClick={openFilterPanel} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+        </nav>
+        <ScrollView>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+            {renderProjects}
+            {hasNextPage ? (
+              <div className="col-span-full">
+                <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        </ScrollView>
       </div>
-    </ScrollView>
+      <FilterData />
+    </FilterDataProvider>
   );
 }

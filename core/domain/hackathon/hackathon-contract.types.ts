@@ -38,7 +38,7 @@ export type GetHackathonProjectsV2Model = Omit<GetHackathonProjectsV2Response, "
   projects: HackathonProjectListItemInterfaceV2[];
 };
 
-type GetHackathonProjectsV2QueryParams = operations["getHackathonProjects"]["parameters"]["query"];
+export type GetHackathonProjectsV2QueryParams = operations["getHackathonProjects"]["parameters"]["query"];
 type GetHackathonProjectsV2PathParams = operations["getHackathonProjects"]["parameters"]["path"];
 
 export type GetHackathonProjectsV2PortResponse = HttpStorageResponse<GetHackathonProjectsV2Model>;

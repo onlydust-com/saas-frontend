@@ -8,5 +8,10 @@
     "date": "Date",
     "location": "Location",
     "links": "Links"
+  },
+  "projects": {
+    "filters": {
+      "title": "Projects filters"
+    }
   }
 }
