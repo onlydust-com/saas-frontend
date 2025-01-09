@@ -163,17 +163,25 @@ function Content() {
       projectId,
       issueId,
       githubComment: values.githubComment,
-    }).then(() => {
-      close();
-    });
+    })
+      .then(() => {
+        close();
+      })
+      .catch(() => {
+        // TODO: handle error
+      });
   }
 
   function handleCancel() {
     deleteAsync({
       deleteGithubComment: shouldDeleteComment,
-    }).then(() => {
-      close();
-    });
+    })
+      .then(() => {
+        close();
+      })
+      .catch(() => {
+        // TODO: handle error
+      });
   }
 
   const prefillLabel = useApplyIssuePrefillLabel();

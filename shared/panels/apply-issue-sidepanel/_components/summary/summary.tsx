@@ -72,7 +72,13 @@ function Stats({ issue }: SummaryProps) {
       {!!repo && (
         <div className="flex flex-row items-center justify-start gap-1">
           <Icon component={Book} />
-          <Typo size="xs" weight="medium" color="secondary" as="a" htmlProps={{ href: repo.url, target: "_blank" }}>
+          <Typo
+            size="xs"
+            weight="medium"
+            color="secondary"
+            as="a"
+            htmlProps={{ href: repo.url, target: "_blank", rel: "noopener noreferrer" }}
+          >
             {repo.name}
           </Typo>
         </div>
