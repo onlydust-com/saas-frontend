@@ -23,6 +23,7 @@
     }
   },
   "contributors": {
+    "description": "The following KPIs relate to contributions in this project.",
     "columns": {
       "name": "Name",
       "rewards": "Rewards",

@@ -92,10 +92,6 @@ export function useFilterColumns() {
         const { amount, code } = moneyKernelPort.format({
           amount: totalEarnedUsdAmount,
           currency: moneyKernelPort.getCurrency("USD"),
-          options: {
-            notation: "compact",
-          },
-          uppercase: true,
         });
 
         if (!totalEarnedUsdAmount) {
