@@ -118,6 +118,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
       background="glass"
       border="primary"
       onClick={onClick}
+      size="lg"
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between gap-1">
