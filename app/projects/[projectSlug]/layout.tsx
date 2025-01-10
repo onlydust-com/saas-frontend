@@ -26,10 +26,10 @@ enum Views {
 }
 
 function Navigation({ params }: { params: { projectSlug: string } }) {
-  const isOverview = useMatchPath(NEXT_ROUTER.projects.overview.root(params.projectSlug));
-  const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.issues.root(params.projectSlug));
-  const isContributors = useMatchPath(NEXT_ROUTER.projects.contributors.root(params.projectSlug));
-  const isRewards = useMatchPath(NEXT_ROUTER.projects.rewards.root(params.projectSlug));
+  const isOverview = useMatchPath(NEXT_ROUTER.projects.details.overview.root(params.projectSlug));
+  const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.details.issues.root(params.projectSlug));
+  const isContributors = useMatchPath(NEXT_ROUTER.projects.details.contributors.root(params.projectSlug));
+  const isRewards = useMatchPath(NEXT_ROUTER.projects.details.rewards.root(params.projectSlug));
 
   const selectedId = useMemo(() => {
     if (isOverview) {
@@ -57,7 +57,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           children: <Translate token={"project:details.tabs.overview"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.projects.overview.root(params.projectSlug),
+            href: NEXT_ROUTER.projects.details.overview.root(params.projectSlug),
           },
         },
         {
@@ -65,7 +65,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           children: <Translate token={"project:details.tabs.openIssues"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.projects.issues.root(params.projectSlug),
+            href: NEXT_ROUTER.projects.details.issues.root(params.projectSlug),
           },
         },
         {
@@ -73,7 +73,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           children: <Translate token={"project:details.tabs.contributors"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.projects.contributors.root(params.projectSlug),
+            href: NEXT_ROUTER.projects.details.contributors.root(params.projectSlug),
           },
         },
         {
@@ -81,7 +81,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           children: <Translate token={"project:details.tabs.rewards"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.projects.rewards.root(params.projectSlug),
+            href: NEXT_ROUTER.projects.details.rewards.root(params.projectSlug),
           },
         },
       ]}
