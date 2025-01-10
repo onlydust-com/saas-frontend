@@ -68,7 +68,7 @@ function GithubLabel({
           <Popover.Trigger>
             {() => (
               <div className="cursor-pointer">
-                <Badge key={"more"} color={"grey"} {...(githubLabelsProps ?? {})}>
+                <Badge key={"more"} size="xs" color={"grey"} {...(githubLabelsProps ?? {})}>
                   +{githubLabels?.length - limitedLabels?.length}
                 </Badge>
               </div>
