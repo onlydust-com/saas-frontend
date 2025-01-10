@@ -12,8 +12,8 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
         items: [
           {
             id: "login",
-            label: <Translate token={"project:details.contributors.columns.from"} />,
-            searchValue: "From",
+            label: <Translate token={"project:details.contributors.columns.name"} />,
+            searchValue: "Name",
             isCheckbox: true,
           },
           {
