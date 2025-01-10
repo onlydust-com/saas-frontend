@@ -38,14 +38,15 @@ export default function ProjectOverviewPage({ params }: { params: { projectSlug:
           },
         ]}
       />
+
       <Stats
         contributors={data?.contributorCount}
         prMerged={data?.mergedPrCount}
         stars={data?.starCount}
         issues={data?.availableIssueCount}
       />
-      {/* TODO REPLACE BY LONG DESCRIPTION */}
-      <Description description={data?.shortDescription} />
+
+      <Description description={data?.longDescription} />
     </ScrollView>
   );
 }

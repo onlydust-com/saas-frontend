@@ -130,7 +130,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
             />
           ))}
         </ScrollView>
-        <div className="flex gap-md p-lg pb-0">
+        <div className="flex gap-md px-lg pt-xl">
           <Typo size={"sm"} color={"secondary"} translate={{ token: "project:details.issues.issuesCount" }} />
           <Typo size={"sm"} color={"primary"}>
             {totalItemNumber}

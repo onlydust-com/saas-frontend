@@ -1,5 +1,4 @@
-import { getCoreRowModel } from "@tanstack/react-table";
-import { useReactTable } from "@tanstack/react-table";
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -104,7 +103,7 @@ export function ContributorsTable({ params }: { params: { projectSlug: string } 
           />
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
-        <div className="flex gap-md p-lg pb-0">
+        <div className="flex gap-md px-lg pt-xl">
           <Typo
             size={"sm"}
             color={"secondary"}

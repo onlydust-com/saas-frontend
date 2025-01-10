@@ -55,8 +55,8 @@ export function useFilterColumns() {
     }),
     rewardCount: columnHelper.accessor("rewards", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XXS,
+      maxSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"project:details.contributors.columns.rewards"} />,
       cell: info => {
         const rewards = info.getValue();
@@ -69,8 +69,8 @@ export function useFilterColumns() {
     }),
     mergedPullRequestCount: columnHelper.accessor("mergedPullRequests", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XXS,
+      maxSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"project:details.contributors.columns.mergedPr"} />,
       cell: info => {
         const mergedPullRequests = info.getValue();
@@ -83,8 +83,8 @@ export function useFilterColumns() {
     }),
     totalEarnedUsdAmount: columnHelper.accessor("totalEarnedUsdAmount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XS,
+      maxSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"project:details.contributors.columns.rewardAmount"} />,
       cell: info => {
         const totalEarnedUsdAmount = info.getValue();

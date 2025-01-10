@@ -6,7 +6,7 @@ import { StatsProps } from "./stats.types";
 
 export function Stats({ contributors = 0, prMerged = 0, stars = 0, issues = 0 }: StatsProps) {
   return (
-    <div className="grid w-full grid-cols-4 border-b-1 border-border-primary py-4">
+    <div className="grid w-full grid-cols-2 gap-y-lg border-b-1 border-border-primary py-4 tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-4">
         <Stat
           label={{ token: "project:details.overview.stats.contributors" }}
