@@ -7,6 +7,7 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
@@ -94,23 +95,25 @@ export default function ProjectsLayout({ params, children }: { params: { project
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
       <PageWrapper>
         <AnimatedColumn className="h-full max-w-full">
-          <div className="flex h-full flex-col items-start justify-start gap-md laptop:flex-row laptop:gap-lg">
-            <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-              <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
-              <SimilarProjects projectIdOrSlug={params.projectSlug} />
-            </div>
-            <Paper
-              background="glass"
-              border="primary"
-              classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
-              px="none"
-            >
-              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-                <Navigation params={params} />
+          <ScrollView className="h-full">
+            <div className="flex flex-col items-start justify-start gap-md tablet:h-full laptop:flex-row laptop:gap-lg">
+              <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
+                <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
+                <SimilarProjects projectIdOrSlug={params.projectSlug} />
               </div>
-              {children}
-            </Paper>
-          </div>
+              <Paper
+                background="glass"
+                border="primary"
+                classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
+                px="none"
+              >
+                <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+                  <Navigation params={params} />
+                </div>
+                {children}
+              </Paper>
+            </div>
+          </ScrollView>
         </AnimatedColumn>
         <ApplyIssueSidepanel />
       </PageWrapper>
