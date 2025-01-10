@@ -11,7 +11,7 @@ export function FilterColumns({ selectedIds, setSelectedIds }: FilterColumnsProp
       menuProps={{
         items: [
           {
-            id: "from",
+            id: "login",
             label: <Translate token={"project:details.contributors.columns.from"} />,
             searchValue: "From",
             isCheckbox: true,
