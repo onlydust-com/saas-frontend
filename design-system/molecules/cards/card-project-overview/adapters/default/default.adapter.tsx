@@ -1,6 +1,4 @@
-import { Star } from "lucide-react";
-import { GitFork } from "lucide-react";
-import { UserRound } from "lucide-react";
+import { GitFork, Star, UserRound } from "lucide-react";
 import { ElementType } from "react";
 
 import { Avatar } from "@/design-system/atoms/avatar";
@@ -73,8 +71,10 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
                 </Typo>
               </div>
             ) : null}
+            
             <div className="flex items-center justify-between gap-md">
-              <Categories categories={categories} />
+              {categories?.length ? <Categories categories={categories} /> : <div />}
+
               {leaders ? (
                 <div className="w-fit">
                   <UserGroup avatarProps={{ size: "sm" }} users={leaders} maxUsers={3} />
@@ -83,29 +83,33 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
             </div>
           </div>
 
-          <div className="flex flex-col gap-lg">
-            <Typo
-              size="xs"
-              weight="medium"
-              color="primary"
-              translate={{ token: "features:cardProjectOverview.languages" }}
-            />
-            <Languages languages={languages} />
-          </div>
-
-          <div className="flex flex-col gap-lg">
-            <Typo
-              size="xs"
-              weight="medium"
-              color="primary"
-              translate={{ token: "features:cardProjectOverview.socials" }}
-            />
-            <div className={"flex flex-row flex-wrap gap-sm"}>
-              {moreInfos?.map(moreInfoItem => (
-                <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
-              ))}
+          {languages?.length ? (
+            <div className="flex flex-col gap-lg">
+              <Typo
+                size="xs"
+                weight="medium"
+                color="primary"
+                translate={{ token: "features:cardProjectOverview.languages" }}
+              />
+              <Languages languages={languages} />
             </div>
-          </div>
+          ) : null}
+
+          {moreInfos?.length ? (
+            <div className="flex flex-col gap-lg">
+              <Typo
+                size="xs"
+                weight="medium"
+                color="primary"
+                translate={{ token: "features:cardProjectOverview.socials" }}
+              />
+              <div className={"flex flex-row flex-wrap gap-sm"}>
+                {moreInfos?.map(moreInfoItem => (
+                  <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </Paper>

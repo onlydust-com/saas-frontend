@@ -1,4 +1,5 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { Layers } from "lucide-react";
 import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
@@ -8,6 +9,7 @@ import { ProjectRewardsInterfaceV2 } from "@/core/domain/project/models/project-
 import { Typo } from "@/design-system/atoms/typo";
 
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { Metric } from "@/shared/features/projects/metric/metric";
 import { CellAvatar } from "@/shared/features/table/cell/cell-avatar/cell-avatar";
 import { CellBudget } from "@/shared/features/table/cell/cell-budget/cell-budget";
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
@@ -20,7 +22,7 @@ export function useFilterColumns() {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const columnHelper = createColumnHelper<ProjectRewardsInterfaceV2>();
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-rewards-table-columns");
+  const [selectedIds, setSelectedIds] = useLocalStorage<Array<TableColumns>>("project-detail-rewards-table-columns");
 
   useEffect(() => {
     if (!selectedIds) {
@@ -75,19 +77,23 @@ export function useFilterColumns() {
         );
       },
     }),
-    // TODO wait for backend
-    // contributions: columnHelper.accessor("items", {
-    //   header: () => <Translate token={"project:details.rewards.columns.contributions"} />,
-    //   cell: info => {
-    //     const contributions = info.getValue();
+    contributions: columnHelper.accessor("contributions", {
+      enableSorting: false,
+      size: TABLE_CELL_SIZE.XXS,
+      minSize: TABLE_CELL_SIZE.XXS,
+      header: () => <Translate token={"project:details.rewards.columns.contributions"} />,
+      cell: info => {
+        const contributions = info.getValue();
 
-    //     if (!contributions?.length) {
-    //       return <CellEmpty />;
-    //     }
+        if (!contributions?.length) {
+          return <CellEmpty />;
+        }
 
-    //     return <ContributionsPopover contributionsCount={contributions?.length ?? 0} contributionIds={contributions} />;
-    //   },
-    // }),
+        // TODO wait for backend
+        // return <ContributionsPopover contributionsCount={contributions?.length ?? 0} contributionIds={contributions} />;
+        return <Metric icon={Layers} count={contributions.length} iconSize="sm" />;
+      },
+    }),
     amount: columnHelper.accessor("amount", {
       enableSorting: false,
       header: () => <Translate token={"project:details.rewards.columns.amount"} />,

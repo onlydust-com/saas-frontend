@@ -7,7 +7,9 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { SimilarProjectsProps } from "./similar-projects.types";
 
@@ -44,6 +46,8 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
         {projects.map(project => (
           <AvatarLabelGroup
             key={project.id}
+            as={BaseLink}
+            htmlProps={{ href: NEXT_ROUTER.projects.details.root(project.slug) }}
             avatars={[
               {
                 src: project.logoUrl,

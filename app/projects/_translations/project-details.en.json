@@ -23,8 +23,9 @@
     }
   },
   "contributors": {
+    "description": "The following KPIs relate to contributions in this project.",
     "columns": {
-      "from": "From",
+      "name": "Name",
       "rewards": "Rewards",
       "mergedPr": "Merged PR",
       "rewardAmount": "Reward Amount"

@@ -87,6 +87,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           {labels?.map(label => (
             <Badge
               key={label.name}
+              size="md"
               onClick={() => handleLabelClick(label)}
               color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
             >
