@@ -32,7 +32,7 @@ export function useFilterColumns() {
   const columnMap: Partial<Record<TableColumns, object>> = {
     login: columnHelper.accessor("login", {
       enableSorting: false,
-      header: () => <Translate token={"project:details.contributors.columns.from"} />,
+      header: () => <Translate token={"project:details.contributors.columns.name"} />,
       cell: info => {
         const login = info.getValue();
         const avatarUrl = info.row.original.avatarUrl;
@@ -92,10 +92,6 @@ export function useFilterColumns() {
         const { amount, code } = moneyKernelPort.format({
           amount: totalEarnedUsdAmount,
           currency: moneyKernelPort.getCurrency("USD"),
-          options: {
-            notation: "compact",
-          },
-          uppercase: true,
         });
 
         if (!totalEarnedUsdAmount) {

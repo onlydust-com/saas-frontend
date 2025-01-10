@@ -12,6 +12,7 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
+import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
@@ -86,6 +87,7 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           {labels?.map(label => (
             <Badge
               key={label.name}
+              size="md"
               onClick={() => handleLabelClick(label)}
               color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
             >
@@ -94,41 +96,48 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
           ))}
         </div>
         <ScrollView direction={"x"} className="flex flex-col gap-4 p-lg">
-          {issues?.map(issue => (
-            <CardIssue
-              key={issue.id}
-              title={issue.title}
-              onClick={() => handleIssueClick(issue)}
-              contribution={{
-                type: "ISSUE",
-                githubStatus: issue.status,
-                number: issue.number,
-              }}
-              createdAt={issue.createdAt}
-              users={issue.applicants.map(a => ({
-                login: a.login,
-                avatarUrl: a.avatarUrl,
-              }))}
-              selectedLabels={selectedLabels.map(label => label.name)}
-              githubLabels={issue.labels.map(label => ({
-                label: label.name,
-                description: label.description,
-                onClick: () =>
-                  handleLabelClick({
-                    ...label,
-                    count: 0,
-                  }),
-              }))}
-              createdBy={{
-                login: issue.author.login,
-                avatarUrl: issue.author.avatarUrl,
-              }}
-              repo={{
-                name: issue.repo.name,
-                url: issue.repo.htmlUrl,
-              }}
+          {!issues?.length ? (
+            <EmptyState
+              titleTranslate={{ token: "project:details.issues.empty.title" }}
+              descriptionTranslate={{ token: "project:details.issues.empty.description" }}
             />
-          ))}
+          ) : (
+            issues.map(issue => (
+              <CardIssue
+                key={issue.id}
+                title={issue.title}
+                onClick={() => handleIssueClick(issue)}
+                contribution={{
+                  type: "ISSUE",
+                  githubStatus: issue.status,
+                  number: issue.number,
+                }}
+                createdAt={issue.createdAt}
+                users={issue.applicants.map(a => ({
+                  login: a.login,
+                  avatarUrl: a.avatarUrl,
+                }))}
+                selectedLabels={selectedLabels.map(label => label.name)}
+                githubLabels={issue.labels.map(label => ({
+                  label: label.name,
+                  description: label.description,
+                  onClick: () =>
+                    handleLabelClick({
+                      ...label,
+                      count: 0,
+                    }),
+                }))}
+                createdBy={{
+                  login: issue.author.login,
+                  avatarUrl: issue.author.avatarUrl,
+                }}
+                repo={{
+                  name: issue.repo.name,
+                  url: issue.repo.htmlUrl,
+                }}
+              />
+            ))
+          )}
         </ScrollView>
         <div className="flex gap-md px-lg pt-xl">
           <Typo size={"sm"} color={"secondary"} translate={{ token: "project:details.issues.issuesCount" }} />

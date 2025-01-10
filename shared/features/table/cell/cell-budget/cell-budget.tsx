@@ -36,7 +36,7 @@ export function CellBudget({ totalUsdEquivalent: _totalUsdEquivalent, totalPerCu
       <Popover.Trigger>
         {() => (
           <div>
-            <div className={"flex min-w-full flex-col"} ref={containerRef}>
+            <div className={"flex min-w-full cursor-pointer flex-col"} ref={containerRef}>
               <div className={"w-fit"} ref={usdRef}>
                 <Typo size="sm" weight="medium" color="secondary" classNames={{ base: "whitespace-nowrap" }}>
                   {`~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}`}

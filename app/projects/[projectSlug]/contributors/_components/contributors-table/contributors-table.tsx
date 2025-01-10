@@ -81,6 +81,10 @@ export function ContributorsTable({ params }: { params: { projectSlug: string } 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
+        <div className="p-xl">
+          <Typo size="xs" color="quaternary" translate={{ token: "project:details.contributors.description" }} />
+        </div>
+
         <nav className={"flex gap-md p-lg"}>
           <TableSearch
             value={search}
