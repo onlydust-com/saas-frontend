@@ -201,12 +201,4 @@ export class DateFnsAdapter implements DateFacadePort {
     }
     return this.format(date, "w, MMM yyyy");
   }
-
-  startOfToday(): Date {
-    return DateFns.startOfToday();
-  }
-
-  endOfToday(): Date {
-    return DateFns.endOfToday();
-  }
 }

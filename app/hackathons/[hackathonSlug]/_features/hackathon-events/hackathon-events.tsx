@@ -13,6 +13,7 @@ import { Paper, PaperLoading } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { cn } from "@/shared/helpers/cn";
 
 import { HackathonEventsProps } from "./hackathon-events.types";
@@ -22,31 +23,18 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
 
   const dateKernelPort = bootstrap.getDateKernelPort();
 
-  const {
-    data: hackathon,
-    isLoading: isLoadingHackathon,
-    isError: isErrorHackathon,
-  } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
-    pathParams: {
-      hackathonSlug,
-    },
-    options: {
-      enabled: Boolean(hackathonSlug),
-    },
-  });
-
   const periods = {
     [HackathonEventMenuItem.ALL_EVENTS]: {
       fromDate: undefined,
       toDate: undefined,
     },
     [HackathonEventMenuItem.PAST_EVENTS]: {
-      fromDate: hackathon?.startDate,
-      toDate: dateKernelPort.startOfToday().toISOString(),
+      fromDate: undefined,
+      toDate: dateKernelPort.format(new Date(), "yyyy-MM-dd"),
     },
     [HackathonEventMenuItem.UPCOMING_EVENTS]: {
-      fromDate: dateKernelPort.endOfToday().toISOString(),
-      toDate: hackathon?.endDate,
+      fromDate: dateKernelPort.format(new Date(), "yyyy-MM-dd"),
+      toDate: undefined,
     },
   };
 
@@ -63,11 +51,11 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
     },
   });
 
-  if (isLoading || isLoadingHackathon) {
+  if (isLoading) {
     return <PaperLoading classNames={{ base: "h-[200px]" }} />;
   }
 
-  if (isError || isErrorHackathon || !data || !hackathon) return null;
+  if (isError || !data) return null;
 
   return (
     <Paper
@@ -88,56 +76,60 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
         <HackathonEventMenu selectedEvent={selectedEvent} onAction={setSelectedEvent} />
       </div>
 
-      {data.events.map(event => {
-        const formattedDates = event.formatDisplayDates();
+      {data.events.length ? (
+        data.events.map(event => {
+          const formattedDates = event.formatDisplayDates();
 
-        return (
-          <div
-            key={event.name}
-            className={cn("flex items-start gap-xl p-xl", {
-              "opacity-50": event.isPast(),
-            })}
-          >
-            <div className="flex h-12 w-12 flex-col items-center justify-center rounded-md bg-[#121212]">
-              <div className="flex flex-col text-center">
-                <Typo size="xs">{formattedDates.startMonth}</Typo>
-                <Typo size="xs" weight="medium">
-                  {formattedDates.startDay}
-                </Typo>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-md">
-              <div className="flex flex-col">
-                <Typo size="sm" weight="bold">
-                  {event.name}
-                </Typo>
-                <Typo size="xs" color="tertiary">
-                  {event.subtitle}
-                </Typo>
-              </div>
-
-              <Typo size="xs">
-                {formattedDates.startDate} - {formattedDates.startTime}
-              </Typo>
-
-              {event?.links.length ? (
-                <div className="flex gap-sm">
-                  {event.links.map(({ url, value }) => (
-                    <Button key={url} variant="secondary" size={"xs"} as={BaseLink} htmlProps={{ href: url }}>
-                      {value}
-                    </Button>
-                  ))}
+          return (
+            <div
+              key={event.name}
+              className={cn("flex items-start gap-xl p-xl", {
+                "opacity-50": event.isPast(),
+              })}
+            >
+              <div className="flex h-12 w-12 flex-col items-center justify-center rounded-md bg-[#121212]">
+                <div className="flex flex-col text-center">
+                  <Typo size="xs">{formattedDates.startMonth}</Typo>
+                  <Typo size="xs" weight="medium">
+                    {formattedDates.startDay}
+                  </Typo>
                 </div>
-              ) : null}
-            </div>
+              </div>
 
-            <div className="flex h-full items-center justify-center">
-              <RemixIcon name={event.iconSlug as RemixIconsName} classNames={{ base: "text-foreground-tertiary" }} />
+              <div className="flex flex-col gap-md">
+                <div className="flex flex-col">
+                  <Typo size="sm" weight="bold">
+                    {event.name}
+                  </Typo>
+                  <Typo size="xs" color="tertiary">
+                    {event.subtitle}
+                  </Typo>
+                </div>
+
+                <Typo size="xs">
+                  {formattedDates.startDate} - {formattedDates.startTime}
+                </Typo>
+
+                {event?.links.length ? (
+                  <div className="flex gap-sm">
+                    {event.links.map(({ url, value }) => (
+                      <Button key={url} variant="secondary" size={"xs"} as={BaseLink} htmlProps={{ href: url }}>
+                        {value}
+                      </Button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="flex h-full items-center justify-center">
+                <RemixIcon name={event.iconSlug as RemixIconsName} classNames={{ base: "text-foreground-tertiary" }} />
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <EmptyStateLite />
+      )}
     </Paper>
   );
 }
