@@ -148,14 +148,14 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
             />
           ) : null}
         </div>
-        <div className="flex flex-row items-center justify-between gap-1">
-          {
-            <GithubLabel
-              githubLabels={githubLabels}
-              githubLabelsProps={githubLabelsProps}
-              selectedLabels={selectedLabels}
-            />
-          }
+
+        <div className="flex flex-col justify-between gap-lg tablet:flex-row tablet:items-center tablet:gap-1">
+          <GithubLabel
+            githubLabels={githubLabels}
+            githubLabelsProps={githubLabelsProps}
+            selectedLabels={selectedLabels}
+          />
+
           <div className="flex flex-row items-center justify-end gap-2">
             {!!createdSince && (
               <div className="flex flex-row items-center justify-start gap-1">
