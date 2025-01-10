@@ -48,6 +48,10 @@
     "rewardsCount": "Rewards"
   },
   "issues": {
-    "issuesCount": "Issues"
+    "issuesCount": "Issues",
+    "empty": {
+      "title": "No open issues",
+      "description": "There are currently no open issues available in this project"
+    }
   }
 }
