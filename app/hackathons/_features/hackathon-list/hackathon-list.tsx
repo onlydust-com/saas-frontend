@@ -2,6 +2,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { useCallback } from "react";
 
 import { ClosedHackathonCard } from "@/app/hackathons/_components/closed-hackathon-card/closed-hackathon-card";
+import { LiveHackathonCard } from "@/app/hackathons/_components/live-hackathon-card/live-hackathon-card";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
@@ -68,11 +69,11 @@ export function HackathonList() {
 
     if (!data) return null;
 
-    const liveHackathon = data.hackathons.find(hackathon => hackathon.isLive());
+    const liveUpcomingHackathon = data.hackathons.find(hackathon => hackathon.isLive() || hackathon.isComingSoon());
 
-    if (!liveHackathon) return null;
+    if (!liveUpcomingHackathon) return null;
 
-    return <ClosedHackathonCard hackathon={liveHackathon} />;
+    return <LiveHackathonCard hackathon={liveUpcomingHackathon} />;
   }, [data, isError, isLoading]);
 
   const renderClosedHackathons = useCallback(() => {
