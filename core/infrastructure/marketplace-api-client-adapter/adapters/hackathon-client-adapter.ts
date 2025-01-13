@@ -1,6 +1,7 @@
 import {
   GetHackathonBySlugResponse,
   GetHackathonEventsResponse,
+  GetHackathonProjectsV2Response,
   GetHackathonsResponse,
 } from "@/core/domain/hackathon/hackathon-contract.types";
 import { HackathonEvent } from "@/core/domain/hackathon/models/hackathon-event-model";
