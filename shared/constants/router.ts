@@ -129,6 +129,21 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  ecosystems: {
+    root: "/ecosystems",
+    details: {
+      root: (ecosystemSlug: string) => `/ecosystems/${ecosystemSlug}`,
+      overview: {
+        root: (ecosystemSlug: string) => `/ecosystems/${ecosystemSlug}/overview`,
+      },
+      projects: {
+        root: (ecosystemSlug: string) => `/ecosystems/${ecosystemSlug}/projects`,
+      },
+      community: {
+        root: (ecosystemSlug: string) => `/ecosystems/${ecosystemSlug}/community`,
+      },
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
@@ -194,7 +209,16 @@ export const MARKETPLACE_ROUTER = {
   ecosystems: {
     root: "/ecosystems",
     details: {
-      root: (slug: string) => `/ecosystems/${slug}`,
+      root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}`,
+      overview: {
+        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/overview`,
+      },
+      projects: {
+        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/projects`,
+      },
+      community: {
+        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/community`,
+      },
     },
   },
   signup: {
