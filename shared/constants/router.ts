@@ -206,21 +206,6 @@ export const MARKETPLACE_ROUTER = {
       root: (slug: string) => `/hackathons/${slug}`,
     },
   },
-  ecosystems: {
-    root: "/ecosystems",
-    details: {
-      root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}`,
-      overview: {
-        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/overview`,
-      },
-      projects: {
-        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/projects`,
-      },
-      community: {
-        root: (ecosystemSlug: string) => `/ecosystems/:${ecosystemSlug}/community`,
-      },
-    },
-  },
   signup: {
     root: "/signup",
     onboarding: {
