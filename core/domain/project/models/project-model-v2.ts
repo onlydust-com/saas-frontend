@@ -14,6 +14,7 @@ export class ProjectV2 implements ProjectInterfaceV2 {
   name!: ProjectResponseV2["name"];
   logoUrl!: ProjectResponseV2["logoUrl"];
   shortDescription!: ProjectResponseV2["shortDescription"];
+  longDescription!: ProjectResponseV2["longDescription"];
   contributorCount!: ProjectResponseV2["contributorCount"];
   starCount!: ProjectResponseV2["starCount"];
   forkCount!: ProjectResponseV2["forkCount"];

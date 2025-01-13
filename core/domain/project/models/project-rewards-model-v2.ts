@@ -10,7 +10,7 @@ export class ProjectRewardsV2 implements ProjectRewardsInterfaceV2 {
   from!: ProjectRewardsResponseV2["from"];
   to!: ProjectRewardsResponseV2["to"];
   amount!: ProjectRewardsResponseV2["amount"];
-  contributionCount!: ProjectRewardsResponseV2["contributionCount"];
+  contributions!: ProjectRewardsResponseV2["contributions"];
 
   constructor(props: ProjectRewardsResponseV2) {
     Object.assign(this, props);

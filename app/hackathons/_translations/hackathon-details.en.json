@@ -14,5 +14,16 @@
       "title": "Project filters"
     },
     "projectsCount": "Projects"
+  },
+  "events": {
+    "title": "Events",
+    "allEvents": "All events",
+    "pastEvents": "Past events",
+    "upcomingEvents": "Upcoming events"
+  },
+  "overview": {
+    "description": {
+      "title": "Description"
+    }
   }
 }

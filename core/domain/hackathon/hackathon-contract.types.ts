@@ -1,8 +1,11 @@
+import { HackathonEventInterface } from "@/core/domain/hackathon/models/hackathon-event-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
-import { HttpClientParameters } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
-import { HttpStorageResponse } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
+import {
+  HttpClientParameters,
+  HttpStorageResponse,
+} from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { HackathonsListInterface } from "./models/hackathon-list-model";
+import { HackathonListItemInterface } from "./models/hackathon-list-item-model";
 import { HackathonInterface } from "./models/hackathon-model";
 import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-list-item-model-v2";
 
@@ -11,7 +14,7 @@ import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-
 export type GetHackathonsResponse = components["schemas"]["HackathonsListResponse"];
 
 export type GetHackathonsModel = Omit<GetHackathonsResponse, "hackathons"> & {
-  hackathons: HackathonsListInterface[];
+  hackathons: HackathonListItemInterface[];
 };
 
 export type GetHackathonsPortResponse = HttpStorageResponse<GetHackathonsModel>;
@@ -46,4 +49,21 @@ export type GetHackathonProjectsV2PortResponse = HttpStorageResponse<GetHackatho
 export type GetHackathonProjectsV2PortParams = HttpClientParameters<{
   QueryParams: GetHackathonProjectsV2QueryParams;
   PathParams: GetHackathonProjectsV2PathParams;
+}>;
+
+/* --------------------------------- Get hackathon events -------------------------------- */
+
+export type GetHackathonEventsResponse = components["schemas"]["HackathonEventsResponse"];
+export type GetHackathonEventsModel = Omit<GetHackathonEventsResponse, "events"> & {
+  events: HackathonEventInterface[];
+};
+
+type GetHackathonEventsPathParams = operations["getHackathonEvents"]["parameters"]["path"];
+type GetHackathonEventsQueryParams = operations["getHackathonEvents"]["parameters"]["query"];
+
+export type GetHackathonEventsPortResponse = HttpStorageResponse<GetHackathonEventsModel>;
+
+export type GetHackathonEventsPortParams = HttpClientParameters<{
+  PathParams: GetHackathonEventsPathParams;
+  QueryParams: GetHackathonEventsQueryParams;
 }>;

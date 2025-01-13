@@ -141,7 +141,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                     }),
                   }}
                 >
-                  <div className="relative z-10 flex items-center gap-sm">
+                  <div className="relative z-[1] flex items-center gap-sm">
                     <div className="flex flex-1 flex-col gap-xl">
                       <Typo weight="medium" size="sm">
                         {link.value}

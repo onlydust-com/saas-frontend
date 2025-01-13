@@ -32,7 +32,13 @@ function GithubLabel({
   function renderLabel({ label, onClick }: NonNullable<CardIssuePort<AnyType>["githubLabels"]>[number]) {
     const isSelected = selectedLabels?.includes(label);
     return (
-      <Badge key={label} color={isSelected ? "brand" : "grey"} {...(githubLabelsProps ?? {})} onClick={onClick}>
+      <Badge
+        key={label}
+        size="xs"
+        color={isSelected ? "brand" : "grey"}
+        {...(githubLabelsProps ?? {})}
+        onClick={onClick}
+      >
         {label}
       </Badge>
     );
@@ -62,7 +68,7 @@ function GithubLabel({
           <Popover.Trigger>
             {() => (
               <div className="cursor-pointer">
-                <Badge key={"more"} color={"grey"} {...(githubLabelsProps ?? {})}>
+                <Badge key={"more"} size="xs" color={"grey"} {...(githubLabelsProps ?? {})}>
                   +{githubLabels?.length - limitedLabels?.length}
                 </Badge>
               </div>
@@ -104,6 +110,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
   githubLabels,
   githubLabelsProps,
   selectedLabels,
+  onClick,
 }: CardIssuePort<C>) {
   const slots = CardIssueDefaultVariants();
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -116,6 +123,8 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
       classNames={{ base: cn(slots.base(), classNames?.base) }}
       background="glass"
       border="primary"
+      onClick={onClick}
+      size="lg"
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between gap-1">
@@ -145,14 +154,14 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
             />
           ) : null}
         </div>
-        <div className="flex flex-row items-center justify-between gap-1">
-          {
-            <GithubLabel
-              githubLabels={githubLabels}
-              githubLabelsProps={githubLabelsProps}
-              selectedLabels={selectedLabels}
-            />
-          }
+
+        <div className="flex flex-col justify-between gap-lg tablet:flex-row tablet:items-center tablet:gap-1">
+          <GithubLabel
+            githubLabels={githubLabels}
+            githubLabelsProps={githubLabelsProps}
+            selectedLabels={selectedLabels}
+          />
+
           <div className="flex flex-row items-center justify-end gap-2">
             {!!createdSince && (
               <div className="flex flex-row items-center justify-start gap-1">

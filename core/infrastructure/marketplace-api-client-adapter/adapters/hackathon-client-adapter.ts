@@ -1,9 +1,10 @@
 import {
   GetHackathonBySlugResponse,
-  GetHackathonProjectsV2Response,
+  GetHackathonEventsResponse,
   GetHackathonsResponse,
 } from "@/core/domain/hackathon/hackathon-contract.types";
-import { HackathonsList } from "@/core/domain/hackathon/models/hackathon-list-model";
+import { HackathonEvent } from "@/core/domain/hackathon/models/hackathon-event-model";
+import { HackathonListItem } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { Hackathon } from "@/core/domain/hackathon/models/hackathon-model";
 import { HackathonProjectListItemV2 } from "@/core/domain/hackathon/models/hackathon-project-list-item-model-v2";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
@@ -19,6 +20,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
     getHackathons: "hackathons",
     getHackathonBySlug: "hackathons/slug/:hackathonSlug",
     getHackathonProjects: "hackathons/slug/:hackathonSlug/projects",
+    getHackathonEvents: "hackathons/slug/:hackathonSlug/events",
   } as const;
 
   getHackathons = () => {
@@ -35,7 +37,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
 
       return {
         ...data,
-        hackathons: data.hackathons.map(hackathon => new HackathonsList(hackathon)),
+        hackathons: data.hackathons.map(hackathon => new HackathonListItem(hackathon)),
       };
     };
 
@@ -88,6 +90,32 @@ export class HackathonClientAdapter implements HackathonStoragePort {
       return {
         ...data,
         projects: data.projects.map(project => new HackathonProjectListItemV2(project)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getHackathonEvents = ({ pathParams, queryParams }: FirstParameter<HackathonStoragePort["getHackathonEvents"]>) => {
+    const path = this.routes["getHackathonEvents"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetHackathonEventsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        events: data.events.map(event => new HackathonEvent(event)),
       };
     };
 

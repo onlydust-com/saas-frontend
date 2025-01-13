@@ -1,8 +1,8 @@
 import { Accordion } from "@/design-system/molecules/accordion";
 
-import { CommonBlockProps } from "./common-block.types";
+import { PageDetailCommonBlockProps } from "./page-detail-common-block.types";
 
-export function CommonBlock({ children, accordionProps }: CommonBlockProps) {
+export function PageDetailCommonBlock({ children, accordionProps }: PageDetailCommonBlockProps) {
   return (
     <div className="flex w-full flex-row items-stretch justify-start gap-4 border-b-1 border-border-primary">
       <Accordion

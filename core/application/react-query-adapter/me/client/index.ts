@@ -8,3 +8,4 @@ export * from "./use-get-my-projects-as-maintainer";
 export * from "./use-get-my-projects-as-contributor";
 export * from "./use-get-my-payout-preferences";
 export * from "./use-set-my-preference-for-project";
+export * from "./use-post-my-application";

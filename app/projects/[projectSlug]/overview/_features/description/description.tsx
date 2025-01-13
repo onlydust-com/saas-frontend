@@ -1,13 +1,13 @@
+import { PageDetailCommonBlock } from "@/shared/components/page-detail-common-block/page-detail-common-block";
 import { Markdown } from "@/shared/features/markdown/markdown";
 
-import { CommonBlock } from "../common-block/common-block";
 import { DescriptionProps } from "./description.types";
 
 export function Description({ description }: DescriptionProps) {
   if (!description) return null;
 
   return (
-    <CommonBlock
+    <PageDetailCommonBlock
       accordionProps={{
         titleProps: { translate: { token: "project:details.overview.description.title" } },
         id: "description",
@@ -17,6 +17,6 @@ export function Description({ description }: DescriptionProps) {
       <div className="w-full">
         <Markdown content={description} />
       </div>
-    </CommonBlock>
+    </PageDetailCommonBlock>
   );
 }

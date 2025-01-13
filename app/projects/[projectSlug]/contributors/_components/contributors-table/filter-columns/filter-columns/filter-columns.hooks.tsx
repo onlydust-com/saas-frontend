@@ -32,7 +32,7 @@ export function useFilterColumns() {
   const columnMap: Partial<Record<TableColumns, object>> = {
     login: columnHelper.accessor("login", {
       enableSorting: false,
-      header: () => <Translate token={"project:details.contributors.columns.from"} />,
+      header: () => <Translate token={"project:details.contributors.columns.name"} />,
       cell: info => {
         const login = info.getValue();
         const avatarUrl = info.row.original.avatarUrl;
@@ -53,38 +53,38 @@ export function useFilterColumns() {
         );
       },
     }),
-    rewardCount: columnHelper.accessor("rewardCount", {
+    rewardCount: columnHelper.accessor("rewards", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XXS,
+      maxSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"project:details.contributors.columns.rewards"} />,
       cell: info => {
-        const rewardCount = info.getValue();
+        const rewards = info.getValue();
 
-        if (!rewardCount) {
+        if (!rewards?.length) {
           return <CellEmpty />;
         }
-        return <Metric icon={Medal} count={rewardCount} iconSize="sm" />;
+        return <Metric icon={Medal} count={rewards.length} iconSize="sm" />;
       },
     }),
-    mergedPullRequestCount: columnHelper.accessor("mergedPullRequestCount", {
+    mergedPullRequestCount: columnHelper.accessor("mergedPullRequests", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XXS,
+      maxSize: TABLE_CELL_SIZE.XXS,
       header: () => <Translate token={"project:details.contributors.columns.mergedPr"} />,
       cell: info => {
-        const mergedPullRequestCount = info.getValue();
+        const mergedPullRequests = info.getValue();
 
-        if (!mergedPullRequestCount) {
+        if (!mergedPullRequests?.length) {
           return <CellEmpty />;
         }
-        return <Metric icon={GitMerge} count={mergedPullRequestCount} iconSize="sm" />;
+        return <Metric icon={GitMerge} count={mergedPullRequests?.length} iconSize="sm" />;
       },
     }),
     totalEarnedUsdAmount: columnHelper.accessor("totalEarnedUsdAmount", {
       enableSorting: false,
-      size: TABLE_CELL_SIZE.XXXS,
-      maxSize: TABLE_CELL_SIZE.XXXS,
+      size: TABLE_CELL_SIZE.XS,
+      maxSize: TABLE_CELL_SIZE.XS,
       header: () => <Translate token={"project:details.contributors.columns.rewardAmount"} />,
       cell: info => {
         const totalEarnedUsdAmount = info.getValue();
@@ -92,10 +92,6 @@ export function useFilterColumns() {
         const { amount, code } = moneyKernelPort.format({
           amount: totalEarnedUsdAmount,
           currency: moneyKernelPort.getCurrency("USD"),
-          options: {
-            notation: "compact",
-          },
-          uppercase: true,
         });
 
         if (!totalEarnedUsdAmount) {
