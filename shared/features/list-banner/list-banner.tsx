@@ -1,10 +1,9 @@
-import logo from "@/public/images/logos/logo-light-purple.svg";
-import Image from "next/image";
-
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
-export function HackathonListBanner() {
+import { ListBannerProps } from "@/shared/features/list-banner/list-banner.types";
+
+export function ListBanner({ title, subtitle, logo }: ListBannerProps) {
   return (
     <Paper
       size="4xl"
@@ -13,8 +12,8 @@ export function HackathonListBanner() {
       classNames={{ base: "flex justify-between items-center gap-4xl overflow-hidden" }}
     >
       <div className="flex flex-col gap-md">
-        <Typo variant={"heading"} size="md" weight="medium" translate={{ token: "hackathon:list.banner.title" }} />
-        <Typo size="sm" color="tertiary" translate={{ token: "hackathon:list.banner.subtitle" }} />
+        <Typo variant={"heading"} size="md" weight="medium" {...title} />
+        <Typo size="sm" color="tertiary" {...subtitle} />
       </div>
 
       <div
@@ -48,7 +47,7 @@ export function HackathonListBanner() {
           }}
         />
 
-        <Image src={logo} alt="OnlyDust" width={64} height={64} className="size-16" />
+        {logo}
       </div>
     </Paper>
   );

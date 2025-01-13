@@ -1,14 +1,11 @@
 "use client";
 
+import logo from "@/public/images/logos/logo-light-purple.svg";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-
-import { HackathonKpi } from "@/app/hackathons/_components/hackathon-kpi/hackathon-kpi";
-import { HackathonKpiType } from "@/app/hackathons/_components/hackathon-kpi/hackathon-kpi.types";
-import { HackathonListBanner } from "@/app/hackathons/_features/hackathon-list-banner/hackathon-list-banner";
-
-import { Paper } from "@/design-system/atoms/paper";
+import Image from "next/image";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -25,14 +22,11 @@ export function HackathonsPage() {
       />
 
       <div className="mx-auto flex flex-col gap-4xl py-4xl">
-        <HackathonListBanner />
-
-        <Paper background="glass">
-          <HackathonKpi type={HackathonKpiType.Registered} nbRegistered={123} trend={{ value: 123, direction: "up" }} />
-          <HackathonKpi type={HackathonKpiType.AvailableIssues} nbAvailableIssues={123} totalAvailableIssues={123} />
-          <HackathonKpi type={HackathonKpiType.Projects} nbRegistered={123} />
-          <HackathonKpi type={HackathonKpiType.EndsIn} endsIn={"2025-10-05T14:48:00.000Z"} />
-        </Paper>
+        <ListBanner
+          title={{ translate: { token: "hackathon:list.banner.title" } }}
+          subtitle={{ translate: { token: "hackathon:list.banner.subtitle" } }}
+          logo={<Image src={logo} alt="OnlyDust" width={64} height={64} className="size-16" />}
+        />
       </div>
     </div>
   );
