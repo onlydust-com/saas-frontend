@@ -34,9 +34,9 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
     if (isProjects) {
       return Views.PROJECTS;
     }
-    if (isCommunity) {
-      return Views.COMMUNITY;
-    }
+    // if (isCommunity) {
+    //   return Views.COMMUNITY;
+    // }
   }, [isOverview, isProjects, isCommunity]);
 
   return (
@@ -61,14 +61,14 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
             href: NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug),
           },
         },
-        {
-          id: Views.COMMUNITY,
-          children: <Translate token={"hackathon:details.tabs.community"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
-          },
-        },
+        // {
+        //   id: Views.COMMUNITY,
+        //   children: <Translate token={"hackathon:details.tabs.community"} />,
+        //   as: BaseLink,
+        //   htmlProps: {
+        //     href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
+        //   },
+        // },
       ]}
       selectedId={selectedId}
     />

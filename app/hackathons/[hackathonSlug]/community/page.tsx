@@ -30,12 +30,6 @@ export default function HackathonCommunityPage({ params: { hackathonSlug } }: { 
           },
         ]}
       />
-
-      <p className="border-b-1 border-border-primary p-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis eligendi dignissimos ullam odit, qui
-        officiis fuga non soluta mollitia, repudiandae, cupiditate blanditiis corporis facilis asperiores distinctio
-        commodi consequuntur quidem pariatur.
-      </p>
     </ScrollView>
   );
 }
