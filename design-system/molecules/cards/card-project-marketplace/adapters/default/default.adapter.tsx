@@ -105,7 +105,13 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     ]
       .filter(({ count }) => count !== undefined)
       .map(({ count, type }) => (
-        <IssueButton key={type} issueCount={count!} issueCountType={type as IssueCountType} slug={slug} />
+        <IssueButton
+          key={type}
+          issueCount={count!}
+          totalIssueCount={odhackIssueCount}
+          issueCountType={type as IssueCountType}
+          slug={slug}
+        />
       ));
 
     return buttons;

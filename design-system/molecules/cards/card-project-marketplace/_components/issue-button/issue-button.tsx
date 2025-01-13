@@ -11,7 +11,7 @@ import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 import { IssueButtonProps } from "./issue-button.types";
 
-export function IssueButton({ issueCount, issueCountType, slug }: IssueButtonProps) {
+export function IssueButton({ issueCount, totalIssueCount, issueCountType, slug }: IssueButtonProps) {
   const issueTypeLabel = useMemo(() => {
     if (issueCountType === "AVAILABLE_ISSUE") {
       return "common:count.openIssues";
@@ -33,6 +33,13 @@ export function IssueButton({ issueCount, issueCountType, slug }: IssueButtonPro
       </div>
     );
   }, [issueCountType]);
+
+  const renderIssueCount = useMemo(() => {
+    if (issueCountType === "ODHACK") {
+      return `${issueCount}/${totalIssueCount}`;
+    }
+    return issueCount;
+  }, [issueCount, totalIssueCount, issueCountType]);
 
   return (
     <Paper
@@ -60,7 +67,7 @@ export function IssueButton({ issueCount, issueCountType, slug }: IssueButtonPro
       <div className="flex items-center gap-md">
         {startContent}
         <Typo size="xs" color="primary" variant="heading">
-          {issueCount}
+          {renderIssueCount}
         </Typo>
       </div>
     </Paper>

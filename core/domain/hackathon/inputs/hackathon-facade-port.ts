@@ -1,6 +1,8 @@
 import {
   GetHackathonBySlugPortParams,
   GetHackathonBySlugPortResponse,
+  GetHackathonProjectsV2PortParams,
+  GetHackathonProjectsV2PortResponse,
   GetHackathonEventsPortParams,
   GetHackathonEventsPortResponse,
   GetHackathonsPortParams,
@@ -10,5 +12,6 @@ import {
 export interface HackathonFacadePort {
   getHackathons(p: GetHackathonsPortParams): GetHackathonsPortResponse;
   getHackathonBySlug(p: GetHackathonBySlugPortParams): GetHackathonBySlugPortResponse;
+  getHackathonProjects(p: GetHackathonProjectsV2PortParams): GetHackathonProjectsV2PortResponse;
   getHackathonEvents(p: GetHackathonEventsPortParams): GetHackathonEventsPortResponse;
 }
