@@ -9,7 +9,7 @@ import { GetHackathonProjectsV2Model } from "@/core/domain/hackathon/hackathon-c
 import { HackathonFacadePort } from "@/core/domain/hackathon/inputs/hackathon-facade-port";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
 
-export function useGetHackathonProjectsV2({
+export function useGetHackathonProjects({
   pathParams,
   queryParams,
   options,

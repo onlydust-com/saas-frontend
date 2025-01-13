@@ -63,13 +63,19 @@ export function FilterData() {
       </SidePanelBody>
       <SidePanelFooter>
         <div className={"flex w-full flex-row items-center justify-end gap-lg"}>
-          <Button size={"md"} variant={"secondary"} onClick={() => resetFilters()}>
-            <Translate token={"common:form.reset"} />
-          </Button>
+          <Button
+            size={"md"}
+            variant={"secondary"}
+            onClick={() => resetFilters()}
+            translate={{ token: "common:form.reset" }}
+          />
 
-          <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
-            <Translate token={"common:form.save"} />
-          </Button>
+          <Button
+            size={"md"}
+            variant={"secondary"}
+            onClick={() => saveFilters()}
+            translate={{ token: "common:form.save" }}
+          />
         </div>
       </SidePanelFooter>
     </Panel>

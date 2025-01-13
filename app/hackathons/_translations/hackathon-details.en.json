@@ -11,8 +11,8 @@
   },
   "projects": {
     "filters": {
-      "title": "Projects filters"
+      "title": "Project filters"
     },
-    "projectsCount": "Projects count"
+    "projectsCount": "Projects"
   }
 }

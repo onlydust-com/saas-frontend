@@ -38,7 +38,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
   };
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    HackathonReactQueryAdapter.client.useGetHackathonProjectsV2({
+    HackathonReactQueryAdapter.client.useGetHackathonProjects({
       pathParams: {
         hackathonSlug: params.hackathonSlug,
       },
@@ -83,7 +83,6 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         starCount={project.starCount}
         forkCount={project.forkCount}
         odhackIssueCount={project.odHackStats?.issueCount}
-        availableIssueCount={project.odHackStats?.availableIssueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
