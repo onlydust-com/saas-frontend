@@ -11,7 +11,7 @@ import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function HackathonsPage() {
+function HackathonsPage() {
   return (
     <div className="pb-7xl">
       <NavigationBreadcrumb
