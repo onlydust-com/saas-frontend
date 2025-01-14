@@ -1,5 +1,9 @@
 import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
+import {
+  MeHackathonRegistrationInterface,
+  MeHackathonRegistrationResponse,
+} from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjectsInterface } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { MeInterface } from "@/core/domain/me/models/me-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
@@ -121,3 +125,27 @@ export type PostMyApplicationBody = components["schemas"]["ProjectApplicationCre
 export type PostMyApplicationPortParams = HttpClientParameters<object>;
 
 export type PostMyApplicationPortResponse = HttpStorageResponse<never, PostMyApplicationBody>;
+
+/* --------------------------------- Get my hackathon registration -------------------------------- */
+
+export type GetMyHackathonRegistrationResponse = MeHackathonRegistrationResponse;
+
+export type GetMyHackathonRegistrationModel = MeHackathonRegistrationInterface;
+
+export type GetMyHackathonRegistrationPathParams = operations["getHackathonRegistration"]["parameters"]["path"];
+
+export type GetMyHackathonRegistrationPortParams = HttpClientParameters<{
+  PathParams: GetMyHackathonRegistrationPathParams;
+}>;
+
+export type GetMyHackathonRegistrationPortResponse = HttpStorageResponse<GetMyHackathonRegistrationModel>;
+
+/* --------------------------------- Register to hackathon -------------------------------- */
+
+export type RegisterToHackathonPathParams = operations["registerToHackathon"]["parameters"]["path"];
+
+export type RegisterToHackathonPortParams = HttpClientParameters<{
+  PathParams: RegisterToHackathonPathParams;
+}>;
+
+export type RegisterToHackathonPortResponse = HttpStorageResponse<never>;
