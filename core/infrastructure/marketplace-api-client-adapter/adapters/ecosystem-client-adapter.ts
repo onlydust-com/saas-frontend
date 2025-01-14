@@ -14,6 +14,8 @@ import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-ite
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
+import { MarketplaceApiVersion } from "../config/api-version";
+
 export class EcosystemClientAdapter implements EcosystemStoragePort {
   constructor(private readonly client: HttpClient) {}
 
@@ -109,6 +111,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         pathParams,
+        version: MarketplaceApiVersion.v2,
       });
 
       return {

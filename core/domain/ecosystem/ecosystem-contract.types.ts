@@ -63,7 +63,7 @@ export type GetEcosystemProjectsModel = Omit<GetEcosystemProjectsResponse, "proj
 };
 
 export type GetEcosystemProjectsQueryParams = operations["getEcosystemProjectsV2"]["parameters"]["query"];
-type GetEcosystemProjectsPathParams = operations["getEcosystemProjectsV2"]["parameters"]["path"];
+export type GetEcosystemProjectsPathParams = operations["getEcosystemProjectsV2"]["parameters"]["path"];
 
 export type GetEcosystemProjectsPortResponse = HttpStorageResponse<GetEcosystemProjectsModel>;
 
