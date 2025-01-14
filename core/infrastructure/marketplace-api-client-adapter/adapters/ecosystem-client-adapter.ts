@@ -19,7 +19,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
 
   routes = {
     searchEcosystems: "ecosystems",
-    getEcosystems: "ecosystems/page",
+    getEcosystems: "ecosystems",
     getEcosystemBySlug: "ecosystems/{slug}",
     getEcosystemProjects: "ecosystems/{slug}/projects",
     getEcosystemContributors: "ecosystems/{slug}/contributors",
