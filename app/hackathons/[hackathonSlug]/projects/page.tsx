@@ -12,6 +12,7 @@ import {
 } from "@/design-system/molecules/cards/card-project-marketplace";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -76,6 +77,10 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
+        as={BaseLink}
+        htmlProps={{
+          href: NEXT_ROUTER.projects.details.root(project.slug),
+        }}
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}
