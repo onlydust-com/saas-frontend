@@ -78,11 +78,15 @@ export function HackathonList() {
 
   const renderClosedHackathons = useCallback(() => {
     if (isLoading) {
-      return Array.from({ length: 8 }).map((_, index) => (
-        <div key={index} className="keen-slider__slide">
-          <Skeleton className="h-[278px] w-full" />
+      return (
+        <div ref={sliderRef} className="keen-slider">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="keen-slider__slide">
+              <Skeleton className="h-[278px] w-full" />
+            </div>
+          ))}
         </div>
-      ));
+      );
     }
 
     if (isError) return <ErrorState />;
@@ -91,20 +95,21 @@ export function HackathonList() {
 
     const closedHackathons = data.hackathons.filter(hackathon => hackathon.isPast());
 
-    return closedHackathons.map(hackathon => (
-      <div key={hackathon.id} className="keen-slider__slide">
-        <ClosedHackathonCard hackathon={hackathon} />
+    return (
+      <div ref={sliderRef} className="keen-slider">
+        {closedHackathons.map(hackathon => (
+          <div key={hackathon.id} className="keen-slider__slide">
+            <ClosedHackathonCard hackathon={hackathon} />
+          </div>
+        ))}
       </div>
-    ));
+    );
   }, [data, isError, isLoading]);
 
   return (
     <div className="flex flex-col gap-4xl">
       {renderLiveHackathon()}
-
-      <div ref={sliderRef} className="keen-slider">
-        {renderClosedHackathons()}
-      </div>
+      {renderClosedHackathons()}
     </div>
   );
 }

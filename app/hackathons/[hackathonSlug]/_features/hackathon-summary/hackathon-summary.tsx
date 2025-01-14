@@ -37,7 +37,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
 
   const formattedDates = hackathon.formatDisplayDates();
 
-  const allLinks = hackathon.communityLinks.concat(hackathon.links);
+  const allLinks = hackathon.communityLinks?.concat(hackathon.links) ?? [];
 
   return (
     <Paper
@@ -104,7 +104,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
           translate={{ token: "hackathon:details.summary.location" }}
         />
         <Typo variant="heading" size="xs">
-          {hackathon.location}
+          {hackathon.location ?? "Worldwide"}
         </Typo>
       </div>
 

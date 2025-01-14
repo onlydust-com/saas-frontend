@@ -1,5 +1,6 @@
 import "@/public/fonts/clash/stylesheet.css";
 import "@/public/fonts/inter/stylesheet.css";
+import "keen-slider/keen-slider.min.css";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
