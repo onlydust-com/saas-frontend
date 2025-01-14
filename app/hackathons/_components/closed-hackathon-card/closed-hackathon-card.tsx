@@ -44,8 +44,8 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
           />
         </div>
 
-        <div className="grid w-full grid-cols-3 border-b-1 border-border-primary py-4">
-          <div className="border-r-1 border-border-primary px-4">
+        <div className="grid w-full border-b-1 border-border-primary mobile:grid-cols-3 mobile:py-4">
+          <div className="border-b-1 border-border-primary p-4 mobile:border-b-0 mobile:border-r-1 mobile:py-0">
             <Stat
               label={{ token: "hackathon:shared.stats.registered" }}
               value={Intl.NumberFormat().format(hackathon.subscriberCount)}
@@ -57,7 +57,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
               }}
             />
           </div>
-          <div className="border-r-1 border-border-primary px-4">
+          <div className="border-b-1 border-border-primary p-4 mobile:border-b-0 mobile:border-r-1 mobile:py-0">
             <Stat
               label={{ token: "hackathon:shared.stats.availableIssues" }}
               value={`${Intl.NumberFormat().format(hackathon.openIssueCount)}/${Intl.NumberFormat().format(hackathon.issueCount)}`}
@@ -69,7 +69,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
               }}
             />
           </div>
-          <div className="px-4">
+          <div className="p-4 mobile:py-0">
             <Stat
               label={{ token: "hackathon:shared.stats.projects" }}
               value={Intl.NumberFormat().format(hackathon.projects.length)}
