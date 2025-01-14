@@ -1,10 +1,12 @@
 "use client";
 
+import { Bell } from "lucide-react";
 import { PropsWithChildren, useMemo } from "react";
 
 import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
@@ -43,7 +45,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"hackathon-view"}
-      classNames={{ base: "w-full" }}
+      classNames={{ base: "tablet:self-end self-start -mb-px" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -90,14 +92,30 @@ export default function HackathonsLayout({
               <HackathonSummary hackathonSlug={params.hackathonSlug} />
               <HackathonEvents hackathonSlug={params.hackathonSlug} />
             </div>
+
             <Paper
               background="glass"
               border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
-              px="none"
+              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col pb-xl" }}
+              size="none"
             >
-              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <div
+                className={
+                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
+                }
+              >
                 <Navigation params={params} />
+
+                <div className={"w-full p-xl tablet:w-auto"}>
+                  <Button
+                    size={"md"}
+                    onClick={() => {}}
+                    startIcon={{ component: Bell }}
+                    classNames={{ base: "w-full" }}
+                  >
+                    Register
+                  </Button>
+                </div>
               </div>
               {children}
             </Paper>
