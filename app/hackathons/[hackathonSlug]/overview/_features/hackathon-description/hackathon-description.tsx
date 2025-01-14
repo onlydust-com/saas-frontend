@@ -3,7 +3,9 @@ import { Markdown } from "@/shared/features/markdown/markdown";
 
 import { HackathonDescriptionProps } from "./hackathon-description.types";
 
-export function HackathonDescription({ description = "" }: HackathonDescriptionProps) {
+export function HackathonDescription({ description }: HackathonDescriptionProps) {
+  if (!description) return null;
+
   return (
     <PageDetailCommonBlock
       accordionProps={{
