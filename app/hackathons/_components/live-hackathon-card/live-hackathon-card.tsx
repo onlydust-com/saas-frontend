@@ -30,7 +30,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
       size="none"
     >
       <div className="relative z-[1] flex flex-col divide-y divide-border-primary">
-        <div className="flex items-center justify-between gap-xl px-xl py-lg">
+        <div className="flex flex-col justify-between gap-xl px-xl py-lg tablet:flex-row tablet:items-center">
           <div className="flex items-center gap-xl">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-utility-brand-electricroyalblue-600 outline outline-2 -outline-offset-1 outline-components-avatar-border">
               <Image src={logoWhite} alt={hackathon.title} width={24} height={24} className={"size-6"} />
@@ -40,7 +40,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
               {hackathon.title}
             </Typo>
 
-            <Badge variant="outline" size="md" color="brand">
+            <Badge variant="outline" size="md" color="brand" classNames={{ base: "shrink-0" }}>
               {isLive ? "Live now" : "Coming soom"}
             </Badge>
           </div>
@@ -50,12 +50,13 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
             htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
             variant="primary"
             size="md"
+            classNames={{ base: "w-full tablet:w-auto" }}
           >
             Join the ODHack
           </Button>
         </div>
 
-        <div className="grid w-full grid-cols-2 divide-x divide-border-primary border-b-1 border-border-primary tablet:grid-cols-4">
+        <div className="grid w-full divide-x divide-border-primary border-b-1 border-border-primary mobile:grid-cols-2 tablet:grid-cols-4">
           <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
               label={{ token: "hackathon:shared.stats.registered" }}
@@ -80,7 +81,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
               }}
             />
           </div>
-          <div className="p-4">
+          <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
               label={{ token: "hackathon:shared.stats.projects" }}
               value={Intl.NumberFormat().format(hackathon.projects.length)}
@@ -110,9 +111,9 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
           </div>
         </div>
 
-        <div className="grid w-full grid-cols-2 divide-x divide-border-primary border-b-1 border-border-primary tablet:grid-cols-4">
+        <div className="grid w-full divide-x divide-border-primary border-b-1 border-border-primary mobile:grid-cols-2">
           {formattedDates ? (
-            <div className="col-span-2 flex flex-col gap-lg px-xl py-lg">
+            <div className="flex flex-col gap-lg border-b border-border-primary px-xl py-lg mobile:border-b-0">
               <Typo
                 variant="heading"
                 size="xs"
@@ -159,13 +160,6 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
             <Typo variant="heading" size="xs">
               {hackathon.location}
             </Typo>
-          </div>
-
-          <div className="flex flex-col gap-lg px-xl py-lg">
-            <Typo variant="heading" size="xs" color="tertiary" weight="medium" classNames={{ base: "text-sm" }}>
-              Sponsors
-            </Typo>
-            <Typo variant="heading" size="xs"></Typo>
           </div>
         </div>
       </div>
