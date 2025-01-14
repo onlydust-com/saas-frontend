@@ -1,3 +1,3 @@
 export interface HackathonDescriptionProps {
-  description?: string;
+  description?: string | null;
 }
