@@ -9,8 +9,8 @@ import { EcosystemContributorsListItem } from "@/core/domain/ecosystem/models/ec
 import { EcosystemLink } from "@/core/domain/ecosystem/models/ecosystem-link-model";
 import { EcosystemsListItem } from "@/core/domain/ecosystem/models/ecosystem-list-item-model";
 import { Ecosystem } from "@/core/domain/ecosystem/models/ecosystem-model";
-import { EcosystemProjectListItem } from "@/core/domain/ecosystem/models/ecosystem-project-list-item-model";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
+import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -113,7 +113,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
 
       return {
         ...data,
-        projects: (data?.projects || []).map(project => new EcosystemProjectListItem(project)),
+        projects: (data?.projects || []).map(project => new ProjectListItemV2(project)),
       };
     };
 
