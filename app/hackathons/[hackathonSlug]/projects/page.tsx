@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { GetHackathonProjectsV2QueryParams } from "@/core/domain/hackathon/hackathon-contract.types";
 
 import { Typo } from "@/design-system/atoms/typo";
@@ -21,12 +22,25 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { cn } from "@/shared/helpers/cn";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useHackathonProjectsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 
 export type HackathonProjectsFilters = Omit<NonNullable<GetHackathonProjectsV2QueryParams>, "pageSize" | "pageIndex">;
+
+const mockProjects = Array.from({ length: 9 }).map((_, index) => ({
+  id: `mock-project-${index}`,
+  name: "Why did you unblur me?",
+  slug: `mock-project-${index}`,
+  shortDescription:
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius voluptates aliquid eligendi et vero, optio temporibus dolores deserunt, deleniti minima quaerat voluptatum placeat quidem? Veritatis quidem hic incidunt in est!",
+  contributorCount: 6,
+  starCount: 6,
+  forkCount: 6,
+  odhackIssueCount: 42,
+}));
 
 export default function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }) {
   const [search, setSearch] = useState<string>();
@@ -39,6 +53,24 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
     ...filters,
   };
 
+  const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
+    pathParams: {
+      hackathonSlug: params.hackathonSlug,
+    },
+    options: {
+      enabled: Boolean(params.hackathonSlug),
+    },
+  });
+
+  const { data: hackathonRegistration } = MeReactQueryAdapter.client.useGetMyHackathonRegistration({
+    pathParams: { hackathonId: hackathon?.id ?? "" },
+    options: {
+      enabled: Boolean(hackathon?.id),
+    },
+  });
+
+  const isRegistered = hackathonRegistration?.isRegistered ?? false;
+
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     HackathonReactQueryAdapter.client.useGetHackathonProjects({
       pathParams: {
@@ -46,7 +78,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
       },
       queryParams,
       options: {
-        enabled: Boolean(params.hackathonSlug),
+        enabled: Boolean(params.hackathonSlug) && isRegistered,
       },
     });
 
@@ -96,6 +128,22 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
     ));
   }, [isLoading, isError, projects]);
 
+  const renderMockProjects = useMemo(() => {
+    return mockProjects.map(project => (
+      <CardProjectMarketplace
+        key={project.id}
+        name={project.name}
+        slug={project.slug}
+        description={project.shortDescription}
+        logoUrl={project.logoUrl}
+        contributorCount={project.contributorCount}
+        starCount={project.starCount}
+        forkCount={project.forkCount}
+        odhackIssueCount={project.odhackIssueCount}
+      />
+    ));
+  }, [isLoading, isError, projects]);
+
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <NavigationBreadcrumb
@@ -120,16 +168,31 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
           <FilterButton onClick={openFilterPanel} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         </nav>
-        <ScrollView>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-            {renderProjects}
-            {hasNextPage ? (
-              <div className="col-span-full">
-                <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
-              </div>
-            ) : null}
-          </div>
-        </ScrollView>
+
+        <div className="relative h-full">
+          <ScrollView
+            className={cn("max-h-[calc(100%-2rem)]", {
+              "blur-xl": !isRegistered,
+            })}
+          >
+            <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+              {isRegistered ? renderProjects : renderMockProjects}
+
+              {hasNextPage ? (
+                <div className="col-span-full">
+                  <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+                </div>
+              ) : null}
+            </div>
+          </ScrollView>
+
+          {!isRegistered ? (
+            <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <Typo>Register now to access the full project list</Typo>
+            </div>
+          ) : null}
+        </div>
+
         <div className="flex gap-md">
           <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
           <Typo size={"sm"} color={"primary"}>
