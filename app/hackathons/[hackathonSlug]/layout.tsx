@@ -87,8 +87,8 @@ export default function HackathonsLayout({
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
         <ScrollView>
-          <div className="grid-col-1 grid gap-lg desktop:h-full desktop:grid-cols-3">
-            <div className="flex flex-col gap-lg desktop:col-span-1">
+          <div className="flex flex-col items-start justify-start gap-lg tablet:h-full laptop:flex-row">
+            <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
               <HackathonSummary hackathonSlug={params.hackathonSlug} />
               <HackathonEvents hackathonSlug={params.hackathonSlug} />
             </div>
