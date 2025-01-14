@@ -8,7 +8,7 @@ export interface EcosystemContributorsInterface extends EcosystemContributorsRes
   rank: UserRankInterface;
 }
 
-export class EcosystemContributors implements EcosystemContributorsInterface {
+export class EcosystemContributorsListItem implements EcosystemContributorsInterface {
   githubUserId!: EcosystemContributorsResponse["githubUserId"];
   login!: EcosystemContributorsResponse["login"];
   avatarUrl!: EcosystemContributorsResponse["avatarUrl"];

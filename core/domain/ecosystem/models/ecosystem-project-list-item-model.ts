@@ -9,7 +9,7 @@ export interface EcosystemProjectListItemInterface extends EcosystemProjectListI
   categories: ProjectCategoryInterface[];
 }
 
-export class EcosystemProjectListItemV2 extends ProjectListItemV2 implements EcosystemProjectListItemInterface {
+export class EcosystemProjectListItem extends ProjectListItemV2 implements EcosystemProjectListItemInterface {
   constructor(props: EcosystemProjectListItemResponse) {
     super(props);
   }
