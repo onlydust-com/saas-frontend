@@ -12,8 +12,8 @@ export function ListBanner({ title, subtitle, logo }: ListBannerProps) {
       classNames={{ base: "flex justify-between items-center gap-4xl overflow-hidden" }}
     >
       <div className="flex flex-col gap-md">
-        <Typo variant={"heading"} size="md" weight="medium" {...title} />
-        <Typo size="sm" color="tertiary" {...subtitle} />
+        <Typo as="h1" variant={"heading"} size="md" weight="medium" {...title} />
+        <Typo as="p" size="sm" color="tertiary" {...subtitle} />
       </div>
 
       <div
