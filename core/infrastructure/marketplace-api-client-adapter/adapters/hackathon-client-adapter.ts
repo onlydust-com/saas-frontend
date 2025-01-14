@@ -1,5 +1,6 @@
 import {
   GetHackathonBySlugResponse,
+  GetHackathonContributorsResponse,
   GetHackathonEventsResponse,
   GetHackathonProjectsV2Response,
   GetHackathonsResponse,
@@ -9,6 +10,7 @@ import { HackathonListItem } from "@/core/domain/hackathon/models/hackathon-list
 import { Hackathon } from "@/core/domain/hackathon/models/hackathon-model";
 import { HackathonProjectListItemV2 } from "@/core/domain/hackathon/models/hackathon-project-list-item-model-v2";
 import { HackathonStoragePort } from "@/core/domain/hackathon/outputs/hackathon-storage-port";
+import { ContributorListItem } from "@/core/domain/user/models/contributor-list-item-model";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { FirstParameter } from "@/core/kernel/types";
 
@@ -22,6 +24,7 @@ export class HackathonClientAdapter implements HackathonStoragePort {
     getHackathonBySlug: "hackathons/slug/:hackathonSlug",
     getHackathonProjects: "hackathons/slug/:hackathonSlug/projects",
     getHackathonEvents: "hackathons/slug/:hackathonSlug/events",
+    getHackathonContributors: "hackathons/slug/:hackathonSlug/contributors",
   } as const;
 
   getHackathons = () => {
@@ -117,6 +120,35 @@ export class HackathonClientAdapter implements HackathonStoragePort {
       return {
         ...data,
         events: data.events.map(event => new HackathonEvent(event)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getHackathonContributors = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<HackathonStoragePort["getHackathonContributors"]>) => {
+    const path = this.routes["getHackathonContributors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetHackathonContributorsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        contributors: data.contributors.map(contributor => new ContributorListItem(contributor)),
       };
     };
 
