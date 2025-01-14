@@ -14,6 +14,7 @@ export class EcosystemsListItem implements EcosystemsListItemInterface {
   projectCount!: EcosystemsListItemResponse["projectCount"];
   topProjectCategories!: EcosystemsListItemResponse["topProjectCategories"];
   projectCategoryCount!: EcosystemsListItemResponse["projectCategoryCount"];
+  logoUrl!: EcosystemsListItemResponse["logoUrl"];
 
   constructor(props: EcosystemsListItemResponse) {
     Object.assign(this, props);

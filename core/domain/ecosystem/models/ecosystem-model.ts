@@ -20,6 +20,7 @@ export class Ecosystem implements EcosystemInterface {
   documentations!: EcosystemResponse["documentations"];
   activeContributorCount!: EcosystemResponse["activeContributorCount"];
   activeProjectCount!: EcosystemResponse["activeProjectCount"];
+  logoUrl!: EcosystemResponse["logoUrl"];
 
   constructor(props: EcosystemResponse) {
     Object.assign(this, props);
