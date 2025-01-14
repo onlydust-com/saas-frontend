@@ -15,6 +15,5 @@ export interface EcosystemFacadePort {
   searchEcosystems(p: SearchEcosystemsPortParams): SearchEcosystemsPortResponse;
   getEcosystems(p: GetEcosystemsPortParams): GetEcosystemsPortResponse;
   getEcosystemBySlug(p: GetEcosystemBySlugPortParams): GetEcosystemBySlugPortResponse;
-  getEcosystemProjects(p: GetEcosystemProjectsPortParams): GetEcosystemProjectsPortResponse;
   getEcosystemContributors(p: GetEcosystemContributorsPortParams): GetEcosystemContributorsPortResponse;
 }

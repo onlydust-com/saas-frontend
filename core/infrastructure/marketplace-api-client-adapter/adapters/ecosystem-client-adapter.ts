@@ -1,7 +1,6 @@
 import {
   GetEcosystemBySlugResponse,
   GetEcosystemContributorsResponse,
-  GetEcosystemProjectsResponse,
   GetEcosystemsResponse,
   SearchEcosystemsResponse,
 } from "@/core/domain/ecosystem/ecosystem-contract.types";
@@ -10,11 +9,8 @@ import { EcosystemLink } from "@/core/domain/ecosystem/models/ecosystem-link-mod
 import { EcosystemsListItem } from "@/core/domain/ecosystem/models/ecosystem-list-item-model";
 import { Ecosystem } from "@/core/domain/ecosystem/models/ecosystem-model";
 import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-storage-port";
-import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
-
-import { MarketplaceApiVersion } from "../config/api-version";
 
 export class EcosystemClientAdapter implements EcosystemStoragePort {
   constructor(private readonly client: HttpClient) {}
@@ -23,7 +19,6 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
     searchEcosystems: "ecosystems",
     getEcosystems: "ecosystems",
     getEcosystemBySlug: "ecosystems/{slug}",
-    getEcosystemProjects: "ecosystems/{slug}/projects",
     getEcosystemContributors: "ecosystems/{slug}/contributors",
   } as const;
 
@@ -92,32 +87,6 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
       });
 
       return new Ecosystem(data);
-    };
-
-    return {
-      request,
-      tag,
-    };
-  };
-
-  getEcosystemProjects = ({ pathParams }: FirstParameter<EcosystemStoragePort["getEcosystemProjects"]>) => {
-    const path = this.routes["getEcosystemProjects"];
-    const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
-
-    const request = async () => {
-      const data = await this.client.request<GetEcosystemProjectsResponse>({
-        path,
-        method,
-        tag,
-        pathParams,
-        version: MarketplaceApiVersion.v2,
-      });
-
-      return {
-        ...data,
-        projects: (data?.projects || []).map(project => new ProjectListItemV2(project)),
-      };
     };
 
     return {
