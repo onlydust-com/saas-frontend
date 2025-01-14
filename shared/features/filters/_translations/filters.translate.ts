@@ -12,6 +12,7 @@ import enDevActiveCount from "../dev-active-count-filter/dev-active-count-filter
 import enEcosystem from "../ecosystem-filter/ecosystem-filter.en.json";
 import enEngagementStatuses from "../engagement-statuses-filter/engagement-statuses-filter.en.json";
 import enGrantedCount from "../granted-count-filter/granted-count-filter.en.json";
+import enIssueAvailable from "../issue-available-filter/issue-available-filter.en.json";
 import enLanguage from "../language-filter/language-filter.en.json";
 import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
 import enOnboardedDevCount from "../onboarded-dev-count-filter/onboarded-dev-count-filter.en.json";
@@ -53,5 +54,6 @@ export const enFiltersTranslations = {
     ecosystem: enEcosystem,
     project: enProject,
     periodDate: enPeriodDate,
+    issueAvailable: enIssueAvailable,
   },
 };

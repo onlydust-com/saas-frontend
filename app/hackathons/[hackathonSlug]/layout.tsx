@@ -4,6 +4,7 @@ import { PropsWithChildren, useMemo } from "react";
 
 import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
+import { RegisterHackathon } from "@/app/hackathons/_features/register-hackathon/register-hackathon";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -34,16 +35,16 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
     if (isProjects) {
       return Views.PROJECTS;
     }
-    if (isCommunity) {
-      return Views.COMMUNITY;
-    }
+    // if (isCommunity) {
+    //   return Views.COMMUNITY;
+    // }
   }, [isOverview, isProjects, isCommunity]);
 
   return (
     <Tabs
       variant={"underline"}
       searchParams={"hackathon-view"}
-      classNames={{ base: "w-full" }}
+      classNames={{ base: "tablet:self-end self-start -mb-px" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -61,14 +62,14 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
             href: NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug),
           },
         },
-        {
-          id: Views.COMMUNITY,
-          children: <Translate token={"hackathon:details.tabs.community"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
-          },
-        },
+        // {
+        //   id: Views.COMMUNITY,
+        //   children: <Translate token={"hackathon:details.tabs.community"} />,
+        //   as: BaseLink,
+        //   htmlProps: {
+        //     href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
+        //   },
+        // },
       ]}
       selectedId={selectedId}
     />
@@ -85,19 +86,28 @@ export default function HackathonsLayout({
     <PageWrapper>
       <AnimatedColumn className="h-full max-w-full">
         <ScrollView>
-          <div className="grid-col-1 grid gap-lg desktop:h-full desktop:grid-cols-3">
-            <div className="flex flex-col gap-lg desktop:col-span-1">
+          <div className="flex flex-col items-start justify-start gap-lg tablet:h-full laptop:flex-row">
+            <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
               <HackathonSummary hackathonSlug={params.hackathonSlug} />
               <HackathonEvents hackathonSlug={params.hackathonSlug} />
             </div>
+
             <Paper
               background="glass"
               border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
-              px="none"
+              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col pb-xl" }}
+              size="none"
             >
-              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <div
+                className={
+                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
+                }
+              >
                 <Navigation params={params} />
+
+                <div className={"w-full p-xl tablet:w-auto"}>
+                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                </div>
               </div>
               {children}
             </Paper>

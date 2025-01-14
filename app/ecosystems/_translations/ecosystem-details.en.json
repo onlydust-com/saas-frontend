@@ -1,0 +1,13 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "projects": "Projects",
+    "community": "Community"
+  },
+  "projects": {
+    "filters": {
+      "title": "Filters"
+    },
+    "projectsCount": "Projects"
+  }
+}

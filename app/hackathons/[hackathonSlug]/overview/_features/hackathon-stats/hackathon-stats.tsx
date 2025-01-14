@@ -16,7 +16,7 @@ export function HackathonStats({
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   return (
-    <div className="grid w-full grid-cols-4 border-b-1 border-border-primary py-4">
+    <div className="grid w-full grid-cols-2 gap-y-xl border-b-1 border-border-primary py-4 tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-4">
         <Stat
           label={{ token: "hackathon:shared.stats.registered" }}
@@ -29,7 +29,7 @@ export function HackathonStats({
           }}
         />
       </div>
-      <div className="border-r-1 border-border-primary px-4">
+      <div className="border-border-primary px-4 tablet:border-r-1">
         <Stat
           label={{ token: "hackathon:shared.stats.availableIssues" }}
           value={`${Intl.NumberFormat().format(countAvailableIssues)}/${Intl.NumberFormat().format(totalAvailableIssues)}`}

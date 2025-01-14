@@ -14,6 +14,7 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
   border,
   onClick,
   hasBorderHover,
+  rounded = "md",
   size = "xl",
   px: _px,
   py: _py,
@@ -21,7 +22,7 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
   const px = _px || size;
   const py = _py || size;
   const Component = as || "article";
-  const slots = PaperDefaultVariants({ px, py, background, border, hasBorderHover });
+  const slots = PaperDefaultVariants({ px, py, background, border, hasBorderHover, rounded });
 
   return (
     <Component

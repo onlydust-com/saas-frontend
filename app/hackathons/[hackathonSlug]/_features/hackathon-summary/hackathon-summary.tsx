@@ -153,7 +153,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                         variant={isFirst ? "solid" : "outline"}
                         color={isFirst ? "brand" : "grey"}
                         classNames={{
-                          base: "w-fit max-w-full",
+                          base: "w-fit max-w-[120px]",
                           label: "truncate",
                         }}
                       >

@@ -7,4 +7,10 @@ export class EcosystemClientAdapterMock implements EcosystemStoragePort {
   routes = {};
 
   searchEcosystems = mockHttpStorageResponse<EcosystemStoragePort["searchEcosystems"]>;
+
+  getEcosystems = mockHttpStorageResponse<EcosystemStoragePort["getEcosystems"]>;
+
+  getEcosystemBySlug = mockHttpStorageResponse<EcosystemStoragePort["getEcosystemBySlug"]>;
+
+  getEcosystemContributors = mockHttpStorageResponse<EcosystemStoragePort["getEcosystemContributors"]>;
 }
