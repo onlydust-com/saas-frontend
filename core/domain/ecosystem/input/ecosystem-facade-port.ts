@@ -3,8 +3,6 @@ import {
   GetEcosystemBySlugPortResponse,
   GetEcosystemContributorsPortParams,
   GetEcosystemContributorsPortResponse,
-  GetEcosystemProjectsPortParams,
-  GetEcosystemProjectsPortResponse,
   GetEcosystemsPortParams,
   GetEcosystemsPortResponse,
   SearchEcosystemsPortParams,
