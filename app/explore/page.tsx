@@ -1,7 +1,6 @@
 "use client";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import "keen-slider/keen-slider.min.css";
 
 import { ProjectBanners } from "@/app/explore/_features/project-banners/project-banners";
 
