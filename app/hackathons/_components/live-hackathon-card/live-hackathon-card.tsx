@@ -158,7 +158,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
               translate={{ token: "hackathon:details.summary.location" }}
             />
             <Typo variant="heading" size="xs">
-              {hackathon.location}
+              {hackathon.location ?? "Worldwide"}
             </Typo>
           </div>
         </div>

@@ -72,7 +72,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
           <div className="p-4 mobile:py-0">
             <Stat
               label={{ token: "hackathon:shared.stats.projects" }}
-              value={Intl.NumberFormat().format(hackathon.projects.length)}
+              value={Intl.NumberFormat().format(hackathon.projects?.length ?? 0)}
               iconProps={{
                 component: Folder,
                 classNames: {
