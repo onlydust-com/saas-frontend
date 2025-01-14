@@ -135,7 +135,6 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}
-        logoUrl={project.logoUrl}
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
