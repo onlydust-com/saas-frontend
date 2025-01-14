@@ -58,22 +58,34 @@ export function HackathonList() {
 
   const renderLiveHackathon = useCallback(() => {
     if (isLoading) {
-      return Array.from({ length: 8 }).map((_, index) => (
-        <div key={index} className="keen-slider__slide">
-          <Skeleton className="h-[278px] w-full" />
-        </div>
-      ));
+      return <Skeleton className="h-[278px] w-full" />;
     }
 
     if (isError) return <ErrorState />;
 
     if (!data) return null;
 
-    const liveUpcomingHackathon = data.hackathons.find(hackathon => hackathon.isLive() || hackathon.isComingSoon());
+    const liveHackathon = data.hackathons.find(hackathon => hackathon.isLive());
 
-    if (!liveUpcomingHackathon) return null;
+    if (!liveHackathon) return null;
 
-    return <LiveHackathonCard hackathon={liveUpcomingHackathon} />;
+    return <LiveHackathonCard hackathon={liveHackathon} />;
+  }, [data, isError, isLoading]);
+
+  const renderUpcomingHackathon = useCallback(() => {
+    if (isLoading) {
+      return <Skeleton className="h-[278px] w-full" />;
+    }
+
+    if (isError) return <ErrorState />;
+
+    if (!data) return null;
+
+    const upcomingHackathon = data.hackathons.find(hackathon => hackathon.isComingSoon());
+
+    if (!upcomingHackathon) return null;
+
+    return <LiveHackathonCard hackathon={upcomingHackathon} />;
   }, [data, isError, isLoading]);
 
   const renderClosedHackathons = useCallback(() => {
@@ -109,6 +121,7 @@ export function HackathonList() {
   return (
     <div className="flex flex-col gap-4xl">
       {renderLiveHackathon()}
+      {renderUpcomingHackathon()}
       {renderClosedHackathons()}
     </div>
   );
