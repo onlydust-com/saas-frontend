@@ -16,6 +16,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
@@ -96,6 +97,11 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         breadcrumb={[
           {
             id: "root",
+            label: "Hackathons",
+            href: NEXT_ROUTER.hackathons.root,
+          },
+          {
+            id: "slug",
             label: params.hackathonSlug,
           },
           {

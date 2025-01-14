@@ -6,6 +6,7 @@ import { HackathonStats } from "@/app/hackathons/[hackathonSlug]/overview/_featu
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -25,7 +26,12 @@ export default function HackathonOverviewPage({ params: { hackathonSlug } }: { p
         breadcrumb={[
           {
             id: "root",
-            label: hackathon?.title,
+            label: "Hackathons",
+            href: NEXT_ROUTER.hackathons.root,
+          },
+          {
+            id: "slug",
+            label: hackathonSlug,
           },
           {
             id: "overview",

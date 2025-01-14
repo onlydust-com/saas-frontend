@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const PaperDefaultVariants = tv({
   slots: {
-    base: "w-full rounded-md text-left transition-all data-[clickable=true]:cursor-pointer data-[clickable=true]:outline-none data-[clickable=true]:focus-visible:effect-ring-brand-spaced",
+    base: "w-full text-left transition-all data-[clickable=true]:cursor-pointer data-[clickable=true]:outline-none data-[clickable=true]:focus-visible:effect-ring-brand-spaced",
   },
   variants: {
     px: {
@@ -112,6 +112,19 @@ export const PaperDefaultVariants = tv({
     hasBorderHover: {
       true: { base: "" },
     },
+    rounded: {
+      none: { base: "rounded-none" },
+      xxs: { base: "rounded-xxs" },
+      xs: { base: "rounded-xs" },
+      sm: { base: "rounded-sm" },
+      md: { base: "rounded-md" },
+      lg: { base: "rounded-lg" },
+      xl: { base: "rounded-xl" },
+      "2xl": { base: "rounded-2xl" },
+      "3xl": { base: "rounded-3xl" },
+      "4xl": { base: "rounded-4xl" },
+      full: { base: "rounded-full" },
+    },
   },
   compoundVariants: [
     {
@@ -133,5 +146,6 @@ export const PaperDefaultVariants = tv({
     size: "m",
     background: "primary-alt",
     border: "none",
+    rounded: "md",
   },
 });
