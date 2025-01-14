@@ -21,7 +21,7 @@ export function useRegisterToHackathon({
     };
   },
   never,
-  never
+  object
 > = {}) {
   const meStoragePort = bootstrap.getMeStoragePortForClient();
   const hackathonStoragePort = bootstrap.getHackathonStoragePortForClient();

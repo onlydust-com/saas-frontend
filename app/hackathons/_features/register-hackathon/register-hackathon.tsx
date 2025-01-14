@@ -6,6 +6,7 @@ import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapt
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { toast } from "@/design-system/molecules/toaster";
 
 export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   const {
@@ -21,27 +22,55 @@ export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
     },
   });
 
-  const { data: hackathonRegistration, isLoading: hackathonRegistrationIsLoading } =
-    MeReactQueryAdapter.client.useGetMyHackathonRegistration({
-      pathParams: { hackathonId: hackathon?.id ?? "" },
-      options: {
-        enabled: Boolean(hackathon?.id),
-      },
-    });
+  const {
+    data: hackathonRegistration,
+    isLoading: hackathonRegistrationIsLoading,
+    isError: hackathonRegistrationIsError,
+  } = MeReactQueryAdapter.client.useGetMyHackathonRegistration({
+    pathParams: { hackathonId: hackathon?.id ?? "" },
+    options: {
+      enabled: Boolean(hackathon?.id),
+    },
+  });
 
+  const { mutate: register, isPending: registerIsPending } = MeReactQueryAdapter.client.useRegisterToHackathon({
+    pathParams: {
+      hackathonId: hackathon?.id ?? "",
+    },
+    invalidateTagParams: {
+      getHackathonBySlug: {
+        pathParams: {
+          hackathonSlug,
+        },
+      },
+    },
+    options: {
+      onSuccess: () => {
+        toast.success(`Registered to ${hackathon?.title}`);
+      },
+      onError: () => {
+        toast.error(`Error registering to ${hackathon?.title}`);
+      },
+    },
+  });
+
+  const isError = hackathonIsError || hackathonRegistrationIsError;
   const isLoading = hackathonIsLoading || hackathonRegistrationIsLoading;
   const isRegistered = hackathonRegistration?.isRegistered;
 
-  // todo handle error
-  // todo handle click
+  function handleClick() {
+    register({});
+  }
+
+  if (isError) return null;
 
   return (
     <Button
       size={"md"}
-      onClick={() => {}}
+      onClick={handleClick}
       startIcon={{ component: Bell }}
       classNames={{ base: "w-full" }}
-      isLoading={isLoading}
+      isLoading={isLoading || registerIsPending}
       isDisabled={isRegistered}
     >
       {isRegistered ? "Registered" : "Register"}
