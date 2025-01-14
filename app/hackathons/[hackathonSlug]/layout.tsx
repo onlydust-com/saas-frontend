@@ -1,12 +1,11 @@
 "use client";
 
-import { Bell } from "lucide-react";
 import { PropsWithChildren, useMemo } from "react";
 
 import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
+import { RegisterHackathon } from "@/app/hackathons/_features/register-hackathon/register-hackathon";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
@@ -107,14 +106,7 @@ export default function HackathonsLayout({
                 <Navigation params={params} />
 
                 <div className={"w-full p-xl tablet:w-auto"}>
-                  <Button
-                    size={"md"}
-                    onClick={() => {}}
-                    startIcon={{ component: Bell }}
-                    classNames={{ base: "w-full" }}
-                  >
-                    Register
-                  </Button>
+                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
                 </div>
               </div>
               {children}
