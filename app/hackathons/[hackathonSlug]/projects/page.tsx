@@ -163,10 +163,12 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         ]}
       />
       <div className="flex h-full flex-col gap-lg overflow-hidden p-lg pb-0">
-        <nav className={"flex gap-md"}>
-          <FilterButton onClick={openFilterPanel} />
-          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-        </nav>
+        {isRegistered ? (
+          <nav className={"flex gap-md"}>
+            <FilterButton onClick={openFilterPanel} />
+            <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          </nav>
+        ) : null}
 
         <div className="relative h-full">
           <ScrollView
@@ -192,12 +194,14 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
           ) : null}
         </div>
 
-        <div className="flex gap-md">
-          <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
-          <Typo size={"sm"} color={"primary"}>
-            {totalItemNumber}
-          </Typo>
-        </div>
+        {isRegistered ? (
+          <div className="flex gap-md">
+            <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
+            <Typo size={"sm"} color={"primary"}>
+              {totalItemNumber}
+            </Typo>
+          </div>
+        ) : null}
       </div>
       <FilterData />
     </FilterDataProvider>
