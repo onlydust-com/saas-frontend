@@ -41,7 +41,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
             </Typo>
 
             <Badge variant="outline" size="md" color="brand" classNames={{ base: "shrink-0" }}>
-              {isLive ? "Live now" : "Coming soom"}
+              {isLive ? "Live now" : "Coming soon"}
             </Badge>
           </div>
 
