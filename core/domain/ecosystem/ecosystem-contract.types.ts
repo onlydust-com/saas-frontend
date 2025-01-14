@@ -5,7 +5,6 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { ProjectListItemV2 } from "../project/models/project-list-item-model-v2";
 import { EcosystemContributorsInterface } from "./models/ecosystem-contributors-list-item-model";
 import { EcosystemsListItem } from "./models/ecosystem-list-item-model";
 import { EcosystemInterface } from "./models/ecosystem-model";
@@ -52,24 +51,6 @@ export type GetEcosystemBySlugPortResponse = HttpStorageResponse<EcosystemInterf
 
 export type GetEcosystemBySlugPortParams = HttpClientParameters<{
   PathParams: GetEcosystemBySlugPathParams;
-}>;
-
-/* ------------------------------ Get Ecosystem Projects ------------------------------ */
-
-export type GetEcosystemProjectsResponse = components["schemas"]["ProjectPageResponseV2"];
-
-export type GetEcosystemProjectsModel = Omit<GetEcosystemProjectsResponse, "projects"> & {
-  projects: ProjectListItemV2[];
-};
-
-export type GetEcosystemProjectsQueryParams = operations["getEcosystemProjectsV2"]["parameters"]["query"];
-type GetEcosystemProjectsPathParams = operations["getEcosystemProjectsV2"]["parameters"]["path"];
-
-export type GetEcosystemProjectsPortResponse = HttpStorageResponse<GetEcosystemProjectsModel>;
-
-export type GetEcosystemProjectsPortParams = HttpClientParameters<{
-  QueryParams: GetEcosystemProjectsQueryParams;
-  PathParams: GetEcosystemProjectsPathParams;
 }>;
 
 /* ------------------------------ Get Ecosystem Contributors ------------------------------ */

@@ -212,7 +212,7 @@ export type GetProjectsV2Model = Omit<GetProjectsV2Response, "projects"> & {
   projects: ProjectListItemInterfaceV2[];
 };
 
-type GetProjectsV2QueryParams = operations["getProjectsV2"]["parameters"]["query"];
+export type GetProjectsV2QueryParams = operations["getProjectsV2"]["parameters"]["query"];
 
 export type GetProjectsV2PortResponse = HttpStorageResponse<GetProjectsV2Model>;
 
