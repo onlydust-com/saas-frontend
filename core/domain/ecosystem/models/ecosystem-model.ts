@@ -6,6 +6,7 @@ export interface EcosystemInterface extends EcosystemResponse {}
 
 export class Ecosystem implements EcosystemInterface {
   id!: EcosystemResponse["id"];
+  logoUrl!: EcosystemResponse["logoUrl"];
   slug!: EcosystemResponse["slug"];
   name!: EcosystemResponse["name"];
   description!: EcosystemResponse["description"];
