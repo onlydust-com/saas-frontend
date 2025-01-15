@@ -15,11 +15,11 @@ export function CardProgram({ program, onClick }: CardProgramProps) {
   });
 
   function renderContent() {
-    if (!program.totalGranted.totalPerCurrency) return null;
+    if (!program.totalAvailable.totalPerCurrency) return null;
 
     return (
       <div className={"flex flex-wrap gap-md"}>
-        {program.totalGranted.totalPerCurrency.map(budget => {
+        {program.totalAvailable.totalPerCurrency.map(budget => {
           const { amount, code } = moneyKernelPort.format({
             amount: budget.amount,
             currency: budget.currency,

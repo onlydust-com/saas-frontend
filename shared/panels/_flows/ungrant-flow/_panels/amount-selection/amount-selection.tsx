@@ -105,7 +105,7 @@ export function AmountSelection() {
           size={"md"}
           onClick={() => ungrant.mutate()}
           isLoading={ungrant.isPending}
-          isDisabled={isLoading || ungrant.newBalanceIsNegative}
+          isDisabled={isLoading || ungrant.newBalanceIsNegative || amount === "0"}
           translate={{ token: "panels:ungrantAmountSelection.ungrant" }}
         />
       </SidePanelFooter>
