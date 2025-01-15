@@ -59,7 +59,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
         <div className="grid w-full divide-x divide-border-primary border-b-1 border-border-primary mobile:grid-cols-2 tablet:grid-cols-4">
           <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
-              label={{ token: "hackathon:shared.stats.registered" }}
+              label={"Registered"}
               value={Intl.NumberFormat().format(hackathon.subscriberCount)}
               iconProps={{
                 component: User,
@@ -71,7 +71,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
           </div>
           <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
-              label={{ token: "hackathon:shared.stats.availableIssues" }}
+              label={"Available issues"}
               value={`${Intl.NumberFormat().format(hackathon.openIssueCount)}/${Intl.NumberFormat().format(hackathon.issueCount)}`}
               iconProps={{
                 component: CircleDot,
@@ -83,7 +83,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
           </div>
           <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
-              label={{ token: "hackathon:shared.stats.projects" }}
+              label={"Projects"}
               value={Intl.NumberFormat().format(hackathon.projects.length)}
               iconProps={{
                 component: Folder,
@@ -95,7 +95,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
           </div>
           <div className="p-4">
             <Stat
-              label={{ token: "hackathon:shared.stats.endsIn" }}
+              label={"Ends in"}
               value={
                 hackathon.endDate
                   ? dateKernelPort.formatDistanceToNow(new Date(hackathon.endDate), { addSuffix: false })
