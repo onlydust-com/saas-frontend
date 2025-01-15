@@ -32,8 +32,7 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
   const queryParams: Partial<GetProjectsV2QueryParams> = {
-    // TODO activate once backend is ready
-    // ecosystemSlugs: [params.ecosystemSlug],
+    ecosystemSlugs: [params.ecosystemSlug],
     search: debouncedSearch,
     ...filters,
   };

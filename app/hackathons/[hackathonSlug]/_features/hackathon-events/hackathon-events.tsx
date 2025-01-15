@@ -87,7 +87,7 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
                 "opacity-50": event.isPast(),
               })}
             >
-              <div className="flex h-12 w-12 flex-col items-center justify-center rounded-md bg-[#121212]">
+              <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md bg-[#121212]">
                 <div className="flex flex-col text-center">
                   <Typo size="xs">{formattedDates.startMonth}</Typo>
                   <Typo size="xs" weight="medium">

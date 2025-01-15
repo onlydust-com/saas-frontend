@@ -71,7 +71,6 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
                 </Typo>
               </div>
             ) : null}
-            
             <div className="flex items-center justify-between gap-md">
               {categories?.length ? <Categories categories={categories} /> : <div />}
 

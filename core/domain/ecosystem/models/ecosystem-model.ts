@@ -6,10 +6,10 @@ export interface EcosystemInterface extends EcosystemResponse {}
 
 export class Ecosystem implements EcosystemInterface {
   id!: EcosystemResponse["id"];
+  logoUrl!: EcosystemResponse["logoUrl"];
   slug!: EcosystemResponse["slug"];
   name!: EcosystemResponse["name"];
   description!: EcosystemResponse["description"];
-  banners!: EcosystemResponse["banners"];
   overview!: EcosystemResponse["overview"];
   languages!: EcosystemResponse["languages"];
   links!: EcosystemResponse["links"];
@@ -20,6 +20,7 @@ export class Ecosystem implements EcosystemInterface {
   documentations!: EcosystemResponse["documentations"];
   activeContributorCount!: EcosystemResponse["activeContributorCount"];
   activeProjectCount!: EcosystemResponse["activeProjectCount"];
+  logoUrl!: EcosystemResponse["logoUrl"];
 
   constructor(props: EcosystemResponse) {
     Object.assign(this, props);

@@ -12,14 +12,16 @@ import { EcosystemStoragePort } from "@/core/domain/ecosystem/outputs/ecosystem-
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
 
+import { MarketplaceApiVersion } from "../config/api-version";
+
 export class EcosystemClientAdapter implements EcosystemStoragePort {
   constructor(private readonly client: HttpClient) {}
 
   routes = {
     searchEcosystems: "ecosystems",
     getEcosystems: "ecosystems",
-    getEcosystemBySlug: "ecosystems/{slug}",
-    getEcosystemContributors: "ecosystems/{slug}/contributors",
+    getEcosystemBySlug: "ecosystems/:slug",
+    getEcosystemContributors: "ecosystems/:slug/contributors",
   } as const;
 
   searchEcosystems = ({ queryParams, pathParams }: FirstParameter<EcosystemStoragePort["searchEcosystems"]>) => {
@@ -84,6 +86,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         pathParams,
+        version: MarketplaceApiVersion.v2,
       });
 
       return new Ecosystem(data);
