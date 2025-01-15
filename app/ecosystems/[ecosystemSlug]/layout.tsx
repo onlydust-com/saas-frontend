@@ -12,7 +12,7 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { EcosystemSummary } from "./_features/ecosystem-summary/ecosystem-summary";
+import { Documentation } from "./_features/documentation/documentation";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
@@ -85,7 +85,8 @@ export default function EcosystemLayout({
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">
-            <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
+            {/* <EcosystemSummary ecosystemSlug={params.ecosystemSlug} /> */}
+            <Documentation ecosystemSlug={params.ecosystemSlug} />
           </div>
           <Paper
             background="glass"

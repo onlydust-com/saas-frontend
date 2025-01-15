@@ -1,3 +1,3 @@
-export type EcosystemSummaryProps = {
+export interface EcosystemSummaryProps {
   ecosystemSlug: string;
-};
+}
