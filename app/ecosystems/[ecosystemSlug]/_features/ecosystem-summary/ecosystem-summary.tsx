@@ -83,7 +83,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
             </div>
           ) : null}
 
-          {links.length ? (
+          {links?.length ? (
             <div className="flex flex-col gap-lg">
               <Typo
                 size="xs"
