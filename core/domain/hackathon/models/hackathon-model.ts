@@ -1,9 +1,15 @@
 import { bootstrap } from "@/core/bootstrap";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
+import { HackathonStatus } from "./hackathon.types";
+
 export type HackathonResponse = components["schemas"]["HackathonResponseV2"];
 
 export interface HackathonInterface extends HackathonResponse {
+  isComingSoon(): boolean;
+  isLive(): boolean;
+  isPast(): boolean;
+  getStatus(): HackathonStatus;
   formatDisplayDates(): null | {
     startDate: string;
     endDate: string;
@@ -32,6 +38,30 @@ export class Hackathon implements HackathonInterface {
   }
 
   protected dateKernelPort = bootstrap.getDateKernelPort();
+
+  isComingSoon() {
+    return this.dateKernelPort.isFuture(new Date(this.startDate));
+  }
+
+  isLive() {
+    return this.dateKernelPort.isPast(new Date(this.startDate)) && this.dateKernelPort.isFuture(new Date(this.endDate));
+  }
+
+  isPast() {
+    return this.dateKernelPort.isPast(new Date(this.endDate));
+  }
+
+  getStatus() {
+    if (this.isLive()) {
+      return HackathonStatus.Live;
+    }
+
+    if (this.isComingSoon()) {
+      return HackathonStatus.Open;
+    }
+
+    return HackathonStatus.Closed;
+  }
 
   formatDisplayDates() {
     if (!this.startDate || !this.endDate) return null;
