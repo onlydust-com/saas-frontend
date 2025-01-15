@@ -6,6 +6,7 @@ import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapt
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { Tooltip } from "@/design-system/atoms/tooltip";
 import { toast } from "@/design-system/molecules/toaster";
 
 export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
@@ -21,6 +22,8 @@ export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
       enabled: Boolean(hackathonSlug),
     },
   });
+
+  const isPast = hackathon?.isPast();
 
   const {
     data: hackathonRegistration,
@@ -65,15 +68,17 @@ export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   if (isError) return null;
 
   return (
-    <Button
-      size={"md"}
-      onClick={handleClick}
-      startIcon={{ component: Bell }}
-      classNames={{ base: "w-full" }}
-      isLoading={isLoading || registerIsPending}
-      isDisabled={isRegistered}
-    >
-      {isRegistered ? "Registered" : "Register"}
-    </Button>
+    <Tooltip content={"The event is over"} enabled={isPast}>
+      <Button
+        size={"md"}
+        onClick={handleClick}
+        startIcon={{ component: Bell }}
+        classNames={{ base: "w-full" }}
+        isLoading={isLoading || registerIsPending}
+        isDisabled={isRegistered || isPast}
+      >
+        {isRegistered ? "Registered" : "Register"}
+      </Button>
+    </Tooltip>
   );
 }

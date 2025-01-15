@@ -9,7 +9,7 @@ export function Stats({ contributors = 0, prMerged = 0, stars = 0, issues = 0 }:
     <div className="grid w-full grid-cols-2 gap-y-lg border-b-1 border-border-primary py-4 tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-4">
         <Stat
-          label={{ token: "project:details.overview.stats.contributors" }}
+          label={"Contributors"}
           value={Intl.NumberFormat().format(contributors)}
           iconProps={{
             component: User,
@@ -21,7 +21,7 @@ export function Stats({ contributors = 0, prMerged = 0, stars = 0, issues = 0 }:
       </div>
       <div className="border-r-1 border-border-primary px-4">
         <Stat
-          label={{ token: "project:details.overview.stats.prMerged" }}
+          label={"PRs merged"}
           value={Intl.NumberFormat().format(prMerged)}
           iconProps={{
             component: GitMerge,
@@ -33,7 +33,7 @@ export function Stats({ contributors = 0, prMerged = 0, stars = 0, issues = 0 }:
       </div>
       <div className="border-r-1 border-border-primary px-4">
         <Stat
-          label={{ token: "project:details.overview.stats.stars" }}
+          label={"Stars"}
           value={Intl.NumberFormat().format(stars)}
           iconProps={{
             component: Star,
@@ -45,7 +45,7 @@ export function Stats({ contributors = 0, prMerged = 0, stars = 0, issues = 0 }:
       </div>
       <div className="px-4">
         <Stat
-          label={{ token: "project:details.overview.stats.issues" }}
+          label={"Issues"}
           value={Intl.NumberFormat().format(issues)}
           iconProps={{
             component: CircleDot,
