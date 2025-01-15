@@ -10,7 +10,6 @@ export class Ecosystem implements EcosystemInterface {
   slug!: EcosystemResponse["slug"];
   name!: EcosystemResponse["name"];
   description!: EcosystemResponse["description"];
-  banners!: EcosystemResponse["banners"];
   overview!: EcosystemResponse["overview"];
   languages!: EcosystemResponse["languages"];
   links!: EcosystemResponse["links"];

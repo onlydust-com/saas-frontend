@@ -83,7 +83,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
             </div>
           ) : null}
 
-          {links.length > 0 ? (
+          {links.length ? (
             <div className="flex flex-col gap-lg">
               <Typo
                 size="xs"
@@ -96,8 +96,13 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
                 {links.map((link, index) => {
                   const isFirst = index === 0;
 
-                  const urlObject = new URL(link.url);
-                  const domain = urlObject.hostname;
+                  let domain;
+                  try {
+                    const urlObject = new URL(link.url);
+                    domain = urlObject.hostname;
+                  } catch {
+                    domain = link.url;
+                  }
 
                   return (
                     <Paper
