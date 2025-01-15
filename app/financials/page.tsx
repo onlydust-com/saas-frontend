@@ -51,7 +51,7 @@ function FinancialPage() {
       />
       <ScrollView>
         <PageContent classNames={{ base: "h-full" }}>
-          <div className="flex flex-col gap-4">
+          <div className="flex h-full flex-col gap-4">
             <Typo
               size={"xs"}
               weight={"medium"}
