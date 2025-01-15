@@ -36,7 +36,7 @@ export function useUngrantProgram() {
     },
   });
 
-  const allBudgets = program?.totalGranted?.totalPerCurrency ?? [];
+  const allBudgets = program?.totalAvailable?.totalPerCurrency ?? [];
 
   useEffect(() => {
     if (isPanelOpen) {
