@@ -4,7 +4,6 @@ import { useState } from "react";
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 import { bootstrap } from "@/core/bootstrap";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
 import { PaperLoading } from "@/design-system/atoms/paper/paper.loading";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
