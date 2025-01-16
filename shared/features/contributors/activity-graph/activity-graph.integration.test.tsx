@@ -21,16 +21,14 @@ vi.mock("@/core/bootstrap", () => ({
 }));
 
 // Mock HTTP client
-class MockHttpClient {
-  static buildTag = vi.fn().mockReturnValue("mock-tag");
-  request = vi.fn();
-  buildUrl = vi.fn();
-  getHeaders = vi.fn().mockResolvedValue({});
-  formatResponse = vi.fn(response => response);
-}
-
 vi.mock("@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client", () => ({
-  HttpClient: MockHttpClient
+  HttpClient: class {
+    static buildTag = vi.fn().mockReturnValue(['mock-tag']);
+    request = vi.fn();
+    buildUrl = vi.fn();
+    getHeaders = vi.fn().mockResolvedValue({});
+    formatResponse = vi.fn(response => response);
+  }
 }));
 
 describe("Activity Graph Integration Tests", () => {
@@ -40,10 +38,19 @@ describe("Activity Graph Integration Tests", () => {
   beforeEach(() => {
     httpClient = new HttpClient();
     biClientAdapter = new BiClientAdapter(httpClient);
+    
+    // Mock static buildTag method
+    vi.spyOn(HttpClient, 'buildTag').mockReturnValue(['mock-tag']);
+    
+    // Set up request mock for each test
+    vi.spyOn(httpClient, 'request').mockResolvedValue({
+      days: []
+    } as BiContributorActivityResponse);
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   describe("getBiContributorActivityById", () => {
