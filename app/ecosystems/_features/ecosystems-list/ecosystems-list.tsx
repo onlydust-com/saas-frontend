@@ -11,9 +11,11 @@ import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapt
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 function Safe() {
   const [search, setSearch] = useState<string>();
@@ -47,6 +49,8 @@ function Safe() {
     return ecosystems.map(ecosystem => (
       <EcosystemCard
         key={ecosystem.id}
+        as={BaseLink}
+        htmlProps={{ href: NEXT_ROUTER.ecosystems.details.root(ecosystem.slug) }}
         name={ecosystem.name}
         logoUrl={ecosystem.logoUrl}
         usersCount={ecosystem.contributorCount}
