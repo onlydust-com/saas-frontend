@@ -13,6 +13,7 @@ import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Documentation } from "./_features/documentation/documentation";
+import { EcosystemEvent } from "./_features/ecosystem-event/ecosystem-event";
 import { EcosystemSummary } from "./_features/ecosystem-summary/ecosystem-summary";
 
 enum Views {
@@ -88,6 +89,7 @@ export default function EcosystemLayout({
           <div className="flex flex-col gap-lg desktop:col-span-1">
             <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
             <Documentation ecosystemSlug={params.ecosystemSlug} />
+            <EcosystemEvent ecosystemSlug={params.ecosystemSlug} />
           </div>
           <Paper
             background="glass"

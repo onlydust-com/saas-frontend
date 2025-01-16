@@ -3,6 +3,8 @@ import {
   GetEcosystemBySlugPortResponse,
   GetEcosystemContributorsPortParams,
   GetEcosystemContributorsPortResponse,
+  GetEcosystemEventsPortParams,
+  GetEcosystemEventsPortResponse,
   GetEcosystemsPortParams,
   GetEcosystemsPortResponse,
   SearchEcosystemsPortParams,
@@ -15,4 +17,5 @@ export interface EcosystemStoragePort {
   getEcosystems(p: GetEcosystemsPortParams): GetEcosystemsPortResponse;
   getEcosystemBySlug(p: GetEcosystemBySlugPortParams): GetEcosystemBySlugPortResponse;
   getEcosystemContributors(p: GetEcosystemContributorsPortParams): GetEcosystemContributorsPortResponse;
+  getEcosystemEvents(p: GetEcosystemEventsPortParams): GetEcosystemEventsPortResponse;
 }
