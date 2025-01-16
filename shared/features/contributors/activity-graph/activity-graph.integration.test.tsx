@@ -21,14 +21,16 @@ vi.mock("@/core/bootstrap", () => ({
 }));
 
 // Mock HTTP client
+class MockHttpClient {
+  static buildTag = vi.fn().mockReturnValue("mock-tag");
+  request = vi.fn();
+  buildUrl = vi.fn();
+  getHeaders = vi.fn().mockResolvedValue({});
+  formatResponse = vi.fn(response => response);
+}
+
 vi.mock("@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client", () => ({
-  HttpClient: vi.fn().mockImplementation(() => ({
-    request: vi.fn(),
-    buildTag: vi.fn(),
-    buildUrl: vi.fn(),
-    getHeaders: vi.fn().mockResolvedValue({}),
-    formatResponse: vi.fn(response => response)
-  }))
+  HttpClient: MockHttpClient
 }));
 
 describe("Activity Graph Integration Tests", () => {
