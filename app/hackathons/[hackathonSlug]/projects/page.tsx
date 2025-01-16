@@ -70,6 +70,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
   });
 
   const isRegistered = hackathonRegistration?.isRegistered ?? false;
+  const canAccessProjects = hackathon?.isPast() || isRegistered;
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     HackathonReactQueryAdapter.client.useGetHackathonProjects({
@@ -78,7 +79,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
       },
       queryParams,
       options: {
-        enabled: Boolean(params.hackathonSlug) && isRegistered,
+        enabled: Boolean(params.hackathonSlug) && canAccessProjects,
       },
     });
 
@@ -163,7 +164,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         ]}
       />
       <div className="flex h-full flex-col gap-lg overflow-hidden p-lg pb-0">
-        {isRegistered ? (
+        {canAccessProjects ? (
           <nav className={"flex gap-md"}>
             <FilterButton onClick={openFilterPanel} />
             <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
@@ -173,11 +174,11 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         <div className="relative h-full">
           <ScrollView
             className={cn("max-h-[calc(100%-2rem)]", {
-              "blur-xl": !isRegistered,
+              "blur-xl": !canAccessProjects,
             })}
           >
             <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-              {isRegistered ? renderProjects : renderMockProjects}
+              {canAccessProjects ? renderProjects : renderMockProjects}
 
               {hasNextPage ? (
                 <div className="col-span-full">
@@ -187,14 +188,14 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
             </div>
           </ScrollView>
 
-          {!isRegistered ? (
+          {!canAccessProjects ? (
             <div className="absolute inset-0 z-10 flex items-center justify-center">
               <Typo>Register now to access the full project list</Typo>
             </div>
           ) : null}
         </div>
 
-        {isRegistered ? (
+        {canAccessProjects ? (
           <div className="flex gap-md">
             <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
             <Typo size={"sm"} color={"primary"}>

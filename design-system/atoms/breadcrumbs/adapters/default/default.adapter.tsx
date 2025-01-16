@@ -13,20 +13,18 @@ import { BreadcrumbItemPort, BreadcrumbsPort } from "../../breadcrumbs.types";
 import { BreadcrumbsDefaultVariants } from "./default.variants";
 
 function BreadcrumbItem({ label, href, onClick, selected = false, iconProps, iconOnly }: BreadcrumbItemPort) {
-  const canHover = !selected;
+  const canHover = !selected && (Boolean(href) || Boolean(onClick));
   const showIconOnly = iconProps && iconOnly;
   const typoProps: Partial<ComponentProps<typeof Typo>> = {};
 
   if (href) {
     typoProps.as = BaseLink;
     typoProps.htmlProps = { href };
-    typoProps.canHover = canHover;
   }
 
   if (onClick) {
     typoProps.as = "button";
     typoProps.htmlProps = { type: "button", onClick };
-    typoProps.canHover = canHover;
   }
 
   return (
@@ -41,6 +39,7 @@ function BreadcrumbItem({ label, href, onClick, selected = false, iconProps, ico
           "px-xs py-xs": showIconOnly,
         }),
       }}
+      canHover={canHover}
     >
       {iconProps ? <Icon {...iconProps} /> : null}
       {showIconOnly ? null : label}

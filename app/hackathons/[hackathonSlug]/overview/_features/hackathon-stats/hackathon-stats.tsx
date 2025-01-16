@@ -1,4 +1,5 @@
 import { CircleDot, Clock, Folder, User } from "lucide-react";
+import { useMemo } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
@@ -15,11 +16,19 @@ export function HackathonStats({
 }: HackathonStatsProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
+  const hasEnded = Boolean(endsAt && dateKernelPort.isPast(new Date(endsAt)));
+
+  const endsInLabel = useMemo(() => {
+    if (!endsAt) return "-";
+
+    return dateKernelPort.formatDistanceToNow(new Date(endsAt), { addSuffix: hasEnded });
+  }, [endsAt]);
+
   return (
     <div className="grid w-full grid-cols-2 gap-y-xl border-b-1 border-border-primary py-4 tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-4">
         <Stat
-          label={{ token: "hackathon:shared.stats.registered" }}
+          label={"Registered"}
           value={Intl.NumberFormat().format(countRegistered)}
           iconProps={{
             component: User,
@@ -31,7 +40,7 @@ export function HackathonStats({
       </div>
       <div className="border-border-primary px-4 tablet:border-r-1">
         <Stat
-          label={{ token: "hackathon:shared.stats.availableIssues" }}
+          label={"Available issues"}
           value={`${Intl.NumberFormat().format(countAvailableIssues)}/${Intl.NumberFormat().format(totalAvailableIssues)}`}
           iconProps={{
             component: CircleDot,
@@ -43,7 +52,7 @@ export function HackathonStats({
       </div>
       <div className="border-r-1 border-border-primary px-4">
         <Stat
-          label={{ token: "hackathon:shared.stats.projects" }}
+          label={"Projects"}
           value={Intl.NumberFormat().format(countProjects)}
           iconProps={{
             component: Folder,
@@ -55,8 +64,8 @@ export function HackathonStats({
       </div>
       <div className="px-4">
         <Stat
-          label={{ token: "hackathon:shared.stats.endsIn" }}
-          value={endsAt ? dateKernelPort.formatDistanceToNow(new Date(endsAt), { addSuffix: false }) : "-"}
+          label={hasEnded ? "Ended" : "Ends in"}
+          value={endsInLabel}
           iconProps={{
             component: Clock,
             classNames: {

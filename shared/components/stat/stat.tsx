@@ -7,7 +7,9 @@ import { StatProps } from "@/shared/components/stat/stat.types";
 export function Stat({ label, value, iconProps, badgeProps }: StatProps) {
   return (
     <div className={"flex flex-col gap-xxs"}>
-      <Typo size="xs" color="tertiary" translate={label} />
+      <Typo size="xs" color="tertiary">
+        {label}
+      </Typo>
 
       <div className="flex items-center">
         <div className="flex w-full items-center gap-md">
