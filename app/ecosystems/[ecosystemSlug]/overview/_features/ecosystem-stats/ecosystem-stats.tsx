@@ -1,4 +1,5 @@
 import { CircleDot, Folder, GitPullRequest, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Typo } from "@/design-system/atoms/typo";
 
@@ -12,6 +13,8 @@ export function EcosystemStats({
   availableIssuesCount,
   mergedPullRequestsCount,
 }: EcosystemStatsProps) {
+  const { t } = useTranslation();
+
   function formatDiff(diff?: number) {
     if (diff === undefined) return null;
     const formatted = Intl.NumberFormat().format(Math.abs(diff));
@@ -27,7 +30,7 @@ export function EcosystemStats({
     <div className="grid w-full grid-cols-2 gap-y-xl border-b-1 border-border-primary py-lg tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-lg">
         <Stat
-          label={{ token: "ecosystems:details.stats.activeContributors" }}
+          label={t("ecosystems:details.stats.activeContributors")}
           value={Intl.NumberFormat().format(activeContributorsCount?.value ?? 0)}
           iconProps={{
             component: User,
@@ -50,7 +53,7 @@ export function EcosystemStats({
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={{ token: "ecosystems:details.stats.activeProjects" }}
+          label={t("ecosystems:details.stats.activeProjects")}
           value={Intl.NumberFormat().format(activeProjectsCount?.value ?? 0)}
           iconProps={{
             component: Folder,
@@ -73,7 +76,7 @@ export function EcosystemStats({
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={{ token: "ecosystems:details.stats.availableIssues" }}
+          label={t("ecosystems:details.stats.availableIssues")}
           value={Intl.NumberFormat().format(availableIssuesCount?.value ?? 0)}
           iconProps={{
             component: CircleDot,
@@ -96,7 +99,7 @@ export function EcosystemStats({
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={{ token: "ecosystems:details.stats.mergedPullRequests" }}
+          label={t("ecosystems:details.stats.mergedPullRequests")}
           value={Intl.NumberFormat().format(mergedPullRequestsCount?.value ?? 0)}
           iconProps={{
             component: GitPullRequest,
