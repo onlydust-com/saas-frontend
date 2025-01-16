@@ -119,7 +119,16 @@ export type GetBiContributorActivityByIdResponse = components["schemas"]["Contri
 export type GetBiContributorActivityByIdModel = BiContributorActivityInterface;
 
 type GetBiContributorActivityByIdPathParams = operations["getContributorActivityGraph"]["parameters"]["path"];
-type GetBiContributorActivityByIdQueryParams = operations["getContributorActivityGraph"]["parameters"]["query"];
+type GetBiContributorActivityByIdQueryParams = operations["getContributorActivityGraph"]["parameters"]["query"] & {
+  /**
+   * Optional ISO 8601 date string for filtering activity from this date
+   */
+  fromDate?: string;
+  /**
+   * Optional ISO 8601 date string for filtering activity until this date
+   */
+  toDate?: string;
+};
 
 export type GetBiContributorActivityByIdPortParams = HttpClientParameters<{
   PathParams: GetBiContributorActivityByIdPathParams;
