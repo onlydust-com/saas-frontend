@@ -1,9 +1,9 @@
 import { Folder, User } from "lucide-react";
 import { ElementType, useRef } from "react";
 
+import { Avatar } from "@/design-system/atoms/avatar";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelSingle } from "@/design-system/molecules/avatar-label-single/variants/avatar-label-single-default";
 import { HoverEffect } from "@/design-system/molecules/cards/card-project-marketplace/_components/hover-effect/hover-effect";
 
 import { Stat } from "@/shared/components/stat/stat";
@@ -24,31 +24,31 @@ export function EcosystemCard<C extends ElementType = "div">({
   const cardRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Paper as={as} htmlProps={htmlProps} size="none" background="transparent" border="primary">
+    <Paper
+      as={as}
+      htmlProps={htmlProps}
+      size="none"
+      background="transparent"
+      border="primary"
+      classNames={{ base: "purple-halo-gradient relative z-[1] h-full rounded-md before:rounded-md after:rounded-md" }}
+    >
       <div ref={cardRef} className="flex h-full w-full flex-col">
         <HoverEffect cardRef={cardRef} />
 
         <div className="relative z-20 flex h-full flex-col justify-between gap-2lg rounded-md border-border-primary p-xl">
           <div className="flex flex-col gap-2lg">
-            <AvatarLabelSingle
-              avatar={{
-                src: logoUrl,
-                alt: name,
-              }}
-              size="xl"
-              shape="squared"
-              title={{
-                variant: "heading",
-                size: "xs",
-                weight: "medium",
-                children: name,
-              }}
-            />
+            <div className="flex flex-row items-center gap-xl">
+              <Avatar size="xl" shape="squared" src={logoUrl} alt={name} />
+
+              <Typo variant="heading" size="xs" weight="medium" color="primary" classNames={{ base: "truncate" }}>
+                {name}
+              </Typo>
+            </div>
 
             <div className="flex flex-col gap-md mobile:flex-row">
-              <Paper size="md">
+              <Paper size="md" background="glass" border="primary">
                 <Stat
-                  label={{ token: "hackathon:shared.stats.registered" }}
+                  label="Users"
                   value={Intl.NumberFormat().format(usersCount)}
                   iconProps={{
                     component: User,
@@ -59,9 +59,9 @@ export function EcosystemCard<C extends ElementType = "div">({
                 />
               </Paper>
 
-              <Paper size="md">
+              <Paper size="md" background="glass" border="primary">
                 <Stat
-                  label={{ token: "hackathon:shared.stats.projects" }}
+                  label="Projects"
                   value={Intl.NumberFormat().format(projectsCount)}
                   iconProps={{
                     component: Folder,

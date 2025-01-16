@@ -1,15 +1,14 @@
 import { useMemo, useState } from "react";
 
-import { EcosystemsFilters } from "@/app/ecosystems/_features/ecosystems-filters/ecosystems-filters";
+import { EcosystemCard } from "@/app/ecosystems/_components/ecosystem-card/ecosystem-card";
 import {
   EcosystemsContextProvider,
   useEcosystemsContext,
 } from "@/app/ecosystems/_features/ecosystems-filters/ecosystems-filters.context";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
-import { CardProjectMarketplaceLoading } from "@/design-system/molecules/cards/card-project-marketplace/card-project-marketplace.loading";
-import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
+import { Skeleton } from "@/design-system/atoms/skeleton";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
@@ -22,15 +21,15 @@ function Safe() {
   const { queryParams } = useEcosystemsContext();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    ProjectReactQueryAdapter.client.useGetProjectsV2({
+    EcosystemReactQueryAdapter.client.useGetEcosystems({
       queryParams: { ...queryParams, search: debouncedSearch },
     });
 
-  const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
+  const ecosystems = useMemo(() => data?.pages.flatMap(({ ecosystems }) => ecosystems) ?? [], [data]);
 
-  const renderProjects = useMemo(() => {
+  const renderEcosystems = useMemo(() => {
     if (isLoading) {
-      return Array.from({ length: 8 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
+      return Array.from({ length: 9 }).map((_, index) => <Skeleton key={index} className="h-64" />);
     }
 
     if (isError) {
@@ -41,38 +40,32 @@ function Safe() {
       );
     }
 
-    if (!projects.length) {
+    if (!ecosystems.length) {
       return <EmptyStateLite />;
     }
 
-    return projects.map(project => (
-      <CardProjectMarketplace
-        key={project.id}
-        name={project.name}
-        slug={project.slug}
-        description={project.shortDescription}
-        logoUrl={project.logoUrl}
-        contributorCount={project.contributorCount}
-        starCount={project.starCount}
-        forkCount={project.forkCount}
-        availableIssueCount={project.availableIssueCount}
-        goodFirstIssueCount={project.goodFirstIssueCount}
-        categories={project.categories}
-        languages={project.languages}
-        ecosystems={project.ecosystems}
+    return ecosystems.map(ecosystem => (
+      <EcosystemCard
+        key={ecosystem.id}
+        name={ecosystem.name}
+        logoUrl={ecosystem.logoUrl}
+        usersCount={ecosystem.contributorCount}
+        projectsCount={ecosystem.projectCount}
+        description={ecosystem.description}
+        languages={ecosystem.languages}
       />
     ));
-  }, [isLoading, isError, projects]);
+  }, [isLoading, isError, ecosystems]);
 
   return (
     <div className="flex h-full flex-col gap-4xl overflow-hidden">
       <header className="flex flex-row items-start justify-between gap-xl">
         <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-        <EcosystemsFilters />
+        {/* <EcosystemsFilters /> */}
       </header>
 
       <div className="grid w-full grid-cols-1 gap-4xl overflow-hidden sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {renderProjects}
+        {renderEcosystems}
 
         {hasNextPage ? (
           <div className="col-span-full">
