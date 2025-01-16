@@ -126,10 +126,10 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
     };
   };
 
-  getEcosystemEvents = ({ pathParams }: FirstParameter<EcosystemStoragePort["getEcosystemEvents"]>) => {
+  getEcosystemEvents = ({ pathParams, queryParams }: FirstParameter<EcosystemStoragePort["getEcosystemEvents"]>) => {
     const path = this.routes["getEcosystemEvents"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetEcosystemEventsResponse>({
@@ -137,6 +137,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return {
