@@ -7,8 +7,27 @@ import {
   ActivityGraphLevelRange,
 } from "@/shared/features/contributors/activity-graph/activity-graph.types";
 
-const useActivityGraphRange = ({ start, end }: { start?: Date; end?: Date }) => {
+const useActivityGraphRange = ({ start, end, fromDate, toDate }: { start?: Date; end?: Date; fromDate?: string; toDate?: string }) => {
   const dateKernel = bootstrap.getDateKernelPort();
+
+  // Handle fromDate/toDate if provided (new API parameters)
+  if (fromDate || toDate) {
+    const from = fromDate ? new Date(fromDate) : dateKernel.subYears(new Date(), ActivityGraphConfig.number_of_years);
+    const to = toDate ? new Date(toDate) : new Date();
+    
+    // Validate dates
+    if (isNaN(from.getTime()) || isNaN(to.getTime())) {
+      console.error('Invalid date format provided. Using default range.');
+      return {
+        from: dateKernel.subYears(dateKernel.subDays(new Date(), 1), ActivityGraphConfig.number_of_years),
+        to: new Date(),
+      };
+    }
+
+    return { from, to };
+  }
+
+  // Handle existing start/end logic
   if (start) {
     return {
       from: start,
@@ -23,6 +42,7 @@ const useActivityGraphRange = ({ start, end }: { start?: Date; end?: Date }) => 
     };
   }
 
+  // Default behavior
   return {
     from: dateKernel.subYears(dateKernel.subDays(new Date(), 1), ActivityGraphConfig.number_of_years),
     to: new Date(),

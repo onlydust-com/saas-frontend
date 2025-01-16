@@ -6,6 +6,8 @@ export interface ActivityGraphData {
 
 export interface ActivityGraphProps {
   data?: ActivityGraphData[];
+  fromDate?: string;
+  toDate?: string;
 }
 
 export type ActivityGraphLevel = 0 | 1 | 2 | 3 | 4;
