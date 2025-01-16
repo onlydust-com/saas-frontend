@@ -61,6 +61,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         queryParams,
+        version: MarketplaceApiVersion.v3,
       });
 
       return {
