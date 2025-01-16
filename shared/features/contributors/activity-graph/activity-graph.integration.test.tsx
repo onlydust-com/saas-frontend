@@ -3,6 +3,34 @@ import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-ad
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { BiContributorActivityResponse } from "@/core/domain/bi/models/bi-contributor-activity-model";
 
+// Mock bootstrap
+vi.mock("@/core/bootstrap", () => ({
+  bootstrap: {
+    getDateKernelPort: () => ({
+      subYears: vi.fn(),
+      addYears: vi.fn(),
+      subDays: vi.fn(),
+      isSameDay: vi.fn(),
+      isSameMonth: vi.fn(),
+      startOfMonth: vi.fn(),
+      endOfMonth: vi.fn(),
+      eachMonthOfInterval: vi.fn(),
+      eachDayOfInterval: vi.fn()
+    })
+  }
+}));
+
+// Mock HTTP client
+vi.mock("@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client", () => ({
+  HttpClient: vi.fn().mockImplementation(() => ({
+    request: vi.fn(),
+    buildTag: vi.fn(),
+    buildUrl: vi.fn(),
+    getHeaders: vi.fn().mockResolvedValue({}),
+    formatResponse: vi.fn(response => response)
+  }))
+}));
+
 describe("Activity Graph Integration Tests", () => {
   let biClientAdapter: BiClientAdapter;
   let httpClient: HttpClient;
