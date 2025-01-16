@@ -29,13 +29,13 @@ export type SearchEcosystemsPortResponse = HttpStorageResponse<SearchEcosystemsM
 
 /* --------------------------------- Get Ecosystems -------------------------------- */
 
-export type GetEcosystemsResponse = components["schemas"]["EcosystemPageV2"];
+export type GetEcosystemsResponse = components["schemas"]["EcosystemPageV3"];
 
 export type GetEcosystemsModel = Omit<GetEcosystemsResponse, "ecosystems"> & {
   ecosystems: EcosystemsListItem[];
 };
 
-type GetEcosystemsQueryParams = operations["getEcosystemsPage"]["parameters"]["query"];
+type GetEcosystemsQueryParams = operations["getEcosystemsV3"]["parameters"]["query"];
 
 export type GetEcosystemsPortResponse = HttpStorageResponse<GetEcosystemsModel>;
 

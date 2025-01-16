@@ -41,6 +41,12 @@ const nextConfig = {
         destination: "/hackathons/:hackathonSlug/overview",
         permanent: true,
       },
+      // ECOSYSTEMS
+      {
+        source: "/ecosystems/:ecosystemSlug",
+        destination: "/ecosystems/:ecosystemSlug/overview",
+        permanent: true,
+      },
     ];
   },
 };
