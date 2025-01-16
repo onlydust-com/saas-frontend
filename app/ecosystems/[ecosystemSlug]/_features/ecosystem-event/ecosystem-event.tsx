@@ -81,52 +81,41 @@ export function EcosystemEvent({ ecosystemSlug }: EcosystemEventProps) {
           const formattedDates = event.formatDisplayDates();
 
           return (
-            <div
-              key={event.name}
-              className={cn("flex items-start gap-xl p-xl", {
-                "opacity-50": event.isPast(),
-              })}
-            >
-              <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md bg-[#121212]">
-                <div className="flex flex-col text-center">
-                  <Typo size="xs">{formattedDates.startMonth}</Typo>
-                  <Typo size="xs" weight="medium">
-                    {formattedDates.startDay}
-                  </Typo>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-md">
-                <div className="flex flex-col">
-                  <Typo size="sm" weight="bold">
-                    {event.name}
-                  </Typo>
-                  <Typo size="xs" color="tertiary">
-                    {event.description}
-                  </Typo>
+            <BaseLink href={event.link} key={event.name}>
+              <div
+                className={cn("flex items-start gap-xl p-xl", {
+                  "opacity-50": event.isPast(),
+                })}
+              >
+                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md bg-[#121212]">
+                  <div className="flex flex-col text-center">
+                    <Typo size="xs">{formattedDates.startMonth}</Typo>
+                    <Typo size="xs" weight="medium">
+                      {formattedDates.startDay}
+                    </Typo>
+                  </div>
                 </div>
 
-                <Typo size="xs">
-                  {formattedDates.startDate} - {formattedDates.startTime}
-                </Typo>
+                <div className="flex flex-1 flex-col gap-md">
+                  <div className="flex flex-col">
+                    <Typo size="sm" weight="bold">
+                      {event.name}
+                    </Typo>
+                    <Typo size="xs" color="tertiary">
+                      {event.description}
+                    </Typo>
+                  </div>
 
-                {event?.link ? (
-                  <Button
-                    key={event.link}
-                    variant="secondary"
-                    size={"xs"}
-                    as={BaseLink}
-                    htmlProps={{ href: event.link }}
-                  >
-                    {event.link}
-                  </Button>
-                ) : null}
-              </div>
+                  <Typo size="xs">
+                    {formattedDates.startDate} - {formattedDates.startTime}
+                  </Typo>
+                </div>
 
-              <div className="flex h-full items-center justify-center">
-                <Icon component={ChevronRight} />
+                <div className="flex items-center self-center">
+                  <Icon component={ChevronRight} />
+                </div>
               </div>
-            </div>
+            </BaseLink>
           );
         })
       ) : (
