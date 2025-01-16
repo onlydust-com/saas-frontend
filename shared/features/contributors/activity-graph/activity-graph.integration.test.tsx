@@ -21,7 +21,7 @@ describe("Activity Graph Integration Tests", () => {
 
     it("should fetch activity data with default date range when no dates provided", async () => {
       // Arrange
-      const mockResponse: BiContributorActivityResponse = {
+      const mockResponse = {
         days: [
           {
             year: 2023,
@@ -30,10 +30,14 @@ describe("Activity Graph Integration Tests", () => {
             rewardCount: 1,
             codeReviewCount: 2,
             issueCount: 1,
-            pullRequestCount: 3
+            pullRequestCount: 3,
+            date: new Date(2023, 0, 1),
+            count: 7,
+            hasReward: true
           }
-        ]
-      };
+        ],
+        totalCount: 7
+      } as BiContributorActivityResponse;
 
       vi.spyOn(httpClient, 'request').mockResolvedValue(mockResponse);
 
@@ -56,7 +60,7 @@ describe("Activity Graph Integration Tests", () => {
       const fromDate = "2023-01-01T00:00:00Z";
       const toDate = "2023-12-31T23:59:59Z";
       
-      const mockResponse: BiContributorActivityResponse = {
+      const mockResponse = {
         days: [
           {
             year: 2023,
@@ -65,7 +69,10 @@ describe("Activity Graph Integration Tests", () => {
             rewardCount: 1,
             codeReviewCount: 2,
             issueCount: 1,
-            pullRequestCount: 3
+            pullRequestCount: 3,
+            date: new Date(2023, 0, 1),
+            count: 7,
+            hasReward: true
           },
           {
             year: 2023,
@@ -74,10 +81,14 @@ describe("Activity Graph Integration Tests", () => {
             rewardCount: 0,
             codeReviewCount: 1,
             issueCount: 2,
-            pullRequestCount: 1
+            pullRequestCount: 1,
+            date: new Date(2023, 11, 31),
+            count: 4,
+            hasReward: false
           }
-        ]
-      };
+        ],
+        totalCount: 11
+      } as BiContributorActivityResponse;
 
       vi.spyOn(httpClient, 'request').mockResolvedValue(mockResponse);
 
@@ -119,7 +130,7 @@ describe("Activity Graph Integration Tests", () => {
       // Arrange
       const fromDate = "2023-06-01T00:00:00Z";
       
-      const mockResponse: BiContributorActivityResponse = {
+      const mockResponse = {
         days: [
           {
             year: 2023,
@@ -128,10 +139,14 @@ describe("Activity Graph Integration Tests", () => {
             rewardCount: 1,
             codeReviewCount: 1,
             issueCount: 0,
-            pullRequestCount: 2
+            pullRequestCount: 2,
+            date: new Date(2023, 5, 1),
+            count: 4,
+            hasReward: true
           }
-        ]
-      };
+        ],
+        totalCount: 4
+      } as BiContributorActivityResponse;
 
       vi.spyOn(httpClient, 'request').mockResolvedValue(mockResponse);
 
@@ -154,7 +169,7 @@ describe("Activity Graph Integration Tests", () => {
       // Arrange
       const toDate = "2023-12-31T23:59:59Z";
       
-      const mockResponse: BiContributorActivityResponse = {
+      const mockResponse = {
         days: [
           {
             year: 2023,
@@ -163,10 +178,14 @@ describe("Activity Graph Integration Tests", () => {
             rewardCount: 2,
             codeReviewCount: 1,
             issueCount: 1,
-            pullRequestCount: 0
+            pullRequestCount: 0,
+            date: new Date(2023, 11, 31),
+            count: 4,
+            hasReward: true
           }
-        ]
-      };
+        ],
+        totalCount: 4
+      } as BiContributorActivityResponse;
 
       vi.spyOn(httpClient, 'request').mockResolvedValue(mockResponse);
 
