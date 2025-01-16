@@ -1,8 +1,19 @@
-import { jest } from '@jest/globals';
-import { bootstrap } from "../../../core/bootstrap";
-import { BiClientAdapter } from "../../../core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
-import { HttpClient } from "../../../core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
-import { ActivityGraphConfig } from "./activity-graph.constants";
+import { describe, expect, it, beforeEach } from '@jest/globals';
+import { bootstrap } from "@/core/bootstrap";
+import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
+import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
+import { ActivityGraphConfig } from "@/shared/features/contributors/activity-graph/activity-graph.constants";
+import type { BiContributorActivityInterface } from "@/core/domain/bi/models/bi-contributor-activity-model";
+
+interface ActivityDay {
+  date: string | Date;
+  count: number;
+  hasReward: boolean;
+  rewardCount?: number;
+  codeReviewCount?: number;
+  issueCount?: number;
+  pullRequestCount?: number;
+}
 
 describe("Activity Graph Integration Tests", () => {
   let biClientAdapter: BiClientAdapter;
@@ -23,7 +34,7 @@ describe("Activity Graph Integration Tests", () => {
       const expectedTo = new Date();
 
       // Act
-      const result = await biClientAdapter
+      const result: BiContributorActivityInterface = await biClientAdapter
         .getBiContributorActivityById({
           pathParams: { contributorId },
         })
@@ -45,7 +56,7 @@ describe("Activity Graph Integration Tests", () => {
       const toDate = "2023-12-31T23:59:59Z";
 
       // Act
-      const result = await biClientAdapter
+      const result: BiContributorActivityInterface = await biClientAdapter
         .getBiContributorActivityById({
           pathParams: { contributorId },
           queryParams: { fromDate, toDate },
@@ -54,7 +65,7 @@ describe("Activity Graph Integration Tests", () => {
 
       // Assert
       expect(result).toBeDefined();
-      result.days.forEach(day => {
+      result.days.forEach((day: ActivityDay) => {
         const date = new Date(day.date);
         expect(date.getTime()).toBeGreaterThanOrEqual(new Date(fromDate).getTime());
         expect(date.getTime()).toBeLessThanOrEqual(new Date(toDate).getTime());
@@ -91,7 +102,7 @@ describe("Activity Graph Integration Tests", () => {
 
       // Assert
       expect(result).toBeDefined();
-      result.days.forEach(day => {
+      result.days.forEach((day: ActivityDay) => {
         const date = new Date(day.date);
         expect(date.getTime()).toBeGreaterThanOrEqual(new Date(fromDate).getTime());
       });
@@ -111,7 +122,7 @@ describe("Activity Graph Integration Tests", () => {
 
       // Assert
       expect(result).toBeDefined();
-      result.days.forEach(day => {
+      result.days.forEach((day: ActivityDay) => {
         const date = new Date(day.date);
         expect(date.getTime()).toBeLessThanOrEqual(new Date(toDate).getTime());
       });
