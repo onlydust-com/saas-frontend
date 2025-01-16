@@ -4,7 +4,7 @@ import { COLORS } from "@/shared/theme/colors";
 
 interface Variants {
   shape: "square" | "circle";
-  background: keyof typeof COLORS.background;
+  background: keyof typeof COLORS.background | "glass";
 }
 
 interface ClassNames {

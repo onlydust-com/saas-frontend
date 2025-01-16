@@ -1,0 +1,22 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "projects": "Projects",
+    "community": "Community"
+  },
+  "projects": {
+    "filters": {
+      "title": "Filters"
+    },
+    "projectsCount": "Projects"
+  },
+  "documentation": {
+    "title": "Documentation"
+  },
+  "stats": {
+    "activeContributors": "Active Contributors",
+    "activeProjects": "Active Projects",
+    "availableIssues": "Available Issues",
+    "mergedPullRequests": "Merged Pull Requests"
+  }
+}

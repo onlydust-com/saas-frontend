@@ -1,0 +1,11 @@
+{
+  "status": {
+    "liveNow": "Live now",
+    "closed": "Closed"
+  },
+  "button": {
+    "explore": "Explore"
+  },
+  "sponsors": "Sponsors",
+  "joinTheODHack": "Join the ODHack"
+}

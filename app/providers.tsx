@@ -5,6 +5,7 @@ import { Auth0Provider } from "@/core/application/auth0-client-adapter/auth0-pro
 import { QueryProvider } from "@/core/application/react-query-adapter/query-provider";
 import { ClientBootstrapProvider } from "@/core/bootstrap/client-bootstrap-context";
 
+import { NavigationProvider } from "@/shared/features/navigation/navigation.context";
 import { PosthogProvider } from "@/shared/tracking/posthog/posthog-provider";
 import { TranslationProvider } from "@/shared/translation/components/translation-provider/translation-provider";
 
@@ -15,7 +16,9 @@ export function Providers({ children }: PropsWithChildren) {
         <Auth0Provider>
           <TranslationProvider>
             <QueryProvider>
-              <NextUIProvider>{children}</NextUIProvider>
+              <NextUIProvider>
+                <NavigationProvider>{children}</NavigationProvider>
+              </NextUIProvider>
             </QueryProvider>
           </TranslationProvider>
         </Auth0Provider>

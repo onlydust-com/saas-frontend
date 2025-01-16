@@ -1,4 +1,4 @@
-import { ComponentProps, ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
+import { CSSProperties, ComponentProps, ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
 
 import { COLORS } from "@/shared/theme/colors";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -26,4 +26,5 @@ export interface TypoPort<C extends ElementType> extends Partial<Variants>, Prop
   htmlProps?: ComponentPropsWithoutRef<C>;
   classNames?: Partial<ClassNames>;
   translate?: ComponentProps<typeof Translate>;
+  style?: Partial<CSSProperties>;
 }

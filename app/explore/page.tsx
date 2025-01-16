@@ -5,7 +5,6 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { ProjectBanners } from "@/app/explore/_features/project-banners/project-banners";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -16,7 +15,7 @@ import { TrendingProjects } from "./_features/trending-projects/trending-project
 
 function ExplorePage() {
   return (
-    <ScrollView className="pb-7xl">
+    <div className="pb-7xl">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -26,7 +25,7 @@ function ExplorePage() {
         ]}
       />
 
-      <div className="mx-auto flex max-w-laptop flex-col gap-7xl py-4xl">
+      <div className="mx-auto flex flex-col gap-7xl py-4xl">
         {process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH !== "true" && <GlobalSearch byPassFlag={true} />}
         <ProjectBanners />
 
@@ -36,7 +35,7 @@ function ExplorePage() {
 
         <BrowseProjects />
       </div>
-    </ScrollView>
+    </div>
   );
 }
 

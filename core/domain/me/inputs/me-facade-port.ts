@@ -1,6 +1,8 @@
 import {
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
+  GetMyHackathonRegistrationPortParams,
+  GetMyHackathonRegistrationPortResponse,
   GetMyPayoutPreferencesPortParams,
   GetMyPayoutPreferencesPortResponse,
   GetMyProfilePortParams,
@@ -11,6 +13,10 @@ import {
   GetMyProjectsAsMaintainerPortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
+  PostMyApplicationPortParams,
+  PostMyApplicationPortResponse,
+  RegisterToHackathonPortParams,
+  RegisterToHackathonPortResponse,
   ReplaceMyProfilePortParams,
   ReplaceMyProfilePortResponse,
   SetMePortParams,
@@ -34,4 +40,7 @@ export interface MeFacadePort {
   setMyPayoutPreferenceForProject(
     p: SetMyPayoutPreferenceForProjectPortParams
   ): SetMyPayoutPreferenceForProjectPortResponse;
+  postMyApplication(p: PostMyApplicationPortParams): PostMyApplicationPortResponse;
+  getMyHackathonRegistration(params: GetMyHackathonRegistrationPortParams): GetMyHackathonRegistrationPortResponse;
+  registerToHackathon(params: RegisterToHackathonPortParams): RegisterToHackathonPortResponse;
 }

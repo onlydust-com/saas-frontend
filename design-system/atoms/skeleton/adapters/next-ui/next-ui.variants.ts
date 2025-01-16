@@ -14,6 +14,7 @@ export const SkeletonNextUiVariants = tv({
       },
     },
     background: {
+      glass: { base: "before:!bg-glass-white-gradient !bg-glass-white after:!bg-transparent" },
       primary: { base: "bg-background-primary dark:bg-background-primary" },
       "primary-alt": { base: "bg-background-primary-alt dark:bg-background-primary-alt" },
       "primary-solid": { base: "bg-background-primary-solid dark:bg-background-primary-solid" },

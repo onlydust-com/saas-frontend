@@ -1212,7 +1212,7 @@
   @layer components {
     .app-gradient {
       position: relative;
-      background: radial-gradient(112.56% 95.25% at 50% 100%, #100e33 0%, #09040e 100%), #0d121c;
+      background: radial-gradient(112.56% 95.25% at 50% 100%, #100e33 0%, #01000b 100%), #0d121c;
     }
 
     .app-gradient::after {

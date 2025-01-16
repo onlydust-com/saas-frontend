@@ -1,5 +1,5 @@
-import { FormatDistanceStrictUnit } from "date-fns";
 import * as DateFns from "date-fns";
+import { FormatDistanceStrictUnit } from "date-fns";
 
 import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 

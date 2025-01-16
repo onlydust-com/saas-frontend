@@ -29,6 +29,18 @@ const nextConfig = {
         destination: "/my-dashboard/contributions",
         permanent: true,
       },
+      // PROJECTS
+      {
+        source: "/projects/:projectSlug",
+        destination: "/projects/:projectSlug/overview",
+        permanent: true,
+      },
+      // HACKATHONS
+      {
+        source: "/hackathons/:hackathonSlug",
+        destination: "/hackathons/:hackathonSlug/overview",
+        permanent: true,
+      },
     ];
   },
 };

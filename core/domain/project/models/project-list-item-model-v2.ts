@@ -22,6 +22,8 @@ export class ProjectListItemV2 implements ProjectListItemInterfaceV2 {
   languages!: ProjectListItemResponseV2["languages"];
   logoUrl!: ProjectListItemResponseV2["logoUrl"];
   ecosystems!: ProjectListItemResponseV2["ecosystems"];
+  odHackStats!: ProjectListItemResponseV2["odHackStats"];
+  contributorStats!: ProjectListItemResponseV2["contributorStats"];
 
   constructor(props: ProjectListItemResponseV2) {
     Object.assign(this, props);

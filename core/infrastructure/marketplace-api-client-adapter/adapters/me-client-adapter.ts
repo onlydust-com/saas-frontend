@@ -2,17 +2,20 @@ import { bootstrap } from "@/core/bootstrap";
 import { BillingProfileShort } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import {
   GetMeResponse,
+  GetMyHackathonRegistrationResponse,
   GetMyPayoutPreferencesResponse,
   GetMyProfileResponse,
   GetMyProjectsAsContributorResponse,
   GetMyProjectsAsMaintainerResponse,
   LogoutMeResponse,
+  PostMyApplicationBody,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
+import { MeHackathonRegistration } from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { Me } from "@/core/domain/me/models/me-model";
 import { MeProfile } from "@/core/domain/me/models/me-profile-model";
@@ -36,6 +39,9 @@ export class MeClientAdapter implements MeStoragePort {
     getMyProjectsAsContributor: "me/as-contributor/projects",
     getMyPayoutPreferences: "me/payout-preferences",
     setMyPayoutPreferenceForProject: "me/payout-preferences",
+    postMyApplication: "me/applications",
+    getMyHackathonRegistration: "me/hackathons/:hackathonId/registrations",
+    registerToHackathon: "me/hackathons/:hackathonId/registrations",
   } as const;
 
   logoutMe = () => {
@@ -248,6 +254,66 @@ export class MeClientAdapter implements MeStoragePort {
         method,
         tag,
         body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  postMyApplication = () => {
+    const path = this.routes["postMyApplication"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: PostMyApplicationBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getMyHackathonRegistration = ({ pathParams }: FirstParameter<MeStoragePort["getMyHackathonRegistration"]>) => {
+    const path = this.routes["getMyHackathonRegistration"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetMyHackathonRegistrationResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new MeHackathonRegistration(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  registerToHackathon = ({ pathParams }: FirstParameter<MeStoragePort["registerToHackathon"]>) => {
+    const path = this.routes["registerToHackathon"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
       });
 
     return {

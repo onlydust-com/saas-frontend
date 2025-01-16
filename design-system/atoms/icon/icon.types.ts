@@ -8,6 +8,8 @@ interface ClassNames {
 
 export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
 
+export type IconColor = "green" | "red" | "purple" | "blue" | "quaternary" | "yellow" | "pink";
+
 interface BaseIconPort {
   classNames?: Partial<ClassNames>;
   size?: IconSize;
@@ -15,11 +17,12 @@ interface BaseIconPort {
 
 export interface LucideIconPort extends BaseIconPort {
   component: LucideIcon;
+  color?: IconColor;
 }
 
 export interface RemixIconPort extends BaseIconPort {
   name: RemixIconsName;
-  color?: string;
+  color?: IconColor;
   component?: never;
 }
 

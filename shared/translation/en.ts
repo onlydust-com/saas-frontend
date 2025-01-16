@@ -1,11 +1,16 @@
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
 import { enDataTranslation } from "@/app/data/_translations/data.translate";
+import { enEcosystemsTranslation } from "@/app/ecosystems/_translations/ecosystems.translate";
 import { enExploreTranslation } from "@/app/explore/_translations/explore.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
+import { enHackathonsTranslation } from "@/app/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
+import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";
+import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";
+import { enUsersTranslation } from "@/app/users/_translations/users.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTranslations } from "@/design-system/molecules/cards/_translations/cards.translate";
@@ -39,6 +44,11 @@ export const en = {
   ...enProjectRecommendationTranslation,
   ...enFinancialsTranslation,
   ...enDataTranslation,
+  ...enProjectsTranslation,
+  ...enHackathonsTranslation,
+  ...enRepositoriesTranslation,
+  ...enEcosystemsTranslation,
+  ...enUsersTranslation,
   ...enManageProjectsTranslation,
   ...enMyDashboardTranslation,
   ...enExploreTranslation,

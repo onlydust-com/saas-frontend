@@ -1,35 +1,19 @@
 import { ComponentPropsWithoutRef, ElementType, PropsWithChildren } from "react";
 
 import { COLORS } from "@/shared/theme/colors";
+import { RADIUS } from "@/shared/theme/radius";
+import { SPACING } from "@/shared/theme/spacing";
 
-type paperSpacing =
-  | "none"
-  | "xxs"
-  | "xs"
-  | "sm"
-  | "md"
-  | "2md"
-  | "lg"
-  | "2lg"
-  | "xl"
-  | "2xl"
-  | "3xl"
-  | "4xl"
-  | "5xl"
-  | "6xl"
-  | "7xl"
-  | "8xl"
-  | "9xl"
-  | "10xl"
-  | "11xl";
+type Spacing = keyof typeof SPACING;
 
 interface Variants {
-  size?: paperSpacing;
-  px?: paperSpacing;
-  py?: paperSpacing;
+  size?: Spacing;
+  px?: Spacing;
+  py?: Spacing;
   background: "transparent" | keyof typeof COLORS.background | "glass";
   border: "none" | keyof typeof COLORS.border;
   hasBorderHover?: boolean;
+  rounded?: keyof typeof RADIUS;
 }
 
 interface ClassNames {

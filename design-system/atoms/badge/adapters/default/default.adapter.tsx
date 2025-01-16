@@ -23,6 +23,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   fixedSize = false,
   count,
   styles,
+  onClick,
   ...props
 }: BadgePort<C>) {
   const { isDeletable, shape = "rounded", size = "sm", color, iconOnly } = props;
@@ -33,7 +34,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   const slots = BadgeDefaultVariants({ isDeletable, size, color, shape, iconOnly, variant, fixedSize: _fixedSize });
   const showChildren = !!children || children === 0 || !!translate || !!count || count === 0;
 
-  const s = useMemo(() => {
+  const baseStyles = useMemo(() => {
     if (styles) {
       return {
         ...(styles?.backgroundColor && { backgroundColor: styles?.backgroundColor }),
@@ -42,13 +43,33 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
     return {};
   }, [styles]);
 
+  const labelStyles = useMemo(() => {
+    if (styles) {
+      return {
+        ...(styles?.labelColor && { color: styles?.labelColor }),
+      };
+    }
+    return {};
+  }, [styles]);
+
   return (
-    <Component {...htmlProps} className={cn(slots.base(), classNames?.base)} style={s}>
+    <Component
+      {...htmlProps}
+      onClick={onClick}
+      className={cn(slots.base(), classNames?.base, { "cursor-pointer": onClick })}
+      style={baseStyles}
+    >
       <div className={cn(slots.content(), classNames?.content)}>
         {startContent}
 
         {showChildren && (
-          <Typo size={"xs"} as={"span"} {...labelProps} classNames={{ base: cn(slots.label(), classNames?.label) }}>
+          <Typo
+            size={"xs"}
+            as={"span"}
+            {...labelProps}
+            classNames={{ base: cn(slots.label(), classNames?.label) }}
+            style={labelStyles}
+          >
             {children}
             {translate && <Translate {...translate} />}
             {count}
