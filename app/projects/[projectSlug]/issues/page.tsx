@@ -18,9 +18,21 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ProjectIssuesPage({ params }: { params: { projectSlug: string } }) {
+export default function ProjectIssuesPage({
+  params,
+  searchParams,
+}: {
+  params: { projectSlug: string };
+  searchParams: { l: string };
+}) {
   const { open } = useApplyIssueSidePanel();
-  const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>([]);
+
+  const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>(() => {
+    const labels = searchParams.l?.split(",").filter(Boolean) || [];
+
+    return labels.map(name => ({ name })) as GithubLabelWithCountInterface[];
+  });
+
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
@@ -54,10 +66,20 @@ export default function ProjectIssuesPage({ params }: { params: { projectSlug: s
 
   function handleLabelClick(label: GithubLabelWithCountInterface) {
     setSelectedLabels(prev => {
-      if (prev.some(l => l.name === label.name)) {
-        return prev.filter(l => l.name !== label.name);
+      const next = prev.some(l => l.name === label.name) ? prev.filter(l => l.name !== label.name) : [...prev, label];
+
+      const params = new URLSearchParams(window.location.search);
+
+      const labels = next.map(l => l.name);
+      if (labels.length) {
+        params.set("l", labels.join(","));
+      } else {
+        params.delete("l");
       }
-      return [...prev, label];
+
+      window.history.replaceState(null, "", `?${params.toString()}`);
+
+      return next;
     });
   }
 
