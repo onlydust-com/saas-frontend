@@ -112,7 +112,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         key={project.id}
         as={BaseLink}
         htmlProps={{
-          href: NEXT_ROUTER.projects.details.root(project.slug),
+          href: NEXT_ROUTER.projects.details.issues.root(project.slug),
         }}
         name={project.name}
         slug={project.slug}
