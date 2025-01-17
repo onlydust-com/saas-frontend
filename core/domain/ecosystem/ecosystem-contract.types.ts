@@ -6,6 +6,7 @@ import {
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
 import { EcosystemContributorsInterface } from "./models/ecosystem-contributors-list-item-model";
+import { EcosystemEventInterface } from "./models/ecosystem-event-model";
 import { EcosystemsListItem } from "./models/ecosystem-list-item-model";
 import { EcosystemInterface } from "./models/ecosystem-model";
 
@@ -29,13 +30,13 @@ export type SearchEcosystemsPortResponse = HttpStorageResponse<SearchEcosystemsM
 
 /* --------------------------------- Get Ecosystems -------------------------------- */
 
-export type GetEcosystemsResponse = components["schemas"]["EcosystemPageV2"];
+export type GetEcosystemsResponse = components["schemas"]["EcosystemPageV3"];
 
 export type GetEcosystemsModel = Omit<GetEcosystemsResponse, "ecosystems"> & {
   ecosystems: EcosystemsListItem[];
 };
 
-type GetEcosystemsQueryParams = operations["getEcosystemsPage"]["parameters"]["query"];
+type GetEcosystemsQueryParams = operations["getEcosystemsV3"]["parameters"]["query"];
 
 export type GetEcosystemsPortResponse = HttpStorageResponse<GetEcosystemsModel>;
 
@@ -69,4 +70,21 @@ export type GetEcosystemContributorsPortResponse = HttpStorageResponse<GetEcosys
 export type GetEcosystemContributorsPortParams = HttpClientParameters<{
   QueryParams: GetEcosystemContributorsQueryParams;
   PathParams: GetEcosystemContributorsPathParams;
+}>;
+
+/* ------------------------------ Get Ecosystem Events ------------------------------ */
+
+export type GetEcosystemEventsResponse = components["schemas"]["EcosystemEventsListResponse"];
+export type GetEcosystemEventsModel = Omit<GetEcosystemEventsResponse, "events"> & {
+  events: EcosystemEventInterface[];
+};
+
+type GetEcosystemEventsPathParams = operations["getEcosystemEvents"]["parameters"]["path"];
+type GetEcosystemEventsQueryParams = operations["getEcosystemEvents"]["parameters"]["query"];
+
+export type GetEcosystemEventsPortResponse = HttpStorageResponse<GetEcosystemEventsModel>;
+
+export type GetEcosystemEventsPortParams = HttpClientParameters<{
+  PathParams: GetEcosystemEventsPathParams;
+  QueryParams: GetEcosystemEventsQueryParams;
 }>;

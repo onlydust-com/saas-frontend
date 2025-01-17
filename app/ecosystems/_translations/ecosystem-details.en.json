@@ -18,5 +18,11 @@
     "activeProjects": "Active Projects",
     "availableIssues": "Available Issues",
     "mergedPullRequests": "Merged Pull Requests"
+  },
+  "events": {
+    "title": "Events",
+    "allEvents": "All Events",
+    "pastEvents": "Past Events",
+    "upcomingEvents": "Upcoming Events"
   }
 }
