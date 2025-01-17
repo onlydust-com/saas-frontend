@@ -24,5 +24,14 @@
     "allEvents": "All Events",
     "pastEvents": "Past Events",
     "upcomingEvents": "Upcoming Events"
+  },
+  "community": {
+    "columns": {
+      "from": "From",
+      "projects": "Projects",
+      "issueAssigned": "Issue Assigned",
+      "mergedPullRequestCount": "Merged Pull Requests",
+      "rewards": "Rewards"
+    }
   }
 }
