@@ -18,14 +18,17 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ProjectIssuesPage({ params }: { params: { projectSlug: string } }) {
+export default function ProjectIssuesPage({
+  params,
+  searchParams,
+}: {
+  params: { projectSlug: string };
+  searchParams: { l: string };
+}) {
   const { open } = useApplyIssueSidePanel();
 
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>(() => {
-    if (typeof window === "undefined") return [];
-
-    const params = new URLSearchParams(window.location.search);
-    const labels = params.get("l")?.split(",").filter(Boolean) || [];
+    const labels = searchParams.l?.split(",").filter(Boolean) || [];
 
     return labels.map(name => ({ name })) as GithubLabelWithCountInterface[];
   });
