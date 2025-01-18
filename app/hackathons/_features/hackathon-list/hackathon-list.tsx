@@ -105,7 +105,9 @@ export function HackathonList() {
 
     if (!data) return null;
 
-    const closedHackathons = data.hackathons.filter(hackathon => hackathon.isPast());
+    const mostRecentHackathons = [...data.hackathons].reverse();
+
+    const closedHackathons = mostRecentHackathons.filter(hackathon => hackathon.isPast());
 
     return (
       <div ref={sliderRef} className="keen-slider">

@@ -1,0 +1,146 @@
+# Saas Frontend
+
+Every time you choose to apply a rule(s), explicitly state the rule(s) in the output. You can abbreviate the rule description to a single word or phrase.
+
+## Project Context
+
+This is the frontend for our SaaS product, a platform for rewarding contributions to open source projects and helping maintainers manage their projects.
+Users can:
+
+- View their contributions
+- View their projects
+- Participate in hackathons
+- View their sponsors
+- View project ecosystems
+
+## Code Style and Structure
+
+- Write concise, technical TypeScript code with accurate examples
+- Use domain driven design to implement business logic and api endpoints
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Structure repository files as follows:
+
+```
+app/					# Next.js pages
+core/					# Core business logic
+├── application/    	# Adapters related to the application (React Query hooks, etc)
+├── bootstrap/      	# Bootstrap logic (React Query client, etc)
+├── domain/         	# Domain logic (use cases, etc)
+├── helpers/        	# Helper functions
+└── infrastructure/		# Infrastructure logic (api clients, etc)
+design-system/			# Design system components
+├── atoms/     			# Atomic design system components
+├── helpers/       		# Design system helpers
+├── molecules/       	# Molecular design system components
+└── organisms/         	# Organism design system components
+public/					# Public assets
+├── flags/    			# Country flags
+├── fonts/      		# Custom fonts
+└── images/         	# Image files
+shared/					# Reusable elements across the project that don't belong to the design system
+├── charts/    			# Shared charts
+├── components/    		# Shared components
+├── constants/    		# Shared constants
+├── features/    		# Shared features
+├── helpers/    		# Shared helpers
+├── hocs/    			# Shared higher order components
+├── hooks/    			# Shared custom hooks
+├── icons/    			# Shared custom icons
+├── modals/    			# Shared modals
+├── panels/    			# Shared panels and drawers
+├── theme/    			# Tailwind theme configuration
+├── tracking/      		# Posthog tracking components
+└── translation/      	# Translations
+```
+
+## Tech Stack
+
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
+- NextUI
+- React Query
+- React Hook Form
+- Zod
+
+## Naming Conventions
+
+- Use kebab case for directories and file names (e.g., components/form-wizard, form-wizard.tsx)
+- Favor named exports for components and utilities
+
+## TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types
+- Use functional components with TypeScript interfaces
+- Use absolute imports for all files @/...
+- Use explicit return types for all functions
+
+## State Management
+
+- Use React Context for global state when needed
+- Implement proper cleanup in useEffect hooks
+
+## Syntax and Formatting
+
+- Use "function" keyword for pure functions
+- Use declarative JSX
+
+## UI and Styling
+
+- Implement NextUI when creating design system components
+- Use design system components when implementing new features
+- Implement Tailwind CSS for styling
+
+## Error Handling
+
+- Implement proper error boundaries
+- Log errors appropriately for debugging
+- Provide user-friendly error messages
+- Handle network failures gracefully
+
+## Testing
+
+- Write unit tests for utilities and components
+
+## Security
+
+- Implement Content Security Policy
+- Sanitize user inputs
+- Handle sensitive data properly
+- Implement proper CORS handling
+
+## Git Usage
+
+Commit Message Prefixes:
+
+- "fix:" for bug fixes
+- "feat:" for new features
+- "perf:" for performance improvements
+- "docs:" for documentation changes
+- "style:" for formatting changes
+- "refactor:" for code refactoring
+- "test:" for adding missing tests
+- "chore:" for maintenance tasks
+
+Rules:
+
+- Use lowercase for commit messages
+- Keep the summary line concise
+- Include description for non-obvious changes
+- Reference issue numbers when applicable
+
+## Documentation
+
+- Maintain clear README with setup instructions
+- Document API interactions and data flows
+- Don't include comments unless it's for complex logic
+
+## Development Workflow
+
+- Use proper version control
+- Implement proper code review process
+- Test in multiple environments
+- Follow semantic versioning for releases
+- Maintain changelog
