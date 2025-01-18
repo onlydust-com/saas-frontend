@@ -100,7 +100,7 @@ export default function HackathonsLayout({
             >
               <div
                 className={
-                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
+                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary pl-xl tablet:flex-row"
                 }
               >
                 <Navigation params={params} />
