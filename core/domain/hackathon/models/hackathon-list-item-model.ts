@@ -69,8 +69,8 @@ export class HackathonListItem implements HackathonListItemInterface {
     return {
       startDate: this.dateKernelPort.format(startDate, "d MMM. yyyy"),
       endDate: this.dateKernelPort.format(endDate, "d MMM. yyyy"),
-      startTime: this.dateKernelPort.format(startDate, "haa (OOO)"),
-      endTime: this.dateKernelPort.format(endDate, "haa (OOO)"),
+      startTime: this.dateKernelPort.format(startDate, "h:mmaa (OOO)"),
+      endTime: this.dateKernelPort.format(endDate, "h:mmaa (OOO)"),
     };
   }
 }
