@@ -103,7 +103,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
               </ScrollView>
 
               <Paper
-                background="glass"
+                background="primary"
                 border="primary"
                 classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
                 px="none"

@@ -93,7 +93,7 @@ export default function HackathonsLayout({
             </ScrollView>
 
             <Paper
-              background="glass"
+              background="primary"
               border="primary"
               classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
               size="none"

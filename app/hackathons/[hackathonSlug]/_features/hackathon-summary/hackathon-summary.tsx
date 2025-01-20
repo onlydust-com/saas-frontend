@@ -13,7 +13,6 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { cn } from "@/shared/helpers/cn";
 
 export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
   const {
@@ -41,7 +40,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
 
   return (
     <Paper
-      background="glass"
+      background="primary"
       border="primary"
       classNames={{ base: "flex flex-col divide-y divide-border-primary" }}
       size="none"
@@ -133,13 +132,8 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                   htmlProps={{ href: link.url }}
                   py="lg"
                   px="xl"
-                  background={isFirst ? "transparent" : "secondary"}
-                  border={isFirst ? "primary" : "none"}
-                  classNames={{
-                    base: cn("overflow-hidden hover:opacity-80", {
-                      "purple-halo-gradient": isFirst,
-                    }),
-                  }}
+                  background={"secondary"}
+                  border={"primary"}
                 >
                   <div className="relative z-[1] flex items-center gap-sm">
                     <div className="flex flex-1 flex-col gap-xl">
