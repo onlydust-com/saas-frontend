@@ -1,10 +1,12 @@
 import {
   GetEcosystemBySlugResponse,
   GetEcosystemContributorsResponse,
+  GetEcosystemEventsResponse,
   GetEcosystemsResponse,
   SearchEcosystemsResponse,
 } from "@/core/domain/ecosystem/ecosystem-contract.types";
 import { EcosystemContributorsListItem } from "@/core/domain/ecosystem/models/ecosystem-contributors-list-item-model";
+import { EcosystemEvent } from "@/core/domain/ecosystem/models/ecosystem-event-model";
 import { EcosystemLink } from "@/core/domain/ecosystem/models/ecosystem-link-model";
 import { EcosystemsListItem } from "@/core/domain/ecosystem/models/ecosystem-list-item-model";
 import { Ecosystem } from "@/core/domain/ecosystem/models/ecosystem-model";
@@ -22,6 +24,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
     getEcosystems: "ecosystems",
     getEcosystemBySlug: "ecosystems/:slug",
     getEcosystemContributors: "ecosystems/:slug/contributors",
+    getEcosystemEvents: "ecosystems/:slug/events",
   } as const;
 
   searchEcosystems = ({ queryParams, pathParams }: FirstParameter<EcosystemStoragePort["searchEcosystems"]>) => {
@@ -61,6 +64,7 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         queryParams,
+        version: MarketplaceApiVersion.v3,
       });
 
       return {
@@ -114,6 +118,32 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
       return {
         ...data,
         contributors: (data?.contributors || []).map(contributor => new EcosystemContributorsListItem(contributor)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getEcosystemEvents = ({ pathParams, queryParams }: FirstParameter<EcosystemStoragePort["getEcosystemEvents"]>) => {
+    const path = this.routes["getEcosystemEvents"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetEcosystemEventsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        events: (data?.events || []).map(event => new EcosystemEvent(event)),
       };
     };
 

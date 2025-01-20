@@ -84,7 +84,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
           <div className="border-b border-border-primary p-4 tablet:border-b-0">
             <Stat
               label={"Projects"}
-              value={Intl.NumberFormat().format(hackathon.projects.length)}
+              value={hackathon.projects?.length ? Intl.NumberFormat().format(hackathon.projects.length) : "0"}
               iconProps={{
                 component: Folder,
                 classNames: {

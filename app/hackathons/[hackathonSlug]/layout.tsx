@@ -44,7 +44,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"hackathon-view"}
-      classNames={{ base: "tablet:self-end self-start -mb-px" }}
+      classNames={{ base: "tablet:self-end self-start -mb-px pl-xl" }}
       tabs={[
         {
           id: Views.OVERVIEW,
