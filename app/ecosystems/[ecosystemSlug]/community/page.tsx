@@ -8,7 +8,7 @@ import { CommunityTable } from "./_components/community-table/community-table";
 
 function EcosystemCommunityPage({ params }: { params: { ecosystemSlug: string } }) {
   return (
-    <div className="pv-lg flex-1">
+    <div className="flex-1 px-lg">
       <CommunityTable ecosystemSlug={params.ecosystemSlug} />
     </div>
   );
