@@ -127,7 +127,12 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >
       <div ref={cardRef} className="flex h-full w-full flex-col">
-        <HoverEffect cardRef={cardRef} />
+        <HoverEffect
+          cardRef={cardRef}
+          showBorder={Boolean(
+            ecosystems?.find(ecosystem => ecosystem.slug === "stellar" || ecosystem.slug === "starknet")
+          )}
+        />
 
         <div className="relative z-20 flex h-full flex-col justify-between gap-2lg rounded-md border-border-primary p-xl">
           <div className="flex flex-col gap-2lg">
