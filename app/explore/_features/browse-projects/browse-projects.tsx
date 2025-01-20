@@ -84,6 +84,7 @@ function Safe() {
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
       />
     ));
   }, [projects, isError, isLoading]);

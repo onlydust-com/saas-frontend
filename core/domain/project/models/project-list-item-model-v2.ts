@@ -24,6 +24,7 @@ export class ProjectListItemV2 implements ProjectListItemInterfaceV2 {
   ecosystems!: ProjectListItemResponseV2["ecosystems"];
   odHackStats!: ProjectListItemResponseV2["odHackStats"];
   contributorStats!: ProjectListItemResponseV2["contributorStats"];
+  tags!: ProjectListItemResponseV2["tags"];
 
   constructor(props: ProjectListItemResponseV2) {
     Object.assign(this, props);

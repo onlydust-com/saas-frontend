@@ -89,6 +89,7 @@ export function TrendingProjects() {
             categories={project.categories}
             languages={project.languages}
             ecosystems={project.ecosystems}
+            tags={project.tags}
           />
         </div>
       ))
