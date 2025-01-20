@@ -43,7 +43,11 @@ function Safe() {
     }
 
     if (!ecosystems.length) {
-      return <EmptyStateLite />;
+      return (
+        <div className="col-span-full">
+          <EmptyStateLite />
+        </div>
+      );
     }
 
     return ecosystems.map(ecosystem => (
