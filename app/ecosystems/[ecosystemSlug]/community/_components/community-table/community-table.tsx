@@ -77,6 +77,13 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
     );
   }
 
+  const handleTypeClick = (type: "CONTRIBUTOR" | "MAINTAINER") => {
+    setSelectedTypes(prev => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
+
   return (
     <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
       <div className="p-xl">
@@ -84,34 +91,24 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
       </div>
 
       <nav className={"flex gap-md p-lg"}>
-        <div className="flex gap-md">
-          <Badge
-            onClick={() =>
-              setSelectedTypes(prev => ({
-                ...prev,
-                CONTRIBUTOR: !prev.CONTRIBUTOR,
-              }))
-            }
-            color={selectedTypes.CONTRIBUTOR ? "brand" : "grey"}
-            translate={{ token: "ecosystems:details.community.contributors" }}
-          />
-          <Badge
-            onClick={() =>
-              setSelectedTypes(prev => ({
-                ...prev,
-                MAINTAINER: !prev.MAINTAINER,
-              }))
-            }
-            color={selectedTypes.MAINTAINER ? "brand" : "grey"}
-            translate={{ token: "ecosystems:details.community.maintainers" }}
-          />
-        </div>
         <TableSearch
           value={search}
           onChange={setSearch}
           onDebouncedChange={setDebouncedSearch}
           inputProps={{ isTransparent: true }}
         />
+        <div className="flex gap-md">
+          <Badge
+            onClick={() => handleTypeClick("CONTRIBUTOR")}
+            color={selectedTypes.CONTRIBUTOR ? "brand" : "grey"}
+            translate={{ token: "ecosystems:details.community.contributors" }}
+          />
+          <Badge
+            onClick={() => handleTypeClick("MAINTAINER")}
+            color={selectedTypes.MAINTAINER ? "brand" : "grey"}
+            translate={{ token: "ecosystems:details.community.maintainers" }}
+          />
+        </div>
       </nav>
       <ScrollView direction={"x"} className="p-lg">
         <Table
