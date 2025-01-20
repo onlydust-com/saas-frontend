@@ -24,9 +24,11 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
 
   return (
     <Paper
+      as={BaseLink}
+      htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
       background="transparent"
       border="primary"
-      classNames={{ base: "purple-halo-gradient overflow-hidden" }}
+      classNames={{ base: "block purple-halo-gradient overflow-hidden hover:opacity-80" }}
       size="none"
     >
       <div className="relative z-[1] flex flex-col divide-y divide-border-primary">
