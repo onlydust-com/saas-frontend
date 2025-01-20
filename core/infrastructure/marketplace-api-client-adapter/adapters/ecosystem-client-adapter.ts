@@ -102,10 +102,13 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
     };
   };
 
-  getEcosystemContributors = ({ pathParams }: FirstParameter<EcosystemStoragePort["getEcosystemContributors"]>) => {
+  getEcosystemContributors = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<EcosystemStoragePort["getEcosystemContributors"]>) => {
     const path = this.routes["getEcosystemContributors"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetEcosystemContributorsResponse>({
@@ -113,6 +116,8 @@ export class EcosystemClientAdapter implements EcosystemStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
+        version: MarketplaceApiVersion.v2,
       });
 
       return {
