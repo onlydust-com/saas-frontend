@@ -72,7 +72,7 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
   if (isError) {
     return (
       <div className="p-lg">
-        <ErrorState />;
+        <ErrorState />
       </div>
     );
   }
