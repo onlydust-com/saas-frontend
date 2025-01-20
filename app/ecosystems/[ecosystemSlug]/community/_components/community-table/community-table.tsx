@@ -93,9 +93,8 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
               }))
             }
             color={selectedTypes.CONTRIBUTOR ? "brand" : "grey"}
-          >
-            Contributors
-          </Badge>
+            translate={{ token: "ecosystems:details.community.contributors" }}
+          />
           <Badge
             onClick={() =>
               setSelectedTypes(prev => ({
@@ -104,9 +103,8 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
               }))
             }
             color={selectedTypes.MAINTAINER ? "brand" : "grey"}
-          >
-            Maintainers
-          </Badge>
+            translate={{ token: "ecosystems:details.community.maintainers" }}
+          />
         </div>
         <TableSearch
           value={search}

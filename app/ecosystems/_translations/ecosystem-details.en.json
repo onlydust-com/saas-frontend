@@ -37,6 +37,8 @@
       "mergedPullRequestCount": "Merged Pull Requests",
       "rewards": "Rewards"
     },
-    "communityCount": "Community"
+    "communityCount": "Community",
+    "contributors": "Contributors",
+    "maintainers": "Maintainers"
   }
 }
