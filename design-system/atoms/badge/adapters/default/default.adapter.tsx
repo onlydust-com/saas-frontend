@@ -55,7 +55,7 @@ export function BadgeDefaultAdapter<C extends ElementType = "span">({
   return (
     <Component
       {...htmlProps}
-      onClick={onClick}
+      onClick={htmlProps?.onClick ?? onClick}
       className={cn(slots.base(), classNames?.base, { "cursor-pointer": onClick })}
       style={baseStyles}
     >
