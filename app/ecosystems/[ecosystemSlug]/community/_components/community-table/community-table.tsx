@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 import { GetEcosystemContributorsQueryParams } from "@/core/domain/ecosystem/ecosystem-contract.types";
 
+import { Badge } from "@/design-system/atoms/badge/variants/badge-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 import { TableLoading } from "@/design-system/molecules/table/table.loading";
@@ -19,11 +20,18 @@ import { useFilterColumns } from "../filter-columns/filter-columns.hooks";
 export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
+  const [selectedTypes, setSelectedTypes] = useState<{
+    CONTRIBUTOR: boolean;
+    MAINTAINER: boolean;
+  }>({ CONTRIBUTOR: true, MAINTAINER: false });
 
   const { columns } = useFilterColumns();
 
   const queryParams: Partial<GetEcosystemContributorsQueryParams> = {
     search: debouncedSearch,
+    types: Object.entries(selectedTypes)
+      .filter(([_, isSelected]) => isSelected)
+      .map(([type]) => type) as ("CONTRIBUTOR" | "MAINTAINER")[],
   };
 
   const {
@@ -76,6 +84,30 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
       </div>
 
       <nav className={"flex gap-md p-lg"}>
+        <div className="flex gap-md">
+          <Badge
+            onClick={() =>
+              setSelectedTypes(prev => ({
+                ...prev,
+                CONTRIBUTOR: !prev.CONTRIBUTOR,
+              }))
+            }
+            color={selectedTypes.CONTRIBUTOR ? "brand" : "grey"}
+          >
+            Contributors
+          </Badge>
+          <Badge
+            onClick={() =>
+              setSelectedTypes(prev => ({
+                ...prev,
+                MAINTAINER: !prev.MAINTAINER,
+              }))
+            }
+            color={selectedTypes.MAINTAINER ? "brand" : "grey"}
+          >
+            Maintainers
+          </Badge>
+        </div>
         <TableSearch
           value={search}
           onChange={setSearch}
