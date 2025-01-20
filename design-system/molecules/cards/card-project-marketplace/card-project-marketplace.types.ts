@@ -29,6 +29,7 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   ecosystems?: {
     id: string;
     name: string;
+    slug: string;
     logoUrl: string;
   }[];
   onClick?: () => void;
