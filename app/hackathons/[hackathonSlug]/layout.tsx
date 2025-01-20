@@ -44,7 +44,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"hackathon-view"}
-      classNames={{ base: "tablet:self-end self-start -mb-px" }}
+      classNames={{ base: "tablet:self-end self-start -mb-px pl-xl" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -100,7 +100,7 @@ export default function HackathonsLayout({
             >
               <div
                 className={
-                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary pl-xl tablet:flex-row"
+                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
                 }
               >
                 <Navigation params={params} />
