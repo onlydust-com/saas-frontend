@@ -105,12 +105,12 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   forkCount,
   availableIssueCount,
   goodFirstIssueCount,
-  odhackIssueCount,
   description,
   categories,
   languages,
   ecosystems,
   tags,
+  odHackStats
 }: CardProjectMarketplacePort<C>) {
   const slots = CardProjectMarketplaceDefaultVariants();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -119,21 +119,21 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     const buttons = [
       { count: availableIssueCount, type: "AVAILABLE_ISSUE" },
       { count: goodFirstIssueCount, type: "GOOD_FIRST_ISSUE" },
-      { count: odhackIssueCount, type: "ODHACK" },
+      { count: odHackStats?.availableIssueCount, totalCount: odHackStats?.issueCount, type: "ODHACK" },
     ]
       .filter(({ count }) => count !== undefined)
-      .map(({ count, type }) => (
+      .map(({ count, totalCount, type }) => (
         <IssueButton
           key={type}
           issueCount={count!}
-          totalIssueCount={odhackIssueCount}
+          totalIssueCount={totalCount}
           issueCountType={type as IssueCountType}
           slug={slug}
         />
       ));
 
     return buttons;
-  }, [availableIssueCount, goodFirstIssueCount, odhackIssueCount, slug]);
+  }, [availableIssueCount, goodFirstIssueCount, odHackStats, slug]);
 
   const renderTags = useCallback(() => {
     if (!tags?.length) return null;

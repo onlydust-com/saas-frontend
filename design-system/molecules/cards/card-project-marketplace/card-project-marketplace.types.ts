@@ -22,7 +22,6 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   forkCount: number;
   availableIssueCount?: number;
   goodFirstIssueCount?: number;
-  odhackIssueCount?: number;
   description?: string;
   categories?: CategoriesProps["categories"];
   languages?: LanguagesProps["languages"];
@@ -34,6 +33,10 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   }[];
   onClick?: () => void;
   tags?: ProjectTagUnion[];
+  odHackStats?: {
+    issueCount?: number;
+    availableIssueCount?: number;
+  };
 }
 
 export interface AvatarWithEcosystemsProps {
