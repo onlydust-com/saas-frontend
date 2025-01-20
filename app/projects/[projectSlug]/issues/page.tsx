@@ -3,8 +3,10 @@
 import { FolderOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
+import { HackathonListItemInterface } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
@@ -23,7 +25,7 @@ export default function ProjectIssuesPage({
   searchParams,
 }: {
   params: { projectSlug: string };
-  searchParams: { l: string };
+  searchParams: { l: string; h: string };
 }) {
   const { open } = useApplyIssueSidePanel();
 
@@ -32,6 +34,19 @@ export default function ProjectIssuesPage({
 
     return labels.map(name => ({ name })) as GithubLabelWithCountInterface[];
   });
+
+  const [selectedHackathons, setSelectedHackathons] = useState<HackathonListItemInterface[]>(() => {
+    const hackathons = searchParams.h?.split(",").filter(Boolean) || [];
+
+    return hackathons.map(id => ({ id })) as HackathonListItemInterface[];
+  });
+
+  const { data: hackathons } = HackathonReactQueryAdapter.client.useGetHackathons({});
+
+  const liveHackathons = useMemo(
+    () => hackathons?.hackathons.filter(hackathon => hackathon.isLive()) ?? [],
+    [hackathons]
+  );
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
@@ -44,6 +59,7 @@ export default function ProjectIssuesPage({
 
   const queryParams: Partial<GetProjectAvailableIssuesQueryParams> = {
     githubLabels: selectedLabels.map(label => label.name),
+    hackathonId: selectedHackathons[0]?.id,
   };
 
   const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
@@ -71,10 +87,33 @@ export default function ProjectIssuesPage({
       const params = new URLSearchParams(window.location.search);
 
       const labels = next.map(l => l.name);
+
       if (labels.length) {
         params.set("l", labels.join(","));
       } else {
         params.delete("l");
+      }
+
+      window.history.replaceState(null, "", `?${params.toString()}`);
+
+      return next;
+    });
+  }
+
+  function handleHackathonClick(hackathon: HackathonListItemInterface) {
+    setSelectedHackathons(prev => {
+      const next = prev.some(h => h.id === hackathon.id)
+        ? prev.filter(h => h.id !== hackathon.id)
+        : [...prev, hackathon];
+
+      const params = new URLSearchParams(window.location.search);
+
+      const hackathons = next.map(h => h.id);
+
+      if (hackathons.length) {
+        params.set("h", hackathons.join(","));
+      } else {
+        params.delete("h");
       }
 
       window.history.replaceState(null, "", `?${params.toString()}`);
@@ -114,6 +153,21 @@ export default function ProjectIssuesPage({
               color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
             >
               {label.name} ({label.count})
+            </Badge>
+          ))}
+
+          {labels?.length > 0 && liveHackathons?.length > 0 ? (
+            <div className="h-8 border-l border-border-primary" />
+          ) : null}
+
+          {liveHackathons?.map(hackathon => (
+            <Badge
+              key={hackathon.slug}
+              size="md"
+              onClick={() => handleHackathonClick(hackathon)}
+              color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
+            >
+              {hackathon.title}
             </Badge>
           ))}
         </div>

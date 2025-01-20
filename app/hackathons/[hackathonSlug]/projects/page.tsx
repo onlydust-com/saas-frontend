@@ -109,8 +109,8 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
     const urlSearchParams = new URLSearchParams();
 
-    if (hackathon?.githubLabels?.length) {
-      urlSearchParams.set("l", hackathon.githubLabels.join(","));
+    if (hackathon?.id) {
+      urlSearchParams.set("h", hackathon.id);
     }
 
     return projects.map(project => (
@@ -129,11 +129,11 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odHackStats?.issueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
         tags={project.tags}
+        odHackStats={project.odHackStats}
       />
     ));
   }, [isLoading, isError, projects]);
@@ -148,7 +148,10 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odhackIssueCount}
+        odHackStats={{
+          issueCount: project.odhackIssueCount,
+          availableIssueCount: project.odhackIssueCount,
+        }}
       />
     ));
   }, [isLoading, isError, projects]);
