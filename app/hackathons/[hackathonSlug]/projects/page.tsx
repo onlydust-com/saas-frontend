@@ -107,12 +107,20 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
       );
     }
 
+    const urlSearchParams = new URLSearchParams();
+
+    if (hackathon?.githubLabels?.length) {
+      urlSearchParams.set("l", hackathon.githubLabels.join(","));
+    }
+
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
         as={BaseLink}
         htmlProps={{
-          href: `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?l=${encodeURIComponent(hackathon?.githubLabels?.join(",") || "")}`,
+          href: hackathon?.isLive()
+            ? `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?${urlSearchParams.toString()}`
+            : NEXT_ROUTER.projects.details.root(project.slug),
         }}
         name={project.name}
         slug={project.slug}
