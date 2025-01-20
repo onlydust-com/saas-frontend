@@ -23,7 +23,7 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
   const [selectedTypes, setSelectedTypes] = useState<{
     CONTRIBUTOR: boolean;
     MAINTAINER: boolean;
-  }>({ CONTRIBUTOR: true, MAINTAINER: false });
+  }>({ CONTRIBUTOR: false, MAINTAINER: false });
 
   const { columns } = useFilterColumns();
 
