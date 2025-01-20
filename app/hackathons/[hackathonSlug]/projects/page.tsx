@@ -107,12 +107,20 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
       );
     }
 
+    const urlSearchParams = new URLSearchParams();
+
+    if (hackathon?.id) {
+      urlSearchParams.set("h", hackathon.id);
+    }
+
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
         as={BaseLink}
         htmlProps={{
-          href: `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?l=${encodeURIComponent(hackathon?.githubLabels?.join(",") || "")}`,
+          href: hackathon?.isLive()
+            ? `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?${urlSearchParams.toString()}`
+            : NEXT_ROUTER.projects.details.root(project.slug),
         }}
         name={project.name}
         slug={project.slug}
@@ -121,10 +129,11 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odHackStats?.issueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
+        odHackStats={project.odHackStats}
       />
     ));
   }, [isLoading, isError, projects]);
@@ -139,7 +148,10 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odhackIssueCount}
+        odHackStats={{
+          issueCount: project.odhackIssueCount,
+          availableIssueCount: project.odhackIssueCount,
+        }}
       />
     ));
   }, [isLoading, isError, projects]);

@@ -2,9 +2,11 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
 
+import { HoverEffectProps } from "@/design-system/molecules/cards/card-project-marketplace/_components/hover-effect/hover-effect.types";
+
 import { cn } from "@/shared/helpers/cn";
 
-export function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivElement> }) {
+export function HoverEffect({ cardRef, showBorder = false }: HoverEffectProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -57,12 +59,12 @@ export function HoverEffect({ cardRef }: { cardRef: React.RefObject<HTMLDivEleme
       className={cn(
         "absolute inset-[-2px] z-10 overflow-hidden rounded-[12px] opacity-0 transition-opacity duration-500 ease-in",
         {
-          "opacity-100": isHovered,
+          "opacity-100": isHovered || showBorder,
         }
       )}
     >
       <div className="absolute left-1/2 top-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[10px]">
-        {isHoveredDebounced && (
+        {(isHoveredDebounced || showBorder) && (
           <motion.div
             className="card-hover-gradient-solid absolute inset-0"
             animate={{ rotate: 360 }}

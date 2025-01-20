@@ -75,6 +75,7 @@ const defaultProps: CardProjectMarketplacePort<"div"> = {
     {
       id: "ethereum",
       name: "Ethereum",
+      slug: "ethereum",
       logoUrl: "https://onlydust-app-images.s3.eu-west-1.amazonaws.com/566368398222658517.png",
     },
   ],

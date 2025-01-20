@@ -136,7 +136,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                   background={isFirst ? "transparent" : "secondary"}
                   border={isFirst ? "primary" : "none"}
                   classNames={{
-                    base: cn("overflow-hidden", {
+                    base: cn("overflow-hidden hover:opacity-80", {
                       "purple-halo-gradient": isFirst,
                     }),
                   }}

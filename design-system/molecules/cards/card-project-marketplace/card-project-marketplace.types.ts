@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { ProjectTagUnion } from "@/core/domain/project/project.types";
 import { AnyType } from "@/core/kernel/types";
 
 import { CategoriesProps } from "@/shared/features/projects/categories/categories.types";
@@ -21,16 +22,21 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
   forkCount: number;
   availableIssueCount?: number;
   goodFirstIssueCount?: number;
-  odhackIssueCount?: number;
   description?: string;
   categories?: CategoriesProps["categories"];
   languages?: LanguagesProps["languages"];
   ecosystems?: {
     id: string;
     name: string;
+    slug: string;
     logoUrl: string;
   }[];
   onClick?: () => void;
+  tags?: ProjectTagUnion[];
+  odHackStats?: {
+    issueCount?: number;
+    availableIssueCount?: number;
+  };
 }
 
 export interface AvatarWithEcosystemsProps {
