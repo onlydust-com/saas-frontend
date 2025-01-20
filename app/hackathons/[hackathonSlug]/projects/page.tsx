@@ -109,8 +109,8 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
     const urlSearchParams = new URLSearchParams();
 
-    if (hackathon?.githubLabels?.length) {
-      urlSearchParams.set("l", hackathon.githubLabels.join(","));
+    if (hackathon?.id) {
+      urlSearchParams.set("h", hackathon.id);
     }
 
     return projects.map(project => (
