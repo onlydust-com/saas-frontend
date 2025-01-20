@@ -26,12 +26,17 @@
     "upcomingEvents": "Upcoming Events"
   },
   "community": {
+    "filters": {
+      "title": "Filters"
+    },
+    "description": "The following KPIs relate to contributions in this ecosystem.",
     "columns": {
       "from": "From",
       "projects": "Projects",
       "issueAssigned": "Issue Assigned",
       "mergedPullRequestCount": "Merged Pull Requests",
       "rewards": "Rewards"
-    }
+    },
+    "communityCount": "Community"
   }
 }
