@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
+import { ProjectTagUnion } from "@/core/domain/project/project.types";
 import { AnyType } from "@/core/kernel/types";
 
 import { CategoriesProps } from "@/shared/features/projects/categories/categories.types";
@@ -31,6 +32,7 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     logoUrl: string;
   }[];
   onClick?: () => void;
+  tags?: ProjectTagUnion[];
 }
 
 export interface AvatarWithEcosystemsProps {
