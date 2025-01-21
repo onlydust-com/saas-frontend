@@ -83,7 +83,7 @@ export default function HackathonsLayout({
   params: { hackathonSlug: string };
 }>) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <ScrollView>
         <AnimatedColumn className="h-full max-w-full">
           <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">

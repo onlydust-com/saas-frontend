@@ -40,7 +40,7 @@ function withSponsorList<P extends object>(Component: ComponentType<P>) {
 
 function FinancialPage() {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <NavigationBreadcrumb
         breadcrumb={[
           {

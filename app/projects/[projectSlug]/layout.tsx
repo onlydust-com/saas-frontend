@@ -93,9 +93,9 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
-      <PageWrapper>
-        <ScrollView>
-          <AnimatedColumn className="h-full max-w-full">
+      <PageWrapper containerSize="medium">
+          <ScrollView>
+        <AnimatedColumn className="h-full max-w-full">
             <div className="flex flex-col items-start justify-start gap-md laptop:h-full laptop:flex-row laptop:gap-lg">
               <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
                 <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />

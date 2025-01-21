@@ -44,7 +44,7 @@ function withProjectList<P extends object>(Component: ComponentType<P>) {
 
 function ManageProjectsPage() {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <NavigationBreadcrumb
         breadcrumb={[
           {

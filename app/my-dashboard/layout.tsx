@@ -123,7 +123,7 @@ function Safe({ children }: PropsWithChildren) {
 
 function MyDashboardLayout({ children }: PropsWithChildren) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="large">
       <GithubPermissionsProvider>
         <RequestPaymentFlowProvider>
           <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />

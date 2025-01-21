@@ -224,7 +224,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="large">
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{
