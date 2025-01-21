@@ -128,7 +128,7 @@ export function CreateProgramPanel() {
           </Accordion>
         </SidePanelBody>
         <SidePanelFooter>
-          <Button variant={"secondary"} type={"submit"} translate={{ token: "financials:createProgramPanel.submit" }} />
+          <Button variant={"primary"} type={"submit"} translate={{ token: "financials:createProgramPanel.submit" }} />
         </SidePanelFooter>
       </form>
     </Panel>

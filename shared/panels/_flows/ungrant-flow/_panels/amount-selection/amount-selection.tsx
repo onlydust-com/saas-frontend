@@ -101,7 +101,7 @@ export function AmountSelection() {
 
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           onClick={() => ungrant.mutate()}
           isLoading={ungrant.isPending}

@@ -8,7 +8,7 @@ export const TabsDefaultVariants = tv({
   variants: {
     variant: {
       underline: { base: "border-b-1 border-border-primary" },
-      solid: { base: "rounded-lg bg-background-secondary-alt p-xxs" },
+      solid: { base: "rounded-lg bg-[var(--shadcn-accent)] p-xxs" },
       flat: { base: "" },
       brand: { base: "" },
     },

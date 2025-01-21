@@ -102,7 +102,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
           transition={{ type: "ease", duration: SIDE_PANEL_ANIMATION_DURATION }}
           initial={false}
           className={cn(
-            "absolute right-0 translate-x-full overflow-hidden opacity-0",
+            "absolute right-0 z-50 translate-x-full overflow-hidden opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
             { "fixed bottom-0 h-[calc(100%_-_64px)] translate-y-full p-md": isTablet },
             { invisible: !isOpenLast(name) },

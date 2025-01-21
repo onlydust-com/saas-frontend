@@ -55,7 +55,10 @@ PopoverNextUiAdapter.Content = function PopoverNextUiAdapterContent({
       className={
         unstyled
           ? cn("rounded-none bg-transparent !p-none shadow-none", className)
-          : cn("effect-shadow-lg rounded-lg bg-background-primary !p-lg text-typography-primary", className)
+          : cn(
+              "effect-shadow-lg rounded-lg border-1 border-border-primary bg-background-primary !p-lg text-typography-primary",
+              className
+            )
       }
     >
       {children(context)}

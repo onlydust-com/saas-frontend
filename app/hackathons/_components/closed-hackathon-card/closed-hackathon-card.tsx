@@ -23,7 +23,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
       htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
       background="transparent"
       border="primary"
-      classNames={{ base: "block purple-halo-gradient overflow-hidden hover:opacity-80" }}
+      classNames={{ base: "block bg-background-secondary overflow-hidden hover:opacity-80" }}
       size="none"
     >
       <div className="relative z-[1] flex flex-col divide-y divide-border-primary">

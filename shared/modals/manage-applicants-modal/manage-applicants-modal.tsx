@@ -42,7 +42,7 @@ export function ManageApplicantsModal({
     }
 
     return (
-      <SidePanelsProvider>
+      <SidePanelsProvider absolute>
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
             <ApplicantsTable

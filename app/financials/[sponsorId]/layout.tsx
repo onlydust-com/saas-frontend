@@ -9,7 +9,6 @@ import { CreateButton } from "@/app/financials/[sponsorId]/programs/_features/cr
 
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -59,7 +58,7 @@ function FinancialDetailLayout({
   }, [isPrograms, isFinancial]);
 
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <PosthogCaptureOnMount
         eventName={"sponsor_viewed"}
         params={{
@@ -68,43 +67,41 @@ function FinancialDetailLayout({
         paramsReady={Boolean(sponsorId)}
       />
 
-      <AnimatedColumn className="h-full">
-        <ScrollView className={"flex flex-col"}>
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <div className="flex h-full flex-col gap-lg">
-              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-                <Tabs
-                  variant={"solid"}
-                  searchParams={"data-view"}
-                  tabs={[
-                    {
-                      id: Views.PROGRAMS,
-                      children: <Translate token={"financials:details.views.programs"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.financials.programs.root(sponsorId),
-                      },
+      <ScrollView className={"flex flex-col"}>
+        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
+          <div className="flex h-full flex-col gap-lg">
+            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+              <Tabs
+                variant={"solid"}
+                searchParams={"data-view"}
+                tabs={[
+                  {
+                    id: Views.PROGRAMS,
+                    children: <Translate token={"financials:details.views.programs"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.financials.programs.root(sponsorId),
                     },
-                    {
-                      id: Views.FINANCIAL,
-                      children: <Translate token={"financials:details.views.financial"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.financials.financial.root(sponsorId),
-                      },
+                  },
+                  {
+                    id: Views.FINANCIAL,
+                    children: <Translate token={"financials:details.views.financial"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.financials.financial.root(sponsorId),
                     },
-                  ]}
-                  selectedId={selectedId}
-                />
+                  },
+                ]}
+                selectedId={selectedId}
+              />
 
-                <div className="flex items-center gap-lg">{renderActions()}</div>
-              </header>
+              <div className="flex items-center gap-lg">{renderActions()}</div>
+            </header>
 
-              {children}
-            </div>
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
+            {children}
+          </div>
+        </PageContent>
+      </ScrollView>
     </PageWrapper>
   );
 }

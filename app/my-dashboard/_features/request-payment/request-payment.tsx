@@ -49,12 +49,11 @@ export function RequestPayment() {
         endContent={
           <Badge
             size={"xxs"}
-            color={hasRewards ? "brand" : "grey"}
+            color={hasRewards ? "inverse" : "grey"}
             variant={hasRewards ? "solid" : "flat"}
             shape={"rounded"}
-          >
-            {totalItemNumber}
-          </Badge>
+            count={totalItemNumber}
+          />
         }
       />
     </Tooltip>

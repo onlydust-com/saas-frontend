@@ -1,7 +1,7 @@
 "use client";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { ChevronRight } from "lucide-react";
+import { SquareArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
@@ -44,7 +44,7 @@ function withProjectList<P extends object>(Component: ComponentType<P>) {
 
 function ManageProjectsPage() {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -71,8 +71,7 @@ function ManageProjectsPage() {
                   href: marketplaceRouting("/p/create"),
                 }}
                 variant={"primary"}
-                endIcon={{ component: ChevronRight }}
-                isTextButton
+                endIcon={{ component: SquareArrowOutUpRight }}
                 size={"md"}
                 translate={{ token: "manageProjects:list.header.ctaSubmitProject" }}
                 classNames={{

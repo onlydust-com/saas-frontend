@@ -10,10 +10,10 @@ export const ToasterSonnerVariants = tv({
   variants: {
     type: {
       default: {
-        base: "bg-background-primary-solid",
-        icon: "text-foreground-primary-on-solid",
-        text: "text-typography-primary-on-solid",
-        closeIcon: "text-foreground-primary-on-solid",
+        base: "bg-[var(--shadcn-primary)]",
+        icon: "text-[var(--shadcn-primary-foreground)]",
+        text: "text-[var(--shadcn-primary-foreground)]",
+        closeIcon: "text-[var(--shadcn-primary-foreground)]",
       },
       error: {
         base: "bg-background-error-solid",

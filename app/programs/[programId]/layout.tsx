@@ -118,7 +118,7 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
 
 function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{ params: { programId: string } }>) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <PosthogCaptureOnMount eventName={"program_viewed"} />
 
       <UnallocateFlowProvider programId={programId}>

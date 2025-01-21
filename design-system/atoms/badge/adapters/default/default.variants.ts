@@ -259,8 +259,9 @@ export const BadgeDefaultVariants = tv({
       variant: "solid",
       color: "grey",
       class: {
-        base: "border-0 bg-components-badge-grey-solid-bg",
-        content: "text-components-badge-grey-solid-typo",
+        base: "border-0 bg-[var(--shadcn-primary)]",
+        content: "text-[var(--shadcn-primary-foreground)]",
+        label: "!text-[var(--shadcn-primary-foreground)]",
       },
     },
     {
