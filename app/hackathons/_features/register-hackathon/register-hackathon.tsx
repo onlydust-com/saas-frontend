@@ -9,7 +9,11 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
+
 export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
+  const { capture } = usePosthog();
+
   const {
     data: hackathon,
     isLoading: hackathonIsLoading,
@@ -50,6 +54,8 @@ export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
     options: {
       onSuccess: () => {
         toast.success(`Registered to ${hackathon?.title}`);
+
+        capture("hackathon_registration", { hackathon_id: hackathon?.id });
       },
       onError: () => {
         toast.error(`Error registering to ${hackathon?.title}`);

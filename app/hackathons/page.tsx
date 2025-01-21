@@ -9,11 +9,14 @@ import { HackathonList } from "@/app/hackathons/_features/hackathon-list/hackath
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function HackathonsPage() {
   return (
     <div className="pb-7xl">
+      <PosthogCaptureOnMount eventName={"hackathon_list_viewed"} />
+
       <NavigationBreadcrumb
         breadcrumb={[
           {
