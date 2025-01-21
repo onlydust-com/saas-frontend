@@ -84,18 +84,18 @@ export default function HackathonsLayout({
 }>) {
   return (
     <PageWrapper>
-      <AnimatedColumn className="h-full max-w-full">
-        <ScrollView>
-          <div className="flex flex-col items-start justify-start gap-lg tablet:h-full laptop:flex-row">
-            <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
+      <ScrollView>
+        <AnimatedColumn className="h-full max-w-full">
+          <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">
+            <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
               <HackathonSummary hackathonSlug={params.hackathonSlug} />
               <HackathonEvents hackathonSlug={params.hackathonSlug} />
-            </div>
+            </ScrollView>
 
             <Paper
               background="glass"
               border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col pb-xl" }}
+              classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
               size="none"
             >
               <div
@@ -112,8 +112,8 @@ export default function HackathonsLayout({
               {children}
             </Paper>
           </div>
-        </ScrollView>
-      </AnimatedColumn>
+        </AnimatedColumn>
+      </ScrollView>
     </PageWrapper>
   );
 }
