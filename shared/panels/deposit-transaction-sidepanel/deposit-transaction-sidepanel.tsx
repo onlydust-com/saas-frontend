@@ -167,7 +167,7 @@ export function DepositTransactionSidepanel() {
         <SidePanelFooter>
           <Button
             type={"submit"}
-            variant={"secondary"}
+            variant={"primary"}
             size={"md"}
             translate={{ token: "panels:depositTransaction.next" }}
             isDisabled={!transactionReference || previewDepositIsPending}

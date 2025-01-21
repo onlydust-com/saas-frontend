@@ -213,7 +213,7 @@ export function EditProgramPanel() {
           </div>
         </SidePanelBody>
         <SidePanelFooter>
-          <Button variant={"secondary"} type={"submit"} translate={{ token: "financials:editProgramPanel.submit" }} />
+          <Button variant={"primary"} type={"submit"} translate={{ token: "financials:editProgramPanel.submit" }} />
         </SidePanelFooter>
       </form>
     </Panel>

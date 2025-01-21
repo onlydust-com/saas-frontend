@@ -179,7 +179,7 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
           <AnimatedColumn width={panelSize} initialWidth={closedWidth} className={cn("h-full", classNames?.column)}>
             <div
               className={cn(
-                "relative z-[99] h-full w-full",
+                "fixed bottom-0 right-0 top-0 z-[99]",
                 {
                   "overflow-hidden": type === "container",
                 },

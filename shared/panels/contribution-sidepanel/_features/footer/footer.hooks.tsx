@@ -49,7 +49,7 @@ export const useContributionPanelFooterAsMaintainer = ({
     return (
       <Button
         size={"md"}
-        variant={"secondary"}
+        variant={"primary"}
         onClick={handleManageApplicants}
         translate={{ token: "panels:contribution.footer.actions.manageInFullPage" }}
       />
@@ -146,7 +146,7 @@ export const useContributionPanelFooterAsContributor = ({ contribution }: UseCon
         </CheckboxButton>
         <Button
           size={"md"}
-          variant={"secondary"}
+          variant={"primary"}
           onClick={onCancelApplication}
           isLoading={isDeleteApplicationPending}
           translate={{ token: "panels:contribution.footer.actions.asContributor.cancelApplication" }}

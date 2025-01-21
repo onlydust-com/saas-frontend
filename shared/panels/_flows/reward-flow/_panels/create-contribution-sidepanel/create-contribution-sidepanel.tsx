@@ -188,7 +188,7 @@ export function CreateContributionSidepanel() {
 
         <SidePanelFooter>
           <Button
-            variant="secondary"
+            variant="primary"
             size="md"
             translate={{
               token: "panels:createContribution.footer.button",

@@ -58,7 +58,7 @@ export function Navigation({ children }: PropsWithChildren) {
           </ScrollView>
         </nav>
 
-        <ScrollView className="mx-auto size-full max-w-[2560px] px-2xl">{children}</ScrollView>
+        <ScrollView className="mx-auto size-full max-w-[1360px] px-2xl">{children}</ScrollView>
       </div>
     </>
   );

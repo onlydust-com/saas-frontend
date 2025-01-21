@@ -780,9 +780,9 @@
     --components-buttons-destructive-tertiary-fg_hover: var(--typography-error_hover);
 
     /* COMPONENTS ACCORDION */
-    --components-accordion-open-bg: var(--background-primary);
-    --components-accordion-open-bg_hover: var(--_grey-700);
-    --components-accordion-open-border: var(--utility-alpha-white-0);
+    --components-accordion-open-bg: var(--shadcn-background);
+    --components-accordion-open-bg_hover: var(--shadcn-accent);
+    --components-accordion-open-border: var(--shadcn-border);
 
     /* COMPONENTS TOOLTIP */
     --components-tooltip-title: var(--typography-primary_on-solid);
@@ -869,7 +869,7 @@
     font-size: 16px;
   }
 
-  @media (max-width: 1441px) {
+  /* @media (max-width: 1441px) {
     html {
       font-size: 14px;
     }
@@ -879,7 +879,7 @@
     html {
       font-size: 13px;
     }
-  }
+  } */
 
   .custom-scroll-bar {
     --scrollbar-thumb: var(--foreground-senary);

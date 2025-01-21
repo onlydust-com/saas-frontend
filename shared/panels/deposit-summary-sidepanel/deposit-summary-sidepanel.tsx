@@ -402,7 +402,7 @@ export function DepositSummarySidepanel() {
         <SidePanelFooter>
           <Button
             type={"submit"}
-            variant={"secondary"}
+            variant={"primary"}
             size={"md"}
             translate={{ token: "panels:depositSummary.done" }}
             isDisabled={isLoading || isError || updateDepositIsPending}
