@@ -453,7 +453,7 @@
     --background-disabled: var(--shadcn-muted);
     --background-disabled_alt: var(--shadcn-muted);
 
-    --background-overlay: var(--shadcn-custom-stacking);
+    --background-overlay: rgba(0,0,0, 0.6);
 
     --background-error: var(--_error-500-primary);
     --background-error_alt: var(--_error-950);
