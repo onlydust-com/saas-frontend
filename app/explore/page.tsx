@@ -11,7 +11,6 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BrowseProjects } from "./_features/browse-projects/browse-projects";
 import { ProjectCategoryList } from "./_features/project-category-list/project-category-list";
-import { TrendingProjects } from "./_features/trending-projects/trending-projects";
 
 function ExplorePage() {
   return (
@@ -28,8 +27,6 @@ function ExplorePage() {
       <div className="mx-auto flex flex-col gap-7xl py-4xl">
         {process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH !== "true" && <GlobalSearch byPassFlag={true} />}
         <ProjectBanners />
-
-        <TrendingProjects />
 
         <ProjectCategoryList />
 
