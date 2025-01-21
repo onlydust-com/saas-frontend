@@ -23,6 +23,7 @@ import { FilterButton } from "@/shared/features/filters/_components/filter-butto
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { cn } from "@/shared/helpers/cn";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
@@ -158,6 +159,14 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <PosthogCaptureOnMount
+        eventName={"hackathon_viewed"}
+        params={{
+          hackathon_id: hackathon?.id,
+        }}
+        paramsReady={Boolean(hackathon?.id)}
+      />
+
       <NavigationBreadcrumb
         breadcrumb={[
           {

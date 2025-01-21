@@ -4,6 +4,7 @@ import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapt
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function HackathonCommunityPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
@@ -18,6 +19,14 @@ export default function HackathonCommunityPage({ params: { hackathonSlug } }: { 
 
   return (
     <ScrollView>
+      <PosthogCaptureOnMount
+        eventName={"hackathon_viewed"}
+        params={{
+          hackathon_id: hackathon?.id,
+        }}
+        paramsReady={Boolean(hackathon?.id)}
+      />
+
       <NavigationBreadcrumb
         breadcrumb={[
           {
