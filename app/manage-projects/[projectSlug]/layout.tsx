@@ -238,6 +238,7 @@ function ManageProjectsLayout({
           <RewardFlowProvider projectId={projectId}>
             <UngrantFlowProvider projectId={projectId}>
               <Safe projectSlug={projectSlug}>{children}</Safe>
+              <ContributionsSidepanel />
             </UngrantFlowProvider>
           </RewardFlowProvider>
         </GithubPermissionsProvider>
@@ -246,7 +247,6 @@ function ManageProjectsLayout({
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
-      <ContributionsSidepanel />
     </PageWrapper>
   );
 }
