@@ -1,7 +1,5 @@
 import React from "react";
 
-import { bootstrap } from "@/core/bootstrap";
-
 import { TableHeader } from "@/design-system/atoms/table-header";
 import { TableRow } from "@/design-system/atoms/table-row";
 
@@ -47,16 +45,9 @@ export function TableDefaultAdapter<H, R>({
   const slots = TableDefaultVariants();
   const headersLength = header?.headerGroups[0]?.headers.length ?? 1;
 
-  const styleKernelPort = bootstrap.getStyleKernelPort();
-
   return (
     <>
-      <table
-        className={cn(slots.base(), classNames?.base)}
-        style={{
-          width: styleKernelPort.pxToRem(table.getCenterTotalSize()),
-        }}
-      >
+      <table className={cn(slots.base(), classNames?.base)}>
         <TableHeader {...header} />
 
         <MemoizedTableBody
