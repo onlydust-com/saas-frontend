@@ -35,7 +35,6 @@ const MemoizedTableBody = React.memo(
 
 export function TableDefaultAdapter<H, R>({
   classNames,
-  table,
   rowSelection,
   header,
   rows,
