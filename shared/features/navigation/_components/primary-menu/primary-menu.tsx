@@ -1,4 +1,4 @@
-import { ChartLine, Clipboard, Compass, FolderKanban, Gauge, Wallet } from "lucide-react";
+import { ChartLine, Clipboard, Compass, FolderKanban, Gauge, Rocket, Wallet } from "lucide-react";
 
 import { ItemNav } from "@/design-system/molecules/item-nav";
 
@@ -87,6 +87,17 @@ export function PrimaryMenu() {
           },
         }}
         translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
+      />
+      <ItemNav
+        iconProps={{ component: Rocket }}
+        linkProps={{
+          href: NEXT_ROUTER.hackathons.root,
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.hackathons.root,
+          },
+        }}
+        translate={{ token: "primaryNavigation:primaryMenu.hackathons" }}
       />
       <ItemNav
         iconProps={{ component: Compass }}

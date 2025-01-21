@@ -5,7 +5,8 @@
     "program": "Program",
     "projects": "Explore Projects",
     "manageProject": "Manage Projects",
-    "myDashboard": "My Dashboard"
+    "myDashboard": "My Dashboard",
+    "hackathons": "Hackathons"
   },
   "secondaryMenu": {
     "support": "Support",
