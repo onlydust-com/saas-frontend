@@ -54,7 +54,7 @@ export function EcosystemEvent({ ecosystemSlug }: EcosystemEventProps) {
     return <PaperLoading classNames={{ base: "h-[200px]" }} />;
   }
 
-  if (isError || !data.events.length) return null;
+  if (isError || !data?.events.length) return null;
 
   return (
     <Paper
