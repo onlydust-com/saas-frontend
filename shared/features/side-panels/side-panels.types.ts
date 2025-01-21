@@ -24,6 +24,7 @@ export interface SidePanelsContextInterface {
 
 export interface SidePanelsContextProps extends PropsWithChildren {
   classNames?: Partial<classNames>;
+  absolute?: boolean;
 }
 
 interface classNames {

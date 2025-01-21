@@ -38,7 +38,7 @@ export const SidePanelsContext = createContext<SidePanelsContextInterface>({
   getConfig: () => defaultConfig,
 });
 
-export function SidePanelsProvider({ children, classNames }: SidePanelsContextProps) {
+export function SidePanelsProvider({ children, classNames, absolute }: SidePanelsContextProps) {
   const [openedPanels, setOpenedPanels] = useState<string[]>([]);
   const [openedPanelsConfigs, setOpenedPanelsConfig] = useState<Record<string, SidePanelConfig>>();
   const [data, setData] = useState<[string, AnyType][]>([]);
@@ -177,9 +177,18 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
         {children}
         {!isTablet && (
           <AnimatedColumn width={panelSize} initialWidth={closedWidth} className={cn("h-full", classNames?.column)}>
+            {!absolute && (
+              <div
+                className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
+                  "pointer-events-auto opacity-60": openedPanels?.length,
+                })}
+                onClick={() => closePanel()}
+              />
+            )}
             <div
               className={cn(
-                "fixed bottom-0 right-0 top-0 z-[99]",
+                { "relative z-[99] h-full w-full": absolute },
+                { "fixed bottom-0 right-0 top-0 z-[99]": !absolute },
                 {
                   "overflow-hidden": type === "container",
                 },

@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/public/images/logos/logo-light-purple.svg";
+import logo from "@/public/images/logos/logo-white.svg";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Image from "next/image";
 

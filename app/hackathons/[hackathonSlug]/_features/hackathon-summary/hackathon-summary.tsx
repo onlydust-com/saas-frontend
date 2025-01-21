@@ -119,9 +119,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
           />
 
           <div className="grid gap-md mobile:grid-cols-2">
-            {allLinks.map((link, index) => {
-              const isFirst = index === 0;
-
+            {allLinks.map(link => {
               const urlObject = new URL(link.url);
               const domain = urlObject.hostname;
 
@@ -144,8 +142,8 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                       <Badge
                         size="xs"
                         shape="squared"
-                        variant={isFirst ? "solid" : "outline"}
-                        color={isFirst ? "brand" : "grey"}
+                        variant={"outline"}
+                        color={"grey"}
                         classNames={{
                           base: "w-fit max-w-[120px]",
                           label: "truncate",
