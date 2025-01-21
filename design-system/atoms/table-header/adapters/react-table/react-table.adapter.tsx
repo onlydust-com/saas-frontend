@@ -3,7 +3,6 @@ import { Header, SortDirection, flexRender } from "@tanstack/react-table";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Typo } from "@/design-system/atoms/typo";
-import { TableResizer } from "@/design-system/molecules/table-resizer";
 import { TableSort, SortDirection as TableSortDirection, TableSortPort } from "@/design-system/molecules/table-sort";
 
 import { cn } from "@/shared/helpers/cn";
@@ -71,15 +70,6 @@ export function TableHeaderReactTableAdapter<H>({ headerGroups, classNames }: Ta
                     />
                   ) : null}
                 </div>
-
-                {header.column.getCanResize() ? (
-                  <TableResizer
-                    onDoubleClick={() => header.column.resetSize()}
-                    onMouseDown={header.getResizeHandler()}
-                    onTouchStart={header.getResizeHandler()}
-                    isResizing={header.column.getIsResizing()}
-                  />
-                ) : null}
               </th>
             );
           })}

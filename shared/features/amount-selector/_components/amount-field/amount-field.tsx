@@ -141,7 +141,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
       </div>
       <div className={"flex w-full flex-row justify-center"}>
         <Button
-          variant={"primary"}
+          variant={"secondary"}
           size={"xs"}
           iconOnly={true}
           startIcon={{ component: ArrowUpDown }}

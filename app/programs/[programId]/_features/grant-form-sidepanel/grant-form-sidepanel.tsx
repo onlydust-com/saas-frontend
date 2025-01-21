@@ -192,7 +192,7 @@ export function GrantFormSidepanel() {
 
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           onClick={handleGrantProject}
           isDisabled={isPending || !amount || newBalanceIsNegative}

@@ -86,7 +86,7 @@ function Footer({
               <Translate token="panels:applyIssue.apply.deleteComment" />
             </CheckboxButton>
             <Button
-              variant="secondary"
+              variant="primary"
               translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
               onClick={onCancel}
               isLoading={isPending}

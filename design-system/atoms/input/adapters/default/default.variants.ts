@@ -6,7 +6,7 @@ export const InputDefaultVariants = tv({
     wrapper: "flex w-full items-center justify-start",
     base: [
       "transition-all",
-      "flex w-full items-center justify-start gap-md rounded-md border-1 border-border-primary bg-background-primary-alt effect-box-shadow-xs",
+      "flex w-full items-center justify-start gap-md rounded-md border-1 border-[var(--shadcn-input)] bg-background-primary effect-box-shadow-xs",
       "data-[hover=true]:border-border-primary-hover hover:border-border-primary-hover",
     ],
     contentWrapper: "flex flex-col items-center justify-center text-foreground-tertiary",

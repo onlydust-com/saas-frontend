@@ -40,7 +40,7 @@ function Content() {
       </SidePanelBody>
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           translate={{
             token: "common:next",

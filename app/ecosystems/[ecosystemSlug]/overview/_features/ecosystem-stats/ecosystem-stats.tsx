@@ -41,8 +41,13 @@ export function EcosystemStats({
           badgeProps={
             activeContributorsCount !== undefined
               ? {
-                  children: <Typo size="xs">{formatDiff(activeContributorsCount.diff)}</Typo>,
+                  children: (
+                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                      {formatDiff(activeContributorsCount.diff)}
+                    </Typo>
+                  ),
                   color: getBadgeColor(activeContributorsCount.diff),
+                  variant: "solid",
                   classNames: {
                     base: "h-fit min-w-fit",
                   },
@@ -64,7 +69,11 @@ export function EcosystemStats({
           badgeProps={
             activeProjectsCount !== undefined
               ? {
-                  children: <Typo size="xs">{formatDiff(activeProjectsCount.diff)}</Typo>,
+                  children: (
+                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                      {formatDiff(activeProjectsCount.diff)}
+                    </Typo>
+                  ),
                   color: getBadgeColor(activeProjectsCount.diff),
                   classNames: {
                     base: "h-fit min-w-fit",
@@ -87,7 +96,11 @@ export function EcosystemStats({
           badgeProps={
             availableIssuesCount !== undefined
               ? {
-                  children: <Typo size="xs">{formatDiff(availableIssuesCount.diff)}</Typo>,
+                  children: (
+                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                      {formatDiff(availableIssuesCount.diff)}
+                    </Typo>
+                  ),
                   color: getBadgeColor(availableIssuesCount.diff),
                   classNames: {
                     base: "h-fit min-w-fit",
@@ -110,7 +123,11 @@ export function EcosystemStats({
           badgeProps={
             mergedPullRequestsCount !== undefined
               ? {
-                  children: <Typo size="xs">{formatDiff(mergedPullRequestsCount.diff)}</Typo>,
+                  children: (
+                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
+                      {formatDiff(mergedPullRequestsCount.diff)}
+                    </Typo>
+                  ),
                   color: getBadgeColor(mergedPullRequestsCount.diff),
                   classNames: {
                     base: "h-fit min-w-fit",

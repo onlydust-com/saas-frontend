@@ -93,7 +93,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
-      <PageWrapper>
+      <PageWrapper containerSize="medium">
         <ScrollView>
           <AnimatedColumn className="h-full max-w-full">
             <div className="flex flex-col items-start justify-start gap-md laptop:h-full laptop:flex-row laptop:gap-lg">
@@ -103,7 +103,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
               </ScrollView>
 
               <Paper
-                background="glass"
+                background="primary"
                 border="primary"
                 classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
                 px="none"

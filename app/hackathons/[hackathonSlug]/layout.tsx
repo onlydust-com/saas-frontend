@@ -83,7 +83,7 @@ export default function HackathonsLayout({
   params: { hackathonSlug: string };
 }>) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <ScrollView>
         <AnimatedColumn className="h-full max-w-full">
           <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">
@@ -93,7 +93,7 @@ export default function HackathonsLayout({
             </ScrollView>
 
             <Paper
-              background="glass"
+              background="primary"
               border="primary"
               classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
               size="none"

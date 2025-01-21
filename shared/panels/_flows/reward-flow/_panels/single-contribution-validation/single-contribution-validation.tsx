@@ -131,7 +131,7 @@ function Content() {
 
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           translate={{
             token: "common:reward",

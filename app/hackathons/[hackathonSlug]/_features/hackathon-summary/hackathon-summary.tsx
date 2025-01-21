@@ -13,7 +13,6 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { cn } from "@/shared/helpers/cn";
 
 export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
   const {
@@ -41,7 +40,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
 
   return (
     <Paper
-      background="glass"
+      background="primary"
       border="primary"
       classNames={{ base: "flex flex-col divide-y divide-border-primary" }}
       size="none"
@@ -120,9 +119,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
           />
 
           <div className="grid gap-md mobile:grid-cols-2">
-            {allLinks.map((link, index) => {
-              const isFirst = index === 0;
-
+            {allLinks.map(link => {
               const urlObject = new URL(link.url);
               const domain = urlObject.hostname;
 
@@ -133,13 +130,8 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                   htmlProps={{ href: link.url }}
                   py="lg"
                   px="xl"
-                  background={isFirst ? "transparent" : "secondary"}
-                  border={isFirst ? "primary" : "none"}
-                  classNames={{
-                    base: cn("overflow-hidden hover:opacity-80", {
-                      "purple-halo-gradient": isFirst,
-                    }),
-                  }}
+                  background={"secondary"}
+                  border={"primary"}
                 >
                   <div className="relative z-[1] flex items-center gap-sm">
                     <div className="flex flex-1 flex-col gap-xl">
@@ -150,8 +142,8 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
                       <Badge
                         size="xs"
                         shape="squared"
-                        variant={isFirst ? "solid" : "outline"}
-                        color={isFirst ? "brand" : "grey"}
+                        variant={"outline"}
+                        color={"grey"}
                         classNames={{
                           base: "w-fit max-w-[120px]",
                           label: "truncate",

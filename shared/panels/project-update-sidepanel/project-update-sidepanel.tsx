@@ -133,7 +133,7 @@ export function ProjectUpdateSidepanel() {
           <SidePanelFooter>
             <Button
               type={"submit"}
-              variant={"secondary"}
+              variant={"primary"}
               size={"md"}
               translate={{ token: "panels:projectUpdate.submit" }}
               isDisabled={isLoading || isUploadingLogo || isEditingProject}

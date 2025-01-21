@@ -40,7 +40,7 @@ const legendStyle = {
 };
 
 const tooltipWrapperStyle = {
-  backgroundColor: "var(--background-tertiary)",
+  backgroundColor: "var(--background-primary)",
   padding: 16,
   borderWidth: 1,
   borderColor: "var(--border-primary)",
