@@ -31,6 +31,8 @@ import { useHackathonProjectsFilterDataSidePanel } from "./_components/filter-da
 
 export type HackathonProjectsFilters = Omit<NonNullable<GetHackathonProjectsV2QueryParams>, "pageSize" | "pageIndex">;
 
+const sortSeed = Math.floor(Math.random() * 10);
+
 const mockProjects = Array.from({ length: 9 }).map((_, index) => ({
   id: `mock-project-${index}`,
   name: "Why did you unblur me?",
@@ -51,6 +53,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
   const queryParams: Partial<GetHackathonProjectsV2QueryParams> = {
     search: debouncedSearch,
+    sortSeed,
     ...filters,
   };
 
