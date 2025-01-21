@@ -16,6 +16,7 @@ import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -63,7 +64,12 @@ export default function ProjectIssuesPage({
     hackathonId: selectedHackathons[0]?.id,
   };
 
-  const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+  const {
+    data: issuesData,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
     },
@@ -227,6 +233,7 @@ export default function ProjectIssuesPage({
               />
             ))
           )}
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
         <div className="flex gap-md px-lg pt-xl">
           <Typo size={"sm"} color={"secondary"} translate={{ token: "project:details.issues.issuesCount" }} />
