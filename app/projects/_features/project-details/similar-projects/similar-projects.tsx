@@ -37,10 +37,6 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
       return <ErrorState />;
     }
 
-    if (!projects.length) {
-      return null;
-    }
-
     return (
       <>
         {projects.map(project => (
@@ -64,6 +60,10 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
       </>
     );
   }, [isLoading, isError, projects]);
+
+  if (!projects.length) {
+    return null;
+  }
 
   return (
     <Paper size="none" background="glass" border="secondary">
