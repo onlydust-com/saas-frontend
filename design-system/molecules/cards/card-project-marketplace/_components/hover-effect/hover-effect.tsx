@@ -23,7 +23,8 @@ export function HoverEffect({ showBorder = false }: HoverEffectProps) {
           />
         )}
       </div>
-      <div className="purple-halo-gradient absolute inset-[2px] overflow-hidden rounded-[10px]" />
+      <div className="absolute inset-[2px] overflow-hidden rounded-[10px] bg-background-primary" />
+      <div className="absolute inset-[2px] overflow-hidden rounded-[10px] bg-background-secondary" />
     </motion.div>
   );
 }
