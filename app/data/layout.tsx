@@ -86,7 +86,7 @@ function Navigation() {
 
 export default function DataLayout({ children }: { children: ReactNode }) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="large">
       <GlobalDataFilterProvider>
         <AnimatedColumn className="h-full max-w-full">
           <ScrollView className="flex flex-col gap-md">

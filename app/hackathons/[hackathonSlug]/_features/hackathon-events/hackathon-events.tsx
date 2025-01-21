@@ -59,7 +59,7 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
 
   return (
     <Paper
-      background="glass"
+      background="primary"
       border="primary"
       classNames={{ base: "flex flex-col divide-y divide-border-primary" }}
       size="none"

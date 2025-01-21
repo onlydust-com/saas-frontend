@@ -48,7 +48,7 @@ export function FilterData() {
 
           <Button
             size={"md"}
-            variant={"secondary"}
+            variant={"primary"}
             onClick={() => {
               saveFilters();
               back();

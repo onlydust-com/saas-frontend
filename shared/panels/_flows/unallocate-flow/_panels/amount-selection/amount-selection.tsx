@@ -81,7 +81,7 @@ export function AmountSelection() {
 
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           onClick={() => unallocate.post()}
           isLoading={unallocate.isPending}

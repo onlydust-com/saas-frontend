@@ -73,7 +73,7 @@ function Navigation({ params }: { params: { userSlug: string } }) {
 
 export default function UsersLayout({ params, children }: { params: { userSlug: string }; children: ReactNode }) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="small">
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">{/* User summary component will go here */}</div>

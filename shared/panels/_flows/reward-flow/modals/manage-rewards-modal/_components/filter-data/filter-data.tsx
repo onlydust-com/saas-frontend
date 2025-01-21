@@ -104,7 +104,7 @@ export function FilterData() {
             <Translate token={"modals:manageRewards.table.filters.reset"} />
           </Button>
 
-          <Button size={"md"} variant={"secondary"} onClick={() => saveFilters()}>
+          <Button size={"md"} variant={"primary"} onClick={() => saveFilters()}>
             <Translate token={"modals:manageRewards.table.filters.save"} />
           </Button>
         </div>

@@ -40,7 +40,7 @@ function withProgramList<P extends object>(Component: ComponentType<P>) {
 
 function ProgramsPage() {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <NavigationBreadcrumb
         breadcrumb={[
           {

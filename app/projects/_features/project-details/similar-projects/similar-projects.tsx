@@ -66,7 +66,7 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
   }
 
   return (
-    <Paper size="none" background="glass" border="secondary">
+    <Paper size="none" background="primary" border="secondary">
       <div className="flex flex-col divide-y divide-border-primary">
         <div className="p-xl">
           <Typo

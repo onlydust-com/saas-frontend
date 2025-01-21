@@ -121,7 +121,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
       as={as}
       {...htmlProps}
       classNames={{ base: cn(slots.base(), classNames?.base) }}
-      background="glass"
+      background="secondary"
       border="primary"
       onClick={onClick}
       size="lg"

@@ -108,7 +108,7 @@ export function ProgramListSidepanel({ sponsorId, onProgramClick }: ProgramListS
       </SidePanelBody>
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           onClick={openCreateProgramPanel}
           translate={{ token: "panels:programList.createProgram" }}

@@ -7,7 +7,8 @@ export function ListBanner({ title, subtitle, logo }: ListBannerProps) {
   return (
     <Paper
       size="4xl"
-      background="secondary"
+      background="primary"
+      border="primary"
       rounded="2xl"
       classNames={{ base: "flex justify-between items-center gap-4xl overflow-hidden" }}
     >

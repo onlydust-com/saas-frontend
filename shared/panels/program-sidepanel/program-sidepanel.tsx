@@ -73,7 +73,7 @@ export function ProgramSidepanel() {
         <SidePanelFooter>
           <div className={"flex w-full flex-row items-center justify-between gap-1"}>
             {onAllocateClick ? (
-              <Button size={"md"} variant={"secondary"} onClick={() => onAllocateClick(data?.id)}>
+              <Button size={"md"} variant={"primary"} onClick={() => onAllocateClick(data?.id)}>
                 <Translate token={"panels:program.buttons.allocate"} />
               </Button>
             ) : (
@@ -81,7 +81,7 @@ export function ProgramSidepanel() {
             )}
             <div className={"flex flex-row items-center justify-end gap-lg"}>
               {onEditClick ? (
-                <Button size={"md"} variant={"secondary"} onClick={() => onEditClick(data?.id)}>
+                <Button size={"md"} variant={"primary"} onClick={() => onEditClick(data?.id)}>
                   <Translate token={"panels:program.buttons.edit"} />
                 </Button>
               ) : (

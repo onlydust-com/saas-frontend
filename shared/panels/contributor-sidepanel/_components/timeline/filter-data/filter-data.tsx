@@ -86,7 +86,7 @@ export function FilterData({ user }: FilterDataProps) {
             onClick={() => resetFilters()}
             translate={{ token: "common:form.reset" }}
           />
-          <Button size={"md"} variant={"secondary"} onClick={onSave} translate={{ token: "common:form.save" }} />
+          <Button size={"md"} variant={"primary"} onClick={onSave} translate={{ token: "common:form.save" }} />
         </div>
       </SidePanelFooter>
     </Panel>
