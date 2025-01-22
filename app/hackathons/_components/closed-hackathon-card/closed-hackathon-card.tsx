@@ -23,13 +23,13 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
       htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
       background="transparent"
       border="primary"
-      classNames={{ base: "block bg-background-secondary overflow-hidden hover:opacity-80" }}
+      classNames={{ base: "block bg-background-secondary overflow-hidden opacity-80" }}
       size="none"
     >
       <div className="relative z-[1] flex flex-col divide-y divide-border-primary">
         <div className="flex items-center justify-between gap-xl px-xl py-lg">
           <div className="flex items-center gap-xl">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-utility-brand-electricroyalblue-600 outline outline-2 -outline-offset-1 outline-components-avatar-border">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-utility-brand-electricroyalblue-600 outline outline-2 -outline-offset-1 outline-components-avatar-border grayscale">
               <Image src={logoWhite} alt={hackathon.title} width={24} height={24} className={"size-6"} />
             </div>
 

@@ -7,9 +7,9 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
-import { Accordion } from "@/design-system/molecules/accordion";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { cn } from "@/shared/helpers/cn";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -87,16 +87,13 @@ export function Summary({ issue }: SummaryProps) {
   return (
     <>
       {issue.body ? (
-        <Accordion
-          inline={true}
-          classNames={{ heading: "after:hidden", base: "p-0", content: "py-4" }}
-          id={"summary"}
-          titleProps={{ size: "md", weight: "medium", translate: { token: "panels:applyIssue.summary.title" } }}
-        >
-          <div className="flex w-full flex-col gap-4">
+        <div className="flex flex-col gap-4">
+          <Typo color="secondary" weight="medium" translate={{ token: "panels:applyIssue.summary.title" }} />
+
+          <ScrollView className="max-h-[300px]">
             <Markdown content={issue.body} />
-          </div>
-        </Accordion>
+          </ScrollView>
+        </div>
       ) : null}
 
       <Labels issue={issue} />
