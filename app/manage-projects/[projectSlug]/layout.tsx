@@ -224,7 +224,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="large">
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{
@@ -238,6 +238,7 @@ function ManageProjectsLayout({
           <RewardFlowProvider projectId={projectId}>
             <UngrantFlowProvider projectId={projectId}>
               <Safe projectSlug={projectSlug}>{children}</Safe>
+              <ContributionsSidepanel />
             </UngrantFlowProvider>
           </RewardFlowProvider>
         </GithubPermissionsProvider>
@@ -246,7 +247,6 @@ function ManageProjectsLayout({
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
-      <ContributionsSidepanel />
     </PageWrapper>
   );
 }

@@ -24,7 +24,7 @@ export function FilterButton({ onClick }: FilterButtonProps) {
         filterCount ? (
           <Badge
             size={"xxs"}
-            color={filterCount ? "brand" : "grey"}
+            color={filterCount ? "grey" : "grey"}
             variant={filterCount ? "solid" : "flat"}
             shape={"rounded"}
             classNames={{ base: "min-w-5 min-h-5" }}

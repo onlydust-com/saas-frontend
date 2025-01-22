@@ -66,7 +66,7 @@ export default function RepositoriesLayout({
   children: ReactNode;
 }) {
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="small">
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
           <div className="flex flex-col gap-lg desktop:col-span-1">left content</div>

@@ -52,11 +52,10 @@ export function TransactionsFilters({
                     <Badge
                       size="xxs"
                       shape="rounded"
-                      color={count ? "brand" : "grey"}
+                      count={count}
+                      color={count ? "inverse" : "grey"}
                       variant={count ? "solid" : "flat"}
-                    >
-                      {count}
-                    </Badge>
+                    />
                   ) : null
                 }
               />

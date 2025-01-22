@@ -122,7 +122,7 @@ export function AllocateProgramSidepanel() {
 
       <SidePanelFooter>
         <Button
-          variant={"secondary"}
+          variant={"primary"}
           size={"md"}
           onClick={() => allocate.post()}
           isDisabled={isLoading || allocate.isPending || allocate.newBalanceIsNegative}

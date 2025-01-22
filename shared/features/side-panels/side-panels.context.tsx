@@ -4,8 +4,6 @@ import { createContext, useContext, useMemo, useRef, useState } from "react";
 
 import { AnyType } from "@/core/kernel/types";
 
-import { AnimatedColumnGroup } from "@/shared/components/animated-column-group/animated-column-group";
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { SIDE_PANEL_GAP, SIDE_PANEL_SIZE } from "@/shared/constants/side-panel-size";
 import {
   SidePanelConfig,
@@ -38,7 +36,7 @@ export const SidePanelsContext = createContext<SidePanelsContextInterface>({
   getConfig: () => defaultConfig,
 });
 
-export function SidePanelsProvider({ children, classNames }: SidePanelsContextProps) {
+export function SidePanelsProvider({ children, classNames, absolute }: SidePanelsContextProps) {
   const [openedPanels, setOpenedPanels] = useState<string[]>([]);
   const [openedPanelsConfigs, setOpenedPanelsConfig] = useState<Record<string, SidePanelConfig>>();
   const [data, setData] = useState<[string, AnyType][]>([]);
@@ -145,18 +143,6 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
     return getConfig(openedPanels.at(-1) as string);
   }, [openedPanels]);
 
-  const panelSize = useMemo(() => {
-    if (openedPanels.length === 0) {
-      return closedWidth;
-    }
-
-    if (type === "container") {
-      return width + (gap || 0);
-    }
-
-    return closedWidth;
-  }, [openedPanels, gap, width, closedWidth, type]);
-
   return (
     <SidePanelsContext.Provider
       value={{
@@ -173,13 +159,22 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
         getConfig,
       }}
     >
-      <AnimatedColumnGroup className={classNames?.columnGroup}>
+      <>
         {children}
         {!isTablet && (
-          <AnimatedColumn width={panelSize} initialWidth={closedWidth} className={cn("h-full", classNames?.column)}>
+          <div className={cn("h-full", classNames?.column)}>
+            {!absolute && (
+              <div
+                className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
+                  "pointer-events-auto opacity-60": openedPanels?.length,
+                })}
+                onClick={() => closePanel()}
+              />
+            )}
             <div
               className={cn(
-                "relative z-[99] h-full w-full",
+                { "relative z-[99] h-full w-full": absolute },
+                { "fixed bottom-0 right-0 top-0 z-[99]": !absolute },
                 {
                   "overflow-hidden": type === "container",
                 },
@@ -190,9 +185,9 @@ export function SidePanelsProvider({ children, classNames }: SidePanelsContextPr
                 paddingLeft: type === "container" ? `${gap}rem` || 0 : 0,
               }}
             ></div>
-          </AnimatedColumn>
+          </div>
         )}
-      </AnimatedColumnGroup>
+      </>
     </SidePanelsContext.Provider>
   );
 }

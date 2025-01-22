@@ -32,9 +32,7 @@ export const ModalNextUiVariants = tv({
     background: {
       primary: { modal: "bg-background-primary" },
       gradient: {
-        modal: cn(
-          "transform-gpu bg-transparent backdrop-blur-md backdrop-filter before:pointer-events-none before:absolute before:inset-0 before:-z-[1] before:effect-bg-blur-shadow before:gradient-glass-neon-45"
-        ),
+        modal: cn("transform-gpu border border-1 border-border-primary bg-background-primary"),
       },
     },
   },

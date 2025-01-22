@@ -152,7 +152,7 @@ function Content({ headerProps, footerProps }: BulkContributionSelectionProps) {
           ) : null}
 
           <Button
-            variant={"secondary"}
+            variant={"primary"}
             size={"md"}
             translate={{
               token: "common:next",

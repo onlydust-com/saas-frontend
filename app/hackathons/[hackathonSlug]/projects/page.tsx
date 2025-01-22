@@ -23,12 +23,15 @@ import { FilterButton } from "@/shared/features/filters/_components/filter-butto
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { cn } from "@/shared/helpers/cn";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useHackathonProjectsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
 
 export type HackathonProjectsFilters = Omit<NonNullable<GetHackathonProjectsV2QueryParams>, "pageSize" | "pageIndex">;
+
+const sortSeed = Math.floor(Math.random() * 10);
 
 const mockProjects = Array.from({ length: 9 }).map((_, index) => ({
   id: `mock-project-${index}`,
@@ -50,6 +53,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
   const queryParams: Partial<GetHackathonProjectsV2QueryParams> = {
     search: debouncedSearch,
+    sortSeed,
     ...filters,
   };
 
@@ -107,12 +111,20 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
       );
     }
 
+    const urlSearchParams = new URLSearchParams();
+
+    if (hackathon?.id) {
+      urlSearchParams.set("h", hackathon.id);
+    }
+
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
         as={BaseLink}
         htmlProps={{
-          href: `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?l=${encodeURIComponent(hackathon?.githubLabels?.join(",") || "")}`,
+          href: hackathon?.isLive()
+            ? `${NEXT_ROUTER.projects.details.issues.root(project.slug)}?${urlSearchParams.toString()}`
+            : NEXT_ROUTER.projects.details.root(project.slug),
         }}
         name={project.name}
         slug={project.slug}
@@ -121,10 +133,11 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odHackStats?.issueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
+        odHackStats={project.odHackStats}
       />
     ));
   }, [isLoading, isError, projects]);
@@ -139,13 +152,24 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        odhackIssueCount={project.odhackIssueCount}
+        odHackStats={{
+          issueCount: project.odhackIssueCount,
+          availableIssueCount: project.odhackIssueCount,
+        }}
       />
     ));
   }, [isLoading, isError, projects]);
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
+      <PosthogCaptureOnMount
+        eventName={"hackathon_viewed"}
+        params={{
+          hackathon_id: hackathon?.id,
+        }}
+        paramsReady={Boolean(hackathon?.id)}
+      />
+
       <NavigationBreadcrumb
         breadcrumb={[
           {

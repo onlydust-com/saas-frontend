@@ -9,7 +9,7 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 
 import { DocumentationProps } from "./documentation.types";
 
@@ -32,9 +32,11 @@ export function Documentation({ ecosystemSlug }: DocumentationProps) {
       return <PaperLoading classNames={{ base: "h-[200px]" }} />;
     }
 
-    if (isError || !ecosystem?.documentations.length) return <EmptyStateLite />;
+    if (isError) {
+      return <ErrorState />;
+    }
 
-    return ecosystem.documentations.map(documentation => (
+    return ecosystem?.documentations.map(documentation => (
       <Paper
         as={BaseLink}
         key={documentation.name}
@@ -55,6 +57,10 @@ export function Documentation({ ecosystemSlug }: DocumentationProps) {
       </Paper>
     ));
   }, [isLoading, isError, ecosystem]);
+
+  if (!ecosystem?.documentations.length) {
+    return null;
+  }
 
   return (
     <Paper

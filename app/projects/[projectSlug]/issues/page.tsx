@@ -3,8 +3,10 @@
 import { FolderOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
+import { HackathonListItemInterface } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
@@ -14,8 +16,10 @@ import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function ProjectIssuesPage({
@@ -23,7 +27,7 @@ export default function ProjectIssuesPage({
   searchParams,
 }: {
   params: { projectSlug: string };
-  searchParams: { l: string };
+  searchParams: { l: string; h: string };
 }) {
   const { open } = useApplyIssueSidePanel();
 
@@ -32,6 +36,19 @@ export default function ProjectIssuesPage({
 
     return labels.map(name => ({ name })) as GithubLabelWithCountInterface[];
   });
+
+  const [selectedHackathons, setSelectedHackathons] = useState<HackathonListItemInterface[]>(() => {
+    const hackathons = searchParams.h?.split(",").filter(Boolean) || [];
+
+    return hackathons.map(id => ({ id })) as HackathonListItemInterface[];
+  });
+
+  const { data: hackathons } = HackathonReactQueryAdapter.client.useGetHackathons({});
+
+  const liveHackathons = useMemo(
+    () => hackathons?.hackathons.filter(hackathon => hackathon.isLive()) ?? [],
+    [hackathons]
+  );
 
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
@@ -44,9 +61,15 @@ export default function ProjectIssuesPage({
 
   const queryParams: Partial<GetProjectAvailableIssuesQueryParams> = {
     githubLabels: selectedLabels.map(label => label.name),
+    hackathonId: selectedHackathons[0]?.id,
   };
 
-  const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+  const {
+    data: issuesData,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
     },
@@ -71,10 +94,33 @@ export default function ProjectIssuesPage({
       const params = new URLSearchParams(window.location.search);
 
       const labels = next.map(l => l.name);
+
       if (labels.length) {
         params.set("l", labels.join(","));
       } else {
         params.delete("l");
+      }
+
+      window.history.replaceState(null, "", `?${params.toString()}`);
+
+      return next;
+    });
+  }
+
+  function handleHackathonClick(hackathon: HackathonListItemInterface) {
+    setSelectedHackathons(prev => {
+      const next = prev.some(h => h.id === hackathon.id)
+        ? prev.filter(h => h.id !== hackathon.id)
+        : [...prev, hackathon];
+
+      const params = new URLSearchParams(window.location.search);
+
+      const hackathons = next.map(h => h.id);
+
+      if (hackathons.length) {
+        params.set("h", hackathons.join(","));
+      } else {
+        params.delete("h");
       }
 
       window.history.replaceState(null, "", `?${params.toString()}`);
@@ -89,6 +135,18 @@ export default function ProjectIssuesPage({
 
   return (
     <ScrollView>
+      <PosthogCaptureOnMount
+        eventName={"project_viewed"}
+        params={{
+          id_project: data?.id,
+          project_id: data?.id,
+          type: "full",
+          issues: data?.availableIssueCount,
+          tab: "issues",
+        }}
+        paramsReady={Boolean(data)}
+      />
+
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -114,6 +172,21 @@ export default function ProjectIssuesPage({
               color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
             >
               {label.name} ({label.count})
+            </Badge>
+          ))}
+
+          {labels?.length > 0 && liveHackathons?.length > 0 ? (
+            <div className="h-8 border-l border-border-primary" />
+          ) : null}
+
+          {liveHackathons?.map(hackathon => (
+            <Badge
+              key={hackathon.slug}
+              size="md"
+              onClick={() => handleHackathonClick(hackathon)}
+              color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
+            >
+              {hackathon.title}
             </Badge>
           ))}
         </div>
@@ -160,6 +233,7 @@ export default function ProjectIssuesPage({
               />
             ))
           )}
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
         </ScrollView>
         <div className="flex gap-md px-lg pt-xl">
           <Typo size={"sm"} color={"secondary"} translate={{ token: "project:details.issues.issuesCount" }} />

@@ -37,7 +37,7 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
       as={as}
       htmlProps={htmlProps}
       size="none"
-      background="glass"
+      background="primary"
       border="secondary"
       classNames={{ base: cn(slots.base(), classNames?.base) }}
     >

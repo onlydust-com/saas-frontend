@@ -155,17 +155,17 @@ export const TabItemDefaultVariants = tv({
       class: {
         base: ["focus-visible:effect-ring-brand-spaced", "data-[focus-visible=true]:effect-ring-brand-spaced"],
         label: [
-          "text-typography-tertiary",
+          "text-typography-secondary",
           "group-hover/tab:text-typography-tertiary-hover",
           "group-data-[hover=true]/tab:text-typography-tertiary-hover",
         ],
         startIcon: [
-          "text-foreground-tertiary",
+          "text-foreground-secondary",
           "group-hover/tab:text-foreground-tertiary-hover",
           "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
         ],
         endIcon: [
-          "text-foreground-tertiary",
+          "text-foreground-secondary",
           "group-hover/tab:text-foreground-tertiary-hover",
           "group-data-[hover=true]/tab:text-foreground-tertiary-hover",
         ],
@@ -181,17 +181,17 @@ export const TabItemDefaultVariants = tv({
           "data-[focus-visible=true]:effect-ring-brand-spaced",
         ],
         label: [
-          "text-typography-secondary",
+          "text-typography-primary",
           "group-hover/tab:text-typography-secondary-hover",
           "group-data-[hover=true]/tab:text-typography-secondary-hover",
         ],
         startIcon: [
-          "text-foreground-secondary",
+          "text-foreground-primary",
           "group-hover/tab:text-foreground-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-secondary-hover",
         ],
         endIcon: [
-          "text-foreground-secondary",
+          "text-foreground-primary",
           "group-hover/tab:text-foreground-secondary-hover",
           "group-data-[hover=true]/tab:text-foreground-secondary-hover",
         ],

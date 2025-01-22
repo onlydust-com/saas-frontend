@@ -93,16 +93,17 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
-      <PageWrapper>
-        <AnimatedColumn className="h-full max-w-full">
-          <ScrollView className="h-full">
-            <div className="flex flex-col items-start justify-start gap-md tablet:h-full laptop:flex-row laptop:gap-lg">
-              <div className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
+      <PageWrapper containerSize="medium">
+        <ScrollView>
+          <AnimatedColumn className="h-full max-w-full">
+            <div className="flex flex-col items-start justify-start gap-md laptop:h-full laptop:flex-row laptop:gap-lg">
+              <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
                 <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
                 <SimilarProjects projectIdOrSlug={params.projectSlug} />
-              </div>
+              </ScrollView>
+
               <Paper
-                background="glass"
+                background="primary"
                 border="primary"
                 classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
                 px="none"
@@ -113,9 +114,10 @@ export default function ProjectsLayout({ params, children }: { params: { project
                 {children}
               </Paper>
             </div>
-          </ScrollView>
-        </AnimatedColumn>
-        <ApplyIssueSidepanel />
+          </AnimatedColumn>
+
+          <ApplyIssueSidepanel />
+        </ScrollView>
       </PageWrapper>
     </GithubPermissionsProvider>
   );

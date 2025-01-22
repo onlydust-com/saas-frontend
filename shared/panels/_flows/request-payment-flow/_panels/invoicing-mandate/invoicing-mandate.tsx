@@ -496,7 +496,7 @@ function Content({ onClose }: { onClose: () => void }) {
 
       <SidePanelFooter>
         <div className="flex w-full justify-end">
-          <Button size="md" variant="secondary" onClick={onClose}>
+          <Button size="md" variant="primary" onClick={onClose}>
             <Translate token="common:close" />
           </Button>
         </div>

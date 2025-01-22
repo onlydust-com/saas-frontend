@@ -22,7 +22,7 @@ export function ManageRewardsModal({ isOpen, onOpenChange, projectId }: ManageRe
       background="gradient"
       classNames={{ modal: "h-full" }}
     >
-      <SidePanelsProvider>
+      <SidePanelsProvider absolute>
         <AnimatedColumn className={"h-full"}>
           <PageContent classNames={{ base: "h-full" }}>
             <ContributorsTable projectId={projectId} />

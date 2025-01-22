@@ -80,6 +80,7 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
       />
     ));
   }, [isLoading, isError, projects]);

@@ -38,7 +38,7 @@ function Home() {
   }, [user]);
 
   return (
-    <PageWrapper>
+    <PageWrapper containerSize="medium">
       <Skeleton classNames={{ base: "w-full h-full" }} />
     </PageWrapper>
   );

@@ -72,6 +72,7 @@ function ProjectRecommendationResultsPage() {
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
       />
     ));
   }

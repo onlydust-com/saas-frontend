@@ -84,6 +84,7 @@ function Safe() {
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
+        tags={project.tags}
       />
     ));
   }, [projects, isError, isLoading]);
@@ -118,7 +119,7 @@ function Safe() {
           <BrowseProjectsFilters />
         </header>
 
-        <div className="grid gap-xl mobile:grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 laptop:gap-2xl desktop:grid-cols-5 desktop:gap-3xl wide:grid-cols-7">
+        <div className="grid gap-xl mobile:grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-4">
           {renderProjects()}
           {hasNextPage ? (
             <div className="col-span-full">

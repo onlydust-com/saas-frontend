@@ -40,7 +40,7 @@ export function CurrencySelection({
       <div className={"w-full overflow-hidden"}>
         <div className={"flex justify-center overflow-hidden"}>
           <Button
-            variant={"primary"}
+            variant={"secondary"}
             size={"lg"}
             onClick={open}
             endIcon={!readOnly ? { component: ChevronDown } : undefined}
