@@ -1,9 +1,9 @@
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
+import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 import { AnyType } from "@/core/kernel/types";
 
 import { ButtonPort } from "@/design-system/atoms/button/button.types";
 
 export interface RepoLinkProps {
-  repo?: components["schemas"]["ShortGithubRepoResponse"];
+  repo?: ProjectInterfaceV2["repos"][number];
   buttonProps?: ButtonPort<AnyType>;
 }

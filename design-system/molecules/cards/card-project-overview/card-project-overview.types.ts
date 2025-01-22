@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from "react";
 
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 import { CategoriesProps } from "@/shared/features/projects/categories/categories.types";
 import { LanguagesProps } from "@/shared/features/projects/languages/languages.types";
@@ -24,5 +23,5 @@ export interface CardProjectOverviewPort<C extends ElementType> {
   leaders?: ProjectInterfaceV2["leads"];
   languages?: LanguagesProps["languages"];
   moreInfos?: ProjectInterfaceV2["moreInfos"];
-  repos?: components["schemas"]["ShortGithubRepoResponse"][];
+  repos?: ProjectInterfaceV2["repos"];
 }
