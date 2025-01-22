@@ -163,33 +163,35 @@ export default function ProjectIssuesPage({
         ]}
       />
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
-        <div className="flex flex-wrap gap-md p-lg">
-          {labels?.map(label => (
-            <Badge
-              key={label.name}
-              size="md"
-              onClick={() => handleLabelClick(label)}
-              color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
-            >
-              {label.name} ({label.count})
-            </Badge>
-          ))}
+        {labels.length || liveHackathons.length ? (
+          <div className="flex flex-wrap gap-md p-lg">
+            {labels?.map(label => (
+              <Badge
+                key={label.name}
+                size="md"
+                onClick={() => handleLabelClick(label)}
+                color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
+              >
+                {label.name} ({label.count})
+              </Badge>
+            ))}
 
-          {labels?.length > 0 && liveHackathons?.length > 0 ? (
-            <div className="h-8 border-l border-border-primary" />
-          ) : null}
+            {labels?.length > 0 && liveHackathons?.length > 0 ? (
+              <div className="h-8 border-l border-border-primary" />
+            ) : null}
 
-          {liveHackathons?.map(hackathon => (
-            <Badge
-              key={hackathon.slug}
-              size="md"
-              onClick={() => handleHackathonClick(hackathon)}
-              color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
-            >
-              {hackathon.title}
-            </Badge>
-          ))}
-        </div>
+            {liveHackathons?.map(hackathon => (
+              <Badge
+                key={hackathon.slug}
+                size="md"
+                onClick={() => handleHackathonClick(hackathon)}
+                color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
+              >
+                {hackathon.title}
+              </Badge>
+            ))}
+          </div>
+        ) : null}
         <ScrollView direction={"x"} className="flex flex-col gap-4 p-lg">
           {!issues?.length ? (
             <EmptyState
