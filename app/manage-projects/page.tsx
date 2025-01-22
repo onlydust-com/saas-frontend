@@ -13,13 +13,13 @@ import { Typo } from "@/design-system/atoms/typo";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { Translate } from "@/shared/translation/components/translate/translate";
-import { NEXT_ROUTER } from "@/shared/constants/router";
 
 function withProjectList<P extends object>(Component: ComponentType<P>) {
   return function WithProjectList(props: P) {
