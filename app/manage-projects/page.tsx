@@ -29,8 +29,8 @@ function withProjectList<P extends object>(Component: ComponentType<P>) {
     useEffect(() => {
       if (showProjectList.loading) return;
 
-      if (!showProjectList.hasMultipleProjects) {
-        router.push(NEXT_ROUTER.manageProjects.default.root(showProjectList.firstProject ?? ""));
+      if (!showProjectList.hasMultipleProjects && showProjectList.firstProject) {
+        router.push(NEXT_ROUTER.manageProjects.default.root(showProjectList.firstProject));
       }
     }, [showProjectList, router]);
 

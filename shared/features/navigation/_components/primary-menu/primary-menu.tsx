@@ -39,9 +39,10 @@ export function PrimaryMenu() {
       <ItemNav
         iconProps={{ component: Wallet }}
         linkProps={{
-          href: showSponsorList.hasMultipleSponsors
-            ? NEXT_ROUTER.financials.root
-            : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""),
+          href:
+            showSponsorList.hasMultipleSponsors || !showSponsorList.firstSponsor
+              ? NEXT_ROUTER.financials.root
+              : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor),
           matchPathOptions: {
             exact: false,
             pattern: NEXT_ROUTER.financials.root,
@@ -53,9 +54,10 @@ export function PrimaryMenu() {
       <ItemNav
         iconProps={{ component: Clipboard }}
         linkProps={{
-          href: showProgramList.hasMultiplePrograms
-            ? NEXT_ROUTER.programs.root
-            : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""),
+          href:
+            showProgramList.hasMultiplePrograms || !showProgramList.firstProgram
+              ? NEXT_ROUTER.programs.root
+              : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram),
           matchPathOptions: {
             exact: false,
             pattern: NEXT_ROUTER.programs.root,
@@ -67,9 +69,10 @@ export function PrimaryMenu() {
       <ItemNav
         iconProps={{ component: FolderKanban }}
         linkProps={{
-          href: showProjectList.hasMultipleProjects
-            ? NEXT_ROUTER.manageProjects.root
-            : NEXT_ROUTER.manageProjects.default.root(showProjectList.firstProject ?? ""),
+          href:
+            showProjectList.hasMultipleProjects || !showProjectList.firstProject
+              ? NEXT_ROUTER.manageProjects.root
+              : NEXT_ROUTER.manageProjects.default.root(showProjectList.firstProject),
           matchPathOptions: {
             exact: false,
             pattern: NEXT_ROUTER.manageProjects.root,
