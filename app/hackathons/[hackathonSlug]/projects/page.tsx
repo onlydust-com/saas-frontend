@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -74,7 +74,25 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
   });
 
   const isRegistered = hackathonRegistration?.isRegistered ?? false;
-  const canAccessProjects = hackathon?.isPast() || isRegistered;
+  const canAccessProjects = hackathon?.isPast() || (hackathon?.isLive() && isRegistered);
+
+  const renderProjectMessage = useCallback(() => {
+    if (hackathon?.isComingSoon()) {
+      const formattedDates = hackathon.formatDisplayDates();
+
+      if (formattedDates) {
+        return `This section will become available once the event begins on ${formattedDates.startDate} at ${formattedDates.startTime}.`;
+      }
+
+      return "This section will become available once the event begins.";
+    }
+
+    if (!isRegistered) {
+      return "Register now to access the full project list.";
+    }
+
+    return "The projects are not available yet.";
+  }, [hackathon, isRegistered]);
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     HackathonReactQueryAdapter.client.useGetHackathonProjects({
@@ -214,7 +232,7 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
           {!canAccessProjects ? (
             <div className="absolute inset-0 z-10 flex items-center justify-center">
-              <Typo>Register now to access the full project list</Typo>
+              <Typo>{renderProjectMessage()}</Typo>
             </div>
           ) : null}
         </div>
