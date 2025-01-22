@@ -159,35 +159,32 @@ export function SidePanelsProvider({ children, classNames, absolute }: SidePanel
         getConfig,
       }}
     >
-      <>
-        {children}
-        {!isTablet && (
-          <div className={cn("h-full", classNames?.column)}>
-            {!absolute && (
-              <div
-                className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
-                  "pointer-events-auto opacity-60": openedPanels?.length,
-                })}
-                onClick={() => closePanel()}
-              />
-            )}
+      {children}
+      {!isTablet && (
+        <div className={cn("h-full", classNames?.column)}>
+          {!absolute && (
             <div
-              className={cn(
-                { "relative z-[99] h-full w-full": absolute },
-                { "fixed bottom-0 right-0 top-0 z-[99]": !absolute },
-                {
-                  "overflow-hidden": type === "container",
-                },
-                classNames?.inner
-              )}
-              ref={container}
-              style={{
-                paddingLeft: type === "container" ? `${gap}rem` || 0 : 0,
-              }}
-            ></div>
-          </div>
-        )}
-      </>
+              className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
+                "pointer-events-auto opacity-60": openedPanels?.length,
+              })}
+              onClick={() => closePanel()}
+            />
+          )}
+          <div
+            className={cn(
+              { "fixed bottom-0 right-0 top-0 z-[99]": !absolute },
+              {
+                "overflow-hidden": type === "container",
+              },
+              classNames?.inner
+            )}
+            ref={container}
+            style={{
+              paddingLeft: type === "container" ? `${gap}rem` || 0 : 0,
+            }}
+          ></div>
+        </div>
+      )}
     </SidePanelsContext.Provider>
   );
 }

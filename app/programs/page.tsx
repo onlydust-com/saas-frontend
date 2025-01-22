@@ -25,8 +25,8 @@ function withProgramList<P extends object>(Component: ComponentType<P>) {
     useEffect(() => {
       if (showProgramList.loading) return;
 
-      if (!showProgramList.hasMultiplePrograms) {
-        router.push(NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""));
+      if (!showProgramList.hasMultiplePrograms && showProgramList.firstProgram) {
+        router.push(NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram));
       }
     }, [showProgramList, router]);
 

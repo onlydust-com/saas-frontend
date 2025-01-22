@@ -122,10 +122,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
             classNames={{
               base: cn(
                 "h-full w-full flex flex-col overflow-hidden",
-                {
-                  "tablet:border-l-border-primary tablet:border-l tablet:border-solid effect-box-shadow-sm tablet:rounded-l-none":
-                    panelConfig.type === "drawer",
-                },
+                "tablet:border-l-border-primary tablet:border-l tablet:border-solid effect-box-shadow-sm tablet:rounded-l-none",
                 { "max-h-dvh": isTablet },
                 classNames?.content
               ),
