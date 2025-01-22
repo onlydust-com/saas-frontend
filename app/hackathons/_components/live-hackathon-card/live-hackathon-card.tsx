@@ -63,7 +63,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
               size="md"
               classNames={{ base: "w-full tablet:w-auto" }}
             >
-              Join the ODHack
+              Join the ODBoost
             </Button>
           </div>
 
