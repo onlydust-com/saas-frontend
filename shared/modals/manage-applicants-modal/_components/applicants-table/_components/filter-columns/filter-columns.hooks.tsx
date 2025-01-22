@@ -92,6 +92,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
             ]}
             title={{ children: contributor.login }}
             description={{ children: contributor.rank.getTitle().wording }}
+            withPopover={false}
           />
         );
       },
