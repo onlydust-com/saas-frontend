@@ -13,6 +13,7 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { cn } from "@/shared/helpers/cn";
 
 export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
   const {
@@ -47,7 +48,16 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
     >
       <div className="px-xl py-lg">
         <div className="flex items-center gap-xl">
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-utility-brand-electricroyalblue-600 outline outline-2 -outline-offset-1 outline-components-avatar-border">
+          <div
+            className={cn(
+              "flex size-12 shrink-0 items-center justify-center rounded-xl",
+              "bg-utility-brand-electricroyalblue-600",
+              "outline outline-2 -outline-offset-1 outline-components-avatar-border",
+              {
+                grayscale: hackathon.isPast(),
+              }
+            )}
+          >
             <Image src={logoWhite} alt={hackathon.title} width={24} height={24} className={"size-7"} />
           </div>
 
