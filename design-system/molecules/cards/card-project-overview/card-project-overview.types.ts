@@ -23,4 +23,5 @@ export interface CardProjectOverviewPort<C extends ElementType> {
   leaders?: ProjectInterfaceV2["leads"];
   languages?: LanguagesProps["languages"];
   moreInfos?: ProjectInterfaceV2["moreInfos"];
+  repos?: ProjectInterfaceV2["repos"];
 }

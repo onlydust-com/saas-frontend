@@ -8,6 +8,7 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Metric } from "@/shared/features/projects/metric/metric";
+import { RepoLink } from "@/shared/features/repos/repo-link/repo-link";
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { UserGroup } from "@/shared/features/user/user-group/user-group";
 import { cn } from "@/shared/helpers/cn";
@@ -29,6 +30,7 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
   languages,
   moreInfos,
   leaders,
+  repos,
 }: CardProjectOverviewPort<C>) {
   const slots = CardProjectOverviewDefaultVariants();
 
@@ -106,6 +108,20 @@ export function CardProjectOverviewDefaultAdapter<C extends ElementType = "div">
                 {moreInfos?.map(moreInfoItem => (
                   <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
                 ))}
+              </div>
+            </div>
+          ) : null}
+
+          {repos ? (
+            <div className="flex flex-col gap-lg">
+              <Typo
+                size="xs"
+                weight="medium"
+                color="primary"
+                translate={{ token: "features:cardProjectOverview.repos" }}
+              />
+              <div className={"flex flex-row flex-wrap gap-sm"}>
+                {repos?.map(repo => <RepoLink key={repo.htmlUrl} repo={repo} buttonProps={{ size: "xs" }} />)}
               </div>
             </div>
           ) : null}
