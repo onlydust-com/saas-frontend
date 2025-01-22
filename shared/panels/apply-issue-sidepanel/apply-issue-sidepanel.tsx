@@ -14,6 +14,7 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 import { toast } from "@/design-system/molecules/toaster";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
@@ -22,6 +23,7 @@ import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { SidePanelLoading } from "@/shared/features/side-panels/side-panel-loading/side-panel-loading";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
+import { Github } from "@/shared/icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Apply } from "./_components/apply/apply";
@@ -65,44 +67,61 @@ function Footer({
   onDeleteCommentChange,
   onCancel,
   isPending,
+  issueUrl,
 }: {
   hasCurrentUserApplication: boolean;
   shouldDeleteComment: boolean;
   onDeleteCommentChange: (value: boolean) => void;
   onCancel: () => void;
   isPending: boolean;
+  issueUrl: string;
 }) {
   return (
     <SidePanelFooter>
-      <div className="flex w-full flex-row items-center justify-between gap-1">
-        {hasCurrentUserApplication ? (
-          <>
-            <CheckboxButton
-              value={shouldDeleteComment}
-              onChange={onDeleteCommentChange}
-              variant="secondary"
-              isDisabled={isPending}
-            >
-              <Translate token="panels:applyIssue.apply.deleteComment" />
-            </CheckboxButton>
-            <Button
-              variant="primary"
-              translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
-              onClick={onCancel}
-              isLoading={isPending}
-            />
-          </>
-        ) : (
-          <>
-            <div />
-            <Button
-              variant="primary"
-              translate={{ token: "panels:applyIssue.apply.sendApplication" }}
-              type="submit"
-              isLoading={isPending}
-            />
-          </>
-        )}
+      <div className="flex w-full justify-between gap-md">
+        {issueUrl ? (
+          <Button
+            size="md"
+            variant="secondary"
+            as={BaseLink}
+            iconOnly
+            htmlProps={{ href: issueUrl, target: "_blank" }}
+            startIcon={{
+              component: Github,
+              size: "md",
+            }}
+          />
+        ) : null}
+        <div className="flex w-full flex-1 flex-row items-center justify-between gap-1">
+          {hasCurrentUserApplication ? (
+            <>
+              <CheckboxButton
+                value={shouldDeleteComment}
+                onChange={onDeleteCommentChange}
+                variant="secondary"
+                isDisabled={isPending}
+              >
+                <Translate token="panels:applyIssue.apply.deleteComment" />
+              </CheckboxButton>
+              <Button
+                variant="primary"
+                translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
+                onClick={onCancel}
+                isLoading={isPending}
+              />
+            </>
+          ) : (
+            <>
+              <div />
+              <Button
+                variant="primary"
+                translate={{ token: "panels:applyIssue.apply.sendApplication" }}
+                type="submit"
+                isLoading={isPending}
+              />
+            </>
+          )}
+        </div>
       </div>
     </SidePanelFooter>
   );
@@ -233,6 +252,7 @@ function Content() {
           onDeleteCommentChange={setShouldDeleteComment}
           onCancel={() => handlePermissions(handleCancel)}
           isPending={createApplicationState.isPending || deleteApplicationState.isPending}
+          issueUrl={issue.htmlUrl}
         />
       </form>
     </FormProvider>
