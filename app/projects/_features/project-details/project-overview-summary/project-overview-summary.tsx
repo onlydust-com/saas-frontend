@@ -47,6 +47,7 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
         languages={project.languages}
         moreInfos={project.moreInfos}
         leaders={project.leads}
+        repos={project.repos}
       />
     );
   }, [isLoading, isError, project]);
