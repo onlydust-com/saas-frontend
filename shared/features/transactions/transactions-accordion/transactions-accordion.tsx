@@ -19,14 +19,14 @@ export function TransactionsAccordion({
 
   const items: AccordionItemProps[] = useMemo(() => {
     return (
-      monthlyTransactions.map((t, index) => {
+      monthlyTransactions.map(t => {
         return {
-          id: `monthly-transaction-${index}`,
+          id: `monthly-transaction-${t.date}`,
           titleProps: {
             children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
           },
           badgeProps: {
-            children: t.count,
+            count: t.count,
           },
           content: <ContentComponent date={new Date(t.date)} />,
         };
