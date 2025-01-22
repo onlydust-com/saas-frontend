@@ -78,7 +78,13 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
 
   const renderProjectMessage = useCallback(() => {
     if (hackathon?.isComingSoon()) {
-      return "The hackathon is not live yet.";
+      const formattedDates = hackathon.formatDisplayDates();
+
+      if (formattedDates) {
+        return `This section will become available once the event begins on ${formattedDates.startDate} at ${formattedDates.startTime}.`;
+      }
+
+      return "This section will become available once the event begins.";
     }
 
     if (!isRegistered) {
