@@ -158,7 +158,12 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     if (!hasRetroactiveGrant) return null;
 
     return (
-      <div className="shrink-0">
+      <div
+        className="shrink-0"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
         <Tooltip
           content={
             <>
