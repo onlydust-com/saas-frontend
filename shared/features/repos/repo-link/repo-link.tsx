@@ -11,7 +11,7 @@ import { RepoLinkProps } from "./repo-link.types";
 export function RepoLink({ repo, buttonProps }: RepoLinkProps) {
   const urlKernelPort = bootstrap.getUrlKernelPort();
 
-  if (!repo?.htmlUrl) return null;
+  if (!repo || !repo?.htmlUrl || !repo?.name) return null;
 
   return (
     <Button
