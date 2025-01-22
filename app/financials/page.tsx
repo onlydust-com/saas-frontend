@@ -25,8 +25,8 @@ function withSponsorList<P extends object>(Component: ComponentType<P>) {
     useEffect(() => {
       if (showSponsorList.loading) return;
 
-      if (!showSponsorList.hasMultipleSponsors) {
-        router.push(NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""));
+      if (!showSponsorList.hasMultipleSponsors && showSponsorList.firstSponsor) {
+        router.push(NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor));
       }
     }, [showSponsorList, router]);
 
