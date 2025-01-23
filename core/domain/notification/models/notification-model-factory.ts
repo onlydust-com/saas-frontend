@@ -5,13 +5,12 @@ import { ContributorProjectApplicationAccepted } from "@/core/domain/notificatio
 import { ContributorRewardCanceled } from "@/core/domain/notification/models/notifications/contributor-reward-canceled";
 import { ContributorRewardPaid } from "@/core/domain/notification/models/notifications/contributor-reward-paid";
 import { ContributorRewardReceived } from "@/core/domain/notification/models/notifications/contributor-reward-received";
+import { ContributorRewindReady } from "@/core/domain/notification/models/notifications/contributor-rewind-ready";
 import { GlobalBillingProfileReminder } from "@/core/domain/notification/models/notifications/global-billing-profile-reminder";
 import { MaintainerApplicationToReview } from "@/core/domain/notification/models/notifications/maintainer-application-to-review";
 import { MaintainerCommitteeApplicationCreated } from "@/core/domain/notification/models/notifications/maintainer-commitee-application-created";
 import { ProgramLeadFundsAllocatedToProgram } from "@/core/domain/notification/models/notifications/program-lead-funds-allocated-to-program";
-import {
-  ProgramLeadFundsUngrantedFromProject
-} from "@/core/domain/notification/models/notifications/program-lead-funds-ungranted-form-project";
+import { ProgramLeadFundsUngrantedFromProject } from "@/core/domain/notification/models/notifications/program-lead-funds-ungranted-form-project";
 import { SponsorLeadDepositApproved } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-approved";
 import { SponsorLeadDepositRejected } from "@/core/domain/notification/models/notifications/sponsor-lead-deposit-rejected";
 import { SponsorLeadFundsUnallocatedFromProgram } from "@/core/domain/notification/models/notifications/sponsor-lead-funds-unallocated-from-program";
@@ -60,6 +59,8 @@ export class NotificationFactory {
         return new SponsorLeadDepositApproved(notification);
       case "SPONSOR_LEAD_DEPOSIT_REJECTED":
         return new SponsorLeadDepositRejected(notification);
+      case "CONTRIBUTOR_REWIND_READY":
+        return new ContributorRewindReady(notification);
     }
   }
 }

@@ -21,50 +21,20 @@ export function PrimaryMenu() {
   return (
     <>
       <ItemNav
-        iconProps={{ component: ChartLine }}
-        linkProps={
-          pageDataAvailable
-            ? {
-                href: NEXT_ROUTER.data.root,
-                matchPathOptions: {
-                  exact: false,
-                  pattern: NEXT_ROUTER.data.root,
-                },
-              }
-            : undefined
-        }
-        translate={{ token: "primaryNavigation:primaryMenu.data" }}
-        isDisabled={!pageDataAvailable}
-      />
-      <ItemNav
-        iconProps={{ component: Wallet }}
+        iconProps={{ component: Gauge }}
         linkProps={{
-          href:
-            showSponsorList.hasMultipleSponsors || !showSponsorList.firstSponsor
-              ? NEXT_ROUTER.financials.root
-              : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor),
+          href: NEXT_ROUTER.myDashboard.root,
           matchPathOptions: {
             exact: false,
-            pattern: NEXT_ROUTER.financials.root,
+            pattern: NEXT_ROUTER.myDashboard.root,
           },
         }}
-        translate={{ token: "primaryNavigation:primaryMenu.financial" }}
-        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
+        translate={{ token: "primaryNavigation:primaryMenu.dashboard" }}
       />
       <ItemNav
-        iconProps={{ component: Clipboard }}
-        linkProps={{
-          href:
-            showProgramList.hasMultiplePrograms || !showProgramList.firstProgram
-              ? NEXT_ROUTER.programs.root
-              : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram),
-          matchPathOptions: {
-            exact: false,
-            pattern: NEXT_ROUTER.programs.root,
-          },
-        }}
-        translate={{ token: "primaryNavigation:primaryMenu.program" }}
-        isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
+        iconProps={{ component: Compass }}
+        linkProps={{ href: marketplaceRouting("/projects") }}
+        translate={{ token: "primaryNavigation:primaryMenu.findAProject" }}
       />
       <ItemNav
         iconProps={{ component: FolderKanban }}
@@ -78,18 +48,7 @@ export function PrimaryMenu() {
             pattern: NEXT_ROUTER.manageProjects.root,
           },
         }}
-        translate={{ token: "primaryNavigation:primaryMenu.manageProject" }}
-      />
-      <ItemNav
-        iconProps={{ component: Gauge }}
-        linkProps={{
-          href: NEXT_ROUTER.myDashboard.root,
-          matchPathOptions: {
-            exact: false,
-            pattern: NEXT_ROUTER.myDashboard.root,
-          },
-        }}
-        translate={{ token: "primaryNavigation:primaryMenu.myDashboard" }}
+        translate={{ token: "primaryNavigation:primaryMenu.manageProjects" }}
       />
       <ItemNav
         iconProps={{ component: Rocket }}
@@ -103,9 +62,48 @@ export function PrimaryMenu() {
         translate={{ token: "primaryNavigation:primaryMenu.hackathons" }}
       />
       <ItemNav
-        iconProps={{ component: Compass }}
-        linkProps={{ href: marketplaceRouting("/projects") }}
-        translate={{ token: "primaryNavigation:primaryMenu.projects" }}
+        iconProps={{ component: ChartLine }}
+        linkProps={
+          pageDataAvailable
+            ? {
+                href: NEXT_ROUTER.data.root,
+                matchPathOptions: {
+                  exact: false,
+                  pattern: NEXT_ROUTER.data.root,
+                },
+              }
+            : undefined
+        }
+        translate={{ token: "primaryNavigation:primaryMenu.dataAndAnalytics" }}
+        isDisabled={!pageDataAvailable}
+      />
+      <ItemNav
+        iconProps={{ component: Wallet }}
+        linkProps={{
+          href: showSponsorList.hasMultipleSponsors
+            ? NEXT_ROUTER.financials.root
+            : NEXT_ROUTER.financials.programs.root(showSponsorList.firstSponsor ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.financials.root,
+          },
+        }}
+        translate={{ token: "primaryNavigation:primaryMenu.financials" }}
+        isDisabled={showSponsorList.loading || !showSponsorList.hasSponsors}
+      />
+      <ItemNav
+        iconProps={{ component: Clipboard }}
+        linkProps={{
+          href: showProgramList.hasMultiplePrograms
+            ? NEXT_ROUTER.programs.root
+            : NEXT_ROUTER.programs.projects.root(showProgramList.firstProgram ?? ""),
+          matchPathOptions: {
+            exact: false,
+            pattern: NEXT_ROUTER.programs.root,
+          },
+        }}
+        translate={{ token: "primaryNavigation:primaryMenu.programs" }}
+        isDisabled={showProgramList.loading || !showProgramList.hasPrograms}
       />
     </>
   );
