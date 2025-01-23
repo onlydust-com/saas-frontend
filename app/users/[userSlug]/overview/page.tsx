@@ -40,7 +40,7 @@ export default function UserOverviewPage({ params: { userSlug } }: { params: { u
         prCount={data?.prCount}
       />
     );
-  }, [isLoading, isError]);
+  }, [isLoading, isError, data]);
   return (
     <ScrollView>
       <NavigationBreadcrumb
