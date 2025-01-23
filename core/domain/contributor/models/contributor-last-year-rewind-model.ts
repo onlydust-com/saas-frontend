@@ -25,6 +25,7 @@ export class ContributorLastYearRewind implements ContributorLastYearRewindInter
   mostActiveMonth!: ContributorLastYearRewindResponse["mostActiveMonth"];
   languages!: ContributorLastYearRewindResponse["languages"];
   mostActiveEcosystem!: ContributorLastYearRewindResponse["mostActiveEcosystem"];
+  isReady!: ContributorLastYearRewindResponse["isReady"];
 
   constructor(props: ContributorLastYearRewindResponse) {
     Object.assign(this, props);
