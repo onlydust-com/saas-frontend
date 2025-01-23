@@ -1,12 +1,12 @@
 {
   "primaryMenu": {
-    "data": "Data",
-    "financial": "Financial",
-    "program": "Program",
-    "projects": "Explore Projects",
-    "manageProject": "Manage Projects",
-    "myDashboard": "My Dashboard",
-    "hackathons": "Hackathons"
+    "dashboard": "Dashboard",
+    "findAProject": "Find a Project",
+    "manageProjects": "Manage Projects",
+    "hackathons": "Hackathons",
+    "dataAndAnalytics": "Data & Analytics",
+    "financials": "Financials",
+    "programs": "Programs"
   },
   "secondaryMenu": {
     "support": "Support",
