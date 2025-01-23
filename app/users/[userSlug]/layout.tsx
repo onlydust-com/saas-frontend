@@ -12,6 +12,8 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { UserSummary } from "./_features/user-summary/user-summary";
+
 enum Views {
   "OVERVIEW" = "OVERVIEW",
   "PROJECTS" = "PROJECTS",
@@ -76,7 +78,9 @@ export default function UsersLayout({ params, children }: { params: { userSlug: 
     <PageWrapper containerSize="small">
       <AnimatedColumn className="h-full max-w-full">
         <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-          <div className="flex flex-col gap-lg desktop:col-span-1">{/* User summary component will go here */}</div>
+          <div className="flex flex-col gap-lg desktop:col-span-1">
+            <UserSummary githubId={Number(params.userSlug)} />
+          </div>
           <Paper
             background="glass"
             border="primary"
