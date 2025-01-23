@@ -28,7 +28,10 @@ export class ContributorClientAdapter implements ContributorStoragePort {
     getContributorContributionsOverTime: "contributors/:contributorId/contributions-over-time",
   } as const;
 
-  getContributorStats = ({ pathParams }: FirstParameter<ContributorStoragePort["getContributorStats"]>) => {
+  getContributorStats = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ContributorStoragePort["getContributorStats"]>) => {
     const path = this.routes["getContributorStats"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams });
@@ -39,6 +42,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return new ContributorStats(data);
@@ -52,6 +56,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
 
   getContributorRewardsDistribution = ({
     pathParams,
+    queryParams,
   }: FirstParameter<ContributorStoragePort["getContributorRewardsDistribution"]>) => {
     const path = this.routes["getContributorRewardsDistribution"];
     const method = "GET";
@@ -63,6 +68,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return new ContributorRewardsDistribution(data);
@@ -74,7 +80,10 @@ export class ContributorClientAdapter implements ContributorStoragePort {
     };
   };
 
-  getContributorProjects = ({ pathParams }: FirstParameter<ContributorStoragePort["getContributorProjects"]>) => {
+  getContributorProjects = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ContributorStoragePort["getContributorProjects"]>) => {
     const path = this.routes["getContributorProjects"];
     const method = "GET";
     const tag = HttpClient.buildTag({ path, pathParams });
@@ -85,6 +94,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return {
@@ -101,6 +111,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
 
   getContributorLocDistribution = ({
     pathParams,
+    queryParams,
   }: FirstParameter<ContributorStoragePort["getContributorLocDistribution"]>) => {
     const path = this.routes["getContributorLocDistribution"];
     const method = "GET";
@@ -112,6 +123,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return new ContributorLocDistribution(data);
@@ -149,6 +161,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
 
   getContributorContributionsOverTime = ({
     pathParams,
+    queryParams,
   }: FirstParameter<ContributorStoragePort["getContributorContributionsOverTime"]>) => {
     const path = this.routes["getContributorContributionsOverTime"];
     const method = "GET";
@@ -160,6 +173,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
         method,
         tag,
         pathParams,
+        queryParams,
       });
 
       return new ContributorContributionsOverTime(data);
