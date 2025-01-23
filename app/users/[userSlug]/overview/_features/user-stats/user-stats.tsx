@@ -1,19 +1,14 @@
 import { CircleDot, Folder, GitPullRequest, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Typo } from "@/design-system/atoms/typo";
+import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
 import { Stat } from "@/shared/components/stat/stat";
 import { useStatDiffFormatter } from "@/shared/hooks/stats/use-stat-diff-formatter";
 
-import { EcosystemStatsProps } from "./ecosystem-stats.types";
+import { UserStatsProps } from "./user-stats.types";
 
-export function EcosystemStats({
-  activeContributorsCount,
-  activeProjectsCount,
-  availableIssuesCount,
-  mergedPullRequestsCount,
-}: EcosystemStatsProps) {
+export function UserStats({ rewardCount, contributionCount, inProgressIssueCount, prCount }: UserStatsProps) {
   const { t } = useTranslation();
   const { formatDiff, getBadgeColor } = useStatDiffFormatter();
 
@@ -21,8 +16,8 @@ export function EcosystemStats({
     <div className="grid w-full grid-cols-2 gap-y-xl border-b-1 border-border-primary py-lg tablet:grid-cols-4 tablet:gap-0">
       <div className="border-r-1 border-border-primary px-lg">
         <Stat
-          label={t("ecosystems:details.stats.activeContributors")}
-          value={Intl.NumberFormat().format(activeContributorsCount?.value ?? 0)}
+          label={t("users:details.overview.stats.rewardCount")}
+          value={Intl.NumberFormat().format(rewardCount?.value ?? 0)}
           iconProps={{
             component: User,
             classNames: {
@@ -30,14 +25,14 @@ export function EcosystemStats({
             },
           }}
           badgeProps={
-            activeContributorsCount !== undefined
+            rewardCount !== undefined && rewardCount.diff !== undefined
               ? {
                   children: (
                     <Typo size="xs" classNames={{ base: "text-inherit" }}>
-                      {formatDiff(activeContributorsCount.diff)}
+                      {formatDiff(rewardCount.diff)}
                     </Typo>
                   ),
-                  color: getBadgeColor(activeContributorsCount.diff),
+                  color: getBadgeColor(rewardCount.diff),
                   variant: "solid",
                   classNames: {
                     base: "h-fit min-w-fit",
@@ -49,8 +44,8 @@ export function EcosystemStats({
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={t("ecosystems:details.stats.activeProjects")}
-          value={Intl.NumberFormat().format(activeProjectsCount?.value ?? 0)}
+          label={t("users:details.overview.stats.contributionCount")}
+          value={Intl.NumberFormat().format(contributionCount?.value ?? 0)}
           iconProps={{
             component: Folder,
             classNames: {
@@ -58,14 +53,14 @@ export function EcosystemStats({
             },
           }}
           badgeProps={
-            activeProjectsCount !== undefined
+            contributionCount !== undefined && contributionCount.diff !== undefined
               ? {
                   children: (
                     <Typo size="xs" classNames={{ base: "text-inherit" }}>
-                      {formatDiff(activeProjectsCount.diff)}
+                      {formatDiff(contributionCount.diff)}
                     </Typo>
                   ),
-                  color: getBadgeColor(activeProjectsCount.diff),
+                  color: getBadgeColor(contributionCount.diff),
                   classNames: {
                     base: "h-fit min-w-fit",
                   },
@@ -76,35 +71,20 @@ export function EcosystemStats({
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={t("ecosystems:details.stats.availableIssues")}
-          value={Intl.NumberFormat().format(availableIssuesCount?.value ?? 0)}
+          label={t("users:details.overview.stats.inProgressIssueCount")}
+          value={Intl.NumberFormat().format(inProgressIssueCount ?? 0)}
           iconProps={{
             component: CircleDot,
             classNames: {
               base: "text-utility-secondary-green-500",
             },
           }}
-          badgeProps={
-            availableIssuesCount !== undefined
-              ? {
-                  children: (
-                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
-                      {formatDiff(availableIssuesCount.diff)}
-                    </Typo>
-                  ),
-                  color: getBadgeColor(availableIssuesCount.diff),
-                  classNames: {
-                    base: "h-fit min-w-fit",
-                  },
-                }
-              : undefined
-          }
         />
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
-          label={t("ecosystems:details.stats.mergedPullRequests")}
-          value={Intl.NumberFormat().format(mergedPullRequestsCount?.value ?? 0)}
+          label={t("users:details.overview.stats.prCount")}
+          value={Intl.NumberFormat().format(prCount?.value ?? 0)}
           iconProps={{
             component: GitPullRequest,
             classNames: {
@@ -112,14 +92,14 @@ export function EcosystemStats({
             },
           }}
           badgeProps={
-            mergedPullRequestsCount !== undefined
+            prCount !== undefined && prCount.diff !== undefined
               ? {
                   children: (
                     <Typo size="xs" classNames={{ base: "text-inherit" }}>
-                      {formatDiff(mergedPullRequestsCount.diff)}
+                      {formatDiff(prCount.diff)}
                     </Typo>
                   ),
-                  color: getBadgeColor(mergedPullRequestsCount.diff),
+                  color: getBadgeColor(prCount.diff),
                   classNames: {
                     base: "h-fit min-w-fit",
                   },
