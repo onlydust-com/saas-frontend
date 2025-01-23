@@ -3,5 +3,11 @@
     "overview": "Overview",
     "projects": "Projects",
     "analytics": "Analytics"
+  },
+  "projects": {
+    "filters": {
+      "title": "Filters"
+    },
+    "projectsCount": "Projects count"
   }
 }
