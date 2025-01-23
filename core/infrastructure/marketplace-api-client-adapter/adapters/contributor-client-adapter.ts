@@ -34,7 +34,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   }: FirstParameter<ContributorStoragePort["getContributorStats"]>) => {
     const path = this.routes["getContributorStats"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetContributorStatsResponse>({
@@ -60,7 +60,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   }: FirstParameter<ContributorStoragePort["getContributorRewardsDistribution"]>) => {
     const path = this.routes["getContributorRewardsDistribution"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetContributorRewardsDistributionResponse>({
@@ -86,7 +86,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   }: FirstParameter<ContributorStoragePort["getContributorProjects"]>) => {
     const path = this.routes["getContributorProjects"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetContributorProjectsResponse>({
@@ -115,7 +115,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   }: FirstParameter<ContributorStoragePort["getContributorLocDistribution"]>) => {
     const path = this.routes["getContributorLocDistribution"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetContributorLocDistributionResponse>({
@@ -165,7 +165,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   }: FirstParameter<ContributorStoragePort["getContributorContributionsOverTime"]>) => {
     const path = this.routes["getContributorContributionsOverTime"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
 
     const request = async () => {
       const data = await this.client.request<GetContributorContributionsOverTimeResponse>({
