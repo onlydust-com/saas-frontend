@@ -23,12 +23,12 @@ export function TransactionsAccordion({
         return {
           id: `monthly-transaction-${t.date}`,
           titleProps: {
-            children: dateKernelPort.format(new Date(t.date), "MMMM yyyy"),
+            children: dateKernelPort.format(new Date(`${t.date}T00:00:00`), "MMMM yyyy"),
           },
           badgeProps: {
             count: t.count,
           },
-          content: <ContentComponent date={new Date(t.date)} />,
+          content: <ContentComponent date={new Date(`${t.date}T00:00:00`)} />,
         };
       }) || []
     );
