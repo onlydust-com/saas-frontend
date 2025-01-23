@@ -71,19 +71,21 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
 
     return (
       <ScrollView className={"flex flex-col gap-lg"}>
-        {notifications.map(notification => (
-          <CardNotification
-            key={notification.getId()}
-            titleProps={{
-              children: notification.getTitle(),
-            }}
-            descriptionProps={{
-              children: notification.getDescription(),
-            }}
-            hasRead={notification.hasRead()}
-            onClick={() => handleRead(notification.getId(), notification.getUrl())}
-          />
-        ))}
+        {notifications.map(notification =>
+          notification ? (
+            <CardNotification
+              key={notification.getId()}
+              titleProps={{
+                children: notification.getTitle(),
+              }}
+              descriptionProps={{
+                children: notification.getDescription(),
+              }}
+              hasRead={notification.hasRead()}
+              onClick={() => handleRead(notification.getId(), notification.getUrl())}
+            />
+          ) : null
+        )}
 
         {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </ScrollView>
