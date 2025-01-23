@@ -83,7 +83,7 @@ export function Languages({ languages = [] }: LanguagesProps) {
                   labelColor: language.color,
                 }}
               >
-                {`${language.percentage.toFixed(0)}%`}
+                {`${language?.percentage?.toFixed(0) ?? 0}%`}
               </Badge>
             </div>
           ))}
