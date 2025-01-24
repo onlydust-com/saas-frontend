@@ -1,5 +1,4 @@
-import { getCoreRowModel } from "@tanstack/react-table";
-import { useReactTable } from "@tanstack/react-table";
+import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
@@ -90,7 +89,7 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
         <Typo size="xs" color="quaternary" translate={{ token: "ecosystems:details.community.description" }} />
       </div>
 
-      <nav className={"flex gap-md p-lg"}>
+      <nav className={"flex flex-col gap-md p-lg tablet:flex-row tablet:items-center"}>
         <TableSearch
           value={search}
           onChange={setSearch}
