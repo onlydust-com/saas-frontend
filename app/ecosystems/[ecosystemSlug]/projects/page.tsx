@@ -64,7 +64,11 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
     }
 
     if (!projects.length) {
-      return <EmptyStateLite />;
+      return (
+        <div className="col-span-full p-lg">
+          <EmptyStateLite />
+        </div>
+      );
     }
 
     return projects.map(project => (

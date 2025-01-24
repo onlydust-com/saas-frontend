@@ -44,7 +44,7 @@ function Navigation({ params }: { params: { ecosystemSlug: string } }) {
     <Tabs
       variant={"underline"}
       searchParams={"ecosystem-view"}
-      classNames={{ base: "w-full" }}
+      classNames={{ base: "w-full pl-xl" }}
       tabs={[
         {
           id: Views.OVERVIEW,
@@ -93,13 +93,14 @@ export default function EcosystemLayout({
               <Documentation ecosystemSlug={params.ecosystemSlug} />
               <EcosystemEvent ecosystemSlug={params.ecosystemSlug} />
             </div>
+
             <Paper
-              background="glass"
+              background="primary"
               border="primary"
               classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
               px="none"
             >
-              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <div className={"flex h-12 w-full flex-row items-end justify-between gap-1 laptop:h-[65px]"}>
                 <Navigation params={params} />
               </div>
               {children}
