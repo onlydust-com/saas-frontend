@@ -15,9 +15,9 @@ import { cn } from "@/shared/helpers/cn";
 
 import { EcosystemEventMenu } from "../../_components/ecosystem-event-menu/ecosystem-event-menu";
 import { EcosystemEventMenuItem } from "../../_components/ecosystem-event-menu/ecosystem-event-menu.types";
-import { EcosystemEventProps } from "./ecosystem-event.types";
+import { EcosystemEventsProps } from "./ecosystem-events.types";
 
-export function EcosystemEvent({ ecosystemSlug }: EcosystemEventProps) {
+export function EcosystemEvents({ ecosystemSlug }: EcosystemEventsProps) {
   const [selectedEvent, setSelectedEvent] = useState<EcosystemEventMenuItem>(EcosystemEventMenuItem.ALL_EVENTS);
 
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -54,7 +54,7 @@ export function EcosystemEvent({ ecosystemSlug }: EcosystemEventProps) {
     return <PaperLoading classNames={{ base: "h-[200px]" }} />;
   }
 
-  if (isError || !data?.events.length) return null;
+  if (isError || !data) return null;
 
   return (
     <Paper

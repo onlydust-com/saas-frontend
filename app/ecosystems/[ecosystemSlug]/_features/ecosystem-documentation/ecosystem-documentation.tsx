@@ -11,9 +11,9 @@ import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 
-import { DocumentationProps } from "./documentation.types";
+import { EcosystemDocumentationProps } from "./ecosystem-documentation.types";
 
-export function Documentation({ ecosystemSlug }: DocumentationProps) {
+export function EcosystemDocumentation({ ecosystemSlug }: EcosystemDocumentationProps) {
   const {
     data: ecosystem,
     isLoading,
@@ -42,10 +42,10 @@ export function Documentation({ ecosystemSlug }: DocumentationProps) {
         key={documentation.name}
         background="secondary"
         border="primary"
-        classNames={{ base: "flex gap-md p-xl justify-between" }}
+        classNames={{ base: "flex gap-md p-xl items-center justify-between hover:opacity-80" }}
         htmlProps={{ href: documentation.url, target: "_blank" }}
       >
-        <div className="flex flex-col gap-sm">
+        <div className="flex flex-col gap-sm overflow-hidden">
           <Typo size="sm" weight="medium" color="primary" classNames={{ base: "truncate" }}>
             {documentation.name}
           </Typo>
@@ -53,7 +53,7 @@ export function Documentation({ ecosystemSlug }: DocumentationProps) {
             {documentation.description}
           </Typo>
         </div>
-        <Icon component={CornerDownLeft} size="sm" />
+        <Icon component={CornerDownLeft} size="sm" classNames={{ base: "shrink-0" }} />
       </Paper>
     ));
   }, [isLoading, isError, ecosystem]);

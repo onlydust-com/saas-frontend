@@ -13,8 +13,8 @@ import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { Documentation } from "./_features/documentation/documentation";
-import { EcosystemEvent } from "./_features/ecosystem-event/ecosystem-event";
+import { EcosystemDocumentation } from "./_features/ecosystem-documentation/ecosystem-documentation";
+import { EcosystemEvents } from "./_features/ecosystem-events/ecosystem-events";
 import { EcosystemSummary } from "./_features/ecosystem-summary/ecosystem-summary";
 
 enum Views {
@@ -90,8 +90,8 @@ export default function EcosystemLayout({
           <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
             <div className="flex flex-col gap-lg desktop:col-span-1">
               <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
-              <Documentation ecosystemSlug={params.ecosystemSlug} />
-              <EcosystemEvent ecosystemSlug={params.ecosystemSlug} />
+              <EcosystemEvents ecosystemSlug={params.ecosystemSlug} />
+              <EcosystemDocumentation ecosystemSlug={params.ecosystemSlug} />
             </div>
             <Paper
               background="glass"
