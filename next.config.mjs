@@ -47,6 +47,12 @@ const nextConfig = {
         destination: "/ecosystems/:ecosystemSlug/overview",
         permanent: true,
       },
+      // USERS
+      {
+        source: "/users/:userSlug",
+        destination: "/users/:userSlug/overview",
+        permanent: true,
+      },
     ];
   },
 };
