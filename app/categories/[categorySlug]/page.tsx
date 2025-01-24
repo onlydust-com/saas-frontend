@@ -16,6 +16,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 import ProjectList from "./_features/project-list/project-list";
 
@@ -53,12 +54,20 @@ function CatergoryPage({ params }: { params: { categorySlug: string } }) {
 
   return (
     <PageWrapper containerSize="small" shouldScroll>
+      <PosthogCaptureOnMount
+        eventName={"categories_viewed"}
+        params={{
+          category_id: category.id,
+        }}
+        paramsReady={Boolean(category?.id)}
+      />
+
       <div className="pb-7xl">
         <NavigationBreadcrumb
           breadcrumb={[
             {
               id: "root",
-              label: "Catergories",
+              label: "Categories",
             },
             {
               id: category.slug,

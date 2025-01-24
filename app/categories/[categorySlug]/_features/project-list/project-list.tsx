@@ -5,10 +5,7 @@ import { useMemo, useState } from "react";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GetProjectsV2QueryParams } from "@/core/domain/project/project-contract.types";
 
-import {
-  CardProjectMarketplace,
-  CardProjectMarketplaceLoading,
-} from "@/design-system/molecules/cards/card-project-marketplace";
+import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
@@ -22,13 +19,13 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { cn } from "@/shared/helpers/cn";
 
 import { FilterData } from "../filter-data/filter-data";
-import { useHackathonProjectsFilterDataSidePanel } from "../filter-data/filter-data.hooks";
+import { useCategoriesProjectsFilterDataSidePanel } from "../filter-data/filter-data.hooks";
 
 export type ProjectsFilters = Omit<NonNullable<GetProjectsV2QueryParams>, "pageSize" | "pageIndex">;
 
 export default function ProjectList({ params }: { params: { categorySlug: string } }) {
   const [search, setSearch] = useState<string>();
-  const { open: openFilterPanel } = useHackathonProjectsFilterDataSidePanel();
+  const { open: openFilterPanel } = useCategoriesProjectsFilterDataSidePanel();
   const [filters, setFilters] = useState<ProjectsFilters>({});
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
@@ -48,10 +45,6 @@ export default function ProjectList({ params }: { params: { categorySlug: string
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
 
   const renderProjects = useMemo(() => {
-    if (isLoading) {
-      return Array.from({ length: 8 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
     if (isError) {
       return (
         <div className="col-span-full p-lg">

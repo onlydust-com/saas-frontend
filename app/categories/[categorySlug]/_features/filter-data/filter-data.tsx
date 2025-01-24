@@ -7,13 +7,12 @@ import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/sid
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectsFilters } from "../project-list/project-list";
-import { useHackathonProjectsFilterDataSidePanel } from "./filter-data.hooks";
+import { useCategoriesProjectsFilterDataSidePanel } from "./filter-data.hooks";
 
 export function FilterData() {
-  const { name } = useHackathonProjectsFilterDataSidePanel();
+  const { name } = useCategoriesProjectsFilterDataSidePanel();
   const { Panel } = useSidePanel({ name });
   const { filters, setFilters, saveFilters, resetFilters } = useFilterData<ProjectsFilters>();
 
@@ -21,7 +20,7 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"hackathon:details.projects.filters.title"} />,
+          children: "Project filters",
         }}
         canGoBack={false}
         canClose={true}
