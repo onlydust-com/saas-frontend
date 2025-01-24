@@ -30,7 +30,9 @@ export function EcosystemCard<C extends ElementType = "div">({
       size="none"
       background="transparent"
       border="primary"
-      classNames={{ base: "purple-halo-gradient relative z-[1] h-full rounded-md before:rounded-md after:rounded-md" }}
+      classNames={{
+        base: "purple-halo-gradient relative z-[1] h-full rounded-md before:rounded-md after:rounded-md hover:opacity-80",
+      }}
     >
       <div ref={cardRef} className="flex h-full w-full flex-col">
         <HoverEffect cardRef={cardRef} />
