@@ -7,8 +7,10 @@ import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query
 
 import { CardProjectCategory, CardProjectCategoryLoading } from "@/design-system/molecules/cards/card-project-category";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { BREAKPOINTS } from "@/shared/constants/breakpoints";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { cn } from "@/shared/helpers/cn";
 
 import { Section } from "../../_components/section/section";
@@ -74,7 +76,12 @@ export function ProjectCategoryList({ className }: ProjectCategoryListProps) {
 
     return data?.categories.map((category, index) => (
       <div key={category.id} className="keen-slider__slide">
-        <CardProjectCategory category={category} color={gradients[index % gradients.length]} />
+        <CardProjectCategory
+          category={category}
+          color={gradients[index % gradients.length]}
+          as={BaseLink}
+          htmlProps={{ href: NEXT_ROUTER.categories.details.root(category.slug) }}
+        />
       </div>
     ));
   }, [data, isLoading, isError]);
