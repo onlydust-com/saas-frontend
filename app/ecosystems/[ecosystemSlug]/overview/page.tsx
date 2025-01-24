@@ -11,6 +11,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -71,6 +72,10 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
       />
 
       {renderStats}
+
+      <div className="w-full p-4">
+        <Markdown content={ecosystem?.overview ?? ""} />
+      </div>
     </ScrollView>
   );
 }
