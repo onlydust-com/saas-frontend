@@ -1,4 +1,4 @@
-import { DepositButtonProps } from "@/app/financials/[sponsorId]/financial/_features/deposit-button/deposit-button.types";
+import { DepositButtonProps } from "@/app/(saas)/financials/[sponsorId]/financial/_features/deposit-button/deposit-button.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 

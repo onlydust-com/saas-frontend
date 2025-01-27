@@ -4,7 +4,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
-import { SponsorsTable } from "@/app/financials/_features/sponsors-table/sponsors-table";
+import { SponsorsTable } from "@/app/(saas)/financials/_features/sponsors-table/sponsors-table";
 
 import { Typo } from "@/design-system/atoms/typo";
 

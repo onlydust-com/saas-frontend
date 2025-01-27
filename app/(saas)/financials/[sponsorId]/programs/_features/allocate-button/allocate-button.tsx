@@ -1,4 +1,4 @@
-import { AllocateButtonProps } from "@/app/financials/[sponsorId]/programs/_features/allocate-button/allocate-button.types";
+import { AllocateButtonProps } from "@/app/(saas)/financials/[sponsorId]/programs/_features/allocate-button/allocate-button.types";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 

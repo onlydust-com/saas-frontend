@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { useCreateProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.hooks";
-import { createProgramPanelFormValidation } from "@/app/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.types";
+import { useCreateProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.hooks";
+import { createProgramPanelFormValidation } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";

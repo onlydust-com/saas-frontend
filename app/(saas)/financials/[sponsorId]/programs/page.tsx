@@ -1,8 +1,8 @@
 "use client";
 
-import { CreateProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel";
-import { EditProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel";
-import { ProgramsTable } from "@/app/financials/[sponsorId]/programs/_features/programs-table/programs-table";
+import { CreateProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel";
+import { EditProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel";
+import { ProgramsTable } from "@/app/(saas)/financials/[sponsorId]/programs/_features/programs-table/programs-table";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 

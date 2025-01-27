@@ -3,9 +3,9 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
-import { DepositButton } from "@/app/financials/[sponsorId]/financial/_features/deposit-button/deposit-button";
-import { AllocateButton } from "@/app/financials/[sponsorId]/programs/_features/allocate-button/allocate-button";
-import { CreateButton } from "@/app/financials/[sponsorId]/programs/_features/create-button/create-button";
+import { DepositButton } from "@/app/(saas)/financials/[sponsorId]/financial/_features/deposit-button/deposit-button";
+import { AllocateButton } from "@/app/(saas)/financials/[sponsorId]/programs/_features/allocate-button/allocate-button";
+import { CreateButton } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-button/create-button";
 
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 

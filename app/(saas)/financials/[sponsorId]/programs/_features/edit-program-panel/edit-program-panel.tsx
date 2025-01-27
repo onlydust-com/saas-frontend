@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { useEditProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.hooks";
-import { editProgramPanelFormValidation } from "@/app/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.types";
+import { useEditProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.hooks";
+import { editProgramPanelFormValidation } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { EditProgramBody } from "@/core/domain/program/program-contract.types";

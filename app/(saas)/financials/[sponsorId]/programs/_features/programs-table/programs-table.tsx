@@ -1,8 +1,8 @@
 import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { useEditProgramPanel } from "@/app/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.hooks";
-import { ProgramsTableProps } from "@/app/financials/[sponsorId]/programs/_features/programs-table/programs-table.types";
+import { useEditProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.hooks";
+import { ProgramsTableProps } from "@/app/(saas)/financials/[sponsorId]/programs/_features/programs-table/programs-table.types";
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 import { bootstrap } from "@/core/bootstrap";
