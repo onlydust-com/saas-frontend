@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
-import { ClosedHackathonCard } from "@/app/hackathons/_components/closed-hackathon-card/closed-hackathon-card";
-import { LiveHackathonCard } from "@/app/hackathons/_components/live-hackathon-card/live-hackathon-card";
+import { ClosedHackathonCard } from "@/app/(saas)/hackathons/_components/closed-hackathon-card/closed-hackathon-card";
+import { LiveHackathonCard } from "@/app/(saas)/hackathons/_components/live-hackathon-card/live-hackathon-card";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 

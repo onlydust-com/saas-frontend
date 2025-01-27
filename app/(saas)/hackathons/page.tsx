@@ -4,7 +4,7 @@ import logo from "@/public/images/logos/logo-white.svg";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Image from "next/image";
 
-import { HackathonList } from "@/app/hackathons/_features/hackathon-list/hackathon-list";
+import { HackathonList } from "@/app/(saas)/hackathons/_features/hackathon-list/hackathon-list";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";

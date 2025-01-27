@@ -2,7 +2,7 @@ import logoWhite from "@/public/images/logos/logo-white.svg";
 import { ArrowRight, CircleDot, Folder, User } from "lucide-react";
 import Image from "next/image";
 
-import { ClosedHackathonCardProps } from "@/app/hackathons/_components/closed-hackathon-card/closed-hackathon-card.types";
+import { ClosedHackathonCardProps } from "@/app/(saas)/hackathons/_components/closed-hackathon-card/closed-hackathon-card.types";
 
 import { Badge } from "@/design-system/atoms/badge/variants/badge-default";
 import { Button } from "@/design-system/atoms/button/variants/button-default";

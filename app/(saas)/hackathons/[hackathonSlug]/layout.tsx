@@ -2,9 +2,9 @@
 
 import { PropsWithChildren, useMemo } from "react";
 
-import { HackathonEvents } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
-import { HackathonSummary } from "@/app/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
-import { RegisterHackathon } from "@/app/hackathons/_features/register-hackathon/register-hackathon";
+import { HackathonEvents } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
+import { HackathonSummary } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
+import { RegisterHackathon } from "@/app/(saas)/hackathons/_features/register-hackathon/register-hackathon";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";

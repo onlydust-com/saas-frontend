@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { HackathonEventMenu } from "@/app/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu";
-import { HackathonEventMenuItem } from "@/app/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu.types";
+import { HackathonEventMenu } from "@/app/(saas)/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu";
+import { HackathonEventMenuItem } from "@/app/(saas)/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu.types";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { bootstrap } from "@/core/bootstrap";
