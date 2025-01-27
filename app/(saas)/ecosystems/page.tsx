@@ -3,7 +3,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Orbit } from "lucide-react";
 
-import { EcosystemsList } from "@/app/ecosystems/_features/ecosystems-list/ecosystems-list";
+import { EcosystemsList } from "@/app/(saas)/ecosystems/_features/ecosystems-list/ecosystems-list";
 
 import { Icon } from "@/design-system/atoms/icon";
 

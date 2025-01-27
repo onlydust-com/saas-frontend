@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 
-import { EcosystemCard } from "@/app/ecosystems/_components/ecosystem-card/ecosystem-card";
+import { EcosystemCard } from "@/app/(saas)/ecosystems/_components/ecosystem-card/ecosystem-card";
 import {
   EcosystemsContextProvider,
   useEcosystemsContext,
-} from "@/app/ecosystems/_features/ecosystems-filters/ecosystems-filters.context";
+} from "@/app/(saas)/ecosystems/_features/ecosystems-filters/ecosystems-filters.context";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
