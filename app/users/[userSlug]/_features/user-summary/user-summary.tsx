@@ -11,7 +11,9 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Metric } from "@/shared/features/projects/metric/metric";
 import { SocialContact } from "@/shared/features/social/social-contact/social-contact";
@@ -137,8 +139,15 @@ export function UserSummary({ githubId }: UserSummaryProps) {
 
           <ScrollView direction={"x"}>
             <div className={"flex flex-row gap-md"}>
-              {ecosystems?.map(({ logoUrl, name }) => (
-                <Tag key={name} size={"sm"} avatar={{ src: logoUrl, alt: name }}>
+              {ecosystems?.map(({ logoUrl, name, slug }) => (
+                <Tag
+                  key={name}
+                  as={BaseLink}
+                  htmlProps={{ href: NEXT_ROUTER.ecosystems.details.root(slug) }}
+                  size={"sm"}
+                  avatar={{ src: logoUrl, alt: name }}
+                  classNames={{ base: "hover:opacity-80" }}
+                >
                   {name}
                 </Tag>
               ))}
