@@ -144,6 +144,12 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  categories: {
+    root: "/categories",
+    details: {
+      root: (categorySlug: string) => `/categories/${categorySlug}`,
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
