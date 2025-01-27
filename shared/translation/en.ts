@@ -3,8 +3,8 @@ import { enEcosystemsTranslation } from "@/app/(saas)/ecosystems/_translations/e
 import { enExploreTranslation } from "@/app/(saas)/explore/_translations/explore.translate";
 import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
 import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
+import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
