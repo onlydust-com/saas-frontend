@@ -10,8 +10,8 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
-import { TimelineItem } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline-item/timeline-item";
 
+import { TimelineItem } from "../timeline-item/timeline-item";
 import { TimelineAccordionProps } from "./timeline-accordion.types";
 
 function TimelineAccordionContent({ user, end, start, filters, search }: TimelineAccordionProps) {
