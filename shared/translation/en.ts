@@ -7,8 +7,8 @@ import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_trans
 import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/(saas)/project-recommendation/_translations/project-recommendation.translate";
+import { enProjectsTranslation } from "@/app/(saas)/projects/_translations/projects.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";
 import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";
 import { enUsersTranslation } from "@/app/users/_translations/users.translate";
 
