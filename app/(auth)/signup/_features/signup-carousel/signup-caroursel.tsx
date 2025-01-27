@@ -73,7 +73,7 @@ export function SignupCarousel() {
             <Image src={slide.background} alt={slide.title} className="absolute inset-0 object-cover" />
 
             <div className="relative z-10 flex flex-col gap-2 self-end">
-              <h2 className="text-2xl">{slide.title}</h2>
+              <h2 className="font-clash text-2xl">{slide.title}</h2>
               <p className="text-muted-foreground text-sm">{slide.description}</p>
 
               <div className="flex items-center gap-1 text-xs">
