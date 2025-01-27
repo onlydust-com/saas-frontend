@@ -1,7 +1,7 @@
 import {
   FilterColumnsProps,
   TableColumns,
-} from "@/app/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns.types";
+} from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns.types";
 
 import { TableColumnList } from "@/design-system/molecules/table-column-list";
 

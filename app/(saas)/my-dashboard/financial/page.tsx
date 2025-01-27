@@ -1,7 +1,7 @@
 "use client";
 
-import { BudgetAvailableCards } from "@/app/my-dashboard/financial/_features/budget-available-cards/budget-available-cards";
-import { RewardsTable } from "@/app/my-dashboard/financial/_features/rewards-table/rewards-table";
+import { BudgetAvailableCards } from "@/app/(saas)/my-dashboard/financial/_features/budget-available-cards/budget-available-cards";
+import { RewardsTable } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/rewards-table";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";

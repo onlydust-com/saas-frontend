@@ -4,8 +4,8 @@ import { enExploreTranslation } from "@/app/(saas)/explore/_translations/explore
 import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
 import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
+import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
 import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";

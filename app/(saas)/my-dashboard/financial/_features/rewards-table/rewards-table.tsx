@@ -1,10 +1,10 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
-import { FilterColumns } from "@/app/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns";
-import { useFilterColumns } from "@/app/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns.hooks";
-import { FilterData } from "@/app/my-dashboard/financial/_features/rewards-table/_components/filter-data/filter-data";
-import { useProjectRewardsFilterDataSidePanel } from "@/app/my-dashboard/financial/_features/rewards-table/_components/filter-data/filter-data.hooks";
+import { FilterColumns } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns";
+import { useFilterColumns } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns.hooks";
+import { FilterData } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-data/filter-data";
+import { useProjectRewardsFilterDataSidePanel } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-data/filter-data.hooks";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { GetRewardsPortParams, GetRewardsQueryParams } from "@/core/domain/reward/reward-contract.types";

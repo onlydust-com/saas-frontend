@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useFinancialColumnChart } from "@/app/my-dashboard/financial/_features/financial-column-chart/financial-column-chart.hooks";
+import { useFinancialColumnChart } from "@/app/(saas)/my-dashboard/financial/_features/financial-column-chart/financial-column-chart.hooks";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";

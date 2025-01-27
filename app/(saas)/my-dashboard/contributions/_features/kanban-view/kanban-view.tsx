@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { KanbanViewProps } from "@/app/my-dashboard/contributions/_features/kanban-view/kanban-view.types";
+import { KanbanViewProps } from "@/app/(saas)/my-dashboard/contributions/_features/kanban-view/kanban-view.types";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";

@@ -3,7 +3,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { useFilterColumns } from "@/app/my-dashboard/projects/_components/filter-columns/filter-columns.hooks";
+import { useFilterColumns } from "@/app/(saas)/my-dashboard/projects/_components/filter-columns/filter-columns.hooks";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 

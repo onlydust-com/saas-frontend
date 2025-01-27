@@ -3,7 +3,7 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
-import { RequestPayment } from "@/app/my-dashboard/_features/request-payment/request-payment";
+import { RequestPayment } from "@/app/(saas)/my-dashboard/_features/request-payment/request-payment";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";

@@ -1,5 +1,5 @@
-import { useContributorContributionsFilterDataSidePanel } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
-import { ContributionKanbanFilters } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.types";
+import { useContributorContributionsFilterDataSidePanel } from "@/app/(saas)/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
+import { ContributionKanbanFilters } from "@/app/(saas)/my-dashboard/contributions/_features/filter-data/filter-data.types";
 
 import { RewardedFilterType } from "@/core/kernel/filters/filters-facade-port";
 

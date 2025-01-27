@@ -1,4 +1,4 @@
-import { FinancialColumnChart } from "@/app/my-dashboard/financial/_features/financial-column-chart/financial-column-chart";
+import { FinancialColumnChart } from "@/app/(saas)/my-dashboard/financial/_features/financial-column-chart/financial-column-chart";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";

@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
-import { TableColumns } from "@/app/my-dashboard/projects/_components/filter-columns/filter-columns.types";
+import { TableColumns } from "@/app/(saas)/my-dashboard/projects/_components/filter-columns/filter-columns.types";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";

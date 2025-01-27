@@ -3,10 +3,10 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import { FilterData } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data";
-import { useContributorContributionsFilterDataSidePanel } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
-import { ContributionKanbanFilters } from "@/app/my-dashboard/contributions/_features/filter-data/filter-data.types";
-import { KanbanView } from "@/app/my-dashboard/contributions/_features/kanban-view/kanban-view";
+import { FilterData } from "@/app/(saas)/my-dashboard/contributions/_features/filter-data/filter-data";
+import { useContributorContributionsFilterDataSidePanel } from "@/app/(saas)/my-dashboard/contributions/_features/filter-data/filter-data.hooks";
+import { ContributionKanbanFilters } from "@/app/(saas)/my-dashboard/contributions/_features/filter-data/filter-data.types";
+import { KanbanView } from "@/app/(saas)/my-dashboard/contributions/_features/kanban-view/kanban-view";
 
 import { GetContributionsQueryParams } from "@/core/domain/contribution/contribution-contract.types";
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
