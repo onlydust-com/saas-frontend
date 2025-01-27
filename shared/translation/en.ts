@@ -9,7 +9,7 @@ import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/progr
 import { enProjectRecommendationTranslation } from "@/app/(saas)/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/(saas)/projects/_translations/projects.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";
+import { enRepositoriesTranslation } from "@/app/(saas)/repositories/_translations/repositories.translate";
 import { enUsersTranslation } from "@/app/users/_translations/users.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
