@@ -1,28 +1,37 @@
 import { useMemo } from "react";
 
-import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
+import { useGrantFromPanel } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
+import { bootstrap } from "@/core/bootstrap";
 import { FirstParameter } from "@/core/kernel/types";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Typo } from "@/design-system/atoms/typo";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
 
-import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 
-export function AllProjects({
+export function AlreadyGrantedProjects({
   programId,
   queryParams,
 }: {
   programId: string;
-  queryParams: FirstParameter<typeof ProjectReactQueryAdapter.client.useGetProjects>["queryParams"];
+  queryParams: FirstParameter<typeof ProgramReactQueryAdapter.client.useGetProgramProjects>["queryParams"];
 }) {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
+
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    ProjectReactQueryAdapter.client.useGetProjects({
+    ProgramReactQueryAdapter.client.useGetProgramProjects({
+      pathParams: {
+        programId,
+      },
       queryParams,
+      options: {
+        enabled: Boolean(programId),
+      },
     });
-  const allProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
+  const alreadyGrantedProjects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   const { open: openGrantForm } = useGrantFromPanel();
 
@@ -41,13 +50,23 @@ export function AllProjects({
   }
 
   if (isError) {
-    return <ErrorState />;
+    return (
+      <div className={"py-16 text-center"}>
+        <Typo translate={{ token: "common:state.error.title" }} color={"secondary"} size={"sm"} />
+      </div>
+    );
   }
 
   return (
     <>
-      {allProjects.map(project => {
+      {alreadyGrantedProjects.map(project => {
+        const { amount, code } = moneyKernelPort.format({
+          amount: project.totalGranted.totalUsdEquivalent,
+          currency: moneyKernelPort.getCurrency("USD"),
+        });
+
         const description = project.truncateDescription(25);
+        const grantedAmount = `${amount} ${code}`;
 
         return (
           <div key={project.id}>
@@ -55,9 +74,10 @@ export function AllProjects({
               title={project.name}
               description={description}
               logoUrl={project.logoUrl}
-              languages={project.languages?.map(language => ({ children: language.name }))}
+              languages={project.languages.map(language => ({ children: language.name }))}
+              categories={project.categories.map(category => ({ children: category.name }))}
               buttonProps={{
-                children: "0 USD",
+                children: grantedAmount,
               }}
               onClick={() => handleOpenProjectGrant(project.id)}
               size={"none"}

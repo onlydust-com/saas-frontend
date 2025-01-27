@@ -4,7 +4,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
-import { ProgramsTable } from "@/app/programs/_features/programs-table/programs-table";
+import { ProgramsTable } from "@/app/(saas)/programs/_features/programs-table/programs-table";
 
 import { Typo } from "@/design-system/atoms/typo";
 

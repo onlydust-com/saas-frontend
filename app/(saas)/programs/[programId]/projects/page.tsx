@@ -1,6 +1,6 @@
 "use client";
 
-import { ProjectsTable } from "@/app/programs/[programId]/projects/_features/projects-table/projects-table";
+import { ProjectsTable } from "@/app/(saas)/programs/[programId]/projects/_features/projects-table/projects-table";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 

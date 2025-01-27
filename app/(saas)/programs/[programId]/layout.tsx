@@ -3,9 +3,9 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
-import { GrantButton } from "@/app/programs/[programId]/_features/grant-button/grant-button";
-import { GrantFormSidepanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
-import { GrantListSidepanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
+import { GrantButton } from "@/app/(saas)/programs/[programId]/_features/grant-button/grant-button";
+import { GrantFormSidepanel } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel";
+import { GrantListSidepanel } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";

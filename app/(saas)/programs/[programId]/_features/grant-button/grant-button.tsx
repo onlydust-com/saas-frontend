@@ -1,6 +1,6 @@
 "use client";
 
-import { useGrantListSidePanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
+import { useGrantListSidePanel } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 

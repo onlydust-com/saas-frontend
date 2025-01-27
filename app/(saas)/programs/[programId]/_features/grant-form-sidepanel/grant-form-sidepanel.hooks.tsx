@@ -1,4 +1,4 @@
-import { GrantFormSidePanelData } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.types";
+import { GrantFormSidePanelData } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.types";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 

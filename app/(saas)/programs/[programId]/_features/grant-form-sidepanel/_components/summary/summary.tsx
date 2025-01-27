@@ -1,4 +1,4 @@
-import { SummaryProps } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
+import { SummaryProps } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary.types";
 
 import { CardBudgetType } from "@/design-system/molecules/cards/card-budget";
 

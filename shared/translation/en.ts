@@ -5,8 +5,8 @@ import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/f
 import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
+import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/programs.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";
 import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";

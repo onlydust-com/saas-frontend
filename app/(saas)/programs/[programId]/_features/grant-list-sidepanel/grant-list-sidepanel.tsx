@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "react-use";
 
-import { AllProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects";
-import { AllProjectsBadge } from "@/app/programs/[programId]/_features/grant-list-sidepanel/all-projects-badge";
-import { AlreadyGrantedBadge } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-badge";
-import { AlreadyGrantedProjects } from "@/app/programs/[programId]/_features/grant-list-sidepanel/already-granted-projects";
-import { useGrantListSidePanel } from "@/app/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
+import { AllProjects } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/all-projects";
+import { AllProjectsBadge } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/all-projects-badge";
+import { AlreadyGrantedBadge } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/already-granted-badge";
+import { AlreadyGrantedProjects } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/already-granted-projects";
+import { useGrantListSidePanel } from "@/app/(saas)/programs/[programId]/_features/grant-list-sidepanel/grant-list-sidepanel.hooks";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";

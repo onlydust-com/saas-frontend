@@ -1,6 +1,6 @@
 "use client";
 
-import { BudgetAvailableCards } from "@/app/programs/[programId]/financial/_features/budget-available-cards/budget-available-cards";
+import { BudgetAvailableCards } from "@/app/(saas)/programs/[programId]/financial/_features/budget-available-cards/budget-available-cards";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { Summary } from "@/app/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
-import { useGrantFromPanel } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
-import { GrantFormSidepanelLoading } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.loading";
-import { GrantFormSidePanelData } from "@/app/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.types";
+import { Summary } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
+import { useGrantFromPanel } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
+import { GrantFormSidepanelLoading } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.loading";
+import { GrantFormSidePanelData } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.types";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
