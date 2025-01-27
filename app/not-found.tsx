@@ -11,7 +11,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 export default function NotFound() {
   return (
-    <div className={"flex size-full items-center justify-center"}>
+    <div className={"flex h-screen items-center justify-center"}>
       <div className={"flex flex-col items-center justify-center gap-6"}>
         <Typo
           variant={"heading"}
