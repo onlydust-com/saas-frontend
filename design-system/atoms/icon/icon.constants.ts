@@ -6,6 +6,7 @@ const IconWidth: { [key in IconSize]: number } = {
   sm: 16,
   md: 20,
   lg: 24,
+  banner: 64,
 };
 
 const IconStroke: { [key in IconSize]: number } = {
@@ -14,6 +15,7 @@ const IconStroke: { [key in IconSize]: number } = {
   sm: 1.35,
   md: 1.7,
   lg: 2,
+  banner: 2,
 };
 
 export const IconSizeMap = {
