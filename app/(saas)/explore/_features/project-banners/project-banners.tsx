@@ -1,4 +1,4 @@
-import { ThemedButton } from "@/app/explore/_features/project-banners/_components/themed-button/themed-button";
+import { ThemedButton } from "@/app/(saas)/explore/_features/project-banners/_components/themed-button/themed-button";
 
 import { bootstrap } from "@/core/bootstrap";
 

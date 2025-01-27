@@ -2,7 +2,7 @@
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { ProjectBanners } from "@/app/explore/_features/project-banners/project-banners";
+import { ProjectBanners } from "@/app/(saas)/explore/_features/project-banners/project-banners";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";

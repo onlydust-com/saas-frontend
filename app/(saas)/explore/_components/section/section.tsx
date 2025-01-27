@@ -1,4 +1,4 @@
-import { SectionProps } from "@/app/explore/_components/section/section.types";
+import { SectionProps } from "@/app/(saas)/explore/_components/section/section.types";
 
 import { Typo } from "@/design-system/atoms/typo";
 

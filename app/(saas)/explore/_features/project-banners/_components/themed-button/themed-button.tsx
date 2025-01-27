@@ -1,5 +1,5 @@
-import { ThemedButtonProps } from "@/app/explore/_features/project-banners/_components/themed-button/themed-button.types";
-import { ThemedButtonVariants } from "@/app/explore/_features/project-banners/_components/themed-button/themed-button.variants";
+import { ThemedButtonProps } from "@/app/(saas)/explore/_features/project-banners/_components/themed-button/themed-button.types";
+import { ThemedButtonVariants } from "@/app/(saas)/explore/_features/project-banners/_components/themed-button/themed-button.variants";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 

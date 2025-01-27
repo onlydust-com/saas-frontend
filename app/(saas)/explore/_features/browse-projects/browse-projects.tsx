@@ -2,11 +2,11 @@
 
 import { ReactNode, useCallback, useMemo } from "react";
 
-import { Section } from "@/app/explore/_components/section/section";
+import { Section } from "@/app/(saas)/explore/_components/section/section";
 import {
   BrowseProjectsContextProvider,
   useBrowseProjectsContext,
-} from "@/app/explore/_features/browse-projects-filters/browse-projects-filters.context";
+} from "@/app/(saas)/explore/_features/browse-projects-filters/browse-projects-filters.context";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
