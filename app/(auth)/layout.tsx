@@ -13,9 +13,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
         <Logo classNames={{ image: "h-12" }} />
 
         <div className="flex flex-1 flex-col items-center justify-center">
-          <div className="flex w-full flex-col items-center justify-center">
-            <div className="w-full max-w-xl laptop:max-w-5xl">{children}</div>
-          </div>
+          <div className="flex w-full flex-col items-center justify-center">{children}</div>
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/sha
 
 export default function SignupPage() {
   return (
-    <div className={"flex flex-col gap-6"}>
+    <div className={"flex w-full max-w-xl flex-col gap-6 laptop:max-w-5xl"}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 laptop:grid-cols-2">
           <div className="bg-muted relative hidden border-r laptop:block">
