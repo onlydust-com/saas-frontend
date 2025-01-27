@@ -11,11 +11,13 @@ import { CardProjectMarketplaceLoading } from "@/design-system/molecules/cards/c
 import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
@@ -62,12 +64,18 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
     }
 
     if (!projects.length) {
-      return <EmptyStateLite />;
+      return (
+        <div className="col-span-full p-lg">
+          <EmptyStateLite />
+        </div>
+      );
     }
 
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
+        as={BaseLink}
+        htmlProps={{ href: NEXT_ROUTER.projects.details.root(project.slug) }}
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}
