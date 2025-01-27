@@ -1,7 +1,7 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// DEPRECATED
+/** @deprecated */
 export function cn(...args: Array<ClassValue | undefined>) {
   return twMerge(clsx(args));
 }
