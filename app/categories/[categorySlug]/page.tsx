@@ -20,7 +20,7 @@ import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture
 
 import ProjectList from "./_features/project-list/project-list";
 
-function CatergoryPage({ params }: { params: { categorySlug: string } }) {
+function CategoryPage({ params }: { params: { categorySlug: string } }) {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
   const category = useMemo(
     () => data?.categories.find(category => category.slug === params.categorySlug),
@@ -103,4 +103,4 @@ function CatergoryPage({ params }: { params: { categorySlug: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(CatergoryPage));
+export default withClientOnly(withAuthenticationRequired(CategoryPage));
