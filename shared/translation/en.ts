@@ -1,5 +1,5 @@
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enDataTranslation } from "@/app/data/_translations/data.translate";
+import { enDataTranslation } from "@/app/(saas)/data/_translations/data.translate";
 import { enEcosystemsTranslation } from "@/app/ecosystems/_translations/ecosystems.translate";
 import { enExploreTranslation } from "@/app/explore/_translations/explore.translate";
 import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
