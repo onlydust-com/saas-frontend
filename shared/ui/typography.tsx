@@ -31,5 +31,5 @@ export function TypographySmall({ children, className }: PropsWithChildren<{ cla
 }
 
 export function TypographyMuted({ children, className }: PropsWithChildren<{ className?: string }>) {
-  return <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>;
+  return <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>;
 }

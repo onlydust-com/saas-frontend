@@ -1,9 +1,10 @@
 "use client";
 
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 import { SignupCarousel } from "@/app/(auth)/signup/_features/signup-carousel/signup-caroursel";
 
+import { SocialIconLink } from "@/shared/features/social/social-icon-link/social-icon-link";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyH2 } from "@/shared/ui/typography";
@@ -13,7 +14,7 @@ export default function SignupPage() {
     <div className={"flex w-full max-w-xl flex-col gap-6 laptop:max-w-6xl"}>
       <Card className="overflow-hidden">
         <CardContent className="flex p-0">
-          <div className="bg-muted relative hidden w-2/3 border-r laptop:block">
+          <div className="relative hidden w-2/3 border-r bg-muted laptop:block">
             <SignupCarousel />
           </div>
 
@@ -75,7 +76,7 @@ export default function SignupPage() {
 
                   <Button variant="outline" size="icon" asChild>
                     <a href="https://x.com/onlydust_com" target="_blank" rel="noopener noreferrer">
-                      <Twitter />
+                      <SocialIconLink url="https://x.com/onlydust_com" />
                     </a>
                   </Button>
                 </div>

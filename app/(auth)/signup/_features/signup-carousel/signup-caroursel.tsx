@@ -10,6 +10,7 @@ import Image from "next/image";
 
 import { Button } from "@/shared/ui/button";
 import { Carousel, CarouselContent, CarouselItem, useCarousel } from "@/shared/ui/carousel";
+import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
 function CarouselPrevious() {
   const { scrollPrev, canScrollPrev } = useCarousel();
@@ -73,8 +74,8 @@ export function SignupCarousel() {
             <Image src={slide.background} alt={slide.title} className="absolute inset-0 object-cover" />
 
             <div className="relative z-10 flex flex-col gap-2 self-end">
-              <h2 className="font-clash text-2xl">{slide.title}</h2>
-              <p className="text-muted-foreground text-sm">{slide.description}</p>
+              <TypographyH3>{slide.title}</TypographyH3>
+              <TypographyMuted>{slide.description}</TypographyMuted>
 
               <div className="flex items-center gap-1 text-xs">
                 <CarouselPrevious />
