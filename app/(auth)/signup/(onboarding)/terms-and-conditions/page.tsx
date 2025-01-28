@@ -170,7 +170,7 @@ function SignupLegalPage() {
             </div>
           )}
         />
-        <Button type="submit" className="w-full" variant="secondary" disabled={isPending}>
+        <Button type="submit" className="w-full" variant="secondary" loading={isPending}>
           Next step
         </Button>
       </form>
