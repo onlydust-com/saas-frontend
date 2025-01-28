@@ -20,12 +20,12 @@ import { SocialContact } from "@/shared/features/social/social-contact/social-co
 
 import { UserSummaryProps } from "./user-summary.types";
 
-export function UserSummary({ githubId }: UserSummaryProps) {
+export function UserSummary({ userSlug }: UserSummaryProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributorById({
-    pathParams: { contributorId: githubId },
+    pathParams: { contributorIdOrLogin: userSlug },
     options: {
-      enabled: Boolean(githubId),
+      enabled: Boolean(userSlug),
     },
   });
 

@@ -29,8 +29,8 @@ export class BiClientAdapter implements BiStoragePort {
     getBiWorldMap: "bi/world-map",
     getBiProjects: "bi/projects",
     getBiContributors: "bi/contributors",
-    getBiContributorById: "bi/contributors/:contributorId",
-    getBiContributorActivityById: "bi/contributors/:contributorId/activity-graph",
+    getBiContributorById: "bi/contributors/:contributorIdOrLogin",
+    getBiContributorActivityById: "bi/contributors/:contributorIdOrLogin/activity-graph",
     getBiStatsFinancials: "bi/stats/financials",
   } as const;
 

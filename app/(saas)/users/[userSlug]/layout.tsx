@@ -81,7 +81,7 @@ export default function UsersLayout({ params, children }: { params: { userSlug: 
         <AnimatedColumn className="h-full max-w-full">
           <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">
             <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-              <UserSummary githubId={Number(params.userSlug)} />
+              <UserSummary userSlug={params.userSlug} />
             </ScrollView>
 
             <Paper

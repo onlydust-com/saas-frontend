@@ -13,19 +13,18 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { ProjectsListProps } from "./projects-list.types";
 
-export function ProjectsList({ userId, params }: ProjectsListProps) {
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    ContributorReactQueryAdapter.client.useGetContributorProjects({
-      queryParams: {
-        pageSize: 3,
-      },
-      pathParams: {
-        contributorId: userId,
-      },
-      options: {
-        enabled: Boolean(userId),
-      },
-    });
+export function ProjectsList({ userId, userSlug }: ProjectsListProps) {
+  const { data, isLoading, isError } = ContributorReactQueryAdapter.client.useGetContributorProjects({
+    queryParams: {
+      pageSize: 3,
+    },
+    pathParams: {
+      contributorId: Number(userId),
+    },
+    options: {
+      enabled: Boolean(userId),
+    },
+  });
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
 
@@ -79,7 +78,7 @@ export function ProjectsList({ userId, params }: ProjectsListProps) {
         endTitleContent={
           <Button
             as={BaseLink}
-            htmlProps={{ href: NEXT_ROUTER.users.details.projects.root(params.userSlug) }}
+            htmlProps={{ href: NEXT_ROUTER.users.details.projects.root(userSlug) }}
             variant="secondary"
             size="xs"
           >

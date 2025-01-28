@@ -1,3 +1,3 @@
 export interface UserSummaryProps {
-  githubId: number;
+  userSlug: string;
 }

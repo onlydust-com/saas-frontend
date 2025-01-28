@@ -1,4 +1,4 @@
 export interface ProjectsListProps {
-  userId: number;
-  params: { userSlug: string };
+  userId: number | undefined;
+  userSlug: string;
 }

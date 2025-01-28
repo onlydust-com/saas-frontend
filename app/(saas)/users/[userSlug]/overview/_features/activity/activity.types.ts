@@ -1,3 +1,3 @@
 export interface ActivityProps {
-  userId: number;
+  userSlug: string;
 }
