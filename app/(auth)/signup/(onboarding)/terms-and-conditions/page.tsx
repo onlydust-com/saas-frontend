@@ -80,11 +80,9 @@ function SignupLegalPage() {
                 taken by OD or by a committee of independent experts)
                 <br />
                 <br />
-                <u>In both cases, you must</u>: (i) properly use our platform and refrain from all fraudulent activity;
+                <u>In both cases</u>, you must: (i) properly use our platform and refrain from all fraudulent activity;
                 (ii) give us valid information about your status, including whether you act for a company or not; (iii)
-                comply with platform and refrain from all fraudulent activity; (ii) give us valid information about your
-                status, including whether you act for a company or not; (iii) comply with the laws and regulations in
-                force in the country in which you are locateds.
+                comply with the laws and regulations in force in the country in which you are located.
                 <br />
                 <br />
                 What are Our responsibilities? We undertake to provide you with our platform and ensure its proper
