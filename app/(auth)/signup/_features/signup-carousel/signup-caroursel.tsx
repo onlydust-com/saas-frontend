@@ -71,7 +71,12 @@ export function SignupCarousel() {
       <CarouselContent className="-ml-0 h-full">
         {slides.map((slide, index) => (
           <CarouselItem key={index} className="relative flex aspect-square p-8">
-            <Image src={slide.background} alt={slide.title} className="absolute inset-0 object-cover" />
+            <Image
+              src={slide.background}
+              alt={slide.title}
+              priority={index === 0}
+              className="absolute inset-0 object-cover"
+            />
 
             <div className="relative z-10 flex flex-col gap-2 self-end">
               <TypographyH3>{slide.title}</TypographyH3>
