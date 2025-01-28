@@ -6,7 +6,6 @@ import { SignupCarousel } from "@/app/(auth)/signup/_features/signup-carousel/si
 
 import { bootstrap } from "@/core/bootstrap";
 
-import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { SocialIconLink } from "@/shared/features/social/social-icon-link/social-icon-link";
 import { useAuthContext, withSignup } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
@@ -98,4 +97,4 @@ function SignupPage() {
   );
 }
 
-export default withClientOnly(withSignup(SignupPage));
+export default withSignup(SignupPage);
