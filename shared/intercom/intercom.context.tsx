@@ -7,11 +7,13 @@ import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 import { useAuthUser } from "../hooks/auth/use-auth-user";
 
 interface IntercomContextInterface {
-  sample: string;
+  hideIntercomLauncher: () => void;
+  showIntercomLauncher: () => void;
 }
 
 export const IntercomContext = createContext<IntercomContextInterface>({
-  sample: "",
+  hideIntercomLauncher: () => {},
+  showIntercomLauncher: () => {},
 });
 
 const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID ?? "";
@@ -19,6 +21,20 @@ const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID ?? "";
 export function IntercomProvider({ children }: PropsWithChildren) {
   const { user } = useAuthUser();
   const { getAccessTokenSilently } = useAuth0();
+
+  function hideIntercomLauncher() {
+    const intercomLauncher = document.querySelector("#intercom-container") as HTMLElement;
+    if (intercomLauncher) {
+      intercomLauncher.style.display = "none";
+    }
+  }
+
+  function showIntercomLauncher() {
+    const intercomLauncher = document.querySelector("#intercom-container") as HTMLElement;
+    if (intercomLauncher) {
+      intercomLauncher.style.display = "block";
+    }
+  }
 
   async function initIntercom() {
     try {
@@ -37,6 +53,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
             name: user?.login,
             email: user?.email,
             user_hash: data.hash,
+            custom_launcher_selector: "intercom-launcher",
           });
         })
         .catch(e => {
@@ -53,7 +70,11 @@ export function IntercomProvider({ children }: PropsWithChildren) {
     }
   }, [user]);
 
-  return <IntercomContext.Provider value={{ sample: "" }}>{children}</IntercomContext.Provider>;
+  return (
+    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher }}>
+      {children}
+    </IntercomContext.Provider>
+  );
 }
 
 export function useIntercom() {
