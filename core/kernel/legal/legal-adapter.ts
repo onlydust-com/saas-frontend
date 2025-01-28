@@ -18,16 +18,11 @@ export class LegalAdapter implements LegalFacadePort {
     }
   }
 
-  private urls = {
-    terms: this.constructUrl("terms-and-conditions.pdf"),
-    privacy: this.constructUrl("privacy-policy.pdf"),
-  };
-
   getTermsAndConditionsUrl() {
-    return this.urls.terms;
+    return this.constructUrl("terms-and-conditions.pdf");
   }
 
   getPrivacyPolicyUrl() {
-    return this.urls.privacy;
+    return this.constructUrl("privacy-policy.pdf");
   }
 }
