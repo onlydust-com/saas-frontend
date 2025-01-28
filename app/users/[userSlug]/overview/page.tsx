@@ -15,6 +15,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Activity } from "./_features/activity/activity";
+import { ProjectsList } from "./_features/projects-list/projects-list";
 import { UserStats } from "./_features/user-stats/user-stats";
 
 export default function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string } }) {
@@ -65,6 +66,7 @@ export default function UserOverviewPage({ params: { userSlug } }: { params: { u
         ]}
       />
       {renderStats}
+      <ProjectsList userId={Number(userSlug)} params={{ userSlug }} />
       <Activity userId={Number(userSlug)} />
       {!!data && (
         <div className="flex w-full flex-row items-stretch justify-start gap-4 border-b-1 border-border-primary">

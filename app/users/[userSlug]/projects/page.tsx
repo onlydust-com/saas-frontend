@@ -84,12 +84,11 @@ export default function UserProjectsPage({ params }: { params: { userSlug: strin
         contributorCount={project.contributorCount}
         starCount={project.starCount}
         forkCount={project.forkCount}
-        availableIssueCount={project.availableIssueCount}
-        goodFirstIssueCount={project.goodFirstIssueCount}
         categories={project.categories}
         languages={project.languages}
         ecosystems={project.ecosystems}
         tags={project.tags}
+        contributorsStats={project.contributorStats}
       />
     ));
   }, [isLoading, isError, projects]);
