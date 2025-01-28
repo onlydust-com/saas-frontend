@@ -1,12 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { bootstrap } from "@/core/bootstrap";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -25,12 +27,22 @@ const formSchema = z.object({
 });
 
 function SignupLegalPage() {
+  const { user } = useAuthUser();
+
+  const hasAcceptedLatestTermsAndConditions = user?.hasAcceptedLatestTermsAndConditions;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       terms: false,
     },
   });
+
+  useEffect(() => {
+    if (hasAcceptedLatestTermsAndConditions) {
+      form.setValue("terms", true);
+    }
+  }, [hasAcceptedLatestTermsAndConditions]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -106,7 +118,11 @@ function SignupLegalPage() {
             <div className="flex flex-col space-y-2">
               <FormItem className="flex items-center space-x-3 space-y-0">
                 <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={hasAcceptedLatestTermsAndConditions}
+                  />
                 </FormControl>
 
                 <div className="flex flex-col space-y-1">
