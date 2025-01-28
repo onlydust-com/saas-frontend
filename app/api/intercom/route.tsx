@@ -1,8 +1,9 @@
-import crypto from "crypto";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { MARKETPLACE_API_BASE_URL } from "@/core/infrastructure/marketplace-api-client-adapter/config/base-url";
+
+const { createHmac } = await import("node:crypto");
 
 export async function GET() {
   const headersList = headers();
@@ -28,7 +29,7 @@ export async function GET() {
 
     if (secretKey) {
       const userIdentifier = user.id;
-      const hash = crypto.createHmac("sha256", secretKey).update(userIdentifier).digest("hex");
+      const hash = createHmac("sha256", secretKey).update(userIdentifier).digest("hex");
 
       return NextResponse.json({ hash }, { status: 201 });
     }
