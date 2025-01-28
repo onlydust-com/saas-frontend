@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
-
-import { toast } from "@/design-system/molecules/toaster";
 
 import { useSinglePanelContext } from "@/shared/features/side-panels/side-panel/side-panel";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";

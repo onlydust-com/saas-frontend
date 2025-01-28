@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
+import { toast } from "sonner";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
@@ -15,7 +16,6 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";

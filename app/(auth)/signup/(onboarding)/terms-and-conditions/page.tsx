@@ -3,12 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { withAuthenticated } from "@/shared/providers/auth-provider";
+import { useAuthContext, withAuthenticated } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Checkbox } from "@/shared/ui/checkbox";
@@ -27,8 +29,21 @@ const formSchema = z.object({
 
 function SignupLegalPage() {
   const { user } = useAuthUser();
+  const { redirectToApp } = useAuthContext();
 
   const hasAcceptedLatestTermsAndConditions = user?.hasAcceptedLatestTermsAndConditions;
+
+  const { mutate: setMe, isPending } = MeReactQueryAdapter.client.useSetMe({
+    options: {
+      onSuccess: () => {
+        toast.success("Terms & conditions accepted");
+        redirectToApp();
+      },
+      onError: () => {
+        toast.error("Error accepting terms & conditions");
+      },
+    },
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,7 +59,9 @@ function SignupLegalPage() {
   }, [hasAcceptedLatestTermsAndConditions]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setMe({
+      hasAcceptedTermsAndConditions: values.terms,
+    });
   }
 
   return (
@@ -153,7 +170,7 @@ function SignupLegalPage() {
             </div>
           )}
         />
-        <Button type="submit" className="w-full" variant="secondary">
+        <Button type="submit" className="w-full" variant="secondary" disabled={isPending}>
           Next step
         </Button>
       </form>

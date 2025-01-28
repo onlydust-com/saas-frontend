@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { useEditProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.hooks";
 import { editProgramPanelFormValidation } from "@/app/(saas)/financials/[sponsorId]/programs/_features/edit-program-panel/edit-program-panel.types";
@@ -16,7 +17,6 @@ import { Accordion } from "@/design-system/molecules/accordion";
 import { CardTransaction } from "@/design-system/molecules/cards/card-transaction";
 import { ImageInput } from "@/design-system/molecules/image-input";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";

@@ -1,12 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { ContributionItemDtoInterface } from "@/core/domain/contribution/dto/contribution-item-dto";
 import { RewardableItemInterface } from "@/core/domain/reward/models/rewardable-item-model";
-
-import { toast } from "@/design-system/molecules/toaster";
 
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { BulkContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/bulk-contribution-selection/bulk-contribution-selection";
