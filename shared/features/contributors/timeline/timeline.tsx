@@ -57,23 +57,26 @@ export function Timeline({ user, location = "panel" }: TimelineProps) {
 
   if (location === "page") {
     return (
-      <div className={"flex flex-col gap-lg"}>
-        <div className={"flex flex-row items-center gap-md"}>
-          <FilterButton onClick={openFilter} />
-          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+      <FilterDataProvider filters={filters} setFilters={setFilters}>
+        <div className={"flex flex-col gap-lg"}>
+          <div className={"flex flex-row items-center gap-md"}>
+            <FilterButton onClick={openFilter} />
+            <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+          </div>
+          {months.map((month, i) => (
+            <TimelineAccordion
+              key={month.start.toISOString()}
+              user={user}
+              start={month.start}
+              end={month.end}
+              isFirst={i === 0}
+              filters={filters}
+              search={debouncedSearch}
+            />
+          ))}
         </div>
-        {months.map((month, i) => (
-          <TimelineAccordion
-            key={month.start.toISOString()}
-            user={user}
-            start={month.start}
-            end={month.end}
-            isFirst={i === 0}
-            filters={filters}
-            search={debouncedSearch}
-          />
-        ))}
-      </div>
+        <FilterData user={user} />
+      </FilterDataProvider>
     );
   }
 

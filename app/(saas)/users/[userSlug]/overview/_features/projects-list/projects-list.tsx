@@ -87,7 +87,7 @@ export function ProjectsList({ userId, params }: ProjectsListProps) {
           </Button>
         }
       >
-        <div className="grid grid-cols-3 gap-4">{renderProjects}</div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">{renderProjects}</div>
       </Accordion>
     </div>
   );
