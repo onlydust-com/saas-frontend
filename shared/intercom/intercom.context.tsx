@@ -38,10 +38,11 @@ export function IntercomProvider({ children }: PropsWithChildren) {
 
   async function initIntercom() {
     try {
-      const token = await getAccessTokenSilently();
       if (!INTERCOM_APP_ID) {
         return;
       }
+
+      const token = await getAccessTokenSilently();
 
       fetch("/api/intercom", {
         headers: {
@@ -59,11 +60,11 @@ export function IntercomProvider({ children }: PropsWithChildren) {
             custom_launcher_selector: "intercom-launcher",
           });
         })
-        .catch(e => {
-          console.error("Failed to initialize Intercom:", e);
+        .catch(() => {
+          console.log("Failed to initialize Intercom");
         });
     } catch {
-      //
+      console.log("Failed to initialize Intercom");
     }
   }
 
