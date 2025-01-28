@@ -94,6 +94,7 @@ export function TimelineItem({ contribution }: TimelineItemProps) {
           content={tooltipContent()}
           background={"primary"}
           classNames={{ content: "w-[16.375rem] max-w-[16.375rem]" }}
+          placement="top-start"
         >
           <Typo
             size={"sm"}

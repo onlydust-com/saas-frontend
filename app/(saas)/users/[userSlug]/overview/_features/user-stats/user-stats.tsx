@@ -66,7 +66,7 @@ export function UserStats({ rewardCount, projectCount, inProgressIssueCount, prC
           }}
         />
       </div>
-      <div className="border-border-primary px-lg tablet:border-r-1">
+      <div className="px-lg">
         <Stat
           label={t("users:details.overview.stats.prCount")}
           value={Intl.NumberFormat().format(prCount?.value ?? 0)}
