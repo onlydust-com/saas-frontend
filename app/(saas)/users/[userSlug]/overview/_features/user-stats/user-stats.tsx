@@ -54,7 +54,7 @@ export function UserStats({ rewardCount, projectCount, inProgressIssueCount, prC
           }}
         />
       </div>
-      <div className="border-border-primary px-lg tablet:border-r-1">
+      <div className="border-r-1 border-border-primary px-lg">
         <Stat
           label={t("users:details.overview.stats.inProgressIssueCount")}
           value={Intl.NumberFormat().format(inProgressIssueCount ?? 0)}
