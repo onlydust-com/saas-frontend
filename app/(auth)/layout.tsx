@@ -7,7 +7,7 @@ import { Logo } from "@/shared/components/logo/logo";
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <Image src={background} alt="" className={"absolute inset-0 size-full object-cover"} loading="eager" />
+      <Image src={background} alt="" className={"fixed inset-0 size-full object-cover"} loading="eager" />
 
       <div className="relative z-10 flex min-h-svh flex-col p-6 md:p-10">
         <Logo classNames={{ image: "h-12" }} />
