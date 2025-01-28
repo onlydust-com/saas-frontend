@@ -12,7 +12,7 @@ import { Button } from "@/shared/ui/button";
 import { Carousel, CarouselContent, CarouselItem, useCarousel } from "@/shared/ui/carousel";
 import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
-function CarouselPrevious() {
+function Previous() {
   const { scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -29,7 +29,7 @@ function CarouselPrevious() {
   );
 }
 
-function CarouselNext() {
+function Next() {
   const { scrollNext, canScrollNext } = useCarousel();
 
   return (
@@ -50,12 +50,12 @@ const slides = [
   {
     title: "Explore & Discover Projects 🔍",
     description:
-      "Browse a curated selection of exciting projects tailored to your interests. There’s something for everyone!",
+      "Browse a curated selection of exciting projects tailored to your interests. There's something for everyone!",
     background: slide1,
   },
   {
     title: "Participate 👥",
-    description: "Find a project you’re passionate about, submit your application, and start collaborating today!",
+    description: "Find a project you're passionate about, submit your application, and start collaborating today!",
     background: slide2,
   },
   {
@@ -78,9 +78,9 @@ export function SignupCarousel() {
               <TypographyMuted>{slide.description}</TypographyMuted>
 
               <div className="flex items-center gap-1 text-xs">
-                <CarouselPrevious />
+                <Previous />
                 {index + 1}/{slides.length}
-                <CarouselNext />
+                <Next />
               </div>
             </div>
           </CarouselItem>
