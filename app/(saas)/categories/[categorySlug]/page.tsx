@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { FolderOpen } from "lucide-react";
 import { useMemo } from "react";
 
@@ -16,6 +15,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 import ProjectList from "./_features/project-list/project-list";
@@ -95,4 +95,4 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(CategoryPage));
+export default withClientOnly(withAuthenticated(CategoryPage));

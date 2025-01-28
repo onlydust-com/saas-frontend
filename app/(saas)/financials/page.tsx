@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
@@ -15,6 +14,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useShowSponsorList } from "@/shared/hooks/sponsors/use-show-sponsor-list";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function withSponsorList<P extends object>(Component: ComponentType<P>) {
@@ -69,4 +69,4 @@ function FinancialPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(withSponsorList(FinancialPage)));
+export default withClientOnly(withAuthenticated(withSponsorList(FinancialPage)));

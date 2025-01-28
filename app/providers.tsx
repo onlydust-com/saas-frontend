@@ -6,6 +6,7 @@ import { QueryProvider } from "@/core/application/react-query-adapter/query-prov
 import { ClientBootstrapProvider } from "@/core/bootstrap/client-bootstrap-context";
 
 import { IntercomProvider } from "@/shared/intercom/intercom.context";
+import { AuthProvider } from "@/shared/providers/auth-provider";
 import { PosthogProvider } from "@/shared/tracking/posthog/posthog-provider";
 import { TranslationProvider } from "@/shared/translation/components/translation-provider/translation-provider";
 
@@ -14,13 +15,15 @@ export function Providers({ children }: PropsWithChildren) {
     <ClientBootstrapProvider>
       <PosthogProvider>
         <Auth0Provider>
-          <TranslationProvider>
-            <QueryProvider>
-              <IntercomProvider>
-                <NextUIProvider>{children}</NextUIProvider>
-              </IntercomProvider>
-            </QueryProvider>
-          </TranslationProvider>
+          <AuthProvider>
+            <TranslationProvider>
+              <QueryProvider>
+                <IntercomProvider>
+                  <NextUIProvider>{children}</NextUIProvider>
+                </IntercomProvider>
+              </QueryProvider>
+            </TranslationProvider>
+          </AuthProvider>
         </Auth0Provider>
       </PosthogProvider>
     </ClientBootstrapProvider>

@@ -1,13 +1,12 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-
 import { ProjectBanners } from "@/app/(saas)/explore/_features/project-banners/project-banners";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { BrowseProjects } from "./_features/browse-projects/browse-projects";
@@ -39,4 +38,4 @@ function ExplorePage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(ExplorePage));
+export default withClientOnly(withAuthenticated(ExplorePage));

@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
 import { RequestPayment } from "@/app/(saas)/my-dashboard/_features/request-payment/request-payment";
@@ -21,6 +20,7 @@ import { RequestPaymentFlowProvider } from "@/shared/panels/_flows/request-payme
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { useMyRewardsTransactionsSidepanel } from "@/shared/panels/my-rewards-transactions-sidepanel/my-rewards-transactions-sidepanel.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -138,4 +138,4 @@ function MyDashboardLayout({ children }: PropsWithChildren) {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(MyDashboardLayout));
+export default withClientOnly(withAuthenticated(MyDashboardLayout));

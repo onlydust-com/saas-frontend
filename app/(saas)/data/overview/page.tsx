@@ -1,7 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-
 import { ActiveContributorsAlert } from "@/app/(saas)/data/_components/active-contributors-alert/active-contributors-alert";
 import { ActiveUsersBarChart } from "@/app/(saas)/data/overview/_features/active-users-bar-chart/active-users-bar-chart";
 import { ActiveUsersMapChart } from "@/app/(saas)/data/overview/_features/active-users-map-chart/active-users-map-chart";
@@ -13,6 +11,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ContributorHistogramChart } from "./_features/contributor-histogram-chart/contributor-histogram-chart";
@@ -65,4 +64,4 @@ function DataOverviewPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(DataOverviewPage));
+export default withClientOnly(withAuthenticated(DataOverviewPage));

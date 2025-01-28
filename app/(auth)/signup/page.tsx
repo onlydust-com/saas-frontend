@@ -5,11 +5,13 @@ import { Github, Linkedin } from "lucide-react";
 import { SignupCarousel } from "@/app/(auth)/signup/_features/signup-carousel/signup-caroursel";
 
 import { SocialIconLink } from "@/shared/features/social/social-icon-link/social-icon-link";
+import { useAuthContext, withSignup } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyH2 } from "@/shared/ui/typography";
 
-export default function SignupPage() {
+function SignupPage() {
+  const { handleLogin } = useAuthContext();
   return (
     <div className={"flex w-full max-w-xl flex-col gap-6 laptop:max-w-6xl"}>
       <Card className="overflow-hidden">
@@ -36,7 +38,7 @@ export default function SignupPage() {
                   </CardHeader>
 
                   <CardContent className="p-4 pt-0">
-                    <Button variant={"secondary"}>
+                    <Button variant={"secondary"} onClick={handleLogin}>
                       <Github /> Sign in with Github
                     </Button>
                   </CardContent>
@@ -53,7 +55,7 @@ export default function SignupPage() {
                   </CardHeader>
 
                   <CardContent className="p-4 pt-0">
-                    <Button variant={"secondary"}>
+                    <Button variant={"secondary"} onClick={handleLogin}>
                       <Github /> Sign up with Github
                     </Button>
                   </CardContent>
@@ -88,3 +90,5 @@ export default function SignupPage() {
     </div>
   );
 }
+
+export default withSignup(SignupPage);

@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
 import { DepositButton } from "@/app/(saas)/financials/[sponsorId]/financial/_features/deposit-button/deposit-button";
@@ -16,6 +15,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -106,4 +106,4 @@ function FinancialDetailLayout({
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(FinancialDetailLayout));
+export default withClientOnly(withAuthenticated(FinancialDetailLayout));
