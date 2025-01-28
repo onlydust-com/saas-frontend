@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 
@@ -93,8 +94,11 @@ export function withAuthenticated<P extends object>(Component: React.ComponentTy
     }, [isAuthenticated, redirectToSignup]);
 
     if (!isAuthenticated || isLoading) {
-      // TODO add spinner
-      return null;
+      return (
+        <div className="flex size-full items-center justify-center">
+          <Loader2 className="size-12 animate-spin text-foreground" />
+        </div>
+      );
     }
 
     return <Component {...props} />;
