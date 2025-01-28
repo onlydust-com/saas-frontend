@@ -4,6 +4,9 @@ import { Github, Linkedin } from "lucide-react";
 
 import { SignupCarousel } from "@/app/(auth)/signup/_features/signup-carousel/signup-caroursel";
 
+import { bootstrap } from "@/core/bootstrap";
+
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { SocialIconLink } from "@/shared/features/social/social-icon-link/social-icon-link";
 import { useAuthContext, withSignup } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
@@ -64,7 +67,11 @@ function SignupPage() {
 
               <div className="flex items-center justify-between gap-2 px-6 py-5">
                 <Button variant={"link"} asChild size={"sm"}>
-                  <a href="/documents/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={bootstrap.getLegalKernelPort().getTermsAndConditionsUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Terms & conditions
                   </a>
                 </Button>
@@ -91,4 +98,4 @@ function SignupPage() {
   );
 }
 
-export default withSignup(SignupPage);
+export default withClientOnly(withSignup(SignupPage));

@@ -4,10 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { bootstrap } from "@/core/bootstrap";
+
+import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Checkbox } from "@/shared/ui/checkbox";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 
@@ -20,7 +24,7 @@ const formSchema = z.object({
     }),
 });
 
-export default function SignupLegalPage() {
+function SignupLegalPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -107,7 +111,29 @@ export default function SignupLegalPage() {
                   <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                 </FormControl>
 
-                <FormLabel>I have read and accept terms & conditions</FormLabel>
+                <div className="flex flex-col space-y-1">
+                  <FormLabel>I have read and accept terms & conditions</FormLabel>
+                  <FormDescription>
+                    I agree to the full{" "}
+                    <a
+                      href={bootstrap.getLegalKernelPort().getTermsAndConditionsUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      terms & conditions
+                    </a>{" "}
+                    & the{" "}
+                    <a
+                      href={bootstrap.getLegalKernelPort().getPrivacyPolicyUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      privacy policy
+                    </a>
+                  </FormDescription>
+                </div>
               </FormItem>
 
               <FormMessage />
@@ -121,3 +147,5 @@ export default function SignupLegalPage() {
     </Form>
   );
 }
+
+export default withClientOnly(withAuthenticated(SignupLegalPage));
