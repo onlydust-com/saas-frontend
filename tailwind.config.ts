@@ -27,7 +27,7 @@ const config: Config = withTV({
     extend: {
       fontFamily: {
         clash: "Clash Display",
-        inter: "Inter",
+        sans: ["var(--font-geist)"],
       },
       colors: {
         ...COLORS,
