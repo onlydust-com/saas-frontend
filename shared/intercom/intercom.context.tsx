@@ -39,6 +39,9 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   async function initIntercom() {
     try {
       const token = await getAccessTokenSilently();
+      if (!INTERCOM_APP_ID) {
+        return;
+      }
 
       fetch("/api/intercom", {
         headers: {
