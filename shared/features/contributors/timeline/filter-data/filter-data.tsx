@@ -10,10 +10,10 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
 import { DataSourceSelect } from "@/shared/panels/contributor-sidepanel/_components/data-source-select/data-source-select";
 import { DateSourceSelect } from "@/shared/panels/contributor-sidepanel/_components/data-source-select/data-source-select.types";
-import { useTimelineFilterDataSidePanel } from "@/shared/panels/contributor-sidepanel/_components/timeline/filter-data/filter-data.hooks";
-import { TimelineFilters } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { useTimelineFilterDataSidePanel } from "../filter-data/filter-data.hooks";
+import { TimelineFilters } from "../timeline";
 import { FilterDataProps } from "./filter-data.types";
 
 export function FilterData({ user }: FilterDataProps) {

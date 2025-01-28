@@ -14,16 +14,16 @@ import { TableSearch } from "@/design-system/molecules/table-search";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
-import { useTimelineFilterDataSidePanel } from "@/shared/panels/contributor-sidepanel/_components/timeline/filter-data/filter-data.hooks";
-import { TimelineAccordion } from "@/shared/panels/contributor-sidepanel/_components/timeline/timeline-accordion/timeline-accordion";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./filter-data/filter-data";
+import { useTimelineFilterDataSidePanel } from "./filter-data/filter-data.hooks";
+import { TimelineAccordion } from "./timeline-accordion/timeline-accordion";
 import { TimelineProps } from "./timeline.types";
 
 export type TimelineFilters = Omit<NonNullable<GetContributionsPortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
-export function Timeline({ user }: TimelineProps) {
+export function Timeline({ user, location = "panel" }: TimelineProps) {
   const { open: openFilter } = useTimelineFilterDataSidePanel();
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [search, setSearch] = useState<string>();
@@ -54,6 +54,28 @@ export function Timeline({ user }: TimelineProps) {
 
     return [];
   }, [rangeType]);
+
+  if (location === "page") {
+    return (
+      <div className={"flex flex-col gap-lg"}>
+        <div className={"flex flex-row items-center gap-md"}>
+          <FilterButton onClick={openFilter} />
+          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+        </div>
+        {months.map((month, i) => (
+          <TimelineAccordion
+            key={month.start.toISOString()}
+            user={user}
+            start={month.start}
+            end={month.end}
+            isFirst={i === 0}
+            filters={filters}
+            search={debouncedSearch}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>

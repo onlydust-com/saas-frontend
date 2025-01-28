@@ -8,7 +8,7 @@ import { useStatDiffFormatter } from "@/shared/hooks/stats/use-stat-diff-formatt
 
 import { UserStatsProps } from "./user-stats.types";
 
-export function UserStats({ rewardCount, contributionCount, inProgressIssueCount, prCount }: UserStatsProps) {
+export function UserStats({ rewardCount, projectCount, inProgressIssueCount, prCount }: UserStatsProps) {
   const { t } = useTranslation();
   const { formatDiff, getBadgeColor } = useStatDiffFormatter();
 
@@ -45,28 +45,13 @@ export function UserStats({ rewardCount, contributionCount, inProgressIssueCount
       <div className="border-border-primary px-lg tablet:border-r-1">
         <Stat
           label={t("users:details.overview.stats.contributionCount")}
-          value={Intl.NumberFormat().format(contributionCount?.value ?? 0)}
+          value={Intl.NumberFormat().format(projectCount?.value ?? 0)}
           iconProps={{
             component: Folder,
             classNames: {
               base: "text-utility-secondary-blue-500",
             },
           }}
-          badgeProps={
-            contributionCount !== undefined && contributionCount.diff !== undefined
-              ? {
-                  children: (
-                    <Typo size="xs" classNames={{ base: "text-inherit" }}>
-                      {formatDiff(contributionCount.diff)}
-                    </Typo>
-                  ),
-                  color: getBadgeColor(contributionCount.diff),
-                  classNames: {
-                    base: "h-fit min-w-fit",
-                  },
-                }
-              : undefined
-          }
         />
       </div>
       <div className="border-border-primary px-lg tablet:border-r-1">
