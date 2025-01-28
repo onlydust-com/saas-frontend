@@ -5,7 +5,7 @@ type Count = {
 
 export interface UserStatsProps {
   rewardCount?: Count;
-  contributionCount?: Count;
+  projectCount?: Count;
   inProgressIssueCount?: number;
   prCount?: Count;
 }

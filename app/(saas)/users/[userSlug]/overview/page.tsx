@@ -39,7 +39,7 @@ export default function UserOverviewPage({ params: { userSlug } }: { params: { u
     return (
       <UserStats
         rewardCount={data?.rewardCount}
-        contributionCount={data?.contributionCount}
+        projectCount={{ value: data?.projects?.length ?? 0 }}
         inProgressIssueCount={data?.inProgressIssueCount}
         prCount={data?.prCount}
       />
