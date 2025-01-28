@@ -85,15 +85,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
             subtitle={{
               children: category.description,
             }}
-            logo={
-              <RemixIcon
-                name={category.iconSlug as RemixIconsName}
-                size="lg"
-                classNames={{
-                  base: "size-16",
-                }}
-              />
-            }
+            logo={<RemixIcon name={category.iconSlug as RemixIconsName} size="banner" />}
           />
         </div>
 

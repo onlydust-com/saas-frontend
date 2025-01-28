@@ -11,12 +11,10 @@ import { TableSearch } from "@/design-system/molecules/table-search/variants/tab
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
-import { cn } from "@/shared/helpers/cn";
 
 import { FilterData } from "../filter-data/filter-data";
 import { useCategoriesProjectsFilterDataSidePanel } from "../filter-data/filter-data.hooks";
@@ -55,7 +53,7 @@ export default function ProjectList({ params }: { params: { categorySlug: string
 
     if (!projects.length) {
       return (
-        <div className="col-span-full p-lg">
+        <div className="col-span-full">
           <EmptyStateLite />
         </div>
       );
@@ -86,24 +84,20 @@ export default function ProjectList({ params }: { params: { categorySlug: string
 
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <div className="flex h-full flex-col gap-lg overflow-hidden">
-        <nav className={"flex gap-md pb-4xl"}>
+      <div className="flex h-full flex-col gap-4xl overflow-hidden">
+        <nav className={"flex gap-md"}>
           <FilterButton onClick={openFilterPanel} />
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         </nav>
 
-        <div className="relative h-full">
-          <ScrollView className={cn("max-h-[calc(100%-2rem)]")}>
-            <div className="relative grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-              {renderProjects}
+        <div className="relative grid grid-cols-1 gap-4xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          {renderProjects}
 
-              {hasNextPage ? (
-                <div className="col-span-full">
-                  <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
-                </div>
-              ) : null}
+          {hasNextPage ? (
+            <div className="col-span-full">
+              <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
             </div>
-          </ScrollView>
+          ) : null}
         </div>
       </div>
       <FilterData />
