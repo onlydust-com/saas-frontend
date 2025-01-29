@@ -60,7 +60,7 @@ shared/					# Reusable elements across the project that don't belong to the desi
 - Next.js
 - TypeScript
 - Tailwind CSS
-- NextUI
+- Shadcn UI
 - React Query
 - React Hook Form
 - Zod

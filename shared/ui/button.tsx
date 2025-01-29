@@ -39,6 +39,17 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  /**
+   * SHADCN-EXTENSION: Loading state
+   *
+   * Adds loading spinner while:
+   * - Makes text transparent
+   * - Centers Loader2 icon
+   * - Disables button
+   *
+   * @example <Button loading>Save</Button>
+   * @default false
+   */
   loading?: boolean;
 }
 
