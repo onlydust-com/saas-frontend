@@ -41,7 +41,7 @@ function SignupPage() {
                   </CardHeader>
 
                   <CardContent className="p-4 pt-0">
-                    <Button variant={"secondary"} onClick={handleLogin}>
+                    <Button onClick={handleLogin}>
                       <Github /> Sign in with Github
                     </Button>
                   </CardContent>

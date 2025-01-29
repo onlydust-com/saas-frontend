@@ -16,7 +16,7 @@ import { Card } from "@/shared/ui/card";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { ScrollArea } from "@/shared/ui/scroll-area";
-import { TypographyH4, TypographyP } from "@/shared/ui/typography";
+import { TypographyH3, TypographyP } from "@/shared/ui/typography";
 
 const formSchema = z.object({
   terms: z
@@ -74,26 +74,26 @@ function SignupLegalPage() {
         <Card>
           <ScrollArea className="h-[440px]">
             <div className="space-y-3 p-3">
-              <TypographyH4>What&apos;s OnlyDust?</TypographyH4>
+              <TypographyH3>What&apos;s OnlyDust?</TypographyH3>
 
-              <TypographyP className="text-sm">
+              <TypographyP>
                 OnlyDust is a platform provided by Wagmi SAS designed to optimize the financing of open source projects
                 using blockchain protocols. On behalf of foundations supporting the development of protocols, we
                 organize connections between open source projects and developers and organize the funding of the
                 latter&apos;s contributions.
               </TypographyP>
 
-              <TypographyH4>How to access OnlyDust?</TypographyH4>
+              <TypographyH3>How to access OnlyDust?</TypographyH3>
 
-              <TypographyP className="text-sm">
+              <TypographyP>
                 To use our platform, you must be of legal age (+ 16 years), not be a sanctioned person, and, of course,
                 accept and observe the T&Cs in full. To obtain your rewards, you will need to comply with KYC/KYB
                 requirements.
               </TypographyP>
 
-              <TypographyH4>What are your responsibilities?</TypographyH4>
+              <TypographyH3>What are your responsibilities?</TypographyH3>
 
-              <TypographyP className="text-sm">
+              <TypographyP>
                 You can use the platform as a project leader or as a contributor.
                 <br />
                 <br />
@@ -174,7 +174,7 @@ function SignupLegalPage() {
             </div>
           )}
         />
-        <Button type="submit" className="w-full" variant="secondary" loading={isPending}>
+        <Button type="submit" className="w-full" loading={isPending}>
           Next step
         </Button>
       </form>
