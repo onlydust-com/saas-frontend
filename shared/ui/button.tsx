@@ -1,4 +1,4 @@
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 import * as React from "react";
@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/shared/utils";
 
 const buttonVariants = cva(
-  "relative inline-flex justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "relative inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -23,10 +23,14 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
       },
+      loading: {
+        true: "text-transparent hover:text-transparent",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      loading: false,
     },
   }
 );
@@ -43,13 +47,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className, loading }))}
         ref={ref}
         disabled={loading || disabled}
         {...props}
       >
-        <span className={cn("flex items-center gap-2", { invisible: loading })}>{children}</span>
-        {loading ? <Loader2 aria-label="Loading" className="absolute animate-spin place-items-center" /> : null}
+        {loading ? (
+          <Loader2 aria-label="Loading" className="absolute animate-spin place-items-center text-foreground" />
+        ) : null}
+        <Slottable>{children}</Slottable>
       </Comp>
     );
   }
