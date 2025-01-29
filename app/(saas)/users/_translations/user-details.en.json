@@ -1,0 +1,21 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "projects": "Projects",
+    "analytics": "Analytics"
+  },
+  "overview": {
+    "stats": {
+      "rewardCount": "Rewards",
+      "contributionCount": "Contributed projects",
+      "inProgressIssueCount": "In progress issues",
+      "prCount": "Merged pull requests"
+    }
+  },
+  "projects": {
+    "filters": {
+      "title": "Filters"
+    },
+    "projectsCount": "Projects"
+  }
+}

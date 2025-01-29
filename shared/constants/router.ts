@@ -144,6 +144,18 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  categories: {
+    root: "/categories",
+    details: {
+      root: (categorySlug: string) => `/categories/${categorySlug}`,
+    },
+  },
+  signup: {
+    root: "/signup",
+    termsAndConditions: {
+      root: "/signup/terms-and-conditions",
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {

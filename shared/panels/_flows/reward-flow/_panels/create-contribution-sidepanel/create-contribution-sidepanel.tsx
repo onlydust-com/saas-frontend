@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
@@ -14,7 +15,6 @@ import { Typo } from "@/design-system/atoms/typo";
 import { Alert } from "@/design-system/molecules/alert";
 import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";

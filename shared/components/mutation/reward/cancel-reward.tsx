@@ -1,6 +1,6 @@
-import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
+import { toast } from "sonner";
 
-import { toast } from "@/design-system/molecules/toaster";
+import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 

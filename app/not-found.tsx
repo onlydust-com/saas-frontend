@@ -1,36 +1,21 @@
-"use client";
-
 import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
-
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button } from "@/shared/ui/button";
+import { TypographyH1 } from "@/shared/ui/typography";
 
 export default function NotFound() {
   return (
-    <div className={"flex size-full items-center justify-center"}>
+    <div className={"flex h-screen items-center justify-center"}>
       <div className={"flex flex-col items-center justify-center gap-6"}>
-        <Typo
-          variant={"heading"}
-          size={"2xl"}
-          classNames={{ base: "capitalize" }}
-          translate={{
-            token: "notFound:title",
-          }}
-        />
+        <TypographyH1>Page Not Found</TypographyH1>
 
-        <Button
-          as={BaseLink}
-          htmlProps={{
-            href: NEXT_ROUTER.home.root,
-          }}
-          size={"md"}
-          startIcon={{ component: ChevronLeft }}
-        >
-          <Translate token={"notFound:back"} />
+        <Button asChild>
+          <Link href={NEXT_ROUTER.home.root}>
+            <ChevronLeft />
+            Back
+          </Link>
         </Button>
       </div>
     </div>

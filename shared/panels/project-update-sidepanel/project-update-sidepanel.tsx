@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { EditProjectBody } from "@/core/domain/project/project-contract.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
