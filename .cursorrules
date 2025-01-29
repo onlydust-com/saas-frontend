@@ -29,7 +29,7 @@ core/					# Core business logic
 ├── domain/         	# Domain logic (use cases, etc)
 ├── helpers/        	# Helper functions
 └── infrastructure/		# Infrastructure logic (api clients, etc)
-design-system/			# Design system components
+design-system/			# Design system components, becoming deprecated
 ├── atoms/     			# Atomic design system components
 ├── helpers/       		# Design system helpers
 ├── molecules/       	# Molecular design system components
@@ -50,8 +50,8 @@ shared/					# Reusable elements across the project that don't belong to the desi
 ├── modals/    			# Shared modals
 ├── panels/    			# Shared panels and drawers
 ├── theme/    			# Tailwind theme configuration
-├── tracking/      		# Posthog tracking components
-└── translation/      	# Translations
+├── translation/      	# Translations
+└── ui/      			# Shared UI components from shadcn/ui
 ```
 
 ## Tech Stack
