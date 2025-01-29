@@ -9,6 +9,7 @@ import { z } from "zod";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useAuthContext, withAuthenticated } from "@/shared/providers/auth-provider";
 import { Button } from "@/shared/ui/button";
@@ -182,4 +183,4 @@ function SignupLegalPage() {
   );
 }
 
-export default withAuthenticated(SignupLegalPage);
+export default withClientOnly(withAuthenticated(SignupLegalPage));
