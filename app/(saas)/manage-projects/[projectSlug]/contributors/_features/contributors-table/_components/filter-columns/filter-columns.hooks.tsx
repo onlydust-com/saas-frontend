@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Flag from "react-flagpack";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "react-use";
+import { toast } from "sonner";
 
 import { TableColumns } from "@/app/(saas)/manage-projects/[projectSlug]/contributors/_features/contributors-table/_components/filter-columns/filter-columns.types";
 
@@ -18,7 +19,6 @@ import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 import { SortDirection } from "@/design-system/molecules/table-sort";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";

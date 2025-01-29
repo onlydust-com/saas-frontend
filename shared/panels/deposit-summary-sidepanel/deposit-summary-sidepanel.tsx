@@ -3,13 +3,13 @@ import { CheckCircle } from "lucide-react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { DepositReactQueryAdapter } from "@/core/application/react-query-adapter/deposit";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 import { Accordion, AccordionLoading } from "@/design-system/molecules/accordion";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { AmountSelector } from "@/shared/features/amount-selector/amount-selector";

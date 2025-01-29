@@ -14,6 +14,7 @@ import { TypographyH2 } from "@/shared/ui/typography";
 
 function SignupPage() {
   const { handleLogin } = useAuthContext();
+
   return (
     <div className={"flex w-full max-w-xl flex-col gap-6 laptop:max-w-6xl"}>
       <Card className="overflow-hidden">

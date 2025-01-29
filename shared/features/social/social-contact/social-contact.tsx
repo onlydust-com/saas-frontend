@@ -1,10 +1,10 @@
 import copy from "copy-to-clipboard";
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { SocialContactProps } from "@/shared/features/social/social-contact/social-contact.types";
 import { Translate } from "@/shared/translation/components/translate/translate";

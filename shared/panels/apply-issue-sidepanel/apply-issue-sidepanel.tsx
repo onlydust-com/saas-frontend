@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
@@ -12,7 +13,6 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";

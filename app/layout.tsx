@@ -10,8 +10,7 @@ import { Providers } from "@/app/providers";
 import { InitBootstrapAuth } from "@/core/bootstrap/auth/init-bootstrap-auth";
 import { InitBootstrapImpersonation } from "@/core/bootstrap/impersonation/init-bootstrap-impersonation";
 
-import { Toaster } from "@/design-system/molecules/toaster";
-
+import { Toaster } from "@/shared/ui/sonner";
 import { cn } from "@/shared/utils";
 
 import { sharedMetadata } from "./shared-metadata";
@@ -49,7 +48,7 @@ export default function RootLayout({
           <InitBootstrapAuth />
           <InitBootstrapImpersonation />
           {children}
-          <Toaster />
+          <Toaster position="bottom-left" richColors />
           <PosthogIdentifyUser />
           <PosthogPageview />
         </Providers>

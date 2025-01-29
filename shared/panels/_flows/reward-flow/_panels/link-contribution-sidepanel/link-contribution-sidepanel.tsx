@@ -1,6 +1,7 @@
 import { Link } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
@@ -11,7 +12,6 @@ import { Icon } from "@/design-system/atoms/icon";
 import { Input } from "@/design-system/atoms/input";
 import { Tag } from "@/design-system/atoms/tag";
 import { Typo } from "@/design-system/atoms/typo";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";

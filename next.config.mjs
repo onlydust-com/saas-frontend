@@ -5,6 +5,12 @@ const nextConfig = {
   transpilePackages: ["lucide-react"],
   async redirects() {
     return [
+      // HOME
+      {
+        source: "/",
+        destination: "/my-dashboard",
+        permanent: true,
+      },
       // DATA
       {
         source: "/data",
