@@ -1,14 +1,12 @@
 "use client";
 
 import { ChevronLeft, RefreshCw } from "lucide-react";
+import Link from "next/link";
 import { useEffect } from "react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
-
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button } from "@/shared/ui/button";
+import { TypographyH1 } from "@/shared/ui/typography";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
@@ -18,30 +16,19 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   return (
     <div className={"flex h-screen items-center justify-center"}>
       <div className={"flex flex-col items-center justify-center gap-6"}>
-        <Typo
-          variant={"heading"}
-          size={"xl"}
-          classNames={{ base: "capitalize" }}
-          translate={{
-            token: "error:title",
-          }}
-        />
+        <TypographyH1 className="capitalize">An Error Occurred</TypographyH1>
 
         <div className={"flex gap-4"}>
-          <Button
-            as={BaseLink}
-            htmlProps={{
-              href: NEXT_ROUTER.home.root,
-            }}
-            variant={"secondary"}
-            size={"md"}
-            startIcon={{ component: ChevronLeft }}
-          >
-            <Translate token={"error:back"} />
+          <Button asChild>
+            <Link href={NEXT_ROUTER.home.root}>
+              <ChevronLeft />
+              Back
+            </Link>
           </Button>
 
-          <Button size={"md"} startIcon={{ component: RefreshCw }} onClick={reset}>
-            <Translate token={"error:refresh"} />
+          <Button onClick={reset}>
+            <RefreshCw />
+            Refresh
           </Button>
         </div>
       </div>
