@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useMemo } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
@@ -13,6 +12,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { EcosystemStats } from "./_features/ecosystem-stats/ecosystem-stats";
@@ -80,4 +80,4 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(EcosystemOverviewPage));
+export default withClientOnly(withAuthenticated(EcosystemOverviewPage));

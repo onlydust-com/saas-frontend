@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -21,6 +20,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useEcosystemProjectsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
@@ -130,4 +130,4 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(EcosystemProjectsPage));
+export default withClientOnly(withAuthenticated(EcosystemProjectsPage));

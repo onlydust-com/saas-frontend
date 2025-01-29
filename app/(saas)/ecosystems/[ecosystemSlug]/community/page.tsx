@@ -1,8 +1,7 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 import { CommunityTable } from "./_components/community-table/community-table";
 
@@ -14,4 +13,4 @@ function EcosystemCommunityPage({ params }: { params: { ecosystemSlug: string } 
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(EcosystemCommunityPage));
+export default withClientOnly(withAuthenticated(EcosystemCommunityPage));

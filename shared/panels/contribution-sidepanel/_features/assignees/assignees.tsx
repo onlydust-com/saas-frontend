@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -8,7 +9,6 @@ import { UserPublicInterface } from "@/core/domain/user/models/user-public-model
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ContributorProfileCompact } from "@/shared/features/contributors/contributor-profile-compact/contributor-profile-compact";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";

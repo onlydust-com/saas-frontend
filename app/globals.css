@@ -942,9 +942,6 @@
   }
 
   /* DOM STYLES */
-  body {
-    @apply font-inter;
-  }
 
   html {
     font-size: 16px;

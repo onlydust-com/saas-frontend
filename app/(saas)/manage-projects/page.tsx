@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { SquareArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
@@ -19,6 +18,7 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function withProjectList<P extends object>(Component: ComponentType<P>) {
@@ -89,4 +89,4 @@ function ManageProjectsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(withProjectList(ManageProjectsPage)));
+export default withClientOnly(withAuthenticated(withProjectList(ManageProjectsPage)));

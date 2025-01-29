@@ -1,9 +1,8 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { UploadBillingProfileInvoiceByIdPortParams } from "@/core/domain/billing-profile/billing-profile-contract.types";
-
-import { toast } from "@/design-system/molecules/toaster";
 
 import { UseInvoiceUploadProps } from "@/shared/features/invoice/hooks/use-invoice-upload/use-invoice-upload.types";
 import { useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";

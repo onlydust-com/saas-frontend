@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
@@ -15,6 +14,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 function withProgramList<P extends object>(Component: ComponentType<P>) {
@@ -69,4 +69,4 @@ function ProgramsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(withProgramList(ProgramsPage)));
+export default withClientOnly(withAuthenticated(withProgramList(ProgramsPage)));

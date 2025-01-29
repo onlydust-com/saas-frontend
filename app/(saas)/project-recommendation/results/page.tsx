@@ -1,7 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
@@ -12,6 +10,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 function ProjectRecommendationResultsPage() {
   const variantValue = useFeatureFlagVariant({
@@ -96,4 +95,4 @@ function ProjectRecommendationResultsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(ProjectRecommendationResultsPage));
+export default withClientOnly(withAuthenticated(ProjectRecommendationResultsPage));

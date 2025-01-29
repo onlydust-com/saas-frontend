@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -31,6 +30,7 @@ import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transac
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -251,4 +251,4 @@ function ManageProjectsLayout({
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(ManageProjectsLayout));
+export default withClientOnly(withAuthenticated(ManageProjectsLayout));

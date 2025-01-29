@@ -1,11 +1,11 @@
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 import { bootstrap } from "@/core/bootstrap";
 
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
 import { Paper } from "@/design-system/atoms/paper";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { TransactionsAccordion } from "@/shared/features/transactions/transactions-accordion/transactions-accordion";
 import { TransactionsFilters } from "@/shared/features/transactions/transactions-filters/transactions-filters";

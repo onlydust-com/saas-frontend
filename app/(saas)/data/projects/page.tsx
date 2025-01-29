@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -26,6 +25,7 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ExportCsv } from "./_components/export-csv/export-csv";
@@ -159,4 +159,4 @@ function DataProjectsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(DataProjectsPage));
+export default withClientOnly(withAuthenticated(DataProjectsPage));

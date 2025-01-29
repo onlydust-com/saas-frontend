@@ -1,6 +1,5 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { PropsWithChildren, useCallback, useMemo } from "react";
 
 import { GrantButton } from "@/app/(saas)/programs/[programId]/_features/grant-button/grant-button";
@@ -23,6 +22,7 @@ import {
   useUnallocateFlow,
 } from "@/shared/panels/_flows/unallocate-flow/unallocate-flow.context";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -131,4 +131,4 @@ function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(ProgramsLayout));
+export default withClientOnly(withAuthenticated(ProgramsLayout));

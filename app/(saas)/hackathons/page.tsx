@@ -1,7 +1,6 @@
 "use client";
 
 import logo from "@/public/images/logos/logo-white.svg";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import Image from "next/image";
 
 import { HackathonList } from "@/app/(saas)/hackathons/_features/hackathon-list/hackathon-list";
@@ -10,6 +9,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -42,4 +42,4 @@ function HackathonsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticationRequired(HackathonsPage));
+export default withClientOnly(withAuthenticated(HackathonsPage));

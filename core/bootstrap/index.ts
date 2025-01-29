@@ -53,6 +53,8 @@ import { FileAdapter } from "@/core/kernel/file/file-adapter";
 import { FileFacadePort } from "@/core/kernel/file/file-facade-port";
 import { IdAdapter } from "@/core/kernel/id/id-adapter";
 import { IdFacadePort } from "@/core/kernel/id/id-facade-port";
+import { LegalAdapter } from "@/core/kernel/legal/legal-adapter";
+import { LegalFacadePort } from "@/core/kernel/legal/legal-facade-port";
 import { MoneyAdapter } from "@/core/kernel/money/money-adapter";
 import { MoneyFacadePort } from "@/core/kernel/money/money-facade-port";
 import { SocialAdapter } from "@/core/kernel/social/social-adapter";
@@ -124,6 +126,7 @@ export interface BootstrapConstructor {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  legalKernelPort: LegalFacadePort;
   markdownKernelPort: MarkdownFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
@@ -189,6 +192,7 @@ export class Bootstrap {
   fileKernelPort: FileFacadePort;
   urlKernelPort: UrlFacadePort;
   idKernelPort: IdFacadePort;
+  legalKernelPort: LegalFacadePort;
   markdownKernelPort: MarkdownFacadePort;
   validationKernelPort: ValidationFacadePort;
   styleKernelPort: StyleFacadePort;
@@ -250,6 +254,7 @@ export class Bootstrap {
     this.fileKernelPort = constructor.fileKernelPort;
     this.urlKernelPort = constructor.urlKernelPort;
     this.idKernelPort = constructor.idKernelPort;
+    this.legalKernelPort = constructor.legalKernelPort;
     this.markdownKernelPort = constructor.markdownKernelPort;
     this.validationKernelPort = constructor.validationKernelPort;
     this.styleKernelPort = constructor.styleKernelPort;
@@ -483,6 +488,10 @@ export class Bootstrap {
     return this.idKernelPort;
   }
 
+  getLegalKernelPort() {
+    return this.legalKernelPort;
+  }
+
   getMarkdownKernelPort() {
     return this.markdownKernelPort;
   }
@@ -566,6 +575,7 @@ export class Bootstrap {
         fileKernelPort: new FileAdapter(),
         urlKernelPort: UrlAdapter,
         idKernelPort: IdAdapter,
+        legalKernelPort: new LegalAdapter(),
         markdownKernelPort: new MarkdownAdapter(),
         validationKernelPort: new ValidationAdapter(),
         styleKernelPort: StyleAdapter,

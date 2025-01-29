@@ -1,6 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
+import { toast } from "sonner";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
@@ -8,7 +9,6 @@ import { GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { Translate } from "@/shared/translation/components/translate/translate";
 

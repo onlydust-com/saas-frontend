@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { Summary } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/_components/summary/summary";
 import { useGrantFromPanel } from "@/app/(saas)/programs/[programId]/_features/grant-form-sidepanel/grant-form-sidepanel.hooks";
@@ -11,7 +12,6 @@ import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.ty
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { CardProject } from "@/design-system/molecules/cards/card-project";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";

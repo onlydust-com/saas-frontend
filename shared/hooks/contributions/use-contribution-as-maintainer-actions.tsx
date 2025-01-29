@@ -1,4 +1,5 @@
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
@@ -7,7 +8,6 @@ import { ContributionActivityStatus } from "@/core/domain/contribution/models/co
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";

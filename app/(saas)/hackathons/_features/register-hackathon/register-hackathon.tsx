@@ -1,4 +1,5 @@
 import { Bell } from "lucide-react";
+import { toast } from "sonner";
 
 import { RegisterHackathonProps } from "@/app/(saas)/hackathons/_features/register-hackathon/register-hackathon.types";
 
@@ -7,7 +8,6 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 

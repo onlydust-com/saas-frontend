@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { useCreateProgramPanel } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.hooks";
 import { createProgramPanelFormValidation } from "@/app/(saas)/financials/[sponsorId]/programs/_features/create-program-panel/create-program-panel.types";
@@ -13,7 +14,6 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 import { Accordion } from "@/design-system/molecules/accordion";
 import { ImageInput } from "@/design-system/molecules/image-input";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";

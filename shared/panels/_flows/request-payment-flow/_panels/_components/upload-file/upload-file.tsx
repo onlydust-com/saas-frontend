@@ -1,10 +1,10 @@
 import { CloudUpload } from "lucide-react";
 import { ChangeEvent, useRef } from "react";
+import { toast } from "sonner";
 
 import { Icon } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { UploadFileProps } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/upload-file/upload-file.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
