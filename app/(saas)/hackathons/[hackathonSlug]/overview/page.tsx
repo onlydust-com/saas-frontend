@@ -13,7 +13,7 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
+function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
   const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
     pathParams: {
       hackathonSlug,

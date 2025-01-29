@@ -17,7 +17,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { TransactionsContextProvider } from "./_features/transactions/context/transactions.context";
 import { Transactions } from "./_features/transactions/transactions";
 
-export function FinancialsFinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
+function FinancialsFinancialPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
   const { data } = SponsorReactQueryAdapter.client.useGetSponsor({
     pathParams: {
       sponsorId,

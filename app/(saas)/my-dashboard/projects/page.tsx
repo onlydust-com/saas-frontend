@@ -19,7 +19,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function MyDashboardProjectsPage() {
+function MyDashboardProjectsPage() {
   const { columns } = useFilterColumns();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =

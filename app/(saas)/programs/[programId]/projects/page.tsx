@@ -11,7 +11,7 @@ import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-side
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ProgramsProjectsPage({ params: { programId } }: { params: { programId: string } }) {
+function ProgramsProjectsPage({ params: { programId } }: { params: { programId: string } }) {
   const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,

@@ -12,7 +12,7 @@ import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/r
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function MyDashboardFinancialPage() {
+function MyDashboardFinancialPage() {
   return (
     <>
       <NavigationBreadcrumb

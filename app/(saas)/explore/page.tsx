@@ -12,7 +12,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 import { BrowseProjects } from "./_features/browse-projects/browse-projects";
 import { ProjectCategoryList } from "./_features/project-category-list/project-category-list";
 
-export function ExplorePage() {
+function ExplorePage() {
   return (
     <PageWrapper containerSize="small" shouldScroll>
       <div className="pb-7xl">

@@ -10,7 +10,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function ManageProgramsContributorsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+function ManageProgramsContributorsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug },
     options: {

@@ -22,7 +22,7 @@ import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepane
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function MyDashboardContributionsPage() {
+function MyDashboardContributionsPage() {
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();

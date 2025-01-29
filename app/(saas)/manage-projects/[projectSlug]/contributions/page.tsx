@@ -34,7 +34,7 @@ enum View {
   KANBAN = "kanban",
 }
 
-export function ManageProgramsContributionsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+function ManageProgramsContributionsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const [toggleViews, setToggleViews] = useState<View>(View.KANBAN);
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
