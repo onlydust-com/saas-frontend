@@ -59,9 +59,13 @@ function SignupLegalPage() {
   }, [hasAcceptedLatestTermsAndConditions]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setMe({
-      hasAcceptedTermsAndConditions: values.terms,
-    });
+    if (!hasAcceptedLatestTermsAndConditions) {
+      setMe({
+        hasAcceptedTermsAndConditions: values.terms,
+      });
+    } else {
+      redirectToApp();
+    }
   }
 
   return (
