@@ -6,15 +6,17 @@ import { ProgramsTable } from "@/app/(saas)/financials/[sponsorId]/programs/_fea
 
 import { SponsorReactQueryAdapter } from "@/core/application/react-query-adapter/sponsor";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { AllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel";
 import { useAllocateProgramSidepanel } from "@/shared/panels/allocate-program-sidepanel/allocate-program-sidepanel.hooks";
 import { ProgramListSidepanel } from "@/shared/panels/program-list-sidepanel/program-list-sidepanel";
 import { ProgramSidepanel } from "@/shared/panels/program-sidepanel/program-sidepanel";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function FinancialsProgramsPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
+function FinancialsProgramsPage({ params: { sponsorId } }: { params: { sponsorId: string } }) {
   const { open: openAllocateProgramSidepanel } = useAllocateProgramSidepanel();
 
   function handleOpenAllocateProgram(programId: string, canGoBack?: boolean) {
@@ -60,3 +62,5 @@ export default function FinancialsProgramsPage({ params: { sponsorId } }: { para
     </>
   );
 }
+
+export default withClientOnly(withAuthenticated(FinancialsProgramsPage));

@@ -7,18 +7,20 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Timeline } from "@/shared/features/contributors/timeline/timeline";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Activity } from "./_features/activity/activity";
 import { ProjectsList } from "./_features/projects-list/projects-list";
 import { UserStats } from "./_features/user-stats/user-stats";
 
-export default function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string } }) {
+function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string } }) {
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributorById({
     pathParams: { contributorIdOrLogin: userSlug },
     options: {
@@ -105,3 +107,5 @@ export default function UserOverviewPage({ params: { userSlug } }: { params: { u
     </ScrollView>
   );
 }
+
+export default withClientOnly(withAuthenticated(UserOverviewPage));

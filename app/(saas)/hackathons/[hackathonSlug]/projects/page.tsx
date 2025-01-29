@@ -14,6 +14,7 @@ import {
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -23,6 +24,7 @@ import { FilterButton } from "@/shared/features/filters/_components/filter-butto
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { cn } from "@/shared/helpers/cn";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -45,7 +47,7 @@ const mockProjects = Array.from({ length: 9 }).map((_, index) => ({
   odhackIssueCount: 42,
 }));
 
-export default function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }) {
+function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useHackathonProjectsFilterDataSidePanel();
   const [filters, setFilters] = useState<HackathonProjectsFilters>({});
@@ -250,3 +252,5 @@ export default function HackathonProjectsPage({ params }: { params: { hackathonS
     </FilterDataProvider>
   );
 }
+
+export default withClientOnly(withAuthenticated(HackathonProjectsPage));
