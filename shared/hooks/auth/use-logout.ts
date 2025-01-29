@@ -6,6 +6,8 @@ import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/
 
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
+const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL;
+
 export function useLogout() {
   const { capture, reset } = usePosthog();
   const { isImpersonating, clearClaim } = useClientBootstrapImpersonation();
@@ -24,10 +26,10 @@ export function useLogout() {
     } else {
       await logoutUser({});
 
-      if (logout) {
+      if (logout && redirectUri) {
         logout({
           logoutParams: {
-            returnTo: window.location.origin,
+            returnTo: redirectUri,
           },
         });
       }
