@@ -1,4 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -15,6 +16,7 @@ import { TableLoading } from "@/design-system/molecules/table/table.loading";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 
 import { FilterColumns } from "./filter-columns/filter-columns/filter-columns";
@@ -26,6 +28,7 @@ export type ContributorsTableFilters = Omit<
 >;
 
 export function ContributorsTable({ params }: { params: { projectSlug: string } }) {
+  const router = useRouter();
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [filters, setFilters] = useState<ContributorsTableFilters>({});
@@ -102,6 +105,9 @@ export function ContributorsTable({ params }: { params: { projectSlug: string } 
               classNames: {
                 base: "bg-transparent relative",
               },
+            }}
+            onRowClick={row => {
+              router.push(NEXT_ROUTER.users.details.root(row?.original?.login));
             }}
             rows={table.getRowModel().rows}
           />

@@ -1,7 +1,10 @@
+import { Link } from "@/design-system/atoms/link";
 import { Popover } from "@/design-system/atoms/popover";
 import { Typo } from "@/design-system/atoms/typo";
 import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
+
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { UserGroupProps } from "./user-group.types";
 
@@ -56,6 +59,8 @@ export function UserGroup({ users, maxUsers = 4, avatarProps, label }: UserGroup
             {users?.map(({ avatarUrl, login }) => (
               <AvatarLabelGroup
                 key={login}
+                as={Link}
+                htmlProps={{ href: NEXT_ROUTER.users.details.root(login) }}
                 avatars={[
                   {
                     ...avatarProps,
