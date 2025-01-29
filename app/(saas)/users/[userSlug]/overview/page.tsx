@@ -20,11 +20,13 @@ import { UserStats } from "./_features/user-stats/user-stats";
 
 export default function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string } }) {
   const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributorById({
-    pathParams: { contributorId: Number(userSlug) },
+    pathParams: { contributorIdOrLogin: userSlug },
     options: {
       enabled: Boolean(userSlug),
     },
   });
+
+  const userId = data?.contributor.githubUserId;
 
   const renderStats = useMemo(() => {
     if (isLoading)
@@ -97,8 +99,8 @@ export default function UserOverviewPage({ params: { userSlug } }: { params: { u
         ]}
       />
       {renderStats}
-      <ProjectsList userId={Number(userSlug)} params={{ userSlug }} />
-      <Activity userId={Number(userSlug)} />
+      <ProjectsList userId={userId} userSlug={userSlug} />
+      <Activity userSlug={userSlug} />
       {renderTimeline}
     </ScrollView>
   );

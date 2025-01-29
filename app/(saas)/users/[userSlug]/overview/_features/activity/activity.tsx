@@ -7,14 +7,14 @@ import { ActivityGraph } from "@/shared/features/contributors/activity-graph/act
 
 import { ActivityProps } from "./activity.types";
 
-export function Activity({ userId }: ActivityProps) {
+export function Activity({ userSlug }: ActivityProps) {
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorActivityById({
-    pathParams: { contributorId: userId },
+    pathParams: { contributorIdOrLogin: userSlug },
     queryParams: {
       dataSource: "ALL",
     },
     options: {
-      enabled: !!userId,
+      enabled: Boolean(userSlug),
     },
   });
 

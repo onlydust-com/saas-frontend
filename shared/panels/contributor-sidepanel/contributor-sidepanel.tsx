@@ -39,7 +39,7 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
   };
 
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorById({
-    pathParams: { contributorId: githubId },
+    pathParams: { contributorIdOrLogin: String(githubId) },
     options: {
       enabled: Boolean(githubId && isOpen),
     },
