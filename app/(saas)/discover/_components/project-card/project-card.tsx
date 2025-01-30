@@ -17,14 +17,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <Card className="group transition-colors hover:border-primary/50">
-      <div className="flex gap-4 p-6">
+      <div className="flex gap-4 p-5">
         {/* Image container with fixed size */}
-        <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg">
+        <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
           <Image
             src={logoUrl || FALLBACK_IMAGE}
             alt={name}
-            width={128}
-            height={128}
+            width={96}
+            height={96}
             className="h-full w-full object-cover"
             onError={handleImageError}
             unoptimized={!logoUrl}
@@ -32,10 +32,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Content container */}
-        <div className="flex h-32 flex-grow flex-col">
+        <div className="flex h-24 flex-grow flex-col">
           <div className="flex-grow">
             <CardTitle className="text-lg">{name}</CardTitle>
-            <CardDescription className="mt-2 line-clamp-2">{shortDescription}</CardDescription>
+            <CardDescription className="mt-1 line-clamp-2">{shortDescription}</CardDescription>
           </div>
 
           {/* Tags container with categories on left and language icons on right */}
@@ -55,13 +55,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
               {languages?.map(language => (
                 <div
                   key={language.id}
-                  className="relative h-6 w-6 overflow-hidden rounded-full bg-background"
+                  className="relative h-5 w-5 overflow-hidden rounded-full bg-background"
                 >
                   <Image
                     src={language.logoUrl}
                     alt={language.name}
-                    width={24}
-                    height={24}
+                    width={20}
+                    height={20}
                     className="h-full w-full object-cover"
                     onError={handleImageError}
                   />

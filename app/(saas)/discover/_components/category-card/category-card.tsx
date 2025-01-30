@@ -34,7 +34,10 @@ export function CategoryCard({ title, description, icon: Icon, count, className,
             <p className="font-main text-sm leading-normal text-muted-foreground line-clamp-2">{description}</p>
           </div>
           {count !== undefined && (
-            <Badge variant="secondary" className="w-fit">
+            <Badge 
+              variant="outline"
+              className="border border-primary/20 text-xs hover:bg-primary/10"
+            >
               {count.toLocaleString()} Projects
             </Badge>
           )}
