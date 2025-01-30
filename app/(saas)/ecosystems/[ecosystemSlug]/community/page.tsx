@@ -1,5 +1,7 @@
 "use client";
 
+import { Orbit } from "lucide-react";
+
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -18,6 +20,9 @@ function EcosystemCommunityPage({ params }: { params: { ecosystemSlug: string } 
             id: "root",
             label: "Ecosystems",
             href: NEXT_ROUTER.ecosystems.root,
+            iconProps: {
+              component: Orbit,
+            },
           },
           {
             id: "slug",
