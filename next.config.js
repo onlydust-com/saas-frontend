@@ -3,31 +3,39 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
       },
       {
-        protocol: 'https',
-        hostname: 'www.cairo-lang.org',
+        protocol: "https",
+        hostname: "www.cairo-lang.org",
       },
       {
-        protocol: 'https',
-        hostname: 'github.com',
+        protocol: "https",
+        hostname: "github.com",
       },
       {
-        protocol: 'https',
-        hostname: 'od-languages-develop.s3.eu-west-1.amazonaws.com',
+        protocol: "https",
+        hostname: "od-languages-develop.s3.eu-west-1.amazonaws.com",
       },
       {
-        protocol: 'https',
-        hostname: 'develop-onlydust-app-images.s3.eu-west-1.amazonaws.com',
+        protocol: "https",
+        hostname: "develop-onlydust-app-images.s3.eu-west-1.amazonaws.com",
       },
       {
-        protocol: 'https',
-        hostname: 'placehold.co',
-      }
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.zonebourse.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.waldenu.edu",
+      },
     ],
   },
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig;

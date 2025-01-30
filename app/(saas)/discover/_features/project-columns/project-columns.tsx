@@ -2,6 +2,8 @@ import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
+import { ErrorState } from "@/shared/components/error-state/error-state";
 import { Button } from "@/shared/ui/button";
 import { TypographyH3 } from "@/shared/ui/typography";
 
@@ -16,6 +18,18 @@ export function ProjectColumnsSection() {
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
 
+  const renderProjects = useMemo(() => {
+    if (isError) {
+      return <ErrorState />;
+    }
+
+    if (!projects.length && !isLoading) {
+      return <EmptyStateLite />;
+    }
+
+    return projects.map(project => <ProjectCard key={project.id} project={project} />);
+  }, [isError, isLoading, projects]);
+
   return (
     <section>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -27,9 +41,7 @@ export function ProjectColumnsSection() {
               See more
             </Button>
           </div>
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          {renderProjects}
         </div>
 
         {/* Most Collaborative Column */}
@@ -40,9 +52,7 @@ export function ProjectColumnsSection() {
               See more
             </Button>
           </div>
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          {renderProjects}
         </div>
 
         {/* Recently Active Column */}
@@ -53,9 +63,7 @@ export function ProjectColumnsSection() {
               See more
             </Button>
           </div>
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          {renderProjects}
         </div>
       </div>
     </section>
