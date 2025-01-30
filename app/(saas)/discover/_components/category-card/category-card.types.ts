@@ -3,4 +3,5 @@ export type CategoryCardProps = {
   description: string;
   slug: string;
   projectCount: number;
+  iconSlug: string;
 };

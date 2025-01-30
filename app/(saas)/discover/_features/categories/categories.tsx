@@ -30,6 +30,7 @@ export function Categories() {
           description={category.description}
           slug={category.slug}
           projectCount={category.projectCount}
+          iconSlug={category.iconSlug}
         />
       </CarouselItem>
     ));
@@ -39,8 +40,8 @@ export function Categories() {
     <Section title="Categories">
       <Carousel>
         <CarouselContent className="-ml-6">{renderCategories()}</CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="hidden xl:flex" />
+        <CarouselNext className="hidden xl:flex" />
       </Carousel>
     </Section>
   );
