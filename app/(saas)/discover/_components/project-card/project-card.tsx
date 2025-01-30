@@ -65,8 +65,8 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
   }, [languages]);
 
   return (
-    <Link href={NEXT_ROUTER.projects.details.root(slug)}>
-      <Card className="flex items-center gap-4 p-3">
+    <Link href={NEXT_ROUTER.projects.details.root(slug)} className="transition-opacity hover:opacity-80">
+      <Card className="flex items-center gap-4 border-none">
         <Avatar className="size-24 rounded-xl">
           <AvatarImage src={logoUrl} />
           <AvatarFallback className="rounded-xl">{name.charAt(0)}</AvatarFallback>

@@ -10,7 +10,7 @@ import { CategoryCardProps } from "./category-card.types";
 
 export function CategoryCard({ name, description, slug, projectCount }: CategoryCardProps) {
   return (
-    <Link href={NEXT_ROUTER.categories.details.root(slug)}>
+    <Link href={NEXT_ROUTER.categories.details.root(slug)} className="transition-opacity hover:opacity-80">
       <Card className="flex gap-4 p-3">
         <Avatar className="size-24 rounded-xl">
           <AvatarImage src={""} />
