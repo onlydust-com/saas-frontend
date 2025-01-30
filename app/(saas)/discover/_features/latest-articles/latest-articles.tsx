@@ -19,4 +19,4 @@ export function LatestArticlesSection({ articles }: LatestArticlesSectionProps) 
       </div>
     </section>
   );
-} 
+}

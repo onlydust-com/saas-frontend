@@ -1,6 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
 import Image from "next/image";
+
+import { Badge } from "@/shared/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
+
 import { ArticleCardProps } from "./article-card.types";
 
 export function ArticleCard({ title, description, categories, date, image }: ArticleCardProps) {
@@ -17,21 +19,17 @@ export function ArticleCard({ title, description, categories, date, image }: Art
           unoptimized={!image}
         />
       </div>
-      
+
       <CardHeader>
         <CardTitle className="line-clamp-2">{title}</CardTitle>
-        <CardDescription className="line-clamp-2 mt-2">{description}</CardDescription>
+        <CardDescription className="mt-2 line-clamp-2">{description}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Badge 
-                key={category} 
-                variant="outline"
-                className="text-xs border border-primary/20 hover:bg-primary/10"
-              >
+            {categories.map(category => (
+              <Badge key={category} variant="outline" className="border border-primary/20 text-xs hover:bg-primary/10">
                 {category}
               </Badge>
             ))}
@@ -41,4 +39,4 @@ export function ArticleCard({ title, description, categories, date, image }: Art
       </CardContent>
     </Card>
   );
-} 
+}

@@ -10,7 +10,6 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
 import { articles } from "./_data/articles.data";
-import { categories } from "./_data/categories.data";
 import { CategoriesSection } from "./_features/categories/categories";
 import { FeaturedProjectsSection } from "./_features/featured-projects/featured-projects";
 import { LatestArticlesSection } from "./_features/latest-articles/latest-articles";
@@ -33,7 +32,7 @@ export default function DiscoverPage() {
         <ScrollView className="flex flex-col">
           <PageContent>
             <div className="flex h-full flex-col gap-24">
-              <CategoriesSection categories={categories} />
+              <CategoriesSection />
               <FeaturedProjectsSection projects={projects} isLoading={isLoading} isError={isError} />
               <LatestArticlesSection articles={articles} />
               <ProjectColumnsSection projects={projects} />
