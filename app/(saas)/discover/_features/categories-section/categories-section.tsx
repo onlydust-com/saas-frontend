@@ -1,68 +1,66 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
+import { ProjectCategory } from "@/core/domain/project-category/models/project-category-model";
 
 import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 
-import { Button } from "@/shared/ui/button";
+import { SectionContent } from "@/shared/components/section-content/section-content";
 import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
-import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH3 } from "@/shared/ui/typography";
 
 import { CategoryCard } from "../../_components/category-card/category-card";
+
+const SKELETON_COUNT = 4;
+
+function renderSkeletons(count: number) {
+  return Array(count)
+    .fill(null)
+    .map((_, index) => (
+      <div key={index} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
+        <CategoryCard.Skeleton />
+      </div>
+    ));
+}
+
+function renderCategories(categories: ProjectCategory[]) {
+  return categories.map(category => (
+    <div key={category.id} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
+      <CategoryCard
+        color={"red"}
+        title={category.name}
+        description={category.description}
+        icon={category.iconSlug as RemixIconsName}
+        projectCount={category.projectCount}
+      />
+    </div>
+  ));
+}
 
 export function CategoriesSection() {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
 
-  if (isLoading) {
-    return (
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-9 w-48" />
-          <Skeleton className="h-10 w-24" />
-        </div>
-        <ScrollArea className="w-full">
-          <div className="flex pb-4" style={{ width: "calc(100% + 25%)" }}>
-            {Array(4)
-              .fill(null)
-              .map((_, index) => (
-                <div key={index} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
-                  <CategoryCard.Skeleton />
-                </div>
-              ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </section>
-    );
-  }
+  const content = useMemo(() => {
+    if (isLoading) {
+      return renderSkeletons(SKELETON_COUNT);
+    }
 
-  if (isError) {
-    return <div className="text-center text-red-500">Failed to load categories. Please try again later.</div>;
-  }
+    if (!data?.categories) {
+      return null;
+    }
+
+    return renderCategories(data.categories);
+  }, [data, isLoading]);
 
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <TypographyH3>Section categories</TypographyH3>
-        <Button variant="secondary">Show more</Button>
-      </div>
+    <SectionContent title="Section categories" isLoading={isLoading} error={isError} className="w-full">
       <ScrollArea className="w-full">
         <div className="flex pb-4" style={{ width: "calc(100% + 25%)" }}>
-          {data?.categories.map(category => (
-            <div key={category.id} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
-              <CategoryCard
-                color={"red"}
-                title={category.name}
-                description={category.description}
-                icon={category.iconSlug as RemixIconsName}
-                projectCount={category.projectCount}
-              />
-            </div>
-          ))}
+          {content}
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </section>
+    </SectionContent>
   );
 }

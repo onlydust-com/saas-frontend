@@ -1,11 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { ProjectListItemInterfaceV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { GetProjectsV2QueryParams } from "@/core/domain/project/project-contract.types";
 
-import { Button } from "@/shared/ui/button";
-import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH3 } from "@/shared/ui/typography";
+import { SectionContent } from "@/shared/components/section-content/section-content";
 
 import { ProjectCard } from "../../_components/project-card/project-card";
 
@@ -15,52 +16,45 @@ const FILTER: GetProjectsV2QueryParams = {
   tags: ["HAS_GOOD_FIRST_ISSUES"],
 };
 
+function renderSkeletons(count: number) {
+  return Array(count)
+    .fill(null)
+    .map((_, index) => <ProjectCard.Skeleton key={index} />);
+}
+
+function renderProjects(projects: ProjectListItemInterfaceV2[]) {
+  return projects.map(project => (
+    <ProjectCard
+      key={project.id}
+      name={project.name}
+      description={project.shortDescription || ""}
+      categories={project.categories.map((cat: { name: string }) => cat.name)}
+      logoUrl={project.logoUrl || "https://placehold.co/400"}
+      languageIcon={project.languages?.[0]?.logoUrl}
+    />
+  ));
+}
+
 export function GoodFirstIssuesSection() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
     queryParams: FILTER,
   });
 
-  if (isLoading) {
-    return (
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-9 w-64" />
-          <Skeleton className="h-10 w-24" />
-        </div>
-        <div className="grid grid-cols-3 gap-6">
-          {Array(FILTER.pageSize)
-            .fill(null)
-            .map((_, index) => (
-              <ProjectCard.Skeleton key={index} />
-            ))}
-        </div>
-      </section>
-    );
-  }
+  const content = useMemo(() => {
+    if (isLoading) {
+      return renderSkeletons(FILTER.pageSize);
+    }
 
-  if (isError) {
-    return null; // Hide section on error to maintain layout
-  }
+    if (!data?.pages[0].projects) {
+      return null;
+    }
+
+    return renderProjects(data.pages[0].projects);
+  }, [data, isLoading]);
 
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <TypographyH3>Projects with Good first issues</TypographyH3>
-        <Button variant="secondary">Show more</Button>
-      </div>
-
-      <div className="grid grid-cols-3 gap-6">
-        {data?.pages[0].projects.map(project => (
-          <ProjectCard
-            key={project.id}
-            name={project.name}
-            description={project.shortDescription || ""}
-            categories={project.categories.map(cat => cat.name)}
-            logoUrl={project.logoUrl || "https://placehold.co/400"}
-            languageIcon={project.languages?.[0]?.logoUrl}
-          />
-        ))}
-      </div>
-    </section>
+    <SectionContent title="Projects with Good first issues" isLoading={isLoading} error={isError}>
+      <div className="grid grid-cols-3 gap-6">{content}</div>
+    </SectionContent>
   );
 }

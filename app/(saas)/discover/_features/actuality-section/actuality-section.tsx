@@ -1,3 +1,4 @@
+import { SectionContent } from "@/shared/components/section-content/section-content";
 import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent } from "@/shared/ui/card";
 
@@ -29,8 +30,7 @@ const newsArticles: NewsArticle[] = [
 
 export function ActualitySection() {
   return (
-    <section className="space-y-4">
-      <h2 className="text-2xl font-bold">Actuality</h2>
+    <SectionContent title="Actuality">
       <div className="grid grid-cols-2 gap-8">
         {newsArticles.map(article => (
           <Card key={article.id} className="cursor-pointer overflow-hidden transition-colors hover:bg-accent/50">
@@ -54,6 +54,6 @@ export function ActualitySection() {
           </Card>
         ))}
       </div>
-    </section>
+    </SectionContent>
   );
 }
