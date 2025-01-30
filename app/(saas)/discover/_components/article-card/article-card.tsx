@@ -4,9 +4,9 @@ import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
-import { NewsCardProps } from "./news-card.types";
+import { ArticleCardProps } from "./article-card.types";
 
-export function NewsCard({ title, description, imageUrl, categories, date }: NewsCardProps) {
+export function ArticleCard({ title, description, imageUrl, categories, date }: ArticleCardProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   return (

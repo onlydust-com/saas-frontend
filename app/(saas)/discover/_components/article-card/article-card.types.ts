@@ -1,4 +1,4 @@
-export type NewsCardProps = {
+export type ArticleCardProps = {
   title: string;
   description: string;
   imageUrl: string;
