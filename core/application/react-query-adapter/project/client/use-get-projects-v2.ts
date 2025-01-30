@@ -9,7 +9,6 @@ import { ProjectFacadePort } from "@/core/domain/project/input/project-facade-po
 import { GetProjectsV2Model } from "@/core/domain/project/project-contract.types";
 
 export function useGetProjectsV2({
-  pathParams,
   queryParams,
   options,
 }: UseInfiniteQueryFacadeParams<ProjectFacadePort["getProjectsV2"], GetProjectsV2Model>) {
@@ -17,7 +16,6 @@ export function useGetProjectsV2({
 
   return useInfiniteQuery(
     useInfiniteQueryAdapter<ProjectFacadePort["getProjectsV2"], GetProjectsV2Model>({
-      pathParams,
       queryParams,
       options,
       httpStorage: projectStoragePort.getProjectsV2,

@@ -21,7 +21,7 @@ import { useCategoriesProjectsFilterDataSidePanel } from "../filter-data/filter-
 
 export type ProjectsFilters = Omit<NonNullable<GetProjectsV2QueryParams>, "pageSize" | "pageIndex">;
 
-export default function ProjectList({ params }: { params: { categorySlug: string } }) {
+export default function ProjectList({ categoryId }: { categoryId: string }) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useCategoriesProjectsFilterDataSidePanel();
   const [filters, setFilters] = useState<ProjectsFilters>({});
@@ -29,14 +29,12 @@ export default function ProjectList({ params }: { params: { categorySlug: string
 
   const queryParams: Partial<GetProjectsV2QueryParams> = {
     search: debouncedSearch,
+    categoryIds: [categoryId],
     ...filters,
   };
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     ProjectReactQueryAdapter.client.useGetProjectsV2({
-      pathParams: {
-        categorySlug: params.categorySlug,
-      },
       queryParams,
     });
 
