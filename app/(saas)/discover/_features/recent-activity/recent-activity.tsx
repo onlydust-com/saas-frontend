@@ -5,16 +5,16 @@ import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-export function GoodFirstIssues() {
+export function RecentActivity() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 6 },
+    queryParams: { pageSize: 5 },
   });
 
   const projects = data?.pages.flatMap(({ projects }) => projects) ?? [];
 
   return (
-    <Section title="Good first issues">
-      <div className="grid gap-x-12 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
+    <Section title="Recent activity">
+      <div className="flex flex-col gap-6">
         {projects.map(project => (
           <ProjectCard
             key={project.id}

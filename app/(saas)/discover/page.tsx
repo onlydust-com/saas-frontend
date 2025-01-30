@@ -1,6 +1,9 @@
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 import { Categories } from "@/app/(saas)/discover/_features/categories/categories";
 import { GoodFirstIssues } from "@/app/(saas)/discover/_features/good-first-issues/good-first-issues";
+import { MostCollaborative } from "@/app/(saas)/discover/_features/most-collaborative/most-collaborative";
+import { RecentActivity } from "@/app/(saas)/discover/_features/recent-activity/recent-activity";
+import { Trending } from "@/app/(saas)/discover/_features/trending/trending";
 
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
@@ -16,18 +19,12 @@ export default function DiscoverPage() {
           <div>Section</div>
         </Section>
 
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <Section title="Trending">
-            <div>Section</div>
-          </Section>
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+          <Trending />
 
-          <Section title="Most collaborative">
-            <div>Section</div>
-          </Section>
+          <MostCollaborative />
 
-          <Section title="Recently active">
-            <div>Section</div>
-          </Section>
+          <RecentActivity />
         </div>
       </div>
     </PageWrapper>
