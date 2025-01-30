@@ -14,7 +14,7 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
   const renderCategories = useCallback(() => {
     if (categories.length === 0) return <div />;
 
-    const hasExtraCategories = categories.length > 1 || true;
+    const hasExtraCategories = categories.length > 1;
 
     if (hasExtraCategories) {
       return (
