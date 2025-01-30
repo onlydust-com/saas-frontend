@@ -24,7 +24,7 @@ export function NewsCard({ title, description, imageUrl, categories, date }: New
 
         <TypographyMuted>{description}</TypographyMuted>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between gap-1">
           <div className="flex gap-1">
             {categories.map(category => (
               <Badge variant="outline" key={category}>

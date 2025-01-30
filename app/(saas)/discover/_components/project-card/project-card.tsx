@@ -3,9 +3,10 @@ import { useCallback } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Badge } from "@/shared/ui/badge";
+import { Badge, badgeVariants } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
-import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectCardProps } from "./project-card.types";
 
@@ -13,13 +14,27 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
   const renderCategories = useCallback(() => {
     if (categories.length === 0) return <div />;
 
-    const hasExtraCategories = categories.length > 1;
+    const hasExtraCategories = categories.length > 1 || true;
 
     if (hasExtraCategories) {
       return (
-        <div className="flex gap-1">
+        <div className="flex items-center gap-1">
           <Badge variant="outline">{categories[0]}</Badge>
-          <Badge variant="outline">+{categories.length - 1}</Badge>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className={badgeVariants({ variant: "outline" })}>+{categories.length - 1}</button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" align="end">
+              <ul className="flex flex-col gap-2">
+                {categories.map(category => (
+                  <li key={category}>
+                    <TypographySmall>{category}</TypographySmall>
+                  </li>
+                ))}
+              </ul>
+            </TooltipContent>
+          </Tooltip>
         </div>
       );
     }
@@ -42,12 +57,34 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
 
     if (hasExtraLanguages) {
       return (
-        <div className="flex gap-1">
+        <div className="flex items-center gap-1">
           <Avatar className="size-5" key={languages[0].name}>
             <AvatarImage src={languages[0].logoUrl} />
             <AvatarFallback className="rounded-xl">{languages[0].name.charAt(0)}</AvatarFallback>
           </Avatar>
-          <Badge variant="outline">+{languages.length - 1}</Badge>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className={badgeVariants({ variant: "outline" })}>+{languages.length - 1}</button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" align="end">
+              <ul className="flex flex-col gap-2">
+                {languages.map(language => (
+                  <li key={language.name} className="flex items-center justify-between gap-10">
+                    <div className="flex items-center gap-1">
+                      <Avatar className="size-5" key={language.name}>
+                        <AvatarImage src={language.logoUrl} />
+                        <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <TypographySmall>{language.name}</TypographySmall>
+                    </div>
+
+                    <TypographySmall>{language.percentage}%</TypographySmall>
+                  </li>
+                ))}
+              </ul>
+            </TooltipContent>
+          </Tooltip>
         </div>
       );
     }

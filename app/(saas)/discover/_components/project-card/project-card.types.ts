@@ -4,5 +4,5 @@ export type ProjectCardProps = {
   slug: string;
   logoUrl: string;
   categories: string[];
-  languages: { name: string; logoUrl: string }[];
+  languages: { name: string; logoUrl: string; percentage: number }[];
 };

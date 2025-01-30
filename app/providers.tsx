@@ -9,6 +9,7 @@ import { IntercomProvider } from "@/shared/intercom/intercom.context";
 import { AuthProvider } from "@/shared/providers/auth-provider";
 import { PosthogProvider } from "@/shared/tracking/posthog/posthog-provider";
 import { TranslationProvider } from "@/shared/translation/components/translation-provider/translation-provider";
+import { TooltipProvider } from "@/shared/ui/tooltip";
 
 export function Providers({ children }: PropsWithChildren) {
   return (
@@ -19,7 +20,9 @@ export function Providers({ children }: PropsWithChildren) {
             <TranslationProvider>
               <QueryProvider>
                 <IntercomProvider>
-                  <NextUIProvider>{children}</NextUIProvider>
+                  <NextUIProvider>
+                    <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
+                  </NextUIProvider>
                 </IntercomProvider>
               </QueryProvider>
             </TranslationProvider>
