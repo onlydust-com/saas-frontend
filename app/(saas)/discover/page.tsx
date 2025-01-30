@@ -5,11 +5,21 @@ import { News } from "@/app/(saas)/discover/_features/news/news";
 import { RecentActivity } from "@/app/(saas)/discover/_features/recent-activity/recent-activity";
 import { Trending } from "@/app/(saas)/discover/_features/trending/trending";
 
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
 export default function DiscoverPage() {
   return (
     <PageWrapper containerSize="small" shouldScroll>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: "Discover",
+          },
+        ]}
+      />
+
       <div className="flex flex-col gap-16 py-6">
         <Categories />
 
