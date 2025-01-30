@@ -1,5 +1,6 @@
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 import { Categories } from "@/app/(saas)/discover/_features/categories/categories";
+import { GoodFirstIssues } from "@/app/(saas)/discover/_features/good-first-issues/good-first-issues";
 
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
@@ -9,9 +10,7 @@ export default function DiscoverPage() {
       <div className="flex flex-col gap-16 py-6">
         <Categories />
 
-        <Section title="Good first issues">
-          <div>Section</div>
-        </Section>
+        <GoodFirstIssues />
 
         <Section title="News">
           <div>Section</div>
