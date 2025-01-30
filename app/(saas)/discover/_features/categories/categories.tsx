@@ -2,13 +2,12 @@
 
 import { useCallback } from "react";
 
-import { CategoryCard } from "@/app/(saas)/discover/_components/category-card/category-card";
+import { CategoryCard, CategoryCardSkeleton } from "@/app/(saas)/discover/_components/category-card/category-card";
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/shared/ui/carousel";
-import { Skeleton } from "@/shared/ui/skeleton";
 
 export function Categories() {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
@@ -19,7 +18,7 @@ export function Categories() {
     if (isLoading) {
       return Array.from({ length: 3 }).map((_, index) => (
         <CarouselItem key={index} className="pl-6 md:basis-1/2 lg:basis-1/3">
-          <Skeleton className="h-[120px] w-full rounded-xl" />
+          <CategoryCardSkeleton />
         </CarouselItem>
       ));
     }

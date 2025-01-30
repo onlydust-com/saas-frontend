@@ -4,6 +4,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 import { CategoryCardProps } from "./category-card.types";
@@ -27,4 +28,8 @@ export function CategoryCard({ name, description, slug, projectCount }: Category
       </Card>
     </Link>
   );
+}
+
+export function CategoryCardSkeleton() {
+  return <Skeleton className="h-[120px] w-full rounded-xl" />;
 }

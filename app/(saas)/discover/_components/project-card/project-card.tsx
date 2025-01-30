@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectCardProps } from "./project-card.types";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 export function ProjectCard({ name, description, slug, logoUrl, categories, languages }: ProjectCardProps) {
   const renderCategories = useCallback(() => {
@@ -120,4 +121,8 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
       </Card>
     </Link>
   );
+}
+
+export function ProjectCardSkeleton() {
+  return <Skeleton className="h-[120px] w-full rounded-xl" />;
 }

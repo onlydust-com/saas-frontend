@@ -2,12 +2,10 @@
 
 import { useCallback } from "react";
 
-import { ProjectCard } from "@/app/(saas)/discover/_components/project-card/project-card";
+import { ProjectCard, ProjectCardSkeleton } from "@/app/(saas)/discover/_components/project-card/project-card";
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-
-import { Skeleton } from "@/shared/ui/skeleton";
 
 export function Trending() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
@@ -18,9 +16,7 @@ export function Trending() {
 
   const renderProjects = useCallback(() => {
     if (isLoading) {
-      return Array.from({ length: 5 }).map((_, index) => (
-        <Skeleton key={index} className="h-[120px] w-full rounded-xl" />
-      ));
+      return Array.from({ length: 5 }).map((_, index) => <ProjectCardSkeleton key={index} />);
     }
 
     const projects = data?.pages.flatMap(({ projects }) => projects) ?? [];
