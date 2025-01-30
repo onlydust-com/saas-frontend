@@ -1,15 +1,13 @@
-import Section from "@/app/(saas)/discover/_components/section/section";
+import { Section } from "@/app/(saas)/discover/_components/section/section";
+import { Categories } from "@/app/(saas)/discover/_features/categories/categories";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
 export default function DiscoverPage() {
   return (
     <PageWrapper containerSize="small" shouldScroll>
       <div className="flex flex-col gap-16 py-6">
-        <Section title="Categories" seeAll={NEXT_ROUTER.categories.root}>
-          <div>Section</div>
-        </Section>
+        <Categories />
 
         <Section title="Good first issues">
           <div>Section</div>
