@@ -9,6 +9,7 @@ import { articles } from "./_data/articles.data";
 import { CategoriesSection } from "./_features/categories/categories";
 import { FeaturedProjectsSection } from "./_features/featured-projects/featured-projects";
 import { LatestArticlesSection } from "./_features/latest-articles/latest-articles";
+import { ProjectColumnsSection } from "./_features/project-columns/project-columns";
 
 export default function DiscoverPage() {
   return (
@@ -20,7 +21,7 @@ export default function DiscoverPage() {
               <CategoriesSection />
               <FeaturedProjectsSection />
               <LatestArticlesSection articles={articles} />
-              {/* <ProjectColumnsSection projects={projects} /> */}
+              <ProjectColumnsSection />
             </div>
           </PageContent>
         </ScrollView>
