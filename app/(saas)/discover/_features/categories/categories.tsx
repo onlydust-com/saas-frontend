@@ -6,6 +6,7 @@ import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { TypographyH3 } from "@/shared/ui/typography";
 
 import { CategoryCard } from "../../_components/category-card/category-card";
 
@@ -38,8 +39,8 @@ export function CategoriesSection() {
   }, [data, isLoading, isError]);
 
   return (
-    <section>
-      <h2 className="mb-4 text-2xl font-bold">Categories</h2>
+    <section className="flex flex-col gap-4">
+      <TypographyH3>Categories</TypographyH3>
       {renderCategories}
     </section>
   );

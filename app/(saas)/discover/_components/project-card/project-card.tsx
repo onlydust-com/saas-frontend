@@ -1,14 +1,17 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Badge } from "@/shared/ui/badge";
 import { Card, CardDescription, CardTitle } from "@/shared/ui/card";
 
 import { ProjectCardProps } from "./project-card.types";
 
-const FALLBACK_IMAGE = "https://placehold.co/128x128";
+const FALLBACK_IMAGE = "/images/logos/onlydust-logo-space.webp";
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { name, shortDescription, logoUrl, categories = [], languages = [] } = project;
+  const router = useRouter();
+  const { slug, name, shortDescription, logoUrl, categories = [], languages = [] } = project;
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
@@ -18,8 +21,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <Card className="group transition-colors hover:border-primary/50">
-      <div className="flex gap-4 p-6">
+    <Card
+      className="group cursor-pointer border-none transition-colors"
+      onClick={() => router.push(NEXT_ROUTER.projects.details.overview.root(slug))}
+    >
+      <div className="flex gap-4">
         {/* Image container with fixed size */}
         <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg">
           <Image
