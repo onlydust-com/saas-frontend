@@ -21,6 +21,7 @@ import { FilterButton } from "@/shared/features/filters/_components/filter-butto
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
+import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
 import { useEcosystemProjectsFilterDataSidePanel } from "./_components/filter-data/filter-data.hooks";
@@ -99,7 +100,16 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
         breadcrumb={[
           {
             id: "root",
+            label: "Ecosystems",
+            href: NEXT_ROUTER.ecosystems.root,
+          },
+          {
+            id: "slug",
             label: params.ecosystemSlug,
+          },
+          {
+            id: "projects",
+            label: <Translate token={"ecosystems:details.tabs.projects"} />,
           },
         ]}
       />

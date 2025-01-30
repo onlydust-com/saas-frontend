@@ -54,7 +54,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }
 
   function redirectToApp() {
-    
     // Keep as local var
     const redirectTo = getRedirectTo();
     clearRedirectTo();
