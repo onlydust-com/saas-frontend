@@ -15,12 +15,6 @@ export const metadata: Metadata = {
 
 export default function DiscoverPage() {
   return (
-    // <main className="flex min-h-screen flex-col gap-16 p-8">
-    //   <CategoriesSection />
-    //   <GoodFirstIssuesSection />
-    //   <ProjectsSections />
-    //   <ActualitySection />
-    // </main>
     <PageWrapper containerSize="small" shouldScroll>
       <div className="mx-auto flex flex-col gap-16 py-4xl">
         <NavigationBreadcrumb
