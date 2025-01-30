@@ -3,10 +3,10 @@ import { type Metadata } from "next";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
-import { ActualitySection } from "./_components/actuality-section/actuality-section";
-import { CategoriesSection } from "./_components/categories-section/categories-section";
-import { GoodFirstIssuesSection } from "./_components/good-first-issues-section/good-first-issues-section";
-import { ProjectsSections } from "./_components/projects-sections/projects-sections";
+import { ActualitySection } from "./_features/actuality-section/actuality-section";
+import { CategoriesSection } from "./_features/categories-section/categories-section";
+import { GoodFirstIssuesSection } from "./_features/good-first-issues-section/good-first-issues-section";
+import { ProjectsSections } from "./_features/projects-sections/projects-sections";
 
 export const metadata: Metadata = {
   title: "Discover",

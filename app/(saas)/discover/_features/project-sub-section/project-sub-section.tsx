@@ -7,7 +7,7 @@ import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4 } from "@/shared/ui/typography";
 
-import { ProjectCard } from "../project-card/project-card";
+import { ProjectCard } from "../../_components/project-card/project-card";
 
 interface ProjectSubSectionProps {
   title: string;

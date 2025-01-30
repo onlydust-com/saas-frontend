@@ -9,7 +9,7 @@ import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 
-import { CategoryCard } from "../category-card/category-card";
+import { CategoryCard } from "../../_components/category-card/category-card";
 
 export function CategoriesSection() {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});

@@ -7,7 +7,7 @@ import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 
-import { ProjectCard } from "../project-card/project-card";
+import { ProjectCard } from "../../_components/project-card/project-card";
 
 const FILTER: GetProjectsV2QueryParams = {
   pageIndex: 0,
