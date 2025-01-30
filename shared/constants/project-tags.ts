@@ -1,5 +1,3 @@
-import { Token } from "@/shared/translation/components/translate/translate.types";
-
 export enum PROJECT_TAG {
   BIG_WHALE = "BIG_WHALE",
   FAST_AND_FURIOUS = "FAST_AND_FURIOUS",
@@ -15,47 +13,47 @@ export type ProjectTagUnion = `${PROJECT_TAG}`;
 
 export const PROJECT_TAG_METADATA: Record<
   PROJECT_TAG,
-  { icon: { name?: string; custom?: string }; tooltip: Token; label: Token }
+  { icon: { name?: string; custom?: string }; tooltip: string; label: string }
 > = {
   [PROJECT_TAG.BIG_WHALE]: {
     // TODO @hayden add icon
     icon: { custom: "whale" },
-    tooltip: "projects:projectTags.BIG_WHALE.tooltip",
-    label: "projects:projectTags.BIG_WHALE.label",
+    tooltip: "Project that has rewarded big",
+    label: "Big whale",
   },
   [PROJECT_TAG.FAST_AND_FURIOUS]: {
     icon: { name: "ri-flashlight-fill" },
-    tooltip: "projects:projectTags.FAST_AND_FURIOUS.tooltip",
-    label: "projects:projectTags.FAST_AND_FURIOUS.label",
+    tooltip: "Project that is moving fast with a lot of contributions completed",
+    label: "Fast and furious",
   },
   [PROJECT_TAG.HOT_COMMUNITY]: {
     icon: { name: "ri-fire-line" },
-    tooltip: "projects:projectTags.HOT_COMMUNITY.tooltip",
-    label: "projects:projectTags.HOT_COMMUNITY.label",
+    tooltip: "Project that has a high number of active contributors",
+    label: "Hot community",
   },
   [PROJECT_TAG.LIKELY_TO_REWARD]: {
     icon: { name: "ri-hand-coin-line" },
-    tooltip: "projects:projectTags.LIKELY_TO_REWARD.tooltip",
-    label: "projects:projectTags.LIKELY_TO_REWARD.label",
+    tooltip: "Project that can reward a work well done",
+    label: "Likely to reward",
   },
   [PROJECT_TAG.NEWBIES_WELCOME]: {
     icon: { name: "ri-seedling-line" },
-    tooltip: "projects:projectTags.NEWBIES_WELCOME.tooltip",
-    label: "projects:projectTags.NEWBIES_WELCOME.label",
+    tooltip: "Project that onboards new contributors regularly",
+    label: "Newbies welcome",
   },
   [PROJECT_TAG.UPDATED_ROADMAP]: {
     icon: { name: "ri-git-fork-line" },
-    tooltip: "projects:projectTags.UPDATED_ROADMAP.tooltip",
-    label: "projects:projectTags.UPDATED_ROADMAP.label",
+    tooltip: "Project that presents the most recent challenges",
+    label: "Strong expertise required",
   },
   [PROJECT_TAG.WORK_IN_PROGRESS]: {
     icon: { name: "ri-hammer-line" },
-    tooltip: "projects:projectTags.WORK_IN_PROGRESS.tooltip",
-    label: "projects:projectTags.WORK_IN_PROGRESS.label",
+    tooltip: "Project that has open issues ready to tackle",
+    label: "Work in progress",
   },
   [PROJECT_TAG.HAS_GOOD_FIRST_ISSUES]: {
     icon: { name: "ri-thumb-up-line" },
-    tooltip: "projects:projectTags.HAS_GOOD_FIRST_ISSUES.tooltip",
-    label: "projects:projectTags.HAS_GOOD_FIRST_ISSUES.label",
+    tooltip: "Project that has issues suitable for first-time contributors",
+    label: "Issues available",
   },
 } as const;

@@ -15,8 +15,8 @@ import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
-import { SimilarProjects } from "../_features/project-details/similar-projects/similar-projects";
+import { ProjectOverviewSummary } from "./_features/project-details/project-overview-summary/project-overview-summary";
+import { SimilarProjects } from "./_features/project-details/similar-projects/similar-projects";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
