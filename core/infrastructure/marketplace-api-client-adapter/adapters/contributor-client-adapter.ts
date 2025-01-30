@@ -22,7 +22,7 @@ export class ContributorClientAdapter implements ContributorStoragePort {
   routes = {
     getContributorStats: "contributors/:contributorId/stats",
     getContributorRewardsDistribution: "contributors/:contributorId/rewards-distribution",
-    getContributorProjects: "contributors/:contributorId/projects",
+    getContributorProjects: "contributors/:contributorIdOrLogin/projects",
     getContributorLocDistribution: "contributors/:contributorId/loc-distribution",
     getContributorLastYearRewind: "contributors/:contributorId/last-year-rewind",
     getContributorContributionsOverTime: "contributors/:contributorId/contributions-over-time",
