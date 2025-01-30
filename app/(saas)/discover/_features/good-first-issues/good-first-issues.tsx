@@ -6,10 +6,11 @@ import { ProjectCard, ProjectCardSkeleton } from "@/app/(saas)/discover/_compone
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { ProjectTag } from "@/core/domain/project/project.types";
 
 export function GoodFirstIssues() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 6 },
+    queryParams: { pageSize: 6, tags: [ProjectTag.HAS_GOOD_FIRST_ISSUES] },
   });
 
   if (isError) return null;
