@@ -33,14 +33,16 @@ export function CategoryCard({ title, description, icon: Icon, count, className,
             <h3 className="font-brand text-lg font-medium">{title}</h3>
             <p className="font-main text-sm leading-normal text-muted-foreground line-clamp-2">{description}</p>
           </div>
-          {count !== undefined && (
-            <Badge 
-              variant="outline"
-              className="border border-primary/20 text-xs hover:bg-primary/10"
-            >
-              {count.toLocaleString()} Projects
-            </Badge>
-          )}
+          <div className="flex">
+            {count !== undefined && (
+              <Badge 
+                variant="outline"
+                className="border border-primary/20 text-xs hover:bg-primary/10"
+              >
+                {count.toLocaleString()} Projects
+              </Badge>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>

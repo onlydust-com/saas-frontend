@@ -11,7 +11,7 @@ import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 
 import { CategoriesSection } from "./_features/categories/categories";
-import { FeaturedProjectsSection } from "./_features/featured-projects/featured-projects";
+import { GoodFirstIssuesSection } from "./_features/good-first-issues/good-first-issues";
 import { LatestArticlesSection } from "./_features/latest-articles/latest-articles";
 import { ProjectColumnsSection } from "./_features/project-columns/project-columns";
 
@@ -20,7 +20,8 @@ export default function DiscoverPage() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
     queryParams: {
       pageSize: 6,
-      pageIndex: 0
+      pageIndex: 0,
+      hasGoodFirstIssues: true
     }
   });
 
@@ -34,7 +35,7 @@ export default function DiscoverPage() {
           <PageContent>
             <div className="flex h-full flex-col gap-24">
               <CategoriesSection categories={categories} />
-              <FeaturedProjectsSection 
+              <GoodFirstIssuesSection 
                 projects={projects}
                 isLoading={isLoading}
                 isError={isError}
