@@ -5,10 +5,6 @@ import { Icon } from "@/design-system/atoms/icon/variants/icon-default";
 import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
-
 import { IssueButtonProps } from "./issue-button.types";
 
 export function IssueButton({ issueCount, totalIssueCount, issueCountType, slug }: IssueButtonProps) {
@@ -43,10 +39,6 @@ export function IssueButton({ issueCount, totalIssueCount, issueCountType, slug 
 
   return (
     <Paper
-      as={BaseLink}
-      htmlProps={{
-        href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(slug)),
-      }}
       classNames={{
         base: "flex flex-col gap-0 w-full",
       }}

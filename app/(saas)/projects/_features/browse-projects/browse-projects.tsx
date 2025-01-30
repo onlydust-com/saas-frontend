@@ -15,10 +15,12 @@ import {
 } from "@/design-system/molecules/cards/card-project-marketplace";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { PROJECT_TAG, PROJECT_TAG_METADATA } from "@/shared/constants/project-tags";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { TypographyH2, TypographySmall } from "@/shared/ui/typography";
 
 import { BrowseProjectsFilters } from "../browse-projects-filters/browse-projects-filters";
@@ -71,6 +73,10 @@ function Safe() {
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
+        as={BaseLink}
+        htmlProps={{
+          href: NEXT_ROUTER.projects.details.root(project.slug),
+        }}
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}

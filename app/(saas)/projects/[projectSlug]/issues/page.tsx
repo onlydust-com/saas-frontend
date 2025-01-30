@@ -1,6 +1,5 @@
 "use client";
 
-import { FolderOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
@@ -18,6 +17,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
@@ -153,10 +153,12 @@ function ProjectIssuesPage({
         breadcrumb={[
           {
             id: "root",
+            label: "Projects",
+            href: NEXT_ROUTER.projects.root,
+          },
+          {
+            id: "name",
             label: data?.name,
-            iconProps: {
-              component: FolderOpen,
-            },
           },
           {
             id: "open-issues",
