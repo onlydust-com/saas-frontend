@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function DiscoverPage() {
   return (
     <PageWrapper containerSize="small" shouldScroll>
-      <div className="mx-auto flex flex-col gap-16 py-4xl">
+      <div className="mx-auto flex w-full flex-col gap-16 py-4xl">
         <NavigationBreadcrumb
           breadcrumb={[
             {

@@ -4,7 +4,7 @@ import { ProjectSubSection } from "../project-sub-section/project-sub-section";
 
 export function ProjectsSections() {
   return (
-    <div className="grid w-full grid-cols-3 gap-16">
+    <div className="grid w-full grid-cols-1 gap-16 lg:grid-cols-3">
       <ProjectSubSection
         title="Projects with Good first issues"
         filter={{

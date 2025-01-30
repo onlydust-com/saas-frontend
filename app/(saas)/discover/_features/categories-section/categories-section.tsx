@@ -18,7 +18,7 @@ function renderSkeletons(count: number) {
   return Array(count)
     .fill(null)
     .map((_, index) => (
-      <div key={index} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
+      <div key={index} className="w-[400px]">
         <CategoryCard.Skeleton />
       </div>
     ));
@@ -26,7 +26,7 @@ function renderSkeletons(count: number) {
 
 function renderCategories(categories: ProjectCategory[]) {
   return categories.map(category => (
-    <div key={category.id} className="w-[calc(100%/3.5)] flex-none pr-6 first:pl-0">
+    <div key={category.id} className="w-[400px]">
       <CategoryCard
         color={"red"}
         title={category.name}
@@ -56,7 +56,7 @@ export function CategoriesSection() {
   return (
     <SectionContent title="Section categories" isLoading={isLoading} error={isError} className="w-full">
       <ScrollArea className="w-full">
-        <div className="flex pb-4" style={{ width: "calc(100% + 25%)" }}>
+        <div className="flex gap-6 pb-4" style={{ width: "calc(100% + 25%)" }}>
           {content}
         </div>
         <ScrollBar orientation="horizontal" />

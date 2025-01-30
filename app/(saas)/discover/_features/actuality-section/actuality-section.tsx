@@ -31,7 +31,7 @@ const newsArticles: NewsArticle[] = [
 export function ActualitySection() {
   return (
     <SectionContent title="Actuality">
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {newsArticles.map(article => (
           <Card key={article.id} className="cursor-pointer overflow-hidden transition-colors hover:bg-accent/50">
             <div className="relative aspect-video">
