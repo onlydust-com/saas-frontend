@@ -1,5 +1,6 @@
 "use client";
 
+import { Orbit } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -102,6 +103,9 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
             id: "root",
             label: "Ecosystems",
             href: NEXT_ROUTER.ecosystems.root,
+            iconProps: {
+              component: Orbit,
+            },
           },
           {
             id: "slug",
