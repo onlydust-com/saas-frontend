@@ -4,6 +4,7 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { GetProjectsV2QueryParams } from "@/core/domain/project/project-contract.types";
 
 import { Button } from "@/shared/ui/button";
+import { TypographyH4 } from "@/shared/ui/typography";
 
 import { ProjectCard } from "../project-card/project-card";
 
@@ -24,9 +25,9 @@ export function ProjectSubSection({ title, filter }: ProjectSubSectionProps) {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <Button variant="ghost" size="sm">
-          See more
+        <TypographyH4>{title}</TypographyH4>
+        <Button variant="secondary" size="sm">
+          Show more
         </Button>
       </div>
       <div className="grid gap-4">

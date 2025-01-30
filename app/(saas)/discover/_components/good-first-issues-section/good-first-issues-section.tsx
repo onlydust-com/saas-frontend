@@ -4,6 +4,7 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { GetProjectsV2QueryParams } from "@/core/domain/project/project-contract.types";
 
 import { Button } from "@/shared/ui/button";
+import { TypographyH3 } from "@/shared/ui/typography";
 
 import { ProjectCard } from "../project-card/project-card";
 
@@ -25,8 +26,8 @@ export function GoodFirstIssuesSection() {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Projects with Good first issues</h2>
-        <Button variant="ghost">See more</Button>
+        <TypographyH3>Projects with Good first issues</TypographyH3>
+        <Button variant="secondary">Show more</Button>
       </div>
 
       <div className="grid grid-cols-3 gap-6">

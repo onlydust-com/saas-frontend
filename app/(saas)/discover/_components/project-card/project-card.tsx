@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent } from "@/shared/ui/card";
+import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 import type { ProjectCardProps } from "./project-card.types";
 
@@ -14,10 +15,8 @@ export function ProjectCard({ name, description, logoUrl, categories, languageIc
             <AvatarFallback className="rounded-xl">{name[0]}</AvatarFallback>
           </Avatar>
           <div className="flex w-full flex-col gap-1">
-            <h3 className="font-brand text-xl font-medium leading-none">{name}</h3>
-            <p className="font-main text-sm font-normal leading-[--sizes-small-line-height] text-muted-foreground">
-              {description}
-            </p>
+            <TypographyH4>{name}</TypographyH4>
+            <TypographyMuted>{description}</TypographyMuted>
             <div className="flex w-full items-center justify-between pt-4">
               <div className="flex items-center gap-2.5">
                 {categories.map(category => (

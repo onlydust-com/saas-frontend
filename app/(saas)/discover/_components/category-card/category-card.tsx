@@ -1,6 +1,8 @@
 import { RemixIcon } from "@/design-system/atoms/icon/variants/icon-remix";
 
+import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent } from "@/shared/ui/card";
+import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 import type { CategoryCardProps } from "./category-card.types";
 
@@ -19,18 +21,14 @@ export function CategoryCard({ title, description, icon, projectCount, color }: 
 
           <div className="flex min-w-0 flex-col gap-1">
             {/* Title */}
-            <h3 className="font-brand truncate text-xl font-medium leading-none">{title}</h3>
+            <TypographyH4 className="truncate">{title}</TypographyH4>
 
             {/* Description */}
-            <p className="font-main text-sm font-normal leading-[--sizes-small-line-height] text-muted-foreground">
-              {description}
-            </p>
+            <TypographyMuted>{description}</TypographyMuted>
 
             {/* Counter */}
             <div className="mt-1 inline-flex h-4 items-center">
-              <span className="font-main rounded-md bg-black px-2 py-1 text-xs font-semibold leading-[--sizes-extra-small-line-height] text-white">
-                {projectCount.toLocaleString()} Projects
-              </span>
+              <Badge variant="outline">{projectCount.toLocaleString()} Projects</Badge>
             </div>
           </div>
         </div>

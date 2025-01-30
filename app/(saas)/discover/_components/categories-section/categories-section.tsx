@@ -4,7 +4,9 @@ import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query
 
 import { RemixIconsName } from "@/design-system/atoms/icon/adapters/remix-icon/remix-icon-names.types";
 
+import { Button } from "@/shared/ui/button";
 import { ScrollArea, ScrollBar } from "@/shared/ui/scroll-area";
+import { TypographyH3 } from "@/shared/ui/typography";
 
 import { CategoryCard } from "../category-card/category-card";
 
@@ -17,7 +19,10 @@ export function CategoriesSection() {
 
   return (
     <section className="space-y-4">
-      <h2 className="font-brand text-2xl font-medium leading-none">Section categories</h2>
+      <div className="flex items-center justify-between">
+        <TypographyH3>Section categories</TypographyH3>
+        <Button variant="secondary">Show more</Button>
+      </div>
       <ScrollArea className="w-full">
         <div className="flex pb-4" style={{ width: "calc(100% + 25%)" }}>
           {data?.categories.map(category => (
