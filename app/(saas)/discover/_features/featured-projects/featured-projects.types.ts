@@ -4,4 +4,4 @@ export interface FeaturedProjectsSectionProps {
   projects: Project[];
   isLoading: boolean;
   isError: boolean;
-} 
+}

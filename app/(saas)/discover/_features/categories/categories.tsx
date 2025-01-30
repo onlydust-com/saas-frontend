@@ -1,3 +1,5 @@
+import { isLucideIcon } from "@/design-system/atoms/icon/icon.utils";
+
 import { CategoryCard } from "../../_components/category-card/category-card";
 import { CategoriesSectionProps } from "./categories.types";
 
@@ -11,11 +13,11 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
             key={category.id}
             title={category.title}
             description={category.description}
-            icon={category.icon}
+            icon={isLucideIcon(category.icon) ? category.icon.component : undefined}
             count={category.count}
           />
         ))}
       </div>
     </section>
   );
-} 
+}

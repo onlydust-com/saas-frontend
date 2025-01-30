@@ -52,5 +52,3 @@ export interface Project {
     mergedPrCount: number;
   };
 }
-
-export { useGetProjectsV2 } from "@/core/application/react-query-adapter/project/client/use-get-projects-v2"; 

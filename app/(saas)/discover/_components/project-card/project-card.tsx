@@ -1,7 +1,9 @@
-import { Card, CardDescription, CardTitle } from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
 import Image from "next/image";
-import { ProjectCardProps, LANGUAGE_ICONS } from "./project-card.types";
+
+import { Badge } from "@/shared/ui/badge";
+import { Card, CardDescription, CardTitle } from "@/shared/ui/card";
+
+import { ProjectCardProps } from "./project-card.types";
 
 const FALLBACK_IMAGE = "https://placehold.co/128x128";
 
@@ -53,10 +55,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
             <div className="flex gap-2">
               {languages?.map(language => (
-                <div
-                  key={language.id}
-                  className="relative h-6 w-6 overflow-hidden rounded-full bg-background"
-                >
+                <div key={language.id} className="relative h-6 w-6 overflow-hidden rounded-full bg-background">
                   <Image
                     src={language.logoUrl}
                     alt={language.name}
@@ -73,4 +72,4 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </div>
     </Card>
   );
-} 
+}

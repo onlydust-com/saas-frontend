@@ -19,4 +19,4 @@ export const CATEGORY_ICONS = {
   network: "Network",
   security: "Lock",
   other: "Boxes",
-} as const; 
+} as const;
