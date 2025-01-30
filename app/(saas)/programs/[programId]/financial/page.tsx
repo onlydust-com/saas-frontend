@@ -5,15 +5,17 @@ import { BudgetAvailableCards } from "@/app/(saas)/programs/[programId]/financia
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
 import { BudgetInTime } from "@/shared/charts/budget-in-time/budget-in-time";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { TransactionsContextProvider } from "./_features/transactions/context/transactions.context";
 import { Transactions } from "./_features/transactions/transactions";
 
-export default function ProgramsFinancialPage({ params: { programId } }: { params: { programId: string } }) {
+function ProgramsFinancialPage({ params: { programId } }: { params: { programId: string } }) {
   const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -58,3 +60,5 @@ export default function ProgramsFinancialPage({ params: { programId } }: { param
     </ScrollView>
   );
 }
+
+export default withClientOnly(withAuthenticated(ProgramsFinancialPage));

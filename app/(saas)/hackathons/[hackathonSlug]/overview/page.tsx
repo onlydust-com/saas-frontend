@@ -5,13 +5,15 @@ import { HackathonStats } from "@/app/(saas)/hackathons/[hackathonSlug]/overview
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
+function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
   const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
     pathParams: {
       hackathonSlug,
@@ -61,3 +63,5 @@ export default function HackathonOverviewPage({ params: { hackathonSlug } }: { p
     </ScrollView>
   );
 }
+
+export default withClientOnly(withAuthenticated(HackathonOverviewPage));

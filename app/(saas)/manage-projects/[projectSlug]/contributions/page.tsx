@@ -19,12 +19,14 @@ import { Icon } from "@/design-system/atoms/icon";
 import { TableSearch } from "@/design-system/molecules/table-search";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useActionPooling } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum View {
@@ -32,11 +34,7 @@ enum View {
   KANBAN = "kanban",
 }
 
-export default function ManageProgramsContributionsPage({
-  params: { projectSlug },
-}: {
-  params: { projectSlug: string };
-}) {
+function ManageProgramsContributionsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const [toggleViews, setToggleViews] = useState<View>(View.KANBAN);
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
@@ -155,3 +153,5 @@ export default function ManageProgramsContributionsPage({
     </FilterDataProvider>
   );
 }
+
+export default withClientOnly(withAuthenticated(ManageProgramsContributionsPage));

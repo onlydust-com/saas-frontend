@@ -4,15 +4,13 @@ import { ContributorsTable } from "@/app/(saas)/manage-projects/[projectSlug]/co
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ManageProgramsContributorsPage({
-  params: { projectSlug },
-}: {
-  params: { projectSlug: string };
-}) {
+function ManageProgramsContributorsPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug },
     options: {
@@ -44,3 +42,5 @@ export default function ManageProgramsContributorsPage({
     </>
   );
 }
+
+export default withClientOnly(withAuthenticated(ManageProgramsContributorsPage));

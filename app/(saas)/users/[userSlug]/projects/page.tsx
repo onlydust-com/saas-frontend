@@ -11,6 +11,7 @@ import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-pro
 import { TableSearch } from "@/design-system/molecules/table-search/variants/table-search-default";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -19,6 +20,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
@@ -26,7 +28,7 @@ import { useUserProjectsFilterDataSidePanel } from "./_components/filter-data/fi
 
 export type UserProjectsFilters = Omit<NonNullable<GetContributorProjectsQueryParams>, "pageSize" | "pageIndex">;
 
-export default function UserProjectsPage({ params }: { params: { userSlug: string } }) {
+function UserProjectsPage({ params }: { params: { userSlug: string } }) {
   const [search, setSearch] = useState<string>();
   const { open: openFilterPanel } = useUserProjectsFilterDataSidePanel();
   const [filters, setFilters] = useState<UserProjectsFilters>({});
@@ -140,3 +142,5 @@ export default function UserProjectsPage({ params }: { params: { userSlug: strin
     </FilterDataProvider>
   );
 }
+
+export default withClientOnly(withAuthenticated(UserProjectsPage));
