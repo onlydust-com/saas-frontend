@@ -1,7 +1,7 @@
-import { Section } from "@/app/(saas)/discover/_components/section/section";
 import { Categories } from "@/app/(saas)/discover/_features/categories/categories";
 import { GoodFirstIssues } from "@/app/(saas)/discover/_features/good-first-issues/good-first-issues";
 import { MostCollaborative } from "@/app/(saas)/discover/_features/most-collaborative/most-collaborative";
+import { News } from "@/app/(saas)/discover/_features/news/news";
 import { RecentActivity } from "@/app/(saas)/discover/_features/recent-activity/recent-activity";
 import { Trending } from "@/app/(saas)/discover/_features/trending/trending";
 
@@ -15,9 +15,7 @@ export default function DiscoverPage() {
 
         <GoodFirstIssues />
 
-        <Section title="News">
-          <div>Section</div>
-        </Section>
+        <News />
 
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <Trending />
