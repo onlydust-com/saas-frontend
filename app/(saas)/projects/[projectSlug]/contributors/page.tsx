@@ -58,4 +58,4 @@ function ProjectContributorsPage({ params }: { params: { projectSlug: string } }
   );
 }
 
-export default withClientOnly(withAuthenticated(ProjectContributorsPage));
+export default withClientOnly(ProjectContributorsPage);

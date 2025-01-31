@@ -42,4 +42,4 @@ function HackathonsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticated(HackathonsPage));
+export default withClientOnly(HackathonsPage);

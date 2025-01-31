@@ -253,4 +253,4 @@ function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }
   );
 }
 
-export default withClientOnly(withAuthenticated(HackathonProjectsPage));
+export default withClientOnly(HackathonProjectsPage);

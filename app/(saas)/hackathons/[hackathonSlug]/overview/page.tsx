@@ -64,4 +64,4 @@ function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackat
   );
 }
 
-export default withClientOnly(withAuthenticated(HackathonOverviewPage));
+export default withClientOnly(HackathonOverviewPage);

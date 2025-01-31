@@ -142,4 +142,4 @@ function UserProjectsPage({ params }: { params: { userSlug: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticated(UserProjectsPage));
+export default withClientOnly(UserProjectsPage);

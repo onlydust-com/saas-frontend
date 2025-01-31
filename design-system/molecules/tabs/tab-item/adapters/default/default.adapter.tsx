@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react";
 import { ElementType } from "react";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -22,6 +23,7 @@ export function TabItemDefaultAdapter<C extends ElementType = "button">({
   children,
   attr = {},
   id,
+  isLocked,
   onClick,
 }: TabItemPort<C>) {
   const Component = as || "button";
@@ -33,13 +35,23 @@ export function TabItemDefaultAdapter<C extends ElementType = "button">({
 
   return (
     <Component {...attr} {...htmlProps} className={cn(slots.base(), classNames?.base)} onClick={handleClick}>
-      {startIcon && (
+      {!isLocked && startIcon && (
         <Icon
           size={"sm"}
           {...startIcon}
           classNames={{
             ...startIcon?.classNames,
             base: cn(slots.startIcon(), classNames?.startIcon, startIcon.classNames?.base),
+          }}
+        />
+      )}
+      {isLocked && (
+        <Icon
+          size={"sm"}
+          component={Lock}
+          classNames={{
+            ...startIcon?.classNames,
+            base: cn(slots.startIcon(), classNames?.startIcon),
           }}
         />
       )}

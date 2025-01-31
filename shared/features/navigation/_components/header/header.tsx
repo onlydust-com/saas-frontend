@@ -11,6 +11,7 @@ import { UserMenu } from "@/shared/features/navigation/_components/user-menu/use
 import { NotificationsModal } from "@/shared/features/notifications/notifications-modal";
 import { NotificationsPopover } from "@/shared/features/notifications/notifications-popover";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
+import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 
 import { useNavigation } from "../../navigation.context";
 import { HeaderProps } from "./header.types";
@@ -40,9 +41,16 @@ export function Header({ onToggle, isOpen }: HeaderProps) {
         </div>
 
         <div className={"flex flex-1 flex-row items-center justify-end gap-6"}>
-          <GlobalSearch isMobile={isTablet} />
-          {isTablet ? <NotificationsModal /> : <NotificationsPopover />}
-          <UserMenu isCompact={true} />
+          <IsAuthenticated>
+            <IsAuthenticated.Yes>
+              <GlobalSearch isMobile={isTablet} />
+              {isTablet ? <NotificationsModal /> : <NotificationsPopover />}
+              <UserMenu isCompact={true} />
+            </IsAuthenticated.Yes>
+            <IsAuthenticated.No>
+              <SignInButton />
+            </IsAuthenticated.No>
+          </IsAuthenticated>
         </div>
       </div>
     </header>

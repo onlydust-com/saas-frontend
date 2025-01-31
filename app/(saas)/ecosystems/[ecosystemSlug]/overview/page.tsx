@@ -84,4 +84,4 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
   );
 }
 
-export default withClientOnly(withAuthenticated(EcosystemOverviewPage));
+export default withClientOnly(EcosystemOverviewPage);

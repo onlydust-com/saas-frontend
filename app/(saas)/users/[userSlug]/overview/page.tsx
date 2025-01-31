@@ -104,4 +104,4 @@ function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string
   );
 }
 
-export default withClientOnly(withAuthenticated(UserOverviewPage));
+export default withClientOnly(UserOverviewPage);
