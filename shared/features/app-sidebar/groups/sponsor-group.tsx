@@ -19,7 +19,7 @@ import {
   useSidebar,
 } from "@/shared/ui/sidebar";
 
-const MAX_PROJECTS = 3;
+const MAX_SPONSORS = 3;
 
 function SubItem({ title, url }: { title: string; url: string }) {
   const isRoute = useMatchPath(url, { exact: false });
@@ -35,44 +35,40 @@ function SubItem({ title, url }: { title: string; url: string }) {
   );
 }
 
-export function MaintainerGroup() {
+export function SponsorGroup() {
   const { state } = useSidebar();
   const { user } = useAuthUser();
-  const isMaintainerRoute = useMatchPath(NEXT_ROUTER.manageProjects.root, { exact: false });
+  const isSponsorRoute = useMatchPath(NEXT_ROUTER.financials.root, { exact: false });
 
-  const projects = useMemo(() => user?.projectsLed?.slice(0, MAX_PROJECTS) ?? [], [user]);
-  const canSeeAll = useMemo(() => projects.length > MAX_PROJECTS, [projects]);
+  const sponsors = useMemo(() => user?.sponsors?.slice(0, MAX_SPONSORS) ?? [], [user]);
+  const canSeeAll = useMemo(() => sponsors.length > MAX_SPONSORS, [sponsors]);
 
-  const items = projects.map(project => ({
-    title: project.name,
+  const items = sponsors.map(sponsor => ({
+    title: sponsor.name,
     icon: (
       <Avatar className="h-4 w-4 rounded-sm">
-        <AvatarImage src={project.logoUrl} />
-        <AvatarFallback className="h-4 w-4 rounded-sm text-xs">{project.name[0]}</AvatarFallback>
+        <AvatarImage src={sponsor.logoUrl} />
+        <AvatarFallback className="h-4 w-4 rounded-sm text-xs">{sponsor.name[0]}</AvatarFallback>
       </Avatar>
     ),
-    isActive: isMaintainerRoute,
+    isActive: isSponsorRoute,
     items: [
       {
         title: "Overview",
-        url: NEXT_ROUTER.manageProjects.contributions.root(project.slug),
-      },
-      {
-        title: "Contributors",
-        url: NEXT_ROUTER.manageProjects.contributors.root(project.slug),
+        url: NEXT_ROUTER.financials.programs.root(sponsor.id),
       },
       {
         title: "Financial",
-        url: NEXT_ROUTER.manageProjects.financial.root(project.slug),
+        url: NEXT_ROUTER.financials.financial.root(sponsor.id),
       },
     ],
   }));
 
-  if (!projects.length) return null;
+  if (!sponsors.length) return null;
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
+      <SidebarGroupLabel>Sponsors</SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
@@ -96,7 +92,7 @@ export function MaintainerGroup() {
         {canSeeAll && state !== "collapsed" ? (
           <SidebarMenuItem>
             <SidebarMenuButton asChild tooltip="See all" className="text-muted-foreground">
-              <Link href={NEXT_ROUTER.manageProjects.root}>See all</Link>
+              <Link href={NEXT_ROUTER.financials.root}>See all</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ) : null}
