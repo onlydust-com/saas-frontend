@@ -98,18 +98,18 @@ const config: Config = withTV({
   			}
   		},
   		screens: {
-  			mobile: '`${BREAKPOINTS.mobile}px`',
-  			tablet: '`${BREAKPOINTS.tablet}px`',
-  			laptop: '`${BREAKPOINTS.laptop}px`',
-  			desktop: '`${BREAKPOINTS.desktop}px`',
-  			wide: '`${BREAKPOINTS.wide}px`'
+  			mobile: `${BREAKPOINTS.mobile}px`,
+  			tablet: `${BREAKPOINTS.tablet}px`,
+  			laptop: `${BREAKPOINTS.laptop}px`,
+  			desktop: `${BREAKPOINTS.desktop}px`,
+  			wide: `${BREAKPOINTS.wide}px`
   		},
   		maxWidth: {
-  			mobile: '`${BREAKPOINTS.mobile}px`',
-  			tablet: '`${BREAKPOINTS.tablet}px`',
-  			laptop: '`${BREAKPOINTS.laptop}px`',
-  			desktop: '`${BREAKPOINTS.desktop}px`',
-  			wide: '`${BREAKPOINTS.wide}px`'
+  			mobile: `${BREAKPOINTS.mobile}px`,
+  			tablet: `${BREAKPOINTS.tablet}px`,
+  			laptop: `${BREAKPOINTS.laptop}px`,
+  			desktop: `${BREAKPOINTS.desktop}px`,
+  			wide: `${BREAKPOINTS.wide}px`
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
