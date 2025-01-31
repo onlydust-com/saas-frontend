@@ -1,4 +1,5 @@
 import { ChevronRight, Database } from "lucide-react";
+import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
@@ -65,9 +66,9 @@ export function DataGroup() {
                   {item.items?.map(subItem => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild isActive={subItem.isActive}>
-                        <a href={subItem.url}>
+                        <Link href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}
