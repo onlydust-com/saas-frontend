@@ -74,6 +74,15 @@ export function MaintainerGroup() {
     <SidebarGroup>
       <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
       <SidebarMenu>
+        {/* <SidebarMenuItem>
+          <SidebarMenuButton asChild tooltip="Submit a project">
+            <Link href={""}>
+              <SquarePlus />
+              <span>Submit a project</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem> */}
+
         {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
             <SidebarMenuItem>
