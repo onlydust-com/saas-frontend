@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { Avatar, AvatarFallback } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -15,7 +15,6 @@ export function CategoryCard({ name, description, slug, projectCount, iconSlug }
     <Link href={NEXT_ROUTER.categories.details.root(slug)} className="transition-opacity hover:opacity-80">
       <Card className="flex gap-4 p-3">
         <Avatar className="size-24 rounded-xl">
-          <AvatarImage src={""} />
           <AvatarFallback
             className="rounded-xl"
             style={{
