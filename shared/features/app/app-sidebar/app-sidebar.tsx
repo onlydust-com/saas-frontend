@@ -8,7 +8,7 @@ import { ExploreGroup } from "@/shared/features/app/app-sidebar/groups/explore-g
 import { MaintainerGroup } from "@/shared/features/app/app-sidebar/groups/maintainer-group";
 import { ProgramGroup } from "@/shared/features/app/app-sidebar/groups/program-group";
 import { SponsorGroup } from "@/shared/features/app/app-sidebar/groups/sponsor-group";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, useSidebar } from "@/shared/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from "@/shared/ui/sidebar";
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -17,15 +17,14 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <div className="p-2">
-          {isCollapsed ? (
-            <Image src={logo} alt={"OnlyDust"} width={24} height={24} />
-          ) : (
-            <Image src={logoWordmark} alt={"OnlyDust"} width={98} height={24} />
-          )}
-        </div>
+      <SidebarHeader className="flex h-16 justify-center">
+        {isCollapsed ? (
+          <Image src={logo} alt={"OnlyDust"} width={24} height={24} className="self-center" />
+        ) : (
+          <Image src={logoWordmark} alt={"OnlyDust"} width={98} height={24} className="ml-2" />
+        )}
       </SidebarHeader>
+
       <SidebarContent>
         <ExploreGroup />
 
@@ -39,7 +38,6 @@ export function AppSidebar() {
 
         <SponsorGroup />
       </SidebarContent>
-      <SidebarFooter />
     </Sidebar>
   );
 }
