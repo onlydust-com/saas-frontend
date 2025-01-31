@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
 
-import { AppGradient } from "@/shared/components/app-gradient/app-gradient";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Header } from "@/shared/features/navigation/_components/header/header";
 import { PrimaryBanner } from "@/shared/features/navigation/_components/primary-banner/primary-banner";
@@ -41,8 +40,6 @@ export function Navigation({ children }: PropsWithChildren) {
             }
           )}
         >
-          <AppGradient />
-
           <ScrollView className={"flex flex-col justify-between gap-xs px-2md py-xl"}>
             <MenuContainer>
               <PrimaryMenu />

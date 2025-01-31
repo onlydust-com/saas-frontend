@@ -5,8 +5,9 @@ import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/
 
 import { Typo } from "@/design-system/atoms/typo";
 
-import { AppGradient } from "@/shared/components/app-gradient/app-gradient";
+import { AppSidebar } from "@/shared/features/app-sidebar/app-sidebar";
 import { Navigation } from "@/shared/features/navigation/navigation";
+import { SidebarInset, SidebarTrigger } from "@/shared/ui/sidebar";
 
 import { AppWrapperProps } from "./app-wrapper.types";
 
@@ -43,10 +44,14 @@ export function AppWrapper({ children }: AppWrapperProps) {
     return null;
   }
 
+  // return <div className={"flex h-dvh w-dvw flex-col overflow-hidden"}>{renderApp()}</div>;
   return (
-    <div className={"flex h-dvh w-dvw flex-col overflow-hidden"}>
-      <AppGradient />
-      {renderApp()}
-    </div>
+    <>
+      <AppSidebar />
+      <SidebarInset>
+        <SidebarTrigger />
+        {renderApp()}
+      </SidebarInset>
+    </>
   );
 }
