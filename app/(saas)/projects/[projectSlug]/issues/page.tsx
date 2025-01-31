@@ -14,15 +14,17 @@ import { Badge } from "@/design-system/atoms/badge";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ProjectIssuesPage({
+function ProjectIssuesPage({
   params,
   searchParams,
 }: {
@@ -247,3 +249,5 @@ export default function ProjectIssuesPage({
     </ScrollView>
   );
 }
+
+export default withClientOnly(withAuthenticated(ProjectIssuesPage));

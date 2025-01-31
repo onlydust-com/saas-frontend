@@ -2,12 +2,14 @@
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function HackathonCommunityPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
+function HackathonCommunityPage({ params: { hackathonSlug } }: { params: { hackathonSlug: string } }) {
   const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
     pathParams: {
       hackathonSlug,
@@ -42,3 +44,5 @@ export default function HackathonCommunityPage({ params: { hackathonSlug } }: { 
     </ScrollView>
   );
 }
+
+export default withClientOnly(withAuthenticated(HackathonCommunityPage));

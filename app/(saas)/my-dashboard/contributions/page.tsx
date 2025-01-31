@@ -13,14 +13,16 @@ import { ContributionAs } from "@/core/domain/contribution/models/contribution.t
 
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function MyDashboardContributionsPage() {
+function MyDashboardContributionsPage() {
   const [filters, setFilters] = useState<ContributionKanbanFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
@@ -72,3 +74,5 @@ export default function MyDashboardContributionsPage() {
     </FilterDataProvider>
   );
 }
+
+export default withClientOnly(withAuthenticated(MyDashboardContributionsPage));

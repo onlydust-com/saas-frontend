@@ -4,12 +4,14 @@ import { ProjectsTable } from "@/app/(saas)/programs/[programId]/projects/_featu
 
 import { ProgramReactQueryAdapter } from "@/core/application/react-query-adapter/program";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ProgramsProjectsPage({ params: { programId } }: { params: { programId: string } }) {
+function ProgramsProjectsPage({ params: { programId } }: { params: { programId: string } }) {
   const { data } = ProgramReactQueryAdapter.client.useGetProgramById({
     pathParams: {
       programId,
@@ -44,3 +46,5 @@ export default function ProgramsProjectsPage({ params: { programId } }: { params
     </>
   );
 }
+
+export default withClientOnly(withAuthenticated(ProgramsProjectsPage));

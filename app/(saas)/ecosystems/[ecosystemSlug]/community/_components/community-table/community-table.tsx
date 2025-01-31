@@ -1,4 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
@@ -13,10 +14,12 @@ import { Table } from "@/design-system/molecules/table/variants/table-default";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { useFilterColumns } from "../filter-columns/filter-columns.hooks";
 
 export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
+  const router = useRouter();
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
   const [selectedTypes, setSelectedTypes] = useState<{
@@ -117,6 +120,9 @@ export function CommunityTable({ ecosystemSlug }: { ecosystemSlug: string }) {
             classNames: {
               base: "bg-transparent relative",
             },
+          }}
+          onRowClick={row => {
+            router.push(NEXT_ROUTER.users.details.root(row?.original?.login));
           }}
           rows={table.getRowModel().rows}
         />

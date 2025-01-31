@@ -5,12 +5,14 @@ import { RewardsTable } from "@/app/(saas)/manage-projects/[projectSlug]/financi
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { ProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function ManageProgramsFinancialPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
+function ManageProgramsFinancialPage({ params: { projectSlug } }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug },
     options: {
@@ -47,3 +49,5 @@ export default function ManageProgramsFinancialPage({ params: { projectSlug } }:
     </>
   );
 }
+
+export default withClientOnly(withAuthenticated(ManageProgramsFinancialPage));

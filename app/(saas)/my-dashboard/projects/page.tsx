@@ -9,15 +9,17 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Table, TableLoading } from "@/design-system/molecules/table";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { TABLE_DEFAULT_COLUMN } from "@/shared/constants/table";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export default function MyDashboardProjectsPage() {
+function MyDashboardProjectsPage() {
   const { columns } = useFilterColumns();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -72,3 +74,5 @@ export default function MyDashboardProjectsPage() {
     </div>
   );
 }
+
+export default withClientOnly(withAuthenticated(MyDashboardProjectsPage));

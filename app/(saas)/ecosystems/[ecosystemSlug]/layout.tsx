@@ -97,7 +97,7 @@ export default function EcosystemLayout({
             <Paper
               background="primary"
               border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
+              classNames={{ base: "desktop:col-span-2 overflow-hidden h-screen flex flex-col" }}
               px="none"
             >
               <div className={"flex h-12 w-full flex-row items-end justify-between gap-1 laptop:h-[65px]"}>
