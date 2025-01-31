@@ -1,55 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode, useMemo } from "react";
+import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
-export enum SettingViews {
-  "PROFILE" = "profile",
-  "NOTIFICATIONS" = "notifications",
-  "PAYOUT_PREFERENCES" = "payout-preferences",
-  "BILLING_PROFILES" = "billing-profiles",
-  "TERMS_AND_CONDITIONS" = "terms-and-conditions",
-}
+const SETTING_ROUTES = [
+  { href: NEXT_ROUTER.settings.profile.root, label: "Profile" },
+  { href: NEXT_ROUTER.settings.notifications.root, label: "Notifications" },
+  { href: NEXT_ROUTER.settings.payoutPreferences.root, label: "Payout Preferences" },
+  { href: NEXT_ROUTER.settings.billingProfiles.root, label: "Billing Profiles" },
+  { href: NEXT_ROUTER.settings.termsAndConditions.root, label: "Terms and Conditions" },
+];
 
 export default function SettingsLayout({ children }: { children: ReactNode }) {
-  const isProfile = useMatchPath(NEXT_ROUTER.settings.profile.root);
-  const isNotifications = useMatchPath(NEXT_ROUTER.settings.notifications.root);
-  const isPayoutPreferences = useMatchPath(NEXT_ROUTER.settings.payoutPreferences.root);
-  const isBillingProfiles = useMatchPath(NEXT_ROUTER.settings.billingProfiles.root);
-  const isTerms = useMatchPath(NEXT_ROUTER.settings.termsAndConditions.root);
-
-  const currentTab = useMemo(() => {
-    if (isProfile) return SettingViews.PROFILE;
-    if (isNotifications) return SettingViews.NOTIFICATIONS;
-    if (isPayoutPreferences) return SettingViews.PAYOUT_PREFERENCES;
-    if (isBillingProfiles) return SettingViews.BILLING_PROFILES;
-    if (isTerms) return SettingViews.TERMS_AND_CONDITIONS;
-
-    return SettingViews.PROFILE;
-  }, [isProfile, isNotifications, isPayoutPreferences, isBillingProfiles, isTerms]);
+  const currentPath = usePathname();
 
   return (
     <PageWrapper containerSize="small">
-      <Tabs defaultValue={SettingViews.PROFILE} value={currentTab} className="w-full">
+      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="w-full">
         <TabsList className="w-full grid-cols-4">
-          <TabsTrigger value={SettingViews.PROFILE} asChild>
-            <Link href={NEXT_ROUTER.settings.profile.root}>Profile</Link>
-          </TabsTrigger>
-          <TabsTrigger value={SettingViews.NOTIFICATIONS} asChild>
-            <Link href={NEXT_ROUTER.settings.notifications.root}>Notifications</Link>
-          </TabsTrigger>
-          <TabsTrigger value={SettingViews.PAYOUT_PREFERENCES} asChild>
-            <Link href={NEXT_ROUTER.settings.payoutPreferences.root}>Payout Preferences</Link>
-          </TabsTrigger>
-          <TabsTrigger value={SettingViews.BILLING_PROFILES} asChild>
-            <Link href={NEXT_ROUTER.settings.billingProfiles.root}>Billing Profiles</Link>
-          </TabsTrigger>
-          <TabsTrigger value={SettingViews.TERMS_AND_CONDITIONS}>Terms and Conditions</TabsTrigger>
+          {SETTING_ROUTES.map(({ href, label }) => (
+            <TabsTrigger key={href} value={href}>
+              <Link href={href}>{label}</Link>
+            </TabsTrigger>
+          ))}
         </TabsList>
         {children}
       </Tabs>
