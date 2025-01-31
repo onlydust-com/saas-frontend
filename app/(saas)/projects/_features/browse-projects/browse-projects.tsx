@@ -21,7 +21,7 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { PROJECT_TAG, PROJECT_TAG_METADATA } from "@/shared/constants/project-tags";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { TypographyH2, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH2, TypographyMuted } from "@/shared/ui/typography";
 
 import { BrowseProjectsFilters } from "../browse-projects-filters/browse-projects-filters";
 
@@ -102,10 +102,10 @@ function Safe() {
           <TypographyH2 className="text-muted-foreground">({count})</TypographyH2>
         </div>
 
-        <TypographySmall>
+        <TypographyMuted>
           Discover innovative ideas, creative solutions, and detailed work that showcases unique expertise and impactful
           results.
-        </TypographySmall>
+        </TypographyMuted>
       </header>
 
       <div className="flex flex-col gap-3xl">
