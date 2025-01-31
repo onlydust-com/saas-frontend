@@ -10,7 +10,6 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
-import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 function EcosystemsPage() {
   return (

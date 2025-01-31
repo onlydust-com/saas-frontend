@@ -13,7 +13,6 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { EcosystemStats } from "./_features/ecosystem-stats/ecosystem-stats";
