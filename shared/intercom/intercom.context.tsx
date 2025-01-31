@@ -23,16 +23,24 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   const { getAccessTokenSilently } = useAuth0();
 
   function hideIntercomLauncher() {
-    const intercomLauncher = document.querySelector("#intercom-container") as HTMLElement;
+    const intercomLauncher = document.querySelector(".intercom-launcher") as HTMLElement;
+    const intercomContainer = document.querySelector("#intercom-container") as HTMLElement;
     if (intercomLauncher) {
       intercomLauncher.style.display = "none";
+    }
+    if (intercomContainer) {
+      intercomContainer.style.display = "none";
     }
   }
 
   function showIntercomLauncher() {
-    const intercomLauncher = document.querySelector("#intercom-container") as HTMLElement;
+    const intercomLauncher = document.querySelector(".intercom-launcher") as HTMLElement;
+    const intercomContainer = document.querySelector("#intercom-container") as HTMLElement;
     if (intercomLauncher) {
       intercomLauncher.style.display = "block";
+    }
+    if (intercomContainer) {
+      intercomContainer.style.display = "block";
     }
   }
 

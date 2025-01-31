@@ -8,4 +8,5 @@ export interface ResultTemplateProps {
   type: SearchRessourceType;
   tags?: string[];
   metrics?: ResultMetricProps[];
+  href: string;
 }

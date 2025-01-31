@@ -1,13 +1,20 @@
+import Link from "next/link";
+
 import { Badge } from "@/design-system/atoms/badge";
 import { Typo } from "@/design-system/atoms/typo";
+
+import { useGlobalSearch } from "@/shared/features/global-search/global-search.context";
 
 import { ResultHighlight } from "../result-highlight/result-highlight";
 import { ResultMetric } from "../result-metric/result-metric";
 import { ResultTemplateProps } from "./result-template.types";
 
-export function ResultTemplate({ name, description, type, tags, metrics }: ResultTemplateProps) {
+export function ResultTemplate({ name, description, type, tags, metrics, href }: ResultTemplateProps) {
+  const { onOpenChange } = useGlobalSearch();
   return (
-    <div
+    <Link
+      onClick={() => onOpenChange(false)}
+      href={href}
       className={
         "flex w-full flex-col justify-start gap-3 rounded-md px-4 py-3 group-data-[selected=true]/item:bg-background-primary-alt-hover"
       }
@@ -40,6 +47,6 @@ export function ResultTemplate({ name, description, type, tags, metrics }: Resul
           ))}
         </div>
       ) : null}
-    </div>
+    </Link>
   );
 }

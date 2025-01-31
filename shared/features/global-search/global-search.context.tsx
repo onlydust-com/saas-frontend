@@ -1,10 +1,11 @@
 "use client";
 
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
 import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import { SearchReactQueryAdapter } from "@/core/application/react-query-adapter/search";
-import { SearchDto } from "@/core/domain/search/dto/search-dto";
+import { SearchBody, SearchDto } from "@/core/domain/search/dto/search-dto";
 import { SearchItemInterface } from "@/core/domain/search/models/search-item-model";
 import { SearchFacet, SearchRessourceType } from "@/core/domain/search/models/search.types";
 import { SearchModel } from "@/core/domain/search/search-contract.types";
@@ -30,11 +31,12 @@ interface GlobalSearchContextInterface {
   onFiltersChange: (value: Filters) => void;
   onFiltersTypeChange: (value?: SearchRessourceType) => void;
   hasNextPage: boolean;
-  fetchNextPage: () => void;
+  fetchNextPage?: () => void;
   isFetchingNextPage: boolean;
-  results: SearchItemInterface[];
+  results: Record<SearchRessourceType, SearchItemInterface[] | undefined>;
   projectFacets: SearchModel["projectFacets"];
   typeFacets: SearchModel["typeFacets"];
+  getTypeFacetCount: (type: SearchRessourceType) => number;
 }
 
 // Initialize context with default values
@@ -53,7 +55,11 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
   hasNextPage: false,
   fetchNextPage: () => {},
   isFetchingNextPage: false,
-  results: [],
+  getTypeFacetCount: () => 0,
+  results: {
+    [SearchRessourceType.PROJECT]: [],
+    [SearchRessourceType.CONTRIBUTOR]: [],
+  },
   projectFacets: {
     ecosystems: [],
     categories: [],
@@ -63,6 +69,84 @@ export const GlobalSearchContext = createContext<GlobalSearchContextInterface>({
     types: [],
   },
 });
+
+function useSearchRequest(queryParams: SearchBody, type: SearchRessourceType, enabled: boolean) {
+  return SearchReactQueryAdapter.client.useSearch({
+    queryParams: {
+      ...queryParams,
+      pageSize: 5,
+      type,
+    },
+    options: {
+      enabled,
+    },
+  });
+}
+
+interface UseData {
+  results: Record<SearchRessourceType, UseInfiniteQueryResult<InfiniteData<SearchModel, unknown>, Error>>;
+  type?: SearchRessourceType;
+}
+
+interface UseDataReturn {
+  results: Record<
+    SearchRessourceType,
+    UseInfiniteQueryResult<InfiniteData<SearchModel, unknown>, Error>["data"] | undefined
+  >;
+  fetchNextPage?: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+}
+
+function useData({ results, type }: UseData): UseDataReturn {
+  if (!type) {
+    return {
+      results: {
+        [SearchRessourceType.PROJECT]: results[SearchRessourceType.PROJECT]?.data,
+        [SearchRessourceType.CONTRIBUTOR]: results[SearchRessourceType.CONTRIBUTOR]?.data,
+      },
+      fetchNextPage: undefined,
+      hasNextPage: false,
+      isFetchingNextPage: false,
+    };
+  }
+
+  if (type === SearchRessourceType.PROJECT) {
+    const projectResult = results[SearchRessourceType.PROJECT];
+    return {
+      results: {
+        [SearchRessourceType.PROJECT]: projectResult?.data,
+        [SearchRessourceType.CONTRIBUTOR]: undefined,
+      },
+      fetchNextPage: projectResult?.fetchNextPage,
+      hasNextPage: projectResult?.hasNextPage ?? false,
+      isFetchingNextPage: projectResult?.isFetchingNextPage ?? false,
+    };
+  }
+
+  if (type === SearchRessourceType.CONTRIBUTOR) {
+    const contributorResult = results[SearchRessourceType.CONTRIBUTOR];
+    return {
+      results: {
+        [SearchRessourceType.PROJECT]: undefined,
+        [SearchRessourceType.CONTRIBUTOR]: contributorResult?.data,
+      },
+      fetchNextPage: contributorResult?.fetchNextPage,
+      hasNextPage: contributorResult?.hasNextPage ?? false,
+      isFetchingNextPage: contributorResult?.isFetchingNextPage ?? false,
+    };
+  }
+
+  return {
+    results: {
+      [SearchRessourceType.PROJECT]: undefined,
+      [SearchRessourceType.CONTRIBUTOR]: undefined,
+    },
+    fetchNextPage: undefined,
+    hasNextPage: false,
+    isFetchingNextPage: false,
+  };
+}
 
 export function GlobalSearchProvider({ children }: PropsWithChildren) {
   // State management
@@ -93,12 +177,24 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
     [inputValue, filters]
   );
 
-  // Fetch search results and suggestions
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = SearchReactQueryAdapter.client.useSearch({
+  const contributionData = useSearchRequest(
     queryParams,
-    options: {
-      enabled: debouncedOpen,
+    SearchRessourceType.CONTRIBUTOR,
+    debouncedOpen && filters.type !== SearchRessourceType.PROJECT
+  );
+
+  const projectData = useSearchRequest(
+    queryParams,
+    SearchRessourceType.PROJECT,
+    debouncedOpen && filters.type !== SearchRessourceType.CONTRIBUTOR
+  );
+
+  const { results, fetchNextPage, hasNextPage, isFetchingNextPage } = useData({
+    results: {
+      [SearchRessourceType.PROJECT]: projectData,
+      [SearchRessourceType.CONTRIBUTOR]: contributionData,
     },
+    type: filters.type,
   });
 
   const { data: Suggestion } = SearchReactQueryAdapter.client.useSuggest({
@@ -121,7 +217,12 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
   };
 
   const extractFacetsFromPages = (accessor: (page: SearchModel) => SearchFacet[] | undefined): SearchFacet[] => {
-    return data?.pages.flatMap(page => accessor(page) ?? []) ?? [];
+    if (!filters.type || filters.type === SearchRessourceType.PROJECT) {
+      const result = results[SearchRessourceType.PROJECT]?.pages ?? [];
+      return result.flatMap(page => accessor(page) ?? []);
+    }
+
+    return [];
   };
 
   // Memoized facets
@@ -135,13 +236,50 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
       categories: mergeFacetsWithFilters(categories, filters.categories),
       languages: mergeFacetsWithFilters(languages, filters.languages),
     };
-  }, [data]);
+  }, [results]);
 
   const typeFacets: SearchModel["typeFacets"] = useMemo(() => {
+    const contributorTypeFacets = results[SearchRessourceType.CONTRIBUTOR]?.pages ?? [];
+    const projectTypeFacets = results[SearchRessourceType.PROJECT]?.pages ?? [];
+    const contributor = contributorTypeFacets
+      .flatMap(page => page.typeFacets?.types)
+      .filter(f => f?.name === "Contributors");
+
+    const project = projectTypeFacets.flatMap(page => page.typeFacets?.types).filter(f => f?.name === "Projects");
+
     return {
-      types: extractFacetsFromPages(page => page.typeFacets?.types),
+      types: [
+        {
+          name: "Contributors",
+          count: contributor[0]?.count ?? 0,
+        },
+        {
+          name: "Projects",
+          count: project[0]?.count ?? 0,
+        },
+      ],
     };
-  }, [data]);
+  }, [results]);
+
+  function getTypeFacetCount(type: SearchRessourceType) {
+    if (type === SearchRessourceType.CONTRIBUTOR) {
+      const contributorTypeFacets = results[SearchRessourceType.CONTRIBUTOR]?.pages ?? [];
+      const contributor = contributorTypeFacets
+        .flatMap(page => page.typeFacets?.types)
+        .filter(f => f?.name === "Contributors");
+
+      return contributor[0]?.count ?? 0;
+    }
+
+    if (type === SearchRessourceType.PROJECT) {
+      const projectTypeFacets = results[SearchRessourceType.PROJECT]?.pages ?? [];
+      const project = projectTypeFacets.flatMap(page => page.typeFacets?.types).filter(f => f?.name === "Projects");
+
+      return project[0]?.count ?? 0;
+    }
+
+    return 0;
+  }
 
   // Event handlers
   function onOpenChange(v: boolean) {
@@ -224,7 +362,13 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         hasNextPage,
         fetchNextPage,
         isFetchingNextPage,
-        results: data?.pages.flatMap(page => page.results) ?? [],
+        getTypeFacetCount,
+        results: {
+          [SearchRessourceType.PROJECT]:
+            results[SearchRessourceType.PROJECT]?.pages.flatMap(page => page.results) ?? [],
+          [SearchRessourceType.CONTRIBUTOR]:
+            results[SearchRessourceType.CONTRIBUTOR]?.pages.flatMap(page => page.results) ?? [],
+        },
         projectFacets,
         typeFacets,
       }}
