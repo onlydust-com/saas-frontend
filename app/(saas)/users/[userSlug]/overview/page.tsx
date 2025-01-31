@@ -28,8 +28,6 @@ function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string
     },
   });
 
-  const userId = data?.contributor.githubUserId;
-
   const renderStats = useMemo(() => {
     if (isLoading)
       return (
