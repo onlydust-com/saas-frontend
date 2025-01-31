@@ -1,3 +1,5 @@
+"use client";
+
 import "keen-slider/keen-slider.min.css";
 import { ReactNode } from "react";
 import "react-flagpack/dist/style.css";
@@ -5,7 +7,10 @@ import "remixicon/fonts/remixicon.css";
 
 import { SaasProviders } from "@/app/(saas)/saas-providers";
 
-import { AppWrapper } from "@/shared/features/app-wrapper/app-wrapper";
+import { AppHeader } from "@/shared/features/app/app-header/app-header";
+import { AppSidebar } from "@/shared/features/app/app-sidebar/app-sidebar";
+import { ImpersonationBanner } from "@/shared/features/impersonation/impersonation-banner";
+import { SidebarInset } from "@/shared/ui/sidebar";
 
 export default function SaasLayout({
   children,
@@ -13,8 +18,15 @@ export default function SaasLayout({
   children: ReactNode;
 }>) {
   return (
+    // return <div className={"flex h-dvh w-dvw flex-col overflow-hidden"}>{renderApp()}</div>;
+
     <SaasProviders>
-      <AppWrapper>{children}</AppWrapper>
+      <AppSidebar />
+      <SidebarInset>
+        <AppHeader />
+        {children}
+        <ImpersonationBanner />
+      </SidebarInset>
     </SaasProviders>
   );
 }
