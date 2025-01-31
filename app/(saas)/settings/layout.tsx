@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ReactNode, useMemo } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 export enum SettingViews {
   "PROFILE" = "profile",
@@ -17,7 +17,6 @@ export enum SettingViews {
 }
 
 export default function SettingsLayout({ children }: { children: ReactNode }) {
-  const router = useRouter();
   const isProfile = useMatchPath(NEXT_ROUTER.settings.profile.root);
   const isNotifications = useMatchPath(NEXT_ROUTER.settings.notifications.root);
   const isPayoutPreferences = useMatchPath(NEXT_ROUTER.settings.payoutPreferences.root);
@@ -30,24 +29,29 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
     if (isPayoutPreferences) return SettingViews.PAYOUT_PREFERENCES;
     if (isBillingProfiles) return SettingViews.BILLING_PROFILES;
     if (isTerms) return SettingViews.TERMS_AND_CONDITIONS;
+
     return SettingViews.PROFILE;
   }, [isProfile, isNotifications, isPayoutPreferences, isBillingProfiles, isTerms]);
 
-  function handleTabChange(value: string) {
-    router.push(`/settings/${value}`);
-  }
-
   return (
     <PageWrapper containerSize="small">
-      <Tabs value={currentTab} className="w-full" onValueChange={handleTabChange}>
+      <Tabs defaultValue={SettingViews.PROFILE} value={currentTab} className="w-full">
         <TabsList className="w-full grid-cols-4">
-          <TabsTrigger value={SettingViews.PROFILE}>Profile</TabsTrigger>
-          <TabsTrigger value={SettingViews.NOTIFICATIONS}>Notifications</TabsTrigger>
-          <TabsTrigger value={SettingViews.PAYOUT_PREFERENCES}>Payout Preferences</TabsTrigger>
-          <TabsTrigger value={SettingViews.BILLING_PROFILES}>Billing Profiles</TabsTrigger>
+          <TabsTrigger value={SettingViews.PROFILE} asChild>
+            <Link href={NEXT_ROUTER.settings.profile.root}>Profile</Link>
+          </TabsTrigger>
+          <TabsTrigger value={SettingViews.NOTIFICATIONS} asChild>
+            <Link href={NEXT_ROUTER.settings.notifications.root}>Notifications</Link>
+          </TabsTrigger>
+          <TabsTrigger value={SettingViews.PAYOUT_PREFERENCES} asChild>
+            <Link href={NEXT_ROUTER.settings.payoutPreferences.root}>Payout Preferences</Link>
+          </TabsTrigger>
+          <TabsTrigger value={SettingViews.BILLING_PROFILES} asChild>
+            <Link href={NEXT_ROUTER.settings.billingProfiles.root}>Billing Profiles</Link>
+          </TabsTrigger>
           <TabsTrigger value={SettingViews.TERMS_AND_CONDITIONS}>Terms and Conditions</TabsTrigger>
         </TabsList>
-        <TabsContent value={currentTab}>{children}</TabsContent>
+        {children}
       </Tabs>
     </PageWrapper>
   );
