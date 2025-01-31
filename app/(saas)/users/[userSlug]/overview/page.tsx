@@ -101,7 +101,7 @@ function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string
         ]}
       />
       {renderStats}
-      <ProjectsList userId={userId} userSlug={userSlug} />
+      <ProjectsList userSlug={userSlug} />
       <Activity userSlug={userSlug} />
       {renderTimeline}
     </ScrollView>

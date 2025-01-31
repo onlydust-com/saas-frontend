@@ -13,16 +13,16 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { ProjectsListProps } from "./projects-list.types";
 
-export function ProjectsList({ userId, userSlug }: ProjectsListProps) {
+export function ProjectsList({ userSlug }: ProjectsListProps) {
   const { data, isLoading, isError } = ContributorReactQueryAdapter.client.useGetContributorProjects({
     queryParams: {
       pageSize: 3,
     },
     pathParams: {
-      contributorId: Number(userId),
+      contributorIdOrLogin: userSlug,
     },
     options: {
-      enabled: Boolean(userId),
+      enabled: Boolean(userSlug),
     },
   });
 
