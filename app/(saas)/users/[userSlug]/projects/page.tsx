@@ -102,7 +102,6 @@ function UserProjectsPage({ params }: { params: { userSlug: string } }) {
           {
             id: "root",
             label: "Users",
-            href: NEXT_ROUTER.users.root,
           },
           {
             id: "slug",
