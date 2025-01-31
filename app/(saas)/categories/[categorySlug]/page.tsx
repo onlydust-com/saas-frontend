@@ -89,7 +89,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
           />
         </div>
 
-        <ProjectList params={{ categorySlug: params.categorySlug }} />
+        <ProjectList categoryId={category.id} />
       </div>
     </PageWrapper>
   );
