@@ -10,7 +10,6 @@ import { Accordion } from "@/design-system/molecules/accordion";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Timeline } from "@/shared/features/contributors/timeline/timeline";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
@@ -86,7 +85,6 @@ function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string
           {
             id: "root",
             label: "Users",
-            href: NEXT_ROUTER.users.root,
           },
           {
             id: "slug",
