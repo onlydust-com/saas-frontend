@@ -1,6 +1,5 @@
 import { enDataTranslation } from "@/app/(saas)/data/_translations/data.translate";
 import { enEcosystemsTranslation } from "@/app/(saas)/ecosystems/_translations/ecosystems.translate";
-import { enExploreTranslation } from "@/app/(saas)/explore/_translations/explore.translate";
 import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
 import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
@@ -28,7 +27,6 @@ import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/_tr
 import { enModalsTranslation } from "@/shared/modals/_translations/modals.translate";
 import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
 import common from "@/shared/translation/translations/common/common.en.json";
-import enProjectTagsTranslation from "@/shared/translation/translations/projects/project-tags.en.json";
 import stories from "@/shared/translation/translations/stories/stories.en.json";
 
 export const en = {
@@ -47,7 +45,6 @@ export const en = {
   ...enUsersTranslation,
   ...enManageProjectsTranslation,
   ...enMyDashboardTranslation,
-  ...enExploreTranslation,
   ...enDateRangePickerTranslation,
   ...enCardTranslations,
   ds: {
@@ -65,7 +62,4 @@ export const en = {
   ...enSplashTranslation,
   ...enModalsTranslation,
   ...enMutationTranslations,
-  projects: {
-    ...enProjectTagsTranslation,
-  },
 };

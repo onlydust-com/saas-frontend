@@ -1,11 +1,10 @@
 "use client";
 
-import { FolderOpen } from "lucide-react";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -41,10 +40,12 @@ function ProjectContributorsPage({ params }: { params: { projectSlug: string } }
         breadcrumb={[
           {
             id: "root",
+            label: "Projects",
+            href: NEXT_ROUTER.projects.root,
+          },
+          {
+            id: "name",
             label: data?.name,
-            iconProps: {
-              component: FolderOpen,
-            },
           },
           {
             id: "contributors",

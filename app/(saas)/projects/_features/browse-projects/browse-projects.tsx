@@ -1,12 +1,11 @@
 "use client";
 
-import { ReactNode, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
-import { Section } from "@/app/(saas)/explore/_components/section/section";
 import {
   BrowseProjectsContextProvider,
   useBrowseProjectsContext,
-} from "@/app/(saas)/explore/_features/browse-projects-filters/browse-projects-filters.context";
+} from "@/app/(saas)/projects/_features/browse-projects-filters/browse-projects-filters.context";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -16,24 +15,26 @@ import {
 } from "@/design-system/molecules/cards/card-project-marketplace";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { PROJECT_TAG, PROJECT_TAG_METADATA } from "@/shared/constants/project-tags";
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { NEXT_ROUTER } from "@/shared/constants/router";
+import { TypographyH2, TypographyMuted } from "@/shared/ui/typography";
 
 import { BrowseProjectsFilters } from "../browse-projects-filters/browse-projects-filters";
 
 const ALL_TAB = {
   id: "ALL",
-  children: <Translate token={"common:all"} />,
+  children: "All",
 } as const;
 
-const TABS: { id: PROJECT_TAG | "ALL"; children: ReactNode }[] = [
+const TABS: { id: PROJECT_TAG | "ALL"; children: string }[] = [
   ALL_TAB,
   ...Object.values(PROJECT_TAG).map(tag => ({
     id: tag,
-    children: <Translate token={PROJECT_TAG_METADATA[tag].label} />,
+    children: PROJECT_TAG_METADATA[tag].label,
   })),
 ];
 
@@ -72,6 +73,10 @@ function Safe() {
     return projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
+        as={BaseLink}
+        htmlProps={{
+          href: NEXT_ROUTER.projects.details.root(project.slug),
+        }}
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}
@@ -90,18 +95,19 @@ function Safe() {
   }, [projects, isError, isLoading]);
 
   return (
-    <Section
-      title={{
-        translate: { token: "explore:browse.title" },
-      }}
-      count={count}
-      description={{
-        translate: { token: "explore:browse.description" },
-      }}
-      classNames={{
-        base: "gap-3xl",
-      }}
-    >
+    <section className={"flex flex-col gap-3xl"}>
+      <header className="flex flex-col gap-md">
+        <div className="flex gap-2">
+          <TypographyH2>Browse Projects</TypographyH2>
+          <TypographyH2 className="text-muted-foreground">({count})</TypographyH2>
+        </div>
+
+        <TypographyMuted>
+          Discover innovative ideas, creative solutions, and detailed work that showcases unique expertise and impactful
+          results.
+        </TypographyMuted>
+      </header>
+
       <div className="flex flex-col gap-3xl">
         <header className="flex flex-row items-start justify-between gap-xl">
           <Tabs
@@ -119,7 +125,7 @@ function Safe() {
           <BrowseProjectsFilters />
         </header>
 
-        <div className="grid gap-xl mobile:grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-4">
+        <div className="grid gap-4 mobile:grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-4">
           {renderProjects()}
           {hasNextPage ? (
             <div className="col-span-full">
@@ -128,7 +134,7 @@ function Safe() {
           ) : null}
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
 

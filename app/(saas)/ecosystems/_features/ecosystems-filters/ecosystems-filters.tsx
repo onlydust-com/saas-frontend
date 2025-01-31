@@ -48,15 +48,12 @@ export function EcosystemsFilters() {
         {() => (
           <div className="flex min-w-[250px] max-w-[360px] flex-col gap-lg">
             <div className="flex items-center justify-between gap-md">
-              <Typo translate={{ token: "explore:browse.filters.title" }} />
+              <Typo>Filters</Typo>
 
               {!isCleared ? (
-                <Button
-                  onClick={clear}
-                  size="sm"
-                  variant="secondary"
-                  translate={{ token: "explore:browse.filters.clear" }}
-                />
+                <Button onClick={clear} size="sm" variant="secondary">
+                  Clear
+                </Button>
               ) : null}
             </div>
 
@@ -69,7 +66,9 @@ export function EcosystemsFilters() {
 
             {categories.length ? (
               <div className="flex flex-col gap-lg">
-                <Typo size="xs" color="secondary" translate={{ token: "explore:browse.filters.categories" }} />
+                <Typo size="xs" color="secondary">
+                  Categories
+                </Typo>
 
                 <div className="flex flex-wrap gap-xs">
                   {categories.map(category => (
