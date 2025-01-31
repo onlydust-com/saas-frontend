@@ -113,7 +113,7 @@ export default function HackathonsLayout({
                       <RegisterHackathon hackathonSlug={params.hackathonSlug} />
                     </IsAuthenticated.Yes>
                     <IsAuthenticated.No>
-                      <SignInButton />
+                      <SignInButton>Registered</SignInButton>
                     </IsAuthenticated.No>
                   </IsAuthenticated>
                 </div>
