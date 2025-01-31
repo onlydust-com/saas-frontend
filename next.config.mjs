@@ -59,6 +59,22 @@ const nextConfig = {
         destination: "/users/:userSlug/overview",
         permanent: true,
       },
+      // OLD MARKETPLACE
+      {
+        source: "/p/:projectSlug",
+        destination: "/projects/:projectSlug",
+        permanent: true,
+      },
+      {
+        source: "/p/:projectSlug",
+        destination: "/projects/:projectSlug",
+        permanent: true,
+      },
+      {
+        source: "/u/:userSlug",
+        destination: "/users/:userSlug",
+        permanent: true,
+      },
     ];
   },
 };
