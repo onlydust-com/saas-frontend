@@ -7,7 +7,7 @@ import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
 import { IssueButtonProps } from "./issue-button.types";
 
-export function IssueButton({ issueCount, totalIssueCount, issueCountType, slug }: IssueButtonProps) {
+export function IssueButton({ issueCount, totalIssueCount, issueCountType }: IssueButtonProps) {
   const issueTypeLabel = useMemo(() => {
     if (issueCountType === "AVAILABLE_ISSUE") {
       return "common:count.openIssues";

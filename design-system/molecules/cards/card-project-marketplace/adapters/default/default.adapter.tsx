@@ -123,7 +123,6 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           issueCount={count!}
           totalIssueCount={totalCount}
           issueCountType={type as IssueCountType}
-          slug={slug}
         />
       ));
 
