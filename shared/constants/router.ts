@@ -169,10 +169,18 @@ export const NEXT_ROUTER = {
     },
     billingProfiles: {
       root: "/settings/billing-profiles",
-      generalInformation: (slug: string) => `/settings/billing-profiles/${slug}/general-information`,
-      paymentMethods: (slug: string) => `/settings/billing-profiles/${slug}/payment-methods`,
-      coworkers: (slug: string) => `/settings/billing-profiles/${slug}/coworkers`,
-      invoices: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
+      generalInformation: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/general-information`,
+      },
+      paymentMethods: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/payment-methods`,
+      },
+      coworkers: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/coworkers`,
+      },
+      invoices: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
+      },
     },
     termsAndConditions: {
       root: "/settings/terms-and-conditions",
