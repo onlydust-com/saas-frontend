@@ -7,6 +7,8 @@ import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
 export function RecentActivity() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
     queryParams: { pageSize: 5 },
@@ -35,7 +37,7 @@ export function RecentActivity() {
   if (isError) return null;
 
   return (
-    <Section title="Recent activity">
+    <Section title="Recent activity" seeMore={NEXT_ROUTER.projects.root}>
       <div className="flex flex-col gap-6">{renderProjects()}</div>
     </Section>
   );
