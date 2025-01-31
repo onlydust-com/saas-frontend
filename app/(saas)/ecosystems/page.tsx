@@ -45,4 +45,4 @@ function EcosystemsPage() {
   );
 }
 
-export default withClientOnly(withAuthenticated(EcosystemsPage));
+export default withClientOnly(EcosystemsPage);

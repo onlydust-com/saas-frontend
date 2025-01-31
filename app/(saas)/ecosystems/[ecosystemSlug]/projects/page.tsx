@@ -144,4 +144,4 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
   );
 }
 
-export default withClientOnly(withAuthenticated(EcosystemProjectsPage));
+export default withClientOnly(EcosystemProjectsPage);

@@ -13,6 +13,7 @@ import { GithubPermissionsProvider } from "@/shared/features/github-permissions/
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
+import { useAuthContext } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectOverviewSummary } from "./_features/project-details/project-overview-summary/project-overview-summary";
@@ -30,7 +31,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
   const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.details.issues.root(params.projectSlug));
   const isContributors = useMatchPath(NEXT_ROUTER.projects.details.contributors.root(params.projectSlug));
   const isRewards = useMatchPath(NEXT_ROUTER.projects.details.rewards.root(params.projectSlug));
-
+  const { isAuthenticated } = useAuthContext();
   const selectedId = useMemo(() => {
     if (isOverview) {
       return Views.OVERVIEW;
@@ -64,6 +65,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           id: Views.OPEN_ISSUES,
           children: <Translate token={"project:details.tabs.openIssues"} />,
           as: BaseLink,
+          isLocked: !isAuthenticated,
           htmlProps: {
             href: NEXT_ROUTER.projects.details.issues.root(params.projectSlug),
           },
@@ -80,6 +82,7 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
           id: Views.REWARDS,
           children: <Translate token={"project:details.tabs.rewards"} />,
           as: BaseLink,
+          isLocked: !isAuthenticated,
           htmlProps: {
             href: NEXT_ROUTER.projects.details.rewards.root(params.projectSlug),
           },

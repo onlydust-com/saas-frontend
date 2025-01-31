@@ -45,4 +45,4 @@ function HackathonCommunityPage({ params: { hackathonSlug } }: { params: { hacka
   );
 }
 
-export default withClientOnly(withAuthenticated(HackathonCommunityPage));
+export default withClientOnly(HackathonCommunityPage);

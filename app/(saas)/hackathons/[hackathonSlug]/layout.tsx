@@ -6,6 +6,7 @@ import { HackathonEvents } from "@/app/(saas)/hackathons/[hackathonSlug]/_featur
 import { HackathonSummary } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
 import { RegisterHackathon } from "@/app/(saas)/hackathons/_features/register-hackathon/register-hackathon";
 
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
@@ -15,6 +16,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { IsAuthenticated, SignInButton, useAuthContext } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum Views {
@@ -106,7 +108,14 @@ export default function HackathonsLayout({
                 <Navigation params={params} />
 
                 <div className={"w-full p-xl tablet:w-auto"}>
-                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                  <IsAuthenticated>
+                    <IsAuthenticated.Yes>
+                      <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                    </IsAuthenticated.Yes>
+                    <IsAuthenticated.No>
+                      <SignInButton>Registered</SignInButton>
+                    </IsAuthenticated.No>
+                  </IsAuthenticated>
                 </div>
               </div>
               {children}

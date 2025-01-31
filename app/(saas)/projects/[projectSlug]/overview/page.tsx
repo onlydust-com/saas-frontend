@@ -67,4 +67,4 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticated(ProjectOverviewPage));
+export default withClientOnly(ProjectOverviewPage);
