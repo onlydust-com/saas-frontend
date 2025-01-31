@@ -43,7 +43,7 @@ function UserProjectsPage({ params }: { params: { userSlug: string } }) {
     ContributorReactQueryAdapter.client.useGetContributorProjects({
       queryParams,
       pathParams: {
-        contributorId: Number(params.userSlug),
+        contributorIdOrLogin: params.userSlug,
       },
       options: {
         enabled: Boolean(params.userSlug),
