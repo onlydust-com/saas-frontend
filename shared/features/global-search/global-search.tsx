@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { SearchRessourceType } from "@/core/domain/search/models/search.types";
+
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Input } from "@/design-system/atoms/input";
 
@@ -14,6 +16,7 @@ import { GlobalSearchProvider, useGlobalSearch } from "@/shared/features/global-
 
 import { Header } from "./_components/header/header";
 import { ModalPortal } from "./_components/modal-container/modal-container";
+import { SearchResultGroup } from "./_components/search-result-group/search-result-group";
 import { Filters } from "./_features/filters/filters";
 import { Result } from "./_features/result/result";
 
@@ -75,10 +78,17 @@ export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
                       <EmptyStateLite />
                     </Command.Empty>
                     <Command.List className="flex w-full flex-col gap-3 outline-none">
-                      {results.map((r, i) => (
-                        <Result data={r} key={i} />
-                      ))}
-                      {hasNextPage && results.length > 0 ? (
+                      {results.PROJECT?.length ? (
+                        <SearchResultGroup type={SearchRessourceType.PROJECT} border={false}>
+                          {results.PROJECT?.map((r, i) => <Result data={r} key={i} />)}
+                        </SearchResultGroup>
+                      ) : null}
+                      {results.CONTRIBUTOR?.length ? (
+                        <SearchResultGroup type={SearchRessourceType.CONTRIBUTOR}>
+                          {results.CONTRIBUTOR?.map((r, i) => <Result data={r} key={i} />)}
+                        </SearchResultGroup>
+                      ) : null}
+                      {hasNextPage && fetchNextPage ? (
                         <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
                       ) : null}
                     </Command.List>

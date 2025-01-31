@@ -12,12 +12,12 @@ import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { EcosystemFilter } from "@/shared/features/filters/ecosystem-filter/ecosystem-filter";
 import { LanguageFilter } from "@/shared/features/filters/language-filter/language-filter";
 
-import { useEcosystemsContext } from "./ecosystems-filters.context";
+import { useBrowseProjectsContext } from "./browse-projects-filters.context";
 
-export function EcosystemsFilters() {
+export function BrowseProjectsFilters() {
   const {
     filters: { values: filters, set, count, clear, isCleared },
-  } = useEcosystemsContext();
+  } = useBrowseProjectsContext();
 
   const { data } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
   const categories = useMemo(() => data?.categories ?? [], [data?.categories]);
