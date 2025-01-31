@@ -33,9 +33,9 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
     return SettingViews.PROFILE;
   }, [isProfile, isNotifications, isPayoutPreferences, isBillingProfiles, isTerms]);
 
-  const handleTabChange = (value: string) => {
+  function handleTabChange(value: string) {
     router.push(`/settings/${value}`);
-  };
+  }
 
   return (
     <PageWrapper containerSize="small">
