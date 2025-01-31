@@ -12,8 +12,6 @@ export function Trending() {
     queryParams: { pageSize: 5 },
   });
 
-  if (isError) return null;
-
   const renderProjects = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 5 }).map((_, index) => <ProjectCardSkeleton key={index} />);
@@ -33,6 +31,8 @@ export function Trending() {
       />
     ));
   }, [data, isLoading]);
+
+  if (isError) return null;
 
   return (
     <Section title="Trending">

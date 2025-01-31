@@ -12,8 +12,6 @@ export function RecentActivity() {
     queryParams: { pageSize: 5 },
   });
 
-  if (isError) return null;
-
   const renderProjects = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 5 }).map((_, index) => <ProjectCardSkeleton key={index} />);
@@ -33,6 +31,8 @@ export function RecentActivity() {
       />
     ));
   }, [data, isLoading]);
+
+  if (isError) return null;
 
   return (
     <Section title="Recent activity">

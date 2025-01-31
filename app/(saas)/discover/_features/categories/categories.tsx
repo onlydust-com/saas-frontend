@@ -12,8 +12,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 export function Categories() {
   const { data, isLoading, isError } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
 
-  if (isError) return null;
-
   const renderCategories = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 3 }).map((_, index) => (
@@ -35,6 +33,8 @@ export function Categories() {
       </CarouselItem>
     ));
   }, [data, isLoading]);
+
+  if (isError) return null;
 
   return (
     <Section title="Categories">

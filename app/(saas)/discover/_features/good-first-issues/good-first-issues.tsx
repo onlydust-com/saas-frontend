@@ -13,8 +13,6 @@ export function GoodFirstIssues() {
     queryParams: { pageSize: 6, tags: [ProjectTag.HAS_GOOD_FIRST_ISSUES] },
   });
 
-  if (isError) return null;
-
   const renderProjects = useCallback(() => {
     if (isLoading) {
       return Array.from({ length: 6 }).map((_, index) => <ProjectCardSkeleton key={index} />);
@@ -34,6 +32,8 @@ export function GoodFirstIssues() {
       />
     ));
   }, [data, isLoading]);
+
+  if (isError) return null;
 
   return (
     <Section title="Good first issues">
