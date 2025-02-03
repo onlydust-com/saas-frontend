@@ -9,11 +9,9 @@ import { RegisterHackathon } from "@/app/(saas)/hackathons/_features/register-ha
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -84,44 +82,41 @@ export default function HackathonsLayout({
   params: { hackathonSlug: string };
 }>) {
   return (
-    <PageWrapper containerSize="medium">
-      <ScrollView>
-        <AnimatedColumn className="h-full max-w-full">
-          <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">
-            <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-              <HackathonSummary hackathonSlug={params.hackathonSlug} />
-              <HackathonEvents hackathonSlug={params.hackathonSlug} />
-            </ScrollView>
+    <PageContainer size="medium">
+      <div className="flex flex-col items-start justify-start gap-3.5 py-3.5 laptop:h-full laptop:flex-row">
+        <div className="flex w-full flex-col gap-3.5 laptop:w-[440px] laptop:min-w-[440px]">
+          <HackathonSummary hackathonSlug={params.hackathonSlug} />
+          <HackathonEvents hackathonSlug={params.hackathonSlug} />
+        </div>
 
-            <Paper
-              background="primary"
-              border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
-              size="none"
-            >
-              <div
-                className={
-                  "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
-                }
-              >
-                <Navigation params={params} />
+        <Paper
+          background="primary"
+          border="primary"
+          classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
+          size="none"
+        >
+          <div
+            className={
+              "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
+            }
+          >
+            <Navigation params={params} />
 
-                <div className={"w-full p-xl tablet:w-auto"}>
-                  <IsAuthenticated>
-                    <IsAuthenticated.Yes>
-                      <RegisterHackathon hackathonSlug={params.hackathonSlug} />
-                    </IsAuthenticated.Yes>
-                    <IsAuthenticated.No>
-                      <SignInButton>Registered</SignInButton>
-                    </IsAuthenticated.No>
-                  </IsAuthenticated>
-                </div>
-              </div>
-              {children}
-            </Paper>
+            <div className={"w-full p-xl tablet:w-auto"}>
+              <IsAuthenticated>
+                <IsAuthenticated.Yes>
+                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                </IsAuthenticated.Yes>
+                <IsAuthenticated.No>
+                  <SignInButton>Registered</SignInButton>
+                </IsAuthenticated.No>
+              </IsAuthenticated>
+            </div>
           </div>
-        </AnimatedColumn>
-      </ScrollView>
-    </PageWrapper>
+
+          {children}
+        </Paper>
+      </div>
+    </PageContainer>
   );
 }
