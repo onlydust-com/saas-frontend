@@ -17,7 +17,7 @@ function HackathonsPage() {
     <PageContainer>
       <PosthogCaptureOnMount eventName={"hackathon_list_viewed"} />
 
-      <div className="pb-7xl">
+      <div className="flex flex-col gap-4xl py-10">
         <NavigationBreadcrumb
           breadcrumb={[
             {
@@ -27,15 +27,13 @@ function HackathonsPage() {
           ]}
         />
 
-        <div className="flex flex-col gap-4xl py-4xl">
-          <ListBanner
-            title={{ translate: { token: "hackathon:list.banner.title" } }}
-            subtitle={{ translate: { token: "hackathon:list.banner.subtitle" } }}
-            logo={<Image src={logo} alt="OnlyDust" width={64} height={64} className="size-16" />}
-          />
+        <ListBanner
+          title={{ translate: { token: "hackathon:list.banner.title" } }}
+          subtitle={{ translate: { token: "hackathon:list.banner.subtitle" } }}
+          logo={<Image src={logo} alt="OnlyDust" width={64} height={64} className="size-16" />}
+        />
 
-          <HackathonList />
-        </div>
+        <HackathonList />
       </div>
     </PageContainer>
   );
