@@ -24,7 +24,7 @@ export default function SaasLayout({
       <AppSidebar />
       <SidebarInset>
         <AppHeader />
-        {children}
+        <div className="mx-auto max-w-fit bg-red-500">{children}</div>
         <ImpersonationBanner />
       </SidebarInset>
     </SaasProviders>
