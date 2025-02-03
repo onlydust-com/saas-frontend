@@ -1,20 +1,17 @@
-import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { NotificationReactQueryAdapter } from "@/core/application/react-query-adapter/notification";
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
-import { CardNotification, CardNotificationLoading } from "@/design-system/molecules/cards/card-notification";
-
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { NotificationsContentProps } from "@/shared/features/notifications/_components/notifications-content/notifications-content.types";
+import { Button } from "@/shared/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
+import { ScrollArea } from "@/shared/ui/scroll-area";
+import { Skeleton } from "@/shared/ui/skeleton";
+import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
-export function NotificationsContent({ onClose }: NotificationsContentProps) {
+export function NotificationsContent({ onClose }: { onClose: () => void }) {
   const router = useRouter();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -53,10 +50,9 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
     if (isLoading) {
       return (
         <div className={"flex flex-col gap-lg"}>
-          <CardNotificationLoading />
-          <CardNotificationLoading />
-          <CardNotificationLoading />
-          <CardNotificationLoading />
+          <Skeleton className="h-16" />
+          <Skeleton className="h-16" />
+          <Skeleton className="h-16" />
         </div>
       );
     }
@@ -66,57 +62,50 @@ export function NotificationsContent({ onClose }: NotificationsContentProps) {
     }
 
     if (!notifications.length) {
-      return <EmptyStateLite message={"features:notifications.empty"} />;
+      return <TypographyMuted className="text-center">No notifications</TypographyMuted>;
     }
 
     return (
-      <ScrollView className={"flex flex-col gap-lg"}>
-        {notifications.map(notification =>
-          notification ? (
-            <CardNotification
-              key={notification.getId()}
-              titleProps={{
-                children: notification.getTitle(),
-              }}
-              descriptionProps={{
-                children: notification.getDescription(),
-              }}
-              hasRead={notification.hasRead()}
-              onClick={() => handleRead(notification.getId(), notification.getUrl())}
-            />
-          ) : null
-        )}
+      <ScrollArea>
+        <div className="flex flex-col gap-lg">
+          {notifications.map(notification =>
+            notification ? (
+              <Card
+                key={notification.getId()}
+                onClick={() => handleRead(notification.getId(), notification.getUrl())}
+                className="flex cursor-pointer items-center pl-4 transition-opacity hover:opacity-80"
+              >
+                {notification.hasRead() ? null : (
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-background-brand-primary opacity-75"></span>
+                    <span className="relative inline-flex size-2 rounded-full bg-background-brand-primary"></span>
+                  </span>
+                )}
 
-        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
-      </ScrollView>
+                <CardHeader className="p-4">
+                  <CardTitle>{notification.getTitle()}</CardTitle>
+                  <CardDescription>{notification.getDescription()}</CardDescription>
+                </CardHeader>
+              </Card>
+            ) : null
+          )}
+
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+        </div>
+      </ScrollArea>
     );
   }
 
   return (
     <div className={"flex h-full flex-col gap-3xl"}>
       <header className={"flex items-center justify-between"}>
-        <div className={"flex items-center gap-lg"}>
-          <Typo
-            variant={"heading"}
-            size={"xs"}
-            weight={"medium"}
-            translate={{ token: "features:notifications.title" }}
-          />
+        <TypographyH3>Notifications</TypographyH3>
 
-          {notifications.length ? (
-            <Button
-              variant={"secondary"}
-              size={"xs"}
-              translate={{
-                token: "features:notifications.markAllAsRead",
-              }}
-              onClick={handleReadAll}
-              isDisabled={readAllNotificationsIsPending}
-            />
-          ) : null}
-        </div>
-
-        <Button variant={"tertiary"} size={"sm"} iconOnly startIcon={{ component: X }} onClick={onClose} />
+        {notifications.length ? (
+          <Button variant={"outline"} onClick={handleReadAll} disabled={readAllNotificationsIsPending}>
+            Mark all as read
+          </Button>
+        ) : null}
       </header>
 
       {renderContent()}

@@ -1,7 +1,6 @@
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
-import { NotificationsModal } from "@/shared/features/notifications/notifications-modal";
 import { NotificationsPopover } from "@/shared/features/notifications/notifications-popover";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
@@ -45,7 +44,7 @@ export function AppHeader() {
           <IsAuthenticated.Yes>
             <GlobalSearch isMobile={isTablet} />
 
-            {isTablet ? <NotificationsModal /> : <NotificationsPopover />}
+            <NotificationsPopover />
 
             <AppUserMenu />
           </IsAuthenticated.Yes>

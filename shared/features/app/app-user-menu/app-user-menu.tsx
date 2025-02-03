@@ -23,9 +23,9 @@ export function AppUserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="size-9 rounded-lg">
+        <Avatar className="size-9 rounded-md">
           <AvatarImage src={user.avatarUrl} alt={user.login} />
-          <AvatarFallback className="size-9 rounded-lg">{user.login.slice(0, 2)}</AvatarFallback>
+          <AvatarFallback className="size-9 rounded-md">{user.login.slice(0, 2)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
