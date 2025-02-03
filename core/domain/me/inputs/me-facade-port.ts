@@ -11,6 +11,8 @@ import {
   GetMyProjectsAsContributorPortResponse,
   GetMyProjectsAsMaintainerPortParams,
   GetMyProjectsAsMaintainerPortResponse,
+  GetUpdateGithubProfilePortParams,
+  GetUpdateGithubProfilePortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
   PostMyApplicationPortParams,
@@ -43,4 +45,5 @@ export interface MeFacadePort {
   postMyApplication(p: PostMyApplicationPortParams): PostMyApplicationPortResponse;
   getMyHackathonRegistration(params: GetMyHackathonRegistrationPortParams): GetMyHackathonRegistrationPortResponse;
   registerToHackathon(params: RegisterToHackathonPortParams): RegisterToHackathonPortResponse;
+  getUpdateGithubProfile(params: GetUpdateGithubProfilePortParams): GetUpdateGithubProfilePortResponse;
 }

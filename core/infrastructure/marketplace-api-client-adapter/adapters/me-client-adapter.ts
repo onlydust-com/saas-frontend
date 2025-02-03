@@ -7,6 +7,7 @@ import {
   GetMyProfileResponse,
   GetMyProjectsAsContributorResponse,
   GetMyProjectsAsMaintainerResponse,
+  GetUpdateGithubProfileResponse,
   LogoutMeResponse,
   PostMyApplicationBody,
   ReplaceMyProfileBody,
@@ -42,6 +43,7 @@ export class MeClientAdapter implements MeStoragePort {
     postMyApplication: "me/applications",
     getMyHackathonRegistration: "me/hackathons/:hackathonId/registrations",
     registerToHackathon: "me/hackathons/:hackathonId/registrations",
+    getUpdateGithubProfile: "me/profile/github",
   } as const;
 
   logoutMe = () => {
@@ -314,6 +316,24 @@ export class MeClientAdapter implements MeStoragePort {
         method,
         tag,
         pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUpdateGithubProfile = () => {
+    const path = this.routes["getUpdateGithubProfile"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = () =>
+      this.client.request<GetUpdateGithubProfileResponse>({
+        path,
+        method,
+        tag,
       });
 
     return {

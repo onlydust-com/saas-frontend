@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 const SETTING_ROUTES = [
@@ -21,7 +22,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 
   return (
     <PageWrapper containerSize="small">
-      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="w-full">
+      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="flex w-full flex-col gap-4">
         <TabsList className="w-full grid-cols-4">
           {SETTING_ROUTES.map(({ href, label }) => (
             <TabsTrigger key={href} value={href}>
@@ -29,7 +30,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
             </TabsTrigger>
           ))}
         </TabsList>
-        {children}
+        <Card className="overflow-hidden">{children}</Card>
       </Tabs>
     </PageWrapper>
   );

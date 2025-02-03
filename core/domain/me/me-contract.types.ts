@@ -149,3 +149,11 @@ export type RegisterToHackathonPortParams = HttpClientParameters<{
 }>;
 
 export type RegisterToHackathonPortResponse = HttpStorageResponse<never>;
+
+/* --------------------------------- Get update github profile -------------------------------- */
+
+export type GetUpdateGithubProfileResponse = never;
+
+export type GetUpdateGithubProfilePortParams = HttpClientParameters<object>;
+
+export type GetUpdateGithubProfilePortResponse = HttpStorageResponse<never>;
