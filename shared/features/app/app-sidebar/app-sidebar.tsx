@@ -8,7 +8,7 @@ import { ExploreGroup } from "@/shared/features/app/app-sidebar/groups/explore-g
 import { MaintainerGroup } from "@/shared/features/app/app-sidebar/groups/maintainer-group";
 import { ProgramGroup } from "@/shared/features/app/app-sidebar/groups/program-group";
 import { SponsorGroup } from "@/shared/features/app/app-sidebar/groups/sponsor-group";
-import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from "@/shared/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail, useSidebar } from "@/shared/ui/sidebar";
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -38,6 +38,8 @@ export function AppSidebar() {
 
         <SponsorGroup />
       </SidebarContent>
+
+      <SidebarRail />
     </Sidebar>
   );
 }

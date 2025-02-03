@@ -5,12 +5,10 @@ import { ReactNode, useMemo } from "react";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { useAuthContext } from "@/shared/providers/auth-provider";
@@ -96,32 +94,28 @@ function Navigation({ params }: { params: { projectSlug: string } }) {
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
-      <PageWrapper containerSize="medium">
-        <ScrollView>
-          <AnimatedColumn className="h-full max-w-full">
-            <div className="flex flex-col items-start justify-start gap-md laptop:h-full laptop:flex-row laptop:gap-lg">
-              <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-                <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
-                <SimilarProjects projectIdOrSlug={params.projectSlug} />
-              </ScrollView>
+      <PageContainer size="medium" className="flex-1">
+        <div className="flex flex-col items-start justify-start gap-4 py-4 laptop:h-full laptop:flex-row">
+          <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-20 laptop:w-[440px] laptop:min-w-[440px]">
+            <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
+            <SimilarProjects projectIdOrSlug={params.projectSlug} />
+          </div>
 
-              <Paper
-                background="primary"
-                border="primary"
-                classNames={{ base: "w-full overflow-hidden h-full flex flex-col" }}
-                px="none"
-              >
-                <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-                  <Navigation params={params} />
-                </div>
-                {children}
-              </Paper>
+          <Paper
+            background="primary"
+            border="primary"
+            classNames={{ base: "w-full overflow-hidden tablet:h-full flex flex-col" }}
+            px="none"
+          >
+            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+              <Navigation params={params} />
             </div>
-          </AnimatedColumn>
+            {children}
+          </Paper>
+        </div>
 
-          <ApplyIssueSidepanel />
-        </ScrollView>
-      </PageWrapper>
+        <ApplyIssueSidepanel />
+      </PageContainer>
     </GithubPermissionsProvider>
   );
 }
