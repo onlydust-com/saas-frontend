@@ -88,7 +88,7 @@ export default function ProjectList({ categoryId }: { categoryId: string }) {
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
         </nav>
 
-        <div className="relative grid grid-cols-1 gap-4xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-4 overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
           {renderProjects}
 
           {hasNextPage ? (
