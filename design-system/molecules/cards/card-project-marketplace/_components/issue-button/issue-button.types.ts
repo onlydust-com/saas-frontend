@@ -4,5 +4,4 @@ export interface IssueButtonProps {
   issueCount: number;
   totalIssueCount?: number;
   issueCountType: IssueCountType;
-  slug: string;
 }

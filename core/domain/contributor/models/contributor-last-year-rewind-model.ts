@@ -16,8 +16,6 @@ export class ContributorLastYearRewind implements ContributorLastYearRewindInter
   issueCount!: ContributorLastYearRewindResponse["issueCount"];
   leaderboard!: ContributorLastYearRewindResponse["leaderboard"];
   codeReviewCount!: ContributorLastYearRewindResponse["codeReviewCount"];
-  lineAdded!: ContributorLastYearRewindResponse["lineAdded"];
-  lineDeleted!: ContributorLastYearRewindResponse["lineDeleted"];
   longestStreak!: ContributorLastYearRewindResponse["longestStreak"];
   weekendIntensity!: ContributorLastYearRewindResponse["weekendIntensity"];
   dailyIntensity!: ContributorLastYearRewindResponse["dailyIntensity"];

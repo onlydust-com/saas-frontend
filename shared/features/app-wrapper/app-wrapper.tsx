@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { handleLoginWithRedirect } from "@/core/application/auth0-client-adapter/helpers";
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
@@ -31,13 +28,7 @@ function ImpersonationBanner() {
 }
 
 export function AppWrapper({ children }: AppWrapperProps) {
-  const { isAuthenticated, isLoading, loginWithRedirect, error } = useClientBootstrapAuth();
-
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading && loginWithRedirect && !error) {
-      handleLoginWithRedirect(loginWithRedirect);
-    }
-  }, [isAuthenticated, isLoading, loginWithRedirect, error]);
+  const { isLoading } = useClientBootstrapAuth();
 
   function renderApp() {
     if (!isLoading) {

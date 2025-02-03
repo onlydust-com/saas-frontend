@@ -17,7 +17,7 @@ export function Activity({ user }: ActivityProps) {
     dataSource: DateSourceSelect.ALL,
   });
   const { data, isLoading } = BiReactQueryAdapter.client.useGetBiContributorActivityById({
-    pathParams: { contributorId: user.contributor.githubUserId },
+    pathParams: { contributorIdOrLogin: String(user.contributor.githubUserId) },
     queryParams: {
       ...filters,
     },

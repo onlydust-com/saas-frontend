@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
@@ -7,7 +8,6 @@ import { ContributionAs } from "@/core/domain/contribution/models/contribution.t
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";

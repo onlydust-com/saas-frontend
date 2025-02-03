@@ -1,16 +1,15 @@
+import { enDataTranslation } from "@/app/(saas)/data/_translations/data.translate";
+import { enEcosystemsTranslation } from "@/app/(saas)/ecosystems/_translations/ecosystems.translate";
+import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
+import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
+import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
+import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
+import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/programs.translate";
+import { enProjectRecommendationTranslation } from "@/app/(saas)/project-recommendation/_translations/project-recommendation.translate";
+import { enProjectsTranslation } from "@/app/(saas)/projects/_translations/projects.translate";
+import { enRepositoriesTranslation } from "@/app/(saas)/repositories/_translations/repositories.translate";
+import { enUsersTranslation } from "@/app/(saas)/users/_translations/users.translate";
 import { enSplashTranslation } from "@/app/(splash)/_translations/splash.translate";
-import { enDataTranslation } from "@/app/data/_translations/data.translate";
-import { enEcosystemsTranslation } from "@/app/ecosystems/_translations/ecosystems.translate";
-import { enExploreTranslation } from "@/app/explore/_translations/explore.translate";
-import { enFinancialsTranslation } from "@/app/financials/_translations/financials.translate";
-import { enHackathonsTranslation } from "@/app/hackathons/_translations/hackathons.translate";
-import { enManageProjectsTranslation } from "@/app/manage-projects/_translations/manage-projects.translate";
-import { enMyDashboardTranslation } from "@/app/my-dashboard/_translations/my-dashboard.translate";
-import { enProgramsTranslation } from "@/app/programs/_translations/programs.translate";
-import { enProjectRecommendationTranslation } from "@/app/project-recommendation/_translations/project-recommendation.translate";
-import { enProjectsTranslation } from "@/app/projects/_translations/projects.translate";
-import { enRepositoriesTranslation } from "@/app/repositories/_translations/repositories.translate";
-import { enUsersTranslation } from "@/app/users/_translations/users.translate";
 
 import { enDateRangePickerTranslation } from "@/design-system/atoms/date-range-picker/translations/date-range-picker.translate";
 import { enCardTranslations } from "@/design-system/molecules/cards/_translations/cards.translate";
@@ -28,15 +27,10 @@ import { enPrimaryNavigationTranslation } from "@/shared/features/navigation/_tr
 import { enModalsTranslation } from "@/shared/modals/_translations/modals.translate";
 import { enPanelsTranslation } from "@/shared/panels/_translations/panels.translate";
 import common from "@/shared/translation/translations/common/common.en.json";
-import error from "@/shared/translation/translations/error/error.en.json";
-import notFound from "@/shared/translation/translations/not-found/not-found.en.json";
-import enProjectTagsTranslation from "@/shared/translation/translations/projects/project-tags.en.json";
 import stories from "@/shared/translation/translations/stories/stories.en.json";
 
 export const en = {
   common,
-  notFound,
-  error,
   stories,
   ...enPrimaryNavigationTranslation,
   ...enFeedbackDrawerTranslate,
@@ -51,7 +45,6 @@ export const en = {
   ...enUsersTranslation,
   ...enManageProjectsTranslation,
   ...enMyDashboardTranslation,
-  ...enExploreTranslation,
   ...enDateRangePickerTranslation,
   ...enCardTranslations,
   ds: {
@@ -69,7 +62,4 @@ export const en = {
   ...enSplashTranslation,
   ...enModalsTranslation,
   ...enMutationTranslations,
-  projects: {
-    ...enProjectTagsTranslation,
-  },
 };

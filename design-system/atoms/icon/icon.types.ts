@@ -6,7 +6,7 @@ interface ClassNames {
   base: string;
 }
 
-export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg";
+export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg" | "banner";
 
 export type IconColor = "green" | "red" | "purple" | "blue" | "quaternary" | "yellow" | "pink";
 

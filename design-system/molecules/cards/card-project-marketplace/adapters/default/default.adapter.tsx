@@ -1,13 +1,14 @@
 "use client";
 
-import { Coins, GitFork, HandCoins, Star, UserRound } from "lucide-react";
+import { CircleDollarSign, Coins, GitFork, GitMerge, HandCoins, Star, UserRound } from "lucide-react";
 import { ElementType, useCallback, useMemo, useRef } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
 import { ProjectTag } from "@/core/domain/project/project.types";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Badge } from "@/design-system/atoms/badge";
-import { Icon } from "@/design-system/atoms/icon";
+import { Icon, IconPort } from "@/design-system/atoms/icon";
 import { Paper } from "@/design-system/atoms/paper";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Typo } from "@/design-system/atoms/typo";
@@ -99,7 +100,9 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
   ecosystems,
   tags,
   odHackStats,
+  contributorsStats,
 }: CardProjectMarketplacePort<C>) {
+  const moneyKernelPort = bootstrap.getMoneyKernelPort();
   const slots = CardProjectMarketplaceDefaultVariants();
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -120,7 +123,6 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
           issueCount={count!}
           totalIssueCount={totalCount}
           issueCountType={type as IssueCountType}
-          slug={slug}
         />
       ));
 
@@ -185,6 +187,65 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
     );
   }, [hasRetroactiveGrant]);
 
+  const renderContributorsStats = useCallback(() => {
+    if (!contributorsStats) return null;
+
+    const { amount } = moneyKernelPort.format({
+      amount: contributorsStats.totalRewardedUsdAmount ?? 0,
+      currency: moneyKernelPort.getCurrency("USD"),
+      options: {
+        notation: "compact",
+        compactDisplay: "short",
+        maximumSignificantDigits: 2,
+      },
+    });
+
+    const stats: { label: string; value: number | string; icon: IconPort }[] = [
+      {
+        label: "Rewards",
+        value: amount,
+        icon: { component: CircleDollarSign, color: "yellow" },
+      },
+      {
+        label: "Merged PRs",
+        value: contributorsStats.mergedPrCount ?? 0,
+        icon: { component: GitMerge, color: "purple" },
+      },
+    ];
+
+    return (
+      <div className="flex gap-sm">
+        {stats.map(({ label, value, icon }) => (
+          <Paper
+            key={label}
+            classNames={{
+              base: "flex flex-col gap-0 w-full",
+            }}
+            background="glass"
+            border="primary"
+            size="md"
+          >
+            <Typo
+              size="xs"
+              color="tertiary"
+              classNames={{
+                base: "line-clamp-1 w-full",
+              }}
+            >
+              {label}
+            </Typo>
+            <div className="flex items-center gap-md">
+              <Icon {...icon} size="lg" classNames={{ base: "text-utility-secondary-green-500" }} />
+              <Typo size="xs" color="primary" variant="heading">
+                {value}
+              </Typo>
+            </div>
+          </Paper>
+        ))}
+      </div>
+    );
+  }, [contributorsStats]);
+
   return (
     <Paper
       as={as}
@@ -220,6 +281,8 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
             </div>
 
             {issueButtons.length ? <div className="flex gap-sm">{issueButtons.map(button => button)}</div> : null}
+
+            {renderContributorsStats()}
 
             {description ? (
               <div>

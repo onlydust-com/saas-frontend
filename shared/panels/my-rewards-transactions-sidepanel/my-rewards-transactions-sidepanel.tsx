@@ -1,11 +1,11 @@
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 import { RewardReactQueryAdapter } from "@/core/application/react-query-adapter/reward";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { DateRangePickerValue } from "@/design-system/atoms/date-range-picker";
-import { toast } from "@/design-system/molecules/toaster";
 
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -18,6 +18,7 @@ import {
 } from "@/shared/features/transactions/transactions-filters/transactions-filters.types";
 import { ExportCsvSidepanel } from "@/shared/panels/export-csv-sidepanel/export-csv-sidepanel";
 import { useExportCsvSidepanel } from "@/shared/panels/export-csv-sidepanel/export-csv-sidepanel.hooks";
+import { AccordionTransactions } from "@/shared/panels/my-rewards-transactions-sidepanel/_components/accordion-transactions/accordion-transactions";
 import {
   MyRewardsTransactionsContextProvider,
   useMyRewardsTransactionsContext,
@@ -25,7 +26,6 @@ import {
 import { useMyRewardsTransactionsSidepanel } from "@/shared/panels/my-rewards-transactions-sidepanel/my-rewards-transactions-sidepanel.hooks";
 import { MyRewardsTransactionsContextFilterTypes } from "@/shared/panels/my-rewards-transactions-sidepanel/my-rewards-transactions-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
-import { AccordionTransactions } from "@/shared/panels/my-rewards-transactions-sidepanel/_components/accordion-transactions/accordion-transactions";
 
 function Safe() {
   const { name } = useMyRewardsTransactionsSidepanel();

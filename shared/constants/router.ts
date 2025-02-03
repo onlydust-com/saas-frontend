@@ -144,6 +144,48 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  categories: {
+    root: "/categories",
+    details: {
+      root: (categorySlug: string) => `/categories/${categorySlug}`,
+    },
+  },
+  signup: {
+    root: "/signup",
+    termsAndConditions: {
+      root: "/signup/terms-and-conditions",
+    },
+  },
+  settings: {
+    root: "/settings",
+    profile: {
+      root: "/settings/profile",
+    },
+    notifications: {
+      root: "/settings/notifications",
+    },
+    payoutPreferences: {
+      root: "/settings/payout-preferences",
+    },
+    billingProfiles: {
+      root: "/settings/billing-profiles",
+      generalInformation: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/general-information`,
+      },
+      paymentMethods: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/payment-methods`,
+      },
+      coworkers: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/coworkers`,
+      },
+      invoices: {
+        root: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
+      },
+    },
+    termsAndConditions: {
+      root: "/settings/terms-and-conditions",
+    },
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {

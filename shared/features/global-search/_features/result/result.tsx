@@ -3,11 +3,13 @@ import { GitFork, Star, User } from "lucide-react";
 
 import { SearchRessourceType } from "@/core/domain/search/models/search.types";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
 import { ResultTemplate } from "./_components/result-template/result-template";
 import { ResultProps } from "./result.types";
 
 export function Result({ data }: ResultProps) {
-  if (data.isProject()) {
+  if (data.isProject() && data.project?.slug) {
     const tags = [
       ...(data?.project?.languages ?? []),
       ...(data?.project?.categories ?? []),
@@ -17,6 +19,7 @@ export function Result({ data }: ResultProps) {
     return (
       <Command.Item value={data.project?.name} className="group/item">
         <ResultTemplate
+          href={NEXT_ROUTER.projects.details.root(data.project?.slug)}
           name={data.project?.name}
           description={data.project?.shortDescription}
           type={SearchRessourceType.PROJECT}
@@ -37,10 +40,11 @@ export function Result({ data }: ResultProps) {
     );
   }
 
-  if (data.isContributor()) {
+  if (data.isContributor() && data.contributor?.githubLogin) {
     return (
       <Command.Item value={data.contributor?.githubLogin} className="group/item">
         <ResultTemplate
+          href={NEXT_ROUTER.users.details.root(data.contributor?.githubLogin)}
           name={data.contributor?.githubLogin}
           description={data.contributor?.bio}
           type={SearchRessourceType.CONTRIBUTOR}

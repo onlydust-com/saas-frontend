@@ -1,1 +1,5 @@
-export * from "./client";
+import * as client from "./client";
+
+export const ContributorReactQueryAdapter = {
+  client,
+};

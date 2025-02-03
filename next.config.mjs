@@ -5,6 +5,12 @@ const nextConfig = {
   transpilePackages: ["lucide-react"],
   async redirects() {
     return [
+      // HOME
+      {
+        source: "/",
+        destination: "/my-dashboard",
+        permanent: true,
+      },
       // DATA
       {
         source: "/data",
@@ -45,6 +51,23 @@ const nextConfig = {
       {
         source: "/ecosystems/:ecosystemSlug",
         destination: "/ecosystems/:ecosystemSlug/overview",
+        permanent: true,
+      },
+      // USERS
+      {
+        source: "/users/:userSlug",
+        destination: "/users/:userSlug/overview",
+        permanent: true,
+      },
+      // OLD MARKETPLACE
+      {
+        source: "/p/:projectSlug",
+        destination: "/projects/:projectSlug",
+        permanent: true,
+      },
+      {
+        source: "/u/:userSlug",
+        destination: "/users/:userSlug",
         permanent: true,
       },
     ];

@@ -37,6 +37,10 @@ export interface CardProjectMarketplacePort<C extends ElementType> {
     issueCount?: number;
     availableIssueCount?: number;
   };
+  contributorsStats?: {
+    totalRewardedUsdAmount?: number;
+    mergedPrCount?: number;
+  };
 }
 
 export interface AvatarWithEcosystemsProps {
