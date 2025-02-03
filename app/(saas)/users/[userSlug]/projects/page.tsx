@@ -20,7 +20,6 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { FilterData } from "./_components/filter-data/filter-data";
@@ -142,4 +141,4 @@ function UserProjectsPage({ params }: { params: { userSlug: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticated(UserProjectsPage));
+export default withClientOnly(UserProjectsPage);

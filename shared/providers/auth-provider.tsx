@@ -2,10 +2,12 @@
 
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { PropsWithChildren, createContext, useContext, useEffect } from "react";
+import { Children, PropsWithChildren, ReactElement, createContext, useContext, useEffect } from "react";
 
 import { handleLoginWithRedirect } from "@/core/application/auth0-client-adapter/helpers";
 import { useClientBootstrapAuth } from "@/core/bootstrap/auth/use-client-bootstrap-auth";
+
+import { Button } from "@/design-system/atoms/button/variants/button-default";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
@@ -124,4 +126,35 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
 
     return <Component {...props} />;
   };
+}
+
+export function IsAuthenticated({ children }: PropsWithChildren) {
+  const { isAuthenticated } = useAuthContext();
+  const array = Children.toArray(children) as ReactElement[];
+
+  const findAuthenticated = array.find(c => c.type === IsAuthenticated.Yes);
+  const findNotAuthenticated = array.find(c => c.type === IsAuthenticated.No);
+
+  if (findAuthenticated && isAuthenticated) {
+    return findAuthenticated.props.children;
+  }
+
+  if (findNotAuthenticated && !isAuthenticated) {
+    return findNotAuthenticated.props.children;
+  }
+
+  return null;
+}
+
+IsAuthenticated.Yes = function Yes({ children }: PropsWithChildren) {
+  return children;
+};
+
+IsAuthenticated.No = function No({ children }: PropsWithChildren) {
+  return children;
+};
+
+export function SignInButton({ children }: PropsWithChildren) {
+  const { redirectToSignup } = useAuthContext();
+  return <Button onClick={redirectToSignup}>{children ?? "Sign in"}</Button>;
 }

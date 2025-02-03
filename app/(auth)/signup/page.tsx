@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Loader2 } from "lucide-react";
 
 import { SignupCarousel } from "@/app/(auth)/signup/_features/signup-carousel/signup-caroursel";
 
@@ -14,7 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/sha
 import { TypographyH2 } from "@/shared/ui/typography";
 
 function SignupPage() {
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, isLoading } = useAuthContext();
 
   return (
     <div className={"flex w-full max-w-xl flex-col gap-6 laptop:max-w-6xl"}>
@@ -24,7 +24,12 @@ function SignupPage() {
             <SignupCarousel />
           </div>
 
-          <div className="flex flex-col">
+          <div className="relative flex flex-col">
+            {isLoading && (
+              <div className="absolute left-0 top-0 z-40 flex h-full w-full items-center justify-center bg-background/90">
+                <Loader2 aria-label="Loading" className="absolute animate-spin place-items-center text-foreground" />
+              </div>
+            )}
             <div className="flex flex-col border-b-1 px-6 py-5">
               <TypographyH2>Welcome to OnlyDust</TypographyH2>
             </div>

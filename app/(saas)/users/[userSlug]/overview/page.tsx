@@ -12,7 +12,6 @@ import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { Timeline } from "@/shared/features/contributors/timeline/timeline";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Activity } from "./_features/activity/activity";
@@ -104,4 +103,4 @@ function UserOverviewPage({ params: { userSlug } }: { params: { userSlug: string
   );
 }
 
-export default withClientOnly(withAuthenticated(UserOverviewPage));
+export default withClientOnly(UserOverviewPage);

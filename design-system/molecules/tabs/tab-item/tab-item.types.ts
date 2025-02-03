@@ -33,5 +33,6 @@ export interface TabItemPort<C extends ElementType> extends Partial<Variants>, P
   size?: TabsSize;
   attr?: DataAttributes;
   id: string;
+  isLocked?: boolean;
   onClick?: (id: string) => void;
 }

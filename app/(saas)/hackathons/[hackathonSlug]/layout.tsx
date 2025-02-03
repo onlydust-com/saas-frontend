@@ -15,6 +15,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
+import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum Views {
@@ -106,7 +107,14 @@ export default function HackathonsLayout({
                 <Navigation params={params} />
 
                 <div className={"w-full p-xl tablet:w-auto"}>
-                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                  <IsAuthenticated>
+                    <IsAuthenticated.Yes>
+                      <RegisterHackathon hackathonSlug={params.hackathonSlug} />
+                    </IsAuthenticated.Yes>
+                    <IsAuthenticated.No>
+                      <SignInButton>Registered</SignInButton>
+                    </IsAuthenticated.No>
+                  </IsAuthenticated>
                 </div>
               </div>
               {children}
