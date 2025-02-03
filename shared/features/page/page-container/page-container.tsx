@@ -6,10 +6,11 @@ import { cn } from "@/shared/utils";
 export function PageContainer({
   children,
   size = "small",
-}: PropsWithChildren<{ size?: "small" | "medium" | "large" }>) {
+  className,
+}: PropsWithChildren<{ size?: "small" | "medium" | "large"; className?: string }>) {
   return (
     <div
-      className={cn("mx-auto w-full px-4", {
+      className={cn("mx-auto w-full px-4", className, {
         "max-w-[1400px]": size === "small",
         "max-w-[1600px]": size === "medium",
         "max-w-[2200px]": size === "large",
