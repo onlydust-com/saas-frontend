@@ -83,8 +83,8 @@ export default function EcosystemLayout({
 }) {
   return (
     <PageContainer size="medium" className={"flex-1"}>
-      <div className="flex flex-col items-start justify-start gap-3.5 py-3.5 laptop:h-full laptop:flex-row">
-        <div className="flex w-full flex-col gap-3.5 laptop:w-[440px] laptop:min-w-[440px]">
+      <div className="flex flex-col items-start justify-start gap-4 py-4 laptop:h-full laptop:flex-row">
+        <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-20 laptop:w-[440px] laptop:min-w-[440px]">
           <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
           <EcosystemEvents ecosystemSlug={params.ecosystemSlug} />
           <EcosystemDocumentation ecosystemSlug={params.ecosystemSlug} />

@@ -5,11 +5,9 @@ import { ReactNode, useMemo } from "react";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -76,29 +74,25 @@ function Navigation({ params }: { params: { userSlug: string } }) {
 
 export default function UsersLayout({ params, children }: { params: { userSlug: string }; children: ReactNode }) {
   return (
-    <PageWrapper containerSize="medium">
-      <ScrollView>
-        <AnimatedColumn className="h-full max-w-full">
-          <div className="flex flex-col items-start justify-start gap-lg laptop:h-full laptop:flex-row">
-            <ScrollView className="flex w-full flex-col gap-lg laptop:w-[440px] laptop:min-w-[440px]">
-              <UserSummary userSlug={params.userSlug} />
-            </ScrollView>
+    <PageContainer size="medium" className="flex-1">
+      <div className="flex flex-col items-start justify-start gap-4 py-4 laptop:h-full laptop:flex-row">
+        <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-20 laptop:w-[440px] laptop:min-w-[440px]">
+          <UserSummary userSlug={params.userSlug} />
+        </div>
 
-            <Paper
-              background="primary"
-              border="primary"
-              classNames={{ base: "overflow-hidden h-full flex flex-col" }}
-              size="none"
-            >
-              <div className={"flex h-12 w-full items-end laptop:h-[86px]"}>
-                <Navigation params={params} />
-              </div>
-
-              {children}
-            </Paper>
+        <Paper
+          background="primary"
+          border="primary"
+          classNames={{ base: "overflow-hidden h-full flex flex-col" }}
+          size="none"
+        >
+          <div className={"flex h-12 w-full items-end laptop:h-[86px]"}>
+            <Navigation params={params} />
           </div>
-        </AnimatedColumn>
-      </ScrollView>
-    </PageWrapper>
+
+          {children}
+        </Paper>
+      </div>
+    </PageContainer>
   );
 }
