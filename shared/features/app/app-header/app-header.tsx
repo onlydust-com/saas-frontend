@@ -2,7 +2,6 @@ import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
 import { NotificationsPopover } from "@/shared/features/notifications/notifications-popover";
-import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import {
   Breadcrumb,
@@ -16,7 +15,6 @@ import { SidebarTrigger } from "@/shared/ui/sidebar";
 
 export function AppHeader() {
   const { breadcrumb } = useNavigation();
-  const isTablet = useIsTablet("lower");
 
   return (
     <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-white/80 px-4 backdrop-blur-sm dark:bg-black/80">
@@ -42,7 +40,7 @@ export function AppHeader() {
       <div className={"flex flex-1 flex-row items-center justify-end gap-3"}>
         <IsAuthenticated>
           <IsAuthenticated.Yes>
-            <GlobalSearch isMobile={isTablet} />
+            <GlobalSearch />
 
             <NotificationsPopover />
 

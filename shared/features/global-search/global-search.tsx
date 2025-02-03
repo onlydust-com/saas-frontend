@@ -1,18 +1,15 @@
-import { Kbd } from "@nextui-org/kbd";
 import { Command } from "cmdk";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 import { SearchRessourceType } from "@/core/domain/search/models/search.types";
-
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Input } from "@/design-system/atoms/input";
 
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { GlobalSearchProvider, useGlobalSearch } from "@/shared/features/global-search/global-search.context";
+import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
+import { Button } from "@/shared/ui/button";
 
 import { Header } from "./_components/header/header";
 import { ModalPortal } from "./_components/modal-container/modal-container";
@@ -20,40 +17,20 @@ import { SearchResultGroup } from "./_components/search-result-group/search-resu
 import { Filters } from "./_features/filters/filters";
 import { Result } from "./_features/result/result";
 
-export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
-  const { t } = useTranslation("features");
+export function SafeGlobalSearch() {
   const { hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange, inputValue } = useGlobalSearch();
+  const isTablet = useIsTablet("lower");
 
   return (
     <>
-      {!isMobile ? (
-        <div className="cursor-pointer" onClick={() => onOpenChange(true)}>
-          <Input
-            name={"global-search"}
-            placeholder={t("globalSearch.menu.placeholder")}
-            readOnly={true}
-            canInteract={false}
-            endContent={
-              <Kbd
-                keys={["command"]}
-                classNames={{
-                  base: "bg-background-primary rounded-sm shadow-none",
-                }}
-              >
-                K
-              </Kbd>
-            }
-          />
-        </div>
-      ) : (
-        <Button
-          iconOnly={true}
-          variant={"tertiary"}
-          size={"xs"}
-          startIcon={{ component: Search }}
-          onClick={() => onOpenChange(true)}
-        />
-      )}
+      <Button variant={"outline"} size={isTablet ? "icon" : "default"} onClick={() => onOpenChange(true)}>
+        <Search />
+        <span className="hidden w-36 text-left sm:inline">Search</span>
+        <kbd className="pointer-events-none hidden select-none items-center gap-0.5 font-mono text-xs font-medium text-muted-foreground opacity-100 sm:inline-flex">
+          <span className="text-base">⌘</span>K
+        </kbd>
+      </Button>
+
       <ModalPortal>
         <Command
           className={
@@ -103,11 +80,11 @@ export function SafeGlobalSearch({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-export function GlobalSearch({ isMobile = false, byPassFlag = false }: { isMobile?: boolean; byPassFlag?: boolean }) {
+export function GlobalSearch({ byPassFlag = false }: { byPassFlag?: boolean }) {
   if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true" || byPassFlag) {
     return (
       <GlobalSearchProvider>
-        <SafeGlobalSearch isMobile={isMobile} />
+        <SafeGlobalSearch />
       </GlobalSearchProvider>
     );
   }
