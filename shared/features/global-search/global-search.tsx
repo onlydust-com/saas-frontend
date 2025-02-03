@@ -8,7 +8,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { GlobalSearchProvider, useGlobalSearch } from "@/shared/features/global-search/global-search.context";
-import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
+import { useIsBreakpoint } from "@/shared/hooks/ui/use-is-breakpoint";
 import { Button } from "@/shared/ui/button";
 
 import { Header } from "./_components/header/header";
@@ -19,11 +19,11 @@ import { Result } from "./_features/result/result";
 
 export function SafeGlobalSearch() {
   const { hasNextPage, fetchNextPage, isFetchingNextPage, results, onOpenChange, inputValue } = useGlobalSearch();
-  const isTablet = useIsTablet("lower");
+  const isSmBreakpoint = useIsBreakpoint("sm");
 
   return (
     <>
-      <Button variant={"outline"} size={isTablet ? "icon" : "default"} onClick={() => onOpenChange(true)}>
+      <Button variant={"outline"} size={isSmBreakpoint ? "default" : "icon"} onClick={() => onOpenChange(true)}>
         <Search />
         <span className="hidden w-36 text-left sm:inline">Search</span>
         <kbd className="pointer-events-none hidden select-none items-center gap-0.5 font-mono text-xs font-medium text-muted-foreground opacity-100 sm:inline-flex">

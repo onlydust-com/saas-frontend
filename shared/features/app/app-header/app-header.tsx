@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
@@ -26,12 +28,12 @@ export function AppHeader() {
         <Breadcrumb>
           <BreadcrumbList>
             {breadcrumb?.map((item, index) => (
-              <>
-                {index > 0 ? <BreadcrumbSeparator className="hidden md:block" /> : null}
-                <BreadcrumbItem className={index < breadcrumb.length - 1 ? "hidden md:block" : ""}>
+              <Fragment key={index}>
+                {index > 0 ? <BreadcrumbSeparator className="hidden xl:block" /> : null}
+                <BreadcrumbItem className={index < breadcrumb.length - 1 ? "hidden xl:block" : ""}>
                   <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
                 </BreadcrumbItem>
-              </>
+              </Fragment>
             ))}
           </BreadcrumbList>
         </Breadcrumb>

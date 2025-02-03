@@ -1,3 +1,4 @@
+import { CheckCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { NotificationReactQueryAdapter } from "@/core/application/react-query-adapter/notification";
@@ -5,6 +6,7 @@ import { NotificationStatus } from "@/core/domain/notification/notification-cons
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
+import { useIsBreakpoint } from "@/shared/hooks/ui/use-is-breakpoint";
 import { Button } from "@/shared/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { ScrollArea } from "@/shared/ui/scroll-area";
@@ -12,6 +14,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
 export function NotificationsContent({ onClose }: { onClose: () => void }) {
+  const isSmBreakpoint = useIsBreakpoint("sm");
   const router = useRouter();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -102,8 +105,14 @@ export function NotificationsContent({ onClose }: { onClose: () => void }) {
         <TypographyH3>Notifications</TypographyH3>
 
         {notifications.length ? (
-          <Button variant={"outline"} onClick={handleReadAll} disabled={readAllNotificationsIsPending}>
-            Mark all as read
+          <Button
+            variant={"outline"}
+            size={isSmBreakpoint ? "default" : "icon"}
+            onClick={handleReadAll}
+            disabled={readAllNotificationsIsPending}
+          >
+            <CheckCheck className="sm:hidden" />
+            <span className="hidden sm:block">Mark all as read</span>
           </Button>
         ) : null}
       </header>
