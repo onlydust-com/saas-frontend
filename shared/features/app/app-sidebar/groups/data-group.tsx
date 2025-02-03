@@ -2,6 +2,8 @@ import { ChevronRight, Database } from "lucide-react";
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useShowEcosystemList } from "@/shared/hooks/ecosystems/use-show-ecosystem-list";
+import { useShowProgramsList } from "@/shared/hooks/programs/use-show-programs-list";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/shared/ui/collapsible";
 import {
@@ -20,6 +22,12 @@ export function DataGroup() {
   const isOverviewRoute = useMatchPath(NEXT_ROUTER.data.overview.root, { exact: false });
   const isContributorsRoute = useMatchPath(NEXT_ROUTER.data.contributors.root, { exact: false });
   const isProjectsRoute = useMatchPath(NEXT_ROUTER.data.projects.root, { exact: false });
+
+  const [showProgramList] = useShowProgramsList();
+  const [showEcosystemList] = useShowEcosystemList();
+
+  // Has a program or an ecosystem in /me
+  const pageDataAvailable = showProgramList.hasPrograms || showEcosystemList.hasEcosystems;
 
   const items = [
     {
@@ -46,6 +54,8 @@ export function DataGroup() {
       ],
     },
   ];
+
+  if (!pageDataAvailable) return null;
 
   return (
     <SidebarGroup>
