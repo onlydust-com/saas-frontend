@@ -40,10 +40,11 @@ export function SponsorGroup() {
   const { user } = useAuthUser();
   const isSponsorRoute = useMatchPath(NEXT_ROUTER.financials.root, { exact: false });
 
-  const sponsors = useMemo(() => user?.sponsors?.slice(0, MAX_SPONSORS) ?? [], [user]);
-  const canSeeAll = useMemo(() => sponsors.length > MAX_SPONSORS, [sponsors]);
+  const sponsors = useMemo(() => user?.sponsors ?? [], [user]);
+  const visibleSponsors = useMemo(() => sponsors.slice(0, MAX_SPONSORS), [sponsors]);
+  const canSeeAll = useMemo(() => sponsors.length > MAX_SPONSORS, [sponsors.length]);
 
-  const items = sponsors.map(sponsor => ({
+  const items = visibleSponsors.map(sponsor => ({
     title: sponsor.name,
     icon: (
       <Avatar className="h-4 w-4 rounded-sm">

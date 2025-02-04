@@ -40,10 +40,11 @@ export function ProgramGroup() {
   const { user } = useAuthUser();
   const isProgramRoute = useMatchPath(NEXT_ROUTER.programs.root, { exact: false });
 
-  const programs = useMemo(() => user?.programs?.slice(0, MAX_PROGRAMS) ?? [], [user]);
-  const canSeeAll = useMemo(() => programs.length > MAX_PROGRAMS, [programs]);
+  const programs = useMemo(() => user?.programs ?? [], [user]);
+  const visiblePrograms = useMemo(() => programs.slice(0, MAX_PROGRAMS), [programs]);
+  const canSeeAll = useMemo(() => programs.length > MAX_PROGRAMS, [programs.length]);
 
-  const items = programs.map(program => ({
+  const items = visiblePrograms.map(program => ({
     title: program.name,
     icon: (
       <Avatar className="h-4 w-4 rounded-sm">

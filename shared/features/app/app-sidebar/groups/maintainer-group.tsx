@@ -40,10 +40,11 @@ export function MaintainerGroup() {
   const { user } = useAuthUser();
   const isMaintainerRoute = useMatchPath(NEXT_ROUTER.manageProjects.root, { exact: false });
 
-  const projects = useMemo(() => user?.projectsLed?.slice(0, MAX_PROJECTS) ?? [], [user]);
-  const canSeeAll = useMemo(() => projects.length > MAX_PROJECTS, [projects]);
+  const projects = useMemo(() => user?.projectsLed ?? [], [user]);
+  const visibleProjects = useMemo(() => projects.slice(0, MAX_PROJECTS), [projects]);
+  const canSeeAll = useMemo(() => projects.length > MAX_PROJECTS, [projects.length]);
 
-  const items = projects.map(project => ({
+  const items = visibleProjects.map(project => ({
     title: project.name,
     icon: (
       <Avatar className="h-4 w-4 rounded-sm">
