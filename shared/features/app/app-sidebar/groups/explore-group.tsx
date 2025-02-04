@@ -1,4 +1,4 @@
-import { Compass, Folder, FolderSearch, Orbit, Rocket } from "lucide-react";
+import { Compass, FolderSearch, Orbit, Rocket } from "lucide-react";
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -17,7 +17,6 @@ export function ExploreGroup() {
   const isBrowseRoute = useMatchPath(NEXT_ROUTER.projects.root, { exact: false });
   const isHackathonsRoute = useMatchPath(NEXT_ROUTER.hackathons.root, { exact: false });
   const isEcosystemsRoute = useMatchPath(NEXT_ROUTER.ecosystems.root, { exact: false });
-  const isCategoriesRoute = useMatchPath(NEXT_ROUTER.categories.root, { exact: false });
 
   const items = [
     {
@@ -43,12 +42,6 @@ export function ExploreGroup() {
       url: NEXT_ROUTER.ecosystems.root,
       icon: Orbit,
       isActive: isEcosystemsRoute,
-    },
-    {
-      title: "Categories",
-      url: NEXT_ROUTER.categories.root,
-      icon: Folder,
-      isActive: isCategoriesRoute,
     },
   ];
 
