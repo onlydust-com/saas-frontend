@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
 const SETTING_ROUTES = [
@@ -21,15 +22,19 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 
   return (
     <PageContainer>
-      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="w-full">
-        <TabsList className="w-full grid-cols-4">
+      <Tabs
+        defaultValue={NEXT_ROUTER.settings.profile.root}
+        value={currentPath}
+        className="flex w-full flex-col gap-4 py-4"
+      >
+        <TabsList className="w-fit grid-cols-4">
           {SETTING_ROUTES.map(({ href, label }) => (
             <TabsTrigger key={href} value={href}>
               <Link href={href}>{label}</Link>
             </TabsTrigger>
           ))}
         </TabsList>
-        {children}
+        <Card>{children}</Card>
       </Tabs>
     </PageContainer>
   );
