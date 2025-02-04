@@ -5,13 +5,12 @@ import { REGEX, keys } from "./form.utils";
 export const formSchema = z.object({
   avatarUrl: z.string().url().optional().or(z.literal("")),
   avatarFile: z
-    .custom<File>((file) => file instanceof File, "Must be a valid file")
+    .custom<File>(file => file instanceof File, "Must be a valid file")
     .refine(
-      (file) => file ? ["image/jpeg", "image/png", "image/gif"].includes(file.type) : true,
-      "File must be JPEG, PNG, or GIF"
+      file => (file ? ["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type) : true),
+      "File must be JPEG, PNG, GIF, or SVG"
     )
-    .optional()
-    .nullable(),
+    .optional(),
   location: z.string().optional().or(z.literal("")),
   bio: z.string().optional().or(z.literal("")),
   firstName: z.string().optional().or(z.literal("")),
