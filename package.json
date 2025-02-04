@@ -47,6 +47,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-fade": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
+    "embla-carousel-wheel-gestures": "^8.0.1",
     "framer-motion": "^11.3.24",
     "franc": "^6.2.0",
     "highcharts": "^11.4.8",
