@@ -1,16 +1,13 @@
+import Card from "@/legacy/src/components/Card";
+import { GithubSyncSettings } from "@/legacy/src/components/New/Ui/GithubSyncSettings";
 import { useContext } from "react";
 
-import { MultiStepsForm } from "src/_pages/ProjectCreation/components/MultiStepsForm";
-import Card from "src/components/Card";
-import { GithubSyncSettings } from "src/components/New/Ui/GithubSyncSettings";
-
-import { useIntl } from "hooks/translate/use-translate";
+import { MultiStepsForm } from "@/app/(legacy)/p/create/_features/ProjectCreation/components/MultiStepsForm";
 
 import { CreateProjectContext } from "../../ProjectCreation.context";
 import OrganizationList from "./components/OrganizationList";
 
 export const GithubOrganizationPage = () => {
-  const { T } = useIntl();
   const {
     helpers: { next },
     installedRepos,
@@ -26,39 +23,43 @@ export const GithubOrganizationPage = () => {
 
   return (
     <MultiStepsForm
-      title={T("project.details.create.organizations.title")}
-      description={T("project.details.create.organizations.description")}
+      title={"Which Github organisations are concerned?"}
+      description={
+        "Please install the github app on the desired github organisation(s) containing the repositories you want to add."
+      }
       step={1}
       stepCount={3}
       next={next}
       nextDisabled={!organizations.length}
     >
       <Card withBg={false}>
-        <h2 className="font-medium uppercase">{T("project.details.create.organizations.installedOrganizations")}</h2>
+        <h2 className="font-medium uppercase">{"Installed on these organizations"}</h2>
         <OrganizationList
           installatedRepo={installedRepos || []}
           organizations={installedOrganizations}
-          emptyListFallBackText={T("project.details.create.organizations.installedOrganizationEmpty")}
+          emptyListFallBackText={"Not installed on any organization."}
           loading={organizationsLoading}
-          disabledTooltip={T("project.details.create.organizations.tooltipInstalledByAdmin")}
+          disabledTooltip={"Github app installed by an organisation admin"}
         />
       </Card>
 
       <Card withBg={false} className="mt-6">
-        <h2 className="font-medium uppercase">{T("project.details.create.organizations.availableOrganizations")}</h2>
+        <h2 className="font-medium uppercase">{"Available organizations"}</h2>
         <OrganizationList
           installatedRepo={installedRepos || []}
           organizations={availableOrganizations}
-          emptyListFallBackText={T("project.details.create.organizations.availableOrganizationEmpty")}
+          emptyListFallBackText={"You have no organization available."}
           loading={organizationsLoading}
         />
       </Card>
       <div className="mt-6">
         <GithubSyncSettings
-          title={T("project.details.create.organizations.githubAppInformation.title")}
-          showButton={T("project.details.create.organizations.githubAppInformation.showButton")}
-          settingsButton={T("project.details.create.organizations.githubAppInformation.button")}
-          message={T("project.details.create.organizations.githubAppInformation.description")}
+          title={"Github Settings"}
+          showButton={"Show me how."}
+          settingsButton={"Edit configuration"}
+          message={
+            "Missing an organisation? Edit your configuration and make sure the desired organisations are granted."
+          }
           PoolingFeedback={PoolingFeedback}
         />
       </div>

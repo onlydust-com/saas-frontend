@@ -1,12 +1,11 @@
-import { UseGithubOrganizationsResponse } from "src/api/me/queries";
-import HorizontalListItemCard from "src/components/New/Cards/HorizontalListItemCard";
-import SkeletonOrganizationList from "src/components/Skeleton/SkeletonOrganizationList";
-import AddLine from "src/icons/AddLine";
-import PencilLine from "src/icons/PencilLine";
-import { getGithubSetupLink } from "src/utils/githubSetupLink";
-
-import { Link } from "components/ds/link/link";
-import { Typography } from "components/layout/typography/typography";
+import { Link } from "@/legacy/components/ds/link/link";
+import { Typography } from "@/legacy/components/layout/typography/typography";
+import { UseGithubOrganizationsResponse } from "@/legacy/src/api/me/queries";
+import HorizontalListItemCard from "@/legacy/src/components/New/Cards/HorizontalListItemCard";
+import SkeletonOrganizationList from "@/legacy/src/components/Skeleton/SkeletonOrganizationList";
+import AddLine from "@/legacy/src/icons/AddLine";
+import PencilLine from "@/legacy/src/icons/PencilLine";
+import { getGithubSetupLink } from "@/legacy/src/utils/githubSetupLink";
 
 interface OrganizationListProps {
   organizations: UseGithubOrganizationsResponse[];

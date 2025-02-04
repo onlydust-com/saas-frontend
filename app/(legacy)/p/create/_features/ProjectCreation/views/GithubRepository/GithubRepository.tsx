@@ -1,19 +1,16 @@
+import { AddMissingRepositories } from "@/legacy/components/features/add-missing-repositories/add-missing-repositories";
+import { VerticalListItemDrop } from "@/legacy/src/components/New/Cards/VerticalListItemDrop";
+import { FieldCheckbox } from "@/legacy/src/components/New/Field/Checkbox";
+import { FieldInput } from "@/legacy/src/components/New/Field/Input";
+import { Flex } from "@/legacy/src/components/New/Layout/Flex";
+import { useSearchHotKey } from "@/legacy/src/hooks/useSearchHotKey/useSearchHotKey";
+import SearchLine from "@/legacy/src/icons/SearchLine";
+import { getGithubSetupLink } from "@/legacy/src/utils/githubSetupLink";
 import { sortBy } from "lodash";
 import { useCallback, useContext, useMemo, useRef } from "react";
 import { Controller } from "react-hook-form";
 
-import { MultiStepsForm } from "src/_pages/ProjectCreation/components/MultiStepsForm";
-import { VerticalListItemDrop } from "src/components/New/Cards/VerticalListItemDrop";
-import { FieldCheckbox } from "src/components/New/Field/Checkbox";
-import { FieldInput } from "src/components/New/Field/Input";
-import { Flex } from "src/components/New/Layout/Flex";
-import { useSearchHotKey } from "src/hooks/useSearchHotKey/useSearchHotKey";
-import SearchLine from "src/icons/SearchLine";
-import { getGithubSetupLink } from "src/utils/githubSetupLink";
-
-import { AddMissingRepositories } from "components/features/add-missing-repositories/add-missing-repositories";
-
-import { useIntl } from "hooks/translate/use-translate";
+import { MultiStepsForm } from "@/app/(legacy)/p/create/_features/ProjectCreation/components/MultiStepsForm";
 
 import { CreateProjectContext } from "../../ProjectCreation.context";
 import { FormInformationCount } from "./components/FormInformationCount";
@@ -21,7 +18,6 @@ import { useRepositoryCount } from "./hooks/useRepositoryCount";
 import { useRepositorySearch } from "./hooks/useRepositorySearch";
 
 export const GithubRepositoryPage = () => {
-  const { T } = useIntl();
   const {
     organizations,
     form,
@@ -49,8 +45,8 @@ export const GithubRepositoryPage = () => {
   );
   return (
     <MultiStepsForm
-      title={T("project.details.create.repository.title")}
-      description={T("project.details.create.repository.description")}
+      title={"Which repositories will you need?"}
+      description={"Only repositories from organisation where github app is installed are listed."}
       step={2}
       stepCount={3}
       prev={prev}
@@ -63,7 +59,7 @@ export const GithubRepositoryPage = () => {
           control={form.control}
           render={props => (
             <FieldInput
-              placeholder={T("project.details.create.repository.search")}
+              placeholder={"Search repositories"}
               {...props.field}
               {...props.fieldState}
               ref={searchInputRef}
@@ -98,13 +94,13 @@ export const GithubRepositoryPage = () => {
                       variant="BLUE"
                     >
                       {organization.repos.length === 0 ? (
-                        <p className="text-body-s mb-2">{T("project.details.create.repository.placeholder")}</p>
+                        <p className="text-body-s mb-2">{"No repositories available"}</p>
                       ) : (
                         <div className="grid grid-flow-row grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2">
                           {(sortBy(organization.repos, "name") || []).map(repo => (
                             <label
                               key={repo.name}
-                              className="flex basis-1/2 cursor-pointer flex-col gap-2 rounded-2xl border border-card-border-heavy bg-card-background-heavy p-5 shadow-heavy"
+                              className="border-card-border-heavy bg-card-background-heavy shadow-heavy flex basis-1/2 cursor-pointer flex-col gap-2 rounded-2xl border p-5"
                             >
                               <Flex justify="start" item="start" direction="col" gap={2}>
                                 <Flex justify="between" item="center" className="w-full">
@@ -123,12 +119,11 @@ export const GithubRepositoryPage = () => {
                                   />
                                 </Flex>
                                 <p
-                                  className={`text-body-s line-clamp-2 w-full text-greyscale-200 ${
+                                  className={`text-body-s text-greyscale-200 line-clamp-2 w-full ${
                                     !repo.description && "italic"
                                   }`}
                                 >
-                                  {repo.description ||
-                                    T("project.details.overview.repositories.descriptionPlaceholder")}
+                                  {repo.description || "This repository has no description"}
                                 </p>
                               </Flex>
                             </label>
@@ -139,15 +134,15 @@ export const GithubRepositoryPage = () => {
                       <AddMissingRepositories
                         url={linkUrl}
                         disabled={!organization.isCurrentUserAdmin}
-                        tooltip={T("project.details.create.organizations.tooltipInstalledByAdmin")}
+                        tooltip={"Github app installed by an organisation admin"}
                         backgroundColor="blue"
-                        className="mt-5 border border-card-border-heavy"
+                        className="border-card-border-heavy mt-5 border"
                       />
                     </VerticalListItemDrop>
                   );
                 })
               ) : (
-                <p className="text-body-s mb-2">{T("project.details.create.repository.placeholder")}</p>
+                <p className="text-body-s mb-2">No repositories available</p>
               )}
             </>
           )}
