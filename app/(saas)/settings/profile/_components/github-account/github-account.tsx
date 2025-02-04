@@ -40,7 +40,7 @@ export function GithubAccount() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-1 flex-col gap-2">
         <CardTitle>Github account</CardTitle>
         <CardDescription>
