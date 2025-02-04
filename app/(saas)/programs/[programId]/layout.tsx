@@ -9,13 +9,11 @@ import { GrantListSidepanel } from "@/app/(saas)/programs/[programId]/_features/
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import {
   UnallocateFlowProvider,
@@ -73,43 +71,39 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
 
   return (
     <>
-      <AnimatedColumn className="h-full">
-        <ScrollView className={"flex flex-col"}>
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <div className="flex h-full flex-col gap-lg">
-              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-                <Tabs
-                  variant={"solid"}
-                  searchParams={"data-view"}
-                  tabs={[
-                    {
-                      id: Views.PROJECTS,
-                      children: <Translate token={"programs:details.views.projects"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.programs.projects.root(programId),
-                      },
-                    },
-                    {
-                      id: Views.FINANCIAL,
-                      children: <Translate token={"programs:details.views.financial"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.programs.financial.root(programId),
-                      },
-                    },
-                  ]}
-                  selectedId={selectedId}
-                />
+      <PageContent classNames={{ base: "tablet:overflow-hidden h-full" }}>
+        <div className="flex h-full flex-col gap-lg">
+          <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+            <Tabs
+              variant={"solid"}
+              searchParams={"data-view"}
+              tabs={[
+                {
+                  id: Views.PROJECTS,
+                  children: <Translate token={"programs:details.views.projects"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.programs.projects.root(programId),
+                  },
+                },
+                {
+                  id: Views.FINANCIAL,
+                  children: <Translate token={"programs:details.views.financial"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.programs.financial.root(programId),
+                  },
+                },
+              ]}
+              selectedId={selectedId}
+            />
 
-                {renderActions()}
-              </header>
+            {renderActions()}
+          </header>
 
-              {children}
-            </div>
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
+          {children}
+        </div>
+      </PageContent>
 
       <FinancialDetailSidepanel footer={renderUnallocateButton()} />
     </>
@@ -118,7 +112,7 @@ function Safe({ children, programId }: PropsWithChildren<{ programId: string }>)
 
 function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{ params: { programId: string } }>) {
   return (
-    <PageWrapper containerSize="medium">
+    <PageContainer size="medium" className="flex-1">
       <PosthogCaptureOnMount eventName={"program_viewed"} />
 
       <UnallocateFlowProvider programId={programId}>
@@ -127,7 +121,7 @@ function ProgramsLayout({ children, params: { programId } }: PropsWithChildren<{
 
       <GrantListSidepanel />
       <GrantFormSidepanel />
-    </PageWrapper>
+    </PageContainer>
   );
 }
 

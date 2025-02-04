@@ -12,7 +12,6 @@ import { enFiltersTranslations } from "@/shared/features/filters/_translations/f
 import enGithubMissingPermissionsAlert from "@/shared/features/github-permissions/_components/github-missing-permissions-alert/_translations/github-missing-permissions-alert.en.json";
 import { enGlobalSearchTranslation } from "@/shared/features/global-search/_translations/global-search.translate";
 import enInvoices from "@/shared/features/invoice/_translations/invoice.en.json";
-import enNotifications from "@/shared/features/notifications/_translations/notifications.en.json";
 import enPayoutStatus from "@/shared/features/payout-status/_translations/payout-status.en.json";
 import { enPopoversTranslations } from "@/shared/features/popovers/_translations/popovers.translate";
 import enSocialLinkTranslate from "@/shared/features/social/social-translate/social-translate.en.json";
@@ -24,7 +23,6 @@ export const enFeaturesTranslations = {
     amountSelector: enAmountSelector,
     invoices: enInvoices,
     contributionPopover: enContributionPopover,
-    notifications: enNotifications,
     githubMissingPermissionsAlert: enGithubMissingPermissionsAlert,
     repoIndexingAlert: enRepoIndexingAlert,
     payoutStatus: enPayoutStatus,

@@ -5,10 +5,9 @@ import { ReactNode, useMemo } from "react";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -66,23 +65,21 @@ export default function RepositoriesLayout({
   children: ReactNode;
 }) {
   return (
-    <PageWrapper containerSize="small">
-      <AnimatedColumn className="h-full max-w-full">
-        <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-          <div className="flex flex-col gap-lg desktop:col-span-1">left content</div>
-          <Paper
-            background="glass"
-            border="primary"
-            classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
-            px="none"
-          >
-            <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-              <Navigation params={params} />
-            </div>
-            {children}
-          </Paper>
-        </div>
-      </AnimatedColumn>
-    </PageWrapper>
+    <PageContainer>
+      <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
+        <div className="flex flex-col gap-lg desktop:col-span-1">left content</div>
+        <Paper
+          background="glass"
+          border="primary"
+          classNames={{ base: "desktop:col-span-2 overflow-hidden h-full flex flex-col" }}
+          px="none"
+        >
+          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+            <Navigation params={params} />
+          </div>
+          {children}
+        </Paper>
+      </div>
+    </PageContainer>
   );
 }

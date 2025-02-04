@@ -5,7 +5,6 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Modal } from "@/design-system/molecules/modal";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { SidePanelsProvider } from "@/shared/features/side-panels/side-panels.context";
@@ -43,16 +42,14 @@ export function ManageApplicantsModal({
 
     return (
       <SidePanelsProvider absolute>
-        <AnimatedColumn className={"h-full"}>
-          <PageContent classNames={{ base: "h-full" }}>
-            <ApplicantsTable
-              projectId={projectId ?? ""}
-              contributionId={contributionId}
-              repoId={repoId}
-              onAssign={() => onOpenChange?.(false)}
-            />
-          </PageContent>
-        </AnimatedColumn>
+        <PageContent classNames={{ base: "h-full" }}>
+          <ApplicantsTable
+            projectId={projectId ?? ""}
+            contributionId={contributionId}
+            repoId={repoId}
+            onAssign={() => onOpenChange?.(false)}
+          />
+        </PageContent>
       </SidePanelsProvider>
     );
   }

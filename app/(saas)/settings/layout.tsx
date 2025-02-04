@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 
@@ -21,7 +21,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
   const currentPath = usePathname();
 
   return (
-    <PageWrapper containerSize="small">
+    <PageContainer>
       <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="flex w-full flex-col gap-4">
         <TabsList className="w-full grid-cols-4">
           {SETTING_ROUTES.map(({ href, label }) => (
@@ -32,6 +32,6 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
         </TabsList>
         <Card className="overflow-hidden">{children}</Card>
       </Tabs>
-    </PageWrapper>
+    </PageContainer>
   );
 }

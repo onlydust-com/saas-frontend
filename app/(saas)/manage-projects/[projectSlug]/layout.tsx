@@ -8,16 +8,14 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { RepoIndexingAlert } from "@/shared/features/alerts/repo-indexing-alert/repo-indexing-alert";
 import { GithubMissingPermissionsAlert } from "@/shared/features/github-permissions/_components/github-missing-permissions-alert/github-missing-permissions-alert";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { ActionPoolingProvider } from "@/shared/hooks/action-pooling/action-pooling.context";
 import { useCanReward } from "@/shared/hooks/rewards/use-can-reward";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
@@ -155,55 +153,51 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
   return (
     <>
-      <AnimatedColumn className="h-full">
-        <ScrollView className="flex flex-col gap-md">
-          {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
+      {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
 
-          <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
+      <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
 
-          <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-            <div className="flex h-full flex-col gap-lg">
-              <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-                <Tabs
-                  variant={"solid"}
-                  searchParams={"data-view"}
-                  tabs={[
-                    {
-                      id: Views.CONTRIBUTIONS,
-                      children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
-                      },
-                    },
-                    {
-                      id: Views.CONTRIBUTORS,
-                      children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                      },
-                    },
-                    {
-                      id: Views.FINANCIAL,
-                      children: <Translate token={"manageProjects:detail.views.financial"} />,
-                      as: BaseLink,
-                      htmlProps: {
-                        href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
-                      },
-                    },
-                  ]}
-                  selectedId={selectedId}
-                />
+      <PageContent classNames={{ base: "tablet:overflow-hidden tablet:max-h-[calc(100vh-64px)] h-full" }}>
+        <div className="flex h-full flex-col gap-lg">
+          <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+            <Tabs
+              variant={"solid"}
+              searchParams={"data-view"}
+              tabs={[
+                {
+                  id: Views.CONTRIBUTIONS,
+                  children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                  },
+                },
+                {
+                  id: Views.CONTRIBUTORS,
+                  children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                  },
+                },
+                {
+                  id: Views.FINANCIAL,
+                  children: <Translate token={"manageProjects:detail.views.financial"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                  },
+                },
+              ]}
+              selectedId={selectedId}
+            />
 
-                {renderActions()}
-              </header>
+            {renderActions()}
+          </header>
 
-              {children}
-            </div>
-          </PageContent>
-        </ScrollView>
-      </AnimatedColumn>
+          {children}
+        </div>
+      </PageContent>
 
       <FinancialDetailSidepanel footer={renderUngrantButton()} />
     </>
@@ -224,7 +218,7 @@ function ManageProjectsLayout({
   const projectId = useMemo(() => data?.id, [data]);
 
   return (
-    <PageWrapper containerSize="large">
+    <PageContainer size="large" className="flex-1">
       <PosthogCaptureOnMount
         eventName={"project_dashboard_viewed"}
         params={{
@@ -247,7 +241,7 @@ function ManageProjectsLayout({
       <RewardDetailSidepanel />
       <ContributorSidepanel />
       <ProjectUpdateSidepanel />
-    </PageWrapper>
+    </PageContainer>
   );
 }
 

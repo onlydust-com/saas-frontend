@@ -171,7 +171,7 @@ export function SidePanelsProvider({ children, classNames, absolute }: SidePanel
     >
       {children}
       {!isTablet && (
-        <div className={cn("h-full", classNames?.column)}>
+        <div className={classNames?.column}>
           {!absolute && (
             <div
               className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
