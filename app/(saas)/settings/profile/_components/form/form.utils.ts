@@ -6,9 +6,9 @@ import { UserProfileContactChannel } from "@/core/domain/user/models/user.types"
 import { formSchema } from "./form.types";
 
 export const REGEX = {
-  website: /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/,
+  website: /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/,
   telegram: /^[a-zA-Z0-9_]{5,32}$/,
-  whatsapp: /^\+?[1-9]\d{1,14}$/,
+  whatsapp: /^\+[1-9]\d{6,14}$/,
   twitter: /^[a-zA-Z0-9_]{1,15}$/,
   discord: /^[a-zA-Z0-9_]{3,32}$/,
   linkedin: /^[a-zA-Z0-9-]{3,100}$/,
