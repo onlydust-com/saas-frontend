@@ -40,7 +40,15 @@ export function InformationForm() {
 
   async function onSubmit({ avatarFile, ...data }: z.infer<typeof formSchema> & { avatarFile?: File }) {
     try {
-      const fileUrl = avatarFile ? await uploadProfilePicture(avatarFile) : undefined;
+      let fileUrl;
+      if (avatarFile) {
+        try {
+          fileUrl = await uploadProfilePicture(avatarFile);
+        } catch (error) {
+          toast.error("Failed to upload profile picture. Please try again.");
+          return;
+        }
+      }
 
       const profileData: z.infer<typeof formSchema> = {
         ...data,
@@ -50,7 +58,7 @@ export function InformationForm() {
       await replaceMyProfile(formatToSchema(profileData));
       toast.success("Profile updated");
     } catch {
-      toast.error("Error updating profile");
+      toast.error("Failed to update profile. Please check your information and try again.");
     }
   }
 
