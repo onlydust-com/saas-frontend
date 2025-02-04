@@ -11,6 +11,8 @@ import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Button } from "@/shared/ui/button";
 import { CardDescription } from "@/shared/ui/card";
 import { CardTitle } from "@/shared/ui/card";
+import { Input } from "@/shared/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 export function GithubAccount() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +27,8 @@ export function GithubAccount() {
   async function onTriggerResync() {
     try {
       setIsLoading(true);
-      refetch();
-      queryClient.invalidateQueries({ queryKey: meStoragePort.getUpdateGithubProfile({}).tag });
+      await refetch();
+      await queryClient.invalidateQueries({ queryKey: meStoragePort.getUpdateGithubProfile({}).tag });
     } finally {
       setIsLoading(false);
     }
@@ -41,6 +43,22 @@ export function GithubAccount() {
         </CardDescription>
       </div>
       <div className="flex items-center gap-2">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Input
+              value={`${user?.login} / ${user?.email}`}
+              readOnly
+              disabled
+              className="line-clamp-1 w-full text-ellipsis"
+            />
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>
+              {user?.login} / {user?.email}
+            </p>
+          </TooltipContent>
+        </Tooltip>
+
         <Button onClick={onTriggerResync} disabled={isLoading} loading={isLoading}>
           <Icon component={RefreshCcw} />
           Resync

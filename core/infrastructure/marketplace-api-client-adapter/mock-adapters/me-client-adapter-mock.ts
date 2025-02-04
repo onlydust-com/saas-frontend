@@ -33,4 +33,6 @@ export class MeClientAdapterMock implements MeStoragePort {
   registerToHackathon = mockHttpStorageResponse<MeStoragePort["registerToHackathon"]>;
 
   getUpdateGithubProfile = mockHttpStorageResponse<MeStoragePort["getUpdateGithubProfile"]>;
+
+  uploadProfilePicture = mockHttpStorageResponse<MeStoragePort["uploadProfilePicture"]>;
 }
