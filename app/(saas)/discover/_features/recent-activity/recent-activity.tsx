@@ -11,7 +11,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function RecentActivity() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 5 },
+    queryParams: { pageSize: 5, sortBy: "RECENT_ACTIVITY" },
   });
 
   const renderProjects = useCallback(() => {
@@ -37,7 +37,7 @@ export function RecentActivity() {
   if (isError) return null;
 
   return (
-    <Section title="Recent activity" seeMore={NEXT_ROUTER.projects.root}>
+    <Section title="Recent activity" seeMore={`${NEXT_ROUTER.projects.root}?sortBy=RECENT_ACTIVITY`}>
       <div className="flex flex-col gap-6">{renderProjects()}</div>
     </Section>
   );
