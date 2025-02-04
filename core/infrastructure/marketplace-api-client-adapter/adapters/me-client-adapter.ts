@@ -356,7 +356,7 @@ export class MeClientAdapter implements MeStoragePort {
         tag,
         body,
         headers: {
-          "Content-Type": "image/*",
+          "Content-Type": body.type,
         },
       });
 

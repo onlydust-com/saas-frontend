@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Globe } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -9,26 +10,21 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { Icon } from "@/design-system/atoms/icon";
 import { ImageInput } from "@/design-system/molecules/image-input";
 
+import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { Separator } from "@/shared/ui/separator";
 import { Textarea } from "@/shared/ui/textarea";
 
 import { formSchema } from "../form.types";
-import { formatData } from "../form.utils";
+import { formatData, formatToSchema } from "../form.utils";
 
 export function InformationForm() {
   const { data } = MeReactQueryAdapter.client.useGetMyProfile({});
 
   const form = useForm<z.infer<typeof formSchema>>({
+    mode: "all",
     resolver: zodResolver(formSchema),
-  });
-
-  const { mutate: uploadProfilePicture } = MeReactQueryAdapter.client.useUploadProfilePicture({
-    options: {
-      onSuccess: data => {
-        form.setValue("avatarUrl", data.url);
-      },
-    },
   });
 
   useEffect(() => {
@@ -37,8 +33,24 @@ export function InformationForm() {
     }
   }, [data]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const { mutateAsync: uploadProfilePicture } = MeReactQueryAdapter.client.useUploadProfilePicture({});
+
+  const { mutateAsync: replaceMyProfile } = MeReactQueryAdapter.client.useReplaceMyProfile({});
+
+  async function onSubmit({ avatarFile, ...data }: z.infer<typeof formSchema> & { avatarFile?: File }) {
+    try {
+      const fileUrl = avatarFile ? await uploadProfilePicture(avatarFile) : undefined;
+
+      const profileData: z.infer<typeof formSchema> = {
+        ...data,
+        avatarUrl: fileUrl?.url || data.avatarUrl,
+      };
+
+      await replaceMyProfile(formatToSchema(profileData));
+      toast.success("Profile updated");
+    } catch {
+      toast.error("Error updating profile");
+    }
   }
 
   return (
@@ -47,7 +59,7 @@ export function InformationForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="avatarUrl"
+            name="avatarFile"
             render={({ field: { onChange, name } }) => (
               <FormItem>
                 <FormLabel>Profile Picture</FormLabel>
@@ -56,8 +68,8 @@ export function InformationForm() {
                   <div className="flex items-center gap-2">
                     <ImageInput
                       name={name}
-                      value={data?.avatarUrl}
                       onChange={onChange}
+                      value={data?.avatarUrl}
                       buttonProps={{
                         children: "Update",
                         classNames: { base: "w-16" },
@@ -138,6 +150,137 @@ export function InformationForm() {
               </FormItem>
             )}
           />
+
+          <Separator className="!mb-4" />
+          <FormLabel>Contact information</FormLabel>
+          <FormDescription>Please enter only your social networks handle (no links, no @ needed).</FormDescription>
+
+          <FormField
+            control={form.control}
+            name="telegram.contact"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telegram</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Enter your telegram handle" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="telegram.isPublic"
+                      render={({ field: { value, onChange } }) => (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => onChange(!value)}>
+                          <Icon component={value ? Eye : EyeOff} />
+                        </Button>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="linkedin.contact"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>LinkedIn</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Enter your linkedin handle" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="linkedin.isPublic"
+                      render={({ field: { value, onChange } }) => (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => onChange(!value)}>
+                          <Icon component={value ? Eye : EyeOff} />
+                        </Button>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="whatsapp.contact"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>WhatsApp</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Enter your whatsapp handle" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="whatsapp.isPublic"
+                      render={({ field: { value, onChange } }) => (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => onChange(!value)}>
+                          <Icon component={value ? Eye : EyeOff} />
+                        </Button>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="twitter.contact"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Twitter</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Enter your twitter handle" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="twitter.isPublic"
+                      render={({ field: { value, onChange } }) => (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => onChange(!value)}>
+                          <Icon component={value ? Eye : EyeOff} />
+                        </Button>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="discord.contact"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Discord</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Enter your discord handle" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="discord.isPublic"
+                      render={({ field: { value, onChange } }) => (
+                        <Button type="button" variant="ghost" size="icon" onClick={() => onChange(!value)}>
+                          <Icon component={value ? Eye : EyeOff} />
+                        </Button>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit">Save</Button>
         </form>
       </Form>
     </div>
