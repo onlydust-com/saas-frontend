@@ -10,6 +10,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/shared/ui/breadcrumb";
 import { Separator } from "@/shared/ui/separator";
@@ -31,7 +32,13 @@ export function AppHeader() {
               <Fragment key={index}>
                 {index > 0 ? <BreadcrumbSeparator className="hidden xl:block" /> : null}
                 <BreadcrumbItem className={index < breadcrumb.length - 1 ? "hidden xl:block" : ""}>
-                  <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                  {index === breadcrumb.length - 1 ? (
+                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                  ) : item.href ? (
+                    <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                  ) : (
+                    item.label
+                  )}
                 </BreadcrumbItem>
               </Fragment>
             ))}
