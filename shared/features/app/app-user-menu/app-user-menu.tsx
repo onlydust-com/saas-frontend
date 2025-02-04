@@ -37,9 +37,11 @@ export function AppUserMenu() {
           <DropdownMenuItem asChild>
             <Link href={NEXT_ROUTER.settings.root}>Settings</Link>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem asChild>
-            <Link href="/support">Support</Link>
-          </DropdownMenuItem> */}
+          <DropdownMenuItem asChild>
+            <a href="https://blog.onlydust.com/docs/" target="_blank" rel="noopener noreferrer">
+              Support
+            </a>
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

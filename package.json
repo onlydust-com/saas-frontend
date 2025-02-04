@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
-    "@fillout/react": "^1.1.2",
     "@floating-ui/react": "^0.26.23",
     "@highcharts/map-collection": "^2.3.0",
     "@hookform/resolvers": "^3.10.0",
