@@ -22,15 +22,19 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
 
   return (
     <PageContainer>
-      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={currentPath} className="flex w-full flex-col gap-4">
-        <TabsList className="w-full grid-cols-4">
+      <Tabs
+        defaultValue={NEXT_ROUTER.settings.profile.root}
+        value={currentPath}
+        className="flex w-full flex-col gap-4 py-4"
+      >
+        <TabsList className="w-fit grid-cols-4">
           {SETTING_ROUTES.map(({ href, label }) => (
             <TabsTrigger key={href} value={href}>
               <Link href={href}>{label}</Link>
             </TabsTrigger>
           ))}
         </TabsList>
-        <Card className="overflow-hidden">{children}</Card>
+        <Card>{children}</Card>
       </Tabs>
     </PageContainer>
   );
