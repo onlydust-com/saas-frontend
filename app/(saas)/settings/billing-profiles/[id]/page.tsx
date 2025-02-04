@@ -5,12 +5,12 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 interface BillingProfilePageProps {
   params: {
-    slug: string;
+    id: string;
   };
 }
 
 function BillingProfilePage({ params }: BillingProfilePageProps) {
-  return <div>Billing Profile slug: {params.slug}</div>;
+  return <div>Billing Profile slug: {params.id}</div>;
 }
 
 export default withClientOnly(withAuthenticated(BillingProfilePage));
