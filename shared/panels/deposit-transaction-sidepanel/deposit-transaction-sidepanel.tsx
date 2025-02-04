@@ -13,8 +13,6 @@ import { Alert } from "@/design-system/molecules/alert";
 import { CardTemplate, CardTemplateLoading } from "@/design-system/molecules/cards/card-template";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { FeedbackDrawer } from "@/shared/features/feedback-drawer/feedback-drawer";
-import { useFeedbackDrawerState } from "@/shared/features/feedback-drawer/feedback-drawer.hooks";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -36,8 +34,6 @@ export function DepositTransactionSidepanel() {
   };
   const { open: openDepositSummarySidepanel } = useDepositSummarySidepanel();
   const [transactionReference, setTransactionReference] = useState<string>();
-  const feedbackDrawerState = useFeedbackDrawerState();
-  const [, setIsOpen] = feedbackDrawerState;
 
   const { data, isLoading, isError } = CurrencyReactQueryAdapter.client.useGetSupportedCurrencies({});
 
@@ -61,10 +57,6 @@ export function DepositTransactionSidepanel() {
       setTransactionReference("");
     }
   }, [isOpen]);
-
-  function handleOpenFeedbackDrawer() {
-    setIsOpen(true);
-  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -141,10 +133,6 @@ export function DepositTransactionSidepanel() {
             title={<Translate token={"panels:depositTransaction.error.title"} />}
             description={<Translate token={"panels:depositTransaction.error.description"} />}
             color={"error"}
-            primaryButton={{
-              translate: { token: "panels:depositTransaction.error.contactSupport" },
-              onClick: handleOpenFeedbackDrawer,
-            }}
           />
         ) : null}
       </>
@@ -174,8 +162,6 @@ export function DepositTransactionSidepanel() {
           />
         </SidePanelFooter>
       </form>
-
-      <FeedbackDrawer state={feedbackDrawerState} />
     </Panel>
   );
 }

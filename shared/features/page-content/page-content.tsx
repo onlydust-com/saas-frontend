@@ -5,7 +5,7 @@ import { cn } from "@/shared/helpers/cn";
 
 export function PageContent({ children, classNames }: PageContentProps) {
   return (
-    <Paper as={"section"} classNames={{ base: cn("flex-1", classNames?.base) }}>
+    <Paper as={"section"} px="none" classNames={{ base: cn("flex-1", classNames?.base) }}>
       {children}
     </Paper>
   );

@@ -111,7 +111,7 @@ function Safe() {
       <div className="flex flex-col gap-3xl">
         <header className="flex flex-row items-start justify-between gap-xl">
           <Tabs
-            variant={"flat"}
+            variant={"solid"}
             tabs={TABS}
             selectedId={filters.values.tags[0] ?? ALL_TAB.id}
             onTabClick={id => {
@@ -125,7 +125,7 @@ function Safe() {
           <BrowseProjectsFilters />
         </header>
 
-        <div className="grid gap-4 mobile:grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {renderProjects()}
           {hasNextPage ? (
             <div className="col-span-full">

@@ -1,31 +1,22 @@
-import { Paper } from "@/design-system/atoms/paper";
-import { Popover } from "@/design-system/atoms/popover";
+"use client";
+
+import { useState } from "react";
 
 import { NotificationsButton } from "@/shared/features/notifications/_components/notifications-button/notifications-button";
 import { NotificationsContent } from "@/shared/features/notifications/_components/notifications-content/notifications-content";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 
 export function NotificationsPopover() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Popover placement={"bottom-end"}>
-      <Popover.Trigger>
-        {() => (
-          <div>
-            <NotificationsButton />
-          </div>
-        )}
-      </Popover.Trigger>
-      <Popover.Content unstyled className={"w-[560px]"}>
-        {({ setIsOpen }) => (
-          <Paper
-            size={"3xl"}
-            background={"primary-alt"}
-            border={"primary"}
-            classNames={{ base: "effect-box-shadow-xl w-full h-[400px]" }}
-          >
-            <NotificationsContent onClose={() => setIsOpen(false)} />
-          </Paper>
-        )}
-      </Popover.Content>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger>
+        <NotificationsButton />
+      </PopoverTrigger>
+      <PopoverContent className="h-[400px] w-[100dvw] sm:w-[560px]" align="end">
+        <NotificationsContent onClose={() => setIsOpen(false)} />
+      </PopoverContent>
     </Popover>
   );
 }
