@@ -11,6 +11,7 @@ import {
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
@@ -82,7 +83,7 @@ function Navigation() {
   );
 }
 
-export default function DataLayout({ children }: { children: ReactNode }) {
+function DataLayout({ children }: { children: ReactNode }) {
   return (
     <PageContainer size="large" className="flex-1">
       <GlobalDataFilterProvider>
@@ -99,3 +100,5 @@ export default function DataLayout({ children }: { children: ReactNode }) {
     </PageContainer>
   );
 }
+
+export default withClientOnly(DataLayout);
