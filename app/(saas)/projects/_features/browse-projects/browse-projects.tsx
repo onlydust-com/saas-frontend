@@ -43,7 +43,7 @@ function Safe() {
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProjectReactQueryAdapter.client.useGetProjectsV2({
-      queryParams,
+      queryParams: { ...queryParams, pageSize: 16 },
     });
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
