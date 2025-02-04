@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
+import { MeProfile, MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
 import { UserProfileContactChannel } from "@/core/domain/user/models/user.types";
 
 import { formSchema } from "./form.types";
@@ -51,24 +51,6 @@ export function formatData(data: MeProfileInterface) {
   };
 }
 
-export function sanitizeContactHandle(contact: string) {
-  let sanitizedContact = contact;
-
-  if (contact.endsWith("/")) {
-    sanitizedContact = sanitizedContact.slice(0, -1);
-  }
-
-  if (contact.includes("/")) {
-    sanitizedContact = sanitizedContact.split("/").at(-1) ?? "";
-  }
-
-  if (contact.startsWith("@")) {
-    sanitizedContact = sanitizedContact.substring(1);
-  }
-
-  return sanitizedContact;
-}
-
 export function createContact({
   channel,
   contact,
@@ -84,11 +66,11 @@ export function createContact({
   contact: string;
   visibility: "public" | "private";
 } {
-  return {
+  return MeProfile.buildContact({
     channel,
-    contact: `${prefixUrl || ""}${sanitizeContactHandle(contact)}`,
+    contact: `${prefixUrl || ""}${MeProfile.sanitizeChannelContact(contact)}`,
     visibility: isPublic ? "public" : "private",
-  };
+  });
 }
 
 export function formatToSchema(data: z.infer<typeof formSchema>) {

@@ -18,7 +18,7 @@ function ProfilePage() {
         </CardTitle>
         <CardDescription>You can edit all your information here.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-4 pt-0">
+      <CardContent className="flex flex-col gap-8 p-4 pt-0">
         <GithubAccount />
         <InformationForm />
       </CardContent>

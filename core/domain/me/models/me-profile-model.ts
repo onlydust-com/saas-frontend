@@ -45,7 +45,7 @@ export class MeProfile implements MeProfileInterface {
     return this.getContact(UserProfileContactChannel.telegram);
   }
 
-  sanitizeChannelContact(contact: string) {
+  static sanitizeChannelContact(contact: string) {
     let sanitizedContact = contact;
 
     if (contact.endsWith("/")) {
@@ -63,7 +63,7 @@ export class MeProfile implements MeProfileInterface {
     return sanitizedContact;
   }
 
-  buildContact({
+  static buildContact({
     channel,
     contact,
     visibility = "private",
@@ -93,7 +93,7 @@ export class MeProfile implements MeProfileInterface {
     return contact
       ? {
           ...contact,
-          contact: contact.contact ? this.sanitizeChannelContact(contact.contact) : undefined,
+          contact: contact.contact ? MeProfile.sanitizeChannelContact(contact.contact) : undefined,
         }
       : undefined;
   }

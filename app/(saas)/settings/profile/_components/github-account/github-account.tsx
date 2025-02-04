@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Github, Link, RefreshCcw } from "lucide-react";
+import { Github, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
