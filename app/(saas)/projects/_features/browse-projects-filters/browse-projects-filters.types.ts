@@ -9,6 +9,7 @@ export type BrowseProjectsContextFilter = {
   languageIds: string[];
   ecosystemIds: string[];
   categoryIds: string[];
+  sortBy: string | undefined;
 };
 
 export const DEFAULT_FILTER: BrowseProjectsContextFilter = {
@@ -16,6 +17,7 @@ export const DEFAULT_FILTER: BrowseProjectsContextFilter = {
   languageIds: [],
   ecosystemIds: [],
   categoryIds: [],
+  sortBy: undefined,
 };
 
 export type BrowseProjectsContextReturn = {

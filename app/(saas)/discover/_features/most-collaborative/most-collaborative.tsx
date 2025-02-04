@@ -6,12 +6,13 @@ import { ProjectCard, ProjectCardSkeleton } from "@/app/(saas)/discover/_compone
 import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { ProjectTag } from "@/core/domain/project/project.types";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function MostCollaborative() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 5 },
+    queryParams: { pageSize: 5, tags: [ProjectTag.HOT_COMMUNITY] },
   });
 
   const renderProjects = useCallback(() => {
@@ -37,7 +38,7 @@ export function MostCollaborative() {
   if (isError) return null;
 
   return (
-    <Section title="Most collaborative" seeMore={NEXT_ROUTER.projects.root}>
+    <Section title="Most collaborative" seeMore={`${NEXT_ROUTER.projects.root}?tags=${ProjectTag.HOT_COMMUNITY}`}>
       <div className="flex flex-col gap-6">{renderProjects()}</div>
     </Section>
   );

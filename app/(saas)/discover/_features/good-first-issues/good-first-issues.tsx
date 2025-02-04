@@ -38,7 +38,10 @@ export function GoodFirstIssues() {
   if (isError) return null;
 
   return (
-    <Section title="Good first issues" seeMore={NEXT_ROUTER.projects.root}>
+    <Section
+      title="Good first issues"
+      seeMore={`${NEXT_ROUTER.projects.root}?tags=${ProjectTag.HAS_GOOD_FIRST_ISSUES}`}
+    >
       <div className="grid gap-x-12 gap-y-6 md:grid-cols-2 lg:grid-cols-3">{renderProjects()}</div>
     </Section>
   );
