@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Github, RefreshCcw } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
@@ -29,10 +30,10 @@ export function GithubAccount() {
       setIsLoading(true);
       await refetch();
       await queryClient.invalidateQueries({ queryKey: meStoragePort.getUpdateGithubProfile({}).tag });
-      toast.success('GitHub account synced successfully');
+      toast.success("GitHub account synced successfully");
     } catch (error) {
-      console.error('Failed to sync GitHub account:', error);
-      toast.error('Failed to sync GitHub account. Please try again.');
+      console.error("Failed to sync GitHub account:", error);
+      toast.error("Failed to sync GitHub account. Please try again.");
     } finally {
       setIsLoading(false);
     }
