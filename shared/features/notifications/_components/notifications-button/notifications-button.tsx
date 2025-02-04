@@ -3,11 +3,9 @@ import { Bell } from "lucide-react";
 import { NotificationReactQueryAdapter } from "@/core/application/react-query-adapter/notification";
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { buttonVariants } from "@/shared/ui/button";
 
-import { NotificationsButtonProps } from "@/shared/features/notifications/_components/notifications-button/notifications-button.types";
-
-export function NotificationsButton({ onClick }: NotificationsButtonProps) {
+export function NotificationsButton() {
   const { data: unreadNotificationCount } = NotificationReactQueryAdapter.client.useGetNotificationsCount({
     queryParams: { status: NotificationStatus.UNREAD },
   });
@@ -15,14 +13,14 @@ export function NotificationsButton({ onClick }: NotificationsButtonProps) {
   const hasUnreadNotifications = !!unreadNotificationCount?.count;
 
   return (
-    <div className={"relative"}>
-      <Button variant={"tertiary"} size={"xs"} startIcon={{ component: Bell }} iconOnly onClick={onClick} />
+    <div className={buttonVariants({ variant: "outline", size: "icon" })}>
+      <Bell />
+
       {hasUnreadNotifications ? (
-        <div
-          className={
-            "absolute right-0 top-0 size-1.5 -translate-y-1/4 translate-x-1/4 rounded-full bg-background-brand-primary"
-          }
-        />
+        <span className="absolute right-0 top-0 flex size-2 -translate-y-1/4 translate-x-1/4">
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-background-brand-primary opacity-75"></span>
+          <span className="relative inline-flex size-2 rounded-full bg-background-brand-primary"></span>
+        </span>
       ) : null}
     </div>
   );

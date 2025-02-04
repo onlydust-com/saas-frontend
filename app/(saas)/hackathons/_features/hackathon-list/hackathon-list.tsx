@@ -5,10 +5,8 @@ import { LiveHackathonCard } from "@/app/(saas)/hackathons/_components/live-hack
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
-import { Skeleton } from "@/design-system/atoms/skeleton";
-
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 export function HackathonList() {
   const { data, isLoading, isError } = HackathonReactQueryAdapter.client.useGetHackathons({});
@@ -47,16 +45,15 @@ export function HackathonList() {
 
   const renderClosedHackathons = useCallback(() => {
     if (isLoading) {
-      return (
-        <ScrollView direction="x" className="scroll-snap-mandatory flex w-full snap-x gap-xl">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-[278px] w-[460px] min-w-fit shrink-0 snap-start" />
-          ))}
-        </ScrollView>
-      );
+      return Array.from({ length: 4 }).map((_, index) => <Skeleton key={index} className="h-[278px]" />);
     }
 
-    if (isError) return <ErrorState />;
+    if (isError)
+      return (
+        <div className="col-span-full">
+          <ErrorState />
+        </div>
+      );
 
     if (!data) return null;
 
@@ -64,22 +61,18 @@ export function HackathonList() {
 
     const closedHackathons = mostRecentHackathons.filter(hackathon => hackathon.isPast());
 
-    return (
-      <ScrollView direction="x" className="scroll-snap-mandatory flex w-full snap-x gap-xl">
-        {closedHackathons.map(hackathon => (
-          <div key={hackathon.id} className="min-w-fit max-w-[460px] snap-start">
-            <ClosedHackathonCard hackathon={hackathon} />
-          </div>
-        ))}
-      </ScrollView>
-    );
+    return closedHackathons.map(hackathon => <ClosedHackathonCard key={hackathon.id} hackathon={hackathon} />);
   }, [data, isError, isLoading]);
 
   return (
     <div className="flex flex-col gap-4xl">
       {renderLiveHackathon()}
+
       {renderUpcomingHackathon()}
-      {renderClosedHackathons()}
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {renderClosedHackathons()}
+      </div>
     </div>
   );
 }

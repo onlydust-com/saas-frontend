@@ -5,11 +5,9 @@ import { ReactNode, useMemo } from "react";
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -84,30 +82,26 @@ export default function EcosystemLayout({
   children: ReactNode;
 }) {
   return (
-    <PageWrapper containerSize="medium">
-      <AnimatedColumn className="h-full max-w-full">
-        <ScrollView className="h-full">
-          <div className="grid-col-1 grid h-full gap-lg tablet:grid-cols-1 desktop:grid-cols-3">
-            <div className="flex flex-col gap-lg desktop:col-span-1">
-              <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
-              <EcosystemEvents ecosystemSlug={params.ecosystemSlug} />
-              <EcosystemDocumentation ecosystemSlug={params.ecosystemSlug} />
-            </div>
+    <PageContainer size="medium" className={"flex-1"}>
+      <div className="flex flex-col items-start justify-start gap-4 py-4 laptop:h-full laptop:flex-row">
+        <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-20 laptop:w-[440px] laptop:min-w-[440px]">
+          <EcosystemSummary ecosystemSlug={params.ecosystemSlug} />
+          <EcosystemEvents ecosystemSlug={params.ecosystemSlug} />
+          <EcosystemDocumentation ecosystemSlug={params.ecosystemSlug} />
+        </div>
 
-            <Paper
-              background="primary"
-              border="primary"
-              classNames={{ base: "desktop:col-span-2 overflow-hidden h-screen flex flex-col" }}
-              px="none"
-            >
-              <div className={"flex h-12 w-full flex-row items-end justify-between gap-1 laptop:h-[65px]"}>
-                <Navigation params={params} />
-              </div>
-              {children}
-            </Paper>
+        <Paper
+          background="primary"
+          border="primary"
+          classNames={{ base: "desktop:col-span-2 overflow-hidden tablet:h-full flex flex-col pb-xl" }}
+          px="none"
+        >
+          <div className={"flex h-12 w-full flex-row items-end justify-between gap-1 laptop:h-[65px]"}>
+            <Navigation params={params} />
           </div>
-        </ScrollView>
-      </AnimatedColumn>
-    </PageWrapper>
+          {children}
+        </Paper>
+      </div>
+    </PageContainer>
   );
 }

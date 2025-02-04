@@ -2,13 +2,13 @@
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 
 import { BrowseProjects } from "./_features/browse-projects/browse-projects";
 
 function ProjectsPage() {
   return (
-    <PageWrapper containerSize="small" shouldScroll>
+    <PageContainer>
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -18,10 +18,10 @@ function ProjectsPage() {
         ]}
       />
 
-      <div className="py-6">
+      <div className="py-10">
         <BrowseProjects />
       </div>
-    </PageWrapper>
+    </PageContainer>
   );
 }
 

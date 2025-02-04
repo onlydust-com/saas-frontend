@@ -1,5 +1,6 @@
 "use client";
 
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { useCallback } from "react";
 
 import { CategoryCard, CategoryCardSkeleton } from "@/app/(saas)/discover/_components/category-card/category-card";
@@ -38,7 +39,7 @@ export function Categories() {
 
   return (
     <Section title="Categories">
-      <Carousel>
+      <Carousel plugins={[WheelGesturesPlugin()]}>
         <CarouselContent className="-ml-6">{renderCategories()}</CarouselContent>
         <CarouselPrevious className="hidden xl:flex" />
         <CarouselNext className="hidden xl:flex" />

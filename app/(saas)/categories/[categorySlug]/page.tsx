@@ -14,7 +14,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
@@ -29,7 +29,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
 
   if (isLoading) {
     return (
-      <PageWrapper containerSize="small">
+      <PageContainer>
         <div className="flex w-full flex-col">
           <div className="flex h-full flex-col gap-4xl py-4xl">
             <Skeleton className="h-[194px]" />
@@ -44,7 +44,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
             </div>
           </div>
         </div>
-      </PageWrapper>
+      </PageContainer>
     );
   }
 
@@ -53,7 +53,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
   }
 
   return (
-    <PageWrapper containerSize="small" shouldScroll>
+    <PageContainer>
       <PosthogCaptureOnMount
         eventName={"categories_viewed"}
         params={{
@@ -62,7 +62,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
         paramsReady={Boolean(category?.id)}
       />
 
-      <div className="pb-7xl">
+      <div className="flex flex-col gap-4xl py-10">
         <NavigationBreadcrumb
           breadcrumb={[
             {
@@ -79,19 +79,17 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
           ]}
         />
 
-        <div className="mx-auto flex flex-col gap-4xl py-4xl">
-          <ListBanner
-            title={{ children: category.name }}
-            subtitle={{
-              children: category.description,
-            }}
-            logo={<RemixIcon name={category.iconSlug as RemixIconsName} size="banner" />}
-          />
-        </div>
+        <ListBanner
+          title={{ children: category.name }}
+          subtitle={{
+            children: category.description,
+          }}
+          logo={<RemixIcon name={category.iconSlug as RemixIconsName} size="banner" />}
+        />
 
         <ProjectList categoryId={category.id} />
       </div>
-    </PageWrapper>
+    </PageContainer>
   );
 }
 

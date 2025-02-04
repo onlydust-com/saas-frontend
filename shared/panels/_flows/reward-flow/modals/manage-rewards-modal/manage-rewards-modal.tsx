@@ -1,6 +1,5 @@
 import { Modal } from "@/design-system/molecules/modal";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { SidePanelsProvider } from "@/shared/features/side-panels/side-panels.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -23,11 +22,9 @@ export function ManageRewardsModal({ isOpen, onOpenChange, projectId }: ManageRe
       classNames={{ modal: "h-full" }}
     >
       <SidePanelsProvider absolute>
-        <AnimatedColumn className={"h-full"}>
-          <PageContent classNames={{ base: "h-full" }}>
-            <ContributorsTable projectId={projectId} />
-          </PageContent>
-        </AnimatedColumn>
+        <PageContent classNames={{ base: "h-full" }}>
+          <ContributorsTable projectId={projectId} />
+        </PageContent>
       </SidePanelsProvider>
     </Modal>
   );

@@ -5,11 +5,11 @@ import { RecentActivity } from "@/app/(saas)/discover/_features/recent-activity/
 import { Trending } from "@/app/(saas)/discover/_features/trending/trending";
 
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 
 export default function DiscoverPage() {
   return (
-    <PageWrapper containerSize="small" shouldScroll>
+    <PageContainer>
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -19,7 +19,7 @@ export default function DiscoverPage() {
         ]}
       />
 
-      <div className="flex flex-col gap-16 py-6">
+      <div className="flex flex-col gap-16 py-10">
         <Categories />
 
         <GoodFirstIssues />
@@ -34,6 +34,6 @@ export default function DiscoverPage() {
           <RecentActivity />
         </div>
       </div>
-    </PageWrapper>
+    </PageContainer>
   );
 }
