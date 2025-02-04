@@ -9,6 +9,7 @@ import { BillingProfileShortInterface } from "@/core/domain/billing-profile/mode
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -82,6 +83,19 @@ function BillingProfilesPage() {
 
   return (
     <div className="p-4">
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: "Settings",
+          },
+          {
+            id: "billing-profiles",
+            label: "Billing Profiles",
+          },
+        ]}
+      />
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">{renderBillingProfiles()}</div>
     </div>
   );
