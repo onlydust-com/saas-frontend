@@ -7,6 +7,8 @@ import {
   DeleteBillingProfilePortResponse,
   DownloadBillingProfileInvoiceByIdPortParams,
   DownloadBillingProfileInvoiceByIdPortResponse,
+  EnableBillingProfilePortParams,
+  EnableBillingProfilePortResponse,
   GetBillingProfileByIdPortParams,
   GetBillingProfileByIdPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
@@ -50,4 +52,5 @@ export interface BillingProfileStoragePort {
     p: AcceptOrRejectCoworkerInvitationPortParams
   ): AcceptOrRejectCoworkerInvitationPortResponse;
   deleteBillingProfile(p: DeleteBillingProfilePortParams): DeleteBillingProfilePortResponse;
+  enableBillingProfile(p: EnableBillingProfilePortParams): EnableBillingProfilePortResponse;
 }

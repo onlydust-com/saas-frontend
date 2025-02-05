@@ -162,3 +162,15 @@ export type DeleteBillingProfilePortParams = HttpClientParameters<{
 }>;
 
 export type DeleteBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Enable  Billing Profile ------------------------ */
+
+export type EnableBillingProfileBody = components["schemas"]["BillingProfileEnableRequest"];
+
+type EnableBillingProfilePathParams = operations["enableBillingProfile"]["parameters"]["path"];
+
+export type EnableBillingProfilePortParams = HttpClientParameters<{
+  PathParams: EnableBillingProfilePathParams;
+}>;
+
+export type EnableBillingProfilePortResponse = HttpStorageResponse;

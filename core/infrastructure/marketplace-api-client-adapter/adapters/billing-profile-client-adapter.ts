@@ -1,6 +1,7 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
   AcceptOrRejectCoworkerInvitationBody,
+  EnableBillingProfileBody,
   GetBillingProfileByIdResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfileInvoiceableRewardsResponse,
@@ -33,6 +34,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
     acceptOrRejectCoworkerInvitation: "me/billing-profiles/:billingProfileId/invitations",
     deleteBillingProfile: "billing-profiles/:billingProfileId",
+    enableBillingProfile: "billing-profiles/:billingProfileId/enable",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -291,6 +293,26 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         method,
         tag,
         pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  enableBillingProfile = ({ pathParams }: FirstParameter<BillingProfileStoragePort["enableBillingProfile"]>) => {
+    const path = this.routes["enableBillingProfile"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: EnableBillingProfileBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
       });
 
     return {

@@ -5,19 +5,25 @@ import {
   useMutationAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
+import { EnableBillingProfileBody } from "@/core/domain/billing-profile/billing-profile-contract.types";
 import { BillingProfileFacadePort } from "@/core/domain/billing-profile/input/billing-profile-facade-port";
 
-export function useDeleteBillingProfile({
+export function useEnableBillingProfile({
   pathParams,
   options,
-}: UseMutationFacadeParams<BillingProfileFacadePort["deleteBillingProfile"]> = {}) {
+}: UseMutationFacadeParams<
+  BillingProfileFacadePort["enableBillingProfile"],
+  undefined,
+  never,
+  EnableBillingProfileBody
+> = {}) {
   const meStoragePort = bootstrap.getMeStoragePortForClient();
   const billingProfileStoragePort = bootstrap.getBillingProfileStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
-      ...billingProfileStoragePort.deleteBillingProfile({ pathParams }),
+      ...billingProfileStoragePort.enableBillingProfile({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
@@ -30,9 +36,6 @@ export function useDeleteBillingProfile({
             queryKey: billingProfileStoragePort.getMyBillingProfiles({}).tag,
             exact: false,
           });
-
-          // TODO: @billing
-          // invalidate payout preferences
 
           options?.onSuccess?.(data, variables, context);
         },
