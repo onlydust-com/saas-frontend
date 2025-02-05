@@ -14,9 +14,9 @@ export function CategoryCard({ name, description, slug, projectCount, iconSlug }
   return (
     <Link href={NEXT_ROUTER.categories.details.root(slug)} className="transition-opacity hover:opacity-80">
       <Card className="flex gap-4 p-3">
-        <Avatar className="size-24 rounded-xl">
+        <Avatar className="size-24 rounded-xl border">
           <AvatarFallback
-            className="rounded-xl"
+            className="rounded-xl border"
             style={{
               backgroundColor: `hsl(${(slug.split("").reduce((acc, char) => acc + char.charCodeAt(0) * 31, 0) * 11) % 360} 80% 65%)`,
             }}

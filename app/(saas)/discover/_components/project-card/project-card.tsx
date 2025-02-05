@@ -107,7 +107,7 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
       <Card className="flex items-center gap-4 border-none">
         <Avatar className="size-24 rounded-xl border">
           <AvatarImage src={logoUrl} />
-          <AvatarFallback className="rounded-xl">{name.charAt(0)}</AvatarFallback>
+          <AvatarFallback className="rounded-xl border">{name.charAt(0)}</AvatarFallback>
         </Avatar>
 
         <div className="flex flex-1 flex-col gap-1.5">

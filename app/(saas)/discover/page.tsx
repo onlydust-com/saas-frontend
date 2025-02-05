@@ -20,11 +20,11 @@ export default function DiscoverPage() {
       />
 
       <div className="flex flex-col gap-16 py-10">
-        <Categories />
-
         <GoodFirstIssues />
 
         {/* <News /> */}
+
+        <Categories />
 
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <Trending />
