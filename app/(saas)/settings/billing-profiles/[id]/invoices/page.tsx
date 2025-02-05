@@ -1,9 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { CloudDownload } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { bootstrap } from "@/core/bootstrap";
+
+import { Icon } from "@/design-system/atoms/icon";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
@@ -11,12 +15,17 @@ import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
+import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
 function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
+  const [invoiceMetaData, setInvoiceMetaData] = useState<{ invoiceId: string | undefined; number: string | undefined }>(
+    { invoiceId: "", number: "" }
+  );
+
   const {
     data: invoicesData,
     isLoading: invoicesLoading,
@@ -31,6 +40,39 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
       direction: "DESC",
     },
   });
+
+  const {
+    data: downloadedInvoice,
+    isError: isDownloadError,
+    isLoading: isDownloading,
+  } = BillingProfileReactQueryAdapter.client.useDownloadBillingProfileInvoiceById({
+    pathParams: {
+      billingProfileId: params.id,
+      invoiceId: invoiceMetaData.invoiceId ?? "",
+    },
+    options: { enabled: Boolean(invoiceMetaData.invoiceId) },
+  });
+
+  useEffect(() => {
+    if (downloadedInvoice) {
+      const downloadLink = document.createElement("a");
+      downloadLink.href = window.URL.createObjectURL(downloadedInvoice);
+      downloadLink.download = invoiceMetaData.number ?? "invoice.pdf";
+      downloadLink.click();
+      setInvoiceMetaData({ invoiceId: "", number: "" });
+      toast.success("Invoice downloaded");
+    }
+  }, [downloadedInvoice]);
+
+  useEffect(() => {
+    if (isDownloadError) {
+      toast.error("Error downloading invoice");
+    }
+  }, [isDownloadError]);
+
+  function onDownloadInvoice({ invoiceId, number }: { invoiceId: string | undefined; number: string | undefined }) {
+    setInvoiceMetaData({ invoiceId, number });
+  }
 
   const invoices = useMemo(() => {
     return invoicesData?.pages.flatMap(page => page.invoices) ?? [];
@@ -89,10 +131,24 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
                   {amount} {code}
                 </TableCell>
                 <TableCell>{status}</TableCell>
+                <TableCell>
+                  <Button
+                    variant={"outline"}
+                    onClick={() => onDownloadInvoice({ invoiceId: id, number })}
+                    disabled={!id || isDownloading}
+                  >
+                    <Icon component={CloudDownload} />
+                  </Button>
+                </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={5}>Total: {totalItemNumber}</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
 
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
