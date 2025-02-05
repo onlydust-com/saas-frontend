@@ -6,17 +6,18 @@ import { toast } from "sonner";
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Button } from "@/shared/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/shared/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/shared/ui/alert-dialog";
+import { Button } from "@/shared/ui/button";
 
 export function ManageBillingProfile({ id }: { id: string }) {
   const router = useRouter();
@@ -104,32 +105,24 @@ export function ManageBillingProfile({ id }: { id: string }) {
   if (!data || data.isBillingProfileIndividual() || !data.isAdmin()) return null;
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
         <Button type="button" variant={manageMapping[actionType].variant} loading={isPendingDelete || isPendingEnable}>
           {manageMapping[actionType].icon}
           {manageMapping[actionType].label}
         </Button>
-      </DialogTrigger>
+      </AlertDialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>{manageMapping[actionType].confirmation}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="gap-y-2 sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Cancel
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button type="button" onClick={manageMapping[actionType].action}>
-              Confirm
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>{manageMapping[actionType].confirmation}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={manageMapping[actionType].action}>Confirm</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

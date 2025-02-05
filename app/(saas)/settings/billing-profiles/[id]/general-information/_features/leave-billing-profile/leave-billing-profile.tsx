@@ -6,17 +6,18 @@ import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { Button } from "@/shared/ui/button";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/shared/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/shared/ui/alert-dialog";
+import { Button } from "@/shared/ui/button";
 
 export function LeaveBillingProfile({ id }: { id: string }) {
   const router = useRouter();
@@ -51,32 +52,26 @@ export function LeaveBillingProfile({ id }: { id: string }) {
   if (!data || !data.me.canLeave) return null;
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
         <Button type="button" variant="secondary" loading={isPending}>
           <DoorOpenIcon />
           Leave billing profile
         </Button>
-      </DialogTrigger>
+      </AlertDialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>You won’t be able to receive rewards on this billing profile anymore.</DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="gap-y-2 sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Cancel
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button type="button" onClick={onConfirm}>
-              Confirm
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            You won’t be able to receive rewards on this billing profile anymore.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>Confirm</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
