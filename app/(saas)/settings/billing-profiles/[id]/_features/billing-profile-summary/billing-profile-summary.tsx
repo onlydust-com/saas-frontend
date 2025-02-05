@@ -46,14 +46,13 @@ export function BillingProfileSummary({ id }: { id: string }) {
     }
 
     if (data.isAdmin()) {
+      // TODO @billing
       // 	return (
-      // 	  <AdminContentWrapper role={role}>
       // 	  <TeamworkMode
       // 		type={profile?.data.type}
       // 		isSwitchableToSelfEmployed={profile?.data.isSwitchableToSelfEmployed}
       // 		id={id}
       // 	  />
-      // 	</AdminContentWrapper>
       //   );
 
       return null;

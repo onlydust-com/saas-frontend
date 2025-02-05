@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { PropsWithChildren } from "react";
 
 import { BillingProfileSummary } from "@/app/(saas)/settings/billing-profiles/[id]/_features/billing-profile-summary/billing-profile-summary";
+import { LimitReachedHeader } from "@/app/(saas)/settings/billing-profiles/[id]/_features/limit-reached-header/limit-reached-header";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Card } from "@/shared/ui/card";
@@ -27,6 +28,8 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
       value={currentPath}
       className="flex w-full flex-col gap-4 p-4"
     >
+      <LimitReachedHeader />
+
       <BillingProfileSummary id={id} />
 
       <TabsList className="h-auto w-fit flex-wrap justify-start">
@@ -38,6 +41,8 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
       </TabsList>
 
       <Card className="p-4">{children}</Card>
+
+      {/* {isInvited && !hasRole ? <ProfileInvitationBanner profile={profile.data} /> : null} */}
     </Tabs>
   );
 }
