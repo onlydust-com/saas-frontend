@@ -7,7 +7,7 @@ import {
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
-import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice";
+import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
 import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInvoiceableReward } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
 import { BillingProfile } from "@/core/domain/billing-profile/models/billing-profile-model";
