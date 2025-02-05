@@ -184,3 +184,17 @@ export type RemoveCoworkerFromBillingProfilePortParams = HttpClientParameters<{
 }>;
 
 export type RemoveCoworkerFromBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Create Billing Profile ------------------------ */
+
+export type CreateBillingProfileResponse = components["schemas"]["BillingProfileCreateResponse"];
+
+export type CreateBillingProfileBody = components["schemas"]["BillingProfileRequest"];
+
+type CreateBillingProfilePathParams = operations["createBillingProfile"]["parameters"]["path"];
+
+export type CreateBillingProfilePortParams = HttpClientParameters<{
+  PathParams: CreateBillingProfilePathParams;
+}>;
+
+export type CreateBillingProfilePortResponse = HttpStorageResponse<CreateBillingProfileResponse>;

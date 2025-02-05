@@ -46,7 +46,7 @@ function BillingProfileCard({ profile }: { profile: BillingProfileShortInterface
       href={NEXT_ROUTER.settings.billingProfiles.generalInformation.root(profile.id)}
       className="transition-opacity hover:opacity-80"
     >
-      <Card>
+      <Card className="h-full">
         <CardHeader>
           <TypographyH4>{profile.name}</TypographyH4>
           <CardDescription>{profile.getTypeLabel()}</CardDescription>
@@ -69,7 +69,7 @@ function BillingProfilesPage() {
 
   const renderBillingProfiles = useCallback(() => {
     if (isLoading) {
-      return Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className="h-[132px]" />);
+      return Array.from({ length: 2 }).map((_, index) => <Skeleton key={index} className="h-[132px]" />);
     }
 
     if (isError) {
