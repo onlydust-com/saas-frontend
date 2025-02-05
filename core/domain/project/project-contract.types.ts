@@ -66,6 +66,20 @@ export type UploadProjectLogoPortParams = HttpClientParameters<object>;
 
 export type UploadProjectLogoPortResponse = HttpStorageResponse<UploadProjectLogoResponse, File>;
 
+/* --------------------- Create Project --------------------- */
+
+export type CreateProjectBody = components["schemas"]["CreateProjectRequest"];
+
+export type CreateProjectResponse = components["schemas"]["CreateProjectResponse"];
+
+type CreateProjectPathParams = operations["createProject"]["parameters"]["path"];
+
+export type CreateProjectPortParams = HttpClientParameters<{
+  PathParams: CreateProjectPathParams;
+}>;
+
+export type CreateProjectPortResponse = HttpStorageResponse<CreateProjectResponse>;
+
 /* --------------------- Edit Project --------------------- */
 
 export type EditProjectBody = components["schemas"]["UpdateProjectRequest"];

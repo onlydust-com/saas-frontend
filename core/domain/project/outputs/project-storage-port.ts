@@ -1,4 +1,6 @@
 import {
+  CreateProjectPortParams,
+  CreateProjectPortResponse,
   EditProjectPortParams,
   EditProjectPortResponse,
   GetProjectAvailableIssuesPortParams,
@@ -39,7 +41,7 @@ import {
   UpdateProjectContributorLabelsPortParams,
   UpdateProjectContributorLabelsPortResponse,
   UploadProjectLogoPortParams,
-  UploadProjectLogoPortResponse,
+  UploadProjectLogoPortResponse
 } from "@/core/domain/project/project-contract.types";
 
 export interface ProjectStoragePort {
@@ -47,6 +49,7 @@ export interface ProjectStoragePort {
   getProjectById(p: GetProjectByIdPortParams): GetProjectByIdPortResponse;
   getProjectStats(p: GetProjectStatsPortParams): GetProjectStatsPortResponse;
   getProjects(p: GetProjectsPortParams): GetProjectsPortResponse;
+  createProject(p: CreateProjectPortParams): CreateProjectPortResponse;
   editProject(p: EditProjectPortParams): EditProjectPortResponse;
   uploadProjectLogo(p: UploadProjectLogoPortParams): UploadProjectLogoPortResponse;
   getProjectFinancialDetailsBySlug(
