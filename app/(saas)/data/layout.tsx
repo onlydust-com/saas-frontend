@@ -18,7 +18,6 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
@@ -55,7 +54,7 @@ function Navigation() {
       tabs={[
         {
           id: Views.OVERVIEW,
-          children: <Translate token={"data:details.tabs.overview"} />,
+          children: "Overview",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.overview.root),
@@ -63,7 +62,7 @@ function Navigation() {
         },
         {
           id: Views.PROJECTS,
-          children: <Translate token={"data:details.tabs.project"} />,
+          children: "Projects",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.projects.root),
@@ -71,7 +70,7 @@ function Navigation() {
         },
         {
           id: Views.CONTRIBUTORS,
-          children: <Translate token={"data:details.tabs.contributor"} />,
+          children: "Contributors",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.contributors.root),

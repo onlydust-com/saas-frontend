@@ -42,14 +42,14 @@ export function DataGroup() {
           isActive: isOverviewRoute,
         },
         {
-          title: "Contributors",
-          url: NEXT_ROUTER.data.contributors.root,
-          isActive: isContributorsRoute,
-        },
-        {
           title: "Projects",
           url: NEXT_ROUTER.data.projects.root,
           isActive: isProjectsRoute,
+        },
+        {
+          title: "Contributors",
+          url: NEXT_ROUTER.data.contributors.root,
+          isActive: isContributorsRoute,
         },
       ],
     },
