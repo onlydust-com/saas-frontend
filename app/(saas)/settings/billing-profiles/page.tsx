@@ -11,9 +11,9 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 function BillingProfileCard({ profile }: { profile: BillingProfileShortInterface }) {
   const warning = profile.getWarning();
@@ -46,7 +46,7 @@ function BillingProfileCard({ profile }: { profile: BillingProfileShortInterface
     >
       <Card>
         <CardHeader>
-          <CardTitle>{profile.name}</CardTitle>
+          <TypographyH4>{profile.name}</TypographyH4>
           <CardDescription>{profile.getTypeLabel()}</CardDescription>
         </CardHeader>
 

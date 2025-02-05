@@ -7,6 +7,7 @@ export interface BillingProfileShortInterface extends BillingProfileShortRespons
   getTypeLabel(): string | undefined;
   getWarning(): string | undefined;
   getError(): string | undefined;
+  isIndividualLimitReached(): boolean;
 }
 
 export class BillingProfileShort implements BillingProfileShortInterface {
@@ -60,5 +61,9 @@ export class BillingProfileShort implements BillingProfileShortInterface {
     if (this.individualLimitReached) {
       return "Individual Limit Reached";
     }
+  }
+
+  isIndividualLimitReached() {
+    return this.individualLimitReached || false;
   }
 }

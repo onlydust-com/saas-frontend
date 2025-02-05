@@ -4,6 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren } from "react";
 
+import { BillingProfileSummary } from "@/app/(saas)/settings/billing-profiles/[id]/_features/billing-profile-summary/billing-profile-summary";
+import { LimitReachedHeader } from "@/app/(saas)/settings/billing-profiles/[id]/_features/limit-reached-header/limit-reached-header";
+import { ProfileInvitationBanner } from "@/app/(saas)/settings/billing-profiles/[id]/_features/profile-invitation-banner/profile-invitation-banner";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
@@ -25,6 +29,12 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
       value={currentPath}
       className="flex w-full flex-col gap-4 p-4"
     >
+      <LimitReachedHeader />
+
+      <BillingProfileSummary id={id} />
+
+      <ProfileInvitationBanner id={id} />
+
       <TabsList className="h-auto w-fit flex-wrap justify-start">
         {tabs.map(({ href, label }) => (
           <TabsTrigger key={href} value={href}>

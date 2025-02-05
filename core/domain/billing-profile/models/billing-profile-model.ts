@@ -1,4 +1,4 @@
-import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
+import { BillingProfileRole, BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BillingProfileResponse = components["schemas"]["BillingProfileResponse"];
@@ -10,6 +10,10 @@ export interface BillingProfileInterface extends BillingProfileResponse {
   isBillingProfileIndividual(): boolean;
   isBillingProfileCompany(): boolean;
   isBillingProfileSelfEmployed(): boolean;
+  getTypeLabel(): string | undefined;
+  isAdmin(): boolean;
+  isInvited(): boolean;
+  hasRole(): boolean;
 }
 
 export class BillingProfile implements BillingProfileInterface {
@@ -62,5 +66,31 @@ export class BillingProfile implements BillingProfileInterface {
 
   isBillingProfileSelfEmployed() {
     return this.type === BillingProfileType.SelfEmployed;
+  }
+
+  getTypeLabel() {
+    if (this.isBillingProfileIndividual()) {
+      return "Individual";
+    }
+
+    if (this.isBillingProfileCompany()) {
+      return "Company";
+    }
+
+    if (this.isBillingProfileSelfEmployed()) {
+      return "Self-Employed";
+    }
+  }
+
+  isAdmin() {
+    return this.me.role === BillingProfileRole.Admin;
+  }
+
+  isInvited() {
+    return Boolean(this.me.invitation?.invitedBy);
+  }
+
+  hasRole() {
+    return Boolean(this.me.role);
   }
 }
