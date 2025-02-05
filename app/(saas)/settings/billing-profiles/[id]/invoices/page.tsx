@@ -91,7 +91,7 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div>
       <NavigationBreadcrumb
         breadcrumb={[
           {
