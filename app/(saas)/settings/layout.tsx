@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useMemo } from "react";
 
+import { bootstrap } from "@/core/bootstrap";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { Card } from "@/shared/ui/card";
@@ -14,11 +16,11 @@ const SETTING_ROUTES = [
   { href: NEXT_ROUTER.settings.notifications.root, label: "Notifications" },
   { href: NEXT_ROUTER.settings.payoutPreferences.root, label: "Payout Preferences" },
   { href: NEXT_ROUTER.settings.billingProfiles.root, label: "Billing Profiles" },
-  { href: NEXT_ROUTER.settings.termsAndConditions.root, label: "Terms and Conditions" },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
   const currentPath = usePathname();
+  const legalKernelPort = bootstrap.getLegalKernelPort();
 
   const value = useMemo(() => {
     // Maximum number of URL segments for a parent settings route (e.g. /settings/billing-profiles)
@@ -46,6 +48,11 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
               <Link href={href}>{label}</Link>
             </TabsTrigger>
           ))}
+          <TabsTrigger value="terms-and-conditions">
+            <a href={legalKernelPort.getTermsAndConditionsUrl()} target="_blank" rel="noreferrer noopener">
+              Terms and Conditions
+            </a>
+          </TabsTrigger>
         </TabsList>
 
         <Card>{children}</Card>
