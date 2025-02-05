@@ -55,7 +55,7 @@ export function MaintainerGroup() {
     isActive: isMaintainerRoute,
     items: [
       {
-        title: "Overview",
+        title: "Contributions",
         url: NEXT_ROUTER.manageProjects.contributions.root(project.slug),
       },
       {
