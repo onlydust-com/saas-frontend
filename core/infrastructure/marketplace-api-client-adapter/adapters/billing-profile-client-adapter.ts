@@ -7,6 +7,8 @@ import {
   GetBillingProfileInvoicesResponse,
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
+  InviteBillingProfileCoworkerBody,
+  InviteBillingProfileCoworkerResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
 import { BillingProfileCoworker } from "@/core/domain/billing-profile/models/billing-profile-coworker-model";
 import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
@@ -33,6 +35,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
     getBillingProfileCoworkers: "billing-profiles/:billingProfileId/coworkers",
+    inviteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -280,6 +283,28 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         coworkers: data.coworkers.map(coworker => new BillingProfileCoworker(coworker)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  inviteBillingProfileCoworker = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["inviteBillingProfileCoworker"]>) => {
+    const path = this.routes["inviteBillingProfileCoworker"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: InviteBillingProfileCoworkerBody) =>
+      this.client.request<InviteBillingProfileCoworkerResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

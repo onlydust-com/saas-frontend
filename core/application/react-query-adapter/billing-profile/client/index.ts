@@ -7,3 +7,4 @@ export * from "./use-get-my-billing-profiles";
 export * from "./use-download-billing-profile-invoice-by-id";
 export * from "./use-get-billing-profile-invoices";
 export * from "./use-get-billing-profile-coworkers";
+export * from "./use-invite-billing-profile-coworker";

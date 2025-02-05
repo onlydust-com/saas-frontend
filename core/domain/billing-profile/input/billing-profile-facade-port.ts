@@ -17,6 +17,8 @@ import {
   GetBillingProfilePayoutInfoByIdPortResponse,
   GetMeBillingProfilesPortParams,
   GetMeBillingProfilesPortResponse,
+  InviteBillingProfileCoworkerPortParams,
+  InviteBillingProfileCoworkerPortResponse,
   UploadBillingProfileInvoiceByIdPortParams,
   UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -44,4 +46,5 @@ export interface BillingProfileFacadePort {
   ): GetBillingProfileInvoiceableRewardsPortResponse;
   getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
   getBillingProfileCoworkers(p: GetBillingProfileCoworkersPortParams): GetBillingProfileCoworkersPortResponse;
+  inviteBillingProfileCoworker(p: InviteBillingProfileCoworkerPortParams): InviteBillingProfileCoworkerPortResponse;
 }

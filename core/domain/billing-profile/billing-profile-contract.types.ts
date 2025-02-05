@@ -158,3 +158,17 @@ export type GetBillingProfileCoworkersPortParams = HttpClientParameters<{
 }>;
 
 export type GetBillingProfileCoworkersPortResponse = HttpStorageResponse<GetBillingProfileCoworkersModel>;
+
+/* --------------------- Invite Billing Profile Coworker  --------------------- */
+
+export type InviteBillingProfileCoworkerBody = components["schemas"]["BillingProfileCoworkerInvitationRequest"];
+
+export type InviteBillingProfileCoworkerResponse = components["schemas"]["BillingProfileCoworkerInvitation"];
+
+type InviteBillingProfileCoworkerPathParams = operations["inviteCoworker"]["parameters"]["path"];
+
+export type InviteBillingProfileCoworkerPortParams = HttpClientParameters<{
+  PathParams: InviteBillingProfileCoworkerPathParams;
+}>;
+
+export type InviteBillingProfileCoworkerPortResponse = HttpStorageResponse<InviteBillingProfileCoworkerResponse>;
