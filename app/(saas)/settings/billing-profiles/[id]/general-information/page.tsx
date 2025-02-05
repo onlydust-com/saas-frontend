@@ -1,5 +1,6 @@
 "use client";
 
+import { DisabledBillingProfile } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/disabled-billing-profile/disabled-billing-profile";
 import { LeaveBillingProfile } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/leave-billing-profile/leave-billing-profile";
 import { ManageBillingProfile } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/manage-profile/manage-profile";
 import { ProfileBanner } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-banner/profile-banner";
@@ -42,6 +43,8 @@ function BillingProfileGeneralInformationPage({ params }: { params: { id: string
 
       <ManageBillingProfile id={params.id} />
       <LeaveBillingProfile id={params.id} />
+
+      <DisabledBillingProfile id={params.id} />
     </div>
   );
 }
