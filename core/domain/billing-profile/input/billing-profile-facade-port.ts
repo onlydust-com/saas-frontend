@@ -5,6 +5,8 @@ import {
   DownloadBillingProfileInvoiceByIdPortResponse,
   GetBillingProfileByIdPortParams,
   GetBillingProfileByIdPortResponse,
+  GetBillingProfileCoworkersPortParams,
+  GetBillingProfileCoworkersPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
   GetBillingProfileInvoicePreviewByIdPortResponse,
   GetBillingProfileInvoiceableRewardsPortParams,
@@ -41,4 +43,5 @@ export interface BillingProfileFacadePort {
     p: GetBillingProfileInvoiceableRewardsPortParams
   ): GetBillingProfileInvoiceableRewardsPortResponse;
   getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
+  getBillingProfileCoworkers(p: GetBillingProfileCoworkersPortParams): GetBillingProfileCoworkersPortResponse;
 }

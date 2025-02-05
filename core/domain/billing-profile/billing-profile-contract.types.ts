@@ -9,6 +9,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { BillingProfileCoworkerInterface } from "./models/billing-profile-coworker-model";
 import { BillingProfileInvoiceInterface } from "./models/billing-profile-invoice-model";
 
 /* ------------------------------ Get Billing Profile by ID ------------------------------ */
@@ -139,3 +140,21 @@ export type GetBillingProfileInvoicesPortParams = HttpClientParameters<{
 }>;
 
 export type GetBillingProfileInvoicesPortResponse = HttpStorageResponse<GetBillingProfileInvoicesModel>;
+
+/* ------------------------ Get Billing Profile Coworkers ------------------------ */
+
+export type GetBillingProfileCoworkersResponse = components["schemas"]["BillingProfileCoworkersPageResponse"];
+
+export type GetBillingProfileCoworkersModel = Omit<GetBillingProfileCoworkersResponse, "coworkers"> & {
+  coworkers: BillingProfileCoworkerInterface[];
+};
+
+type GetBillingProfileCoworkersPathParams = operations["getCoworkers"]["parameters"]["path"];
+type GetBillingProfileCoworkersQueryParams = operations["getCoworkers"]["parameters"]["query"];
+
+export type GetBillingProfileCoworkersPortParams = HttpClientParameters<{
+  PathParams: GetBillingProfileCoworkersPathParams;
+  QueryParams: GetBillingProfileCoworkersQueryParams;
+}>;
+
+export type GetBillingProfileCoworkersPortResponse = HttpStorageResponse<GetBillingProfileCoworkersModel>;

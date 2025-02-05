@@ -1,12 +1,14 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
   GetBillingProfileByIdResponse,
+  GetBillingProfileCoworkersResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfileInvoiceableRewardsResponse,
   GetBillingProfileInvoicesResponse,
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
+import { BillingProfileCoworker } from "@/core/domain/billing-profile/models/billing-profile-coworker-model";
 import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
 import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInvoiceableReward } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
@@ -30,6 +32,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getMyBillingProfiles: "me/billing-profiles",
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
+    getBillingProfileCoworkers: "billing-profiles/:billingProfileId/coworkers",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -246,6 +249,35 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
       return {
         ...data,
         invoices: data.invoices.map(invoice => new BillingProfileInvoice(invoice)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBillingProfileCoworkers = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<BillingProfileStoragePort["getBillingProfileCoworkers"]>) => {
+    const path = this.routes["getBillingProfileCoworkers"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetBillingProfileCoworkersResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        coworkers: data.coworkers.map(coworker => new BillingProfileCoworker(coworker)),
       };
     };
 
