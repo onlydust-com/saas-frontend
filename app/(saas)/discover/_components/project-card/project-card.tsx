@@ -111,7 +111,7 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
         </Avatar>
 
         <div className="flex flex-1 flex-col gap-1.5">
-          <TypographyH4>{name}</TypographyH4>
+          <TypographyH4 className="line-clamp-1">{name}</TypographyH4>
           <TypographyMuted className="line-clamp-2">{description}</TypographyMuted>
           <div className="flex w-full items-center justify-between">
             {renderCategories()}
