@@ -9,7 +9,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { BillingProfileInvoiceInterface } from "./models/billing-profile-invoices";
+import { BillingProfileInvoiceInterface } from "./models/billing-profile-invoice";
 
 /* ------------------------------ Get Billing Profile by ID ------------------------------ */
 

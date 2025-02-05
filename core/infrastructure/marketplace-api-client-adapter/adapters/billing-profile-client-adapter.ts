@@ -7,9 +7,9 @@ import {
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
+import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice";
 import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInvoiceableReward } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
-import { BillingProfileInvoices } from "@/core/domain/billing-profile/models/billing-profile-invoices";
 import { BillingProfile } from "@/core/domain/billing-profile/models/billing-profile-model";
 import { BillingProfilePayoutInfo } from "@/core/domain/billing-profile/models/billing-profile-payout-info-model";
 import { BillingProfileShort } from "@/core/domain/billing-profile/models/billing-profile-short-model";
@@ -245,7 +245,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
 
       return {
         ...data,
-        invoices: data.invoices.map(invoice => new BillingProfileInvoices(invoice)),
+        invoices: data.invoices.map(invoice => new BillingProfileInvoice(invoice)),
       };
     };
 
