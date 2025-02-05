@@ -1,5 +1,6 @@
 "use client";
 
+import { ProfileIndividual } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-individual/profile-individual";
 import { ProfileStatus } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-status/profile-status";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -29,6 +30,8 @@ function BillingProfileGeneralInformationPage({ params }: { params: { id: string
       />
 
       <ProfileStatus id={params.id} />
+
+      <ProfileIndividual id={params.id} />
     </div>
   );
 }
