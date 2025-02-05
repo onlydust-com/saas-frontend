@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 
+import { IndividualProgression } from "@/app/(saas)/settings/billing-profiles/[id]/_features/individual-progression/individual-progression";
 import { InvitedBy } from "@/app/(saas)/settings/billing-profiles/[id]/_features/invited-by/invited-by";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
@@ -41,12 +42,7 @@ export function BillingProfileSummary({ id }: { id: string }) {
     }
 
     if (data.isBillingProfileIndividual()) {
-      // return (
-      //   <IndividualProgression
-      // 	amount={shortBillingProfile?.currentYearPaymentAmount}
-      // 	limit={shortBillingProfile?.currentYearPaymentLimit}
-      //   />
-      // );
+      return <IndividualProgression amount={data?.currentYearPaymentAmount} limit={data?.currentYearPaymentLimit} />;
     }
 
     if (data.isAdmin()) {
@@ -77,8 +73,8 @@ export function BillingProfileSummary({ id }: { id: string }) {
   }
 
   return (
-    <CardHeader className="flex flex-row items-start justify-between p-0">
-      <div>
+    <CardHeader className="grid gap-4 p-0 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="lg:col-span-2 xl:col-span-3">
         <div className="flex items-baseline gap-2">
           <TypographyH3>{data.name}</TypographyH3>
           <TypographyMuted>{data.getTypeLabel()}</TypographyMuted>
