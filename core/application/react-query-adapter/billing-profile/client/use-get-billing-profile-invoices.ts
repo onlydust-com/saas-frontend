@@ -10,6 +10,7 @@ import { BillingProfileFacadePort } from "@/core/domain/billing-profile/input/bi
 
 export function useGetBillingProfileInvoices({
   queryParams,
+  pathParams,
   options,
 }: UseInfiniteQueryFacadeParams<
   BillingProfileFacadePort["getBillingProfileInvoices"],
@@ -20,6 +21,7 @@ export function useGetBillingProfileInvoices({
   return useInfiniteQuery(
     useInfiniteQueryAdapter<BillingProfileFacadePort["getBillingProfileInvoices"], GetBillingProfileInvoicesModel>({
       queryParams,
+      pathParams,
       options,
       httpStorage: billingProfileStoragePort.getBillingProfileInvoices,
     })
