@@ -1,17 +1,17 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-export type BillingProfileInvoicesResponse = components["schemas"]["BillingProfileInvoicesPageItemResponse"];
+export type BillingProfileInvoiceResponse = components["schemas"]["BillingProfileInvoicesPageItemResponse"];
 
-export interface BillingProfileInvoicesInterface extends BillingProfileInvoicesResponse {}
+export interface BillingProfileInvoiceInterface extends BillingProfileInvoiceResponse {}
 
-export class BillingProfileInvoices implements BillingProfileInvoicesInterface {
-  id!: BillingProfileInvoicesResponse["id"];
-  number!: BillingProfileInvoicesResponse["number"];
-  createdAt!: BillingProfileInvoicesResponse["createdAt"];
-  totalAfterTax!: BillingProfileInvoicesResponse["totalAfterTax"];
-  status!: BillingProfileInvoicesResponse["status"];
+export class BillingProfileInvoice implements BillingProfileInvoiceInterface {
+  id!: BillingProfileInvoiceResponse["id"];
+  number!: BillingProfileInvoiceResponse["number"];
+  createdAt!: BillingProfileInvoiceResponse["createdAt"];
+  totalAfterTax!: BillingProfileInvoiceResponse["totalAfterTax"];
+  status!: BillingProfileInvoiceResponse["status"];
 
-  constructor(props: BillingProfileInvoicesResponse) {
+  constructor(props: BillingProfileInvoiceResponse) {
     Object.assign(this, props);
   }
 }

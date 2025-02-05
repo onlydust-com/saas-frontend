@@ -9,7 +9,7 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { BillingProfileInvoicesInterface } from "./models/billing-profile-invoices";
+import { BillingProfileInvoiceInterface } from "./models/billing-profile-invoices";
 
 /* ------------------------------ Get Billing Profile by ID ------------------------------ */
 
@@ -127,7 +127,7 @@ export type GetBillingProfileInvoiceableRewardsPortResponse =
 export type GetBillingProfileInvoicesResponse = components["schemas"]["BillingProfileInvoicesPageResponse"];
 
 export type GetBillingProfileInvoicesModel = Omit<GetBillingProfileInvoicesResponse, "invoices"> & {
-  invoices: BillingProfileInvoicesInterface[];
+  invoices: BillingProfileInvoiceInterface[];
 };
 
 type GetBillingProfileInvoicesPathParams = operations["getInvoices"]["parameters"]["path"];
