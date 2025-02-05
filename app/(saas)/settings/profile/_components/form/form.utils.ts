@@ -66,11 +66,13 @@ export function createContact({
   contact: string;
   visibility: "public" | "private";
 } {
-  return MeProfile.buildContact({
+  const buildContact = MeProfile.buildContact({
     channel,
-    contact: `${prefixUrl || ""}${MeProfile.sanitizeChannelContact(contact)}`,
+    contact,
     visibility: isPublic ? "public" : "private",
   });
+
+  return { ...buildContact, contact: `${prefixUrl || ""}${buildContact.contact}` };
 }
 
 export function formatToSchema(data: z.infer<typeof formSchema>) {
