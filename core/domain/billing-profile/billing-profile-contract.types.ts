@@ -152,3 +152,13 @@ export type AcceptOrRejectCoworkerInvitationPortParams = HttpClientParameters<{
 }>;
 
 export type AcceptOrRejectCoworkerInvitationPortResponse = HttpStorageResponse;
+
+/* ------------------------ Delete Billing Profile ------------------------ */
+
+type DeleteBillingProfilePathParams = operations["deleteBillingProfile"]["parameters"]["path"];
+
+export type DeleteBillingProfilePortParams = HttpClientParameters<{
+  PathParams: DeleteBillingProfilePathParams;
+}>;
+
+export type DeleteBillingProfilePortResponse = HttpStorageResponse;
