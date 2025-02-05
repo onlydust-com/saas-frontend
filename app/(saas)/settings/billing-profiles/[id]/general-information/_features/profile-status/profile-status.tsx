@@ -33,7 +33,7 @@ export function ProfileStatus({ id }: { id: string }) {
   }
 
   return (
-    <Badge variant={statusMap[status.type].variant} className="inline-flex items-center gap-0.5">
+    <Badge variant={statusMap[status.type].variant} className="inline-flex w-fit items-center gap-0.5">
       {statusMap[status.type].icon}
       {status.label}
     </Badge>

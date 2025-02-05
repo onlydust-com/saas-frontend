@@ -49,7 +49,7 @@ export function ProfileIndividual({ id }: { id: string }) {
   if (!profile) return null;
 
   return (
-    <dl className="divide-y divide-border border-t border-border">
+    <dl className="divide-y divide-border">
       <ProfileItem label="First name" value={profile.firstName} />
       <ProfileItem label="Last name" value={profile.lastName} />
       <ProfileItem label="Birthdate" value={birthdate} />

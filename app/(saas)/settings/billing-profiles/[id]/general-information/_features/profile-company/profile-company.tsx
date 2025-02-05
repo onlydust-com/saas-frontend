@@ -32,7 +32,7 @@ export function ProfileCompany({ id }: { id: string }) {
   if (!profile) return null;
 
   return (
-    <dl className="divide-y divide-border border-t border-border">
+    <dl className="divide-y divide-border">
       <ProfileItem label="Company name" value={profile.name} />
       <ProfileItem label="Registration number" value={profile.registrationNumber} />
       <ProfileItem label="Registration date" value={registrationDate} />
