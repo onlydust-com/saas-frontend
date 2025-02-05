@@ -9,6 +9,8 @@ import {
   GetBillingProfileInvoicePreviewByIdPortResponse,
   GetBillingProfileInvoiceableRewardsPortParams,
   GetBillingProfileInvoiceableRewardsPortResponse,
+  GetBillingProfileInvoicesPortParams,
+  GetBillingProfileInvoicesPortResponse,
   GetBillingProfilePayoutInfoByIdPortParams,
   GetBillingProfilePayoutInfoByIdPortResponse,
   GetMeBillingProfilesPortParams,
@@ -39,4 +41,5 @@ export interface BillingProfileStoragePort {
   getBillingProfileInvoiceableRewards(
     p: GetBillingProfileInvoiceableRewardsPortParams
   ): GetBillingProfileInvoiceableRewardsPortResponse;
+  getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
 }

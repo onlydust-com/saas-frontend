@@ -9,6 +9,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { BillingProfileInvoicesInterface } from "./models/billing-profile-invoices";
+
 /* ------------------------------ Get Billing Profile by ID ------------------------------ */
 
 export type GetBillingProfileByIdResponse = components["schemas"]["BillingProfileResponse"];
@@ -119,3 +121,21 @@ export type GetBillingProfileInvoiceableRewardsPortParams = HttpClientParameters
 
 export type GetBillingProfileInvoiceableRewardsPortResponse =
   HttpStorageResponse<GetBillingProfileInvoiceableRewardsModel>;
+
+/* ------------------------ Get Billing Profile Invoiceable Rewards ------------------------ */
+
+export type GetBillingProfileInvoicesResponse = components["schemas"]["BillingProfileInvoicesPageResponse"];
+
+export type GetBillingProfileInvoicesModel = Omit<GetBillingProfileInvoicesResponse, "invoices"> & {
+  invoices: BillingProfileInvoicesInterface[];
+};
+
+type GetBillingProfileInvoicesPathParams = operations["getInvoices"]["parameters"]["path"];
+type GetBillingProfileInvoicesQueryParams = operations["getInvoices"]["parameters"]["query"];
+
+export type GetBillingProfileInvoicesPortParams = HttpClientParameters<{
+  PathParams: GetBillingProfileInvoicesPathParams;
+  QueryParams: GetBillingProfileInvoicesQueryParams;
+}>;
+
+export type GetBillingProfileInvoicesPortResponse = HttpStorageResponse<GetBillingProfileInvoicesModel>;
