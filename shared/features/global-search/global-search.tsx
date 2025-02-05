@@ -80,14 +80,10 @@ export function SafeGlobalSearch() {
   );
 }
 
-export function GlobalSearch({ byPassFlag = false }: { byPassFlag?: boolean }) {
-  if (process.env.NEXT_PUBLIC_ENABLE_GLOBAL_SEARCH === "true" || byPassFlag) {
-    return (
-      <GlobalSearchProvider>
-        <SafeGlobalSearch />
-      </GlobalSearchProvider>
-    );
-  }
-
-  return null;
+export function GlobalSearch() {
+  return (
+    <GlobalSearchProvider>
+      <SafeGlobalSearch />
+    </GlobalSearchProvider>
+  );
 }
