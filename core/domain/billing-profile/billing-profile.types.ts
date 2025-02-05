@@ -17,3 +17,5 @@ export enum BillingProfileRole {
 }
 
 export type BillingProfileRoleUnion = components["schemas"]["ShortBillingProfileResponse"]["role"];
+
+export type InvoiceStatus = components["schemas"]["BillingProfileInvoicesPageItemResponse"]["status"];

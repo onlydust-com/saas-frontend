@@ -3,9 +3,11 @@ import {
   GetBillingProfileByIdResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfileInvoiceableRewardsResponse,
+  GetBillingProfileInvoicesResponse,
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
+import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
 import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInvoiceableReward } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
 import { BillingProfile } from "@/core/domain/billing-profile/models/billing-profile-model";
@@ -27,6 +29,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     acceptOrDeclineBillingProfileMandateById: "billing-profiles/:billingProfileId/invoices/mandate",
     getMyBillingProfiles: "me/billing-profiles",
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
+    getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -215,6 +218,34 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
       return {
         ...data,
         rewards: data.rewards.map(reward => new BillingProfileInvoiceableReward(reward)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBillingProfileInvoices = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<BillingProfileStoragePort["getBillingProfileInvoices"]>) => {
+    const path = this.routes["getBillingProfileInvoices"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBillingProfileInvoicesResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        invoices: data.invoices.map(invoice => new BillingProfileInvoice(invoice)),
       };
     };
 
