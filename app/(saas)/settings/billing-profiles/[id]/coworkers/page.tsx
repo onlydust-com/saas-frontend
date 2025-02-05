@@ -6,6 +6,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 import { CoworkersTable } from "./_features/coworkers-table/coworkers-table";
+import { InviteCoworker } from "./_features/invite-coworker/invite-coworker";
 
 function BillingProfileCoworkersPage({ params }: { params: { id: string } }) {
   return (
@@ -27,6 +28,7 @@ function BillingProfileCoworkersPage({ params }: { params: { id: string } }) {
           },
         ]}
       />
+      <InviteCoworker id={params.id} />
       <CoworkersTable id={params.id} />
     </div>
   );
