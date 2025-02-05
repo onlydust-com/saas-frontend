@@ -47,9 +47,15 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   }
 
   function openIntercom() {
-    const intercomLauncher = document.querySelector(".intercom-launcher") as HTMLElement;
-    if (intercomLauncher) {
+    try {
+      const intercomLauncher = document.querySelector(".intercom-launcher");
+      if (!(intercomLauncher instanceof HTMLElement)) {
+        console.warn("Intercom launcher not found or not an HTMLElement");
+        return;
+      }
       intercomLauncher.click();
+    } catch (error) {
+      console.error("Failed to open Intercom:", error);
     }
   }
 
