@@ -174,3 +174,13 @@ export type EnableBillingProfilePortParams = HttpClientParameters<{
 }>;
 
 export type EnableBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Remove Coworker From Billing Profile ------------------------ */
+
+type RemoveCoworkerFromBillingProfilePathParams = operations["removeCoworker"]["parameters"]["path"];
+
+export type RemoveCoworkerFromBillingProfilePortParams = HttpClientParameters<{
+  PathParams: RemoveCoworkerFromBillingProfilePathParams;
+}>;
+
+export type RemoveCoworkerFromBillingProfilePortResponse = HttpStorageResponse;

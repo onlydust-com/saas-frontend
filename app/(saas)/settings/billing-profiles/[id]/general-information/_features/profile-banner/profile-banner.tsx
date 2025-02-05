@@ -33,7 +33,7 @@ export function ProfileBanner({ id }: { id: string }) {
   return (
     <Alert variant={type === "error" ? "destructive" : "default"}>
       <div className="flex items-center justify-between gap-2">
-        <AlertTitle>{message}</AlertTitle>
+        <AlertTitle className="m-0">{message}</AlertTitle>
 
         {action ? (
           <Button

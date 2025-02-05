@@ -21,6 +21,8 @@ import {
   GetBillingProfilePayoutInfoByIdPortResponse,
   GetMeBillingProfilesPortParams,
   GetMeBillingProfilesPortResponse,
+  RemoveCoworkerFromBillingProfilePortParams,
+  RemoveCoworkerFromBillingProfilePortResponse,
   UploadBillingProfileInvoiceByIdPortParams,
   UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -52,4 +54,7 @@ export interface BillingProfileFacadePort {
   ): AcceptOrRejectCoworkerInvitationPortResponse;
   deleteBillingProfile(p: DeleteBillingProfilePortParams): DeleteBillingProfilePortResponse;
   enableBillingProfile(p: EnableBillingProfilePortParams): EnableBillingProfilePortResponse;
+  removeCoworkerFromBillingProfile(
+    p: RemoveCoworkerFromBillingProfilePortParams
+  ): RemoveCoworkerFromBillingProfilePortResponse;
 }

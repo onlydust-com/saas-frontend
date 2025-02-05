@@ -42,5 +42,9 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
 
   deleteBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["deleteBillingProfile"]>;
 
-  enableOrDisableBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["enableOrDisableBillingProfile"]>;
+  enableBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["enableBillingProfile"]>;
+
+  removeCoworkerFromBillingProfile = mockHttpStorageResponse<
+    BillingProfileStoragePort["removeCoworkerFromBillingProfile"]
+  >;
 }
