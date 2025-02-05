@@ -19,6 +19,8 @@ import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
+import { InvoiceStatus } from "./_components/invoice-status/invoice-status";
+
 function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
@@ -130,7 +132,9 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
                 <TableCell>
                   {amount} {code}
                 </TableCell>
-                <TableCell>{status}</TableCell>
+                <TableCell>
+                  <InvoiceStatus status={status} />
+                </TableCell>
                 <TableCell>
                   <Button
                     variant={"outline"}

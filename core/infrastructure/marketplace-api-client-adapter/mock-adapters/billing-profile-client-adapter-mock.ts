@@ -33,4 +33,6 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
   getBillingProfileInvoiceableRewards = mockHttpStorageResponse<
     BillingProfileStoragePort["getBillingProfileInvoiceableRewards"]
   >;
+
+  getBillingProfileInvoices = mockHttpStorageResponse<BillingProfileStoragePort["getBillingProfileInvoices"]>;
 }
