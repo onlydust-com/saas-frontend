@@ -1,6 +1,8 @@
 import {
   AcceptOrDeclineBillingProfileMandatePortParams,
   AcceptOrDeclineBillingProfileMandatePortResponse,
+  AcceptOrRejectCoworkerInvitationPortParams,
+  AcceptOrRejectCoworkerInvitationPortResponse,
   DownloadBillingProfileInvoiceByIdPortParams,
   DownloadBillingProfileInvoiceByIdPortResponse,
   GetBillingProfileByIdPortParams,
@@ -42,4 +44,7 @@ export interface BillingProfileStoragePort {
     p: GetBillingProfileInvoiceableRewardsPortParams
   ): GetBillingProfileInvoiceableRewardsPortResponse;
   getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
+  acceptOrRejectCoworkerInvitation(
+    p: AcceptOrRejectCoworkerInvitationPortParams
+  ): AcceptOrRejectCoworkerInvitationPortResponse;
 }

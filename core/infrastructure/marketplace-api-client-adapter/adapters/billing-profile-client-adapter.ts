@@ -1,5 +1,6 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
+  AcceptOrRejectCoworkerInvitationBody,
   GetBillingProfileByIdResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfileInvoiceableRewardsResponse,
@@ -30,6 +31,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getMyBillingProfiles: "me/billing-profiles",
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
+    acceptOrRejectCoworkerInvitation: "me/billing-profiles/:billingProfileId/invitations",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -248,6 +250,28 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         invoices: data.invoices.map(invoice => new BillingProfileInvoice(invoice)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  acceptOrRejectCoworkerInvitation = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["acceptOrRejectCoworkerInvitation"]>) => {
+    const path = this.routes["acceptOrRejectCoworkerInvitation"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: AcceptOrRejectCoworkerInvitationBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

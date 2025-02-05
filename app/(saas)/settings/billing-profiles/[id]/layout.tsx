@@ -6,6 +6,7 @@ import { PropsWithChildren } from "react";
 
 import { BillingProfileSummary } from "@/app/(saas)/settings/billing-profiles/[id]/_features/billing-profile-summary/billing-profile-summary";
 import { LimitReachedHeader } from "@/app/(saas)/settings/billing-profiles/[id]/_features/limit-reached-header/limit-reached-header";
+import { ProfileInvitationBanner } from "@/app/(saas)/settings/billing-profiles/[id]/_features/profile-invitation-banner/profile-invitation-banner";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Card } from "@/shared/ui/card";
@@ -32,6 +33,8 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
 
       <BillingProfileSummary id={id} />
 
+      <ProfileInvitationBanner id={id} />
+
       <TabsList className="h-auto w-fit flex-wrap justify-start">
         {tabs.map(({ href, label }) => (
           <TabsTrigger key={href} value={href}>
@@ -41,8 +44,6 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
       </TabsList>
 
       <Card className="p-4">{children}</Card>
-
-      {/* {isInvited && !hasRole ? <ProfileInvitationBanner profile={profile.data} /> : null} */}
     </Tabs>
   );
 }

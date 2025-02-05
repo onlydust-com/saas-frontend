@@ -139,3 +139,16 @@ export type GetBillingProfileInvoicesPortParams = HttpClientParameters<{
 }>;
 
 export type GetBillingProfileInvoicesPortResponse = HttpStorageResponse<GetBillingProfileInvoicesModel>;
+
+/* ------------------------ Accept Or Reject Coworker Invitation ------------------------ */
+
+export type AcceptOrRejectCoworkerInvitationBody =
+  components["schemas"]["BillingProfileCoworkerInvitationUpdateRequest"];
+
+type AcceptOrRejectCoworkerInvitationPathParams = operations["acceptOrRejectCoworkerInvitation"]["parameters"]["path"];
+
+export type AcceptOrRejectCoworkerInvitationPortParams = HttpClientParameters<{
+  PathParams: AcceptOrRejectCoworkerInvitationPathParams;
+}>;
+
+export type AcceptOrRejectCoworkerInvitationPortResponse = HttpStorageResponse;

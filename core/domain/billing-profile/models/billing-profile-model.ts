@@ -13,6 +13,7 @@ export interface BillingProfileInterface extends BillingProfileResponse {
   getTypeLabel(): string | undefined;
   isAdmin(): boolean;
   isInvited(): boolean;
+  hasRole(): boolean;
 }
 
 export class BillingProfile implements BillingProfileInterface {
@@ -87,5 +88,9 @@ export class BillingProfile implements BillingProfileInterface {
 
   isInvited() {
     return Boolean(this.me.invitation?.invitedBy);
+  }
+
+  hasRole() {
+    return Boolean(this.me.role);
   }
 }
