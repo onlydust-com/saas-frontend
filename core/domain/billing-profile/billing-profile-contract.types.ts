@@ -122,7 +122,7 @@ export type GetBillingProfileInvoiceableRewardsPortParams = HttpClientParameters
 export type GetBillingProfileInvoiceableRewardsPortResponse =
   HttpStorageResponse<GetBillingProfileInvoiceableRewardsModel>;
 
-/* ------------------------ Get Billing Profile Invoiceable Rewards ------------------------ */
+/* ------------------------ Get Billing Profile Invoices ------------------------ */
 
 export type GetBillingProfileInvoicesResponse = components["schemas"]["BillingProfileInvoicesPageResponse"];
 
