@@ -15,7 +15,7 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 function BillingProfileGeneralInformationPage({ params }: { params: { id: string } }) {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -34,17 +34,27 @@ function BillingProfileGeneralInformationPage({ params }: { params: { id: string
         ]}
       />
 
-      <ProfileStatus id={params.id} />
+      <div>
+        <ProfileStatus id={params.id} />
+      </div>
 
       <ProfileIndividual id={params.id} />
       <ProfileCompany id={params.id} />
 
-      <ProfileBanner id={params.id} />
+      <footer className="flex flex-col gap-4">
+        <ProfileBanner id={params.id} />
 
-      <ManageBillingProfile id={params.id} />
-      <LeaveBillingProfile id={params.id} />
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+          <div>
+            <DisabledBillingProfile id={params.id} />
+          </div>
 
-      <DisabledBillingProfile id={params.id} />
+          <div className="flex justify-end gap-2">
+            <ManageBillingProfile id={params.id} />
+            <LeaveBillingProfile id={params.id} />
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
