@@ -7,12 +7,14 @@ import {
   GetMyProfileResponse,
   GetMyProjectsAsContributorResponse,
   GetMyProjectsAsMaintainerResponse,
+  GetUpdateGithubProfileResponse,
   LogoutMeResponse,
   PostMyApplicationBody,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
+  UploadProfilePictureResponse,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
 import { MeHackathonRegistration } from "@/core/domain/me/models/me-hackathon-registration-model";
@@ -42,6 +44,8 @@ export class MeClientAdapter implements MeStoragePort {
     postMyApplication: "me/applications",
     getMyHackathonRegistration: "me/hackathons/:hackathonId/registrations",
     registerToHackathon: "me/hackathons/:hackathonId/registrations",
+    getUpdateGithubProfile: "me/profile/github",
+    uploadProfilePicture: "me/profile/avatar",
   } as const;
 
   logoutMe = () => {
@@ -314,6 +318,46 @@ export class MeClientAdapter implements MeStoragePort {
         method,
         tag,
         pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getUpdateGithubProfile = () => {
+    const path = this.routes["getUpdateGithubProfile"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = () =>
+      this.client.request<GetUpdateGithubProfileResponse>({
+        path,
+        method,
+        tag,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  uploadProfilePicture = () => {
+    const path = this.routes["uploadProfilePicture"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: File) =>
+      this.client.request<UploadProfilePictureResponse>({
+        path,
+        method,
+        tag,
+        body,
+        headers: {
+          "Content-Type": body.type,
+        },
       });
 
     return {

@@ -11,11 +11,10 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
@@ -44,7 +43,7 @@ function withProjectList<P extends object>(Component: ComponentType<P>) {
 
 function ManageProjectsPage() {
   return (
-    <PageWrapper containerSize="medium">
+    <PageContainer size="medium">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -53,39 +52,38 @@ function ManageProjectsPage() {
           },
         ]}
       />
-      <ScrollView>
-        <PageContent classNames={{ base: "h-full" }}>
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between gap-2">
-              <Typo
-                size={"xs"}
-                weight={"medium"}
-                variant={"heading"}
-                translate={{
-                  token: "manageProjects:list.projectsTable.title",
-                }}
-              />
-              <Button
-                as={BaseLink}
-                htmlProps={{
-                  href: marketplaceRouting("/p/create"),
-                }}
-                variant={"primary"}
-                endIcon={{ component: SquareArrowOutUpRight }}
-                size={"md"}
-                translate={{ token: "manageProjects:list.header.ctaSubmitProject" }}
-                classNames={{
-                  base: "max-w-full overflow-hidden",
-                  label: "whitespace-nowrap text-ellipsis overflow-hidden",
-                }}
-              />
-            </div>
 
-            <ProjectsTable />
+      <PageContent classNames={{ base: "h-full" }}>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-2">
+            <Typo
+              size={"xs"}
+              weight={"medium"}
+              variant={"heading"}
+              translate={{
+                token: "manageProjects:list.projectsTable.title",
+              }}
+            />
+            <Button
+              as={BaseLink}
+              htmlProps={{
+                href: marketplaceRouting("/p/create"),
+              }}
+              variant={"primary"}
+              endIcon={{ component: SquareArrowOutUpRight }}
+              size={"md"}
+              translate={{ token: "manageProjects:list.header.ctaSubmitProject" }}
+              classNames={{
+                base: "max-w-full overflow-hidden",
+                label: "whitespace-nowrap text-ellipsis overflow-hidden",
+              }}
+            />
           </div>
-        </PageContent>
-      </ScrollView>
-    </PageWrapper>
+
+          <ProjectsTable />
+        </div>
+      </PageContent>
+    </PageContainer>
   );
 }
 

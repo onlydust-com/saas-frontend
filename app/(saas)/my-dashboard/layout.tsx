@@ -7,14 +7,12 @@ import { RequestPayment } from "@/app/(saas)/my-dashboard/_features/request-paym
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { RequestPaymentFlowProvider } from "@/shared/panels/_flows/request-payment-flow/request-payment-flow.context";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
@@ -73,57 +71,53 @@ function Safe({ children }: PropsWithChildren) {
   }, [isFinancial]);
 
   return (
-    <AnimatedColumn className="h-full">
-      <ScrollView className="flex flex-col">
-        <PageContent classNames={{ base: "tablet:overflow-hidden" }}>
-          <div className="flex h-full flex-col gap-lg">
-            <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-              <Tabs
-                variant={"solid"}
-                searchParams={"data-view"}
-                tabs={[
-                  {
-                    id: Views.CONTRIBUTIONS,
-                    children: <Translate token={"myDashboard:detail.views.contributions"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.myDashboard.contributions.root,
-                    },
-                  },
-                  {
-                    id: Views.PROJECTS,
-                    children: <Translate token={"myDashboard:detail.views.projects"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.myDashboard.projects.root,
-                    },
-                  },
-                  {
-                    id: Views.FINANCIAL,
-                    children: <Translate token={"myDashboard:detail.views.financial"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.myDashboard.financial.root,
-                    },
-                  },
-                ]}
-                selectedId={selectedId}
-              />
+    <PageContent classNames={{ base: "tablet:overflow-hidden tablet:max-h-[calc(100vh-64px)] h-full" }}>
+      <div className="flex h-full flex-col gap-lg">
+        <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
+          <Tabs
+            variant={"solid"}
+            searchParams={"data-view"}
+            tabs={[
+              {
+                id: Views.CONTRIBUTIONS,
+                children: <Translate token={"myDashboard:detail.views.contributions"} />,
+                as: BaseLink,
+                htmlProps: {
+                  href: NEXT_ROUTER.myDashboard.contributions.root,
+                },
+              },
+              {
+                id: Views.PROJECTS,
+                children: <Translate token={"myDashboard:detail.views.projects"} />,
+                as: BaseLink,
+                htmlProps: {
+                  href: NEXT_ROUTER.myDashboard.projects.root,
+                },
+              },
+              {
+                id: Views.FINANCIAL,
+                children: <Translate token={"myDashboard:detail.views.financial"} />,
+                as: BaseLink,
+                htmlProps: {
+                  href: NEXT_ROUTER.myDashboard.financial.root,
+                },
+              },
+            ]}
+            selectedId={selectedId}
+          />
 
-              <div className="flex items-center gap-lg">{renderActions()}</div>
-            </header>
+          <div className="flex items-center gap-lg">{renderActions()}</div>
+        </header>
 
-            {children}
-          </div>
-        </PageContent>
-      </ScrollView>
-    </AnimatedColumn>
+        {children}
+      </div>
+    </PageContent>
   );
 }
 
 function MyDashboardLayout({ children }: PropsWithChildren) {
   return (
-    <PageWrapper containerSize="large">
+    <PageContainer size="large" className="flex-1">
       <GithubPermissionsProvider>
         <RequestPaymentFlowProvider>
           <PosthogCaptureOnMount eventName={"my_dashboard_viewed"} />
@@ -134,7 +128,7 @@ function MyDashboardLayout({ children }: PropsWithChildren) {
           <ContributionsSidepanel />
         </RequestPaymentFlowProvider>
       </GithubPermissionsProvider>
-    </PageWrapper>
+    </PageContainer>
   );
 }
 

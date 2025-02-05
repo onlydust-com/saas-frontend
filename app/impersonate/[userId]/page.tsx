@@ -1,20 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { Auth0ClientAdapter } from "@/core/application/auth0-client-adapter";
 import { useClientBootstrapImpersonation } from "@/core/bootstrap/impersonation/use-client-bootstrap-impersonation";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { withAdminGuard } from "@/shared/hocs/user/with-admin-guard";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
+import { Button } from "@/shared/ui/button";
 
 function ImpersonationPage() {
   const { userId } = useParams();
@@ -41,7 +40,7 @@ function ImpersonationPage() {
     if (!userId) {
       router.push(NEXT_ROUTER.home.root);
     } else {
-      // Reset Posthog before refetching to so once refetch completes Posthog can update with impersonated user
+      // Reset PostHog before refetching to so once refetch completes PostHog can update with impersonated user
       reset();
 
       setClaim({ sub: `github|${userId}` });
@@ -69,14 +68,8 @@ function ImpersonationPage() {
   }, [userId, impersonationClaim]);
 
   return (
-    <Button
-      as={BaseLink}
-      htmlProps={{
-        href: NEXT_ROUTER.home.root,
-      }}
-      isTextButton
-    >
-      Not found, go home
+    <Button asChild>
+      <Link href={NEXT_ROUTER.home.root}>Go home</Link>
     </Button>
   );
 }

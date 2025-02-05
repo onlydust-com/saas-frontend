@@ -149,3 +149,19 @@ export type RegisterToHackathonPortParams = HttpClientParameters<{
 }>;
 
 export type RegisterToHackathonPortResponse = HttpStorageResponse<never>;
+
+/* --------------------------------- Get update github profile -------------------------------- */
+
+export type GetUpdateGithubProfileResponse = never;
+
+export type GetUpdateGithubProfilePortParams = HttpClientParameters<object>;
+
+export type GetUpdateGithubProfilePortResponse = HttpStorageResponse<never>;
+
+/* --------------------------------- Upload profile picture -------------------------------- */
+
+export type UploadProfilePictureResponse = components["schemas"]["UploadImageResponse"];
+
+export type UploadProfilePicturePortParams = HttpClientParameters<object>;
+
+export type UploadProfilePicturePortResponse = HttpStorageResponse<UploadProfilePictureResponse, File>;

@@ -1,8 +1,13 @@
+import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
 export type BillingProfileShortResponse = components["schemas"]["ShortBillingProfileResponse"];
 
-export interface BillingProfileShortInterface extends BillingProfileShortResponse {}
+export interface BillingProfileShortInterface extends BillingProfileShortResponse {
+  getTypeLabel(): string | undefined;
+  getWarning(): string | undefined;
+  getError(): string | undefined;
+}
 
 export class BillingProfileShort implements BillingProfileShortInterface {
   currentYearPaymentAmount!: BillingProfileShortResponse["currentYearPaymentAmount"];
@@ -24,5 +29,36 @@ export class BillingProfileShort implements BillingProfileShortInterface {
 
   constructor(props: BillingProfileShortResponse) {
     Object.assign(this, props);
+  }
+
+  getTypeLabel() {
+    switch (this.type) {
+      case BillingProfileType.Company:
+        return "Company";
+      case BillingProfileType.Individual:
+        return "Individual";
+      case BillingProfileType.SelfEmployed:
+        return "Self-Employed";
+    }
+  }
+
+  getWarning() {
+    if (this.missingVerification) {
+      return "Missing Verification";
+    }
+
+    if (this.missingPayoutInfo) {
+      return "Missing Payout Info";
+    }
+  }
+
+  getError() {
+    if (this.verificationBlocked) {
+      return "Verification Blocked";
+    }
+
+    if (this.individualLimitReached) {
+      return "Individual Limit Reached";
+    }
   }
 }

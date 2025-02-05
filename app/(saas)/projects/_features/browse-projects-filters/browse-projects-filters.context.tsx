@@ -1,5 +1,8 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
+
+import { ProjectTag } from "@/core/domain/project/project.types";
 
 import {
   BrowseProjectsContextFilter,
@@ -21,9 +24,20 @@ const BrowseProjectsContext = createContext<BrowseProjectsContextReturn>({
 });
 
 export function BrowseProjectsContextProvider({ children }: BrowseProjectsContextProviderProps) {
+  const searchParams = useSearchParams();
   const [filters, setFilters] = useState<BrowseProjectsContextFilter>(DEFAULT_FILTER);
   const [queryParams, setQueryParams] = useState<BrowseProjectsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<BrowseProjectsContextQueryParams>(queryParams);
+
+  useEffect(() => {
+    const sortByParam = searchParams.get("sortBy");
+    const tagsParam = searchParams.get("tags");
+
+    setFilter({
+      sortBy: sortByParam ?? undefined,
+      tags: tagsParam ? (tagsParam.split(",") as ProjectTag[]) : [],
+    });
+  }, [searchParams]);
 
   useDebounce(
     () => {
@@ -45,6 +59,7 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
       languageIds: filters.languageIds.length ? filters.languageIds : undefined,
       ecosystemIds: filters.ecosystemIds.length ? filters.ecosystemIds : undefined,
       categoryIds: filters.categoryIds.length ? filters.categoryIds : undefined,
+      sortBy: filters.sortBy ?? undefined,
     });
   }
 

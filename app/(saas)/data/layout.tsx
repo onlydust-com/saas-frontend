@@ -10,16 +10,14 @@ import {
 
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { AnimatedColumn } from "@/shared/components/animated-column-group/animated-column/animated-column";
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContent } from "@/shared/features/page-content/page-content";
-import { PageWrapper } from "@/shared/features/page-wrapper/page-wrapper";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum Views {
   "OVERVIEW" = "OVERVIEW",
@@ -56,7 +54,7 @@ function Navigation() {
       tabs={[
         {
           id: Views.OVERVIEW,
-          children: <Translate token={"data:details.tabs.overview"} />,
+          children: "Overview",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.overview.root),
@@ -64,7 +62,7 @@ function Navigation() {
         },
         {
           id: Views.PROJECTS,
-          children: <Translate token={"data:details.tabs.project"} />,
+          children: "Projects",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.projects.root),
@@ -72,7 +70,7 @@ function Navigation() {
         },
         {
           id: Views.CONTRIBUTORS,
-          children: <Translate token={"data:details.tabs.contributor"} />,
+          children: "Contributors",
           as: BaseLink,
           htmlProps: {
             href: addSearchParamsToUrl(NEXT_ROUTER.data.contributors.root),
@@ -84,24 +82,22 @@ function Navigation() {
   );
 }
 
-export default function DataLayout({ children }: { children: ReactNode }) {
+function DataLayout({ children }: { children: ReactNode }) {
   return (
-    <PageWrapper containerSize="large">
+    <PageContainer size="large" className="flex-1">
       <GlobalDataFilterProvider>
-        <AnimatedColumn className="h-full max-w-full">
-          <ScrollView className="flex flex-col gap-md">
-            <PageContent classNames={{ base: "flex flex-col gap-3 h-full overflow-hidden" }}>
-              <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-                <Navigation />
-                <GlobalDataFilter />
-              </div>
-              {children}
-            </PageContent>
-          </ScrollView>
-        </AnimatedColumn>
+        <PageContent classNames={{ base: "flex flex-col gap-3 h-full overflow-hidden" }}>
+          <div className={"flex w-full flex-row items-center justify-between gap-1"}>
+            <Navigation />
+            <GlobalDataFilter />
+          </div>
+          {children}
+        </PageContent>
         <ContributorSidepanel />
         <ProjectSidepanel />
       </GlobalDataFilterProvider>
-    </PageWrapper>
+    </PageContainer>
   );
 }
+
+export default withClientOnly(DataLayout);

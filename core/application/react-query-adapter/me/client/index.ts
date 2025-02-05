@@ -11,3 +11,5 @@ export * from "./use-replace-my-profile";
 export * from "./use-set-me";
 export * from "./use-set-my-preference-for-project";
 export * from "./use-set-my-profile";
+export * from "./use-get-update-my-github-profile";
+export * from "./use-upload-profile-picture";

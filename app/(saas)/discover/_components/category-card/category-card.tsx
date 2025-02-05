@@ -13,10 +13,10 @@ import { CategoryCardProps } from "./category-card.types";
 export function CategoryCard({ name, description, slug, projectCount, iconSlug }: CategoryCardProps) {
   return (
     <Link href={NEXT_ROUTER.categories.details.root(slug)} className="transition-opacity hover:opacity-80">
-      <Card className="flex gap-4 p-3">
-        <Avatar className="size-24 rounded-xl">
+      <Card className="flex items-center gap-4 p-3">
+        <Avatar className="size-24 rounded-xl border">
           <AvatarFallback
-            className="rounded-xl"
+            className="rounded-xl border"
             style={{
               backgroundColor: `hsl(${(slug.split("").reduce((acc, char) => acc + char.charCodeAt(0) * 31, 0) * 11) % 360} 80% 65%)`,
             }}
@@ -25,9 +25,9 @@ export function CategoryCard({ name, description, slug, projectCount, iconSlug }
           </AvatarFallback>
         </Avatar>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <TypographyH4>{name}</TypographyH4>
-          <TypographyMuted className="line-clamp-2">{description}</TypographyMuted>
+          <TypographyMuted className="line-clamp-1">{description}</TypographyMuted>
           <div>
             <Badge variant="outline">{projectCount} projects</Badge>
           </div>

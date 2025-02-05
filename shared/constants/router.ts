@@ -186,6 +186,9 @@ export const NEXT_ROUTER = {
       root: "/settings/terms-and-conditions",
     },
   },
+  discover: {
+    root: "/discover",
+  },
 } as const;
 
 export const MARKETPLACE_ROUTER = {
