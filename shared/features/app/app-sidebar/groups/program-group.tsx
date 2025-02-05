@@ -55,7 +55,7 @@ export function ProgramGroup() {
     isActive: isProgramRoute,
     items: [
       {
-        title: "Overview",
+        title: "Projects",
         url: NEXT_ROUTER.programs.projects.root(program.id),
       },
       {

@@ -4,6 +4,7 @@ import { TableColumns } from "@/app/(saas)/my-dashboard/projects/_components/fil
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { bootstrap } from "@/core/bootstrap";
+import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import { MeContributorProjectsInterface } from "@/core/domain/me/models/me-contributor-projects-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -156,7 +157,7 @@ export function useFilterColumns() {
       minSize: TABLE_CELL_SIZE.SM,
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.billingProfile"} />,
       cell: info => {
-        const billingProfile = info.getValue();
+        const billingProfile = info.getValue() as BillingProfileShortInterface | undefined;
         const projectId = info.row.original.id;
 
         const projectExistsInPayoutPreferences = Boolean(

@@ -105,13 +105,13 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
   return (
     <Link href={NEXT_ROUTER.projects.details.root(slug)} className="transition-opacity hover:opacity-80">
       <Card className="flex items-center gap-4 border-none">
-        <Avatar className="size-24 rounded-xl">
+        <Avatar className="size-24 rounded-xl border">
           <AvatarImage src={logoUrl} />
-          <AvatarFallback className="rounded-xl">{name.charAt(0)}</AvatarFallback>
+          <AvatarFallback className="rounded-xl border">{name.charAt(0)}</AvatarFallback>
         </Avatar>
 
         <div className="flex flex-1 flex-col gap-1.5">
-          <TypographyH4>{name}</TypographyH4>
+          <TypographyH4 className="line-clamp-1">{name}</TypographyH4>
           <TypographyMuted className="line-clamp-2">{description}</TypographyMuted>
           <div className="flex w-full items-center justify-between">
             {renderCategories()}

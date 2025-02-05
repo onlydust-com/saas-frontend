@@ -55,7 +55,7 @@ export function SponsorGroup() {
     isActive: isSponsorRoute,
     items: [
       {
-        title: "Overview",
+        title: "Programs",
         url: NEXT_ROUTER.financials.programs.root(sponsor.id),
       },
       {

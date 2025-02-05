@@ -1,4 +1,4 @@
-import { ChartPie, ClipboardPaste, User } from "lucide-react";
+import { ChartPie, ClipboardPaste, FolderHeart, User } from "lucide-react";
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -15,16 +15,23 @@ import {
 
 export function ContributorGroup() {
   const { user } = useAuthUser();
-  const isApplicationsRoute = useMatchPath(NEXT_ROUTER.myDashboard.contributions.root, { exact: false });
+  const isContributionsRoute = useMatchPath(NEXT_ROUTER.myDashboard.contributions.root, { exact: false });
+  const isProjectsRoute = useMatchPath(NEXT_ROUTER.myDashboard.projects.root, { exact: false });
   const isRewardsRoute = useMatchPath(NEXT_ROUTER.myDashboard.financial.root, { exact: false });
   const isProfileRoute = useMatchPath(NEXT_ROUTER.users.details.root(user?.login ?? ""), { exact: false });
 
   const items = [
     {
-      title: "Applications",
+      title: "Contributions",
       url: NEXT_ROUTER.myDashboard.contributions.root,
       icon: ClipboardPaste,
-      isActive: isApplicationsRoute,
+      isActive: isContributionsRoute,
+    },
+    {
+      title: "Projects",
+      url: NEXT_ROUTER.myDashboard.projects.root,
+      icon: FolderHeart,
+      isActive: isProjectsRoute,
     },
     {
       title: "Rewards",

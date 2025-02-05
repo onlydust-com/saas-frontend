@@ -26,8 +26,8 @@ export function SafeGlobalSearch() {
       <Button variant={"outline"} size={isSmBreakpoint ? "default" : "icon"} onClick={() => onOpenChange(true)}>
         <Search />
         <span className="hidden w-36 text-left sm:inline">Search</span>
-        <kbd className="pointer-events-none hidden select-none items-center gap-0.5 font-mono text-xs font-medium text-muted-foreground opacity-100 sm:inline-flex">
-          <span className="text-base">⌘</span>K
+        <kbd className="pointer-events-none hidden select-none items-center gap-0.5 font-sans text-xs font-medium text-muted-foreground opacity-100 sm:inline-flex">
+          ⌘K
         </kbd>
       </Button>
 
