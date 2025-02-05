@@ -101,6 +101,8 @@ export function ManageBillingProfile({ id }: { id: string }) {
     },
   } as const;
 
+  if (!data || data.isBillingProfileIndividual() || !data.isAdmin()) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
