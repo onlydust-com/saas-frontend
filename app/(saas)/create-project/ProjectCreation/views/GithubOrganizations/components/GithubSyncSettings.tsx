@@ -2,6 +2,7 @@ import { Button } from "@/shared/ui/button";
 import { GithubIcon } from "lucide-react";
 
 import { Link } from "@/design-system/atoms/link";
+import { TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
 import { OAuthGithubConfigLink } from "../../../utils/githubSetupLink";
 
 export interface GithubSyncSettingsProps {
@@ -22,30 +23,30 @@ export const GithubSyncSettings = ({
   // TODO
   // const [openTutorialPanel] = useStackGithubWorkflowTutorial();
   return (
-    <div className="card-light flex w-full flex-col items-start justify-start gap-6 rounded-2xl border bg-transparent p-5">
+    <div className="flex w-full flex-col items-start justify-start gap-6 rounded-2xl border p-5">
       <div className="flex w-full flex-col items-start justify-start gap-2">
-        <p className="font-walsheim text-sm font-medium uppercase">{title}</p>
+        <TypographyLarge className="uppercase">{title}</TypographyLarge>
         {message ? (
-          <p className="text-body-s font-walsheim font-normal text-spaceBlue-200">
+          <TypographyMuted>
             {message}
             &nbsp;
             <button
-              className="text-body-s-bold cursor-pointer font-bold text-spacePurple-500"
+              className="text-secondary-600"
               // onClick={openTutorialPanel}
             >
               {showButton}
             </button>
-          </p>
+          </TypographyMuted>
         ) : null}
       </div>
       <div className="center flex w-full flex-col items-center gap-5 lg:flex-row">
         {settingsButton ? (
-          <Link href={OAuthGithubConfigLink} target="_blank" rel="noopener noreferrer" className="w-full">
-            <Button variant="secondary" size="sm" className="w-full">
+          <Button variant="secondary" size="sm" className="w-full" asChild>
+            <Link href={OAuthGithubConfigLink} target="_blank" rel="noopener noreferrer" className="w-full">
               <GithubIcon />
               {settingsButton}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         ) : null}
         {PoolingFeedback ? PoolingFeedback : null}
       </div>

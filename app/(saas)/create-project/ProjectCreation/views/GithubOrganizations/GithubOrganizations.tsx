@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { MultiStepsForm } from "../../components/MultiStepsForm";
 import { GithubSyncSettings } from "./components/GithubSyncSettings";
 
+import { TypographyH4 } from "@/shared/ui/typography";
 import { CreateProjectContext } from "../../ProjectCreation.context";
 import OrganizationList from "./components/OrganizationList";
 
@@ -22,15 +23,15 @@ export const GithubOrganizationPage = () => {
 
   return (
     <MultiStepsForm
-      title="Select GitHub Organizations"
-      description="Choose the organizations you want to create projects from"
+      title="Select your Github organisations"
+      description="Please install the github app on the desired github organisation(s) containing the repositories you want to add."
       step={1}
       stepCount={3}
       next={next}
       nextDisabled={!organizations.length}
     >
       <div> 
-        <h2 className="font-medium uppercase">Installed Organizations</h2>
+        <TypographyH4 className="uppercase">Installed on these organizations</TypographyH4>
         <OrganizationList
           installatedRepo={installedRepos || []}
           organizations={installedOrganizations}
@@ -41,7 +42,7 @@ export const GithubOrganizationPage = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="font-medium uppercase">Available Organizations</h2>
+        <TypographyH4 className="uppercase">Available Organizations</TypographyH4>
         <OrganizationList
           installatedRepo={installedRepos || []}
           organizations={availableOrganizations}
@@ -49,12 +50,13 @@ export const GithubOrganizationPage = () => {
           loading={organizationsLoading}
         />
       </div>
+
       <div className="mt-6">
         <GithubSyncSettings
-          title="GitHub App Information"
-          showButton="Show Details"
-          settingsButton="Settings"
-          message="Configure your GitHub App settings to manage organization access"
+          title="GitHub settings"
+          showButton="Show me how"
+          settingsButton="Edit configuration"
+          message="Missing an organisation? Edit your configuration and make sure the desired organisations are granted."
           PoolingFeedback={PoolingFeedback}
         />
       </div>

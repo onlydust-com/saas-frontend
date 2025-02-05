@@ -31,29 +31,28 @@ const HorizontalListItemCard: React.FC<HorizontalListItemCardProps> = ({
 }) => {
   return (
     <li>
-      <Card
-        className="bg-card-background-light p-4 shadow-medium lg:p-4"
-      >
+      <Card className="p-4">
         <div className="flex items-center gap-3">
           <Avatar className="size-6">
             <AvatarImage src={avatarUrl || ""} alt={title} />
           </Avatar>
           <span className="flex-1">{TitleComponent ? TitleComponent : title}</span>
-          <a
-            href={linkUrl}
-            onClick={linkClick}
-            target={isExternalFlow ? "_blank" : undefined}
-            rel={isExternalFlow ? "noopener noreferrer" : undefined}
+          <Button
+            size="sm"
+            variant="secondary"
+            data-testid="action-button"
+            disabled={disabled}
+            asChild
           >
-            <Button
-              size="sm"
-              variant="secondary"
-              data-testid="action-button"
-              disabled={disabled}
+            <a
+              href={linkUrl}
+              onClick={linkClick}
+              target={isExternalFlow ? "_blank" : undefined}
+              rel={isExternalFlow ? "noopener noreferrer" : undefined}
             >
-              {linkIcon}
-            </Button>
-          </a>
+                {linkIcon}
+            </a>
+          </Button>
         </div>
       </Card>
     </li>

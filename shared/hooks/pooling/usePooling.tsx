@@ -1,8 +1,8 @@
 import { RefreshCw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Icon } from "@/design-system/atoms/icon";
+import { Button } from "@/shared/ui/button";
 
 import { cn } from "@/shared/helpers/cn";
 
@@ -72,16 +72,13 @@ export const usePoolingFeedback = ({
 
     return (
       <Button
-        variant={"secondary"}
-        size={"sm"}
-        isDisabled={isRefetching || isLoading}
-        classNames={{ base: "w-full" }}
+        variant="secondary"
+        size="sm"
+        className="w-full"
+        disabled={isRefetching || isLoading}
         onClick={onTriggerRefecth}
       >
-        <Icon
-          component={RefreshCw}
-          classNames={{ base: cn({ "text-foreground-quinary animate-spin": isRefetching || isLoading }) }}
-        />
+        <Icon component={RefreshCw} classNames={{ base: cn({ "animate-spin": isRefetching || isLoading }) }} />
         {ui.label}
       </Button>
     );

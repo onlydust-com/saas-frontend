@@ -5,7 +5,6 @@ import { getGithubSetupLink } from "../../../utils/githubSetupLink";
 import HorizontalListItemCard from "./HorizontalListItemCard";
 
 import { Link } from "@/design-system/atoms/link";
-import { TypographyP } from "@/shared/ui/typography";
 
 interface OrganizationListProps {
   organizations: GetMyOrganizationsResponse;
@@ -45,8 +44,8 @@ export default function OrganizationList({
               isExternalFlow={org.installationStatus !== "NOT_INSTALLED"}
               tooltip={disabledTooltip}
               TitleComponent={
-                <Link href={org.htmlUrl ?? `https://github.com/${org.login}`}>
-                  <TypographyP>{org.name || org.login}</TypographyP>
+                <Link href={org.htmlUrl ?? `https://github.com/${org.login}`} target="_blank" className="flex items-center gap-2" rel="noreferrer">
+                  {org.name || org.login}
                 </Link>
               }
             />

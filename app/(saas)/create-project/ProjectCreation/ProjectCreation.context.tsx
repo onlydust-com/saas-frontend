@@ -170,7 +170,7 @@ export function CreateProjectProvider({
     isRefetching,
     fetch: refetch,
     ui: {
-      label: "Sync Organizations",
+      label: "Resync organizations",
     },
   });
 
