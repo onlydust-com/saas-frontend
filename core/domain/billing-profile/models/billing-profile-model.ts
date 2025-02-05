@@ -14,6 +14,10 @@ export interface BillingProfileInterface extends BillingProfileResponse {
   isAdmin(): boolean;
   isInvited(): boolean;
   hasRole(): boolean;
+  getStatus(): {
+    label: string;
+    type: "error" | "warning" | "success";
+  };
 }
 
 export class BillingProfile implements BillingProfileInterface {
@@ -92,5 +96,40 @@ export class BillingProfile implements BillingProfileInterface {
 
   hasRole() {
     return Boolean(this.me.role);
+  }
+
+  getStatus() {
+    switch (this.status) {
+      case "CLOSED":
+        return {
+          label: "Closed",
+          type: "error",
+        } as const;
+      case "NOT_STARTED":
+        return {
+          label: "Not Started",
+          type: "warning",
+        } as const;
+      case "REJECTED":
+        return {
+          label: "Rejected",
+          type: "error",
+        } as const;
+      case "STARTED":
+        return {
+          label: "Started",
+          type: "warning",
+        } as const;
+      case "UNDER_REVIEW":
+        return {
+          label: "Under Review",
+          type: "warning",
+        } as const;
+      case "VERIFIED":
+        return {
+          label: "Verified",
+          type: "success",
+        } as const;
+    }
   }
 }
