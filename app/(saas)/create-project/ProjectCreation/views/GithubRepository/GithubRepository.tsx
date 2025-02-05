@@ -1,14 +1,19 @@
 import { sortBy } from "lodash";
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useContext, useMemo, useRef } from "react";
 import { Controller } from "react-hook-form";
 
-import { CheckboxButton } from "@/design-system/molecules/checkbox-button";
 import { MultiStepsForm } from "../../components/MultiStepsForm";
 import { getGithubSetupLink } from "../../utils/githubSetupLink";
 
 import { AddMissingRepositories } from "./components/add-missing-repositories/add-missing-repositories";
 
-import { Accordion } from "@/design-system/molecules/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
+import { Avatar } from "@/shared/ui/avatar";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Input } from "@/shared/ui/input";
+import { TypographyLarge, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import { Search } from "lucide-react";
 import { CreateProjectContext } from "../../ProjectCreation.context";
 import { FormInformationCount } from "./components/FormInformationCount";
 import { useRepositoryCount } from "./hooks/useRepositoryCount";
@@ -22,10 +27,7 @@ export const GithubRepositoryPage = () => {
     helpers: { next, prev },
     formFn: { addRepository, removeRepository },
   } = useContext(CreateProjectContext);
-  // TODO
-  // const searchInputRef = useRef<HTMLInputElement>(null);
-  // useSearchHotKey({ inputRef: searchInputRef });
-
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const installedOrganizations = organizations.filter(org => org.installationStatus !== "NOT_INSTALLED");
 
   const selectedRepos = form.watch("selectedRepos") || [];
@@ -44,37 +46,39 @@ export const GithubRepositoryPage = () => {
   );
   return (
     <MultiStepsForm
-      title="Add your GitHub repositories"
-      description="Select the repositories you want to manage in your project"
+      title="Which repositories will you need?"
+      description="Only repositories from organizations where the GitHub app is installed are listed."
       step={2}
       stepCount={3}
       prev={prev}
       next={next}
       footerRightElement={footerRightElement}
       nextDisabled={!selectedRepos?.length}
-      // TODO
-      // stickyChildren={
-      //   <Controller
-      //     name="search"
-      //     control={form.control}
-      //     render={props => (
-      //       <Input
-      //         placeholder="Search repositories..."
-      //         {...props.field}
-      //         {...props.fieldState}
-      //         ref={searchInputRef}
-      //         startContent={<Search />}
-      //       />
-      //     )}
-      //   />
-      // }
+      stickyChildren={
+        <Controller
+          name="search"
+          control={form.control}
+          render={props => (
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2" />
+              <Input
+                placeholder="Search repositories..."
+                {...props.field}
+                {...props.fieldState}
+                ref={searchInputRef}
+                className="pl-8"
+              />
+            </div>
+          )}
+        />
+      }
     >
       <div className="flex flex-col gap-8">
         <Controller
           name="selectedRepos"
           control={form.control}
           render={() => (
-            <>
+            <Accordion type="multiple" defaultValue={filteredOrganizations.map(org => org.login)}>
               {filteredOrganizations.length > 0 ? (
                 filteredOrganizations.map(organization => {
                   const linkUrl = getGithubSetupLink({
@@ -86,21 +90,20 @@ export const GithubRepositoryPage = () => {
                   });
 
                   return (
-                    <Accordion
-                      key={organization.login}
-                      id={organization.login}
-                      titleProps={{}}
-
-                      // TODO
-                      // title={organization.name || organization.login || ""}
-                      // avatarAlt={organization.login || ""}
-                      // avatarSrc={organization.avatarUrl || ""}
-                      // variant="BLUE"
-                    >
+                    <AccordionItem key={organization.login} value={organization.login}>
+                      <AccordionTrigger>
+                        <div className="flex items-center gap-2">
+                          <Avatar>
+                            <AvatarImage src={organization.avatarUrl || ""} alt={organization.login || ""} />
+                          </Avatar>
+                          <TypographySmall>{organization.name || organization.login || ""}</TypographySmall>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="space-y-8">
                       {organization.repos.length === 0 ? (
-                        <p className="text-body-s mb-2">No repositories found</p>
+                        <TypographyMuted>No repositories found</TypographyMuted>
                       ) : (
-                        <div className="grid grid-flow-row grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2">
+                        <div className="grid grid-flow-row grid-cols-1 gap-4 md:grid-cols-2">
                           {(sortBy(organization.repos, "name") || []).map(repo => (
                             <label
                               key={repo.name}
@@ -108,25 +111,23 @@ export const GithubRepositoryPage = () => {
                             >
                               <div className="flex flex-col items-start justify-start gap-2">
                                 <div className="flex items-center justify-between w-full">
-                                  <h3 className="h- text-body-m-bold">{repo.name}</h3>
-                                  <CheckboxButton
-                                    value={isSelected(repo.id)}
-                                    onChange={() => {
-                                      if (!isSelected(repo.id)) {
+                                  <TypographyLarge>{repo.name}</TypographyLarge>
+                                  <Checkbox
+                                    checked={isSelected(repo.id)}
+                                    onCheckedChange={(checked) => {
+                                      if (checked) {
                                         addRepository({ repoId: repo.id, orgId: organization.githubUserId });
                                       } else {
                                         removeRepository({ repoId: repo.id, orgId: organization.githubUserId });
                                       }
                                     }}
                                   />
-                                </div>                               <p
-                                  className={`text-body-s line-clamp-2 w-full text-greyscale-200 ${
-                                    !repo.description && "italic"
-                                  }`}
-                                >
+                                </div>
+                                <TypographyMuted className={`line-clamp-2 w-full ${!repo.description && "italic"}`}>
                                   {repo.description || "No description available"}
-                                </p>
-                              </div>                            </label>
+                                </TypographyMuted>
+                              </div>
+                            </label>
                           ))}
                         </div>
                       )}
@@ -135,15 +136,15 @@ export const GithubRepositoryPage = () => {
                         url={linkUrl}
                         disabled={!organization.isCurrentUserAdmin}
                         tooltip="Github app installed by an organisation admin"
-                        className="mt-5 border border-card-border-heavy"
                       />
-                    </Accordion>
+                      </AccordionContent>
+                    </AccordionItem>
                   );
                 })
               ) : (
                 <p className="text-body-s mb-2">No repositories found matching your search</p>
               )}
-            </>
+            </Accordion>
           )}
         />
       </div>

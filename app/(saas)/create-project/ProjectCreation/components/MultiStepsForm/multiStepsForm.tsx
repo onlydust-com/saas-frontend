@@ -37,7 +37,7 @@ export const MultiStepsForm: FC<MultiStepsFormProps> = ({
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 z-10 flex w-full flex-col items-start justify-between gap-4 border-t p-6 md:relative md:bottom-auto md:left-auto md:flex-row md:items-center xl:rounded-b-2xl">
+      <div className="fixed bg-background bottom-0 left-0 z-10 flex w-full flex-col items-start justify-between gap-4 border-t p-6 md:relative md:bottom-auto md:left-auto md:flex-row md:items-center xl:rounded-b-2xl">
         <div className="flex items-center justify-start">
           {footerRightElement ? footerRightElement : null}
         </div>
