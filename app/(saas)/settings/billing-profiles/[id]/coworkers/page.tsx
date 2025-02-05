@@ -1,10 +1,11 @@
 "use client";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
-function TermsAndConditionsPage() {
+function BillingProfileCoworkersPage() {
   return (
     <div>
       <NavigationBreadcrumb
@@ -14,14 +15,19 @@ function TermsAndConditionsPage() {
             label: "Settings",
           },
           {
-            id: "terms-and-conditions",
-            label: "Terms and Conditions",
+            id: "billing-profiles",
+            label: "Billing Profiles",
+            href: NEXT_ROUTER.settings.billingProfiles.root,
+          },
+          {
+            id: "coworkers",
+            label: "Coworkers",
           },
         ]}
       />
-      Terms and Conditions
+      Billing Profile Coworkers
     </div>
   );
 }
 
-export default withClientOnly(withAuthenticated(TermsAndConditionsPage));
+export default withClientOnly(withAuthenticated(BillingProfileCoworkersPage));

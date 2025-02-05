@@ -10,6 +10,8 @@ export interface MeProfileInterface extends MeProfileResponse {
   getContact(channel: UserProfileContactChannel): UserProfileContact | undefined;
   getContactTelegram(): UserProfileContact | undefined;
   isMaintainer(): boolean;
+  formatContact(channel: UserProfileContactChannel): UserProfileContact | undefined;
+  getFormContactInfo(channel: UserProfileContactChannel): { contact: string; isPublic: boolean };
 }
 
 export class MeProfile implements MeProfileInterface {
@@ -83,5 +85,25 @@ export class MeProfile implements MeProfileInterface {
 
   isMaintainer() {
     return this.joiningReason === USER_PROFILE_JOINING_REASON.MAINTAINER;
+  }
+
+  formatContact(channel: UserProfileContactChannel) {
+    const contact = this.getContact(channel);
+
+    return contact
+      ? {
+          ...contact,
+          contact: contact.contact ? MeProfile.sanitizeChannelContact(contact.contact) : undefined,
+        }
+      : undefined;
+  }
+
+  getFormContactInfo(channel: UserProfileContactChannel) {
+    const contact = this.formatContact(channel);
+
+    return {
+      contact: contact?.contact ?? "",
+      isPublic: contact?.visibility === "public",
+    };
   }
 }

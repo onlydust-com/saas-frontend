@@ -11,6 +11,8 @@ import {
   GetMyProjectsAsContributorPortResponse,
   GetMyProjectsAsMaintainerPortParams,
   GetMyProjectsAsMaintainerPortResponse,
+  GetUpdateGithubProfilePortParams,
+  GetUpdateGithubProfilePortResponse,
   LogoutMeResponsePortParams,
   LogoutMeResponsePortResponse,
   PostMyApplicationPortParams,
@@ -25,6 +27,8 @@ import {
   SetMyPayoutPreferenceForProjectPortResponse,
   SetMyProfilePortParams,
   SetMyProfilePortResponse,
+  UploadProfilePicturePortParams,
+  UploadProfilePicturePortResponse,
 } from "@/core/domain/me/me-contract.types";
 
 export interface MeFacadePort {
@@ -43,4 +47,6 @@ export interface MeFacadePort {
   postMyApplication(p: PostMyApplicationPortParams): PostMyApplicationPortResponse;
   getMyHackathonRegistration(params: GetMyHackathonRegistrationPortParams): GetMyHackathonRegistrationPortResponse;
   registerToHackathon(params: RegisterToHackathonPortParams): RegisterToHackathonPortResponse;
+  getUpdateGithubProfile(params: GetUpdateGithubProfilePortParams): GetUpdateGithubProfilePortResponse;
+  uploadProfilePicture(params: UploadProfilePicturePortParams): UploadProfilePicturePortResponse;
 }

@@ -127,8 +127,8 @@ function DataContributorsPage() {
             href: NEXT_ROUTER.data.overview.root,
           },
           {
-            id: "contributor",
-            label: <Translate token={"data:details.tabs.contributor"} />,
+            id: "contributors",
+            label: "Contributors",
           },
         ]}
       />

@@ -122,8 +122,8 @@ function DataProjectsPage() {
             href: NEXT_ROUTER.data.overview.root,
           },
           {
-            id: "project",
-            label: <Translate token={"data:details.tabs.project"} />,
+            id: "projects",
+            label: "Projects",
           },
         ]}
       />
