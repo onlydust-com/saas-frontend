@@ -1,5 +1,6 @@
 "use client";
 
+import { ManageBillingProfile } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/manage-profile/manage-profile";
 import { ProfileBanner } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-banner/profile-banner";
 import { ProfileCompany } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-company/profile-company";
 import { ProfileIndividual } from "@/app/(saas)/settings/billing-profiles/[id]/general-information/_features/profile-individual/profile-individual";
@@ -37,6 +38,8 @@ function BillingProfileGeneralInformationPage({ params }: { params: { id: string
       <ProfileCompany id={params.id} />
 
       <ProfileBanner id={params.id} />
+
+      <ManageBillingProfile id={params.id} />
     </div>
   );
 }
