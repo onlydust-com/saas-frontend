@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -17,7 +18,20 @@ const FormSchema = z.object({
 });
 
 export function NotificationsForm() {
-  const { data } = MeReactQueryAdapter.client.useGetMyProfile({});
+  const { data } = MeReactQueryAdapter.client.useGetMyNotificationsSettings({});
+
+  const { mutate } = MeReactQueryAdapter.client.useSetMyNotificationsSettings({
+    options: {
+      onSuccess: () => {
+        toast.success("Notification preferences updated");
+      },
+      onError: () => {
+        toast.error("Failed to update notification preferences");
+      },
+    },
+  });
+
+  console.log(data);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
