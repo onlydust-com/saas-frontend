@@ -40,7 +40,7 @@ export function PaymentMethodForm({ id }: { id: string }) {
     resolver: zodResolver(formSchema),
   });
 
-  const { handleSubmit, reset, trigger, watch } = form;
+  const { handleSubmit, reset, trigger, watch, setError } = form;
 
   // We need this to trigger in realtime
   useEffect(() => {
@@ -51,6 +51,35 @@ export function PaymentMethodForm({ id }: { id: string }) {
   useEffect(() => {
     if (data) {
       reset(formatToData(data));
+
+      if (data.missingEthWallet) {
+        setError("ethWallet", { message: "Ethereum wallet address is missing." });
+      }
+
+      if (data.missingStarknetWallet) {
+        setError("starknetAddress", { message: "Starknet wallet address is missing." });
+      }
+
+      if (data.missingOptimismWallet) {
+        setError("optimismAddress", { message: "Optimism wallet address is missing." });
+      }
+
+      if (data.missingAptosWallet) {
+        setError("aptosAddress", { message: "Aptos wallet address is missing." });
+      }
+
+      if (data.missingStellarWallet) {
+        setError("stellarAccountId", { message: "Stellar wallet address is missing." });
+      }
+
+      if (data.missingNearWallet) {
+        setError("nearAccountId", { message: "Near wallet address is missing." });
+      }
+
+      if (data.missingBankAccount) {
+        setError("bankAccount.number", { message: "Bank account number is missing." });
+        setError("bankAccount.bic", { message: "BIC / SWIFT is missing." });
+      }
     }
   }, [data]);
 
@@ -60,27 +89,133 @@ export function PaymentMethodForm({ id }: { id: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 md:grid-cols-2">
         <FormField
           control={form.control}
-          name="username"
+          name="ethWallet"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Ethereum wallet address or ENS name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Ethereum wallet address" {...field} />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>Relevant for rewards in USD Coin, Ethereum, Starknet, Lords.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <div className="flex justify-end">
-          <Button type="submit" loading={isPending}>
-            Submit
-          </Button>
+        <FormField
+          control={form.control}
+          name="starknetAddress"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Starknet wallet address</FormLabel>
+              <FormControl>
+                <Input placeholder="Starknet wallet address" {...field} />
+              </FormControl>
+              <FormDescription>Relevant for rewards in USD Coin, Ethereum, Starknet.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="optimismAddress"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Optimism wallet address</FormLabel>
+              <FormControl>
+                <Input placeholder="Optimism wallet address" {...field} />
+              </FormControl>
+              <FormDescription>Relevant for rewards in USD Coin, Optimism, Worldcoin.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="aptosAddress"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Aptos wallet address</FormLabel>
+              <FormControl>
+                <Input placeholder="Aptos wallet address" {...field} />
+              </FormControl>
+              <FormDescription>Relevant for rewards in Aptos.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="stellarAccountId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Stellar wallet address</FormLabel>
+              <FormControl>
+                <Input placeholder="Stellar wallet address" {...field} />
+              </FormControl>
+              <FormDescription>Relevant for rewards in USD Coin, Stellar.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="nearAccountId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Near wallet address</FormLabel>
+              <FormControl>
+                <Input placeholder="Near wallet address" {...field} />
+              </FormControl>
+              <FormDescription>Relevant for rewards in Near.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="col-span-full grid gap-4 md:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="bankAccount.number"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Account number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Account number" {...field} />
+                </FormControl>
+                <FormDescription>Relevant for rewards in US Dollar.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="bankAccount.bic"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>BIC / SWIFT</FormLabel>
+                <FormControl>
+                  <Input placeholder="BIC / SWIFT" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
+
+        <footer className="col-span-full flex justify-end">
+          <Button type="submit" loading={isPending}>
+            Save changes
+          </Button>
+        </footer>
       </form>
     </Form>
   );
