@@ -13,15 +13,15 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 const items: MenuItemPort<HackathonEventMenuItem>[] = [
   {
-    label: <Translate token="hackathon:details.events.allEvents" />,
+    label: <Translate token="osw:details.events.allEvents" />,
     id: HackathonEventMenuItem.ALL_EVENTS,
   },
   {
-    label: <Translate token="hackathon:details.events.pastEvents" />,
+    label: <Translate token="osw:details.events.pastEvents" />,
     id: HackathonEventMenuItem.PAST_EVENTS,
   },
   {
-    label: <Translate token="hackathon:details.events.upcomingEvents" />,
+    label: <Translate token="osw:details.events.upcomingEvents" />,
     id: HackathonEventMenuItem.UPCOMING_EVENTS,
   },
 ];

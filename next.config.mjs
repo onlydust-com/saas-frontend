@@ -41,7 +41,7 @@ const nextConfig = {
         destination: "/projects/:projectSlug/overview",
         permanent: true,
       },
-      // HACKATHONS
+      // OPEN-SOURCE WEEK
       {
         source: "/osw/:hackathonSlug",
         destination: "/osw/:hackathonSlug/overview",

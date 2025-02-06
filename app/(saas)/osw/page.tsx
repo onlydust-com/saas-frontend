@@ -12,7 +12,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function HackathonsPage() {
+function OpenSourceWeekPage() {
   return (
     <PageContainer>
       <PosthogCaptureOnMount eventName={"hackathon_list_viewed"} />
@@ -39,4 +39,4 @@ function HackathonsPage() {
   );
 }
 
-export default withClientOnly(HackathonsPage);
+export default withClientOnly(OpenSourceWeekPage);
