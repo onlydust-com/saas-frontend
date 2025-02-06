@@ -15,7 +15,7 @@ import {
 export function ExploreGroup() {
   const isDiscoverRoute = useMatchPath(NEXT_ROUTER.discover.root, { exact: false });
   const isBrowseRoute = useMatchPath(NEXT_ROUTER.projects.root, { exact: false });
-  const isHackathonsRoute = useMatchPath(NEXT_ROUTER.hackathons.root, { exact: false });
+  const isOswRoute = useMatchPath(NEXT_ROUTER.osw.root, { exact: false });
   const isEcosystemsRoute = useMatchPath(NEXT_ROUTER.ecosystems.root, { exact: false });
 
   const items = [
@@ -32,10 +32,10 @@ export function ExploreGroup() {
       isActive: isBrowseRoute,
     },
     {
-      title: "Hackathons",
-      url: NEXT_ROUTER.hackathons.root,
+      title: "Open-Source Week",
+      url: NEXT_ROUTER.osw.root,
       icon: Rocket,
-      isActive: isHackathonsRoute,
+      isActive: isOswRoute,
     },
     {
       title: "Ecosystems",

@@ -29,7 +29,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
   return (
     <Paper
       as={BaseLink}
-      htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
+      htmlProps={{ href: NEXT_ROUTER.osw.details.root(hackathon.slug) }}
       background="transparent"
       border="primary"
       classNames={{
@@ -58,7 +58,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
 
             <Button
               as={BaseLink}
-              htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
+              htmlProps={{ href: NEXT_ROUTER.osw.details.root(hackathon.slug) }}
               variant="primary"
               size="md"
               classNames={{ base: "w-full tablet:w-auto" }}

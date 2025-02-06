@@ -23,9 +23,9 @@ enum Views {
 }
 
 function Navigation({ params }: { params: { hackathonSlug: string } }) {
-  const isOverview = useMatchPath(NEXT_ROUTER.hackathons.details.overview.root(params.hackathonSlug));
-  const isProjects = useMatchPath(NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug));
-  const isCommunity = useMatchPath(NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug));
+  const isOverview = useMatchPath(NEXT_ROUTER.osw.details.overview.root(params.hackathonSlug));
+  const isProjects = useMatchPath(NEXT_ROUTER.osw.details.projects.root(params.hackathonSlug));
+  const isCommunity = useMatchPath(NEXT_ROUTER.osw.details.community.root(params.hackathonSlug));
 
   const selectedId = useMemo(() => {
     if (isOverview) {
@@ -50,7 +50,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
           children: <Translate token={"osw:details.tabs.overview"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.hackathons.details.overview.root(params.hackathonSlug),
+            href: NEXT_ROUTER.osw.details.overview.root(params.hackathonSlug),
           },
         },
         {
@@ -58,7 +58,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
           children: <Translate token={"osw:details.tabs.projects"} />,
           as: BaseLink,
           htmlProps: {
-            href: NEXT_ROUTER.hackathons.details.projects.root(params.hackathonSlug),
+            href: NEXT_ROUTER.osw.details.projects.root(params.hackathonSlug),
           },
         },
         // {

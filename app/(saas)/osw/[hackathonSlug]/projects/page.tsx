@@ -195,8 +195,8 @@ function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }
         breadcrumb={[
           {
             id: "root",
-            label: "Hackathons",
-            href: NEXT_ROUTER.hackathons.root,
+            label: "Open-Source Week",
+            href: NEXT_ROUTER.osw.root,
           },
           {
             id: "slug",

@@ -20,7 +20,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
   return (
     <Paper
       as={BaseLink}
-      htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
+      htmlProps={{ href: NEXT_ROUTER.osw.details.root(hackathon.slug) }}
       background="transparent"
       border="primary"
       classNames={{ base: "block bg-background-secondary overflow-hidden opacity-80" }}
@@ -114,7 +114,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
 
           <Button
             as={BaseLink}
-            htmlProps={{ href: NEXT_ROUTER.hackathons.details.root(hackathon.slug) }}
+            htmlProps={{ href: NEXT_ROUTER.osw.details.root(hackathon.slug) }}
             variant="secondary"
             size="md"
             classNames={{ base: "w-full" }}
