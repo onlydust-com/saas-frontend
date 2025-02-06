@@ -37,6 +37,14 @@ export function useInviteBillingProfileCoworker({
               }).tag,
               exact: false,
             });
+
+            // invalidate billing profile coworkers request
+            await queryClient.invalidateQueries({
+              queryKey: billingProfileStoragePort.getBillingProfileCoworkers({
+                pathParams: { billingProfileId: pathParams?.billingProfileId },
+              }).tag,
+              exact: false,
+            });
           }
 
           options?.onSuccess?.(data, variables, context);
