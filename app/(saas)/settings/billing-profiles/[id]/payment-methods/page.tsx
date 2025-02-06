@@ -1,5 +1,7 @@
 "use client";
 
+import { withBillingProfileAdminGuard } from "@/app/(saas)/settings/billing-profiles/_features/billing-profile-admln-guard/billing-profile-admln-guard";
+
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
@@ -33,6 +35,4 @@ function BillingProfilePaymentMethodsPage({ params }: { params: { id: string } }
   );
 }
 
-// TODO: @billing
-// export default withClientOnly(withAuthenticated(withBillingProfileAdminGuard(BillingProfilePaymentMethodsPage)));
-export default withClientOnly(withAuthenticated(BillingProfilePaymentMethodsPage));
+export default withClientOnly(withAuthenticated(withBillingProfileAdminGuard(BillingProfilePaymentMethodsPage)));
