@@ -1,9 +1,11 @@
+import { useRouter } from "next/navigation";
 import { PropsWithChildren, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { BillingProfileType, BillingProfileTypeUnion } from "@/core/domain/billing-profile/billing-profile.types";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
@@ -12,7 +14,11 @@ import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 
-export function CreateBillingProfile({ children }: PropsWithChildren) {
+export function CreateBillingProfile({
+  children,
+  redirectToProfile,
+}: PropsWithChildren<{ redirectToProfile?: boolean }>) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [type, setType] = useState<BillingProfileTypeUnion>();
@@ -27,9 +33,13 @@ export function CreateBillingProfile({ children }: PropsWithChildren) {
 
   const { mutate, isPending } = BillingProfileReactQueryAdapter.client.useCreateBillingProfile({
     options: {
-      onSuccess: () => {
+      onSuccess: data => {
         toast.success("Billing profile created successfully");
         setOpen(false);
+
+        if (redirectToProfile) {
+          router.push(NEXT_ROUTER.settings.billingProfiles.generalInformation.root(data.id));
+        }
       },
       onError: () => {
         toast.error("Failed to create billing profile");
