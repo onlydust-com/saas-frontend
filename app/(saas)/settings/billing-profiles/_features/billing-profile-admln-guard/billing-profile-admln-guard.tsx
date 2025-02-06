@@ -6,7 +6,7 @@ import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function withBillingProfileAdminGuard<P extends object>(Component: ComponentType<P>) {
-  return (props: P) => {
+  return function BillingProfileAdminGuard(props: P) {
     const router = useRouter();
     const { id } = useParams<{ id: string }>();
     const { data, isLoading } = BillingProfileReactQueryAdapter.client.useGetBillingProfileById({
@@ -29,4 +29,3 @@ export function withBillingProfileAdminGuard<P extends object>(Component: Compon
     return <Component {...props} />;
   };
 }
-withBillingProfileAdminGuard.displayName = "withBillingProfileAdminGuard";

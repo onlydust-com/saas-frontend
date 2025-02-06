@@ -8,6 +8,8 @@ import { BillingProfileSummary } from "@/app/(saas)/settings/billing-profiles/[i
 import { LimitReachedHeader } from "@/app/(saas)/settings/billing-profiles/[id]/_features/limit-reached-header/limit-reached-header";
 import { ProfileInvitationBanner } from "@/app/(saas)/settings/billing-profiles/[id]/_features/profile-invitation-banner/profile-invitation-banner";
 
+import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
@@ -16,12 +18,21 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
   const { id } = params;
   const currentPath = usePathname();
 
+  const { data } = BillingProfileReactQueryAdapter.client.useGetBillingProfileById({
+    pathParams: {
+      billingProfileId: params.id,
+    },
+  });
+
   const tabs = [
     { href: NEXT_ROUTER.settings.billingProfiles.generalInformation.root(id), label: "General Information" },
     { href: NEXT_ROUTER.settings.billingProfiles.paymentMethods.root(id), label: "Payment Methods" },
-    { href: NEXT_ROUTER.settings.billingProfiles.coworkers.root(id), label: "Coworkers" },
+    data?.isBillingProfileCompany() && {
+      href: NEXT_ROUTER.settings.billingProfiles.coworkers.root(id),
+      label: "Coworkers",
+    },
     { href: NEXT_ROUTER.settings.billingProfiles.invoices.root(id), label: "Invoices" },
-  ];
+  ].filter(Boolean) as { href: string; label: string }[];
 
   return (
     <Tabs
