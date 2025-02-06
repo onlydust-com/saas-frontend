@@ -16,6 +16,7 @@ import { StorageInterface } from "./hooks/useStorage/Storage";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { rewardsSettingsTypes } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 import { STORAGE_KEY_CREATE_PROJECT_FORM, useResetStorage } from "./hooks/useProjectCreationStorage";
 import { ProjectCreationSteps, ProjectCreationStepsNext, ProjectCreationStepsPrev } from "./types/ProjectCreationSteps";
 import { CreateFormData } from "./types/ProjectCreationType";
@@ -202,17 +203,36 @@ export function CreateProjectProvider({
     formStorage.setValue(form.getValues());
   };
 
-  const onSubmit = () => {
+  const { mutateAsync: uploadLogo, isPending: isUploadingLogo } = ProjectReactQueryAdapter.client.useUploadProjectLogo();
+
+  const onSubmit = async () => {
     setEnableAutoSaved(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { githubRepoIds, moreInfos, ...formData } =
-      form.getValues();
+
+    const { githubRepoIds,
+      moreInfos, 
+      logoFile, 
+      labels, 
+      rewardSettingsArrays,
+      rewardSettingsDate,
+      ...formData } = form.getValues();
+
+    const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
+
     createProject({
       ...formData,
+      logoUrl: fileUrl?.url || initialProject?.logoUrl,
+      contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
       inviteGithubUserIdsAsProjectLeads: (formData.inviteGithubUserIdsAsProjectLeads || []).map(userId => Number(userId)),
       isLookingForContributors: formData.isLookingForContributors || false,
       githubRepoIds: githubRepoIds || [],
       moreInfos: (moreInfos || []).filter(info => info.url !== "").map(info => ({ url: info.url, value: info.value })),
+      rewardSettings: {
+        ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
+        ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
+        ignoreCodeReviews: !rewardSettingsArrays.includes(rewardsSettingsTypes.CodeReviews),
+        ignoreContributionsBefore:
+          rewardSettingsDate?.toISOString(),
+      },
     });
   };
 
@@ -289,7 +309,7 @@ export function CreateProjectProvider({
         organizationsLoading: !organizationsData?.organizations.length && isLoading,
         organizations: (organizationsData?.organizations || []).sort((a, b) => a.login.localeCompare(b.login)),
         PoolingFeedback,
-        isSubmitting: restCreateProjectMutation.isPending || form.formState.isSubmitting,
+        isSubmitting: restCreateProjectMutation.isPending || form.formState.isSubmitting || isUploadingLogo,
         helpers: {
           saveInSession: onSaveInSession,
           goTo,
