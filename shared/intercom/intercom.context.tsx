@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import Intercom from "@intercom/messenger-js-sdk";
+import { Intercom, show } from "@intercom/messenger-js-sdk";
 import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 
 import { useAuthUser } from "../hooks/auth/use-auth-user";
@@ -47,16 +47,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   }
 
   function openIntercom() {
-    try {
-      const intercomLauncher = document.querySelector(".intercom-launcher");
-      if (!(intercomLauncher instanceof HTMLElement)) {
-        console.warn("Intercom launcher not found or not an HTMLElement");
-        return;
-      }
-      intercomLauncher.click();
-    } catch (error) {
-      console.error("Failed to open Intercom:", error);
-    }
+    show();
   }
 
   async function initIntercom() {
