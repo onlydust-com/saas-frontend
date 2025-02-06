@@ -3,11 +3,6 @@
 import { useContext } from "react";
 
 import { CreateProjectContext, CreateProjectProvider } from "./ProjectCreation.context";
-import {
-  useProjectCreationFormStorage,
-  useProjectCreationInstalledReposStorage,
-  useProjectCreationStepStorage,
-} from "./hooks/useProjectCreationStorage";
 import { ProjectCreationSteps } from "./types/ProjectCreationSteps";
 import { GithubOrganizationPage } from "./views/GithubOrganizations/GithubOrganizations";
 import { GithubRepositoryPage } from "./views/GithubRepository";
@@ -31,19 +26,8 @@ export const SafeProjectCreation = () => {
 };
 
 export const ProjectCreation = () => {
-  const formStorage = useProjectCreationFormStorage();
-  const stepStorage = useProjectCreationStepStorage();
-  const reposStorage = useProjectCreationInstalledReposStorage();
-
   return (
-    <CreateProjectProvider
-      initialProject={formStorage.getValue()}
-      initialInstalledRepo={reposStorage.getValue()}
-      initialStep={stepStorage.getValue()}
-      formStorage={formStorage}
-      stepStorage={stepStorage}
-      reposStorage={reposStorage}
-    >
+    <CreateProjectProvider>
       <SafeProjectCreation />
     </CreateProjectProvider>
   );

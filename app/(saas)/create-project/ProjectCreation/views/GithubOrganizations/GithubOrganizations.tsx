@@ -10,7 +10,6 @@ import OrganizationList from "./components/OrganizationList";
 export const GithubOrganizationPage = () => {
   const {
     helpers: { next },
-    installedRepos,
     organizations,
     organizationsLoading,
     PoolingFeedback,
@@ -33,7 +32,6 @@ export const GithubOrganizationPage = () => {
       <div> 
         <TypographyH4 className="uppercase">Installed on these organizations</TypographyH4>
         <OrganizationList
-          installatedRepo={installedRepos || []}
           organizations={installedOrganizations}
           emptyListFallBackText="No installed organizations found"
           loading={organizationsLoading}
@@ -44,7 +42,6 @@ export const GithubOrganizationPage = () => {
       <div className="mt-6">
         <TypographyH4 className="uppercase">Available Organizations</TypographyH4>
         <OrganizationList
-          installatedRepo={installedRepos || []}
           organizations={availableOrganizations}
           emptyListFallBackText="No available organizations found"
           loading={organizationsLoading}

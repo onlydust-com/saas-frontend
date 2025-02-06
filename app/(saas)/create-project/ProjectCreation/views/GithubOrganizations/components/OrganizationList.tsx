@@ -10,14 +10,12 @@ interface OrganizationListProps {
   organizations: GetMyOrganizationsResponse;
   emptyListFallBackText: string;
   loading?: boolean;
-  installatedRepo: number[];
   disabledTooltip?: string;
 }
 
 export default function OrganizationList({
   organizations,
   emptyListFallBackText,
-  installatedRepo,
   loading,
   disabledTooltip,
 }: OrganizationListProps) {
@@ -35,7 +33,7 @@ export default function OrganizationList({
 
           return (
             <HorizontalListItemCard
-              disabled={installatedRepo.includes(org.githubUserId) || !org.isCurrentUserAdmin}
+              disabled={!org.isCurrentUserAdmin}
               key={`${org.login}+${index}`}
               avatarUrl={org.avatarUrl ?? ""}
               title={org.name || org.login || ""}
