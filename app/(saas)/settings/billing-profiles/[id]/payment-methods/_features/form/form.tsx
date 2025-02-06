@@ -36,7 +36,6 @@ export function PaymentMethodForm({ id }: { id: string }) {
   });
 
   const form = useForm<PayoutFormData>({
-    mode: "all",
     resolver: zodResolver(formSchema),
   });
 
@@ -212,7 +211,7 @@ export function PaymentMethodForm({ id }: { id: string }) {
         </div>
 
         <footer className="col-span-full flex justify-end">
-          <Button type="submit" loading={isPending}>
+          <Button type="submit" loading={isPending} disabled={!form.formState.isDirty || !form.formState.isValid}>
             Save changes
           </Button>
         </footer>
