@@ -45,17 +45,17 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>
-        <Alert variant="default" className="mb-4">
-          <div className="flex items-center justify-between gap-2">
-            <AlertTitle className="m-0">
-              All your coworkers will be able to allocate rewards to your billing profile.
-            </AlertTitle>
-
+      <Alert variant="default" className="mb-4">
+        <div className="flex items-center justify-between gap-2">
+          <AlertTitle className="m-0">
+            All your coworkers will be able to allocate rewards to your billing profile.
+          </AlertTitle>
+          <SheetTrigger asChild>
             <Button>Invite team member</Button>
-          </div>
-        </Alert>
-      </SheetTrigger>
+          </SheetTrigger>
+        </div>
+      </Alert>
+
       <SheetContent className="!min-w-[400px] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>Invite team member</SheetTitle>
