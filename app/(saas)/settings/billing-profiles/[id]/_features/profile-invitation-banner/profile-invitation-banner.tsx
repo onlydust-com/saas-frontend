@@ -6,6 +6,7 @@ import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Alert, AlertDescription, AlertTitle } from "@/shared/ui/alert";
+import { BackgroundGradient } from "@/shared/ui/background-gradient";
 import { Button } from "@/shared/ui/button";
 
 export function ProfileInvitationBanner({ id }: { id: string }) {
@@ -52,27 +53,29 @@ export function ProfileInvitationBanner({ id }: { id: string }) {
 
   if (data.isInvited() && !data.hasRole()) {
     return (
-      <Alert>
-        <Sparkles className="h-4 w-4" />
+      <BackgroundGradient containerClassName="my-4">
+        <Alert>
+          <Sparkles className="h-4 w-4" />
 
-        <AlertTitle>You’ve been invited to the {data.name} payout profile.</AlertTitle>
+          <AlertTitle>You’ve been invited to the {data.name} payout profile.</AlertTitle>
 
-        <div className="flex flex-col gap-3">
-          <AlertDescription>Please only accept if you are a member of this company.</AlertDescription>
+          <div className="flex flex-col gap-3">
+            <AlertDescription>Please only accept if you are a member of this company.</AlertDescription>
 
-          <div className="flex gap-3">
-            <Button size="sm" onClick={handleAccept} loading={isPending}>
-              <Check className="h-4 w-4" />
-              Accept
-            </Button>
+            <div className="flex gap-3">
+              <Button size="sm" onClick={handleAccept} loading={isPending}>
+                <Check className="h-4 w-4" />
+                Accept
+              </Button>
 
-            <Button variant="destructive" size="sm" onClick={handleDecline} loading={isPending}>
-              <X className="h-4 w-4" />
-              Decline
-            </Button>
+              <Button variant="destructive" size="sm" onClick={handleDecline} loading={isPending}>
+                <X className="h-4 w-4" />
+                Decline
+              </Button>
+            </div>
           </div>
-        </div>
-      </Alert>
+        </Alert>
+      </BackgroundGradient>
     );
   }
 
