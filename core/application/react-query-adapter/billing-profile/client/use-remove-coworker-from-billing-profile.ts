@@ -11,7 +11,6 @@ export function useRemoveCoworkerFromBillingProfile({
   pathParams,
   options,
 }: UseMutationFacadeParams<BillingProfileFacadePort["removeCoworkerFromBillingProfile"]> = {}) {
-  const meStoragePort = bootstrap.getMeStoragePortForClient();
   const billingProfileStoragePort = bootstrap.getBillingProfileStoragePortForClient();
   const queryClient = useQueryClient();
 
@@ -21,18 +20,7 @@ export function useRemoveCoworkerFromBillingProfile({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          await queryClient.invalidateQueries({
-            queryKey: meStoragePort.getMe({}).tag,
-            exact: false,
-          });
-
-          await queryClient.invalidateQueries({
-            queryKey: billingProfileStoragePort.getMyBillingProfiles({}).tag,
-            exact: false,
-          });
-
-          // TODO: @billing
-          // invalidate coworker list
+          await queryClient.invalidateQueries();
 
           options?.onSuccess?.(data, variables, context);
         },

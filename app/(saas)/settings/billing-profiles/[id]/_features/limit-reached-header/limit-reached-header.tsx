@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-// import { useStackBillingCreate } from "src/App/Stacks/Stacks";
+import { CreateBillingProfile } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile/create-billing-profile";
+
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
@@ -21,17 +22,11 @@ interface ProfileWithLimitReached {
 
 export function LimitReachedHeader() {
   const pathname = usePathname();
-  //   const [openBillingCreate] = useStackBillingCreate();
 
   const { data } = BillingProfileReactQueryAdapter.client.useGetMyBillingProfiles({});
   const profiles = useMemo(() => data?.billingProfiles ?? [], [data]);
 
   const { data: payoutPreferences } = MeReactQueryAdapter.client.useGetMyPayoutPreferences({});
-
-  function handleCreateBillingProfile() {
-    // TODO @billing
-    // openBillingCreate({ redirectToProfile: true });
-  }
 
   function findPayoutPreference(): ProfileWithLimitReached | undefined {
     const findInPayoutPreference = payoutPreferences
@@ -81,9 +76,11 @@ export function LimitReachedHeader() {
             Please add a new billing profile (self-employed or organisation) to receive new rewards.
           </AlertDescription>
 
-          <Button size="sm" onClick={handleCreateBillingProfile} variant="destructive" className="w-fit">
-            Add new billing profile
-          </Button>
+          <CreateBillingProfile redirectToProfile>
+            <Button size="sm" variant="destructive" className="w-fit">
+              Add new billing profile
+            </Button>
+          </CreateBillingProfile>
         </div>
       );
     }
