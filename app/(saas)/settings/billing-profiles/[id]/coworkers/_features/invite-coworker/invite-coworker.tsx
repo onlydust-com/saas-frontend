@@ -9,6 +9,7 @@ import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-
 import { BillingProfileRole } from "@/core/domain/billing-profile/billing-profile.types";
 
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
+import { Alert, AlertTitle } from "@/shared/ui/alert";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Label } from "@/shared/ui/label";
@@ -45,9 +46,15 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <div className="flex justify-end">
-          <Button>Invite team member</Button>
-        </div>
+        <Alert variant="default" className="mb-4">
+          <div className="flex items-center justify-between gap-2">
+            <AlertTitle className="m-0">
+              All your coworkers will be able to allocate rewards to your billing profile.
+            </AlertTitle>
+
+            <Button>Invite team member</Button>
+          </div>
+        </Alert>
       </SheetTrigger>
       <SheetContent className="!min-w-[400px] sm:w-[540px]">
         <SheetHeader>
