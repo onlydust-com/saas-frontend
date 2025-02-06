@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { Project } from "@/core/domain/project/models/project-model";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
@@ -18,6 +19,8 @@ export const ProjectInformationsPage = () => {
 
   const data = form.watch();
 
+  const { user } = useAuthUser();
+
   const project = new Project({
     ...data,
     categories: [],
@@ -32,7 +35,7 @@ export const ProjectInformationsPage = () => {
     hiring: false,
     visibility: "PUBLIC",
     topContributors: [],
-    leaders: [],
+    leaders: user ? [user] : [],
     invitedLeaders: [],
     moreInfos: [],
     hasRemainingBudget: false,
