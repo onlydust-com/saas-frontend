@@ -182,3 +182,15 @@ export type DeleteBillingProfileCoworkerPortParams = HttpClientParameters<{
 }>;
 
 export type DeleteBillingProfileCoworkerPortResponse = HttpStorageResponse<void>;
+
+/* --------------------- Update Billing Profile Coworker Role  --------------------- */
+
+export type UpdateBillingProfileCoworkerRoleBody = components["schemas"]["UpdateCoworkerRoleRequest"];
+
+type UpdateBillingProfileCoworkerRolePathParams = operations["updateCoworkerRole"]["parameters"]["path"];
+
+export type UpdateBillingProfileCoworkerRolePortParams = HttpClientParameters<{
+  PathParams: UpdateBillingProfileCoworkerRolePathParams;
+}>;
+
+export type UpdateBillingProfileCoworkerRolePortResponse = HttpStorageResponse;

@@ -21,6 +21,8 @@ import {
   GetMeBillingProfilesPortResponse,
   InviteBillingProfileCoworkerPortParams,
   InviteBillingProfileCoworkerPortResponse,
+  UpdateBillingProfileCoworkerRolePortParams,
+  UpdateBillingProfileCoworkerRolePortResponse,
   UploadBillingProfileInvoiceByIdPortParams,
   UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -51,4 +53,7 @@ export interface BillingProfileStoragePort {
   getBillingProfileCoworkers(p: GetBillingProfileCoworkersPortParams): GetBillingProfileCoworkersPortResponse;
   inviteBillingProfileCoworker(p: InviteBillingProfileCoworkerPortParams): InviteBillingProfileCoworkerPortResponse;
   deleteBillingProfileCoworker(p: DeleteBillingProfileCoworkerPortParams): DeleteBillingProfileCoworkerPortResponse;
+  updateBillingProfileCoworkerRole(
+    p: UpdateBillingProfileCoworkerRolePortParams
+  ): UpdateBillingProfileCoworkerRolePortResponse;
 }

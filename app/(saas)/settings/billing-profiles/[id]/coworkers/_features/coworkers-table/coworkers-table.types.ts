@@ -1,3 +1,3 @@
-export type CoworkersTableProps = {
+export interface CoworkersTableProps {
   id: string;
-};
+}

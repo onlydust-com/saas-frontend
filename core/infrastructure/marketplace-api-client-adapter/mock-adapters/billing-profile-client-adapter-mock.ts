@@ -41,4 +41,8 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
   inviteBillingProfileCoworker = mockHttpStorageResponse<BillingProfileStoragePort["inviteBillingProfileCoworker"]>;
 
   deleteBillingProfileCoworker = mockHttpStorageResponse<BillingProfileStoragePort["deleteBillingProfileCoworker"]>;
+
+  updateBillingProfileCoworkerRole = mockHttpStorageResponse<
+    BillingProfileStoragePort["updateBillingProfileCoworkerRole"]
+  >;
 }

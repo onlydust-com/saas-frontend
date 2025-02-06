@@ -2,9 +2,9 @@ import { z } from "zod";
 
 import { BillingProfileRole } from "@/core/domain/billing-profile/billing-profile.types";
 
-export type InviteCoworkerProps = {
+export interface InviteCoworkerProps {
   id: string;
-};
+}
 
 export const inviteCoworkerSchema = z.object({
   githubUserId: z.string({
