@@ -4,13 +4,18 @@ import {
   CreateBillingProfileBody,
   EnableBillingProfileBody,
   GetBillingProfileByIdResponse,
+  GetBillingProfileCoworkersResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
   GetBillingProfileInvoiceableRewardsResponse,
   GetBillingProfileInvoicesResponse,
   GetBillingProfilePayoutInfoByIdResponse,
   GetMeBillingProfilesResponse,
+  InviteBillingProfileCoworkerBody,
+  InviteBillingProfileCoworkerResponse,
+  UpdateBillingProfileCoworkerRoleBody,
   UpdateBillingProfilePayoutInfoBody,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
+import { BillingProfileCoworker } from "@/core/domain/billing-profile/models/billing-profile-coworker-model";
 import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
 import { BillingProfileInvoicePreview } from "@/core/domain/billing-profile/models/billing-profile-invoice-preview-model";
 import { BillingProfileInvoiceableReward } from "@/core/domain/billing-profile/models/billing-profile-invoiceable-rewards-model";
@@ -34,6 +39,10 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getMyBillingProfiles: "me/billing-profiles",
     getBillingProfileInvoiceableRewards: "billing-profiles/:billingProfileId/invoiceable-rewards",
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
+    getBillingProfileCoworkers: "billing-profiles/:billingProfileId/coworkers",
+    inviteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers",
+    deleteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers/:githubUserId",
+    updateBillingProfileCoworkerRole: "billing-profiles/:billingProfileId/coworkers/:githubUserId/role",
     acceptOrRejectCoworkerInvitation: "me/billing-profiles/:billingProfileId/invitations",
     deleteBillingProfile: "billing-profiles/:billingProfileId",
     enableBillingProfile: "billing-profiles/:billingProfileId/enable",
@@ -258,6 +267,100 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         invoices: data.invoices.map(invoice => new BillingProfileInvoice(invoice)),
       };
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBillingProfileCoworkers = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<BillingProfileStoragePort["getBillingProfileCoworkers"]>) => {
+    const path = this.routes["getBillingProfileCoworkers"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetBillingProfileCoworkersResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        coworkers: data.coworkers.map(coworker => new BillingProfileCoworker(coworker)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  inviteBillingProfileCoworker = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["inviteBillingProfileCoworker"]>) => {
+    const path = this.routes["inviteBillingProfileCoworker"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: InviteBillingProfileCoworkerBody) =>
+      this.client.request<InviteBillingProfileCoworkerResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  deleteBillingProfileCoworker = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["deleteBillingProfileCoworker"]>) => {
+    const path = this.routes["deleteBillingProfileCoworker"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updateBillingProfileCoworkerRole = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["updateBillingProfileCoworkerRole"]>) => {
+    const path = this.routes["updateBillingProfileCoworkerRole"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateBillingProfileCoworkerRoleBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

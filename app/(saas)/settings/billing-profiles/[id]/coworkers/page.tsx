@@ -5,7 +5,10 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
-function BillingProfileCoworkersPage() {
+import { CoworkersTable } from "./_features/coworkers-table/coworkers-table";
+import { InviteCoworker } from "./_features/invite-coworker/invite-coworker";
+
+function BillingProfileCoworkersPage({ params }: { params: { id: string } }) {
   return (
     <div>
       <NavigationBreadcrumb
@@ -25,9 +28,11 @@ function BillingProfileCoworkersPage() {
           },
         ]}
       />
-      Billing Profile Coworkers
+      <InviteCoworker id={params.id} />
+      <CoworkersTable id={params.id} />
     </div>
   );
 }
 
+// TODO @Billing add withBillingProfileAdminGuard
 export default withClientOnly(withAuthenticated(BillingProfileCoworkersPage));
