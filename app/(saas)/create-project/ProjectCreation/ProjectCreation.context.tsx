@@ -15,6 +15,7 @@ import { StorageInterface } from "./hooks/useStorage/Storage";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { STORAGE_KEY_CREATE_PROJECT_FORM, useResetStorage } from "./hooks/useProjectCreationStorage";
 import { ProjectCreationSteps, ProjectCreationStepsNext, ProjectCreationStepsPrev } from "./types/ProjectCreationSteps";
 import { CreateFormData } from "./types/ProjectCreationType";
@@ -123,6 +124,7 @@ export function CreateProjectProvider({
   const [enableAutoSaved, setEnableAutoSaved] = useState<boolean>(true);
   const [installedRepos, setInstalledRepos] = useState<number[]>(initialInstalledRepo || []);
   const router = useRouter();
+  const { user } = useAuthUser();
   const [currentStep, setCurrentStep] = useState<ProjectCreationSteps>(
     initialStep || ProjectCreationSteps.ORGANIZATIONS
   );
@@ -187,9 +189,11 @@ export function CreateProjectProvider({
       ? {
           ...initialProject,
           moreInfos: (initialProject.moreInfos?.length || 0) > 0 ? initialProject.moreInfos : [{ url: "", value: "" }],
+          projectLeadsToKeep: [user?.id],
         }
       : {
           moreInfos: [{ url: "", value: "" }],
+          projectLeadsToKeep: [user?.id],
         },
     resolver: zodResolver(validationSchema),
   });
