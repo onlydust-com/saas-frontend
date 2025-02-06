@@ -38,7 +38,7 @@ export function PayoutPreferencesTable() {
           <TableRow key={payoutPreference.project.id}>
             <TableCell>
               <Link
-                href={NEXT_ROUTER.users.details.root(payoutPreference.project.id)}
+                href={NEXT_ROUTER.projects.details.root(payoutPreference.project.slug)}
                 className="flex w-fit items-center gap-2"
               >
                 <Avatar>
