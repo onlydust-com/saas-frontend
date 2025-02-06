@@ -7,11 +7,12 @@ import { getGithubSetupLink } from "../../utils/githubSetupLink";
 
 import { AddMissingRepositories } from "./components/add-missing-repositories/add-missing-repositories";
 
+import { CardGithubRepo } from "@/design-system/molecules/cards/card-github-repo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Avatar } from "@/shared/ui/avatar";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { Input } from "@/shared/ui/input";
-import { TypographyLarge, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
+import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Search } from "lucide-react";
 import { CreateProjectContext } from "../../ProjectCreation.context";
@@ -41,9 +42,18 @@ export const GithubRepositoryPage = () => {
   );
 
   const isSelected = useCallback(
-    (repoId: number) => !!selectedRepos.find(repo => repo.repoId === repoId),
+    (repoId: number) => !!selectedRepos.find(repo => repo === repoId),
     [selectedRepos]
   );
+
+  const onRepoSelect = useCallback(
+    (repoId: number) => {
+      if (isSelected(repoId)) removeRepository(repoId);
+      else addRepository(repoId);
+    },
+    [isSelected, addRepository, removeRepository]
+  );
+
   return (
     <MultiStepsForm
       title="Which repositories will you need?"
@@ -75,7 +85,7 @@ export const GithubRepositoryPage = () => {
     >
       <div className="flex flex-col gap-8">
         <Controller
-          name="selectedRepos"
+          name="githubRepoIds"
           control={form.control}
           render={() => (
             <Accordion type="multiple" defaultValue={filteredOrganizations.map(org => org.login)}>
@@ -105,29 +115,20 @@ export const GithubRepositoryPage = () => {
                       ) : (
                         <div className="grid grid-flow-row grid-cols-1 gap-4 md:grid-cols-2">
                           {(sortBy(organization.repos, "name") || []).map(repo => (
-                            <label
-                              key={repo.name}
-                              className="flex basis-1/2 cursor-pointer flex-col gap-2 rounded-2xl border border-card-border-heavy bg-card-background-heavy p-5 shadow-heavy"
-                            >
-                              <div className="flex flex-col items-start justify-start gap-2">
-                                <div className="flex items-center justify-between w-full">
-                                  <TypographyLarge>{repo.name}</TypographyLarge>
-                                  <Checkbox
-                                    checked={isSelected(repo.id)}
-                                    onCheckedChange={(checked) => {
-                                      if (checked) {
-                                        addRepository({ repoId: repo.id, orgId: organization.githubUserId });
-                                      } else {
-                                        removeRepository({ repoId: repo.id, orgId: organization.githubUserId });
-                                      }
-                                    }}
-                                  />
-                                </div>
-                                <TypographyMuted className={`line-clamp-2 w-full ${!repo.description && "italic"}`}>
-                                  {repo.description || "No description available"}
-                                </TypographyMuted>
-                              </div>
-                            </label>
+                            <CardGithubRepo
+                              key={repo.id}
+                              name={repo.name}
+                              description={repo.description}
+                              starsCount={repo.stars}
+                              forkCount={repo.forkCount}
+                              htmlProps={{ onClick: () => onRepoSelect(repo.id) }}
+                              classNames={{ base: "cursor-pointer hover:bg-primary-alt/5" }}
+                              topActions={{
+                                iconOnly: true,
+                                variant: "tertiary",
+                                startContent: <Checkbox checked={isSelected(repo.id)} onCheckedChange={() => onRepoSelect(repo.id)} />,
+                              }}
+                            />
                           ))}
                         </div>
                       )}
