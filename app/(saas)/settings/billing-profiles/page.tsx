@@ -1,8 +1,10 @@
 "use client";
 
-import { CircleAlert } from "lucide-react";
+import { CircleAlert, Plus } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";
+
+import { CreateBillingProfile } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile/create-billing-profile";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
@@ -44,7 +46,7 @@ function BillingProfileCard({ profile }: { profile: BillingProfileShortInterface
       href={NEXT_ROUTER.settings.billingProfiles.generalInformation.root(profile.id)}
       className="transition-opacity hover:opacity-80"
     >
-      <Card>
+      <Card className="h-full">
         <CardHeader>
           <TypographyH4>{profile.name}</TypographyH4>
           <CardDescription>{profile.getTypeLabel()}</CardDescription>
@@ -67,7 +69,7 @@ function BillingProfilesPage() {
 
   const renderBillingProfiles = useCallback(() => {
     if (isLoading) {
-      return Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className="h-[132px]" />);
+      return Array.from({ length: 2 }).map((_, index) => <Skeleton key={index} className="h-[132px]" />);
     }
 
     if (isError) {
@@ -96,7 +98,20 @@ function BillingProfilesPage() {
         ]}
       />
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">{renderBillingProfiles()}</div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <CreateBillingProfile>
+          <Card className="cursor-pointer border-dashed transition-opacity hover:opacity-80">
+            <CardHeader className="flex h-full items-center justify-center">
+              <div className="flex items-center gap-2">
+                <Plus className="size-8" />
+                <TypographyH4 className="text-center">Create Billing Profile</TypographyH4>
+              </div>
+            </CardHeader>
+          </Card>
+        </CreateBillingProfile>
+
+        {renderBillingProfiles()}
+      </div>
     </div>
   );
 }
