@@ -78,6 +78,7 @@ export async function POST(request: Request) {
       })
       .catch(function (error) {
         console.error("Error:\n", error.response.data);
+        throw error;
       });
 
     const json = JSON.stringify(response?.data);
