@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card } from "@nextui-org/react";
+import { Info } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -13,6 +14,7 @@ import { Button } from "@/shared/ui/button";
 import { Form, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH4, TypographySmall } from "@/shared/ui/typography";
 
 import { FormData, formSchema } from "./notifications-form.types";
@@ -126,8 +128,8 @@ export function NotificationsForm() {
         {groups.map((group, i) => {
           return (
             <Card key={i} className="flex flex-col gap-4 border bg-transparent p-4">
-              <header className="grid items-baseline justify-between gap-4 md:grid-cols-4 lg:grid-cols-6">
-                <div className="md:col-span-2 lg:col-span-4">
+              <header className="grid items-baseline justify-between gap-4 md:grid-cols-4">
+                <div className="md:col-span-2">
                   <TypographyH4>{group.title}</TypographyH4>
                 </div>
 
@@ -135,8 +137,20 @@ export function NotificationsForm() {
                   <TypographySmall className="text-right">Email Notifications</TypographySmall>
                 </div>
 
-                <div className="hidden justify-end md:flex">
+                <div className="hidden items-center justify-end gap-2 md:flex">
                   <TypographySmall className="text-right">Weekly Summary Email</TypographySmall>
+
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        The Weekly Summary Email is a digest that consolidates all notifications into a single email
+                        sent every week.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </header>
 
@@ -144,9 +158,9 @@ export function NotificationsForm() {
                 return (
                   <FormItem
                     key={category.name}
-                    className="grid grid-cols-2 items-center justify-between gap-6 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+                    className="grid grid-cols-2 items-center justify-between gap-6 md:grid-cols-4 md:gap-4"
                   >
-                    <div className="col-span-2 space-y-0.5 lg:col-span-4">
+                    <div className="col-span-2 space-y-0.5">
                       <FormLabel>{category.label}</FormLabel>
                       <FormDescription>{category.description}</FormDescription>
                     </div>
