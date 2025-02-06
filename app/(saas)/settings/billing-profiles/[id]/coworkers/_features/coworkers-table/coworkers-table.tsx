@@ -35,8 +35,6 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
     return coworkersData?.pages.flatMap(page => page.coworkers) ?? [];
   }, [coworkersData]);
 
-  const totalItemNumber = useMemo(() => coworkersData?.pages[0].totalItemNumber, [coworkersData]);
-
   if (coworkersLoading) {
     return <Skeleton className="h-96" />;
   }
@@ -52,6 +50,7 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
             <TableHead>Name</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Joined</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -94,11 +93,6 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={4}>Total: {totalItemNumber}</TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
     </div>

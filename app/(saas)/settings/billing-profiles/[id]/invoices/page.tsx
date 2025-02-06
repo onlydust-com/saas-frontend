@@ -82,8 +82,6 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
     return invoicesData?.pages.flatMap(page => page.invoices) ?? [];
   }, [invoicesData]);
 
-  const totalItemNumber = useMemo(() => invoicesData?.pages[0].totalItemNumber, [invoicesData]);
-
   if (invoicesLoading) {
     return <Skeleton className="h-96" />;
   }
@@ -122,39 +120,42 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map(({ id, number, createdAt, totalAfterTax, status }) => {
-            const { amount, code } = moneyKernelPort.format({
-              amount: totalAfterTax?.amount,
-              currency: totalAfterTax?.currency,
-            });
-            return (
-              <TableRow key={id}>
-                <TableCell>{number}</TableCell>
-                <TableCell>{createdAt ? dateKernelPort.format(new Date(createdAt), "yyyy-MM-dd") : "-"}</TableCell>
-                <TableCell>
-                  {amount} {code}
-                </TableCell>
-                <TableCell>
-                  <InvoiceStatus status={status} />
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant={"outline"}
-                    onClick={() => onDownloadInvoice({ invoiceId: id, number })}
-                    disabled={!id || isDownloading}
-                  >
-                    <Icon component={CloudDownload} />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
+          {invoices.length ? (
+            invoices.map(({ id, number, createdAt, totalAfterTax, status }) => {
+              const { amount, code } = moneyKernelPort.format({
+                amount: totalAfterTax?.amount,
+                currency: totalAfterTax?.currency,
+              });
+              return (
+                <TableRow key={id}>
+                  <TableCell>{number}</TableCell>
+                  <TableCell>{createdAt ? dateKernelPort.format(new Date(createdAt), "yyyy-MM-dd") : "-"}</TableCell>
+                  <TableCell>
+                    {amount} {code}
+                  </TableCell>
+                  <TableCell>
+                    <InvoiceStatus status={status} />
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant={"outline"}
+                      onClick={() => onDownloadInvoice({ invoiceId: id, number })}
+                      disabled={!id || isDownloading}
+                    >
+                      <Icon component={CloudDownload} />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center">
+                No invoices found
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={5}>Total: {totalItemNumber}</TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
 
       {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
