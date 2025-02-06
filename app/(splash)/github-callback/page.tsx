@@ -7,37 +7,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Typo } from "@/design-system/atoms/typo";
 
+import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
-const GenericState = (
-  <div className={"fixed inset-0 z-[9999]"}>
-    <Image src={background} alt="" className={"absolute inset-0 size-full object-cover"} />
-    <div className={"relative h-dvh w-dvw place-content-center place-items-center p-4"}>
-      <Image src={logoWhite} alt="OnlyDust" width={78} height={78} className={"m-auto pb-[12%] desktop:pb-[170px]"} />
+function GithubCallbackPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-      <div className={"grid gap-5 text-center"}>
-        <Typo
-          variant={"heading"}
-          size={"2xl"}
-          weight={"medium"}
-          translate={{
-            token: "splash:githubCallback.title",
-          }}
-        />
-        <Typo
-          variant={"heading"}
-          size={"md"}
-          color={"tertiary"}
-          translate={{
-            token: "splash:githubCallback.subtitle",
-          }}
-        />
-      </div>
-    </div>
-  </div>
-);
-
-function handleNavigation(searchParams: ReturnType<typeof useSearchParams>, router: ReturnType<typeof useRouter>) {
   const installationId = searchParams.get("installation_id");
   const state = searchParams.get("state");
 
@@ -51,12 +27,33 @@ function handleNavigation(searchParams: ReturnType<typeof useSearchParams>, rout
     return null;
   }
 
-  return GenericState;
+  return (
+    <div className={"fixed inset-0 z-[9999]"}>
+      <Image src={background} alt="" className={"absolute inset-0 size-full object-cover"} />
+      <div className={"relative h-dvh w-dvw place-content-center place-items-center p-4"}>
+        <Image src={logoWhite} alt="OnlyDust" width={78} height={78} className={"m-auto pb-[12%] desktop:pb-[170px]"} />
+
+        <div className={"grid gap-5 text-center"}>
+          <Typo
+            variant={"heading"}
+            size={"2xl"}
+            weight={"medium"}
+            translate={{
+              token: "splash:githubCallback.title",
+            }}
+          />
+          <Typo
+            variant={"heading"}
+            size={"md"}
+            color={"tertiary"}
+            translate={{
+              token: "splash:githubCallback.subtitle",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default function GithubCallbackPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  return handleNavigation(searchParams, router);
-}
+export default withClientOnly(GithubCallbackPage);
