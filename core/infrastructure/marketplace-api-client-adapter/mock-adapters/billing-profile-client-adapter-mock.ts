@@ -59,4 +59,6 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
   >;
 
   createBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["createBillingProfile"]>;
+
+  updateBillingProfilePayoutInfo = mockHttpStorageResponse<BillingProfileStoragePort["updateBillingProfilePayoutInfo"]>;
 }

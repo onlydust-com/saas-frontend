@@ -1,7 +1,7 @@
 export * from "./use-accept-or-decline-billing-profile-mandate-by-id";
 export * from "./use-accept-or-reject-coworker-invitation";
-export * from "./use-delete-billing-profile";
 export * from "./use-create-billing-profile";
+export * from "./use-delete-billing-profile";
 export * from "./use-download-billing-profile-invoice-by-id";
 export * from "./use-enable-billing-profile";
 export * from "./use-get-billing-profile-by-id";
@@ -14,4 +14,5 @@ export * from "./use-update-billing-profile-coworker-role";
 export * from "./use-get-billing-profile-payout-info-by-id";
 export * from "./use-get-my-billing-profiles";
 export * from "./use-remove-coworker-from-billing-profile";
+export * from "./use-update-billing-profile-payout-info";
 export * from "./use-upload-billing-profile-invoice-by-id";

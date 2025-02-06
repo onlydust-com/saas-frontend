@@ -1,8 +1,8 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
   AcceptOrRejectCoworkerInvitationBody,
-  EnableBillingProfileBody,
   CreateBillingProfileBody,
+  EnableBillingProfileBody,
   GetBillingProfileByIdResponse,
   GetBillingProfileCoworkersResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
@@ -13,6 +13,7 @@ import {
   InviteBillingProfileCoworkerBody,
   InviteBillingProfileCoworkerResponse,
   UpdateBillingProfileCoworkerRoleBody,
+  UpdateBillingProfilePayoutInfoBody,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
 import { BillingProfileCoworker } from "@/core/domain/billing-profile/models/billing-profile-coworker-model";
 import { BillingProfileInvoice } from "@/core/domain/billing-profile/models/billing-profile-invoice-model";
@@ -47,6 +48,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     enableBillingProfile: "billing-profiles/:billingProfileId/enable",
     removeCoworkerFromBillingProfile: "billing-profiles/:billingProfileId/coworkers/:githubUserId",
     createBillingProfile: "billing-profiles",
+    updateBillingProfilePayoutInfo: "billing-profiles/:billingProfileId/payout-info",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -454,6 +456,28 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: CreateBillingProfileBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  updateBillingProfilePayoutInfo = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["updateBillingProfilePayoutInfo"]>) => {
+    const path = this.routes["updateBillingProfilePayoutInfo"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: UpdateBillingProfilePayoutInfoBody) =>
       this.client.request<never>({
         path,
         method,

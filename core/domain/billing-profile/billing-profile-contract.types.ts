@@ -253,3 +253,15 @@ export type CreateBillingProfilePortParams = HttpClientParameters<{
 }>;
 
 export type CreateBillingProfilePortResponse = HttpStorageResponse<CreateBillingProfileResponse>;
+
+/* ------------------------ Update Billing Profile Payout Info ------------------------ */
+
+export type UpdateBillingProfilePayoutInfoBody = components["schemas"]["BillingProfilePayoutInfoRequest"];
+
+type UpdateBillingProfilePayoutInfoPathParams = operations["setPayoutInfo"]["parameters"]["path"];
+
+export type UpdateBillingProfilePayoutInfoPortParams = HttpClientParameters<{
+  PathParams: UpdateBillingProfilePayoutInfoPathParams;
+}>;
+
+export type UpdateBillingProfilePayoutInfoPortResponse = HttpStorageResponse;

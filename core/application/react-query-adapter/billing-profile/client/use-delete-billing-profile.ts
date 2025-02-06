@@ -11,7 +11,6 @@ export function useDeleteBillingProfile({
   pathParams,
   options,
 }: UseMutationFacadeParams<BillingProfileFacadePort["deleteBillingProfile"]> = {}) {
-  const meStoragePort = bootstrap.getMeStoragePortForClient();
   const billingProfileStoragePort = bootstrap.getBillingProfileStoragePortForClient();
   const queryClient = useQueryClient();
 
@@ -21,18 +20,7 @@ export function useDeleteBillingProfile({
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
-          await queryClient.invalidateQueries({
-            queryKey: meStoragePort.getMe({}).tag,
-            exact: false,
-          });
-
-          await queryClient.invalidateQueries({
-            queryKey: billingProfileStoragePort.getMyBillingProfiles({}).tag,
-            exact: false,
-          });
-
-          // TODO: @billing
-          // invalidate payout preferences
+          await queryClient.invalidateQueries();
 
           options?.onSuccess?.(data, variables, context);
         },
