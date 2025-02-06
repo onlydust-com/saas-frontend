@@ -34,7 +34,7 @@ export function UpdateCoworkerRole({ billingProfileId, githubUserId, currentRole
       <SelectContent>
         {Object.values(BillingProfileRole).map(role => (
           <SelectItem key={role} value={role}>
-            <TypographyP>{role.toLowerCase()}</TypographyP>
+            {role.toLowerCase()}
           </SelectItem>
         ))}
       </SelectContent>
