@@ -42,8 +42,8 @@ export class MeClientAdapter implements MeStoragePort {
     getMyPayoutPreferences: "me/payout-preferences",
     setMyPayoutPreferenceForProject: "me/payout-preferences",
     postMyApplication: "me/applications",
-    getMyHackathonRegistration: "me/osw/:hackathonId/registrations",
-    registerToHackathon: "me/osw/:hackathonId/registrations",
+    getMyHackathonRegistration: "me/hackathons/:hackathonId/registrations",
+    registerToHackathon: "me/hackathons/:hackathonId/registrations",
     getUpdateGithubProfile: "me/profile/github",
     uploadProfilePicture: "me/profile/avatar",
   } as const;
