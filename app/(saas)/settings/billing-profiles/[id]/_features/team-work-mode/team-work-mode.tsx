@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 
@@ -9,6 +11,14 @@ import { TeamWorkModeProps } from "./team-work-mode.types";
 export function TeamWorkMode({ billingProfileId, type, isSwitchableToSelfEmployed }: TeamWorkModeProps) {
   const { mutate: updateType, isPending } = BillingProfileReactQueryAdapter.client.useUpdateBillingProfileType({
     pathParams: { billingProfileId },
+    options: {
+      onSuccess: () => {
+        toast.success("Billing profile type updated");
+      },
+      onError: () => {
+        toast.error("Failed to update billing profile type");
+      },
+    },
   });
 
   const isChecked = type === BillingProfileType.Company;
