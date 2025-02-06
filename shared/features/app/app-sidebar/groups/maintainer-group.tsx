@@ -70,8 +70,6 @@ export function MaintainerGroup() {
     ],
   }));
 
-  if (!projects.length) return null;
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
