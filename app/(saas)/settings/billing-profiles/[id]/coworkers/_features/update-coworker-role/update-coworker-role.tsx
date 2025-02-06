@@ -4,7 +4,6 @@ import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-
 import { BillingProfileRole } from "@/core/domain/billing-profile/billing-profile.types";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
-import { TypographyP } from "@/shared/ui/typography";
 
 import { UpdateCoworkerRoleProps } from "./update-coworker-role.types";
 
