@@ -30,7 +30,7 @@ export const GithubRepositoryPage = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const installedOrganizations = organizations.filter(org => org.installationStatus !== "NOT_INSTALLED");
 
-  const selectedRepos = form.watch("selectedRepos") || [];
+  const selectedRepos = form.watch("githubRepoIds") || [];
   const search = form.watch("search");
   const selectedReposCounts = useRepositoryCount(organizations, selectedRepos);
   const footerRightElement = FormInformationCount(selectedReposCounts.selected, selectedReposCounts.total);

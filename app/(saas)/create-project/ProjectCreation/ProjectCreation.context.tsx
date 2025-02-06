@@ -1,12 +1,10 @@
-import { ProjectCategoryReactQueryAdapter } from "@/core/application/react-query-adapter/project-category";
 import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -15,13 +13,11 @@ import { toast } from "sonner";
 import { AutoSaveForm } from "./hooks/useAutoSave/AutoSaveForm";
 import { StorageInterface } from "./hooks/useStorage/Storage";
 
-import { Item } from "./types/ProjectCreationType";
-
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
 import { STORAGE_KEY_CREATE_PROJECT_FORM, useResetStorage } from "./hooks/useProjectCreationStorage";
 import { ProjectCreationSteps, ProjectCreationStepsNext, ProjectCreationStepsPrev } from "./types/ProjectCreationSteps";
-import { CreateFormData, CreateFormDataRepos } from "./types/ProjectCreationType";
+import { CreateFormData } from "./types/ProjectCreationType";
 import { onSyncOrganizations } from "./utils/syncOrganization";
 import { watchInstalledRepoStorage } from "./utils/watchInstalledRepoStorage";
 
@@ -53,11 +49,9 @@ type CreateProject = {
   organizationsLoading: boolean;
   isSubmitting: boolean;
   PoolingFeedback: React.ReactElement;
-  ecosystems: Item[];
-  projectCategories: Item[];
   formFn: {
-    addRepository: (data: CreateFormDataRepos) => void;
-    removeRepository: (data: CreateFormDataRepos) => void;
+    addRepository: (data: number) => void;
+    removeRepository: (data: number) => void;
   };
   helpers: {
     saveInSession: () => void;
@@ -71,8 +65,6 @@ export const CreateProjectContext = createContext<CreateProject>({
   form: {} as UseFormReturn<CreateFormData, unknown>,
   currentStep: ProjectCreationSteps.ORGANIZATIONS,
   installedRepos: [],
-  ecosystems: [],
-  projectCategories: [],
   organizations: [],
   organizationsLoading: false,
   isSubmitting: false,
@@ -159,11 +151,6 @@ export function CreateProjectProvider({
     },
   });
 
-  const { data: ecosystemsData } = EcosystemReactQueryAdapter.client.useGetEcosystems({});
-  const ecosystems = useMemo(() => ecosystemsData?.pages.flatMap(({ ecosystems }) => ecosystems) ?? [], [ecosystemsData]);
-
-  const { data: categoriesData } = ProjectCategoryReactQueryAdapter.client.useGetProjectCategories({});
-
   const PoolingFeedback = usePoolingFeedback({
     onForcePooling,
     isLoading,
@@ -199,12 +186,7 @@ export function CreateProjectProvider({
     defaultValues: initialProject
       ? {
           ...initialProject,
-          moreInfos: initialProject?.moreInfos?.length > 0 ? initialProject.moreInfos : [{ url: "", value: "" }],
-          ecosystems: initialProject?.ecosystems,
-          ecosystemIds: (initialProject?.ecosystems || []).map(({ id }) => `${id}`),
-          categorySuggestions: [],
-          projectCategories: initialProject?.projectCategories,
-          categoryIds: (initialProject?.projectCategories || []).map(({ id }) => `${id}`),
+          moreInfos: (initialProject.moreInfos?.length || 0) > 0 ? initialProject.moreInfos : [{ url: "", value: "" }],
         }
       : {
           moreInfos: [{ url: "", value: "" }],
@@ -219,45 +201,36 @@ export function CreateProjectProvider({
   const onSubmit = () => {
     setEnableAutoSaved(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { search, selectedRepos, ecosystems, projectCategories, moreInfos, ...formData } =
+    const { githubRepoIds, moreInfos, ...formData } =
       form.getValues();
     createProject({
       ...formData,
+      inviteGithubUserIdsAsProjectLeads: (formData.inviteGithubUserIdsAsProjectLeads || []).map(userId => Number(userId)),
       isLookingForContributors: formData.isLookingForContributors || false,
-      githubRepoIds: selectedRepos.map(repo => repo.repoId),
-      ecosystemIds: ecosystems?.map(ecosystem => `${ecosystem.id}`),
-      categoryIds: projectCategories?.map(cat => `${cat.id}`),
+      githubRepoIds: githubRepoIds || [],
       moreInfos: (moreInfos || []).filter(info => info.url !== "").map(info => ({ url: info.url, value: info.value })),
     });
   };
 
-  const isOrgsExist = (orgId: number) => {
-    return !!(organizationsData?.organizations || [])?.find(org => org.githubUserId === orgId);
-  };
-
-  const addRepository = (data: CreateFormDataRepos) => {
+  const addRepository = (data: number) => {
     const formValues = form.getValues();
-    const repos = [...(formValues.selectedRepos || [])];
+    const repos = [...(formValues.githubRepoIds || [])];
 
-    if (isOrgsExist(data.orgId)) {
-      const findRepo = repos.find(repo => repo.repoId === data.repoId);
-      if (!findRepo) {
-        repos.push(data);
-        form.setValue("selectedRepos", repos, { shouldDirty: true, shouldValidate: true });
-      }
+    const findRepo = repos.find(repo => repo === data);
+    if (!findRepo) {
+      repos.push(data);
+      form.setValue("githubRepoIds", repos, { shouldDirty: true, shouldValidate: true });
     }
   };
 
-  const removeRepository = (data: CreateFormDataRepos) => {
+  const removeRepository = (data: number) => {
     const formValues = form.getValues();
-    const repos = [...(formValues.selectedRepos || [])];
+    const repos = [...(formValues.githubRepoIds || [])];
 
-    if (isOrgsExist(data.orgId)) {
-      const findRepoIndex = repos.findIndex(repo => repo.repoId === data.repoId);
-      if (findRepoIndex !== -1) {
-        repos.splice(findRepoIndex, 1);
-        form.setValue("selectedRepos", repos, { shouldDirty: true, shouldValidate: true });
-      }
+    const findRepoIndex = repos.findIndex(repo => repo === data);
+    if (findRepoIndex !== -1) {
+      repos.splice(findRepoIndex, 1);
+      form.setValue("githubRepoIds", repos, { shouldDirty: true, shouldValidate: true });
     }
   };
 
@@ -280,24 +253,6 @@ export function CreateProjectProvider({
     goTo(ProjectCreationStepsPrev[currentStep]);
   }, [currentStep]);
 
-  const EcoSystems = useMemo(() => {
-    return (ecosystems || []).map(({ name, id, logoUrl }) => ({
-      id,
-      label: name,
-      value: id,
-      image: logoUrl,
-    }));
-  }, [ecosystems]);
-
-  const projectCategories: Item[] = useMemo(() => {
-    return (categoriesData?.categories || []).map(({ name, id, iconSlug }) => ({
-      id,
-      label: name,
-      value: id,
-      iconSlug,
-    }));
-  }, [categoriesData]);
-
   useEffect(() => {
     if (installation_id) {
       const newInstalledRepoStorage = watchInstalledRepoStorage({
@@ -313,10 +268,10 @@ export function CreateProjectProvider({
     if (organizationsData) {
       const filteredSelectedRepos = onSyncOrganizations({
         organizations: organizationsData.organizations || [],
-        selectedRepos: form.getValues("selectedRepos") || [],
+        selectedRepos: form.getValues("githubRepoIds") || [],
       });
       if (filteredSelectedRepos) {
-        form.setValue("selectedRepos", filteredSelectedRepos, { shouldDirty: true, shouldValidate: true });
+        form.setValue("githubRepoIds", filteredSelectedRepos, { shouldDirty: true, shouldValidate: true });
       }
     }
   }, [organizationsData, installation_id]);
@@ -327,8 +282,6 @@ export function CreateProjectProvider({
         form,
         currentStep,
         installedRepos,
-        ecosystems: EcoSystems,
-        projectCategories,
         organizationsLoading: !organizationsData?.organizations.length && isLoading,
         organizations: (organizationsData?.organizations || []).sort((a, b) => a.login.localeCompare(b.login)),
         PoolingFeedback,

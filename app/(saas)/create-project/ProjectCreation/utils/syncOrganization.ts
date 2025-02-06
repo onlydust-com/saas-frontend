@@ -1,17 +1,13 @@
 import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
 
-import { CreateFormDataRepos } from "../types/ProjectCreationType";
-
 interface onSyncOrganizationsInterface {
-  selectedRepos: CreateFormDataRepos[];
+  selectedRepos: number[];
   organizations: GetMyOrganizationsResponse;
 }
 export const onSyncOrganizations = ({ selectedRepos, organizations }: onSyncOrganizationsInterface) => {
   if (selectedRepos?.length && organizations) {
-    const organizationIds = new Set(
-      organizations?.map(org => (org.installationStatus !== "NOT_INSTALLED" ? org.githubUserId : null))
-    );
-    return selectedRepos?.filter(repo => organizationIds.has(repo.orgId));
+    const allRepos = organizations.flatMap(o => o.repos).map(r => r.id);
+    return selectedRepos?.filter(repo => allRepos.includes(repo));
   }
 
   return undefined;
