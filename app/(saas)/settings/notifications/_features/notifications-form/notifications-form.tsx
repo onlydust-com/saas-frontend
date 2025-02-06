@@ -1,21 +1,96 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Card } from "@nextui-org/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+import { MeNotificationCategories } from "@/core/domain/me/models/me.types";
 
 import { Button } from "@/shared/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import { Form, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Label } from "@/shared/ui/label";
 import { Switch } from "@/shared/ui/switch";
+import { TypographyH4, TypographySmall } from "@/shared/ui/typography";
 
-const FormSchema = z.object({
-  marketing_emails: z.boolean().default(false).optional(),
-  security_emails: z.boolean(),
-});
+import { FormData, formSchema } from "./notifications-form.types";
+import { formatToData } from "./notifications-form.utils";
+
+const groups = [
+  {
+    title: "Global",
+    categories: [
+      {
+        label: "Billing Profile",
+        description: "Manage your billing profile with notifications for document verification and identity checks.",
+        name: MeNotificationCategories.GLOBAL_BILLING_PROFILE,
+      },
+      {
+        label: "Marketing",
+        description: "Get alerts about upcoming events and community calls by joining the marketing list.",
+        name: MeNotificationCategories.GLOBAL_MARKETING,
+      },
+    ],
+  },
+  {
+    title: "Contributor",
+    categories: [
+      {
+        label: "Project",
+        description: "Stay informed about project-related updates, including assigned and available issues.",
+        name: MeNotificationCategories.CONTRIBUTOR_PROJECT,
+      },
+      {
+        label: "Reward",
+        description: "Receive updates on all stages of your rewards, from receipt to payment.",
+        name: MeNotificationCategories.CONTRIBUTOR_REWARD,
+      },
+      {
+        label: "Rewind",
+        description: "Be alerted as soon as your rewind is available.",
+        name: MeNotificationCategories.CONTRIBUTOR_REWIND,
+        omit: "SUMMARY_EMAIL",
+      },
+    ],
+  },
+  {
+    title: "Maintainer",
+    categories: [
+      {
+        label: "Project x Contributors",
+        description: "Receive notifications about new applications and contributions from contributors.",
+        name: MeNotificationCategories.MAINTAINER_PROJECT_CONTRIBUTOR,
+      },
+      {
+        label: "Project x Program",
+        description: "Get updates on new grants and committee applications within your programs.",
+        name: MeNotificationCategories.MAINTAINER_PROJECT_PROGRAM,
+      },
+    ],
+  },
+  {
+    title: "Global",
+    categories: [
+      {
+        label: "Transactions",
+        description: "Receive notifications about allocations & granted.",
+        name: MeNotificationCategories.PROGRAM_LEAD,
+      },
+    ],
+  },
+  {
+    title: "Sponsors",
+    categories: [
+      {
+        label: "Transactions",
+        description: "Receive notifications about deposit & allocations.",
+        name: MeNotificationCategories.SPONSOR_LEAD,
+      },
+    ],
+  },
+];
 
 export function NotificationsForm() {
   const { data } = MeReactQueryAdapter.client.useGetMyNotificationsSettings({});
@@ -31,59 +106,96 @@ export function NotificationsForm() {
     },
   });
 
-  console.log(data);
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      security_emails: true,
-    },
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values: z.infer<typeof FormSchema>) {
+  useEffect(() => {
+    if (data) {
+      form.reset(formatToData(data));
+    }
+  }, [data]);
+
+  function onSubmit(values: FormData) {
     console.log(values);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-        <div>
-          <h3 className="mb-4 text-lg font-medium">Email Notifications</h3>
-          <div className="space-y-4">
-            <FormItem className="grid items-center justify-between rounded-lg border p-3 shadow-sm md:grid-cols-4">
-              <div className="col-span-2 space-y-0.5">
-                <FormLabel>Marketing emails</FormLabel>
-                <FormDescription>Receive emails about new products, features, and more.</FormDescription>
-              </div>
+        {groups.map((group, i) => {
+          return (
+            <Card key={i} className="flex flex-col gap-4 border bg-transparent p-4">
+              <header className="grid items-baseline justify-between gap-4 md:grid-cols-4 lg:grid-cols-6">
+                <div className="md:col-span-2 lg:col-span-4">
+                  <TypographyH4>{group.title}</TypographyH4>
+                </div>
 
-              <FormField
-                control={form.control}
-                name="marketing_emails"
-                render={({ field }) => (
-                  <FormControl>
-                    <div className="flex items-center space-x-2">
-                      <Switch id="marketing_emails" checked={field.value} onCheckedChange={field.onChange} />
-                      <Label htmlFor="marketing_emails">Airplane Mode</Label>
-                    </div>
-                  </FormControl>
-                )}
-              />
+                <div className="hidden justify-end md:flex">
+                  <TypographySmall className="text-right">Email Notifications</TypographySmall>
+                </div>
 
-              <FormField
-                control={form.control}
-                name="marketing_emails"
-                render={({ field }) => (
-                  <FormControl>
-                    <div className="flex items-center space-x-2">
-                      <Switch id="marketing_emails" checked={field.value} onCheckedChange={field.onChange} />
-                      <Label htmlFor="marketing_emails">Airplane Mode</Label>
+                <div className="hidden justify-end md:flex">
+                  <TypographySmall className="text-right">Weekly Summary Email</TypographySmall>
+                </div>
+              </header>
+
+              {group.categories.map(category => {
+                return (
+                  <FormItem
+                    key={category.name}
+                    className="grid grid-cols-2 items-center justify-between gap-6 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+                  >
+                    <div className="col-span-2 space-y-0.5 lg:col-span-4">
+                      <FormLabel>{category.label}</FormLabel>
+                      <FormDescription>{category.description}</FormDescription>
                     </div>
-                  </FormControl>
-                )}
-              />
-            </FormItem>
-          </div>
-        </div>
+
+                    <div className="flex md:justify-end">
+                      <FormField
+                        control={form.control}
+                        name={`${category.name}.EMAIL`}
+                        render={({ field }) => (
+                          <div className="flex items-center space-x-2">
+                            <Switch
+                              id={`${category.name}.EMAIL`}
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                            <Label htmlFor={`${category.name}.EMAIL`} className="md:hidden">
+                              Email Notifications
+                            </Label>
+                          </div>
+                        )}
+                      />
+                    </div>
+
+                    {category.omit !== "SUMMARY_EMAIL" ? (
+                      <div className="flex md:justify-end">
+                        <FormField
+                          control={form.control}
+                          name={`${category.name}.SUMMARY_EMAIL`}
+                          render={({ field }) => (
+                            <div className="flex items-center space-x-2">
+                              <Switch
+                                id={`${category.name}.SUMMARY_EMAIL`}
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                              <Label htmlFor={`${category.name}.SUMMARY_EMAIL`} className="md:hidden">
+                                Weekly Summary Email
+                              </Label>
+                            </div>
+                          )}
+                        />
+                      </div>
+                    ) : null}
+                  </FormItem>
+                );
+              })}
+            </Card>
+          );
+        })}
 
         <footer className="flex justify-end">
           <Button type="submit">Save</Button>

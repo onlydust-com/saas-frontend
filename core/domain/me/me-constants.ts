@@ -1,5 +1,3 @@
-import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
-
 export const LOCAL_STORAGE_JOINING_REASON_KEY = "joiningReason";
 
 export enum USER_PROFILE_JOINING_REASON {
@@ -7,25 +5,3 @@ export enum USER_PROFILE_JOINING_REASON {
   MAINTAINER = "MAINTAINER",
   SPONSOR = "SPONSOR",
 }
-
-type categories = components["schemas"]["NotificationSettingResponse"]["category"];
-
-export const MeNotificationCategories: { [key in categories]: key } = {
-  MAINTAINER_PROJECT_CONTRIBUTOR: "MAINTAINER_PROJECT_CONTRIBUTOR",
-  MAINTAINER_PROJECT_PROGRAM: "MAINTAINER_PROJECT_PROGRAM",
-  CONTRIBUTOR_REWARD: "CONTRIBUTOR_REWARD",
-  CONTRIBUTOR_PROJECT: "CONTRIBUTOR_PROJECT",
-  GLOBAL_BILLING_PROFILE: "GLOBAL_BILLING_PROFILE",
-  GLOBAL_MARKETING: "GLOBAL_MARKETING",
-  PROGRAM_LEAD: "PROGRAM_LEAD",
-  SPONSOR_LEAD: "SPONSOR_LEAD",
-  CONTRIBUTOR_REWIND: "CONTRIBUTOR_REWIND",
-};
-
-type channels = components["schemas"]["NotificationSettingResponse"]["channels"][0];
-
-export const MeNotificationChannels: { [key in channels]: key } = {
-  EMAIL: "EMAIL",
-  SUMMARY_EMAIL: "SUMMARY_EMAIL",
-  IN_APP: "IN_APP",
-};

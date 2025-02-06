@@ -1,12 +1,11 @@
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { MeNotificationChannels } from "../me-constants";
-import { MeNotificationSettingsCategoryType } from "./me.types";
+import { MeNotificationCategories, MeNotificationChannels } from "./me.types";
 
 type MeNotificationSettingsResponse = components["schemas"]["NotificationSettingsResponse"];
 
 export interface MeNotificationSettingsInterface extends MeNotificationSettingsResponse {
-  findCategory(category: MeNotificationSettingsCategoryType): {
+  findCategory(category: MeNotificationCategories): {
     [MeNotificationChannels.EMAIL]: boolean;
     [MeNotificationChannels.SUMMARY_EMAIL]: boolean;
   };
@@ -19,7 +18,7 @@ export class MeNotificationSettings implements MeNotificationSettingsInterface {
     Object.assign(this, props);
   }
 
-  findCategory(category: MeNotificationSettingsCategoryType) {
+  findCategory(category: MeNotificationCategories) {
     const cat = this.notificationSettings.find(setting => setting.category === category);
 
     return {
