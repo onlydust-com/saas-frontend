@@ -16,3 +16,4 @@ export * from "./use-get-my-billing-profiles";
 export * from "./use-remove-coworker-from-billing-profile";
 export * from "./use-update-billing-profile-payout-info";
 export * from "./use-upload-billing-profile-invoice-by-id";
+export * from "./use-update-billing-profile-type";

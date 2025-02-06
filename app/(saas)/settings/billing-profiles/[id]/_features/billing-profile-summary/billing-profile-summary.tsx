@@ -4,10 +4,13 @@ import { IndividualProgression } from "@/app/(saas)/settings/billing-profiles/[i
 import { InvitedBy } from "@/app/(saas)/settings/billing-profiles/[id]/_features/invited-by/invited-by";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
+import { BillingProfileType } from "@/core/domain/billing-profile/billing-profile.types";
 
 import { CardDescription, CardHeader } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
+
+import { TeamWorkMode } from "../team-work-mode/team-work-mode";
 
 export function BillingProfileSummary({ id }: { id: string }) {
   const { data, isLoading, isError } = BillingProfileReactQueryAdapter.client.useGetBillingProfileById({
@@ -46,16 +49,13 @@ export function BillingProfileSummary({ id }: { id: string }) {
     }
 
     if (data.isAdmin()) {
-      // TODO @billing
-      // 	return (
-      // 	  <TeamworkMode
-      // 		type={profile?.data.type}
-      // 		isSwitchableToSelfEmployed={profile?.data.isSwitchableToSelfEmployed}
-      // 		id={id}
-      // 	  />
-      //   );
-
-      return null;
+      return (
+        <TeamWorkMode
+          billingProfileId={id}
+          type={data.type as BillingProfileType}
+          isSwitchableToSelfEmployed={data.isSwitchableToSelfEmployed ?? false}
+        />
+      );
     }
   }, [data]);
 
