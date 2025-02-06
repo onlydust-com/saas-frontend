@@ -38,7 +38,7 @@ function PayoutPreferencesPage() {
 
       <Alert>
         <div className="flex items-center gap-2">
-          <CircleAlert className="h-4 w-4" />
+          <CircleAlert className="h-4 w-4 shrink-0" />
           <AlertDescription>
             Only projects for which you have already received rewards will appear here.
           </AlertDescription>
