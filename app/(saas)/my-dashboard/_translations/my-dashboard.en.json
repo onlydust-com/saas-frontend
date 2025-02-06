@@ -57,13 +57,13 @@
       "projectName": "Project name",
       "projectLeads": "Project leads",
       "contributors": "Contributors",
-      "contributions": "Contributions",
-      "rewardedUsdAmount": "Rewarded",
+      "contributions": "My contributions",
+      "rewardedUsdAmount": "My rewards",
       "languages": "Languages",
       "repositories": "Repositories",
       "billingProfile": "Billing profile",
       "actions": "Actions",
-      "issues": "Issues availables"
+      "issues": "Available issues"
     },
     "seeProject": "See project",
     "gfi": "{{count}} GFI"

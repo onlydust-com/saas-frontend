@@ -182,9 +182,6 @@ export const NEXT_ROUTER = {
         root: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
       },
     },
-    termsAndConditions: {
-      root: "/settings/terms-and-conditions",
-    },
   },
   discover: {
     root: "/discover",

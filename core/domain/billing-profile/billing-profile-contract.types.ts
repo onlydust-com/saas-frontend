@@ -194,3 +194,62 @@ export type UpdateBillingProfileCoworkerRolePortParams = HttpClientParameters<{
 }>;
 
 export type UpdateBillingProfileCoworkerRolePortResponse = HttpStorageResponse;
+
+/* ------------------------ Accept Or Reject Coworker Invitation ------------------------ */
+
+export type AcceptOrRejectCoworkerInvitationBody =
+  components["schemas"]["BillingProfileCoworkerInvitationUpdateRequest"];
+
+type AcceptOrRejectCoworkerInvitationPathParams = operations["acceptOrRejectCoworkerInvitation"]["parameters"]["path"];
+
+export type AcceptOrRejectCoworkerInvitationPortParams = HttpClientParameters<{
+  PathParams: AcceptOrRejectCoworkerInvitationPathParams;
+}>;
+
+export type AcceptOrRejectCoworkerInvitationPortResponse = HttpStorageResponse;
+
+/* ------------------------ Delete Billing Profile ------------------------ */
+
+type DeleteBillingProfilePathParams = operations["deleteBillingProfile"]["parameters"]["path"];
+
+export type DeleteBillingProfilePortParams = HttpClientParameters<{
+  PathParams: DeleteBillingProfilePathParams;
+}>;
+
+export type DeleteBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Enable  Billing Profile ------------------------ */
+
+export type EnableBillingProfileBody = components["schemas"]["BillingProfileEnableRequest"];
+
+type EnableBillingProfilePathParams = operations["enableBillingProfile"]["parameters"]["path"];
+
+export type EnableBillingProfilePortParams = HttpClientParameters<{
+  PathParams: EnableBillingProfilePathParams;
+}>;
+
+export type EnableBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Remove Coworker From Billing Profile ------------------------ */
+
+type RemoveCoworkerFromBillingProfilePathParams = operations["removeCoworker"]["parameters"]["path"];
+
+export type RemoveCoworkerFromBillingProfilePortParams = HttpClientParameters<{
+  PathParams: RemoveCoworkerFromBillingProfilePathParams;
+}>;
+
+export type RemoveCoworkerFromBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Create Billing Profile ------------------------ */
+
+export type CreateBillingProfileResponse = components["schemas"]["BillingProfileCreateResponse"];
+
+export type CreateBillingProfileBody = components["schemas"]["BillingProfileRequest"];
+
+type CreateBillingProfilePathParams = operations["createBillingProfile"]["parameters"]["path"];
+
+export type CreateBillingProfilePortParams = HttpClientParameters<{
+  PathParams: CreateBillingProfilePathParams;
+}>;
+
+export type CreateBillingProfilePortResponse = HttpStorageResponse<CreateBillingProfileResponse>;

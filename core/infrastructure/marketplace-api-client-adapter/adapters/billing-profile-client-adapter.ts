@@ -1,5 +1,8 @@
 import {
   AcceptOrDeclineBillingProfileMandateBody,
+  AcceptOrRejectCoworkerInvitationBody,
+  EnableBillingProfileBody,
+  CreateBillingProfileBody,
   GetBillingProfileByIdResponse,
   GetBillingProfileCoworkersResponse,
   GetBillingProfileInvoicePreviewByIdResponse,
@@ -39,6 +42,11 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     inviteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers",
     deleteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers/:githubUserId",
     updateBillingProfileCoworkerRole: "billing-profiles/:billingProfileId/coworkers/:githubUserId/role",
+    acceptOrRejectCoworkerInvitation: "me/billing-profiles/:billingProfileId/invitations",
+    deleteBillingProfile: "billing-profiles/:billingProfileId",
+    enableBillingProfile: "billing-profiles/:billingProfileId/enable",
+    removeCoworkerFromBillingProfile: "billing-profiles/:billingProfileId/coworkers/:githubUserId",
+    createBillingProfile: "billing-profiles",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -344,6 +352,108 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: UpdateBillingProfileCoworkerRoleBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  acceptOrRejectCoworkerInvitation = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["acceptOrRejectCoworkerInvitation"]>) => {
+    const path = this.routes["acceptOrRejectCoworkerInvitation"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: AcceptOrRejectCoworkerInvitationBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  deleteBillingProfile = ({ pathParams }: FirstParameter<BillingProfileStoragePort["deleteBillingProfile"]>) => {
+    const path = this.routes["deleteBillingProfile"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  enableBillingProfile = ({ pathParams }: FirstParameter<BillingProfileStoragePort["enableBillingProfile"]>) => {
+    const path = this.routes["enableBillingProfile"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: EnableBillingProfileBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  removeCoworkerFromBillingProfile = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["removeCoworkerFromBillingProfile"]>) => {
+    const path = this.routes["removeCoworkerFromBillingProfile"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  createBillingProfile = ({ pathParams }: FirstParameter<BillingProfileStoragePort["createBillingProfile"]>) => {
+    const path = this.routes["createBillingProfile"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: CreateBillingProfileBody) =>
       this.client.request<never>({
         path,
         method,
