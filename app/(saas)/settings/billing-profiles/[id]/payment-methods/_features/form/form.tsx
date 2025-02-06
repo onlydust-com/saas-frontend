@@ -4,9 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
-
-import { formatToData } from "@/app/(saas)/settings/billing-profiles/[id]/payment-methods/_features/form/form.utils";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 
@@ -14,7 +11,8 @@ import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 
-import { formSchema } from "./form.types";
+import { PayoutFormData, formSchema } from "./form.types";
+import { formatToData, formatToSchema } from "./form.utils";
 
 export function PaymentMethodForm({ id }: { id: string }) {
   const { data } = BillingProfileReactQueryAdapter.client.useGetBillingProfilePayoutInfoById({
@@ -23,7 +21,21 @@ export function PaymentMethodForm({ id }: { id: string }) {
     },
   });
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { mutate, isPending } = BillingProfileReactQueryAdapter.client.useUpdateBillingProfilePayoutInfo({
+    pathParams: {
+      billingProfileId: id,
+    },
+    options: {
+      onSuccess: () => {
+        toast.success("Payment methods updated successfully");
+      },
+      onError: () => {
+        toast.error("Failed to update payment methods");
+      },
+    },
+  });
+
+  const form = useForm<PayoutFormData>({
     mode: "all",
     resolver: zodResolver(formSchema),
   });
@@ -42,8 +54,8 @@ export function PaymentMethodForm({ id }: { id: string }) {
     }
   }, [data]);
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast.success("Payment method updated successfully");
+  function onSubmit(values: PayoutFormData) {
+    mutate(formatToSchema(values));
   }
 
   return (
@@ -65,7 +77,9 @@ export function PaymentMethodForm({ id }: { id: string }) {
         />
 
         <div className="flex justify-end">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" loading={isPending}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>
