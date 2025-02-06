@@ -1,5 +1,10 @@
 import { useContext } from "react";
 
+import { Project } from "@/core/domain/project/models/project-model";
+import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
+import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
+import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
+import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
 import { Button } from "@/shared/ui/button";
 import { MultiStepsForm } from "../../components/MultiStepsForm";
 import { CreateProjectContext } from "../../ProjectCreation.context";
@@ -10,6 +15,31 @@ export const ProjectInformationsPage = () => {
     isSubmitting,
     helpers: { prev },
   } = useContext(CreateProjectContext);
+
+  const data = form.watch();
+
+  const project = new Project({
+    ...data,
+    categories: [],
+    contributorCount: 0,
+    createdAt: "",
+    ecosystems: [],
+    languages: [],
+    goodFirstIssueCount: 0,
+    id: "",
+    slug: "",
+    name: "",
+    hiring: false,
+    visibility: "PUBLIC",
+    topContributors: [],
+    leaders: [],
+    invitedLeaders: [],
+    moreInfos: [],
+    hasRemainingBudget: false,
+    indexingComplete: false,
+    indexedAt: "",
+    contributorLabels: []
+  });
 
   return (
     <MultiStepsForm
@@ -26,7 +56,10 @@ export const ProjectInformationsPage = () => {
       }
       prev={prev}
     >
-      <div />
+      <GlobalInformation project={project} form={form} />
+      <ProjectLead project={project} form={form} />
+      <MoreInfo form={form} />
+      <ContributorLabels form={form} />
     </MultiStepsForm>
   );
 };
