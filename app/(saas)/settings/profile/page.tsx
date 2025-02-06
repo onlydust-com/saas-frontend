@@ -1,17 +1,17 @@
 "use client";
 
+import { SettingsHeader } from "@/app/(saas)/settings/_features/settings-header/settings-header";
+
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
-import { CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
-import { TypographyH3 } from "@/shared/ui/typography";
 
 import { InformationForm } from "./_components/form/information-form/information-form";
 import { GithubAccount } from "./_components/github-account/github-account";
 
 function ProfilePage() {
   return (
-    <>
+    <div className="flex w-full flex-col gap-4 p-4">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -25,17 +25,12 @@ function ProfilePage() {
         ]}
       />
 
-      <CardHeader className="p-4">
-        <CardTitle>
-          <TypographyH3>Profile</TypographyH3>
-        </CardTitle>
-        <CardDescription>You can edit all your information here.</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-8 p-4 pt-0">
-        <GithubAccount />
-        <InformationForm />
-      </CardContent>
-    </>
+      <SettingsHeader title="Profile" description="You can edit all your information here." />
+
+      <GithubAccount />
+
+      <InformationForm />
+    </div>
   );
 }
 

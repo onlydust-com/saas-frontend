@@ -1,10 +1,15 @@
 "use client";
 
+import { CircleAlert } from "lucide-react";
+
+import { SettingsHeader } from "@/app/(saas)/settings/_features/settings-header/settings-header";
+import { LimitReachedHeader } from "@/app/(saas)/settings/billing-profiles/[id]/_features/limit-reached-header/limit-reached-header";
+import { PayoutPreferencesTable } from "@/app/(saas)/settings/payout-preferences/_features/payout-preferences-table/payout-preferences-table";
+
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
-import { CardDescription, CardHeader } from "@/shared/ui/card";
-import { TypographyH3 } from "@/shared/ui/typography";
+import { Alert, AlertDescription } from "@/shared/ui/alert";
 
 function PayoutPreferencesPage() {
   return (
@@ -22,12 +27,23 @@ function PayoutPreferencesPage() {
         ]}
       />
 
-      <CardHeader className="p-0">
-        <TypographyH3>Payout preferences</TypographyH3>
-        <CardDescription>
-          Connect your billing profile to the projects you contribute to for receiving rewards.
-        </CardDescription>
-      </CardHeader>
+      <LimitReachedHeader />
+
+      <SettingsHeader
+        title="Payout preferences"
+        description="Connect your billing profile to the projects you contribute to for receiving rewards."
+      />
+
+      <PayoutPreferencesTable />
+
+      <Alert>
+        <div className="flex items-center gap-2">
+          <CircleAlert className="h-4 w-4" />
+          <AlertDescription>
+            Only projects for which you have already received rewards will appear here.
+          </AlertDescription>
+        </div>
+      </Alert>
     </div>
   );
 }
