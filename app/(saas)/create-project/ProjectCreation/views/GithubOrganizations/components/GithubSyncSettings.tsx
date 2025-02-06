@@ -4,6 +4,7 @@ import { GithubIcon } from "lucide-react";
 import { Link } from "@/design-system/atoms/link";
 import { TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
 import { OAuthGithubConfigLink } from "../../../utils/githubSetupLink";
+import { GithubWorkflowTutorialSidepanel } from "./github-workflow-tutorial-side-panel/GithubWorkflowTutorialSidepanel";
 
 export interface GithubSyncSettingsProps {
   title: string;
@@ -20,8 +21,6 @@ export const GithubSyncSettings = ({
   PoolingFeedback,
   showButton,
 }: GithubSyncSettingsProps) => {
-  // TODO
-  // const [openTutorialPanel] = useStackGithubWorkflowTutorial();
   return (
     <div className="flex w-full flex-col items-start justify-start gap-6 rounded-2xl border p-5">
       <div className="flex w-full flex-col items-start justify-start gap-2">
@@ -30,12 +29,9 @@ export const GithubSyncSettings = ({
           <TypographyMuted>
             {message}
             &nbsp;
-            <button
-              className="text-secondary-600"
-              // onClick={openTutorialPanel}
-            >
-              {showButton}
-            </button>
+            <GithubWorkflowTutorialSidepanel>
+              <button className="text-secondary-600">{showButton}</button>
+            </GithubWorkflowTutorialSidepanel>
           </TypographyMuted>
         ) : null}
       </div>

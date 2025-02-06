@@ -1,0 +1,31 @@
+import { useIntercom } from "@/shared/intercom/intercom.context";
+import { Button } from "@/shared/ui/button";
+import { Card } from "@/shared/ui/card";
+import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { SendHorizonal } from "lucide-react";
+
+export default function TutorialSidePanelHelp({onClose}: {onClose: () => void}) {
+  const { openIntercom } = useIntercom();
+
+  const contactUs = () => {
+    onClose();
+    openIntercom();
+  };
+
+  return (
+    <Card className="flex w-full flex-col items-start justify-start gap-6 p-5">
+      <div className="flex w-full flex-col items-start justify-start gap-2">
+        <TypographyP className="uppercase">
+          What if you can't grant permissions to all organisations?
+        </TypographyP>
+        <TypographyMuted>
+        If you encounter an issue while granting permissions, or if you don't have sufficient access rights (e.g. when you can only request for permissions), please contact us so we can help.
+        </TypographyMuted>
+      </div>
+      <Button variant="secondary" size="sm" onClick={() => contactUs()}>
+        <SendHorizonal />
+        Contact us
+      </Button>
+    </Card>
+  );
+}
