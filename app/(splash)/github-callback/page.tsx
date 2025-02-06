@@ -1,10 +1,32 @@
+"use client";
+
 import logoWhite from "@/public/images/logos/logo-white.svg";
 import background from "@/public/images/splash/github-callback-background.svg";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Typo } from "@/design-system/atoms/typo";
 
-export default function GithubCallbackPage() {
+import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { NEXT_ROUTER } from "@/shared/constants/router";
+
+function GithubCallbackPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const installationId = searchParams.get("installation_id");
+  const state = searchParams.get("state");
+
+  if (installationId && !state) {
+    router.push(NEXT_ROUTER.createProject.root);
+    return null;
+  }
+
+  if (!installationId && !state) {
+    router.push(NEXT_ROUTER.home.root);
+    return null;
+  }
+
   return (
     <div className={"fixed inset-0 z-[9999]"}>
       <Image src={background} alt="" className={"absolute inset-0 size-full object-cover"} />
@@ -33,3 +55,5 @@ export default function GithubCallbackPage() {
     </div>
   );
 }
+
+export default withClientOnly(GithubCallbackPage);

@@ -1,5 +1,5 @@
 import { Trash } from "lucide-react";
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -10,9 +10,9 @@ import { Accordion } from "@/design-system/molecules/accordion";
 import { EditProjectFormData } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function MoreInfo() {
+export function MoreInfo({ form }: { form: UseFormReturn<EditProjectFormData, unknown> }) {
   const { t } = useTranslation("panels");
-  const { control } = useFormContext<EditProjectFormData>();
+  const { control } = form;
   const { fields, append, remove } = useFieldArray({
     control,
     name: "moreInfos",

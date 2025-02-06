@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import Intercom from "@intercom/messenger-js-sdk";
+import { Intercom, show } from "@intercom/messenger-js-sdk";
 import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 
 import { useAuthUser } from "../hooks/auth/use-auth-user";
@@ -9,11 +9,13 @@ import { useAuthUser } from "../hooks/auth/use-auth-user";
 interface IntercomContextInterface {
   hideIntercomLauncher: () => void;
   showIntercomLauncher: () => void;
+  openIntercom: () => void;
 }
 
 export const IntercomContext = createContext<IntercomContextInterface>({
   hideIntercomLauncher: () => {},
   showIntercomLauncher: () => {},
+  openIntercom: () => {},
 });
 
 const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID ?? "";
@@ -42,6 +44,10 @@ export function IntercomProvider({ children }: PropsWithChildren) {
     if (intercomContainer) {
       intercomContainer.style.display = "block";
     }
+  }
+
+  function openIntercom() {
+    show();
   }
 
   async function initIntercom() {
@@ -83,7 +89,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   }, [user]);
 
   return (
-    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher }}>
+    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher, openIntercom }}>
       {children}
     </IntercomContext.Provider>
   );

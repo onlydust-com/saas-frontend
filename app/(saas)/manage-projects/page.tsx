@@ -1,6 +1,5 @@
 "use client";
 
-import { SquareArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, useEffect } from "react";
 
@@ -15,7 +14,6 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { useShowProjectsList } from "@/shared/hooks/projects/use-show-projects-list";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -67,10 +65,9 @@ function ManageProjectsPage() {
             <Button
               as={BaseLink}
               htmlProps={{
-                href: marketplaceRouting("/p/create"),
+                href: NEXT_ROUTER.createProject.root,
               }}
               variant={"primary"}
-              endIcon={{ component: SquareArrowOutUpRight }}
               size={"md"}
               translate={{ token: "manageProjects:list.header.ctaSubmitProject" }}
               classNames={{

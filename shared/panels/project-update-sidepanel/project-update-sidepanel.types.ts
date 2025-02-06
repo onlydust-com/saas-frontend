@@ -12,6 +12,7 @@ export type EditProjectFormData = EditProjectBody & {
   rewardSettingsArrays: string[];
   rewardSettingsDate: Date | undefined;
   labels: { name: string; backendId?: string }[];
+  search?: string;
 };
 
 export const editProjectFormValidation = z.object({

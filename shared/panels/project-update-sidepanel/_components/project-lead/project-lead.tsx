@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -8,15 +8,14 @@ import { MenuItemAvatarPort } from "@/design-system/molecules/menu-item";
 
 import { GithubUserAutocomplete } from "@/shared/features/user/github-user-autocomplete/github-user-autocomplete";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { EditProjectFormData } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 
 import { ProjectLeadProps } from "./project-lead.types";
 
-export function ProjectLead({ project }: ProjectLeadProps) {
+export function ProjectLead({ project, form }: ProjectLeadProps) {
   const { t } = useTranslation("panels");
   const { user } = useAuthUser();
   const [invitedUser, setInvitedUser] = useState<MenuItemAvatarPort<number>[]>([]);
-  const { control } = useFormContext<EditProjectFormData>();
+  const { control } = form;
 
   function findUserInInvited(githubId: number) {
     const usersItems = project.invitedLeaders.map(user => ({
