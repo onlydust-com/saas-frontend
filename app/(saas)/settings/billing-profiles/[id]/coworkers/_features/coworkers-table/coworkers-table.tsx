@@ -3,6 +3,7 @@ import { useMemo } from "react";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { bootstrap } from "@/core/bootstrap";
+import { BillingProfileRole } from "@/core/domain/billing-profile/billing-profile.types";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -13,6 +14,7 @@ import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, Table
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { ManageCoworker } from "../manage-coworker/manage-coworker";
+import { UpdateCoworkerRole } from "../update-coworker-role/update-coworker-role";
 import { CoworkersTableProps } from "./coworkers-table.types";
 
 export function CoworkersTable({ id }: CoworkersTableProps) {
@@ -70,7 +72,13 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
                   </div>
                 </Link>
               </TableCell>
-              <TableCell>{coworker.role}</TableCell>
+              <TableCell>
+                <UpdateCoworkerRole
+                  billingProfileId={id}
+                  githubUserId={coworker.githubUserId}
+                  currentRole={coworker.role as BillingProfileRole}
+                />
+              </TableCell>
               <TableCell>
                 {coworker.joinedAt ? dateKernelPort.format(new Date(coworker.joinedAt), "yyyy-MM-dd") : "-"}
               </TableCell>
