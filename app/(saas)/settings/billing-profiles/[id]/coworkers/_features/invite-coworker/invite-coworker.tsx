@@ -11,8 +11,10 @@ import { BillingProfileRole } from "@/core/domain/billing-profile/billing-profil
 import { UserAutocomplete } from "@/shared/features/user/user-autocomplete/user-autocomplete";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { Label } from "@/shared/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
+import { TypographyMuted } from "@/shared/ui/typography";
 
 import { InviteCoworkerProps, inviteCoworkerSchema } from "./invite-coworker.types";
 
@@ -43,9 +45,11 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button>Invite team member</Button>
+        <div className="flex justify-end">
+          <Button>Invite team member</Button>
+        </div>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="!min-w-[400px] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>Invite team member</SheetTitle>
         </SheetHeader>
@@ -64,6 +68,7 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
                       selectedUser={field.value ? [field.value] : []}
                       onSelect={ids => field.onChange(ids[0])}
                       isPopover={false}
+                      placeholder="Search for a user"
                     />
                   </FormControl>
                   <FormMessage />
@@ -78,14 +83,20 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
                 <FormItem>
                   <FormLabel>Role</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value={BillingProfileRole.Admin} id="admin" />
-                        <FormLabel htmlFor="admin">Admin</FormLabel>
+                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-4">
+                      <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
+                        <RadioGroupItem value={BillingProfileRole.Admin} id={BillingProfileRole.Admin} />
+                        <FormLabel htmlFor={BillingProfileRole.Admin} className="flex flex-col gap-2">
+                          <Label>Admin</Label>
+                          <TypographyMuted>Can modify general information & invite team members.</TypographyMuted>
+                        </FormLabel>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value={BillingProfileRole.Member} id="member" />
-                        <FormLabel htmlFor="member">Member</FormLabel>
+                      <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
+                        <RadioGroupItem value={BillingProfileRole.Member} id={BillingProfileRole.Member} />
+                        <FormLabel htmlFor={BillingProfileRole.Member} className="flex flex-col gap-2">
+                          <Label>Member</Label>
+                          <TypographyMuted>Can allocate their rewards to this billing profile.</TypographyMuted>
+                        </FormLabel>
                       </div>
                     </RadioGroup>
                   </FormControl>
@@ -94,9 +105,11 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
               )}
             />
 
-            <Button type="submit" disabled={isPending}>
-              {isPending ? "Inviting..." : "Invite"}
-            </Button>
+            <div className="flex justify-end">
+              <Button type="submit" loading={isPending}>
+                Invite
+              </Button>
+            </div>
           </form>
         </Form>
       </SheetContent>
