@@ -1,5 +1,6 @@
-import { TypographySmall } from "@/shared/ui/typography";
 import { CopyCheck } from "lucide-react";
+
+import { TypographySmall } from "@/shared/ui/typography";
 
 export const GithubRepositoryCount = ({ selected, total }: { selected: number; total: number }) => {
   return (

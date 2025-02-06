@@ -1,8 +1,10 @@
-import { Button } from "@/shared/ui/button";
 import { GithubIcon } from "lucide-react";
 
 import { Link } from "@/design-system/atoms/link";
+
+import { Button } from "@/shared/ui/button";
 import { TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
+
 import { OAuthGithubConfigLink } from "../../../utils/githubSetupLink";
 import { GithubWorkflowTutorialSidepanel } from "./github-workflow-tutorial-side-panel/GithubWorkflowTutorialSidepanel";
 

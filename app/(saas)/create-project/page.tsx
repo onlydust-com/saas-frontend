@@ -5,8 +5,8 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PageContent } from "@/shared/features/page-content/page-content";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
-import ProjectCreation from "./ProjectCreation/ProjectCreation";
 
+import ProjectCreation from "./ProjectCreation/ProjectCreation";
 
 function CreateProjectPage() {
   return (

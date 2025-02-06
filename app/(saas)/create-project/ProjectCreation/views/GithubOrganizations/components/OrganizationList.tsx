@@ -1,10 +1,12 @@
-import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { PenLine, Plus } from "lucide-react";
-import { getGithubSetupLink } from "../../../utils/githubSetupLink";
-import HorizontalListItemCard from "./HorizontalListItemCard";
+
+import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
 
 import { Link } from "@/design-system/atoms/link";
+import { Skeleton } from "@/design-system/atoms/skeleton";
+
+import { getGithubSetupLink } from "../../../utils/githubSetupLink";
+import HorizontalListItemCard from "./HorizontalListItemCard";
 
 interface OrganizationListProps {
   organizations: GetMyOrganizationsResponse;
@@ -42,7 +44,12 @@ export default function OrganizationList({
               isExternalFlow={org.installationStatus !== "NOT_INSTALLED"}
               tooltip={disabledTooltip}
               TitleComponent={
-                <Link href={org.htmlUrl ?? `https://github.com/${org.login}`} target="_blank" className="flex items-center gap-2" rel="noreferrer">
+                <Link
+                  href={org.htmlUrl ?? `https://github.com/${org.login}`}
+                  target="_blank"
+                  className="flex items-center gap-2"
+                  rel="noreferrer"
+                >
                   {org.name || org.login}
                 </Link>
               }

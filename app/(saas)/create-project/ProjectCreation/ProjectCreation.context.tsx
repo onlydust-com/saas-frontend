@@ -1,20 +1,19 @@
-import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createContext, PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { PropsWithChildren, createContext, useCallback, useEffect, useRef, useState } from "react";
+import { UseFormReturn, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-
-import { usePooling, usePoolingFeedback } from "@/shared/hooks/pooling/usePooling";
-import { toast } from "sonner";
+import { GetMyOrganizationsResponse } from "@/core/domain/github/github-contract.types";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { usePooling, usePoolingFeedback } from "@/shared/hooks/pooling/usePooling";
 import { rewardsSettingsTypes } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
+
 import { ProjectCreationSteps, ProjectCreationStepsNext, ProjectCreationStepsPrev } from "./types/ProjectCreationSteps";
 import { CreateFormData } from "./types/ProjectCreationType";
 import { onSyncOrganizations } from "./utils/syncOrganization";
@@ -155,21 +154,17 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
   });
 
   useEffect(() => {
-    if(user) {
-      form.setValue("projectLeadsToKeep", [user.id])
+    if (user) {
+      form.setValue("projectLeadsToKeep", [user.id]);
     }
-  }, [user])
+  }, [user]);
 
-  const { mutateAsync: uploadLogo, isPending: isUploadingLogo } = ProjectReactQueryAdapter.client.useUploadProjectLogo();
+  const { mutateAsync: uploadLogo, isPending: isUploadingLogo } =
+    ProjectReactQueryAdapter.client.useUploadProjectLogo();
 
   const onSubmit = async () => {
-    const { githubRepoIds,
-      moreInfos, 
-      logoFile, 
-      labels, 
-      rewardSettingsArrays,
-      rewardSettingsDate,
-      ...formData } = form.getValues();
+    const { githubRepoIds, moreInfos, logoFile, labels, rewardSettingsArrays, rewardSettingsDate, ...formData } =
+      form.getValues();
 
     const fileUrl = logoFile ? await uploadLogo(logoFile) : undefined;
 
@@ -177,7 +172,9 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
       ...formData,
       logoUrl: fileUrl?.url,
       contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
-      inviteGithubUserIdsAsProjectLeads: (formData.inviteGithubUserIdsAsProjectLeads || []).map(userId => Number(userId)),
+      inviteGithubUserIdsAsProjectLeads: (formData.inviteGithubUserIdsAsProjectLeads || []).map(userId =>
+        Number(userId)
+      ),
       isLookingForContributors: formData.isLookingForContributors || false,
       githubRepoIds: githubRepoIds || [],
       moreInfos: (moreInfos || []).filter(info => info.url !== "").map(info => ({ url: info.url, value: info.value })),
@@ -185,8 +182,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
         ignorePullRequests: !rewardSettingsArrays.includes(rewardsSettingsTypes.PullRequests),
         ignoreIssues: !rewardSettingsArrays.includes(rewardsSettingsTypes.Issue),
         ignoreCodeReviews: !rewardSettingsArrays.includes(rewardsSettingsTypes.CodeReviews),
-        ignoreContributionsBefore:
-          rewardSettingsDate?.toISOString(),
+        ignoreContributionsBefore: rewardSettingsDate?.toISOString(),
       },
     });
   };

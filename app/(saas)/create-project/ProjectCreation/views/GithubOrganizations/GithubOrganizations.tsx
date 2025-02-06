@@ -1,10 +1,10 @@
 import { useContext } from "react";
 
+import { TypographyH4 } from "@/shared/ui/typography";
+
+import { CreateProjectContext } from "../../ProjectCreation.context";
 import { MultiStepsForm } from "../../components/MultiStepsForm";
 import { GithubSyncSettings } from "./components/GithubSyncSettings";
-
-import { TypographyH4 } from "@/shared/ui/typography";
-import { CreateProjectContext } from "../../ProjectCreation.context";
 import OrganizationList from "./components/OrganizationList";
 
 export const GithubOrganizationPage = () => {
@@ -29,7 +29,7 @@ export const GithubOrganizationPage = () => {
       next={next}
       nextDisabled={!organizations.length}
     >
-      <div> 
+      <div>
         <TypographyH4 className="uppercase">Installed on these organizations</TypographyH4>
         <OrganizationList
           organizations={installedOrganizations}

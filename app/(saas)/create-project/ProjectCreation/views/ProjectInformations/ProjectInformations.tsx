@@ -1,14 +1,16 @@
 import { useContext } from "react";
 
 import { Project } from "@/core/domain/project/models/project-model";
+
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { ContributorLabels } from "@/shared/panels/project-update-sidepanel/_components/contributor-labels/contributor-labels";
 import { GlobalInformation } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information";
 import { MoreInfo } from "@/shared/panels/project-update-sidepanel/_components/more-info/more-info";
 import { ProjectLead } from "@/shared/panels/project-update-sidepanel/_components/project-lead/project-lead";
 import { Button } from "@/shared/ui/button";
-import { MultiStepsForm } from "../../components/MultiStepsForm";
+
 import { CreateProjectContext } from "../../ProjectCreation.context";
+import { MultiStepsForm } from "../../components/MultiStepsForm";
 
 export const ProjectInformationsPage = () => {
   const {
@@ -41,7 +43,7 @@ export const ProjectInformationsPage = () => {
     hasRemainingBudget: false,
     indexingComplete: false,
     indexedAt: "",
-    contributorLabels: []
+    contributorLabels: [],
   });
 
   return (
@@ -50,10 +52,7 @@ export const ProjectInformationsPage = () => {
       step={3}
       stepCount={3}
       submitButton={
-        <Button
-          disabled={!form.formState?.isValid || isSubmitting}
-          className="w-full md:w-auto"
-        >
+        <Button disabled={!form.formState?.isValid || isSubmitting} className="w-full md:w-auto">
           Publish
         </Button>
       }

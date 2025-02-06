@@ -74,14 +74,14 @@ export function MaintainerGroup() {
     <SidebarGroup>
       <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
       <SidebarMenu>
-        {<SidebarMenuItem>
+        <SidebarMenuItem>
           <SidebarMenuButton isActive={isProjectCreateRoute} asChild tooltip="Submit a project">
             <Link href={NEXT_ROUTER.createProject.root}>
               <SquarePlus />
               <span>Submit a project</span>
             </Link>
           </SidebarMenuButton>
-        </SidebarMenuItem>}
+        </SidebarMenuItem>
 
         {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">

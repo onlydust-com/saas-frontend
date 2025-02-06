@@ -1,9 +1,9 @@
+import { PenLine } from "lucide-react";
 import { ComponentProps, ReactElement } from "react";
 
 import { Avatar, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
-import { PenLine } from "lucide-react";
 
 interface HorizontalListItemCardProps {
   AvatarProps?: Partial<ComponentProps<typeof Avatar>>;
@@ -37,20 +37,14 @@ const HorizontalListItemCard: React.FC<HorizontalListItemCardProps> = ({
             <AvatarImage src={avatarUrl || ""} alt={title} />
           </Avatar>
           <span className="flex-1">{TitleComponent ? TitleComponent : title}</span>
-          <Button
-            size="sm"
-            variant="secondary"
-            data-testid="action-button"
-            disabled={disabled}
-            asChild
-          >
+          <Button size="sm" variant="secondary" data-testid="action-button" disabled={disabled} asChild>
             <a
               href={linkUrl}
               onClick={linkClick}
               target={isExternalFlow ? "_blank" : undefined}
               rel={isExternalFlow ? "noopener noreferrer" : undefined}
             >
-                {linkIcon}
+              {linkIcon}
             </a>
           </Button>
         </div>
