@@ -113,10 +113,6 @@ export function useFilterColumns() {
         const { amount, code } = moneyKernelPort.format({
           amount: info.getValue(),
           currency: moneyKernelPort.getCurrency("USD"),
-          options: {
-            notation: "compact",
-          },
-          uppercase: true,
         });
 
         return (
