@@ -70,7 +70,7 @@ export function HackathonEvents({ hackathonSlug }: HackathonEventsProps) {
           size="xs"
           weight="medium"
           classNames={{ base: "text-sm" }}
-          translate={{ token: "hackathon:details.events.title" }}
+          translate={{ token: "osw:details.events.title" }}
         />
 
         <HackathonEventMenu selectedEvent={selectedEvent} onAction={setSelectedEvent} />

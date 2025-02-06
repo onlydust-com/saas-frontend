@@ -42,7 +42,7 @@ export function FilterData() {
     <Panel>
       <SidePanelHeader
         title={{
-          children: <Translate token={"hackathon:details.projects.filters.title"} />,
+          children: <Translate token={"osw:details.projects.filters.title"} />,
         }}
         canGoBack={false}
         canClose={true}

@@ -45,7 +45,7 @@ function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackat
           },
           {
             id: "overview",
-            label: <Translate token={"hackathon:details.tabs.overview"} />,
+            label: <Translate token={"osw:details.tabs.overview"} />,
           },
         ]}
       />

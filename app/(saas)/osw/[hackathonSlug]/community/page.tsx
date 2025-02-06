@@ -36,7 +36,7 @@ function HackathonCommunityPage({ params: { hackathonSlug } }: { params: { hacka
           },
           {
             id: "community",
-            label: <Translate token={"hackathon:details.tabs.community"} />,
+            label: <Translate token={"osw:details.tabs.community"} />,
           },
         ]}
       />

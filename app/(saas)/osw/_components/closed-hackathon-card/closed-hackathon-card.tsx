@@ -42,7 +42,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
             variant="outline"
             size="md"
             classNames={{ base: "shrink-0" }}
-            translate={{ token: "hackathon:shared.status.closed" }}
+            translate={{ token: "osw:shared.status.closed" }}
           />
         </div>
 
@@ -118,7 +118,7 @@ export function ClosedHackathonCard({ hackathon }: ClosedHackathonCardProps) {
             variant="secondary"
             size="md"
             classNames={{ base: "w-full" }}
-            translate={{ token: "hackathon:shared.button.explore" }}
+            translate={{ token: "osw:shared.button.explore" }}
           />
         </div>
       </div>

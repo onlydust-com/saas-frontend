@@ -75,7 +75,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
             color="tertiary"
             weight="medium"
             classNames={{ base: "text-sm" }}
-            translate={{ token: "hackathon:details.summary.date" }}
+            translate={{ token: "osw:details.summary.date" }}
           />
           <div className="flex items-center justify-between gap-lg">
             <div className="flex flex-col">
@@ -110,7 +110,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
           color="tertiary"
           weight="medium"
           classNames={{ base: "text-sm" }}
-          translate={{ token: "hackathon:details.summary.location" }}
+          translate={{ token: "osw:details.summary.location" }}
         />
         <Typo variant="heading" size="xs">
           {hackathon.location ?? "Worldwide"}
@@ -125,7 +125,7 @@ export function HackathonSummary({ hackathonSlug }: HackathonSummaryProps) {
             color="tertiary"
             weight="medium"
             classNames={{ base: "text-sm" }}
-            translate={{ token: "hackathon:details.summary.links" }}
+            translate={{ token: "osw:details.summary.links" }}
           />
 
           <div className="grid gap-md mobile:grid-cols-2">

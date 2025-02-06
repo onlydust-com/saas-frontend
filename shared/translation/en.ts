@@ -3,7 +3,7 @@ import { enEcosystemsTranslation } from "@/app/(saas)/ecosystems/_translations/e
 import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
 import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
-import { enHackathonsTranslation } from "@/app/(saas)/osw/_translations/hackathons.translate";
+import { enOpenSourceWeekTranslation } from "@/app/(saas)/osw/_translations/osw.translate";
 import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/(saas)/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/(saas)/projects/_translations/projects.translate";
@@ -35,7 +35,7 @@ export const en = {
   ...enFinancialsTranslation,
   ...enDataTranslation,
   ...enProjectsTranslation,
-  ...enHackathonsTranslation,
+  ...enOpenSourceWeekTranslation,
   ...enRepositoriesTranslation,
   ...enEcosystemsTranslation,
   ...enUsersTranslation,

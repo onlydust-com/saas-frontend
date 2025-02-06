@@ -22,14 +22,14 @@ function HackathonsPage() {
           breadcrumb={[
             {
               id: "root",
-              label: <Translate token={"hackathon:list.title"} />,
+              label: <Translate token={"osw:list.title"} />,
             },
           ]}
         />
 
         <ListBanner
-          title={{ translate: { token: "hackathon:list.banner.title" } }}
-          subtitle={{ translate: { token: "hackathon:list.banner.subtitle" } }}
+          title={{ translate: { token: "osw:list.banner.title" } }}
+          subtitle={{ translate: { token: "osw:list.banner.subtitle" } }}
           logo={<Image src={logo} alt="OnlyDust" width={64} height={64} className="size-16" />}
         />
 

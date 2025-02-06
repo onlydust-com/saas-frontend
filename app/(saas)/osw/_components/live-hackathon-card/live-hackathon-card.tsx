@@ -63,7 +63,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
               size="md"
               classNames={{ base: "w-full tablet:w-auto" }}
             >
-              Join the ODBoost
+              Join the Open-Source Week
             </Button>
           </div>
 
@@ -131,7 +131,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
                   color="tertiary"
                   weight="medium"
                   classNames={{ base: "text-sm" }}
-                  translate={{ token: "hackathon:details.summary.date" }}
+                  translate={{ token: "osw:details.summary.date" }}
                 />
                 <div className="flex items-center justify-between gap-lg">
                   <div className="flex flex-col">
@@ -166,7 +166,7 @@ export function LiveHackathonCard({ hackathon }: LiveHackathonCardProps) {
                 color="tertiary"
                 weight="medium"
                 classNames={{ base: "text-sm" }}
-                translate={{ token: "hackathon:details.summary.location" }}
+                translate={{ token: "osw:details.summary.location" }}
               />
               <Typo variant="heading" size="xs">
                 {hackathon.location ?? "Worldwide"}

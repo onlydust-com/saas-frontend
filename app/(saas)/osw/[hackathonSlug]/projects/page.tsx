@@ -204,7 +204,7 @@ function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }
           },
           {
             id: "projects",
-            label: <Translate token={"hackathon:details.tabs.projects"} />,
+            label: <Translate token={"osw:details.tabs.projects"} />,
           },
         ]}
       />
@@ -242,7 +242,7 @@ function HackathonProjectsPage({ params }: { params: { hackathonSlug: string } }
 
         {canAccessProjects ? (
           <div className="flex gap-md">
-            <Typo size={"sm"} color={"secondary"} translate={{ token: "hackathon:details.projects.projectsCount" }} />
+            <Typo size={"sm"} color={"secondary"} translate={{ token: "osw:details.projects.projectsCount" }} />
             <Typo size={"sm"} color={"primary"}>
               {totalItemNumber}
             </Typo>
