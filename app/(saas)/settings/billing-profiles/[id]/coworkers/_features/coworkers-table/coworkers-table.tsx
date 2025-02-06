@@ -10,7 +10,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { ManageCoworker } from "../manage-coworker/manage-coworker";
