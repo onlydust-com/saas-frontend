@@ -36,6 +36,12 @@ export const NEXT_ROUTER = {
       root: (slug: string) => `/manage-projects/${slug}/financial`,
     },
   },
+  createProject: {
+    root: "/create-project",
+    default: {
+      root: () => `/create-project`,
+    },
+  },
   myDashboard: {
     root: "/my-dashboard",
     contributions: {

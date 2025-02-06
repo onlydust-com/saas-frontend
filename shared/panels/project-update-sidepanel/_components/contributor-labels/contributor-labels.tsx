@@ -1,6 +1,6 @@
 import { Pencil, Plus } from "lucide-react";
 import { useState } from "react";
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -10,12 +10,12 @@ import { Accordion } from "@/design-system/molecules/accordion";
 
 import { EditProjectFormData } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 
-export function ContributorLabels() {
+export function ContributorLabels({ form }: { form: UseFormReturn<EditProjectFormData, unknown> }) {
   const [newLabel, setNewLabel] = useState("");
   const [updateLabel, setUpdateLabel] = useState("");
   const [isEditing, setIsEditing] = useState<number | false>(false);
   const { t } = useTranslation("panels");
-  const { control, getValues } = useFormContext<EditProjectFormData>();
+  const { control, getValues } = form;
   const { fields, append, remove, update } = useFieldArray({
     control,
     name: "labels",
