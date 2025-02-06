@@ -249,7 +249,7 @@ export const MARKETPLACE_ROUTER = {
   },
   notFound: "/not-found",
   hackathons: {
-    root: "/osw",
+    root: "/hackathons",
     details: {
       root: (slug: string) => `/hackathons/${slug}`,
     },

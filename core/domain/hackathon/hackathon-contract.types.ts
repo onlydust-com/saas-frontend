@@ -10,7 +10,7 @@ import { HackathonListItemInterface } from "./models/hackathon-list-item-model";
 import { HackathonInterface } from "./models/hackathon-model";
 import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-list-item-model-v2";
 
-/* --------------------------------- Get osw -------------------------------- */
+/* --------------------------------- Get hackathons -------------------------------- */
 
 export type GetHackathonsResponse = components["schemas"]["HackathonsListResponse"];
 
