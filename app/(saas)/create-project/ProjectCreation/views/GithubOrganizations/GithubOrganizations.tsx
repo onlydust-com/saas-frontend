@@ -22,8 +22,8 @@ export const GithubOrganizationPage = () => {
 
   return (
     <MultiStepsForm
-      title="Select your Github organisations"
-      description="Please install the github app on the desired github organisation(s) containing the repositories you want to add."
+      title="Select your Github organizations"
+      description="Please install the github app on the desired github organization(s) containing the repositories you want to add."
       step={1}
       stepCount={3}
       next={next}
@@ -53,7 +53,7 @@ export const GithubOrganizationPage = () => {
           title="GitHub settings"
           showButton="Show me how"
           settingsButton="Edit configuration"
-          message="Missing an organisation? Edit your configuration and make sure the desired organisations are granted."
+          message="Missing an organization? Edit your configuration and make sure the desired organizations are granted."
           PoolingFeedback={PoolingFeedback}
         />
       </div>

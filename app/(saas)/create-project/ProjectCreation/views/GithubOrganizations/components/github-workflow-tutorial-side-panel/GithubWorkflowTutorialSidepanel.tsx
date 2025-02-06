@@ -31,7 +31,7 @@ export const GithubWorkflowTutorialSidepanel = ({ children }: PropsWithChildren)
             <div className="font-belwe text-greyscale-50 mb-8 px-2 text-2xl font-normal">How to grant permissions</div>
             <div className="px-2">
               <div className="text-body-m text-greyscale-50 pb-2 font-normal">
-                You are required to grant permissions to all organisations where you want to install the OnlyDust Github
+                You are required to grant permissions to all organizations where you want to install the OnlyDust Github
                 app.
               </div>
             </div>
