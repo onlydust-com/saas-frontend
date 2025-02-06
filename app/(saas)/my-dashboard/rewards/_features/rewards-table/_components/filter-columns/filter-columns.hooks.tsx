@@ -2,7 +2,7 @@ import { ColumnDef, SortingState, createColumnHelper } from "@tanstack/react-tab
 import { useEffect, useMemo, useState } from "react";
 import { useLocalStorage } from "react-use";
 
-import { TableColumns } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-columns/filter-columns.types";
+import { TableColumns } from "@/app/(saas)/my-dashboard/rewards/_features/rewards-table/_components/filter-columns/filter-columns.types";
 
 import { bootstrap } from "@/core/bootstrap";
 import { RewardListItemV2Interface } from "@/core/domain/reward/models/reward-list-item-v2-model";

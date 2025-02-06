@@ -1,5 +1,5 @@
-import { useProjectRewardsFilterDataSidePanel } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/_components/filter-data/filter-data.hooks";
-import { RewardsTableFilters } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/rewards-table";
+import { useProjectRewardsFilterDataSidePanel } from "@/app/(saas)/my-dashboard/rewards/_features/rewards-table/_components/filter-data/filter-data.hooks";
+import { RewardsTableFilters } from "@/app/(saas)/my-dashboard/rewards/_features/rewards-table/rewards-table";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 

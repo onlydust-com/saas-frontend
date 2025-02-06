@@ -137,7 +137,7 @@ export const GithubRepositoryPage = () => {
                         <AddMissingRepositories
                           url={linkUrl}
                           disabled={!organization.isCurrentUserAdmin}
-                          tooltip="Github app installed by an organisation admin"
+                          tooltip="Github app installed by an organization admin"
                         />
                       </AccordionContent>
                     </AccordionItem>

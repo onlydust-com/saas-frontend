@@ -50,8 +50,8 @@ export const NEXT_ROUTER = {
     projects: {
       root: "/my-dashboard/projects",
     },
-    financial: {
-      root: "/my-dashboard/financial",
+    rewards: {
+      root: "/my-dashboard/rewards",
     },
   },
   data: {

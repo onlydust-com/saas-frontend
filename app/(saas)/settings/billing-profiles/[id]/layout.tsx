@@ -26,12 +26,13 @@ export default function BillingProfileLayout({ params, children }: PropsWithChil
 
   const tabs = [
     { href: NEXT_ROUTER.settings.billingProfiles.generalInformation.root(id), label: "General Information" },
-    { href: NEXT_ROUTER.settings.billingProfiles.paymentMethods.root(id), label: "Payment Methods" },
-    data?.isBillingProfileCompany() && {
-      href: NEXT_ROUTER.settings.billingProfiles.coworkers.root(id),
-      label: "Coworkers",
-    },
-    { href: NEXT_ROUTER.settings.billingProfiles.invoices.root(id), label: "Invoices" },
+    data?.isAdmin() && { href: NEXT_ROUTER.settings.billingProfiles.paymentMethods.root(id), label: "Payment Methods" },
+    data?.isAdmin() &&
+      data?.isBillingProfileCompany() && {
+        href: NEXT_ROUTER.settings.billingProfiles.coworkers.root(id),
+        label: "Coworkers",
+      },
+    data?.isAdmin() && { href: NEXT_ROUTER.settings.billingProfiles.invoices.root(id), label: "Invoices" },
   ].filter(Boolean) as { href: string; label: string }[];
 
   return (
