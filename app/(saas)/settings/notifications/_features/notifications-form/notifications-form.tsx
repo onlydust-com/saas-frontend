@@ -10,7 +10,11 @@ import { toast } from "sonner";
 import { SettingsHeader } from "@/app/(saas)/settings/_features/settings-header/settings-header";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
-import { MeNotificationCategory, MeNotificationChannel } from "@/core/domain/me/models/me.types";
+import { MeNotificationSettingsCategory, MeNotificationSettingsChannel } from "@/core/domain/me/me-constants";
+import {
+  MeNotificationSettingsCategoryType,
+  MeNotificationSettingsChannelType,
+} from "@/core/domain/me/models/me.types";
 
 import { Button } from "@/shared/ui/button";
 import { Form, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
@@ -22,19 +26,27 @@ import { TypographyH4, TypographySmall } from "@/shared/ui/typography";
 import { FormData, formSchema } from "./notifications-form.types";
 import { formatToData, formatToSchema } from "./notifications-form.utils";
 
-const groups = [
+const groups: {
+  title: string;
+  categories: {
+    label: string;
+    description: string;
+    name: MeNotificationSettingsCategoryType;
+    omit?: MeNotificationSettingsChannelType;
+  }[];
+}[] = [
   {
     title: "Global",
     categories: [
       {
         label: "Billing Profile",
         description: "Manage your billing profile with notifications for document verification and identity checks.",
-        name: MeNotificationCategory.GLOBAL_BILLING_PROFILE,
+        name: MeNotificationSettingsCategory.GLOBAL_BILLING_PROFILE,
       },
       {
         label: "Marketing",
         description: "Get alerts about upcoming events and community calls by joining the marketing list.",
-        name: MeNotificationCategory.GLOBAL_MARKETING,
+        name: MeNotificationSettingsCategory.GLOBAL_MARKETING,
       },
     ],
   },
@@ -44,18 +56,18 @@ const groups = [
       {
         label: "Project",
         description: "Stay informed about project-related updates, including assigned and available issues.",
-        name: MeNotificationCategory.CONTRIBUTOR_PROJECT,
+        name: MeNotificationSettingsCategory.CONTRIBUTOR_PROJECT,
       },
       {
         label: "Reward",
         description: "Receive updates on all stages of your rewards, from receipt to payment.",
-        name: MeNotificationCategory.CONTRIBUTOR_REWARD,
+        name: MeNotificationSettingsCategory.CONTRIBUTOR_REWARD,
       },
       {
         label: "Rewind",
         description: "Be alerted as soon as your rewind is available.",
-        name: MeNotificationCategory.CONTRIBUTOR_REWIND,
-        omit: "SUMMARY_EMAIL",
+        name: MeNotificationSettingsCategory.CONTRIBUTOR_REWIND,
+        omit: MeNotificationSettingsChannel.SUMMARY_EMAIL,
       },
     ],
   },
@@ -65,12 +77,12 @@ const groups = [
       {
         label: "Project x Contributors",
         description: "Receive notifications about new applications and contributions from contributors.",
-        name: MeNotificationCategory.MAINTAINER_PROJECT_CONTRIBUTOR,
+        name: MeNotificationSettingsCategory.MAINTAINER_PROJECT_CONTRIBUTOR,
       },
       {
         label: "Project x Program",
         description: "Get updates on new grants and committee applications within your programs.",
-        name: MeNotificationCategory.MAINTAINER_PROJECT_PROGRAM,
+        name: MeNotificationSettingsCategory.MAINTAINER_PROJECT_PROGRAM,
       },
     ],
   },
@@ -80,7 +92,7 @@ const groups = [
       {
         label: "Transactions",
         description: "Receive notifications about allocations & granted.",
-        name: MeNotificationCategory.PROGRAM_LEAD,
+        name: MeNotificationSettingsCategory.PROGRAM_LEAD,
       },
     ],
   },
@@ -90,11 +102,11 @@ const groups = [
       {
         label: "Transactions",
         description: "Receive notifications about deposit & allocations.",
-        name: MeNotificationCategory.SPONSOR_LEAD,
+        name: MeNotificationSettingsCategory.SPONSOR_LEAD,
       },
     ],
   },
-];
+] as const;
 
 export function NotificationsForm() {
   const { data } = MeReactQueryAdapter.client.useGetMyNotificationsSettings({});
@@ -126,26 +138,26 @@ export function NotificationsForm() {
     if (!notifications) return [];
 
     return [
-      MeNotificationCategory.GLOBAL_BILLING_PROFILE,
-      MeNotificationCategory.GLOBAL_MARKETING,
-      MeNotificationCategory.CONTRIBUTOR_PROJECT,
-      MeNotificationCategory.CONTRIBUTOR_REWARD,
-      MeNotificationCategory.MAINTAINER_PROJECT_CONTRIBUTOR,
-      MeNotificationCategory.MAINTAINER_PROJECT_PROGRAM,
-      MeNotificationCategory.SPONSOR_LEAD,
-      MeNotificationCategory.PROGRAM_LEAD,
-      MeNotificationCategory.CONTRIBUTOR_REWIND,
+      MeNotificationSettingsCategory.GLOBAL_BILLING_PROFILE,
+      MeNotificationSettingsCategory.GLOBAL_MARKETING,
+      MeNotificationSettingsCategory.CONTRIBUTOR_PROJECT,
+      MeNotificationSettingsCategory.CONTRIBUTOR_REWARD,
+      MeNotificationSettingsCategory.MAINTAINER_PROJECT_CONTRIBUTOR,
+      MeNotificationSettingsCategory.MAINTAINER_PROJECT_PROGRAM,
+      MeNotificationSettingsCategory.SPONSOR_LEAD,
+      MeNotificationSettingsCategory.PROGRAM_LEAD,
+      MeNotificationSettingsCategory.CONTRIBUTOR_REWIND,
     ];
   }
 
-  function isChannelEnabled(channel: MeNotificationChannel) {
+  function isChannelEnabled(channel: MeNotificationSettingsChannelType) {
     if (!notifications) return false;
 
     return getAllCategories().every(c => notifications[c]?.[channel]);
   }
 
-  function enableAll(channel: MeNotificationChannel, v: boolean) {
-    if (!notifications) return false;
+  function enableAll(channel: MeNotificationSettingsChannelType, v: boolean) {
+    if (!notifications) return;
 
     return getAllCategories().forEach(cat => {
       form.setValue(`notificationSettings.${cat}.${channel}`, v, { shouldDirty: true });
@@ -170,8 +182,8 @@ export function NotificationsForm() {
           <Label htmlFor={"ENABLE_ALL.EMAIL"}>Enable all</Label>
           <Switch
             id={"ENABLE_ALL.EMAIL"}
-            checked={isChannelEnabled(MeNotificationChannel.EMAIL)}
-            onCheckedChange={v => enableAll(MeNotificationChannel.EMAIL, v)}
+            checked={isChannelEnabled(MeNotificationSettingsChannel.EMAIL)}
+            onCheckedChange={v => enableAll(MeNotificationSettingsChannel.EMAIL, v)}
           />
         </div>
 
@@ -179,8 +191,8 @@ export function NotificationsForm() {
           <Label htmlFor={"ENABLE_ALL.SUMMARY_EMAIL"}>Enable all</Label>
           <Switch
             id={"ENABLE_ALL.SUMMARY_EMAIL"}
-            checked={isChannelEnabled(MeNotificationChannel.SUMMARY_EMAIL)}
-            onCheckedChange={v => enableAll(MeNotificationChannel.SUMMARY_EMAIL, v)}
+            checked={isChannelEnabled(MeNotificationSettingsChannel.SUMMARY_EMAIL)}
+            onCheckedChange={v => enableAll(MeNotificationSettingsChannel.SUMMARY_EMAIL, v)}
           />
         </div>
       </div>
@@ -245,7 +257,7 @@ export function NotificationsForm() {
                       />
                     </div>
 
-                    {category.omit !== "SUMMARY_EMAIL" ? (
+                    {category.omit !== MeNotificationSettingsChannel.SUMMARY_EMAIL ? (
                       <div className="flex md:justify-end">
                         <FormField
                           control={form.control}

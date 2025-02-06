@@ -1,13 +1,14 @@
+import { MeNotificationSettingsChannel } from "@/core/domain/me/me-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { MeNotificationCategory, MeNotificationChannel } from "./me.types";
+import { MeNotificationSettingsCategoryType } from "./me.types";
 
 type MeNotificationSettingsResponse = components["schemas"]["NotificationSettingsResponse"];
 
 export interface MeNotificationSettingsInterface extends MeNotificationSettingsResponse {
-  findCategory(category: MeNotificationCategory): {
-    [MeNotificationChannel.EMAIL]: boolean;
-    [MeNotificationChannel.SUMMARY_EMAIL]: boolean;
+  findCategory(category: MeNotificationSettingsCategoryType): {
+    [MeNotificationSettingsChannel.EMAIL]: boolean;
+    [MeNotificationSettingsChannel.SUMMARY_EMAIL]: boolean;
   };
 }
 
@@ -18,12 +19,13 @@ export class MeNotificationSettings implements MeNotificationSettingsInterface {
     Object.assign(this, props);
   }
 
-  findCategory(category: MeNotificationCategory) {
+  findCategory(category: MeNotificationSettingsCategoryType) {
     const cat = this.notificationSettings.find(setting => setting.category === category);
 
     return {
-      [MeNotificationChannel.EMAIL]: cat?.channels.includes(MeNotificationChannel.EMAIL) || false,
-      [MeNotificationChannel.SUMMARY_EMAIL]: cat?.channels.includes(MeNotificationChannel.SUMMARY_EMAIL) || false,
+      [MeNotificationSettingsChannel.EMAIL]: cat?.channels.includes(MeNotificationSettingsChannel.EMAIL) || false,
+      [MeNotificationSettingsChannel.SUMMARY_EMAIL]:
+        cat?.channels.includes(MeNotificationSettingsChannel.SUMMARY_EMAIL) || false,
     };
   }
 }
