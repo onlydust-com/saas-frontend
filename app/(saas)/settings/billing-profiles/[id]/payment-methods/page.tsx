@@ -5,7 +5,9 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
-function BillingProfilePaymentMethodsPage() {
+import { PaymentMethodForm } from "./_features/form/form";
+
+function BillingProfilePaymentMethodsPage({ params }: { params: { id: string } }) {
   return (
     <div>
       <NavigationBreadcrumb
@@ -25,9 +27,12 @@ function BillingProfilePaymentMethodsPage() {
           },
         ]}
       />
-      Billing Profile Payment Methods
+
+      <PaymentMethodForm id={params.id} />
     </div>
   );
 }
 
+// TODO: @billing
+// export default withClientOnly(withAuthenticated(withBillingProfileAdminGuard(BillingProfilePaymentMethodsPage)));
 export default withClientOnly(withAuthenticated(BillingProfilePaymentMethodsPage));
