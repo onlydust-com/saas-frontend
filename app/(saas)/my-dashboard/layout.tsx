@@ -25,13 +25,13 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 enum Views {
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
   "PROJECTS" = "PROJECTS",
-  "FINANCIAL" = "FINANCIAL",
+  "REWARDS" = "REWARDS",
 }
 
 function Safe({ children }: PropsWithChildren) {
   const isContributions = useMatchPath(NEXT_ROUTER.myDashboard.contributions.root);
   const isProjects = useMatchPath(NEXT_ROUTER.myDashboard.projects.root);
-  const isFinancial = useMatchPath(NEXT_ROUTER.myDashboard.financial.root);
+  const isRewards = useMatchPath(NEXT_ROUTER.myDashboard.rewards.root);
 
   const selectedId = useMemo(() => {
     if (isContributions) {
@@ -42,17 +42,17 @@ function Safe({ children }: PropsWithChildren) {
       return Views.PROJECTS;
     }
 
-    if (isFinancial) {
-      return Views.FINANCIAL;
+    if (isRewards) {
+      return Views.REWARDS;
     }
-  }, [isContributions, isProjects, isFinancial]);
+  }, [isContributions, isProjects, isRewards]);
 
   const { open: openMyRewardsTransactions } = useMyRewardsTransactionsSidepanel();
 
   const renderActions = useCallback(() => {
     return (
       <div className="flex items-center gap-lg">
-        {isFinancial ? (
+        {isRewards ? (
           <Button
             variant="secondary"
             size="sm"
@@ -68,7 +68,7 @@ function Safe({ children }: PropsWithChildren) {
         <RequestPayment />
       </div>
     );
-  }, [isFinancial]);
+  }, [isRewards]);
 
   return (
     <PageContent classNames={{ base: "tablet:overflow-hidden tablet:max-h-[calc(100vh-64px)] h-full" }}>
@@ -95,11 +95,11 @@ function Safe({ children }: PropsWithChildren) {
                 },
               },
               {
-                id: Views.FINANCIAL,
-                children: <Translate token={"myDashboard:detail.views.financial"} />,
+                id: Views.REWARDS,
+                children: <Translate token={"myDashboard:detail.views.rewards"} />,
                 as: BaseLink,
                 htmlProps: {
-                  href: NEXT_ROUTER.myDashboard.financial.root,
+                  href: NEXT_ROUTER.myDashboard.rewards.root,
                 },
               },
             ]}
