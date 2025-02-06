@@ -7,7 +7,7 @@ import { SumsubLevelName } from "@/app/api/sumsub/types";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
 import { TypographyMuted } from "@/shared/ui/typography";
 
-export function VerifySidePanel({
+export function VerifyBillingProfile({
   children,
   externalId,
   levelName,
