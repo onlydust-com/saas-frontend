@@ -4,6 +4,8 @@ import { CloudDownload } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { withBillingProfileAdminGuard } from "@/app/(saas)/settings/billing-profiles/_features/billing-profile-admln-guard/billing-profile-admln-guard";
+
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { bootstrap } from "@/core/bootstrap";
 
@@ -160,4 +162,4 @@ function BillingProfileInvoicesPage({ params }: { params: { id: string } }) {
   );
 }
 
-export default withClientOnly(withAuthenticated(BillingProfileInvoicesPage));
+export default withClientOnly(withAuthenticated(withBillingProfileAdminGuard(BillingProfileInvoicesPage)));
