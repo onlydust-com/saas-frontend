@@ -1,6 +1,5 @@
 "use client";
 
-import { SettingsHeader } from "@/app/(saas)/settings/_features/settings-header/settings-header";
 import { NotificationsForm } from "@/app/(saas)/settings/notifications/_features/notifications-form/notifications-form";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -21,11 +20,6 @@ function NotificationsPage() {
             label: "Notifications",
           },
         ]}
-      />
-
-      <SettingsHeader
-        title="Notification Preferences"
-        description="Customize your notification settings to stay informed about important updates."
       />
 
       <NotificationsForm />

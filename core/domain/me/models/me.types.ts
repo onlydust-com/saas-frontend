@@ -10,7 +10,7 @@ export type MeNotificationSettingsChannelType = Exclude<
 export type MeNotificationSettingsCategoryType =
   components["schemas"]["NotificationSettingsResponse"]["notificationSettings"][0]["category"];
 
-export enum MeNotificationCategories {
+export enum MeNotificationCategory {
   MAINTAINER_PROJECT_CONTRIBUTOR = "MAINTAINER_PROJECT_CONTRIBUTOR",
   MAINTAINER_PROJECT_PROGRAM = "MAINTAINER_PROJECT_PROGRAM",
   CONTRIBUTOR_REWARD = "CONTRIBUTOR_REWARD",
@@ -22,7 +22,7 @@ export enum MeNotificationCategories {
   CONTRIBUTOR_REWIND = "CONTRIBUTOR_REWIND",
 }
 
-export enum MeNotificationChannels {
+export enum MeNotificationChannel {
   EMAIL = "EMAIL",
   SUMMARY_EMAIL = "SUMMARY_EMAIL",
   IN_APP = "IN_APP",
