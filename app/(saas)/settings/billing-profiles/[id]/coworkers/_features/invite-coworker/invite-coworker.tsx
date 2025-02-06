@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
@@ -33,8 +34,12 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
     },
     options: {
       onSuccess: () => {
+        toast.success("Coworker invited successfully");
         setIsOpen(false);
         form.reset();
+      },
+      onError: () => {
+        toast.error("Failed to invite coworker");
       },
     },
   });
@@ -56,7 +61,7 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
         </div>
       </Alert>
 
-      <SheetContent className="!min-w-[400px] sm:w-[540px]">
+      <SheetContent>
         <SheetHeader>
           <SheetTitle>Invite team member</SheetTitle>
         </SheetHeader>
