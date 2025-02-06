@@ -3,7 +3,7 @@ import { ArrowRight, CircleDot, Clock, Folder, User } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
-import { LiveHackathonCardProps } from "@/app/(saas)/hackathons/_components/live-hackathon-card/live-hackathon-card.types";
+import { LiveHackathonCardProps } from "@/app/(saas)/osw/_components/live-hackathon-card/live-hackathon-card.types";
 
 import { bootstrap } from "@/core/bootstrap";
 

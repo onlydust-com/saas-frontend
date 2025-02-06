@@ -3,7 +3,7 @@ import { Calendar, ChevronDown } from "lucide-react";
 import {
   HackathonEventMenuItem,
   HackathonEventMenuProps,
-} from "@/app/(saas)/hackathons/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu.types";
+} from "@/app/(saas)/osw/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Menu } from "@/design-system/molecules/menu";

@@ -2,7 +2,7 @@ import logoWhite from "@/public/images/logos/logo-white.svg";
 import { ArrowRight, CornerDownLeft } from "lucide-react";
 import Image from "next/image";
 
-import { HackathonSummaryProps } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary.types";
+import { HackathonSummaryProps } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-summary/hackathon-summary.types";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 

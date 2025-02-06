@@ -1,7 +1,7 @@
 import { Bell } from "lucide-react";
 import { toast } from "sonner";
 
-import { RegisterHackathonProps } from "@/app/(saas)/hackathons/_features/register-hackathon/register-hackathon.types";
+import { RegisterHackathonProps } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon.types";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";

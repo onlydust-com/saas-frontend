@@ -1,7 +1,7 @@
 "use client";
 
-import { HackathonDescription } from "@/app/(saas)/hackathons/[hackathonSlug]/overview/_features/hackathon-description/hackathon-description";
-import { HackathonStats } from "@/app/(saas)/hackathons/[hackathonSlug]/overview/_features/hackathon-stats/hackathon-stats";
+import { HackathonDescription } from "@/app/(saas)/osw/[hackathonSlug]/overview/_features/hackathon-description/hackathon-description";
+import { HackathonStats } from "@/app/(saas)/osw/[hackathonSlug]/overview/_features/hackathon-stats/hackathon-stats";
 
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 

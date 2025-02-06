@@ -39,7 +39,7 @@ export const NEXT_ROUTER = {
   createProject: {
     root: "/create-project",
     default: {
-      root: () => `/create-project`,
+      root: () => "/create-project",
     },
   },
   myDashboard: {
@@ -94,7 +94,7 @@ export const NEXT_ROUTER = {
     },
   },
   hackathons: {
-    root: "/hackathons",
+    root: "/osw",
     details: {
       root: (slug: string) => `/hackathons/${slug}`,
       overview: {
@@ -249,7 +249,7 @@ export const MARKETPLACE_ROUTER = {
   },
   notFound: "/not-found",
   hackathons: {
-    root: "/hackathons",
+    root: "/osw",
     details: {
       root: (slug: string) => `/hackathons/${slug}`,
     },

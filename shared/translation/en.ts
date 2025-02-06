@@ -1,9 +1,9 @@
 import { enDataTranslation } from "@/app/(saas)/data/_translations/data.translate";
 import { enEcosystemsTranslation } from "@/app/(saas)/ecosystems/_translations/ecosystems.translate";
 import { enFinancialsTranslation } from "@/app/(saas)/financials/_translations/financials.translate";
-import { enHackathonsTranslation } from "@/app/(saas)/hackathons/_translations/hackathons.translate";
 import { enManageProjectsTranslation } from "@/app/(saas)/manage-projects/_translations/manage-projects.translate";
 import { enMyDashboardTranslation } from "@/app/(saas)/my-dashboard/_translations/my-dashboard.translate";
+import { enHackathonsTranslation } from "@/app/(saas)/osw/_translations/hackathons.translate";
 import { enProgramsTranslation } from "@/app/(saas)/programs/_translations/programs.translate";
 import { enProjectRecommendationTranslation } from "@/app/(saas)/project-recommendation/_translations/project-recommendation.translate";
 import { enProjectsTranslation } from "@/app/(saas)/projects/_translations/projects.translate";

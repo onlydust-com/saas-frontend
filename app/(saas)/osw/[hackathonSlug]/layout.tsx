@@ -2,9 +2,9 @@
 
 import { PropsWithChildren, useMemo } from "react";
 
-import { HackathonEvents } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-events/hackathon-events";
-import { HackathonSummary } from "@/app/(saas)/hackathons/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
-import { RegisterHackathon } from "@/app/(saas)/hackathons/_features/register-hackathon/register-hackathon";
+import { HackathonEvents } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-events/hackathon-events";
+import { HackathonSummary } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
+import { RegisterHackathon } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Tabs } from "@/design-system/molecules/tabs/tabs";
@@ -66,7 +66,7 @@ function Navigation({ params }: { params: { hackathonSlug: string } }) {
         //   children: <Translate token={"hackathon:details.tabs.community"} />,
         //   as: BaseLink,
         //   htmlProps: {
-        //     href: NEXT_ROUTER.hackathons.details.community.root(params.hackathonSlug),
+        //     href: NEXT_ROUTER.osw.details.community.root(params.hackathonSlug),
         //   },
         // },
       ]}
