@@ -17,7 +17,7 @@ export function ContributorGroup() {
   const { user } = useAuthUser();
   const isContributionsRoute = useMatchPath(NEXT_ROUTER.myDashboard.contributions.root, { exact: false });
   const isProjectsRoute = useMatchPath(NEXT_ROUTER.myDashboard.projects.root, { exact: false });
-  const isRewardsRoute = useMatchPath(NEXT_ROUTER.myDashboard.financial.root, { exact: false });
+  const isRewardsRoute = useMatchPath(NEXT_ROUTER.myDashboard.rewards.root, { exact: false });
   const isProfileRoute = useMatchPath(NEXT_ROUTER.users.details.root(user?.login ?? ""), { exact: false });
 
   const items = [
@@ -35,7 +35,7 @@ export function ContributorGroup() {
     },
     {
       title: "Rewards",
-      url: NEXT_ROUTER.myDashboard.financial.root,
+      url: NEXT_ROUTER.myDashboard.rewards.root,
       icon: ChartPie,
       isActive: isRewardsRoute,
     },

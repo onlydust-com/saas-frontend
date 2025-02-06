@@ -1,7 +1,7 @@
 "use client";
 
-import { BudgetAvailableCards } from "@/app/(saas)/my-dashboard/financial/_features/budget-available-cards/budget-available-cards";
-import { RewardsTable } from "@/app/(saas)/my-dashboard/financial/_features/rewards-table/rewards-table";
+import { BudgetAvailableCards } from "@/app/(saas)/my-dashboard/rewards/_features/budget-available-cards/budget-available-cards";
+import { RewardsTable } from "@/app/(saas)/my-dashboard/rewards/_features/rewards-table/rewards-table";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -12,7 +12,7 @@ import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/r
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-function MyDashboardFinancialPage() {
+function MyDashboardRewardsPage() {
   return (
     <>
       <NavigationBreadcrumb
@@ -23,8 +23,8 @@ function MyDashboardFinancialPage() {
             href: NEXT_ROUTER.myDashboard.root,
           },
           {
-            id: "financial",
-            label: <Translate token={"myDashboard:detail.views.financial"} />,
+            id: "rewards",
+            label: <Translate token={"myDashboard:detail.views.rewards"} />,
           },
         ]}
       />
@@ -40,4 +40,4 @@ function MyDashboardFinancialPage() {
   );
 }
 
-export default withClientOnly(withAuthenticated(MyDashboardFinancialPage));
+export default withClientOnly(withAuthenticated(MyDashboardRewardsPage));
