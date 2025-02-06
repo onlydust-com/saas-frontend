@@ -172,3 +172,13 @@ export type InviteBillingProfileCoworkerPortParams = HttpClientParameters<{
 }>;
 
 export type InviteBillingProfileCoworkerPortResponse = HttpStorageResponse<InviteBillingProfileCoworkerResponse>;
+
+/* --------------------- Delete Billing Profile Coworker  --------------------- */
+
+type DeleteBillingProfileCoworkerPathParams = operations["removeCoworker"]["parameters"]["path"];
+
+export type DeleteBillingProfileCoworkerPortParams = HttpClientParameters<{
+  PathParams: DeleteBillingProfileCoworkerPathParams;
+}>;
+
+export type DeleteBillingProfileCoworkerPortResponse = HttpStorageResponse<void>;

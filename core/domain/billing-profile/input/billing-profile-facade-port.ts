@@ -1,6 +1,8 @@
 import {
   AcceptOrDeclineBillingProfileMandatePortParams,
   AcceptOrDeclineBillingProfileMandatePortResponse,
+  DeleteBillingProfileCoworkerPortParams,
+  DeleteBillingProfileCoworkerPortResponse,
   DownloadBillingProfileInvoiceByIdPortParams,
   DownloadBillingProfileInvoiceByIdPortResponse,
   GetBillingProfileByIdPortParams,
@@ -47,4 +49,5 @@ export interface BillingProfileFacadePort {
   getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
   getBillingProfileCoworkers(p: GetBillingProfileCoworkersPortParams): GetBillingProfileCoworkersPortResponse;
   inviteBillingProfileCoworker(p: InviteBillingProfileCoworkerPortParams): InviteBillingProfileCoworkerPortResponse;
+  deleteBillingProfileCoworker(p: DeleteBillingProfileCoworkerPortParams): DeleteBillingProfileCoworkerPortResponse;
 }

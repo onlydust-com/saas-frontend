@@ -6,15 +6,18 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
+import { ManageCoworker } from "../manage-coworker/manage-coworker";
 import { CoworkersTableProps } from "./coworkers-table.types";
 
 export function CoworkersTable({ id }: CoworkersTableProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
+  const { user } = useAuthUser();
   const {
     data: coworkersData,
     isLoading: coworkersLoading,
@@ -58,20 +61,34 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
                     <AvatarImage src={coworker.avatarUrl} alt={coworker.login} />
                     <AvatarFallback>{coworker.login.charAt(0)}</AvatarFallback>
                   </Avatar>
-
-                  <TypographyP>{coworker.login}</TypographyP>
+                  <div className="flex flex-col">
+                    <TypographyP>{coworker.login}</TypographyP>
+                    {coworker.hasPendingInvitation() ? <TypographyMuted>Invitation pending</TypographyMuted> : null}
+                    {user?.githubUserId && coworker.isSelf(user.githubUserId) ? (
+                      <TypographyMuted>You</TypographyMuted>
+                    ) : null}
+                  </div>
                 </Link>
               </TableCell>
               <TableCell>{coworker.role}</TableCell>
               <TableCell>
                 {coworker.joinedAt ? dateKernelPort.format(new Date(coworker.joinedAt), "yyyy-MM-dd") : "-"}
               </TableCell>
+              <TableCell className="flex justify-end">
+                {user?.githubUserId && coworker.canManageCoworker(user?.githubUserId) ? (
+                  <ManageCoworker
+                    actionType={coworker.actionType()}
+                    githubUserId={coworker.githubUserId}
+                    billingProfileId={id}
+                  />
+                ) : null}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={3}>Total: {totalItemNumber}</TableCell>
+            <TableCell colSpan={4}>Total: {totalItemNumber}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

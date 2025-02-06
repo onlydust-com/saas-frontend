@@ -8,3 +8,4 @@ export * from "./use-download-billing-profile-invoice-by-id";
 export * from "./use-get-billing-profile-invoices";
 export * from "./use-get-billing-profile-coworkers";
 export * from "./use-invite-billing-profile-coworker";
+export * from "./use-delete-billing-profile-coworker";

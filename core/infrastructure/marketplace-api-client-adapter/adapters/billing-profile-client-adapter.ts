@@ -36,6 +36,7 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
     getBillingProfileInvoices: "billing-profiles/:billingProfileId/invoices",
     getBillingProfileCoworkers: "billing-profiles/:billingProfileId/coworkers",
     inviteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers",
+    deleteBillingProfileCoworker: "billing-profiles/:billingProfileId/coworkers/:githubUserId",
   } as const;
 
   getBillingProfileById = ({ pathParams }: FirstParameter<BillingProfileStoragePort["getBillingProfileById"]>) => {
@@ -304,6 +305,27 @@ export class BillingProfileClientAdapter implements BillingProfileStoragePort {
         tag,
         pathParams,
         body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  deleteBillingProfileCoworker = ({
+    pathParams,
+  }: FirstParameter<BillingProfileStoragePort["deleteBillingProfileCoworker"]>) => {
+    const path = this.routes["deleteBillingProfileCoworker"];
+    const method = "DELETE";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
       });
 
     return {
