@@ -152,3 +152,35 @@ export type AcceptOrRejectCoworkerInvitationPortParams = HttpClientParameters<{
 }>;
 
 export type AcceptOrRejectCoworkerInvitationPortResponse = HttpStorageResponse;
+
+/* ------------------------ Delete Billing Profile ------------------------ */
+
+type DeleteBillingProfilePathParams = operations["deleteBillingProfile"]["parameters"]["path"];
+
+export type DeleteBillingProfilePortParams = HttpClientParameters<{
+  PathParams: DeleteBillingProfilePathParams;
+}>;
+
+export type DeleteBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Enable  Billing Profile ------------------------ */
+
+export type EnableBillingProfileBody = components["schemas"]["BillingProfileEnableRequest"];
+
+type EnableBillingProfilePathParams = operations["enableBillingProfile"]["parameters"]["path"];
+
+export type EnableBillingProfilePortParams = HttpClientParameters<{
+  PathParams: EnableBillingProfilePathParams;
+}>;
+
+export type EnableBillingProfilePortResponse = HttpStorageResponse;
+
+/* ------------------------ Remove Coworker From Billing Profile ------------------------ */
+
+type RemoveCoworkerFromBillingProfilePathParams = operations["removeCoworker"]["parameters"]["path"];
+
+export type RemoveCoworkerFromBillingProfilePortParams = HttpClientParameters<{
+  PathParams: RemoveCoworkerFromBillingProfilePathParams;
+}>;
+
+export type RemoveCoworkerFromBillingProfilePortResponse = HttpStorageResponse;

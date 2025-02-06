@@ -1,3 +1,5 @@
+import { Locale } from "date-fns";
+
 export enum DateRangeType {
   LAST_WEEK = "LAST_WEEK",
   LAST_MONTH = "LAST_MONTH",
@@ -59,4 +61,5 @@ export interface DateFacadePort {
   isTimeGroupingType: (value: string) => value is TimeGroupingType;
   getDateFromWeekNumber: (year: number, weekNumber: number) => Date;
   getWeekNumber: (date: Date, options?: { hideMonths: boolean }) => string;
+  formatInTimeZone: (date: Date, timeZone: string, pattern: string, options?: { locale: Locale }) => string;
 }

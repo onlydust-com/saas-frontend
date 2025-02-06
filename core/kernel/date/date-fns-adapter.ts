@@ -1,5 +1,7 @@
 import * as DateFns from "date-fns";
-import { FormatDistanceStrictUnit } from "date-fns";
+import { FormatDistanceStrictUnit, Locale } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
+
 
 import { DateFacadePort, DateRangeType, TimeGroupingType } from "./date-facade-port";
 
@@ -200,5 +202,9 @@ export class DateFnsAdapter implements DateFacadePort {
       return this.format(date, "w yyyy");
     }
     return this.format(date, "w, MMM yyyy");
+  }
+
+  formatInTimeZone(date: Date, timeZone: string, pattern: string, options?: { locale: Locale }): string {
+    return formatInTimeZone(date, timeZone, pattern, options);
   }
 }

@@ -9,11 +9,13 @@ import { useAuthUser } from "../hooks/auth/use-auth-user";
 interface IntercomContextInterface {
   hideIntercomLauncher: () => void;
   showIntercomLauncher: () => void;
+  openIntercom: () => void;
 }
 
 export const IntercomContext = createContext<IntercomContextInterface>({
   hideIntercomLauncher: () => {},
   showIntercomLauncher: () => {},
+  openIntercom: () => {},
 });
 
 const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID ?? "";
@@ -41,6 +43,19 @@ export function IntercomProvider({ children }: PropsWithChildren) {
     }
     if (intercomContainer) {
       intercomContainer.style.display = "block";
+    }
+  }
+
+  function openIntercom() {
+    try {
+      const intercomLauncher = document.querySelector(".intercom-launcher");
+      if (!(intercomLauncher instanceof HTMLElement)) {
+        console.warn("Intercom launcher not found or not an HTMLElement");
+        return;
+      }
+      intercomLauncher.click();
+    } catch (error) {
+      console.error("Failed to open Intercom:", error);
     }
   }
 
@@ -83,7 +98,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   }, [user]);
 
   return (
-    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher }}>
+    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher, openIntercom }}>
       {children}
     </IntercomContext.Provider>
   );

@@ -14,6 +14,12 @@ export interface BillingProfileInterface extends BillingProfileResponse {
   isAdmin(): boolean;
   isInvited(): boolean;
   hasRole(): boolean;
+  getStatus(): {
+    label: string;
+    action: string;
+    message: string;
+    type: "error" | "warning" | "success";
+  };
 }
 
 export class BillingProfile implements BillingProfileInterface {
@@ -92,5 +98,52 @@ export class BillingProfile implements BillingProfileInterface {
 
   hasRole() {
     return Boolean(this.me.role);
+  }
+
+  getStatus() {
+    switch (this.status) {
+      case "CLOSED":
+        return {
+          label: "Closed",
+          action: "Contact us",
+          message: "Your profile was permanently rejected, please contact us if you believe this is an error.",
+          type: "error",
+        } as const;
+      case "NOT_STARTED":
+        return {
+          label: "Not Started",
+          action: "Start verification",
+          message: "You need to verify your identity in order to receive rewards.",
+          type: "warning",
+        } as const;
+      case "REJECTED":
+        return {
+          label: "Rejected",
+          action: "Restart verification",
+          message: "Your verification was rejected.",
+          type: "error",
+        } as const;
+      case "STARTED":
+        return {
+          label: "Started",
+          action: "Resume verification",
+          message: "You need to verify your identity in order to receive rewards.",
+          type: "warning",
+        } as const;
+      case "UNDER_REVIEW":
+        return {
+          label: "Under Review",
+          action: "See verification details",
+          message: "We’re reviewing your account, please come back later.",
+          type: "warning",
+        } as const;
+      case "VERIFIED":
+        return {
+          label: "Verified",
+          action: "Contact us",
+          message: "To edit any information, please reach out to us.",
+          type: "success",
+        } as const;
+    }
   }
 }
