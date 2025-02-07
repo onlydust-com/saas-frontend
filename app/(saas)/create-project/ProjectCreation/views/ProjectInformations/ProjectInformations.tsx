@@ -38,7 +38,6 @@ export const ProjectInformationsPage = () => {
     visibility: "PUBLIC",
     topContributors: [],
     leaders: user ? [user] : [],
-    invitedLeaders: [],
     moreInfos: [],
     hasRemainingBudget: false,
     indexingComplete: false,

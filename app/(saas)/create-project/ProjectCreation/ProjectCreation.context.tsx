@@ -155,7 +155,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (user) {
-      form.setValue("projectLeadsToKeep", [user.id]);
+      form.setValue("projectLeads", [user.id]);
     }
   }, [user]);
 
@@ -172,9 +172,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
       ...formData,
       logoUrl: fileUrl?.url,
       contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
-      inviteGithubUserIdsAsProjectLeads: (formData.inviteGithubUserIdsAsProjectLeads || []).map(userId =>
-        Number(userId)
-      ),
+      projectLeads: formData.projectLeads || [],
       isLookingForContributors: formData.isLookingForContributors || false,
       githubRepoIds: githubRepoIds || [],
       moreInfos: (moreInfos || []).filter(info => info.url !== "").map(info => ({ url: info.url, value: info.value })),

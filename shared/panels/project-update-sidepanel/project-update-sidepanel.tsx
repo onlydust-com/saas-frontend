@@ -91,8 +91,7 @@ export function ProjectUpdateSidepanel() {
         isLookingForContributors: data.hiring,
         githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
-        projectLeadsToKeep: data.leaders.map(lead => lead.id),
-        inviteGithubUserIdsAsProjectLeads: data.invitedLeaders.map(lead => lead.githubUserId),
+        projectLeads: data.leaders.map(lead => lead.id),
         rewardSettingsDate: data.rewardSettings?.ignoreContributionsBefore
           ? new Date(data.rewardSettings?.ignoreContributionsBefore)
           : undefined,
