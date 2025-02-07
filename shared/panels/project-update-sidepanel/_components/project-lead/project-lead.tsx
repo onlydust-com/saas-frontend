@@ -48,6 +48,7 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
           render={({ field: { onChange, value, name } }) => (
             <GithubUserAutocomplete
               withInternalUserOnly={true}
+              withIsRegistered={true}
               name={name}
               onSelect={(userIds: number[], users: MenuItemAvatarPort<number>[]) => {
                 onChange([...(value || []), ...userIds]);

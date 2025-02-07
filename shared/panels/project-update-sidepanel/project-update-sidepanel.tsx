@@ -123,7 +123,7 @@ export function ProjectUpdateSidepanel() {
             {data && (
               <>
                 <GlobalInformation project={data} form={form} />
-                <ProjectLead project={data} form={form}/>
+                <ProjectLead project={data} form={form} />
                 <MoreInfo form={form} />
                 <ContributorLabels form={form} />
                 <Repositories project={data} />

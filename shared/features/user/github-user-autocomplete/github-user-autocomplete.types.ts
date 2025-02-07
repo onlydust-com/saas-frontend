@@ -5,6 +5,7 @@ export interface GithubUserAutocompleteProps extends SelectExtendedProps<number>
   withExternalUser?: boolean;
   withInternalUserOnly?: boolean;
   withExternalUserOnly?: boolean;
+  withIsRegistered?: boolean;
   selectedUser?: number[];
   onSelect?: (user: number[], items: MenuItemAvatarPort<number>[]) => void;
 }
