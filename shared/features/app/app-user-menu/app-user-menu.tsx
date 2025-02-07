@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useLogout } from "@/shared/hooks/auth/use-logout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
@@ -31,9 +34,9 @@ export function AppUserMenu() {
 
       <DropdownMenuContent className="w-36" align="end">
         <DropdownMenuGroup>
-          {/* <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild>
             <Link href={NEXT_ROUTER.settings.root}>Settings</Link>
-          </DropdownMenuItem> */}
+          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <a href="https://blog.onlydust.com/docs/" target="_blank" rel="noopener noreferrer">
               Support

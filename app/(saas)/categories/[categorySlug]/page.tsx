@@ -62,7 +62,7 @@ function CategoryPage({ params }: { params: { categorySlug: string } }) {
         paramsReady={Boolean(category?.id)}
       />
 
-      <div className="flex flex-col gap-4xl py-10">
+      <div className="flex flex-col gap-4xl pt-10">
         <NavigationBreadcrumb
           breadcrumb={[
             {

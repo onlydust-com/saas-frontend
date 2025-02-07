@@ -15,7 +15,7 @@ import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Label } from "@/shared/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 import { InviteCoworkerProps, inviteCoworkerSchema } from "./invite-coworker.types";
@@ -61,67 +61,69 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
         </div>
       </Alert>
 
-      <SheetContent>
+      <SheetContent className="flex flex-col gap-8">
         <SheetHeader>
           <SheetTitle>Invite team member</SheetTitle>
         </SheetHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-6">
-            <FormField
-              control={form.control}
-              name="githubUserId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>User</FormLabel>
-                  <FormControl>
-                    <UserAutocomplete
-                      name="githubUserId"
-                      selectedUser={field.value ? [field.value] : []}
-                      onSelect={ids => field.onChange(ids[0])}
-                      isPopover={false}
-                      placeholder="Search for a user"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex h-full flex-col gap-4">
+            <div className="flex flex-1 flex-col gap-4">
+              <FormField
+                control={form.control}
+                name="githubUserId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>User</FormLabel>
+                    <FormControl>
+                      <UserAutocomplete
+                        name="githubUserId"
+                        selectedUser={field.value ? [field.value] : []}
+                        onSelect={ids => field.onChange(ids[0])}
+                        isPopover={false}
+                        placeholder="Search for a user"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <FormControl>
-                    <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-4">
-                      <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
-                        <RadioGroupItem value={BillingProfileRole.Admin} id={BillingProfileRole.Admin} />
-                        <FormLabel htmlFor={BillingProfileRole.Admin} className="flex flex-col gap-2">
-                          <Label>Admin</Label>
-                          <TypographyMuted>Can modify general information & invite team members.</TypographyMuted>
-                        </FormLabel>
-                      </div>
-                      <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
-                        <RadioGroupItem value={BillingProfileRole.Member} id={BillingProfileRole.Member} />
-                        <FormLabel htmlFor={BillingProfileRole.Member} className="flex flex-col gap-2">
-                          <Label>Member</Label>
-                          <TypographyMuted>Can allocate their rewards to this billing profile.</TypographyMuted>
-                        </FormLabel>
-                      </div>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <FormControl>
+                      <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col gap-4">
+                        <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
+                          <RadioGroupItem value={BillingProfileRole.Admin} id={BillingProfileRole.Admin} />
+                          <FormLabel htmlFor={BillingProfileRole.Admin} className="flex flex-col gap-2">
+                            <Label>Admin</Label>
+                            <TypographyMuted>Can modify general information & invite team members.</TypographyMuted>
+                          </FormLabel>
+                        </div>
+                        <div className="flex items-center gap-4 rounded-md border border-secondary p-4">
+                          <RadioGroupItem value={BillingProfileRole.Member} id={BillingProfileRole.Member} />
+                          <FormLabel htmlFor={BillingProfileRole.Member} className="flex flex-col gap-2">
+                            <Label>Member</Label>
+                            <TypographyMuted>Can allocate their rewards to this billing profile.</TypographyMuted>
+                          </FormLabel>
+                        </div>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <div className="flex justify-end">
+            <SheetFooter>
               <Button type="submit" loading={isPending}>
                 Invite
               </Button>
-            </div>
+            </SheetFooter>
           </form>
         </Form>
       </SheetContent>

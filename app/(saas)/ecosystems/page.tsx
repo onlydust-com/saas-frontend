@@ -14,7 +14,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 function EcosystemsPage() {
   return (
     <PageContainer>
-      <div className="flex flex-col gap-4xl py-10">
+      <div className="flex flex-col gap-4xl pt-10">
         <NavigationBreadcrumb
           breadcrumb={[
             {

@@ -6,37 +6,31 @@ import {
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
 import { MeFacadePort } from "@/core/domain/me/inputs/me-facade-port";
-import { ReplaceMyProfileBody } from "@/core/domain/me/me-contract.types";
-import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
+import { SetMyNotificationSettingsBody } from "@/core/domain/me/me-contract.types";
 
-export function useReplaceMyProfile({
+export function useSetMyNotificationsSettings({
+  pathParams,
   options,
 }: UseMutationFacadeParams<
-  MeFacadePort["replaceMyProfile"],
+  MeFacadePort["setMyNotificationSettings"],
   undefined,
-  MeProfileInterface,
-  ReplaceMyProfileBody
+  never,
+  SetMyNotificationSettingsBody
 > = {}) {
   const meStoragePort = bootstrap.getMeStoragePortForClient();
   const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
-      ...meStoragePort.replaceMyProfile({}),
+      ...meStoragePort.setMyNotificationSettings({ pathParams }),
       options: {
-        ...options,
-        onSuccess: async (data, variables, context) => {
+        onSuccess: async () => {
           await queryClient.invalidateQueries({
-            queryKey: meStoragePort.getMyProfile({}).tag,
+            queryKey: meStoragePort.getMyNotificationSettings({}).tag,
             exact: false,
           });
-
-          await queryClient.invalidateQueries({
-            queryKey: meStoragePort.getMe({}).tag,
-            exact: false,
-          });
-          options?.onSuccess?.(data, variables, context);
         },
+        ...options,
       },
     })
   );

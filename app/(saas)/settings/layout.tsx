@@ -41,7 +41,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
   return (
     <PageContainer>
-      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={value} className="flex w-full flex-col gap-4 py-4">
+      <Tabs defaultValue={NEXT_ROUTER.settings.profile.root} value={value} className="flex w-full flex-col gap-4 pt-4">
         <TabsList className="h-auto w-fit flex-wrap justify-start">
           {SETTING_ROUTES.map(({ href, label }) => (
             <TabsTrigger key={href} value={href}>

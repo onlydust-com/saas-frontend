@@ -17,7 +17,7 @@ function OpenSourceWeekPage() {
     <PageContainer>
       <PosthogCaptureOnMount eventName={"hackathon_list_viewed"} />
 
-      <div className="flex flex-col gap-4xl py-10">
+      <div className="flex flex-col gap-4xl pt-10">
         <NavigationBreadcrumb
           breadcrumb={[
             {

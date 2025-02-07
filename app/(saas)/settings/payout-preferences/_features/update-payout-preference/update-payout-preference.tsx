@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { toast } from "sonner";
 
-import { CreateBillingProfile } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile/create-billing-profile";
+import { CreateBillingProfilePanel } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile-panel/create-billing-profile-panel";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -35,9 +35,9 @@ export function UpdatePayoutPreference({ projectId, defaultValue = "" }: { proje
 
   if (!data) {
     return (
-      <CreateBillingProfile>
+      <CreateBillingProfilePanel>
         <Button>Create billing profile</Button>
-      </CreateBillingProfile>
+      </CreateBillingProfilePanel>
     );
   }
 
