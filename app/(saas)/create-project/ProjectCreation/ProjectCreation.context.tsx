@@ -154,7 +154,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
   });
 
   useEffect(() => {
-    if (user) {
+    if (user && !form.getValues("projectLeads")?.length) {
       form.setValue("projectLeads", [user]);
     }
   }, [user]);
