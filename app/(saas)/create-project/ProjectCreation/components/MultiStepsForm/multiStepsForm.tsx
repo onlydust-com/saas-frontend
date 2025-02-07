@@ -38,13 +38,13 @@ export const MultiStepsForm: FC<MultiStepsFormProps> = ({
         <div className="flex items-center justify-start">{footerRightElement ? footerRightElement : null}</div>
         <div className="flex w-full items-center justify-start gap-6 md:w-auto md:justify-end">
           {prev && (
-            <Button variant="secondary" onClick={prev} className="w-full md:w-auto">
+            <Button type="button" variant="secondary" onClick={prev} className="w-full md:w-auto">
               <ArrowLeft className="-ml-2 h-5 w-5" />
               Back
             </Button>
           )}
           {next && (
-            <Button disabled={nextDisabled} variant="default" onClick={next} className="w-full md:w-auto">
+            <Button type="button" disabled={nextDisabled} variant="default" onClick={next} className="w-full md:w-auto">
               Next
               <ArrowRight className="-mr-2 h-5 w-5" />
             </Button>
