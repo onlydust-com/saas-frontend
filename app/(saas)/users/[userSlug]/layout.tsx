@@ -9,11 +9,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 
 import { UserSummary } from "./_features/user-summary/user-summary";
 
-type Props = {
-  params: { userSlug: string };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { userSlug: string } }): Promise<Metadata> {
   const userSlug = params.userSlug;
 
   return {
