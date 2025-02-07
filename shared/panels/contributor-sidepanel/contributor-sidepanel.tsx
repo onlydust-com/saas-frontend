@@ -5,15 +5,15 @@ import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { ContributorProfileExtended } from "@/shared/features/contributors/contributor-profile-extended/contributor-profile-extended";
 import { Timeline } from "@/shared/features/contributors/timeline/timeline";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { Activity } from "@/shared/panels/contributor-sidepanel/_components/activity/activity";
 import { Ecosystems } from "@/shared/panels/contributor-sidepanel/_components/ecosystems/ecosystems";
 import { Kpi } from "@/shared/panels/contributor-sidepanel/_components/kpi/kpi";
@@ -91,10 +91,9 @@ export function ContributorSidepanel({ customFooter }: ContributorSidepanelProps
           variant={"secondary"}
           endContent={<SquareArrowOutUpRight size={16} />}
           size={"md"}
-          as={"a"}
+          as={BaseLink}
           htmlProps={{
-            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(data.contributor.login)),
-            target: "_blank",
+            href: NEXT_ROUTER.users.details.root(data.contributor.login),
           }}
         >
           <Translate token={"panels:contributor.seeContributor"} />

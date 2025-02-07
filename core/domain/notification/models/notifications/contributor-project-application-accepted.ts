@@ -3,8 +3,7 @@ import { NotificationInterface } from "@/core/domain/notification/models/notific
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export class ContributorProjectApplicationAccepted implements NotificationInterface {
   data: components["schemas"]["NotificationContributorProjectApplicationAccepted"] | undefined;
@@ -38,6 +37,6 @@ export class ContributorProjectApplicationAccepted implements NotificationInterf
   }
 
   getUrl() {
-    return marketplaceRouting(MARKETPLACE_ROUTER.applications.all);
+    return NEXT_ROUTER.myDashboard.contributions.root;
   }
 }

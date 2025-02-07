@@ -3,8 +3,7 @@ import { NotificationInterface } from "@/core/domain/notification/models/notific
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export class ContributorProjectGoodFirstIssueCreated implements NotificationInterface {
   data: components["schemas"]["NotificationContributorProjectGoodFirstIssueCreated"] | undefined;
@@ -38,6 +37,6 @@ export class ContributorProjectGoodFirstIssueCreated implements NotificationInte
   }
 
   getUrl() {
-    return marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(this.data!.projectSlug));
+    return NEXT_ROUTER.projects.details.root(this.data!.projectSlug);
   }
 }
