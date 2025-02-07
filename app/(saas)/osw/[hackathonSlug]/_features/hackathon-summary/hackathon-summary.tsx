@@ -1,3 +1,5 @@
+"use client";
+
 import logoWhite from "@/public/images/logos/logo-white.svg";
 import { ArrowRight, CornerDownLeft } from "lucide-react";
 import Image from "next/image";
