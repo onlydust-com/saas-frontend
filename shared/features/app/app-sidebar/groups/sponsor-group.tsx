@@ -77,7 +77,9 @@ export function SponsorGroup() {
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon}
-                  <span>{item.title}</span>
+                  <span className="line-clamp-1" title={item.title}>
+                    {item.title}
+                  </span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>

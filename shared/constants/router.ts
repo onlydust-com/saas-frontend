@@ -36,6 +36,12 @@ export const NEXT_ROUTER = {
       root: (slug: string) => `/manage-projects/${slug}/financial`,
     },
   },
+  createProject: {
+    root: "/create-project",
+    default: {
+      root: () => "/create-project",
+    },
+  },
   myDashboard: {
     root: "/my-dashboard",
     contributions: {
@@ -44,8 +50,8 @@ export const NEXT_ROUTER = {
     projects: {
       root: "/my-dashboard/projects",
     },
-    financial: {
-      root: "/my-dashboard/financial",
+    rewards: {
+      root: "/my-dashboard/rewards",
     },
   },
   data: {
@@ -87,18 +93,18 @@ export const NEXT_ROUTER = {
       },
     },
   },
-  hackathons: {
-    root: "/hackathons",
+  osw: {
+    root: "/osw",
     details: {
-      root: (slug: string) => `/hackathons/${slug}`,
+      root: (slug: string) => `/osw/${slug}`,
       overview: {
-        root: (slug: string) => `/hackathons/${slug}/overview`,
+        root: (slug: string) => `/osw/${slug}/overview`,
       },
       projects: {
-        root: (slug: string) => `/hackathons/${slug}/projects`,
+        root: (slug: string) => `/osw/${slug}/projects`,
       },
       community: {
-        root: (slug: string) => `/hackathons/${slug}/community`,
+        root: (slug: string) => `/osw/${slug}/community`,
       },
     },
   },
@@ -182,87 +188,8 @@ export const NEXT_ROUTER = {
         root: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
       },
     },
-    termsAndConditions: {
-      root: "/settings/terms-and-conditions",
-    },
   },
   discover: {
     root: "/discover",
-  },
-} as const;
-
-export const MARKETPLACE_ROUTER = {
-  home: {
-    all: "/",
-  },
-  projects: {
-    all: "/projects",
-    allWithParams: (params: { [key: string]: string }) => {
-      const searchParams = new URLSearchParams(params);
-      return `/projects?${searchParams.toString()}`;
-    },
-    details: {
-      root: (slug: string) => `/p/${slug}`,
-      contributors: (slug: string) => `/p/${slug}/contributors`,
-      applications: {
-        root: (slug: string) => `/p/${slug}/applications`,
-        details: (slug: string, issueId: string) => `/p/${slug}/applications/${issueId}`,
-      },
-      rewards: {
-        root: (slug: string) => `/p/${slug}/rewards`,
-        new: (slug: string) => `/p/${slug}/rewards/new`,
-      },
-      edit: (slug: string) => `/p/${slug}/edit`,
-      contributions: {
-        root: (slug: string) => `/p/${slug}/contributions`,
-      },
-      insights: (slug: string) => `/p/${slug}/insights`,
-    },
-    creation: "/p/create",
-  },
-  contributions: {
-    all: "/contributions",
-  },
-  applications: {
-    all: "/applications",
-  },
-  rewards: {
-    all: "/rewards",
-  },
-  settings: {
-    all: "/settings",
-    profile: "/settings/profile",
-    payoutPreferences: "/settings/payout-preferences",
-    billing: {
-      root: (slug: string) => `/settings/billing/${slug}`,
-      generalInformation: (slug: string) => `/settings/billing/${slug}/general-information`,
-      paymentMethods: (slug: string) => `/settings/billing/${slug}/payment-methods`,
-      coworkers: (slug: string) => `/settings/billing/${slug}/coworkers`,
-      invoices: (slug: string) => `/settings/billing/${slug}/invoices`,
-    },
-  },
-  publicProfile: {
-    root: (githubLogin: string) => `/u/${githubLogin}`,
-  },
-  notFound: "/not-found",
-  hackathons: {
-    root: "/hackathons",
-    details: {
-      root: (slug: string) => `/hackathons/${slug}`,
-    },
-  },
-  signup: {
-    root: "/signup",
-    onboarding: {
-      root: "/signup/onboarding",
-      projectRecommendations: "/signup/onboarding/project-recommendations",
-      verifyInformation: "/signup/onboarding/verify-information",
-      completeYourProfile: "/signup/onboarding/complete-your-profile",
-      termsAndConditions: "/signup/onboarding/terms-and-conditions",
-      payoutInformation: "/signup/onboarding/payout-information",
-    },
-  },
-  legalNotice: {
-    root: "/legal-notice",
   },
 } as const;

@@ -3,6 +3,8 @@ import {
   GetMeResponsePortResponse,
   GetMyHackathonRegistrationPortParams,
   GetMyHackathonRegistrationPortResponse,
+  GetMyNotificationSettingsPortParams,
+  GetMyNotificationSettingsPortResponse,
   GetMyPayoutPreferencesPortParams,
   GetMyPayoutPreferencesPortResponse,
   GetMyProfilePortParams,
@@ -23,6 +25,8 @@ import {
   ReplaceMyProfilePortResponse,
   SetMePortParams,
   SetMePortResponse,
+  SetMyNotificationSettingsPortParams,
+  SetMyNotificationSettingsPortResponse,
   SetMyPayoutPreferenceForProjectPortParams,
   SetMyPayoutPreferenceForProjectPortResponse,
   SetMyProfilePortParams,
@@ -49,4 +53,6 @@ export interface MeFacadePort {
   registerToHackathon(params: RegisterToHackathonPortParams): RegisterToHackathonPortResponse;
   getUpdateGithubProfile(params: GetUpdateGithubProfilePortParams): GetUpdateGithubProfilePortResponse;
   uploadProfilePicture(params: UploadProfilePicturePortParams): UploadProfilePicturePortResponse;
+  getMyNotificationSettings(params: GetMyNotificationSettingsPortParams): GetMyNotificationSettingsPortResponse;
+  setMyNotificationSettings(params: SetMyNotificationSettingsPortParams): SetMyNotificationSettingsPortResponse;
 }

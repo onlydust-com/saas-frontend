@@ -8,7 +8,7 @@ const nextConfig = {
       // HOME
       {
         source: "/",
-        destination: "/my-dashboard",
+        destination: "/discover",
         permanent: true,
       },
       // DATA
@@ -41,10 +41,10 @@ const nextConfig = {
         destination: "/projects/:projectSlug/overview",
         permanent: true,
       },
-      // HACKATHONS
+      // OPEN-SOURCE WEEK
       {
-        source: "/hackathons/:hackathonSlug",
-        destination: "/hackathons/:hackathonSlug/overview",
+        source: "/osw/:hackathonSlug",
+        destination: "/osw/:hackathonSlug/overview",
         permanent: true,
       },
       // ECOSYSTEMS

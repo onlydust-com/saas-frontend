@@ -72,7 +72,7 @@ export function InformationForm() {
             render={({ field: { onChange, name } }) => (
               <FormItem>
                 <FormLabel>Profile Picture</FormLabel>
-                <FormDescription>SVG, PNG, JPG or GIF (MAX. 400x400px).</FormDescription>
+                <FormDescription>SVG, PNG, JPG or GIF.</FormDescription>
                 <FormControl>
                   <div className="flex items-center gap-2">
                     <ImageInput

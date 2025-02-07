@@ -10,7 +10,7 @@ export function PageContainer({
 }: PropsWithChildren<{ size?: "small" | "medium" | "large"; className?: string }>) {
   return (
     <div
-      className={cn("mx-auto w-full px-4", className, {
+      className={cn("page-container mx-auto w-full px-4 pb-20", className, {
         "max-w-[1400px]": size === "small",
         "max-w-[1600px]": size === "medium",
         "max-w-[2200px]": size === "large",

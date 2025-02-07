@@ -31,6 +31,10 @@ export function useReplaceMyProfile({
             exact: false,
           });
 
+          await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMe({}).tag,
+            exact: false,
+          });
           options?.onSuccess?.(data, variables, context);
         },
       },

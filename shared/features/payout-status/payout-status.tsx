@@ -4,15 +4,14 @@ import { AnyType } from "@/core/kernel/types";
 import { Badge, BadgePort } from "@/design-system/atoms/badge";
 import { Icon } from "@/design-system/atoms/icon";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PayoutStatusProps } from "@/shared/features/payout-status/payout-status.types";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 
 export function PayoutStatus({ status, billingProfileId, shouldRedirect }: PayoutStatusProps) {
   function getRedirectLink() {
     if (!billingProfileId || !shouldRedirect) return undefined;
 
-    return marketplaceRouting(MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId));
+    return NEXT_ROUTER.settings.billingProfiles.generalInformation.root(billingProfileId);
   }
 
   const propsMapping: Record<PayoutStatusContent["type"], Partial<BadgePort<AnyType>>> = {

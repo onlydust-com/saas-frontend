@@ -1,18 +1,42 @@
 import {
   AcceptOrDeclineBillingProfileMandatePortParams,
   AcceptOrDeclineBillingProfileMandatePortResponse,
+  AcceptOrRejectCoworkerInvitationPortParams,
+  AcceptOrRejectCoworkerInvitationPortResponse,
+  CreateBillingProfilePortParams,
+  CreateBillingProfilePortResponse,
+  DeleteBillingProfileCoworkerPortParams,
+  DeleteBillingProfileCoworkerPortResponse,
+  DeleteBillingProfilePortParams,
+  DeleteBillingProfilePortResponse,
   DownloadBillingProfileInvoiceByIdPortParams,
   DownloadBillingProfileInvoiceByIdPortResponse,
+  EnableBillingProfilePortParams,
+  EnableBillingProfilePortResponse,
   GetBillingProfileByIdPortParams,
   GetBillingProfileByIdPortResponse,
+  GetBillingProfileCoworkersPortParams,
+  GetBillingProfileCoworkersPortResponse,
   GetBillingProfileInvoicePreviewByIdPortParams,
   GetBillingProfileInvoicePreviewByIdPortResponse,
   GetBillingProfileInvoiceableRewardsPortParams,
   GetBillingProfileInvoiceableRewardsPortResponse,
+  GetBillingProfileInvoicesPortParams,
+  GetBillingProfileInvoicesPortResponse,
   GetBillingProfilePayoutInfoByIdPortParams,
   GetBillingProfilePayoutInfoByIdPortResponse,
   GetMeBillingProfilesPortParams,
   GetMeBillingProfilesPortResponse,
+  InviteBillingProfileCoworkerPortParams,
+  InviteBillingProfileCoworkerPortResponse,
+  RemoveCoworkerFromBillingProfilePortParams,
+  RemoveCoworkerFromBillingProfilePortResponse,
+  UpdateBillingProfileCoworkerRolePortParams,
+  UpdateBillingProfileCoworkerRolePortResponse,
+  UpdateBillingProfilePayoutInfoPortParams,
+  UpdateBillingProfilePayoutInfoPortResponse,
+  UpdateBillingProfileTypePortParams,
+  UpdateBillingProfileTypePortResponse,
   UploadBillingProfileInvoiceByIdPortParams,
   UploadBillingProfileInvoiceByIdPortResponse,
 } from "@/core/domain/billing-profile/billing-profile-contract.types";
@@ -39,4 +63,24 @@ export interface BillingProfileStoragePort {
   getBillingProfileInvoiceableRewards(
     p: GetBillingProfileInvoiceableRewardsPortParams
   ): GetBillingProfileInvoiceableRewardsPortResponse;
+  getBillingProfileInvoices(p: GetBillingProfileInvoicesPortParams): GetBillingProfileInvoicesPortResponse;
+  getBillingProfileCoworkers(p: GetBillingProfileCoworkersPortParams): GetBillingProfileCoworkersPortResponse;
+  inviteBillingProfileCoworker(p: InviteBillingProfileCoworkerPortParams): InviteBillingProfileCoworkerPortResponse;
+  deleteBillingProfileCoworker(p: DeleteBillingProfileCoworkerPortParams): DeleteBillingProfileCoworkerPortResponse;
+  updateBillingProfileCoworkerRole(
+    p: UpdateBillingProfileCoworkerRolePortParams
+  ): UpdateBillingProfileCoworkerRolePortResponse;
+  acceptOrRejectCoworkerInvitation(
+    p: AcceptOrRejectCoworkerInvitationPortParams
+  ): AcceptOrRejectCoworkerInvitationPortResponse;
+  deleteBillingProfile(p: DeleteBillingProfilePortParams): DeleteBillingProfilePortResponse;
+  enableBillingProfile(p: EnableBillingProfilePortParams): EnableBillingProfilePortResponse;
+  removeCoworkerFromBillingProfile(
+    p: RemoveCoworkerFromBillingProfilePortParams
+  ): RemoveCoworkerFromBillingProfilePortResponse;
+  createBillingProfile(p: CreateBillingProfilePortParams): CreateBillingProfilePortResponse;
+  updateBillingProfilePayoutInfo(
+    p: UpdateBillingProfilePayoutInfoPortParams
+  ): UpdateBillingProfilePayoutInfoPortResponse;
+  updateBillingProfileType(p: UpdateBillingProfileTypePortParams): UpdateBillingProfileTypePortResponse;
 }

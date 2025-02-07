@@ -1,19 +1,17 @@
 "use client";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import Intercom from "@intercom/messenger-js-sdk";
+import { Intercom, show } from "@intercom/messenger-js-sdk";
 import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 
 import { useAuthUser } from "../hooks/auth/use-auth-user";
 
 interface IntercomContextInterface {
-  hideIntercomLauncher: () => void;
-  showIntercomLauncher: () => void;
+  openIntercom: () => void;
 }
 
 export const IntercomContext = createContext<IntercomContextInterface>({
-  hideIntercomLauncher: () => {},
-  showIntercomLauncher: () => {},
+  openIntercom: () => {},
 });
 
 const INTERCOM_APP_ID = process.env.NEXT_PUBLIC_INTERCOM_APP_ID ?? "";
@@ -22,26 +20,8 @@ export function IntercomProvider({ children }: PropsWithChildren) {
   const { user } = useAuthUser();
   const { getAccessTokenSilently } = useAuth0();
 
-  function hideIntercomLauncher() {
-    const intercomLauncher = document.querySelector(".intercom-launcher") as HTMLElement;
-    const intercomContainer = document.querySelector("#intercom-container") as HTMLElement;
-    if (intercomLauncher) {
-      intercomLauncher.style.display = "none";
-    }
-    if (intercomContainer) {
-      intercomContainer.style.display = "none";
-    }
-  }
-
-  function showIntercomLauncher() {
-    const intercomLauncher = document.querySelector(".intercom-launcher") as HTMLElement;
-    const intercomContainer = document.querySelector("#intercom-container") as HTMLElement;
-    if (intercomLauncher) {
-      intercomLauncher.style.display = "block";
-    }
-    if (intercomContainer) {
-      intercomContainer.style.display = "block";
-    }
+  function openIntercom() {
+    show();
   }
 
   async function initIntercom() {
@@ -66,6 +46,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
             email: user?.email,
             user_hash: data.hash,
             custom_launcher_selector: "intercom-launcher",
+            z_index: 40, // Needs to be below the side panels
           });
         })
         .catch(() => {
@@ -82,11 +63,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
     }
   }, [user]);
 
-  return (
-    <IntercomContext.Provider value={{ hideIntercomLauncher, showIntercomLauncher }}>
-      {children}
-    </IntercomContext.Provider>
-  );
+  return <IntercomContext.Provider value={{ openIntercom }}>{children}</IntercomContext.Provider>;
 }
 
 export function useIntercom() {

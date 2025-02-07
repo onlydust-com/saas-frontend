@@ -85,12 +85,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
 
           {links?.length ? (
             <div className="flex flex-col gap-lg">
-              <Typo
-                size="xs"
-                weight="medium"
-                color="primary"
-                translate={{ token: "hackathon:details.summary.links" }}
-              />
+              <Typo size="xs" weight="medium" color="primary" translate={{ token: "osw:details.summary.links" }} />
 
               <div className="grid gap-md mobile:grid-cols-2">
                 {links.map((link, index) => {

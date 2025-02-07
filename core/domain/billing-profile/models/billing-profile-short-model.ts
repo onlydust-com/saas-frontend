@@ -7,6 +7,10 @@ export interface BillingProfileShortInterface extends BillingProfileShortRespons
   getTypeLabel(): string | undefined;
   getWarning(): string | undefined;
   getError(): string | undefined;
+  isIndividualLimitReached(): boolean;
+  isBillingProfileIndividual(): boolean;
+  isBillingProfileCompany(): boolean;
+  isBillingProfileSelfEmployed(): boolean;
 }
 
 export class BillingProfileShort implements BillingProfileShortInterface {
@@ -60,5 +64,21 @@ export class BillingProfileShort implements BillingProfileShortInterface {
     if (this.individualLimitReached) {
       return "Individual Limit Reached";
     }
+  }
+
+  isIndividualLimitReached() {
+    return this.individualLimitReached || false;
+  }
+
+  isBillingProfileIndividual() {
+    return this.type === BillingProfileType.Individual;
+  }
+
+  isBillingProfileCompany() {
+    return this.type === BillingProfileType.Company;
+  }
+
+  isBillingProfileSelfEmployed() {
+    return this.type === BillingProfileType.SelfEmployed;
   }
 }

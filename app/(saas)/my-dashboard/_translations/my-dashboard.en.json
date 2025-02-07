@@ -5,7 +5,7 @@
   "views": {
     "projects": "Projects",
     "contributions": "Contributions",
-    "financial": "Financial"
+    "rewards": "Rewards"
   },
   "actions": {
     "requestPayment": "Request payment",

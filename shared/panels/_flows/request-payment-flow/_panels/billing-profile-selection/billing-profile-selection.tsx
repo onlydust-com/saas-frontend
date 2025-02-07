@@ -1,13 +1,14 @@
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { AddNewBillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/add-new-billing-profile-card/add-new-billing-profile-card";
 import { BillingProfileCard } from "@/shared/panels/_flows/request-payment-flow/_panels/_components/billing-profile-card/billing-profile-card";
 import { useBillingProfileSelection } from "@/shared/panels/_flows/request-payment-flow/_panels/billing-profile-selection/billing-profile-selection.hooks";
@@ -16,6 +17,7 @@ import { useRequestPaymentFlow } from "@/shared/panels/_flows/request-payment-fl
 import { useRewardsSelectionPanel } from "../rewards-selection/rewards-selection.hooks";
 
 function Content() {
+  const router = useRouter();
   const { selectBillingProfile } = useRequestPaymentFlow();
 
   const { open: openRewardsSelection } = useRewardsSelectionPanel();
@@ -30,7 +32,7 @@ function Content() {
   }
 
   function handleAddNewBillingProfile() {
-    window.open(marketplaceRouting("/settings/profile"), "_blank");
+    router.push(NEXT_ROUTER.settings.billingProfiles.root);
   }
 
   const renderBody = useMemo(() => {

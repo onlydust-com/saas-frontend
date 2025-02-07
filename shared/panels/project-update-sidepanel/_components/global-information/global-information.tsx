@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { DatePicker } from "@/design-system/atoms/date-picker";
@@ -16,15 +16,12 @@ import { Select } from "@/design-system/molecules/select";
 import { CategoryAutocomplete } from "@/shared/features/autocompletes/category-autocomplete/category-autocomplete";
 import { EcosystemsAutocomplete } from "@/shared/features/autocompletes/ecosystems-autocomplete/ecosystems-autocomplete";
 import { GlobalInformationProps } from "@/shared/panels/project-update-sidepanel/_components/global-information/global-information.types";
-import {
-  EditProjectFormData,
-  rewardsSettingsTypes,
-} from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
+import { rewardsSettingsTypes } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-export function GlobalInformation({ project }: GlobalInformationProps) {
+export function GlobalInformation({ project, form }: GlobalInformationProps) {
   const { t } = useTranslation("panels");
-  const { control } = useFormContext<EditProjectFormData>();
+  const {control} = form;
   const rewardsSettingsItems: MenuItemPort[] = useMemo(
     () => [
       {

@@ -35,6 +35,22 @@ const buttonVariants = cva(
   }
 );
 
+const loadingVariants = cva("absolute animate-spin place-items-center", {
+  variants: {
+    variant: {
+      default: "text-primary-foreground",
+      destructive: "text-destructive-foreground",
+      outline: "text-accent-foreground",
+      secondary: "text-secondary-foreground",
+      ghost: "text-accent-foreground",
+      link: "text-primary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -64,7 +80,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (
-          <Loader2 aria-label="Loading" className="absolute animate-spin place-items-center text-foreground" />
+          <Loader2
+            aria-label="Loading"
+            className={loadingVariants({ variant })}
+          />
         ) : null}
         <Slottable>{children}</Slottable>
       </Comp>

@@ -13,39 +13,45 @@ export function GithubUserAutocomplete({
   withExternalUser = false,
   withInternalUserOnly = false,
   withExternalUserOnly = false,
+  withIsRegistered = false,
   selectedUser,
   onSelect,
   ...selectProps
 }: GithubUserAutocompleteProps) {
   const [search, setSearch] = useState("");
+
   const { data } = UserReactQueryAdapter.client.useSearchUser({
     queryParams: {
       login: search || undefined,
       internalSearchOnly: withInternalUserOnly,
       externalSearchOnly: withExternalUserOnly,
+      isRegistered: withIsRegistered,
     },
   });
 
   const createMenuItems = (
     users: SearchUsersModel["internalContributors"] | SearchUsersModel["externalContributors"]
-  ): MenuItemPort<number>[] => {
+  ): MenuItemPort<string>[] => {
     return users.map(user => ({
-      id: user.githubUserId,
+      id: user.id || "",
       label: user.login,
+      login: user.login,
       searchValue: user.login,
       avatar: { src: user.avatarUrl },
+      avatarUrl: user.avatarUrl,
     }));
   };
 
-  const usersItem: MenuItemPort<number>[] = useMemo(() => {
+  const usersItem: MenuItemPort<string>[] = useMemo(() => {
     return [
       ...createMenuItems(data?.internalContributors || []),
       ...(withExternalUser ? createMenuItems(data?.externalContributors || []) : []),
-    ];
-  }, [data, withExternalUser]);
+    ].filter(user => !selectedUser?.includes(user.id));
+  }, [data, withExternalUser, selectedUser]);
 
-  function handleSelect(ids: MenuItemId<number>[]) {
+  function handleSelect(ids: MenuItemId<string>[]) {
     const users = usersItem.filter(user => ids.includes(user.id));
+
     onSelect?.(
       ids,
       users?.map(user => ({
@@ -57,11 +63,10 @@ export function GithubUserAutocomplete({
   }
 
   return (
-    <Select<number>
+    <Select<string>
       items={usersItem}
       isAutoComplete={true}
       onSelect={handleSelect}
-      selectedIds={selectedUser}
       controlledAutoComplete={{
         value: search,
         onChange: setSearch,

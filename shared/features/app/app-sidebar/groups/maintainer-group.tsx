@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, SquarePlus } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 
@@ -39,6 +39,7 @@ export function MaintainerGroup() {
   const { state } = useSidebar();
   const { user } = useAuthUser();
   const isMaintainerRoute = useMatchPath(NEXT_ROUTER.manageProjects.root, { exact: false });
+  const isProjectCreateRoute = useMatchPath(NEXT_ROUTER.createProject.root, { exact: false });
 
   const projects = useMemo(() => user?.projectsLed ?? [], [user]);
   const visibleProjects = useMemo(() => projects.slice(0, MAX_PROJECTS), [projects]);
@@ -69,20 +70,18 @@ export function MaintainerGroup() {
     ],
   }));
 
-  if (!projects.length) return null;
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
       <SidebarMenu>
-        {/* <SidebarMenuItem>
-          <SidebarMenuButton asChild tooltip="Submit a project">
-            <Link href={""}>
+        <SidebarMenuItem>
+          <SidebarMenuButton isActive={isProjectCreateRoute} asChild tooltip="Submit a project">
+            <Link href={NEXT_ROUTER.createProject.root}>
               <SquarePlus />
               <span>Submit a project</span>
             </Link>
           </SidebarMenuButton>
-        </SidebarMenuItem> */}
+        </SidebarMenuItem>
 
         {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
@@ -90,7 +89,9 @@ export function MaintainerGroup() {
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon}
-                  <span>{item.title}</span>
+                  <span className="line-clamp-1" title={item.title}>
+                    {item.title}
+                  </span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>

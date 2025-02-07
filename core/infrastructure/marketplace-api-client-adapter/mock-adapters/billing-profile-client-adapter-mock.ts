@@ -33,4 +33,34 @@ export class BillingProfileClientAdapterMock implements BillingProfileStoragePor
   getBillingProfileInvoiceableRewards = mockHttpStorageResponse<
     BillingProfileStoragePort["getBillingProfileInvoiceableRewards"]
   >;
+
+  getBillingProfileInvoices = mockHttpStorageResponse<BillingProfileStoragePort["getBillingProfileInvoices"]>;
+
+  getBillingProfileCoworkers = mockHttpStorageResponse<BillingProfileStoragePort["getBillingProfileCoworkers"]>;
+
+  inviteBillingProfileCoworker = mockHttpStorageResponse<BillingProfileStoragePort["inviteBillingProfileCoworker"]>;
+
+  deleteBillingProfileCoworker = mockHttpStorageResponse<BillingProfileStoragePort["deleteBillingProfileCoworker"]>;
+
+  updateBillingProfileCoworkerRole = mockHttpStorageResponse<
+    BillingProfileStoragePort["updateBillingProfileCoworkerRole"]
+  >;
+
+  acceptOrRejectCoworkerInvitation = mockHttpStorageResponse<
+    BillingProfileStoragePort["acceptOrRejectCoworkerInvitation"]
+  >;
+
+  deleteBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["deleteBillingProfile"]>;
+
+  enableBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["enableBillingProfile"]>;
+
+  removeCoworkerFromBillingProfile = mockHttpStorageResponse<
+    BillingProfileStoragePort["removeCoworkerFromBillingProfile"]
+  >;
+
+  createBillingProfile = mockHttpStorageResponse<BillingProfileStoragePort["createBillingProfile"]>;
+
+  updateBillingProfilePayoutInfo = mockHttpStorageResponse<BillingProfileStoragePort["updateBillingProfilePayoutInfo"]>;
+
+  updateBillingProfileType = mockHttpStorageResponse<BillingProfileStoragePort["updateBillingProfileType"]>;
 }

@@ -14,6 +14,8 @@ import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import {
+  CreateProjectBody,
+  CreateProjectResponse,
   EditProjectBody,
   GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
@@ -27,13 +29,13 @@ import {
   GetProjectRewardsV2Response,
   GetProjectStatsResponse,
   GetProjectTransactionsResponse,
+  GetProjectsResponse,
   GetProjectsV2Response,
   GetSimilarProjectsResponse,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
 } from "@/core/domain/project/project-contract.types";
-import { GetProjectsResponse } from "@/core/domain/project/project-contract.types";
 import { MarketplaceApiVersion } from "@/core/infrastructure/marketplace-api-client-adapter/config/api-version";
 import { HttpClient } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client";
 import { FirstParameter } from "@/core/kernel/types";
@@ -45,6 +47,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectById: "projects/:projectId",
     getProjectStats: "projects/:projectId/stats",
     getProjects: "projects",
+    createProject: "projects",
     editProject: "projects/:projectId",
     uploadProjectLogo: "projects/logos",
     getProjectFinancialDetailsBySlug: "projects/slug/:projectSlug/financial",
@@ -147,6 +150,26 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         headers: {
           "Content-Type": body.type,
         },
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  createProject = ({ pathParams }: FirstParameter<ProjectStoragePort["createProject"]>) => {
+    const path = this.routes["createProject"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: CreateProjectBody) =>
+      this.client.request<CreateProjectResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
       });
 
     return {

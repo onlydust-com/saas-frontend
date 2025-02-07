@@ -6,6 +6,7 @@ import {
 } from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjectsInterface } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { MeInterface } from "@/core/domain/me/models/me-model";
+import { MeNotificationSettingsInterface } from "@/core/domain/me/models/me-notification-settings-model";
 import { MeProfileInterface } from "@/core/domain/me/models/me-profile-model";
 import { ProjectShortInterface } from "@/core/domain/project/models/project-short-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
@@ -165,3 +166,19 @@ export type UploadProfilePictureResponse = components["schemas"]["UploadImageRes
 export type UploadProfilePicturePortParams = HttpClientParameters<object>;
 
 export type UploadProfilePicturePortResponse = HttpStorageResponse<UploadProfilePictureResponse, File>;
+
+/* --------------------------------- Get my notification settings -------------------------------- */
+
+export type GetMyNotificationSettingsResponse = components["schemas"]["NotificationSettingsResponse"];
+
+export type GetMyNotificationSettingsPortParams = HttpClientParameters<object>;
+
+export type GetMyNotificationSettingsPortResponse = HttpStorageResponse<MeNotificationSettingsInterface>;
+
+/* --------------------------------- Set my notification settings -------------------------------- */
+
+export type SetMyNotificationSettingsBody = components["schemas"]["NotificationSettingsPutRequest"];
+
+export type SetMyNotificationSettingsPortParams = HttpClientParameters<object>;
+
+export type SetMyNotificationSettingsPortResponse = HttpStorageResponse<never, SetMyNotificationSettingsBody>;
