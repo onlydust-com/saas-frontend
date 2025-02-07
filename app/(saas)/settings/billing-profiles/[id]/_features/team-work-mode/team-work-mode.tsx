@@ -22,6 +22,7 @@ export function TeamWorkMode({ billingProfileId, type, isSwitchableToSelfEmploye
   });
 
   const isChecked = type === BillingProfileType.Company;
+  const isDisabled = isPending || (type === BillingProfileType.Company && !isSwitchableToSelfEmployed);
 
   const handleToggle = (checked: boolean) => {
     const newType = checked ? BillingProfileType.Company : BillingProfileType.SelfEmployed;
@@ -34,11 +35,7 @@ export function TeamWorkMode({ billingProfileId, type, isSwitchableToSelfEmploye
       <div className="flex flex-col justify-end gap-4">
         <TypographyMuted>Team Work Mode</TypographyMuted>
         <div className="flex justify-end">
-          <Switch
-            checked={isChecked}
-            onCheckedChange={handleToggle}
-            disabled={isPending || !isSwitchableToSelfEmployed}
-          />
+          <Switch checked={isChecked} onCheckedChange={handleToggle} disabled={isDisabled} />
         </div>
       </div>
     </div>
