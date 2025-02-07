@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 
-export function CreateBillingProfile({
+export function CreateBillingProfilePanel({
   children,
   redirectToProfile,
 }: PropsWithChildren<{ redirectToProfile?: boolean }>) {
@@ -86,7 +86,7 @@ export function CreateBillingProfile({
             </CardHeader>
             <CardContent className="flex flex-col gap-6">
               <RadioGroup onValueChange={handleChangeType} className="flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 rounded-md border border-secondary p-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem
                       value={BillingProfileType.Individual}
@@ -106,7 +106,8 @@ export function CreateBillingProfile({
                     <li>Requires identity verification</li>
                   </ul>
                 </div>
-                <div className="flex flex-col gap-2">
+
+                <div className="flex flex-col gap-2 rounded-md border border-secondary p-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={BillingProfileType.SelfEmployed} id={BillingProfileType.SelfEmployed} />
                     <Label htmlFor={BillingProfileType.SelfEmployed}>Self-employed</Label>
@@ -116,7 +117,8 @@ export function CreateBillingProfile({
                     <li>Requires business verification</li>
                   </ul>
                 </div>
-                <div className="flex flex-col gap-2">
+
+                <div className="flex flex-col gap-2 rounded-md border border-secondary p-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={BillingProfileType.Company} id={BillingProfileType.Company} />
                     <Label htmlFor={BillingProfileType.Company}>Organization</Label>
@@ -129,7 +131,7 @@ export function CreateBillingProfile({
                 </div>
               </RadioGroup>
 
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid items-center gap-1.5">
                 <Label htmlFor="name">Give your billing profile a name</Label>
                 <Input
                   type="name"

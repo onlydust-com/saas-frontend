@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-import { CreateBillingProfile } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile/create-billing-profile";
+import { CreateBillingProfilePanel } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile-panel/create-billing-profile-panel";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
@@ -76,11 +76,11 @@ export function LimitReachedHeader() {
             Please add a new billing profile (self-employed or organization) to receive new rewards.
           </AlertDescription>
 
-          <CreateBillingProfile redirectToProfile>
+          <CreateBillingProfilePanel redirectToProfile>
             <Button size="sm" variant="destructive" className="w-fit">
               Add new billing profile
             </Button>
-          </CreateBillingProfile>
+          </CreateBillingProfilePanel>
         </div>
       );
     }

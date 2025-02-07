@@ -4,7 +4,7 @@ import { CircleAlert, Plus } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";
 
-import { CreateBillingProfile } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile/create-billing-profile";
+import { CreateBillingProfilePanel } from "@/app/(saas)/settings/billing-profiles/_features/create-billing-profile-panel/create-billing-profile-panel";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
 import { BillingProfileShortInterface } from "@/core/domain/billing-profile/models/billing-profile-short-model";
@@ -99,7 +99,7 @@ function BillingProfilesPage() {
       />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <CreateBillingProfile>
+        <CreateBillingProfilePanel>
           <Card className="cursor-pointer border-dashed transition-opacity hover:opacity-80">
             <CardHeader className="flex h-full items-center justify-center">
               <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ function BillingProfilesPage() {
               </div>
             </CardHeader>
           </Card>
-        </CreateBillingProfile>
+        </CreateBillingProfilePanel>
 
         {renderBillingProfiles()}
       </div>
