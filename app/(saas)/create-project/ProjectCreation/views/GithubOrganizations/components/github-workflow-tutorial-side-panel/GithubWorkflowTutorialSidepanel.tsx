@@ -1,6 +1,5 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
-import { useIntercom } from "@/shared/intercom/intercom.context";
 import { Button } from "@/shared/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
 
@@ -11,15 +10,6 @@ import TutorialSidePanelSteps3 from "./components/Steps3";
 
 export const GithubWorkflowTutorialSidepanel = ({ children }: PropsWithChildren) => {
   const [open, setIsOpen] = useState(false);
-  const { hideIntercomLauncher, showIntercomLauncher } = useIntercom();
-
-  useEffect(() => {
-    if (open) {
-      hideIntercomLauncher();
-    } else {
-      showIntercomLauncher();
-    }
-  }, [open]);
 
   return (
     <Sheet open={open} onOpenChange={setIsOpen}>
