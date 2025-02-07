@@ -6,12 +6,12 @@ import { GetIssueApplicantsQueryParams } from "@/core/domain/issue/issue-contrac
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { AccordionIgnoredContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-ignored-contributors/accordion-ignored-contributors";
 import { AccordionNewContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-new-contributors/accordion-new-contributors";
 import { AccordionProjectContributors } from "@/shared/modals/manage-applicants-modal/_components/applicants-table/_components/accordion-project-contributors/accordion-project-contributors";
@@ -35,10 +35,9 @@ function Footer({ login, applicationId, contributionId, repoId, onAssign }: Cont
           variant={"secondary"}
           endIcon={{ component: SquareArrowOutUpRight }}
           size={"md"}
-          as={"a"}
+          as={BaseLink}
           htmlProps={{
-            href: marketplaceRouting(MARKETPLACE_ROUTER.publicProfile.root(login)),
-            target: "_blank",
+            href: NEXT_ROUTER.users.details.root(login),
           }}
           translate={{ token: "panels:contributor.seeContributor" }}
         />

@@ -3,8 +3,7 @@ import { NotificationInterface } from "@/core/domain/notification/models/notific
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 import { components } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export class GlobalBillingProfileVerificationRejected implements NotificationInterface {
   data: components["schemas"]["NotificationGlobalBillingProfileVerificationRejected"] | undefined;
@@ -40,7 +39,7 @@ export class GlobalBillingProfileVerificationRejected implements NotificationInt
   getUrl() {
     const { billingProfileId } = this.data || {};
     if (billingProfileId) {
-      return marketplaceRouting(MARKETPLACE_ROUTER.settings.billing.generalInformation(billingProfileId));
+      return NEXT_ROUTER.settings.billingProfiles.generalInformation.root(billingProfileId);
     }
     return undefined;
   }
