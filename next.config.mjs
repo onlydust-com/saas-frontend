@@ -8,7 +8,7 @@ const nextConfig = {
       // HOME
       {
         source: "/",
-        destination: "/my-dashboard",
+        destination: "/discover",
         permanent: true,
       },
       // DATA
