@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";

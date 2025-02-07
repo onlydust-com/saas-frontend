@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: { projectSlug: stri
 
   return {
     openGraph: {
-      images: [`https://previous.onlydust.com/hackathons/${projectSlug}/opengraph-image`],
+      images: [`https://previous.onlydust.com/p/${projectSlug}/opengraph-image`],
     },
   };
 }
