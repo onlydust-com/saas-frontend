@@ -87,7 +87,7 @@ const groups: {
     ],
   },
   {
-    title: "Global",
+    title: "Programs",
     categories: [
       {
         label: "Transactions",
