@@ -13,6 +13,7 @@ export function GithubUserAutocomplete({
   withExternalUser = false,
   withInternalUserOnly = false,
   withExternalUserOnly = false,
+  withIsRegistered = false,
   selectedUser,
   onSelect,
   ...selectProps
@@ -23,6 +24,7 @@ export function GithubUserAutocomplete({
       login: search || undefined,
       internalSearchOnly: withInternalUserOnly,
       externalSearchOnly: withExternalUserOnly,
+      isRegistered: withIsRegistered,
     },
   });
 
