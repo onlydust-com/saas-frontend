@@ -35,7 +35,7 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
       titleProps={{ translate: { token: "panels:projectUpdate.projectLeads.title" } }}
     >
       <div className={"flex w-full flex-col gap-md"}>
-        <div className={"justify-s flex flex-row flex-wrap items-center gap-md"}>
+        <div className={"flex flex-col gap-md"}>
           <Controller
             name="projectLeads"
             control={control}
@@ -44,7 +44,7 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
                 withInternalUserOnly={true}
                 withIsRegistered={true}
                 name={name}
-                onSelect={(userIds: string[], users: MenuItemAvatarPort<string>[]) => {
+                onSelect={(_, users: MenuItemAvatarPort<string>[]) => {
                   onChange([...(value || []), ...users]);
                 }}
                 isMultiple={false}
@@ -53,41 +53,44 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
               />
             )}
           />
-          <Controller
-            name="projectLeads"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <>
-                {orderByMe(value)?.map(lead => {
-                  const _isMe = user?.isMe(lead?.id || "");
+          
+          <div className={"flex flex-wrap gap-md"}>
+            <Controller
+              name="projectLeads"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <>
+                  {orderByMe(value)?.map(lead => {
+                    const _isMe = user?.isMe(lead?.id || "");
 
-                  return (
-                    <Badge
-                      as={"span"}
-                      isDeletable={!_isMe}
-                      avatar={{ src: lead?.avatarUrl }}
-                      color={"brand"}
-                      size={"xs"}
-                      closeProps={{
-                        as: "span",
-                        onClose: () => {
-                          onChange((value || []).filter(u => u.id !== lead?.id));
-                        },
-                      }}
-                      key={lead?.id}
-                    >
-                      {lead?.login}
-                      {_isMe && (
-                        <span className={"text-typography-primary"}>
-                          &nbsp; {`(${t("projectUpdate.projectLeads.you")})`}
-                        </span>
-                      )}
-                    </Badge>
-                  );
-                })}
-              </>
-            )}
-          />
+                    return (
+                      <Badge
+                        as={"span"}
+                        isDeletable={!_isMe}
+                        avatar={{ src: lead?.avatarUrl }}
+                        color={"brand"}
+                        size={"xs"}
+                        closeProps={{
+                          as: "span",
+                          onClose: () => {
+                            onChange((value || []).filter(u => u.id !== lead?.id));
+                          },
+                        }}
+                        key={lead?.id}
+                      >
+                        {lead?.login}
+                        {_isMe && (
+                          <span className={"text-typography-primary"}>
+                            &nbsp; {`(${t("projectUpdate.projectLeads.you")})`}
+                          </span>
+                        )}
+                      </Badge>
+                    );
+                  })}
+                </>
+              )}
+            />
+          </div>
         </div>
       </div>
     </Accordion>
