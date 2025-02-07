@@ -12,7 +12,7 @@ export function VerifyBillingProfilePanel({
   children,
   externalId,
   levelName,
-}: PropsWithChildren<{ externalId: string; levelName: SumsubLevelName }>) {
+}: PropsWithChildren<{ externalId?: string; levelName: SumsubLevelName }>) {
   const [token, setToken] = useState("");
   const [error, setError] = useState(false);
 
@@ -22,6 +22,8 @@ export function VerifyBillingProfilePanel({
 
   async function handleTokenCreation() {
     try {
+      if (!externalId) throw new Error("External ID is required");
+
       const { token } = await createSumsubToken({ externalId, levelName });
       setToken(token);
     } catch (error) {
