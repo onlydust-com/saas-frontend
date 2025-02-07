@@ -149,6 +149,11 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
     mode: "all",
     defaultValues: {
       moreInfos: [{ url: "", value: "" }],
+      rewardSettingsArrays: [
+        rewardsSettingsTypes.PullRequests,
+        rewardsSettingsTypes.Issue,
+        rewardsSettingsTypes.CodeReviews,
+      ],
     },
     resolver: zodResolver(validationSchema),
   });
