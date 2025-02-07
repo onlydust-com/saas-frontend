@@ -1,3 +1,5 @@
+"use client";
+
 import { Folder, GitFork, Github, Medal } from "lucide-react";
 import { useMemo } from "react";
 
