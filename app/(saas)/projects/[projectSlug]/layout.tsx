@@ -95,7 +95,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
       <PageContainer size="medium" className="flex-1">
-        <div className="flex flex-col items-start justify-start gap-4 py-4 laptop:h-full laptop:flex-row">
+        <div className="flex flex-col items-start justify-start gap-4 pt-4 laptop:h-full laptop:flex-row">
           <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-20 laptop:w-[440px] laptop:min-w-[440px]">
             <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
             <SimilarProjects projectIdOrSlug={params.projectSlug} />

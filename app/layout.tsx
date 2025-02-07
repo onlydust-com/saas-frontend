@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(geist.variable, "dark")}>
-      <body className="bg-background pb-16 text-foreground">
+      <body className="bg-background text-foreground">
         <Providers>
           <InitBootstrapAuth />
           <InitBootstrapImpersonation />

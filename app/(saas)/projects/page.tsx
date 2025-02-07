@@ -19,7 +19,7 @@ function ProjectsPage() {
         ]}
       />
 
-      <div className="py-10">
+      <div className="pt-10">
         <BrowseProjects />
       </div>
     </PageContainer>

@@ -3,15 +3,15 @@ import { useLayoutEffect } from "react";
 import { Paper } from "@/design-system/atoms/paper";
 
 import { PageContentProps } from "@/shared/features/page-content/page-content.types";
-import { cn } from "@/shared/helpers/cn";
+import { cn } from "@/shared/utils";
 
 export function PageContent({ children, classNames }: PageContentProps) {
-  // This is a hack to remove the padding-bottom from the body when the page content is rendered to leave space for Intercom
+  // This is a hack to remove the padding-bottom from the PageContainer when the page content is rendered to leave space for Intercom
   useLayoutEffect(() => {
-    document.body.classList.remove("pb-16");
+    document.querySelector(".page-container")?.classList.remove("pb-20");
 
     return () => {
-      document.body.classList.add("pb-16");
+      document.querySelector(".page-container")?.classList.add("pb-20");
     };
   }, []);
 

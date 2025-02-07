@@ -19,7 +19,7 @@ export default function DiscoverPage() {
         ]}
       />
 
-      <div className="flex flex-col gap-16 py-10">
+      <div className="flex flex-col gap-16 pt-10">
         <GoodFirstIssues />
 
         {/* <News /> */}
