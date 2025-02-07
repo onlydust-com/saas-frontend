@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { VerifyBillingProfile } from "@/app/(saas)/settings/billing-profiles/[id]/_features/verify-billing-profile/verify-billing-profile";
+import { VerifyBillingProfilePanel } from "@/app/(saas)/settings/billing-profiles/[id]/_features/verify-billing-profile-panel/verify-billing-profile-panel";
 import { SUMSUB_KYB_LEVEL, SUMSUB_KYC_LEVEL } from "@/app/api/sumsub/constants";
 
 import { BillingProfileReactQueryAdapter } from "@/core/application/react-query-adapter/billing-profile";
@@ -36,14 +36,14 @@ export function ProfileBanner({ id }: { id: string }) {
       );
     } else {
       return (
-        <VerifyBillingProfile
+        <VerifyBillingProfilePanel
           externalId={data.id}
           levelName={data.isBillingProfileIndividual() ? SUMSUB_KYC_LEVEL : SUMSUB_KYB_LEVEL}
         >
           <Button size="sm" variant={type === "error" ? "destructive" : "default"} className="w-fit">
             {action}
           </Button>
-        </VerifyBillingProfile>
+        </VerifyBillingProfilePanel>
       );
     }
   }, [data]);

@@ -119,7 +119,7 @@ export function CreateBillingProfile({
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={BillingProfileType.Company} id={BillingProfileType.Company} />
-                    <Label htmlFor={BillingProfileType.Company}>Organisation</Label>
+                    <Label htmlFor={BillingProfileType.Company}>Organization</Label>
                   </div>
                   <ul className="list-disc pl-10 text-sm text-muted-foreground">
                     <li>When you have a legal structure</li>

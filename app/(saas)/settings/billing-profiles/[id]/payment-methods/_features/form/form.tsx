@@ -36,6 +36,7 @@ export function PaymentMethodForm({ id }: { id: string }) {
   });
 
   const form = useForm<PayoutFormData>({
+    mode: "all",
     resolver: zodResolver(formSchema),
   });
 

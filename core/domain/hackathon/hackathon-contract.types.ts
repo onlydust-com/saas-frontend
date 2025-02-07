@@ -1,11 +1,11 @@
 import { HackathonEventInterface } from "@/core/domain/hackathon/models/hackathon-event-model";
+import { ContributorListItemInterface } from "@/core/domain/user/models/contributor-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
-import { ContributorListItemInterface } from "@/core/domain/user/models/contributor-list-item-model";
 import { HackathonListItemInterface } from "./models/hackathon-list-item-model";
 import { HackathonInterface } from "./models/hackathon-model";
 import { HackathonProjectListItemInterfaceV2 } from "./models/hackathon-project-list-item-model-v2";

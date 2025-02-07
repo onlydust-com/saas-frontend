@@ -63,7 +63,7 @@ export function LimitReachedHeader() {
     if (pathname.includes("payout-preferences")) {
       return (
         <AlertDescription>
-          Please update your payout preferences to another billing profile (self-employed or organisation) to receive
+          Please update your payout preferences to another billing profile (self-employed or organization) to receive
           new rewards.
         </AlertDescription>
       );
@@ -73,7 +73,7 @@ export function LimitReachedHeader() {
       return (
         <div className="flex flex-col gap-2">
           <AlertDescription>
-            Please add a new billing profile (self-employed or organisation) to receive new rewards.
+            Please add a new billing profile (self-employed or organization) to receive new rewards.
           </AlertDescription>
 
           <CreateBillingProfile redirectToProfile>
@@ -89,7 +89,7 @@ export function LimitReachedHeader() {
       return (
         <div className="flex flex-col gap-2">
           <AlertDescription>
-            Please switch your payout preferences to another billing profile (self-employed or organisation) to receive
+            Please switch your payout preferences to another billing profile (self-employed or organization) to receive
             new rewards.
           </AlertDescription>
 
