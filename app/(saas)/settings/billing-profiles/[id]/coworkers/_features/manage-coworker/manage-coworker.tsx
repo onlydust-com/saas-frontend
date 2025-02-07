@@ -43,5 +43,5 @@ export function ManageCoworker({ actionType, githubUserId, billingProfileId }: M
     return null;
   }, [actionType, isDeletingCoworker]);
 
-  return <div>{renderActions}</div>;
+  return <div className="flex items-center justify-end">{renderActions}</div>;
 }

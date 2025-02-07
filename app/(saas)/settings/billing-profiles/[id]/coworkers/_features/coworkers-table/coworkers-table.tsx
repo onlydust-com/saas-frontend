@@ -81,7 +81,7 @@ export function CoworkersTable({ id }: CoworkersTableProps) {
               <TableCell>
                 {coworker.joinedAt ? dateKernelPort.format(new Date(coworker.joinedAt), "yyyy-MM-dd") : "-"}
               </TableCell>
-              <TableCell className="flex justify-end">
+              <TableCell>
                 {user?.githubUserId && coworker.canManageCoworker(user?.githubUserId) ? (
                   <ManageCoworker
                     actionType={coworker.actionType()}
