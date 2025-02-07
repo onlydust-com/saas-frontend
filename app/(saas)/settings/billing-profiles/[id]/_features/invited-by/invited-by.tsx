@@ -8,7 +8,7 @@ export function InvitedBy({ login, avatarUrl }: { login?: string; avatarUrl?: st
   if (!login) return null;
 
   return (
-    <div className="flex flex-col items-end gap-2">
+    <div className="flex flex-col items-end">
       <TypographyMuted>Invited by</TypographyMuted>
 
       <Link href={NEXT_ROUTER.users.details.root(login)} className="flex items-center gap-2">
