@@ -4,10 +4,11 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { createSumsubToken } from "@/app/api/sumsub/handlers";
 import { SumsubLevelName } from "@/app/api/sumsub/types";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
+import { ScrollArea } from "@/shared/ui/scroll-area";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 import { TypographyMuted } from "@/shared/ui/typography";
 
-export function VerifyBillingProfile({
+export function VerifyBillingProfilePanel({
   children,
   externalId,
   levelName,
@@ -67,7 +68,13 @@ export function VerifyBillingProfile({
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
 
-      <SheetContent>{renderContent()}</SheetContent>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Verify your billing profile</SheetTitle>
+        </SheetHeader>
+
+        <ScrollArea className="h-full">{renderContent()}</ScrollArea>
+      </SheetContent>
     </Sheet>
   );
 }
