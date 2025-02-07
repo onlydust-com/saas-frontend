@@ -4,11 +4,11 @@ import { PropsWithChildren } from "react";
 import { HackathonEvents } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-events/hackathon-events";
 import { HackathonNavigation } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-navigation/hackathon-navigation";
 import { HackathonSummary } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
+import { AuthenticatedRegisterHackathon } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { AuthenticatedRegisterHackathon } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon";
 
 export async function generateMetadata({ params }: { params: { hackathonSlug: string } }): Promise<Metadata> {
   const hackathonSlug = params.hackathonSlug;
