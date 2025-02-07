@@ -62,7 +62,7 @@ export const CreateProjectContext = createContext<CreateProject>({
 
 const validationSchema = z.object({
   logoUrl: z.string().optional(),
-  inviteGithubUserIdsAsProjectLeads: z.array(z.number()).optional(),
+  projectLeads: z.array(z.object({ id: z.string() })).optional(),
   isLookingForContributors: z.boolean().nullish().optional(),
   longDescription: z.string().min(1),
   ecosystems: z.array(z.object({ id: z.number().or(z.string()) })).optional(),
@@ -155,7 +155,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (user) {
-      form.setValue("projectLeads", [user.id]);
+      form.setValue("projectLeads", [user]);
     }
   }, [user]);
 
@@ -172,7 +172,7 @@ export function CreateProjectProvider({ children }: PropsWithChildren) {
       ...formData,
       logoUrl: fileUrl?.url,
       contributorLabels: labels.map(label => ({ name: label.name, id: label.backendId })),
-      projectLeads: formData.projectLeads || [],
+      projectLeads: formData.projectLeads?.map(u => u.id || "") || [],
       isLookingForContributors: formData.isLookingForContributors || false,
       githubRepoIds: githubRepoIds || [],
       moreInfos: (moreInfos || []).filter(info => info.url !== "").map(info => ({ url: info.url, value: info.value })),
