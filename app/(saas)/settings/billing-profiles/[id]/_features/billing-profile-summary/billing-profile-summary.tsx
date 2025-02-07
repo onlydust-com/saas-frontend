@@ -27,7 +27,7 @@ export function BillingProfileSummary({ id }: { id: string }) {
     }
 
     if (data.isBillingProfileCompany()) {
-      return "As an organisation, you are responsible for your statements in your country of residence, and for your coworkers.";
+      return "As an organization, you are responsible for your statements in your country of residence, and for your coworkers.";
     }
 
     if (data.isBillingProfileSelfEmployed()) {
