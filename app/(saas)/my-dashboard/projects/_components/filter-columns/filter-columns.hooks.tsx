@@ -11,7 +11,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { TableCellKpi } from "@/design-system/atoms/table-cell-kpi";
 import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
+import { BaseLink } from "@/shared/components/base-link/base-link";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
 import { ContributionsPopover } from "@/shared/features/contributions/contributions-popover/contributions-popover";
 import { ReposPopover } from "@/shared/features/repos/repos-popover/repos-popover";
@@ -19,7 +20,6 @@ import { CellBillingProfile } from "@/shared/features/table/cell/cell-billing-pr
 import { CellEmpty } from "@/shared/features/table/cell/cell-empty/cell-empty";
 import { CellLanguages } from "@/shared/features/table/cell/cell-languages/cell-languages";
 import { CellLeads } from "@/shared/features/table/cell/cell-leads/cell-leads";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 export function useFilterColumns() {
@@ -174,10 +174,9 @@ export function useFilterColumns() {
       header: () => <Translate token={"myDashboard:detail.projectsTable.columns.actions"} />,
       cell: info => (
         <Button
-          as={"a"}
+          as={BaseLink}
           htmlProps={{
-            href: marketplaceRouting(MARKETPLACE_ROUTER.projects.details.root(info.row.original.slug)),
-            target: "_blank",
+            href: NEXT_ROUTER.projects.details.root(info.row.original.slug),
           }}
           variant={"secondary"}
           size={"sm"}

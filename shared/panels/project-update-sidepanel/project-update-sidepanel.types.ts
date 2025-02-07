@@ -1,18 +1,20 @@
 import { z } from "zod";
 
 import { EditProjectBody } from "@/core/domain/project/project-contract.types";
+import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
 
 export interface ProjectUpdateSidePanelData {
   projectId: string;
   canGoBack?: boolean;
 }
 
-export type EditProjectFormData = EditProjectBody & {
+export type EditProjectFormData = Omit<EditProjectBody, "projectLeads"> & {
   logoFile?: File;
   rewardSettingsArrays: string[];
   rewardSettingsDate: Date | undefined;
   labels: { name: string; backendId?: string }[];
   search?: string;
+  projectLeads: Partial<ContributorInterface>[];
 };
 
 export const editProjectFormValidation = z.object({
@@ -20,9 +22,8 @@ export const editProjectFormValidation = z.object({
   shortDescription: z.string().optional(),
   longDescription: z.string().optional(),
   isLookingForContributors: z.boolean().optional(),
-  inviteGithubUserIdsAsProjectLeads: z.array(z.number()).optional(),
   githubRepoIds: z.array(z.number()).optional(),
-  projectLeadsToKeep: z.array(z.string()).optional(),
+  projectLeads: z.array(z.object({ id: z.string() })).optional(),
   description: z.string().optional(),
   ecosystemIds: z.array(z.string()).optional(),
   categoryIds: z.array(z.string()).optional(),

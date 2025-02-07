@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { VerifyBillingProfilePanel } from "@/app/(saas)/settings/billing-profiles/[id]/_features/verify-billing-profile-panel/verify-billing-profile-panel";
 import { SUMSUB_KYB_LEVEL, SUMSUB_KYC_LEVEL } from "@/app/api/sumsub/constants";
@@ -17,6 +17,18 @@ export function ProfileBanner({ id }: { id: string }) {
       billingProfileId: id,
     },
   });
+
+  const externalId: string | undefined = useMemo(() => {
+    if (data?.kyc?.id) {
+      return data.kyc.id;
+    }
+
+    if (data?.kyb?.id) {
+      return data.kyb.id;
+    }
+
+    return undefined;
+  }, [data]);
 
   const renderButton = useCallback(() => {
     if (!data) return null;
@@ -37,7 +49,7 @@ export function ProfileBanner({ id }: { id: string }) {
     } else {
       return (
         <VerifyBillingProfilePanel
-          externalId={data.id}
+          externalId={externalId}
           levelName={data.isBillingProfileIndividual() ? SUMSUB_KYC_LEVEL : SUMSUB_KYB_LEVEL}
         >
           <Button size="sm" variant={type === "error" ? "destructive" : "default"} className="w-fit">

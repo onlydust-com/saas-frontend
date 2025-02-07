@@ -10,11 +10,12 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
 import { ProjectPrograms } from "@/shared/panels/project-sidepanel/_components/project-programs/project-programs";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -163,10 +164,9 @@ export function ProjectSidepanel() {
                 variant={"secondary"}
                 endContent={<SquareArrowOutUpRight size={16} />}
                 size={"md"}
-                as={"a"}
+                as={BaseLink}
                 htmlProps={{
-                  href: marketplaceRouting(`/p/${data?.slug}`),
-                  target: "_blank",
+                  href: NEXT_ROUTER.projects.details.root(data?.slug),
                 }}
               >
                 <Translate token={"panels:projectDetail.seeProject"} />

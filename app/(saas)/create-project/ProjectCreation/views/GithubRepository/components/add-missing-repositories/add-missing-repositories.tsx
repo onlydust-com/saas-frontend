@@ -1,6 +1,6 @@
 import { CircleAlert } from "lucide-react";
+import Link from "next/link";
 
-import { Link } from "@/design-system/atoms/link";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
 import { Alert, AlertDescription, AlertTitle } from "@/shared/ui/alert";
@@ -26,7 +26,7 @@ export function AddMissingRepositories({ url, disabled, tooltip }: TAddMissingRe
           </Tooltip>
         ) : (
           <Button size="sm" asChild>
-            <Link href={url} target="_blank" className="whitespace-nowrap" rel="noreferrer">
+            <Link href={url} target="_blank" className="whitespace-nowrap" rel="noreferrer noopener">
               Manage on GitHub
             </Link>
           </Button>

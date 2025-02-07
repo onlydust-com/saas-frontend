@@ -38,7 +38,6 @@ export const ProjectInformationsPage = () => {
     visibility: "PUBLIC",
     topContributors: [],
     leaders: user ? [user] : [],
-    invitedLeaders: [],
     moreInfos: [],
     hasRemainingBudget: false,
     indexingComplete: false,
@@ -59,7 +58,7 @@ export const ProjectInformationsPage = () => {
       prev={prev}
     >
       <GlobalInformation project={project} form={form} />
-      <ProjectLead project={project} form={form} />
+      <ProjectLead form={form} />
       <MoreInfo form={form} />
       <ContributorLabels form={form} />
     </MultiStepsForm>

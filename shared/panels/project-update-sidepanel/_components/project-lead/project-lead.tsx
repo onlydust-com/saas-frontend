@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+
+import { ContributorInterface } from "@/core/domain/user/models/contributor-model";
 
 import { Badge } from "@/design-system/atoms/badge";
 import { Accordion } from "@/design-system/molecules/accordion";
@@ -11,29 +12,21 @@ import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
 import { ProjectLeadProps } from "./project-lead.types";
 
-export function ProjectLead({ project, form }: ProjectLeadProps) {
+type User = Partial<ContributorInterface>;
+
+export function ProjectLead({ form }: ProjectLeadProps) {
   const { t } = useTranslation("panels");
   const { user } = useAuthUser();
-  const [invitedUser, setInvitedUser] = useState<MenuItemAvatarPort<number>[]>([]);
   const { control } = form;
 
-  function findUserInInvited(githubId: number) {
-    const usersItems = project.invitedLeaders.map(user => ({
-      id: user.githubUserId,
-      label: user.login,
-      searchValue: user.login,
-      avatar: { src: user.avatarUrl },
-    }));
-
-    return usersItems?.find(lead => lead.id === githubId) || invitedUser?.find(lead => lead.id === githubId);
-  }
-
-  function orderByMe(ids?: string[]) {
-    if (user && ids && ids.includes(user.id)) {
-      return [user.id, ...ids.filter(id => id !== user.id)];
+  function orderByMe(users?: User[]) {
+    if (user && users && users.map(u => u?.id).includes(user.id)) {
+      return [user, ...users.filter(u => u?.id !== user.id)];
     }
-    return ids;
+    return users;
   }
+
+  const projectLeads = form.watch("projectLeads");
 
   return (
     <Accordion
@@ -42,89 +35,62 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
       titleProps={{ translate: { token: "panels:projectUpdate.projectLeads.title" } }}
     >
       <div className={"flex w-full flex-col gap-md"}>
-        <Controller
-          name="inviteGithubUserIdsAsProjectLeads"
-          control={control}
-          render={({ field: { onChange, value, name } }) => (
-            <GithubUserAutocomplete
-              withInternalUserOnly={true}
-              name={name}
-              onSelect={(userIds: number[], users: MenuItemAvatarPort<number>[]) => {
-                onChange([...(value || []), ...userIds]);
-                setInvitedUser([...invitedUser, ...users]);
-              }}
-              isMultiple={false}
-              closeOnSelect={true}
+        <div className={"flex flex-col gap-md"}>
+          <Controller
+            name="projectLeads"
+            control={control}
+            render={({ field: { onChange, value, name } }) => (
+              <GithubUserAutocomplete
+                withInternalUserOnly={true}
+                withIsRegistered={true}
+                name={name}
+                onSelect={(_, users: MenuItemAvatarPort<string>[]) => {
+                  onChange([...(value || []), ...users]);
+                }}
+                isMultiple={false}
+                closeOnSelect={true}
+                selectedUser={projectLeads?.map(u => u.id || "")}
+              />
+            )}
+          />
+
+          <div className={"flex flex-wrap gap-md"}>
+            <Controller
+              name="projectLeads"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <>
+                  {orderByMe(value)?.map(lead => {
+                    const _isMe = user?.isMe(lead?.id || "");
+
+                    return (
+                      <Badge
+                        as={"span"}
+                        isDeletable={!_isMe}
+                        avatar={{ src: lead?.avatarUrl }}
+                        color={"brand"}
+                        size={"xs"}
+                        closeProps={{
+                          as: "span",
+                          onClose: () => {
+                            onChange((value || []).filter(u => u.id !== lead?.id));
+                          },
+                        }}
+                        key={lead?.id}
+                      >
+                        {lead?.login}
+                        {_isMe && (
+                          <span className={"text-typography-primary"}>
+                            &nbsp; {`(${t("projectUpdate.projectLeads.you")})`}
+                          </span>
+                        )}
+                      </Badge>
+                    );
+                  })}
+                </>
+              )}
             />
-          )}
-        />
-        <div className={"justify-s flex flex-row flex-wrap items-center gap-md"}>
-          <Controller
-            name="projectLeadsToKeep"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <>
-                {orderByMe(value)?.map(lead => {
-                  const findUser = project.findUserInProjectLead(lead);
-                  const _isMe = user?.isMe(lead);
-                  return (
-                    <Badge
-                      as={"span"}
-                      isDeletable={!_isMe}
-                      avatar={{ src: findUser?.avatarUrl }}
-                      color={"brand"}
-                      size={"xs"}
-                      closeProps={{
-                        as: "span",
-                        onClose: () => {
-                          onChange((value || []).filter(id => id !== lead));
-                        },
-                      }}
-                      key={findUser?.id}
-                    >
-                      {findUser?.login}
-                      {_isMe && (
-                        <span className={"text-typography-primary"}>
-                          &nbsp; {`(${t("projectUpdate.projectLeads.you")})`}
-                        </span>
-                      )}
-                    </Badge>
-                  );
-                })}
-              </>
-            )}
-          />
-          <Controller
-            name="inviteGithubUserIdsAsProjectLeads"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <>
-                {value?.map(invited => {
-                  const user = findUserInInvited(invited);
-                  return (
-                    <Badge
-                      as={"span"}
-                      isDeletable={true}
-                      avatar={user?.avatar}
-                      size={"xs"}
-                      closeProps={{
-                        as: "span",
-                        onClose: () => {
-                          onChange((value || []).filter(id => id !== invited));
-                        },
-                      }}
-                      key={user?.id}
-                    >
-                      {user?.label}
-                      <span className={"text-typography-primary"}>
-                        &nbsp; {`(${t("projectUpdate.projectLeads.invited")})`}
-                      </span>
-                    </Badge>
-                  );
-                })}
-              </>
-            )}
-          />
+          </div>
         </div>
       </div>
     </Accordion>

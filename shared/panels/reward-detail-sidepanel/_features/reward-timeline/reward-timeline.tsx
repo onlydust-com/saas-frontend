@@ -11,8 +11,8 @@ import { Paper } from "@/design-system/atoms/paper";
 import { Typo } from "@/design-system/atoms/typo";
 import { Timeline as TimelineComponent, TimelinePort } from "@/design-system/organisms/timeline";
 
-import { MARKETPLACE_ROUTER } from "@/shared/constants/router";
-import { marketplaceRouting } from "@/shared/helpers/marketplace-routing";
+import { BaseLink } from "@/shared/components/base-link/base-link";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { RewardTimelineProps } from "./reward-timeline.types";
@@ -85,10 +85,9 @@ export function RewardTimeline({ reward }: RewardTimelineProps) {
                 translate={{
                   token: "panels:rewardDetail.timeline.verificationBlock.type.PENDING_BILLING_PROFILE.button",
                 }}
-                as={"a"}
+                as={BaseLink}
                 htmlProps={{
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.settings.payoutPreferences),
-                  target: "_blank",
+                  href: NEXT_ROUTER.settings.payoutPreferences.root,
                 }}
               />
             )}
@@ -98,10 +97,9 @@ export function RewardTimeline({ reward }: RewardTimelineProps) {
                 translate={{
                   token: "panels:rewardDetail.timeline.verificationBlock.type.INDIVIDUAL_LIMIT_REACHED.button",
                 }}
-                as={"a"}
+                as={BaseLink}
                 htmlProps={{
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.settings.payoutPreferences),
-                  target: "_blank",
+                  href: NEXT_ROUTER.settings.payoutPreferences.root,
                 }}
               />
             )}
@@ -111,10 +109,9 @@ export function RewardTimeline({ reward }: RewardTimelineProps) {
                 translate={{
                   token: "panels:rewardDetail.timeline.verificationBlock.type.PAYOUT_INFO_MISSING.button",
                 }}
-                as={"a"}
+                as={BaseLink}
                 htmlProps={{
-                  href: marketplaceRouting(MARKETPLACE_ROUTER.settings.payoutPreferences),
-                  target: "_blank",
+                  href: NEXT_ROUTER.settings.payoutPreferences.root,
                 }}
               />
             )}
