@@ -1,78 +1,23 @@
-"use client";
-
-import { PropsWithChildren, useMemo } from "react";
+import { Metadata } from "next";
+import { PropsWithChildren } from "react";
 
 import { HackathonEvents } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-events/hackathon-events";
+import { HackathonNavigation } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-navigation/hackathon-navigation";
 import { HackathonSummary } from "@/app/(saas)/osw/[hackathonSlug]/_features/hackathon-summary/hackathon-summary";
-import { RegisterHackathon } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
-import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { useMatchPath } from "@/shared/hooks/router/use-match-path";
-import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
-import { Translate } from "@/shared/translation/components/translate/translate";
+import { AuthenticatedRegisterHackathon } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon";
 
-enum Views {
-  "OVERVIEW" = "OVERVIEW",
-  "PROJECTS" = "PROJECTS",
-  "COMMUNITY" = "COMMUNITY",
-}
+export async function generateMetadata({ params }: { params: { hackathonSlug: string } }): Promise<Metadata> {
+  const hackathonSlug = params.hackathonSlug;
 
-function Navigation({ params }: { params: { hackathonSlug: string } }) {
-  const isOverview = useMatchPath(NEXT_ROUTER.osw.details.overview.root(params.hackathonSlug));
-  const isProjects = useMatchPath(NEXT_ROUTER.osw.details.projects.root(params.hackathonSlug));
-  const isCommunity = useMatchPath(NEXT_ROUTER.osw.details.community.root(params.hackathonSlug));
-
-  const selectedId = useMemo(() => {
-    if (isOverview) {
-      return Views.OVERVIEW;
-    }
-    if (isProjects) {
-      return Views.PROJECTS;
-    }
-    // if (isCommunity) {
-    //   return Views.COMMUNITY;
-    // }
-  }, [isOverview, isProjects, isCommunity]);
-
-  return (
-    <Tabs
-      variant={"underline"}
-      searchParams={"hackathon-view"}
-      classNames={{ base: "tablet:self-end self-start -mb-px pl-xl" }}
-      tabs={[
-        {
-          id: Views.OVERVIEW,
-          children: <Translate token={"osw:details.tabs.overview"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.osw.details.overview.root(params.hackathonSlug),
-          },
-        },
-        {
-          id: Views.PROJECTS,
-          children: <Translate token={"osw:details.tabs.projects"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.osw.details.projects.root(params.hackathonSlug),
-          },
-        },
-        // {
-        //   id: Views.COMMUNITY,
-        //   children: <Translate token={"osw:details.tabs.community"} />,
-        //   as: BaseLink,
-        //   htmlProps: {
-        //     href: NEXT_ROUTER.osw.details.community.root(params.hackathonSlug),
-        //   },
-        // },
-      ]}
-      selectedId={selectedId}
-    />
-  );
+  return {
+    openGraph: {
+      images: [`https://previous.onlydust.com/hackathons/${hackathonSlug}/opengraph-image`],
+    },
+  };
 }
 
 export default function HackathonsLayout({
@@ -100,17 +45,10 @@ export default function HackathonsLayout({
               "flex w-full flex-col-reverse items-center justify-between border-b border-border-primary tablet:flex-row"
             }
           >
-            <Navigation params={params} />
+            <HackathonNavigation params={params} />
 
             <div className={"w-full p-xl tablet:w-auto"}>
-              <IsAuthenticated>
-                <IsAuthenticated.Yes>
-                  <RegisterHackathon hackathonSlug={params.hackathonSlug} />
-                </IsAuthenticated.Yes>
-                <IsAuthenticated.No>
-                  <SignInButton>Registered</SignInButton>
-                </IsAuthenticated.No>
-              </IsAuthenticated>
+              <AuthenticatedRegisterHackathon hackathonSlug={params.hackathonSlug} />
             </div>
           </div>
 

@@ -1,4 +1,6 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
+"use client";
+
+import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { GithubReactQueryAdapter } from "@/core/application/react-query-adapter/github";

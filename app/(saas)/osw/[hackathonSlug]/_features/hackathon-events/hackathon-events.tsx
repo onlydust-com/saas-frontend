@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 import { HackathonEventMenu } from "@/app/(saas)/osw/[hackathonSlug]/_components/hackathon-events-menu/hackathon-events-menu";

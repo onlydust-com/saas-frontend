@@ -1,3 +1,5 @@
+"use client";
+
 import { Bell } from "lucide-react";
 import { toast } from "sonner";
 
@@ -9,9 +11,10 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
+import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
-export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
+function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   const { capture } = usePosthog();
 
   const {
@@ -86,5 +89,18 @@ export function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
         {isRegistered ? "Registered" : "Register"}
       </Button>
     </Tooltip>
+  );
+}
+
+export function AuthenticatedRegisterHackathon({ hackathonSlug }: { hackathonSlug: string }) {
+  return (
+    <IsAuthenticated>
+      <IsAuthenticated.Yes>
+        <RegisterHackathon hackathonSlug={hackathonSlug} />
+      </IsAuthenticated.Yes>
+      <IsAuthenticated.No>
+        <SignInButton>Registered</SignInButton>
+      </IsAuthenticated.No>
+    </IsAuthenticated>
   );
 }

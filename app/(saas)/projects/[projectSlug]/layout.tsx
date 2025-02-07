@@ -1,94 +1,25 @@
-"use client";
+import { Metadata } from "next";
+import { ReactNode } from "react";
 
-import { ReactNode, useMemo } from "react";
+import { ProjectNavigation } from "@/app/(saas)/projects/[projectSlug]/_features/project-navigation/project-navigation";
 
 import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
-import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { useMatchPath } from "@/shared/hooks/router/use-match-path";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
-import { useAuthContext } from "@/shared/providers/auth-provider";
-import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ProjectOverviewSummary } from "./_features/project-details/project-overview-summary/project-overview-summary";
 import { SimilarProjects } from "./_features/project-details/similar-projects/similar-projects";
 
-enum Views {
-  "OVERVIEW" = "OVERVIEW",
-  "OPEN_ISSUES" = "OPEN_ISSUES",
-  "CONTRIBUTORS" = "CONTRIBUTORS",
-  "REWARDS" = "REWARDS",
-}
+export async function generateMetadata({ params }: { params: { projectSlug: string } }): Promise<Metadata> {
+  const projectSlug = params.projectSlug;
 
-function Navigation({ params }: { params: { projectSlug: string } }) {
-  const isOverview = useMatchPath(NEXT_ROUTER.projects.details.overview.root(params.projectSlug));
-  const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.details.issues.root(params.projectSlug));
-  const isContributors = useMatchPath(NEXT_ROUTER.projects.details.contributors.root(params.projectSlug));
-  const isRewards = useMatchPath(NEXT_ROUTER.projects.details.rewards.root(params.projectSlug));
-  const { isAuthenticated } = useAuthContext();
-  const selectedId = useMemo(() => {
-    if (isOverview) {
-      return Views.OVERVIEW;
-    }
-    if (isOpenIssues) {
-      return Views.OPEN_ISSUES;
-    }
-    if (isContributors) {
-      return Views.CONTRIBUTORS;
-    }
-    if (isRewards) {
-      return Views.REWARDS;
-    }
-  }, [isOverview, isOpenIssues, isContributors, isRewards]);
-
-  return (
-    <Tabs
-      variant={"underline"}
-      searchParams={"project-view"}
-      classNames={{ base: "w-full pt-8 px-4" }}
-      tabs={[
-        {
-          id: Views.OVERVIEW,
-          children: <Translate token={"project:details.tabs.overview"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.projects.details.overview.root(params.projectSlug),
-          },
-        },
-        {
-          id: Views.OPEN_ISSUES,
-          children: <Translate token={"project:details.tabs.openIssues"} />,
-          as: BaseLink,
-          isLocked: !isAuthenticated,
-          htmlProps: {
-            href: NEXT_ROUTER.projects.details.issues.root(params.projectSlug),
-          },
-        },
-        {
-          id: Views.CONTRIBUTORS,
-          children: <Translate token={"project:details.tabs.contributors"} />,
-          as: BaseLink,
-          htmlProps: {
-            href: NEXT_ROUTER.projects.details.contributors.root(params.projectSlug),
-          },
-        },
-        {
-          id: Views.REWARDS,
-          children: <Translate token={"project:details.tabs.rewards"} />,
-          as: BaseLink,
-          isLocked: !isAuthenticated,
-          htmlProps: {
-            href: NEXT_ROUTER.projects.details.rewards.root(params.projectSlug),
-          },
-        },
-      ]}
-      selectedId={selectedId}
-    />
-  );
+  return {
+    openGraph: {
+      images: [`https://previous.onlydust.com/p/${projectSlug}/opengraph-image`],
+    },
+  };
 }
 
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
@@ -108,7 +39,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
             px="none"
           >
             <div className={"flex w-full flex-row items-center justify-between gap-1"}>
-              <Navigation params={params} />
+              <ProjectNavigation params={params} />
             </div>
             {children}
           </Paper>
