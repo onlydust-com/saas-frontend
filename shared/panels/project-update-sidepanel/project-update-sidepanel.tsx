@@ -72,6 +72,7 @@ export function ProjectUpdateSidepanel() {
           ignoreContributionsBefore:
             rewardSettingsDate?.toISOString() || data?.rewardSettings?.ignoreContributionsBefore,
         },
+        projectLeads: updatedData.projectLeads?.map(lead => lead.id || ""),
       };
 
       await editProject(editProjectData);
@@ -91,7 +92,7 @@ export function ProjectUpdateSidepanel() {
         isLookingForContributors: data.hiring,
         githubRepoIds: (data.organizations?.flatMap(organization => organization.repos) || []).map(repo => repo.id),
         ecosystemIds: data.ecosystems.map(ecosystem => ecosystem.id),
-        projectLeads: data.leaders.map(lead => lead.id),
+        projectLeads: data.leaders,
         rewardSettingsDate: data.rewardSettings?.ignoreContributionsBefore
           ? new Date(data.rewardSettings?.ignoreContributionsBefore)
           : undefined,
@@ -122,7 +123,7 @@ export function ProjectUpdateSidepanel() {
             {data && (
               <>
                 <GlobalInformation project={data} form={form} />
-                <ProjectLead project={data} form={form} />
+                <ProjectLead form={form} />
                 <MoreInfo form={form} />
                 <ContributorLabels form={form} />
                 <Repositories project={data} />

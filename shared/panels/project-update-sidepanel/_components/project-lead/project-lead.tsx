@@ -14,7 +14,7 @@ import { ProjectLeadProps } from "./project-lead.types";
 
 type User = Partial<ContributorInterface>;
 
-export function ProjectLead({ project, form }: ProjectLeadProps) {
+export function ProjectLead({ form }: ProjectLeadProps) {
   const { t } = useTranslation("panels");
   const { user } = useAuthUser();
   const { control } = form;
@@ -53,7 +53,7 @@ export function ProjectLead({ project, form }: ProjectLeadProps) {
               />
             )}
           />
-          
+
           <div className={"flex flex-wrap gap-md"}>
             <Controller
               name="projectLeads"
