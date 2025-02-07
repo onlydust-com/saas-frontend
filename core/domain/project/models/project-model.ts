@@ -31,7 +31,6 @@ export class Project implements ProjectInterface {
   topContributors!: ProjectResponse["topContributors"];
   organizations!: GithubOrganizationInterface[];
   leaders!: ProjectResponse["leaders"];
-  invitedLeaders!: ProjectResponse["invitedLeaders"];
   ecosystems!: ProjectResponse["ecosystems"];
   categories!: ProjectResponse["categories"];
   categorySuggestions!: ProjectResponse["categorySuggestions"];

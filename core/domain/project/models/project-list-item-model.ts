@@ -12,7 +12,6 @@ export class ProjectListItem implements ProjectListItemInterface {
   hasMissingGithubAppInstallation!: ProjectListItemResponse["hasMissingGithubAppInstallation"];
   hiring!: ProjectListItemResponse["hiring"];
   id!: ProjectListItemResponse["id"];
-  isInvitedAsProjectLead!: ProjectListItemResponse["isInvitedAsProjectLead"];
   languages!: ProjectListItemResponse["languages"];
   leaders!: ProjectListItemResponse["leaders"];
   logoUrl!: ProjectListItemResponse["logoUrl"];

@@ -22,7 +22,6 @@ export class Me implements MeInterface {
   login!: MeResponse["login"];
   missingPayoutPreference!: MeResponse["missingPayoutPreference"];
   pendingApplications!: MeResponse["pendingApplications"];
-  pendingProjectsLed!: MeResponse["pendingProjectsLed"];
   projectsLed!: MeResponse["projectsLed"];
   sponsors!: MeResponse["sponsors"];
   programs!: MeResponse["programs"];
