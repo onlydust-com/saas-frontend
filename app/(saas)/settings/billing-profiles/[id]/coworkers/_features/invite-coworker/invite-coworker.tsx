@@ -61,7 +61,7 @@ export function InviteCoworker({ id }: InviteCoworkerProps) {
         </div>
       </Alert>
 
-      <SheetContent className="flex h-full flex-col gap-8">
+      <SheetContent className="flex flex-col gap-8">
         <SheetHeader>
           <SheetTitle>Invite team member</SheetTitle>
         </SheetHeader>
