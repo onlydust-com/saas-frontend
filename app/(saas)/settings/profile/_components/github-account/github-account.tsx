@@ -30,6 +30,7 @@ export function GithubAccount() {
       setIsLoading(true);
       await refetch();
       await queryClient.invalidateQueries({ queryKey: meStoragePort.getUpdateGithubProfile({}).tag });
+      await queryClient.invalidateQueries({ queryKey: meStoragePort.getMe({}).tag });
       toast.success("GitHub account synced successfully");
     } catch (error) {
       console.error("Failed to sync GitHub account:", error);
