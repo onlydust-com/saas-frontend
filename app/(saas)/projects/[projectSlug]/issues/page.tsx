@@ -23,6 +23,11 @@ import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/ap
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button } from "@/shared/ui/button";
+import { Card, CardTitle } from "@/shared/ui/card";
+import { Label } from "@/shared/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
+import { Switch } from "@/shared/ui/switch";
 
 function ProjectIssuesPage({
   params,
@@ -32,6 +37,7 @@ function ProjectIssuesPage({
   searchParams: { l: string; h: string };
 }) {
   const { open } = useApplyIssueSidePanel();
+  const [useGithubLabels, setUseGithubLabels] = useState(true);
 
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>(() => {
     const labels = searchParams.l?.split(",").filter(Boolean) || [];
@@ -166,34 +172,106 @@ function ProjectIssuesPage({
           },
         ]}
       />
+
+      {!useGithubLabels && (
+        <Card className="flex items-center justify-between gap-4 p-4">
+          <div className="flex flex-col gap-4">
+            <CardTitle>OD Labels Beta</CardTitle>
+
+            <div className="flex gap-4">
+              <div className="flex flex-col gap-2">
+                <Label>Type</Label>
+                <Select onValueChange={() => {}} defaultValue={""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="bug">Bug</SelectItem>
+                    <SelectItem value="documentation">Documentation</SelectItem>
+                    <SelectItem value="enhancement">Enhancement</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label>Difficulty</Label>
+                <Select onValueChange={() => {}} defaultValue={""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a difficulty" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label>Priority</Label>
+                <Select onValueChange={() => {}} defaultValue={""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center space-x-2 pt-[22px]">
+                <Switch id="gfi" />
+                <Label htmlFor="gfi">Good First Issues</Label>
+              </div>
+
+              <div className="pt-[22px]">
+                <Button>ODBoost</Button>
+              </div>
+            </div>
+          </div>
+
+          <Button variant={"outline"} onClick={() => setUseGithubLabels(true)}>
+            Switch to Github labels
+          </Button>
+        </Card>
+      )}
+
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>
-        {labels.length || liveHackathons.length ? (
-          <div className="flex flex-wrap gap-md p-lg">
-            {labels?.map(label => (
-              <Badge
-                key={label.name}
-                size="md"
-                onClick={() => handleLabelClick(label)}
-                color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
-              >
-                {label.name} ({label.count})
-              </Badge>
-            ))}
+        {(labels.length || liveHackathons.length) && useGithubLabels ? (
+          <div className="flex items-center justify-between gap-4 p-4">
+            <div className="flex flex-wrap gap-md">
+              {labels?.map(label => (
+                <Badge
+                  key={label.name}
+                  size="md"
+                  onClick={() => handleLabelClick(label)}
+                  color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
+                >
+                  {label.name} ({label.count})
+                </Badge>
+              ))}
 
-            {labels?.length > 0 && liveHackathons?.length > 0 ? (
-              <div className="h-8 border-l border-border-primary" />
-            ) : null}
+              {labels?.length > 0 && liveHackathons?.length > 0 ? (
+                <div className="h-8 border-l border-border-primary" />
+              ) : null}
 
-            {liveHackathons?.map(hackathon => (
-              <Badge
-                key={hackathon.slug}
-                size="md"
-                onClick={() => handleHackathonClick(hackathon)}
-                color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
-              >
-                {hackathon.title}
-              </Badge>
-            ))}
+              {liveHackathons?.map(hackathon => (
+                <Badge
+                  key={hackathon.slug}
+                  size="md"
+                  onClick={() => handleHackathonClick(hackathon)}
+                  color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
+                >
+                  {hackathon.title}
+                </Badge>
+              ))}
+            </div>
+
+            <Button className="animate-pulse" onClick={() => setUseGithubLabels(false)}>
+              Switch to ODLabels
+            </Button>
           </div>
         ) : null}
         <ScrollView direction={"x"} className="flex flex-col gap-4 p-lg">
