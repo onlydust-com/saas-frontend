@@ -89,33 +89,35 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
 
     return (
       <div className="grid grid-cols-1 gap-6">
-        <Card className="p-6">
-          <h3 className="mb-4 text-lg font-semibold">Languages</h3>
-          <div className="space-y-3">
-            {Object.entries(project.languages || {}).map(([language, { percentage, color, logoUrl }]) => (
-              <div key={language} className="space-y-1.5">
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    {logoUrl && (
-                      <img src={logoUrl} alt={`${language} logo`} width={16} height={16} className="h-4 w-4" />
-                    )}
-                    <span>{language}</span>
+        {project?.languages?.length ? (
+          <Card className="p-6">
+            <h3 className="mb-4 text-lg font-semibold">Languages</h3>
+            <div className="space-y-3">
+              {Object.entries(project.languages || {}).map(([language, { percentage, color, logoUrl }]) => (
+                <div key={language} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2">
+                      {logoUrl && (
+                        <img src={logoUrl} alt={`${language} logo`} width={16} height={16} className="h-4 w-4" />
+                      )}
+                      <span>{language}</span>
+                    </div>
+                    <span className="text-muted-foreground">{percentage}%</span>
                   </div>
-                  <span className="text-muted-foreground">{percentage}%</span>
+                  <div className="h-2 w-full rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{
+                        width: `${percentage}%`,
+                        backgroundColor: color || "var(--primary)", // Fallback to primary color if no color provided
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="h-2 w-full rounded-full bg-muted">
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{
-                      width: `${percentage}%`,
-                      backgroundColor: color || "var(--primary)", // Fallback to primary color if no color provided
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
+              ))}
+            </div>
+          </Card>
+        ) : null}
         <Card className="p-6">
           <h3 className="mb-4 text-lg font-semibold">Recent Activity</h3>
           <div className="space-y-4">
