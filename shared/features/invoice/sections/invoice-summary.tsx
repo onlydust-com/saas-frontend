@@ -47,7 +47,7 @@ export function InvoiceSummary({
                 <Text style={invoiceStyles.td}>{dateKernelPort.format(new Date(item.date), "MM/dd/yyyy")}</Text>
                 {/*  amount  */}
                 <Text style={invoiceStyles.td}>
-                  {moneyKernelPort.format({ amount: item.amount.prettyAmount, currency: item.amount.currency }).amount}
+                  {item.amount.prettyAmount} {item.amount.currency.code}
                 </Text>
                 {/*  rate  */}
                 <View style={{ ...invoiceStyles.td, ...invoiceStyles.flexRow }}>
@@ -122,7 +122,7 @@ export function InvoiceSummary({
         <Text style={invoiceStyles.h4}>{InvoiceTokens.rewardSummary.specialMentions}</Text>
         {totalAfterTaxPerCurrency?.map((item, index) => (
           <Text key={index} style={invoiceStyles.paragraph}>
-            - {moneyKernelPort.format({ amount: item.amount, currency: item.currency }).amount}
+            - {moneyKernelPort.format({ amount: item.amount, currency: item.currency }).amount} {item.currency.code}
             {vat.vatRegulationState === "VAT_APPLICABLE" ? InvoiceTokens.rewardSummary.includingVat : " "}
             {InvoiceTokens.rewardSummary.itemsReceived}
           </Text>
