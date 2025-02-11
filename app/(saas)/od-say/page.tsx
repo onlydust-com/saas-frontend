@@ -8,7 +8,7 @@ import Projects from "./_features/projects/projects";
 
 export default function ODSay() {
   return (
-    <PageContainer size="medium" className="flex">
+    <PageContainer size="medium" className="flex h-screen flex-col">
       <NavigationBreadcrumb
         breadcrumb={[
           {
@@ -17,9 +17,13 @@ export default function ODSay() {
           },
         ]}
       />
-      <div className="flex gap-16 pt-10">
-        <Chat />
-        <Projects />
+      <div className="flex min-h-0 w-full flex-1 gap-16 pt-10">
+        <div className="w-1/3 overflow-y-auto">
+          <Chat />
+        </div>
+        <div className="w-2/3 overflow-y-auto">
+          <Projects />
+        </div>
       </div>
     </PageContainer>
   );

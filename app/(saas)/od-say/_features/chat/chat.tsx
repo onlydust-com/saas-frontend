@@ -7,7 +7,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/shared/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 import { TypographyMuted } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
@@ -113,13 +113,13 @@ export default function Chat() {
   };
 
   return (
-    <div className="w-1/3">
+    <section className="flex flex-col gap-8 px-4">
       <div className="flex flex-col gap-8">
         {messages.map((message, index) => (
           <Message key={index} {...message} variant={message.author === assistant ? "assistant" : "user"} />
         ))}
       </div>
-      <div className="flex w-full flex-col gap-4 bg-background p-4">
+      <div className="flex flex-col gap-2">
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField
@@ -130,13 +130,12 @@ export default function Chat() {
                   <FormControl>
                     <Input placeholder="Tell me what you seek" {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
           </form>
         </Form>
       </div>
-    </div>
+    </section>
   );
 }

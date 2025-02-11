@@ -71,7 +71,7 @@ export default function Projects() {
   }, [projects, isError, isLoading]);
 
   return (
-    <section className={"flex w-2/3 flex-col gap-3xl"}>
+    <section className={"flex flex-col gap-3xl"}>
       <header className="flex flex-col gap-md">
         <div className="flex gap-2">
           <TypographyH2>Recommended Projects</TypographyH2>
