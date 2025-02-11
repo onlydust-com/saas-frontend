@@ -75,6 +75,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
     const { amount: formattedCurrencyAmount } = format({
       amount: parseFloat(amount),
       currency: budget.currency,
+      options: { maximumSignificantDigits },
     });
 
     if (isConversionFirst) {
