@@ -166,7 +166,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center text-sm text-muted-foreground">No issues found</div>
+                  <div className="text-left text-sm text-muted-foreground">No issues found</div>
                 )}
               </div>
 
@@ -186,7 +186,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                 {isLoadingIssues ? (
                   <IssuesSkeleton />
                 ) : issuesError ? (
-                  <div className="text-center text-sm text-destructive">Failed to load features</div>
+                  <div className="text-left text-sm text-destructive">Failed to load features</div>
                 ) : featureIssues.length > 0 ? (
                   <div className="space-y-4">
                     {featureIssues.map(issue => (
@@ -194,7 +194,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center text-sm text-muted-foreground">No features found</div>
+                  <div className="text-left text-sm text-muted-foreground">No features found</div>
                 )}
               </div>
 
@@ -214,7 +214,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                 {isLoadingIssues ? (
                   <IssuesSkeleton />
                 ) : issuesError ? (
-                  <div className="text-center text-sm text-destructive">Failed to load good first issues</div>
+                  <div className="text-left text-sm text-destructive">Failed to load good first issues</div>
                 ) : goodFirstIssues.length > 0 ? (
                   <div className="space-y-4">
                     {goodFirstIssues.map(issue => (
@@ -222,7 +222,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center text-sm text-muted-foreground">No good first issues found</div>
+                  <div className="text-left text-sm text-muted-foreground">No good first issues found</div>
                 )}
               </div>
             </div>
