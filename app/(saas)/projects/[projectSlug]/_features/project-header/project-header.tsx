@@ -11,6 +11,7 @@ import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 
 import ContributeNow from "./contribute-now.png";
 
@@ -106,8 +107,10 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
               <PopoverTrigger asChild>
                 <Button>Contribute now</Button>
               </PopoverTrigger>
-              <PopoverContent align="end" className="w-[460px] p-0">
-                <Image src={ContributeNow} alt="Contribute now" width={460} />
+              <PopoverContent align="end" className="w-[460px] overflow-hidden p-0">
+                <ScrollArea style={{ height: "700px" }}>
+                  <Image src={ContributeNow} alt="Contribute now" width={460} />
+                </ScrollArea>
               </PopoverContent>
             </Popover>
           </div>
