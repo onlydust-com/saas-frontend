@@ -23,7 +23,7 @@ import { ContributionGraph } from "../_features/contribution-graph/contribution-
 import { Description } from "./_features/description/description";
 import { RelatedProjects } from "./_features/related/related";
 
-export const mockActivities = [
+const mockActivities = [
   {
     id: "1",
     type: "PULL_REQUEST" as const,
