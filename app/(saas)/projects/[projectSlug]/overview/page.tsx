@@ -4,6 +4,7 @@ import { CircleIcon } from "lucide-react";
 import Link from "next/link";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { AnyType } from "@/core/kernel/types";
 
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Badge } from "@/shared/ui/badge";
@@ -16,7 +17,7 @@ import { ProjectOverviewSummary } from "../_features/project-details/project-ove
 import { Description } from "./_features/description/description";
 import { RelatedProjects } from "./_features/related/related";
 
-function IssueCard({ issue }: { issue: any }) {
+function IssueCard({ issue }: { issue: AnyType }) {
   return (
     <Link
       href={issue.htmlUrl}
@@ -35,7 +36,7 @@ function IssueCard({ issue }: { issue: any }) {
           </div>
           {issue.labels.length > 0 && (
             <div className="flex flex-wrap gap-1 pt-2">
-              {issue.labels.map((label: any) => (
+              {issue.labels.map((label: AnyType) => (
                 <Badge key={label.name} variant="outline" className="text-xs">
                   {label.name}
                 </Badge>
