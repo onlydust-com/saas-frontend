@@ -37,7 +37,7 @@ function ProjectIssuesPage({
   searchParams: { l: string; h: string };
 }) {
   const { open } = useApplyIssueSidePanel();
-  const [useGithubLabels, setUseGithubLabels] = useState(true);
+  const [useGithubLabels, setUseGithubLabels] = useState(false);
 
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>(() => {
     const labels = searchParams.l?.split(",").filter(Boolean) || [];
