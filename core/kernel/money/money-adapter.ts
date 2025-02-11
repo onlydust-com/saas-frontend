@@ -123,7 +123,6 @@ export class MoneyAdapter implements MoneyFacadePort {
 
     return new Intl.NumberFormat(locale, {
       maximumFractionDigits,
-      maximumSignificantDigits: this.maximumSignificantDigits,
       ...options,
     })
       .format(amount)
