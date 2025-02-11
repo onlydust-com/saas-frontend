@@ -93,14 +93,14 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
           <Card className="p-6">
             <h3 className="mb-4 text-lg font-semibold">Languages</h3>
             <div className="space-y-3">
-              {Object.entries(project.languages).map(([language, { percentage, color, logoUrl }]) => (
+              {Object.entries(project.languages || {}).map(([language, { name, percentage, color, logoUrl }]) => (
                 <div key={language} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2">
                       {logoUrl && (
                         <img src={logoUrl} alt={`${language} logo`} width={16} height={16} className="h-4 w-4" />
                       )}
-                      <span>{language}</span>
+                      <span>{name}</span>
                     </div>
                     <span className="text-muted-foreground">{percentage}%</span>
                   </div>
