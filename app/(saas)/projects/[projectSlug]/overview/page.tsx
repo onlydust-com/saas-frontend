@@ -6,6 +6,8 @@ import Link from "next/link";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { AnyType } from "@/core/kernel/types";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
@@ -118,6 +120,24 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
             tab: "overview",
           }}
           paramsReady={Boolean(data)}
+        />
+
+        <NavigationBreadcrumb
+          breadcrumb={[
+            {
+              id: "root",
+              label: "Projects",
+              href: NEXT_ROUTER.projects.root,
+            },
+            {
+              id: "name",
+              label: data?.name,
+            },
+            {
+              id: "overview",
+              label: "Overview",
+            },
+          ]}
         />
 
         <div className="grid grid-cols-1 gap-6">

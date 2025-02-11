@@ -89,11 +89,11 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
 
     return (
       <div className="grid grid-cols-1 gap-6">
-        {project?.languages?.length ? (
+        {project.languages && Object.keys(project.languages).length > 0 && (
           <Card className="p-6">
             <h3 className="mb-4 text-lg font-semibold">Languages</h3>
             <div className="space-y-3">
-              {Object.entries(project.languages || {}).map(([language, { percentage, color, logoUrl }]) => (
+              {Object.entries(project.languages).map(([language, { percentage, color, logoUrl }]) => (
                 <div key={language} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2">
@@ -117,7 +117,8 @@ export function ProjectOverviewSummary({ projectIdOrSlug }: ProjectOverviewSumma
               ))}
             </div>
           </Card>
-        ) : null}
+        )}
+
         <Card className="p-6">
           <h3 className="mb-4 text-lg font-semibold">Recent Activity</h3>
           <div className="space-y-4">
