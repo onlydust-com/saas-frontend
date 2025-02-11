@@ -3,6 +3,8 @@ import { SendHorizonal } from "lucide-react";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 
+import { IMAGES } from "@/app/_assets/img";
+
 import { bootstrap } from "@/core/bootstrap";
 
 import { Markdown } from "@/shared/features/markdown/markdown";
@@ -18,7 +20,7 @@ import { ChatFormData, MessageProps, formSchema, messageVariants } from "./chat.
 
 const assistant = {
   login: "OD-Say",
-  avatarUrl: "https://avatars.githubusercontent.com/u/12345678?v=4",
+  avatarUrl: IMAGES.odSay.avatar,
 };
 
 function Message({ author, content, timestamp, variant }: MessageProps) {
