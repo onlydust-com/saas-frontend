@@ -77,7 +77,7 @@ function IssueCard({ issue }: { issue: AnyType }) {
       href={issue.htmlUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block transition-colors hover:bg-muted/50"
+      className="block bg-background-secondary transition-colors hover:bg-muted/50"
     >
       <div className="flex items-start gap-3 rounded-lg border p-3">
         <CircleIcon className="mt-1 h-4 w-4 text-muted-foreground" />
@@ -220,7 +220,8 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
           </Card>
 
           {/* Issues Section */}
-          <Card className="space-y-12 border border-border-primary bg-background-secondary p-6">
+          <Card className="space-y-12 bg-background-secondary p-6">
+            {/* <Card className="space-y-12 border border-none bg-transparent p-6"> */}
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-semibold">Open Issues</h2>
@@ -233,7 +234,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
             {/* Issues Grid */}
             <div className="grid grid-cols-3 gap-6">
               {/* Open Issues */}
-              <div>
+              <Card className="p-4">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Issues ({data?.availableIssueCount ?? "..."})</h3>
                 </div>
@@ -250,10 +251,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                 ) : (
                   <div className="text-left text-sm text-muted-foreground">No issues found</div>
                 )}
-              </div>
+              </Card>
 
               {/* Features */}
-              <div>
+              <Card className="p-4">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Features ({featureIssues.length})</h3>
                   {featureIssues.length > 0 && (
@@ -278,10 +279,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                 ) : (
                   <div className="text-left text-sm text-muted-foreground">No features found</div>
                 )}
-              </div>
+              </Card>
 
               {/* Good First Issues */}
-              <div>
+              <Card className="p-4">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Good First Issues ({data?.goodFirstIssueCount ?? "..."})</h3>
                   {goodFirstIssues.length > 0 && (
@@ -306,7 +307,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                 ) : (
                   <div className="text-left text-sm text-muted-foreground">No good first issues found</div>
                 )}
-              </div>
+              </Card>
             </div>
           </Card>
 
@@ -346,7 +347,12 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
           </div>
 
           <Card className="p-6">
-            <h3 className="mb-4 text-lg font-semibold">Recent Activity</h3>
+            <div className="mb-12 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold">Recent Activity</h2>
+                <p className="text-sm text-muted-foreground">See the latest activity on the project</p>
+              </div>
+            </div>
             <div className="space-y-4">
               {mockActivities.map(activity => (
                 <div key={activity.id} className="flex items-start gap-3 border-b border-border pb-3 last:border-0">

@@ -174,68 +174,70 @@ function ProjectIssuesPage({
       />
 
       {!useGithubLabels && (
-        <Card className="flex items-center justify-between gap-4 p-4">
-          <div className="flex flex-col gap-4">
-            <CardTitle>OD Labels Beta</CardTitle>
+        <div className="px-lg">
+          <Card className="flex items-center justify-between gap-4 p-4">
+            <div className="flex flex-col gap-4">
+              <CardTitle>OD Labels Beta</CardTitle>
 
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-2">
-                <Label>Type</Label>
-                <Select onValueChange={() => {}} defaultValue={""}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="bug">Bug</SelectItem>
-                    <SelectItem value="documentation">Documentation</SelectItem>
-                    <SelectItem value="enhancement">Enhancement</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <div className="flex gap-4">
+                <div className="flex flex-col gap-2">
+                  <Label>Type</Label>
+                  <Select onValueChange={() => {}} defaultValue={""}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="bug">Bug</SelectItem>
+                      <SelectItem value="documentation">Documentation</SelectItem>
+                      <SelectItem value="enhancement">Enhancement</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <Label>Difficulty</Label>
-                <Select onValueChange={() => {}} defaultValue={""}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a difficulty" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Difficulty</Label>
+                  <Select onValueChange={() => {}} defaultValue={""}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a difficulty" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <Label>Priority</Label>
-                <Select onValueChange={() => {}} defaultValue={""}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a priority" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                <div className="flex flex-col gap-2">
+                  <Label>Priority</Label>
+                  <Select onValueChange={() => {}} defaultValue={""}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a priority" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className="flex items-center space-x-2 pt-[22px]">
-                <Switch id="gfi" />
-                <Label htmlFor="gfi">Good First Issues</Label>
-              </div>
+                <div className="flex items-center space-x-2 pt-[22px]">
+                  <Switch id="gfi" />
+                  <Label htmlFor="gfi">Good First Issues</Label>
+                </div>
 
-              <div className="pt-[22px]">
-                <Button>ODBoost</Button>
+                <div className="pt-[22px]">
+                  <Button>ODBoost</Button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <Button variant={"outline"} onClick={() => setUseGithubLabels(true)}>
-            Switch to Github labels
-          </Button>
-        </Card>
+            <Button variant={"outline"} onClick={() => setUseGithubLabels(true)}>
+              Switch to Github labels
+            </Button>
+          </Card>
+        </div>
       )}
 
       <div className={"flex h-full flex-col divide-y divide-border-primary overflow-hidden"}>

@@ -7,7 +7,9 @@ import { useCallback } from "react";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Avatar as AvatarDs } from "@/design-system/atoms/avatar";
+import { Typo } from "@/design-system/atoms/typo";
 
+import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { badgeVariants } from "@/shared/ui/badge";
@@ -166,26 +168,37 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
       </div>
 
       {/* Stats */}
-      <div className="flex items-center divide-x">
-        {stats.map(stat => {
-          const Icon = stat.icon;
-          return (
-            <div key={stat.label} className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">
-              {stat.extra ? (
-                stat.extra
-              ) : (
-                <>
-                  <Icon className="h-4 w-4 text-muted-foreground" />
-                  <div className="flex items-baseline gap-1">
-                    <p className="text-base font-medium">{stat.value.toLocaleString()}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  </div>
-                </>
-              )}
+      <div className="flex w-full items-center justify-between">
+        <div className="flex items-center divide-x">
+          {stats.map(stat => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">
+                {stat.extra ? (
+                  stat.extra
+                ) : (
+                  <>
+                    <Icon className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex items-baseline gap-1">
+                      <p className="text-base font-medium">{stat.value.toLocaleString()}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
+          <div className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">{renderHeaderLanguages()}</div>
+        </div>
+        {project.moreInfos?.length ? (
+          <div className="flex flex-col gap-lg">
+            <div className={"flex flex-row flex-wrap gap-sm"}>
+              {project.moreInfos?.map(moreInfoItem => (
+                <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
+              ))}
             </div>
-          );
-        })}
-        <div className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">{renderHeaderLanguages()}</div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
