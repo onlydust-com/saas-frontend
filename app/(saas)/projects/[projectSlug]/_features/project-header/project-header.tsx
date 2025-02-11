@@ -1,6 +1,7 @@
 "use client";
 
 import { BugIcon, GitPullRequestIcon, StarIcon, Users } from "lucide-react";
+import Image from "next/image";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -10,6 +11,8 @@ import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
+
+import ContributeNow from "./contribute-now.png";
 
 interface ProjectHeaderProps {
   projectSlug: string;
@@ -103,7 +106,9 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
               <PopoverTrigger asChild>
                 <Button>Contribute now</Button>
               </PopoverTrigger>
-              <PopoverContent align="end">Place content for the popover here.</PopoverContent>
+              <PopoverContent align="end" className="w-[460px] p-0">
+                <Image src={ContributeNow} alt="Contribute now" width={460} />
+              </PopoverContent>
             </Popover>
           </div>
         </div>
