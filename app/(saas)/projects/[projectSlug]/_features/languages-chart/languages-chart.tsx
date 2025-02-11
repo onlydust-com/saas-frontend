@@ -7,7 +7,7 @@ interface LanguagesChartProps {
 }
 
 export function LanguagesChart({ projectId }: LanguagesChartProps) {
-  const { data: languages } = ProjectReactQueryAdapter.client.useGetProjectLanguages({
+  const { data: languages } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: projectId,
     },

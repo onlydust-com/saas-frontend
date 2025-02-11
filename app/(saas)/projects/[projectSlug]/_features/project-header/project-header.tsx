@@ -3,14 +3,13 @@
 import { BugIcon, GitPullRequestIcon, StarIcon, Users } from "lucide-react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { ProjectContributorsInterfaceV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 
 import { Avatar as AvatarDs } from "@/design-system/atoms/avatar";
 
 import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
-import { Card } from "@/shared/ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 
 interface ProjectHeaderProps {
   projectSlug: string;
@@ -99,7 +98,13 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
               <Github className="h-5 w-5" />
               View on GitHub
             </a>
-            <Button>Contribute now</Button>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button>Contribute now</Button>
+              </PopoverTrigger>
+              <PopoverContent align="end">Place content for the popover here.</PopoverContent>
+            </Popover>
           </div>
         </div>
       </div>
@@ -110,7 +115,7 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
           const Icon = stat.icon;
           return (
             <div key={stat.label} className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">
-              {!!stat.extra ? (
+              {stat.extra ? (
                 stat.extra
               ) : (
                 <>

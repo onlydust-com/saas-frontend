@@ -269,9 +269,7 @@ function ProjectIssuesPage({
               ))}
             </div>
 
-            <Button className="animate-pulse" onClick={() => setUseGithubLabels(false)}>
-              Switch to ODLabels
-            </Button>
+            <Button onClick={() => setUseGithubLabels(false)}>Switch to ODLabels</Button>
           </div>
         ) : null}
         <ScrollView direction={"x"} className="flex flex-col gap-4 p-lg">
