@@ -1,12 +1,13 @@
 "use client";
 
-import { CircleIcon } from "lucide-react";
+import { OctagonAlert, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { AnyType } from "@/core/kernel/types";
 
+import { Icon } from "@/design-system/atoms/icon";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -77,10 +78,10 @@ function IssueCard({ issue }: { issue: AnyType }) {
       href={issue.htmlUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block bg-background-secondary transition-colors hover:bg-muted/50"
+      className="block bg-background transition-colors hover:bg-muted/50"
     >
       <div className="flex items-start gap-3 rounded-lg border p-3">
-        <CircleIcon className="mt-1 h-4 w-4 text-muted-foreground" />
+        <ContributionBadge type={"ISSUE"} githubStatus={issue.status} number={issue.number} size="sm" />
         <div className="flex-1 space-y-1">
           <h4 className="font-medium leading-none">{issue.title}</h4>
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
@@ -151,10 +152,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
     issuesData?.pages[0]?.issues
       .filter(issue => issue.labels.some(label => label.name.toLowerCase() === "good first issue"))
       .slice(0, 3) || [];
-  const featureIssues =
-    issuesData?.pages[0]?.issues
-      .filter(issue => issue.labels.some(label => label.name.toLowerCase() === "feature"))
-      .slice(0, 3) || [];
+  // const featureIssues =
+  //   issuesData?.pages[0]?.issues
+  //     .filter(issue => issue.labels.some(label => label.name.toLowerCase() === "feature"))
+  //     .slice(0, 3) || [];
 
   return (
     <ScrollArea className="h-full">
@@ -194,7 +195,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         />
 
         <div className="grid grid-cols-1 gap-6">
-          <Card className={cn("relative h-[500px] overflow-hidden p-6", showAll && "h-fit transition-all")}>
+          <Card className={cn("relative h-[300px] overflow-hidden p-6", showAll && "h-fit transition-all")}>
             {/* Documentation */}
             {isLoadingProject ? (
               <Skeleton className="h-32 w-full" />
@@ -204,7 +205,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
               <div className="text-sm text-muted-foreground">No documentation available</div>
             )}
             {!showAll && (
-              <div className="absolute bottom-0 left-0 right-0 flex h-[500px] items-end justify-center bg-gradient-to-t from-background to-transparent pb-6">
+              <div className="absolute bottom-0 left-0 right-0 flex h-[300px] items-end justify-center bg-gradient-to-t from-background to-transparent pb-6">
                 <Button size="sm" variant={"ghost"} onClick={() => setShowAll(true)}>
                   Show all
                 </Button>
@@ -220,71 +221,16 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
           </Card>
 
           {/* Issues Section */}
-          <Card className="space-y-12 bg-background-secondary p-6">
-            {/* <Card className="space-y-12 border border-none bg-transparent p-6"> */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold">Open Issues</h2>
-                <p className="text-sm text-muted-foreground">
-                  Browse through available issues, features, and good first issues
-                </p>
-              </div>
-            </div>
-
+          <div>
             {/* Issues Grid */}
-            <div className="grid grid-cols-3 gap-6">
-              {/* Open Issues */}
-              <Card className="p-4">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">Issues ({data?.availableIssueCount ?? "..."})</h3>
-                </div>
-                {isLoadingIssues ? (
-                  <IssuesSkeleton />
-                ) : issuesError ? (
-                  <div className="text-center text-sm text-destructive">Failed to load issues</div>
-                ) : latestIssues.length > 0 ? (
-                  <div className="space-y-4">
-                    {latestIssues.map(issue => (
-                      <IssueCard key={issue.id} issue={issue} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-left text-sm text-muted-foreground">No issues found</div>
-                )}
-              </Card>
-
-              {/* Features */}
-              <Card className="p-4">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">Features ({featureIssues.length})</h3>
-                  {featureIssues.length > 0 && (
-                    <Link
-                      href={`/projects/${params.projectSlug}/issues?l=feature`}
-                      className="text-sm text-muted-foreground hover:text-primary"
-                    >
-                      View all
-                    </Link>
-                  )}
-                </div>
-                {isLoadingIssues ? (
-                  <IssuesSkeleton />
-                ) : issuesError ? (
-                  <div className="text-left text-sm text-destructive">Failed to load features</div>
-                ) : featureIssues.length > 0 ? (
-                  <div className="space-y-4">
-                    {featureIssues.map(issue => (
-                      <IssueCard key={issue.id} issue={issue} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-left text-sm text-muted-foreground">No features found</div>
-                )}
-              </Card>
-
+            <div className="grid grid-cols-2 gap-6">
               {/* Good First Issues */}
-              <Card className="p-4">
+              <Card className="bg-background-secondary p-4">
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">Good First Issues ({data?.goodFirstIssueCount ?? "..."})</h3>
+                  <div className="flex items-center justify-start gap-2">
+                    <Icon component={ThumbsUp} color="green" size="lg" />
+                    <h3 className="text-lg font-semibold">Good First Issues ({data?.goodFirstIssueCount ?? "..."})</h3>
+                  </div>
                   {goodFirstIssues.length > 0 && (
                     <Link
                       href={`/projects/${params.projectSlug}/issues?l=good first issue`}
@@ -308,74 +254,70 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                   <div className="text-left text-sm text-muted-foreground">No good first issues found</div>
                 )}
               </Card>
-            </div>
-          </Card>
 
-          <div className="grid grid-cols-3 gap-4">
-            {data?.languages && Object.keys(data.languages).length > 0 && (
-              <Card className="col-span-1 p-6">
-                <h3 className="mb-4 text-lg font-semibold">Languages</h3>
-                <div className="space-y-3">
-                  {Object.entries(data.languages || {}).map(([language, { name, percentage, color, logoUrl }]) => (
-                    <div key={language} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-2">
-                          {logoUrl && (
-                            <img src={logoUrl} alt={`${language} logo`} width={16} height={16} className="h-4 w-4" />
-                          )}
-                          <span>{name}</span>
-                        </div>
-                        <span className="text-muted-foreground">{percentage}%</span>
-                      </div>
-                      <div className="h-2 w-full rounded-full bg-muted">
-                        <div
-                          className="h-full rounded-full transition-all"
-                          style={{
-                            width: `${percentage}%`,
-                            backgroundColor: color || "var(--primary)", // Fallback to primary color if no color provided
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+              {/* Open Issues */}
+              <Card className="bg-background-secondary p-4">
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center justify-start gap-2">
+                    <Icon component={OctagonAlert} color="red" size="lg" />
+                    <h3 className="text-lg font-semibold">Bug ({data?.availableIssueCount ?? "..."})</h3>
+                  </div>
                 </div>
+                {isLoadingIssues ? (
+                  <IssuesSkeleton />
+                ) : issuesError ? (
+                  <div className="text-center text-sm text-destructive">Failed to load issues</div>
+                ) : latestIssues.length > 0 ? (
+                  <div className="space-y-4">
+                    {latestIssues.map(issue => (
+                      <IssueCard key={issue.id} issue={issue} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-left text-sm text-muted-foreground">No issues found</div>
+                )}
               </Card>
-            )}
-            <div className="col-span-2">
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="col-span-1">
               <ContributionGraph />
             </div>
           </div>
 
-          <Card className="p-6">
-            <div className="mb-12 flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold">Recent Activity</h2>
-                <p className="text-sm text-muted-foreground">See the latest activity on the project</p>
+          <div className="grid grid-cols-2 gap-4">
+            <Card className="p-6">
+              <div className="mb-12 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-semibold">Recent Activity</h2>
+                  <p className="text-sm text-muted-foreground">See the latest activity on the project</p>
+                </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              {mockActivities.map(activity => (
-                <div key={activity.id} className="flex items-start gap-3 border-b border-border pb-3 last:border-0">
-                  <ContributionBadge
-                    type={activity.type}
-                    githubStatus={activity.githubStatus}
-                    number={activity.number}
-                    size="sm"
-                  />
-                  <div className="flex-1 space-y-1">
-                    <p className="text-sm font-medium">{activity.title}</p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span>{activity.author}</span>
-                      <span>•</span>
-                      <span>{activity.createdAt}</span>
+              <div className="space-y-4">
+                {mockActivities.map(activity => (
+                  <div key={activity.id} className="flex items-start gap-3 border-b border-border pb-3 last:border-0">
+                    <ContributionBadge
+                      type={activity.type}
+                      githubStatus={activity.githubStatus}
+                      number={activity.number}
+                      size="sm"
+                    />
+                    <div className="flex-1 space-y-1">
+                      <p className="text-sm font-medium">{activity.title}</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span>{activity.author}</span>
+                        <span>•</span>
+                        <span>{activity.createdAt}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </Card>
 
-          <RelatedProjects projectIdOrSlug={params.projectSlug} />
+            <RelatedProjects projectIdOrSlug={params.projectSlug} />
+          </div>
         </div>
       </div>
     </ScrollArea>

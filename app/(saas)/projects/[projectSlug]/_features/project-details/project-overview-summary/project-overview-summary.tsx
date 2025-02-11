@@ -12,7 +12,7 @@ import { Card } from "@/shared/ui/card";
 
 import { ProjectOverviewSummaryProps } from "./project-overview-summary.types";
 
-const mockActivities = [
+export const mockActivities = [
   {
     id: "1",
     type: "PULL_REQUEST" as const,

@@ -11,7 +11,6 @@ import { Avatar as AvatarDs } from "@/design-system/atoms/avatar";
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { badgeVariants } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ScrollArea } from "@/shared/ui/scroll-area";
@@ -48,41 +47,37 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
 
     const languages = Object.values(project?.languages || {});
 
-    const hasExtraLanguages = languages.length > 3;
-
     return (
       <div className="flex items-center gap-1">
-        {languages.slice(0, 3).map(language => (
-          <Avatar className="size-5" key={language.name}>
-            <AvatarImage src={language.logoUrl} />
-            <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
-          </Avatar>
-        ))}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="flex items-center gap-1">
+              {languages.slice(0, 3).map(language => (
+                <Avatar className="size-5" key={language.name}>
+                  <AvatarImage src={language.logoUrl} />
+                  <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+              ))}
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" align="end">
+            <ul className="flex flex-col gap-2">
+              {languages.map(language => (
+                <li key={language.name} className="flex items-center justify-between gap-10">
+                  <div className="flex items-center gap-1">
+                    <Avatar className="size-5" key={language.name}>
+                      <AvatarImage src={language.logoUrl} />
+                      <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <TypographySmall>{language.name}</TypographySmall>
+                  </div>
 
-        {hasExtraLanguages && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button className={badgeVariants({ variant: "outline" })}>+{languages.length - 1}</button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" align="end">
-              <ul className="flex flex-col gap-2">
-                {languages.map(language => (
-                  <li key={language.name} className="flex items-center justify-between gap-10">
-                    <div className="flex items-center gap-1">
-                      <Avatar className="size-5" key={language.name}>
-                        <AvatarImage src={language.logoUrl} />
-                        <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <TypographySmall>{language.name}</TypographySmall>
-                    </div>
-
-                    <TypographySmall>{language.percentage}%</TypographySmall>
-                  </li>
-                ))}
-              </ul>
-            </TooltipContent>
-          </Tooltip>
-        )}
+                  <TypographySmall>{language.percentage}%</TypographySmall>
+                </li>
+              ))}
+            </ul>
+          </TooltipContent>
+        </Tooltip>
       </div>
     );
   }, [project?.languages]);
@@ -130,15 +125,23 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
   ];
 
   return (
-    <div className="space-y-6 px-6">
+    <div className="relative space-y-6 px-6">
       {/* Project Info Section */}
       <div className="space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="flex items-start gap-4">
-            {project.logoUrl && <AvatarDs src={project.logoUrl} alt={project.name} size="xl" shape="squared" />}
-            <div className="space-y-1">
-              <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
-              <p className="max-w-2xl text-lg text-muted-foreground">{project.shortDescription}</p>
+        <div className="flex w-full items-start justify-between gap-4">
+          <div className="flex flex-col items-start justify-start gap-4">
+            <div className="flex items-center gap-4">
+              {project.logoUrl && <AvatarDs src={project.logoUrl} alt={project.name} size="xl" shape="squared" />}
+              <div className="space-y-1">
+                <h1 className="text-3xl font-semibold tracking-tight">{project.name}</h1>
+              </div>
+            </div>
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-4">
+                <div className="space-y-1">
+                  <p className="max-w-2xl text-lg text-muted-foreground">{project.shortDescription}</p>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-3">

@@ -3,9 +3,10 @@
 import { useCallback } from "react";
 
 import { ProjectCard, ProjectCardSkeleton } from "@/app/(saas)/discover/_components/project-card/project-card";
-import { Section } from "@/app/(saas)/discover/_components/section/section";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+
+import { Card } from "@/shared/ui/card";
 
 export function RelatedProjects(_: { projectIdOrSlug: string }) {
   // const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetSimilarProjects({
@@ -21,7 +22,7 @@ export function RelatedProjects(_: { projectIdOrSlug: string }) {
   // });
 
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 6 },
+    queryParams: { pageSize: 3 },
   });
 
   const renderProjects = useCallback(() => {
@@ -47,8 +48,14 @@ export function RelatedProjects(_: { projectIdOrSlug: string }) {
   if (isError) return null;
 
   return (
-    <Section title="Similar Projects">
-      <div className="grid gap-x-12 gap-y-6 md:grid-cols-2 lg:grid-cols-3">{renderProjects()}</div>
-    </Section>
+    <Card className="bg-transparent p-6">
+      <div className="mb-12 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold">Related Projects</h2>
+          <p className="text-sm text-muted-foreground">Discover other projects that are similar to this one.</p>
+        </div>
+      </div>
+      <div className="grid gap-x-12 gap-y-6 md:grid-cols-1 lg:grid-cols-1">{renderProjects()}</div>
+    </Card>
   );
 }

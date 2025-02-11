@@ -19,7 +19,12 @@ export function ContributionGraph() {
   // You would typically use a library like recharts or react-calendar-heatmap
   return (
     <Card className="p-6">
-      <div className="text-left text-sm text-muted-foreground">945 contributions last year</div>
+      <div className="mb-12 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold">GitHub activity</h2>
+          <div className="text-left text-sm text-muted-foreground">945 contributions last year</div>
+        </div>
+      </div>
       <ActivityGraph data={mockActivityData} />
     </Card>
   );
