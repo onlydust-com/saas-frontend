@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SendHorizonal } from "lucide-react";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 
@@ -7,6 +8,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 import { TypographyMuted } from "@/shared/ui/typography";
@@ -119,7 +121,7 @@ export default function Chat() {
           <Message key={index} {...message} variant={message.author === assistant ? "assistant" : "user"} />
         ))}
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="mb-2 flex flex-col gap-2">
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField
@@ -128,7 +130,21 @@ export default function Chat() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Tell me what you seek" {...field} />
+                    <div className="relative">
+                      <Input placeholder="Tell me what you seek" {...field} className="pr-12" />
+                      <Button
+                        size="icon"
+                        type="submit"
+                        variant="ghost"
+                        className={cn(
+                          "absolute right-0 top-0",
+                          form.formState.isValid ? "text-primary" : "text-muted-foreground"
+                        )}
+                        disabled={!form.formState.isValid}
+                      >
+                        <SendHorizonal className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </FormControl>
                 </FormItem>
               )}
