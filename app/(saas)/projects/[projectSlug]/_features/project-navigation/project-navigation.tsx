@@ -7,7 +7,6 @@ import { Tabs } from "@/design-system/molecules/tabs/tabs";
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
-import { useAuthContext } from "@/shared/providers/auth-provider";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
 enum Views {
@@ -22,7 +21,7 @@ export function ProjectNavigation({ params }: { params: { projectSlug: string } 
   const isOpenIssues = useMatchPath(NEXT_ROUTER.projects.details.issues.root(params.projectSlug));
   const isContributors = useMatchPath(NEXT_ROUTER.projects.details.contributors.root(params.projectSlug));
   const isRewards = useMatchPath(NEXT_ROUTER.projects.details.rewards.root(params.projectSlug));
-  const { isAuthenticated } = useAuthContext();
+
   const selectedId = useMemo(() => {
     if (isOverview) {
       return Views.OVERVIEW;
