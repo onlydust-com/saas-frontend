@@ -56,7 +56,6 @@ export function ProjectNavigation({ params }: { params: { projectSlug: string } 
           id: Views.OPEN_ISSUES,
           children: <Translate token={"project:details.tabs.openIssues"} />,
           as: BaseLink,
-          isLocked: !isAuthenticated,
           htmlProps: {
             href: NEXT_ROUTER.projects.details.issues.root(params.projectSlug),
           },
@@ -73,7 +72,6 @@ export function ProjectNavigation({ params }: { params: { projectSlug: string } 
           id: Views.REWARDS,
           children: <Translate token={"project:details.tabs.rewards"} />,
           as: BaseLink,
-          isLocked: !isAuthenticated,
           htmlProps: {
             href: NEXT_ROUTER.projects.details.rewards.root(params.projectSlug),
           },

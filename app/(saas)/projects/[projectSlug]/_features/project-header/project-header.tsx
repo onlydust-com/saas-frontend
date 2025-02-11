@@ -7,7 +7,6 @@ import { useCallback } from "react";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Avatar as AvatarDs } from "@/design-system/atoms/avatar";
-import { Typo } from "@/design-system/atoms/typo";
 
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { Github } from "@/shared/icons";
