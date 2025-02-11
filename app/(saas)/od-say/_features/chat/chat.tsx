@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { TypographyMuted } from "@/shared/ui/typography";
+import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
 import { ChatFormData, MessageProps, formSchema, messageVariants } from "./chat.types";
@@ -31,7 +31,7 @@ function Message({ author, content, timestamp, variant }: MessageProps) {
           <AvatarImage src={author.avatarUrl} />
           <AvatarFallback>{author.login}</AvatarFallback>
         </Avatar>
-        <span>{author.login}</span>
+        <TypographySmall>{author.login}</TypographySmall>
         <TypographyMuted className={variant === "user" ? "mr-auto" : "ml-auto"}>
           {dateKernelPort.formatDistanceToNow(timestamp)}
         </TypographyMuted>

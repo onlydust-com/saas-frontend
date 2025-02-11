@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { z } from "zod";
 
-export const messageVariants = cva("rounded-lg p-1 shadow", {
+export const messageVariants = cva("rounded-lg p-2 shadow", {
   variants: {
     variant: {
       user: "bg-purple-800 text-accent-foreground rounded-tr-none mr-12",
