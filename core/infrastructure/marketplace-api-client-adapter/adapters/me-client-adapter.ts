@@ -1,6 +1,7 @@
 import { bootstrap } from "@/core/bootstrap";
 import { BillingProfileShort } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import {
+  ContinueChatPortParams,
   GetMeResponse,
   GetMyHackathonRegistrationResponse,
   GetMyNotificationSettingsResponse,
@@ -16,6 +17,7 @@ import {
   SetMyNotificationSettingsBody,
   SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
+  StartChatPortResponse,
   UploadProfilePictureResponse,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
@@ -51,6 +53,8 @@ export class MeClientAdapter implements MeStoragePort {
     uploadProfilePicture: "me/profile/avatar",
     getMyNotificationSettings: "me/notification-settings",
     setMyNotificationSettings: "me/notification-settings",
+    startChat: "me/reco/chats",
+    continueChat: "me/reco/chats/:chatId",
   } as const;
 
   logoutMe = () => {
@@ -410,4 +414,42 @@ export class MeClientAdapter implements MeStoragePort {
       tag,
     };
   };
+
+  startChat(): StartChatPortResponse {
+    const path = this.routes["startChat"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async () =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  }
+
+  continueChat({ pathParams }: FirstParameter<MeStoragePort["continueChat"]>) {
+    const path = this.routes["continueChat"];
+    const method = "PUT";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: ContinueChatPortParams) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  }
 }

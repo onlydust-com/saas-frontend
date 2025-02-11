@@ -24,6 +24,10 @@ export interface MessageProps extends VariantProps<typeof messageVariants> {
   timestamp: Date;
 }
 
+export interface ChatProps {
+  onSuggestionChange: (projectIds: string[], issueIds: number[]) => void;
+}
+
 export const formSchema = z.object({
   message: z.string().min(1),
 });
