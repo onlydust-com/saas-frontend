@@ -37,7 +37,7 @@ function setRedirectTo(url: string) {
 }
 
 function getRedirectTo() {
-  return window.localStorage.getItem(REDIRECT_TO_KEY) ?? NEXT_ROUTER.myDashboard.root;
+  return window.localStorage.getItem(REDIRECT_TO_KEY) ?? NEXT_ROUTER.home.root;
 }
 
 function clearRedirectTo() {
