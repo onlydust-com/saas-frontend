@@ -2,6 +2,7 @@
 
 import { BugIcon, GitPullRequestIcon, StarIcon, Users } from "lucide-react";
 import Image from "next/image";
+import { useCallback } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -9,9 +10,12 @@ import { Avatar as AvatarDs } from "@/design-system/atoms/avatar";
 
 import { Github } from "@/shared/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { badgeVariants } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { ScrollArea } from "@/shared/ui/scroll-area";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { TypographySmall } from "@/shared/ui/typography";
 
 import ContributeNow from "./contribute-now.png";
 
@@ -37,6 +41,50 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
       enabled: Boolean(projectSlug),
     },
   });
+
+  const renderHeaderLanguages = useCallback(() => {
+    if (project?.languages && Object.keys(project.languages).length === 0) return null;
+
+    const languages = Object.values(project?.languages || {});
+
+    const hasExtraLanguages = languages.length > 3;
+
+    return (
+      <div className="flex items-center gap-1">
+        {languages.slice(0, 3).map(language => (
+          <Avatar className="size-5" key={language.name}>
+            <AvatarImage src={language.logoUrl} />
+            <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+          </Avatar>
+        ))}
+
+        {hasExtraLanguages && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className={badgeVariants({ variant: "outline" })}>+{languages.length - 1}</button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" align="end">
+              <ul className="flex flex-col gap-2">
+                {languages.map(language => (
+                  <li key={language.name} className="flex items-center justify-between gap-10">
+                    <div className="flex items-center gap-1">
+                      <Avatar className="size-5" key={language.name}>
+                        <AvatarImage src={language.logoUrl} />
+                        <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <TypographySmall>{language.name}</TypographySmall>
+                    </div>
+
+                    <TypographySmall>{language.percentage}%</TypographySmall>
+                  </li>
+                ))}
+              </ul>
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </div>
+    );
+  }, [project?.languages]);
 
   if (!project) return null;
 
@@ -137,6 +185,7 @@ export function ProjectHeader({ projectSlug }: ProjectHeaderProps) {
             </div>
           );
         })}
+        <div className="flex items-center gap-2 px-6 first:pl-0 last:pr-0">{renderHeaderLanguages()}</div>
       </div>
     </div>
   );

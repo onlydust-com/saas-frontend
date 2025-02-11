@@ -2,22 +2,74 @@
 
 import { CircleIcon } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { AnyType } from "@/core/kernel/types";
+
+import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { cn } from "@/shared/utils";
 
 import { ContributionGraph } from "../_features/contribution-graph/contribution-graph";
-import { ProjectOverviewSummary } from "../_features/project-details/project-overview-summary/project-overview-summary";
 import { Description } from "./_features/description/description";
 import { RelatedProjects } from "./_features/related/related";
+
+export const mockActivities = [
+  {
+    id: "1",
+    type: "PULL_REQUEST" as const,
+    title: "Add new authentication flow",
+    author: "Sarah Chen",
+    createdAt: "2 hours ago",
+    githubStatus: "OPEN" as const,
+    number: 1,
+  },
+  {
+    id: "2",
+    type: "ISSUE" as const,
+    title: "Fix responsive layout on mobile devices",
+    author: "John Doe",
+    createdAt: "5 hours ago",
+    githubStatus: "OPEN" as const,
+    number: 1,
+  },
+  {
+    id: "3",
+    type: "CODE_REVIEW" as const,
+    title: "Update dependencies to latest versions",
+    author: "Mike Wilson",
+    createdAt: "1 day ago",
+    githubStatus: "APPROVED" as const,
+    number: 1,
+  },
+  {
+    id: "4",
+    type: "PULL_REQUEST" as const,
+    title: "Implement dark mode support",
+    author: "Emma Thompson",
+    createdAt: "2 days ago",
+    githubStatus: "OPEN" as const,
+    number: 1,
+  },
+  {
+    id: "5",
+    type: "ISSUE" as const,
+    title: "Performance optimization for data fetching",
+    author: "Alex Kumar",
+    createdAt: "3 days ago",
+    githubStatus: "OPEN" as const,
+    number: 1,
+  },
+];
 
 function IssueCard({ issue }: { issue: AnyType }) {
   return (
@@ -68,6 +120,7 @@ function IssuesSkeleton() {
 }
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
+  const [showAll, setShowAll] = useState(false);
   const { data, isLoading: isLoadingProject } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
@@ -106,9 +159,9 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
   return (
     <ScrollArea className="h-full">
       <div className="flex flex-col items-start justify-start gap-4 laptop:h-full laptop:flex-row">
-        <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-0 laptop:w-[440px] laptop:min-w-[440px]">
+        {/* <div className="flex w-full flex-col gap-4 laptop:sticky laptop:top-0 laptop:w-[440px] laptop:min-w-[440px]">
           <ProjectOverviewSummary projectIdOrSlug={params.projectSlug} />
-        </div>
+        </div> */}
 
         <PosthogCaptureOnMount
           eventName={"project_viewed"}
@@ -141,11 +194,8 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         />
 
         <div className="grid grid-cols-1 gap-6">
-          {/* Documentation */}
-          <Card className="p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Documentation</h3>
-            </div>
+          <Card className={cn("relative h-[500px] overflow-hidden p-6", showAll && "h-fit transition-all")}>
+            {/* Documentation */}
             {isLoadingProject ? (
               <Skeleton className="h-32 w-full" />
             ) : data?.longDescription ? (
@@ -153,9 +203,21 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
             ) : (
               <div className="text-sm text-muted-foreground">No documentation available</div>
             )}
+            {!showAll && (
+              <div className="absolute bottom-0 left-0 right-0 flex h-[500px] items-end justify-center bg-gradient-to-t from-background to-transparent pb-6">
+                <Button size="sm" variant={"ghost"} onClick={() => setShowAll(true)}>
+                  Show all
+                </Button>
+              </div>
+            )}
+            {showAll && (
+              <div className="flex h-fit w-full items-end justify-center pb-6">
+                <Button size="sm" variant={"ghost"} onClick={() => setShowAll(false)}>
+                  Show less
+                </Button>
+              </div>
+            )}
           </Card>
-
-          <ContributionGraph />
 
           {/* Issues Section */}
           <Card className="space-y-12 border border-border-primary bg-background-secondary p-6">
@@ -245,6 +307,65 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
                   <div className="text-left text-sm text-muted-foreground">No good first issues found</div>
                 )}
               </div>
+            </div>
+          </Card>
+
+          <div className="grid grid-cols-3 gap-4">
+            {data?.languages && Object.keys(data.languages).length > 0 && (
+              <Card className="col-span-1 p-6">
+                <h3 className="mb-4 text-lg font-semibold">Languages</h3>
+                <div className="space-y-3">
+                  {Object.entries(data.languages || {}).map(([language, { name, percentage, color, logoUrl }]) => (
+                    <div key={language} className="space-y-1.5">
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          {logoUrl && (
+                            <img src={logoUrl} alt={`${language} logo`} width={16} height={16} className="h-4 w-4" />
+                          )}
+                          <span>{name}</span>
+                        </div>
+                        <span className="text-muted-foreground">{percentage}%</span>
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: color || "var(--primary)", // Fallback to primary color if no color provided
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+            <div className="col-span-2">
+              <ContributionGraph />
+            </div>
+          </div>
+
+          <Card className="p-6">
+            <h3 className="mb-4 text-lg font-semibold">Recent Activity</h3>
+            <div className="space-y-4">
+              {mockActivities.map(activity => (
+                <div key={activity.id} className="flex items-start gap-3 border-b border-border pb-3 last:border-0">
+                  <ContributionBadge
+                    type={activity.type}
+                    githubStatus={activity.githubStatus}
+                    number={activity.number}
+                    size="sm"
+                  />
+                  <div className="flex-1 space-y-1">
+                    <p className="text-sm font-medium">{activity.title}</p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>{activity.author}</span>
+                      <span>•</span>
+                      <span>{activity.createdAt}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
 
