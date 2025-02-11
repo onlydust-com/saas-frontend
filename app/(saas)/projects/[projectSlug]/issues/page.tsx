@@ -328,4 +328,4 @@ function ProjectIssuesPage({
   );
 }
 
-export default withClientOnly(withAuthenticated(ProjectIssuesPage));
+export default withClientOnly(ProjectIssuesPage);
