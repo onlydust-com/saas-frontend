@@ -1,5 +1,8 @@
 "use client";
 
+import { AvailableIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/available-issues/available-issues";
+import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -9,7 +12,6 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
@@ -57,7 +59,9 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden">
         <Description description={data?.longDescription} />
 
-        <ActivityGraph />
+        <GoodFirstIssues projectId={data?.id} />
+
+        <AvailableIssues projectId={data?.id} />
       </div>
     </ScrollView>
   );
