@@ -124,7 +124,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
 
   return (
     <div className="flex w-full flex-col bg-background pt-6">
-      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-40 w-full rounded-xl"></ImageBanner>
+      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
       <Avatar className="relative z-[2] -mt-16 mb-6 ml-6 h-32 w-32 rounded-xl border-4 border-background bg-background">
         <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
         <AvatarFallback>
