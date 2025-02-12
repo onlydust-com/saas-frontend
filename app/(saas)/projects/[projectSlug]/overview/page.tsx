@@ -1,5 +1,7 @@
 "use client";
 
+import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -56,6 +58,8 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden">
         <Description description={data?.longDescription} />
+
+        <GoodFirstIssues />
 
         <ActivityGraph />
       </div>
