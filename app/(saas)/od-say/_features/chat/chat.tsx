@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonal } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
@@ -47,11 +47,16 @@ function Message({ author, content, timestamp, variant }: MessageProps) {
 
 export default function Chat({ onSuggestionChange }: ChatProps) {
   const { startChat, sendMessage, messages, projectIds, issueIds } = useChat();
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<ChatFormData>({
     mode: "all",
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const { handleSubmit, reset } = form;
 
@@ -76,6 +81,7 @@ export default function Chat({ onSuggestionChange }: ChatProps) {
         {messages.map((message, index) => (
           <Message key={index} {...message} />
         ))}
+        <div ref={endOfMessagesRef} />
       </div>
       <div className="mb-2 flex flex-col gap-2">
         <Form {...form}>
