@@ -75,5 +75,6 @@ export default function useChat() {
     messages: allMessages,
     startChat: () => startChat({}),
     sendMessage,
+    isThinking,
   };
 }

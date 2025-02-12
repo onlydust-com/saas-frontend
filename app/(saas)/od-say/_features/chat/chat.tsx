@@ -46,7 +46,7 @@ function Message({ author, content, timestamp, variant }: MessageProps) {
 }
 
 export default function Chat() {
-  const { startChat, sendMessage, messages } = useChat();
+  const { startChat, sendMessage, messages, isThinking } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<ChatFormData>({
@@ -61,10 +61,12 @@ export default function Chat() {
   const { handleSubmit, reset } = form;
 
   const onSubmit = ({ message }: ChatFormData) => {
-    sendMessage(message);
-    reset({
-      message: "",
-    });
+    if (!isThinking) {
+      sendMessage(message);
+      reset({
+        message: "",
+      });
+    }
   };
 
   useEffectOnce(() => {
@@ -98,7 +100,7 @@ export default function Chat() {
                           "absolute right-0 top-0",
                           form.formState.isValid ? "text-primary" : "text-muted-foreground"
                         )}
-                        disabled={!form.formState.isValid}
+                        disabled={!form.formState.isValid || isThinking}
                       >
                         <SendHorizonal className="h-4 w-4" />
                       </Button>
