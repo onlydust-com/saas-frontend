@@ -17,6 +17,14 @@ import { cn } from "@/shared/utils";
 import useChat from "./chat.hooks";
 import { ChatFormData, ChatProps, MessageProps, formSchema, messageVariants } from "./chat.types";
 
+const Thinking = () => (
+  <div className="flex items-center font-mono">
+    <span className="animate-pulse">.</span>
+    <span className="animate-pulse delay-300">.</span>
+    <span className="animate-pulse delay-500">.</span>
+  </div>
+);
+
 function Message({ author, content, timestamp, variant }: MessageProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
@@ -32,9 +40,7 @@ function Message({ author, content, timestamp, variant }: MessageProps) {
           {dateKernelPort.formatDistanceToNow(timestamp)}
         </TypographyMuted>
       </div>
-      <div className={cn(messageVariants({ variant }))}>
-        <Markdown content={content} />
-      </div>
+      <div className={cn(messageVariants({ variant }))}>{content ? <Markdown content={content} /> : <Thinking />}</div>
     </div>
   );
 }
@@ -47,10 +53,13 @@ export default function Chat({ onSuggestionChange }: ChatProps) {
     resolver: zodResolver(formSchema),
   });
 
-  const { handleSubmit } = form;
+  const { handleSubmit, reset } = form;
 
   const onSubmit = ({ message }: ChatFormData) => {
     sendMessage(message);
+    reset({
+      message: "",
+    });
   };
 
   useEffectOnce(() => {

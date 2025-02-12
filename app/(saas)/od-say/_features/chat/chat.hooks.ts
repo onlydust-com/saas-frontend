@@ -61,8 +61,8 @@ export default function useChat() {
 
   const thinkingMessage: MessageProps = {
     author: assistant,
-    content: "Thinking...",
     timestamp: new Date(),
+    variant: "assistant",
   };
 
   const isThinking = isStartChatPending || isContinueChatPending;
