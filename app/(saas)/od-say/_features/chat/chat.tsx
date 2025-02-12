@@ -41,12 +41,16 @@ export default function Chat() {
     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const { handleSubmit, reset } = form;
+  const { handleSubmit } = form;
+
+  useEffect(() => {
+    form.setFocus("message");
+  }, [form]);
 
   const onSubmit = ({ message }: ChatFormData) => {
     if (!isThinking) {
       sendMessage(message);
-      reset({
+      form.reset({
         message: "",
       });
     }
