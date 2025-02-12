@@ -21,7 +21,12 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useApplyIssueSidePanel();
 
-  const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
+  const {
+    data: goodFirstIssues,
+    isLoading,
+    isError,
+    hasNextPage,
+  } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
       projectId: projectId,
     },
@@ -33,8 +38,26 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
     },
   });
 
-  const goodFirstIssues = useMemo(() => data?.pages.flatMap(page => page.issues) ?? [], [data]);
-  const totalItemNumber = useMemo(() => data?.pages[0]?.totalItemNumber ?? 0, [data]);
+  const { data: availableIssues } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+    pathParams: {
+      projectIdOrSlug: projectId,
+    },
+    queryParams: {
+      pageSize: 3,
+    },
+    options: {
+      enabled: Boolean(projectId),
+    },
+  });
+
+  const flatGoodFirstIssues = useMemo(
+    () => goodFirstIssues?.pages.flatMap(page => page.issues) ?? [],
+    [goodFirstIssues]
+  );
+  const totalItemNumber = useMemo(() => {
+    const value = availableIssues?.pages[0]?.totalItemNumber ?? 0;
+    return value > 0 ? `(${value})` : "";
+  }, [availableIssues]);
 
   const renderGoodFirstIssues = useCallback(() => {
     if (isLoading) {
@@ -57,7 +80,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
       );
     }
 
-    if (goodFirstIssues.length === 0) {
+    if (flatGoodFirstIssues.length === 0) {
       return (
         <div className={"flex items-center justify-center py-36"}>
           <TypographyMuted>No good first issues found</TypographyMuted>
@@ -67,7 +90,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
 
     return (
       <ul className={"flex flex-col gap-3"}>
-        {goodFirstIssues.map(issue => (
+        {flatGoodFirstIssues.map(issue => (
           <li key={issue.id}>
             <button
               onClick={() => open({ issueId: issue.id, projectId })}
@@ -91,7 +114,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
         ))}
       </ul>
     );
-  }, [goodFirstIssues, isLoading, isError, dateKernel]);
+  }, [flatGoodFirstIssues, isLoading, isError, dateKernel]);
 
   return (
     <Card className={"flex flex-col gap-4 bg-gradient-to-br from-green-950 to-transparent to-50% p-4"}>
@@ -107,9 +130,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
       {hasNextPage ? (
         <div>
           <Button variant={"outline"} asChild>
-            <Link href={`${NEXT_ROUTER.projects.details.issues.root(projectId)}?l=Good+First+Issue`}>
-              View all Good First Issues ({totalItemNumber})
-            </Link>
+            <Link href={NEXT_ROUTER.projects.details.issues.root(projectId)}>View all issues {totalItemNumber}</Link>
           </Button>
         </div>
       ) : null}
