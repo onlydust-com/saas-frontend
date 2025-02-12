@@ -1,18 +1,95 @@
 import { ThumbsUp } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useCallback, useMemo } from "react";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { bootstrap } from "@/core/bootstrap";
 
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function GoodFirstIssues() {
+export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
+
+  const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
+    pathParams: {
+      projectId: projectId,
+    },
+    queryParams: {
+      pageSize: 3,
+    },
+    options: {
+      enabled: Boolean(projectId),
+    },
+  });
+
+  const goodFirstIssues = useMemo(() => data?.pages.flatMap(page => page.issues) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages[0]?.totalItemNumber ?? 0, [data]);
+
+  const renderGoodFirstIssues = useCallback(() => {
+    if (isLoading) {
+      return (
+        <ul className={"flex flex-col gap-3"}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <li key={index}>
+              <Skeleton className={"h-12 w-full"} />
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    if (isError) {
+      return (
+        <div className={"flex items-center justify-center py-36"}>
+          <TypographyMuted>Error loading Good First Issues</TypographyMuted>
+        </div>
+      );
+    }
+
+    if (goodFirstIssues.length === 0) {
+      return (
+        <div className={"flex items-center justify-center py-36"}>
+          <TypographyMuted>No good first issues found</TypographyMuted>
+        </div>
+      );
+    }
+
+    return (
+      <ul className={"flex flex-col gap-3"}>
+        {goodFirstIssues.map(issue => (
+          <li key={issue.id}>
+            <a
+              href={issue.htmlUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="transition-opacity hover:opacity-80"
+            >
+              <Card className={"flex items-center justify-between gap-3 p-3"}>
+                <div className={"flex flex-1 items-center gap-3"}>
+                  <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.status} />
+
+                  <TypographySmall className={"line-clamp-1"}>
+                    <Emoji>{issue.title}</Emoji>
+                  </TypographySmall>
+                </div>
+
+                <TypographyMuted className={"text-sm"}>
+                  {dateKernel.format(new Date(issue.createdAt), "dd MMM.")}
+                </TypographyMuted>
+              </Card>
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
+  }, [goodFirstIssues, isLoading, isError, dateKernel]);
 
   return (
     <Card className={"flex flex-col gap-4 bg-gradient-to-br from-green-950 to-transparent to-50% p-4"}>
@@ -21,38 +98,15 @@ export function GoodFirstIssues() {
         <TypographyH3>Good First Issues</TypographyH3>
       </header>
 
-      <TypographyP>This project offers Good First Issues, perfect for new contributors.</TypographyP>
+      <TypographyP>This project's Good First Issues, perfect for new contributors.</TypographyP>
 
-      <ul>
-        <li>
-          <a
-            href="https://github.com/org/repo/issues/1"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="transition-opacity hover:opacity-80"
-          >
-            <Card className={"flex items-center justify-between gap-3 p-3"}>
-              <div className={"flex flex-1 items-center gap-3"}>
-                <ContributionBadge type={"ISSUE"} number={1} githubStatus={"OPEN"} />
+      {renderGoodFirstIssues()}
 
-                <TypographySmall className={"line-clamp-1"}>
-                  <Emoji>
-                    {"🐛 Fix a bug"} Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi maxime in quos qui
-                    accusantium, dignissimos at ipsa ipsam fugit quis odit. Mollitia quis dignissimos iure dolor
-                    possimus reprehenderit nostrum. Doloremque.
-                  </Emoji>
-                </TypographySmall>
-              </div>
-
-              <TypographyMuted className={"text-sm"}>{dateKernel.format(new Date(), "dd MMM.")}</TypographyMuted>
-            </Card>
-          </a>
-        </li>
-      </ul>
-
-      <div>
-        <Button variant={"outline"}>View all Good First Issues (xxx)</Button>
-      </div>
+      {hasNextPage ? (
+        <div>
+          <Button variant={"outline"}>View all Good First Issues ({totalItemNumber})</Button>
+        </div>
+      ) : null}
     </Card>
   );
 }

@@ -5,15 +5,15 @@ export class ProjectClientAdapterMock implements ProjectStoragePort {
   constructor() {}
 
   routes = {};
-  
+
   getProjectById = mockHttpStorageResponse<ProjectStoragePort["getProjectById"]>;
-  
+
   getProjectStats = mockHttpStorageResponse<ProjectStoragePort["getProjectStats"]>;
-  
+
   getProjects = mockHttpStorageResponse<ProjectStoragePort["getProjects"]>;
-  
+
   createProject = mockHttpStorageResponse<ProjectStoragePort["createProject"]>;
-  
+
   editProject = mockHttpStorageResponse<ProjectStoragePort["editProject"]>;
 
   getProjectFinancialDetailsBySlug = mockHttpStorageResponse<ProjectStoragePort["getProjectFinancialDetailsBySlug"]>;
@@ -45,6 +45,8 @@ export class ProjectClientAdapterMock implements ProjectStoragePort {
   getProjectBySlugOrIdV2 = mockHttpStorageResponse<ProjectStoragePort["getProjectBySlugOrIdV2"]>;
 
   getProjectAvailableIssues = mockHttpStorageResponse<ProjectStoragePort["getProjectAvailableIssues"]>;
+
+  getProjectGoodFirstIssues = mockHttpStorageResponse<ProjectStoragePort["getProjectGoodFirstIssues"]>;
 
   getProjectContributorsV2 = mockHttpStorageResponse<ProjectStoragePort["getProjectContributorsV2"]>;
 

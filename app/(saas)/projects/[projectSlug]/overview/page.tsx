@@ -59,7 +59,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden">
         <Description description={data?.longDescription} />
 
-        <GoodFirstIssues />
+        <GoodFirstIssues projectId={data?.id} />
 
         <ActivityGraph />
       </div>

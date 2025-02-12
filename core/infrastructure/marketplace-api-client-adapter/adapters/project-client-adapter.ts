@@ -3,6 +3,7 @@ import { ProjectAvailableIssues } from "@/core/domain/project/models/project-ava
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
+import { ProjectGoodFirstIssues } from "@/core/domain/project/models/project-good-first-issues-model";
 import { ProjectLinkWithDescription } from "@/core/domain/project/models/project-link-with-description-model";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
@@ -25,6 +26,7 @@ import {
   GetProjectContributorsV2Response,
   GetProjectFinancialDetailsByIdResponse,
   GetProjectFinancialDetailsBySlugResponse,
+  GetProjectGoodFirstIssuesResponse,
   GetProjectProgramsResponse,
   GetProjectRewardsV2Response,
   GetProjectStatsResponse,
@@ -63,6 +65,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     ungrantProject: "projects/:projectId/ungrant",
     getProjectBySlugOrIdV2: "projects/:projectIdOrSlug",
     getProjectAvailableIssues: "projects/:projectIdOrSlug/available-issues",
+    getProjectGoodFirstIssues: "projects/:projectId/good-first-issues",
     getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
@@ -508,6 +511,34 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         ...data,
         issues: data.issues.map(issue => new ProjectAvailableIssues(issue)),
         labels: data.labels.map(label => new GithubLabelWithCount(label)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectGoodFirstIssues = ({
+    pathParams,
+    queryParams,
+  }: FirstParameter<ProjectStoragePort["getProjectGoodFirstIssues"]>) => {
+    const path = this.routes["getProjectGoodFirstIssues"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetProjectGoodFirstIssuesResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return {
+        ...data,
+        issues: data.issues.map(issue => new ProjectGoodFirstIssues(issue)),
       };
     };
 
