@@ -20,7 +20,7 @@ export function ProjectNavigation({ params }: { params: { projectSlug: string } 
     <Tabs
       defaultValue={NEXT_ROUTER.projects.details.overview.root(params.projectSlug)}
       value={currentPath}
-      className="flex w-full flex-col gap-4 pt-4"
+      className="flex w-full flex-col gap-4"
     >
       <TabsList className="h-auto w-full flex-wrap justify-start">
         {PROJECT_ROUTES(params.projectSlug).map(({ href, label }) => (

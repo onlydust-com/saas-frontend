@@ -15,7 +15,7 @@ import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectNavigation } from "../project-navigation/project-navigation";
 import { PageHeaderProps } from "./page-header.types";
@@ -24,7 +24,7 @@ function Categories({ categories }: { categories: string[] }) {
   if (categories.length === 0) return null;
 
   return (
-    <div className="flex gap-1 px-3 first:pl-0">
+    <div className="flex gap-1 px-3 py-1 first:pl-0">
       {categories.map(category => (
         <Badge variant="outline" key={category}>
           {category}
@@ -40,7 +40,7 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="flex items-center gap-1 px-3 first:pl-0">
+        <div className="flex items-center gap-1 px-3 py-1 first:pl-0">
           {languages?.map(language => (
             <Avatar className="size-5" key={language.name}>
               <AvatarImage src={language.logoUrl} />
@@ -70,6 +70,46 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
   );
 }
 
+function Leads({ leads }: { leads: ProjectInterfaceV2["leads"] }) {
+  if (leads.length === 0) return null;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2 px-3 py-1 first:pl-0">
+          <TypographyMuted>Maintained by</TypographyMuted>
+          <AvatarGroup
+            avatars={
+              leads.map(lead => ({
+                src: lead.avatarUrl,
+                alt: lead.login,
+              })) ?? []
+            }
+            classNames={{
+              avatar: "size-5 first:ml-0 -ml-2",
+            }}
+          />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" align="end">
+        <ul className="flex flex-col gap-2">
+          {leads.map(leads => (
+            <li key={leads.login} className="flex items-center justify-between gap-10">
+              <div className="flex items-center gap-1">
+                <Avatar className="size-5" key={leads.login}>
+                  <AvatarImage src={leads.avatarUrl} />
+                  <AvatarFallback className="rounded-xl">{leads.login.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <TypographySmall>{leads.login}</TypographySmall>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
   if (!project) return null;
 
@@ -83,7 +123,7 @@ function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
     );
   }
   return (
-    <div className="flex flex-row items-center justify-start gap-3">
+    <div className="flex flex-row flex-wrap items-center justify-start gap-3">
       {renderItem({
         label: "Active contributors",
         value: project.contributorCount,
@@ -125,42 +165,35 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
   return (
     <div className="flex w-full flex-col bg-background pt-6">
       <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
-      <Avatar className="relative z-[2] -mt-16 mb-6 ml-6 h-32 w-32 rounded-xl border-4 border-background bg-background">
-        <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
-        <AvatarFallback>
-          <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex w-full flex-col gap-6 px-6">
+      <div className="relative z-[2] -mt-16 mb-6 ml-2 flex flex-row items-end justify-between tablet:ml-6">
+        <Avatar className="border-6 h-32 w-32 rounded-xl border-background bg-background">
+          <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
+          <AvatarFallback>
+            <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex tablet:hidden">
+          <ActionHeader />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-6 px-0">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
-            <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 tablet:flex">
               <ActionHeader />
             </div>
           </div>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
         </div>
-        <div className="flex flex-row divide-x">
+        <div className="flex flex-row flex-wrap divide-x">
           <Categories categories={project?.categories?.map(category => category.name) ?? []} />
           <Languages languages={project?.languages ?? []} />
-          <div className="px-3 first:pl-0">
-            <AvatarGroup
-              avatars={
-                project?.leads.map(lead => ({
-                  src: lead.avatarUrl,
-                  alt: lead.login,
-                })) ?? []
-              }
-              classNames={{
-                avatar: "size-5",
-              }}
-            />
-          </div>
+          <Leads leads={project?.leads ?? []} />
         </div>
         <Stats project={project} />
       </div>
-      <div className="w-full px-6 py-8">
+      <div className="w-full px-0 py-8">
         <ProjectNavigation params={{ projectSlug }} />
       </div>
     </div>
