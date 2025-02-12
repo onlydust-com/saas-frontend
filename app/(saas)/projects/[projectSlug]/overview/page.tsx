@@ -56,8 +56,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         ]}
       />
 
-      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden">
-        <Description description={data?.longDescription} />
+      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-2">
+        <div className="col-span-full">
+          <Description description={data?.longDescription} />
+        </div>
 
         <GoodFirstIssues projectId={data?.id} />
 
