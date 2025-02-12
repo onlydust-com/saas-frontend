@@ -5,7 +5,7 @@ import { cn } from "@/shared/utils";
 
 import { ImageBannerProps } from "./image-banner.types";
 
-export function ImageBanner({ children, image, className, isLoading }: ImageBannerProps) {
+export function ImageBanner({ image, className, isLoading }: ImageBannerProps) {
   const [isError, setIsError] = useState(false);
 
   const renderImage = useMemo(() => {
@@ -42,10 +42,5 @@ export function ImageBanner({ children, image, className, isLoading }: ImageBann
     );
   }, [isError, image, isLoading]);
 
-  return (
-    <div className={cn("relative z-[1] overflow-hidden", className)}>
-      {renderImage}
-      {children}
-    </div>
-  );
+  return <div className={cn("relative z-[1] overflow-hidden", className)}>{renderImage}</div>;
 }

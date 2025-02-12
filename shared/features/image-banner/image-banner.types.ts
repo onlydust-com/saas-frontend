@@ -1,6 +1,4 @@
-import { PropsWithChildren } from "react";
-
-export interface ImageBannerProps extends PropsWithChildren {
+export interface ImageBannerProps {
   image?: string;
   className?: string;
   isLoading?: boolean;
