@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
-import { ProjectNavigation } from "@/app/(saas)/projects/[projectSlug]/_features/project-navigation/project-navigation";
-
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
