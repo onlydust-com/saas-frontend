@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { projectSlug: stri
 export default function ProjectsLayout({ params, children }: { params: { projectSlug: string }; children: ReactNode }) {
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlug}>
-      <PageContainer size="medium" className="flex-1">
+      <PageContainer size="small" className="flex-1">
         <PageHeader projectSlug={params.projectSlug} />
         <div>{children}</div>
         <ApplyIssueSidepanel />
