@@ -1,16 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PencilLine, SendHorizonal } from "lucide-react";
+import { RotateCcw, SendHorizonal } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
 import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
+import { useIsBreakpoint } from "@/shared/hooks/ui/use-is-breakpoint";
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
-import { Input } from "@/shared/ui/input";
+import { Textarea } from "@/shared/ui/textarea";
 import { cn } from "@/shared/utils";
 
 import Message from "./_features/message/message";
@@ -20,6 +21,7 @@ import { ChatFormData, formSchema } from "./chat.types";
 export default function Chat() {
   const { startNewConversation, sendMessage, messages, isThinking, chatId } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
+  const isSmBreakpoint = useIsBreakpoint("sm");
 
   const { open: openContribution } = useContributionsSidepanel();
   const { open: openProject } = useProjectSidePanel();
@@ -61,13 +63,7 @@ export default function Chat() {
   });
 
   return (
-    <section className="relative flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
-      <div className="absolute right-0 top-0">
-        <Button onClick={() => startNewConversation()}>
-          <span>Start a new conversation</span>
-          <PencilLine />
-        </Button>
-      </div>
+    <section className="flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
       <div className="flex flex-col gap-8">
         {messages.map(message => (
           <Message
@@ -79,17 +75,26 @@ export default function Chat() {
         ))}
         <div ref={endOfMessagesRef} />
       </div>
-      <div className="mb-2 mt-auto flex flex-col gap-2">
+      <div className="sticky bottom-0 mb-2 flex h-20 w-full flex-col gap-2 bg-background p-2">
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-row gap-2">
+            <Button
+              size={isSmBreakpoint ? "default" : "icon"}
+              onClick={() => startNewConversation()}
+              variant="destructive"
+            >
+              <RotateCcw />
+              <span className="hidden sm:block">Reset conversation</span>
+            </Button>
+
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <div className="relative">
-                      <Input placeholder="Tell me what you seek" {...field} className="pr-12" />
+                      <Textarea placeholder="Tell me what you seek" {...field} className="pr-12" />
                       <Button
                         size="icon"
                         type="submit"
