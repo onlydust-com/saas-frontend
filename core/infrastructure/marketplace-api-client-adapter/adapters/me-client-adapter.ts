@@ -435,7 +435,7 @@ export class MeClientAdapter implements MeStoragePort {
 
   continueChat({ pathParams }: FirstParameter<MeStoragePort["continueChat"]>) {
     const path = this.routes["continueChat"];
-    const method = "PUT";
+    const method = "POST";
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: ContinueChatPortParams) =>
