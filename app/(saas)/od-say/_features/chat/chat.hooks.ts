@@ -3,22 +3,29 @@ import { useMemo, useState } from "react";
 import { IMAGES } from "@/app/_assets/img";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+import { ContinueChatResponse, StartChatResponse } from "@/core/domain/me/me-contract.types";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-import { Author, MessageProps } from "./chat.types";
+import { Author, MessageProps } from "./_features/message/message.types";
 
 export const assistant = {
   login: "OD-Say",
   avatarUrl: IMAGES.odSay.avatar,
 };
 
-function messageFromAssistant(content: string): MessageProps {
+function messageFromAssistant({
+  assistantMessage,
+  suggestedProjects,
+  suggestedIssues,
+}: Partial<ContinueChatResponse & StartChatResponse>): MessageProps {
   return {
     author: assistant,
-    content,
+    content: assistantMessage,
     timestamp: new Date(),
     variant: "assistant",
+    projectIds: suggestedProjects,
+    issueIds: suggestedIssues,
   };
 }
 
@@ -31,6 +38,24 @@ function messageFromUser(author: Author, content: string): MessageProps {
   };
 }
 
+const issuesMock = {
+  suggestedIssues: [
+    "ded8827c-04b2-3a61-841f-143a16c79220",
+    "e86fcd8d-ce83-3c7a-bd74-a619be65417c",
+    "79b9afb7-6079-399e-ad2e-2b03ef59a691",
+    "ea8c83b5-90f8-3ed1-8909-abc8fe52687e",
+  ],
+};
+
+const projectsMock = {
+  suggestedProjects: [
+    "e00ea16f-8a65-4790-8c3a-faed6abf8e8f",
+    "f758f2c0-d3bb-4fba-8b17-f2a7c3f2eee9",
+    "9aa04b25-614b-4cb8-af6d-d15ca08f18e9",
+    "e55c5843-66b9-4e6c-b5dc-eef8729b286b",
+  ],
+};
+
 export default function useChat() {
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const [chatId, setChatId] = useState<string | null>(null);
@@ -40,7 +65,7 @@ export default function useChat() {
   const { mutate: startChat, isPending: isStartChatPending } = MeReactQueryAdapter.client.useStartRecoChat({
     options: {
       onSuccess: data => {
-        setMessages([messageFromAssistant(data.assistantMessage)]);
+        setMessages([messageFromAssistant(data)]);
         setChatId(data.chatId);
       },
     },
@@ -50,7 +75,16 @@ export default function useChat() {
     pathParams: { chatId: chatId || "" },
     options: {
       onSuccess: data => {
-        setMessages(prev => [...prev, messageFromAssistant(data.assistantMessage)]);
+        setMessages(prev => [
+          ...prev,
+          messageFromAssistant(
+            data.assistantMessage.includes("projects")
+              ? { ...data, ...projectsMock }
+              : data.assistantMessage.includes("issues")
+                ? { ...data, ...issuesMock }
+                : data
+          ),
+        ]);
       },
     },
   });

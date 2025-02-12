@@ -4,46 +4,14 @@ import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
-import { bootstrap } from "@/core/bootstrap";
-
-import { Markdown } from "@/shared/features/markdown/markdown";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
+import Message from "./_features/message/message";
 import useChat from "./chat.hooks";
-import { ChatFormData, MessageProps, formSchema, messageVariants } from "./chat.types";
-
-const Thinking = () => (
-  <div className="flex items-center font-mono">
-    <span className="animate-pulse">.</span>
-    <span className="animate-pulse delay-300">.</span>
-    <span className="animate-pulse delay-500">.</span>
-  </div>
-);
-
-function Message({ author, content, timestamp, variant }: MessageProps) {
-  const dateKernelPort = bootstrap.getDateKernelPort();
-
-  return (
-    <div className="flex w-full flex-col gap-2">
-      <div className={`flex items-center gap-2 ${variant === "user" ? "flex-row-reverse" : "flex-row"}`}>
-        <Avatar>
-          <AvatarImage src={author.avatarUrl} />
-          <AvatarFallback>{author.login}</AvatarFallback>
-        </Avatar>
-        <TypographySmall>{author.login}</TypographySmall>
-        <TypographyMuted className={variant === "user" ? "mr-auto" : "ml-auto"}>
-          {dateKernelPort.formatDistanceToNow(timestamp)}
-        </TypographyMuted>
-      </div>
-      <div className={cn(messageVariants({ variant }))}>{content ? <Markdown content={content} /> : <Thinking />}</div>
-    </div>
-  );
-}
+import { ChatFormData, formSchema } from "./chat.types";
 
 export default function Chat() {
   const { startChat, sendMessage, messages, isThinking } = useChat();
