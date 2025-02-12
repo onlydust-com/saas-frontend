@@ -15,7 +15,7 @@ import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
 import useChat from "./chat.hooks";
-import { ChatFormData, ChatProps, MessageProps, formSchema, messageVariants } from "./chat.types";
+import { ChatFormData, MessageProps, formSchema, messageVariants } from "./chat.types";
 
 const Thinking = () => (
   <div className="flex items-center font-mono">
@@ -45,8 +45,8 @@ function Message({ author, content, timestamp, variant }: MessageProps) {
   );
 }
 
-export default function Chat({ onSuggestionChange }: ChatProps) {
-  const { startChat, sendMessage, messages, projectIds, issueIds } = useChat();
+export default function Chat() {
+  const { startChat, sendMessage, messages } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<ChatFormData>({
@@ -71,19 +71,15 @@ export default function Chat({ onSuggestionChange }: ChatProps) {
     startChat();
   });
 
-  useEffect(() => {
-    onSuggestionChange(projectIds, issueIds);
-  }, [projectIds, issueIds, onSuggestionChange]);
-
   return (
-    <section className="flex flex-col gap-8 px-4">
+    <section className="flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
       <div className="flex flex-col gap-8">
         {messages.map((message, index) => (
           <Message key={index} {...message} />
         ))}
         <div ref={endOfMessagesRef} />
       </div>
-      <div className="mb-2 flex flex-col gap-2">
+      <div className="mb-2 mt-auto flex flex-col gap-2">
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField

@@ -34,8 +34,6 @@ function messageFromUser(author: Author, content: string): MessageProps {
 export default function useChat() {
   const [messages, setMessages] = useState<MessageProps[]>([]);
   const [chatId, setChatId] = useState<string | null>(null);
-  const [projectIds, setProjectIds] = useState<string[]>([]);
-  const [issueIds, setIssueIds] = useState<number[]>([]);
 
   const { user } = useAuthUser();
 
@@ -53,8 +51,6 @@ export default function useChat() {
     options: {
       onSuccess: data => {
         setMessages(prev => [...prev, messageFromAssistant(data.assistantMessage)]);
-        setProjectIds(prev => [...prev, ...data.suggestedProjects]);
-        setIssueIds(prev => [...prev, ...data.suggestedIssues]);
       },
     },
   });
@@ -79,7 +75,5 @@ export default function useChat() {
     messages: allMessages,
     startChat: () => startChat({}),
     sendMessage,
-    projectIds,
-    issueIds,
   };
 }
