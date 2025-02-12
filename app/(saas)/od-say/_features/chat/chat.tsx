@@ -18,7 +18,7 @@ import useChat from "./chat.hooks";
 import { ChatFormData, formSchema } from "./chat.types";
 
 export default function Chat() {
-  const { startChat, sendMessage, messages, isThinking } = useChat();
+  const { startChat, sendMessage, messages, isThinking, chatId } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const { open: openContribution } = useContributionsSidepanel();
@@ -53,7 +53,7 @@ export default function Chat() {
   };
 
   useEffectOnce(() => {
-    startChat();
+    if (!chatId) startChat();
   });
 
   return (

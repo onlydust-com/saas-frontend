@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useLocalStorage } from "react-use";
 
 import { IMAGES } from "@/app/_assets/img";
 
@@ -55,8 +56,8 @@ const projectsMock = {
 };
 
 export default function useChat() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [chatId, setChatId] = useState<string | null>(null);
+  const [messages, setMessages] = useLocalStorage<Array<ChatMessage>>("odsay-chat-messages", []);
+  const [chatId, setChatId] = useLocalStorage<string>("odsay-chat-id");
 
   const { user } = useAuthUser();
 
@@ -73,8 +74,8 @@ export default function useChat() {
     pathParams: { chatId: chatId || "" },
     options: {
       onSuccess: data => {
-        setMessages(prev => [
-          ...prev,
+        setMessages([
+          ...(messages || []),
           messageFromAssistant(
             data.assistantMessage.includes("projects")
               ? { ...data, ...projectsMock }
@@ -94,15 +95,19 @@ export default function useChat() {
 
   const isThinking = isStartChatPending || isContinueChatPending;
 
-  const allMessages = useMemo(() => (isThinking ? [...messages, thinkingMessage] : messages), [isThinking, messages]);
+  const allMessages = useMemo(
+    () => (isThinking ? [...(messages || []), thinkingMessage] : messages || []),
+    [isThinking, messages]
+  );
 
   const sendMessage = (message: string) => {
     if (!user) return;
-    setMessages(prev => [...prev, messageFromUser(user, message)]);
+    setMessages([...(messages || []), messageFromUser(user, message)]);
     continueChat({ userMessage: message });
   };
 
   return {
+    chatId,
     messages: allMessages,
     startChat: () => startChat({}),
     sendMessage,

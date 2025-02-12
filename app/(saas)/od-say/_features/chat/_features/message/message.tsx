@@ -83,7 +83,7 @@ export default function Message({
     }
 
     return (
-      <div className="ml-12 mr-auto grid w-fit grid-cols-2 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow">
+      <div className="ml-12 mr-auto grid w-fit grid-cols-1 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow sm:grid-cols-2">
         {projects.map(project => (
           <CardProjectMarketplace
             as={Button}
@@ -129,7 +129,7 @@ export default function Message({
     }
 
     return (
-      <div className="ml-12 mr-auto grid w-fit grid-cols-2 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow">
+      <div className="ml-12 mr-auto grid w-fit grid-cols-1 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow sm:grid-cols-2">
         {issues.map(contribution => (
           <CardContributionKanban
             classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
