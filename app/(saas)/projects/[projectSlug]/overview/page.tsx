@@ -12,6 +12,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
@@ -59,6 +60,9 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-2">
         <div className="col-span-full">
           <Description description={data?.longDescription} />
+        </div>
+        <div className="col-span-full">
+          <ActivityGraph />
         </div>
 
         <GoodFirstIssues projectId={data?.id} />
