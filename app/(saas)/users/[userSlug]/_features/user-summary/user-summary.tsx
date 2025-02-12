@@ -116,25 +116,24 @@ export function UserSummary({ userSlug }: UserSummaryProps) {
             </div>
 
             <div className={"flex flex-row items-center justify-between gap-1"}>
-              {contributor?.contacts?.length ? (
-                <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
-                  {userSlug ? (
-                    <SocialContact
-                      contact={{
-                        channel: SocialPlatformChannels.GITHUB,
-                        contact: `https://github.com/${userSlug}`,
-                        visibility: "public",
-                      }}
-                      buttonProps={{ iconOnly: true }}
-                    />
-                  ) : null}
-                  {contributor?.contacts.map(contact => (
-                    <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
-                  ))}
-                </div>
-              ) : (
-                <div />
-              )}
+              <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
+                {userSlug ? (
+                  <SocialContact
+                    contact={{
+                      channel: SocialPlatformChannels.GITHUB,
+                      contact: `https://github.com/${userSlug}`,
+                      visibility: "public",
+                    }}
+                    buttonProps={{ iconOnly: true }}
+                  />
+                ) : null}
+
+                {contributor?.contacts?.length
+                  ? contributor?.contacts.map(contact => (
+                      <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
+                    ))
+                  : null}
+              </div>
             </div>
           </div>
 
