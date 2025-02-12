@@ -4,6 +4,10 @@ import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
+import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
+
+import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
@@ -16,6 +20,17 @@ import { ChatFormData, formSchema } from "./chat.types";
 export default function Chat() {
   const { startChat, sendMessage, messages, isThinking } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  const { open: openContribution } = useContributionsSidepanel();
+  const { open: openProject } = useProjectSidePanel();
+
+  function onOpenContribution(id: string) {
+    openContribution({ id, as: ContributionAs.CONTRIBUTOR });
+  }
+
+  function onOpenProject(id: string) {
+    openProject({ projectId: id });
+  }
 
   const form = useForm<ChatFormData>({
     mode: "all",
@@ -45,7 +60,7 @@ export default function Chat() {
     <section className="flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
       <div className="flex flex-col gap-8">
         {messages.map((message, index) => (
-          <Message key={index} {...message} />
+          <Message key={index} {...message} onOpenProject={onOpenProject} onOpenContribution={onOpenContribution} />
         ))}
         <div ref={endOfMessagesRef} />
       </div>

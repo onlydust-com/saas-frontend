@@ -2,20 +2,19 @@ import { useCallback, useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { bootstrap } from "@/core/bootstrap";
+import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
 
-import { CardContributionKanban } from "@/design-system/molecules/cards/card-contribution-kanban";
 import {
   CardProjectMarketplace,
   CardProjectMarketplaceLoading,
 } from "@/design-system/molecules/cards/card-project-marketplace";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { NEXT_ROUTER } from "@/shared/constants/router";
+import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
+import { Button } from "@/shared/ui/button";
+import { TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
 import { MessageProps, messageVariants } from "./message.types";
@@ -28,9 +27,15 @@ const Thinking = () => (
   </div>
 );
 
-export default function Message({ author, content, timestamp, variant, projectIds, issueIds }: MessageProps) {
-  const dateKernelPort = bootstrap.getDateKernelPort();
-
+export default function Message({
+  author,
+  content,
+  variant,
+  projectIds,
+  issueIds,
+  onOpenContribution,
+  onOpenProject,
+}: MessageProps) {
   const {
     data: projectsData,
     isLoading: isProjectsLoading,
@@ -81,12 +86,12 @@ export default function Message({ author, content, timestamp, variant, projectId
       <div className="ml-12 mr-auto grid w-fit grid-cols-2 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow">
         {projects.map(project => (
           <CardProjectMarketplace
-            classNames={{ base: "bg-background" }}
-            key={project.id}
-            as={BaseLink}
+            as={Button}
             htmlProps={{
-              href: NEXT_ROUTER.projects.details.root(project.slug),
+              onClick: () => onOpenProject(project.id),
             }}
+            classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
+            key={project.id}
             name={project.name}
             slug={project.slug}
             description={project.shortDescription}
@@ -127,19 +132,11 @@ export default function Message({ author, content, timestamp, variant, projectId
       <div className="ml-12 mr-auto grid w-fit grid-cols-2 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow">
         {issues.map(contribution => (
           <CardContributionKanban
-            classNames={{ base: "bg-background" }}
+            classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
+            contribution={contribution}
             key={contribution.id}
-            type={contribution.type}
-            githubTitle={contribution.githubTitle}
-            githubStatus={contribution.githubStatus}
-            githubNumber={contribution.githubNumber}
-            lastUpdatedAt={contribution.lastUpdatedAt}
-            rewardUsdAmount={contribution.totalRewardedUsdAmount}
-            applicants={contribution.isNotAssigned() ? contribution.applicants : []}
-            contributors={contribution.contributors}
-            linkedIssues={contribution.linkedIssues}
-            githubLabels={contribution.githubLabels}
-            githubHtmlUrl={contribution.githubHtmlUrl}
+            onAction={onOpenContribution}
+            as={ContributionAs.MAINTAINER}
           />
         ))}
       </div>
@@ -154,9 +151,6 @@ export default function Message({ author, content, timestamp, variant, projectId
           <AvatarFallback>{author.login}</AvatarFallback>
         </Avatar>
         <TypographySmall>{author.login}</TypographySmall>
-        <TypographyMuted className={variant === "user" ? "mr-auto" : "ml-auto"}>
-          {dateKernelPort.formatDistanceToNow(timestamp)}
-        </TypographyMuted>
       </div>
       <div className={cn(messageVariants({ variant }))}>{content ? <Markdown content={content} /> : <Thinking />}</div>
       {renderProjects()}

@@ -7,7 +7,7 @@ import { ContinueChatResponse, StartChatResponse } from "@/core/domain/me/me-con
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-import { Author, MessageProps } from "./_features/message/message.types";
+import { Author, ChatMessage } from "./_features/message/message.types";
 
 export const assistant = {
   login: "OD-Say",
@@ -18,22 +18,20 @@ function messageFromAssistant({
   assistantMessage,
   suggestedProjects,
   suggestedIssues,
-}: Partial<ContinueChatResponse & StartChatResponse>): MessageProps {
+}: Partial<ContinueChatResponse & StartChatResponse>): ChatMessage {
   return {
     author: assistant,
     content: assistantMessage,
-    timestamp: new Date(),
     variant: "assistant",
     projectIds: suggestedProjects,
     issueIds: suggestedIssues,
   };
 }
 
-function messageFromUser(author: Author, content: string): MessageProps {
+function messageFromUser(author: Author, content: string): ChatMessage {
   return {
     author,
     content,
-    timestamp: new Date(),
     variant: "user",
   };
 }
@@ -57,7 +55,7 @@ const projectsMock = {
 };
 
 export default function useChat() {
-  const [messages, setMessages] = useState<MessageProps[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [chatId, setChatId] = useState<string | null>(null);
 
   const { user } = useAuthUser();
@@ -89,9 +87,8 @@ export default function useChat() {
     },
   });
 
-  const thinkingMessage: MessageProps = {
+  const thinkingMessage: ChatMessage = {
     author: assistant,
-    timestamp: new Date(),
     variant: "assistant",
   };
 

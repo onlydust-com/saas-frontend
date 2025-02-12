@@ -17,10 +17,14 @@ export interface Author {
   avatarUrl: string;
 }
 
-export interface MessageProps extends VariantProps<typeof messageVariants> {
+export interface ChatMessage extends VariantProps<typeof messageVariants> {
   author: Author;
   content?: string;
-  timestamp: Date;
   projectIds?: string[];
   issueIds?: string[];
+}
+
+export interface MessageProps extends ChatMessage {
+  onOpenProject: (id: string) => void;
+  onOpenContribution: (id: string) => void;
 }
