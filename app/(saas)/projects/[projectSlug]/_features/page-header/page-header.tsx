@@ -10,12 +10,10 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 
 import { Icon } from "@/design-system/atoms/icon";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
