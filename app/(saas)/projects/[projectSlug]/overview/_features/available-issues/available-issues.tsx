@@ -34,10 +34,6 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
   });
 
   const availableIssues = useMemo(() => data?.pages.flatMap(page => page.issues) ?? [], [data]);
-  const totalItemNumber = useMemo(() => {
-    const value = data?.pages[0]?.totalItemNumber ?? 0;
-    return value > 0 ? `(${value})` : "";
-  }, [data]);
 
   const renderAvailableIssues = useCallback(() => {
     if (isLoading) {
@@ -110,7 +106,7 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
       {hasNextPage ? (
         <div>
           <Button variant={"outline"} asChild>
-            <Link href={NEXT_ROUTER.projects.details.issues.root(projectId)}>View all issues {totalItemNumber}</Link>
+            <Link href={NEXT_ROUTER.projects.details.issues.root(projectId)}>View all issues</Link>
           </Button>
         </div>
       ) : null}
