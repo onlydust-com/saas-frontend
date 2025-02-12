@@ -106,10 +106,16 @@ export default function useChat() {
     continueChat({ userMessage: message });
   };
 
+  const startNewConversation = () => {
+    setMessages([]);
+    setChatId(undefined);
+    startChat({});
+  };
+
   return {
     chatId,
     messages: allMessages,
-    startChat: () => startChat({}),
+    startNewConversation,
     sendMessage,
     isThinking,
   };

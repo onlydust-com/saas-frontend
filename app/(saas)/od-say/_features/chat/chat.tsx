@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizonal } from "lucide-react";
+import { PencilLine, SendHorizonal } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
@@ -18,7 +18,7 @@ import useChat from "./chat.hooks";
 import { ChatFormData, formSchema } from "./chat.types";
 
 export default function Chat() {
-  const { startChat, sendMessage, messages, isThinking, chatId } = useChat();
+  const { startNewConversation, sendMessage, messages, isThinking, chatId } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const { open: openContribution } = useContributionsSidepanel();
@@ -53,11 +53,17 @@ export default function Chat() {
   };
 
   useEffectOnce(() => {
-    if (!chatId) startChat();
+    if (!chatId) startNewConversation();
   });
 
   return (
-    <section className="flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
+    <section className="relative flex h-full w-full flex-col gap-8 px-4 lg:w-[720px]">
+      <div className="absolute right-0 top-0">
+        <Button onClick={() => startNewConversation()}>
+          <span>Start a new conversation</span>
+          <PencilLine />
+        </Button>
+      </div>
       <div className="flex flex-col gap-8">
         {messages.map((message, index) => (
           <Message key={index} {...message} onOpenProject={onOpenProject} onOpenContribution={onOpenContribution} />
