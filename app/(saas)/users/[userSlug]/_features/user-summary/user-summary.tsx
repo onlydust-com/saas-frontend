@@ -5,6 +5,7 @@ import { useMemo } from "react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { bootstrap } from "@/core/bootstrap";
+import { SocialPlatformChannels } from "@/core/kernel/social/social.types";
 
 import { Avatar } from "@/design-system/atoms/avatar/variants/avatar-default";
 import { Badge } from "@/design-system/atoms/badge";
@@ -117,6 +118,16 @@ export function UserSummary({ userSlug }: UserSummaryProps) {
             <div className={"flex flex-row items-center justify-between gap-1"}>
               {contributor?.contacts?.length ? (
                 <div className={"flex flex-1 flex-row flex-wrap items-center gap-md"}>
+                  {userSlug ? (
+                    <SocialContact
+                      contact={{
+                        channel: SocialPlatformChannels.GITHUB,
+                        contact: `https://github.com/${userSlug}`,
+                        visibility: "public",
+                      }}
+                      buttonProps={{ iconOnly: true }}
+                    />
+                  ) : null}
                   {contributor?.contacts.map(contact => (
                     <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
                   ))}
