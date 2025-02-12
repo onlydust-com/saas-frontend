@@ -37,4 +37,30 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarFallback, AvatarImage };
+const AvatarGroup = ({
+  avatars,
+  max = 5,
+  classNames,
+}: {
+  avatars: React.ComponentPropsWithoutRef<typeof AvatarImage>[];
+  max?: number;
+  classNames?: Partial<{
+    container: string;
+    avatar: string;
+    fallback: string;
+  }>;
+}) => {
+  const avatarsToShow = avatars.slice(0, max);
+  return (
+    <div className={cn("flex items-center gap-0", classNames?.container)}>
+      {avatarsToShow.map((avatar, index) => (
+        <Avatar key={index} className={classNames?.avatar}>
+          <AvatarImage {...avatar} />
+          <AvatarFallback className={classNames?.fallback}>{avatar.alt?.charAt(0)}</AvatarFallback>
+        </Avatar>
+      ))}
+    </div>
+  );
+};
+
+export { Avatar, AvatarFallback, AvatarImage, AvatarGroup };
