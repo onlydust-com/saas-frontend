@@ -1,7 +1,7 @@
+import odSayAvatar from "@/public/images/avatars/od_say.png";
 import { useMemo } from "react";
 import { useLocalStorage } from "react-use";
-
-import { IMAGES } from "@/app/_assets/img";
+import { toast } from "sonner";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ContinueChatResponse, StartChatResponse } from "@/core/domain/me/me-contract.types";
@@ -12,7 +12,7 @@ import { Author, ChatMessage } from "./_features/message/message.types";
 
 export const assistant = {
   login: "OD-Say",
-  avatarUrl: IMAGES.odSay.avatar,
+  avatarUrl: odSayAvatar.src,
 };
 
 function messageFromAssistant({
@@ -37,24 +37,6 @@ function messageFromUser(author: Author, content: string): ChatMessage {
   };
 }
 
-const issuesMock = {
-  suggestedIssues: [
-    "ded8827c-04b2-3a61-841f-143a16c79220",
-    "e86fcd8d-ce83-3c7a-bd74-a619be65417c",
-    "79b9afb7-6079-399e-ad2e-2b03ef59a691",
-    "ea8c83b5-90f8-3ed1-8909-abc8fe52687e",
-  ],
-};
-
-const projectsMock = {
-  suggestedProjects: [
-    "e00ea16f-8a65-4790-8c3a-faed6abf8e8f",
-    "f758f2c0-d3bb-4fba-8b17-f2a7c3f2eee9",
-    "9aa04b25-614b-4cb8-af6d-d15ca08f18e9",
-    "e55c5843-66b9-4e6c-b5dc-eef8729b286b",
-  ],
-};
-
 export default function useChat() {
   const [messages, setMessages] = useLocalStorage<Array<ChatMessage>>("odsay-chat-messages", []);
   const [chatId, setChatId] = useLocalStorage<string>("odsay-chat-id");
@@ -67,24 +49,17 @@ export default function useChat() {
         setMessages([messageFromAssistant(data)]);
         setChatId(data.chatId);
       },
+      onError: error => toast.error(error.message),
+      retry: 3,
     },
   });
 
   const { mutate: continueChat, isPending: isContinueChatPending } = MeReactQueryAdapter.client.useContinueRecoChat({
     pathParams: { chatId: chatId || "" },
     options: {
-      onSuccess: data => {
-        setMessages([
-          ...(messages || []),
-          messageFromAssistant(
-            data.assistantMessage.includes("projects")
-              ? { ...data, ...projectsMock }
-              : data.assistantMessage.includes("issues")
-                ? { ...data, ...issuesMock }
-                : data
-          ),
-        ]);
-      },
+      onSuccess: data => setMessages([...(messages || []), messageFromAssistant(data)]),
+      onError: error => toast.error(error.message),
+      retry: 3,
     },
   });
 

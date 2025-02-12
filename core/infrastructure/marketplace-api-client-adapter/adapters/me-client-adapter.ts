@@ -2,6 +2,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { BillingProfileShort } from "@/core/domain/billing-profile/models/billing-profile-short-model";
 import {
   ContinueChatPortParams,
+  ContinueChatResponse,
   GetMeResponse,
   GetMyHackathonRegistrationResponse,
   GetMyNotificationSettingsResponse,
@@ -18,6 +19,7 @@ import {
   SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
   StartChatPortResponse,
+  StartChatResponse,
   UploadProfilePictureResponse,
 } from "@/core/domain/me/me-contract.types";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
@@ -421,7 +423,7 @@ export class MeClientAdapter implements MeStoragePort {
     const tag = HttpClient.buildTag({ path });
 
     const request = async () =>
-      this.client.request<never>({
+      this.client.request<StartChatResponse>({
         path,
         method,
         tag,
@@ -439,7 +441,7 @@ export class MeClientAdapter implements MeStoragePort {
     const tag = HttpClient.buildTag({ path, pathParams });
 
     const request = async (body: ContinueChatPortParams) =>
-      this.client.request<never>({
+      this.client.request<ContinueChatResponse>({
         path,
         method,
         tag,

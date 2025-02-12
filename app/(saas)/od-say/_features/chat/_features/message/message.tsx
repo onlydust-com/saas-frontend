@@ -136,7 +136,7 @@ export default function Message({
             contribution={contribution}
             key={contribution.id}
             onAction={onOpenContribution}
-            as={ContributionAs.MAINTAINER}
+            as={ContributionAs.CONTRIBUTOR}
           />
         ))}
       </div>
@@ -144,7 +144,7 @@ export default function Message({
   }, [issues, isIssuesError, isIssuesLoading]);
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-2" role="article" aria-label={`Message from ${author.login}`}>
       <div className={`flex items-center gap-2 ${variant === "user" ? "flex-row-reverse" : "flex-row"}`}>
         <Avatar>
           <AvatarImage src={author.avatarUrl} />
@@ -152,7 +152,9 @@ export default function Message({
         </Avatar>
         <TypographySmall>{author.login}</TypographySmall>
       </div>
-      <div className={cn(messageVariants({ variant }))}>{content ? <Markdown content={content} /> : <Thinking />}</div>
+      <div className={cn(messageVariants({ variant }))} role="text">
+        {content ? <Markdown content={content} /> : <Thinking />}
+      </div>
       {renderProjects()}
       {renderIssues()}
     </div>

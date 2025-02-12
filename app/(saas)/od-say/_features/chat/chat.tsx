@@ -69,8 +69,13 @@ export default function Chat() {
         </Button>
       </div>
       <div className="flex flex-col gap-8">
-        {messages.map((message, index) => (
-          <Message key={index} {...message} onOpenProject={onOpenProject} onOpenContribution={onOpenContribution} />
+        {messages.map(message => (
+          <Message
+            key={`${message.author.login}-${message.content}-${Date.now()}`}
+            {...message}
+            onOpenProject={onOpenProject}
+            onOpenContribution={onOpenContribution}
+          />
         ))}
         <div ref={endOfMessagesRef} />
       </div>
