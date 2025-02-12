@@ -1,5 +1,6 @@
 import { ThumbsUp } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useCallback, useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -7,6 +8,8 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -16,6 +19,7 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
+  const { open } = useApplyIssueSidePanel();
 
   const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
@@ -65,13 +69,11 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
       <ul className={"flex flex-col gap-3"}>
         {goodFirstIssues.map(issue => (
           <li key={issue.id}>
-            <a
-              href={issue.htmlUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="transition-opacity hover:opacity-80"
+            <button
+              onClick={() => open({ issueId: issue.id, projectId })}
+              className={"w-full transition-opacity hover:opacity-80"}
             >
-              <Card className={"flex items-center justify-between gap-3 p-3"}>
+              <Card className={"flex cursor-pointer items-center justify-between gap-3 p-3"}>
                 <div className={"flex flex-1 items-center gap-3"}>
                   <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.status} />
 
@@ -80,11 +82,11 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
                   </TypographySmall>
                 </div>
 
-                <TypographyMuted className={"text-sm"}>
+                <TypographyMuted className={"text-xs"}>
                   {dateKernel.format(new Date(issue.createdAt), "dd MMM.")}
                 </TypographyMuted>
               </Card>
-            </a>
+            </button>
           </li>
         ))}
       </ul>
@@ -104,7 +106,11 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
 
       {hasNextPage ? (
         <div>
-          <Button variant={"outline"}>View all Good First Issues ({totalItemNumber})</Button>
+          <Button variant={"outline"} asChild>
+            <Link href={`${NEXT_ROUTER.projects.details.issues.root(projectId)}?l=Good+First+Issue`}>
+              View all Good First Issues ({totalItemNumber})
+            </Link>
+          </Button>
         </div>
       ) : null}
     </Card>
