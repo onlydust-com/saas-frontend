@@ -28,7 +28,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
     hasNextPage,
   } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
-      projectId: projectId,
+      projectId,
     },
     queryParams: {
       pageSize: 3,
@@ -123,7 +123,7 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
         <TypographyH3>Good First Issues</TypographyH3>
       </header>
 
-      <TypographyP>This project's Good First Issues, perfect for new contributors.</TypographyP>
+      <TypographyP>This project&apos;s Good First Issues, perfect for new contributors.</TypographyP>
 
       {renderGoodFirstIssues()}
 

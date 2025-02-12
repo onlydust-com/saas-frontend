@@ -103,7 +103,7 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
         <TypographyH3>Available Issues</TypographyH3>
       </header>
 
-      <TypographyP>This project's available issues, ready for contributions.</TypographyP>
+      <TypographyP>This project&apos;s available issues, ready for contributions.</TypographyP>
 
       {renderAvailableIssues()}
 
