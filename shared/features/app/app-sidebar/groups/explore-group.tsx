@@ -17,6 +17,7 @@ export function ExploreGroup() {
   const isBrowseRoute = useMatchPath(NEXT_ROUTER.projects.root, { exact: false });
   const isOswRoute = useMatchPath(NEXT_ROUTER.osw.root, { exact: false });
   const isEcosystemsRoute = useMatchPath(NEXT_ROUTER.ecosystems.root, { exact: false });
+  // const isOdSayRoute = useMatchPath(NEXT_ROUTER.odSay.root, { exact: false });
 
   const items = [
     {
@@ -43,6 +44,14 @@ export function ExploreGroup() {
       icon: Orbit,
       isActive: isEcosystemsRoute,
     },
+    // TODO enable once OD-Say is ready
+    // {
+    //   title: "OD-Say",
+    //   url: NEXT_ROUTER.odSay.root,
+    //   icon: Bot,
+    //   isActive: isOdSayRoute,
+    //   isNew: true,
+    // },
   ];
 
   return (
@@ -56,6 +65,11 @@ export function ExploreGroup() {
                 <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
+                  {/* {item.isNew && (
+                    <Badge variant="emphasis" className="ml-auto">
+                      <span>New</span>
+                    </Badge>
+                  )} */}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

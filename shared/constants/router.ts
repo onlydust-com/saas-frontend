@@ -42,6 +42,12 @@ export const NEXT_ROUTER = {
       root: () => "/create-project",
     },
   },
+  odSay: {
+    root: "/od-say",
+    default: {
+      root: () => "/od-say",
+    },
+  },
   myDashboard: {
     root: "/my-dashboard",
     contributions: {
@@ -187,6 +193,12 @@ export const NEXT_ROUTER = {
       invoices: {
         root: (slug: string) => `/settings/billing-profiles/${slug}/invoices`,
       },
+    },
+  },
+  quests: {
+    root: "/quests",
+    details: {
+      root: (questId: string) => `/quests/${questId}`,
     },
   },
   discover: {
