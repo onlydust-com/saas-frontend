@@ -19,6 +19,7 @@ function messageFromAssistant({
   assistantMessage,
   suggestedProjects,
   suggestedIssues,
+  assistantFollowUpMessage,
 }: Partial<ContinueChatResponse & StartChatResponse>): ChatMessage {
   return {
     author: assistant,
@@ -26,6 +27,7 @@ function messageFromAssistant({
     variant: "assistant",
     projectIds: suggestedProjects,
     issueIds: suggestedIssues,
+    followUpMessage: assistantFollowUpMessage,
   };
 }
 

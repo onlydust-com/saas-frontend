@@ -31,6 +31,7 @@ export default function Message({
   variant,
   projectIds,
   issueIds,
+  followUpMessage,
   onOpenContribution,
   onOpenProject,
 }: MessageProps) {
@@ -158,6 +159,7 @@ export default function Message({
         {content ? <Markdown content={content} /> : <Thinking />}
         {renderProjects()}
         {renderIssues()}
+        {followUpMessage && <Markdown content={followUpMessage} />}
       </div>
     </div>
   );

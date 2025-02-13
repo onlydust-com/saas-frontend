@@ -19,6 +19,7 @@ export interface ChatMessage extends VariantProps<typeof messageVariants> {
   content?: string;
   projectIds?: string[];
   issueIds?: string[];
+  followUpMessage?: string;
 }
 
 export interface MessageProps extends ChatMessage {
