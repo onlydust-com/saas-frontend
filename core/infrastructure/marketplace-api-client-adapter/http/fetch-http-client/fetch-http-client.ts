@@ -30,7 +30,6 @@ export class FetchHttpClient extends HttpClient implements FetchHttpClientInterf
       headers: {
         ...defaultHeaders,
         ...headers,
-        "ngrok-skip-browser-warning": "69420",
       },
       body,
       next,

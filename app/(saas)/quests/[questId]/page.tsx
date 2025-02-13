@@ -2,6 +2,7 @@
 
 import { Target } from "lucide-react";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 
@@ -22,6 +23,7 @@ export default function QuestPage({ params }: { params: { questId: string } }) {
               iconProps: {
                 component: Target,
               },
+              href: NEXT_ROUTER.quests.root,
             },
             {
               id: "quest",
