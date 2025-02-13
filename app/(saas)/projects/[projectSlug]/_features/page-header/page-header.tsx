@@ -6,12 +6,13 @@ import { Bookmark, CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import { ReactNode, useMemo } from "react";
 import { toast } from "sonner";
 
+import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
+
 import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapter/bookmark";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
 import { Icon } from "@/design-system/atoms/icon";
-import { Typo } from "@/design-system/atoms/typo";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
@@ -20,7 +21,6 @@ import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { HoverBorderGradient } from "@/shared/ui/hover-border-gradient";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
@@ -161,14 +161,8 @@ function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
   );
 }
 
-function ActionHeader() {
-  return (
-    <HoverBorderGradient>
-      <Button asChild>
-        <span>Contribute now</span>
-      </Button>
-    </HoverBorderGradient>
-  );
+function ActionHeader({ projectId }: { projectId?: string }) {
+  return <ContributeNow projectId={projectId} />;
 }
 
 function BookMarkButton({ projectId, projectName }: { projectId: string; projectName: string }) {
@@ -245,8 +239,8 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         </Avatar>
 
         <div className="flex items-center justify-end gap-3 tablet:hidden">
-          {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
-          <ActionHeader />
+          {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
+          <ActionHeader projectId={project?.id} />
         </div>
       </div>
       <div className="flex w-full flex-col gap-6 px-0">
@@ -254,8 +248,8 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
             <div className="hidden items-center justify-end gap-3 tablet:flex">
-              {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
-              <ActionHeader />
+              {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
+              <ActionHeader projectId={project?.id} />
             </div>
           </div>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>

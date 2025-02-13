@@ -14,14 +14,23 @@ import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH3, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH3, TypographyH4, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
+export function GoodFirstIssues({
+  projectId = "",
+  size = "default",
+}: {
+  projectId?: string;
+  size?: "default" | "small";
+}) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useApplyIssueSidePanel();
   const { capture } = usePosthog();
+
+  const Title = size === "default" ? TypographyH3 : TypographyH4;
 
   const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
@@ -98,10 +107,15 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
   }, [goodFirstIssues, isLoading, isError, dateKernel]);
 
   return (
-    <Card className={"flex flex-col gap-4 bg-gradient-to-br from-green-950 to-transparent to-50% p-4"}>
+    <Card
+      className={cn("flex flex-col bg-gradient-to-br from-green-950 to-transparent to-50%", {
+        "gap-4 p-4": size === "default",
+        "gap-3 p-3": size === "small",
+      })}
+    >
       <header className={"flex items-center gap-2"}>
-        <ThumbsUp className={"text-green-700"} />
-        <TypographyH3>Good First Issues</TypographyH3>
+        <ThumbsUp className={cn("text-green-700", { "size-5": size === "small" })} />
+        <Title>Good First Issues</Title>
       </header>
 
       <TypographyP>This project&apos;s Good First Issues, perfect for new contributors.</TypographyP>
