@@ -3,6 +3,7 @@ import { QuestList } from "../_features/quest-list/quest-list.types";
 export const QuestListData: QuestList[] = [
   {
     id: "d4b5d8e1-c2a3-4f6b-9d8e-1c2a3f6b9d8e",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
     projectSlug: "starknet-quest",
     name: "Quiz Redesign",
     shortDescription:
@@ -28,14 +29,18 @@ export const QuestListData: QuestList[] = [
         provided: [],
         wanted: 1,
       },
+      senior: {
+        provided: [],
+        wanted: 1,
+      },
       expert: {
-        provided: [16590657],
+        provided: [],
         wanted: 1,
       },
     },
-    requiredSkills: ["typescript", "react", "nextjs", "oauth"],
-    startDate: "2025-02-13",
-    endDate: "2025-03-13",
+    requiredSkills: ["typescript", "react", "nextjs", "tailwind"],
+    startDate: "2025-02-21",
+    endDate: "2025-03-14",
     issues: [
       2806321584, 2806627562, 2806321584, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780,
       2806375535, 2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
