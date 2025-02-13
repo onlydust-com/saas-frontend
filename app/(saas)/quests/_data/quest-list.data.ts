@@ -2,8 +2,8 @@ import { QuestList } from "../_features/quest-list/quest-list.types";
 
 export const QuestListData: QuestList[] = [
   {
-    id: "1",
-    projectSlug: "onlydust",
+    id: "d4b5d8e1-c2a3-4f6b-9d8e-1c2a3f6b9d8e",
+    projectSlug: "starknet-quest",
     name: "Quiz Redesign",
     shortDescription:
       "Revamp the quiz interface to enhance user experience with updated design and improved navigation.",
@@ -36,7 +36,10 @@ export const QuestListData: QuestList[] = [
     requiredSkills: ["typescript", "react", "nextjs", "oauth"],
     startDate: "2025-02-13",
     endDate: "2025-03-13",
-    issues: [2673631480, 2661455409, 2661271317, 2611038798],
-    maintainers: [17259618],
+    issues: [
+      2806321584, 2806627562, 2806321584, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780,
+      2806375535, 2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
+    ],
+    maintainers: [144677881],
   },
 ];

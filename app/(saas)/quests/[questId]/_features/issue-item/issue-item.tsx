@@ -1,3 +1,5 @@
+"use client";
+
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";

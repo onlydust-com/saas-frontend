@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { bootstrap } from "@/core/bootstrap";
@@ -54,9 +56,9 @@ export function QuestContent({ questId }: QuestContentProps) {
         <div className="flex flex-col gap-2">
           <TypographyMuted>Description</TypographyMuted>
           <TypographyP>{quest.longDescription.description}</TypographyP>
-          <TypographyP>
+          <ul className="list-inside list-disc">
             {quest?.longDescription.requirements?.map(requirement => <li key={requirement}>{requirement}</li>)}
-          </TypographyP>
+          </ul>
           <TypographyP>{quest.longDescription.warning}</TypographyP>
           {quest.longDescription.links?.map(link => (
             <Link href={link} key={link} target="_blank" className="hover:underline">
