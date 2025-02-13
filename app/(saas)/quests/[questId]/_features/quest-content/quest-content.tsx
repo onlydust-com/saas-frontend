@@ -5,13 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyH2, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { QuestItemData } from "../../../_data/quest-item.data";
+import { IssueItem } from "../issue-item/issue-item";
 import { SquadItem } from "../squad-item/squad-item";
 import { QuestContentProps } from "./quest-content.types";
 
 export function QuestContent({ questId }: QuestContentProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const quest = QuestItemData;
-  const { startDate, endDate, maintainers } = quest;
+  const { startDate, endDate, maintainers, issues } = quest;
 
   const providedProfiles = Object.entries(quest.wantedProfiles).flatMap(([_, value]) =>
     value.provided.map(githubId => ({
@@ -47,23 +48,35 @@ export function QuestContent({ questId }: QuestContentProps) {
         </div>
         <TypographyP>{quest.longDescription}</TypographyP>
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        <TypographyMuted>Squad</TypographyMuted>
-        <div className="flex flex-row gap-2">
-          {providedProfiles.map(({ githubId }) => (
-            <SquadItem key={githubId} githubId={githubId} skills={quest.requiredSkills} />
-          ))}
-          {wantedProfiles.map(({ githubId }, index) => (
-            <SquadItem key={index} githubId={githubId} skills={quest.requiredSkills} />
-          ))}
+      <CardContent className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <TypographyMuted>Squad</TypographyMuted>
+          <div className="flex flex-row gap-2">
+            {providedProfiles.map(({ githubId }) => (
+              <SquadItem key={githubId} githubId={githubId} skills={quest.requiredSkills} />
+            ))}
+            {wantedProfiles.map(({ githubId }, index) => (
+              <SquadItem key={index} githubId={githubId} skills={quest.requiredSkills} />
+            ))}
+          </div>
         </div>
-      </CardContent>
-      <CardContent className="flex flex-col gap-2">
-        <TypographyMuted>Maintainers</TypographyMuted>
-        <div className="flex flex-row gap-2">
-          {maintainers.map(githubId => (
-            <SquadItem key={githubId} githubId={githubId} />
-          ))}
+
+        <div className="flex flex-col gap-2">
+          <TypographyMuted>Maintainers</TypographyMuted>
+          <div className="flex flex-row gap-2">
+            {maintainers.map(githubId => (
+              <SquadItem key={githubId} githubId={githubId} />
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <TypographyMuted>Issues</TypographyMuted>
+          <div className="flex flex-col gap-2">
+            {issues.map(issueId => (
+              <IssueItem key={issueId} issueId={issueId} />
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

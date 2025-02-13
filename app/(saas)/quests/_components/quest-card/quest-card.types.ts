@@ -1,9 +1,9 @@
-import { Issue, QuestList } from "../../_features/quest-list/quest-list.types";
+import { QuestList } from "../../_features/quest-list/quest-list.types";
 
 export interface QuestItem extends QuestList {
   id: string;
   longDescription: string;
-  issues: Issue[];
+  issues: number[];
   maintainers: number[];
 }
 
