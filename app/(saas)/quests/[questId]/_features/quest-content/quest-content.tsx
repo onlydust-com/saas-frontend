@@ -36,7 +36,6 @@ export function QuestContent({ questId }: QuestContentProps) {
     <Card>
       <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2">
         <div className="flex flex-col gap-2">
-          <TypographyMuted>Quest?</TypographyMuted>
           <CardTitle>
             <TypographyH2>{quest.name}</TypographyH2>
           </CardTitle>
@@ -91,7 +90,7 @@ export function QuestContent({ questId }: QuestContentProps) {
 
         <div className="flex flex-col gap-2">
           <TypographyMuted>Issues</TypographyMuted>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {issues.map(issueId => (
               <IssueItem key={issueId} issueId={issueId} />
             ))}

@@ -148,10 +148,10 @@ export default function QuestPage({ questId }: PageHeaderProps) {
   const renderBanner = useMemo(() => {
     if (quest?.bannerUrl) {
       return (
-        <div className="relative z-[1] h-44 w-full overflow-hidden rounded-xl">
+        <div className="relative z-[1] h-[454px] w-full overflow-hidden rounded-xl">
           <img
             src={quest?.bannerUrl}
-            className="absolute inset-0 -z-[1] h-full w-full object-cover object-center"
+            className="absolute inset-0 -z-[1] h-full w-full object-cover object-bottom"
             loading="lazy"
             alt="Quest image"
           />
@@ -159,11 +159,11 @@ export default function QuestPage({ questId }: PageHeaderProps) {
       );
     }
 
-    return <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />;
+    return <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-[454px] w-full rounded-xl" />;
   }, [quest?.bannerUrl, project?.logoUrl, isLoading]);
 
   return (
-    <div className="flex w-full flex-col bg-background pt-6">
+    <div className="flex w-full flex-col bg-background">
       {renderBanner}
       <Avatar className="relative z-[2] -mt-16 mb-6 ml-6 h-32 w-32 rounded-xl border-4 border-background bg-background">
         <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
