@@ -2,9 +2,11 @@
 
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { CircleDotDashed, GitMerge, Star, User } from "lucide-react";
-import { ReactNode } from "react";
+import { Bookmark, CircleDotDashed, GitMerge, Star, User } from "lucide-react";
+import { ReactNode, useMemo } from "react";
+import { toast } from "sonner";
 
+import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapter/bookmark";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
@@ -16,6 +18,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 import { ProjectNavigation } from "../project-navigation/project-navigation";
 import { PageHeaderProps } from "./page-header.types";
@@ -152,6 +155,55 @@ function ActionHeader() {
   return <Button>Contribute now</Button>;
 }
 
+function BookMarkButton({ projectId, projectName }: { projectId: string; projectName: string }) {
+  const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
+
+  const isBookMarked = useMemo(() => data?.bookmarks?.some(bookmark => bookmark === projectId), [data, projectId]);
+
+  const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({
+    options: {
+      onSuccess: () => {
+        toast.success(`${projectName} added to bookmarks`);
+      },
+      onError: () => {
+        toast.error(`Failed to add ${projectName} to bookmarks`);
+      },
+    },
+  });
+
+  const { mutate: removeBookmark } = BookmarkReactQueryAdapter.client.useRemoveBookmark({
+    options: {
+      onSuccess: () => {
+        toast.success(`${projectName} removed from bookmarks`);
+      },
+      onError: () => {
+        toast.error(`Failed to remove ${projectName} from bookmarks`);
+      },
+    },
+  });
+
+  function toggleBookmark() {
+    if (isBookMarked) {
+      removeBookmark({ projectId });
+    } else {
+      addBookmark({ projectId });
+    }
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline" className="px-2" onClick={toggleBookmark}>
+          <Bookmark className={cn({ "fill-purple-500 stroke-purple-500": isBookMarked })} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        {isBookMarked ? "Remove from bookmarks" : "Bookmark this project to access it quickly from the menu"}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 export function PageHeader({ projectSlug }: PageHeaderProps) {
   const { data: project, isLoading } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
@@ -172,7 +224,9 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
             <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
           </AvatarFallback>
         </Avatar>
-        <div className="flex tablet:hidden">
+
+        <div className="flex items-center justify-end gap-3 tablet:hidden">
+          {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
           <ActionHeader />
         </div>
       </div>
@@ -180,7 +234,8 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
-            <div className="hidden items-center gap-2 tablet:flex">
+            <div className="hidden items-center justify-end gap-3 tablet:flex">
+              {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
               <ActionHeader />
             </div>
           </div>
