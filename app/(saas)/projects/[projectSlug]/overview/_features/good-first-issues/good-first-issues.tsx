@@ -22,9 +22,11 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 export function GoodFirstIssues({
   projectId = "",
   size = "default",
+  hideWhenEmpty = false,
 }: {
   projectId?: string;
   size?: "default" | "small";
+  hideWhenEmpty?: boolean;
 }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useApplyIssueSidePanel();
@@ -105,6 +107,10 @@ export function GoodFirstIssues({
       </ul>
     );
   }, [goodFirstIssues, isLoading, isError, dateKernel]);
+
+  if (hideWhenEmpty && (goodFirstIssues.length === 0 || isError)) {
+    return null;
+  }
 
   return (
     <Card
