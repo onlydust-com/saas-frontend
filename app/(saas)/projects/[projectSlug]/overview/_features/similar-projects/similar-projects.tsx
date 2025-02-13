@@ -5,16 +5,17 @@ import { useMemo } from "react";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Typo } from "@/design-system/atoms/typo";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
 import { TypographyH3 } from "@/shared/ui/typography";
 
 import { ProjectCard } from "./components/project-card/project-card";
 import { SimilarProjectsProps } from "./similar-projects.types";
 
-export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
+export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsProps) {
+  const { capture } = usePosthog();
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetSimilarProjects({
     pathParams: {
       projectIdOrSlug,
@@ -49,6 +50,9 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
             logoUrl={project.logoUrl ?? ""}
             categories={[]}
             languages={[]}
+            onClick={() => {
+              capture("project_overview_click_similar_project", { projectId: projectId, targetId: project.id });
+            }}
             // categories={project?.categories.map(category => category.name) ?? }
             // languages={project.languages ?? []}
           />

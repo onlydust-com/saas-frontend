@@ -11,7 +11,7 @@ import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typo
 
 import { ProjectCardProps } from "./project-card.types";
 
-export function ProjectCard({ name, description, slug, logoUrl, categories, languages }: ProjectCardProps) {
+export function ProjectCard({ name, description, slug, logoUrl, categories, languages, onClick }: ProjectCardProps) {
   const renderCategories = useCallback(() => {
     if (categories.length === 0) return <div />;
 
@@ -105,7 +105,11 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
   const hasLanguagesOrCategories = languages.length > 0 || categories.length > 0;
 
   return (
-    <Link href={NEXT_ROUTER.projects.details.root(slug)} className="transition-opacity hover:opacity-80">
+    <Link
+      href={NEXT_ROUTER.projects.details.root(slug)}
+      className="transition-opacity hover:opacity-80"
+      onClick={onClick}
+    >
       <Card className="bg-stack flex flex-col items-start gap-4 p-4">
         <div className="flex items-center gap-4">
           <Avatar className="size-10 rounded-xl border">
