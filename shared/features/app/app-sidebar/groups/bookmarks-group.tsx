@@ -33,7 +33,7 @@ export function BookmarksGroup() {
     ),
   }));
 
-  if (!projectsList.length) return null;
+  if (!projectsList.length || !data?.bookmarks?.length) return null;
 
   return (
     <SidebarGroup>

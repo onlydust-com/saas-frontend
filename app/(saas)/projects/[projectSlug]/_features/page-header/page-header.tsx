@@ -191,9 +191,16 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
   }
 
   return (
-    <Button variant="outline" className="px-2" onClick={toggleBookmark}>
-      <Bookmark className={cn({ "fill-foreground-error stroke-foreground-error": isBookMarked })} />
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline" className="px-2" onClick={toggleBookmark}>
+          <Bookmark className={cn({ "fill-purple-500 stroke-purple-500": isBookMarked })} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        {isBookMarked ? "Remove from bookmarks" : "Bookmark this project to access it quickly from the menu"}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
