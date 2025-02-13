@@ -61,7 +61,7 @@ export function GoodFirstIssues({
 
     if (isError) {
       return (
-        <div className={"flex items-center justify-center py-36"}>
+        <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>Error loading Good First Issues</TypographyMuted>
         </div>
       );
@@ -69,7 +69,7 @@ export function GoodFirstIssues({
 
     if (goodFirstIssues.length === 0) {
       return (
-        <div className={"flex items-center justify-center py-36"}>
+        <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>No good first issues found</TypographyMuted>
         </div>
       );
@@ -118,7 +118,9 @@ export function GoodFirstIssues({
         <Title>Good First Issues</Title>
       </header>
 
-      <TypographyP>This project&apos;s Good First Issues, perfect for new contributors.</TypographyP>
+      <TypographyP className={cn({ "text-sm": size === "small" })}>
+        This project&apos;s Good First Issues, perfect for new contributors.
+      </TypographyP>
 
       {renderGoodFirstIssues()}
 

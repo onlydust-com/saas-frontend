@@ -1,3 +1,5 @@
+import { HackathonInProgress } from "@/app/(saas)/projects/[projectSlug]/_components/hackathon-in-progress/hackathon-in-progress";
+import { JoinSocialNetworks } from "@/app/(saas)/projects/[projectSlug]/_components/join-social-networks/join-social-networks";
 import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
 
 import { Button } from "@/shared/ui/button";
@@ -18,39 +20,26 @@ export function ContributeNow({ projectId }: { projectId?: string }) {
         </HoverBorderGradient>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-[460px] overflow-hidden">
-        <ScrollArea style={{ maxHeight: "700px" }}>
+      <PopoverContent align="end" className="w-[460px] overflow-hidden p-0">
+        <ScrollArea style={{ height: "700px" }} className="p-3">
           <div className="flex flex-col gap-4">
-            <Card className="flex flex-col gap-3 p-3">
-              <TypographyH4>ODBoost in progress</TypographyH4>
-
-              <TypographyP>
-                Now is the best time to contribute to this project!
-                <br />
-                It&apos;s currently in an ODBoost.
-              </TypographyP>
-            </Card>
+            <HackathonInProgress projectId={projectId} />
 
             <GoodFirstIssues projectId={projectId} size="small" />
 
-            <Card className="flex flex-col gap-3 p-3">
-              <TypographyH4>Join social networks</TypographyH4>
-
-              <TypographyP>
-                Join our community on social networks to stay updated and interact with other contributors.
-              </TypographyP>
-            </Card>
+            <JoinSocialNetworks projectId={projectId} />
 
             <Card className="flex flex-col gap-3 p-3">
               <TypographyH4>Test the application</TypographyH4>
 
-              <TypographyP>
+              <TypographyP className="text-sm">
                 Why not test the application?
                 <br />
                 Follow our guide to report bugs or suggest improvements.
               </TypographyP>
 
               <Button variant={"outline"} asChild className="w-fit">
+                {/* TODO @hayden */}
                 <a href="" target="_blank" rel="noopener noreferrer">
                   Test the application
                 </a>
