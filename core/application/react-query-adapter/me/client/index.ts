@@ -1,3 +1,4 @@
+export * from "./use-continue-reco-chat";
 export * from "./use-get-me";
 export * from "./use-get-my-hackathon-registration";
 export * from "./use-get-my-notifications-settings";
@@ -14,4 +15,5 @@ export * from "./use-set-me";
 export * from "./use-set-my-notifications-settings";
 export * from "./use-set-my-preference-for-project";
 export * from "./use-set-my-profile";
+export * from "./use-start-reco-chat";
 export * from "./use-upload-profile-picture";
