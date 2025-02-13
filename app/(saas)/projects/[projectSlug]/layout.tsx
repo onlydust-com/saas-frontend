@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
+import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -24,6 +25,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
         <PageHeader projectSlug={params.projectSlug} />
         <div>{children}</div>
         <ApplyIssueSidepanel />
+        <ContributionsSidepanel />
       </PageContainer>
     </GithubPermissionsProvider>
   );

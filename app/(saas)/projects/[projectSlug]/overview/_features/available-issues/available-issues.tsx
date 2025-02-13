@@ -70,7 +70,7 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
           <li key={issue.id}>
             <button
               onClick={() => open({ issueId: issue.id, projectId })}
-              className={"w-full transition-opacity hover:opacity-80"}
+              className={"w-full text-left transition-opacity hover:opacity-80"}
             >
               <Card className={"flex cursor-pointer items-center justify-between gap-3 p-3"}>
                 <div className={"flex flex-1 items-center gap-3"}>
