@@ -14,6 +14,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
+import { SimilarProjects } from "./_features/similar-projects/similar-projects";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
@@ -68,6 +69,8 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         <GoodFirstIssues projectId={data?.id} />
 
         <AvailableIssues projectId={data?.id} />
+
+        <SimilarProjects projectIdOrSlug={params.projectSlug} />
       </div>
     </ScrollView>
   );

@@ -4,15 +4,13 @@ import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
-import { AvatarLabelGroup } from "@/design-system/molecules/avatar-label-group";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { NEXT_ROUTER } from "@/shared/constants/router";
+import { Card } from "@/shared/ui/card";
 
+import { ProjectCard } from "./components/project-card/project-card";
 import { SimilarProjectsProps } from "./similar-projects.types";
 
 export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
@@ -28,6 +26,8 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
     },
   });
 
+  console.log("data", data);
+
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
   const renderProjects = useMemo(() => {
@@ -42,21 +42,16 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
     return (
       <>
         {projects.map(project => (
-          <AvatarLabelGroup
+          <ProjectCard
             key={project.id}
-            as={BaseLink}
-            htmlProps={{ href: NEXT_ROUTER.projects.details.root(project.slug) }}
-            avatars={[
-              {
-                src: project.logoUrl,
-              },
-            ]}
-            shape={"squared"}
-            withPopover={false}
-            title={{ children: project.name }}
-            description={{ children: project.shortDescription }}
-            size="md"
-            truncate
+            name={project.name}
+            description={project.shortDescription}
+            slug={project.slug}
+            logoUrl={project.logoUrl ?? ""}
+            categories={[]}
+            languages={[]}
+            // categories={project?.categories.map(category => category.name) ?? }
+            // languages={project.languages ?? []}
           />
         ))}
       </>
@@ -68,18 +63,16 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
   }
 
   return (
-    <Paper size="none" background="primary" border="secondary">
-      <div className="flex flex-col divide-y divide-border-primary">
-        <div className="p-xl">
-          <Typo
-            size="xs"
-            variant="heading"
-            color="primary"
-            translate={{ token: "project:details.similarProjects.title" }}
-          />
-        </div>
-        <div className="flex flex-col gap-xl p-xl">{renderProjects}</div>
+    <Card className={"flex flex-col gap-4 p-4"}>
+      <div className="p-xl">
+        <Typo
+          size="xs"
+          variant="heading"
+          color="primary"
+          translate={{ token: "project:details.similarProjects.title" }}
+        />
       </div>
-    </Paper>
+      <div className="flex flex-col gap-xl p-xl">{renderProjects}</div>
+    </Card>
   );
 }
