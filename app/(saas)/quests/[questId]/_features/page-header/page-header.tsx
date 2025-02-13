@@ -4,7 +4,7 @@ import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { FilloutStandardEmbed } from "@fillout/react";
 import { CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
@@ -144,9 +144,27 @@ export default function QuestPage({ questId }: PageHeaderProps) {
       enabled: Boolean(quest?.projectSlug),
     },
   });
+
+  const renderBanner = useMemo(() => {
+    if (quest?.bannerUrl) {
+      return (
+        <div className="relative z-[1] h-44 w-full overflow-hidden rounded-xl">
+          <img
+            src={quest?.bannerUrl}
+            className="absolute inset-0 -z-[1] h-full w-full object-cover object-center"
+            loading="lazy"
+            alt="Quest image"
+          />
+        </div>
+      );
+    }
+
+    return <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />;
+  }, [quest?.bannerUrl, project?.logoUrl, isLoading]);
+
   return (
     <div className="flex w-full flex-col bg-background pt-6">
-      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
+      {renderBanner}
       <Avatar className="relative z-[2] -mt-16 mb-6 ml-6 h-32 w-32 rounded-xl border-4 border-background bg-background">
         <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
         <AvatarFallback>
