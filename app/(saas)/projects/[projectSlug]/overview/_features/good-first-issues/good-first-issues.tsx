@@ -23,12 +23,15 @@ export function GoodFirstIssues({
   projectId = "",
   size = "default",
   hideWhenEmpty = false,
+  posthogPrefix = "project_overview_click_good_first_issue",
 }: {
   projectId?: string;
   size?: "default" | "small";
   hideWhenEmpty?: boolean;
+  posthogPrefix?: string;
 }) {
   const dateKernel = bootstrap.getDateKernelPort();
+
   const { open } = useApplyIssueSidePanel();
   const { capture } = usePosthog();
 
@@ -83,7 +86,7 @@ export function GoodFirstIssues({
           <li key={issue.id}>
             <button
               onClick={() => {
-                capture("project_overview_click_good_first_issue", { projectId, issueId: issue.id });
+                capture(posthogPrefix, { projectId, issueId: issue.id });
                 open({ issueId: issue.id, projectId });
               }}
               className={"w-full text-left transition-opacity hover:opacity-80"}
@@ -135,7 +138,7 @@ export function GoodFirstIssues({
           <Button variant={"outline"} asChild>
             <Link
               href={NEXT_ROUTER.projects.details.issues.root(projectId)}
-              onClick={() => capture("project_overview_click_good_first_issue_view_all", { projectId })}
+              onClick={() => capture(`${posthogPrefix}_view_all`, { projectId })}
             >
               View all issues
             </Link>

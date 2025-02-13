@@ -31,7 +31,12 @@ export function ContributeNow({ projectId }: { projectId?: string }) {
         <div className="flex flex-col gap-4 p-3">
           <HackathonInProgress projectId={projectId} />
 
-          <GoodFirstIssues projectId={projectId} size="small" hideWhenEmpty />
+          <GoodFirstIssues
+            projectId={projectId}
+            size="small"
+            hideWhenEmpty
+            posthogPrefix="project_overview_contribute_now_click_good_first_issue"
+          />
 
           <JoinSocialNetworks projectId={projectId} />
 
