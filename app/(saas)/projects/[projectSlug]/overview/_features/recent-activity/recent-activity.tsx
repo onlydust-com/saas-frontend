@@ -48,7 +48,7 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
     if (isError) {
       return (
         <div className={"flex items-center justify-center py-36"}>
-          <TypographyMuted>Error loading Good First Issues</TypographyMuted>
+          <TypographyMuted>Error loading recent activity</TypographyMuted>
         </div>
       );
     }
@@ -56,7 +56,7 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
     if (contributions.length === 0) {
       return (
         <div className={"flex items-center justify-center py-36"}>
-          <TypographyMuted>No contributions found</TypographyMuted>
+          <TypographyMuted>No recent activity found</TypographyMuted>
         </div>
       );
     }
@@ -84,7 +84,7 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
               </div>
 
               <TypographyMuted className={"text-xs"}>
-                {dateKernel.format(new Date(contribution.createdAt), "dd MMM.")}
+                {dateKernel.format(new Date(contribution.lastUpdatedAt), "dd MMM.")}
               </TypographyMuted>
             </button>
           </li>
