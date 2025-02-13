@@ -1,16 +1,24 @@
 import { HackathonInProgress } from "@/app/(saas)/projects/[projectSlug]/_components/hackathon-in-progress/hackathon-in-progress";
 import { JoinSocialNetworks } from "@/app/(saas)/projects/[projectSlug]/_components/join-social-networks/join-social-networks";
+import { TestApplication } from "@/app/(saas)/projects/[projectSlug]/_components/test-application/test-application";
 import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
 
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
-import { Card } from "@/shared/ui/card";
 import { HoverBorderGradient } from "@/shared/ui/hover-border-gradient";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
-import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 
 export function ContributeNow({ projectId }: { projectId?: string }) {
+  const { capture } = usePosthog();
+
   return (
-    <Popover>
+    <Popover
+      onOpenChange={open => {
+        if (open) {
+          capture("project_overview_open_contribute_now", { project_id: projectId });
+        }
+      }}
+    >
       <PopoverTrigger asChild>
         <HoverBorderGradient>
           <Button asChild>
@@ -27,22 +35,7 @@ export function ContributeNow({ projectId }: { projectId?: string }) {
 
           <JoinSocialNetworks projectId={projectId} />
 
-          <Card className="flex flex-col gap-3 p-3">
-            <TypographyH4>Test the application</TypographyH4>
-
-            <TypographyP className="text-sm">
-              Why not test the application?
-              <br />
-              Follow our guide to report bugs or suggest improvements.
-            </TypographyP>
-
-            <Button variant={"outline"} asChild className="w-fit">
-              {/* TODO @hayden */}
-              <a href="" target="_blank" rel="noopener noreferrer">
-                Test the application
-              </a>
-            </Button>
-          </Card>
+          <TestApplication projectId={projectId} />
         </div>
       </PopoverContent>
     </Popover>
