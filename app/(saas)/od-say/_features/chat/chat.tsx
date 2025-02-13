@@ -65,7 +65,7 @@ export default function Chat() {
   });
 
   return (
-    <section className="mx-auto flex h-full w-full flex-col py-2 lg:w-[720px]">
+    <section className="mx-auto flex h-full w-full flex-col py-2 lg:w-[640px]">
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
         {messages.map(message => (
           <Message

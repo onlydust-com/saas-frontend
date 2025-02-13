@@ -198,7 +198,7 @@ export default function Message({
         <AvatarFallback>{author.login}</AvatarFallback>
       </Avatar>
       <div
-        className={`flex flex-col gap-4 rounded-lg p-2 ${variant === "user" ? "bg-background-brand-secondary" : "bg-background-secondary"}`}
+        className={`flex flex-col gap-4 rounded-lg p-2 ${variant === "user" ? "bg-background-brand-secondary" : "bg-background-secondary-hover"}`}
         role="text"
       >
         {content ? <Markdown content={content} /> : <Thinking />}
