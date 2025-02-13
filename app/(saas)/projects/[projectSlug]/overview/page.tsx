@@ -62,7 +62,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-2">
         <div className="col-span-full">
-          <Description description={data?.longDescription} />
+          <Description description={data?.longDescription} projectId={data?.id} />
         </div>
         <div className="col-span-full">
           <ActivityGraph />
@@ -74,7 +74,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
 
         <RecentActivity projectId={data?.id} />
 
-        <SimilarProjects projectIdOrSlug={params.projectSlug} />
+        <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
         <div />
       </div>
     </ScrollView>

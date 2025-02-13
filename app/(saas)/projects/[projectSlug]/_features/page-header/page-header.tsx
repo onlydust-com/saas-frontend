@@ -14,6 +14,7 @@ import { Icon } from "@/design-system/atoms/icon";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -162,13 +163,17 @@ function ActionHeader() {
 }
 
 function BookMarkButton({ projectId, projectName }: { projectId: string; projectName: string }) {
+  const { capture } = usePosthog();
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
 
   const isBookMarked = useMemo(() => data?.bookmarks?.some(bookmark => bookmark === projectId), [data, projectId]);
+  // project_bookmark_added
+  // project_bookmark_removed
 
   const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({
     options: {
       onSuccess: () => {
+        capture("project_bookmark_added", { projectId });
         toast.success(`${projectName} added to bookmarks`);
       },
       onError: () => {
@@ -180,6 +185,7 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
   const { mutate: removeBookmark } = BookmarkReactQueryAdapter.client.useRemoveBookmark({
     options: {
       onSuccess: () => {
+        capture("project_bookmark_removed", { projectId });
         toast.success(`${projectName} removed from bookmarks`);
       },
       onError: () => {

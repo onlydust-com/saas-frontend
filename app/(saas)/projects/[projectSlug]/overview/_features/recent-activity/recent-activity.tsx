@@ -8,6 +8,7 @@ import { ContributionAs } from "@/core/domain/contribution/models/contribution.t
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge/variants/contribution-badge-default";
 
 import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
@@ -17,6 +18,7 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 export function RecentActivity({ projectId = "" }: { projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useContributionsSidepanel();
+  const { capture } = usePosthog();
 
   const { data, isLoading, isError } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
@@ -66,7 +68,10 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
         {contributions.map(contribution => (
           <li key={contribution.id}>
             <button
-              onClick={() => open({ id: contribution.id, as: ContributionAs.CONTRIBUTOR })}
+              onClick={() => {
+                capture("project_overview_click_recent_activity", { projectId, contributionId: contribution.id });
+                open({ id: contribution.id, as: ContributionAs.CONTRIBUTOR });
+              }}
               className={
                 "flex w-full cursor-pointer items-center justify-between gap-3 text-left transition-opacity hover:opacity-80"
               }

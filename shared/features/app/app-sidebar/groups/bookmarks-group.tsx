@@ -5,11 +5,14 @@ import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapte
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton } from "@/shared/ui/sidebar";
 
 export function BookmarksGroup() {
+  const { capture } = usePosthog();
+
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
   const { data: projects } = ProjectReactQueryAdapter.client.useGetProjectsV2({
     queryParams: {
@@ -25,6 +28,7 @@ export function BookmarksGroup() {
   const items = projectsList.map(project => ({
     title: project.name,
     url: NEXT_ROUTER.projects.details.root(project.slug),
+    onClick: () => capture("project_bookmark_clicked", { projectId: project.id }),
     icon: (
       <Avatar className="h-4 w-4 rounded-sm">
         <AvatarImage src={project.logoUrl} />
@@ -45,7 +49,7 @@ export function BookmarksGroup() {
       </SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
-          <Link href={item.url}>
+          <Link href={item.url} onClick={item.onClick}>
             <SidebarMenuButton tooltip={item.title} key={item.title} className="group/sidebar-menu-button">
               {item.icon}
               <span className="line-clamp-1" title={item.title}>

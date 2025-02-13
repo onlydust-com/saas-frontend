@@ -10,6 +10,7 @@ import { ContributionBadge } from "@/design-system/molecules/contribution-badge"
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -20,6 +21,7 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useApplyIssueSidePanel();
+  const { capture } = usePosthog();
 
   const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
@@ -69,7 +71,10 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
         {goodFirstIssues.map(issue => (
           <li key={issue.id}>
             <button
-              onClick={() => open({ issueId: issue.id, projectId })}
+              onClick={() => {
+                capture("project_overview_click_good_first_issue", { projectId, issueId: issue.id });
+                open({ issueId: issue.id, projectId });
+              }}
               className={"w-full text-left transition-opacity hover:opacity-80"}
             >
               <Card className={"flex cursor-pointer items-center justify-between gap-3 p-3"}>
@@ -106,7 +111,12 @@ export function GoodFirstIssues({ projectId = "" }: { projectId?: string }) {
       {hasNextPage ? (
         <div>
           <Button variant={"outline"} asChild>
-            <Link href={NEXT_ROUTER.projects.details.issues.root(projectId)}>View all issues</Link>
+            <Link
+              href={NEXT_ROUTER.projects.details.issues.root(projectId)}
+              onClick={() => capture("project_overview_click_good_first_issue_view_all", { projectId })}
+            >
+              View all issues
+            </Link>
           </Button>
         </div>
       ) : null}
