@@ -45,13 +45,14 @@ export function ExploreGroup() {
       icon: Orbit,
       isActive: isEcosystemsRoute,
     },
-    {
-      title: "OD-Say",
-      url: NEXT_ROUTER.odSay.root,
-      icon: Bot,
-      isActive: isOdSayRoute,
-      isNew: true,
-    },
+    // TODO enable once OD-Say is ready
+    // {
+    //   title: "OD-Say",
+    //   url: NEXT_ROUTER.odSay.root,
+    //   icon: Bot,
+    //   isActive: isOdSayRoute,
+    //   isNew: true,
+    // },
   ];
 
   return (
