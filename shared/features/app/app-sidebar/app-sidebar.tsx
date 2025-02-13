@@ -10,6 +10,8 @@ import { ProgramGroup } from "@/shared/features/app/app-sidebar/groups/program-g
 import { SponsorGroup } from "@/shared/features/app/app-sidebar/groups/sponsor-group";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail, useSidebar } from "@/shared/ui/sidebar";
 
+import { BookmarksGroup } from "./groups/bookmarks-group copy";
+
 export function AppSidebar() {
   const { state } = useSidebar();
 
@@ -37,6 +39,8 @@ export function AppSidebar() {
         <ProgramGroup />
 
         <SponsorGroup />
+
+        <BookmarksGroup />
       </SidebarContent>
 
       <SidebarRail />
