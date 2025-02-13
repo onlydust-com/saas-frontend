@@ -4,6 +4,7 @@ import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Bookmark, CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import { ReactNode, useMemo } from "react";
+import { toast } from "sonner";
 
 import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapter/bookmark";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -154,14 +155,32 @@ function ActionHeader() {
   return <Button>Contribute now</Button>;
 }
 
-function BookMarkButton({ projectId }: { projectId: string }) {
+function BookMarkButton({ projectId, projectName }: { projectId: string; projectName: string }) {
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
 
   const isBookMarked = useMemo(() => data?.bookmarks?.some(bookmark => bookmark === projectId), [data, projectId]);
 
-  const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({});
+  const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({
+    options: {
+      onSuccess: () => {
+        toast.success(`${projectName} added to bookmarks`);
+      },
+      onError: () => {
+        toast.error(`Failed to add ${projectName} to bookmarks`);
+      },
+    },
+  });
 
-  const { mutate: removeBookmark } = BookmarkReactQueryAdapter.client.useRemoveBookmark({});
+  const { mutate: removeBookmark } = BookmarkReactQueryAdapter.client.useRemoveBookmark({
+    options: {
+      onSuccess: () => {
+        toast.success(`${projectName} removed from bookmarks`);
+      },
+      onError: () => {
+        toast.error(`Failed to remove ${projectName} from bookmarks`);
+      },
+    },
+  });
 
   function toggleBookmark() {
     if (isBookMarked) {
@@ -173,10 +192,7 @@ function BookMarkButton({ projectId }: { projectId: string }) {
 
   return (
     <Button variant="outline" className="px-2" onClick={toggleBookmark}>
-      <Icon
-        component={Bookmark}
-        classNames={{ base: cn({ "fill-foreground-error stroke-foreground-error": isBookMarked }) }}
-      />
+      <Bookmark className={cn({ "fill-foreground-error stroke-foreground-error": isBookMarked })} />
     </Button>
   );
 }
@@ -203,7 +219,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         </Avatar>
 
         <div className="flex items-center justify-end gap-3 tablet:hidden">
-          {project?.id && <BookMarkButton projectId={project?.id} />}
+          {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
           <ActionHeader />
         </div>
       </div>
@@ -212,7 +228,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
             <div className="hidden items-center justify-end gap-3 tablet:flex">
-              {project?.id && <BookMarkButton projectId={project?.id} />}
+              {project?.id && <BookMarkButton projectId={project?.id} projectName={project?.name} />}
               <ActionHeader />
             </div>
           </div>
