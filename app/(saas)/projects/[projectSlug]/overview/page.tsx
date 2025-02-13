@@ -2,6 +2,7 @@
 
 import { AvailableIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/available-issues/available-issues";
 import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
+import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -68,6 +69,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         <GoodFirstIssues projectId={data?.id} />
 
         <AvailableIssues projectId={data?.id} />
+
+        <RecentActivity projectId={data?.id} />
+
+        <div />
       </div>
     </ScrollView>
   );
