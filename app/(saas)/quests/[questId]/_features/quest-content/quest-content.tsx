@@ -1,17 +1,21 @@
+import Link from "next/link";
+
 import { bootstrap } from "@/core/bootstrap";
 
 import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyH2, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
-import { QuestItemData } from "../../../_data/quest-item.data";
+import { QuestListData } from "../../../_data/quest-list.data";
 import { IssueItem } from "../issue-item/issue-item";
 import { SquadItem } from "../squad-item/squad-item";
 import { QuestContentProps } from "./quest-content.types";
 
 export function QuestContent({ questId }: QuestContentProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
-  const quest = QuestItemData;
+  const quest = QuestListData.find(quest => quest.id === questId);
+  if (!quest) return null;
+
   const { startDate, endDate, maintainers, issues } = quest;
 
   const providedProfiles = Object.entries(quest.wantedProfiles).flatMap(([_, value]) =>
@@ -46,7 +50,20 @@ export function QuestContent({ questId }: QuestContentProps) {
             Starting in {Math.ceil((new Date(startDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
           </Badge>
         </div>
-        <TypographyP>{quest.longDescription}</TypographyP>
+
+        <div className="flex flex-col gap-2">
+          <TypographyMuted>Description</TypographyMuted>
+          <TypographyP>{quest.longDescription.description}</TypographyP>
+          <TypographyP>
+            {quest?.longDescription.requirements?.map(requirement => <li key={requirement}>{requirement}</li>)}
+          </TypographyP>
+          <TypographyP>{quest.longDescription.warning}</TypographyP>
+          {quest.longDescription.links?.map(link => (
+            <Link href={link} key={link} target="_blank" className="hover:underline">
+              {link}
+            </Link>
+          ))}
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">

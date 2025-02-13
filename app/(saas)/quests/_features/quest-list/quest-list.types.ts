@@ -1,12 +1,5 @@
 export type profileLevel = "junior" | "senior" | "expert";
 
-export type Issue = {
-  id: string;
-  title: string;
-  description: string;
-  status: "open" | "in_progress" | "closed";
-};
-
 export interface QuestList {
   id: string;
   projectSlug: string;
@@ -21,4 +14,13 @@ export interface QuestList {
       wanted: number;
     };
   };
+  longDescription: {
+    title: string;
+    description: string;
+    requirements?: string[];
+    warning?: string;
+    links?: string[];
+  };
+  issues: number[];
+  maintainers: number[];
 }

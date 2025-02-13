@@ -5,11 +5,7 @@ import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 import { IssueItemProps } from "./issue-item.types";
 
 export function IssueItem({ issueId }: IssueItemProps) {
-  const {
-    data: issue,
-    isLoading,
-    isError,
-  } = IssueReactQueryAdapter.client.useGetIssue({
+  const { data: issue } = IssueReactQueryAdapter.client.useGetIssue({
     pathParams: { issueId },
     options: { enabled: !!issueId },
   });
