@@ -6,7 +6,6 @@ import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/cor
 import { Accordion } from "@/design-system/molecules/accordion";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
 import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
@@ -15,6 +14,7 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data";
 import { useSelectableContributorsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { TypographyMuted } from "@/shared/ui/typography";
 
 export type SelectableContributorsFilters = Omit<
   NonNullable<GetBiContributorsPortParams["queryParams"]>,
@@ -70,7 +70,13 @@ export function SelectableContributorsAccordion() {
     }
 
     if (!contributors.length) {
-      return <EmptyStateLite />;
+      return (
+        <TypographyMuted className="py-10 text-center">
+          We could't find the contributor you're looking for.
+          <br />
+          To reward them, you can invite them to join OnlyDust.
+        </TypographyMuted>
+      );
     }
 
     return (
