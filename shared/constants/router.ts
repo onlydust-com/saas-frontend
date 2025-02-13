@@ -189,6 +189,12 @@ export const NEXT_ROUTER = {
       },
     },
   },
+  quests: {
+    root: "/quests",
+    details: {
+      root: (questId: string) => `/quests/${questId}`,
+    },
+  },
   discover: {
     root: "/discover",
   },
