@@ -9,6 +9,7 @@ import { Typo } from "@/design-system/atoms/typo";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { Card } from "@/shared/ui/card";
+import { TypographyH3 } from "@/shared/ui/typography";
 
 import { ProjectCard } from "./components/project-card/project-card";
 import { SimilarProjectsProps } from "./similar-projects.types";
@@ -25,8 +26,6 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
       enabled: Boolean(projectIdOrSlug),
     },
   });
-
-  console.log("data", data);
 
   const projects = useMemo(() => data?.pages.flatMap(page => page.projects) ?? [], [data]);
 
@@ -65,12 +64,7 @@ export function SimilarProjects({ projectIdOrSlug }: SimilarProjectsProps) {
   return (
     <Card className={"flex flex-col gap-4 p-4"}>
       <div className="p-xl">
-        <Typo
-          size="xs"
-          variant="heading"
-          color="primary"
-          translate={{ token: "project:details.similarProjects.title" }}
-        />
+        <TypographyH3>Similar projects</TypographyH3>
       </div>
       <div className="flex flex-col gap-xl p-xl">{renderProjects}</div>
     </Card>
