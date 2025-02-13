@@ -2,13 +2,13 @@ import { useCallback, useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ProjectListItemInterfaceV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 
 import { CardProjectMarketplaceLoading } from "@/design-system/molecules/cards/card-project-marketplace";
+import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
-import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
@@ -60,6 +60,38 @@ const ProjectCard = ({
           </Avatar>
         ))}{" "}
       </div>
+    </div>
+  </Card>
+);
+
+const IssueCard = ({
+  githubStatus,
+  type,
+  githubNumber,
+  githubTitle,
+  githubBody,
+  githubLabels,
+  project,
+  ...props
+}: ContributionActivityInterface & React.HTMLAttributes<HTMLDivElement>) => (
+  <Card className="flex flex-col gap-2 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
+    <div className="flex flex-row items-center gap-2">
+      <ContributionBadge type={type} number={githubNumber} githubStatus={githubStatus} />
+      <TypographySmall>{githubTitle}</TypographySmall>
+    </div>
+    <TypographyMuted className="line-clamp-3">{githubBody}</TypographyMuted>
+    <div className="mt-auto flex flex-row justify-between">
+      <div className="flex flex-row gap-1">
+        {githubLabels?.map(label => (
+          <Badge key={label.name} variant="outline">
+            {label.name}
+          </Badge>
+        ))}
+      </div>
+      <Avatar className="size-5">
+        <AvatarImage src={project?.logoUrl} />
+        <AvatarFallback>{project?.name}</AvatarFallback>
+      </Avatar>
     </div>
   </Card>
 );
@@ -147,15 +179,9 @@ export default function Message({
     }
 
     return (
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      <div className="flex flex-col gap-2">
         {issues.map(contribution => (
-          <CardContributionKanban
-            classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
-            contribution={contribution}
-            key={contribution.id}
-            onAction={onOpenContribution}
-            as={ContributionAs.CONTRIBUTOR}
-          />
+          <IssueCard {...contribution} key={contribution.id} onClick={() => onOpenContribution(contribution.id)} />
         ))}
       </div>
     );
