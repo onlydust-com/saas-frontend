@@ -14,10 +14,8 @@ import { CardContributionKanban } from "@/shared/features/card-contribution-kanb
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
-import { TypographySmall } from "@/shared/ui/typography";
-import { cn } from "@/shared/utils";
 
-import { MessageProps, messageVariants } from "./message.types";
+import { MessageProps } from "./message.types";
 
 const Thinking = () => (
   <div className="flex items-center font-mono">
@@ -83,7 +81,7 @@ export default function Message({
     }
 
     return (
-      <div className="ml-12 mr-auto grid w-fit grid-cols-1 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {projects.map(project => (
           <CardProjectMarketplace
             as={Button}
@@ -129,7 +127,7 @@ export default function Message({
     }
 
     return (
-      <div className="ml-12 mr-auto grid w-fit grid-cols-1 flex-row gap-2 self-center rounded-lg rounded-tl-none bg-secondary p-2 text-secondary-foreground shadow sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {issues.map(contribution => (
           <CardContributionKanban
             classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
@@ -144,19 +142,23 @@ export default function Message({
   }, [issues, isIssuesError, isIssuesLoading]);
 
   return (
-    <div className="flex w-full flex-col gap-2" role="article" aria-label={`Message from ${author.login}`}>
-      <div className={`flex items-center gap-2 ${variant === "user" ? "flex-row-reverse" : "flex-row"}`}>
-        <Avatar>
-          <AvatarImage src={author.avatarUrl} />
-          <AvatarFallback>{author.login}</AvatarFallback>
-        </Avatar>
-        <TypographySmall>{author.login}</TypographySmall>
-      </div>
-      <div className={cn(messageVariants({ variant }))} role="text">
+    <div
+      className={`flex w-full gap-2 ${variant === "user" ? "flex-row-reverse" : "flex-row"}`}
+      role="article"
+      aria-label={`Message from ${author.login}`}
+    >
+      <Avatar>
+        <AvatarImage src={author.avatarUrl} />
+        <AvatarFallback>{author.login}</AvatarFallback>
+      </Avatar>
+      <div
+        className={`rounded-lg p-2 ${variant === "user" ? "bg-background-brand-secondary" : "bg-background-secondary"}`}
+        role="text"
+      >
         {content ? <Markdown content={content} /> : <Thinking />}
+        {renderProjects()}
+        {renderIssues()}
       </div>
-      {renderProjects()}
-      {renderIssues()}
     </div>
   );
 }
