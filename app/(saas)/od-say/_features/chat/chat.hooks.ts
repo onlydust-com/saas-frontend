@@ -1,4 +1,4 @@
-import odSayAvatar from "@/public/images/avatars/od_say.png";
+import odSayAvatar from "@/public/images/avatars/od_say.webp";
 import { useMemo } from "react";
 import { useLocalStorage } from "react-use";
 import { toast } from "sonner";

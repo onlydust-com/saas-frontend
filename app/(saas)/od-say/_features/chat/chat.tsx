@@ -103,7 +103,7 @@ export default function Chat() {
                     <FormControl>
                       <div className="relative">
                         <div className="absolute left-0 top-0 flex h-full items-center justify-center p-2">
-                          <Sparkle className="h-4 w-4 fill-blue-600 text-blue-600" />
+                          <Sparkle className="h-4 w-4 fill-[#0037FF] text-[#0037FF]" />
                         </div>
                         <Input placeholder="Ask OD-Say to refine the search" {...field} className="pl-8 pr-12" />
                         <Button
