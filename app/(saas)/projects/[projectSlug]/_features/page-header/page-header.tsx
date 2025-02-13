@@ -13,6 +13,7 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 import { Icon } from "@/design-system/atoms/icon";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -74,6 +75,7 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
 }
 
 function Leads({ leads }: { leads: ProjectInterfaceV2["leads"] }) {
+  const { open } = useContributorSidePanel();
   if (leads.length === 0) return null;
 
   return (
@@ -97,7 +99,11 @@ function Leads({ leads }: { leads: ProjectInterfaceV2["leads"] }) {
       <TooltipContent side="bottom" align="end">
         <ul className="flex flex-col gap-2">
           {leads.map(leads => (
-            <li key={leads.login} className="flex items-center justify-between gap-10">
+            <li
+              key={leads.login}
+              className="flex cursor-pointer items-center justify-between gap-10"
+              onClick={() => open({ githubId: leads.githubUserId })}
+            >
               <div className="flex items-center gap-1">
                 <Avatar className="size-5" key={leads.login}>
                   <AvatarImage src={leads.avatarUrl} />
@@ -218,7 +224,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
     <div className="flex w-full flex-col bg-background pt-6">
       <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
       <div className="relative z-[2] -mt-16 mb-6 ml-2 flex flex-row items-end justify-between tablet:ml-6">
-        <Avatar className="border-6 h-32 w-32 rounded-xl border-background bg-background">
+        <Avatar className="h-32 w-32 rounded-xl border-4 border-background bg-background">
           <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
           <AvatarFallback>
             <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />

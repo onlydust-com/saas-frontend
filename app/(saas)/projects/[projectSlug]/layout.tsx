@@ -5,6 +5,7 @@ import { GithubPermissionsProvider } from "@/shared/features/github-permissions/
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -26,6 +27,7 @@ export default function ProjectsLayout({ params, children }: { params: { project
         <div>{children}</div>
         <ApplyIssueSidepanel />
         <ContributionsSidepanel />
+        <ContributorSidepanel />
       </PageContainer>
     </GithubPermissionsProvider>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { SquareArrowOutUpRight } from "lucide-react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
