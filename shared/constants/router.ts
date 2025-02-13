@@ -42,6 +42,12 @@ export const NEXT_ROUTER = {
       root: () => "/create-project",
     },
   },
+  odSay: {
+    root: "/od-say",
+    default: {
+      root: () => "/od-say",
+    },
+  },
   myDashboard: {
     root: "/my-dashboard",
     contributions: {

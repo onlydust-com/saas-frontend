@@ -28,7 +28,7 @@ export function PaperDefaultAdapter<C extends ElementType = "article">({
     <Component
       {...htmlProps}
       className={cn(slots.base(), classNames?.base)}
-      onClick={onClick}
+      onClick={onClick ?? htmlProps?.onClick}
       data-clickable={Boolean(onClick)}
     >
       {children}

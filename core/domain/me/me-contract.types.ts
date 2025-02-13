@@ -182,3 +182,25 @@ export type SetMyNotificationSettingsBody = components["schemas"]["NotificationS
 export type SetMyNotificationSettingsPortParams = HttpClientParameters<object>;
 
 export type SetMyNotificationSettingsPortResponse = HttpStorageResponse<never, SetMyNotificationSettingsBody>;
+
+/* --------------------------------- Start chat -------------------------------- */
+
+export type StartChatResponse = components["schemas"]["StartChatResponse"];
+
+export type StartChatPortResponse = HttpStorageResponse<StartChatResponse>;
+
+export type StartChatPortParams = HttpClientParameters<object>;
+
+/* --------------------------------- Continue chat -------------------------------- */
+
+export type ContinueChatBody = components["schemas"]["ContinueChatRequest"];
+
+export type ContinueChatResponse = components["schemas"]["ContinueChatResponse"];
+
+export type ContinueChatPathParams = operations["continueChat"]["parameters"]["path"];
+
+export type ContinueChatPortParams = HttpClientParameters<{
+  PathParams: ContinueChatPathParams;
+}>;
+
+export type ContinueChatPortResponse = HttpStorageResponse<ContinueChatResponse>;
