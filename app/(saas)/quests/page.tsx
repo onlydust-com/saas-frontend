@@ -2,8 +2,6 @@
 
 import { Target } from "lucide-react";
 
-import { Icon } from "@/design-system/atoms/icon";
-
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
@@ -33,7 +31,7 @@ function QuestsPage() {
             children:
               "Quests transforms how contributors join open-source projects. Instead of applying to a single GitHub issue, they join a Squad working on a Quest—a set of related tasks aligned with the project’s goals.",
           }}
-          logo={<Icon component={Target} classNames={{ base: "size-16" }} />}
+          logo={<Target className="size-16" />}
         />
 
         <QuestList />
