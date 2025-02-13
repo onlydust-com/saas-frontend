@@ -20,7 +20,7 @@ export function ContributeNow({ projectId }: { projectId?: string }) {
         </HoverBorderGradient>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-[460px] overflow-hidden p-0">
+      <PopoverContent align="end" className="w-screen max-w-[460px] overflow-hidden p-0">
         <ScrollArea style={{ height: "700px" }} className="p-3">
           <div className="flex flex-col gap-4">
             <HackathonInProgress projectId={projectId} />
