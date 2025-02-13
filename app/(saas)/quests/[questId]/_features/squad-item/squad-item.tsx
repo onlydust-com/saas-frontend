@@ -22,47 +22,46 @@ export function SquadItem({ githubId, skills }: SquadItemProps) {
 
   if (!githubId) {
     return (
-      <Card className="flex w-1/6 flex-col items-center gap-4 p-4">
-        <Avatar>
-          <AvatarFallback>?</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex gap-2">
-            <TypographyP className="font-medium">Available slot</TypographyP>
-          </div>
-          {skills?.length ? (
-            <div className="flex flex-wrap justify-center gap-1">
-              {skills.map(skill => (
-                <Badge key={skill} variant="outline">
-                  {skill}
-                </Badge>
-              ))}
-            </div>
-          ) : null}
+      <Card className="flex w-1/6 flex-col gap-4 border-dashed p-4">
+        <div className="flex flex-row items-center gap-2">
+          <Avatar>
+            <AvatarFallback>?</AvatarFallback>
+          </Avatar>
+          <TypographyP className="font-medium">Available slot</TypographyP>
         </div>
+
+        {skills?.length ? (
+          <div className="flex flex-wrap gap-1">
+            {skills.map(skill => (
+              <Badge key={skill} variant="outline">
+                {skill}
+              </Badge>
+            ))}
+          </div>
+        ) : null}
       </Card>
     );
   }
 
   return (
     <Link href={NEXT_ROUTER.users.details.root(String(contributor?.login))} className="w-1/6">
-      <Card className="flex w-full cursor-pointer flex-col items-center gap-4 p-4 hover:bg-muted">
-        <Avatar>
-          <AvatarImage src={contributor?.avatarUrl} alt={contributor?.login} />
-          <AvatarFallback>{contributor?.login.charAt(0)}</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex gap-2">
-            <TypographyP className="font-medium">{contributor?.login}</TypographyP>
-          </div>
-          <div className="flex flex-wrap justify-center gap-1">
-            {skills?.map(skill => (
+      <Card className="flex w-full cursor-pointer flex-row items-center gap-2 p-4 hover:bg-muted">
+        <div className="flex flex-row items-center gap-2">
+          <Avatar>
+            <AvatarImage src={contributor?.avatarUrl} alt={contributor?.login} />
+            <AvatarFallback>{contributor?.login.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <TypographyP className="font-medium">{contributor?.login}</TypographyP>
+        </div>
+        {skills?.length ? (
+          <div className="flex flex-wrap gap-1">
+            {skills.map(skill => (
               <Badge key={skill} variant="outline">
                 {skill}
               </Badge>
             ))}
           </div>
-        </div>
+        ) : null}
       </Card>
     </Link>
   );
