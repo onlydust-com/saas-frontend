@@ -14,6 +14,7 @@ import {
 import { GithubLabelWithCountInterface } from "../github/models/github-label-model";
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
+import { ProjectLinkV2 } from "./models/project-link-v2";
 import { ProjectLinkWithDescriptionInterface } from "./models/project-link-with-description-model";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
@@ -322,10 +323,10 @@ export type GetProjectRewardsV2PortParams = HttpClientParameters<{
 
 /* ------------------------------ Get Similar Projects ------------------------------ */
 
-export type GetSimilarProjectsResponse = components["schemas"]["ProjectLinkPageResponse"];
+export type GetSimilarProjectsResponse = components["schemas"]["ProjectPageResponseV2"];
 
 export type GetSimilarProjectsModel = Omit<GetSimilarProjectsResponse, "projects"> & {
-  projects: ProjectLinkWithDescriptionInterface[];
+  projects: ProjectLinkV2[];
 };
 
 type GetSimilarProjectsPathParams = operations["getSimilarProjects"]["parameters"]["path"];

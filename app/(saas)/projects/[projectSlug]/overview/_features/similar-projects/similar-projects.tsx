@@ -48,13 +48,11 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
             description={project.shortDescription}
             slug={project.slug}
             logoUrl={project.logoUrl ?? ""}
-            categories={[]}
-            languages={[]}
             onClick={() => {
               capture("project_overview_click_similar_project", { projectId: projectId, targetId: project.id });
             }}
-            // categories={project?.categories.map(category => category.name) ?? }
-            // languages={project.languages ?? []}
+            categories={project?.categories?.map(category => category.name) ?? []}
+            languages={project?.languages ?? []}
           />
         ))}
       </>
