@@ -7,8 +7,10 @@ import { toast } from "sonner";
 
 import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { IssueInterface } from "@/core/domain/issue/models/issue-model";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -148,19 +150,35 @@ function Content() {
     issueId = 0,
     canGoBack = false,
     projectId,
+    contributionUuid = "",
   } = useSinglePanelData<ApplyIssueSidepanelData>(name) ?? {
     issueId: undefined,
     projectId: "",
+    contributionUuid: undefined,
   };
 
   const {
-    data: issue,
-    isLoading,
-    isError,
+    data: issueData,
+    isLoading: isIssueLoading,
+    isError: isIssueError,
   } = IssueReactQueryAdapter.client.useGetIssue({
     pathParams: { issueId },
     options: { enabled: !!issueId },
   });
+
+  const {
+    data: contribution,
+    isLoading: isContributionLoading,
+    isError: isContributionError,
+  } = ContributionReactQueryAdapter.client.useGetContributionById({
+    pathParams: { contributionUuid },
+    options: { enabled: !!contributionUuid },
+  });
+
+  const isLoading = isIssueLoading || isContributionLoading;
+  const isError = isIssueError || isContributionError;
+
+  const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
@@ -198,11 +216,14 @@ function Content() {
     });
 
   function handleCreate(values: ApplyIssueSidepanelForm) {
-    if (!projectId || !issueId) return;
+    const applicationProjectId = issue?.project?.id ?? projectId;
+    const applicationIssueId = issue?.id ?? issueId;
+
+    if (!applicationProjectId || !applicationIssueId) return;
 
     createApplication({
-      projectId,
-      issueId,
+      projectId: applicationProjectId,
+      issueId: applicationIssueId,
       githubComment: values.githubComment,
     });
   }
@@ -266,4 +287,39 @@ export function ApplyIssueSidepanel() {
   const { Panel } = useSidePanel({ name });
 
   return <Panel>{isOpen && <Content />}</Panel>;
+}
+
+function issueFromContribution(contribution: ContributionActivityInterface): IssueInterface {
+  return {
+    id: parseInt(contribution.githubId),
+    number: contribution.githubNumber,
+    title: contribution.githubTitle,
+    status: issueStatus(contribution.githubStatus),
+    htmlUrl: contribution.githubHtmlUrl,
+    repo: contribution.repo,
+    author: {
+      ...contribution.githubAuthor,
+      isRegistered: false,
+    },
+    createdAt: contribution.createdAt,
+    closedAt: contribution.completedAt,
+    body: contribution.githubBody,
+    commentCount: contribution.githubCommentCount || 0,
+    labels: contribution.githubLabels || [],
+    applicants: contribution.applicants,
+    assignees: contribution.contributors,
+    languages: contribution.languages || [],
+    project: contribution.project,
+  };
+}
+
+function issueStatus(status: string) {
+  switch (status) {
+    case "OPEN":
+      return "OPEN";
+    case "COMPLETED":
+      return "COMPLETED";
+    default:
+      return "CANCELLED";
+  }
 }
