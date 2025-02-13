@@ -1,9 +1,10 @@
 "use client";
 
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
+import { FilloutStandardEmbed } from "@fillout/react";
 import { CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
@@ -14,6 +15,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
@@ -22,13 +24,25 @@ import { ImageBanner } from "../../_components/image-banner/image-banner";
 import { PageHeaderProps } from "./page-header.types";
 
 function ActionHeader({ projectSlug }: { projectSlug: string }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex items-center gap-2">
-      <Button variant="outline" asChild>
-        <Link href={NEXT_ROUTER.projects.details.root(projectSlug)}>See project</Link>
-      </Button>
-      <Button>Apply now</Button>
-    </div>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <div className="flex items-center gap-2">
+        <Button variant="outline" asChild>
+          <Link href={NEXT_ROUTER.projects.details.root(projectSlug)}>See project</Link>
+        </Button>
+
+        <SheetTrigger asChild>
+          <Button>Apply now</Button>
+        </SheetTrigger>
+      </div>
+      <SheetContent className="flex flex-col gap-8">
+        <SheetHeader>
+          <SheetTitle>Apply to this quest</SheetTitle>
+        </SheetHeader>
+        <FilloutStandardEmbed filloutId="7nGf4YdHqzus" inheritParameters parameters={{}} />
+      </SheetContent>
+    </Sheet>
   );
 }
 
