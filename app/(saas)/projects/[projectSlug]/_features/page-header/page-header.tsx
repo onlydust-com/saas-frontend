@@ -167,8 +167,6 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
 
   const isBookMarked = useMemo(() => data?.bookmarks?.some(bookmark => bookmark === projectId), [data, projectId]);
-  // project_bookmark_added
-  // project_bookmark_removed
 
   const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({
     options: {
