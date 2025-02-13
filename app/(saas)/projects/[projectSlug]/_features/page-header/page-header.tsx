@@ -11,8 +11,10 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
 import { Icon } from "@/design-system/atoms/icon";
+import { Typo } from "@/design-system/atoms/typo";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
+import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
@@ -252,7 +254,15 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
           <Languages languages={project?.languages ?? []} />
           <Leads leads={project?.leads ?? []} />
         </div>
-        <Stats project={project} />
+        <div className="flex flex-row flex-wrap justify-between gap-4">
+          <Stats project={project} />
+
+          <div className={"flex flex-row flex-wrap gap-2"}>
+            {project?.moreInfos?.map(moreInfoItem => (
+              <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="w-full px-0 py-8">
         <ProjectNavigation params={{ projectSlug }} />
