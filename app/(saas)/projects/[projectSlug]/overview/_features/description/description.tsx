@@ -60,6 +60,8 @@ export function Description({ description, projectId, isAiGenerated, title }: De
     setIsVoted(true);
   }
 
+  if (!description) return null;
+
   return (
     <Card
       className={cn("overflow-hiddenp-4 relative flex flex-col gap-4 p-4", {

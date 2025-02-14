@@ -24,7 +24,7 @@ export function ProjectNavigation({ params }: { params: { projectSlug: string } 
     >
       <TabsList className="h-auto w-full flex-wrap justify-start">
         {PROJECT_ROUTES(params.projectSlug).map(({ href, label }) => (
-          <TabsTrigger key={href} value={href} className="flex-1">
+          <TabsTrigger key={href} value={href} className="flex-1" asChild>
             <Link href={href}>{label}</Link>
           </TabsTrigger>
         ))}

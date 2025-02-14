@@ -7,6 +7,7 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ContinueChatResponse, StartChatResponse } from "@/core/domain/me/me-contract.types";
 
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
 import { Author, ChatMessage } from "./_features/message/message.types";
 
@@ -42,6 +43,7 @@ function messageFromUser(author: Author, content: string): ChatMessage {
 export default function useChat() {
   const [messages, setMessages] = useLocalStorage<Array<ChatMessage>>("odsay-chat-messages", []);
   const [chatId, setChatId] = useLocalStorage<string>("odsay-chat-id");
+  const { capture } = usePosthog();
 
   const { user } = useAuthUser();
 
@@ -81,6 +83,8 @@ export default function useChat() {
     if (!user) return;
     setMessages([...(messages || []), messageFromUser(user, message)]);
     continueChat({ userMessage: message });
+
+    capture("project_recommendation_chat_send_message", { chatId });
   };
 
   const startNewConversation = () => {
