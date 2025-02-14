@@ -1,5 +1,6 @@
 import { ProjectContributorLabelsInterface } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectFinancialInterface } from "@/core/domain/project/models/project-financial-model";
+import { ProjectGoodFirstIssuesInterface } from "@/core/domain/project/models/project-good-first-issues-model";
 import { ProjectListItemInterface } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectInterface } from "@/core/domain/project/models/project-model";
 import { ProjectProgramListItemInterface } from "@/core/domain/project/models/project-program-list-item";
@@ -13,7 +14,7 @@ import {
 import { GithubLabelWithCountInterface } from "../github/models/github-label-model";
 import { ProjectAvailableIssuesInterface } from "./models/project-available-issues-model";
 import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-model-v2";
-import { ProjectLinkWithDescriptionInterface } from "./models/project-link-with-description-model";
+import { ProjectLinkV2 } from "./models/project-link-v2";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
 import { ProjectRewardsInterfaceV2 } from "./models/project-rewards-model-v2";
@@ -265,6 +266,24 @@ export type GetProjectAvailableIssuesPortParams = HttpClientParameters<{
   PathParams: GetProjectAvailableIssuesPathParams;
 }>;
 
+/* ------------------------------ Get Project Good First Issues ------------------------------ */
+
+export type GetProjectGoodFirstIssuesResponse = components["schemas"]["GithubIssuePageResponse"];
+
+export type GetProjectGoodFirstIssuesModel = Omit<GetProjectGoodFirstIssuesResponse, "issues"> & {
+  issues: ProjectGoodFirstIssuesInterface[];
+};
+
+type GetProjectGoodFirstIssuesPathParams = operations["getProjectGoodFirstIssues"]["parameters"]["path"];
+export type GetProjectGoodFirstIssuesQueryParams = operations["getProjectGoodFirstIssues"]["parameters"]["query"];
+
+export type GetProjectGoodFirstIssuesPortResponse = HttpStorageResponse<GetProjectGoodFirstIssuesModel>;
+
+export type GetProjectGoodFirstIssuesPortParams = HttpClientParameters<{
+  QueryParams: GetProjectGoodFirstIssuesQueryParams;
+  PathParams: GetProjectGoodFirstIssuesPathParams;
+}>;
+
 /* ------------------------------ Get Project contributors V2 ------------------------------ */
 
 export type GetProjectContributorsV2Response = components["schemas"]["ContributorsPageResponseV2"];
@@ -303,10 +322,10 @@ export type GetProjectRewardsV2PortParams = HttpClientParameters<{
 
 /* ------------------------------ Get Similar Projects ------------------------------ */
 
-export type GetSimilarProjectsResponse = components["schemas"]["ProjectLinkPageResponse"];
+export type GetSimilarProjectsResponse = components["schemas"]["ProjectPageResponseV2"];
 
 export type GetSimilarProjectsModel = Omit<GetSimilarProjectsResponse, "projects"> & {
-  projects: ProjectLinkWithDescriptionInterface[];
+  projects: ProjectLinkV2[];
 };
 
 type GetSimilarProjectsPathParams = operations["getSimilarProjects"]["parameters"]["path"];

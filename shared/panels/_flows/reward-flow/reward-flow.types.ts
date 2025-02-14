@@ -22,17 +22,27 @@ export type RewardsState = Record<
     contributions: ContributionItemDtoInterface[];
     amount?: SelectedRewardsBudget;
     otherWorks?: RewardableItemInterface[];
+    avatarUrl?: string;
+    login: string;
   }
 >;
 
-export interface startFlowProps {
+export interface StartFlowProps {
   githubUserIds: number[];
   contributions?: ContributionItemDtoInterface[];
+  avatarUrls?: Array<string | undefined>;
+  logins?: string[];
+}
+
+export interface AddContributorIdArgs {
+  contributorId: number;
+  avatarUrl?: string;
+  login?: string;
 }
 
 export interface RewardFlowContextInterface {
   projectId?: string;
-  open: (props: startFlowProps) => void;
+  open: (props: StartFlowProps) => void;
   addOtherWorks: (otherWorks: RewardableItemInterface[], githubUserId: number) => void;
   addContributions: (contributions: ContributionItemDtoInterface[], githubUserId: number) => void;
   removeContribution: (contribution: ContributionItemDtoInterface, githubUserId: number) => void;
@@ -44,8 +54,10 @@ export interface RewardFlowContextInterface {
   amountPerCurrency: Record<string, SelectedRewardsBudget>;
   onCreateRewards: () => void;
   isCreatingRewards: boolean;
-  addContributorId: (contributorId: number) => void;
+  addContributorId: (args: AddContributorIdArgs) => void;
   removeContributorId: (contributorId: number) => void;
   selectedGithubUserIds: number[];
   removeAllContributions: (githubUserId: number) => void;
+  getAvatarUrl: (githubUserId: number) => string;
+  getLogin: (githubUserId: number) => string;
 }

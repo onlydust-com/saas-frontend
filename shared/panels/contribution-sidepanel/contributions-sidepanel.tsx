@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";

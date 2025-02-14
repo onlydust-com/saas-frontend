@@ -226,7 +226,13 @@ export function useFilterColumns() {
         <div className="flex gap-sm">
           <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
             <Button
-              onClick={() => openRewardFlow({ githubUserIds: [info.row.original.contributor.githubUserId] })}
+              onClick={() =>
+                openRewardFlow({
+                  githubUserIds: [info.row.original.contributor.githubUserId],
+                  avatarUrls: [info.row.original.contributor.avatarUrl],
+                  logins: [info.row.original.contributor.login],
+                })
+              }
               variant={"secondary"}
               size={"sm"}
               translate={{ token: "manageProjects:detail.contributorsTable.columns.actions.reward" }}

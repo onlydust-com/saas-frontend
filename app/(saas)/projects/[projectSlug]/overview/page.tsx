@@ -1,5 +1,9 @@
 "use client";
 
+import { AvailableIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/available-issues/available-issues";
+import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
+import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -9,8 +13,9 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
-import { Stats } from "./_features/stats/stats";
+import { SimilarProjects } from "./_features/similar-projects/similar-projects";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
@@ -54,14 +59,22 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         ]}
       />
 
-      <Stats
-        contributors={data?.contributorCount}
-        prMerged={data?.mergedPrCount}
-        stars={data?.starCount}
-        issues={data?.availableIssueCount}
-      />
+      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-2">
+        <div className="col-span-full">
+          <Description description={data?.longDescription} projectId={data?.id} />
+        </div>
+        <div className="col-span-full">
+          <ActivityGraph />
+        </div>
 
-      <Description description={data?.longDescription} />
+        <GoodFirstIssues projectId={data?.id} />
+
+        <AvailableIssues projectId={data?.id} />
+
+        <RecentActivity projectId={data?.id} />
+
+        <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
+      </div>
     </ScrollView>
   );
 }

@@ -119,7 +119,7 @@ export function ContributorsTable({ projectId }: ContributorsTableProps) {
         .filter(id => !updatedSelection[id] && rowSelection[id])
         .map(id => parseInt(id));
 
-      addedContributors.forEach(id => addContributorId(id));
+      addedContributors.forEach(id => addContributorId({ contributorId: id }));
       removedContributors.forEach(id => removeContributorId(id));
 
       setRowSelection(updatedSelection);

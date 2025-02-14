@@ -183,6 +183,38 @@ export type SetMyNotificationSettingsPortParams = HttpClientParameters<object>;
 
 export type SetMyNotificationSettingsPortResponse = HttpStorageResponse<never, SetMyNotificationSettingsBody>;
 
+/* --------------------------------- Get my notification settings for project -------------------------------- */
+
+export type GetMyNotificationSettingsForProjectResponse =
+  components["schemas"]["NotificationSettingsForProjectResponse"];
+
+export type GetMyNotificationSettingsForProjectPathParams =
+  operations["getMyNotificationSettingsForProject"]["parameters"]["path"];
+
+export type GetMyNotificationSettingsForProjectPortParams = HttpClientParameters<{
+  PathParams: GetMyNotificationSettingsForProjectPathParams;
+}>;
+
+export type GetMyNotificationSettingsForProjectPortResponse =
+  HttpStorageResponse<GetMyNotificationSettingsForProjectResponse>;
+
+/* --------------------------------- Set my notification settings for project -------------------------------- */
+
+export type SetMyNotificationSettingsForProjectBody =
+  components["schemas"]["NotificationSettingsForProjectPatchRequest"];
+
+export type SetMyNotificationSettingsForProjectPathParams =
+  operations["getMyNotificationSettingsForProject"]["parameters"]["path"];
+
+export type SetMyNotificationSettingsForProjectPortParams = HttpClientParameters<{
+  PathParams: SetMyNotificationSettingsForProjectPathParams;
+}>;
+
+export type SetMyNotificationSettingsForProjectPortResponse = HttpStorageResponse<
+  never,
+  SetMyNotificationSettingsForProjectBody
+>;
+
 /* --------------------------------- Start chat -------------------------------- */
 
 export type StartChatResponse = components["schemas"]["StartChatResponse"];
