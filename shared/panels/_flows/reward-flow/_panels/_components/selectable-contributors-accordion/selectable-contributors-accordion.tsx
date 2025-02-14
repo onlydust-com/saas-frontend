@@ -30,10 +30,15 @@ export function SelectableContributorsAccordion() {
     },
   });
 
-  const contributors = useMemo(
-    () => [...(data?.internalContributors ?? []), ...(data?.externalContributors ?? [])],
-    [data]
-  );
+  const contributors = useMemo(() => {
+    // Combine internal and external contributors into a single array, using empty arrays if undefined
+    const allContributors = [...(data?.internalContributors ?? []), ...(data?.externalContributors ?? [])];
+
+    // Create a Map using githubUserId as key to deduplicate contributors
+    // Map.values() returns unique contributors since duplicate IDs were overwritten
+    // Convert back to array using spread operator
+    return [...new Map(allContributors.map(contributor => [contributor.githubUserId, contributor])).values()];
+  }, [data]);
 
   function handleSelectedContributors({
     checked,
@@ -61,7 +66,7 @@ export function SelectableContributorsAccordion() {
     if (!contributors.length) {
       return (
         <TypographyMuted className="py-10 text-center">
-          We could't find the contributor you're looking for.
+          We couldn&apos;t find the contributor you&apos;re looking for.
           <br />
           To reward them, you can invite them to join OnlyDust.
         </TypographyMuted>
