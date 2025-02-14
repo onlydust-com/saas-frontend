@@ -62,7 +62,10 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden md:grid-cols-2 lg:grid-cols-4">
         <div className="col-span-full">
-          <Description description={data?.longDescription} projectId={data?.id} />
+          <Description description={data?.overview} projectId={data?.id} title={"Overview by OnlyDust"} isIaGenerated />
+        </div>
+        <div className="col-span-full">
+          <Description description={data?.longDescription} projectId={data?.id} title={"Description"} />
         </div>
         <div className="grid md:col-span-full lg:col-span-1">
           <Languages projectId={data?.id} />
