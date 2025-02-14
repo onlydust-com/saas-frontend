@@ -2,18 +2,16 @@ import { useCallback, useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
+import { ProjectListItemInterfaceV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 
-import {
-  CardProjectMarketplace,
-  CardProjectMarketplaceLoading,
-} from "@/design-system/molecules/cards/card-project-marketplace";
+import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
-import { ErrorState } from "@/shared/components/error-state/error-state";
-import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Button } from "@/shared/ui/button";
+import { Badge } from "@/shared/ui/badge";
+import { Card } from "@/shared/ui/card";
+import { TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { MessageProps } from "./message.types";
 
@@ -23,6 +21,77 @@ const Thinking = () => (
     <span className="animate-pulse delay-300">.</span>
     <span className="animate-pulse delay-500">.</span>
   </div>
+);
+
+const ProjectCard = ({
+  name,
+  logoUrl,
+  shortDescription,
+  categories,
+  languages,
+  ...props
+}: ProjectListItemInterfaceV2 & React.HTMLAttributes<HTMLDivElement>) => (
+  <Card className="flex flex-col gap-2 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
+    <div className="flex flex-row gap-2">
+      <Avatar>
+        <AvatarImage src={logoUrl} />
+        <AvatarFallback>{name}</AvatarFallback>
+      </Avatar>
+      <div className="flex flex-col gap-1">
+        <TypographySmall>{name}</TypographySmall>
+        <TypographyMuted>{shortDescription}</TypographyMuted>
+      </div>
+    </div>
+    <div className="flex flex-row items-center justify-between">
+      <div className="flex flex-row items-center gap-1">
+        {categories.map(category => (
+          <Badge key={category.name} variant="outline">
+            {category.name}
+          </Badge>
+        ))}
+      </div>
+      <div className="flex flex-row items-center gap-1">
+        {languages.map(language => (
+          <Avatar className="size-5" key={language.name}>
+            <AvatarImage src={language.logoUrl} />
+            <AvatarFallback>{language.name}</AvatarFallback>
+          </Avatar>
+        ))}{" "}
+      </div>
+    </div>
+  </Card>
+);
+
+const IssueCard = ({
+  githubStatus,
+  type,
+  githubNumber,
+  githubTitle,
+  githubBody,
+  githubLabels,
+  project,
+  ...props
+}: ContributionActivityInterface & React.HTMLAttributes<HTMLDivElement>) => (
+  <Card className="flex flex-col gap-2 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
+    <div className="flex flex-row items-center gap-2">
+      <ContributionBadge type={type} number={githubNumber} githubStatus={githubStatus} />
+      <TypographySmall>{githubTitle}</TypographySmall>
+    </div>
+    <TypographyMuted className="line-clamp-3">{githubBody}</TypographyMuted>
+    <div className="mt-auto flex flex-row justify-between">
+      <div className="flex flex-row gap-1">
+        {githubLabels?.map(label => (
+          <Badge key={label.name} variant="outline">
+            {label.name}
+          </Badge>
+        ))}
+      </div>
+      <Avatar className="size-5">
+        <AvatarImage src={project?.logoUrl} />
+        <AvatarFallback>{project?.name}</AvatarFallback>
+      </Avatar>
+    </div>
+  </Card>
 );
 
 export default function Message({
@@ -64,83 +133,27 @@ export default function Message({
 
   const issues = useMemo(() => issuesData?.pages.flatMap(({ contributions }) => contributions) ?? [], [issuesData]);
 
-  const renderProjects = useCallback(() => {
-    if (isProjectsLoading) {
-      return Array.from({ length: 4 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
-    if (isProjectsError) {
-      return (
-        <div className="col-span-full py-40">
-          <ErrorState />
-        </div>
-      );
-    }
-
-    if (!projects.length) {
-      return null;
-    }
-
-    return (
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+  const renderProjects = useCallback(
+    () => (
+      <div className="flex flex-col gap-2">
         {projects.map(project => (
-          <CardProjectMarketplace
-            as={Button}
-            htmlProps={{
-              onClick: () => onOpenProject(project.id),
-            }}
-            classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
-            key={project.id}
-            name={project.name}
-            slug={project.slug}
-            description={project.shortDescription}
-            logoUrl={project.logoUrl}
-            contributorCount={project.contributorCount}
-            starCount={project.starCount}
-            forkCount={project.forkCount}
-            availableIssueCount={project.availableIssueCount}
-            goodFirstIssueCount={project.goodFirstIssueCount}
-            categories={project.categories}
-            languages={project.languages}
-            ecosystems={project.ecosystems}
-            tags={project.tags}
-          />
+          <ProjectCard {...project} key={project.id} onClick={() => onOpenProject(project.id)} />
         ))}
       </div>
-    );
-  }, [projects, isProjectsError, isProjectsLoading]);
+    ),
+    [projects, isProjectsError, isProjectsLoading]
+  );
 
-  const renderIssues = useCallback(() => {
-    if (isIssuesLoading) {
-      return Array.from({ length: 4 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
-    if (isIssuesError) {
-      return (
-        <div className="col-span-full py-40">
-          <ErrorState />
-        </div>
-      );
-    }
-
-    if (!issues.length) {
-      return null;
-    }
-
-    return (
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+  const renderIssues = useCallback(
+    () => (
+      <div className="flex flex-col gap-2">
         {issues.map(contribution => (
-          <CardContributionKanban
-            classNames={{ base: "bg-background hover:bg-background-secondary-hover" }}
-            contribution={contribution}
-            key={contribution.id}
-            onAction={onOpenContribution}
-            as={ContributionAs.CONTRIBUTOR}
-          />
+          <IssueCard {...contribution} key={contribution.id} onClick={() => onOpenContribution(contribution.id)} />
         ))}
       </div>
-    );
-  }, [issues, isIssuesError, isIssuesLoading]);
+    ),
+    [issues, isIssuesError, isIssuesLoading]
+  );
 
   return (
     <div
@@ -153,12 +166,11 @@ export default function Message({
         <AvatarFallback>{author.login}</AvatarFallback>
       </Avatar>
       <div
-        className={`rounded-lg p-2 ${variant === "user" ? "bg-background-brand-secondary" : "bg-background-secondary"}`}
+        className={`flex flex-col gap-4 rounded-lg p-2 ${variant === "user" ? "bg-background-brand-secondary" : "bg-background-secondary-hover"}`}
         role="text"
       >
         {content ? <Markdown content={content} /> : <Thinking />}
-        {renderProjects()}
-        {renderIssues()}
+        {issues.length > 0 ? renderIssues() : projects.length > 0 ? renderProjects() : null}
         {followUpMessage && <Markdown content={followUpMessage} />}
       </div>
     </div>

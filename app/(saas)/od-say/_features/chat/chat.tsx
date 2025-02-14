@@ -4,10 +4,8 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
-import { ContributionAs } from "@/core/domain/contribution/models/contribution.types";
-
 import { useIntercom } from "@/shared/intercom/intercom.context";
-import { useContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.hooks";
+import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
@@ -23,11 +21,11 @@ export default function Chat() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const { hideIntercomLauncher } = useIntercom();
 
-  const { open: openContribution } = useContributionsSidepanel();
+  const { open: openIssue } = useApplyIssueSidePanel();
   const { open: openProject } = useProjectSidePanel();
 
-  function onOpenContribution(id: string) {
-    openContribution({ id, as: ContributionAs.CONTRIBUTOR });
+  function onOpenIssue(contributionUuid: string) {
+    openIssue({ contributionUuid });
   }
 
   function onOpenProject(id: string) {
@@ -67,14 +65,14 @@ export default function Chat() {
   });
 
   return (
-    <section className="mx-auto flex h-full w-full flex-col py-2 lg:w-[720px]">
+    <section className="mx-auto flex h-full w-full flex-col py-2 lg:w-[640px]">
       <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
         {messages.map(message => (
           <Message
             key={`${message.author.login}-${message.content}-${Date.now()}`}
             {...message}
             onOpenProject={onOpenProject}
-            onOpenContribution={onOpenContribution}
+            onOpenContribution={onOpenIssue}
           />
         ))}
         <div ref={endOfMessagesRef} />

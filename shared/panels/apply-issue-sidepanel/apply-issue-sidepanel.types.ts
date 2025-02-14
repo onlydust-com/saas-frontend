@@ -4,8 +4,9 @@ import { z } from "zod";
 export interface ApplyIssueSidepanelProps extends PropsWithChildren {}
 
 export interface ApplyIssueSidepanelData {
-  issueId: number;
-  projectId: string;
+  issueId?: number;
+  projectId?: string;
+  contributionUuid?: string;
   canGoBack?: boolean;
 }
 
