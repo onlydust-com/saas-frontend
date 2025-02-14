@@ -1,3 +1,4 @@
+import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { GitFork, MessageSquare, Star, User } from "lucide-react";
 import { useCallback, useMemo } from "react";
 
@@ -39,9 +40,11 @@ const ProjectCard = ({
     <div className="flex flex-row gap-2">
       <Avatar>
         <AvatarImage src={logoUrl} />
-        <AvatarFallback>{name}</AvatarFallback>
+        <AvatarFallback>
+          <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={name} />
+        </AvatarFallback>
       </Avatar>
-      <div className="flex flex-col gap-1">
+      <div className="flex w-full flex-col gap-1">
         <div className="flex flex-row items-center">
           <TypographySmall>{name}</TypographySmall>
           <div className="ml-auto flex flex-row items-center gap-1.5 text-xs">
@@ -101,7 +104,7 @@ const IssueCard = ({
   ...props
 }: ContributionActivityInterface & React.HTMLAttributes<HTMLDivElement>) => (
   <Card className="flex flex-col gap-4 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex w-full flex-row items-center gap-2">
       <ContributionBadge type={type} number={githubNumber} githubStatus={githubStatus} />
       <TypographySmall className="line-clamp-1">{githubTitle}</TypographySmall>
       <div className="ml-auto flex flex-row items-center gap-1.5">
@@ -217,7 +220,7 @@ export default function Message({
       >
         {content ? <Markdown content={content} /> : <Thinking />}
         {issues.length > 0 ? renderIssues() : projects.length > 0 ? renderProjects() : null}
-        {followUpMessage && <Markdown content={followUpMessage} />}
+        {(issues.length > 0 || projects.length > 0) && followUpMessage ? <Markdown content={followUpMessage} /> : null}
       </div>
     </div>
   );
