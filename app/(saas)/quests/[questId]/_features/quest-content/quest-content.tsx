@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyH2, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { QuestListData } from "../../../_data/quest-list.data";
+import { ContributorGuidelines } from "../contributor-guidelines/contributor-guidelines";
 import { IssueItem } from "../issue-item/issue-item";
 import { SquadItem } from "../squad-item/squad-item";
 import { QuestContentProps } from "./quest-content.types";
@@ -67,6 +68,10 @@ export function QuestContent({ questId }: QuestContentProps) {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <TypographyMuted>Guidelines</TypographyMuted>
+          <ContributorGuidelines />
+        </div>
         <div className="flex flex-col gap-2">
           <TypographyMuted>Squad</TypographyMuted>
           <div className="flex flex-row gap-2">
