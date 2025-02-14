@@ -10,9 +10,11 @@ import { ProjectTag } from "@/core/domain/project/project.types";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 
+const sortSeed = Math.floor(Math.random() * 10);
+
 export function GoodFirstIssues() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 6, tags: [ProjectTag.HAS_GOOD_FIRST_ISSUES] },
+    queryParams: { pageSize: 6, tags: [ProjectTag.HAS_GOOD_FIRST_ISSUES], sortSeed },
   });
 
   const renderProjects = useCallback(() => {
