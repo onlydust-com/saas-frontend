@@ -63,4 +63,4 @@ const AvatarGroup = ({
   );
 };
 
-export { Avatar, AvatarFallback, AvatarGroup, AvatarImage, AvatarGroup };
+export { Avatar, AvatarFallback, AvatarGroup, AvatarImage };
