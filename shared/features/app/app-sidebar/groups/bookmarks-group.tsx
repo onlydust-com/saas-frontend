@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useMemo } from "react";
 
 import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapter/bookmark";
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
@@ -14,19 +13,12 @@ export function BookmarksGroup() {
   const { capture } = usePosthog();
 
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
-  const { data: projects } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: {
-      projectIds: data?.bookmarks ?? [],
-    },
-    options: {
-      enabled: !!data?.bookmarks?.length,
-    },
-  });
 
-  const projectsList = useMemo(() => projects?.pages.flatMap(({ projects }) => projects) ?? [], [projects]);
+  const projectsList = useMemo(() => data?.projects ?? [], [data]);
 
   const items = projectsList.map(project => ({
     title: project.name,
+    id: project.id,
     url: NEXT_ROUTER.projects.details.root(project.slug),
     onClick: () => capture("project_bookmark_clicked", { projectId: project.id }),
     icon: (
@@ -37,7 +29,7 @@ export function BookmarksGroup() {
     ),
   }));
 
-  if (!projectsList.length || !data?.bookmarks?.length) return null;
+  if (!projectsList.length) return null;
 
   return (
     <SidebarGroup>
@@ -49,7 +41,7 @@ export function BookmarksGroup() {
       </SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
-          <Link href={item.url} onClick={item.onClick}>
+          <Link href={item.url} onClick={item.onClick} key={item.id}>
             <SidebarMenuButton tooltip={item.title} key={item.title} className="group/sidebar-menu-button">
               {item.icon}
               <span className="line-clamp-1" title={item.title}>

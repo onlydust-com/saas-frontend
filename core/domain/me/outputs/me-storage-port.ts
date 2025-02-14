@@ -3,6 +3,8 @@ import {
   GetMeResponsePortResponse,
   GetMyHackathonRegistrationPortParams,
   GetMyHackathonRegistrationPortResponse,
+  GetMyNotificationSettingsForProjectPortParams,
+  GetMyNotificationSettingsForProjectPortResponse,
   GetMyNotificationSettingsPortParams,
   GetMyNotificationSettingsPortResponse,
   GetMyPayoutPreferencesPortParams,
@@ -25,6 +27,8 @@ import {
   ReplaceMyProfilePortResponse,
   SetMePortParams,
   SetMePortResponse,
+  SetMyNotificationSettingsForProjectPortParams,
+  SetMyNotificationSettingsForProjectPortResponse,
   SetMyNotificationSettingsPortParams,
   SetMyNotificationSettingsPortResponse,
   SetMyPayoutPreferenceForProjectPortParams,
@@ -56,4 +60,10 @@ export interface MeStoragePort {
   uploadProfilePicture(params: UploadProfilePicturePortParams): UploadProfilePicturePortResponse;
   getMyNotificationSettings(params: GetMyNotificationSettingsPortParams): GetMyNotificationSettingsPortResponse;
   setMyNotificationSettings(params: SetMyNotificationSettingsPortParams): SetMyNotificationSettingsPortResponse;
+  getMyNotificationSettingsForProject(
+    params: GetMyNotificationSettingsForProjectPortParams
+  ): GetMyNotificationSettingsForProjectPortResponse;
+  setMyNotificationSettingsForProject(
+    params: SetMyNotificationSettingsForProjectPortParams
+  ): SetMyNotificationSettingsForProjectPortResponse;
 }

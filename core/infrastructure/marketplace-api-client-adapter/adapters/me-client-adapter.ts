@@ -3,6 +3,7 @@ import { BillingProfileShort } from "@/core/domain/billing-profile/models/billin
 import {
   GetMeResponse,
   GetMyHackathonRegistrationResponse,
+  GetMyNotificationSettingsForProjectResponse,
   GetMyNotificationSettingsResponse,
   GetMyPayoutPreferencesResponse,
   GetMyProfileResponse,
@@ -14,6 +15,7 @@ import {
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyNotificationSettingsBody,
+  SetMyNotificationSettingsForProjectBody,
   SetMyPayoutPreferenceForProjectBody,
   SetMyProfileBody,
   UploadProfilePictureResponse,
@@ -22,6 +24,7 @@ import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-pr
 import { MeHackathonRegistration } from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { Me } from "@/core/domain/me/models/me-model";
+import { MeNotificationForProject } from "@/core/domain/me/models/me-notification-for-project";
 import { MeNotificationSettings } from "@/core/domain/me/models/me-notification-settings-model";
 import { MeProfile } from "@/core/domain/me/models/me-profile-model";
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
@@ -51,6 +54,8 @@ export class MeClientAdapter implements MeStoragePort {
     uploadProfilePicture: "me/profile/avatar",
     getMyNotificationSettings: "me/notification-settings",
     setMyNotificationSettings: "me/notification-settings",
+    setMyNotificationSettingsForProject: "me/notification-settings/projects/:projectId",
+    getMyNotificationSettingsForProject: "me/notification-settings/projects/:projectId",
   } as const;
 
   logoutMe = () => {
@@ -404,6 +409,52 @@ export class MeClientAdapter implements MeStoragePort {
         tag,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  setMyNotificationSettingsForProject = ({
+    pathParams,
+  }: FirstParameter<MeStoragePort["setMyNotificationSettingsForProject"]>) => {
+    const path = this.routes["setMyNotificationSettingsForProject"];
+    const method = "PATCH";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: SetMyNotificationSettingsForProjectBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+        pathParams,
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getMyNotificationSettingsForProject = ({
+    pathParams,
+  }: FirstParameter<MeStoragePort["getMyNotificationSettingsForProject"]>) => {
+    const path = this.routes["getMyNotificationSettingsForProject"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetMyNotificationSettingsForProjectResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new MeNotificationForProject(data);
+    };
 
     return {
       request,

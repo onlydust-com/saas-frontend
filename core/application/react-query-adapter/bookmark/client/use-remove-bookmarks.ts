@@ -9,6 +9,7 @@ import { BookmarkFacadePort } from "@/core/domain/bookmark/input/bookmark-facade
 
 export function useRemoveBookmark({
   options,
+  pathParams,
 }: UseMutationFacadeParams<BookmarkFacadePort["removeBookmark"], never, never> = {}) {
   const bookmarkStoragePort = bootstrap.getBookmarkStoragePortForClient();
 
@@ -16,7 +17,7 @@ export function useRemoveBookmark({
 
   return useMutation(
     useMutationAdapter({
-      ...bookmarkStoragePort.removeBookmark({}),
+      ...bookmarkStoragePort.removeBookmark({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {

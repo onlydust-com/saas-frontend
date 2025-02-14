@@ -5,19 +5,19 @@ import {
   useMutationAdapter,
 } from "@/core/application/react-query-adapter/helpers/use-mutation-adapter";
 import { bootstrap } from "@/core/bootstrap";
-import { AddBookmarkBody } from "@/core/domain/bookmark/bookmark-contract.types";
 import { BookmarkFacadePort } from "@/core/domain/bookmark/input/bookmark-facade-port";
 
 export function useAddBookmark({
   options,
-}: UseMutationFacadeParams<BookmarkFacadePort["addBookmark"], never, AddBookmarkBody> = {}) {
+  pathParams,
+}: UseMutationFacadeParams<BookmarkFacadePort["addBookmark"], never, never> = {}) {
   const bookmarkStoragePort = bootstrap.getBookmarkStoragePortForClient();
 
   const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
-      ...bookmarkStoragePort.addBookmark({}),
+      ...bookmarkStoragePort.addBookmark({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {

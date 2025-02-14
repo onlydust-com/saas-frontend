@@ -1,14 +1,16 @@
 "use client";
 
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
+import { useAuth0 } from "@auth0/auth0-react";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Bookmark, CircleDotDashed, GitMerge, Star, User } from "lucide-react";
+import { BellPlus, BellRing, Bookmark, BookmarkPlus, CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import { ReactNode, useMemo } from "react";
 import { toast } from "sonner";
 
 import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
 
 import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapter/bookmark";
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
@@ -169,9 +171,10 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
   const { capture } = usePosthog();
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({});
 
-  const isBookMarked = useMemo(() => data?.bookmarks?.some(bookmark => bookmark === projectId), [data, projectId]);
+  const isBookMarked = useMemo(() => data?.projects?.some(bookmark => bookmark.id === projectId), [data, projectId]);
 
   const { mutate: addBookmark } = BookmarkReactQueryAdapter.client.useAddBookmark({
+    pathParams: { projectId },
     options: {
       onSuccess: () => {
         capture("project_bookmark_added", { projectId });
@@ -184,6 +187,7 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
   });
 
   const { mutate: removeBookmark } = BookmarkReactQueryAdapter.client.useRemoveBookmark({
+    pathParams: { projectId },
     options: {
       onSuccess: () => {
         capture("project_bookmark_removed", { projectId });
@@ -197,21 +201,75 @@ function BookMarkButton({ projectId, projectName }: { projectId: string; project
 
   function toggleBookmark() {
     if (isBookMarked) {
-      removeBookmark({ projectId });
+      removeBookmark({});
     } else {
-      addBookmark({ projectId });
+      addBookmark({});
     }
   }
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline" className="px-2" onClick={toggleBookmark}>
-          <Bookmark className={cn({ "fill-purple-500 stroke-purple-500": isBookMarked })} />
+        <Button
+          variant={"outline"}
+          className={cn({ "bg-purple-500 hover:bg-purple-700": isBookMarked })}
+          size="icon"
+          onClick={toggleBookmark}
+        >
+          {isBookMarked ? <Bookmark className={"fill-white"} /> : <BookmarkPlus />}
         </Button>
       </TooltipTrigger>
       <TooltipContent>
         {isBookMarked ? "Remove from bookmarks" : "Bookmark this project to access it quickly from the menu"}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+function AlertButton({ projectId, projectName }: { projectId: string; projectName: string }) {
+  const { capture } = usePosthog();
+  const { isAuthenticated } = useAuth0();
+  const { data } = MeReactQueryAdapter.client.useGetMyNotificationsSettingsForProject({
+    pathParams: {
+      projectId,
+    },
+    options: {
+      enabled: isAuthenticated,
+    },
+  });
+
+  const isAlertEnabled = useMemo(() => data?.onGoodFirstIssueAdded, [data]);
+
+  const { mutateAsync: setAlert } = MeReactQueryAdapter.client.useSetMyNotificationsSettingsForProject({
+    pathParams: { projectId },
+  });
+
+  async function toggleAlert() {
+    if (isAlertEnabled) {
+      await setAlert({ onGoodFirstIssueAdded: false });
+      capture("project_good_first_issue_alert_disabled", { projectId });
+      toast.success(`${projectName} alert disabled`);
+    } else {
+      await setAlert({ onGoodFirstIssueAdded: true });
+      capture("project_good_first_issue_alert_enabled", { projectId });
+      toast.success(`${projectName} alert enabled`);
+    }
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={cn({ "bg-purple-500 hover:bg-purple-700": isAlertEnabled })}
+          size="icon"
+          onClick={toggleAlert}
+        >
+          {isAlertEnabled ? <BellRing className={"fill-white"} /> : <BellPlus />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        {isAlertEnabled ? "Disable good first issue alert" : "Enable good first issue alert"}
       </TooltipContent>
     </Tooltip>
   );
@@ -239,6 +297,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         </Avatar>
 
         <div className="flex items-center justify-end gap-3 tablet:hidden">
+          {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
           {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
           <ActionHeader projectId={project?.id} />
         </div>
@@ -248,6 +307,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
             <div className="hidden items-center justify-end gap-3 tablet:flex">
+              {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
               {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
               <ActionHeader projectId={project?.id} />
             </div>
