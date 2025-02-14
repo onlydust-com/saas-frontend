@@ -112,9 +112,7 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
 
         <div className="flex flex-1 flex-col gap-1.5">
           <TypographyH4 className="line-clamp-1 leading-none">{name}</TypographyH4>
-          <TypographyMuted className="line-clamp-2">
-            {description} rsarstieion rtioarnst iorsteionars tarnt oarntrsntwpnqwfiopnwfp qwofpn qwfoipnwqf p{" "}
-          </TypographyMuted>
+          <TypographyMuted className="line-clamp-2">{description}</TypographyMuted>
           <div className="flex w-full items-center justify-between">
             {renderCategories()}
             {renderLanguages()}
