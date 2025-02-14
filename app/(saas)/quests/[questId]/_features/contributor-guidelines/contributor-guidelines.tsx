@@ -8,7 +8,7 @@ export function ContributorGuidelines() {
   return (
     <div className="space-y-4">
       {/* Main mission */}
-      <Alert variant="warning">
+      <Alert variant="info">
         <AlertTitle>Contributors: Be a Team Player, Make an Impact</AlertTitle>
         <AlertDescription>Your mission? Dive in, communicate, and ship awesome work.</AlertDescription>
       </Alert>
@@ -46,7 +46,7 @@ export function ContributorGuidelines() {
           </Alert>
 
           {/* After the quest section */}
-          <Alert variant="warning">
+          <Alert variant="success">
             <AlertTitle>After the Quest</AlertTitle>
             <AlertDescription>
               <ul className="list-inside space-y-2">
