@@ -21,7 +21,9 @@ export function ContributorGuidelines() {
             <AlertDescription>
               <ul className="list-inside space-y-2">
                 <li>✓ Know your Quest! – Read the description, check the issues, and get the context.</li>
-                <li>✓ Set up & explore – Install what you need, scan the docs, and make sure you're ready to go.</li>
+                <li>
+                  ✓ Set up & explore – Install what you need, scan the docs, and make sure you&apos;re ready to go.
+                </li>
                 <li>✓ Say hi! – Join the squad chat and introduce yourself. This is a team effort!</li>
                 <li>✓ Ask early! – Got questions? Better now than later.</li>
               </ul>
