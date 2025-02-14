@@ -288,8 +288,8 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
   return (
     <div className="flex w-full flex-col bg-background pt-6">
       <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
-      <div className="relative z-[2] -mt-16 mb-6 ml-2 flex flex-row items-end justify-between tablet:ml-6">
-        <Avatar className="h-32 w-32 rounded-xl border-4 border-background bg-background">
+      <div className="relative z-[2] -mt-12 mb-6 ml-2 flex flex-row items-end justify-between tablet:-mt-16 tablet:ml-6">
+        <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background tablet:h-32 tablet:w-32">
           <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
           <AvatarFallback>
             <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
@@ -297,8 +297,6 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         </Avatar>
 
         <div className="flex items-center justify-end gap-3 tablet:hidden">
-          {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
-          {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
           <ActionHeader projectId={project?.id} />
         </div>
       </div>
@@ -306,10 +304,12 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
-            <div className="hidden items-center justify-end gap-3 tablet:flex">
+            <div className="flex items-center justify-end gap-3">
               {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
               {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
-              <ActionHeader projectId={project?.id} />
+              <div className="hidden tablet:block">
+                <ActionHeader projectId={project?.id} />
+              </div>
             </div>
           </div>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>

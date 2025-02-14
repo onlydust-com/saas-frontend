@@ -8,6 +8,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 import { ProjectSidepanel } from "@/shared/panels/project-sidepanel/project-sidepanel";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
+import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
 import Chat from "./_features/chat/chat";
 
@@ -22,6 +23,7 @@ function ODSay() {
 
   return (
     <PageContainer size="large" className="flex-1">
+      <PosthogCaptureOnMount eventName={"project_recommendation_chat_viewed"} />
       <NavigationBreadcrumb
         breadcrumb={[
           {

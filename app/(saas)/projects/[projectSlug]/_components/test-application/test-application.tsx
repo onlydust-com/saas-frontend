@@ -3,6 +3,9 @@ import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 
+const CONTRIBUTOR_GUIDE_URL =
+  "https://blog.onlydust.com/contributor-guide-how-to-contribute-to-an-open-source-project-without-available-issues/";
+
 export function TestApplication({ projectId }: { projectId?: string }) {
   const { capture } = usePosthog();
 
@@ -11,9 +14,8 @@ export function TestApplication({ projectId }: { projectId?: string }) {
       <TypographyH4>Test the application</TypographyH4>
 
       <TypographyP className="text-sm">
-        Why not test the application?
-        <br />
-        Follow our guide to report bugs or suggest improvements.
+        Want to help an Open Source project but don&apos;t know where to start? Test the application, report bugs,
+        suggest improvements, and make a real impact!
       </TypographyP>
 
       <Button
@@ -24,9 +26,8 @@ export function TestApplication({ projectId }: { projectId?: string }) {
           capture("project_overview_contribute_now_click_faq", { project_id: projectId });
         }}
       >
-        {/* TODO @hayden */}
-        <a href="" target="_blank" rel="noopener noreferrer">
-          Test the application
+        <a href={CONTRIBUTOR_GUIDE_URL} target="_blank" rel="noopener noreferrer">
+          Read the Contribution Guide
         </a>
       </Button>
     </Card>
