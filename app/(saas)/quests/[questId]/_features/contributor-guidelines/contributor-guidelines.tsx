@@ -36,7 +36,7 @@ export function ContributorGuidelines() {
                 <li>
                   ✓ Stay in touch! – Maintain communication with your squad & maintainers. Silence slows things down!
                 </li>
-                <li>✓ Respect the flow – If you're blocked or delayed, just say so. No stress, just clarity.</li>
+                <li>✓ Respect the flow – If you&apos;re blocked or delayed, just say so. No stress, just clarity.</li>
                 <li>✓ Test your work! – No one likes broken code. Check before you push!</li>
                 <li>✓ Be cool! – Respect teammates, give helpful feedback, and embrace collaboration.</li>
               </ul>
@@ -50,7 +50,7 @@ export function ContributorGuidelines() {
               <ul className="list-inside space-y-2">
                 <li>✓ Finish strong – Submit, review, and polish your contribution.</li>
                 <li>✓ Leave breadcrumbs – Share any insights or tips for future contributors.</li>
-                <li>✓ Stick around? – Enjoyed it? There's always more to explore in the project!</li>
+                <li>✓ Stick around? – Enjoyed it? There&apos;s always more to explore in the project!</li>
               </ul>
             </AlertDescription>
           </Alert>
