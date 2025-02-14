@@ -49,7 +49,7 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
 
     if (isError) {
       return (
-        <div className={"flex items-center justify-center py-36"}>
+        <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>Error loading recent activity</TypographyMuted>
         </div>
       );
@@ -57,7 +57,7 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
 
     if (contributions.length === 0) {
       return (
-        <div className={"flex items-center justify-center py-36"}>
+        <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>No recent activity found</TypographyMuted>
         </div>
       );

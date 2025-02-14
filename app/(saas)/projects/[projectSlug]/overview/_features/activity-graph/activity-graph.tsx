@@ -14,7 +14,7 @@ export function ActivityGraph() {
   });
 
   return (
-    <Card className={"relative flex flex-col gap-4 p-4"}>
+    <Card className={"relative flex w-full flex-col gap-4 overflow-hidden p-4"}>
       <TypographyH3>Github Activity</TypographyH3>
       <ActivityGraphComponent data={mockActivityData} />
     </Card>

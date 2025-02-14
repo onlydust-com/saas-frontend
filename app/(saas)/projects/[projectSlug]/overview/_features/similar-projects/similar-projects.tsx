@@ -6,7 +6,6 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
 
-import { ErrorState } from "@/shared/components/error-state/error-state";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
 import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
@@ -36,12 +35,16 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
     }
 
     if (isError) {
-      return <ErrorState />;
+      return (
+        <div className={"flex items-center justify-center py-10"}>
+          <TypographyMuted>Error loading similar projects</TypographyMuted>
+        </div>
+      );
     }
 
     if (!projects.length) {
       return (
-        <div className={"flex items-center justify-center py-36"}>
+        <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>No similar projects found</TypographyMuted>
         </div>
       );
@@ -69,9 +72,7 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
 
   return (
     <Card className={"flex flex-col gap-4 p-4"}>
-      <div className="p-xl">
-        <TypographyH3>Similar projects</TypographyH3>
-      </div>
+      <TypographyH3>Similar projects</TypographyH3>
       <div className="flex flex-col gap-xl p-xl">{renderProjects}</div>
     </Card>
   );

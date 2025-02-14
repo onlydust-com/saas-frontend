@@ -1,5 +1,6 @@
 "use client";
 
+import { Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Markdown } from "@/shared/features/markdown/markdown";
@@ -13,7 +14,8 @@ import { DescriptionProps } from "./description.types";
 
 const MAX_HEIGHT = 320;
 
-export function Description({ description, projectId }: DescriptionProps) {
+export function Description({ description, projectId, isAiGenerated, title }: DescriptionProps) {
+  const [isVoted, setIsVoted] = useState(false);
   const descriptionRef = useRef<HTMLDivElement>(null);
   const [descriptionHeight, setDescriptionHeight] = useState(100000000);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,18 +34,56 @@ export function Description({ description, projectId }: DescriptionProps) {
   function handleClick() {
     const newValue = !isExpanded;
 
-    if (newValue) {
-      capture("project_overview_open_description", { projectId });
+    if (isAiGenerated) {
+      if (newValue) {
+        capture("project_overview_open_generated_description", { projectId });
+      } else {
+        capture("project_overview_close_generated_description", { projectId });
+      }
     } else {
-      capture("project_overview_close_description", { projectId });
+      if (newValue) {
+        capture("project_overview_open_description", { projectId });
+      } else {
+        capture("project_overview_close_description", { projectId });
+      }
     }
-
     setIsExpanded(newValue);
   }
 
+  function onThumbsUp() {
+    capture("project_overview_generated_description_relevant", { projectId });
+    setIsVoted(true);
+  }
+
+  function onThumbsDown() {
+    capture("project_overview_generated_description_not_relevant", { projectId });
+    setIsVoted(true);
+  }
+
   return (
-    <Card className={"relative flex flex-col gap-4 p-4"}>
-      <TypographyH3>Description</TypographyH3>
+    <Card
+      className={cn("overflow-hiddenp-4 relative flex flex-col gap-4 p-4", {
+        "bg-gradient-to-br from-purple-950 to-transparent to-20%": isAiGenerated,
+      })}
+    >
+      <header className={"flex w-full items-center justify-between gap-2"}>
+        <div className={"flex items-center gap-2"}>
+          {isAiGenerated && <Sparkles className={"text-purple-700"} />}
+          <TypographyH3>{title}</TypographyH3>
+        </div>
+        {isAiGenerated && !isVoted ? (
+          <div className={"flex items-center justify-end gap-px"}>
+            <Button variant={"ghost"} size={"icon"} onClick={onThumbsUp}>
+              <ThumbsUp />
+            </Button>
+            <Button variant={"ghost"} size={"icon"} onClick={onThumbsDown}>
+              <ThumbsDown />
+            </Button>
+          </div>
+        ) : (
+          <div />
+        )}
+      </header>
 
       <div
         className={"relative h-fit overflow-hidden transition-all"}
