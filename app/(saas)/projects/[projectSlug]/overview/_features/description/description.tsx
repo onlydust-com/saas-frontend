@@ -14,7 +14,7 @@ import { DescriptionProps } from "./description.types";
 
 const MAX_HEIGHT = 320;
 
-export function Description({ description, projectId, isIaGenerated, title }: DescriptionProps) {
+export function Description({ description, projectId, isAiGenerated, title }: DescriptionProps) {
   const [isVoted, setIsVoted] = useState(false);
   const descriptionRef = useRef<HTMLDivElement>(null);
   const [descriptionHeight, setDescriptionHeight] = useState(100000000);
@@ -34,7 +34,7 @@ export function Description({ description, projectId, isIaGenerated, title }: De
   function handleClick() {
     const newValue = !isExpanded;
 
-    if (isIaGenerated) {
+    if (isAiGenerated) {
       if (newValue) {
         capture("project_overview_open_generated_description", { projectId });
       } else {
@@ -63,15 +63,15 @@ export function Description({ description, projectId, isIaGenerated, title }: De
   return (
     <Card
       className={cn("overflow-hiddenp-4 relative flex flex-col gap-4 p-4", {
-        "bg-gradient-to-br from-purple-950 to-transparent to-20%": isIaGenerated,
+        "bg-gradient-to-br from-purple-950 to-transparent to-20%": isAiGenerated,
       })}
     >
       <header className={"flex w-full items-center justify-between gap-2"}>
         <div className={"flex items-center gap-2"}>
-          {isIaGenerated && <Sparkles className={"text-purple-700"} />}
+          {isAiGenerated && <Sparkles className={"text-purple-700"} />}
           <TypographyH3>{title}</TypographyH3>
         </div>
-        {isIaGenerated && !isVoted ? (
+        {isAiGenerated && !isVoted ? (
           <div className={"flex items-center justify-end gap-px"}>
             <Button variant={"ghost"} size={"icon"} onClick={onThumbsUp}>
               <ThumbsUp />

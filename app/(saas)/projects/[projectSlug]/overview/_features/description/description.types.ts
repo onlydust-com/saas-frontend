@@ -3,5 +3,5 @@ export interface DescriptionProps {
   projectId?: string;
   highlighted?: boolean;
   title: string;
-  isIaGenerated?: boolean;
+  isAiGenerated?: boolean;
 }
