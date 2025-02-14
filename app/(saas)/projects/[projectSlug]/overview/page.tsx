@@ -61,12 +61,21 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       />
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
-        <div className="col-span-full">
-          <Description description={data?.overview} projectId={data?.id} title={"Overview by OnlyDust"} isAiGenerated />
-        </div>
-        <div className="col-span-full">
-          <Description description={data?.longDescription} projectId={data?.id} title={"Description"} />
-        </div>
+        {data?.overview && (
+          <div className="col-span-full">
+            <Description
+              description={data?.overview}
+              projectId={data?.id}
+              title={"Overview by OnlyDust"}
+              isAiGenerated
+            />
+          </div>
+        )}
+        {data?.longDescription && (
+          <div className="col-span-full">
+            <Description description={data?.longDescription} projectId={data?.id} title={"Description"} />
+          </div>
+        )}
         <div className="grid lg:col-span-1">
           <Languages projectId={data?.id} />
         </div>

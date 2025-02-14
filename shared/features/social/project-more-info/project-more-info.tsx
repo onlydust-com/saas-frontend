@@ -20,7 +20,7 @@ export function ProjectMoreInfo({ moreInfoItem, buttonProps }: ProjectMoreInfoPr
       {...buttonProps}
       htmlProps={{ href: urlKernelPort.validateUrl(moreInfoItem.url), target: "_blank" }}
     >
-      {moreInfoItem.value ?? label}
+      {moreInfoItem.value || label}
     </Button>
   );
 }

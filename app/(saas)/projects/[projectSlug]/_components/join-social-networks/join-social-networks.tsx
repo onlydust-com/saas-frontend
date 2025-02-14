@@ -63,7 +63,7 @@ export function JoinSocialNetworks({ projectId = "" }: { projectId?: string }) {
             >
               <a href={urlKernelPort.validateUrl(url)} target="_blank" rel="noopener noreferrer">
                 <Icon component={icon} />
-                {label ?? value}
+                {value || label}
               </a>
             </Button>
           );
