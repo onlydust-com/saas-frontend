@@ -6,9 +6,11 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Typo } from "@/design-system/atoms/typo";
 import { CardProjectMarketplace } from "@/design-system/molecules/cards/card-project-marketplace/variants/card-project-marketplace-default";
 
+import { BaseLink } from "@/shared/components/base-link/base-link";
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useFeatureFlagVariant } from "@/shared/hooks/feature-flag/feature-flag.hooks";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
@@ -59,6 +61,8 @@ function ProjectRecommendationResultsPage() {
     return recommendedProjects?.projects.map(project => (
       <CardProjectMarketplace
         key={project.id}
+        as={BaseLink}
+        htmlProps={{ href: NEXT_ROUTER.projects.details.root(project.slug) }}
         name={project.name}
         slug={project.slug}
         description={project.shortDescription}

@@ -70,7 +70,7 @@ const ProjectCard = ({
     </div>
     <div className="flex flex-row items-center justify-between">
       <div className="flex flex-row items-center gap-1">
-        {categories.map(category => (
+        {categories.slice(0, 3).map(category => (
           <Badge key={category.name} variant="outline">
             {category.name}
           </Badge>
@@ -82,7 +82,7 @@ const ProjectCard = ({
             <AvatarImage src={language.logoUrl} />
             <AvatarFallback>{language.name}</AvatarFallback>
           </Avatar>
-        ))}{" "}
+        ))}
       </div>
     </div>
   </Card>
@@ -126,7 +126,7 @@ const IssueCard = ({
     )}
     <div className="mt-auto flex flex-row justify-between">
       <div className="flex flex-row gap-1">
-        {githubLabels?.map(label => (
+        {githubLabels?.slice(0, 3).map(label => (
           <Badge key={label.name} variant="outline">
             {label.name}
           </Badge>
