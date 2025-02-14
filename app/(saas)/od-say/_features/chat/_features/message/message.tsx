@@ -5,10 +5,8 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { ProjectListItemInterfaceV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 
-import { CardProjectMarketplaceLoading } from "@/design-system/molecules/cards/card-project-marketplace";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
-import { ErrorState } from "@/shared/components/error-state/error-state";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
@@ -135,57 +133,27 @@ export default function Message({
 
   const issues = useMemo(() => issuesData?.pages.flatMap(({ contributions }) => contributions) ?? [], [issuesData]);
 
-  const renderProjects = useCallback(() => {
-    if (isProjectsLoading) {
-      return Array.from({ length: 4 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
-    if (isProjectsError) {
-      return (
-        <div className="col-span-full py-40">
-          <ErrorState />
-        </div>
-      );
-    }
-
-    if (!projects.length) {
-      return null;
-    }
-
-    return (
+  const renderProjects = useCallback(
+    () => (
       <div className="flex flex-col gap-2">
         {projects.map(project => (
           <ProjectCard {...project} key={project.id} onClick={() => onOpenProject(project.id)} />
         ))}
       </div>
-    );
-  }, [projects, isProjectsError, isProjectsLoading]);
+    ),
+    [projects, isProjectsError, isProjectsLoading]
+  );
 
-  const renderIssues = useCallback(() => {
-    if (isIssuesLoading) {
-      return Array.from({ length: 4 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
-    if (isIssuesError) {
-      return (
-        <div className="col-span-full py-40">
-          <ErrorState />
-        </div>
-      );
-    }
-
-    if (!issues.length) {
-      return null;
-    }
-
-    return (
+  const renderIssues = useCallback(
+    () => (
       <div className="flex flex-col gap-2">
         {issues.map(contribution => (
           <IssueCard {...contribution} key={contribution.id} onClick={() => onOpenContribution(contribution.id)} />
         ))}
       </div>
-    );
-  }, [issues, isIssuesError, isIssuesLoading]);
+    ),
+    [issues, isIssuesError, isIssuesLoading]
+  );
 
   return (
     <div
@@ -202,8 +170,7 @@ export default function Message({
         role="text"
       >
         {content ? <Markdown content={content} /> : <Thinking />}
-        {renderProjects()}
-        {renderIssues()}
+        {issues.length > 0 ? renderIssues() : projects.length > 0 ? renderProjects() : null}
         {followUpMessage && <Markdown content={followUpMessage} />}
       </div>
     </div>
