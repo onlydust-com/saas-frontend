@@ -16,6 +16,7 @@ import { SingleContributionSelection } from "@/shared/panels/_flows/reward-flow/
 import { useSingleContributionSelection } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-selection/single-contribution-selection.hooks";
 import { SingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation";
 import {
+  AddContributorIdArgs,
   RewardFlowContextInterface,
   RewardFlowContextProps,
   RewardsState,
@@ -70,20 +71,28 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   function addContributors(
     prev: RewardsState,
-    githubUserIds: number[],
-    contributions?: ContributionItemDtoInterface[],
-    avatarUrl?: string,
-    login?: string
+    {
+      githubUserIds,
+      contributions,
+      avatarUrls,
+      logins,
+    }: {
+      githubUserIds: number[];
+      contributions?: ContributionItemDtoInterface[];
+      avatarUrls?: Array<string | undefined>;
+      logins?: string[];
+    }
   ) {
     return {
-      ...githubUserIds.reduce((acc, githubUserId) => {
+      ...githubUserIds.reduce((acc, githubUserId, index) => {
         if (!acc[githubUserId]) {
           acc[githubUserId] = {
+            // TODO: this could be an issue if we have multiple contributions for different users
             contributions: contributions ?? [],
             amount: undefined,
             otherWorks: [],
-            login: login ?? "",
-            avatarUrl: avatarUrl ?? "",
+            login: logins?.[index] ?? "",
+            avatarUrl: avatarUrls?.[index] ?? "",
           };
         }
         return acc;
@@ -93,8 +102,10 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** ADD AND REMOVE CONTRIBUTORS *****************/
 
-  function addContributorId(contributorId: number, avatarUrl?: string, login?: string) {
-    setRewardsState(prev => addContributors(prev, [contributorId], undefined, avatarUrl, login));
+  function addContributorId({ contributorId, avatarUrl, login = "" }: AddContributorIdArgs) {
+    setRewardsState(prev =>
+      addContributors(prev, { githubUserIds: [contributorId], avatarUrls: [avatarUrl], logins: [login] })
+    );
   }
 
   function removeContributorId(contributorId: number) {
@@ -201,8 +212,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** FLOW MANAGEMENT *****************/
 
-  function onOpenFlow({ githubUserIds, contributions = [] }: StartFlowProps) {
-    setRewardsState(prev => addContributors(prev, githubUserIds, contributions));
+  function onOpenFlow({ githubUserIds, contributions = [], avatarUrls, logins }: StartFlowProps) {
+    setRewardsState(prev => addContributors(prev, { githubUserIds, contributions, avatarUrls, logins }));
 
     if (githubUserIds.length === 1) {
       openSingleFlow();

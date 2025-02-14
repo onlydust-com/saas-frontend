@@ -30,6 +30,14 @@ export type RewardsState = Record<
 export interface StartFlowProps {
   githubUserIds: number[];
   contributions?: ContributionItemDtoInterface[];
+  avatarUrls?: Array<string | undefined>;
+  logins?: string[];
+}
+
+export interface AddContributorIdArgs {
+  contributorId: number;
+  avatarUrl?: string;
+  login?: string;
 }
 
 export interface RewardFlowContextInterface {
@@ -46,7 +54,7 @@ export interface RewardFlowContextInterface {
   amountPerCurrency: Record<string, SelectedRewardsBudget>;
   onCreateRewards: () => void;
   isCreatingRewards: boolean;
-  addContributorId: (contributorId: number, avatarUrl?: string, login?: string) => void;
+  addContributorId: (args: AddContributorIdArgs) => void;
   removeContributorId: (contributorId: number) => void;
   selectedGithubUserIds: number[];
   removeAllContributions: (githubUserId: number) => void;

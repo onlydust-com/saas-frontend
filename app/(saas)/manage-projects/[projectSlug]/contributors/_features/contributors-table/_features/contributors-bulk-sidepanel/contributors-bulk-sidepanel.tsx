@@ -150,7 +150,13 @@ export function ContributorsBulkSidepanel() {
               variant={"secondary"}
               translate={{ token: "manageProjects:bulk.reward.button" }}
               classNames={{ base: "w-full" }}
-              onClick={() => openRewardFlow({ githubUserIds: userSelected.map(user => user.contributor.githubUserId) })}
+              onClick={() =>
+                openRewardFlow({
+                  githubUserIds: userSelected.map(user => user.contributor.githubUserId),
+                  avatarUrls: userSelected.map(user => user.contributor.avatarUrl),
+                  logins: userSelected.map(user => user.contributor.login),
+                })
+              }
               isDisabled={!canReward}
             />
           </Tooltip>

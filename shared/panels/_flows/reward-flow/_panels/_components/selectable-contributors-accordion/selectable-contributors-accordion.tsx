@@ -35,9 +35,19 @@ export function SelectableContributorsAccordion() {
     [data]
   );
 
-  function handleSelectedContributors(checked: boolean, contributorId: number, avatarUrl?: string, login?: string) {
+  function handleSelectedContributors({
+    checked,
+    contributorId,
+    avatarUrl,
+    login,
+  }: {
+    checked: boolean;
+    contributorId: number;
+    avatarUrl?: string;
+    login?: string;
+  }) {
     if (checked) {
-      addContributorId(contributorId, avatarUrl, login);
+      addContributorId({ contributorId, avatarUrl, login });
     } else {
       removeContributorId(contributorId);
     }
@@ -67,7 +77,12 @@ export function SelectableContributorsAccordion() {
             login={contributor.login}
             value={selectedGithubUserIds?.includes(contributor.githubUserId)}
             onChange={checked =>
-              handleSelectedContributors(checked, contributor.githubUserId, contributor.avatarUrl, contributor.login)
+              handleSelectedContributors({
+                checked,
+                contributorId: contributor.githubUserId,
+                avatarUrl: contributor.avatarUrl,
+                login: contributor.login,
+              })
             }
           />
         ))}
