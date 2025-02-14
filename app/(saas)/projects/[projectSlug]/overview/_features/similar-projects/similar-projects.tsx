@@ -9,7 +9,7 @@ import { Skeleton } from "@/design-system/atoms/skeleton";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
-import { TypographyH3 } from "@/shared/ui/typography";
+import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
 import { ProjectCard } from "./components/project-card/project-card";
 import { SimilarProjectsProps } from "./similar-projects.types";
@@ -39,6 +39,14 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
       return <ErrorState />;
     }
 
+    if (!projects.length) {
+      return (
+        <div className={"flex items-center justify-center py-36"}>
+          <TypographyMuted>No similar projects found</TypographyMuted>
+        </div>
+      );
+    }
+
     return (
       <>
         {projects.map(project => (
@@ -49,7 +57,7 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
             slug={project.slug}
             logoUrl={project.logoUrl ?? ""}
             onClick={() => {
-              capture("project_overview_click_similar_project", { projectId: projectId, targetId: project.id });
+              capture("project_overview_click_similar_project", { projectId, targetId: project.id });
             }}
             categories={project?.categories?.map(category => category.name) ?? []}
             languages={project?.languages ?? []}
@@ -58,10 +66,6 @@ export function SimilarProjects({ projectIdOrSlug, projectId }: SimilarProjectsP
       </>
     );
   }, [isLoading, isError, projects]);
-
-  if (!projects.length) {
-    return null;
-  }
 
   return (
     <Card className={"flex flex-col gap-4 p-4"}>
