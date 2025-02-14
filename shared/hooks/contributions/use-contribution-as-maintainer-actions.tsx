@@ -114,6 +114,8 @@ export const useContributionAsMaintainerActions = ({
     openRewardFlow({
       contributions: [contribution.toItemDto()],
       githubUserIds: contribution.contributors.map(contributor => contributor.githubUserId),
+      avatarUrls: contribution.contributors.map(contributor => contributor.avatarUrl),
+      logins: contribution.contributors.map(contributor => contributor.login),
     });
   }
 
