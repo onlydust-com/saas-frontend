@@ -1,12 +1,11 @@
 import { useMemo, useRef, useState } from "react";
 
-import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Accordion } from "@/design-system/molecules/accordion";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
-import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
 import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
@@ -37,21 +36,23 @@ export function SelectableContributorsAccordion() {
     ...filters,
   };
 
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
-    BiReactQueryAdapter.client.useGetBiContributors({
-      queryParams: {
-        ...queryParams,
-      },
-      options: {
-        enabled: Boolean(selectedGithubUserIds),
-      },
-    });
+  const { data, isLoading } = UserReactQueryAdapter.client.useSearchUser({
+    queryParams: {
+      login: debouncedSearch,
+    },
+    options: {
+      enabled: Boolean(selectedGithubUserIds),
+    },
+  });
 
-  const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
+  const contributors = useMemo(
+    () => [...(data?.internalContributors ?? []), ...(data?.externalContributors ?? [])],
+    [data]
+  );
 
-  function handleSelectedContributors(contributorId: number, checked: boolean) {
+  function handleSelectedContributors(checked: boolean, contributorId: number, avatarUrl?: string, login?: string) {
     if (checked) {
-      addContributorId(contributorId);
+      addContributorId(contributorId, avatarUrl, login);
     } else {
       removeContributorId(contributorId);
     }
@@ -59,14 +60,7 @@ export function SelectableContributorsAccordion() {
 
   const renderContributors = useMemo(() => {
     if (isLoading) {
-      return (
-        <>
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-        </>
-      );
+      return Array.from({ length: 5 }).map((_, index) => <ContributorProfileCheckboxLoading key={index} />);
     }
 
     if (!contributors.length) {
@@ -83,14 +77,15 @@ export function SelectableContributorsAccordion() {
       <>
         {contributors.map(contributor => (
           <ContributorProfileCheckbox
-            key={contributor.contributor.githubUserId}
-            avatarUrl={contributor.contributor.avatarUrl}
-            login={contributor.contributor.login}
-            value={selectedGithubUserIds?.includes(contributor.contributor.githubUserId)}
-            onChange={checked => handleSelectedContributors(contributor.contributor.githubUserId, checked)}
+            key={contributor.githubUserId}
+            avatarUrl={contributor.avatarUrl}
+            login={contributor.login}
+            value={selectedGithubUserIds?.includes(contributor.githubUserId)}
+            onChange={checked =>
+              handleSelectedContributors(checked, contributor.githubUserId, contributor.avatarUrl, contributor.login)
+            }
           />
         ))}
-        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </>
     );
   }, [contributors, isLoading, selectedGithubUserIds]);

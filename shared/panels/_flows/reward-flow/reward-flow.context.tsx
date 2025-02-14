@@ -20,7 +20,7 @@ import {
   RewardFlowContextProps,
   RewardsState,
   SelectedRewardsBudget,
-  startFlowProps,
+  StartFlowProps,
 } from "@/shared/panels/_flows/reward-flow/reward-flow.types";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
@@ -42,6 +42,8 @@ export const RewardFlowContext = createContext<RewardFlowContextInterface>({
   removeContributorId: () => {},
   selectedGithubUserIds: [],
   removeAllContributions: () => {},
+  getAvatarUrl: () => "",
+  getLogin: () => "",
 });
 
 export function RewardFlowProvider({ children, projectId = "" }: RewardFlowContextProps) {
@@ -69,7 +71,9 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
   function addContributors(
     prev: RewardsState,
     githubUserIds: number[],
-    contributions?: ContributionItemDtoInterface[]
+    contributions?: ContributionItemDtoInterface[],
+    avatarUrl?: string,
+    login?: string
   ) {
     return {
       ...githubUserIds.reduce((acc, githubUserId) => {
@@ -78,6 +82,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
             contributions: contributions ?? [],
             amount: undefined,
             otherWorks: [],
+            login: login ?? "",
+            avatarUrl: avatarUrl ?? "",
           };
         }
         return acc;
@@ -87,8 +93,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** ADD AND REMOVE CONTRIBUTORS *****************/
 
-  function addContributorId(contributorId: number) {
-    setRewardsState(prev => addContributors(prev, [contributorId]));
+  function addContributorId(contributorId: number, avatarUrl?: string, login?: string) {
+    setRewardsState(prev => addContributors(prev, [contributorId], undefined, avatarUrl, login));
   }
 
   function removeContributorId(contributorId: number) {
@@ -195,7 +201,7 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
 
   /***************** FLOW MANAGEMENT *****************/
 
-  function onOpenFlow({ githubUserIds, contributions = [] }: startFlowProps) {
+  function onOpenFlow({ githubUserIds, contributions = [] }: StartFlowProps) {
     setRewardsState(prev => addContributors(prev, githubUserIds, contributions));
 
     if (githubUserIds.length === 1) {
@@ -217,6 +223,16 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
         };
       })
     );
+  }
+
+  /***************** CONTRIBUTOR MANAGEMENT *****************/
+
+  function getAvatarUrl(githubUserId: number) {
+    return rewardsState[githubUserId]?.avatarUrl ?? "";
+  }
+
+  function getLogin(githubUserId: number) {
+    return rewardsState[githubUserId]?.login ?? "";
   }
 
   useEffect(() => {
@@ -251,6 +267,8 @@ export function RewardFlowProvider({ children, projectId = "" }: RewardFlowConte
         removeAllContributions,
         onCreateRewards,
         isCreatingRewards: isPending,
+        getAvatarUrl,
+        getLogin,
       }}
     >
       {children}

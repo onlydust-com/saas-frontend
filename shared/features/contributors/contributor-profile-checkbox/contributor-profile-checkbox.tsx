@@ -25,13 +25,15 @@ export function ContributorProfileCheckbox({
       onClick={onCardClick}
       background="transparent"
     >
-      <div className="flex justify-start gap-lg">
+      <div className="flex items-center justify-start gap-lg">
         <Avatar size={"sm"} shape={"squared"} src={avatarUrl} />
+
         <div className={"flex-1"}>
           <Typo size={"sm"} weight={"medium"}>
             {login}
           </Typo>
         </div>
+
         <Checkbox
           isDisabled={isDisabled}
           {...props}
