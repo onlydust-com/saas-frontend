@@ -47,4 +47,53 @@ export const QuestListData: QuestList[] = [
     ],
     maintainers: [144677881],
   },
+  {
+    id: "f7a9c2b4-e6d8-4153-b9a7-2c8f5d3e91a0",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectSlug: "attensys",
+    name: "Integrating the graph into attensys in Attensys explorer",
+    shortDescription:
+      "We need to integrate The Graph Protocol to index and query events emitted by the AttenSysOrg Contract and the AttenSys Event Contract within the AttenSys Explorer.",
+    longDescription: {
+      title: "Integrating the graph into attensys in Attensys explorer",
+      description:
+        "We need to integrate The Graph Protocol to index and query events emitted by the AttenSysOrg Contract and the AttenSys Event Contract within the AttenSys Explorer. This will allow us to efficiently track and display key events such as organization creation, event registrations, attendance tracking, and certificate issuance. The integration will enable real-time querying of blockchain data, improving the explorer&apos; performance and user experience.",
+      requirements: [
+        "a. Set up subgraph for Attensys Org",
+        "Set up a subgraph to index relevant events from both contracts.",
+        "Define the GraphQL schema for querying the indexed data.",
+        "Deploy the subgraph and ensure it correctly captures emitted events.",
+        "Integrate the indexed data into the AttenSys Explorer frontend.",
+        "b. Set up subgraph for Attensys Course",
+        "Set up a subgraph to index relevant events from both contracts.",
+        "Define the GraphQL schema for querying the indexed data.",
+        "Deploy the subgraph and ensure it correctly captures emitted events.",
+        "Integrate the indexed data into the AttenSys Explorer frontend.",
+      ],
+      warning: "",
+      links: ["https://thegraph.com/docs/en/"],
+    },
+    wantedProfiles: {
+      junior: {
+        provided: [],
+        wanted: 1,
+      },
+      senior: {
+        provided: [],
+        wanted: 1,
+      },
+      expert: {
+        provided: [],
+        wanted: 1,
+      },
+    },
+    requiredSkills: ["typescript", "cairo", "graphql"],
+    startDate: "2025-02-21",
+    endDate: "2025-03-14",
+    issues: [
+      2806321584, 2806627562, 2806321584, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780,
+      2806375535, 2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
+    ],
+    maintainers: [144677881],
+  },
 ];
