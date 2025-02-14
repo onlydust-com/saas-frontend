@@ -74,7 +74,6 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         <RecentActivity projectId={data?.id} />
 
         <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
-        <div />
       </div>
     </ScrollView>
   );
