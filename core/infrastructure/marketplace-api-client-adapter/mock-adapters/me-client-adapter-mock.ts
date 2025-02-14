@@ -39,4 +39,8 @@ export class MeClientAdapterMock implements MeStoragePort {
   getMyNotificationSettings = mockHttpStorageResponse<MeStoragePort["getMyNotificationSettings"]>;
 
   setMyNotificationSettings = mockHttpStorageResponse<MeStoragePort["setMyNotificationSettings"]>;
+
+  getMyNotificationSettingsForProject = mockHttpStorageResponse<MeStoragePort["getMyNotificationSettingsForProject"]>;
+
+  setMyNotificationSettingsForProject = mockHttpStorageResponse<MeStoragePort["setMyNotificationSettingsForProject"]>;
 }

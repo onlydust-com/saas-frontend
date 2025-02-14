@@ -4,7 +4,7 @@ import { ProjectContributorLabels } from "@/core/domain/project/models/project-c
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
 import { ProjectFinancial } from "@/core/domain/project/models/project-financial-model";
 import { ProjectGoodFirstIssues } from "@/core/domain/project/models/project-good-first-issues-model";
-import { ProjectLinkWithDescription } from "@/core/domain/project/models/project-link-with-description-model";
+import { ProjectLinkV2 } from "@/core/domain/project/models/project-link-v2";
 import { ProjectListItem } from "@/core/domain/project/models/project-list-item-model";
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { Project } from "@/core/domain/project/models/project-model";
@@ -621,7 +621,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
       return {
         ...data,
-        projects: data.projects.map(project => new ProjectLinkWithDescription(project)),
+        projects: data.projects.map(project => new ProjectLinkV2(project)),
       };
     };
 

@@ -32,6 +32,7 @@ import { StyleAdapterMock } from "@/core/kernel/style/style-adapter-mock";
 import { UrlAdapterMock } from "@/core/kernel/url/url-adapter-mock";
 import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapter-mock";
 
+import { BookmarkClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/bookmark-client-adapter-mock";
 import { ContributorClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/contributor-client-adapter-mock";
 import { HackathonClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/hackathon-client-adapter-mock";
 import { MarkdownAdapterMock } from "../kernel/markdown/markdown-adapter-mock";
@@ -83,6 +84,8 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   hackathonStoragePortForServer: new HackathonClientAdapterMock(),
   contributorStoragePortForClient: new ContributorClientAdapterMock(),
   contributorStoragePortForServer: new ContributorClientAdapterMock(),
+  bookmarkStoragePortForClient: new BookmarkClientAdapterMock(),
+  bookmarkStoragePortForServer: new BookmarkClientAdapterMock(),
   dateKernelPort: DateAdapterMock,
   moneyKernelPort: new MoneyAdapterMock(),
   socialKernelPort: new SocialAdapterMock(),
