@@ -13,7 +13,6 @@ export const QuestListData: QuestList[] = [
       description: "Revamp the quiz interface to enhance user experience with updated design and improved navigation.",
       requirements: [
         "Only submit a pull request if assigned to this issue.",
-        "Complete the task within 3 business days.",
         "In your PR description, include 'Close #[issue_id]' to close the issue.",
         "After submitting your PR, label it as 'ready for review'. Address any requested changes promptly and update the label back to 'ready for review' once done.",
         "Test your PR locally before pushing and ensure all tests and builds pass.",
@@ -45,7 +44,7 @@ export const QuestListData: QuestList[] = [
       2806321584, 2806627562, 2806321584, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780,
       2806375535, 2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
     ],
-    maintainers: [144677881],
+    maintainers: [144677881, 60229704],
   },
   {
     id: "f7a9c2b4-e6d8-4153-b9a7-2c8f5d3e91a0",
