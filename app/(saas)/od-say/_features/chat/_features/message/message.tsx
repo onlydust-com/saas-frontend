@@ -1,3 +1,4 @@
+import { GitFork, MessageSquare, Star, User } from "lucide-react";
 import { useCallback, useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
@@ -29,6 +30,9 @@ const ProjectCard = ({
   shortDescription,
   categories,
   languages,
+  starCount,
+  forkCount,
+  contributorCount,
   ...props
 }: ProjectListItemInterfaceV2 & React.HTMLAttributes<HTMLDivElement>) => (
   <Card className="flex flex-col gap-2 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
@@ -38,13 +42,35 @@ const ProjectCard = ({
         <AvatarFallback>{name}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-1">
-        <TypographySmall>{name}</TypographySmall>
+        <div className="flex flex-row items-center">
+          <TypographySmall>{name}</TypographySmall>
+          <div className="ml-auto flex flex-row items-center gap-1.5 text-xs">
+            {forkCount ? (
+              <div className="flex flex-row items-center gap-0.5">
+                <GitFork className="h-3.5 w-3.5" />
+                <span>{forkCount}</span>
+              </div>
+            ) : null}
+            {starCount ? (
+              <div className="flex flex-row items-center gap-0.5">
+                <Star className="h-4 w-4" />
+                <span>{starCount}</span>
+              </div>
+            ) : null}
+            {contributorCount ? (
+              <div className="flex flex-row items-center gap-0.5">
+                <User className="h-4 w-4" />
+                <span>{contributorCount}</span>
+              </div>
+            ) : null}
+          </div>
+        </div>
         <TypographyMuted>{shortDescription}</TypographyMuted>
       </div>
     </div>
     <div className="flex flex-row items-center justify-between">
       <div className="flex flex-row items-center gap-1">
-        {categories.map(category => (
+        {categories.slice(0, 3).map(category => (
           <Badge key={category.name} variant="outline">
             {category.name}
           </Badge>
@@ -56,7 +82,7 @@ const ProjectCard = ({
             <AvatarImage src={language.logoUrl} />
             <AvatarFallback>{language.name}</AvatarFallback>
           </Avatar>
-        ))}{" "}
+        ))}
       </div>
     </div>
   </Card>
@@ -70,17 +96,37 @@ const IssueCard = ({
   githubBody,
   githubLabels,
   project,
+  applicants,
+  githubCommentCount,
   ...props
 }: ContributionActivityInterface & React.HTMLAttributes<HTMLDivElement>) => (
-  <Card className="flex flex-col gap-2 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
+  <Card className="flex flex-col gap-4 p-2 hover:cursor-pointer hover:bg-background-primary-hover" {...props}>
     <div className="flex flex-row items-center gap-2">
       <ContributionBadge type={type} number={githubNumber} githubStatus={githubStatus} />
-      <TypographySmall>{githubTitle}</TypographySmall>
+      <TypographySmall className="line-clamp-1">{githubTitle}</TypographySmall>
+      <div className="ml-auto flex flex-row items-center gap-1.5">
+        {githubCommentCount ? (
+          <div className="flex flex-row items-center gap-0.5">
+            <MessageSquare className="h-3.5 w-3.5" />
+            <span className="text-xs">{githubCommentCount}</span>
+          </div>
+        ) : null}
+        {applicants?.length ? (
+          <div className="flex flex-row items-center gap-0.5">
+            <User className="h-3.5 w-3.5" />
+            <span className="text-xs">{applicants.length}</span>
+          </div>
+        ) : null}
+      </div>
     </div>
-    <TypographyMuted className="line-clamp-3">{githubBody}</TypographyMuted>
+    {githubBody ? (
+      <TypographyMuted className="line-clamp-3">{githubBody}</TypographyMuted>
+    ) : (
+      <TypographyMuted className="italic">No description provided</TypographyMuted>
+    )}
     <div className="mt-auto flex flex-row justify-between">
       <div className="flex flex-row gap-1">
-        {githubLabels?.map(label => (
+        {githubLabels?.slice(0, 3).map(label => (
           <Badge key={label.name} variant="outline">
             {label.name}
           </Badge>

@@ -1,18 +1,13 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { GetBiContributorsPortParams, GetBiContributorsQueryParams } from "@/core/domain/bi/bi-contract.types";
+import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+import { GetBiContributorsPortParams } from "@/core/domain/bi/bi-contract.types";
 
 import { Accordion } from "@/design-system/molecules/accordion";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
-import { ShowMore } from "@/shared/components/show-more/show-more";
 import { ContributorProfileCheckbox } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox";
 import { ContributorProfileCheckboxLoading } from "@/shared/features/contributors/contributor-profile-checkbox/contributor-profile-checkbox.loading";
-import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
-import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
-import { FilterData } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data";
-import { useSelectableContributorsFilterDataSidePanel } from "@/shared/panels/_flows/reward-flow/_panels/_components/selectable-contributors-accordion/_components/filter-data/filter-data.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
 import { TypographyMuted } from "@/shared/ui/typography";
 
@@ -23,35 +18,36 @@ export type SelectableContributorsFilters = Omit<
 
 export function SelectableContributorsAccordion() {
   const { selectedGithubUserIds, addContributorId, removeContributorId } = useRewardFlow();
-  const [filters, setFilters] = useState<SelectableContributorsFilters>({});
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
 
-  const localSelectedContributorsIds = useRef(selectedGithubUserIds);
+  const { data, isLoading } = UserReactQueryAdapter.client.useSearchUser({
+    queryParams: {
+      login: debouncedSearch,
+    },
+    options: {
+      enabled: Boolean(selectedGithubUserIds),
+    },
+  });
 
-  const { open: openFilterPanel } = useSelectableContributorsFilterDataSidePanel();
+  const contributors = useMemo(
+    () => [...(data?.internalContributors ?? []), ...(data?.externalContributors ?? [])],
+    [data]
+  );
 
-  const queryParams: Partial<GetBiContributorsQueryParams> = {
-    search: debouncedSearch,
-    contributorIds: localSelectedContributorsIds.current,
-    ...filters,
-  };
-
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
-    BiReactQueryAdapter.client.useGetBiContributors({
-      queryParams: {
-        ...queryParams,
-      },
-      options: {
-        enabled: Boolean(selectedGithubUserIds),
-      },
-    });
-
-  const contributors = useMemo(() => data?.pages.flatMap(page => page.contributors) ?? [], [data]);
-
-  function handleSelectedContributors(contributorId: number, checked: boolean) {
+  function handleSelectedContributors({
+    checked,
+    contributorId,
+    avatarUrl,
+    login,
+  }: {
+    checked: boolean;
+    contributorId: number;
+    avatarUrl?: string;
+    login?: string;
+  }) {
     if (checked) {
-      addContributorId(contributorId);
+      addContributorId({ contributorId, avatarUrl, login });
     } else {
       removeContributorId(contributorId);
     }
@@ -59,14 +55,7 @@ export function SelectableContributorsAccordion() {
 
   const renderContributors = useMemo(() => {
     if (isLoading) {
-      return (
-        <>
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-          <ContributorProfileCheckboxLoading />
-        </>
-      );
+      return Array.from({ length: 5 }).map((_, index) => <ContributorProfileCheckboxLoading key={index} />);
     }
 
     if (!contributors.length) {
@@ -83,25 +72,28 @@ export function SelectableContributorsAccordion() {
       <>
         {contributors.map(contributor => (
           <ContributorProfileCheckbox
-            key={contributor.contributor.githubUserId}
-            contributor={contributor}
-            value={selectedGithubUserIds?.includes(contributor.contributor.githubUserId)}
-            onChange={checked => handleSelectedContributors(contributor.contributor.githubUserId, checked)}
+            key={contributor.githubUserId}
+            avatarUrl={contributor.avatarUrl}
+            login={contributor.login}
+            value={selectedGithubUserIds?.includes(contributor.githubUserId)}
+            onChange={checked =>
+              handleSelectedContributors({
+                checked,
+                contributorId: contributor.githubUserId,
+                avatarUrl: contributor.avatarUrl,
+                login: contributor.login,
+              })
+            }
           />
         ))}
-        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
       </>
     );
   }, [contributors, isLoading, selectedGithubUserIds]);
 
   return (
-    <FilterDataProvider filters={filters} setFilters={setFilters}>
-      <section className={"flex flex-col gap-lg"}>
-        <nav className={"flex gap-md"}>
-          <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
-          <FilterButton onClick={openFilterPanel} />
-        </nav>
-      </section>
+    <>
+      <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
+
       <Accordion
         classNames={{ base: "flex flex-col gap-3" }}
         id={"contributors"}
@@ -114,7 +106,6 @@ export function SelectableContributorsAccordion() {
       >
         <div className="flex flex-col gap-2">{renderContributors}</div>
       </Accordion>
-      <FilterData />
-    </FilterDataProvider>
+    </>
   );
 }

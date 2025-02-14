@@ -1,5 +1,9 @@
 "use client";
 
+import { AvailableIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/available-issues/available-issues";
+import { GoodFirstIssues } from "@/app/(saas)/projects/[projectSlug]/overview/_features/good-first-issues/good-first-issues";
+import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
@@ -9,8 +13,10 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
-import { Stats } from "./_features/stats/stats";
+import { Languages } from "./_features/languages/languages";
+import { SimilarProjects } from "./_features/similar-projects/similar-projects";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
@@ -54,14 +60,44 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         ]}
       />
 
-      <Stats
-        contributors={data?.contributorCount}
-        prMerged={data?.mergedPrCount}
-        stars={data?.starCount}
-        issues={data?.availableIssueCount}
-      />
+      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+        {data?.overview && (
+          <div className="col-span-full">
+            <Description
+              description={data?.overview}
+              projectId={data?.id}
+              title={"Overview by OnlyDust"}
+              isAiGenerated
+            />
+          </div>
+        )}
+        {data?.longDescription && (
+          <div className="col-span-full">
+            <Description description={data?.longDescription} projectId={data?.id} title={"Description"} />
+          </div>
+        )}
+        <div className="grid lg:col-span-1">
+          <Languages projectId={data?.id} />
+        </div>
+        <div className="grid lg:col-span-3">
+          <ActivityGraph />
+        </div>
+        <div className="grid lg:col-span-2">
+          <GoodFirstIssues projectId={data?.id} />
+        </div>
 
-      <Description description={data?.longDescription} />
+        <div className="grid lg:col-span-2">
+          <AvailableIssues projectId={data?.id} />
+        </div>
+
+        <div className="grid lg:col-span-2">
+          <RecentActivity projectId={data?.id} />
+        </div>
+
+        <div className="grid lg:col-span-2">
+          <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
+        </div>
+      </div>
     </ScrollView>
   );
 }

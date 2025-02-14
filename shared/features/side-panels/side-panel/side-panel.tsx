@@ -19,6 +19,7 @@ import { AnyType } from "@/core/kernel/types";
 
 import { Paper } from "@/design-system/atoms/paper";
 
+import { useClientOnly } from "@/shared/components/client-only/client-only";
 import { SIDE_PANEL_ANIMATION_DURATION, useSidePanelsContext } from "@/shared/features/side-panels/side-panels.context";
 import { SidePanelConfig } from "@/shared/features/side-panels/side-panels.types";
 import { cn } from "@/shared/helpers/cn";
@@ -30,6 +31,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
   { children, name, classNames }: SidePanelProps,
   ref: ForwardedRef<SidePanelRef>
 ) {
+  const isClient = useClientOnly();
   const { open, close, container, isOpen, isOpenLast, getPanelIndex, getConfig, back, openedPanels, getData } =
     useSidePanelsContext();
 
@@ -87,13 +89,15 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
     }
   }, [openedPanels, isOpen, name]);
 
+  if (!isClient) return null;
+
   return (
     <>
       {isOpenLast(name) &&
         isTablet &&
         createPortal(
           <div className={"bg-container-backdrop fixed inset-0 size-full"} onClick={() => close(name)} />,
-          document.body
+          document?.body
         )}
       {createPortal(
         <motion.div
@@ -131,7 +135,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
             {panelContent}
           </Paper>
         </motion.div>,
-        !isTablet ? container.current || document.body : document.body
+        !isTablet ? container.current || document?.body : document?.body
       )}
     </>
   );

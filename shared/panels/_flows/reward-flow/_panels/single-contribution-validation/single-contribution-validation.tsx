@@ -1,15 +1,16 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
+import { TimelineContribution } from "@/design-system/molecules/timeline-contribution";
 
+import { ContributorCard } from "@/shared/features/contributors/contributor-card/contributor-card";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
 import { useSidePanel } from "@/shared/features/side-panels/side-panel/side-panel";
-import { UserProfileCard } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-profile-card/user-profile-card";
 import { AmountSelectorSummary } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/_components/amount-selector-summary/amount-selector-summary";
 import { useSingleContributionValidation } from "@/shared/panels/_flows/reward-flow/_panels/single-contribution-validation/single-contribution-validation.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
@@ -20,6 +21,8 @@ function Content() {
   const {
     getSelectedContributions,
     selectedGithubUserIds,
+    getAvatarUrl,
+    getLogin,
     updateAmount,
     getAmount,
     onCreateRewards,
@@ -28,6 +31,8 @@ function Content() {
   } = useRewardFlow();
 
   const [selectedGithubUserId] = selectedGithubUserIds ?? [];
+  const avatarUrl = getAvatarUrl(selectedGithubUserId);
+  const login = getLogin(selectedGithubUserId);
   const selectedContributions = getSelectedContributions(selectedGithubUserId);
   const otherWorks = getOtherWorks(selectedGithubUserId);
   const { amount, budget } = getAmount(selectedGithubUserId);
@@ -71,37 +76,41 @@ function Content() {
     }
   }
 
-  function getTimelineContributionProps() {
+  const renderTimelineContribution = useCallback(() => {
     if (!isLoading && Boolean(contributions)) {
-      return {
-        titleProps: {
-          children: (
-            <>
-              <Translate token={"common:contributions"} /> ({selectedContributions?.length})
-            </>
-          ),
-        },
-        contributions: [
-          ...contributions.map(c => ({
-            githubTitle: c.githubTitle,
-            contributionBadgeProps: {
-              type: c.type,
-              githubStatus: c.githubStatus,
-              number: c.githubNumber,
-            },
-          })),
-          ...selectedOtherWork.map(c => ({
-            githubTitle: c.title,
-            contributionBadgeProps: {
-              type: c.type,
-              githubStatus: c.status,
-              number: c.number,
-            },
-          })),
-        ],
-      };
+      return (
+        <TimelineContribution
+          titleProps={{
+            children: (
+              <>
+                <Translate token={"common:contributions"} /> ({selectedContributions?.length})
+              </>
+            ),
+          }}
+          contributions={[
+            ...contributions.map(c => ({
+              githubTitle: c.githubTitle,
+              contributionBadgeProps: {
+                type: c.type,
+                githubStatus: c.githubStatus,
+                number: c.githubNumber,
+              },
+            })),
+            ...selectedOtherWork.map(c => ({
+              githubTitle: c.title,
+              contributionBadgeProps: {
+                type: c.type,
+                githubStatus: c.status,
+                number: c.number,
+              },
+            })),
+          ]}
+        />
+      );
     }
-  }
+
+    return null;
+  }, [isLoading, contributions, selectedOtherWork]);
 
   return (
     <>
@@ -116,10 +125,9 @@ function Content() {
       />
 
       <SidePanelBody>
-        <UserProfileCard
-          timelineContributionProps={getTimelineContributionProps()}
-          githubUserId={selectedGithubUserId}
-        />
+        <ContributorCard avatarUrl={avatarUrl} login={login}>
+          {renderTimelineContribution()}
+        </ContributorCard>
 
         <AmountSelectorSummary
           amount={amount}

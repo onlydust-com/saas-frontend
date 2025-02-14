@@ -66,8 +66,10 @@ import { UrlFacadePort } from "@/core/kernel/url/url-facade-port";
 import { ValidationAdapter } from "@/core/kernel/validation/validation-adapter";
 import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade-port";
 
+import { BookmarkStoragePort } from "../domain/bookmark/outputs/bookmark-storage-port";
 import { ContributorStoragePort } from "../domain/contributor/outputs/contributor-storage-port";
 import { HackathonStoragePort } from "../domain/hackathon/outputs/hackathon-storage-port";
+import { BookmarkClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/bookmark-client-adapter";
 import { ContributorClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/contributor-client-adapter";
 import { HackathonClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/hackathon-client-adapter";
 import { MarkdownAdapter } from "../kernel/markdown/markdown-adapter";
@@ -120,6 +122,8 @@ export interface BootstrapConstructor {
   hackathonStoragePortForServer: HackathonStoragePort;
   contributorStoragePortForClient: ContributorStoragePort;
   contributorStoragePortForServer: ContributorStoragePort;
+  bookmarkStoragePortForClient: BookmarkStoragePort;
+  bookmarkStoragePortForServer: BookmarkStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -186,6 +190,8 @@ export class Bootstrap {
   hackathonStoragePortForServer: HackathonStoragePort;
   contributorStoragePortForClient: ContributorStoragePort;
   contributorStoragePortForServer: ContributorStoragePort;
+  bookmarkStoragePortForClient: BookmarkStoragePort;
+  bookmarkStoragePortForServer: BookmarkStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -248,6 +254,8 @@ export class Bootstrap {
     this.hackathonStoragePortForServer = constructor.hackathonStoragePortForServer;
     this.contributorStoragePortForClient = constructor.contributorStoragePortForClient;
     this.contributorStoragePortForServer = constructor.contributorStoragePortForServer;
+    this.bookmarkStoragePortForClient = constructor.bookmarkStoragePortForClient;
+    this.bookmarkStoragePortForServer = constructor.bookmarkStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.socialKernelPort = constructor.socialKernelPort;
@@ -464,6 +472,14 @@ export class Bootstrap {
     return this.contributorStoragePortForServer;
   }
 
+  getBookmarkStoragePortForClient() {
+    return this.bookmarkStoragePortForClient;
+  }
+
+  getBookmarkStoragePortForServer() {
+    return this.bookmarkStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -569,6 +585,8 @@ export class Bootstrap {
         hackathonStoragePortForServer: new HackathonClientAdapter(new FetchHttpClient()),
         contributorStoragePortForClient: new ContributorClientAdapter(new FetchHttpClient()),
         contributorStoragePortForServer: new ContributorClientAdapter(new FetchHttpClient()),
+        bookmarkStoragePortForClient: new BookmarkClientAdapter(new FetchHttpClient()),
+        bookmarkStoragePortForServer: new BookmarkClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         socialKernelPort: new SocialAdapter(),

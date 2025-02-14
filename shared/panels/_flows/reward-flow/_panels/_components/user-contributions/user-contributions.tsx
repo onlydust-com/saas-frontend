@@ -67,6 +67,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         hasBeenRewarded: false,
         ids: selectedContributions.filter(c => !!c.uuid).map(contribution => contribution.uuid) as string[],
         pageSize: 50,
+        dataSource: "ALL",
       },
       options: {
         enabled: Boolean(githubUserId),
@@ -80,6 +81,7 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
         contributorIds: [githubUserId],
         statuses: ["DONE"],
         hasBeenRewarded: false,
+        dataSource: "ALL",
       },
       options: {
         enabled: Boolean(githubUserId),
