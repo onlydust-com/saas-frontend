@@ -110,7 +110,7 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
       className="transition-opacity hover:opacity-80"
       onClick={onClick}
     >
-      <Card className="bg-stack flex flex-col items-start gap-4 p-4">
+      <Card className="flex flex-col items-start gap-4 bg-stack p-4">
         <div className="flex items-center gap-4">
           <Avatar className="size-10 rounded-xl border">
             <AvatarImage src={logoUrl} />
