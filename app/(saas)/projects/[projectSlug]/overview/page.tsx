@@ -15,6 +15,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
+import { Languages } from "./_features/languages/languages";
 import { SimilarProjects } from "./_features/similar-projects/similar-projects";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
@@ -59,21 +60,31 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
         ]}
       />
 
-      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden md:grid-cols-2 lg:grid-cols-4">
         <div className="col-span-full">
           <Description description={data?.longDescription} projectId={data?.id} />
         </div>
-        <div className="col-span-full">
+        <div className="grid md:col-span-full lg:col-span-1">
+          <Languages projectId={data?.id} />
+        </div>
+        <div className="grid md:col-span-full lg:col-span-3">
           <ActivityGraph />
         </div>
+        <div className="grid md:col-span-full lg:col-span-2">
+          <GoodFirstIssues projectId={data?.id} />
+        </div>
 
-        <GoodFirstIssues projectId={data?.id} />
+        <div className="grid md:col-span-full lg:col-span-2">
+          <AvailableIssues projectId={data?.id} />
+        </div>
 
-        <AvailableIssues projectId={data?.id} />
+        <div className="grid md:col-span-full lg:col-span-2">
+          <RecentActivity projectId={data?.id} />
+        </div>
 
-        <RecentActivity projectId={data?.id} />
-
-        <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
+        <div className="grid md:col-span-full lg:col-span-2">
+          <SimilarProjects projectIdOrSlug={params.projectSlug} projectId={data?.id} />
+        </div>
       </div>
     </ScrollView>
   );
