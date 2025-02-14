@@ -41,6 +41,8 @@ export function Description({ description, projectId }: DescriptionProps) {
     setIsExpanded(newValue);
   }
 
+  if (!description) return null;
+
   return (
     <Card className={"relative flex flex-col gap-4 p-4"}>
       <TypographyH3>Description</TypographyH3>
