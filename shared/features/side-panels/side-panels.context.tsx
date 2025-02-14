@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 import { AnyType } from "@/core/kernel/types";
 
@@ -12,6 +12,7 @@ import {
 } from "@/shared/features/side-panels/side-panels.types";
 import { cn } from "@/shared/helpers/cn";
 import { useIsTablet } from "@/shared/hooks/ui/use-media-query";
+import { useIntercom } from "@/shared/intercom/intercom.context";
 
 const defaultConfig: SidePanelConfig = {
   width: SIDE_PANEL_SIZE.m,
@@ -37,6 +38,7 @@ export const SidePanelsContext = createContext<SidePanelsContextInterface>({
 });
 
 export function SidePanelsProvider({ children, classNames, absolute }: SidePanelsContextProps) {
+  const { hideIntercomLauncher, showIntercomLauncher } = useIntercom();
   const [openedPanels, setOpenedPanels] = useState<string[]>([]);
   const [openedPanelsConfigs, setOpenedPanelsConfig] = useState<Record<string, SidePanelConfig>>();
   const [data, setData] = useState<[string, AnyType][]>([]);
@@ -141,6 +143,14 @@ export function SidePanelsProvider({ children, classNames, absolute }: SidePanel
     }
 
     return getConfig(openedPanels.at(-1) as string);
+  }, [openedPanels]);
+
+  useEffect(() => {
+    if (openedPanels.length === 0) {
+      showIntercomLauncher();
+    } else {
+      hideIntercomLauncher();
+    }
   }, [openedPanels]);
 
   return (

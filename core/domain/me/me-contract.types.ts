@@ -214,3 +214,25 @@ export type SetMyNotificationSettingsForProjectPortResponse = HttpStorageRespons
   never,
   SetMyNotificationSettingsForProjectBody
 >;
+
+/* --------------------------------- Start chat -------------------------------- */
+
+export type StartChatResponse = components["schemas"]["StartChatResponse"];
+
+export type StartChatPortResponse = HttpStorageResponse<StartChatResponse>;
+
+export type StartChatPortParams = HttpClientParameters<object>;
+
+/* --------------------------------- Continue chat -------------------------------- */
+
+export type ContinueChatBody = components["schemas"]["ContinueChatRequest"];
+
+export type ContinueChatResponse = components["schemas"]["ContinueChatResponse"];
+
+export type ContinueChatPathParams = operations["continueChat"]["parameters"]["path"];
+
+export type ContinueChatPortParams = HttpClientParameters<{
+  PathParams: ContinueChatPathParams;
+}>;
+
+export type ContinueChatPortResponse = HttpStorageResponse<ContinueChatResponse>;

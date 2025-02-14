@@ -1,4 +1,6 @@
 import {
+  ContinueChatPortParams,
+  ContinueChatPortResponse,
   GetMeResponsePortParams,
   GetMeResponsePortResponse,
   GetMyHackathonRegistrationPortParams,
@@ -35,6 +37,8 @@ import {
   SetMyPayoutPreferenceForProjectPortResponse,
   SetMyProfilePortParams,
   SetMyProfilePortResponse,
+  StartChatPortParams,
+  StartChatPortResponse,
   UploadProfilePicturePortParams,
   UploadProfilePicturePortResponse,
 } from "@/core/domain/me/me-contract.types";
@@ -65,4 +69,6 @@ export interface MeFacadePort {
   setMyNotificationSettingsForProject(
     params: SetMyNotificationSettingsForProjectPortParams
   ): SetMyNotificationSettingsForProjectPortResponse;
+  startChat(params: StartChatPortParams): StartChatPortResponse;
+  continueChat(params: ContinueChatPortParams): ContinueChatPortResponse;
 }

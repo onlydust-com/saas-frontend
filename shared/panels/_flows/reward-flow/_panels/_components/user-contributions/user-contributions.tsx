@@ -1,6 +1,5 @@
-import { CircleCheck, Plus } from "lucide-react";
-import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { CircleCheck } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import {
@@ -18,11 +17,8 @@ import {
   CardContributionKanban,
   CardContributionKanbanLoading,
 } from "@/design-system/molecules/cards/card-contribution-kanban";
-import { Menu } from "@/design-system/molecules/menu";
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { TableSearch } from "@/design-system/molecules/table-search";
 
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
@@ -36,6 +32,7 @@ import { useCreateContributionSidepanel } from "@/shared/panels/_flows/reward-fl
 import { LinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel";
 import { useLinkContributionSidepanel } from "@/shared/panels/_flows/reward-flow/_panels/link-contribution-sidepanel/link-contribution-sidepanel.hooks";
 import { useRewardFlow } from "@/shared/panels/_flows/reward-flow/reward-flow.context";
+import { TypographyMuted } from "@/shared/ui/typography";
 
 export type UserContributionsFilters = Omit<
   NonNullable<GetContributionsPortParams["queryParams"]>,
@@ -43,8 +40,6 @@ export type UserContributionsFilters = Omit<
 >;
 
 export function UserContributions({ githubUserId, containerHeight = undefined }: UserContributionsProps) {
-  const { t } = useTranslation("panels");
-
   const { getSelectedContributions, addContributions, removeContribution, removeAllContributions, getOtherWorks } =
     useRewardFlow();
   const [filters, setFilters] = useState<UserContributionsFilters>({
@@ -57,31 +52,6 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
   const { open: openFilterPanel } = useUserContributionsFilterDataSidePanel();
   const { open: openLinkContributionPanel } = useLinkContributionSidepanel();
   const { open: openCreateContributionPanel } = useCreateContributionSidepanel();
-
-  const menuItems: MenuItemPort[] = [
-    {
-      id: "link",
-      label: t("rewardFlow.contribution.link"),
-    },
-    {
-      id: "create",
-      label: t("rewardFlow.contribution.create"),
-    },
-  ];
-
-  function handleMenuAction(id: string) {
-    if (id === "link") {
-      openLinkContributionPanel({
-        githubUserId,
-      });
-    }
-
-    if (id === "create") {
-      openCreateContributionPanel({
-        githubUserId,
-      });
-    }
-  }
 
   const queryParams: Partial<GetContributionsQueryParams> = {
     search: debouncedSearch,
@@ -164,7 +134,19 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
       return <ErrorState />;
     }
 
-    if (!contributions.length && !otherWorks.length) return <EmptyStateLite />;
+    if (!contributions.length && !otherWorks.length) {
+      return (
+        <div className="flex flex-col items-center gap-md py-10">
+          <TypographyMuted className="text-center">
+            This contributor doesn't seem to have any contributions.
+            <br />
+            You can link or create a contribution to reward them.
+          </TypographyMuted>
+
+          {renderActions()}
+        </div>
+      );
+    }
 
     return (
       <div className={"grid gap-lg"}>
@@ -230,49 +212,52 @@ export function UserContributions({ githubUserId, containerHeight = undefined }:
     );
   }
 
+  const renderActions = useCallback(() => {
+    return (
+      <div className="flex gap-md">
+        <Button variant={"secondary"} size={"xs"} onClick={() => openLinkContributionPanel({ githubUserId })}>
+          Link other PR, issues
+        </Button>
+
+        <Button variant={"secondary"} size={"xs"} onClick={() => openCreateContributionPanel({ githubUserId })}>
+          Create a contribution
+        </Button>
+      </div>
+    );
+  }, [openLinkContributionPanel, openCreateContributionPanel, githubUserId]);
+
   return (
     <FilterDataProvider filters={filters} setFilters={setFilters}>
       <section className={"flex flex-col gap-lg"}>
-        <header className={"flex items-center justify-between gap-lg"}>
-          <div className={"flex items-center gap-xs"}>
-            <Icon component={CircleCheck} size={"sm"} />
-            <Typo
-              size={"md"}
-              weight={"medium"}
-              translate={{
-                token: "common:contributions",
-              }}
-            />
+        <header className={"flex items-center gap-xs"}>
+          <Icon component={CircleCheck} size={"sm"} />
+          <Typo
+            size={"md"}
+            weight={"medium"}
+            translate={{
+              token: "common:contributions",
+            }}
+          />
 
-            {!isLoading ? (
-              <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
-                {totalMixedContributionsNumber}
-              </Badge>
-            ) : null}
-          </div>
-
-          <div className="flex items-center gap-md">
-            <Button
-              variant={"secondary"}
-              size={"xs"}
-              translate={{
-                token: canClearSelection ? "common:clearSelection" : "common:selectAll",
-              }}
-              onClick={handleToggleSelectAll}
-            />
-
-            <Menu isPopOver closeOnSelect items={menuItems} onAction={handleMenuAction} placement="bottom-end">
-              <Button
-                variant={"secondary"}
-                size={"xs"}
-                iconOnly
-                startIcon={{
-                  component: Plus,
-                }}
-              />
-            </Menu>
-          </div>
+          {!isLoading ? (
+            <Badge size={"xxs"} color={"grey"} shape={"rounded"}>
+              {totalMixedContributionsNumber}
+            </Badge>
+          ) : null}
         </header>
+
+        <div className="flex justify-between gap-md">
+          <Button
+            variant={"secondary"}
+            size={"xs"}
+            translate={{
+              token: canClearSelection ? "common:clearSelection" : "common:selectAll",
+            }}
+            onClick={handleToggleSelectAll}
+          />
+
+          {renderActions()}
+        </div>
 
         <nav className={"flex gap-md"}>
           <TableSearch value={search} onChange={setSearch} onDebouncedChange={setDebouncedSearch} />
