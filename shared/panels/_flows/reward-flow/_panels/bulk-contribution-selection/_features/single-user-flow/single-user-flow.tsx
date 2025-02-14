@@ -1,11 +1,9 @@
 import { useState } from "react";
 
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { DetailedTotalMoneyTotalPerCurrency } from "@/core/kernel/money/money.types";
 
 import { Avatar } from "@/design-system/atoms/avatar";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { Accordion } from "@/design-system/molecules/accordion";
 
 import { UserContributions } from "@/shared/panels/_flows/reward-flow/_panels/_components/user-contributions/user-contributions";
@@ -17,16 +15,11 @@ import { SingleUserFlowProps } from "./single-user-flow.types";
 export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefaultOpen }: SingleUserFlowProps) {
   const [isOpen, setIsOpen] = useState(isDefaultOpen);
   const [step, setStep] = useState<"select" | "amount">("select");
-  const { getAmount, updateAmount, removeAmount, getSelectedContributions } = useRewardFlow();
+  const { getAmount, updateAmount, removeAmount, getSelectedContributions, getAvatarUrl, getLogin } = useRewardFlow();
   const selectedContributions = getSelectedContributions(githubUserId);
   const { amount, budget } = getAmount(githubUserId);
-
-  const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
-    pathParams: { githubId: githubUserId },
-    options: {
-      enabled: Boolean(githubUserId),
-    },
-  });
+  const avatarUrl = getAvatarUrl(githubUserId);
+  const login = getLogin(githubUserId);
 
   function handleAmountChange(amount: string) {
     if (budget?.currency.id) {
@@ -38,10 +31,6 @@ export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefa
     if (budget?.currency.id) {
       updateAmount(githubUserId, { budget, amount });
     }
-  }
-
-  if (isLoading) {
-    return <Skeleton classNames={{ base: "h-[72px]" }} />;
   }
 
   function handleBack() {
@@ -68,8 +57,6 @@ export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefa
     }
   }
 
-  if (!data || isError) return null;
-
   const accordionKey = `bulk-user-${githubUserId}`;
 
   return (
@@ -80,8 +67,8 @@ export function SingleUserFlow({ githubUserId, onValidate, isAmountValid, isDefa
         selectedKeys: [isOpen ? accordionKey : ""],
         onSelectionChange: () => setIsOpen(prev => !prev),
       }}
-      titleProps={{ children: data.login }}
-      startContent={<Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />}
+      titleProps={{ children: login }}
+      startContent={<Avatar size={"xxs"} shape={"squared"} src={avatarUrl} />}
     >
       {step === "select" && <UserContributions githubUserId={githubUserId} containerHeight={392} />}
       {step === "amount" && (

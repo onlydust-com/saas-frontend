@@ -28,6 +28,7 @@ function Content() {
             token: "panels:singleContributionSelection.title",
           },
         }}
+        canGoBack
         canClose
       />
 

@@ -1,8 +1,6 @@
-import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { bootstrap } from "@/core/bootstrap";
 
 import { Avatar } from "@/design-system/atoms/avatar";
-import { Skeleton } from "@/design-system/atoms/skeleton";
 import { CardBudgetType } from "@/design-system/molecules/cards/card-budget";
 
 import { CardBudgetAccordion } from "@/shared/features/card-budget-accordion/card-budget-accordion";
@@ -13,25 +11,16 @@ import { SingleUserSummaryProps } from "./single-user-summary.types";
 
 export function SingleUserSummary({ githubUserId }: SingleUserSummaryProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const { getAmount } = useRewardFlow();
+  const { getAmount, getAvatarUrl, getLogin } = useRewardFlow();
   const { amount, budget } = getAmount(githubUserId);
   const money = moneyKernelPort.format({
     amount: parseFloat(amount),
     currency: budget?.currency,
   });
+  const avatarUrl = getAvatarUrl(githubUserId);
+  const login = getLogin(githubUserId);
 
-  const { data, isLoading, isError } = UserReactQueryAdapter.client.useGetUserById({
-    pathParams: { githubId: githubUserId },
-    options: {
-      enabled: Boolean(githubUserId),
-    },
-  });
-
-  if (isLoading) {
-    return <Skeleton classNames={{ base: "h-[72px]" }} />;
-  }
-
-  if (!data || isError || !budget) return null;
+  if (!budget) return null;
 
   const usdConversionRate = budget.usdConversionRate ?? 0;
   const allocatedAmount = parseFloat(amount);
@@ -44,9 +33,9 @@ export function SingleUserSummary({ githubUserId }: SingleUserSummaryProps) {
         {
           id: `bulk-user-summary-${githubUserId}`,
           titleProps: {
-            children: `${data.login} • ${money.amount} ${money.code}`,
+            children: `${login} • ${money.amount} ${money.code}`,
           },
-          startContent: <Avatar size={"xxs"} shape={"squared"} src={data.avatarUrl} />,
+          startContent: <Avatar size={"xxs"} shape={"squared"} src={avatarUrl} />,
           cards: [
             {
               amount: {
