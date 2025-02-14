@@ -49,7 +49,7 @@ export const QuestListData: QuestList[] = [
   },
   {
     id: "f7a9c2b4-e6d8-4153-b9a7-2c8f5d3e91a0",
-    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    bannerUrl: "https://www.starknet.africa/assets/bg.png",
     projectSlug: "attensys",
     name: "Integrating the graph into attensys in Attensys explorer",
     shortDescription:
@@ -89,11 +89,8 @@ export const QuestListData: QuestList[] = [
     },
     requiredSkills: ["typescript", "cairo", "graphql"],
     startDate: "2025-02-21",
-    endDate: "2025-03-14",
-    issues: [
-      2806321584, 2806627562, 2806321584, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780,
-      2806375535, 2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
-    ],
-    maintainers: [144677881],
+    endDate: "2025-02-28",
+    issues: [2852935797, 2852932988, 2852931887],
+    maintainers: [112096641],
   },
 ];
