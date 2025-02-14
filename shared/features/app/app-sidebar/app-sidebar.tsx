@@ -10,13 +10,15 @@ import { ProgramGroup } from "@/shared/features/app/app-sidebar/groups/program-g
 import { SponsorGroup } from "@/shared/features/app/app-sidebar/groups/sponsor-group";
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail, useSidebar } from "@/shared/ui/sidebar";
 
+import { BookmarksGroup } from "./groups/bookmarks-group";
+
 export function AppSidebar() {
   const { state } = useSidebar();
 
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="z-[100]">
       <SidebarHeader className="flex h-16 justify-center">
         {isCollapsed ? (
           <Image src={logo} alt={"OnlyDust"} width={24} height={24} className="self-center" />
@@ -37,6 +39,8 @@ export function AppSidebar() {
         <ProgramGroup />
 
         <SponsorGroup />
+
+        <BookmarksGroup />
       </SidebarContent>
 
       <SidebarRail />
