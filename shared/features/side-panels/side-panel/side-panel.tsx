@@ -96,7 +96,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
       {isOpenLast(name) &&
         isTablet &&
         createPortal(
-          <div className={"bg-container-backdrop fixed inset-0 size-full"} onClick={() => close(name)} />,
+          <div className={"bg-container-backdrop fixed inset-0 z-[99] size-full"} onClick={() => close(name)} />,
           document?.body
         )}
       {createPortal(
@@ -106,7 +106,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
           transition={{ type: "ease", duration: SIDE_PANEL_ANIMATION_DURATION }}
           initial={false}
           className={cn(
-            "absolute right-0 z-50 translate-x-full overflow-hidden opacity-0",
+            "absolute right-0 z-[100] translate-x-full overflow-hidden opacity-0",
             { "top-0 h-full translate-x-full": !isTablet },
             { "fixed bottom-0 h-[calc(100%_-_64px)] translate-y-full p-md": isTablet },
             { invisible: !isOpenLast(name) },
@@ -115,7 +115,7 @@ export const SidePanel = forwardRef(function SidePanel<T extends AnyType>(
           style={{
             minWidth: isTablet ? "100%" : `${panelConfig.width}rem`,
             width: isTablet ? "100%" : `${panelConfig.width}rem`,
-            zIndex: getPanelIndex(name) ?? 1,
+            zIndex: getPanelIndex(name) * 100,
           }}
         >
           <Paper

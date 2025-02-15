@@ -32,7 +32,7 @@ export function AppUserMenu() {
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-36" align="end">
+      <DropdownMenuContent className="z-[70] w-36" align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href={NEXT_ROUTER.settings.root}>Settings</Link>

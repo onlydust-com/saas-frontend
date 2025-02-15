@@ -174,7 +174,7 @@ export function SidePanelsProvider({ children, classNames, absolute }: SidePanel
         <div className={classNames?.column}>
           {!absolute && (
             <div
-              className={cn("pointer-events-none fixed inset-0 z-50 bg-background-primary opacity-0 transition-all", {
+              className={cn("pointer-events-none fixed inset-0 z-[99] bg-background-primary opacity-0 transition-all", {
                 "pointer-events-auto opacity-60": openedPanels?.length,
               })}
               onClick={() => closePanel()}

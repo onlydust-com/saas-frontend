@@ -18,7 +18,7 @@ export function AppSidebar() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar collapsible="icon" className="z-[100]">
+    <Sidebar collapsible="icon" className="z-[70]">
       <SidebarHeader className="flex h-16 justify-center">
         {isCollapsed ? (
           <Image src={logo} alt={"OnlyDust"} width={24} height={24} className="self-center" />
