@@ -72,6 +72,7 @@ export function IntercomProvider({ children }: PropsWithChildren) {
             email: user?.email,
             user_hash: data.hash,
             custom_launcher_selector: "intercom-launcher",
+            z_index: 40, // Needs to be below the side panels
           });
         })
         .catch(() => {

@@ -14,7 +14,7 @@ export function NotificationsPopover() {
       <PopoverTrigger>
         <NotificationsButton />
       </PopoverTrigger>
-      <PopoverContent className="h-[400px] w-[100dvw] sm:w-[560px]" align="end">
+      <PopoverContent className="z-[70] h-[400px] w-[100dvw] sm:w-[560px]" align="end">
         <NotificationsContent onClose={() => setIsOpen(false)} />
       </PopoverContent>
     </Popover>
