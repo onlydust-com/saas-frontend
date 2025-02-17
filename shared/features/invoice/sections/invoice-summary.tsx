@@ -59,7 +59,7 @@ export function InvoiceSummary({
                       amount: item.amount.target.conversionRate,
                       currency: item.amount.target.currency,
                     }).amount
-                  }*`}</Text>
+                  } ${moneyKernelPort.getCurrency("USD").code}*`}</Text>
                 </View>
                 {/*  USD equivalent  */}
                 <Text style={invoiceStyles.td}>
