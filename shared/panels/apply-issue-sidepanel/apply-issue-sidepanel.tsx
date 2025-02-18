@@ -22,6 +22,7 @@ import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { ApplyCounter } from "@/shared/features/issues/apply-counter/apply-counter";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -29,6 +30,8 @@ import { SidePanelLoading } from "@/shared/features/side-panels/side-panel-loadi
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Github } from "@/shared/icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Card, CardDescription } from "@/shared/ui/card";
+import { TypographyH4 } from "@/shared/ui/typography";
 
 import { Apply } from "./_components/apply/apply";
 import { Metrics } from "./_components/metrics/metrics";
@@ -263,11 +266,20 @@ function Content() {
       >
         <Header issue={issue} canGoBack={canGoBack} />
 
-        <SidePanelBody>
-          <Metrics issue={issue} />
-          <Summary issue={issue} />
-          {/* // TODO MAKE OD HACK CARD */}
-          <Apply />
+        <SidePanelBody className="justify-between">
+          <div className="flex w-full flex-col gap-3">
+            <Metrics issue={issue} />
+            <Summary issue={issue} />
+            {/* // TODO MAKE OD HACK CARD */}
+            <Apply />
+          </div>
+          <Card className="flex w-full flex-col gap-4 p-4">
+            <div className="flex flex-col items-start gap-1">
+              <TypographyH4>My applications limit</TypographyH4>
+              <CardDescription>You can apply to 10 issues at a time.</CardDescription>
+            </div>
+            <ApplyCounter />
+          </Card>
         </SidePanelBody>
         <Footer
           hasCurrentUserApplication={hasCurrentUserApplication}
