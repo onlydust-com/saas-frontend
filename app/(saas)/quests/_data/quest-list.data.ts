@@ -92,4 +92,44 @@ export const QuestListData: QuestList[] = [
     issues: [2852935797, 2852932988, 2852931887],
     maintainers: [112096641],
   },
+  {
+    id: "d8e47c3a-9f12-4b85-ae31-f59d76c24e08",
+    bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/scaffold-rust.png",
+    projectSlug: "scaffold-rust",
+    name: "Marketplace template with escrows",
+    shortDescription:
+      "This milestone involves building an end-to-end marketplace solution that integrates both the front end (user interface) and the back end (server and blockchain logic). The smart contracts, written in Soroban Rust, focus primarily on creating robust escrow mechanisms.",
+    longDescription: {
+      title: "Marketplace template with escrows",
+      description:
+        "This milestone involves building an end-to-end marketplace solution that integrates both the front end (user interface) and the back end (server and blockchain logic). The smart contracts, written in Soroban Rust, focus primarily on creating robust escrow mechanisms. In essence, this milestone lays the foundation for a secure, efficient, and trustworthy marketplace by combining a full stack template with smart, secure escrow contracts.",
+      requirements: [
+        "Full Stack Marketplace Template: Developing a complete template that covers everything from the user interface to the backend infrastructure.",
+        "Smart Contracts in Soroban Rust: Implementing blockchain logic using Soroban, which leverages Rust's performance and safety.",
+        "Escrow Functionality: Designing contracts that securely hold funds during transactions. Funds remain in escrow until all agreed conditions are met, ensuring both buyers and sellers are protected.",
+      ],
+      warning: "",
+      links: ["https://github.com/ScaffoldRust/sr_Template_Marketplace/milestone/1"],
+    },
+    wantedProfiles: {
+      junior: {
+        provided: [],
+        wanted: 1,
+      },
+      senior: {
+        provided: [],
+        wanted: 3,
+      },
+    },
+    requiredSkills: ["NextJS", "react", "Typescript", "Rust Soroban"],
+    startDate: "2025-02-21",
+    endDate: "2025-03-23",
+    issues: [
+      2859601985, 2859618996, 2859636892, 2859652422, 2859661534, 2859664730, 2859669382, 2859671979, 2859676855,
+      2859679876, 2859684383, 2859687863, 2859691488, 2859846586, 2859856778, 2859864192, 2859869833, 2859874502,
+      2859880425, 2859893778, 2859899241, 2859904780, 2859911196, 2859917977, 2859924189, 2859929390, 2859933414,
+      2859938837, 2859947763,
+    ],
+    maintainers: [174588862, 31634868, 176054645, 112297389],
+  },
 ];
