@@ -17,6 +17,7 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 import { Icon } from "@/design-system/atoms/icon";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
+import { RepoLink } from "@/shared/features/repos/repo-link/repo-link";
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
@@ -77,6 +78,16 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
         </ul>
       </TooltipContent>
     </Tooltip>
+  );
+}
+
+function Repos({ repos }: { repos: ProjectInterfaceV2["repos"] }) {
+  if (repos.length === 0) return null;
+
+  return (
+    <div className={"flex flex-row flex-wrap gap-sm"}>
+      {repos?.map(repo => <RepoLink key={repo.htmlUrl} repo={repo} buttonProps={{ size: "xs" }} />)}
+    </div>
   );
 }
 
@@ -328,6 +339,7 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
             ))}
           </div>
         </div>
+        <Repos repos={project?.repos ?? []} />
       </div>
       <div className="w-full px-0 py-8">
         <ProjectNavigation params={{ projectSlug }} />
