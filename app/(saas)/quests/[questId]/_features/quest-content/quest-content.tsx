@@ -76,10 +76,17 @@ export function QuestContent({ questId }: QuestContentProps) {
           <TypographyMuted>Squad</TypographyMuted>
           <div className="flex flex-row gap-2">
             {providedProfiles.map(({ githubId }) => (
-              <SquadItem key={githubId} githubId={githubId} skills={quest.requiredSkills} />
+              <SquadItem key={githubId} githubId={githubId} />
             ))}
             {wantedProfiles.map(({ githubId }, index) => (
-              <SquadItem key={index} githubId={githubId} skills={quest.requiredSkills} />
+              <SquadItem key={index} githubId={githubId} />
+            ))}
+          </div>
+          <div className="flex gap-2">
+            {quest.requiredSkills.map(skill => (
+              <Badge variant="outline" key={skill}>
+                {skill}
+              </Badge>
             ))}
           </div>
         </div>
