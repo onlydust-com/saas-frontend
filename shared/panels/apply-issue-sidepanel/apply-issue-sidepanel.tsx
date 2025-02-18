@@ -30,6 +30,7 @@ import { SidePanelLoading } from "@/shared/features/side-panels/side-panel-loadi
 import { useSidePanel, useSinglePanelData } from "@/shared/features/side-panels/side-panel/side-panel";
 import { Github } from "@/shared/icons";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Alert, AlertDescription, AlertTitle } from "@/shared/ui/alert";
 import { Card, CardDescription } from "@/shared/ui/card";
 import { TypographyH4 } from "@/shared/ui/typography";
 
@@ -42,6 +43,20 @@ import {
   ApplyIssueSidepanelForm,
   ApplyIssueSidepanelValidation,
 } from "./apply-issue-sidepanel.types";
+
+function ApplyLimitCard() {
+  return (
+    <SidePanelFooter className="border-none">
+      <Card className="flex w-full flex-col gap-4 p-4">
+        <div className="flex flex-col items-start gap-1">
+          <TypographyH4>My applications limit</TypographyH4>
+          <CardDescription>You can apply to 10 issues at a time.</CardDescription>
+        </div>
+        <ApplyCounter />
+      </Card>
+    </SidePanelFooter>
+  );
+}
 
 function Header({ issue, canGoBack }: { issue: IssueInterface; canGoBack: boolean }) {
   return (
@@ -84,53 +99,87 @@ function Footer({
   issueUrl: string;
 }) {
   return (
-    <SidePanelFooter>
-      <div className="flex w-full justify-between gap-md">
-        {issueUrl ? (
-          <Button
-            size="md"
-            variant="secondary"
-            as={BaseLink}
-            iconOnly
-            htmlProps={{ href: issueUrl, target: "_blank" }}
-            startIcon={{
-              component: Github,
-              size: "md",
-            }}
-          />
-        ) : null}
-        <div className="flex w-full flex-1 flex-row items-center justify-between gap-1">
-          {hasCurrentUserApplication ? (
-            <>
-              <CheckboxButton
-                value={shouldDeleteComment}
-                onChange={onDeleteCommentChange}
-                variant="secondary"
-                isDisabled={isPending}
-              >
-                <Translate token="panels:applyIssue.apply.deleteComment" />
-              </CheckboxButton>
-              <Button
-                variant="primary"
-                translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
-                onClick={onCancel}
-                isLoading={isPending}
-              />
-            </>
-          ) : (
-            <>
-              <div />
-              <Button
-                variant="primary"
-                translate={{ token: "panels:applyIssue.apply.sendApplication" }}
-                type="submit"
-                isLoading={isPending}
-              />
-            </>
-          )}
+    <>
+      <ApplyLimitCard />
+      <SidePanelFooter>
+        <div className="flex w-full justify-between gap-md">
+          {issueUrl ? (
+            <Button
+              size="md"
+              variant="secondary"
+              as={BaseLink}
+              iconOnly
+              htmlProps={{ href: issueUrl, target: "_blank" }}
+              startIcon={{
+                component: Github,
+                size: "md",
+              }}
+            />
+          ) : null}
+          <div className="flex w-full flex-1 flex-row items-center justify-between gap-1">
+            {hasCurrentUserApplication ? (
+              <>
+                <CheckboxButton
+                  value={shouldDeleteComment}
+                  onChange={onDeleteCommentChange}
+                  variant="secondary"
+                  isDisabled={isPending}
+                >
+                  <Translate token="panels:applyIssue.apply.deleteComment" />
+                </CheckboxButton>
+                <Button
+                  variant="primary"
+                  translate={{ token: "panels:applyIssue.apply.cancelApplication" }}
+                  onClick={onCancel}
+                  isLoading={isPending}
+                />
+              </>
+            ) : (
+              <>
+                <div />
+                <Button
+                  variant="primary"
+                  translate={{ token: "panels:applyIssue.apply.sendApplication" }}
+                  type="submit"
+                  isLoading={isPending}
+                />
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </SidePanelFooter>
+      </SidePanelFooter>
+    </>
+  );
+}
+
+function ApplyGuidelinesCard() {
+  return (
+    <Alert variant="info">
+      <AlertTitle className="mb-4 text-lg">Heads up, builders! Application limits & best practices</AlertTitle>
+      <AlertDescription>
+        <ul className="list-inside space-y-2">
+          <li className="font-bold text-foreground">
+            ✓ To keep things fair and spam-free, we’re limiting applications to 10 issues at a time.
+          </li>
+          <li className="text-foreground">
+            ✓ <strong>Pick wisely</strong> – Only apply if you can actually solve it.
+          </li>
+          <li className="text-foreground">
+            ✓ <strong>Add a personal touch</strong> – A quick comment on why you’re interested makes a difference. It
+            helps maintainers see you&apos;re the right fit.
+          </li>
+          <li className="text-foreground">
+            ✓ <strong>You get credits back</strong> – If an issue is assigned to someone else or you make a PR, your
+            counter drops. Sent 10 apps? If 1 issue is taken, boom—you’re back at 9/10, meaning you can apply for
+            another.
+          </li>
+          <li className="text-foreground">
+            ✓ <strong>TL;DR</strong>: Be thoughtful, show your motivation, and keep an eye on your application count.
+            Let’s keep it clean and high-quality. More info on how to send a great application? Click here.
+          </li>
+        </ul>
+      </AlertDescription>
+    </Alert>
   );
 }
 
@@ -266,20 +315,12 @@ function Content() {
       >
         <Header issue={issue} canGoBack={canGoBack} />
 
-        <SidePanelBody className="justify-between">
-          <div className="flex w-full flex-col gap-3">
-            <Metrics issue={issue} />
-            <Summary issue={issue} />
-            {/* // TODO MAKE OD HACK CARD */}
-            <Apply />
-          </div>
-          <Card className="flex w-full flex-col gap-4 p-4">
-            <div className="flex flex-col items-start gap-1">
-              <TypographyH4>My applications limit</TypographyH4>
-              <CardDescription>You can apply to 10 issues at a time.</CardDescription>
-            </div>
-            <ApplyCounter />
-          </Card>
+        <SidePanelBody className="gap-4">
+          <Metrics issue={issue} />
+          <Summary issue={issue} />
+          <ApplyGuidelinesCard />
+          {/* // TODO MAKE OD HACK CARD */}
+          <Apply />
         </SidePanelBody>
         <Footer
           hasCurrentUserApplication={hasCurrentUserApplication}
