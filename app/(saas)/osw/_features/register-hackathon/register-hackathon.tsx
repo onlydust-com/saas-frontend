@@ -15,7 +15,7 @@ import { Tooltip } from "@/design-system/atoms/tooltip";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Progress } from "@/shared/ui/progress";
-import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { TypographyMuted } from "@/shared/ui/typography";
 
 function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   const { capture } = usePosthog();

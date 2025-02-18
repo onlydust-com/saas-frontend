@@ -13,32 +13,22 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
-import { CardDescription, CardHeader } from "@/shared/ui/card";
-import { Progress } from "@/shared/ui/progress";
-import { TypographyH3, TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { CardDescription } from "@/shared/ui/card";
+import { TypographyH3 } from "@/shared/ui/typography";
 
 function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
   const { open } = useApplyIssueSidePanel();
 
-  const {
-    data: issuesData,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+  const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
     pathParams: {
       projectIdOrSlug: "onlyrust",
     },
-    // queryParams: {
-    //   hackathonId: "06d3d432-786f-4974-bc64-dc845a4de84e",
-    // },
     options: {
       enabled: Boolean(params.hackathonSlug),
     },
   });
 
   const issues = useMemo(() => issuesData?.pages.flatMap(page => page.issues) ?? [], [issuesData]);
-  const totalItemNumber = useMemo(() => issuesData?.pages[0]?.totalItemNumber, [issuesData]);
 
   const assignedIssues = issues.filter(issue => issue.applicants.length > 0);
   const notAssignedIssues = issues.filter(issue => issue.applicants.length === 0);
