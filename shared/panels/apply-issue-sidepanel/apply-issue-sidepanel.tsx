@@ -90,6 +90,7 @@ function Footer({
   onCancel,
   isPending,
   issueUrl,
+  isHackathon,
 }: {
   hasCurrentUserApplication: boolean;
   shouldDeleteComment: boolean;
@@ -97,10 +98,11 @@ function Footer({
   onCancel: () => void;
   isPending: boolean;
   issueUrl: string;
+  isHackathon: boolean;
 }) {
   return (
     <>
-      <ApplyLimitCard />
+      {isHackathon ? <ApplyLimitCard /> : null}
       <SidePanelFooter>
         <div className="flex w-full justify-between gap-md">
           {issueUrl ? (
@@ -232,6 +234,8 @@ function Content() {
 
   const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
+  const isHackathon = !!issue?.hackathon?.id;
+
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
   const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
@@ -318,8 +322,7 @@ function Content() {
         <SidePanelBody className="gap-4">
           <Metrics issue={issue} />
           <Summary issue={issue} />
-          <ApplyGuidelinesCard />
-          {/* // TODO MAKE OD HACK CARD */}
+          {isHackathon ? <ApplyGuidelinesCard /> : null}
           <Apply />
         </SidePanelBody>
         <Footer
@@ -329,6 +332,7 @@ function Content() {
           onCancel={() => handlePermissions(handleCancel)}
           isPending={createApplicationState.isPending || deleteApplicationState.isPending}
           issueUrl={issue.htmlUrl}
+          isHackathon={isHackathon}
         />
       </form>
     </FormProvider>
