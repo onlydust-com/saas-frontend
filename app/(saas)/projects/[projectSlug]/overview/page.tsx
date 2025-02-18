@@ -80,7 +80,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
           <Languages projectId={data?.id} />
         </div>
         <div className="grid lg:col-span-3">
-          <ActivityGraph />
+          <ActivityGraph projectIdOrSlug={params.projectSlug} />
         </div>
         <div className="grid lg:col-span-2">
           <GoodFirstIssues projectId={data?.id} />
