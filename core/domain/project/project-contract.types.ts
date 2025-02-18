@@ -337,3 +337,17 @@ export type GetSimilarProjectsPortParams = HttpClientParameters<{
   QueryParams: GetSimilarProjectsQueryParams;
   PathParams: GetSimilarProjectsPathParams;
 }>;
+
+/* ------------------------------ Get Project Activity ------------------------------ */
+
+export type GetProjectActivityResponse = components["schemas"]["ContributorActivityGraphResponse"];
+
+type GetProjectActivityPathParams = operations["getProjectActivityGraph"]["parameters"]["path"];
+type GetProjectActivityQueryParams = operations["getProjectActivityGraph"]["parameters"]["query"];
+
+export type GetProjectActivityPortResponse = HttpStorageResponse<GetProjectActivityResponse>;
+
+export type GetProjectActivityPortParams = HttpClientParameters<{
+  QueryParams: GetProjectActivityQueryParams;
+  PathParams: GetProjectActivityPathParams;
+}>;

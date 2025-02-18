@@ -18,6 +18,7 @@ import {
   CreateProjectBody,
   CreateProjectResponse,
   EditProjectBody,
+  GetProjectActivityResponse,
   GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
   GetProjectBySlugOrIdV2Response,
@@ -69,6 +70,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectContributorsV2: "projects/:projectIdOrSlug/contributors",
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
+    getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -623,6 +625,29 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         ...data,
         projects: data.projects.map(project => new ProjectLinkV2(project)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectActivity = ({ pathParams, queryParams }: FirstParameter<ProjectStoragePort["getProjectActivity"]>) => {
+    const path = this.routes["getProjectActivity"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectActivityResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+      });
+
+      return data;
     };
 
     return {
