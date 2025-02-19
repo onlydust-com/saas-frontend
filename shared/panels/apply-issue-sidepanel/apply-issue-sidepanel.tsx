@@ -239,7 +239,7 @@ function Content() {
 
   const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
-  const isHackathon = !!issue?.hackathon?.id || !!contribution?.hackathon?.id;
+  const isHackathon = !!issue?.hackathon?.id || !!contribution?.isIncludedInLiveHackathon;
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
