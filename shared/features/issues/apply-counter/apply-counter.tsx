@@ -25,10 +25,6 @@ export function ApplyCounter({ children }: ApplyCounterProps) {
   const remainingApplications = useMemo(() => {
     if (!data) return 0;
 
-    if (data.isMaxApplicationsOnLiveHackathonReached()) {
-      return 0;
-    }
-
     return data.maxApplicationsOnLiveHackathon - data.applicationCountOnLiveHackathon;
   }, [data]);
 
