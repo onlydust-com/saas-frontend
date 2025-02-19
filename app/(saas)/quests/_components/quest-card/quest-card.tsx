@@ -31,7 +31,7 @@ export function QuestCard({
     },
   });
   return (
-    <Card className="flex cursor-pointer flex-col gap-4 transition-opacity hover:opacity-80" onClick={onClick}>
+    <Card className="flex w-full cursor-pointer flex-col gap-4 transition-opacity hover:opacity-80" onClick={onClick}>
       <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2 pb-2">
         <div className="flex flex-row items-center gap-2">
           <Avatar>
@@ -40,7 +40,7 @@ export function QuestCard({
           </Avatar>
           <CardTitle className="!mt-0 capitalize">{projectSlug}</CardTitle>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline">{dateKernelPort.format(new Date(startDate), "yyyy-MM-dd")}</Badge>
           <span className="text-muted-foreground">→</span>
           <Badge variant="outline">{dateKernelPort.format(new Date(endDate), "yyyy-MM-dd")}</Badge>
@@ -59,7 +59,7 @@ export function QuestCard({
         </div>
         <div className="flex flex-col gap-2">
           <TypographySmall>Squad</TypographySmall>
-          <div className="flex gap-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {Object.entries(wantedProfiles).map(([key, value]) => {
               const label = key.charAt(0).toUpperCase() + key.slice(1);
               const color = key === "junior" ? "text-green-500" : key === "senior" ? "text-yellow-500" : "text-red-500";
@@ -82,7 +82,7 @@ export function QuestCard({
         </div>
         <div className="flex flex-col gap-2">
           <TypographySmall>Expected skills</TypographySmall>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {requiredSkills.map(skill => (
               <Badge variant="outline" key={skill}>
                 {skill}
