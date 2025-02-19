@@ -10,7 +10,8 @@ import { ContributionBadge } from "@/design-system/molecules/contribution-badge/
 import { Button } from "@/shared/ui/button";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/shared/ui/sheet";
-import { TypographyH4 } from "@/shared/ui/typography";
+import { Skeleton } from "@/shared/ui/skeleton";
+import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: string }>) {
   const [open, setOpen] = useState(false);
@@ -55,9 +56,15 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
   }, [contribution]);
 
   const renderApplications = useCallback(() => {
-    if (isLoadingApplicants) return <div>Loading...</div>;
+    if (isLoadingApplicants)
+      return Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className="h-24" />);
 
-    if (isErrorApplicants) return <div>Error</div>;
+    if (isErrorApplicants)
+      return (
+        <div className="py-10 text-center">
+          <TypographyMuted>No applicants found</TypographyMuted>
+        </div>
+      );
 
     if (!applicants) return null;
 
