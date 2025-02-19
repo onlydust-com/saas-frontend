@@ -509,17 +509,16 @@ export class MeClientAdapter implements MeStoragePort {
     };
   }
 
-  getMyApplications = ({ pathParams }: FirstParameter<MeStoragePort["getMyApplications"]>) => {
+  getMyApplications = () => {
     const path = this.routes["getMyApplications"];
     const method = "GET";
-    const tag = HttpClient.buildTag({ path, pathParams });
+    const tag = HttpClient.buildTag({ path });
 
     const request = async () => {
       const data = await this.client.request<GetMyApplicationsResponse>({
         path,
         method,
         tag,
-        pathParams,
       });
 
       return new MeApplications(data);

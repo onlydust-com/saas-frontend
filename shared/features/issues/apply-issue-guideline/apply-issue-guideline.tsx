@@ -18,12 +18,12 @@ export function ApplyIssueGuideline() {
           </li>
           <li className="text-foreground">
             ✓ <strong>You get credits back</strong> – If an issue is assigned to someone else or you make a PR, your
-            counter drops. Sent 10 apps? If 1 issue is taken, boom—you’re back at 9/10, meaning you can apply for
-            another.
+            counter drops. Sent 10 applications? If 1 issue is taken, boom—you’re back at 9/10, meaning you can apply
+            for another.
           </li>
           <li className="text-foreground">
             ✓ <strong>TL;DR</strong>: Be thoughtful, show your motivation, and keep an eye on your application count.
-            Let’s keep it clean and high-quality..
+            Let’s keep it clean and high-quality.
           </li>
         </ul>
       </AlertDescription>

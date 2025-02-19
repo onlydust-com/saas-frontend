@@ -18,7 +18,7 @@ class MeApplications implements MeApplicationsInterface {
   }
 
   isMaxApplicationsOnLiveHackathonReached() {
-    return this.applicationCountOnLiveHackathon > this.maxApplicationsOnLiveHackathon;
+    return this.applicationCountOnLiveHackathon >= this.maxApplicationsOnLiveHackathon;
   }
 
   static getMaxApplicationsOnLiveHackathon() {

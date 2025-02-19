@@ -15,7 +15,7 @@ export function ApplyCounter({ children }: ApplyCounterProps) {
       return 0;
     }
 
-    if (data.applicationCountOnLiveHackathon >= 10) {
+    if (data.isMaxApplicationsOnLiveHackathonReached()) {
       return 100;
     }
 

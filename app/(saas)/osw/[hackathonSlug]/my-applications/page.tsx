@@ -72,7 +72,7 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
 
       <div className="flex flex-col gap-4">
         <div className="pb-2 pt-6 lg:col-span-2 xl:col-span-3">
-          <TypographyH3>My applications on issues already assigned</TypographyH3>
+          <TypographyH3>My applications for already assigned issues</TypographyH3>
           <CardDescription>
             These issues are already assigned to other contributors, so the chances of being assigned are low. We advise
             you to apply to other issues.
@@ -106,8 +106,8 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
         ))}
 
         <div className="pb-2 pt-6 lg:col-span-2 xl:col-span-3">
-          <TypographyH3>My applications on open issues</TypographyH3>
-          <CardDescription>These issues are not assigned to any contributor yet.</CardDescription>
+          <TypographyH3>My applications for open issues</TypographyH3>
+          <CardDescription>These issues are not assigned to a contributor yet.</CardDescription>
         </div>
         {notAssignedIssues.map(issue => (
           <CardIssue
