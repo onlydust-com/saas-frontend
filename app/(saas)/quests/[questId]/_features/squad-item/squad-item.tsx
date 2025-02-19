@@ -22,7 +22,7 @@ export function SquadItem({ githubId, skills }: SquadItemProps) {
 
   if (!githubId) {
     return (
-      <Card className="flex w-1/6 flex-col gap-4 border-dashed p-4">
+      <Card className="flex w-full flex-col gap-4 border-dashed p-4">
         <div className="flex flex-row items-center gap-2">
           <Avatar>
             <AvatarFallback>?</AvatarFallback>
@@ -44,7 +44,7 @@ export function SquadItem({ githubId, skills }: SquadItemProps) {
   }
 
   return (
-    <Link href={NEXT_ROUTER.users.details.root(String(contributor?.login))} className="w-1/6">
+    <Link href={NEXT_ROUTER.users.details.root(String(contributor?.login))} className="w-full">
       <Card className="flex w-full cursor-pointer flex-row items-center gap-2 p-4 hover:bg-muted">
         <div className="flex flex-row items-center gap-2">
           <Avatar>

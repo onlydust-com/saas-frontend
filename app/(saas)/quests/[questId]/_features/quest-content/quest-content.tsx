@@ -35,13 +35,13 @@ export function QuestContent({ questId }: QuestContentProps) {
   );
   return (
     <Card>
-      <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2">
+      <CardHeader className="flex w-full flex-row flex-wrap items-start justify-between gap-2">
         <div className="flex flex-col gap-2">
           <CardTitle>
             <TypographyH2>{quest.name}</TypographyH2>
           </CardTitle>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline">{dateKernelPort.format(new Date(startDate), "yyyy-MM-dd")}</Badge>
           <span className="text-muted-foreground">→</span>
           <Badge variant="outline">{dateKernelPort.format(new Date(endDate), "yyyy-MM-dd")}</Badge>
@@ -53,7 +53,7 @@ export function QuestContent({ questId }: QuestContentProps) {
           </Badge>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex w-full flex-col gap-2">
           <TypographyMuted>Description</TypographyMuted>
           <TypographyP>{quest.longDescription.description}</TypographyP>
           <ul className="list-inside list-disc">
@@ -61,20 +61,20 @@ export function QuestContent({ questId }: QuestContentProps) {
           </ul>
           <TypographyP>{quest.longDescription.warning}</TypographyP>
           {quest.longDescription.links?.map(link => (
-            <Link href={link} key={link} target="_blank" className="hover:underline">
+            <Link href={link} key={link} target="_blank" className="truncate hover:underline">
               {link}
             </Link>
           ))}
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+      <CardContent className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-2">
           <TypographyMuted>Guidelines</TypographyMuted>
           <ContributorGuidelines />
         </div>
         <div className="flex flex-col gap-2">
           <TypographyMuted>Squad</TypographyMuted>
-          <div className="flex flex-row gap-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {providedProfiles.map(({ githubId }) => (
               <SquadItem key={githubId} githubId={githubId} />
             ))}
@@ -82,7 +82,7 @@ export function QuestContent({ questId }: QuestContentProps) {
               <SquadItem key={index} githubId={githubId} />
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {quest.requiredSkills.map(skill => (
               <Badge variant="outline" key={skill}>
                 {skill}
@@ -93,7 +93,7 @@ export function QuestContent({ questId }: QuestContentProps) {
 
         <div className="flex flex-col gap-2">
           <TypographyMuted>Maintainers</TypographyMuted>
-          <div className="flex flex-row gap-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {maintainers.map(githubId => (
               <SquadItem key={githubId} githubId={githubId} />
             ))}
@@ -102,7 +102,7 @@ export function QuestContent({ questId }: QuestContentProps) {
 
         <div className="flex flex-col gap-2">
           <TypographyMuted>Issues</TypographyMuted>
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
             {issues.map(issueId => (
               <IssueItem key={issueId} issueId={issueId} />
             ))}
