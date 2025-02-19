@@ -12,12 +12,13 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 import { Icon } from "@/design-system/atoms/icon";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
 import { QuestListData } from "../../../_data/quest-list.data";
 import { ImageBanner } from "../../_components/image-banner/image-banner";
@@ -50,7 +51,7 @@ function Categories({ categories }: { categories: string[] }) {
   if (categories.length === 0) return null;
 
   return (
-    <div className="flex gap-1 px-3 first:pl-0">
+    <div className="flex gap-1 px-3 py-1 first:pl-0">
       {categories.map(category => (
         <Badge variant="outline" key={category}>
           {category}
@@ -66,7 +67,7 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="flex items-center gap-1 px-3 first:pl-0">
+        <div className="flex items-center gap-1 px-3 py-1 first:pl-0">
           {languages?.map(language => (
             <Avatar className="size-5" key={language.name}>
               <AvatarImage src={language.logoUrl} />
@@ -96,6 +97,51 @@ function Languages({ languages }: { languages: ProjectInterfaceV2["languages"] }
   );
 }
 
+function Leads({ leads }: { leads: ProjectInterfaceV2["leads"] }) {
+  const { open } = useContributorSidePanel();
+  if (leads.length === 0) return null;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2 px-3 py-1 first:pl-0">
+          <TypographyMuted>Maintained by</TypographyMuted>
+          <AvatarGroup
+            avatars={
+              leads.map(lead => ({
+                src: lead.avatarUrl,
+                alt: lead.login,
+              })) ?? []
+            }
+            classNames={{
+              avatar: "size-5 first:ml-0 -ml-2",
+            }}
+          />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" align="end">
+        <ul className="flex flex-col gap-2">
+          {leads.map(leads => (
+            <li
+              key={leads.login}
+              className="flex cursor-pointer items-center justify-between gap-10"
+              onClick={() => open({ githubId: leads.githubUserId })}
+            >
+              <div className="flex items-center gap-1">
+                <Avatar className="size-5" key={leads.login}>
+                  <AvatarImage src={leads.avatarUrl} />
+                  <AvatarFallback className="rounded-xl">{leads.login.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <TypographySmall>{leads.login}</TypographySmall>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
   if (!project) return null;
 
@@ -109,7 +155,7 @@ function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
     );
   }
   return (
-    <div className="flex flex-row items-center justify-start gap-3">
+    <div className="flex flex-row flex-wrap items-center justify-start gap-3">
       {renderItem({
         label: "Active contributors",
         value: project.contributorCount,
@@ -181,22 +227,10 @@ export default function QuestPage({ questId }: PageHeaderProps) {
           </div>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
         </div>
-        <div className="flex flex-row divide-x">
+        <div className="flex flex-row flex-wrap divide-x">
           <Categories categories={project?.categories?.map(category => category.name) ?? []} />
           <Languages languages={project?.languages ?? []} />
-          <div className="px-3 first:pl-0">
-            <AvatarGroup
-              avatars={
-                project?.leads.map(lead => ({
-                  src: lead.avatarUrl,
-                  alt: lead.login,
-                })) ?? []
-              }
-              classNames={{
-                avatar: "size-5",
-              }}
-            />
-          </div>
+          <Leads leads={project?.leads ?? []} />
         </div>
         <Stats project={project} />
       </div>
