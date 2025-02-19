@@ -59,7 +59,9 @@ function HackathonOverviewPage({ params: { hackathonSlug } }: { params: { hackat
         endsAt={hackathon?.endDate}
       />
 
-      <ApplyIssueGuideline />
+      <div className="w-full p-4">
+        <ApplyIssueGuideline />
+      </div>
       <HackathonDescription description={hackathon?.description} />
     </ScrollView>
   );
