@@ -91,6 +91,7 @@ function Footer({
   isPending,
   issueUrl,
   isHackathon,
+  maxApplicationsReached,
 }: {
   hasCurrentUserApplication: boolean;
   shouldDeleteComment: boolean;
@@ -99,6 +100,7 @@ function Footer({
   isPending: boolean;
   issueUrl: string;
   isHackathon: boolean;
+  maxApplicationsReached: boolean;
 }) {
   return (
     <>
@@ -144,6 +146,7 @@ function Footer({
                   translate={{ token: "panels:applyIssue.apply.sendApplication" }}
                   type="submit"
                   isLoading={isPending}
+                  isDisabled={maxApplicationsReached}
                 />
               </>
             )}
@@ -229,13 +232,14 @@ function Content() {
     options: { enabled: !!contributionUuid },
   });
 
+  const { data } = MeReactQueryAdapter.client.useGetMyApplications({});
+
   const isLoading = isIssueLoading || isContributionLoading;
   const isError = isIssueError || isContributionError;
 
   const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
-  // TODO MAKE THE CONDITION ALSO ON contribution.hackathon?.id
-  const isHackathon = !!issue?.hackathon?.id;
+  const isHackathon = !!issue?.hackathon?.id || !!contribution?.hackathon?.id;
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
@@ -273,6 +277,8 @@ function Content() {
     });
 
   function handleCreate(values: ApplyIssueSidepanelForm) {
+    if (data?.isMaxApplicationsOnLiveHackathonReached()) return;
+
     const applicationProjectId = issue?.project?.id ?? projectId;
     const applicationIssueId = issue?.id ?? issueId;
 
@@ -334,6 +340,7 @@ function Content() {
           isPending={createApplicationState.isPending || deleteApplicationState.isPending}
           issueUrl={issue.htmlUrl}
           isHackathon={isHackathon}
+          maxApplicationsReached={data?.isMaxApplicationsOnLiveHackathonReached() ?? false}
         />
       </form>
     </FormProvider>

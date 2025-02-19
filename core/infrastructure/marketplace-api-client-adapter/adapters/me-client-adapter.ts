@@ -520,7 +520,6 @@ export class MeClientAdapter implements MeStoragePort {
         method,
         tag,
         pathParams,
-        mock: true,
       });
 
       return new MeApplications(data);
