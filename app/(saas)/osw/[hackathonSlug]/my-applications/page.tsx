@@ -9,6 +9,7 @@ import { ContributionActivityInterface } from "@/core/domain/contribution/models
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { withClientOnly } from "@/shared/components/client-only/client-only";
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
@@ -79,61 +80,69 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
           </CardDescription>
         </div>
 
-        {assignedIssues.map(issue => (
-          <CardIssue
-            key={issue.id}
-            title={issue.githubTitle}
-            onClick={() => handleIssueClick(issue)}
-            contribution={{
-              type: "ISSUE",
-              githubStatus: issue.githubStatus,
-              number: issue.githubNumber,
-            }}
-            createdAt={issue.createdAt}
-            users={issue.applicants.map(a => ({
-              login: a.login,
-              avatarUrl: a.avatarUrl,
-            }))}
-            createdBy={{
-              login: issue.githubAuthor.login,
-              avatarUrl: issue.githubAuthor.avatarUrl,
-            }}
-            repo={{
-              name: issue.repo.name,
-              url: issue.repo.htmlUrl,
-            }}
-          />
-        ))}
+        {assignedIssues.length ? (
+          assignedIssues.map(issue => (
+            <CardIssue
+              key={issue.id}
+              title={issue.githubTitle}
+              onClick={() => handleIssueClick(issue)}
+              contribution={{
+                type: "ISSUE",
+                githubStatus: issue.githubStatus,
+                number: issue.githubNumber,
+              }}
+              createdAt={issue.createdAt}
+              users={issue.applicants.map(a => ({
+                login: a.login,
+                avatarUrl: a.avatarUrl,
+              }))}
+              createdBy={{
+                login: issue.githubAuthor.login,
+                avatarUrl: issue.githubAuthor.avatarUrl,
+              }}
+              repo={{
+                name: issue.repo.name,
+                url: issue.repo.htmlUrl,
+              }}
+            />
+          ))
+        ) : (
+          <EmptyStateLite />
+        )}
 
         <div className="pb-2 pt-6 lg:col-span-2 xl:col-span-3">
           <TypographyH3>My applications for open issues</TypographyH3>
           <CardDescription>These issues are not assigned to a contributor yet.</CardDescription>
         </div>
-        {notAssignedIssues.map(issue => (
-          <CardIssue
-            key={issue.id}
-            title={issue.githubTitle}
-            onClick={() => handleIssueClick(issue)}
-            contribution={{
-              type: "ISSUE",
-              githubStatus: issue.githubStatus,
-              number: issue.githubNumber,
-            }}
-            createdAt={issue.createdAt}
-            users={issue.applicants.map(a => ({
-              login: a.login,
-              avatarUrl: a.avatarUrl,
-            }))}
-            createdBy={{
-              login: issue.githubAuthor.login,
-              avatarUrl: issue.githubAuthor.avatarUrl,
-            }}
-            repo={{
-              name: issue.repo.name,
-              url: issue.repo.htmlUrl,
-            }}
-          />
-        ))}
+        {notAssignedIssues.length ? (
+          notAssignedIssues.map(issue => (
+            <CardIssue
+              key={issue.id}
+              title={issue.githubTitle}
+              onClick={() => handleIssueClick(issue)}
+              contribution={{
+                type: "ISSUE",
+                githubStatus: issue.githubStatus,
+                number: issue.githubNumber,
+              }}
+              createdAt={issue.createdAt}
+              users={issue.applicants.map(a => ({
+                login: a.login,
+                avatarUrl: a.avatarUrl,
+              }))}
+              createdBy={{
+                login: issue.githubAuthor.login,
+                avatarUrl: issue.githubAuthor.avatarUrl,
+              }}
+              repo={{
+                name: issue.repo.name,
+                url: issue.repo.htmlUrl,
+              }}
+            />
+          ))
+        ) : (
+          <EmptyStateLite />
+        )}
       </div>
     </PageContainer>
   );
