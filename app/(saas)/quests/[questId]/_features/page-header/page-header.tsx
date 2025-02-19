@@ -36,8 +36,8 @@ function ActionHeader({ projectSlug }: { projectSlug: string }) {
     full_name: `${user?.firstName} ${user?.lastName}`,
     email: user?.email,
     github_login: user?.login,
-    linkedin_profile: userProfile?.getContact(UserProfileContactChannel.linkedin)?.contact,
-    telegram_handle: userProfile?.getContactTelegram()?.contact,
+    linkedin_profile: userProfile?.getFormContactInfo(UserProfileContactChannel.linkedin)?.contact,
+    telegram_handle: userProfile?.getFormContactInfo(UserProfileContactChannel.telegram)?.contact,
   };
 
   return (
