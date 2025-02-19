@@ -22,14 +22,14 @@ export function ApplyCounter({ children }: ApplyCounterProps) {
     return data.applicationCountOnLiveHackathon * 10;
   }, [data]);
 
-  const currentApplication = useMemo(() => {
+  const remainingApplications = useMemo(() => {
     if (!data) return 0;
 
-    if (data?.isMaxApplicationsOnLiveHackathonReached()) {
-      return "+10";
+    if (data.isMaxApplicationsOnLiveHackathonReached()) {
+      return 0;
     }
 
-    return data.applicationCountOnLiveHackathon;
+    return data.maxApplicationsOnLiveHackathon - data.applicationCountOnLiveHackathon;
   }, [data]);
 
   if (!data) return null;
@@ -39,7 +39,7 @@ export function ApplyCounter({ children }: ApplyCounterProps) {
       {children}
       <div className="flex flex-col items-end gap-1">
         <TypographyMuted>
-          {currentApplication} applications / {data.maxApplicationsOnLiveHackathon} remaining
+          {remainingApplications} application{remainingApplications === 1 ? "" : "s"} remaining
         </TypographyMuted>
         <Progress value={currentApplicationPercent} max={data.maxApplicationsOnLiveHackathon * 10} />
       </div>
