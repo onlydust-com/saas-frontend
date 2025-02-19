@@ -2,8 +2,9 @@
 
 import { useMemo } from "react";
 
-import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
+import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
+import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
@@ -11,6 +12,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { CardDescription } from "@/shared/ui/card";
@@ -18,23 +20,34 @@ import { TypographyH3 } from "@/shared/ui/typography";
 
 function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
   const { open } = useApplyIssueSidePanel();
+  const { githubUserId } = useAuthUser();
 
-  const { data: issuesData } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+  const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
     pathParams: {
-      projectIdOrSlug: "onlyrust",
+      hackathonSlug: params.hackathonSlug,
     },
     options: {
       enabled: Boolean(params.hackathonSlug),
     },
   });
 
-  const issues = useMemo(() => issuesData?.pages.flatMap(page => page.issues) ?? [], [issuesData]);
+  const { data: issuesData } = ContributionReactQueryAdapter.client.useGetContributions({
+    queryParams: {
+      applicantIds: githubUserId ? [githubUserId] : [],
+      hackathonId: hackathon?.id,
+    },
+    options: {
+      enabled: !!githubUserId && !!hackathon?.id,
+    },
+  });
 
-  const assignedIssues = issues.filter(issue => issue.applicants.length > 0);
-  const notAssignedIssues = issues.filter(issue => issue.applicants.length === 0);
+  const issues = useMemo(() => issuesData?.pages.flatMap(page => page.contributions) ?? [], [issuesData]);
 
-  function handleIssueClick(issue: ProjectAvailableIssuesInterface) {
-    open({ issueId: issue.id, projectId: "onlydust" });
+  const assignedIssues = issues.filter(issue => !issue.isNotAssigned());
+  const notAssignedIssues = issues.filter(issue => issue.isNotAssigned());
+
+  function handleIssueClick(issue: ContributionActivityInterface) {
+    open({ contributionUuid: issue.id, projectId: "onlydust" });
   }
 
   return (
@@ -69,12 +82,12 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
         {assignedIssues.map(issue => (
           <CardIssue
             key={issue.id}
-            title={issue.title}
+            title={issue.githubTitle}
             onClick={() => handleIssueClick(issue)}
             contribution={{
               type: "ISSUE",
-              githubStatus: issue.status,
-              number: issue.number,
+              githubStatus: issue.githubStatus,
+              number: issue.githubNumber,
             }}
             createdAt={issue.createdAt}
             users={issue.applicants.map(a => ({
@@ -82,8 +95,8 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
               avatarUrl: a.avatarUrl,
             }))}
             createdBy={{
-              login: issue.author.login,
-              avatarUrl: issue.author.avatarUrl,
+              login: issue.githubAuthor.login,
+              avatarUrl: issue.githubAuthor.avatarUrl,
             }}
             repo={{
               name: issue.repo.name,
@@ -99,12 +112,12 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
         {notAssignedIssues.map(issue => (
           <CardIssue
             key={issue.id}
-            title={issue.title}
+            title={issue.githubTitle}
             onClick={() => handleIssueClick(issue)}
             contribution={{
               type: "ISSUE",
-              githubStatus: issue.status,
-              number: issue.number,
+              githubStatus: issue.githubStatus,
+              number: issue.githubNumber,
             }}
             createdAt={issue.createdAt}
             users={issue.applicants.map(a => ({
@@ -112,8 +125,8 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
               avatarUrl: a.avatarUrl,
             }))}
             createdBy={{
-              login: issue.author.login,
-              avatarUrl: issue.author.avatarUrl,
+              login: issue.githubAuthor.login,
+              avatarUrl: issue.githubAuthor.avatarUrl,
             }}
             repo={{
               name: issue.repo.name,

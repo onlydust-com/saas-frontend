@@ -12,10 +12,9 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
+import { ApplyCounter } from "@/shared/features/issues/apply-counter/apply-counter";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
-import { Progress } from "@/shared/ui/progress";
-import { TypographyMuted } from "@/shared/ui/typography";
 
 function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   const { capture } = usePosthog();
@@ -91,12 +90,7 @@ function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
       );
     }
 
-    return (
-      <div className="flex flex-col items-end gap-1">
-        <TypographyMuted>5 applications / 10 remaining</TypographyMuted>
-        <Progress value={50} max={100} />
-      </div>
-    );
+    return <ApplyCounter />;
   }, [isPast, isRegistered]);
 
   function handleClick() {

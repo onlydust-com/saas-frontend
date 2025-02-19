@@ -40,7 +40,7 @@ export function ApplicationCard({ application, contributionId, isIgnored, repoId
               <Typo size="sm" weight="medium">
                 {contributor.login}
               </Typo>
-              <ApplicationLimitBadge count={11} />
+              <ApplicationLimitBadge count={application.applicationCountOnLiveHackathon ?? 0} />
             </div>
 
             <Typo size="xs" color="secondary">

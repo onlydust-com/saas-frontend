@@ -82,7 +82,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     contributor: columnHelper.accessor("contributor", {
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
-        const { contributor } = info.row.original;
+        const { contributor, applicationCountOnLiveHackathon } = info.row.original;
 
         return (
           <AvatarLabelGroup
@@ -93,9 +93,9 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
             ]}
             title={{
               children: (
-                <div>
+                <div className="flex items-center gap-1">
                   {contributor.login}
-                  <ApplicationLimitBadge count={11} />
+                  <ApplicationLimitBadge count={applicationCountOnLiveHackathon ?? 0} />
                 </div>
               ),
             }}

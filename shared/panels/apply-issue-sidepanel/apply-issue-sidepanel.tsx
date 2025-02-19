@@ -234,6 +234,7 @@ function Content() {
 
   const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
+  // TODO MAKE THE CONDITION ALSO ON contribution.hackathon?.id
   const isHackathon = !!issue?.hackathon?.id;
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
