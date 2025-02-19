@@ -5,6 +5,7 @@ import { Target } from "lucide-react";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
 import { QuestListData } from "../_data/quest-list.data";
 import PageHeader from "./_features/page-header/page-header";
@@ -34,6 +35,7 @@ export default function QuestPage({ params }: { params: { questId: string } }) {
 
         <PageHeader questId={params.questId} />
         <QuestContent questId={params.questId} />
+        <ContributorSidepanel />
       </div>
     </PageContainer>
   );
