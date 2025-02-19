@@ -26,7 +26,7 @@ export function ApplicationLimitBadge({ count }: ApplicationLimitBadgeProps) {
         </Badge>
       </TooltipTrigger>
       <TooltipContent side="bottom" align="end" className="z-[99999]">
-        the user have reached the maximum number of applications ({count} applications) for the current OSS week.
+        The user has reached the maximum number of applications ({count} applications) for the current OSS week.
       </TooltipContent>
     </Tooltip>
   );
