@@ -102,7 +102,7 @@ export function QuestContent({ questId }: QuestContentProps) {
 
         <div className="flex flex-col gap-2">
           <TypographyMuted>Issues</TypographyMuted>
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col gap-4">
             {issues.map(issueId => (
               <IssueItem key={issueId} issueId={issueId} />
             ))}
