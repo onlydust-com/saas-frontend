@@ -6,12 +6,15 @@ import { CircleDotDashed, GitMerge, Star, User } from "lucide-react";
 import Link from "next/link";
 import { ReactNode, useMemo, useState } from "react";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
+import { UserProfileContactChannel } from "@/core/domain/user/models/user.types";
 
 import { Icon } from "@/design-system/atoms/icon";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
@@ -26,6 +29,17 @@ import { PageHeaderProps } from "./page-header.types";
 
 function ActionHeader({ projectSlug }: { projectSlug: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuthUser();
+  const { data: userProfile } = MeReactQueryAdapter.client.useGetMyProfile({});
+
+  const prefillParams = {
+    full_name: `${user?.firstName} ${user?.lastName}`,
+    email: user?.email,
+    github_login: user?.login,
+    linkedin_profile: userProfile?.getContact(UserProfileContactChannel.linkedin)?.contact,
+    telegram_handle: userProfile?.getContactTelegram()?.contact,
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center gap-2">
@@ -41,7 +55,7 @@ function ActionHeader({ projectSlug }: { projectSlug: string }) {
         <SheetHeader>
           <SheetTitle>Apply to this quest</SheetTitle>
         </SheetHeader>
-        <FilloutStandardEmbed filloutId="7nGf4YdHqzus" inheritParameters parameters={{}} />
+        <FilloutStandardEmbed filloutId="7nGf4YdHqzus" inheritParameters parameters={prefillParams} />
       </SheetContent>
     </Sheet>
   );
