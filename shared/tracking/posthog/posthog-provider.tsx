@@ -1,6 +1,7 @@
 "use client";
 
 import posthog from "posthog-js";
+import "posthog-js/dist/surveys";
 import { PostHogProvider as Provider } from "posthog-js/react";
 import { PropsWithChildren } from "react";
 

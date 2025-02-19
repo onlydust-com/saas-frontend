@@ -15,6 +15,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { MeApplicationsInterface } from "./models/me-application";
+
 /* --------------------------------- Logout me -------------------------------- */
 
 export type LogoutMeResponse = never;
@@ -236,3 +238,15 @@ export type ContinueChatPortParams = HttpClientParameters<{
 }>;
 
 export type ContinueChatPortResponse = HttpStorageResponse<ContinueChatResponse>;
+
+/* --------------------------------- Get my hackathon applications -------------------------------- */
+
+export type GetMyApplicationsResponse = components["schemas"]["ApplicationsInfoResponse"];
+
+export type GetMyApplicationsPathParams = operations["getApplicationsInfo"]["parameters"]["path"];
+
+export type GetMyApplicationsPortParams = HttpClientParameters<{
+  PathParams: GetMyApplicationsPathParams;
+}>;
+
+export type GetMyApplicationsPortResponse = HttpStorageResponse<MeApplicationsInterface>;

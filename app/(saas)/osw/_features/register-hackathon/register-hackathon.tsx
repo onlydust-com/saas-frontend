@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell } from "lucide-react";
+import { useMemo } from "react";
 import { toast } from "sonner";
 
 import { RegisterHackathonProps } from "@/app/(saas)/osw/_features/register-hackathon/register-hackathon.types";
@@ -11,6 +12,7 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Tooltip } from "@/design-system/atoms/tooltip";
 
+import { ApplyCounter } from "@/shared/features/issues/apply-counter/apply-counter";
 import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
@@ -70,26 +72,34 @@ function RegisterHackathon({ hackathonSlug }: RegisterHackathonProps) {
   const isLoading = hackathonIsLoading || hackathonRegistrationIsLoading;
   const isRegistered = hackathonRegistration?.isRegistered;
 
+  const renderRegisterOrProgress = useMemo(() => {
+    if (!isRegistered) {
+      return (
+        <Tooltip content={"The event is over"} enabled={isPast}>
+          <Button
+            size={"md"}
+            onClick={handleClick}
+            startIcon={{ component: Bell }}
+            classNames={{ base: "w-full" }}
+            isLoading={isLoading || registerIsPending}
+            isDisabled={isRegistered || isPast}
+          >
+            Register
+          </Button>
+        </Tooltip>
+      );
+    }
+
+    return <ApplyCounter />;
+  }, [isPast, isRegistered]);
+
   function handleClick() {
     register({});
   }
 
   if (isError) return null;
 
-  return (
-    <Tooltip content={"The event is over"} enabled={isPast}>
-      <Button
-        size={"md"}
-        onClick={handleClick}
-        startIcon={{ component: Bell }}
-        classNames={{ base: "w-full" }}
-        isLoading={isLoading || registerIsPending}
-        isDisabled={isRegistered || isPast}
-      >
-        {isRegistered ? "Registered" : "Register"}
-      </Button>
-    </Tooltip>
-  );
+  return renderRegisterOrProgress;
 }
 
 export function AuthenticatedRegisterHackathon({ hackathonSlug }: { hackathonSlug: string }) {
