@@ -162,7 +162,7 @@ export function CardIssueDefaultAdapter<C extends ElementType = "div">({
             selectedLabels={selectedLabels}
           />
 
-          <div className="flex flex-row items-center justify-end gap-2">
+          <div className="flex flex-row flex-wrap items-center justify-end gap-2">
             {!!createdSince && (
               <div className="flex flex-row items-center justify-start gap-1">
                 <Icon component={Clock} />
