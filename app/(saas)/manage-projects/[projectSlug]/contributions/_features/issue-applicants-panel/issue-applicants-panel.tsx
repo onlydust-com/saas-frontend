@@ -1,6 +1,7 @@
-import { PropsWithChildren, useCallback, useState } from "react";
+import { PropsWithChildren, useCallback, useRef, useState } from "react";
 
 import { ApplicantCard } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_components/applicant-card/applicant-card";
+import { ScoringInfoPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/scoring-info-panel/scoring-info-panel";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
@@ -15,6 +16,7 @@ import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: string }>) {
   const [open, setOpen] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid: id },
@@ -75,7 +77,7 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="w-full">{children}</SheetTrigger>
 
-      <SheetContent className="flex flex-col">
+      <SheetContent ref={sheetRef} className="flex flex-col">
         {renderHeader()}
 
         <ScrollArea className="flex-1">
@@ -83,7 +85,10 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
         </ScrollArea>
 
         <SheetFooter className="justify-end">
-          <Button variant="outline">Scoring</Button>
+          <ScoringInfoPanel containerRef={sheetRef.current}>
+            <Button variant="outline">How does scoring work?</Button>
+          </ScoringInfoPanel>
+
           <Button variant="outline">See issue</Button>
         </SheetFooter>
       </SheetContent>
