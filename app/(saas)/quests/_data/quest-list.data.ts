@@ -165,7 +165,7 @@ export const QuestListData: QuestList[] = [
     requiredSkills: ["Blockchain researcher", "Smart contract developer (rust, soroban)", "Backend engineer"],
     startDate: "2025-02-21",
     endDate: "2025-03-14",
-    issues: [2810756300],
+    issues: [2864694007],
     maintainers: [13529612],
   },
 ];
