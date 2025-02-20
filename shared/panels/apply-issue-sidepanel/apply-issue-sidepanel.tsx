@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -12,6 +12,7 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { IssueInterface } from "@/core/domain/issue/models/issue-model";
+import { AnyType } from "@/core/kernel/types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -212,7 +213,23 @@ function Content() {
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
-  const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
+  const { data: pendingContributionsData } = ContributionReactQueryAdapter.client.useGetContributions({
+    queryParams: {
+      applicantIds: user?.githubUserId ? [user.githubUserId] : [],
+    },
+    options: {
+      enabled: !!user?.githubUserId,
+    },
+  });
+
+  const pendingContributions = useMemo(
+    () => pendingContributionsData?.pages.flatMap(page => page.contributions) ?? [],
+    [pendingContributionsData]
+  );
+
+  const currentUserApplication =
+    user?.pendingApplications?.find(application => application.issue?.id === issue?.id) ||
+    pendingContributions?.find(contribution => issueFromContribution(contribution).id === issue?.id);
 
   const hasCurrentUserApplication = !!currentUserApplication;
 
@@ -275,7 +292,9 @@ function Content() {
 
   useEffect(() => {
     form.reset({
-      githubComment: currentUserApplication ? currentUserApplication.githubComment : prefillLabel(),
+      githubComment: (currentUserApplication as unknown as AnyType)?.githubComment
+        ? (currentUserApplication as unknown as AnyType)?.githubComment
+        : prefillLabel(),
     });
   }, [currentUserApplication]);
 
