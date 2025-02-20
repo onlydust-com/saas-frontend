@@ -1,6 +1,7 @@
 import { PropsWithChildren, useCallback, useRef, useState } from "react";
 
 import { ApplicantCard } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_components/applicant-card/applicant-card";
+import { ApplicantDetailPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/applicant-detail-panel/applicant-detail-panel";
 import { IssueDetailPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/issue-detail-panel/issue-detail-panel";
 import { ScoringInfoPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/scoring-info-panel/scoring-info-panel";
 
@@ -71,7 +72,11 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
 
     if (!applicants) return null;
 
-    return applicants.map(applicant => <ApplicantCard key={applicant.applicationId} applicant={applicant} />);
+    return applicants.map(applicant => (
+      <ApplicantDetailPanel key={applicant.applicationId} applicantId={applicant.contributor.id}>
+        <ApplicantCard applicant={applicant} />
+      </ApplicantDetailPanel>
+    ));
   }, [applicants, isLoadingApplicants, isErrorApplicants]);
 
   return (
@@ -85,7 +90,7 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
           <div className="flex flex-col gap-2">{renderApplications()}</div>
         </ScrollArea>
 
-        <SheetFooter className="justify-end">
+        <SheetFooter>
           <ScoringInfoPanel containerRef={sheetRef.current}>
             <Button variant="outline">How does scoring work?</Button>
           </ScoringInfoPanel>
