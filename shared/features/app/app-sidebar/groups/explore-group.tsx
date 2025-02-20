@@ -1,4 +1,4 @@
-import { ArrowRight, Bot, Compass, FolderSearch, LayoutList, Lightbulb, Orbit, Rocket } from "lucide-react";
+import { ArrowRight, Bot, Compass, FolderSearch, LayoutList, Lightbulb, Orbit, Rocket, Target } from "lucide-react";
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -26,6 +26,7 @@ export function ExploreGroup() {
   const isEcosystemsRoute = useMatchPath(NEXT_ROUTER.ecosystems.root, { exact: false });
   const isOdSayRoute = useMatchPath(NEXT_ROUTER.odSay.root, { exact: false });
   const isProjectRecommendationRoute = useMatchPath(NEXT_ROUTER.projectRecommendation.root, { exact: false });
+  const isQuestRoute = useMatchPath(NEXT_ROUTER.quests.root, { exact: false });
 
   const items = [
     {
@@ -47,6 +48,13 @@ export function ExploreGroup() {
       isActive: isOswRoute,
     },
     {
+      title: "ODQuests",
+      url: NEXT_ROUTER.quests.root,
+      icon: Target,
+      isActive: isQuestRoute,
+      isNew: true,
+    },
+    {
       title: "Ecosystems",
       url: NEXT_ROUTER.ecosystems.root,
       icon: Orbit,
@@ -65,6 +73,11 @@ export function ExploreGroup() {
                 <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
+                  {item.isNew && (
+                    <Badge variant="emphasis" className="ml-auto">
+                      New
+                    </Badge>
+                  )}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
