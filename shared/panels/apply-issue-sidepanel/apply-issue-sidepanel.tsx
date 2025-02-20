@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -212,7 +212,24 @@ function Content() {
 
   const { data: user } = MeReactQueryAdapter.client.useGetMe({});
 
-  const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
+  const { data: pendingContributionsData } = ContributionReactQueryAdapter.client.useGetContributions({
+    queryParams: {
+      applicantIds: user?.githubUserId ? [user.githubUserId] : [],
+    },
+    options: {
+      enabled: !!user?.githubUserId,
+    },
+  });
+
+  const pendingContributions = useMemo(
+    () => pendingContributionsData?.pages.flatMap(page => page.contributions) ?? [],
+    [pendingContributionsData]
+  );
+
+  const currentUserApplication =
+    user?.pendingApplications?.find(application => application.issue?.id === issue?.id) ||
+    pendingContributions?.find(contribution => issueFromContribution(contribution).id === issue?.id);
+
   const hasCurrentUserApplication = !!currentUserApplication;
 
   const { mutateAsync: createApplication, ...createApplicationState } = MeReactQueryAdapter.client.usePostMyApplication(
@@ -270,17 +287,12 @@ function Content() {
 
   const form = useForm<ApplyIssueSidepanelForm>({
     resolver: zodResolver(ApplyIssueSidepanelValidation),
-    defaultValues: {
-      githubComment: prefillLabel(),
-    },
   });
 
   useEffect(() => {
-    if (currentUserApplication) {
-      form.reset({
-        githubComment: currentUserApplication.githubComment,
-      });
-    }
+    form.reset({
+      githubComment: currentUserApplication ? currentUserApplication.githubComment : prefillLabel(),
+    });
   }, [currentUserApplication]);
 
   if (isLoading) return <SidePanelLoading />;
@@ -299,7 +311,7 @@ function Content() {
           <Metrics issue={issue} />
           <Summary issue={issue} />
           {isHackathon ? <ApplyIssueGuideline /> : null}
-          <Apply />
+          <Apply hasCurrentUserApplication={hasCurrentUserApplication} />
         </SidePanelBody>
         <Footer
           hasCurrentUserApplication={hasCurrentUserApplication}
