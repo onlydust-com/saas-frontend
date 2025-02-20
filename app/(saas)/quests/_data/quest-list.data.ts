@@ -132,4 +132,42 @@ export const QuestListData: QuestList[] = [
     ],
     maintainers: [174588862, 31634868, 176054645, 112297389],
   },
+  {
+    id: "c4f8d932-e517-4f1d-b6c9-a2b3e7d8f901",
+    bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/trustless-work-v4.png",
+    projectSlug: "trustless-work-",
+    name: "Reclaim Protocol Attestations for Trustless Work Escrows",
+    shortDescription:
+      "Exploring how Reclaim Protocol can enable users to prove off-chain actions and integrate these attestations into Trustless Work’s escrow system.",
+    longDescription: {
+      title: "Reclaim Protocol Attestations for Trustless Work Escrows",
+      description:
+        "Exploring how Reclaim Protocol can enable users to prove off-chain actions and integrate these attestations into Trustless Work’s escrow system. The goal of this Spike is to research and prototype an integration between Reclaim Protocol and Trustless Work’s smart escrows. Reclaim enables users to generate verifiable proofs of off-chain actions (e.g., PayPal transactions, GitHub commits) that can be submitted and verified on-chain. This initiative will evaluate the feasibility of Reclaim attestations in Trustless Work’s escrow workflow. For example: (A Service Provider could prove that they committed the code, A User could prove that they sent a payment via PayPal, A P2P exchange participant could verify that an off-chain transaction was completed without exposing sensitive data). This Spike will determine:",
+      requirements: [
+        "How Reclaim Protocol generates proofs.",
+        "How proofs are submitted to Soroban contracts.",
+        "How Trustless Work’s escrow contracts can support these attestations.",
+        "Potential roadmap for full integration.",
+      ],
+      warning: "",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+      expert: {
+        provided: [],
+        wanted: 1,
+      },
+    },
+    requiredSkills: ["Blockchain researcher", "Smart contract developer (rust, soroban)", "Backend engineer"],
+    startDate: "2025-02-21",
+    endDate: "2025-03-14",
+    issues: [2810756300],
+    maintainers: [13529612],
+  },
 ];
+
+// https://api.github.com/repos/Trustless-Work/Trustless-Work-Smart-Escrow/issues/41
