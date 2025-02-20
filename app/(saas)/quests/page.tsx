@@ -6,6 +6,7 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 import { QuestList } from "./_features/quest-list/quest-list";
 
@@ -40,4 +41,4 @@ function QuestsPage() {
   );
 }
 
-export default withClientOnly(QuestsPage);
+export default withClientOnly(withAuthenticated(QuestsPage));
