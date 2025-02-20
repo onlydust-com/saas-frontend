@@ -1,4 +1,5 @@
-import { PropsWithChildren, useCallback, useState } from "react";
+import { Pyramid } from "lucide-react";
+import { PropsWithChildren, useCallback, useRef, useState } from "react";
 
 import { ApplicantCard } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_components/applicant-card/applicant-card";
 
@@ -8,13 +9,49 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge/variants/contribution-badge-default";
 
 import { Button } from "@/shared/ui/button";
+import { Card, CardTitle } from "@/shared/ui/card";
 import { ScrollArea } from "@/shared/ui/scroll-area";
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/shared/ui/sheet";
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
+
+const scoringCards = [
+  {
+    iconColor: "text-purple-500",
+    title: "Global score",
+    description:
+      "The Global Score is a powerful tool that distills complex, multi-faceted performance data into a single, actionable number, enabling maintainers to make informed decisions quickly and confidently.",
+  },
+  {
+    iconColor: "text-red-500",
+    title: "Commitment score",
+    description:
+      "The Commitment Score evaluates a contributor's dedication to the project by analyzing their contributions, engagement, and commitment over time.",
+  },
+  {
+    iconColor: "text-yellow-500",
+    title: "Technical expertise",
+    description:
+      "The Technical Expertise Score assesses a contributor's technical skills and proficiency in the project's domain.",
+  },
+  {
+    iconColor: "text-blue-500",
+    title: "Project familiarity",
+    description:
+      "The Project Familiarity Score evaluates a contributor's familiarity with the project's codebase and community.",
+  },
+  {
+    iconColor: "text-green-500",
+    title: "Issue matching",
+    description:
+      "The Issue Matching Score assesses a contributor's ability to understand and match the project's needs.",
+  },
+];
 
 export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: string }>) {
   const [open, setOpen] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   const { data: contribution } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid: id },
@@ -75,7 +112,7 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="w-full">{children}</SheetTrigger>
 
-      <SheetContent className="flex flex-col">
+      <SheetContent ref={sheetRef} className="flex flex-col">
         {renderHeader()}
 
         <ScrollArea className="flex-1">
@@ -83,7 +120,32 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
         </ScrollArea>
 
         <SheetFooter className="justify-end">
-          <Button variant="outline">Scoring</Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline">Scoring</Button>
+            </SheetTrigger>
+            <SheetContent
+              portalProps={{ container: sheetRef.current }}
+              overlayProps={{ className: "absolute" }}
+              className="absolute flex flex-col gap-3"
+              side="bottom"
+            >
+              <SheetHeader>
+                <SheetTitle>How does scoring work?</SheetTitle>
+              </SheetHeader>
+
+              {scoringCards.map(card => (
+                <Card key={card.title} className="flex flex-col gap-3 p-3">
+                  <header className="flex flex-col gap-2">
+                    <Pyramid className={cn(card.iconColor)} />
+                    <CardTitle>{card.title}</CardTitle>
+                  </header>
+                  <TypographyMuted>{card.description}</TypographyMuted>
+                </Card>
+              ))}
+            </SheetContent>
+          </Sheet>
+
           <Button variant="outline">See issue</Button>
         </SheetFooter>
       </SheetContent>
