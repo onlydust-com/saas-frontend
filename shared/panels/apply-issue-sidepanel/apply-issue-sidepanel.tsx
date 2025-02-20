@@ -270,17 +270,12 @@ function Content() {
 
   const form = useForm<ApplyIssueSidepanelForm>({
     resolver: zodResolver(ApplyIssueSidepanelValidation),
-    defaultValues: {
-      githubComment: prefillLabel(),
-    },
   });
 
   useEffect(() => {
-    if (currentUserApplication) {
-      form.reset({
-        githubComment: currentUserApplication.githubComment,
-      });
-    }
+    form.reset({
+      githubComment: currentUserApplication ? currentUserApplication.githubComment : prefillLabel(),
+    });
   }, [currentUserApplication]);
 
   if (isLoading) return <SidePanelLoading />;
@@ -299,7 +294,7 @@ function Content() {
           <Metrics issue={issue} />
           <Summary issue={issue} />
           {isHackathon ? <ApplyIssueGuideline /> : null}
-          <Apply />
+          <Apply hasCurrentUserApplication={hasCurrentUserApplication} />
         </SidePanelBody>
         <Footer
           hasCurrentUserApplication={hasCurrentUserApplication}
