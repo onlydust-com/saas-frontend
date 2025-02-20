@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -12,7 +12,6 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { IssueInterface } from "@/core/domain/issue/models/issue-model";
-import { AnyType } from "@/core/kernel/types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
