@@ -36,7 +36,7 @@ export type GetApplicationByIdPortResponse = HttpStorageResponse<GetApplicationB
 
 export type DeleteApplicationBody = components["schemas"]["ProjectApplicationDeleteRequest"];
 
-export type DeleteApplicationPathParams = operations["deleteProjectApplication"]["parameters"]["path"];
+export type DeleteApplicationPathParams = operations["withdrawProjectApplication"]["parameters"]["path"];
 
 export type DeleteApplicationPortParams = HttpClientParameters<{ PathParams: DeleteApplicationPathParams }>;
 
