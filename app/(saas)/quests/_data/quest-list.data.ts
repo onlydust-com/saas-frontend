@@ -134,7 +134,7 @@ export const QuestListData: QuestList[] = [
   },
   {
     id: "c4f8d932-e517-4f1d-b6c9-a2b3e7d8f901",
-    bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/trustless-work-v5.png",
+    bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/trustless-work-v6.png",
     projectSlug: "trustless-work-",
     name: "Reclaim Protocol Attestations for Trustless Work Escrows",
     shortDescription:
