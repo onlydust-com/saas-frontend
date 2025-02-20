@@ -275,7 +275,7 @@ function Content() {
 
   useEffect(() => {
     form.reset({
-      githubComment: currentUserApplication ? currentUserApplication.githubComment : prefillLabel(),
+      githubComment: currentUserApplication ? currentUserApplication?.githubComment : prefillLabel(),
     });
   }, [currentUserApplication]);
 
