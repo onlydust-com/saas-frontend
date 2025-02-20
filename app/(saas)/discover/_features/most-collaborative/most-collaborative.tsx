@@ -12,7 +12,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 
 export function MostCollaborative() {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectsV2({
-    queryParams: { pageSize: 5, tags: [ProjectTag.HOT_COMMUNITY] },
+    queryParams: { pageSize: 5, tags: [ProjectTag.HOT_COMMUNITY], sortBy: "RECENT_ACTIVITY" },
   });
 
   const renderProjects = useCallback(() => {
