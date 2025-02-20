@@ -43,6 +43,7 @@ export class ContributionActivity implements ContributionActivityInterface {
   type!: ContributionActivityResponse["type"];
   id!: ContributionActivityResponse["uuid"];
   githubId!: ContributionActivityResponse["githubId"];
+  isIncludedInLiveHackathon!: ContributionActivityResponse["isIncludedInLiveHackathon"];
 
   constructor(props: ContributionActivityResponse) {
     Object.assign(this, props);

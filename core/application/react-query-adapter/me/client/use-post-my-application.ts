@@ -27,6 +27,11 @@ export function usePostMyApplication({
           });
 
           await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMyApplications({}).tag,
+            exact: false,
+          });
+
+          await queryClient.invalidateQueries({
             queryKey: projectStoragePort.getProjectAvailableIssues({}).tag,
             exact: false,
           });

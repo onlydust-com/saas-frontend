@@ -169,7 +169,7 @@ export function CardProjectMarketplaceDefaultAdapter<C extends ElementType = "di
         <Tooltip
           content={
             <>
-              <strong>Retroactive Grants:</strong> Projects where OnlyDust rewards valuable contributions monthly.{" "}
+              <strong>Retroactive Grants:</strong> If a project is eligible for grants, OnlyDust will reward valuable contributions monthly.{" "}
               <BaseLink href="https://blog.onlydust.com/docs/faq-2/" className="underline">
                 More info here
               </BaseLink>

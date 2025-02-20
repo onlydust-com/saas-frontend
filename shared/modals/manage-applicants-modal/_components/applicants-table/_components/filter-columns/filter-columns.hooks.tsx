@@ -20,6 +20,7 @@ import { SortDirection } from "@/design-system/molecules/table-sort";
 
 import { AcceptIgnoreApplication } from "@/shared/components/mutation/application/accept-ignore-application/accept-ignore-application";
 import { TABLE_CELL_SIZE } from "@/shared/constants/table";
+import { ApplicationLimitBadge } from "@/shared/features/application-limit-badge/application-limit-badge";
 import { ContributorLabelPopover } from "@/shared/features/popovers/contributor-label-popover/contributor-label-popover";
 import {
   FilterColumnsHookProps,
@@ -81,7 +82,7 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
     contributor: columnHelper.accessor("contributor", {
       header: () => <Translate token={"modals:manageApplicants.table.columns.contributor"} />,
       cell: info => {
-        const { contributor } = info.row.original;
+        const { contributor, applicationCountOnLiveHackathon } = info.row.original;
 
         return (
           <AvatarLabelGroup
@@ -90,7 +91,14 @@ export function useFilterColumns({ projectId, onAssign, repoId }: FilterColumnsH
                 src: contributor.avatarUrl,
               },
             ]}
-            title={{ children: contributor.login }}
+            title={{
+              children: (
+                <div className="flex items-center gap-1">
+                  {contributor.login}
+                  <ApplicationLimitBadge count={applicationCountOnLiveHackathon ?? 0} />
+                </div>
+              ),
+            }}
             description={{ children: contributor.rank.getTitle().wording }}
             withPopover={false}
           />
