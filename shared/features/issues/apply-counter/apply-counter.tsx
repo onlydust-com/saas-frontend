@@ -4,6 +4,7 @@ import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { Progress } from "@/shared/ui/progress";
 import { TypographyMuted } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 import { ApplyCounterProps } from "./apply-counter.types";
 
@@ -34,10 +35,14 @@ export function ApplyCounter({ children }: ApplyCounterProps) {
     <>
       {children}
       <div className="flex flex-col items-end gap-1">
-        <TypographyMuted>
+        <TypographyMuted className={cn(remainingApplications <= 0 && "text-red-500")}>
           {remainingApplications} application{remainingApplications === 1 ? "" : "s"} remaining
         </TypographyMuted>
-        <Progress value={currentApplicationPercent} max={data.maxApplicationsOnLiveHackathon * 10} />
+        <Progress
+          value={currentApplicationPercent}
+          max={data.maxApplicationsOnLiveHackathon * 10}
+          progressBarClassName={cn(remainingApplications <= 0 && "bg-red-500")}
+        />
       </div>
     </>
   );
