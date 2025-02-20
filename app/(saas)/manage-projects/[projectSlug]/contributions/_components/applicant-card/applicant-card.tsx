@@ -1,4 +1,5 @@
 import { Pyramid } from "lucide-react";
+import { HTMLAttributes } from "react";
 
 import { IssueApplicantInterface } from "@/core/domain/issue/models/issue-applicant-model";
 
@@ -7,9 +8,12 @@ import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
-export function ApplicantCard({ applicant }: { applicant: IssueApplicantInterface }) {
+export function ApplicantCard({
+  applicant,
+  ...restProps
+}: { applicant: IssueApplicantInterface } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <Card className="flex cursor-pointer flex-col gap-5 p-3 transition-opacity hover:opacity-80">
+    <Card className="flex cursor-pointer flex-col gap-5 p-3 transition-opacity hover:opacity-80" {...restProps}>
       <header className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <Avatar className="rounded-sm">
