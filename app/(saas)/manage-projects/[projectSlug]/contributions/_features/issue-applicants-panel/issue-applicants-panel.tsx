@@ -1,6 +1,7 @@
 import { PropsWithChildren, useCallback, useRef, useState } from "react";
 
 import { ApplicantCard } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_components/applicant-card/applicant-card";
+import { IssueDetailPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/issue-detail-panel/issue-detail-panel";
 import { ScoringInfoPanel } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/scoring-info-panel/scoring-info-panel";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
@@ -45,14 +46,14 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
     if (!contribution) return null;
 
     return (
-      <SheetHeader className={"flex w-full flex-row items-center justify-start gap-lg space-y-0"}>
+      <SheetHeader className={"flex w-full flex-row items-center justify-start gap-3 space-y-0"}>
         <ContributionBadge
           type={contribution.type}
-          number={contribution?.githubNumber}
-          githubStatus={contribution?.githubStatus}
+          number={contribution.githubNumber}
+          githubStatus={contribution.githubStatus}
         />
 
-        <TypographyH4 className="line-clamp-1">{contribution?.githubTitle}</TypographyH4>
+        <TypographyH4 className="line-clamp-1">{contribution.githubTitle}</TypographyH4>
       </SheetHeader>
     );
   }, [contribution]);
@@ -89,7 +90,9 @@ export function IssueApplicantsPanel({ children, id }: PropsWithChildren<{ id: s
             <Button variant="outline">How does scoring work?</Button>
           </ScoringInfoPanel>
 
-          <Button variant="outline">See issue</Button>
+          <IssueDetailPanel containerRef={sheetRef.current} contributionId={id}>
+            <Button variant="outline">See issue</Button>
+          </IssueDetailPanel>
         </SheetFooter>
       </SheetContent>
     </Sheet>
