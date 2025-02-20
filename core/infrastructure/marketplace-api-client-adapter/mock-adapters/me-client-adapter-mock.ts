@@ -47,4 +47,6 @@ export class MeClientAdapterMock implements MeStoragePort {
   startChat = mockHttpStorageResponse<MeStoragePort["startChat"]>;
 
   continueChat = mockHttpStorageResponse<MeStoragePort["continueChat"]>;
+
+  getMyApplications = mockHttpStorageResponse<MeStoragePort["getMyApplications"]>;
 }

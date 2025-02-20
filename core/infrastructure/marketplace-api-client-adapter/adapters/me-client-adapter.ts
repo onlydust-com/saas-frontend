@@ -4,6 +4,7 @@ import {
   ContinueChatPortParams,
   ContinueChatResponse,
   GetMeResponse,
+  GetMyApplicationsResponse,
   GetMyHackathonRegistrationResponse,
   GetMyNotificationSettingsForProjectResponse,
   GetMyNotificationSettingsResponse,
@@ -24,6 +25,7 @@ import {
   StartChatResponse,
   UploadProfilePictureResponse,
 } from "@/core/domain/me/me-contract.types";
+import { MeApplications } from "@/core/domain/me/models/me-application";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
 import { MeHackathonRegistration } from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-projects-model";
@@ -62,6 +64,7 @@ export class MeClientAdapter implements MeStoragePort {
     getMyNotificationSettingsForProject: "me/notification-settings/projects/:projectId",
     startChat: "me/reco/chats",
     continueChat: "me/reco/chats/:chatId",
+    getMyApplications: "me/applications",
   } as const;
 
   logoutMe = () => {
@@ -505,4 +508,25 @@ export class MeClientAdapter implements MeStoragePort {
       tag,
     };
   }
+
+  getMyApplications = () => {
+    const path = this.routes["getMyApplications"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async () => {
+      const data = await this.client.request<GetMyApplicationsResponse>({
+        path,
+        method,
+        tag,
+      });
+
+      return new MeApplications(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
 }

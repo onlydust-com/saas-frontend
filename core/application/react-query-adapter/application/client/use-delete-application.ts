@@ -12,6 +12,7 @@ export function useDeleteApplication({
   pathParams,
   options,
 }: UseMutationFacadeParams<ApplicationFacadePort["deleteApplication"], undefined, never, DeleteApplicationBody>) {
+  const meStoragePort = bootstrap.getMeStoragePortForClient();
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
   const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
@@ -26,6 +27,11 @@ export function useDeleteApplication({
           //  Invalidate application kanban list
           await queryClient.invalidateQueries({
             queryKey: contributionStoragePort.getContributions({}).tag,
+            exact: false,
+          });
+
+          await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMyApplications({}).tag,
             exact: false,
           });
 
