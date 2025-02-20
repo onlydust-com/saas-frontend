@@ -12,6 +12,7 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 import { IssueInterface } from "@/core/domain/issue/models/issue-model";
+import { AnyType } from "@/core/kernel/types";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Typo } from "@/design-system/atoms/typo";
@@ -275,7 +276,9 @@ function Content() {
 
   useEffect(() => {
     form.reset({
-      githubComment: currentUserApplication ? currentUserApplication.githubComment : prefillLabel(),
+      githubComment: (currentUserApplication as unknown as AnyType)?.githubComment
+        ? (currentUserApplication as unknown as AnyType)?.githubComment
+        : prefillLabel(),
     });
   }, [currentUserApplication]);
 
