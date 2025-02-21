@@ -1,7 +1,9 @@
 "use client";
 
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
+import { withQuestLead } from "../_components/with-quest-lead";
 import { IssueList } from "./_components/issue-list/issue-list";
 import { IssueListProps } from "./_components/issue-list/issue-list.types";
 import { Section } from "./_components/section/section";
@@ -32,11 +34,7 @@ const mockPr: IssueListProps["issues"][number] = {
   ],
 } as const;
 
-export default function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
-  // 1, contributor detail + metrics
-  // 2, contributor scoring from backend
-  // 3, devcare team contributor review
-  // 4, application detail from fillout (reponse aux question de la quest)
+function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
   const login = "alexbeno";
   const githubId = 17259618;
   const note =
@@ -123,3 +121,4 @@ export default function QuestApplicationPage({ params }: { params: { application
     </PageContainer>
   );
 }
+export default withAuthenticated(withQuestLead(QuestApplicationPage));
