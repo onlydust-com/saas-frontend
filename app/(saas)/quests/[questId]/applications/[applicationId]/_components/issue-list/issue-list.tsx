@@ -24,7 +24,7 @@ import { cn } from "@/shared/utils";
 import { AmountOfWorkBadge } from "../amount-of-work-badge/amount-of-work-badge";
 import { IssueListProps } from "./issue-list.types";
 
-function IssueListItem({ issue }: { issue: IssueListProps["issues"][number] }) {
+function IssueListItem({ issue, showBadge = true }: { issue: IssueListProps["issues"][number]; showBadge?: boolean }) {
   return (
     <div key={issue.number} className={"w-full text-left transition-opacity hover:opacity-80"}>
       <Card className={"flex cursor-pointer flex-col items-start justify-start gap-2 p-3"}>
@@ -36,11 +36,13 @@ function IssueListItem({ issue }: { issue: IssueListProps["issues"][number] }) {
               <Emoji>{issue.title}</Emoji>
             </TypographySmall>
           </div>
-          <div className="flex items-center gap-1 px-3 py-1 first:pl-0">
-            <div className="flex flex-col gap-1">
-              <AmountOfWorkBadge value={issue.score} />
+          {showBadge && (
+            <div className="flex items-center gap-1 px-3 py-1 first:pl-0">
+              <div className="flex flex-col gap-1">
+                <AmountOfWorkBadge value={issue.score} />
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <TypographyMuted className={"line-clamp-1"}>
           <Emoji>
@@ -55,9 +57,11 @@ function IssueListItem({ issue }: { issue: IssueListProps["issues"][number] }) {
 function IssueListItemPanel({
   issue,
   children,
+  showBadge = true,
 }: {
   issue: IssueListProps["issues"][number];
   children: React.ReactNode;
+  showBadge?: boolean;
 }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
   const [open, setOpen] = useState(false);
@@ -144,9 +148,11 @@ function IssueListItemPanel({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>{children}</SheetTrigger>
       <SheetContent className={"flex flex-col"}>
-        <SheetHeader className="flex flex-row items-center justify-start gap-2">
-          <AmountOfWorkBadge value={issue.score} />
-        </SheetHeader>
+        {showBadge && (
+          <SheetHeader className="flex flex-row items-center justify-start gap-2">
+            <AmountOfWorkBadge value={issue.score} />
+          </SheetHeader>
+        )}
         <ScrollArea className="flex flex-1 flex-col gap-4">
           <div className="flex flex-col gap-4">
             {renderSummary()}
@@ -204,6 +210,7 @@ export function IssueList({
   issues,
   isError,
   isLoading,
+  showBadge = true,
 }: IssueListProps) {
   const dateKernel = bootstrap.getDateKernelPort();
 
@@ -239,8 +246,8 @@ export function IssueList({
     return (
       <div className={"flex flex-col gap-3"}>
         {issues.map(issue => (
-          <IssueListItemPanel key={issue.number} issue={issue}>
-            <IssueListItem issue={issue} />
+          <IssueListItemPanel key={issue.number} issue={issue} showBadge={showBadge}>
+            <IssueListItem issue={issue} showBadge={showBadge} />
           </IssueListItemPanel>
         ))}
       </div>

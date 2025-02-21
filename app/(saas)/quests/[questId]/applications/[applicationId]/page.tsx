@@ -161,6 +161,7 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
                       uuid: pr.contributionUuid ?? "",
                     })) ?? []
                   }
+                  showBadge={false}
                 />
               </div>
             </div>
