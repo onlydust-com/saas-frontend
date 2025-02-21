@@ -73,7 +73,6 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[200px]">Full name</TableHead>
-              <TableHead>Email</TableHead>
               <TableHead>Github</TableHead>
               <TableHead>Telegram</TableHead>
               <TableHead className="w-[150px]">Hours per week</TableHead>
@@ -95,7 +94,6 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
                 className="cursor-pointer"
               >
                 <TableCell>{application.questions.find(q => q.id === "7Nxw")?.value}</TableCell>
-                <TableCell>{application.questions.find(q => q.id === "ucvS")?.value}</TableCell>
                 <TableCell>{application.questions.find(q => q.id === "wWhp")?.value}</TableCell>
                 <TableCell>{application.questions.find(q => q.id === "xjui")?.value}</TableCell>
                 <TableCell>{application.questions.find(q => q.id === "qDyH")?.value}</TableCell>

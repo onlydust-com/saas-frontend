@@ -121,10 +121,10 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
               <div className="grid lg:col-span-2">
                 <IssueList
                   containerClassName="bg-gradient-to-br from-green-950 to-transparent to-50%"
-                  title="Biggest pr on tech skill"
+                  title="Most complex PRs"
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
-                  description="These are the biggest pr on tech skill"
+                  description="These pull requests were the most complex to complete."
                   issues={
                     questData?.techSkills?.biggestPRsOnRequiredTechSkills?.map(pr => ({
                       githubStatus: pr.githubStatus,
@@ -144,10 +144,10 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
               <div className="grid lg:col-span-2">
                 <IssueList
                   containerClassName="bg-gradient-to-br from-red-950 to-transparent to-50%"
-                  title="Pr with the friction"
+                  title="PRs with the most friction"
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
-                  description="These are the Pr with the friction"
+                  description="These pull requests had a lot of back and forth to accomplish the task."
                   issues={
                     questData?.commitment?.overallPRWithMostFriction?.map(pr => ({
                       githubStatus: pr.githubStatus,
