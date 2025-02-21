@@ -22,14 +22,24 @@ const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, s
   return (await response.json()).data;
 };
 
+const limit = "150";
+
 function QuestApplicationsPage({ params }: { params: { questId: string } }) {
   const router = useRouter();
 
-  const { data } = useQuery({
-    queryKey: ["quest-applications", params.questId],
-    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId } }),
+  const { data: page1 = [] } = useQuery({
+    queryKey: ["quest-applications", params.questId, 1],
+    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId, limit } }),
     staleTime: 5000,
   });
+
+  const { data: page2 = [] } = useQuery({
+    queryKey: ["quest-applications", params.questId, 2],
+    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId, limit, offset: limit } }),
+    staleTime: 5000,
+  });
+
+  const data = [...page1, ...page2];
 
   return (
     <PageContainer size="large" className="py-10">

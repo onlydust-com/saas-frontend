@@ -29,8 +29,6 @@ export async function GET(request: NextRequest, context: { params: { formId: str
     url.searchParams.set(key, value);
   });
 
-  url.searchParams.set("limit", "150");
-
   const response = await fetch(url.toString(), {
     headers: {
       Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
