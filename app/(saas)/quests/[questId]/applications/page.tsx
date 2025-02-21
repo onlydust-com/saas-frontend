@@ -9,6 +9,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
 
 const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, string> }): Promise<Submission[]> => {
   const url = new URL(NEXT_ROUTER.api.fillout.forms.submissions.root("7nGf4YdHqzus"), window.location.origin);
@@ -41,8 +43,29 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
 
   const data = [...page1, ...page2];
 
+  const quest = QuestListData.find(quest => quest.id === params.questId);
+
   return (
     <PageContainer size="large" className="py-10">
+		 <NavigationBreadcrumb
+          breadcrumb={[
+            {
+              id: "root",
+              label: "Quests",
+              href: NEXT_ROUTER.quests.root,
+            },
+            {
+              id: "quest",
+              label: quest?.name ?? "",
+              href: NEXT_ROUTER.quests.details.root(params.questId),
+            },
+            {
+              id: "applications",
+              label: "Applications",
+            },
+          ]}
+        />
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
