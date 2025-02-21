@@ -35,6 +35,7 @@ import { ValidationAdapterMock } from "@/core/kernel/validation/validation-adapt
 import { BookmarkClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/bookmark-client-adapter-mock";
 import { ContributorClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/contributor-client-adapter-mock";
 import { HackathonClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/hackathon-client-adapter-mock";
+import { QuestClientAdapterMock } from "../infrastructure/marketplace-api-client-adapter/mock-adapters/quest-client-adapter-mock";
 import { MarkdownAdapterMock } from "../kernel/markdown/markdown-adapter-mock";
 
 export const bootstrapConstructorMock: BootstrapConstructor = {
@@ -100,4 +101,6 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   searchStoragePortForServer: new SearchClientAdapterMock(),
   projectBannerStoragePortForClient: new ProjectBannerClientAdapterMock(),
   projectBannerStoragePortForServer: new ProjectBannerClientAdapterMock(),
+  questStoragePortForClient: new QuestClientAdapterMock(),
+  questStoragePortForServer: new QuestClientAdapterMock(),
 };
