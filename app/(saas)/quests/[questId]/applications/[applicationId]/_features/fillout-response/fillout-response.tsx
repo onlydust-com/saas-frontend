@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { Submission } from "@/app/api/fillout/submissions/[formId]/route";
+import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
@@ -12,7 +12,7 @@ import { TypographyH3, TypographyMuted, TypographySmall } from "@/shared/ui/typo
 import { FilloutResponseProps } from "./fillout-response.types";
 
 const fetchSubmissionDetails = async (submissionId: string): Promise<Submission> => {
-  const response = await fetch(NEXT_ROUTER.api.fillout.submissions.details.root("7nGf4YdHqzus", submissionId));
+  const response = await fetch(NEXT_ROUTER.api.fillout.forms.submissions.details.root("7nGf4YdHqzus", submissionId));
   const data = await response.json();
   return data.data;
 };
