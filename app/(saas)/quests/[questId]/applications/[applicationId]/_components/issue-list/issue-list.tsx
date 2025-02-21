@@ -118,8 +118,6 @@ function IssueListItemPanel({
           <TypographyH4 className="line-clamp-1">{data.githubTitle}</TypographyH4>
         </header>
 
-        {data.githubBody ? <Markdown content={data.githubBody} /> : null}
-
         <TypographyMuted>{createdSince}</TypographyMuted>
 
         <footer className="flex items-end justify-between gap-3">
@@ -150,37 +148,39 @@ function IssueListItemPanel({
           <AmountOfWorkBadge value={issue.score} />
         </SheetHeader>
         <ScrollArea className="flex flex-1 flex-col gap-4">
-          {renderSummary()}
-          {renderMetrics()}
-          <Card
-            className={cn(
-              "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-purple-950 to-transparent to-20% p-4"
-            )}
-          >
-            <header className={"flex w-full items-center justify-start gap-2"}>
-              <div className={"flex items-center gap-2"}>
-                <Sparkles className={"text-purple-700"} />
-                <TypographyH3>Analysis by OnlyDust</TypographyH3>
-              </div>
-            </header>
-
-            <div className={"relative h-fit overflow-hidden transition-all"}>
-              <TypographyP>{issue.justifications}</TypographyP>
-            </div>
-          </Card>
-          {data?.githubBody ? (
-            <Card className={cn("overflow-hiddenp-4 relative flex flex-col gap-4")}>
+          <div className="flex flex-col gap-4">
+            {renderSummary()}
+            {renderMetrics()}
+            <Card
+              className={cn(
+                "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-purple-950 to-transparent to-20% p-4"
+              )}
+            >
               <header className={"flex w-full items-center justify-start gap-2"}>
                 <div className={"flex items-center gap-2"}>
-                  <TypographyH3>Description</TypographyH3>
+                  <Sparkles className={"text-purple-700"} />
+                  <TypographyH3>Analysis by OnlyDust</TypographyH3>
                 </div>
               </header>
 
               <div className={"relative h-fit overflow-hidden transition-all"}>
-                <Markdown content={data.githubBody} />
+                <TypographyP>{issue.justifications}</TypographyP>
               </div>
             </Card>
-          ) : null}
+            {data?.githubBody ? (
+              <Card className={cn("overflow-hiddenp-4 relative flex flex-col gap-4")}>
+                <header className={"flex w-full items-center justify-start gap-2"}>
+                  <div className={"flex items-center gap-2"}>
+                    <TypographyH3>Description</TypographyH3>
+                  </div>
+                </header>
+
+                <div className={"relative h-fit overflow-hidden transition-all"}>
+                  <Markdown content={data.githubBody} />
+                </div>
+              </Card>
+            ) : null}
+          </div>
         </ScrollArea>
         <SheetFooter>
           <Button variant={"outline"} asChild>
