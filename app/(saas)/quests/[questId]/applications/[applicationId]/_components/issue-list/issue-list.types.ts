@@ -26,4 +26,5 @@ export interface IssueListProps {
   issues: Issue[];
   isError?: boolean;
   isLoading?: boolean;
+  showBadge?: boolean;
 }
