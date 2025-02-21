@@ -148,11 +148,9 @@ function IssueListItemPanel({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>{children}</SheetTrigger>
       <SheetContent className={"flex flex-col"}>
-        {showBadge && (
-          <SheetHeader className="flex flex-row items-center justify-start gap-2">
-            <AmountOfWorkBadge value={issue.score} />
-          </SheetHeader>
-        )}
+        <SheetHeader className="flex flex-row items-center justify-start gap-2">
+          {showBadge && <AmountOfWorkBadge value={issue.score} />}
+        </SheetHeader>
         <ScrollArea className="flex flex-1 flex-col gap-4">
           <div className="flex flex-col gap-4">
             {renderSummary()}
