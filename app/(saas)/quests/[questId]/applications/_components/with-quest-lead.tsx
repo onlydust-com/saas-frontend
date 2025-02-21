@@ -21,7 +21,7 @@ export function withQuestLead<P extends object>(Component: React.ComponentType<P
       if (!user?.isAdmin && !isQuestLead) {
         router.push(NEXT_ROUTER.quests.root);
       }
-    }, [user]);
+    }, [user, isQuestLead]);
 
     if (!user?.isAdmin && !isQuestLead) {
       return null;
