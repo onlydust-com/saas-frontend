@@ -18,6 +18,7 @@ const mockPr: IssueListProps["issues"][number] = {
   type: "PULL_REQUEST",
   githubStatus: "MERGED",
   number: 555,
+  score: 2.5,
   title: "Biggest pr on tech skill",
   createdAt: "2021-01-01",
   url: "https://github.com/alexbeno/test/pull/555",
@@ -82,11 +83,11 @@ export default function QuestApplicationPage({ params }: { params: { application
 
               <div className="grid lg:col-span-2">
                 <IssueList
-                  containerClassName="bg-gradient-to-br from-blue-950 to-transparent to-50%"
-                  title="Overall biggest pr"
+                  containerClassName="bg-gradient-to-br from-red-950 to-transparent to-50%"
+                  title="Pr with the friction"
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
-                  description="These are the overall biggest pr"
+                  description="These are the Pr with the friction"
                   issues={[mockPr, mockPr, mockPr]}
                 />
               </div>
@@ -97,18 +98,8 @@ export default function QuestApplicationPage({ params }: { params: { application
         <div className="col-span-full">
           <Section title="Contributor commitment">
             <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
-              <div className="grid lg:col-span-2">
-                <IssueList
-                  title="Most collaborative pr"
-                  emptyMessage="No pr found"
-                  errorMessage="Error loading pr"
-                  description="These are the most collaborative pr"
-                  issues={[mockPr, mockPr, mockPr]}
-                />
-              </div>
-
-              <div className="grid lg:col-span-2">
-                <ApplicationFunnel issueAppliedCount={10} issueAssignedCount={5} issueCompletedCount={2} />
+              <div className="col-span-full grid">
+                <ApplicationFunnel issueAppliedCount={150} issueAssignedCount={100} issueCompletedCount={50} />
               </div>
             </div>
           </Section>

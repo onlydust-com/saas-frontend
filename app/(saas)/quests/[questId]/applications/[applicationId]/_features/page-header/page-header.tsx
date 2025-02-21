@@ -6,12 +6,9 @@ import { CircleDot, Folder, GitPullRequest, HandCoins } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
-
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 import { BiContributorInterface } from "@/core/domain/bi/models/bi-contributor-model";
-import { SocialPlatformChannels } from "@/core/kernel/social/social.types";
 
 import { Icon } from "@/design-system/atoms/icon";
 
@@ -24,6 +21,7 @@ import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
+import { AmountOfWorkBadge } from "../../_components/amount-of-work-badge/amount-of-work-badge";
 import { PageHeaderProps } from "./page-header.types";
 
 function Ecosystems({ ecosystems }: { ecosystems: string[] }) {

@@ -7,6 +7,7 @@ interface Issue {
   type: ContributionTypeUnion;
   githubStatus: ContributionGithubStatusUnion;
   number: number;
+  score: number;
   title: string;
   createdAt: string;
   url: string;

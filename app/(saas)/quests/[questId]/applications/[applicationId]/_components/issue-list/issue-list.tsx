@@ -5,12 +5,12 @@ import { bootstrap } from "@/core/bootstrap";
 
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
+import { AmountOfWorkBadge } from "../amount-of-work-badge/amount-of-work-badge";
 import { IssueListProps } from "./issue-list.types";
 
 export function IssueList({
@@ -67,23 +67,24 @@ export function IssueList({
               <Card className={"flex cursor-pointer flex-col items-start justify-start gap-2 p-3"}>
                 <div className="flex w-full items-center justify-between gap-px">
                   <div className={"flex flex-1 items-center gap-3"}>
-                    <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.githubStatus} />
+                    <ContributionBadge type={issue.type} number={issue.number} githubStatus={issue.githubStatus} />
 
                     <TypographySmall className={"line-clamp-1"}>
                       <Emoji>{issue.title}</Emoji>
                     </TypographySmall>
                   </div>
                   <div className="flex items-center gap-1 px-3 py-1 first:pl-0">
-                    {issue.languages?.map(language => (
-                      <Avatar className="size-5" key={language.name}>
-                        <AvatarImage src={language.logoUrl} />
-                        <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    ))}
+                    <div className="flex flex-col gap-1">
+                      <AmountOfWorkBadge value={issue.score} />
+                    </div>
                   </div>
                 </div>
                 <TypographyMuted className={"line-clamp-1"}>
-                  <Emoji>{issue.justifications}</Emoji>
+                  <Emoji>
+                    {issue.justifications?.length > 100
+                      ? `${issue.justifications.slice(0, 100)}...`
+                      : issue.justifications}
+                  </Emoji>
                 </TypographyMuted>
               </Card>
             </a>
