@@ -1,5 +1,5 @@
 import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
 
@@ -15,18 +15,21 @@ export function withQuestLead<P extends object>(Component: React.ComponentType<P
 
     const quest = QuestListData.find(quest => quest.id === params.questId);
 
-    const isQuestLead = user?.projectsLed?.some(project => project.id === quest?.projectId);
+    const isQuestLead = useMemo(
+      () => user?.projectsLed?.some(project => project.id === quest?.projectId) ?? false,
+      [user, quest]
+    );
 
     useEffect(() => {
-      if (!user?.isAdmin && !isQuestLead) {
+      if (user && !user.isAdmin && !isQuestLead) {
         router.push(NEXT_ROUTER.quests.root);
       }
     }, [user, isQuestLead]);
 
-    if (!user?.isAdmin && !isQuestLead) {
-      return null;
+    if (user?.isAdmin || isQuestLead) {
+      return <Component {...props} />;
     }
 
-    return <Component {...props} />;
+    return null;
   };
 }
