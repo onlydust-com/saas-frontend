@@ -28,8 +28,8 @@ export function DevCareNote({ children }: DevCareNoteProps) {
             </TooltipTrigger>
             <TooltipContent side="bottom" align="start">
               <TypographyP className="max-w-[300px]">
-                This is our opinion, written to help you understand more about the contributor. It's not intended as a
-                statement of fact, but was written to be as accurate as possible at the time of publishing
+                This is our opinion, written to help you understand more about the contributor. It&apos;s not intended
+                as a statement of fact, but was written to be as accurate as possible at the time of publishing
               </TypographyP>
             </TooltipContent>
           </Tooltip>
@@ -44,7 +44,7 @@ export function DevCareNote({ children }: DevCareNoteProps) {
           </Avatar>
           <div className="flex flex-col gap-px">
             <TypographyP>Sofia</TypographyP>
-            <TypographyMuted>Dev Care Team onlydust</TypographyMuted>
+            <TypographyMuted>Dev Care Team OnlyDust</TypographyMuted>
           </div>
         </div>
       </div>

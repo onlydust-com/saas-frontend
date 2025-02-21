@@ -41,9 +41,9 @@ export function AmountOfWorkBadge({ value }: AmountOfWorkBadgeProps) {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className={cn("text-inherit")}
           >
             <path d="M12 2v4" className={cn("text-border", { "text-inherit": lines[0] })} />

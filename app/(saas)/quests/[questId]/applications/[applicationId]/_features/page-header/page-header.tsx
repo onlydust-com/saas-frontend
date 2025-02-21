@@ -21,7 +21,6 @@ import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
-import { AmountOfWorkBadge } from "../../_components/amount-of-work-badge/amount-of-work-badge";
 import { PageHeaderProps } from "./page-header.types";
 
 function Ecosystems({ ecosystems }: { ecosystems: string[] }) {

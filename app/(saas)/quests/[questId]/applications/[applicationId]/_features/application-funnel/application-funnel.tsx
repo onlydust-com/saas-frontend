@@ -33,9 +33,9 @@ function FunnelStep({
           <>
             {isDown ? (
               <div className="flex flex-row items-center justify-start gap-2">
-            <MoveDownRight className="h-4 w-4 text-red-500" />
-            <TypographyMuted>{total - current} issues</TypographyMuted>
-          </div>
+                <MoveDownRight className="h-4 w-4 text-red-500" />
+                <TypographyMuted>{total - current} issues</TypographyMuted>
+              </div>
             ) : (
               <div className="flex flex-row items-center justify-start gap-2">
                 <MoveUpRight className="h-4 w-4 text-green-500" />
