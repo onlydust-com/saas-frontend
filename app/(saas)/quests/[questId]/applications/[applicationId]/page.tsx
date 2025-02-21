@@ -51,7 +51,7 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
   const { data: questData } = QuestReactQueryAdapter.client.useGetQuestContributor({
     pathParams: {
       questId: params.questId,
-      githubLogin: githubLogin,
+      githubLogin,
     },
     options: {
       enabled: Boolean(githubLogin),
