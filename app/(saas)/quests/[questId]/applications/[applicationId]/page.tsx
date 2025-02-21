@@ -4,6 +4,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 
 import { IssueList } from "./_components/issue-list/issue-list";
 import { IssueListProps } from "./_components/issue-list/issue-list.types";
+import { Section } from "./_components/section/section";
 import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { ApplicationFunnel } from "./_features/application-funnel/application-funnel";
 import { DevCareNote } from "./_features/dev-care-note/dev-care-note";
@@ -44,47 +45,8 @@ export default function QuestApplicationPage({ params }: { params: { application
       <PageHeader githubLogin={login} />
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden pt-6 lg:grid-cols-4">
-        <div className="grid lg:col-span-1">
-          <Languages githubLogin={login} />
-        </div>
-        <div className="grid lg:col-span-3">
-          <ActivityGraph githubLogin={login} />
-        </div>
-
-        <div className="grid lg:col-span-2">
-          <IssueList
-            containerClassName="bg-gradient-to-br from-green-950 to-transparent to-50%"
-            title="Biggest pr on tech skill"
-            emptyMessage="No pr found"
-            errorMessage="Error loading pr"
-            description="These are the biggest pr on tech skill"
-            issues={[mockPr, mockPr, mockPr]}
-          />
-        </div>
-
-        <div className="grid lg:col-span-2">
-          <IssueList
-            containerClassName="bg-gradient-to-br from-blue-950 to-transparent to-50%"
-            title="Overall biggest pr"
-            emptyMessage="No pr found"
-            errorMessage="Error loading pr"
-            description="These are the overall biggest pr"
-            issues={[mockPr, mockPr, mockPr]}
-          />
-        </div>
-
-        <div className="grid lg:col-span-2">
-          <IssueList
-            title="Most collaborative pr"
-            emptyMessage="No pr found"
-            errorMessage="Error loading pr"
-            description="These are the most collaborative pr"
-            issues={[mockPr, mockPr, mockPr]}
-          />
-        </div>
-
-        <div className="grid lg:col-span-2">
-          <ApplicationFunnel issueAppliedCount={10} issueAssignedCount={5} issueCompletedCount={2} />
+        <div className="col-span-full">
+          <FilloutResponse applicationId={params.applicationId} />
         </div>
 
         <div className="col-span-full">
@@ -92,15 +54,78 @@ export default function QuestApplicationPage({ params }: { params: { application
         </div>
 
         <div className="col-span-full">
-          <FilloutResponse applicationId={params.applicationId} />
+          <Section title="Contributor overview">
+            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+              <div className="grid lg:col-span-1">
+                <Languages githubLogin={login} />
+              </div>
+              <div className="grid lg:col-span-3">
+                <ActivityGraph githubLogin={login} />
+              </div>
+            </div>
+          </Section>
         </div>
 
-        <div className="grid lg:col-span-2">
-          <RecentActivity githubId={githubId} />
+        <div className="col-span-full">
+          <Section title="Contributor technical skills">
+            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+              <div className="grid lg:col-span-2">
+                <IssueList
+                  containerClassName="bg-gradient-to-br from-green-950 to-transparent to-50%"
+                  title="Biggest pr on tech skill"
+                  emptyMessage="No pr found"
+                  errorMessage="Error loading pr"
+                  description="These are the biggest pr on tech skill"
+                  issues={[mockPr, mockPr, mockPr]}
+                />
+              </div>
+
+              <div className="grid lg:col-span-2">
+                <IssueList
+                  containerClassName="bg-gradient-to-br from-blue-950 to-transparent to-50%"
+                  title="Overall biggest pr"
+                  emptyMessage="No pr found"
+                  errorMessage="Error loading pr"
+                  description="These are the overall biggest pr"
+                  issues={[mockPr, mockPr, mockPr]}
+                />
+              </div>
+            </div>
+          </Section>
         </div>
 
-        <div className="grid lg:col-span-2">
-          <Projects githubLogin={login} />
+        <div className="col-span-full">
+          <Section title="Contributor commitment">
+            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+              <div className="grid lg:col-span-2">
+                <IssueList
+                  title="Most collaborative pr"
+                  emptyMessage="No pr found"
+                  errorMessage="Error loading pr"
+                  description="These are the most collaborative pr"
+                  issues={[mockPr, mockPr, mockPr]}
+                />
+              </div>
+
+              <div className="grid lg:col-span-2">
+                <ApplicationFunnel issueAppliedCount={10} issueAssignedCount={5} issueCompletedCount={2} />
+              </div>
+            </div>
+          </Section>
+        </div>
+
+        <div className="col-span-full">
+          <Section title="Contributor activity">
+            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+              <div className="grid lg:col-span-2">
+                <RecentActivity githubId={githubId} />
+              </div>
+
+              <div className="grid lg:col-span-2">
+                <Projects githubLogin={login} />
+              </div>
+            </div>
+          </Section>
         </div>
       </div>
     </PageContainer>
