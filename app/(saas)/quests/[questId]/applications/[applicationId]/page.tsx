@@ -1,7 +1,9 @@
 "use client";
 
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 
+import { withQuestLead } from "../_components/with-quest-lead";
 import { IssueList } from "./_components/issue-list/issue-list";
 import { IssueListProps } from "./_components/issue-list/issue-list.types";
 import { Section } from "./_components/section/section";
@@ -16,8 +18,10 @@ import { Projects } from "./_features/similar-projects/projects";
 
 const mockPr: IssueListProps["issues"][number] = {
   type: "PULL_REQUEST",
+  uuid: "e8e5207d-f174-3da6-8bd2-91732c51dafb",
   githubStatus: "MERGED",
   number: 555,
+  score: 2.5,
   title: "Biggest pr on tech skill",
   createdAt: "2021-01-01",
   url: "https://github.com/alexbeno/test/pull/555",
@@ -30,11 +34,7 @@ const mockPr: IssueListProps["issues"][number] = {
   ],
 } as const;
 
-export default function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
-  // 1, contributor detail + metrics
-  // 2, contributor scoring from backend
-  // 3, devcare team contributor review
-  // 4, application detail from fillout (reponse aux question de la quest)
+function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
   const login = "alexbeno";
   const githubId = 17259618;
   const note =
@@ -82,11 +82,11 @@ export default function QuestApplicationPage({ params }: { params: { application
 
               <div className="grid lg:col-span-2">
                 <IssueList
-                  containerClassName="bg-gradient-to-br from-blue-950 to-transparent to-50%"
-                  title="Overall biggest pr"
+                  containerClassName="bg-gradient-to-br from-red-950 to-transparent to-50%"
+                  title="Pr with the friction"
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
-                  description="These are the overall biggest pr"
+                  description="These are the Pr with the friction"
                   issues={[mockPr, mockPr, mockPr]}
                 />
               </div>
@@ -97,18 +97,8 @@ export default function QuestApplicationPage({ params }: { params: { application
         <div className="col-span-full">
           <Section title="Contributor commitment">
             <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
-              <div className="grid lg:col-span-2">
-                <IssueList
-                  title="Most collaborative pr"
-                  emptyMessage="No pr found"
-                  errorMessage="Error loading pr"
-                  description="These are the most collaborative pr"
-                  issues={[mockPr, mockPr, mockPr]}
-                />
-              </div>
-
-              <div className="grid lg:col-span-2">
-                <ApplicationFunnel issueAppliedCount={10} issueAssignedCount={5} issueCompletedCount={2} />
+              <div className="col-span-full grid">
+                <ApplicationFunnel issueAppliedCount={150} issueAssignedCount={100} issueCompletedCount={50} />
               </div>
             </div>
           </Section>
@@ -131,3 +121,4 @@ export default function QuestApplicationPage({ params }: { params: { application
     </PageContainer>
   );
 }
+export default withAuthenticated(withQuestLead(QuestApplicationPage));
