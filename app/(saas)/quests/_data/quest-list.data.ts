@@ -4,6 +4,7 @@ export const QuestListData: QuestList[] = [
   {
     id: "d4b5d8e1-c2a3-4f6b-9d8e-1c2a3f6b9d8e",
     bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectId: "3123156c-020b-4d60-88c7-987f6572a37f",
     projectSlug: "starknet-quest",
     name: "Quiz Redesign",
     shortDescription:
@@ -49,6 +50,7 @@ export const QuestListData: QuestList[] = [
   {
     id: "f7a9c2b4-e6d8-4153-b9a7-2c8f5d3e91a0",
     bannerUrl: "https://www.starknet.africa/assets/bg.png",
+    projectId: "5fbfb228-f82a-404b-8341-fe9ddcb4a041",
     projectSlug: "attensys",
     name: "Integrating the graph into attensys in Attensys explorer",
     shortDescription:
@@ -95,6 +97,7 @@ export const QuestListData: QuestList[] = [
   {
     id: "d8e47c3a-9f12-4b85-ae31-f59d76c24e08",
     bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/scaffold-rust.png",
+    projectId: "f903473e-9aa7-4fcc-9cc4-fec3a95149f9",
     projectSlug: "scaffold-rust",
     name: "Marketplace template with escrows",
     shortDescription:
@@ -135,6 +138,7 @@ export const QuestListData: QuestList[] = [
   {
     id: "c4f8d932-e517-4f1d-b6c9-a2b3e7d8f901",
     bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/trustless-work-v6.png",
+    projectId: "ae0c9b87-b67b-495f-bade-c94f52d14781",
     projectSlug: "trustless-work-",
     name: "Reclaim Protocol Attestations for Trustless Work Escrows",
     shortDescription:

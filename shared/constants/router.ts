@@ -202,9 +202,27 @@ export const NEXT_ROUTER = {
     root: "/quests",
     details: {
       root: (questId: string) => `/quests/${questId}`,
+      applications: {
+        root: (questId: string) => `/quests/${questId}/applications`,
+        details: {
+          root: (questId: string, applicationId: string) => `/quests/${questId}/applications/${applicationId}`,
+        },
+      },
     },
   },
   discover: {
     root: "/discover",
+  },
+  api: {
+    fillout: {
+      forms: {
+        submissions: {
+          root: (formId: string) => `/api/fillout/forms/${formId}/submissions`,
+          details: {
+            root: (formId: string, submissionId: string) => `/api/fillout/forms/${formId}/submissions/${submissionId}`,
+          },
+        },
+      },
+    },
   },
 } as const;

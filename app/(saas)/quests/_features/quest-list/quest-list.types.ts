@@ -3,6 +3,7 @@ export type profileLevel = "junior" | "senior" | "expert";
 export interface QuestList {
   id: string;
   bannerUrl?: string;
+  projectId: string;
   projectSlug: string;
   name: string;
   shortDescription: string;
