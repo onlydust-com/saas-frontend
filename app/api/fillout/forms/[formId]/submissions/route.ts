@@ -1,3 +1,5 @@
+import { type NextRequest } from "next/server";
+
 interface Question {
   id: string;
   name: string;
@@ -16,10 +18,18 @@ export interface Submission {
   urlParameters: UrlParameter[];
 }
 
-export async function GET(_: Request, context: { params: { formId: string } }) {
+export async function GET(request: NextRequest, context: { params: { formId: string } }) {
   const { formId } = context.params;
 
-  const response = await fetch(`https://api.fillout.com/v1/api/forms/${formId}/submissions?limit=150`, {
+  const url = new URL(`https://api.fillout.com/v1/api/forms/${formId}/submissions`);
+
+  const searchParams = request.nextUrl.searchParams;
+
+  searchParams.forEach((value, key) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url.toString(), {
     headers: {
       Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
     },
