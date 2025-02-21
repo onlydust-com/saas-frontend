@@ -3,14 +3,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
 import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
-import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
+
+import { withQuestLead } from "./_components/with-quest-lead";
 
 const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, string> }): Promise<Submission[]> => {
   const url = new URL(NEXT_ROUTER.api.fillout.forms.submissions.root("7nGf4YdHqzus"), window.location.origin);
@@ -47,24 +49,24 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
 
   return (
     <PageContainer size="large" className="py-10">
-		 <NavigationBreadcrumb
-          breadcrumb={[
-            {
-              id: "root",
-              label: "Quests",
-              href: NEXT_ROUTER.quests.root,
-            },
-            {
-              id: "quest",
-              label: quest?.name ?? "",
-              href: NEXT_ROUTER.quests.details.root(params.questId),
-            },
-            {
-              id: "applications",
-              label: "Applications",
-            },
-          ]}
-        />
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: "Quests",
+            href: NEXT_ROUTER.quests.root,
+          },
+          {
+            id: "quest",
+            label: quest?.name ?? "",
+            href: NEXT_ROUTER.quests.details.root(params.questId),
+          },
+          {
+            id: "applications",
+            label: "Applications",
+          },
+        ]}
+      />
 
       <div className="rounded-md border">
         <Table>
@@ -109,7 +111,7 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
   );
 }
 
-export default withAuthenticated(QuestApplicationsPage);
+export default withAuthenticated(withQuestLead(QuestApplicationsPage));
 
 // {
 // 	"submissionId": "3753fb33-3501-49b9-a3b0-675d60c4f041",
