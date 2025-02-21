@@ -3,15 +3,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { Submission } from "@/app/api/fillout/submissions/[formId]/route";
+import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
-const fetchProjects = async (): Promise<Submission[]> => {
-  const response = await fetch(NEXT_ROUTER.api.fillout.submissions.root("7nGf4YdHqzus"));
+const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, string> }): Promise<Submission[]> => {
+  const url = new URL(NEXT_ROUTER.api.fillout.forms.submissions.root("7nGf4YdHqzus"), window.location.origin);
+
+  Object.entries(queryParams).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url.toString());
 
   return (await response.json()).data;
 };
@@ -21,7 +27,7 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
 
   const { data } = useQuery({
     queryKey: ["quest-applications", params.questId],
-    queryFn: () => fetchProjects(),
+    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId } }),
     staleTime: 5000,
   });
 
@@ -43,31 +49,26 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
           </TableHeader>
 
           <TableBody>
-            {data?.map(application => {
-              const questId = application.questions.find(q => q.id === "mTjS")?.value;
-              if (questId !== params.questId) return null;
-
-              return (
-                <TableRow
-                  key={application.submissionId}
-                  onClick={() => {
-                    router.push(
-                      NEXT_ROUTER.quests.details.applications.details.root(params.questId, application.submissionId)
-                    );
-                  }}
-                  className="cursor-pointer"
-                >
-                  <TableCell>{application.questions.find(q => q.id === "7Nxw")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "ucvS")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "wWhp")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "xjui")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "qDyH")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "q9rQ")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "uDUq")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "n1jC")?.value}</TableCell>
-                </TableRow>
-              );
-            })}
+            {data?.map(application => (
+              <TableRow
+                key={application.submissionId}
+                onClick={() => {
+                  router.push(
+                    NEXT_ROUTER.quests.details.applications.details.root(params.questId, application.submissionId)
+                  );
+                }}
+                className="cursor-pointer"
+              >
+                <TableCell>{application.questions.find(q => q.id === "7Nxw")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "ucvS")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "wWhp")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "xjui")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "qDyH")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "q9rQ")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "uDUq")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "n1jC")?.value}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
