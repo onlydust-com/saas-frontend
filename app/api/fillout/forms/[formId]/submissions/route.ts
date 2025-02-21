@@ -21,21 +21,35 @@ export interface Submission {
 export async function GET(request: NextRequest, context: { params: { formId: string } }) {
   const { formId } = context.params;
 
-  const url = new URL(`https://api.fillout.com/v1/api/forms/${formId}/submissions`);
+  if (!formId) {
+    return new Response("formId is required.", {
+      status: 400,
+    });
+  }
 
-  const searchParams = request.nextUrl.searchParams;
+  try {
+    const url = new URL(`https://api.fillout.com/v1/api/forms/${formId}/submissions`);
 
-  searchParams.forEach((value, key) => {
-    url.searchParams.set(key, value);
-  });
+    const searchParams = request.nextUrl.searchParams;
 
-  const response = await fetch(url.toString(), {
-    headers: {
-      Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
-    },
-  });
+    searchParams.forEach((value, key) => {
+      url.searchParams.set(key, value);
+    });
 
-  const data = await response.json();
+    const response = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
+      },
+    });
 
-  return Response.json({ data: data.responses as Submission[] });
+    const data = await response.json();
+
+    return Response.json({ data: data.responses as Submission[] });
+  } catch (error) {
+    console.error(error);
+
+    return new Response("Failed to fetch submissions.", {
+      status: 500,
+    });
+  }
 }
