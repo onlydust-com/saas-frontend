@@ -1,5 +1,12 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+
+import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
+
+import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
+
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
@@ -9,7 +16,6 @@ import { IssueListProps } from "./_components/issue-list/issue-list.types";
 import { Section } from "./_components/section/section";
 import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { ApplicationFunnel } from "./_features/application-funnel/application-funnel";
-import { DevCareNote } from "./_features/dev-care-note/dev-care-note";
 import { FilloutResponse } from "./_features/fillout-response/fillout-response";
 import { Languages } from "./_features/languages/languages";
 import { PageHeader } from "./_features/page-header/page-header";
@@ -34,33 +40,56 @@ const mockPr: IssueListProps["issues"][number] = {
   ],
 } as const;
 
+const fetchSubmissionDetails = async (submissionId: string): Promise<Submission> => {
+  const response = await fetch(NEXT_ROUTER.api.fillout.forms.submissions.details.root("7nGf4YdHqzus", submissionId));
+  const data = await response.json();
+  return data.data;
+};
+
 function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
-  const login = "alexbeno";
-  const githubId = 17259618;
-  const note =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
+  const { data: submission } = useQuery({
+    queryKey: ["submissionDetails", params.applicationId],
+    queryFn: () => fetchSubmissionDetails(params.applicationId),
+    staleTime: 5000,
+  });
+  const { urlParameters } = submission ?? {};
+  const githubLogin = urlParameters?.find(param => param.name === "github_login")?.value ?? "";
+
+  const { data: user } = UserReactQueryAdapter.client.useGetUserByLogin({
+    pathParams: {
+      slug: githubLogin,
+    },
+    options: {
+      enabled: Boolean(githubLogin),
+    },
+  });
+
+  const githubId = user?.githubUserId ?? 0;
+
+  // const note =
+  //   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
 
   return (
     <PageContainer size="small" className="flex-1">
-      <PageHeader githubLogin={login} />
+      <PageHeader githubLogin={githubLogin} />
 
       <div className="grid w-full grid-cols-1 gap-8 overflow-hidden pt-6 lg:grid-cols-4">
         <div className="col-span-full">
-          <FilloutResponse applicationId={params.applicationId} />
+          <FilloutResponse submission={submission} />
         </div>
 
-        <div className="col-span-full">
+        {/* <div className="col-span-full">
           <DevCareNote>{note}</DevCareNote>
-        </div>
+        </div> */}
 
         <div className="col-span-full">
           <Section title="Contributor overview">
             <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="grid lg:col-span-1">
-                <Languages githubLogin={login} />
+                <Languages githubLogin={githubLogin} />
               </div>
               <div className="grid lg:col-span-3">
-                <ActivityGraph githubLogin={login} />
+                <ActivityGraph githubLogin={githubLogin} />
               </div>
             </div>
           </Section>
@@ -112,7 +141,7 @@ function QuestApplicationPage({ params }: { params: { applicationId: string } })
               </div>
 
               <div className="grid lg:col-span-2">
-                <Projects githubLogin={login} />
+                <Projects githubLogin={githubLogin} />
               </div>
             </div>
           </Section>
