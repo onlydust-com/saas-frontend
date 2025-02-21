@@ -34,7 +34,7 @@ export function Languages({ githubLogin }: LanguagesProps) {
       );
     }
 
-    if (!stats?.languages.length) {
+    if (!stats?.languages?.length) {
       return (
         <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>No languages found</TypographyMuted>
@@ -44,7 +44,7 @@ export function Languages({ githubLogin }: LanguagesProps) {
 
     return (
       <>
-        {stats?.languages.map(({ name, percentage, color }) => (
+        {stats?.languages?.map(({ name, percentage, color }) => (
           <div key={name} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
               <span>{name}</span>
