@@ -168,7 +168,7 @@ function IssueListItemPanel({
               </div>
             </Card>
             {data?.githubBody ? (
-              <Card className={cn("overflow-hiddenp-4 relative flex flex-col gap-4")}>
+              <Card className={cn("relative flex flex-col gap-4 overflow-hidden p-4")}>
                 <header className={"flex w-full items-center justify-start gap-2"}>
                   <div className={"flex items-center gap-2"}>
                     <TypographyH3>Description</TypographyH3>
