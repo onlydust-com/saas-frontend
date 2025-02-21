@@ -25,36 +25,38 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
 
   function handleChangeAmount(e: ChangeEvent<HTMLInputElement>) {
     if (!readOnly && onAmountChange) {
-      let value = e.target.value;
+      const value = e.target.value;
 
       // Only allow numbers and one dot
-      value = value.replace(/[^\d.]/g, "");
+      // value = value.replace(/[^\d.]/g, "");
 
       // A single decimal is considered valid but will cause NaN errors
-      if (value === ".") {
-        return;
-      }
+      // if (value === ".") {
+      //   return;
+      // }
 
-      if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
-        value = value.slice(1);
-      }
+      // if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
+      //   value = value.slice(1);
+      // }
 
-      if (value.length > maximumSignificantDigits) {
-        return;
-      }
+      // if (value.length > maximumSignificantDigits) {
+      //   return;
+      // }
 
-      if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
-        return;
-      }
+      // if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
+      //   return;
+      // }
 
-      if (isCurrencyFirst) {
-        return onAmountChange(value || "0");
-      }
+      // if (isCurrencyFirst) {
+      //   return onAmountChange(value || "0");
+      // }
 
-      if (isConversionFirst) {
-        const amount = parseFloat(value || "0") / (budget.usdConversionRate ?? 0);
-        return onAmountChange(`${amount ?? 0}`);
-      }
+      // if (isConversionFirst) {
+      //   const amount = parseFloat(value || "0") / (budget.usdConversionRate ?? 0);
+      //   return onAmountChange(`${amount ?? 0}`);
+      // }
+
+      return onAmountChange(value || "0");
     }
   }
 
@@ -118,6 +120,8 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
         <input
           ref={inputRef}
           type="text"
+          // inputMode="numeric"
+          // pattern="\d*"
           style={{ width: inputWidth }}
           className={cn(
             "flex bg-transparent text-right font-medium tabular-nums text-typography-primary outline-none transition-colors",
