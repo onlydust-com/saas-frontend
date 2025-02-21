@@ -2,6 +2,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
@@ -21,6 +22,10 @@ export function withQuestLead<P extends object>(Component: React.ComponentType<P
         router.push(NEXT_ROUTER.quests.root);
       }
     }, [user]);
+
+    if (!user?.isAdmin && !isQuestLead) {
+      return null;
+    }
 
     return <Component {...props} />;
   };
