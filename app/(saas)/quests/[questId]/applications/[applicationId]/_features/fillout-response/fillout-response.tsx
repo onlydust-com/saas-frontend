@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { TypographyH3, TypographyH4, TypographyMuted } from "@/shared/ui/typography";
+import { TypographyH3, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { FilloutResponseProps } from "./fillout-response.types";
 
@@ -23,7 +23,7 @@ const fetchSubmissionDetails = async (
 function Question({ question }: { question: { name: string; value: string; id: string } }) {
   return (
     <div>
-      <TypographyH4>{question.name}</TypographyH4>
+      <TypographySmall>{question.name}</TypographySmall>
       <TypographyMuted>{question.value ?? "No answer"}</TypographyMuted>
     </div>
   );
@@ -44,7 +44,7 @@ export function FilloutResponse({ applicationId }: FilloutResponseProps) {
   return (
     <Card>
       <CardHeader>
-        <TypographyH3>Answers</TypographyH3>
+        <TypographyH3>Availability & Commitment</TypographyH3>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {questions?.map(question => <Question key={question.id} question={question} />)}
