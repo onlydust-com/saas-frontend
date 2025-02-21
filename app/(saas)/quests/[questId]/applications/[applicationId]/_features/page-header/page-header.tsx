@@ -135,7 +135,7 @@ export function PageHeader({ githubLogin }: PageHeaderProps) {
   const { contributor, languages, ecosystems, rank } = stats ?? {};
 
   return (
-    <div className="flex w-full flex-col bg-background pt-6">
+    <div className="flex w-full flex-col border-b border-b-border bg-background pb-6 pt-6">
       <ImageBanner isLoading={isLoading} image={user?.avatarUrl} className="h-44 w-full rounded-xl" />
       <div className="relative z-[2] -mt-12 mb-6 ml-2 flex flex-row items-end justify-between tablet:-mt-16 tablet:ml-6">
         <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background tablet:h-32 tablet:w-32">
