@@ -55,7 +55,7 @@ export function ApplicationFunnel({
   issueCompletedCount,
 }: ApplicationFunnelProps) {
   const appliedPercentage = (issueAssignedCount / issueAppliedCount) * 100;
-  const assignedPercentage = (issueCompletedCount / issueAssignedCount) * 100;
+  const assignedPercentage = (issueCompletedCount / issueAppliedCount) * 100;
 
   // exemple 200 completed issue mais que 150 applied
   return (
