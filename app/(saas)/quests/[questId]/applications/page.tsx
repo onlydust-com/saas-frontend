@@ -3,30 +3,71 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { Submission } from "@/app/api/fillout/submissions/[formId]/route";
+import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
+import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
-const fetchProjects = async (): Promise<Submission[]> => {
-  const response = await fetch(NEXT_ROUTER.api.fillout.submissions.root("7nGf4YdHqzus"));
+import { withQuestLead } from "./_components/with-quest-lead";
+
+const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, string> }): Promise<Submission[]> => {
+  const url = new URL(NEXT_ROUTER.api.fillout.forms.submissions.root("7nGf4YdHqzus"), window.location.origin);
+
+  Object.entries(queryParams).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url.toString());
 
   return (await response.json()).data;
 };
 
+const limit = "150";
+
 function QuestApplicationsPage({ params }: { params: { questId: string } }) {
   const router = useRouter();
 
-  const { data } = useQuery({
-    queryKey: ["quest-applications", params.questId],
-    queryFn: () => fetchProjects(),
+  const { data: page1 = [] } = useQuery({
+    queryKey: ["quest-applications", params.questId, 1],
+    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId, limit } }),
     staleTime: 5000,
   });
 
+  const { data: page2 = [] } = useQuery({
+    queryKey: ["quest-applications", params.questId, 2],
+    queryFn: () => fetchSubmissions({ queryParams: { search: params.questId, limit, offset: limit } }),
+    staleTime: 5000,
+  });
+
+  const data = [...page1, ...page2];
+
+  const quest = QuestListData.find(quest => quest.id === params.questId);
+
   return (
     <PageContainer size="large" className="py-10">
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: "Quests",
+            href: NEXT_ROUTER.quests.root,
+          },
+          {
+            id: "quest",
+            label: quest?.name ?? "",
+            href: NEXT_ROUTER.quests.details.root(params.questId),
+          },
+          {
+            id: "applications",
+            label: "Applications",
+          },
+        ]}
+      />
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -43,31 +84,26 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
           </TableHeader>
 
           <TableBody>
-            {data?.map(application => {
-              const questId = application.questions.find(q => q.id === "mTjS")?.value;
-              if (questId !== params.questId) return null;
-
-              return (
-                <TableRow
-                  key={application.submissionId}
-                  onClick={() => {
-                    router.push(
-                      NEXT_ROUTER.quests.details.applications.details.root(params.questId, application.submissionId)
-                    );
-                  }}
-                  className="cursor-pointer"
-                >
-                  <TableCell>{application.questions.find(q => q.id === "7Nxw")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "ucvS")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "wWhp")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "xjui")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "qDyH")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "q9rQ")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "uDUq")?.value}</TableCell>
-                  <TableCell>{application.questions.find(q => q.id === "n1jC")?.value}</TableCell>
-                </TableRow>
-              );
-            })}
+            {data?.map(application => (
+              <TableRow
+                key={application.submissionId}
+                onClick={() => {
+                  router.push(
+                    NEXT_ROUTER.quests.details.applications.details.root(params.questId, application.submissionId)
+                  );
+                }}
+                className="cursor-pointer"
+              >
+                <TableCell>{application.questions.find(q => q.id === "7Nxw")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "ucvS")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "wWhp")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "xjui")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "qDyH")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "q9rQ")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "uDUq")?.value}</TableCell>
+                <TableCell>{application.questions.find(q => q.id === "n1jC")?.value}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -75,7 +111,7 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
   );
 }
 
-export default withAuthenticated(QuestApplicationsPage);
+export default withAuthenticated(withQuestLead(QuestApplicationsPage));
 
 // {
 // 	"submissionId": "3753fb33-3501-49b9-a3b0-675d60c4f041",

@@ -215,8 +215,13 @@ export const NEXT_ROUTER = {
   },
   api: {
     fillout: {
-      submissions: {
-        root: (formId: string) => `/api/fillout/submissions/${formId}`,
+      forms: {
+        submissions: {
+          root: (formId: string) => `/api/fillout/forms/${formId}/submissions`,
+          details: {
+            root: (formId: string, submissionId: string) => `/api/fillout/forms/${formId}/submissions/${submissionId}`,
+          },
+        },
       },
     },
   },
