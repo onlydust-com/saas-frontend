@@ -44,7 +44,7 @@ export default function QuestApplicationPage({ params }: { params: { application
     <PageContainer size="small" className="flex-1">
       <PageHeader githubLogin={login} />
 
-      <div className="grid w-full grid-cols-1 gap-6 overflow-hidden pt-6 lg:grid-cols-4">
+      <div className="grid w-full grid-cols-1 gap-8 overflow-hidden pt-6 lg:grid-cols-4">
         <div className="col-span-full">
           <FilloutResponse applicationId={params.applicationId} />
         </div>
@@ -55,7 +55,7 @@ export default function QuestApplicationPage({ params }: { params: { application
 
         <div className="col-span-full">
           <Section title="Contributor overview">
-            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+            <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="grid lg:col-span-1">
                 <Languages githubLogin={login} />
               </div>
@@ -68,7 +68,7 @@ export default function QuestApplicationPage({ params }: { params: { application
 
         <div className="col-span-full">
           <Section title="Contributor technical skills">
-            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+            <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="grid lg:col-span-2">
                 <IssueList
                   containerClassName="bg-gradient-to-br from-green-950 to-transparent to-50%"
@@ -96,7 +96,7 @@ export default function QuestApplicationPage({ params }: { params: { application
 
         <div className="col-span-full">
           <Section title="Contributor commitment">
-            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+            <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="grid lg:col-span-2">
                 <IssueList
                   title="Most collaborative pr"
@@ -116,7 +116,7 @@ export default function QuestApplicationPage({ params }: { params: { application
 
         <div className="col-span-full">
           <Section title="Contributor activity">
-            <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+            <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="grid lg:col-span-2">
                 <RecentActivity githubId={githubId} />
               </div>
