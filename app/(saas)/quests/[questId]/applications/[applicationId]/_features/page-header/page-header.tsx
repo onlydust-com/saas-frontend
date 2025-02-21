@@ -38,7 +38,7 @@ function Ecosystems({ ecosystems }: { ecosystems: string[] }) {
 }
 
 function Languages({ languages }: { languages: BiContributorInterface["languages"] }) {
-  if (languages.length === 0) return null;
+  if (!languages?.length) return null;
 
   return (
     <Tooltip>
@@ -54,7 +54,7 @@ function Languages({ languages }: { languages: BiContributorInterface["languages
       </TooltipTrigger>
       <TooltipContent side="bottom" align="end">
         <ul className="flex flex-col gap-2">
-          {languages.map(language => (
+          {languages?.map(language => (
             <li key={language.name} className="flex items-center justify-between gap-10">
               <div className="flex items-center gap-1">
                 <Avatar className="size-5" key={language.name}>
