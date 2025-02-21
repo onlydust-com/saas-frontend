@@ -2,11 +2,13 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
 import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
@@ -46,7 +48,7 @@ const fetchSubmissionDetails = async (submissionId: string): Promise<Submission>
   return data.data;
 };
 
-function QuestApplicationPage({ params }: { params: { applicationId: string } }) {
+function QuestApplicationPage({ params }: { params: { questId: string; applicationId: string } }) {
   const { data: submission } = useQuery({
     queryKey: ["submissionDetails", params.applicationId],
     queryFn: () => fetchSubmissionDetails(params.applicationId),
@@ -66,11 +68,37 @@ function QuestApplicationPage({ params }: { params: { applicationId: string } })
 
   const githubId = user?.githubUserId ?? 0;
 
+  const quest = QuestListData.find(quest => quest.id === params.questId);
+
   // const note =
   //   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book";
 
   return (
     <PageContainer size="small" className="flex-1">
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            id: "root",
+            label: "Quests",
+            href: NEXT_ROUTER.quests.root,
+          },
+          {
+            id: "quest",
+            label: quest?.name ?? "",
+            href: NEXT_ROUTER.quests.details.root(params.questId),
+          },
+          {
+            id: "applications",
+            label: "Applications",
+            href: NEXT_ROUTER.quests.details.applications.root(params.questId),
+          },
+          {
+            id: "user",
+            label: githubLogin,
+          },
+        ]}
+      />
+
       <PageHeader githubLogin={githubLogin} />
 
       <div className="grid w-full grid-cols-1 gap-8 overflow-hidden pt-6 lg:grid-cols-4">
