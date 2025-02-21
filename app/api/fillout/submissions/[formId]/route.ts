@@ -10,7 +10,7 @@ interface UrlParameter {
   value: string | null;
 }
 
-interface Submission {
+export interface Submission {
   submissionId: string;
   questions: Question[];
   urlParameters: UrlParameter[];

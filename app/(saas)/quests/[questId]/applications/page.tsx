@@ -3,30 +3,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { Submission } from "@/app/api/fillout/submissions/[formId]/route";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
-interface Question {
-  id: string;
-  name: string;
-  value: string | null;
-}
-
-interface UrlParameter {
-  id: string;
-  name: string;
-  value: string | null;
-}
-
-interface QuestApplication {
-  submissionId: string;
-  questions: Question[];
-  urlParameters: UrlParameter[];
-}
-
-const fetchProjects = async (): Promise<QuestApplication[]> => {
+const fetchProjects = async (): Promise<Submission[]> => {
   const response = await fetch(NEXT_ROUTER.api.fillout.submissions.root("7nGf4YdHqzus"));
 
   return (await response.json()).data;
