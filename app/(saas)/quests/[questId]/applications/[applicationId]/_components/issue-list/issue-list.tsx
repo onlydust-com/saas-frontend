@@ -1,4 +1,3 @@
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useState } from "react";
@@ -16,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/shared/ui/sheet";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyH4, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
