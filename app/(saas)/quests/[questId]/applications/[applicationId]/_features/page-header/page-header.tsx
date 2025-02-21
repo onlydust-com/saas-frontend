@@ -3,6 +3,7 @@
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { CircleDot, Folder, GitPullRequest, HandCoins } from "lucide-react";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
@@ -16,8 +17,10 @@ import { Icon } from "@/design-system/atoms/icon";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
 import { SocialContact } from "@/shared/features/social/social-contact/social-contact";
+import { Github } from "@/shared/icons";
 import { Avatar } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyP, TypographySmall } from "@/shared/ui/typography";
 
@@ -111,8 +114,28 @@ function Stats({ user }: { user: BiContributorInterface | undefined }) {
   );
 }
 
-function ActionHeader({ projectId }: { projectId?: string }) {
-  return <ContributeNow projectId={projectId} />;
+function Contact({
+  contacts,
+}: {
+  contacts:
+    | {
+        channel: "TELEGRAM" | "TWITTER" | "DISCORD" | "LINKEDIN" | "WHATSAPP";
+        contact: string;
+        visibility: "public" | "private";
+      }[]
+    | undefined;
+}) {
+  if (!contacts?.length) return null;
+
+  return (
+    <div className={"flex flex-row flex-wrap gap-2 px-3 py-1 first:pl-0"}>
+      {contacts?.length
+        ? contacts.map(contact => (
+            <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
+          ))
+        : null}
+    </div>
+  );
 }
 
 export function PageHeader({ githubLogin }: PageHeaderProps) {
@@ -144,15 +167,21 @@ export function PageHeader({ githubLogin }: PageHeaderProps) {
             <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={user?.login} />
           </AvatarFallback>
         </Avatar>
-
-        <div className="flex items-center justify-end gap-3 tablet:hidden">
-          <ActionHeader projectId={user?.id} />
-        </div>
       </div>
       <div className="flex w-full flex-col gap-6 px-0">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full items-center justify-between gap-1">
             <TypographyH2>{user?.login}</TypographyH2>
+            <div className="flex items-center justify-end gap-3">
+              <div className="hidden tablet:block">
+                <Button variant={"outline"} asChild>
+                  <Link href={`https://github.com/${githubLogin}`} target="_blank">
+                    <Github />
+                    See on Github
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-row gap-0 text-left">
@@ -164,24 +193,7 @@ export function PageHeader({ githubLogin }: PageHeaderProps) {
           <div className="flex flex-row flex-wrap divide-x">
             <Languages languages={languages ?? []} />
             <Ecosystems ecosystems={ecosystems?.map(ecosystem => ecosystem.name) ?? []} />
-            <div className={"flex flex-row flex-wrap gap-2 px-3 py-1 first:pl-0"}>
-              {githubLogin ? (
-                <SocialContact
-                  contact={{
-                    channel: SocialPlatformChannels.GITHUB,
-                    contact: `https://github.com/${githubLogin}`,
-                    visibility: "public",
-                  }}
-                  buttonProps={{ iconOnly: true }}
-                />
-              ) : null}
-
-              {contributor?.contacts?.length
-                ? contributor?.contacts.map(contact => (
-                    <SocialContact key={contact.contact} contact={contact} buttonProps={{ iconOnly: true }} />
-                  ))
-                : null}
-            </div>
+            <Contact contacts={contributor?.contacts} />
           </div>
         </div>
       </div>
