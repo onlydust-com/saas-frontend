@@ -9,7 +9,6 @@ interface Issue {
   number: number;
   score: number;
   title: string;
-  createdAt: string;
   url: string;
   uuid: string;
   justifications: string;

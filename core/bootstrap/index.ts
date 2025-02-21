@@ -69,9 +69,11 @@ import { ValidationFacadePort } from "@/core/kernel/validation/validation-facade
 import { BookmarkStoragePort } from "../domain/bookmark/outputs/bookmark-storage-port";
 import { ContributorStoragePort } from "../domain/contributor/outputs/contributor-storage-port";
 import { HackathonStoragePort } from "../domain/hackathon/outputs/hackathon-storage-port";
+import { QuestStoragePort } from "../domain/quest/outputs/quest-storage-port";
 import { BookmarkClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/bookmark-client-adapter";
 import { ContributorClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/contributor-client-adapter";
 import { HackathonClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/hackathon-client-adapter";
+import { QuestClientAdapter } from "../infrastructure/marketplace-api-client-adapter/adapters/quest-client-adapter";
 import { MarkdownAdapter } from "../kernel/markdown/markdown-adapter";
 import { MarkdownFacadePort } from "../kernel/markdown/markdown-facade-port";
 
@@ -124,6 +126,8 @@ export interface BootstrapConstructor {
   contributorStoragePortForServer: ContributorStoragePort;
   bookmarkStoragePortForClient: BookmarkStoragePort;
   bookmarkStoragePortForServer: BookmarkStoragePort;
+  questStoragePortForClient: QuestStoragePort;
+  questStoragePortForServer: QuestStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -192,6 +196,8 @@ export class Bootstrap {
   contributorStoragePortForServer: ContributorStoragePort;
   bookmarkStoragePortForClient: BookmarkStoragePort;
   bookmarkStoragePortForServer: BookmarkStoragePort;
+  questStoragePortForClient: QuestStoragePort;
+  questStoragePortForServer: QuestStoragePort;
   dateKernelPort: DateFacadePort;
   moneyKernelPort: MoneyFacadePort;
   socialKernelPort: SocialFacadePort;
@@ -256,6 +262,8 @@ export class Bootstrap {
     this.contributorStoragePortForServer = constructor.contributorStoragePortForServer;
     this.bookmarkStoragePortForClient = constructor.bookmarkStoragePortForClient;
     this.bookmarkStoragePortForServer = constructor.bookmarkStoragePortForServer;
+    this.questStoragePortForClient = constructor.questStoragePortForClient;
+    this.questStoragePortForServer = constructor.questStoragePortForServer;
     this.dateKernelPort = constructor.dateKernelPort;
     this.moneyKernelPort = constructor.moneyKernelPort;
     this.socialKernelPort = constructor.socialKernelPort;
@@ -480,6 +488,14 @@ export class Bootstrap {
     return this.bookmarkStoragePortForServer;
   }
 
+  getQuestStoragePortForClient() {
+    return this.questStoragePortForClient;
+  }
+
+  getQuestStoragePortForServer() {
+    return this.questStoragePortForServer;
+  }
+
   getDateKernelPort() {
     return this.dateKernelPort;
   }
@@ -587,6 +603,8 @@ export class Bootstrap {
         contributorStoragePortForServer: new ContributorClientAdapter(new FetchHttpClient()),
         bookmarkStoragePortForClient: new BookmarkClientAdapter(new FetchHttpClient()),
         bookmarkStoragePortForServer: new BookmarkClientAdapter(new FetchHttpClient()),
+        questStoragePortForClient: new QuestClientAdapter(new FetchHttpClient()),
+        questStoragePortForServer: new QuestClientAdapter(new FetchHttpClient()),
         dateKernelPort: new DateFnsAdapter(),
         moneyKernelPort: new MoneyAdapter(),
         socialKernelPort: new SocialAdapter(),

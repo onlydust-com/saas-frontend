@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QuestListData } from "@/app/(saas)/quests/_data/quest-list.data";
 import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
+import { QuestReactQueryAdapter } from "@/core/application/react-query-adapter/quest";
 import { UserReactQueryAdapter } from "@/core/application/react-query-adapter/user";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -14,7 +15,6 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 
 import { withQuestLead } from "../_components/with-quest-lead";
 import { IssueList } from "./_components/issue-list/issue-list";
-import { IssueListProps } from "./_components/issue-list/issue-list.types";
 import { Section } from "./_components/section/section";
 import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { ApplicationFunnel } from "./_features/application-funnel/application-funnel";
@@ -23,24 +23,6 @@ import { Languages } from "./_features/languages/languages";
 import { PageHeader } from "./_features/page-header/page-header";
 import { RecentActivity } from "./_features/recent-activity/recent-activity";
 import { Projects } from "./_features/similar-projects/projects";
-
-const mockPr: IssueListProps["issues"][number] = {
-  type: "PULL_REQUEST",
-  uuid: "e8e5207d-f174-3da6-8bd2-91732c51dafb",
-  githubStatus: "MERGED",
-  number: 555,
-  score: 2.5,
-  title: "Biggest pr on tech skill",
-  createdAt: "2021-01-01",
-  url: "https://github.com/alexbeno/test/pull/555",
-  justifications: "We choose this pr because it is the biggest pr on tech skill",
-  languages: [
-    {
-      logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
-      name: "Typescript",
-    },
-  ],
-} as const;
 
 const fetchSubmissionDetails = async (submissionId: string): Promise<Submission> => {
   const response = await fetch(NEXT_ROUTER.api.fillout.forms.submissions.details.root("7nGf4YdHqzus", submissionId));
@@ -60,6 +42,16 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
   const { data: user } = UserReactQueryAdapter.client.useGetUserByLogin({
     pathParams: {
       slug: githubLogin,
+    },
+    options: {
+      enabled: Boolean(githubLogin),
+    },
+  });
+
+  const { data: questData } = QuestReactQueryAdapter.client.useGetQuestContributor({
+    pathParams: {
+      questId: params.questId,
+      githubLogin: githubLogin,
     },
     options: {
       enabled: Boolean(githubLogin),
@@ -133,7 +125,19 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
                   description="These are the biggest pr on tech skill"
-                  issues={[mockPr, mockPr, mockPr]}
+                  issues={
+                    questData?.techSkills?.biggestPRsOnRequiredTechSkills?.map(pr => ({
+                      githubStatus: pr.githubStatus,
+                      justifications: pr.justification ?? "",
+                      languages: pr.languages ?? [],
+                      number: pr.githubNumber,
+                      score: pr.score ?? 0,
+                      title: pr.githubTitle ?? "",
+                      url: pr.githubHtmlUrl ?? "",
+                      type: pr.type,
+                      uuid: pr.contributionUuid ?? "",
+                    })) ?? []
+                  }
                 />
               </div>
 
@@ -144,7 +148,19 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
                   emptyMessage="No pr found"
                   errorMessage="Error loading pr"
                   description="These are the Pr with the friction"
-                  issues={[mockPr, mockPr, mockPr]}
+                  issues={
+                    questData?.commitment?.overallPRWithMostFriction?.map(pr => ({
+                      githubStatus: pr.githubStatus,
+                      justifications: pr.justification ?? "",
+                      languages: pr.languages ?? [],
+                      number: pr.githubNumber,
+                      score: pr.score ?? 0,
+                      title: pr.githubTitle ?? "",
+                      url: pr.githubHtmlUrl ?? "",
+                      type: pr.type,
+                      uuid: pr.contributionUuid ?? "",
+                    })) ?? []
+                  }
                 />
               </div>
             </div>
@@ -155,7 +171,11 @@ function QuestApplicationPage({ params }: { params: { questId: string; applicati
           <Section title="Contributor commitment">
             <div className="grid w-full grid-cols-1 gap-8 overflow-hidden lg:grid-cols-4">
               <div className="col-span-full grid">
-                <ApplicationFunnel issueAppliedCount={150} issueAssignedCount={100} issueCompletedCount={50} />
+                <ApplicationFunnel
+                  issueAppliedCount={questData?.commitment?.issueAppliedCount ?? 0}
+                  issueAssignedCount={questData?.commitment?.issueAssignedCount ?? 0}
+                  issueCompletedCount={questData?.commitment?.issueCompletedCount ?? 0}
+                />
               </div>
             </div>
           </Section>
