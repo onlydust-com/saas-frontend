@@ -16,6 +16,7 @@ import { Projects } from "./_features/similar-projects/projects";
 
 const mockPr: IssueListProps["issues"][number] = {
   type: "PULL_REQUEST",
+  uuid: "e8e5207d-f174-3da6-8bd2-91732c51dafb",
   githubStatus: "MERGED",
   number: 555,
   score: 2.5,

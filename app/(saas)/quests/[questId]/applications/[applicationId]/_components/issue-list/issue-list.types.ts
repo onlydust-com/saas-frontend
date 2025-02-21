@@ -11,6 +11,7 @@ interface Issue {
   title: string;
   createdAt: string;
   url: string;
+  uuid: string;
   justifications: string;
   languages: {
     logoUrl: string;
