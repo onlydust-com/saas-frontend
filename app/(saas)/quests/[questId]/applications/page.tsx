@@ -1,11 +1,11 @@
 "use client";
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 
 interface Question {
@@ -27,15 +27,9 @@ interface QuestApplication {
 }
 
 const fetchProjects = async (): Promise<QuestApplication[]> => {
-  const response = await fetch("https://api.fillout.com/v1/api/forms/7nGf4YdHqzus/submissions?limit=150", {
-    headers: {
-      Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
-    },
-  });
+  const response = await fetch(NEXT_ROUTER.api.fillout.submissions.root("7nGf4YdHqzus"));
 
-  const data = await response.json();
-
-  return data.responses as QuestApplication[];
+  return (await response.json()).data;
 };
 
 function QuestApplicationsPage({ params }: { params: { questId: string } }) {
@@ -97,7 +91,7 @@ function QuestApplicationsPage({ params }: { params: { questId: string } }) {
   );
 }
 
-export default withAuthenticationRequired(QuestApplicationsPage);
+export default withAuthenticated(QuestApplicationsPage);
 
 // {
 // 	"submissionId": "3753fb33-3501-49b9-a3b0-675d60c4f041",

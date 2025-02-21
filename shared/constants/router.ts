@@ -213,4 +213,11 @@ export const NEXT_ROUTER = {
   discover: {
     root: "/discover",
   },
+  api: {
+    fillout: {
+      submissions: {
+        root: (formId: string) => `/api/fillout/submissions/${formId}`,
+      },
+    },
+  },
 } as const;
