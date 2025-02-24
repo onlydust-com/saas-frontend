@@ -172,6 +172,44 @@ export const QuestListData: QuestList[] = [
     issues: [2864694007],
     maintainers: [13529612],
   },
+  {
+    id: "e7f2a159-d384-4c91-b8d5-f6e9c2a48b03",
+    bannerUrl: "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/1500x500.jpeg",
+    projectId: "3ffc746a-a879-40a5-91e0-b670d8d3dafc",
+    projectSlug: "spotnet",
+    name: "Building margin for trading",
+    shortDescription:
+      "We will build a smart contract for margin trading that enables users to apply leverage multipliers for both trading and spot markets.",
+    longDescription: {
+      title: "Building margin for trading",
+      description:
+        "This milestone builds a prototype for a future margin protocol smart contract using the Cairo language. You will build the following components and functions from scratch:",
+      requirements: [
+        "Trading Execution: The smart contract swaps USDC for the selected token to establish a trade position.",
+        "Deposit Collateral: Users can deposit collateral into our smart contract.",
+        "Risk Monitoring and Maintenance Margin: The system monitors prices to liquidate a position if prices drop or if interest rates accumulate.",
+        "Risk Management: A notification system with a keeper bot closes positions when the health ratio falls below the threshold.",
+        "Applying Leverage: A mechanism borrows funds from the treasury to open a position with a larger multiplier.",
+      ],
+      warning: "",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+      expert: {
+        provided: [],
+        wanted: 2,
+      },
+    },
+    requiredSkills: ["Cairo"],
+    startDate: "2025-02-25",
+    endDate: "2025-03-21",
+    issues: [2866995946, 2866997140, 2866997973],
+    maintainers: [19536159],
+  },
 ];
 
 // https://api.github.com/repos/Trustless-Work/Trustless-Work-Smart-Escrow/issues/41
