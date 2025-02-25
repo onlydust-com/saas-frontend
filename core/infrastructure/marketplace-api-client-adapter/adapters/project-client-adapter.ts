@@ -74,8 +74,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
-    projectIssueComposerCompose: "projects/:projectIdOrSlug/compose-issue",
-    projectIssueComposerSubmit: "projects/:projectIdOrSlug/submit-issue",
+    projectIssueComposerCompose: "projects/:projectId/issue-composer/compose",
+    projectIssueComposerSubmit: "projects/:projectId/issue-composer/submit",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {

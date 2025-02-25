@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { ScrollArea } from "@/shared/ui/scroll-area";
@@ -35,7 +37,7 @@ function TypeField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }
               <SelectTrigger>
                 <SelectValue placeholder="Select the type" />
               </SelectTrigger>
-              <SelectContent className="z-[99]">
+              <SelectContent className="z-[9999]">
                 <SelectItem value="FEATURE">Feature</SelectItem>
                 <SelectItem value="BUG">Bug</SelectItem>
                 <SelectItem value="IMPROVEMENT">Improvement</SelectItem>
@@ -90,16 +92,56 @@ function RequirementsField({ form }: { form: UseFormReturn<z.infer<typeof formSc
   );
 }
 export function DefintionForm({ children }: DefintionFormProps) {
-  const { setStep } = useIssueCreationPanel();
+  const { setStep, projectId, setIssue } = useIssueCreationPanel();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const { mutateAsync: composeIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerCompose({
+    pathParams: {
+      projectId,
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("submit", values);
+    const issue = await composeIssue({
+      repoId: 498695724,
+      requirements: values.requirements,
+      context: values.context,
+      type: values.type as "FEATURE" | "BUG" | "IMPROVEMENT" | "DOCUMENTATION" | "OTHER",
+    });
+
+    setIssue({
+      title: issue.title,
+      body: issue.body,
+      repoId: 498695724,
+    });
+
     setStep("creation");
   }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-between gap-6">
+        <div className="flex flex-col gap-6 pt-4">
+          <TypographyMuted>
+            Provide key details to help contributors understand and address your request efficiently. Fill out the
+            fields below, and we'll generate a well-structured issue for your repository.
+          </TypographyMuted>
+          <div className="flex flex-col gap-4">
+            <TypeField form={form} />
+            <ContextField form={form} />
+            <RequirementsField form={form} />
+          </div>
+        </div>
+        <Button variant={"secondary"} size="lg" className="w-full" type="submit" loading={isPending}>
+          Generate Issue
+        </Button>
+      </form>
+    </Form>
+  );
 
   return (
     <Form {...form}>
