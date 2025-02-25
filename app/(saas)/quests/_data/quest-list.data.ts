@@ -26,22 +26,22 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       junior: {
-        provided: [],
+        provided: [96808735],
         wanted: 1,
       },
       senior: {
-        provided: [],
+        provided: [57687342],
         wanted: 1,
       },
       expert: {
-        provided: [],
+        provided: [44169294],
         wanted: 1,
       },
     },
     requiredSkills: ["typescript", "react", "nextjs", "tailwind"],
     startDate: "2025-02-21",
     endDate: "2025-03-14",
-    status: "application-open",
+    status: "started",
     issues: [
       2806321584, 2806627562, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780, 2806375535,
       2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,

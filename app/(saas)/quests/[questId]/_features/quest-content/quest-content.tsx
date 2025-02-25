@@ -29,12 +29,12 @@ export function QuestContent({ questId }: QuestContentProps) {
 
   const wantedProfiles = Object.entries(quest.wantedProfiles)
     .flatMap(([_, value]) =>
-      Array(value.wanted).fill({
+      Array(value.wanted - (value.provided.length ?? 0)).fill({
         githubId: undefined,
         skills: quest.requiredSkills,
       })
     )
-    .filter(({ githubId }) => githubId !== undefined);
+    .filter(({ githubId }) => githubId === undefined);
 
   return (
     <Card>
