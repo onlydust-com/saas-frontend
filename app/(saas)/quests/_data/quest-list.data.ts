@@ -77,22 +77,22 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       junior: {
-        provided: [],
+        provided: [28043077],
         wanted: 1,
       },
       senior: {
-        provided: [],
+        provided: [92681651],
         wanted: 1,
       },
       expert: {
-        provided: [],
+        provided: [123427413],
         wanted: 1,
       },
     },
     requiredSkills: ["typescript", "cairo", "graphql"],
     startDate: "2025-02-21",
     endDate: "2025-02-28",
-    status: "application-open",
+    status: "started",
     issues: [2852935797, 2852932988, 2852931887],
     maintainers: [112096641],
   },
