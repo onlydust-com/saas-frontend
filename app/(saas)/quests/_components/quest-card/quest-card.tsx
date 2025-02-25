@@ -19,6 +19,7 @@ export function QuestCard({
   requiredSkills,
   startDate,
   endDate,
+  status,
   onClick,
 }: QuestCardProps) {
   const dateKernelPort = bootstrap.getDateKernelPort();
@@ -47,9 +48,8 @@ export function QuestCard({
           <Badge variant="secondary" className="ml-2">
             {Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24))} days
           </Badge>
-          <Badge variant="destructive">
-            Starting in {Math.ceil((new Date(startDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
-          </Badge>
+          {status === "application-open" && <Badge variant="warning">Waiting for applications</Badge>}
+          {status === "started" && <Badge variant="success">Started</Badge>}
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
