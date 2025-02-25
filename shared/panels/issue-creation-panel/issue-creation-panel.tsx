@@ -7,7 +7,6 @@ import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/shared/ui/dialog";
 import { ScrollArea } from "@/shared/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
 import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
 
 import { CreationForm } from "./_features/creation-form/creation-form";
@@ -58,10 +57,8 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
     return null;
   }, [step]);
 
-  // I want to fix a bug on the home page when i click on the first button i got a 404 error
-
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="flex h-[calc(100vh-2rem)] max-h-[900px] w-[calc(100vw-2rem)] max-w-[1400px] flex-col p-0">
         <div className="flex h-full flex-1 flex-row">
@@ -75,13 +72,6 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
         </div>
       </DialogContent>
     </Dialog>
-  );
-
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className={"flex flex-col"}>{Form}</SheetContent>
-    </Sheet>
   );
 }
 

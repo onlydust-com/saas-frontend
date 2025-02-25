@@ -19,6 +19,7 @@ export const formSchema = z.object({
   context: z.string().min(1),
   requirements: z.string().min(1),
   type: z.string().min(1),
+  repoId: z.number().min(1),
 });
 
 function TypeField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
@@ -43,6 +44,47 @@ function TypeField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }
                 <SelectItem value="IMPROVEMENT">Improvement</SelectItem>
                 <SelectItem value="DOCUMENTATION">Documentation</SelectItem>
                 <SelectItem value="OTHER">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </FormControl>
+        </FormItem>
+      )}
+    />
+  );
+}
+
+function RepoField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
+  const { project } = useIssueCreationPanel();
+  const repo = project?.repos.map(repo => ({
+    label: repo.name,
+    value: repo.id,
+  }));
+
+  return (
+    <FormField
+      control={form.control}
+      name="repoId"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <div className="flex flex-col space-y-1">
+            <FormLabel>Repositories</FormLabel>
+            <FormDescription>Select the related project or repository.</FormDescription>
+          </div>
+          <FormControl>
+            <Select
+              {...field}
+              value={field.value ? field.value.toString() : undefined}
+              onValueChange={value => field.onChange(parseInt(value))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select the repository" />
+              </SelectTrigger>
+              <SelectContent className="z-[9999]">
+                {repo?.map(repo => (
+                  <SelectItem key={repo.value} value={repo.value.toString()}>
+                    {repo.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </FormControl>
@@ -107,7 +149,7 @@ export function DefintionForm({ children }: DefintionFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("submit", values);
     const issue = await composeIssue({
-      repoId: 498695724,
+      repoId: values.repoId,
       requirements: values.requirements,
       context: values.context,
       type: values.type as "FEATURE" | "BUG" | "IMPROVEMENT" | "DOCUMENTATION" | "OTHER",
@@ -116,7 +158,7 @@ export function DefintionForm({ children }: DefintionFormProps) {
     setIssue({
       title: issue.title,
       body: issue.body,
-      repoId: 498695724,
+      repoId: values.repoId,
     });
 
     setStep("creation");
@@ -131,6 +173,7 @@ export function DefintionForm({ children }: DefintionFormProps) {
             fields below, and we'll generate a well-structured issue for your repository.
           </TypographyMuted>
           <div className="flex flex-col gap-4">
+            <RepoField form={form} />
             <TypeField form={form} />
             <ContextField form={form} />
             <RequirementsField form={form} />
@@ -139,34 +182,6 @@ export function DefintionForm({ children }: DefintionFormProps) {
         <Button variant={"secondary"} size="lg" className="w-full" type="submit" loading={isPending}>
           Generate Issue
         </Button>
-      </form>
-    </Form>
-  );
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
-        <SheetHeader className="flex flex-row items-center justify-start gap-2">
-          <TypographyH3>Issue Creator</TypographyH3>
-        </SheetHeader>
-        <ScrollArea className="flex flex-1 flex-col gap-4">
-          <div className="flex flex-col gap-6 pt-4">
-            <TypographyMuted>
-              Provide key details to help contributors understand and address your request efficiently. Fill out the
-              fields below, and we'll generate a well-structured issue for your repository.
-            </TypographyMuted>
-            <div className="flex flex-col gap-4">
-              <TypeField form={form} />
-              <ContextField form={form} />
-              <RequirementsField form={form} />
-            </div>
-          </div>
-        </ScrollArea>
-        <SheetFooter>
-          <Button variant={"secondary"} size="lg" className="w-full" type="submit">
-            Generate Issue
-          </Button>
-        </SheetFooter>
       </form>
     </Form>
   );

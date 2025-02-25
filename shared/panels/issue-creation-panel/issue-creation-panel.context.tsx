@@ -2,6 +2,9 @@
 
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
+
 interface IssueCreationPanelContextInterface {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -10,6 +13,7 @@ interface IssueCreationPanelContextInterface {
   issue: Issue | null;
   setIssue: (issue: Issue) => void;
   projectId: string;
+  project: ProjectInterfaceV2 | undefined;
 }
 
 interface Issue {
@@ -26,6 +30,7 @@ export const IssueCreationPanelContext = createContext<IssueCreationPanelContext
   issue: null,
   setIssue: () => {},
   projectId: "",
+  project: undefined,
 });
 
 export function IssueCreationPanelProvider({ children, projectId }: PropsWithChildren & { projectId: string }) {
@@ -33,8 +38,17 @@ export function IssueCreationPanelProvider({ children, projectId }: PropsWithChi
   const [step, setStep] = useState<"definition" | "creation">("definition");
   const [issue, setIssue] = useState<Issue | null>(null);
 
+  const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
+    pathParams: {
+      projectIdOrSlug: projectId,
+    },
+    options: {
+      enabled: Boolean(projectId) && Boolean(open),
+    },
+  });
+
   return (
-    <IssueCreationPanelContext.Provider value={{ open, setOpen, step, setStep, issue, setIssue, projectId }}>
+    <IssueCreationPanelContext.Provider value={{ open, setOpen, step, setStep, issue, setIssue, projectId, project }}>
       {children}
     </IssueCreationPanelContext.Provider>
   );

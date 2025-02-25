@@ -98,7 +98,7 @@ export function CreationForm({ children }: CreationFormProps) {
     setIssue({
       title,
       body,
-      repoId: 498695724,
+      repoId: issue?.repoId ?? 0,
     });
   }, [title, body]);
 
