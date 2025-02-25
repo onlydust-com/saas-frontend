@@ -19,7 +19,7 @@ export function QuestContent({ questId }: QuestContentProps) {
   const quest = QuestListData.find(quest => quest.id === questId);
   if (!quest) return null;
 
-  const { startDate, endDate, maintainers, issues } = quest;
+  const { startDate, endDate, maintainers, issues, status } = quest;
 
   const providedProfiles = Object.entries(quest.wantedProfiles).flatMap(([_, value]) =>
     value.provided.map(githubId => ({
@@ -27,12 +27,15 @@ export function QuestContent({ questId }: QuestContentProps) {
     }))
   );
 
-  const wantedProfiles = Object.entries(quest.wantedProfiles).flatMap(([_, value]) =>
-    Array(value.wanted).fill({
-      githubId: undefined,
-      skills: quest.requiredSkills,
-    })
-  );
+  const wantedProfiles = Object.entries(quest.wantedProfiles)
+    .flatMap(([_, value]) =>
+      Array(value.wanted - (value.provided.length ?? 0)).fill({
+        githubId: undefined,
+        skills: quest.requiredSkills,
+      })
+    )
+    .filter(({ githubId }) => githubId === undefined);
+
   return (
     <Card>
       <CardHeader className="flex w-full flex-row flex-wrap items-start justify-between gap-2">
@@ -48,9 +51,8 @@ export function QuestContent({ questId }: QuestContentProps) {
           <Badge variant="secondary" className="ml-2">
             {Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24))} days
           </Badge>
-          <Badge variant="destructive">
-            Starting in {Math.ceil((new Date(startDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
-          </Badge>
+          {status === "application-open" && <Badge variant="warning">Waiting for applications</Badge>}
+          {status === "started" && <Badge variant="success">Started</Badge>}
         </div>
 
         <div className="flex w-full flex-col gap-2">

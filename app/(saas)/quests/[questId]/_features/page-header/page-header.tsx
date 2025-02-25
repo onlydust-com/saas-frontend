@@ -27,7 +27,15 @@ import { QuestListData } from "../../../_data/quest-list.data";
 import { ImageBanner } from "../../_components/image-banner/image-banner";
 import { PageHeaderProps } from "./page-header.types";
 
-function ActionHeader({ projectSlug, questId }: { projectSlug: string; questId: string }) {
+function ActionHeader({
+  projectSlug,
+  questId,
+  showApplyButton,
+}: {
+  projectSlug: string;
+  questId: string;
+  showApplyButton: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthUser();
   const { data: userProfile } = MeReactQueryAdapter.client.useGetMyProfile({});
@@ -49,9 +57,11 @@ function ActionHeader({ projectSlug, questId }: { projectSlug: string; questId: 
           <Link href={NEXT_ROUTER.projects.details.root(projectSlug)}>See project</Link>
         </Button>
 
-        <SheetTrigger asChild>
-          <Button>Apply now</Button>
-        </SheetTrigger>
+        {showApplyButton && (
+          <SheetTrigger asChild>
+            <Button>Apply now</Button>
+          </SheetTrigger>
+        )}
       </div>
       <SheetContent className="flex flex-col gap-8">
         <SheetHeader>
@@ -238,7 +248,11 @@ export default function QuestPage({ questId }: PageHeaderProps) {
           <div className="flex w-full flex-wrap items-center justify-between gap-1">
             <TypographyH2>{project?.name}</TypographyH2>
             <div className="flex items-center gap-2">
-              <ActionHeader projectSlug={project?.slug ?? ""} questId={questId} />
+              <ActionHeader
+                projectSlug={project?.slug ?? ""}
+                questId={questId}
+                showApplyButton={quest?.status === "application-open"}
+              />
             </div>
           </div>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
