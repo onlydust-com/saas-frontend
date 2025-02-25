@@ -26,21 +26,22 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       junior: {
-        provided: [],
+        provided: [96808735],
         wanted: 1,
       },
       senior: {
-        provided: [],
+        provided: [57687342],
         wanted: 1,
       },
       expert: {
-        provided: [],
+        provided: [44169294],
         wanted: 1,
       },
     },
     requiredSkills: ["typescript", "react", "nextjs", "tailwind"],
     startDate: "2025-02-21",
     endDate: "2025-03-14",
+    status: "started",
     issues: [
       2806321584, 2806627562, 2806332637, 2806338443, 2806344209, 2806351482, 2806362495, 2806370780, 2806375535,
       2806384680, 2806400921, 2806389522, 2806598526, 2806622671, 2806634074, 2806638114,
@@ -76,21 +77,22 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       junior: {
-        provided: [],
+        provided: [28043077],
         wanted: 1,
       },
       senior: {
-        provided: [],
+        provided: [92681651],
         wanted: 1,
       },
       expert: {
-        provided: [],
+        provided: [123427413],
         wanted: 1,
       },
     },
     requiredSkills: ["typescript", "cairo", "graphql"],
     startDate: "2025-02-21",
     endDate: "2025-02-28",
+    status: "started",
     issues: [2852935797, 2852932988, 2852931887],
     maintainers: [112096641],
   },
@@ -116,17 +118,18 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       junior: {
-        provided: [],
+        provided: [127976766],
         wanted: 1,
       },
       senior: {
-        provided: [],
+        provided: [544314, 75431447, 5597359],
         wanted: 3,
       },
     },
     requiredSkills: ["NextJS", "react", "Typescript", "Rust Soroban"],
     startDate: "2025-02-21",
     endDate: "2025-03-23",
+    status: "started",
     issues: [
       2859601985, 2859618996, 2859636892, 2859652422, 2859661534, 2859664730, 2859669382, 2859671979, 2859676855,
       2859679876, 2859684383, 2859687863, 2859691488, 2859846586, 2859856778, 2859864192, 2859869833, 2859874502,
@@ -169,6 +172,7 @@ export const QuestListData: QuestList[] = [
     requiredSkills: ["Blockchain researcher", "Smart contract developer (rust, soroban)", "Backend engineer"],
     startDate: "2025-02-21",
     endDate: "2025-03-14",
+    status: "application-open",
     issues: [2864694007],
     maintainers: [13529612],
   },
@@ -207,6 +211,7 @@ export const QuestListData: QuestList[] = [
     requiredSkills: ["Cairo"],
     startDate: "2025-02-25",
     endDate: "2025-03-21",
+    status: "application-open",
     issues: [2866995946, 2866997140, 2866997973],
     maintainers: [19536159],
   },

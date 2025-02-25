@@ -8,6 +8,7 @@ export interface QuestList {
   name: string;
   shortDescription: string;
   requiredSkills: string[];
+  status: "started" | "application-open";
   startDate: string;
   endDate: string;
   wantedProfiles: {
