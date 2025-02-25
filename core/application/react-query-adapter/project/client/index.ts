@@ -22,3 +22,5 @@ export * from "./use-ungrant-project";
 export * from "./use-update-project-contributor-labels";
 export * from "./use-upload-project-logo";
 export * from "./use-get-project-activity-by-slug-or-id";
+export * from "./use-compose-issue";
+export * from "./use-submit-issue";
