@@ -168,6 +168,8 @@ export function DefintionForm() {
       title: issue.title,
       body: issue.body,
       repoId: values.repoId,
+      issueCompositionId: issue.issueCompositionId,
+      additionalQuestions: !!issue.additionalQuestions?.trim() ? issue.additionalQuestions : undefined,
     });
 
     setStep("creation");
