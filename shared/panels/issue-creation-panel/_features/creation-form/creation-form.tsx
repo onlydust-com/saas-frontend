@@ -103,7 +103,7 @@ export function CreationForm() {
             Provide key details to help contributors understand and address your request efficiently. Fill out the
             fields below, and we'll generate a well-structured issue for your repository.
           </TypographyMuted>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <Title form={form} />
             <Body form={form} />
           </div>
