@@ -8,8 +8,6 @@ import { bootstrap } from "@/core/bootstrap";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { ProjectIssueComposerSubmitBody } from "@/core/domain/project/project-contract.types";
 
-import { ContributionReactQueryAdapter } from "../../contribution";
-
 export function useProjectIssueComposerSubmit({
   pathParams,
   options,

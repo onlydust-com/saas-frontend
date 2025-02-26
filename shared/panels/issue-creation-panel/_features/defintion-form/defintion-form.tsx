@@ -11,7 +11,6 @@ import { Textarea } from "@/shared/ui/textarea";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
-import { MarkdownEditor } from "../markdown-editor/markdown-editor";
 
 export const formSchema = z.object({
   context: z.string().min(1),
