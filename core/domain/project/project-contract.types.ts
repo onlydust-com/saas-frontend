@@ -351,3 +351,15 @@ export type GetProjectActivityPortParams = HttpClientParameters<{
   QueryParams: GetProjectActivityQueryParams;
   PathParams: GetProjectActivityPathParams;
 }>;
+
+/* ------------------------------ Get Project Acquisition tip ------------------------------ */
+
+export type GetProjectAcquisitionTipResponse = components["schemas"]["ProjectAcquisitionTipResponse"];
+
+type GetProjectAcquisitionTipPathParams = operations["getAcquisitionTip"]["parameters"]["path"];
+
+export type GetProjectAcquisitionTipPortResponse = HttpStorageResponse<GetProjectAcquisitionTipResponse>;
+
+export type GetProjectAcquisitionTipPortParams = HttpClientParameters<{
+  PathParams: GetProjectAcquisitionTipPathParams;
+}>;

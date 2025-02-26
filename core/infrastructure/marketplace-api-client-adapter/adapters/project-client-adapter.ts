@@ -1,4 +1,5 @@
 import { GithubLabelWithCount } from "@/core/domain/github/models/github-label-model";
+import { ProjectAcquisitionTip } from "@/core/domain/project/models/project-acquisition-tip-model";
 import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
@@ -18,6 +19,7 @@ import {
   CreateProjectBody,
   CreateProjectResponse,
   EditProjectBody,
+  GetProjectAcquisitionTipResponse,
   GetProjectActivityResponse,
   GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
@@ -71,6 +73,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
+    getProjectAcquisitionTip: "projects/:projectIdOrSlug/acquisition-tip",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -648,6 +651,29 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       });
 
       return data;
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectAcquisitionTip = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectAcquisitionTip"]>) => {
+    const path = this.routes["getProjectAcquisitionTip"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectAcquisitionTipResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        mock: true,
+      });
+
+      return new ProjectAcquisitionTip(data);
     };
 
     return {

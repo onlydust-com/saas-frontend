@@ -3,6 +3,8 @@ import {
   CreateProjectPortResponse,
   EditProjectPortParams,
   EditProjectPortResponse,
+  GetProjectAcquisitionTipPortParams,
+  GetProjectAcquisitionTipPortResponse,
   GetProjectActivityPortParams,
   GetProjectActivityPortResponse,
   GetProjectAvailableIssuesPortParams,
@@ -81,4 +83,5 @@ export interface ProjectFacadePort {
   getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
   getSimilarProjects(p: GetSimilarProjectsPortParams): GetSimilarProjectsPortResponse;
   getProjectActivity(p: GetProjectActivityPortParams): GetProjectActivityPortResponse;
+  getProjectAcquisitionTip(p: GetProjectAcquisitionTipPortParams): GetProjectAcquisitionTipPortResponse;
 }
