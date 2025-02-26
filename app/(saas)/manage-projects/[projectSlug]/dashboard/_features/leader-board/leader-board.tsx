@@ -65,7 +65,7 @@ export function LeaderBoard({ projectId }: LeaderBoardProps) {
 
   return (
     <Card className={"flex flex-col gap-4 p-4"}>
-      <TypographyH3>Leaderboard</TypographyH3>
+      <TypographyH3>Similar project leaderboard</TypographyH3>
       <div className="flex flex-col gap-xl">{renderProjects}</div>
     </Card>
   );
