@@ -61,15 +61,37 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
 }
 
 function AdditionalQuestions() {
-  const { setIssue, issue, projectId, closeAndReset } = useIssueCreationPanel();
+  const { setIssue, issue, projectId } = useIssueCreationPanel();
   const [additionalQuestions, setAdditionalQuestions] = useState(issue?.additionalQuestions ?? "");
+
+  const { mutateAsync: updateIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerUpdate({
+    pathParams: {
+      projectId,
+      issueCompositionId: issue?.issueCompositionId ?? "",
+    },
+    options: {
+      onError: () => {
+        toast.error("Failed to generate issue");
+      },
+    },
+  });
 
   useEffect(() => {
     setAdditionalQuestions(issue?.additionalQuestions ?? "");
   }, [issue]);
 
-  function handleAdditionalQuestionsChange() {
-    console.log("additionalQuestions", additionalQuestions);
+  async function handleAdditionalQuestionsChange() {
+    const issueResult = await updateIssue({
+      additionalInfo: additionalQuestions,
+    });
+
+    setIssue({
+      title: issueResult.title,
+      body: issueResult.body,
+      repoId: issue?.repoId ?? 0,
+      issueCompositionId: issueResult?.issueCompositionId ?? "",
+      additionalQuestions: !!issueResult.additionalQuestions?.trim() ? issueResult.additionalQuestions : undefined,
+    });
   }
 
   return (
@@ -101,6 +123,7 @@ function AdditionalQuestions() {
           className="w-full"
           type="button"
           onClick={handleAdditionalQuestionsChange}
+          loading={isPending}
         >
           Submit
         </Button>
