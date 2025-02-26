@@ -1,0 +1,28 @@
+.w-md-editor {
+	@apply rounded-md;
+	@apply border;
+	@apply border-input;
+	@apply bg-transparent;
+	@apply shadow-sm;
+	@apply text-base;
+	@apply bg-background;
+}
+
+.w-md-editor-toolbar {
+	@apply bg-stack;
+	@apply px-2;
+	@apply py-2;
+	@apply border;
+	@apply border-input;
+}
+
+.w-md-editor-toolbar li > button:hover,
+.w-md-editor-toolbar li > button:focus {
+	@apply bg-muted;
+	@apply text-muted-foreground;
+}
+
+.w-md-editor-toolbar li > button > svg {
+	width: 14px;
+	height: 14px;
+}

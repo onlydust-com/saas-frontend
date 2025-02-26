@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/shared/ui/dialog";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { TypographyH4, TypographyMuted } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 import { CreationForm } from "./_features/creation-form/creation-form";
 import { DefintionForm } from "./_features/defintion-form/defintion-form";
@@ -21,10 +22,10 @@ function IssuePreview() {
   const body = issue?.body ?? "# Issue title\n\nIssue description";
 
   return (
-    <div className="flex flex-1 flex-col gap-4 overflow-hidden p-6">
+    <div className="flex flex-1 flex-col gap-4 overflow-hidden">
       <div className="flex flex-col gap-3 border-b border-b-border pb-3">
         <header className={"flex w-full flex-row items-center justify-start gap-3"}>
-          <ContributionBadge type={"ISSUE"} number={555} githubStatus={"OPEN"} />
+          <ContributionBadge type={"ISSUE"} number={0} showNumberOnHover githubStatus={"OPEN"} />
           <TypographyH4 className="line-clamp-1">{title}</TypographyH4>
         </header>
 
@@ -57,17 +58,34 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
     return null;
   }, [step]);
 
+  const showPreview = step === "creation";
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="flex h-[calc(100vh-2rem)] max-h-[900px] w-[calc(100vw-2rem)] max-w-[1400px] flex-col p-0">
+      <DialogContent
+        className={cn(
+          "flex h-[calc(100vh-2rem)] max-h-[900px] w-[calc(100vw-2rem)] max-w-[700px] flex-col p-0 transition-all",
+          {
+            "max-w-[1400px]": showPreview,
+          }
+        )}
+      >
         <div className="flex h-full flex-1 flex-row">
-          <ScrollArea className="flex flex-1 flex-col gap-4 bg-stack">{<IssuePreview />}</ScrollArea>
-          <ScrollArea className="flex flex-1 flex-col gap-4 p-6">
-            <DialogHeader>
-              <DialogTitle className="font-clash text-3xl font-medium tracking-tight">Issue Creator</DialogTitle>
-            </DialogHeader>
-            {Form}
+          {showPreview && (
+            <ScrollArea className="flex flex-1 flex-col gap-4 bg-stack">
+              <div className="flex flex-1 flex-col gap-4 p-6">
+                <IssuePreview />
+              </div>
+            </ScrollArea>
+          )}
+          <ScrollArea className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col gap-4 p-6">
+              <DialogHeader>
+                <DialogTitle className="font-clash text-3xl font-medium tracking-tight">Issue Creator</DialogTitle>
+              </DialogHeader>
+              {Form}
+            </div>
           </ScrollArea>
         </div>
       </DialogContent>

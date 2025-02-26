@@ -12,6 +12,7 @@ import { Input } from "@/shared/ui/input";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
+import { MarkdownEditor } from "../markdown-editor/markdown-editor";
 
 export const formSchema = z.object({
   body: z.string().min(1),
@@ -48,15 +49,7 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
             <FormLabel>Issue description</FormLabel>
           </div>
           <FormControl>
-            <Textarea
-              placeholder="issue description"
-              {...field}
-              onInput={e => {
-                const target = e.target as HTMLTextAreaElement;
-                target.style.height = "0px";
-                target.style.height = target.scrollHeight + "px";
-              }}
-            />
+            <MarkdownEditor placeholder="issue description" {...field} />
           </FormControl>
         </FormItem>
       )}
