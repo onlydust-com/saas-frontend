@@ -351,3 +351,28 @@ export type GetProjectActivityPortParams = HttpClientParameters<{
   QueryParams: GetProjectActivityQueryParams;
   PathParams: GetProjectActivityPathParams;
 }>;
+
+/* ------------------------- ISSUE COMPOSER COMPOSE ------------------------- */
+
+export type ProjectIssueComposerComposeResponse = components["schemas"]["IssueComposeResponse"];
+export type ProjectIssueComposerComposeBody = components["schemas"]["IssueComposeRequest"];
+
+type ProjectIssueComposerComposePathParams = operations["composeIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerComposePortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerComposePathParams;
+}>;
+
+export type ProjectIssueComposerComposePortResponse = HttpStorageResponse<ProjectIssueComposerComposeResponse>;
+
+/* ------------------------- ISSUE COMPOSER SUBMIT ------------------------- */
+
+export type ProjectIssueComposerSubmitBody = components["schemas"]["SubmitIssueRequest"];
+
+type ProjectIssueComposerSubmitPathParams = operations["submitIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerSubmitPortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerSubmitPathParams;
+}>;
+
+export type ProjectIssueComposerSubmitPortResponse = HttpStorageResponse;

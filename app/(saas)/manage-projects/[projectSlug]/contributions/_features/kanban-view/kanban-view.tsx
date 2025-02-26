@@ -12,18 +12,16 @@ import {
   ContributionActivityStatusUnion,
   ContributionAs,
 } from "@/core/domain/contribution/models/contribution.types";
-import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Menu } from "@/design-system/molecules/menu";
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
 import { KanbanColumn } from "@/shared/features/kanban/kanban-column/kanban-column";
 import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban-column.types";
+import { IssueCreationPanel } from "@/shared/panels/issue-creation-panel/issue-creation-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button } from "@/shared/ui/button";
 
 function Column({
   type,
@@ -107,17 +105,6 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
     },
   });
 
-  const createMenuItems = (repos: GithubOrganizationResponse["repos"]): MenuItemPort<number>[] => {
-    return repos.map(repo => ({
-      id: repo.id,
-      label: repo.name,
-      isDisabled: !repo.hasIssues,
-      onClick: () => {
-        window.open(`${repo.htmlUrl}/issues/new`, "_blank");
-      },
-    }));
-  };
-
   return (
     <Kanban>
       <Column
@@ -125,9 +112,11 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
         type={ContributionActivityStatus.NOT_ASSIGNED}
         header={{
           endContent: (
-            <Menu isPopOver={true} closeOnSelect items={createMenuItems(data?.getProjectRepos() || [])}>
-              <Button iconOnly variant={"secondary"} size="sm" startIcon={{ component: Plus }} />
-            </Menu>
+            <IssueCreationPanel projectId={data?.id ?? ""}>
+              <Button size="icon" variant={"outline"}>
+                <Plus />
+              </Button>
+            </IssueCreationPanel>
           ),
         }}
         queryParams={queryParams}
