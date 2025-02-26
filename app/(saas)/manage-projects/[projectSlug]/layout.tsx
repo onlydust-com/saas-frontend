@@ -32,7 +32,10 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { PageHeader } from "./_features/page-header/page-header";
+
 enum Views {
+  "DASHBOARD" = "DASHBOARD",
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
   "CONTRIBUTORS" = "CONTRIBUTORS",
   "FINANCIAL" = "FINANCIAL",
@@ -42,8 +45,12 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   const isContributors = useMatchPath(NEXT_ROUTER.manageProjects.contributors.root(projectSlug));
   const isContributions = useMatchPath(NEXT_ROUTER.manageProjects.contributions.root(projectSlug));
   const isFinancial = useMatchPath(NEXT_ROUTER.manageProjects.financial.root(projectSlug));
-
+  const isDashboard = useMatchPath(NEXT_ROUTER.manageProjects.dashboard.root(projectSlug));
   const selectedId = useMemo(() => {
+    if (isDashboard) {
+      return Views.DASHBOARD;
+    }
+
     if (isContributors) {
       return Views.CONTRIBUTORS;
     }
@@ -55,7 +62,9 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     if (isFinancial) {
       return Views.FINANCIAL;
     }
-  }, [isContributions, isContributors, isFinancial]);
+
+    return Views.DASHBOARD;
+  }, [isContributions, isContributors, isFinancial, isDashboard]);
 
   const [openAlert, setOpenAlert] = useState(false);
   const hasAlreadyClosedAlert = useRef(false);
@@ -103,7 +112,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
   const renderActions = useCallback(() => {
     return (
-      <div className="flex items-center gap-lg">
+      <div className="flex items-center gap-lg pb-2">
         {projectId ? (
           <Button
             variant={"secondary"}
@@ -159,40 +168,54 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
       <PageContent classNames={{ base: "tablet:overflow-hidden tablet:max-h-[calc(100vh-64px)] h-full" }}>
         <div className="flex h-full flex-col gap-lg">
-          <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-            <Tabs
-              variant={"solid"}
-              searchParams={"data-view"}
-              tabs={[
-                {
-                  id: Views.CONTRIBUTIONS,
-                  children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+          <header className="flex flex-col justify-between gap-8">
+            <PageHeader projectSlug={projectSlug} />
+            <div className="flex flex-col flex-wrap items-start justify-between gap-md border-b border-border tablet:flex-row tablet:items-center">
+              <Tabs
+                variant={"underline"}
+                searchParams={"data-view"}
+                tabs={[
+                  {
+                    id: Views.DASHBOARD,
+                    children: <Translate token={"manageProjects:detail.views.dashboard"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.dashboard.root(projectSlug),
+                    },
                   },
-                },
-                {
-                  id: Views.CONTRIBUTORS,
-                  children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                  {
+                    id: Views.CONTRIBUTIONS,
+                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                    },
                   },
-                },
-                {
-                  id: Views.FINANCIAL,
-                  children: <Translate token={"manageProjects:detail.views.financial"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                  {
+                    id: Views.CONTRIBUTORS,
+                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                    },
                   },
-                },
-              ]}
-              selectedId={selectedId}
-            />
+                  {
+                    id: Views.FINANCIAL,
+                    children: <Translate token={"manageProjects:detail.views.financial"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                    },
+                  },
+                ]}
+                selectedId={selectedId}
+                classNames={{
+                  base: "border-none",
+                }}
+              />
 
-            {renderActions()}
+              {renderActions()}
+            </div>
           </header>
 
           {children}
