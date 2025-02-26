@@ -38,6 +38,8 @@ import {
   GetProjectsPortResponse,
   GetProjectsV2PortParams,
   GetProjectsV2PortResponse,
+  GetSimilarProjectsLeaderboardPortParams,
+  GetSimilarProjectsLeaderboardPortResponse,
   GetSimilarProjectsPortParams,
   GetSimilarProjectsPortResponse,
   UnassignContributorFromProjectContributionPortParams,
@@ -84,4 +86,5 @@ export interface ProjectFacadePort {
   getSimilarProjects(p: GetSimilarProjectsPortParams): GetSimilarProjectsPortResponse;
   getProjectActivity(p: GetProjectActivityPortParams): GetProjectActivityPortResponse;
   getProjectAcquisitionTip(p: GetProjectAcquisitionTipPortParams): GetProjectAcquisitionTipPortResponse;
+  getSimilarProjectsLeaderboard(p: GetSimilarProjectsLeaderboardPortParams): GetSimilarProjectsLeaderboardPortResponse;
 }

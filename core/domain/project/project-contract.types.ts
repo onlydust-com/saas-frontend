@@ -17,6 +17,7 @@ import { ProjectContributorsInterfaceV2 } from "./models/project-contributors-mo
 import { ProjectLinkV2 } from "./models/project-link-v2";
 import { ProjectListItemInterfaceV2 } from "./models/project-list-item-model-v2";
 import { ProjectInterfaceV2 } from "./models/project-model-v2";
+import { ProjectRankedListItemInterface } from "./models/project-ranked-list-item-model";
 import { ProjectRewardsInterfaceV2 } from "./models/project-rewards-model-v2";
 
 type GetProjectResponse = components["schemas"]["ProjectResponse"];
@@ -362,4 +363,20 @@ export type GetProjectAcquisitionTipPortResponse = HttpStorageResponse<GetProjec
 
 export type GetProjectAcquisitionTipPortParams = HttpClientParameters<{
   PathParams: GetProjectAcquisitionTipPathParams;
+}>;
+
+/* ------------------------------ Get Similar Projects leaderboard ------------------------------ */
+
+export type GetSimilarProjectsLeaderboardResponse = components["schemas"]["RankedProjectListResponse"];
+
+export type GetSimilarProjectsLeaderboardModel = Omit<GetSimilarProjectsLeaderboardResponse, "projects"> & {
+  projects: ProjectRankedListItemInterface[];
+};
+
+type GetSimilarProjectsLeaderboardPathParams = operations["getSimilarProjectsV2"]["parameters"]["path"];
+
+export type GetSimilarProjectsLeaderboardPortResponse = HttpStorageResponse<GetSimilarProjectsLeaderboardModel>;
+
+export type GetSimilarProjectsLeaderboardPortParams = HttpClientParameters<{
+  PathParams: GetSimilarProjectsLeaderboardPathParams;
 }>;

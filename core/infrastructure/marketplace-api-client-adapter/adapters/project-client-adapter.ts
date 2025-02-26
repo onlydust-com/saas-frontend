@@ -11,6 +11,7 @@ import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-ite
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectV2 } from "@/core/domain/project/models/project-model-v2";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
+import { ProjectRankedListItem } from "@/core/domain/project/models/project-ranked-list-item-model";
 import { ProjectRewardsV2 } from "@/core/domain/project/models/project-rewards-model-v2";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
@@ -36,6 +37,7 @@ import {
   GetProjectTransactionsResponse,
   GetProjectsResponse,
   GetProjectsV2Response,
+  GetSimilarProjectsLeaderboardResponse,
   GetSimilarProjectsResponse,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
@@ -74,6 +76,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
     getProjectAcquisitionTip: "projects/:projectIdOrSlug/acquisition-tip",
+    getSimilarProjectsLeaderboard: "projects/:projectIdOrSlug/similar-projects",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -674,6 +677,34 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       });
 
       return new ProjectAcquisitionTip(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getSimilarProjectsLeaderboard = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["getSimilarProjectsLeaderboard"]>) => {
+    const path = this.routes["getSimilarProjectsLeaderboard"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetSimilarProjectsLeaderboardResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new ProjectRankedListItem(project)),
+      };
     };
 
     return {
