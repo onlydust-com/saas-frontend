@@ -12,7 +12,6 @@ import { Input } from "@/shared/ui/input";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
-import { CreationFormProps } from "./creation-form.types";
 
 export const formSchema = z.object({
   body: z.string().min(1),
@@ -64,8 +63,8 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
     />
   );
 }
-export function CreationForm({ children }: CreationFormProps) {
-  const { setStep, projectId, setIssue, issue } = useIssueCreationPanel();
+export function CreationForm() {
+  const { setIssue, issue, projectId, closeAndReset } = useIssueCreationPanel();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,12 +85,13 @@ export function CreationForm({ children }: CreationFormProps) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("submit", values);
-    // const issue = await composeIssue({
-    //   repoId: 498695724,
-    //   requirements: values.requirements,
-    //   context: values.context,
-    //   type: values.type as "FEATURE" | "BUG" | "IMPROVEMENT" | "DOCUMENTATION" | "OTHER",
-    // });
+    await createIssue({
+      repoId: issue?.repoId ?? 0,
+      body: values.body,
+      title: values.title,
+    });
+
+    closeAndReset();
   }
 
   useEffect(() => {

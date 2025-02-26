@@ -14,6 +14,7 @@ interface IssueCreationPanelContextInterface {
   setIssue: (issue: Issue) => void;
   projectId: string;
   project: ProjectInterfaceV2 | undefined;
+  closeAndReset: () => void;
 }
 
 interface Issue {
@@ -31,6 +32,7 @@ export const IssueCreationPanelContext = createContext<IssueCreationPanelContext
   setIssue: () => {},
   projectId: "",
   project: undefined,
+  closeAndReset: () => {},
 });
 
 export function IssueCreationPanelProvider({ children, projectId }: PropsWithChildren & { projectId: string }) {
@@ -47,8 +49,16 @@ export function IssueCreationPanelProvider({ children, projectId }: PropsWithChi
     },
   });
 
+  function closeAndReset() {
+    setOpen(false);
+    setStep("definition");
+    setIssue(null);
+  }
+
   return (
-    <IssueCreationPanelContext.Provider value={{ open, setOpen, step, setStep, issue, setIssue, projectId, project }}>
+    <IssueCreationPanelContext.Provider
+      value={{ open, setOpen, step, setStep, issue, setIssue, projectId, project, closeAndReset }}
+    >
       {children}
     </IssueCreationPanelContext.Provider>
   );

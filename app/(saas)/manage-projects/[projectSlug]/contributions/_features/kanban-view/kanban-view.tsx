@@ -12,11 +12,8 @@ import {
   ContributionActivityStatusUnion,
   ContributionAs,
 } from "@/core/domain/contribution/models/contribution.types";
-import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
-import { Menu } from "@/design-system/molecules/menu";
-import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
@@ -107,19 +104,6 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
       enabled: !!projectSlug,
     },
   });
-
-  const createMenuItems = (repos: GithubOrganizationResponse["repos"]): MenuItemPort<number>[] => {
-    return repos.map(repo => ({
-      id: repo.id,
-      label: repo.name,
-      isDisabled: !repo.hasIssues,
-      onClick: () => {
-        window.open(`${repo.htmlUrl}/issues/new`, "_blank");
-      },
-    }));
-  };
-
-  // params dans l'URL pour features flag
 
   return (
     <Kanban>

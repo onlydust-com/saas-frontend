@@ -6,14 +6,11 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
-import { SheetContent, SheetFooter, SheetHeader } from "@/shared/ui/sheet";
 import { Textarea } from "@/shared/ui/textarea";
-import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
+import { TypographyMuted } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
-import { DefintionFormProps } from "./defintion-form.types";
 
 export const formSchema = z.object({
   context: z.string().min(1),
@@ -133,7 +130,7 @@ function RequirementsField({ form }: { form: UseFormReturn<z.infer<typeof formSc
     />
   );
 }
-export function DefintionForm({ children }: DefintionFormProps) {
+export function DefintionForm() {
   const { setStep, projectId, setIssue } = useIssueCreationPanel();
 
   const form = useForm<z.infer<typeof formSchema>>({
