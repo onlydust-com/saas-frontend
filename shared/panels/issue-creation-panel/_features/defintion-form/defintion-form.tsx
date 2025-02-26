@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
@@ -132,6 +134,7 @@ function RequirementsField({ form }: { form: UseFormReturn<z.infer<typeof formSc
 }
 export function DefintionForm() {
   const { setStep, projectId, setIssue } = useIssueCreationPanel();
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -144,7 +147,11 @@ export function DefintionForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submit", values);
+    if (isProjectOrganisationMissingPermissions(values.repoId)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+
     const issue = await composeIssue({
       repoId: values.repoId,
       requirements: values.requirements,

@@ -60,8 +60,12 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
 
   const showPreview = step === "creation";
 
+  function onOpenChange(open: boolean) {
+    setOpen(open);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={cn(

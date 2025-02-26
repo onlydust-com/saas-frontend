@@ -1,14 +1,11 @@
 import { ChevronRight, SquarePlus } from "lucide-react";
 import Link from "next/link";
-import { useFeatureFlagEnabled } from "posthog-js/react";
 import { useMemo } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useMatchPath } from "@/shared/hooks/router/use-match-path";
-import { IssueCreationPanel } from "@/shared/panels/issue-creation-panel/issue-creation-panel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Badge } from "@/shared/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/shared/ui/collapsible";
 import {
   SidebarGroup,
@@ -43,11 +40,10 @@ export function MaintainerGroup() {
   const { user } = useAuthUser();
   const isMaintainerRoute = useMatchPath(NEXT_ROUTER.manageProjects.root, { exact: false });
   const isProjectCreateRoute = useMatchPath(NEXT_ROUTER.createProject.root, { exact: false });
-
   const projects = useMemo(() => user?.projectsLed ?? [], [user]);
   const visibleProjects = useMemo(() => projects.slice(0, MAX_PROJECTS), [projects]);
   const canSeeAll = useMemo(() => projects.length > MAX_PROJECTS, [projects.length]);
-  const isBetaEnabled = useFeatureFlagEnabled("issue-creator");
+
   const items = visibleProjects.map(project => ({
     title: project.name,
     icon: (
@@ -69,23 +65,6 @@ export function MaintainerGroup() {
       {
         title: "Financial",
         url: NEXT_ROUTER.manageProjects.financial.root(project.slug),
-      },
-      {
-        title: "Create issue",
-        element: isBetaEnabled ? (
-          <IssueCreationPanel projectId={project.id ?? ""}>
-            <SidebarMenuSubItem>
-              <SidebarMenuSubButton asChild>
-                <div className="w-full cursor-pointer items-center justify-between gap-1">
-                  <span>Create issue</span>
-                  <Badge variant="emphasis" className="ml-auto">
-                    New
-                  </Badge>
-                </div>
-              </SidebarMenuSubButton>
-            </SidebarMenuSubItem>
-          </IssueCreationPanel>
-        ) : null,
       },
     ],
   }));
@@ -117,13 +96,7 @@ export function MaintainerGroup() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
-                  {item.items?.map(subItem =>
-                    subItem.url ? (
-                      <SubItem key={subItem.title} title={subItem.title} url={subItem.url} />
-                    ) : (
-                      subItem.element
-                    )
-                  )}
+                  {item.items?.map(subItem => <SubItem key={subItem.title} title={subItem.title} url={subItem.url} />)}
                 </SidebarMenuSub>
               </CollapsibleContent>
             </SidebarMenuItem>
