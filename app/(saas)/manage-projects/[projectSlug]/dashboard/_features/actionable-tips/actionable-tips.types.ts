@@ -9,7 +9,8 @@ export type AcquisitionTipIdentifier = components["schemas"]["ProjectAcquisition
 export type ActionHandler = (projectId: string) => void;
 
 export interface TipAction {
-  label: string;
-  description: string;
+  actionLabel: string;
+  title: string;
+  justification: string;
   action: ActionHandler;
 }
