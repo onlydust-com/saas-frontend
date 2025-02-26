@@ -200,18 +200,18 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
-        wanted: 2,
+        provided: [135316445],
+        wanted: 1,
       },
       expert: {
-        provided: [],
-        wanted: 2,
+        provided: [177087057],
+        wanted: 1,
       },
     },
     requiredSkills: ["Cairo"],
     startDate: "2025-02-25",
     endDate: "2025-03-21",
-    status: "application-open",
+    status: "started",
     issues: [2866995946, 2866997140, 2866997973],
     maintainers: [19536159],
   },
