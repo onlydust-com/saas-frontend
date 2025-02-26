@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useFeatureFlagEnabled, usePostHog } from "posthog-js/react";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 import { useMemo } from "react";
 
 import { KanbanViewProps } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/kanban-view/kanban-view.types";
