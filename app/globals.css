@@ -951,6 +951,7 @@
         var(--typography-quaternary);
     }
 
+
     @keyframes shine {
       0% {
         background-position: 200% 0;

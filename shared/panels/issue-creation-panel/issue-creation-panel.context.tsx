@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
@@ -49,11 +49,19 @@ export function IssueCreationPanelProvider({ children, projectId }: PropsWithChi
     },
   });
 
-  function closeAndReset() {
-    setOpen(false);
+  function reset() {
     setStep("definition");
     setIssue(null);
   }
+
+  function closeAndReset() {
+    setOpen(false);
+    reset();
+  }
+
+  useEffect(() => {
+    reset();
+  }, [open]);
 
   return (
     <IssueCreationPanelContext.Provider

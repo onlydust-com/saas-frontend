@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "@nextui-org/react";
 import { useEffect } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,6 +11,7 @@ import { Input } from "@/shared/ui/input";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
+import { MarkdownEditor } from "../markdown-editor/markdown-editor";
 
 export const formSchema = z.object({
   body: z.string().min(1),
@@ -48,15 +48,7 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
             <FormLabel>Issue description</FormLabel>
           </div>
           <FormControl>
-            <Textarea
-              placeholder="issue description"
-              {...field}
-              onInput={e => {
-                const target = e.target as HTMLTextAreaElement;
-                target.style.height = "0px";
-                target.style.height = target.scrollHeight + "px";
-              }}
-            />
+            <MarkdownEditor placeholder="issue description" {...field} />
           </FormControl>
         </FormItem>
       )}
@@ -65,7 +57,6 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
 }
 export function CreationForm() {
   const { setIssue, issue, projectId, closeAndReset } = useIssueCreationPanel();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,7 +75,10 @@ export function CreationForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submit", values);
+    if (!issue?.repoId) {
+      return;
+    }
+
     await createIssue({
       repoId: issue?.repoId ?? 0,
       body: values.body,
@@ -110,7 +104,7 @@ export function CreationForm() {
             Provide key details to help contributors understand and address your request efficiently. Fill out the
             fields below, and we'll generate a well-structured issue for your repository.
           </TypographyMuted>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <Title form={form} />
             <Body form={form} />
           </div>
