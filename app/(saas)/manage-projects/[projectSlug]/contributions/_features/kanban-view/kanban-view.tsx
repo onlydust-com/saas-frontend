@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useFeatureFlagEnabled, usePostHog } from "posthog-js/react";
 import { useMemo } from "react";
 
 import { KanbanViewProps } from "@/app/(saas)/manage-projects/[projectSlug]/contributions/_features/kanban-view/kanban-view.types";
@@ -12,8 +13,11 @@ import {
   ContributionActivityStatusUnion,
   ContributionAs,
 } from "@/core/domain/contribution/models/contribution.types";
+import { GithubOrganizationResponse } from "@/core/domain/github/models/github-organization-model";
 
 import { Skeleton } from "@/design-system/atoms/skeleton";
+import { Menu } from "@/design-system/molecules/menu";
+import { MenuItemPort } from "@/design-system/molecules/menu-item";
 
 import { CardContributionKanban } from "@/shared/features/card-contribution-kanban/card-contribution-kanban";
 import { Kanban } from "@/shared/features/kanban/kanban";
@@ -97,13 +101,43 @@ function Column({
 
 export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps) {
   const { projectSlug = "" } = useParams<{ projectSlug: string }>();
-
+  const isBetaEnabled = useFeatureFlagEnabled("issue-creator");
   const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug ?? "" },
     options: {
       enabled: !!projectSlug,
     },
   });
+  const createMenuItems = (repos: GithubOrganizationResponse["repos"]): MenuItemPort<number>[] => {
+    return repos.map(repo => ({
+      id: repo.id,
+      label: repo.name,
+      isDisabled: !repo.hasIssues,
+      onClick: () => {
+        window.open(`${repo.htmlUrl}/issues/new`, "_blank");
+      },
+    }));
+  };
+
+  const CreateIssueButton = useMemo(() => {
+    if (isBetaEnabled) {
+      return (
+        <IssueCreationPanel projectId={data?.id ?? ""}>
+          <Button size="icon" variant={"outline"}>
+            <Plus />
+          </Button>
+        </IssueCreationPanel>
+      );
+    }
+
+    return (
+      <Menu isPopOver={true} closeOnSelect items={createMenuItems(data?.getProjectRepos() || [])}>
+        <Button size="icon" variant={"outline"}>
+          <Plus />
+        </Button>
+      </Menu>
+    );
+  }, [data, isBetaEnabled]);
 
   return (
     <Kanban>
@@ -111,13 +145,7 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
         onOpenContribution={onOpenContribution}
         type={ContributionActivityStatus.NOT_ASSIGNED}
         header={{
-          endContent: (
-            <IssueCreationPanel projectId={data?.id ?? ""}>
-              <Button size="icon" variant={"outline"}>
-                <Plus />
-              </Button>
-            </IssueCreationPanel>
-          ),
+          endContent: CreateIssueButton,
         }}
         queryParams={queryParams}
       />

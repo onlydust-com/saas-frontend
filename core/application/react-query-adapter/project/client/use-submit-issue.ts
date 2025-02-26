@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   UseMutationFacadeParams,
@@ -7,6 +7,8 @@ import {
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { ProjectIssueComposerSubmitBody } from "@/core/domain/project/project-contract.types";
+
+import { ContributionReactQueryAdapter } from "../../contribution";
 
 export function useProjectIssueComposerSubmit({
   pathParams,
@@ -18,13 +20,21 @@ export function useProjectIssueComposerSubmit({
   ProjectIssueComposerSubmitBody
 > = {}) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
-
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
+  const queryClient = useQueryClient();
+  // ContributionReactQueryAdapter.client.useGetContributions({
   return useMutation(
     useMutationAdapter({
       ...projectStoragePort.projectIssueComposerSubmit({ pathParams }),
       options: {
         ...options,
         onSuccess: async (data, variables, context) => {
+          if (pathParams?.projectId) {
+            await queryClient.invalidateQueries({
+              queryKey: contributionStoragePort.getContributions({}).tag,
+              exact: false,
+            });
+          }
           options?.onSuccess?.(data, variables, context);
         },
       },

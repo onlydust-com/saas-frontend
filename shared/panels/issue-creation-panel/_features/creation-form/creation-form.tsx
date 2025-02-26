@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "@nextui-org/react";
 import { useEffect } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -58,7 +57,6 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
 }
 export function CreationForm() {
   const { setIssue, issue, projectId, closeAndReset } = useIssueCreationPanel();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,7 +75,10 @@ export function CreationForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submit", values);
+    if (!issue?.repoId) {
+      return;
+    }
+
     await createIssue({
       repoId: issue?.repoId ?? 0,
       body: values.body,
