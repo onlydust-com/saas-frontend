@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -71,6 +72,14 @@ export function CreationForm() {
   const { mutateAsync: createIssue } = ProjectReactQueryAdapter.client.useProjectIssueComposerSubmit({
     pathParams: {
       projectId,
+    },
+    options: {
+      onError: () => {
+        toast.error("Failed to create issue");
+      },
+      onSuccess: () => {
+        toast.success("Issue created successfully");
+      },
     },
   });
 
