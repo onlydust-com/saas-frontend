@@ -376,3 +376,16 @@ export type ProjectIssueComposerSubmitPortParams = HttpClientParameters<{
 }>;
 
 export type ProjectIssueComposerSubmitPortResponse = HttpStorageResponse;
+
+/* ------------------------- ISSUE COMPOSER COMPOSE ------------------------- */
+
+export type ProjectIssueComposerUpdateResponse = components["schemas"]["IssueComposeResponse"];
+export type ProjectIssueComposerUpdateBody = components["schemas"]["IssueComposeAdditionalInfoRequest"];
+
+type ProjectIssueComposerUpdatePathParams = operations["continueComposeIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerUpdatePortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerUpdatePathParams;
+}>;
+
+export type ProjectIssueComposerUpdatePortResponse = HttpStorageResponse<ProjectIssueComposerUpdateResponse>;
