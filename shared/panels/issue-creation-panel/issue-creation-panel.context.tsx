@@ -5,8 +5,6 @@ import { PropsWithChildren, createContext, useContext, useEffect, useState } fro
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
-import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
-
 interface IssueCreationPanelContextInterface {
   open: boolean;
   setOpen: (open: boolean) => void;
