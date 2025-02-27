@@ -38,6 +38,12 @@ import {
   GetProjectsV2PortResponse,
   GetSimilarProjectsPortParams,
   GetSimilarProjectsPortResponse,
+  ProjectIssueComposerComposePortParams,
+  ProjectIssueComposerComposePortResponse,
+  ProjectIssueComposerSubmitPortParams,
+  ProjectIssueComposerSubmitPortResponse,
+  ProjectIssueComposerUpdatePortParams,
+  ProjectIssueComposerUpdatePortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
   UngrantFundsFromProjectPortParams,
@@ -81,4 +87,7 @@ export interface ProjectFacadePort {
   getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
   getSimilarProjects(p: GetSimilarProjectsPortParams): GetSimilarProjectsPortResponse;
   getProjectActivity(p: GetProjectActivityPortParams): GetProjectActivityPortResponse;
+  projectIssueComposerCompose(p: ProjectIssueComposerComposePortParams): ProjectIssueComposerComposePortResponse;
+  projectIssueComposerSubmit(p: ProjectIssueComposerSubmitPortParams): ProjectIssueComposerSubmitPortResponse;
+  projectIssueComposerUpdate(p: ProjectIssueComposerUpdatePortParams): ProjectIssueComposerUpdatePortResponse;
 }

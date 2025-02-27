@@ -35,6 +35,11 @@ import {
   GetProjectsResponse,
   GetProjectsV2Response,
   GetSimilarProjectsResponse,
+  ProjectIssueComposerComposeBody,
+  ProjectIssueComposerComposeResponse,
+  ProjectIssueComposerSubmitBody,
+  ProjectIssueComposerUpdateBody,
+  ProjectIssueComposerUpdateResponse,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
@@ -71,6 +76,9 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
+    projectIssueComposerCompose: "projects/:projectId/issue-composer/compose",
+    projectIssueComposerUpdate: "projects/:projectId/issue-composer/compose/:issueCompositionId",
+    projectIssueComposerSubmit: "projects/:projectId/issue-composer/submit",
   } as const;
 
   getProjectById = ({ queryParams, pathParams }: FirstParameter<ProjectStoragePort["getProjectById"]>) => {
@@ -649,6 +657,66 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
       return data;
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  projectIssueComposerCompose = ({ pathParams }: FirstParameter<ProjectStoragePort["projectIssueComposerCompose"]>) => {
+    const path = this.routes["projectIssueComposerCompose"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: ProjectIssueComposerComposeBody) =>
+      this.client.request<ProjectIssueComposerComposeResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  projectIssueComposerSubmit = ({ pathParams }: FirstParameter<ProjectStoragePort["projectIssueComposerSubmit"]>) => {
+    const path = this.routes["projectIssueComposerSubmit"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: ProjectIssueComposerSubmitBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  projectIssueComposerUpdate = ({ pathParams }: FirstParameter<ProjectStoragePort["projectIssueComposerUpdate"]>) => {
+    const path = this.routes["projectIssueComposerUpdate"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: ProjectIssueComposerUpdateBody) =>
+      this.client.request<ProjectIssueComposerUpdateResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,
