@@ -68,6 +68,9 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
+        onInteractOutside={e => {
+          e.preventDefault();
+        }}
         className={cn(
           "flex h-[calc(100vh-2rem)] max-h-[900px] w-[calc(100vw-2rem)] max-w-[700px] flex-col p-0 transition-all",
           {
