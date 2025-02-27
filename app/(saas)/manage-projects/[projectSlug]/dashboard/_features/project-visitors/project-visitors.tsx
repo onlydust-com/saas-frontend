@@ -14,7 +14,7 @@ import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state
 import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH3 } from "@/shared/ui/typography";
+import { TypographyH3, TypographyP } from "@/shared/ui/typography";
 
 import { useProjectVisitors } from "./project-visitors.hooks";
 import { ProjectVisitorsProps } from "./project-visitors.types";
@@ -103,6 +103,7 @@ export function ProjectVisitors({ projectId }: ProjectVisitorsProps) {
           />
         </Menu>
       </div>
+      <TypographyP>This chart shows the number of visitors to your project page over time.</TypographyP>
 
       {renderChart}
     </Card>

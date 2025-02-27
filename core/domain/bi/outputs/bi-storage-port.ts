@@ -8,6 +8,8 @@ import {
   GetBiContributorsPortResponse,
   GetBiContributorsStatsPortParams,
   GetBiContributorsStatsPortResponse,
+  GetBiProjectAcquisitionPortParams,
+  GetBiProjectAcquisitionPortResponse,
   GetBiProjectVisitorsPortParams,
   GetBiProjectVisitorsPortResponse,
   GetBiProjectsCsvPortResponse,
@@ -34,4 +36,5 @@ export interface BiStoragePort {
   getBiContributorById(p: GetBiContributorByIdPortParams): GetBiContributorByIdPortResponse;
   getBiContributorActivityById(p: GetBiContributorActivityByIdPortParams): GetBiContributorActivityByIdPortResponse;
   getBiProjectVisitors(p: GetBiProjectVisitorsPortParams): GetBiProjectVisitorsPortResponse;
+  getBiProjectAcquisition(p: GetBiProjectAcquisitionPortParams): GetBiProjectAcquisitionPortResponse;
 }

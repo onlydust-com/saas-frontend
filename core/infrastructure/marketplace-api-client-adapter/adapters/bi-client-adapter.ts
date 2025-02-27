@@ -3,6 +3,7 @@ import {
   GetBiContributorByIdResponse,
   GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
+  GetBiProjectAcquisitionResponse,
   GetBiProjectVisitorsResponse,
   GetBiProjectsResponse,
   GetBiProjectsStatsResponse,
@@ -14,6 +15,7 @@ import { BiContributorListItem } from "@/core/domain/bi/models/bi-contributor-li
 import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProject } from "@/core/domain/bi/models/bi-project-model";
+import { BiProjectAcquisition } from "@/core/domain/bi/models/bi-projects-acquisition-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
 import { BiProjectVisitors } from "@/core/domain/bi/models/bi-projects-visitors-model";
 import { BiStatsFinancials } from "@/core/domain/bi/models/bi-stats-financials-model";
@@ -35,6 +37,7 @@ export class BiClientAdapter implements BiStoragePort {
     getBiContributorActivityById: "bi/contributors/:contributorIdOrLogin/activity-graph",
     getBiStatsFinancials: "bi/stats/financials",
     getBiProjectVisitors: "bi/projects/:projectIdOrSlug/visitors",
+    getBiProjectAcquisition: "bi/projects/:projectIdOrSlug/acquisition",
   } as const;
 
   getBiContributorsStats = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiContributorsStats"]>) => {
@@ -292,6 +295,29 @@ export class BiClientAdapter implements BiStoragePort {
         ...data,
         stats: data.stats.map(stat => new BiProjectVisitors(stat)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiProjectAcquisition = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiProjectAcquisition"]>) => {
+    const path = this.routes["getBiProjectAcquisition"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiProjectAcquisitionResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        mock: true,
+      });
+
+      return new BiProjectAcquisition(data);
     };
 
     return {

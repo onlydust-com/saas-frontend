@@ -30,7 +30,7 @@ export interface PieDataType {
 
 export type HighchartsSerieData = number[] | MapDataType[] | PieDataType[];
 
-type DataViewTarget = "contributor" | "projects";
+type DataViewTarget = "contributor" | "projects" | "acquisition";
 
 export interface HighchartsOptionsParams {
   dataViewTarget?: DataViewTarget;
