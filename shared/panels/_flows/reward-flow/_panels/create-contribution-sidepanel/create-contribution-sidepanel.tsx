@@ -17,6 +17,7 @@ import { MenuItemPort } from "@/design-system/molecules/menu-item";
 import { Select } from "@/design-system/molecules/select";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { SidePanelBody } from "@/shared/features/side-panels/side-panel-body/side-panel-body";
 import { SidePanelFooter } from "@/shared/features/side-panels/side-panel-footer/side-panel-footer";
 import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header/side-panel-header";
@@ -38,6 +39,8 @@ export function CreateContributionSidepanel() {
   const { githubUserId } = useSinglePanelData<CreateContributionSidePanelData>(name) ?? {
     githubUserId: 0,
   };
+
+  const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
 
   const { projectId, addOtherWorks } = useRewardFlow();
 
@@ -95,6 +98,11 @@ export function CreateContributionSidepanel() {
   }
 
   async function onSubmit(data: CreateContributionFormData) {
+    if (isProjectOrganisationMissingPermissions(data.githubRepoId)) {
+      setIsGithubPermissionModalOpen(true);
+      return;
+    }
+
     const response = await addOtherWork(data);
     handleAddContribution(response);
   }
