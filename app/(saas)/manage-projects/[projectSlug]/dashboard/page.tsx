@@ -3,6 +3,7 @@
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
+import { ProjectActivityGraph } from "@/shared/features/project-activity-graph/project-activity-graph";
 
 import { AcquisitionFunnel } from "./_features/acquisition-funnel/acquisition-funnel";
 import { ActionableTips } from "./_features/actionable-tips/actionable-tips";
@@ -22,6 +23,7 @@ export default function DashboardPage({ params }: { params: { projectSlug: strin
         <div className="flex flex-col gap-4 lg:col-span-2">
           <ProjectVisitors projectId={project?.id ?? ""} />
           <AcquisitionFunnel projectId={project?.id ?? ""} />
+          <ProjectActivityGraph projectIdOrSlug={project?.id ?? ""} />
         </div>
         <div className="flex flex-col gap-4 lg:col-span-1">
           <ActionableTips projectId={project?.id ?? ""} />
