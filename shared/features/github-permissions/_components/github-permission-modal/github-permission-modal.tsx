@@ -49,7 +49,6 @@ export function GithubPermissionModal({ isOpen, onOpenChange, onRedirect }: Gith
         />
         <Typo size="xs" color="primary" translate={{ token: "modals:githubPermission.description" }} />
         <Typo size="xs" color="tertiary" translate={{ token: "modals:githubPermission.moreInfo" }} />
-        <Button onClick={handleGrantPermissions}>Grant Permissions</Button>
       </div>
     </Modal>
   );
