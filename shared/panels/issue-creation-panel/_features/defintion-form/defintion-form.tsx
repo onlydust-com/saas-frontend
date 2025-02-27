@@ -105,7 +105,16 @@ function ContextField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>
             <FormDescription>Briefly describe the problem or need.</FormDescription>
           </div>
           <FormControl>
-            <Textarea placeholder="Briefly describe the problem or need." {...field} />
+            <Textarea
+              placeholder="Briefly describe the problem or need."
+              className="max-h-[300px]"
+              onInput={e => {
+                const target = e.target as HTMLTextAreaElement;
+                target.style.height = "0px";
+                target.style.height = target.scrollHeight + "px";
+              }}
+              {...field}
+            />
           </FormControl>
         </FormItem>
       )}
@@ -125,7 +134,16 @@ function RequirementsField({ form }: { form: UseFormReturn<z.infer<typeof formSc
             <FormDescription>What should happen once the issue is resolved?</FormDescription>
           </div>
           <FormControl>
-            <Textarea placeholder="Describe the specific requirements for the issue." {...field} />
+            <Textarea
+              placeholder="Describe the specific requirements for the issue."
+              className="max-h-[300px]"
+              onInput={e => {
+                const target = e.target as HTMLTextAreaElement;
+                target.style.height = "0px";
+                target.style.height = target.scrollHeight + "px";
+              }}
+              {...field}
+            />
           </FormControl>
         </FormItem>
       )}

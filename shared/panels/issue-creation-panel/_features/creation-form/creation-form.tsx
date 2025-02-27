@@ -62,7 +62,13 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
   );
 }
 
-function AdditionalQuestions() {
+function AdditionalQuestions({
+  onChangeBody,
+  onChangeTitle,
+}: {
+  onChangeBody: (body: string) => void;
+  onChangeTitle: (title: string) => void;
+}) {
   const { setIssue, issue, projectId } = useIssueCreationPanel();
   const [additionalQuestions, setAdditionalQuestions] = useState("");
 
@@ -90,6 +96,9 @@ function AdditionalQuestions() {
       issueCompositionId: issueResult?.issueCompositionId ?? "",
       additionalQuestions: !!issueResult.additionalQuestions?.trim() ? issueResult.additionalQuestions : undefined,
     });
+
+    onChangeBody(issueResult.body);
+    onChangeTitle(issueResult.title);
   }
 
   if (!issue?.additionalQuestions || issue?.additionalQuestions === "") {
@@ -108,9 +117,7 @@ function AdditionalQuestions() {
             <header className={"flex w-full flex-col items-start justify-start gap-2"}>
               <div className={"flex items-center gap-2"}>
                 <Sparkles className={"text-blue-700"} size={16} />
-                <TypographyP className="text-blue-700 no-underline">
-                  Answer more questions to refine the issue
-                </TypographyP>
+                <TypographyP className="no-underline">Answer more questions to refine the issue</TypographyP>
               </div>
             </header>
           </AccordionTrigger>
@@ -121,7 +128,16 @@ function AdditionalQuestions() {
                   <Markdown content={issue?.additionalQuestions} />
                 </div>
                 <FormControl>
-                  <Textarea value={additionalQuestions} onChange={e => setAdditionalQuestions(e.target.value)} />
+                  <Textarea
+                    value={additionalQuestions}
+                    onChange={e => setAdditionalQuestions(e.target.value)}
+                    className="max-h-[300px]"
+                    onInput={e => {
+                      const target = e.target as HTMLTextAreaElement;
+                      target.style.height = "0px";
+                      target.style.height = target.scrollHeight + "px";
+                    }}
+                  />
                 </FormControl>
               </FormItem>
               <Button
@@ -192,12 +208,24 @@ export function CreationForm() {
     });
   }, [title, body]);
 
+  function onChangeTitle(title: string) {
+    form.setValue("title", title, {
+      shouldDirty: true,
+    });
+  }
+
+  function onChangeBody(body: string) {
+    form.setValue("body", body, {
+      shouldDirty: true,
+    });
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-between gap-6">
         <div className="flex flex-col gap-6 pt-4">
           <div className="flex flex-col gap-6">
-            <AdditionalQuestions />
+            <AdditionalQuestions onChangeBody={onChangeBody} onChangeTitle={onChangeTitle} />
             <Title form={form} />
             <Body form={form} />
           </div>
