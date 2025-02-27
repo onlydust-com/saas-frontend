@@ -8,6 +8,7 @@ import { z } from "zod";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Markdown } from "@/shared/features/markdown/markdown";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -69,6 +70,7 @@ function AdditionalQuestions({
   onChangeBody: (body: string) => void;
   onChangeTitle: (title: string) => void;
 }) {
+  const { capture } = usePosthog();
   const { setIssue, issue, projectId } = useIssueCreationPanel();
   const [additionalQuestions, setAdditionalQuestions] = useState("");
 
@@ -96,6 +98,8 @@ function AdditionalQuestions({
       issueCompositionId: issueResult?.issueCompositionId ?? "",
       additionalQuestions: !!issueResult.additionalQuestions?.trim() ? issueResult.additionalQuestions : undefined,
     });
+
+    capture("project_issue_compose_continue", { project_id: projectId });
 
     onChangeBody(issueResult.body);
     onChangeTitle(issueResult.title);
@@ -167,6 +171,8 @@ export function CreationForm() {
     },
   });
 
+  const { capture } = usePosthog();
+
   const title = form.watch("title");
   const body = form.watch("body");
 
@@ -195,6 +201,8 @@ export function CreationForm() {
       title: values.title,
     });
 
+    capture("project_issue_compose_submit", { project_id: projectId });
+
     closeAndReset();
   }
 
@@ -220,6 +228,10 @@ export function CreationForm() {
     });
   }
 
+  function triggerFeedback() {
+    capture("project_issue_compose_feedback", { project_id: projectId });
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-between gap-6">
@@ -230,9 +242,14 @@ export function CreationForm() {
             <Body form={form} />
           </div>
         </div>
-        <Button size="lg" className="w-full" type="submit" loading={isPending}>
-          Create Issue
-        </Button>
+        <div className="flex flex-row gap-4">
+          <Button size="lg" variant={"outline"} className="w-full" type="button" onClick={triggerFeedback}>
+            Give feedback
+          </Button>
+          <Button size="lg" className="w-full" type="submit" loading={isPending}>
+            Create Issue
+          </Button>
+        </div>
       </form>
     </Form>
   );
