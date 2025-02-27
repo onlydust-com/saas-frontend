@@ -8,15 +8,7 @@ import { Modal } from "@/design-system/molecules/modal";
 
 import { GithubPermissionModalProps } from "@/shared/features/github-permissions/_components/github-permission-modal/github-permission-modal.types";
 
-import { useGithubPermissionsContext } from "../../github-permissions.context";
-
 export function GithubPermissionModal({ isOpen, onOpenChange, onRedirect }: GithubPermissionModalProps) {
-  const { setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
-
-  function handleGrantPermissions() {
-    setIsGithubPermissionModalOpen(true);
-  }
-
   return (
     <Modal
       isOpen={isOpen}
