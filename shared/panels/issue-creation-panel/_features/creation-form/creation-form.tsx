@@ -14,7 +14,7 @@ import { Card } from "@/shared/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
-import { TypographyH3, TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { TypographyP } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
 import { MarkdownEditor } from "../markdown-editor/markdown-editor";
