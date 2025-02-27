@@ -168,6 +168,8 @@ export function DefintionForm() {
       title: issue.title,
       body: issue.body,
       repoId: values.repoId,
+      issueCompositionId: issue.issueCompositionId,
+      additionalQuestions: !!issue.additionalQuestions?.trim() ? issue.additionalQuestions : undefined,
     });
 
     setStep("creation");
@@ -188,7 +190,7 @@ export function DefintionForm() {
             <RequirementsField form={form} />
           </div>
         </div>
-        <Button variant={"secondary"} size="lg" className="w-full" type="submit" loading={isPending}>
+        <Button size="lg" className="w-full" type="submit" loading={isPending}>
           Generate Issue
         </Button>
       </form>

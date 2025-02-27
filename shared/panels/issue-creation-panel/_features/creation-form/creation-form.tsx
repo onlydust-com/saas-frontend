@@ -1,15 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { Markdown } from "@/shared/features/markdown/markdown";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Button } from "@/shared/ui/button";
+import { Card } from "@/shared/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { TypographyMuted } from "@/shared/ui/typography";
+import { Textarea } from "@/shared/ui/textarea";
+import { TypographyH3, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { useIssueCreationPanel } from "../../issue-creation-panel.context";
 import { MarkdownEditor } from "../markdown-editor/markdown-editor";
@@ -56,6 +61,86 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
     />
   );
 }
+
+function AdditionalQuestions() {
+  const { setIssue, issue, projectId } = useIssueCreationPanel();
+  const [additionalQuestions, setAdditionalQuestions] = useState("");
+
+  const { mutateAsync: updateIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerUpdate({
+    pathParams: {
+      projectId,
+      issueCompositionId: issue?.issueCompositionId ?? "",
+    },
+    options: {
+      onError: () => {
+        toast.error("Failed to generate issue");
+      },
+    },
+  });
+
+  async function handleAdditionalQuestionsChange() {
+    const issueResult = await updateIssue({
+      additionalInfo: additionalQuestions,
+    });
+
+    setIssue({
+      title: issueResult.title,
+      body: issueResult.body,
+      repoId: issue?.repoId ?? 0,
+      issueCompositionId: issueResult?.issueCompositionId ?? "",
+      additionalQuestions: !!issueResult.additionalQuestions?.trim() ? issueResult.additionalQuestions : undefined,
+    });
+  }
+
+  if (!issue?.additionalQuestions || issue?.additionalQuestions === "") {
+    return null;
+  }
+
+  return (
+    <Card
+      className={
+        "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-blue-950 to-transparent to-60% py-4"
+      }
+    >
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1" className="border-none px-4">
+          <AccordionTrigger className="border-none p-0 !no-underline">
+            <header className={"flex w-full flex-col items-start justify-start gap-2"}>
+              <div className={"flex items-center gap-2"}>
+                <Sparkles className={"text-blue-700"} size={16} />
+                <TypographyP className="text-blue-700 no-underline">
+                  Answer more questions to refine the issue
+                </TypographyP>
+              </div>
+            </header>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pt-6">
+            <div className={"relative h-fit transition-all"}>
+              <FormItem className="w-full">
+                <div className="mb-6 flex flex-col">
+                  <Markdown content={issue?.additionalQuestions} />
+                </div>
+                <FormControl>
+                  <Textarea value={additionalQuestions} onChange={e => setAdditionalQuestions(e.target.value)} />
+                </FormControl>
+              </FormItem>
+              <Button
+                size="lg"
+                className="mt-4 w-full"
+                type="button"
+                onClick={handleAdditionalQuestionsChange}
+                loading={isPending}
+              >
+                Submit
+              </Button>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </Card>
+  );
+}
+
 export function CreationForm() {
   const { setIssue, issue, projectId, closeAndReset } = useIssueCreationPanel();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,7 +154,7 @@ export function CreationForm() {
   const title = form.watch("title");
   const body = form.watch("body");
 
-  const { mutateAsync: createIssue } = ProjectReactQueryAdapter.client.useProjectIssueComposerSubmit({
+  const { mutateAsync: createIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerSubmit({
     pathParams: {
       projectId,
     },
@@ -102,6 +187,8 @@ export function CreationForm() {
       title,
       body,
       repoId: issue?.repoId ?? 0,
+      issueCompositionId: issue?.issueCompositionId ?? "",
+      additionalQuestions: issue?.additionalQuestions ?? "",
     });
   }, [title, body]);
 
@@ -109,16 +196,13 @@ export function CreationForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-between gap-6">
         <div className="flex flex-col gap-6 pt-4">
-          <TypographyMuted>
-            Provide key details to help contributors understand and address your request efficiently. Fill out the
-            fields below, and we'll generate a well-structured issue for your repository.
-          </TypographyMuted>
           <div className="flex flex-col gap-6">
+            <AdditionalQuestions />
             <Title form={form} />
             <Body form={form} />
           </div>
         </div>
-        <Button variant={"secondary"} size="lg" className="w-full" type="submit">
+        <Button size="lg" className="w-full" type="submit" loading={isPending}>
           Create Issue
         </Button>
       </form>

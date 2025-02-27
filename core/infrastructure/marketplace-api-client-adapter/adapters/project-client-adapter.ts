@@ -38,6 +38,8 @@ import {
   ProjectIssueComposerComposeBody,
   ProjectIssueComposerComposeResponse,
   ProjectIssueComposerSubmitBody,
+  ProjectIssueComposerUpdateBody,
+  ProjectIssueComposerUpdateResponse,
   UngrantFundsFromProjectBody,
   UpdateProjectContributorLabelsBody,
   UploadProjectLogoResponse,
@@ -75,6 +77,7 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
     projectIssueComposerCompose: "projects/:projectId/issue-composer/compose",
+    projectIssueComposerUpdate: "projects/:projectId/issue-composer/compose/:issueCompositionId",
     projectIssueComposerSubmit: "projects/:projectId/issue-composer/submit",
   } as const;
 
@@ -688,6 +691,26 @@ export class ProjectClientAdapter implements ProjectStoragePort {
 
     const request = async (body: ProjectIssueComposerSubmitBody) =>
       this.client.request<never>({
+        path,
+        method,
+        tag,
+        pathParams,
+        body: JSON.stringify(body),
+      });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  projectIssueComposerUpdate = ({ pathParams }: FirstParameter<ProjectStoragePort["projectIssueComposerUpdate"]>) => {
+    const path = this.routes["projectIssueComposerUpdate"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async (body: ProjectIssueComposerUpdateBody) =>
+      this.client.request<ProjectIssueComposerUpdateResponse>({
         path,
         method,
         tag,

@@ -21,6 +21,8 @@ interface Issue {
   title: string;
   body: string;
   repoId: number;
+  issueCompositionId: string;
+  additionalQuestions?: string;
 }
 
 export const IssueCreationPanelContext = createContext<IssueCreationPanelContextInterface>({

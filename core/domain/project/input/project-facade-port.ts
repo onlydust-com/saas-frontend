@@ -42,6 +42,8 @@ import {
   ProjectIssueComposerComposePortResponse,
   ProjectIssueComposerSubmitPortParams,
   ProjectIssueComposerSubmitPortResponse,
+  ProjectIssueComposerUpdatePortParams,
+  ProjectIssueComposerUpdatePortResponse,
   UnassignContributorFromProjectContributionPortParams,
   UnassignContributorFromProjectContributionPortResponse,
   UngrantFundsFromProjectPortParams,
@@ -87,4 +89,5 @@ export interface ProjectFacadePort {
   getProjectActivity(p: GetProjectActivityPortParams): GetProjectActivityPortResponse;
   projectIssueComposerCompose(p: ProjectIssueComposerComposePortParams): ProjectIssueComposerComposePortResponse;
   projectIssueComposerSubmit(p: ProjectIssueComposerSubmitPortParams): ProjectIssueComposerSubmitPortResponse;
+  projectIssueComposerUpdate(p: ProjectIssueComposerUpdatePortParams): ProjectIssueComposerUpdatePortResponse;
 }
