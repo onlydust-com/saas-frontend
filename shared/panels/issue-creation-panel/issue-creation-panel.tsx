@@ -37,7 +37,7 @@ function IssuePreview() {
           </Avatar>
         </div>
       </div>
-      <div className={"relative h-fit overflow-hidden transition-all"}>
+      <div className={"pointer-events-none relative h-fit overflow-hidden transition-all"}>
         <Markdown content={body} />
       </div>
     </div>

@@ -190,7 +190,7 @@ export function DefintionForm() {
             <RequirementsField form={form} />
           </div>
         </div>
-        <Button variant={"secondary"} size="lg" className="w-full" type="submit" loading={isPending}>
+        <Button size="lg" className="w-full" type="submit" loading={isPending}>
           Generate Issue
         </Button>
       </form>

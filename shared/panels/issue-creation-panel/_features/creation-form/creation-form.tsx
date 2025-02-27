@@ -7,6 +7,8 @@ import { z } from "zod";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
+import { Markdown } from "@/shared/features/markdown/markdown";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/shared/ui/form";
@@ -62,7 +64,7 @@ function Body({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }) {
 
 function AdditionalQuestions() {
   const { setIssue, issue, projectId } = useIssueCreationPanel();
-  const [additionalQuestions, setAdditionalQuestions] = useState(issue?.additionalQuestions ?? "");
+  const [additionalQuestions, setAdditionalQuestions] = useState("");
 
   const { mutateAsync: updateIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerUpdate({
     pathParams: {
@@ -75,10 +77,6 @@ function AdditionalQuestions() {
       },
     },
   });
-
-  useEffect(() => {
-    setAdditionalQuestions(issue?.additionalQuestions ?? "");
-  }, [issue]);
 
   async function handleAdditionalQuestionsChange() {
     const issueResult = await updateIssue({
@@ -94,40 +92,51 @@ function AdditionalQuestions() {
     });
   }
 
+  if (!issue?.additionalQuestions || issue?.additionalQuestions === "") {
+    return null;
+  }
+
   return (
     <Card
       className={
-        "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-blue-950 to-transparent to-20% p-4"
+        "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-blue-950 to-transparent to-60% py-4"
       }
     >
-      <header className={"flex w-full flex-col items-start justify-start gap-2"}>
-        <div className={"flex items-center gap-2"}>
-          <Sparkles className={"text-blue-700"} />
-          <TypographyH3>Be More Accurate</TypographyH3>
-        </div>
-        <TypographyP>Refine Your Issue for Better Contributions</TypographyP>
-      </header>
-
-      <div className={"relative h-fit overflow-hidden transition-all"}>
-        <FormItem className="w-full">
-          <div className="flex flex-col space-y-1">
-            <FormLabel>{issue?.additionalQuestions}</FormLabel>
-          </div>
-          <FormControl>
-            <Textarea value={additionalQuestions} onChange={e => setAdditionalQuestions(e.target.value)} />
-          </FormControl>
-        </FormItem>
-        <Button
-          variant={"secondary"}
-          size="lg"
-          className="w-full"
-          type="button"
-          onClick={handleAdditionalQuestionsChange}
-          loading={isPending}
-        >
-          Submit
-        </Button>
-      </div>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1" className="border-none px-4">
+          <AccordionTrigger className="border-none p-0 !no-underline">
+            <header className={"flex w-full flex-col items-start justify-start gap-2"}>
+              <div className={"flex items-center gap-2"}>
+                <Sparkles className={"text-blue-700"} size={16} />
+                <TypographyP className="text-blue-700 no-underline">
+                  Answer more questions to refine the issue
+                </TypographyP>
+              </div>
+            </header>
+          </AccordionTrigger>
+          <AccordionContent className="px-4 pt-6">
+            <div className={"relative h-fit transition-all"}>
+              <FormItem className="w-full">
+                <div className="mb-6 flex flex-col">
+                  <Markdown content={issue?.additionalQuestions} />
+                </div>
+                <FormControl>
+                  <Textarea value={additionalQuestions} onChange={e => setAdditionalQuestions(e.target.value)} />
+                </FormControl>
+              </FormItem>
+              <Button
+                size="lg"
+                className="mt-4 w-full"
+                type="button"
+                onClick={handleAdditionalQuestionsChange}
+                loading={isPending}
+              >
+                Submit
+              </Button>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </Card>
   );
 }
@@ -145,7 +154,7 @@ export function CreationForm() {
   const title = form.watch("title");
   const body = form.watch("body");
 
-  const { mutateAsync: createIssue } = ProjectReactQueryAdapter.client.useProjectIssueComposerSubmit({
+  const { mutateAsync: createIssue, isPending } = ProjectReactQueryAdapter.client.useProjectIssueComposerSubmit({
     pathParams: {
       projectId,
     },
@@ -187,17 +196,13 @@ export function CreationForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-between gap-6">
         <div className="flex flex-col gap-6 pt-4">
-          <TypographyMuted>
-            Provide key details to help contributors understand and address your request efficiently. Fill out the
-            fields below, and we'll generate a well-structured issue for your repository.
-          </TypographyMuted>
           <div className="flex flex-col gap-6">
-            <Title form={form} />
             <AdditionalQuestions />
+            <Title form={form} />
             <Body form={form} />
           </div>
         </div>
-        <Button variant={"secondary"} size="lg" className="w-full" type="submit">
+        <Button size="lg" className="w-full" type="submit" loading={isPending}>
           Create Issue
         </Button>
       </form>
