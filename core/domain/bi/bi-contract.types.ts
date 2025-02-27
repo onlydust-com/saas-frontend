@@ -12,6 +12,8 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { BiProjectVisitorsInterface } from "./models/bi-projects-visitors-model";
+
 /* --------------------- Get Bi Contributors Stats --------------------- */
 export type GetBiContributorsStatsResponse = components["schemas"]["BiContributorsStatsListResponse"];
 export type GetBiContributorsStatsModel = Omit<GetBiContributorsStatsResponse, "stats"> & {
@@ -146,3 +148,21 @@ export type GetBiStatsFinancialsPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiStatsFinancialsPortResponse = HttpStorageResponse<GetBiStatsFinancialsModel>;
+
+/* --------------------- Get Bi Project visitors --------------------- */
+
+export type GetBiProjectVisitorsResponse = components["schemas"]["BiVisitorsStatsListResponse"];
+export type GetBiProjectVisitorsModel = Omit<GetBiProjectVisitorsResponse, "stats"> & {
+  stats: BiProjectVisitorsInterface[];
+};
+
+type GetBiProjectVisitorsQueryParams = operations["getBIProjectVisitorsStats"]["parameters"]["query"];
+
+type GetBiProjectVisitorsPathParams = operations["getBIProjectVisitorsStats"]["parameters"]["path"];
+
+export type GetBiProjectVisitorsPortParams = HttpClientParameters<{
+  QueryParams: GetBiProjectVisitorsQueryParams;
+  PathParams: GetBiProjectVisitorsPathParams;
+}>;
+
+export type GetBiProjectVisitorsPortResponse = HttpStorageResponse<GetBiProjectVisitorsModel>;

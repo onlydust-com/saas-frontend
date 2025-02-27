@@ -3,6 +3,7 @@ import {
   GetBiContributorByIdResponse,
   GetBiContributorsResponse,
   GetBiContributorsStatsResponse,
+  GetBiProjectVisitorsResponse,
   GetBiProjectsResponse,
   GetBiProjectsStatsResponse,
   GetBiStatsFinancialsResponse,
@@ -14,6 +15,7 @@ import { BiContributor } from "@/core/domain/bi/models/bi-contributor-model";
 import { BiContributorsStats } from "@/core/domain/bi/models/bi-contributors-stats-model";
 import { BiProject } from "@/core/domain/bi/models/bi-project-model";
 import { BiProjectsStats } from "@/core/domain/bi/models/bi-projects-stats-model";
+import { BiProjectVisitors } from "@/core/domain/bi/models/bi-projects-visitors-model";
 import { BiStatsFinancials } from "@/core/domain/bi/models/bi-stats-financials-model";
 import { BiWorldMap } from "@/core/domain/bi/models/bi-world-map-model";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
@@ -32,6 +34,7 @@ export class BiClientAdapter implements BiStoragePort {
     getBiContributorById: "bi/contributors/:contributorIdOrLogin",
     getBiContributorActivityById: "bi/contributors/:contributorIdOrLogin/activity-graph",
     getBiStatsFinancials: "bi/stats/financials",
+    getBiProjectVisitors: "bi/projects/:projectIdOrSlug/visitors",
   } as const;
 
   getBiContributorsStats = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiContributorsStats"]>) => {
@@ -262,6 +265,32 @@ export class BiClientAdapter implements BiStoragePort {
       return {
         ...data,
         stats: data.stats.map(stat => new BiStatsFinancials(stat)),
+      };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getBiProjectVisitors = ({ pathParams, queryParams }: FirstParameter<BiStoragePort["getBiProjectVisitors"]>) => {
+    const path = this.routes["getBiProjectVisitors"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams, queryParams });
+    const request = async () => {
+      const data = await this.client.request<GetBiProjectVisitorsResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        queryParams,
+        mock: true,
+      });
+
+      return {
+        ...data,
+        stats: data.stats.map(stat => new BiProjectVisitors(stat)),
       };
     };
 
