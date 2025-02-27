@@ -76,13 +76,6 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
         )}
       >
         <div className="flex h-full flex-1 flex-row">
-          {showPreview && (
-            <ScrollArea className="flex flex-1 flex-col gap-4 bg-stack">
-              <div className="flex flex-1 flex-col gap-4 p-6">
-                <IssuePreview />
-              </div>
-            </ScrollArea>
-          )}
           <ScrollArea className="flex flex-1 flex-col">
             <div className="flex flex-1 flex-col gap-4 p-6">
               <DialogHeader>
@@ -91,6 +84,13 @@ function SafeIssueCreationPanel({ children }: IssueCreationPanelProps) {
               {Form}
             </div>
           </ScrollArea>
+          {showPreview && (
+            <ScrollArea className="flex flex-1 flex-col gap-4 bg-stack">
+              <div className="flex flex-1 flex-col gap-4 p-6">
+                <IssuePreview />
+              </div>
+            </ScrollArea>
+          )}
         </div>
       </DialogContent>
     </Dialog>

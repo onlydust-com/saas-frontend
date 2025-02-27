@@ -97,15 +97,15 @@ function AdditionalQuestions() {
   return (
     <Card
       className={
-        "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-purple-950 to-transparent to-20% p-4"
+        "relative flex flex-col gap-4 overflow-hidden bg-gradient-to-br from-blue-950 to-transparent to-20% p-4"
       }
     >
-      <header className={"flex w-full items-center justify-start gap-2"}>
+      <header className={"flex w-full flex-col items-start justify-start gap-2"}>
         <div className={"flex items-center gap-2"}>
-          <Sparkles className={"text-purple-700"} />
+          <Sparkles className={"text-blue-700"} />
           <TypographyH3>Be More Accurate</TypographyH3>
-          <TypographyP>Refine Your Issue for Better Contributions</TypographyP>
         </div>
+        <TypographyP>Refine Your Issue for Better Contributions</TypographyP>
       </header>
 
       <div className={"relative h-fit overflow-hidden transition-all"}>
