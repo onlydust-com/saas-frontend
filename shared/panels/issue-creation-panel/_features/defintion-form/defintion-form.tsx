@@ -6,6 +6,7 @@ import { z } from "zod";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
@@ -151,8 +152,9 @@ function RequirementsField({ form }: { form: UseFormReturn<z.infer<typeof formSc
   );
 }
 export function DefintionForm() {
-  const { setStep, projectId, setIssue } = useIssueCreationPanel();
+  const { setStep, projectId, setIssue, project } = useIssueCreationPanel();
   const { isProjectOrganisationMissingPermissions, setIsGithubPermissionModalOpen } = useGithubPermissionsContext();
+  const { capture } = usePosthog();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -189,6 +191,8 @@ export function DefintionForm() {
       issueCompositionId: issue.issueCompositionId,
       additionalQuestions: !!issue.additionalQuestions?.trim() ? issue.additionalQuestions : undefined,
     });
+
+    capture("project_issue_compose_compose", { project_id: project?.id ?? "" });
 
     setStep("creation");
   }

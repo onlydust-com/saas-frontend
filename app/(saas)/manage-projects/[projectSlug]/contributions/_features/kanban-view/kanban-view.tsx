@@ -26,6 +26,7 @@ import { KanbanColumnProps } from "@/shared/features/kanban/kanban-column/kanban
 import { IssueCreationPanel } from "@/shared/panels/issue-creation-panel/issue-creation-panel";
 import { Translate } from "@/shared/translation/components/translate/translate";
 import { Button } from "@/shared/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 function Column({
   type,
@@ -120,7 +121,26 @@ export function KanbanView({ queryParams, onOpenContribution }: KanbanViewProps)
   };
 
   const CreateIssueButton = useMemo(() => {
+    const repos = data?.getProjectRepos();
+
     if (isBetaEnabled) {
+      if (!repos?.length) {
+        return (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div>
+                <Button size="icon" variant={"outline"} disabled>
+                  <Plus />
+                </Button>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" align="end">
+              You cannot access this feature because you do not have any repositories
+            </TooltipContent>
+          </Tooltip>
+        );
+      }
+
       return (
         <IssueCreationPanel projectId={data?.id ?? ""}>
           <Button size="icon" variant={"outline"}>
