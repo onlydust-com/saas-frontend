@@ -161,18 +161,18 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
-        wanted: 2,
+        provided: [59573868],
+        wanted: 1,
       },
       expert: {
-        provided: [],
+        provided: [92181599],
         wanted: 1,
       },
     },
     requiredSkills: ["Blockchain researcher", "Smart contract developer (rust, soroban)", "Backend engineer"],
     startDate: "2025-02-21",
     endDate: "2025-03-14",
-    status: "application-open",
+    status: "started",
     issues: [2864694007],
     maintainers: [13529612],
   },
