@@ -1,8 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Calendar, Megaphone, Target } from "lucide-react";
+import { useEffect } from "react";
 
 import { bootstrap } from "@/core/bootstrap";
 
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
@@ -13,6 +15,18 @@ import { LatestNewsProps } from "./latest-news.types";
 export function LatestNews({ projectId, className }: LatestNewsProps) {
   const { data: odNews } = useGetOdNews({ projectId, limit: "1" });
   const dateKernelPort = bootstrap.getDateKernelPort();
+  const { capture } = usePosthog();
+
+  useEffect(() => {
+    if (odNews?.length) {
+      const _news = odNews[0];
+      capture("project_latest_news_viewed", {
+        projectId,
+        newsId: _news.submissionId,
+        lastUpdatedAt: _news.lastUpdatedAt,
+      });
+    }
+  }, [odNews]);
 
   if (!odNews?.length) {
     return null;

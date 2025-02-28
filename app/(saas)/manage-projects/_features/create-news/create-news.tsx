@@ -22,8 +22,6 @@ export function CreateNews({ project, children }: CreateNewsProps) {
     projectSlug: project?.slug,
   };
 
-  console.log("prefillParams", prefillParams);
-
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger>
