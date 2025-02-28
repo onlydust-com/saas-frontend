@@ -31,6 +31,9 @@ import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/r
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { TypographyP } from "@/shared/ui/typography";
+
+import { CreateNews } from "../_features/create-news/create-news";
 
 enum Views {
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
@@ -147,6 +150,11 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
             isDisabled={!canReward}
           />
         </Tooltip>
+        {!!projectId && (
+          <CreateNews projectId={projectId}>
+            <Button>Create news</Button>
+          </CreateNews>
+        )}
       </div>
     );
   }, [projectId, isFinancial, canReward]);

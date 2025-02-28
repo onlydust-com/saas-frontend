@@ -28,6 +28,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
+import { CreateNews } from "../../../../manage-projects/_features/create-news/create-news";
 import { ProjectNavigation } from "../project-navigation/project-navigation";
 import { PageHeaderProps } from "./page-header.types";
 
