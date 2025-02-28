@@ -40,9 +40,8 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 
-import { PageHeader } from "./_features/page-header/page-header";
-
 import { CreateNews } from "../_features/create-news/create-news";
+import { PageHeader } from "./_features/page-header/page-header";
 
 enum Views {
   "DASHBOARD" = "DASHBOARD",
@@ -123,7 +122,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     if (!isFinancial) return null;
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="mb-2">
+        <DropdownMenuTrigger asChild>
           <ShadcnButton variant="outline">
             Financial
             <ChevronDownIcon className="ml-auto" />
@@ -133,16 +132,12 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
         <DropdownMenuContent className="w-48" align="end">
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={openUngrantFlow}>Return funds</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => openRewardFlow({ githubUserIds: [] })} disabled={!canReward}>
-              Reward a contributor
-            </DropdownMenuItem>
             <DropdownMenuItem onClick={openProjectTransactions}>See transactions</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
-
       </DropdownMenu>
     );
-  }, [projectId, isFinancial, canReward]);
+  }, [isFinancial]);
 
   return (
     <>
@@ -194,15 +189,22 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                 ]}
                 selectedId={selectedId}
                 classNames={{
-                  base: "border-none",
+                  base: "border-none flex-1",
                 }}
               />
-              {!!data && (
-                <CreateNews project={data}>
-                  <Button>Create news</Button>
-                </CreateNews>
-              )}
-              {renderActions}
+              <div className="mb-2 flex items-center gap-2">
+                {!!data && (
+                  <CreateNews project={data}>
+                    <ShadcnButton variant="outline">Create news</ShadcnButton>
+                  </CreateNews>
+                )}
+                <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
+                  <ShadcnButton disabled={!canReward} onClick={() => openRewardFlow({ githubUserIds: [] })}>
+                    Reward a contributor
+                  </ShadcnButton>
+                </Tooltip>
+                {renderActions}
+              </div>
             </div>
           </header>
 
