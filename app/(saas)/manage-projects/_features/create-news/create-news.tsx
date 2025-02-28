@@ -8,14 +8,21 @@ import { CreateNewsProps } from "./create-news.types";
 
 const filloutId = process.env.NEXT_PUBLIC_OD_NEWS_FORM_ID ?? "";
 
-export function CreateNews({ projectId, children }: CreateNewsProps) {
+export function CreateNews({ project, children }: CreateNewsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthUser();
 
   const prefillParams = {
-    projectId: projectId,
+    projectId: project.id,
     githubUserId: user?.githubUserId?.toString(),
+    createdByAvatar: user?.avatarUrl,
+    createdByLogin: user?.login,
+    projectLogoUrl: project?.logoUrl,
+    projectName: project?.name,
+    projectSlug: project?.slug,
   };
+
+  console.log("prefillParams", prefillParams);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

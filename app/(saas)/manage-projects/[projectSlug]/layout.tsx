@@ -150,8 +150,8 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
             isDisabled={!canReward}
           />
         </Tooltip>
-        {!!projectId && (
-          <CreateNews projectId={projectId}>
+        {!!data && (
+          <CreateNews project={data}>
             <Button>Create news</Button>
           </CreateNews>
         )}
