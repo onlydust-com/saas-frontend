@@ -24,7 +24,10 @@ export const NEXT_ROUTER = {
   manageProjects: {
     root: "/manage-projects",
     default: {
-      root: (slug: string) => `/manage-projects/${slug}/contributions`,
+      root: (slug: string) => `/manage-projects/${slug}/dashboard`,
+    },
+    dashboard: {
+      root: (slug: string) => `/manage-projects/${slug}/dashboard`,
     },
     contributions: {
       root: (slug: string) => `/manage-projects/${slug}/contributions`,

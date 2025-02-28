@@ -10,10 +10,10 @@ import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
+import { ProjectActivityGraph } from "@/shared/features/project-activity-graph/project-activity-graph";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
-import { ActivityGraph } from "./_features/activity-graph/activity-graph";
 import { Description } from "./_features/description/description";
 import { Languages } from "./_features/languages/languages";
 import { LatestNews } from "./_features/latest-news/latest-news";
@@ -86,7 +86,7 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
           <Languages projectId={data?.id} />
         </div>
         <div className="grid lg:col-span-3">
-          <ActivityGraph projectIdOrSlug={params.projectSlug} />
+          <ProjectActivityGraph projectIdOrSlug={params.projectSlug} />
         </div>
         <div className="grid lg:col-span-2">
           <GoodFirstIssues projectId={data?.id} />
