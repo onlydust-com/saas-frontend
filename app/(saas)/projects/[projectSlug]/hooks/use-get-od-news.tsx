@@ -24,7 +24,7 @@ const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, s
 
 export function useGetOdNews({ projectId, limit = "10" }: { projectId?: string; limit?: string }) {
   return useQuery({
-    queryKey: ["od-news", projectId],
+    queryKey: ["od-news", projectId, limit],
     queryFn: () => fetchSubmissions({ queryParams: { search: projectId ?? "", limit, sort: "desc" } }),
     staleTime: 5000,
     enabled: Boolean(projectId),
