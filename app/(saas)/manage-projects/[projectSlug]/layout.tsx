@@ -1,6 +1,7 @@
 "use client";
 
-import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDownIcon } from "lucide-react";
+import { PropsWithChildren, useEffect, useMemo, useRef, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -26,15 +27,24 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel.hooks";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
-import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button as ShadcnButton } from "@/shared/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/ui/dropdown-menu";
 
 import { CreateNews } from "../_features/create-news/create-news";
+import { PageHeader } from "./_features/page-header/page-header";
 
 enum Views {
+  "DASHBOARD" = "DASHBOARD",
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
   "CONTRIBUTORS" = "CONTRIBUTORS",
   "FINANCIAL" = "FINANCIAL",
@@ -44,8 +54,12 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   const isContributors = useMatchPath(NEXT_ROUTER.manageProjects.contributors.root(projectSlug));
   const isContributions = useMatchPath(NEXT_ROUTER.manageProjects.contributions.root(projectSlug));
   const isFinancial = useMatchPath(NEXT_ROUTER.manageProjects.financial.root(projectSlug));
-
+  const isDashboard = useMatchPath(NEXT_ROUTER.manageProjects.dashboard.root(projectSlug));
   const selectedId = useMemo(() => {
+    if (isDashboard) {
+      return Views.DASHBOARD;
+    }
+
     if (isContributors) {
       return Views.CONTRIBUTORS;
     }
@@ -57,13 +71,14 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     if (isFinancial) {
       return Views.FINANCIAL;
     }
-  }, [isContributions, isContributors, isFinancial]);
+
+    return Views.DASHBOARD;
+  }, [isContributions, isContributors, isFinancial, isDashboard]);
 
   const [openAlert, setOpenAlert] = useState(false);
   const hasAlreadyClosedAlert = useRef(false);
 
   const { open: openProjectTransactions } = useProjectTransactionsSidepanel();
-  const { open: openProject } = useProjectUpdateSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
   const { open: openUngrantFlow } = useUngrantFlow();
   const canReward = useCanReward(projectSlug);
@@ -74,8 +89,6 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
       enabled: Boolean(projectSlug),
     },
   });
-
-  const projectId = useMemo(() => data?.id, [data]);
 
   useEffect(() => {
     if (data?.isSomeOrganizationMissingPermissions() && !hasAlreadyClosedAlert.current) {
@@ -103,60 +116,26 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     );
   }
 
-  const renderActions = useCallback(() => {
+  const renderActions = useMemo(() => {
+    if (!isFinancial) return null;
     return (
-      <div className="flex items-center gap-lg">
-        {projectId ? (
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            translate={{ token: "manageProjects:detail.activity.actions.editProject" }}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            onClick={() => openProject({ projectId })}
-          />
-        ) : null}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <ShadcnButton variant="outline">
+            Financial
+            <ChevronDownIcon className="ml-auto" />
+          </ShadcnButton>
+        </DropdownMenuTrigger>
 
-        {isFinancial ? (
-          <>
-            {renderUngrantButton()}
-
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              translate={{ token: "manageProjects:detail.activity.actions.seeTransactions" }}
-              onClick={openProjectTransactions}
-              classNames={{
-                base: "max-w-full overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
-            />
-          </>
-        ) : null}
-
-        <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
-          <Button
-            variant={"primary"}
-            size={"sm"}
-            translate={{ token: "manageProjects:detail.activity.actions.reward" }}
-            onClick={() => openRewardFlow({ githubUserIds: [] })}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            isDisabled={!canReward}
-          />
-        </Tooltip>
-        {!!data && (
-          <CreateNews project={data}>
-            <Button>Create news</Button>
-          </CreateNews>
-        )}
-      </div>
+        <DropdownMenuContent className="w-48" align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={openUngrantFlow}>Return funds</DropdownMenuItem>
+            <DropdownMenuItem onClick={openProjectTransactions}>See transactions</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
-  }, [projectId, isFinancial, canReward]);
+  }, [isFinancial]);
 
   return (
     <>
@@ -166,40 +145,65 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
 
       <PageContent classNames={{ base: "tablet:overflow-hidden tablet:max-h-[calc(100vh-64px)] h-full" }}>
         <div className="flex h-full flex-col gap-lg">
-          <header className="flex flex-col flex-wrap items-start justify-between gap-md tablet:flex-row tablet:items-center">
-            <Tabs
-              variant={"solid"}
-              searchParams={"data-view"}
-              tabs={[
-                {
-                  id: Views.CONTRIBUTIONS,
-                  children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+          <header className="flex flex-col justify-between gap-8">
+            <PageHeader projectSlug={projectSlug} />
+            <div className="flex flex-col flex-wrap items-start justify-between gap-md border-b border-border tablet:flex-row tablet:items-center">
+              <Tabs
+                variant={"underline"}
+                searchParams={"data-view"}
+                tabs={[
+                  {
+                    id: Views.DASHBOARD,
+                    children: <Translate token={"manageProjects:detail.views.dashboard"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.dashboard.root(projectSlug),
+                    },
                   },
-                },
-                {
-                  id: Views.CONTRIBUTORS,
-                  children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                  {
+                    id: Views.CONTRIBUTIONS,
+                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
+                    },
                   },
-                },
-                {
-                  id: Views.FINANCIAL,
-                  children: <Translate token={"manageProjects:detail.views.financial"} />,
-                  as: BaseLink,
-                  htmlProps: {
-                    href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                  {
+                    id: Views.CONTRIBUTORS,
+                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
+                    },
                   },
-                },
-              ]}
-              selectedId={selectedId}
-            />
-
-            {renderActions()}
+                  {
+                    id: Views.FINANCIAL,
+                    children: <Translate token={"manageProjects:detail.views.financial"} />,
+                    as: BaseLink,
+                    htmlProps: {
+                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
+                    },
+                  },
+                ]}
+                selectedId={selectedId}
+                classNames={{
+                  base: "border-none flex-1",
+                }}
+              />
+              <div className="mb-2 flex items-center gap-2">
+                {!!data && (
+                  <CreateNews project={data}>
+                    <ShadcnButton variant="outline">Create news</ShadcnButton>
+                  </CreateNews>
+                )}
+                <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
+                  <ShadcnButton disabled={!canReward} onClick={() => openRewardFlow({ githubUserIds: [] })}>
+                    Reward a contributor
+                  </ShadcnButton>
+                </Tooltip>
+                {renderActions}
+              </div>
+            </div>
           </header>
 
           {children}

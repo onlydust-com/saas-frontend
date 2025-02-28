@@ -7,7 +7,7 @@ import { ActivityGraph as ActivityGraphComponent } from "@/shared/features/contr
 import { Card } from "@/shared/ui/card";
 import { TypographyH3 } from "@/shared/ui/typography";
 
-export function ActivityGraph({ projectIdOrSlug }: { projectIdOrSlug: string }) {
+export function ProjectActivityGraph({ projectIdOrSlug }: { projectIdOrSlug: string }) {
   const { data } = ProjectReactQueryAdapter.client.useGetProjectActivityBySlugOrId({
     pathParams: { projectIdOrSlug },
   });
