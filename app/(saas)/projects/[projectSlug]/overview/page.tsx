@@ -31,8 +31,6 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
     },
   });
 
-  console.log("isLoading", isLoading);
-
   return (
     <ScrollView>
       <PosthogCaptureOnMount

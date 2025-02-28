@@ -33,12 +33,7 @@ export function BookmarksGroup() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
-        Bookmarks
-        <Badge variant="secondary" className="ml-auto">
-          <span>Beta</span>
-        </Badge>
-      </SidebarGroupLabel>
+      <SidebarGroupLabel>Bookmarks</SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
           <Link href={item.url} onClick={item.onClick} key={item.id}>

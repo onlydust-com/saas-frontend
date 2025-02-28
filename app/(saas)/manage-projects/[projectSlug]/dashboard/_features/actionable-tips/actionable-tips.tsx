@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Markdown } from "@/shared/features/markdown/markdown";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -105,7 +104,7 @@ export function ActionableTips({ projectId }: ActionableTipsProps) {
 
   return (
     <Card className="flex flex-col gap-4 bg-gradient-to-br from-blue-950 to-transparent to-50% p-4">
-      <TypographyH3>Actionable Tips</TypographyH3>
+      <TypographyH3>Actionable Tip</TypographyH3>
 
       <div className="flex flex-col gap-0">
         <TypographyP>{tipAction.title}</TypographyP>
