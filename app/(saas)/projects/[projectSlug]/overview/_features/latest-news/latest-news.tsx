@@ -26,7 +26,7 @@ export function LatestNews({ projectId, className }: LatestNewsProps) {
         lastUpdatedAt: _news.lastUpdatedAt,
       });
     }
-  }, [odNews]);
+  }, [odNews, projectId]);
 
   if (!odNews?.length) {
     return null;
