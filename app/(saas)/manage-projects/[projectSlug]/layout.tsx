@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
-import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useMemo, useRef, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -89,8 +89,6 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
       enabled: Boolean(projectSlug),
     },
   });
-
-  const projectId = useMemo(() => data?.id, [data]);
 
   useEffect(() => {
     if (data?.isSomeOrganizationMissingPermissions() && !hasAlreadyClosedAlert.current) {
