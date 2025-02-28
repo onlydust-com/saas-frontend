@@ -22,13 +22,7 @@ export function LatestNews({ projectId }: LatestNewsProps) {
   console.log("news", news);
 
   return (
-    <Card
-      className={cn("flex w-full flex-col gap-4 bg-stack p-4", {
-        "border-orange-500": news.display.color === "orange",
-        "border-purple-500": news.display.color === "purple",
-        "border-blue-500": news.display.color === "blue",
-      })}
-    >
+    <Card className={cn("flex w-full flex-col gap-4 bg-stack p-4")}>
       <header className={"flex items-center justify-between gap-2"}>
         <div className={"flex items-center gap-2"}>
           {news.display.icon === "megaphone" ? (
@@ -73,17 +67,6 @@ export function LatestNews({ projectId }: LatestNewsProps) {
       </header>
 
       <TypographyP>{news.response.news}</TypographyP>
-
-      <div className="flex flex-row gap-2 pb-2 pt-6">
-        <Avatar>
-          <AvatarImage src={news.paramaters.createdByAvatar ?? ""} />
-          <AvatarFallback>{news.paramaters.createdByLogin?.[0]}</AvatarFallback>
-        </Avatar>
-        <div className="flex flex-col gap-px">
-          <TypographyMuted>Created by</TypographyMuted>
-          <TypographyP>{news.paramaters.createdByLogin}</TypographyP>
-        </div>
-      </div>
     </Card>
   );
 }

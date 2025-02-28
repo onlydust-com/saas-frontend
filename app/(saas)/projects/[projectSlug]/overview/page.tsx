@@ -62,11 +62,18 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       />
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
-        {data?.id && (
-          <div className="col-span-full">
+        {data?.id ? (
+          <div className="grid lg:col-span-1">
             <LatestNews projectId={data?.id} />
           </div>
+        ) : (
+          <div className="grid lg:col-span-1">
+            <Languages projectId={data?.id} />
+          </div>
         )}
+        <div className="grid lg:col-span-3">
+          <ActivityGraph projectIdOrSlug={params.projectSlug} />
+        </div>
 
         {data?.overview && (
           <div className="col-span-full">
@@ -83,12 +90,6 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
             <Description description={data?.longDescription} projectId={data?.id} title={"Description"} />
           </div>
         )}
-        <div className="grid lg:col-span-1">
-          <Languages projectId={data?.id} />
-        </div>
-        <div className="grid lg:col-span-3">
-          <ActivityGraph projectIdOrSlug={params.projectSlug} />
-        </div>
         <div className="grid lg:col-span-2">
           <GoodFirstIssues projectId={data?.id} />
         </div>
