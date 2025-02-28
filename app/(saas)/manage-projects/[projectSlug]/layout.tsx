@@ -32,6 +32,8 @@ import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
 
+import { CreateNews } from "../_features/create-news/create-news";
+
 enum Views {
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
   "CONTRIBUTORS" = "CONTRIBUTORS",
@@ -147,6 +149,11 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
             isDisabled={!canReward}
           />
         </Tooltip>
+        {!!data && (
+          <CreateNews project={data}>
+            <Button>Create news</Button>
+          </CreateNews>
+        )}
       </div>
     );
   }, [projectId, isFinancial, canReward]);
