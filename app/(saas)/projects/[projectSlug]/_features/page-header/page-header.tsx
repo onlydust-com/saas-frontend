@@ -28,7 +28,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
-import { CreateNews } from "../../../../manage-projects/_features/create-news/create-news";
+import { LatestNews } from "../../overview/_features/latest-news/latest-news";
 import { ProjectNavigation } from "../project-navigation/project-navigation";
 import { PageHeaderProps } from "./page-header.types";
 
@@ -299,7 +299,13 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
 
   return (
     <div className="flex w-full flex-col bg-background pt-6">
-      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
+      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl">
+        {project?.id && (
+          <div className="absolute inset-0 hidden items-center justify-end pr-3 tablet:flex">
+            <LatestNews projectId={project?.id} />
+          </div>
+        )}
+      </ImageBanner>
       <div className="relative z-[2] -mt-12 mb-6 ml-2 flex flex-row items-end justify-between tablet:-mt-16 tablet:ml-6">
         <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background tablet:h-32 tablet:w-32">
           <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />

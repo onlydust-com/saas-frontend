@@ -21,7 +21,7 @@ export interface OdNewsInterface extends Submission {
   paramaters: Record<OdNewsParameters, string | null>;
   response: Record<keyof typeof OdNewsQuestionsNames, string | null>;
   display: {
-    color: "orange" | "purple" | "blue";
+    color: "1" | "2" | "3";
     icon: "megaphone" | "target" | "calendar";
     title: string;
   };
@@ -49,21 +49,21 @@ export class OdNewsModel implements OdNewsInterface {
   static buildDisplayFromResponse(response: OdNewsInterface["response"]) {
     if (response.type === "Roadmap milestone") {
       return {
-        color: "purple",
+        color: "1",
         icon: "target",
         title: "Roadmap milestone",
       };
     }
     if (response.type === "Community / Event") {
       return {
-        color: "blue",
+        color: "2",
         icon: "calendar",
         title: "Community / Event",
       };
     }
 
     return {
-      color: "orange",
+      color: "3",
       icon: "megaphone",
       title: "Announcement",
     };
