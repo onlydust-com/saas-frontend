@@ -16,8 +16,6 @@ export function LatestNews({ projectId }: LatestNewsProps) {
 
   const news = odNews[0];
 
-  console.log("news", news);
-
   return (
     <Card
       className={cn("flex w-full flex-col gap-4 bg-stack p-4", {
