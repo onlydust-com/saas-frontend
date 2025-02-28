@@ -1,34 +1,12 @@
 import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 export const OdNewsQuestionsNames = {
-  type: "Choose your news type",
-  news: "Your news",
-  action: "do you need an action ?",
-  marketing: "How our marketing service can help you?",
-  telegram: "Your telegram",
+  type: "News Type",
+  news: "News Content",
+  action: "Request Marketing Assistance",
+  marketing: "Marketing Support Details",
+  telegram: "Telegram Contact",
 } as const;
-
-// 0
-// :
-// {id: 'projectId', name: 'projectId', value: 'e00ea16f-8a65-4790-8c3a-faed6abf8e8f'}
-// 1
-// :
-// {id: 'githubUserId', name: 'githubUserId', value: '17259618'}
-// 2
-// :
-// {id: 'createdByAvatar', name: 'createdByAvatar', value: null}
-// 3
-// :
-// {id: 'createdByLogin', name: 'createdByLogin', value: null}
-// 4
-// :
-// {id: 'projectLogoUrl', name: 'projectLogoUrl', value: null}
-// 5
-// :
-// {id: 'projectName', name: 'projectName', value: null}
-// // 6
-// // :
-// // {id: 'projectSlug', name: 'projectSlug', value: null}
 
 export type OdNewsParameters =
   | "projectId"
