@@ -30,7 +30,7 @@ export function useAreaSplineChartOptions({
   yAxis,
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
-  const { title: yAxisTitle, visible: isYAxisVisible = true } = yAxis ?? {};
+  const { title: yAxisTitle, visible: isYAxisVisible = true, labels } = yAxis ?? {};
 
   const options = useMemo<Options>(
     () => ({
@@ -66,12 +66,15 @@ export function useAreaSplineChartOptions({
         labels: {
           enabled: false,
           style: yAxisPrimaryStyle,
+          ...labels,
         },
         gridLineColor: "var(--border-primary)",
         visible: isYAxisVisible,
       },
       legend: {
         ...legend,
+        layout: "vertical",
+        align: "left",
         itemStyle: legendStyle,
         itemHoverStyle: legendStyle,
       },

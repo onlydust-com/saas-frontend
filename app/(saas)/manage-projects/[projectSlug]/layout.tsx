@@ -26,7 +26,6 @@ import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/cont
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
 import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel.hooks";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
-import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
@@ -70,7 +69,6 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   const hasAlreadyClosedAlert = useRef(false);
 
   const { open: openProjectTransactions } = useProjectTransactionsSidepanel();
-  const { open: openProject } = useProjectUpdateSidePanel();
   const { open: openRewardFlow } = useRewardFlow();
   const { open: openUngrantFlow } = useUngrantFlow();
   const canReward = useCanReward(projectSlug);
@@ -113,19 +111,6 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   const renderActions = useCallback(() => {
     return (
       <div className="flex items-center gap-lg pb-2">
-        {projectId ? (
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            translate={{ token: "manageProjects:detail.activity.actions.editProject" }}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            onClick={() => openProject({ projectId })}
-          />
-        ) : null}
-
         {isFinancial ? (
           <>
             {renderUngrantButton()}

@@ -20,6 +20,10 @@ interface MapDataType {
 interface YAxis {
   title: string[];
   visible?: boolean;
+  labels?: {
+    enabled?: boolean;
+    style?: Record<string, string>;
+  };
 }
 
 export interface PieDataType {

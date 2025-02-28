@@ -1,18 +1,11 @@
 "use client";
 
-import { ArrowRight, Calendar, ChevronDown, MoveDownRight, MoveUpRight } from "lucide-react";
-import { useMemo, useState } from "react";
-
-import { TimeGroupingMenu } from "@/app/(saas)/data/_components/histograms/menus/time-grouping-menu/time-grouping-menu";
+import { ArrowRight, MoveDownRight, MoveUpRight } from "lucide-react";
+import { useMemo } from "react";
 
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
-import { bootstrap } from "@/core/bootstrap";
-import { DateRangeType, TimeGroupingType } from "@/core/kernel/date/date-facade-port";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Menu } from "@/design-system/molecules/menu";
-
-import { useRangeSelectOptions } from "@/shared/hooks/select/use-range-select-options";
+import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted, TypographyP } from "@/shared/ui/typography";
@@ -62,76 +55,39 @@ function FunnelStep({
 }
 
 export function AcquisitionFunnel({ projectId }: AcquisitionFunnelProps) {
-  const rangeMenu = useRangeSelectOptions();
-  const dateKernelPort = bootstrap.getDateKernelPort();
-  const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
-
-  const { fromDate, toDate } = useMemo(() => {
-    const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
-
-    return {
-      fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
-      toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
-    };
-  }, [rangeType, dateKernelPort]);
-
-  const { data, isLoading } = BiReactQueryAdapter.client.useGetBiProjectAcquisition({
+  const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiProjectAcquisition({
     pathParams: {
       projectIdOrSlug: projectId ?? "",
     },
-    queryParams: {
-      fromDate,
-      toDate,
-    },
     options: {
       enabled: Boolean(projectId),
+      retry: 1,
     },
   });
 
   const { globalVisitorCount, projectVisitorCount, applicantCount, assigneeCount, contributorCount } = data ?? {};
 
-  const maxValue = Math.max(
-    globalVisitorCount?.value ?? 0,
-    projectVisitorCount?.value ?? 0,
-    applicantCount?.value ?? 0,
-    assigneeCount?.value ?? 0,
-    contributorCount?.value ?? 0
-  );
+  const renderChart = useMemo(() => {
+    if (
+      !globalVisitorCount ||
+      !projectVisitorCount ||
+      !applicantCount ||
+      !assigneeCount ||
+      !contributorCount ||
+      isError
+    ) {
+      return <EmptyStateLite className="min-h-[200px]" />;
+    }
 
-  function onChangeRangeType(value: string) {
-    setRangeType(value as DateRangeType);
-  }
+    const maxValue = Math.max(
+      globalVisitorCount?.value ?? 0,
+      projectVisitorCount?.value ?? 0,
+      applicantCount?.value ?? 0,
+      assigneeCount?.value ?? 0,
+      contributorCount?.value ?? 0
+    );
 
-  if (isLoading) {
-    return <Skeleton className="min-h-[400px] w-full" />;
-  }
-
-  return (
-    <Card className="flex flex-col gap-4 p-4">
-      <div className="flex items-center justify-between gap-lg">
-        <TypographyH3>Acquisition Funnel</TypographyH3>
-
-        <Menu
-          items={rangeMenu}
-          selectedIds={[rangeType]}
-          onAction={onChangeRangeType}
-          isPopOver
-          placement={"bottom-end"}
-        >
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            startIcon={{ component: Calendar }}
-            endIcon={{ component: ChevronDown }}
-            translate={{ token: `common:dateRangeType.${rangeType}` }}
-          />
-        </Menu>
-      </div>
-
-      <TypographyP>
-        This funnel shows how users progress from visitors to active contributors in your project.
-      </TypographyP>
-
+    return (
       <div className="flex flex-row gap-2">
         <FunnelStep
           label="Global Visitors"
@@ -142,7 +98,7 @@ export function AcquisitionFunnel({ projectId }: AcquisitionFunnelProps) {
         />
         <FunnelStep
           label="Project Visitors"
-          currentValue={89}
+          currentValue={projectVisitorCount?.value ?? 0}
           percentDiff={projectVisitorCount?.percentDiff ?? 0}
           diff={projectVisitorCount?.diff ?? 0}
           maxValue={maxValue}
@@ -169,6 +125,70 @@ export function AcquisitionFunnel({ projectId }: AcquisitionFunnelProps) {
           maxValue={maxValue}
         />
       </div>
+    );
+  }, [globalVisitorCount, projectVisitorCount, applicantCount, assigneeCount, contributorCount, isError]);
+
+  if (isLoading) {
+    return <Skeleton className="min-h-[400px] w-full" />;
+  }
+
+  return (
+    <Card className="flex flex-col gap-4 p-4">
+      <div className="flex items-center justify-between gap-lg">
+        <TypographyH3>Acquisition Funnel</TypographyH3>
+      </div>
+
+      <TypographyP>
+        This funnel shows how users progress from visitors to active contributors in your project (90 days max).
+      </TypographyP>
+
+      {renderChart}
     </Card>
   );
+}
+
+// TODO: This is all we need to enable date selection
+// State stuff
+
+// const rangeMenu = useRangeSelectOptions();
+// const dateKernelPort = bootstrap.getDateKernelPort();
+// const [rangeType, setRangeType] = useState<DateRangeType>(DateRangeType.LAST_YEAR);
+
+// const { fromDate, toDate } = useMemo(() => {
+//   const { from, to } = dateKernelPort.getRangeOfDates(rangeType);
+
+//   return {
+//     fromDate: from ? dateKernelPort.format(from, "yyyy-MM-dd") : undefined,
+//     toDate: to ? dateKernelPort.format(to, "yyyy-MM-dd") : undefined,
+//   };
+// }, [rangeType, dateKernelPort]);
+
+// Add query params
+// queryParams: {
+//     fromDate,
+//     toDate,
+//   },
+
+// Handler
+// function onChangeRangeType(value: string) {
+//     setRangeType(value as DateRangeType);
+//   }
+
+// Menu
+{
+  /* <Menu
+items={rangeMenu}
+selectedIds={[rangeType]}
+onAction={onChangeRangeType}
+isPopOver
+placement={"bottom-end"}
+>
+<Button
+  variant={"secondary"}
+  size={"sm"}
+  startIcon={{ component: Calendar }}
+  endIcon={{ component: ChevronDown }}
+  translate={{ token: `common:dateRangeType.${rangeType}` }}
+/>
+</Menu>  */
 }

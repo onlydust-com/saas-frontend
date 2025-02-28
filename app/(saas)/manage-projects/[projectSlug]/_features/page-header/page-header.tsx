@@ -1,6 +1,6 @@
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { CircleDotDashed, GitMerge, Star, User } from "lucide-react";
+import { CircleDotDashed, ExternalLink, GitMerge, Settings, Star, User } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -10,6 +10,7 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 import { Icon } from "@/design-system/atoms/icon";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { Avatar } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { TypographyH3, TypographyP, TypographySmall } from "@/shared/ui/typography";
@@ -55,6 +56,7 @@ function Stats({ project }: { project: ProjectInterfaceV2 | undefined }) {
 }
 
 export function PageHeader({ projectSlug }: PageHeaderProps) {
+  const { open: openProject } = useProjectUpdateSidePanel();
   const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: { projectIdOrSlug: projectSlug },
     options: {
@@ -62,21 +64,33 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
     },
   });
   return (
-    <div className="flex items-center gap-md">
-      <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background">
-        <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
-        <AvatarFallback>
-          <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex w-full items-start justify-between gap-1">
+    <div className="flex flex-wrap items-start gap-4">
+      <div className="flex flex-1 items-center gap-2">
+        <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background">
+          <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
+          <AvatarFallback>
+            <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
+          </AvatarFallback>
+        </Avatar>
         <div className="flex flex-col gap-1">
           <TypographyH3>{project?.name}</TypographyH3>
           <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
           <Stats project={project} />
         </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        {project?.id ? (
+          <Button variant="outline" onClick={() => openProject({ projectId: project.id })}>
+            <Settings className="h-4 w-4" />
+            Settings
+          </Button>
+        ) : null}
         <Button variant="outline" asChild>
-          <Link href={NEXT_ROUTER.projects.details.overview.root(projectSlug)}>See project page</Link>
+          <Link href={NEXT_ROUTER.projects.details.overview.root(projectSlug)}>
+            <ExternalLink className="h-4 w-4" />
+            Public Page
+          </Link>
         </Button>
       </div>
     </div>
