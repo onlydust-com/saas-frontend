@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { Markdown } from "@/shared/features/markdown/markdown";
 import { useProjectUpdateSidePanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -19,50 +20,56 @@ function createTipToActionMap(
   return {
     MISSING_LOGO: {
       actionLabel: "Edit your project",
-      title: "Enhance the project's visual identity with a logo",
-      justification: "60% of contributors prefer selecting a project with a logo.",
+      title: "🎨 Give your project a face — add a logo!",
+      justification: "Branding matters. Projects with a logo get more visitors. Stand out from the crowd. 🏆",
       action: projectId => openProject({ projectId }),
     },
     MISSING_CATEGORY: {
       actionLabel: "Edit your project",
-      title: "Define categories to help with project discoverability",
-      justification: "Proper categorization increases visibility by 60% in open-source directories.",
+      title: "📌 Categorize your project for MAX visibility",
+      justification: "No category? You're invisible. Proper categorization boosts discoverability. Be seen. 👀",
       action: projectId => openProject({ projectId }),
     },
     MISSING_ECOSYSTEM: {
       actionLabel: "Edit your project",
-      title: "Identify relevant technology ecosystems",
-      justification: "Projects that clarify their ecosystem see a 45% increase in relevant contributions.",
+      title: "🌍 Connect your project to the right ecosystem",
+      justification:
+        "Projects linked to an ecosystem get 6x more contributors. Don't build in isolation — be part of something bigger. 🔗",
       action: projectId => openProject({ projectId }),
     },
     MISSING_README: {
       actionLabel: "Edit your project",
-      title: "Provide a README file with project details",
-      justification: "Projects without a README lose 90% of potential contributors.",
+      title: "🚨 No README? No credibility. Fix this ASAP.",
+      justification:
+        "No README = no trust. Contributors need context before they dive in. Get one up now, and make it count. ✅",
       action: projectId => openProject({ projectId }),
     },
     DESCRIPTION_TOO_SHORT: {
       actionLabel: "Edit your project",
-      title: "Expand the project description to include objectives and impact",
-      justification: "Projects with detailed descriptions see a 55% increase in contributor interest.",
+      title: "📢 Tell people WHY your project matters",
+      justification:
+        "A vague description won't cut it. Projects that tell a compelling story see more interest. Sell your vision! 💡",
       action: projectId => openProject({ projectId }),
     },
     README_TOO_SHORT: {
       actionLabel: "Edit your project",
-      title: "Improve the README by adding installation and contribution guidelines",
-      justification: "Projects with comprehensive READMEs attract 80% more contributors.",
+      title: "📖 Your README needs more love — add installation & contribution steps",
+      justification:
+        "Great projects have great READMEs. More details = more contributors. No one wants to guess how to get started. 🔧",
       action: projectId => openProject({ projectId }),
     },
     OUTDATED_DESCRIPTION: {
       actionLabel: "Edit your project",
-      title: "Keep your project description up-to-date",
-      justification: "Regularly updated descriptions result in a 50% higher contributor retention rate.",
+      title: "🕰️ Keep your project description fresh & relevant",
+      justification:
+        "A stale description = missed opportunities. Stay sharp, stay updated, and keep the right contributors coming in. 🔥",
       action: projectId => openProject({ projectId }),
     },
     MISSING_AVAILABLE_ISSUES: {
       actionLabel: "Create good first issues",
-      title: "Make it easy for visitors to find ways to contribute",
-      justification: "Lowering barriers to entry results in a 65% increase in first-time contributions.",
+      title: "🚀 Make it stupidly easy for visitors to contribute",
+      justification:
+        "No open issues? No new contributors. Let's fix that. Give them something to work on, and watch engagement skyrocket. 📈",
       action: projectId => navigate(NEXT_ROUTER.manageProjects.contributions.root(projectId)),
     },
   };
