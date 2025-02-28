@@ -25,9 +25,21 @@ function FunnelStep({
   diff: number;
   maxValue: number;
 }) {
-  const isDown = percentDiff < 0;
   const maxHeight = 300; // Max container height in pixels
   const height = Math.min((currentValue / maxValue) * maxHeight, maxHeight);
+
+  const renderArrow = useMemo(() => {
+    if (diff === 0) {
+      return <ArrowRight className="h-4 w-4 text-blue-500" />;
+    }
+
+    if (diff > 0) {
+      return <MoveUpRight className="h-4 w-4 text-green-500" />;
+    }
+
+    return <MoveDownRight className="h-4 w-4 text-red-500" />;
+  }, [percentDiff]);
+
   return (
     <div className="flex h-full flex-1 flex-col gap-2">
       <div className="flex h-[300px] flex-col justify-end overflow-hidden rounded-md bg-purple-950 [background-image:linear-gradient(45deg,rgba(0,0,0,.1)_25%,transparent_25%,transparent_50%,rgba(0,0,0,.1)_50%,rgba(0,0,0,.1)_75%,transparent_75%)] [background-size:20px_20px]">
@@ -40,11 +52,7 @@ function FunnelStep({
           <TypographyMuted>{currentValue} users</TypographyMuted>
         </div>
         <div className="flex flex-row items-center justify-start gap-2">
-          {isDown ? (
-            <MoveDownRight className="h-4 w-4 text-red-500" />
-          ) : (
-            <MoveUpRight className="h-4 w-4 text-green-500" />
-          )}
+          {renderArrow}
           <TypographyMuted>
             {diff} users ({percentDiff}%)
           </TypographyMuted>
