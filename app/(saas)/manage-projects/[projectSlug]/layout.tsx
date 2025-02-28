@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "lucide-react";
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -30,6 +31,14 @@ import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/r
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Button as ShadcnButton } from "@/shared/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/ui/dropdown-menu";
 
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -108,40 +117,27 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     );
   }
 
-  const renderActions = useCallback(() => {
+  const renderActions = useMemo(() => {
+    if (!isFinancial) return null;
     return (
-      <div className="flex items-center gap-lg pb-2">
-        {isFinancial ? (
-          <>
-            {renderUngrantButton()}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild className="mb-2">
+          <ShadcnButton variant="outline">
+            Financial
+            <ChevronDownIcon className="ml-auto" />
+          </ShadcnButton>
+        </DropdownMenuTrigger>
 
-            <Button
-              variant={"secondary"}
-              size={"sm"}
-              translate={{ token: "manageProjects:detail.activity.actions.seeTransactions" }}
-              onClick={openProjectTransactions}
-              classNames={{
-                base: "max-w-full overflow-hidden",
-                label: "whitespace-nowrap text-ellipsis overflow-hidden",
-              }}
-            />
-          </>
-        ) : null}
-
-        <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
-          <Button
-            variant={"primary"}
-            size={"sm"}
-            translate={{ token: "manageProjects:detail.activity.actions.reward" }}
-            onClick={() => openRewardFlow({ githubUserIds: [] })}
-            classNames={{
-              base: "max-w-full overflow-hidden",
-              label: "whitespace-nowrap text-ellipsis overflow-hidden",
-            }}
-            isDisabled={!canReward}
-          />
-        </Tooltip>
-      </div>
+        <DropdownMenuContent className="w-48" align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={openUngrantFlow}>Return funds</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => openRewardFlow({ githubUserIds: [] })} disabled={!canReward}>
+              Reward a contributor
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={openProjectTransactions}>See transactions</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }, [projectId, isFinancial, canReward]);
 
@@ -199,7 +195,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                 }}
               />
 
-              {renderActions()}
+              {renderActions}
             </div>
           </header>
 
