@@ -681,7 +681,6 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         method,
         tag,
         pathParams,
-        mock: true,
       });
 
       return new ProjectAcquisitionTip(data);
