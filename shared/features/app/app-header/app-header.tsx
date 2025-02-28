@@ -4,7 +4,7 @@ import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
 import { NotificationsPopover } from "@/shared/features/notifications/notifications-popover";
-import { IsAuthenticated, SignInButton } from "@/shared/providers/auth-provider";
+import { IsAuthenticated, SignInButton, useAuthContext } from "@/shared/providers/auth-provider";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,10 +15,13 @@ import {
 } from "@/shared/ui/breadcrumb";
 import { Separator } from "@/shared/ui/separator";
 import { SidebarTrigger } from "@/shared/ui/sidebar";
+import { Skeleton } from "@/shared/ui/skeleton";
+
+import { RenderComponent } from "../../render-component/render-component";
 
 export function AppHeader() {
   const { breadcrumb } = useNavigation();
-
+  const { isLoading } = useAuthContext();
   return (
     <header className="sticky top-0 z-[39] flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm">
       <div className="flex items-center gap-2">
@@ -46,20 +49,32 @@ export function AppHeader() {
         </Breadcrumb>
       </div>
 
-      <div className={"flex flex-1 flex-row items-center justify-end gap-3"}>
-        <IsAuthenticated>
-          <IsAuthenticated.Yes>
-            <GlobalSearch />
+      <RenderComponent isLoading={isLoading} classNames={{ default: "flex flex-1", loading: "flex flex-1" }}>
+        <RenderComponent.Loading>
+          <div className={"flex flex-1 flex-row items-center justify-end gap-3"}>
+            <Skeleton className="h-9 w-36" />
+            <Skeleton className="h-9 w-9" />
+            <Skeleton className="h-9 w-9" />
+          </div>
+        </RenderComponent.Loading>
+        <RenderComponent.Error errorMessage="Error loading overview" />
+        <RenderComponent.Default>
+          <div className={"flex flex-1 flex-row items-center justify-end gap-3"}>
+            <IsAuthenticated>
+              <IsAuthenticated.Yes>
+                <GlobalSearch />
 
-            <NotificationsPopover />
+                <NotificationsPopover />
 
-            <AppUserMenu />
-          </IsAuthenticated.Yes>
-          <IsAuthenticated.No>
-            <SignInButton />
-          </IsAuthenticated.No>
-        </IsAuthenticated>
-      </div>
+                <AppUserMenu />
+              </IsAuthenticated.Yes>
+              <IsAuthenticated.No>
+                <SignInButton />
+              </IsAuthenticated.No>
+            </IsAuthenticated>
+          </div>
+        </RenderComponent.Default>
+      </RenderComponent>
     </header>
   );
 }
