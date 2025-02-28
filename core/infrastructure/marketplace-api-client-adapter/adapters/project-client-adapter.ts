@@ -699,7 +699,6 @@ export class ProjectClientAdapter implements ProjectStoragePort {
         tag,
         pathParams,
         version: MarketplaceApiVersion.v2,
-        mock: true,
       });
 
       return {

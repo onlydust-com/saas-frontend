@@ -23,7 +23,7 @@ export default function DashboardPage({ params }: { params: { projectSlug: strin
         <div className="flex flex-col gap-4 lg:col-span-2">
           <ProjectVisitors projectId={project?.id ?? ""} />
           <AcquisitionFunnel projectId={project?.id ?? ""} />
-          <ProjectActivityGraph projectIdOrSlug={project?.id ?? ""} />
+          <ProjectActivityGraph projectIdOrSlug={params.projectSlug} />
         </div>
         <div className="flex flex-col gap-4 lg:col-span-1">
           <ActionableTips projectId={project?.id ?? ""} />

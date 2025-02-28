@@ -35,7 +35,7 @@ export function LeaderBoard({ projectId }: LeaderBoardProps) {
       );
     }
 
-    if (!projects?.length) {
+    if (projects?.length < 2) {
       return (
         <div className={"flex items-center justify-center py-10"}>
           <TypographyMuted>No similar projects found</TypographyMuted>
@@ -57,6 +57,8 @@ export function LeaderBoard({ projectId }: LeaderBoardProps) {
             }}
             categories={project?.categories?.map(category => category.name) ?? []}
             languages={project?.languages ?? []}
+            rank={project.rank}
+            className={project.id === projectId ? "bg-gradient-to-br from-purple-950 to-transparent to-50%" : ""}
           />
         ))}
       </>
@@ -65,7 +67,7 @@ export function LeaderBoard({ projectId }: LeaderBoardProps) {
 
   return (
     <Card className={"flex flex-col gap-4 p-4"}>
-      <TypographyH3>Similar project leaderboard</TypographyH3>
+      <TypographyH3>Similar Projects Leaderboard</TypographyH3>
       <div className="flex flex-col gap-xl">{renderProjects}</div>
     </Card>
   );

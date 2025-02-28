@@ -85,7 +85,7 @@ export function ProjectVisitors({ projectId }: ProjectVisitorsProps) {
   return (
     <Card className="flex flex-col gap-4 p-4">
       <div className="flex items-center justify-between gap-lg">
-        <TypographyH3>Count visitors</TypographyH3>
+        <TypographyH3>Project visitors</TypographyH3>
 
         <Menu
           items={rangeMenu}

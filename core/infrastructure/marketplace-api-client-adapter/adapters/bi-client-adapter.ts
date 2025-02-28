@@ -288,7 +288,6 @@ export class BiClientAdapter implements BiStoragePort {
         tag,
         pathParams,
         queryParams,
-        mock: true,
       });
 
       return {
@@ -314,7 +313,6 @@ export class BiClientAdapter implements BiStoragePort {
         tag,
         pathParams,
         queryParams,
-        mock: true,
       });
 
       return new BiProjectAcquisition(data);
