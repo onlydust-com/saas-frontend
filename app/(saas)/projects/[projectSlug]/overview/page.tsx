@@ -16,6 +16,7 @@ import { Translate } from "@/shared/translation/components/translate/translate";
 
 import { Description } from "./_features/description/description";
 import { Languages } from "./_features/languages/languages";
+import { LatestNews } from "./_features/latest-news/latest-news";
 import { SimilarProjects } from "./_features/similar-projects/similar-projects";
 
 function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
@@ -61,6 +62,11 @@ function ProjectOverviewPage({ params }: { params: { projectSlug: string } }) {
       />
 
       <div className="grid w-full grid-cols-1 gap-6 overflow-hidden lg:grid-cols-4">
+        {data?.id && (
+          <div className="col-span-full tablet:hidden">
+            <LatestNews projectId={data?.id} className="w-full max-w-full border-border bg-card" />
+          </div>
+        )}
         {data?.overview && (
           <div className="col-span-full">
             <Description

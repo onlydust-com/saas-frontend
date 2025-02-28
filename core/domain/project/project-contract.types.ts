@@ -380,3 +380,41 @@ export type GetSimilarProjectsLeaderboardPortResponse = HttpStorageResponse<GetS
 export type GetSimilarProjectsLeaderboardPortParams = HttpClientParameters<{
   PathParams: GetSimilarProjectsLeaderboardPathParams;
 }>;
+
+/* ------------------------- ISSUE COMPOSER COMPOSE ------------------------- */
+
+export type ProjectIssueComposerComposeResponse = components["schemas"]["IssueComposeResponse"];
+export type ProjectIssueComposerComposeBody = components["schemas"]["IssueComposeRequest"];
+
+type ProjectIssueComposerComposePathParams = operations["composeIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerComposePortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerComposePathParams;
+}>;
+
+export type ProjectIssueComposerComposePortResponse = HttpStorageResponse<ProjectIssueComposerComposeResponse>;
+
+/* ------------------------- ISSUE COMPOSER SUBMIT ------------------------- */
+
+export type ProjectIssueComposerSubmitBody = components["schemas"]["SubmitIssueRequest"];
+
+type ProjectIssueComposerSubmitPathParams = operations["submitIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerSubmitPortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerSubmitPathParams;
+}>;
+
+export type ProjectIssueComposerSubmitPortResponse = HttpStorageResponse;
+
+/* ------------------------- ISSUE COMPOSER COMPOSE ------------------------- */
+
+export type ProjectIssueComposerUpdateResponse = components["schemas"]["IssueComposeResponse"];
+export type ProjectIssueComposerUpdateBody = components["schemas"]["IssueComposeAdditionalInfoRequest"];
+
+type ProjectIssueComposerUpdatePathParams = operations["continueComposeIssue"]["parameters"]["path"];
+
+export type ProjectIssueComposerUpdatePortParams = HttpClientParameters<{
+  PathParams: ProjectIssueComposerUpdatePathParams;
+}>;
+
+export type ProjectIssueComposerUpdatePortResponse = HttpStorageResponse<ProjectIssueComposerUpdateResponse>;

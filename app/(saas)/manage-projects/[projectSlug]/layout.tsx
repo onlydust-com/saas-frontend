@@ -42,6 +42,8 @@ import {
 
 import { PageHeader } from "./_features/page-header/page-header";
 
+import { CreateNews } from "../_features/create-news/create-news";
+
 enum Views {
   "DASHBOARD" = "DASHBOARD",
   "CONTRIBUTIONS" = "CONTRIBUTIONS",
@@ -137,6 +139,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
             <DropdownMenuItem onClick={openProjectTransactions}>See transactions</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
+
       </DropdownMenu>
     );
   }, [projectId, isFinancial, canReward]);
@@ -194,7 +197,11 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                   base: "border-none",
                 }}
               />
-
+              {!!data && (
+                <CreateNews project={data}>
+                  <Button>Create news</Button>
+                </CreateNews>
+              )}
               {renderActions}
             </div>
           </header>

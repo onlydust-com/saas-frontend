@@ -59,4 +59,10 @@ export class ProjectClientAdapterMock implements ProjectStoragePort {
   getProjectAcquisitionTip = mockHttpStorageResponse<ProjectStoragePort["getProjectAcquisitionTip"]>;
 
   getSimilarProjectsLeaderboard = mockHttpStorageResponse<ProjectStoragePort["getSimilarProjectsLeaderboard"]>;
+
+  projectIssueComposerCompose = mockHttpStorageResponse<ProjectStoragePort["projectIssueComposerCompose"]>;
+
+  projectIssueComposerSubmit = mockHttpStorageResponse<ProjectStoragePort["projectIssueComposerSubmit"]>;
+
+  projectIssueComposerUpdate = mockHttpStorageResponse<ProjectStoragePort["projectIssueComposerUpdate"]>;
 }
