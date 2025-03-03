@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge/variants/contribution-badge-default";
 
 import { Avatar, AvatarImage } from "@/shared/ui/avatar";
-import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
