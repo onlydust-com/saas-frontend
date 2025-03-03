@@ -22,13 +22,17 @@ function FunnelStep({
   label: string;
   currentValue: number;
   percentDiff: number;
-  diff: number;
+  diff: number | undefined;
   maxValue: number;
 }) {
   const maxHeight = 300; // Max container height in pixels
   const height = Math.min((currentValue / maxValue) * maxHeight, maxHeight);
 
   const renderArrow = useMemo(() => {
+    if (diff === undefined) {
+      return null;
+    }
+
     if (diff === 0) {
       return <ArrowRight className="h-4 w-4 text-blue-500" />;
     }
@@ -51,12 +55,14 @@ function FunnelStep({
           <ArrowRight className="h-4 w-4 text-blue-500" />
           <TypographyMuted>{currentValue} users</TypographyMuted>
         </div>
-        <div className="flex flex-row items-center justify-start gap-2">
-          {renderArrow}
-          <TypographyMuted>
-            {diff} users ({percentDiff}%)
-          </TypographyMuted>
-        </div>
+        {diff !== undefined && (
+          <div className="flex flex-row items-center justify-start gap-2">
+            {renderArrow}
+            <TypographyMuted>
+              {diff} users ({percentDiff}%)
+            </TypographyMuted>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -101,7 +107,7 @@ export function AcquisitionFunnel({ projectId }: AcquisitionFunnelProps) {
           label="Global Visitors"
           currentValue={globalVisitorCount?.value ?? 0}
           percentDiff={globalVisitorCount?.percentDiff ?? 0}
-          diff={globalVisitorCount?.diff ?? 0}
+          diff={undefined}
           maxValue={maxValue}
         />
         <FunnelStep
