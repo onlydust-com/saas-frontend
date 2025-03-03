@@ -38,6 +38,9 @@ export function ProjectVisitors({ projectId }: ProjectVisitorsProps) {
         enabled: true,
       },
     },
+    xAxis: {
+      tickInterval: 3,
+    },
     tooltip: {
       pointFormatter() {
         return `<div class='flex gap-sm items-center'>

@@ -19,6 +19,7 @@ export function useAreaSplineChartOptions({
   categories,
   series,
   xAxisTitle,
+  xAxis,
   colors = [
     "#B654FC", // --chart-areaspline-primary
     "#4EA7FC", // --chart-areaspline-secondary
@@ -47,6 +48,7 @@ export function useAreaSplineChartOptions({
         style: titleStyle,
       },
       xAxis: {
+        ...xAxis,
         categories,
         title: {
           text: xAxisTitle,

@@ -60,6 +60,7 @@ export interface HighchartsOptionsParams {
   min?: number;
   height?: number;
   yAxis?: YAxis;
+  xAxis?: Options["xAxis"];
 }
 
 export interface HighchartsOptionsReturn {
