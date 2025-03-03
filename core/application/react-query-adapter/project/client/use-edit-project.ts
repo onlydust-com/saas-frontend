@@ -11,7 +11,17 @@ import { EditProjectBody } from "@/core/domain/project/project-contract.types";
 export function useEditProject({
   pathParams,
   options,
-}: UseMutationFacadeParams<ProjectStoragePort["editProject"], undefined, never, EditProjectBody> = {}) {
+  invalidateTagParams,
+}: UseMutationFacadeParams<
+  ProjectStoragePort["editProject"],
+  {
+    project: {
+      pathParams: { projectSlug: string };
+    };
+  },
+  never,
+  EditProjectBody
+> = {}) {
   const projectStoragePort = bootstrap.getProjectStoragePortForClient();
   const queryClient = useQueryClient();
 
@@ -26,8 +36,27 @@ export function useEditProject({
               queryKey: projectStoragePort.getProjectById({ pathParams: { projectId: pathParams.projectId } }).tag,
               exact: false,
             });
+            await queryClient.invalidateQueries({
+              queryKey: projectStoragePort.getProjectAcquisitionTip({
+                pathParams: { projectIdOrSlug: pathParams.projectId },
+              }).tag,
+              exact: false,
+            });
+            await queryClient.invalidateQueries({
+              queryKey: projectStoragePort.getProjectBySlugOrIdV2({
+                pathParams: { projectIdOrSlug: pathParams.projectId },
+              }).tag,
+              exact: false,
+            });
           }
-
+          if (invalidateTagParams?.project?.pathParams?.projectSlug) {
+            await queryClient.invalidateQueries({
+              queryKey: projectStoragePort.getProjectBySlugOrIdV2({
+                pathParams: { projectIdOrSlug: invalidateTagParams.project.pathParams.projectSlug },
+              }).tag,
+              exact: false,
+            });
+          }
           options?.onSuccess?.(data, variables, context);
         },
       },

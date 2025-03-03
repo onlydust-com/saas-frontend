@@ -27,6 +27,23 @@ export interface OdNewsInterface extends Submission {
   };
 }
 
+const fieldsIds = {
+  aN51H1chmwus: {
+    type: "utZj",
+    news: "qD7L",
+    action: "6pmF",
+    marketing: "u6Tt",
+    telegram: "mC8s",
+  },
+  roLYgHNj31us: {
+    type: "utZj",
+    news: "qD7L",
+    action: "6pmF",
+    marketing: "u6Tt",
+    telegram: "mC8s",
+  },
+};
+
 export class OdNewsModel implements OdNewsInterface {
   submissionId!: Submission["submissionId"];
   questions!: Submission["questions"];
@@ -70,11 +87,9 @@ export class OdNewsModel implements OdNewsInterface {
   }
 
   static buildResponseObject(questions: Submission["questions"]) {
+    const fields = fieldsIds[process.env.NEXT_PUBLIC_OD_NEWS_FORM_ID as keyof typeof fieldsIds];
     return Object.fromEntries(
-      Object.entries(OdNewsQuestionsNames).map(([key, value]) => [
-        key,
-        OdNewsModel.getResponseByQuestionName(questions, value),
-      ])
+      Object.entries(fields).map(([key, value]) => [key, OdNewsModel.getResponseByQuestionId(questions, value)])
     ) as Record<keyof typeof OdNewsQuestionsNames, string | null>;
   }
 
@@ -94,5 +109,9 @@ export class OdNewsModel implements OdNewsInterface {
 
   static getResponseByQuestionName(questions: Submission["questions"], questionName: string) {
     return questions.find(question => question.name === questionName)?.value ?? null;
+  }
+
+  static getResponseByQuestionId(questions: Submission["questions"], questionId: string) {
+    return questions.find(question => question.id === questionId)?.value ?? null;
   }
 }
