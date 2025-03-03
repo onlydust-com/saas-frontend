@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { AppUserIssues } from "@/shared/features/app/app-user-issues/app-user-issues";
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
@@ -63,6 +64,8 @@ export function AppHeader() {
             <IsAuthenticated>
               <IsAuthenticated.Yes>
                 <GlobalSearch />
+
+                <AppUserIssues />
 
                 <NotificationsPopover />
 
