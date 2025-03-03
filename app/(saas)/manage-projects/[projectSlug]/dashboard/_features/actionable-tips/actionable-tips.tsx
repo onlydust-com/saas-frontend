@@ -1,5 +1,6 @@
 "use client";
 
+import { ExternalLink } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -37,7 +38,7 @@ function createTipToActionMap(
       action: projectId => openProject({ projectId }),
     },
     MISSING_README: {
-      actionLabel: "Edit your project",
+      actionLabel: "Edit on GitHub",
       title: "🚨 No README? No credibility. Fix this ASAP.",
       justification:
         "No README = no trust. Contributors need context before they dive in. Get one up now, and make it count. ✅",
@@ -51,7 +52,7 @@ function createTipToActionMap(
       action: projectId => openProject({ projectId }),
     },
     README_TOO_SHORT: {
-      actionLabel: "Edit your project",
+      actionLabel: "Edit on GitHub",
       title: "📖 Your README needs more love — add installation & contribution steps",
       justification:
         "Great projects have great READMEs. More details = more contributors. No one wants to guess how to get started. 🔧",
@@ -113,6 +114,7 @@ export function ActionableTips({ projectId }: ActionableTipsProps) {
 
       <Button onClick={handleAction} className="w-fit">
         {tipAction.actionLabel}
+        {!!url && <ExternalLink />}
       </Button>
     </Card>
   );

@@ -43,6 +43,11 @@ export function ProjectUpdateSidepanel() {
 
   const { mutateAsync: editProject, isPending: isEditingProject } = ProjectReactQueryAdapter.client.useEditProject({
     pathParams: { projectId },
+    invalidateTagParams: {
+      project: {
+        pathParams: { projectSlug: data?.slug ?? "" },
+      },
+    },
   });
 
   const form = useForm<EditProjectFormData>({
