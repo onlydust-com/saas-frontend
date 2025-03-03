@@ -17,6 +17,7 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 import { Icon } from "@/design-system/atoms/icon";
 
 import { ImageBanner } from "@/shared/features/image-banner/image-banner";
+import { RenderComponent } from "@/shared/features/render-component/render-component";
 import { RepoLink } from "@/shared/features/repos/repo-link/repo-link";
 import { ProjectMoreInfo } from "@/shared/features/social/project-more-info/project-more-info";
 import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
@@ -24,10 +25,12 @@ import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarGroup } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH2, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
+import { LatestNews } from "../../overview/_features/latest-news/latest-news";
 import { ProjectNavigation } from "../project-navigation/project-navigation";
 import { PageHeaderProps } from "./page-header.types";
 
@@ -287,7 +290,11 @@ function AlertButton({ projectId, projectName }: { projectId: string; projectNam
 }
 
 export function PageHeader({ projectSlug }: PageHeaderProps) {
-  const { data: project, isLoading } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
+  const {
+    data: project,
+    isLoading,
+    isError,
+  } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: projectSlug,
     },
@@ -297,53 +304,69 @@ export function PageHeader({ projectSlug }: PageHeaderProps) {
   });
 
   return (
-    <div className="flex w-full flex-col bg-background pt-6">
-      <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl" />
-      <div className="relative z-[2] -mt-12 mb-6 ml-2 flex flex-row items-end justify-between tablet:-mt-16 tablet:ml-6">
-        <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background tablet:h-32 tablet:w-32">
-          <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
-          <AvatarFallback>
-            <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
-          </AvatarFallback>
-        </Avatar>
-
-        <div className="flex items-center justify-end gap-3 tablet:hidden">
-          <ActionHeader projectId={project?.id} />
+    <RenderComponent isLoading={isLoading} isError={isError}>
+      <RenderComponent.Loading>
+        <div className="flex w-full flex-col bg-background pb-8 pt-6">
+          <Skeleton className="h-[300px] w-full" />
         </div>
-      </div>
-      <div className="flex w-full flex-col gap-6 px-0">
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full items-center justify-between gap-1">
-            <TypographyH2>{project?.name}</TypographyH2>
-            <div className="flex items-center justify-end gap-3">
-              {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
-              {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
-              <div className="hidden tablet:block">
-                <ActionHeader projectId={project?.id} />
+      </RenderComponent.Loading>
+      <RenderComponent.Error errorMessage="Error loading overview" />
+      <RenderComponent.Default>
+        <div className="flex w-full flex-col bg-background pt-6">
+          <ImageBanner isLoading={isLoading} image={project?.logoUrl} className="h-44 w-full rounded-xl">
+            {project?.id && (
+              <div className="absolute inset-0 hidden items-center justify-end pr-3 tablet:flex">
+                <LatestNews projectId={project?.id} />
               </div>
+            )}
+          </ImageBanner>
+          <div className="relative z-[2] -mt-12 mb-6 ml-2 flex flex-row items-end justify-between tablet:-mt-16 tablet:ml-6">
+            <Avatar className="h-24 w-24 rounded-xl border-4 border-background bg-background tablet:h-32 tablet:w-32">
+              <AvatarImage src={project?.logoUrl} alt={project?.name} className="h-full w-full object-cover" />
+              <AvatarFallback>
+                <img className="h-full w-full object-cover" src={onlydustLogoSpace?.src} alt={project?.name} />
+              </AvatarFallback>
+            </Avatar>
+
+            <div className="flex items-center justify-end gap-3 tablet:hidden">
+              <ActionHeader projectId={project?.id} />
             </div>
           </div>
-          <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
-        </div>
-        <div className="flex flex-row flex-wrap divide-x">
-          <Categories categories={project?.categories?.map(category => category.name) ?? []} />
-          <Languages languages={project?.languages ?? []} />
-          <Leads leads={project?.leads ?? []} />
-        </div>
-        <div className="flex flex-row flex-wrap justify-between gap-4">
-          <Stats project={project} />
+          <div className="flex w-full flex-col gap-6 px-0">
+            <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full items-center justify-between gap-1">
+                <TypographyH2>{project?.name}</TypographyH2>
+                <div className="flex items-center justify-end gap-3">
+                  {project?.id && <AlertButton projectId={project.id} projectName={project.name} />}
+                  {project?.id && <BookMarkButton projectId={project.id} projectName={project.name} />}
+                  <div className="hidden tablet:block">
+                    <ActionHeader projectId={project?.id} />
+                  </div>
+                </div>
+              </div>
+              <TypographyP className="text-muted-foreground">{project?.shortDescription}</TypographyP>
+            </div>
+            <div className="flex flex-row flex-wrap divide-x">
+              <Categories categories={project?.categories?.map(category => category.name) ?? []} />
+              <Languages languages={project?.languages ?? []} />
+              <Leads leads={project?.leads ?? []} />
+            </div>
+            <div className="flex flex-row flex-wrap justify-between gap-4">
+              <Stats project={project} />
 
-          <div className={"flex flex-row flex-wrap gap-2"}>
-            {project?.moreInfos?.map(moreInfoItem => (
-              <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
-            ))}
+              <div className={"flex flex-row flex-wrap gap-2"}>
+                {project?.moreInfos?.map(moreInfoItem => (
+                  <ProjectMoreInfo key={moreInfoItem.url} moreInfoItem={moreInfoItem} buttonProps={{ size: "xs" }} />
+                ))}
+              </div>
+            </div>
+            <Repos repos={project?.repos ?? []} />
+          </div>
+          <div className="w-full px-0 py-8">
+            <ProjectNavigation params={{ projectSlug }} />
           </div>
         </div>
-        <Repos repos={project?.repos ?? []} />
-      </div>
-      <div className="w-full px-0 py-8">
-        <ProjectNavigation params={{ projectSlug }} />
-      </div>
-    </div>
+      </RenderComponent.Default>
+    </RenderComponent>
   );
 }

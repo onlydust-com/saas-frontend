@@ -20,6 +20,10 @@ interface MapDataType {
 interface YAxis {
   title: string[];
   visible?: boolean;
+  labels?: {
+    enabled?: boolean;
+    style?: Record<string, string>;
+  };
 }
 
 export interface PieDataType {
@@ -30,7 +34,7 @@ export interface PieDataType {
 
 export type HighchartsSerieData = number[] | MapDataType[] | PieDataType[];
 
-type DataViewTarget = "contributor" | "projects";
+type DataViewTarget = "contributor" | "projects" | "acquisition";
 
 export interface HighchartsOptionsParams {
   dataViewTarget?: DataViewTarget;
@@ -56,6 +60,7 @@ export interface HighchartsOptionsParams {
   min?: number;
   height?: number;
   yAxis?: YAxis;
+  xAxis?: Options["xAxis"];
 }
 
 export interface HighchartsOptionsReturn {

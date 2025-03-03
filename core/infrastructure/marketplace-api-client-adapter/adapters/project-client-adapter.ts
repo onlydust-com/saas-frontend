@@ -1,4 +1,5 @@
 import { GithubLabelWithCount } from "@/core/domain/github/models/github-label-model";
+import { ProjectAcquisitionTip } from "@/core/domain/project/models/project-acquisition-tip-model";
 import { ProjectAvailableIssues } from "@/core/domain/project/models/project-available-issues-model";
 import { ProjectContributorLabels } from "@/core/domain/project/models/project-contributor-labels-model";
 import { ProjectContributorsV2 } from "@/core/domain/project/models/project-contributors-model-v2";
@@ -10,6 +11,7 @@ import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-ite
 import { Project } from "@/core/domain/project/models/project-model";
 import { ProjectV2 } from "@/core/domain/project/models/project-model-v2";
 import { ProjectProgramListItem } from "@/core/domain/project/models/project-program-list-item";
+import { ProjectRankedListItem } from "@/core/domain/project/models/project-ranked-list-item-model";
 import { ProjectRewardsV2 } from "@/core/domain/project/models/project-rewards-model-v2";
 import { ProjectStats } from "@/core/domain/project/models/project-stats-model";
 import { ProjectTransaction } from "@/core/domain/project/models/project-transaction-model";
@@ -18,6 +20,7 @@ import {
   CreateProjectBody,
   CreateProjectResponse,
   EditProjectBody,
+  GetProjectAcquisitionTipResponse,
   GetProjectActivityResponse,
   GetProjectAvailableIssuesResponse,
   GetProjectByIdResponse,
@@ -34,6 +37,7 @@ import {
   GetProjectTransactionsResponse,
   GetProjectsResponse,
   GetProjectsV2Response,
+  GetSimilarProjectsLeaderboardResponse,
   GetSimilarProjectsResponse,
   ProjectIssueComposerComposeBody,
   ProjectIssueComposerComposeResponse,
@@ -76,6 +80,8 @@ export class ProjectClientAdapter implements ProjectStoragePort {
     getProjectRewardsV2: "projects/:projectIdOrSlug/rewards",
     getSimilarProjects: "projects/:projectIdOrSlug/similar-projects",
     getProjectActivity: "bi/projects/:projectIdOrSlug/activity-graph",
+    getProjectAcquisitionTip: "projects/:projectIdOrSlug/acquisition-tip",
+    getSimilarProjectsLeaderboard: "projects/:projectIdOrSlug/similar-projects",
     projectIssueComposerCompose: "projects/:projectId/issue-composer/compose",
     projectIssueComposerUpdate: "projects/:projectId/issue-composer/compose/:issueCompositionId",
     projectIssueComposerSubmit: "projects/:projectId/issue-composer/submit",
@@ -656,6 +662,56 @@ export class ProjectClientAdapter implements ProjectStoragePort {
       });
 
       return data;
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getProjectAcquisitionTip = ({ pathParams }: FirstParameter<ProjectStoragePort["getProjectAcquisitionTip"]>) => {
+    const path = this.routes["getProjectAcquisitionTip"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetProjectAcquisitionTipResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+      });
+
+      return new ProjectAcquisitionTip(data);
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getSimilarProjectsLeaderboard = ({
+    pathParams,
+  }: FirstParameter<ProjectStoragePort["getSimilarProjectsLeaderboard"]>) => {
+    const path = this.routes["getSimilarProjectsLeaderboard"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path, pathParams });
+
+    const request = async () => {
+      const data = await this.client.request<GetSimilarProjectsLeaderboardResponse>({
+        path,
+        method,
+        tag,
+        pathParams,
+        version: MarketplaceApiVersion.v2,
+      });
+
+      return {
+        ...data,
+        projects: data.projects.map(project => new ProjectRankedListItem(project)),
+      };
     };
 
     return {

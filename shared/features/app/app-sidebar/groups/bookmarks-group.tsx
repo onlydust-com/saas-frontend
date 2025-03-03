@@ -6,7 +6,6 @@ import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapte
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Badge } from "@/shared/ui/badge";
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton } from "@/shared/ui/sidebar";
 
 export function BookmarksGroup() {
@@ -33,12 +32,7 @@ export function BookmarksGroup() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
-        Bookmarks
-        <Badge variant="secondary" className="ml-auto">
-          <span>Beta</span>
-        </Badge>
-      </SidebarGroupLabel>
+      <SidebarGroupLabel>Bookmarks</SidebarGroupLabel>
       <SidebarMenu>
         {items.map(item => (
           <Link href={item.url} onClick={item.onClick} key={item.id}>

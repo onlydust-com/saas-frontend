@@ -16,6 +16,7 @@ export interface Submission {
   submissionId: string;
   questions: Question[];
   urlParameters: UrlParameter[];
+  lastUpdatedAt: string;
 }
 
 export async function GET(request: NextRequest, context: { params: { formId: string } }) {

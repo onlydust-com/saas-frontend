@@ -19,6 +19,7 @@ export function useAreaSplineChartOptions({
   categories,
   series,
   xAxisTitle,
+  xAxis,
   colors = [
     "#B654FC", // --chart-areaspline-primary
     "#4EA7FC", // --chart-areaspline-secondary
@@ -30,7 +31,7 @@ export function useAreaSplineChartOptions({
   yAxis,
   min,
 }: HighchartsOptionsParams): HighchartsOptionsReturn {
-  const { title: yAxisTitle, visible: isYAxisVisible = true } = yAxis ?? {};
+  const { title: yAxisTitle, visible: isYAxisVisible = true, labels } = yAxis ?? {};
 
   const options = useMemo<Options>(
     () => ({
@@ -47,6 +48,7 @@ export function useAreaSplineChartOptions({
         style: titleStyle,
       },
       xAxis: {
+        ...xAxis,
         categories,
         title: {
           text: xAxisTitle,
@@ -66,12 +68,15 @@ export function useAreaSplineChartOptions({
         labels: {
           enabled: false,
           style: yAxisPrimaryStyle,
+          ...labels,
         },
         gridLineColor: "var(--border-primary)",
         visible: isYAxisVisible,
       },
       legend: {
         ...legend,
+        layout: "vertical",
+        align: "left",
         itemStyle: legendStyle,
         itemHoverStyle: legendStyle,
       },
