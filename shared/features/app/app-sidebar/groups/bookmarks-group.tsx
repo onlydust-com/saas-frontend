@@ -6,7 +6,6 @@ import { BookmarkReactQueryAdapter } from "@/core/application/react-query-adapte
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Badge } from "@/shared/ui/badge";
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton } from "@/shared/ui/sidebar";
 
 export function BookmarksGroup() {

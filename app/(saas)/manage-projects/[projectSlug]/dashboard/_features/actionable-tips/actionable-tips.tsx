@@ -33,7 +33,7 @@ function createTipToActionMap(
       actionLabel: "Edit your project",
       title: "🌍 Connect your project to the right ecosystem",
       justification:
-        "Projects linked to an ecosystem get 6x more contributors. Don't build in isolation — be part of something bigger. 🔗",
+        "Projects linked to an ecosystem attract more contributors. Don't build in isolation — be part of something bigger. 🔗",
       action: projectId => openProject({ projectId }),
     },
     MISSING_README: {

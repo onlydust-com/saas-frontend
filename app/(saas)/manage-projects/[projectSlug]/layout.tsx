@@ -25,6 +25,7 @@ import { UngrantFlowProvider, useUngrantFlow } from "@/shared/panels/_flows/ungr
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 import { FinancialDetailSidepanel } from "@/shared/panels/financial-detail-sidepanel/financial-detail-sidepanel";
+import { IssueCreationPanel } from "@/shared/panels/issue-creation-panel/issue-creation-panel";
 import { useProjectTransactionsSidepanel } from "@/shared/panels/project-transactions-sidepanel/project-transactions-sidepanel.hooks";
 import { ProjectUpdateSidepanel } from "@/shared/panels/project-update-sidepanel/project-update-sidepanel";
 import { RewardDetailSidepanel } from "@/shared/panels/reward-detail-sidepanel/reward-detail-sidepanel";
@@ -39,6 +40,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
+import { HoverBorderGradient } from "@/shared/ui/hover-border-gradient";
+import { Tooltip as ShadcnTooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 import { CreateNews } from "../_features/create-news/create-news";
 import { PageHeader } from "./_features/page-header/page-header";
@@ -137,6 +140,33 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
     );
   }, [isFinancial]);
 
+  const CreateIssueButton = useMemo(() => {
+    const repos = data?.getProjectRepos();
+
+    if (!repos?.length) {
+      return (
+        <ShadcnTooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <ShadcnButton variant={"outline"}>Create issue</ShadcnButton>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" align="end">
+            You cannot access this feature because you do not have any repositories
+          </TooltipContent>
+        </ShadcnTooltip>
+      );
+    }
+
+    return (
+      <IssueCreationPanel projectId={data?.id ?? ""}>
+        <HoverBorderGradient>
+          <ShadcnButton variant={"outline"}>Create issue</ShadcnButton>
+        </HoverBorderGradient>
+      </IssueCreationPanel>
+    );
+  }, [data]);
+
   return (
     <>
       {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
@@ -154,7 +184,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                 tabs={[
                   {
                     id: Views.DASHBOARD,
-                    children: <Translate token={"manageProjects:detail.views.dashboard"} />,
+                    children: "Analytics",
                     as: BaseLink,
                     htmlProps: {
                       href: NEXT_ROUTER.manageProjects.dashboard.root(projectSlug),
@@ -196,6 +226,7 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
                     <ShadcnButton variant="outline">Create news</ShadcnButton>
                   </CreateNews>
                 )}
+                {CreateIssueButton}
                 <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
                   <ShadcnButton disabled={!canReward} onClick={() => openRewardFlow({ githubUserIds: [] })}>
                     Reward a contributor
