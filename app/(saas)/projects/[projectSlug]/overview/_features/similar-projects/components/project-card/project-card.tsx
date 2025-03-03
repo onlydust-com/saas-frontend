@@ -8,10 +8,21 @@ import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 import { ProjectCardProps } from "./project-card.types";
 
-export function ProjectCard({ name, description, slug, logoUrl, categories, languages, onClick }: ProjectCardProps) {
+export function ProjectCard({
+  name,
+  description,
+  slug,
+  logoUrl,
+  categories,
+  languages,
+  rank,
+  onClick,
+  className,
+}: ProjectCardProps) {
   const renderCategories = useCallback(() => {
     if (categories.length === 0) return <div />;
 
@@ -110,20 +121,24 @@ export function ProjectCard({ name, description, slug, logoUrl, categories, lang
       className="transition-opacity hover:opacity-80"
       onClick={onClick}
     >
-      <Card className="flex flex-col items-start gap-4 bg-stack p-4">
-        <div className="flex items-center gap-4">
-          <Avatar className="size-10 rounded-xl border">
-            <AvatarImage src={logoUrl} />
-            <AvatarFallback className="rounded-xl border">{name.charAt(0)}</AvatarFallback>
-          </Avatar>
+      <Card className={cn("flex flex-col items-start gap-4 bg-stack p-4", className)}>
+        <div className="flex w-full items-start justify-between gap-2">
+          <div className="flex items-center gap-4">
+            <Avatar className="size-10 rounded-xl border">
+              <AvatarImage src={logoUrl} />
+              <AvatarFallback className="rounded-xl border">{name.charAt(0)}</AvatarFallback>
+            </Avatar>
 
-          <div className="flex flex-1 flex-col gap-1.5">
-            <TypographyH4 className="line-clamp-1 leading-none">{name}</TypographyH4>
-            <TypographyMuted className="line-clamp-2">
-              {description?.length > 60 ? description.slice(0, 60) + "..." : description}
-            </TypographyMuted>
+            <div className="flex flex-1 flex-col gap-1.5">
+              <TypographyH4 className="line-clamp-1 leading-none">{name}</TypographyH4>
+              <TypographyMuted className="line-clamp-2">
+                {description?.length > 60 ? description.slice(0, 60) + "..." : description}
+              </TypographyMuted>
+            </div>
           </div>
+          {rank ? <TypographyH4>#{rank}</TypographyH4> : <div />}
         </div>
+
         {hasLanguagesOrCategories && (
           <div className="flex w-full items-center justify-between">
             {renderCategories()}

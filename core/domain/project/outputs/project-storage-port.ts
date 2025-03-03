@@ -3,6 +3,8 @@ import {
   CreateProjectPortResponse,
   EditProjectPortParams,
   EditProjectPortResponse,
+  GetProjectAcquisitionTipPortParams,
+  GetProjectAcquisitionTipPortResponse,
   GetProjectActivityPortParams,
   GetProjectActivityPortResponse,
   GetProjectAvailableIssuesPortParams,
@@ -36,6 +38,8 @@ import {
   GetProjectsPortResponse,
   GetProjectsV2PortParams,
   GetProjectsV2PortResponse,
+  GetSimilarProjectsLeaderboardPortParams,
+  GetSimilarProjectsLeaderboardPortResponse,
   GetSimilarProjectsPortParams,
   GetSimilarProjectsPortResponse,
   ProjectIssueComposerComposePortParams,
@@ -88,6 +92,8 @@ export interface ProjectStoragePort {
   getProjectRewardsV2(p: GetProjectRewardsV2PortParams): GetProjectRewardsV2PortResponse;
   getSimilarProjects(p: GetSimilarProjectsPortParams): GetSimilarProjectsPortResponse;
   getProjectActivity(p: GetProjectActivityPortParams): GetProjectActivityPortResponse;
+  getProjectAcquisitionTip(p: GetProjectAcquisitionTipPortParams): GetProjectAcquisitionTipPortResponse;
+  getSimilarProjectsLeaderboard(p: GetSimilarProjectsLeaderboardPortParams): GetSimilarProjectsLeaderboardPortResponse;
   projectIssueComposerCompose(p: ProjectIssueComposerComposePortParams): ProjectIssueComposerComposePortResponse;
   projectIssueComposerSubmit(p: ProjectIssueComposerSubmitPortParams): ProjectIssueComposerSubmitPortResponse;
   projectIssueComposerUpdate(p: ProjectIssueComposerUpdatePortParams): ProjectIssueComposerUpdatePortResponse;

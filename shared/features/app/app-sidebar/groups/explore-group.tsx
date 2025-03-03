@@ -90,8 +90,8 @@ export function ExploreGroup() {
                   <Lightbulb />
                   <span>Recommendations</span>
 
-                  <Badge variant="secondary" className="ml-auto">
-                    Beta
+                  <Badge variant="emphasis" className="ml-auto">
+                    New
                   </Badge>
                 </SidebarMenuButton>
               </SidebarMenuItem>

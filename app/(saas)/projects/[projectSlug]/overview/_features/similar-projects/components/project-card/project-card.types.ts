@@ -6,4 +6,6 @@ export type ProjectCardProps = {
   categories: string[];
   languages: { name: string; logoUrl: string; percentage: number }[];
   onClick?: () => void;
+  rank?: number;
+  className?: string;
 };

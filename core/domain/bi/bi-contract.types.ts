@@ -12,6 +12,9 @@ import {
   HttpStorageResponse,
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
+import { BiProjectAcquisitionInterface } from "./models/bi-projects-acquisition-model";
+import { BiProjectVisitorsInterface } from "./models/bi-projects-visitors-model";
+
 /* --------------------- Get Bi Contributors Stats --------------------- */
 export type GetBiContributorsStatsResponse = components["schemas"]["BiContributorsStatsListResponse"];
 export type GetBiContributorsStatsModel = Omit<GetBiContributorsStatsResponse, "stats"> & {
@@ -146,3 +149,37 @@ export type GetBiStatsFinancialsPortParams = HttpClientParameters<{
 }>;
 
 export type GetBiStatsFinancialsPortResponse = HttpStorageResponse<GetBiStatsFinancialsModel>;
+
+/* --------------------- Get Bi Project visitors --------------------- */
+
+export type GetBiProjectVisitorsResponse = components["schemas"]["BiVisitorsStatsListResponse"];
+export type GetBiProjectVisitorsModel = Omit<GetBiProjectVisitorsResponse, "stats"> & {
+  stats: BiProjectVisitorsInterface[];
+};
+
+type GetBiProjectVisitorsQueryParams = operations["getBIProjectVisitorsStats"]["parameters"]["query"];
+
+type GetBiProjectVisitorsPathParams = operations["getBIProjectVisitorsStats"]["parameters"]["path"];
+
+export type GetBiProjectVisitorsPortParams = HttpClientParameters<{
+  QueryParams: GetBiProjectVisitorsQueryParams;
+  PathParams: GetBiProjectVisitorsPathParams;
+}>;
+
+export type GetBiProjectVisitorsPortResponse = HttpStorageResponse<GetBiProjectVisitorsModel>;
+
+/* --------------------- Get Bi Project Acquisition --------------------- */
+
+export type GetBiProjectAcquisitionResponse = components["schemas"]["BiAcquisitionStatsResponse"];
+export type GetBiProjectAcquisitionModel = BiProjectAcquisitionInterface;
+
+type GetBiProjectAcquisitionQueryParams = operations["getBIProjectAcquisitionStats"]["parameters"]["query"];
+
+type GetBiProjectAcquisitionPathParams = operations["getBIProjectAcquisitionStats"]["parameters"]["path"];
+
+export type GetBiProjectAcquisitionPortParams = HttpClientParameters<{
+  QueryParams: GetBiProjectAcquisitionQueryParams;
+  PathParams: GetBiProjectAcquisitionPathParams;
+}>;
+
+export type GetBiProjectAcquisitionPortResponse = HttpStorageResponse<GetBiProjectAcquisitionModel>;

@@ -5,7 +5,7 @@ import { cn } from "@/shared/utils";
 
 import { ImageBannerProps } from "./image-banner.types";
 
-export function ImageBanner({ image, className, isLoading }: ImageBannerProps) {
+export function ImageBanner({ image, className, isLoading, children }: ImageBannerProps) {
   const [isError, setIsError] = useState(false);
 
   const renderImage = useMemo(() => {
@@ -17,6 +17,7 @@ export function ImageBanner({ image, className, isLoading }: ImageBannerProps) {
       return (
         <img
           src={onlydustLogoSpace.src}
+          alt="banner"
           className="absolute inset-0 -z-[1] h-full w-full object-cover object-center"
           style={{
             filter: "blur(50px)",
@@ -28,6 +29,7 @@ export function ImageBanner({ image, className, isLoading }: ImageBannerProps) {
 
     return (
       <img
+        alt="banner"
         src={image}
         className="absolute inset-0 -z-[1] h-full w-full object-cover object-center"
         style={{
@@ -42,5 +44,10 @@ export function ImageBanner({ image, className, isLoading }: ImageBannerProps) {
     );
   }, [isError, image, isLoading]);
 
-  return <div className={cn("relative z-[1] overflow-hidden", className)}>{renderImage}</div>;
+  return (
+    <div className={cn("relative z-[1] overflow-hidden", className)}>
+      {renderImage}
+      {children}
+    </div>
+  );
 }
