@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { AppUserInbox } from "@/shared/features/app/app-user-inbox/app-user-inbox";
 import { AppUserIssues } from "@/shared/features/app/app-user-issues/app-user-issues";
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
 import { GlobalSearch } from "@/shared/features/global-search/global-search";
@@ -64,6 +65,8 @@ export function AppHeader() {
             <IsAuthenticated>
               <IsAuthenticated.Yes>
                 <GlobalSearch />
+
+                <AppUserInbox />
 
                 <AppUserIssues />
 
