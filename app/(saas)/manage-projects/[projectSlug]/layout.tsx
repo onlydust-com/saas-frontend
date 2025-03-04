@@ -3,6 +3,8 @@
 import { ChevronDownIcon } from "lucide-react";
 import { PropsWithChildren, useEffect, useMemo, useRef, useState } from "react";
 
+import NotFound from "@/app/not-found";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { Button } from "@/design-system/atoms/button/variants/button-default";
@@ -250,7 +252,7 @@ function ManageProjectsLayout({
   children,
   params: { projectSlug },
 }: PropsWithChildren<{ params: { projectSlug: string } }>) {
-  const { data } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
+  const { data, isLoading } = ProjectReactQueryAdapter.client.useGetProjectBySlug({
     pathParams: { slug: projectSlug },
     options: {
       enabled: Boolean(projectSlug),
@@ -258,6 +260,14 @@ function ManageProjectsLayout({
   });
 
   const projectId = useMemo(() => data?.id, [data]);
+
+  if (isLoading) {
+    return <div />;
+  }
+
+  if (!isLoading && !data?.me?.isProjectLead) {
+    return <NotFound />;
+  }
 
   return (
     <PageContainer size="large" className="flex-1">
