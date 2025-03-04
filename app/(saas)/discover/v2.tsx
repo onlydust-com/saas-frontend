@@ -4,6 +4,7 @@ import { PageInner } from "@/shared/features/page/page-inner/page-inner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyP } from "@/shared/ui/typography";
 
+import { IssueCard } from "./_components/issue-card/issue-card";
 import { PageCarousel } from "./_components/page-carousel/page-carousel";
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -28,38 +29,32 @@ export default function DiscoverPageV2() {
             description="Find issues to contribute to"
             resourceType="issue"
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>Issue 1</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Issue 1</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Issue 2</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Issue 2</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Issue 3</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Issue 3</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Issue 4</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Issue 4</TypographyP>
-              </CardContent>
-            </Card>
+            {["Issue 1", "Issue 2", "Issue 3", "Issue 4"].map(i => (
+              <IssueCard
+                key={i}
+                title={i}
+                languages={[
+                  {
+                    logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
+                  },
+                  {
+                    logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
+                  },
+                ]}
+                project={{
+                  name: "OnlyRust",
+                  repo: "repo 1",
+                  logoUrl:
+                    "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png",
+                }}
+                issue={{
+                  number: 555,
+                  githubStatus: "OPEN",
+                }}
+                createdAt="2021-01-01"
+                labels={["bug", "help wanted", "good first issue"]}
+              />
+            ))}
           </PageCarousel>
           <PageCarousel
             title="React projects"
