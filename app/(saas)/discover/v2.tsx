@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { TypographyP } from "@/shared/ui/typography";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
+import { NewProjectCard } from "./_components/new-project-card/new-project-card";
 import { PageCarousel } from "./_components/page-carousel/page-carousel";
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -62,38 +63,60 @@ export default function DiscoverPageV2() {
             description="Find projects to contribute to"
             resourceType="project"
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>Project 1</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Project 1</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Project 2</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Project 2</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Project 3</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Project 3</TypographyP>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Project 4</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TypographyP>Project 4</TypographyP>
-              </CardContent>
-            </Card>
+            <NewProjectCard
+              className="min-h-full"
+              name="OnlyRust"
+              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
+              description="Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed open-source, javascript, enabling open-source, javascript, enabling"
+              categories={["React", "JavaScript"]}
+              languages={[
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
+                },
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
+                },
+              ]}
+              stars={100}
+              forks={100}
+              contributors={100}
+            />
+            <NewProjectCard
+              className="min-h-full"
+              name="OnlyRust"
+              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
+              description="Strapi is the next-gen"
+              categories={["React", "JavaScript"]}
+              languages={[
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
+                },
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
+                },
+              ]}
+              stars={100}
+              forks={100}
+              contributors={100}
+            />
+            <NewProjectCard
+              className="min-h-full"
+              name="OnlyRust"
+              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
+              description="Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed open-source, javascript, enabling open-source, javascript, enabling"
+              categories={["React", "JavaScript"]}
+              languages={[
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
+                },
+                {
+                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
+                },
+              ]}
+              stars={100}
+              forks={100}
+              contributors={100}
+            />
           </PageCarousel>
         </PageInner>
       </div>
