@@ -48,7 +48,7 @@ export function AppUserIssues() {
                 <ContributionBadge type={"ISSUE"} number={42} githubStatus={"OPEN"} />
 
                 <TypographySmall className={"line-clamp-1"}>
-                  <Emoji>{"🐛 Fix the bug"}</Emoji>
+                  <Emoji>{"🐛 Fix the scrolling bug"}</Emoji>
                 </TypographySmall>
               </div>
 

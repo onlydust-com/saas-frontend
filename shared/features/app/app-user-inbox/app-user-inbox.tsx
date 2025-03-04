@@ -1,4 +1,4 @@
-import { Check, Inbox, X } from "lucide-react";
+import { ArrowUpFromDot, Check, Inbox, X } from "lucide-react";
 import dynamic from "next/dynamic";
 
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge/variants/contribution-badge-default";
@@ -53,17 +53,35 @@ export function AppUserInbox() {
                 </div>
               </div>
             </header>
+
             <div className={"flex items-center justify-between gap-3"}>
               <div className={"flex flex-1 items-center gap-3"}>
                 <ContributionBadge type={"ISSUE"} number={42} githubStatus={"OPEN"} />
 
                 <TypographySmall className={"line-clamp-1"}>
-                  <Emoji>{"🐛 Fix the bug"}</Emoji>
+                  <Emoji>{"🐛 Fix the scrolling bug"}</Emoji>
                 </TypographySmall>
               </div>
 
               <TypographyMuted className={"text-xs"}>24th Mar.</TypographyMuted>
             </div>
+
+            <div className="pl-1.5">
+              <ArrowUpFromDot className="size-4 text-muted-foreground" />
+            </div>
+
+            <a href="#" className="group flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <ContributionBadge type={"PULL_REQUEST"} number={704} githubStatus={"OPEN"} />
+
+                <TypographySmall className="group-hover:underline">Scrolling issue fixed</TypographySmall>
+              </div>
+
+              <Avatar className="size-5 rounded-full">
+                <AvatarImage src={"https://avatars.githubusercontent.com/u/12345678"} alt={"John Doe"} />
+                {/* <AvatarFallback className="size-5 rounded-full"></AvatarFallback> */}
+              </Avatar>
+            </a>
           </Card>
 
           <Card className="flex flex-col gap-3 p-3">
@@ -93,6 +111,7 @@ export function AppUserInbox() {
                 </div>
               </div>
             </header>
+
             <div className={"flex items-center justify-between gap-3"}>
               <div className={"flex flex-1 items-center gap-3"}>
                 <ContributionBadge type={"ISSUE"} number={156} githubStatus={"OPEN"} />
@@ -104,6 +123,23 @@ export function AppUserInbox() {
 
               <TypographyMuted className={"text-xs"}>25th Mar.</TypographyMuted>
             </div>
+
+            <div className="pl-1.5">
+              <ArrowUpFromDot className="size-4 text-muted-foreground" />
+            </div>
+
+            <a href="#" className="group flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <ContributionBadge type={"PULL_REQUEST"} number={492} githubStatus={"OPEN"} />
+
+                <TypographySmall className="group-hover:underline">Fixed formatting</TypographySmall>
+              </div>
+
+              <Avatar className="size-5 rounded-full">
+                <AvatarImage src={"https://avatars.githubusercontent.com/u/12345678"} alt={"John Doe"} />
+                {/* <AvatarFallback className="size-5 rounded-full"></AvatarFallback> */}
+              </Avatar>
+            </a>
           </Card>
 
           <Card className="flex flex-col gap-3 p-3">
@@ -133,6 +169,7 @@ export function AppUserInbox() {
                 </div>
               </div>
             </header>
+
             <div className={"flex items-center justify-between gap-3"}>
               <div className={"flex flex-1 items-center gap-3"}>
                 <ContributionBadge type={"ISSUE"} number={666} githubStatus={"OPEN"} />
@@ -144,6 +181,23 @@ export function AppUserInbox() {
 
               <TypographyMuted className={"text-xs"}>26th Mar.</TypographyMuted>
             </div>
+
+            <div className="pl-1.5">
+              <ArrowUpFromDot className="size-4 text-muted-foreground" />
+            </div>
+
+            <a href="#" className="group flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <ContributionBadge type={"PULL_REQUEST"} number={854} githubStatus={"OPEN"} />
+
+                <TypographySmall className="group-hover:underline">Adaptive UI on mobile</TypographySmall>
+              </div>
+
+              <Avatar className="size-5 rounded-full">
+                <AvatarImage src={"https://avatars.githubusercontent.com/u/12345678"} alt={"John Doe"} />
+                {/* <AvatarFallback className="size-5 rounded-full"></AvatarFallback> */}
+              </Avatar>
+            </a>
           </Card>
 
           <Card className="flex flex-col gap-3 p-3">
@@ -173,6 +227,7 @@ export function AppUserInbox() {
                 </div>
               </div>
             </header>
+
             <div className={"flex items-center justify-between gap-3"}>
               <div className={"flex flex-1 items-center gap-3"}>
                 <ContributionBadge type={"ISSUE"} number={404} githubStatus={"OPEN"} />
@@ -184,6 +239,23 @@ export function AppUserInbox() {
 
               <TypographyMuted className={"text-xs"}>27th Mar.</TypographyMuted>
             </div>
+
+            <div className="pl-1.5">
+              <ArrowUpFromDot className="size-4 text-muted-foreground" />
+            </div>
+
+            <a href="#" className="group flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <ContributionBadge type={"PULL_REQUEST"} number={153} githubStatus={"OPEN"} />
+
+                <TypographySmall className="group-hover:underline">Fix query performance</TypographySmall>
+              </div>
+
+              <Avatar className="size-5 rounded-full">
+                <AvatarImage src={"https://avatars.githubusercontent.com/u/12345678"} alt={"John Doe"} />
+                {/* <AvatarFallback className="size-5 rounded-full"></AvatarFallback> */}
+              </Avatar>
+            </a>
           </Card>
         </div>
       </SheetContent>
