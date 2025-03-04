@@ -75,6 +75,10 @@ export function AppHeader() {
                 <AppUserMenu />
               </IsAuthenticated.Yes>
               <IsAuthenticated.No>
+                <AppUserInbox />
+
+                <AppUserIssues />
+
                 <SignInButton />
               </IsAuthenticated.No>
             </IsAuthenticated>
