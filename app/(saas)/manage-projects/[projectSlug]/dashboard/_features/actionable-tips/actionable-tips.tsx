@@ -88,7 +88,7 @@ export function ActionableTips({ projectId }: ActionableTipsProps) {
 
   const tipActions = createTipToActionMap(path => router.push(path), openProject);
 
-  if (!projectAcquisitionTip) {
+  if (!projectAcquisitionTip?.identifier) {
     return null;
   }
 
