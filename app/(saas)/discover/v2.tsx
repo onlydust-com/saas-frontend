@@ -1,12 +1,8 @@
-import { Target } from "lucide-react";
-import Link from "next/link";
+import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
-import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
-import { Button } from "@/shared/ui/button";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
 import { NewProjectCard } from "./_components/new-project-card/new-project-card";
@@ -62,26 +58,7 @@ export default function DiscoverPageV2() {
             ))}
           </PageCarousel>
 
-          <ListBanner
-            title={{
-              children: (
-                <>
-                  Embark on an <span className="text-indigo-500">ODQuest</span> Adventure
-                </>
-              ),
-            }}
-            subtitle={{
-              children: "Unlock epic rewards by conquering challenges and join a thriving community of adventurers on an exciting Quest!",
-            }}
-            logo={<Target className="size-16 text-indigo-500" />}
-            classNames={{
-              base: "bg-gradient-to-br from-indigo-900 to-transparent to-80%",
-            }}
-          >
-            <Button size="sm" asChild>
-              <Link href={NEXT_ROUTER.quests.root}>Join now</Link>
-            </Button>
-          </ListBanner>
+          <PageBanner />
 
           <PageCarousel
             title="React projects"
