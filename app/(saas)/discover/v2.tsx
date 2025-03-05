@@ -1,5 +1,7 @@
 import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
 
+import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
+
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
@@ -10,6 +12,8 @@ import { PageCarousel } from "./_components/page-carousel/page-carousel";
 import { PageHeader } from "./_features/page-header/page-header";
 
 export default function DiscoverPageV2() {
+  const { data: tailoredDiscoveries } = RecoReactQueryAdapter.client.useGetTailoredDiscoveries({});
+
   return (
     <PageContainer size="full">
       <NavigationBreadcrumb
@@ -24,104 +28,57 @@ export default function DiscoverPageV2() {
       <div className="flex flex-col gap-16 pt-4">
         <PageHeader />
         <PageInner className="relative z-[1] flex w-full flex-col gap-14">
-          <PageCarousel
-            title="Recommended for you"
-            count={10}
-            description="Find issues to contribute to"
-            resourceType="issue"
-          >
-            {["Issue 1", "Issue 2", "Issue 3", "Issue 4"].map(i => (
-              <IssueCard
-                key={i}
-                title={i}
-                languages={[
-                  {
-                    logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
-                  },
-                  {
-                    logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
-                  },
-                ]}
-                project={{
-                  name: "OnlyRust",
-                  repo: "repo 1",
-                  logoUrl:
-                    "https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png",
-                }}
-                issue={{
-                  number: 555,
-                  githubStatus: "OPEN",
-                }}
-                createdAt="2021-01-01"
-                labels={["bug", "help wanted", "good first issue"]}
-              />
-            ))}
-          </PageCarousel>
+          {tailoredDiscoveries?.sections.map((section, index) => {
+            const resourceType = section.getResourceType();
+            const projects = section.getProjects();
+            const issues = section.getIssues();
+            const count = projects.length ?? issues.length ?? 0;
 
-          <PageBanner />
+            return (
+              <>
+                <PageCarousel
+                  key={section.title}
+                  title={section.title}
+                  count={count}
+                  description={section.subtitle}
+                  resourceType={resourceType}
+                >
+                  {projects.map(project => (
+                    <NewProjectCard
+                      key={project.id}
+                      className="min-h-full"
+                      name={project?.name}
+                      logoUrl={project.logoUrl}
+                      description={project.shortDescription}
+                      categories={project.categories.map(category => category.name)}
+                      languages={project.languages}
+                      stars={project.starCount}
+                      forks={project.forkCount}
+                      contributors={project.contributorCount}
+                    />
+                  ))}
 
-          <PageCarousel
-            title="React projects"
-            count={10}
-            description="Find projects to contribute to"
-            resourceType="project"
-          >
-            <NewProjectCard
-              className="min-h-full"
-              name="OnlyRust"
-              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
-              description="Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed open-source, javascript, enabling open-source, javascript, enabling"
-              categories={["React", "JavaScript"]}
-              languages={[
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
-                },
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
-                },
-              ]}
-              stars={100}
-              forks={100}
-              contributors={100}
-            />
-            <NewProjectCard
-              className="min-h-full"
-              name="OnlyRust"
-              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
-              description="Strapi is the next-gen"
-              categories={["React", "JavaScript"]}
-              languages={[
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
-                },
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
-                },
-              ]}
-              stars={100}
-              forks={100}
-              contributors={100}
-            />
+                  {issues.map(issue => (
+                    <IssueCard
+                      key={issue.id}
+                      title={issue.title}
+                      languages={issue.languages}
+                      project={{
+                        logoUrl: "",
+                        name: issue.repo.owner,
+                        repo: issue.repo.name,
+                      }}
+                      issue={{ number: issue.number, githubStatus: issue.status }}
+                      createdAt={issue.createdAt}
+                      labels={issue.labels.map(label => label.name)}
+                    />
+                  ))}
+                </PageCarousel>
 
-            <NewProjectCard
-              className="min-h-full"
-              name="OnlyRust"
-              logoUrl="https://develop-onlydust-app-images.s3.eu-west-1.amazonaws.com/d1a4698447769f2de7e4467144024b97.png"
-              description="Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed open-source, javascript, enabling open-source, javascript, enabling"
-              categories={["React", "JavaScript"]}
-              languages={[
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/typescript.png",
-                },
-                {
-                  logoUrl: "https://od-languages-develop.s3.eu-west-1.amazonaws.com/background/javascript.png",
-                },
-              ]}
-              stars={100}
-              forks={100}
-              contributors={100}
-            />
-          </PageCarousel>
+                {index === 0 ? <PageBanner /> : null}
+              </>
+            );
+          })}
         </PageInner>
       </div>
     </PageContainer>

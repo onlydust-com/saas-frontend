@@ -3,6 +3,7 @@ import { ContributionGithubStatusUnion } from "@/core/domain/contribution/models
 export interface IssueCardProps {
   title: string;
   languages: {
+    name: string;
     logoUrl: string;
   }[];
   project: {

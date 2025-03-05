@@ -1,14 +1,10 @@
 import { GitFork, Star, UserRound } from "lucide-react";
-import { ReactElement } from "react";
-
-import { bootstrap } from "@/core/bootstrap";
-
-import { Icon } from "@/design-system/atoms/icon";
-import { Typo } from "@/design-system/atoms/typo";
+import { useCallback } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "@/shared/ui/card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
@@ -49,26 +45,63 @@ export function NewProjectCard({
 }: NewProjectCardProps) {
   const limitedCategories = categories?.slice(0, 2) ?? [];
 
-  return (
-    <Card className={cn("flex flex-col", className)}>
-      <CardHeader className="pb-4">
-        <CardTitle className="flex w-full flex-row items-center justify-start gap-2">
-          <Avatar className="size-12 rounded-xl">
-            <AvatarImage src={logoUrl} />
-            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col gap-1">
-            <div className="line-clamp-1 flex-1">
-              <TypographyH4>{name}</TypographyH4>
-            </div>
-            <Metrics stars={stars} forks={forks} contributors={contributors} />
+  const renderLanguages = useCallback(() => {
+    if (!languages?.length) return null;
+
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex items-center gap-1">
+            {languages.slice(0, 2).map(language => (
+              <Avatar className="size-5" key={language.name}>
+                <AvatarImage src={language.logoUrl} />
+                <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+            ))}
           </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1 pb-4">
+        </TooltipTrigger>
+
+        <TooltipContent side="bottom" align="end">
+          <ul className="flex flex-col gap-2">
+            {languages?.map(language => (
+              <li key={language.name} className="flex items-center justify-between gap-10">
+                <div className="flex items-center gap-1">
+                  <Avatar className="size-5" key={language.name}>
+                    <AvatarImage src={language.logoUrl} />
+                    <AvatarFallback className="rounded-xl">{language.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <TypographySmall>{language.name}</TypographySmall>
+                </div>
+
+                <TypographySmall>{language.percentage}%</TypographySmall>
+              </li>
+            ))}
+          </ul>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }, [languages]);
+
+  return (
+    <Card className={cn("flex flex-col gap-4 p-4", className)}>
+      <CardTitle className="flex w-full flex-row items-center justify-start gap-2">
+        <Avatar className="size-12 rounded-xl">
+          <AvatarImage src={logoUrl} />
+          <AvatarFallback className="rounded-xl">{name.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col gap-1">
+          <div className="line-clamp-1 flex-1">
+            <TypographyH4>{name}</TypographyH4>
+          </div>
+          <Metrics stars={stars} forks={forks} contributors={contributors} />
+        </div>
+      </CardTitle>
+
+      <CardContent className="flex-1 p-0">
         <TypographyMuted className="line-clamp-3">{description}</TypographyMuted>
       </CardContent>
-      <CardFooter className="flex flex-row items-center justify-between gap-1">
+
+      <CardFooter className="flex flex-row items-center justify-between gap-4 p-0">
         <div className="flex flex-row items-center justify-end gap-1">
           {limitedCategories.map(label => (
             <Badge variant={"secondary"} key={label}>
@@ -76,13 +109,8 @@ export function NewProjectCard({
             </Badge>
           ))}
         </div>
-        <div className="flex flex-row items-center justify-end gap-1">
-          {languages.map(language => (
-            <Avatar className="size-5">
-              <AvatarImage src={language.logoUrl} />
-            </Avatar>
-          ))}
-        </div>
+
+        {renderLanguages()}
       </CardFooter>
     </Card>
   );
