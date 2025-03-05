@@ -1,3 +1,4 @@
+import { TailoredDiscoveriesInterface } from "@/core/domain/reco/models/tailored-discoveries-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -50,3 +51,13 @@ export type GetRecommendedProjectsPortResponse = HttpStorageResponse<GetRecommen
 export type GetRecommendedProjectsPortParams = HttpClientParameters<{
   QueryParams: GetRecommendedProjectsQueryParams;
 }>;
+
+/* ------------------------------ Get Tailored Discoveries ------------------------------ */
+
+export type GetTailoredDiscoveriesResponse = components["schemas"]["TailoredDiscoveriesResponse"];
+
+export type GetTailoredDiscoveriesModel = TailoredDiscoveriesInterface;
+
+export type GetTailoredDiscoveriesPortResponse = HttpStorageResponse<GetTailoredDiscoveriesModel>;
+
+export type GetTailoredDiscoveriesPortParams = HttpClientParameters<object>;

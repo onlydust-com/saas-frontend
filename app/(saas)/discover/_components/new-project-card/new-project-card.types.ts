@@ -4,7 +4,9 @@ export interface NewProjectCardProps {
   description: string;
   categories: string[];
   languages: {
+    name: string;
     logoUrl: string;
+    percentage: number;
   }[];
   stars: number;
   forks: number;
