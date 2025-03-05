@@ -2,19 +2,29 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 import { Typo } from "@/design-system/atoms/typo/variants/typo-default";
 
 import { ListBannerProps } from "@/shared/features/list-banner/list-banner.types";
+import { cn } from "@/shared/utils";
 
-export function ListBanner({ title, subtitle, logo }: ListBannerProps) {
+export function ListBanner({ title, subtitle, logo, classNames, children }: ListBannerProps) {
+  const { base, ...restClassNames } = classNames ?? {};
+
   return (
     <Paper
       size="4xl"
       background="primary"
       border="primary"
       rounded="2xl"
-      classNames={{ base: "flex justify-between items-center gap-4xl overflow-hidden" }}
+      classNames={{
+        base: cn("flex justify-between items-center gap-4xl overflow-hidden", base),
+        ...restClassNames,
+      }}
     >
-      <div className="flex flex-col gap-md">
-        <Typo as="h1" variant={"heading"} size="md" weight="medium" {...title} />
-        <Typo as="p" size="sm" color="tertiary" {...subtitle} />
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-md">
+          <Typo as="h1" variant={"heading"} size="md" weight="medium" {...title} />
+          <Typo as="p" size="sm" color="tertiary" {...subtitle} />
+        </div>
+
+        {children ? <div>{children}</div> : null}
       </div>
 
       <div
