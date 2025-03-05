@@ -11,7 +11,7 @@ export function PageHeader() {
       <Image
         src={background}
         alt=""
-        className={"pointer-events-none absolute inset-0 -z-[1] h-auto w-full opacity-50"}
+        className={"pointer-events-none absolute inset-0 -z-[1] h-auto w-full rounded-t-2xl opacity-50"}
         loading="eager"
       />
       <div className="relative z-[1] mx-auto flex w-full max-w-[600px] flex-col items-center justify-center gap-6">

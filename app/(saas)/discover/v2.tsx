@@ -1,8 +1,8 @@
+import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
+
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { TypographyP } from "@/shared/ui/typography";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
 import { NewProjectCard } from "./_components/new-project-card/new-project-card";
@@ -57,6 +57,9 @@ export default function DiscoverPageV2() {
               />
             ))}
           </PageCarousel>
+
+          <PageBanner />
+
           <PageCarousel
             title="React projects"
             count={10}
@@ -99,6 +102,7 @@ export default function DiscoverPageV2() {
               forks={100}
               contributors={100}
             />
+
             <NewProjectCard
               className="min-h-full"
               name="OnlyRust"
