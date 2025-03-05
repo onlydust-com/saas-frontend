@@ -45,7 +45,7 @@ function NoSufficentData() {
                 <Bot className="size-5 text-purple-200" />
                 <CardTitle className="text-left text-base text-purple-100">ODSay</CardTitle>
               </div>
-              <CardDescription className="text-left">Let chatbot help you find the right project.</CardDescription>
+              <CardDescription className="text-left">Let our chatbot help you find the right project.</CardDescription>
             </CardHeader>
           </Card>
         </Link>
