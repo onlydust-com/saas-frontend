@@ -1,15 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Github } from "lucide-react";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { usePublicRepoScope } from "@/core/application/auth0-client-adapter/hooks/use-public-repo-scope";
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
+import { useGithubPermissionsContext } from "@/shared/features/github-permissions/github-permissions.context";
 import { ApplyCounter } from "@/shared/features/issues/apply-counter/apply-counter";
 import { ApplyIssueGuideline } from "@/shared/features/issues/apply-issue-guideline/apply-issue-guideline";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
@@ -39,6 +41,7 @@ export function IssueSidepanel({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
+
       <Content
         open={open}
         projectId={projectId}
@@ -90,7 +93,7 @@ function Content({
 
   const issue = issueData ? issueData : contribution ? issueFromContribution(contribution) : undefined;
 
-  const isHackathon = !!issue?.hackathon?.id || !!contribution?.isIncludedInLiveHackathon;
+  const isHackathon = Boolean(issue?.hackathon?.id) || Boolean(contribution?.isIncludedInLiveHackathon);
 
   const { user } = useAuthUser();
 
@@ -99,6 +102,11 @@ function Content({
   const hasCurrentUserApplication = Boolean(currentUserApplication);
 
   const { data: myApplications } = MeReactQueryAdapter.client.useGetMyApplications({});
+
+  const isMaxApplicationsOnLiveHackathonReached = useMemo(
+    () => myApplications?.isMaxApplicationsOnLiveHackathonReached() ?? false,
+    [myApplications]
+  );
 
   const { mutateAsync: createApplication, isPending: isCreatingApplication } =
     MeReactQueryAdapter.client.usePostMyApplication({
@@ -129,6 +137,18 @@ function Content({
       },
     });
 
+  const { handleVerifyPermissions, isAuthorized } = usePublicRepoScope();
+  const { setIsGithubPublicScopePermissionModalOpen } = useGithubPermissionsContext();
+
+  function handlePermissions(fn: () => void) {
+    if (!isAuthorized) {
+      setIsGithubPublicScopePermissionModalOpen(true);
+      return;
+    }
+
+    handleVerifyPermissions(fn);
+  }
+
   const form = useForm<IssueSidepanelFormSchema>({
     resolver: zodResolver(issueSidepanelzodSchema),
   });
@@ -140,7 +160,7 @@ function Content({
   }, [currentUserApplication]);
 
   function handleCreate(values: IssueSidepanelFormSchema) {
-    if (myApplications?.isMaxApplicationsOnLiveHackathonReached()) return;
+    if (isMaxApplicationsOnLiveHackathonReached) return;
 
     const applicationProjectId = issue?.project?.id ?? projectId;
     const applicationIssueId = issue?.id ?? issueId;
@@ -188,7 +208,7 @@ function Content({
 
     if (canApply) {
       return (
-        <Button type="submit" loading={isCreatingApplication}>
+        <Button type="submit" loading={isCreatingApplication} disabled={isMaxApplicationsOnLiveHackathonReached}>
           Send application
         </Button>
       );
@@ -218,7 +238,12 @@ function Content({
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleCreate)} className="flex h-full flex-col gap-4">
+        <form
+          onSubmit={form.handleSubmit((values: IssueSidepanelFormSchema) =>
+            handlePermissions(() => handleCreate(values))
+          )}
+          className="flex h-full flex-col gap-4"
+        >
           <Header issueNumber={issue.number} issueStatus={issue.status} issueTitle={issue.title} />
 
           <div className="flex flex-1 flex-col gap-4 overflow-auto">
@@ -233,6 +258,8 @@ function Content({
             {canApply && isHackathon ? <ApplyIssueGuideline /> : null}
           </div>
 
+          {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
+
           {canApply && isHackathon ? (
             <Card className="flex w-full flex-col gap-4 p-3">
               <div className="flex flex-col items-start gap-1">
@@ -243,8 +270,6 @@ function Content({
               <ApplyCounter />
             </Card>
           ) : null}
-
-          {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
 
           <footer className="flex w-full items-center justify-between">
             <Button type="button" variant="outline" size="icon" asChild>
