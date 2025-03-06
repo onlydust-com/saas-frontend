@@ -5,6 +5,8 @@ import { type VariantProps, cva } from "class-variance-authority";
 import { X } from "lucide-react";
 import * as React from "react";
 
+import { Skeleton } from "@/shared/ui/skeleton";
+import { TypographyMuted } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
 const Sheet = SheetPrimitive.Root;
@@ -51,12 +53,14 @@ const sheetVariants = cva(
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+    VariantProps<typeof sheetVariants> {
+  overlayProps?: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>;
+}
 
 const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
-  ({ side = "right", className, children, ...props }, ref) => (
+  ({ side = "right", className, children, overlayProps, ...props }, ref) => (
     <SheetPortal>
-      <SheetOverlay />
+      <SheetOverlay {...overlayProps} />
       <SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
         <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity data-[state=open]:bg-secondary hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
           <X className="h-4 w-4" />
@@ -95,13 +99,39 @@ const SheetDescription = React.forwardRef<
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
+const SheetLoading = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex h-full flex-col gap-4", className)} {...props}>
+    <header className="w-full pr-6">
+      <Skeleton className="h-7 w-full" />
+    </header>
+
+    <div className="flex-1">
+      <Skeleton className="h-72 w-full" />
+    </div>
+
+    <SheetFooter>
+      <Skeleton className="h-9 w-16" />
+    </SheetFooter>
+  </div>
+);
+SheetLoading.displayName = "SheetLoading";
+
+const SheetError = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex h-full flex-col items-center justify-center", className)} {...props}>
+    <TypographyMuted>An error occurred.</TypographyMuted>
+  </div>
+);
+SheetError.displayName = "SheetError";
+
 export {
   Sheet,
   SheetClose,
   SheetContent,
   SheetDescription,
+  SheetError,
   SheetFooter,
   SheetHeader,
+  SheetLoading,
   SheetOverlay,
   SheetPortal,
   SheetTitle,
