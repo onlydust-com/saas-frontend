@@ -77,7 +77,7 @@ function Content({
     return (
       <>
         <SheetHeader>
-          <div className="flex w-full flex-row items-center justify-start gap-lg overflow-hidden">
+          <div className="flex w-full items-center gap-2 text-left">
             <ContributionBadge type="ISSUE" number={issue.number} githubStatus={issue.status} />
             <TypographyH4 className="line-clamp-1">{issue.title}</TypographyH4>
           </div>
