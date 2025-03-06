@@ -197,7 +197,7 @@ function ProjectIssuesPage({
             />
           ) : (
             issues.map(issue => (
-              <IssueSidepanel key={issue.id} issueId={issue.id}>
+              <IssueSidepanel key={issue.id} projectId={data?.id ?? ""} issueId={issue.id}>
                 <CardIssue
                   title={issue.title}
                   contribution={{

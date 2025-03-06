@@ -1,37 +1,50 @@
-import { ArrowRight, ChevronLeft, CircleDotDashed, CircleEllipsis, CircleHelp, GitMerge } from "lucide-react";
+import { ArrowRight, CircleDotDashed, CircleEllipsis, CircleHelp, GitMerge } from "lucide-react";
 import { PropsWithChildren, useState } from "react";
 
 import { ContributionGithubStatusUnion } from "@/core/domain/contribution/models/contribution.types";
 
-import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
-
+import { Header } from "@/shared/panels/issue-sidepanel/_components/header/header";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/shared/ui/sheet";
-import { TypographyH3, TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
+import { TypographyH3, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 export function ApplyPanel({
   children,
   issueTitle,
   issueNumber,
   issueStatus,
-}: PropsWithChildren<{ issueTitle: string; issueNumber: number; issueStatus: ContributionGithubStatusUnion }>) {
+  onApply,
+  onBookmark,
+}: PropsWithChildren<{
+  issueTitle: string;
+  issueNumber: number;
+  issueStatus: ContributionGithubStatusUnion;
+  onApply: () => void;
+  onBookmark: () => void;
+}>) {
   const [open, setOpen] = useState(false);
 
+  function handleApply() {
+    onApply();
+    setOpen(false);
+  }
+
+  function handleBookmark() {
+    // TODO bookmark issue?
+    onBookmark();
+  }
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
 
       <SheetContent className="isolate flex h-full flex-col" overlayProps={{ className: "bg-transparent" }}>
-        <SheetHeader>
-          <div className="flex items-center gap-2 text-left">
-            <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setOpen(false)}>
-              <ChevronLeft />
-            </Button>
-            <ContributionBadge type="ISSUE" number={issueNumber} githubStatus={issueStatus} />
-            <TypographyH4 className="line-clamp-1">{issueTitle}</TypographyH4>
-          </div>
-        </SheetHeader>
+        <Header
+          issueNumber={issueNumber}
+          issueStatus={issueStatus}
+          issueTitle={issueTitle}
+          onBack={() => setOpen(false)}
+        />
 
         <div className="flex flex-1 flex-col gap-4 overflow-auto">
           <Card className="flex flex-col gap-3 p-3">
@@ -58,7 +71,7 @@ export function ApplyPanel({
 
             <TypographyP>❌ You need to wait for assignment before starting</TypographyP>
 
-            <Button className="w-fit">
+            <Button className="w-fit" onClick={handleApply}>
               <ArrowRight /> Apply and Wait for Assignment
             </Button>
           </Card>
@@ -89,7 +102,7 @@ export function ApplyPanel({
               ⚠️ Risk of overlapping with others on the same issue
             </TypographyP>
 
-            <Button className="w-fit">
+            <Button className="w-fit" onClick={handleBookmark}>
               <ArrowRight /> Get to work
             </Button>
           </Card>
