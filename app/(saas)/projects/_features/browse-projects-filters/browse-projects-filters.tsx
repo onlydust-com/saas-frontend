@@ -12,8 +12,8 @@ export function BrowseProjectsFilters() {
   } = useBrowseProjectsContext();
 
   return (
-    <div className="flex flex-row items-center justify-between gap-4">
-      <div className="flex-[1]">
+    <div className="flex flex-col items-center justify-start gap-4 xl:flex-row xl:justify-between">
+      <div className="w-full flex-1 xl:w-fit">
         <Input
           placeholder="Search"
           className="w-full"
@@ -21,7 +21,7 @@ export function BrowseProjectsFilters() {
           onChange={e => set({ search: e.target.value })}
         />
       </div>
-      <div className="flex flex-[3] flex-row items-center justify-end gap-2">
+      <div className="flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-2 xl:w-fit xl:flex-[3] xl:justify-end">
         <LanguagesFilter languagesIds={filters.languageIds} onSelect={languageIds => set({ languageIds })} />
         <EcosystemsFilter ecosystemsIds={filters.ecosystemIds} onSelect={ecosystemIds => set({ ecosystemIds })} />
         <CategoriesFilter categoriesIds={filters.categoryIds} onSelect={categoryIds => set({ categoryIds })} />
