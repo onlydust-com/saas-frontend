@@ -37,7 +37,7 @@ export function PageCarousel({ children, title, description, count, resourceType
               <ResourceBadge resourceType={resourceType} />
               <TypographyH3>
                 {title}
-                {count && ` (${count})`}
+                {count ? ` (${count})` : null}
               </TypographyH3>
             </div>
             <TypographyMuted>{description}</TypographyMuted>
