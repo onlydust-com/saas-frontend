@@ -227,6 +227,7 @@ function Content({
     if (issue) {
       return (
         <ApplyPanel
+          issueId={issue.id}
           issueTitle={issue.title}
           issueNumber={issue.number}
           issueStatus={issue.status}

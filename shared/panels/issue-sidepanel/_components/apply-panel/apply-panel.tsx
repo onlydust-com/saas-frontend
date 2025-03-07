@@ -4,6 +4,7 @@ import { PropsWithChildren, useState } from "react";
 import { ContributionGithubStatusUnion } from "@/core/domain/contribution/models/contribution.types";
 
 import { Header } from "@/shared/panels/issue-sidepanel/_components/header/header";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
@@ -11,27 +12,32 @@ import { TypographyH3, TypographyMuted, TypographyP } from "@/shared/ui/typograp
 
 export function ApplyPanel({
   children,
+  issueId,
   issueTitle,
   issueNumber,
   issueStatus,
   onApply,
   onBookmark,
 }: PropsWithChildren<{
+  issueId: number;
   issueTitle: string;
   issueNumber: number;
   issueStatus: ContributionGithubStatusUnion;
   onApply: () => void;
   onBookmark: () => void;
 }>) {
+  const { capture } = usePosthog();
   const [open, setOpen] = useState(false);
 
   function handleApply() {
+    capture("issue_sidepanel_apply_normal", { issue_id: issueId });
     onApply();
     setOpen(false);
   }
 
   function handleBookmark() {
-    // TODO bookmark issue?
+    capture("issue_sidepanel_apply_free", { issue_id: issueId });
+
     onBookmark();
   }
   return (
