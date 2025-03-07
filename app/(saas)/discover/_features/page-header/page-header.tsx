@@ -1,5 +1,5 @@
 import background from "@/public/images/backgrounds/discover-header.png";
-import { ArrowRight, Bot, FolderSearch, LayoutList } from "lucide-react";
+import { ArrowRight, Bot, FolderSearch } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
