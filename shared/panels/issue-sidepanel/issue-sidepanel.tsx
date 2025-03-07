@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckedState } from "@radix-ui/react-checkbox";
+import { AnimatePresence, motion } from "framer-motion";
 import { Github } from "lucide-react";
 import { PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -42,25 +43,28 @@ export function IssueSidepanel({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
 
-      <Content
-        open={open}
-        projectId={projectId}
-        issueId={issueId}
-        contributionUuid={contributionUuid}
-        onClose={() => setOpen(false)}
-      />
+      <SheetContent className="h-full">
+        <AnimatePresence>
+          {open && (
+            <Content
+              projectId={projectId}
+              issueId={issueId}
+              contributionUuid={contributionUuid}
+              onClose={() => setOpen(false)}
+            />
+          )}
+        </AnimatePresence>
+      </SheetContent>
     </Sheet>
   );
 }
 
 function Content({
-  open,
   projectId,
   issueId = 0,
   contributionUuid = "",
   onClose,
 }: {
-  open: boolean;
   projectId: string;
   issueId?: number;
   contributionUuid?: string;
@@ -75,7 +79,7 @@ function Content({
     isError: isIssueError,
   } = IssueReactQueryAdapter.client.useGetIssue({
     pathParams: { issueId },
-    options: { enabled: Boolean(issueId) && open },
+    options: { enabled: Boolean(issueId) },
   });
 
   const {
@@ -84,7 +88,7 @@ function Content({
     isError: isContributionError,
   } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid },
-    options: { enabled: Boolean(contributionUuid) && open },
+    options: { enabled: Boolean(contributionUuid) },
   });
 
   const isLoading = isIssueLoading || isContributionLoading;
@@ -231,59 +235,59 @@ function Content({
     return null;
   };
 
-  const renderContent = () => {
-    if (isLoading) return <SheetLoading />;
+  if (isLoading) return <SheetLoading />;
 
-    if (!issue || isError) return <SheetError />;
+  if (!issue || isError) return <SheetError />;
 
-    return (
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit((values: IssueSidepanelFormSchema) =>
-            handlePermissions(() => handleCreate(values))
-          )}
-          className="flex h-full flex-col gap-4"
-        >
-          <Header issueNumber={issue.number} issueStatus={issue.status} issueTitle={issue.title} />
+  return (
+    <Form {...form}>
+      <motion.form
+        key="issue-sidepanel-form"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onSubmit={form.handleSubmit((values: IssueSidepanelFormSchema) =>
+          handlePermissions(() => handleCreate(values))
+        )}
+        className="flex h-full flex-col gap-4"
+      >
+        <Header issueNumber={issue.number} issueStatus={issue.status} issueTitle={issue.title} />
 
-          <div className="flex flex-1 flex-col gap-4 overflow-auto">
-            <Metrics
-              applicantsCount={issue.applicants.length}
-              commentsCount={issue.commentCount}
-              createdAt={issue.createdAt}
-            />
+        <div className="flex flex-1 flex-col gap-4 overflow-auto">
+          <Metrics
+            applicantsCount={issue.applicants.length}
+            commentsCount={issue.commentCount}
+            createdAt={issue.createdAt}
+          />
 
-            <Summary body={issue.body} labels={issue.labels.map(label => label.name)} author={issue.author} />
+          <Summary body={issue.body} labels={issue.labels.map(label => label.name)} author={issue.author} />
 
-            {canApply && isHackathon ? <ApplyIssueGuideline /> : null}
-          </div>
+          {canApply && isHackathon ? <ApplyIssueGuideline /> : null}
+        </div>
 
-          {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
+        {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
 
-          {canApply && isHackathon ? (
-            <Card className="flex w-full flex-col gap-4 p-3">
-              <div className="flex flex-col items-start gap-1">
-                <TypographyH4>My applications limit</TypographyH4>
-                <CardDescription>You can apply to 10 issues at a time.</CardDescription>
-              </div>
+        {canApply && isHackathon ? (
+          <Card className="flex w-full flex-col gap-4 p-3">
+            <div className="flex flex-col items-start gap-1">
+              <TypographyH4>My applications limit</TypographyH4>
+              <CardDescription>You can apply to 10 issues at a time.</CardDescription>
+            </div>
 
-              <ApplyCounter />
-            </Card>
-          ) : null}
+            <ApplyCounter />
+          </Card>
+        ) : null}
 
-          <footer className="flex w-full items-center justify-between">
-            <Button type="button" variant="outline" size="icon" asChild>
-              <a href={issue.htmlUrl} target="_blank" rel="noopener noreferrer">
-                <Github />
-              </a>
-            </Button>
+        <footer className="flex w-full items-center justify-between">
+          <Button type="button" variant="outline" size="icon" asChild>
+            <a href={issue.htmlUrl} target="_blank" rel="noopener noreferrer">
+              <Github />
+            </a>
+          </Button>
 
-            {renderCta()}
-          </footer>
-        </form>
-      </Form>
-    );
-  };
-
-  return <SheetContent className="h-full">{renderContent()}</SheetContent>;
+          {renderCta()}
+        </footer>
+      </motion.form>
+    </Form>
+  );
 }
