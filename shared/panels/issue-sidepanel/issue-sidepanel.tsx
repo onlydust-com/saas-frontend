@@ -231,6 +231,7 @@ function Content({
           issueTitle={issue.title}
           issueNumber={issue.number}
           issueStatus={issue.status}
+          issueUrl={issue.htmlUrl}
           onApply={() => setCanApply(true)}
           onBookmark={() => onClose()}
         >
@@ -269,12 +270,12 @@ function Content({
 
           <Summary body={issue.body} labels={issue.labels.map(label => label.name)} author={issue.author} />
 
-          {canApply && isHackathon ? <ApplyIssueGuideline /> : null}
+          {isHackathon ? <ApplyIssueGuideline /> : null}
         </div>
 
         {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
 
-        {canApply && isHackathon ? (
+        {isHackathon ? (
           <Card className="flex w-full flex-col gap-4 p-3">
             <div className="flex flex-col items-start gap-1">
               <TypographyH4>My applications limit</TypographyH4>

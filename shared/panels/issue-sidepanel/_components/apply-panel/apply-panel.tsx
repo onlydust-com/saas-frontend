@@ -16,6 +16,7 @@ export function ApplyPanel({
   issueTitle,
   issueNumber,
   issueStatus,
+  issueUrl,
   onApply,
   onBookmark,
 }: PropsWithChildren<{
@@ -23,6 +24,7 @@ export function ApplyPanel({
   issueTitle: string;
   issueNumber: number;
   issueStatus: ContributionGithubStatusUnion;
+  issueUrl: string;
   onApply: () => void;
   onBookmark: () => void;
 }>) {
@@ -37,8 +39,8 @@ export function ApplyPanel({
 
   function handleBookmark() {
     capture("issue_sidepanel_apply_free", { issue_id: issueId });
-
     onBookmark();
+    setOpen(false);
   }
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -108,8 +110,10 @@ export function ApplyPanel({
               ⚠️ Risk of overlapping with others on the same issue
             </TypographyP>
 
-            <Button className="w-fit" onClick={handleBookmark}>
-              <ArrowRight /> Get to work
+            <Button className="w-fit" onClick={handleBookmark} asChild>
+              <a href={issueUrl} target="_blank" rel="noopener noreferrer">
+                <ArrowRight /> Get to work
+              </a>
             </Button>
           </Card>
         </div>
