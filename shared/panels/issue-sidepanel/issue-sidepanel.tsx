@@ -163,6 +163,12 @@ function Content({
     });
   }, [currentUserApplication]);
 
+  useEffect(() => {
+    if (isHackathon) {
+      setCanApply(true);
+    }
+  }, [isHackathon]);
+
   function handleCreate(values: IssueSidepanelFormSchema) {
     if (isMaxApplicationsOnLiveHackathonReached) return;
 
