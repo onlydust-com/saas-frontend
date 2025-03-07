@@ -10,7 +10,6 @@ import { ProjectListItemInterfaceV2 } from "@/core/domain/project/models/project
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { Markdown } from "@/shared/features/markdown/markdown";
-import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Badge } from "@/shared/ui/badge";
 import { Card } from "@/shared/ui/card";
@@ -152,6 +151,7 @@ export default function Message({
   issueIds,
   followUpMessage,
   onOpenProject,
+  onOpenIssue,
 }: MessageProps) {
   const {
     data: projectsData,
@@ -197,13 +197,11 @@ export default function Message({
     () => (
       <div className="flex flex-col gap-2">
         {issues.map(contribution => (
-          <IssueSidepanel
+          <IssueCard
             key={contribution.id}
-            projectId={contribution.project?.id ?? ""}
-            contributionUuid={contribution.id}
-          >
-            <IssueCard {...contribution} />
-          </IssueSidepanel>
+            {...contribution}
+            onClick={() => onOpenIssue(contribution.id, contribution.project?.id ?? "")}
+          />
         ))}
       </div>
     ),
