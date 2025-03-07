@@ -150,8 +150,8 @@ export default function Message({
   projectIds,
   issueIds,
   followUpMessage,
-  onOpenContribution,
   onOpenProject,
+  onOpenIssue,
 }: MessageProps) {
   const {
     data: projectsData,
@@ -197,7 +197,11 @@ export default function Message({
     () => (
       <div className="flex flex-col gap-2">
         {issues.map(contribution => (
-          <IssueCard {...contribution} key={contribution.id} onClick={() => onOpenContribution(contribution.id)} />
+          <IssueCard
+            key={contribution.id}
+            {...contribution}
+            onClick={() => onOpenIssue(contribution.id, contribution.project?.id ?? "")}
+          />
         ))}
       </div>
     ),

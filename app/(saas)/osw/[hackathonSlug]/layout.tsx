@@ -10,7 +10,6 @@ import { Paper } from "@/design-system/atoms/paper/variants/paper-default";
 
 import { GithubPermissionsProvider } from "@/shared/features/github-permissions/github-permissions.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { ApplyIssueSidepanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel";
 
 export async function generateMetadata({ params }: { params: { hackathonSlug: string } }): Promise<Metadata> {
   const hackathonSlug = params.hackathonSlug;
@@ -56,7 +55,6 @@ export default function HackathonsLayout({
             </div>
 
             {children}
-            <ApplyIssueSidepanel />
           </Paper>
         </div>
       </GithubPermissionsProvider>
