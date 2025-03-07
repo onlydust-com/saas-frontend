@@ -1,3 +1,5 @@
+"use client";
+
 import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";

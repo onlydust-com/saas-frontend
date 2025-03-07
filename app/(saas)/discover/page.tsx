@@ -1,7 +1,5 @@
-"use client";
-
-import DiscoverPageV2 from "./v2";
+import DiscoverPageV1 from "./v1";
 
 export default function DiscoverPage() {
-  return <DiscoverPageV2 />;
+  return <DiscoverPageV1 />;
 }
