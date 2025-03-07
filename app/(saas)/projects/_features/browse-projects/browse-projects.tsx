@@ -13,33 +13,17 @@ import {
   CardProjectMarketplace,
   CardProjectMarketplaceLoading,
 } from "@/design-system/molecules/cards/card-project-marketplace";
-import { Tabs } from "@/design-system/molecules/tabs/tabs";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
-import { PROJECT_TAG, PROJECT_TAG_METADATA } from "@/shared/constants/project-tags";
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { TypographyH2, TypographyMuted } from "@/shared/ui/typography";
 
 import { BrowseProjectsFilters } from "../browse-projects-filters/browse-projects-filters";
 
-const ALL_TAB = {
-  id: "ALL",
-  children: "All",
-} as const;
-
-const TABS: { id: PROJECT_TAG | "ALL"; children: string }[] = [
-  ALL_TAB,
-  ...Object.values(PROJECT_TAG).map(tag => ({
-    id: tag,
-    children: PROJECT_TAG_METADATA[tag].label,
-  })),
-];
-
 function Safe() {
-  const { filters, queryParams } = useBrowseProjectsContext();
+  const { queryParams } = useBrowseProjectsContext();
 
   const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProjectReactQueryAdapter.client.useGetProjectsV2({
@@ -47,7 +31,6 @@ function Safe() {
     });
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
-  const count = useMemo(() => data?.pages[0]?.totalItemNumber ?? 0, [data]);
 
   const renderProjects = useCallback(() => {
     if (isLoading) {
@@ -95,35 +78,9 @@ function Safe() {
   }, [projects, isError, isLoading]);
 
   return (
-    <section className={"flex flex-col gap-3xl"}>
-      <header className="flex flex-col gap-md">
-        <div className="flex gap-2">
-          <TypographyH2>Browse Projects</TypographyH2>
-          <TypographyH2 className="text-muted-foreground">({count})</TypographyH2>
-        </div>
-
-        <TypographyMuted>
-          Discover innovative ideas, creative solutions, and detailed work that showcases unique expertise and impactful
-          results.
-        </TypographyMuted>
-      </header>
-
+    <section className={"flex flex-col"}>
       <div className="flex flex-col gap-3xl">
-        <header className="flex flex-row items-start justify-between gap-xl">
-          <Tabs
-            variant={"solid"}
-            tabs={TABS}
-            selectedId={filters.values.tags[0] ?? ALL_TAB.id}
-            onTabClick={id => {
-              filters.set({ tags: id === ALL_TAB.id ? [] : [id as PROJECT_TAG] });
-            }}
-            classNames={{
-              base: "flex-wrap",
-            }}
-          />
-
-          <BrowseProjectsFilters />
-        </header>
+        <BrowseProjectsFilters />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {renderProjects()}

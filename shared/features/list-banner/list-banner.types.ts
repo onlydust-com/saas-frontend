@@ -1,9 +1,12 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 import { TypoPort } from "@/design-system/atoms/typo";
 
-export type ListBannerProps = {
+export interface ListBannerProps extends PropsWithChildren {
   title: TypoPort<"h1">;
   subtitle: TypoPort<"p">;
   logo?: ReactNode;
-};
+  classNames?: {
+    base?: string;
+  };
+}
