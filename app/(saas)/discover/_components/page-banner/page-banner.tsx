@@ -2,7 +2,8 @@ import { Target } from "lucide-react";
 import Link from "next/link";
 import { useCallback } from "react";
 
-// import { LiveHackathonCard } from "@/app/(saas)/osw/_components/live-hackathon-card/live-hackathon-card";
+import { LiveHackathonCard } from "@/app/(saas)/osw/_components/live-hackathon-card/live-hackathon-card";
+
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
@@ -47,16 +48,13 @@ export function PageBanner() {
 
     if (isError) return <ErrorState />;
 
-    // TODO: Remove this once QA done
-    return <QuestBanner />;
+    if (!data) return <QuestBanner />;
 
-    // if (!data) return <QuestBanner />;
+    const liveHackathon = data.hackathons.find(hackathon => hackathon.isLive());
 
-    // const liveHackathon = data.hackathons.find(hackathon => hackathon.isLive());
+    if (!liveHackathon) return <QuestBanner />;
 
-    // if (!liveHackathon) return <QuestBanner />;
-
-    // return <LiveHackathonCard hackathon={liveHackathon} />;
+    return <LiveHackathonCard hackathon={liveHackathon} />;
   }, [data, isError, isLoading]);
 
   return renderLiveHackathon();
