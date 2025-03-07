@@ -35,6 +35,11 @@ export function useDeleteApplication({
             exact: false,
           });
 
+          await queryClient.invalidateQueries({
+            queryKey: meStoragePort.getMe({}).tag,
+            exact: false,
+          });
+
           // Invalidate project available issues
           await queryClient.invalidateQueries({
             queryKey: projectStoragePort.getProjectAvailableIssues({}).tag,

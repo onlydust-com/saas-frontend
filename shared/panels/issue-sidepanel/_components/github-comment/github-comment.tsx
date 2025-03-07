@@ -19,10 +19,12 @@ export function GithubComment({ hasCurrentUserApplication }: { hasCurrentUserApp
           <FormControl>
             <Textarea id="githubComment" {...field} disabled={hasCurrentUserApplication} autoFocus />
           </FormControl>
-          <FormDescription className="flex items-center gap-1">
-            <Info className="size-4 text-muted-foreground" />
-            Your application will be publicly visible on GitHub.
-          </FormDescription>
+          {!hasCurrentUserApplication && (
+            <FormDescription className="flex items-center gap-1">
+              <Info className="size-4 text-muted-foreground" />
+              Your application will be publicly visible on GitHub.
+            </FormDescription>
+          )}
           <FormMessage />
         </FormItem>
       )}

@@ -112,12 +112,11 @@ function Content({
     [myApplications]
   );
 
-  const { mutateAsync: createApplication, isPending: isCreatingApplication } =
+  const { mutate: createApplication, isPending: isCreatingApplication } =
     MeReactQueryAdapter.client.usePostMyApplication({
       options: {
         onSuccess: () => {
           toast.success("Application sent successfully");
-          onClose();
         },
         onError: () => {
           toast.error("Error sending application");
@@ -125,7 +124,7 @@ function Content({
       },
     });
 
-  const { mutateAsync: deleteApplication, isPending: isDeletingApplication } =
+  const { mutate: deleteApplication, isPending: isDeletingApplication } =
     ApplicationReactQueryAdapter.client.useDeleteApplication({
       pathParams: {
         applicationId: currentUserApplication?.id ?? "",
@@ -133,7 +132,6 @@ function Content({
       options: {
         onSuccess: () => {
           toast.success("Application canceled successfully");
-          onClose();
         },
         onError: () => {
           toast.error("Error canceling application");
@@ -273,7 +271,9 @@ function Content({
           {isHackathon ? <ApplyIssueGuideline /> : null}
         </div>
 
-        {canApply ? <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} /> : null}
+        {canApply || hasCurrentUserApplication ? (
+          <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} />
+        ) : null}
 
         {isHackathon ? (
           <Card className="flex w-full flex-col gap-4 p-3">
