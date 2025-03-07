@@ -1,5 +1,5 @@
-import DiscoverPageV1 from "./v1";
+import DiscoverPageV2 from "./v2";
 
 export default function DiscoverPage() {
-  return <DiscoverPageV1 />;
+  return <DiscoverPageV2 />;
 }

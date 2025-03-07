@@ -233,7 +233,7 @@ function Content({
           onApply={() => setCanApply(true)}
           onBookmark={() => onClose()}
         >
-          <Button type="button">Next</Button>
+          <Button type="button">I want to work on this issue</Button>
         </ApplyPanel>
       );
     }
