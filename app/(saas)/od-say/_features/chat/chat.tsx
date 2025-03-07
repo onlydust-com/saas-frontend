@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RefreshCcw, SendHorizonal, Sparkle } from "lucide-react";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
 import { useIntercom } from "@/shared/intercom/intercom.context";
-import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
@@ -20,16 +20,17 @@ export default function Chat() {
   const { startNewConversation, sendMessage, messages, isThinking, chatId } = useChat();
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const { hideIntercomLauncher } = useIntercom();
-
-  const { open: openIssue } = useApplyIssueSidePanel();
+  const [issuePanel, setIssuePanel] = useState({ issueId: "", projectId: "" });
+  const issuePanelButtonRef = useRef<HTMLButtonElement>(null);
   const { open: openProject } = useProjectSidePanel();
-
-  function onOpenIssue(contributionUuid: string) {
-    openIssue({ contributionUuid });
-  }
 
   function onOpenProject(id: string) {
     openProject({ projectId: id });
+  }
+
+  function onOpenIssue(issueId: string, projectId: string) {
+    setIssuePanel({ issueId, projectId });
+    issuePanelButtonRef.current?.click();
   }
 
   const form = useForm<ChatFormData>({
@@ -72,9 +73,10 @@ export default function Chat() {
             key={`${message.author.login}-${message.content}-${Date.now()}`}
             {...message}
             onOpenProject={onOpenProject}
-            onOpenContribution={onOpenIssue}
+            onOpenIssue={onOpenIssue}
           />
         ))}
+
         <div ref={endOfMessagesRef} />
       </div>
       <div className="sticky bottom-0 z-20 flex w-full flex-col gap-2">
@@ -129,6 +131,10 @@ export default function Chat() {
           </Form>
         </div>
       </div>
+
+      <IssueSidepanel projectId={issuePanel.projectId} contributionUuid={issuePanel.issueId}>
+        <button type="button" ref={issuePanelButtonRef} />
+      </IssueSidepanel>
     </section>
   );
 }

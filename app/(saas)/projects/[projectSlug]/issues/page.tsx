@@ -6,7 +6,6 @@ import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapt
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { GithubLabelWithCountInterface } from "@/core/domain/github/models/github-label-model";
 import { HackathonListItemInterface } from "@/core/domain/hackathon/models/hackathon-list-item-model";
-import { ProjectAvailableIssuesInterface } from "@/core/domain/project/models/project-available-issues-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
 import { Badge } from "@/design-system/atoms/badge";
@@ -19,7 +18,7 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 import { Translate } from "@/shared/translation/components/translate/translate";
@@ -31,8 +30,6 @@ function ProjectIssuesPage({
   params: { projectSlug: string };
   searchParams: { l: string; h: string };
 }) {
-  const { open } = useApplyIssueSidePanel();
-
   const [selectedLabels, setSelectedLabels] = useState<GithubLabelWithCountInterface[]>(() => {
     const labels = searchParams.l?.split(",").filter(Boolean) || [];
 
@@ -131,10 +128,6 @@ function ProjectIssuesPage({
     });
   }
 
-  function handleIssueClick(issue: ProjectAvailableIssuesInterface) {
-    open({ issueId: issue.id, projectId: data?.id ?? "" });
-  }
-
   return (
     <ScrollView>
       <PosthogCaptureOnMount
@@ -204,39 +197,39 @@ function ProjectIssuesPage({
             />
           ) : (
             issues.map(issue => (
-              <CardIssue
-                key={issue.id}
-                title={issue.title}
-                onClick={() => handleIssueClick(issue)}
-                contribution={{
-                  type: "ISSUE",
-                  githubStatus: issue.status,
-                  number: issue.number,
-                }}
-                createdAt={issue.createdAt}
-                users={issue.applicants.map(a => ({
-                  login: a.login,
-                  avatarUrl: a.avatarUrl,
-                }))}
-                selectedLabels={selectedLabels.map(label => label.name)}
-                githubLabels={issue.labels.map(label => ({
-                  label: label.name,
-                  description: label.description,
-                  onClick: () =>
-                    handleLabelClick({
-                      ...label,
-                      count: 0,
-                    }),
-                }))}
-                createdBy={{
-                  login: issue.author.login,
-                  avatarUrl: issue.author.avatarUrl,
-                }}
-                repo={{
-                  name: issue.repo.name,
-                  url: issue.repo.htmlUrl,
-                }}
-              />
+              <IssueSidepanel key={issue.id} projectId={data?.id ?? ""} issueId={issue.id}>
+                <CardIssue
+                  title={issue.title}
+                  contribution={{
+                    type: "ISSUE",
+                    githubStatus: issue.status,
+                    number: issue.number,
+                  }}
+                  createdAt={issue.createdAt}
+                  users={issue.applicants.map(a => ({
+                    login: a.login,
+                    avatarUrl: a.avatarUrl,
+                  }))}
+                  selectedLabels={selectedLabels.map(label => label.name)}
+                  githubLabels={issue.labels.map(label => ({
+                    label: label.name,
+                    description: label.description,
+                    onClick: () =>
+                      handleLabelClick({
+                        ...label,
+                        count: 0,
+                      }),
+                  }))}
+                  createdBy={{
+                    login: issue.author.login,
+                    avatarUrl: issue.author.avatarUrl,
+                  }}
+                  repo={{
+                    name: issue.repo.name,
+                    url: issue.repo.htmlUrl,
+                  }}
+                />
+              </IssueSidepanel>
             ))
           )}
           {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}

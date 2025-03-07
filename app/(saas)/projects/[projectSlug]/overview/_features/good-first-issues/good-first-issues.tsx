@@ -9,7 +9,7 @@ import { bootstrap } from "@/core/bootstrap";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
@@ -32,7 +32,6 @@ export function GoodFirstIssues({
 }) {
   const dateKernel = bootstrap.getDateKernelPort();
 
-  const { open } = useApplyIssueSidePanel();
   const { capture } = usePosthog();
 
   const Title = size === "default" ? TypographyH3 : TypographyH4;
@@ -84,27 +83,28 @@ export function GoodFirstIssues({
       <ul className={"flex flex-col gap-3"}>
         {goodFirstIssues.map(issue => (
           <li key={issue.id}>
-            <button
-              onClick={() => {
-                capture(posthogPrefix, { projectId, issueId: issue.id });
-                open({ issueId: issue.id, projectId });
-              }}
-              className={"w-full text-left transition-opacity hover:opacity-80"}
-            >
-              <Card className={"flex cursor-pointer items-center justify-between gap-3 p-3"}>
-                <div className={"flex flex-1 items-center gap-3"}>
-                  <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.status} />
+            <IssueSidepanel key={issue.id} projectId={projectId} issueId={issue.id}>
+              <button
+                onClick={() => {
+                  capture(posthogPrefix, { projectId, issueId: issue.id });
+                }}
+                className={"w-full text-left transition-opacity hover:opacity-80"}
+              >
+                <Card className={"flex cursor-pointer items-center justify-between gap-3 p-3"}>
+                  <div className={"flex flex-1 items-center gap-3"}>
+                    <ContributionBadge type={"ISSUE"} number={issue.number} githubStatus={issue.status} />
 
-                  <TypographySmall className={"line-clamp-1"}>
-                    <Emoji>{issue.title}</Emoji>
-                  </TypographySmall>
-                </div>
+                    <TypographySmall className={"line-clamp-1"}>
+                      <Emoji>{issue.title}</Emoji>
+                    </TypographySmall>
+                  </div>
 
-                <TypographyMuted className={"text-xs"}>
-                  {dateKernel.format(new Date(issue.createdAt), "dd MMM.")}
-                </TypographyMuted>
-              </Card>
-            </button>
+                  <TypographyMuted className={"text-xs"}>
+                    {dateKernel.format(new Date(issue.createdAt), "dd MMM.")}
+                  </TypographyMuted>
+                </Card>
+              </button>
+            </IssueSidepanel>
           </li>
         ))}
       </ul>

@@ -1,12 +1,16 @@
 "use client";
 
+import Link from "next/link";
+
 import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
+import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
 import { NewProjectCard } from "./_components/new-project-card/new-project-card";
@@ -46,34 +50,37 @@ export default function DiscoverPageV2() {
                   resourceType={resourceType}
                 >
                   {projects.map(project => (
-                    <NewProjectCard
-                      key={project.id}
-                      className="min-h-full"
-                      name={project?.name}
-                      logoUrl={project.logoUrl}
-                      description={project.shortDescription}
-                      categories={project.categories.map(category => category.name)}
-                      languages={project.languages}
-                      stars={project.starCount}
-                      forks={project.forkCount}
-                      contributors={project.contributorCount}
-                    />
+                    <Link key={project.id} href={NEXT_ROUTER.projects.details.root(project.id)}>
+                      <NewProjectCard
+                        className="min-h-full"
+                        name={project?.name}
+                        logoUrl={project.logoUrl}
+                        description={project.shortDescription}
+                        categories={project.categories.map(category => category.name)}
+                        languages={project.languages}
+                        stars={project.starCount}
+                        forks={project.forkCount}
+                        contributors={project.contributorCount}
+                      />
+                    </Link>
                   ))}
 
                   {issues.map(issue => (
-                    <IssueCard
-                      key={issue.id}
-                      title={issue.title}
-                      languages={issue.languages}
-                      project={{
-                        logoUrl: "",
-                        name: issue.repo.owner,
-                        repo: issue.repo.name,
-                      }}
-                      issue={{ number: issue.number, githubStatus: issue.status }}
-                      createdAt={issue.createdAt}
-                      labels={issue.labels.map(label => label.name)}
-                    />
+                    <IssueSidepanel key={issue.id} projectId={issue.project?.id ?? ""} issueId={issue.id}>
+                      <IssueCard
+                        key={issue.id}
+                        title={issue.title}
+                        languages={issue.languages}
+                        project={{
+                          logoUrl: "",
+                          name: issue.repo.owner,
+                          repo: issue.repo.name,
+                        }}
+                        issue={{ number: issue.number, githubStatus: issue.status }}
+                        createdAt={issue.createdAt}
+                        labels={issue.labels.map(label => label.name)}
+                      />
+                    </IssueSidepanel>
                   ))}
                 </PageCarousel>
 
