@@ -12,7 +12,6 @@ import enUnallocateSponsorSelection from "@/shared/panels/_flows/unallocate-flow
 import enUngrantAmountSelection from "@/shared/panels/_flows/ungrant-flow/_panels/amount-selection/_translations/amount-selection.en.json";
 import enUngrantProgramSelection from "@/shared/panels/_flows/ungrant-flow/_panels/program-selection/_translations/program-selection.en.json";
 import enAllocateProgram from "@/shared/panels/allocate-program-sidepanel/_translations/allocate-program-sidepanel.en.json";
-import enApplyIssue from "@/shared/panels/apply-issue-sidepanel/_translations/apply-issue-sidepanel.en.json";
 import enContribution from "@/shared/panels/contribution-sidepanel/contributions-sidepanel.en.json";
 import enContributor from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.en.json";
 import enCurrencyList from "@/shared/panels/currency-list-sidepanel/_translations/currency-list-sidepanel.en.json";
@@ -60,6 +59,5 @@ export const enPanelsTranslation = {
     ungrantAmountSelection: enUngrantAmountSelection,
     projectTransactions: enProjectTransactions,
     myRewardsTransactions: enMyRewardsTransactions,
-    applyIssue: enApplyIssue,
   },
 };
