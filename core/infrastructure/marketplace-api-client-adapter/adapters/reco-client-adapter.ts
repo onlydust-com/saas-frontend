@@ -1,9 +1,11 @@
 import { ProjectListItemV2 } from "@/core/domain/project/models/project-list-item-model-v2";
 import { MatchingQuestions } from "@/core/domain/reco/models/matching-questions-model";
+import { TailoredDiscoveries } from "@/core/domain/reco/models/tailored-discoveries-model";
 import { RecoStoragePort } from "@/core/domain/reco/output/reco-storage-port";
 import {
   GetMatchingQuestionsResponse,
   GetRecommendedProjectsResponse,
+  GetTailoredDiscoveriesResponse,
   SaveMatchingQuestionsBody,
 } from "@/core/domain/reco/reco-contract.types";
 import { FirstParameter } from "@/core/kernel/types";
@@ -17,6 +19,7 @@ export class RecoClientAdapter implements RecoStoragePort {
     getMatchingQuestions: "me/reco/projects/matching-questions",
     saveMatchingQuestions: "me/reco/projects/matching-questions/:questionId/answers",
     getRecommendedProjects: "me/reco/projects",
+    getTailoredDiscoveries: "me/reco/discoveries",
   } as const;
 
   getMatchingQuestions = ({ queryParams }: FirstParameter<RecoStoragePort["getMatchingQuestions"]>) => {
@@ -81,6 +84,27 @@ export class RecoClientAdapter implements RecoStoragePort {
         ...data,
         projects: data.projects.map(project => new ProjectListItemV2(project)),
       };
+    };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getTailoredDiscoveries = () => {
+    const path = this.routes["getTailoredDiscoveries"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async () => {
+      const data = await this.client.request<GetTailoredDiscoveriesResponse>({
+        path,
+        method,
+        tag,
+      });
+
+      return new TailoredDiscoveries(data);
     };
 
     return {

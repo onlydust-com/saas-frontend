@@ -60,6 +60,7 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
       ecosystemIds: filters.ecosystemIds.length ? filters.ecosystemIds : undefined,
       categoryIds: filters.categoryIds.length ? filters.categoryIds : undefined,
       sortBy: filters.sortBy ?? undefined,
+      search: filters.search ?? undefined,
     });
   }
 

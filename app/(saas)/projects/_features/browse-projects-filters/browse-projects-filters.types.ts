@@ -10,6 +10,7 @@ export type BrowseProjectsContextFilter = {
   ecosystemIds: string[];
   categoryIds: string[];
   sortBy: string | undefined;
+  search: string | undefined;
 };
 
 export const DEFAULT_FILTER: BrowseProjectsContextFilter = {
@@ -18,6 +19,7 @@ export const DEFAULT_FILTER: BrowseProjectsContextFilter = {
   ecosystemIds: [],
   categoryIds: [],
   sortBy: undefined,
+  search: undefined,
 };
 
 export type BrowseProjectsContextReturn = {
