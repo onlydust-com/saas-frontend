@@ -4,7 +4,6 @@ import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { HackathonReactQueryAdapter } from "@/core/application/react-query-adapter/hackathon";
-import { ContributionActivityInterface } from "@/core/domain/contribution/models/contribution-activity-model";
 
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
@@ -14,13 +13,12 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
-import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
+import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 import { CardDescription } from "@/shared/ui/card";
 import { TypographyH3 } from "@/shared/ui/typography";
 
 function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
-  const { open } = useApplyIssueSidePanel();
   const { githubUserId } = useAuthUser();
 
   const { data: hackathon } = HackathonReactQueryAdapter.client.useGetHackathonBySlug({
@@ -46,10 +44,6 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
 
   const assignedIssues = issues.filter(issue => !issue.isNotAssigned());
   const notAssignedIssues = issues.filter(issue => issue.isNotAssigned());
-
-  function handleIssueClick(issue: ContributionActivityInterface) {
-    open({ contributionUuid: issue.id, projectId: "onlydust" });
-  }
 
   return (
     <PageContainer>
@@ -82,29 +76,29 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
 
         {assignedIssues.length ? (
           assignedIssues.map(issue => (
-            <CardIssue
-              key={issue.id}
-              title={issue.githubTitle}
-              onClick={() => handleIssueClick(issue)}
-              contribution={{
-                type: "ISSUE",
-                githubStatus: issue.githubStatus,
-                number: issue.githubNumber,
-              }}
-              createdAt={issue.createdAt}
-              users={issue.applicants.map(a => ({
-                login: a.login,
-                avatarUrl: a.avatarUrl,
-              }))}
-              createdBy={{
-                login: issue.githubAuthor.login,
-                avatarUrl: issue.githubAuthor.avatarUrl,
-              }}
-              repo={{
-                name: issue.repo.name,
-                url: issue.repo.htmlUrl,
-              }}
-            />
+            <IssueSidepanel key={issue.id} projectId={issue.project?.id ?? ""} contributionUuid={issue.id}>
+              <CardIssue
+                title={issue.githubTitle}
+                contribution={{
+                  type: "ISSUE",
+                  githubStatus: issue.githubStatus,
+                  number: issue.githubNumber,
+                }}
+                createdAt={issue.createdAt}
+                users={issue.applicants.map(a => ({
+                  login: a.login,
+                  avatarUrl: a.avatarUrl,
+                }))}
+                createdBy={{
+                  login: issue.githubAuthor.login,
+                  avatarUrl: issue.githubAuthor.avatarUrl,
+                }}
+                repo={{
+                  name: issue.repo.name,
+                  url: issue.repo.htmlUrl,
+                }}
+              />
+            </IssueSidepanel>
           ))
         ) : (
           <EmptyStateLite />
@@ -116,29 +110,29 @@ function MyApplicationsPage({ params }: { params: { hackathonSlug: string } }) {
         </div>
         {notAssignedIssues.length ? (
           notAssignedIssues.map(issue => (
-            <CardIssue
-              key={issue.id}
-              title={issue.githubTitle}
-              onClick={() => handleIssueClick(issue)}
-              contribution={{
-                type: "ISSUE",
-                githubStatus: issue.githubStatus,
-                number: issue.githubNumber,
-              }}
-              createdAt={issue.createdAt}
-              users={issue.applicants.map(a => ({
-                login: a.login,
-                avatarUrl: a.avatarUrl,
-              }))}
-              createdBy={{
-                login: issue.githubAuthor.login,
-                avatarUrl: issue.githubAuthor.avatarUrl,
-              }}
-              repo={{
-                name: issue.repo.name,
-                url: issue.repo.htmlUrl,
-              }}
-            />
+            <IssueSidepanel key={issue.id} projectId={issue.project?.id ?? ""} contributionUuid={issue.id}>
+              <CardIssue
+                title={issue.githubTitle}
+                contribution={{
+                  type: "ISSUE",
+                  githubStatus: issue.githubStatus,
+                  number: issue.githubNumber,
+                }}
+                createdAt={issue.createdAt}
+                users={issue.applicants.map(a => ({
+                  login: a.login,
+                  avatarUrl: a.avatarUrl,
+                }))}
+                createdBy={{
+                  login: issue.githubAuthor.login,
+                  avatarUrl: issue.githubAuthor.avatarUrl,
+                }}
+                repo={{
+                  name: issue.repo.name,
+                  url: issue.repo.htmlUrl,
+                }}
+              />
+            </IssueSidepanel>
           ))
         ) : (
           <EmptyStateLite />

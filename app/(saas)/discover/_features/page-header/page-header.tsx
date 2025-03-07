@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { GlowingEffect } from "@/shared/ui/glowing-effect";
@@ -19,11 +20,17 @@ function HasSufficentData() {
 }
 
 function NoSufficentData() {
+  const { capture } = usePosthog();
+
   return (
     <div className="flex flex-col gap-4">
       <TypographyP className="text-center">Didn’t find what you’re looking for?</TypographyP>
       <div className="flex flex-row gap-4">
-        <Link href={NEXT_ROUTER.projects.root} className="flex-1 cursor-pointer transition-opacity hover:opacity-80">
+        <Link
+          href={NEXT_ROUTER.projects.root}
+          className="flex-1 cursor-pointer transition-opacity hover:opacity-80"
+          onClick={() => capture("discover_cta_browse_projects")}
+        >
           <Card className="relative flex-1">
             <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
 
@@ -32,11 +39,18 @@ function NoSufficentData() {
                 <FolderSearch className="size-5 text-cyan-200" />
                 <CardTitle className="text-left text-base text-cyan-100">Browse</CardTitle>
               </div>
-              <CardDescription className="text-left">Explore projects on your own with Browse.</CardDescription>
+              <CardDescription className="text-left">
+                Dive into a world of exciting projects and discover hidden gems.
+              </CardDescription>
             </CardHeader>
           </Card>
         </Link>
-        <Link href={NEXT_ROUTER.odSay.root} className="flex-1 cursor-pointer transition-opacity hover:opacity-80">
+
+        <Link
+          href={NEXT_ROUTER.odSay.root}
+          className="flex-1 cursor-pointer transition-opacity hover:opacity-80"
+          onClick={() => capture("discover_cta_odsay")}
+        >
           <Card className="relative flex-1">
             <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
 
@@ -45,7 +59,9 @@ function NoSufficentData() {
                 <Bot className="size-5 text-purple-200" />
                 <CardTitle className="text-left text-base text-purple-100">ODSay</CardTitle>
               </div>
-              <CardDescription className="text-left">Let our chatbot help you find the right project.</CardDescription>
+              <CardDescription className="text-left">
+                Find your perfect match with our AI-powered assistant.
+              </CardDescription>
             </CardHeader>
           </Card>
         </Link>
@@ -67,13 +83,13 @@ export function PageHeader({ hasSufficentData = false }: { hasSufficentData?: bo
       <div className="relative z-[1] mx-auto flex w-full max-w-[600px] flex-col items-center justify-center gap-6">
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex flex-col items-center justify-center">
-            <TypographyH2 className="text-center">Match your next</TypographyH2>
+            <TypographyH2 className="text-center">Get matched to your next</TypographyH2>
             <TypographyH2 className="bg-gradient-to-r from-purple-500 to-primary bg-clip-text text-center text-transparent">
               Open source contributions
             </TypographyH2>
           </div>
           <TypographyP className="text-center">
-            Get recommendations based on your profile and past contributions
+            Get recommendations based on your profile and past contributions.
           </TypographyP>
         </div>
         <Footer />

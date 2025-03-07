@@ -12,6 +12,32 @@ import { ListBanner } from "@/shared/features/list-banner/list-banner";
 import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
 
+function QuestBanner() {
+  return (
+    <ListBanner
+      title={{
+        children: (
+          <>
+            Embark on an <span className="text-indigo-500">ODQuest</span>
+          </>
+        ),
+      }}
+      subtitle={{
+        children:
+          "Unlock epic rewards by conquering challenges and join a thriving community of adventurers on an exciting Quest!",
+      }}
+      logo={<Target className="size-16 text-indigo-500" />}
+      classNames={{
+        base: "bg-gradient-to-br from-indigo-900 to-transparent to-80%",
+      }}
+    >
+      <Button asChild>
+        <Link href={NEXT_ROUTER.quests.root}>Join now</Link>
+      </Button>
+    </ListBanner>
+  );
+}
+
 export function PageBanner() {
   const { data, isLoading, isError } = HackathonReactQueryAdapter.client.useGetHackathons({});
 
@@ -22,34 +48,11 @@ export function PageBanner() {
 
     if (isError) return <ErrorState />;
 
-    if (!data)
-      return (
-        <ListBanner
-          title={{
-            children: (
-              <>
-                Embark on an <span className="text-indigo-500">ODQuest</span> Adventure
-              </>
-            ),
-          }}
-          subtitle={{
-            children:
-              "Unlock epic rewards by conquering challenges and join a thriving community of adventurers on an exciting Quest!",
-          }}
-          logo={<Target className="size-16 text-indigo-500" />}
-          classNames={{
-            base: "bg-gradient-to-br from-indigo-900 to-transparent to-80%",
-          }}
-        >
-          <Button size="sm" asChild>
-            <Link href={NEXT_ROUTER.quests.root}>Join now</Link>
-          </Button>
-        </ListBanner>
-      );
+    if (!data) return <QuestBanner />;
 
     const liveHackathon = data.hackathons.find(hackathon => hackathon.isLive());
 
-    if (!liveHackathon) return null;
+    if (!liveHackathon) return <QuestBanner />;
 
     return <LiveHackathonCard hackathon={liveHackathon} />;
   }, [data, isError, isLoading]);
