@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useEffectOnce } from "react-use";
 
 import { useIntercom } from "@/shared/intercom/intercom.context";
-import { useApplyIssueSidePanel } from "@/shared/panels/apply-issue-sidepanel/apply-issue-sidepanel.hooks";
 import { useProjectSidePanel } from "@/shared/panels/project-sidepanel/project-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/shared/ui/form";
@@ -21,12 +20,7 @@ export default function Chat() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const { hideIntercomLauncher } = useIntercom();
 
-  const { open: openIssue } = useApplyIssueSidePanel();
   const { open: openProject } = useProjectSidePanel();
-
-  function onOpenIssue(contributionUuid: string) {
-    openIssue({ contributionUuid });
-  }
 
   function onOpenProject(id: string) {
     openProject({ projectId: id });
@@ -72,7 +66,6 @@ export default function Chat() {
             key={`${message.author.login}-${message.content}-${Date.now()}`}
             {...message}
             onOpenProject={onOpenProject}
-            onOpenContribution={onOpenIssue}
           />
         ))}
         <div ref={endOfMessagesRef} />

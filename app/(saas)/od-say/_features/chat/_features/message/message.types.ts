@@ -14,5 +14,4 @@ export interface ChatMessage {
 
 export interface MessageProps extends ChatMessage {
   onOpenProject: (id: string) => void;
-  onOpenContribution: (id: string) => void;
 }
