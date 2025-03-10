@@ -2,9 +2,9 @@ import githubPermissionImage from "@/public/images/github/github-permission.png"
 import { Github, SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
 
-import { Button } from "@/design-system/atoms/button/variants/button-default";
-import { Typo } from "@/design-system/atoms/typo";
-import { Modal } from "@/design-system/molecules/modal";
+import { Button } from "@/shared/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/shared/ui/dialog";
+import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { GithubPublicScopePermissionModalProps } from "./github-public-scope-permission-modal.types";
 
@@ -14,38 +14,42 @@ export function GithubPublicScopePermissionModal({
   onRedirect,
 }: GithubPublicScopePermissionModalProps) {
   return (
-    <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      titleProps={{
-        translate: { token: "modals:githubPublicScopePermission.title" },
-      }}
-      footer={{
-        endContent: (
-          <Button
-            translate={{ token: "modals:githubPublicScopePermission.grantPermissions" }}
-            startIcon={{ component: Github }}
-            endIcon={{ component: SquareArrowOutUpRight }}
-            onClick={onRedirect}
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-xl">
+        <DialogHeader>
+          <DialogTitle>Grant permissions</DialogTitle>
+        </DialogHeader>
+
+        <div className="flex flex-col gap-lg">
+          <Image
+            src={githubPermissionImage}
+            alt="Github permission"
+            className="h-full w-full object-cover object-center"
+            loading={"lazy"}
+            width={320}
+            height={50}
+            quality={100}
           />
-        ),
-      }}
-      size="xl"
-      background="gradient"
-    >
-      <div className="flex flex-col gap-lg">
-        <Image
-          src={githubPermissionImage}
-          alt="github permission"
-          className="h-full w-full object-cover object-center"
-          loading={"lazy"}
-          width={320}
-          height={50}
-          quality={100}
-        />
-        <Typo size="xs" color="primary" translate={{ token: "modals:githubPublicScopePermission.description" }} />
-        <Typo size="xs" color="tertiary" translate={{ token: "modals:githubPublicScopePermission.moreInfo" }} />
-      </div>
-    </Modal>
+
+          <TypographyP className="leading-tight">
+            We need your permission to write comments on your behalf and apply to selected issues directly on OnlyDust.
+            Only need to be accepted once.
+          </TypographyP>
+
+          <TypographyMuted>
+            Click on "Grant Permissions". A GitHub popup will appear. Click on "Authorize OnlyDust", and you'll be
+            redirected back here to submit your application.
+          </TypographyMuted>
+        </div>
+
+        <DialogFooter>
+          <Button onClick={onRedirect}>
+            <Github />
+            Write all public repository data
+            <SquareArrowOutUpRight />
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
