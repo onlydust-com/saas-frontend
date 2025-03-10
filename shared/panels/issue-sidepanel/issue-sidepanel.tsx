@@ -216,7 +216,11 @@ function Content({
 
     if (canApply) {
       return (
-        <Button type="submit" loading={isCreatingApplication} disabled={isMaxApplicationsOnLiveHackathonReached}>
+        <Button
+          type="submit"
+          loading={isCreatingApplication}
+          disabled={isHackathon && isMaxApplicationsOnLiveHackathonReached}
+        >
           Send application
         </Button>
       );
