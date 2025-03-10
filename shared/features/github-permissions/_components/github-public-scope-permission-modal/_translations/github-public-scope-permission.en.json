@@ -1,6 +1,0 @@
-{
-  "title": "Grant permissions",
-  "description": "We need your permission to write comments on your behalf and apply to selected issues directly on OnlyDust. Only need to be accepted once.",
-  "moreInfo": "Click on \"Grant Permissions\". A GitHub popup will appear. Click on \"Authorize OnlyDust\", and you'll be redirected back here to submit your application.",
-  "grantPermissions": "Write all public repository data"
-}
