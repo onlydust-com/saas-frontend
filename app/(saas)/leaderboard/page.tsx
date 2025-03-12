@@ -6,6 +6,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
 import { withAuthenticated } from "@/shared/providers/auth-provider";
 
+import { LeaderboardPodium } from "./_features/leaderboard-podium/leaderboard-podium";
 import { LeaderboardTable } from "./_features/leaderboard-table/leaderboard-table";
 import { PageHeader } from "./_features/page-header/page-header";
 
@@ -20,10 +21,14 @@ function LeaderboardPage() {
           },
         ]}
       />
-      <div className="flex flex-col gap-16 pt-4">
+
+      <div className="flex flex-col gap-2 pt-4">
         <PageHeader />
-        <PageInner className="relative z-[1] flex w-[600px] flex-col justify-center gap-14">
-          <LeaderboardTable />
+        <PageInner className="relative z-[1] flex flex-col items-center">
+          <div className="flex max-w-[600px] flex-col gap-2">
+            <LeaderboardPodium />
+            <LeaderboardTable />
+          </div>
         </PageInner>
       </div>
     </PageContainer>
