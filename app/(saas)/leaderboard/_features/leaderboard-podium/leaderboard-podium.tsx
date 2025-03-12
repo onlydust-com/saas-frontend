@@ -86,7 +86,6 @@ export function LeaderboardPodium() {
 
   return (
     <Card className="relative overflow-hidden p-8">
-      {/* Subtle confetti background for the card */}
       <div className="absolute inset-0 bg-[radial-gradient(#dd7bbb_1px,transparent_1px)] opacity-5 [background-size:16px_16px]"></div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:items-end sm:justify-center">
