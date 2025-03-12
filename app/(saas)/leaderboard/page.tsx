@@ -22,7 +22,7 @@ function LeaderboardPage() {
       />
       <div className="flex flex-col gap-16 pt-4">
         <PageHeader />
-        <PageInner className="relative z-[1] flex w-full flex-col gap-14">
+        <PageInner className="relative z-[1] flex w-[600px] flex-col justify-center gap-14">
           <LeaderboardTable />
         </PageInner>
       </div>

@@ -18,7 +18,7 @@ export function PageHeader() {
       <div className="relative z-[1] mx-auto flex w-full max-w-[600px] flex-col items-center justify-center gap-6">
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex flex-col items-center justify-center">
-            <TypographyH2 className="text-center">Contributors</TypographyH2>
+            <TypographyH2 className="text-center">Seosonal Contributors</TypographyH2>
             <TypographyH2 className="bg-gradient-to-r from-purple-500 to-primary bg-clip-text text-center text-transparent">
               Leaderboard
             </TypographyH2>
