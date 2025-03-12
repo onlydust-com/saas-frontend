@@ -216,6 +216,9 @@ export const NEXT_ROUTER = {
   discover: {
     root: "/discover",
   },
+  leaderboard: {
+    root: "/leaderboard",
+  },
   api: {
     fillout: {
       forms: {
