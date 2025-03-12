@@ -20,6 +20,7 @@ export class LeaderboardClientAdapter implements LeaderboardStoragePort {
         path,
         method,
         tag,
+        queryParams,
       });
 
       return {
