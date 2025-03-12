@@ -11,16 +11,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
-import { Input } from "@/shared/ui/input";
 
 export function LeaderboardFilters() {
-  const [search, setSearch] = useState("");
   const [currentSeason, setCurrentSeason] = useState("Current Season");
   return (
     <div className="flex flex-col items-center justify-start gap-4 xl:flex-row xl:justify-between">
-      <div className="w-full xl:w-fit">
-        <Input placeholder="Search" className="w-full" value={search} onChange={e => setSearch(e.target.value)} />
-      </div>
+      <div />
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
