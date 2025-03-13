@@ -23,7 +23,7 @@ export function LeaderboardAroundContributor() {
   if (!leaderboard?.rows?.length) return null;
 
   return leaderboard.rows.map(row => (
-    <TableRow key={row.id} className={row.githubUserId === user?.githubUserId ? "bg-primary/10" : ""}>
+    <TableRow key={row.githubUserId} className={row.githubUserId === user?.githubUserId ? "bg-primary/10" : ""}>
       <TableCell>
         <TypographyH4>#{row.rank}</TypographyH4>
       </TableCell>

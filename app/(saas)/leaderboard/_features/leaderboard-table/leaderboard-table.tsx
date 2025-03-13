@@ -28,15 +28,16 @@ export function LeaderboardTable() {
 
   const { user } = useAuthUser();
 
-  const { data: leaderboard, isLoading: loadingLeaderboard } = LeaderboardReactQueryAdapter.client.useGetLeaderboard({
-    queryParams: {
-      fromRank: 1,
-      toRank: pagination.toRank,
-    },
-    options: {
-      placeholderData: keepPreviousData,
-    },
-  });
+  const { data: leaderboard, isFetching: isFetchingLeaderboard } =
+    LeaderboardReactQueryAdapter.client.useGetLeaderboard({
+      queryParams: {
+        fromRank: 1,
+        toRank: pagination.toRank,
+      },
+      options: {
+        placeholderData: keepPreviousData,
+      },
+    });
 
   const { data: userLeaderboardPosition } = LeaderboardReactQueryAdapter.client.useGetLeaderboard({
     queryParams: {
@@ -72,13 +73,13 @@ export function LeaderboardTable() {
 
     setPagination(prev => ({
       ...prev,
-      toRank: userPosition.rank,
+      toRank: Math.min(prev.toRank + prev.pageSize, userPosition.rank),
     }));
   }, [userLeaderboardPosition?.rows, user?.githubUserId]);
 
   const renderLeaderboardRow = useCallback(
     (row: LeaderboardInterface) => (
-      <TableRow key={row.id} className={row.githubUserId === user?.githubUserId ? "bg-primary/10" : ""}>
+      <TableRow key={row.githubUserId} className={row.githubUserId === user?.githubUserId ? "bg-primary/10" : ""}>
         <TableCell>
           <TypographyH4>#{row.rank}</TypographyH4>
         </TableCell>
@@ -101,10 +102,6 @@ export function LeaderboardTable() {
 
   return (
     <Card>
-      {/* Display when we will have more the one season */}
-      {/* <CardHeader>
-        <LeaderboardFilters />
-      </CardHeader> */}
       <CardContent className="pt-6">
         <Table>
           <TableHeader>
@@ -123,9 +120,8 @@ export function LeaderboardTable() {
             {leaderboard?.rows?.map(row => renderLeaderboardRow(row))}
             <LoadMoreSection
               leaderboard={leaderboard}
-              loadingLeaderboard={loadingLeaderboard}
+              fetchingLeaderboard={isFetchingLeaderboard}
               showLoadUntilPosition={shouldShowLoadUntilUserPosition()}
-              userLeaderboardPosition={userLeaderboardPosition}
               onLoadMore={handleLoadMore}
               onLoadUntilUserPosition={handleLoadUntilUserPosition}
             />
