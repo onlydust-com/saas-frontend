@@ -1,7 +1,7 @@
 "use client";
 
 import { keepPreviousData } from "@tanstack/react-query";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import { LeaderboardReactQueryAdapter } from "@/core/application/react-query-adapter/leaderboard";
 import { LeaderboardInterface } from "@/core/domain/leaderboard/models/leaderboard-model";
@@ -11,13 +11,14 @@ import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui/table";
 import { TypographyH4 } from "@/shared/ui/typography";
 
+import { CalculationHelper } from "../calculation-helper/calculation-helper";
 import { ContributorInfo } from "../contributor-info/contributor-info";
 import { LeaderboardFilters } from "../leaderboard-filters/leaderboard-filters";
 import { LoadMoreSection } from "../load-more-section/load-more-section";
 import { ScoreDetailsPopover } from "../score-details-popover/score-details-popover";
 
 export function LeaderboardTable() {
-  const [pagination, setPagination] = React.useState({
+  const [pagination, setPagination] = useState({
     fromRank: 1,
     toRank: 10,
     pageSize: 10,
@@ -92,10 +93,12 @@ export function LeaderboardTable() {
 
   return (
     <Card>
-      <CardHeader>
+      {/* Display when we will have more the one season */}
+      {/* <CardHeader>
         <LeaderboardFilters />
-      </CardHeader>
-      <CardContent>
+      </CardHeader> */}
+      <CardContent className="pt-6">
+        <CalculationHelper />
         <Table>
           <TableHeader>
             <TableRow>
