@@ -13,7 +13,7 @@ export function ScoreDetailsPopover({ row }: ScoreDetailsPopoverProps) {
     <Popover>
       <PopoverTrigger>
         <Badge variant="emphasis">
-          <TypographyH4>{row.finalScore}</TypographyH4>
+          <TypographyH4>{row.finalScore > 0 ? row.finalScore : "0"}</TypographyH4>
         </Badge>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] p-4">
