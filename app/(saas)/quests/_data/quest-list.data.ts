@@ -166,7 +166,7 @@ export const QuestListData: QuestList[] = [
         wanted: 1,
       },
       expert: {
-        provided: [61715244],
+        provided: [92181599],
         wanted: 1,
       },
     },
