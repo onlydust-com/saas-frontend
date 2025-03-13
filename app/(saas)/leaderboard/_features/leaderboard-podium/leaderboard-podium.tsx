@@ -88,6 +88,12 @@ export function LeaderboardPodium() {
     <Card className="relative overflow-hidden p-8">
       <div className="absolute inset-0 bg-[radial-gradient(#dd7bbb_1px,transparent_1px)] opacity-5 [background-size:16px_16px]"></div>
 
+      <div className="mb-8 text-center">
+        <TypographyH4>Meet Our Champions 🥇 🥈 🥉</TypographyH4>
+
+        <TypographyP className="text-muted-foreground">These are the top 3 contributors of the season.</TypographyP>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:items-end sm:justify-center">
         <div className="order-2 sm:order-1">
           <PodiumPosition position={2} leader={second} />
