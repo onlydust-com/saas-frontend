@@ -16,6 +16,8 @@ export class Leaderboard implements LeaderboardInterface {
   totalProjectBonus!: LeaderboardResponse["totalProjectBonus"];
   finalScore!: LeaderboardResponse["finalScore"];
   contributions!: LeaderboardResponse["contributions"];
+  previousDayRank!: LeaderboardResponse["previousDayRank"];
+  previousDayFinalScore!: LeaderboardResponse["previousDayFinalScore"];
 
   constructor(props: LeaderboardResponse) {
     Object.assign(this, props);
