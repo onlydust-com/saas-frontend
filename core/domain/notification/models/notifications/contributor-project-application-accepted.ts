@@ -11,6 +11,10 @@ export class ContributorProjectApplicationAccepted implements NotificationInterf
     this.data = notification.data.contributorProjectApplicationAccepted;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

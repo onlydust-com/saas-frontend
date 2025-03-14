@@ -11,6 +11,10 @@ export class ProgramLeadFundsUngrantedFromProject implements NotificationInterfa
     this.data = notification.data.programLeadFundsUngrantedFromProject;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

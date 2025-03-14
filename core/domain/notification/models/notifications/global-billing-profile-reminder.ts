@@ -11,6 +11,10 @@ export class GlobalBillingProfileReminder implements NotificationInterface {
     this.data = notification.data.globalBillingProfileReminder;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

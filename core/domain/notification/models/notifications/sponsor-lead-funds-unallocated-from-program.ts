@@ -11,6 +11,10 @@ export class SponsorLeadFundsUnallocatedFromProgram implements NotificationInter
     this.data = notification.data.sponsorLeadFundsUnallocatedFromProgram;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

@@ -23,8 +23,10 @@ export function ScoreDetailsPopover({ row }: ScoreDetailsPopoverProps) {
             <Badge variant="outline">{row.totalWorkScore}</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <TypographySmall className="text-muted-foreground">Project Bonus</TypographySmall>
-            <Badge variant="outline">{row.totalProjectBonus}</Badge>
+            <TypographySmall className="text-muted-foreground">Project Coefficient</TypographySmall>
+            <Badge variant="outline">
+              x{(row.totalWorkScoreAffectedByProjectCoefficient / row.totalWorkScore).toFixed(2)}
+            </Badge>
           </div>
           <div className="flex items-center justify-between">
             <TypographySmall className="text-muted-foreground">Fidelity Bonus</TypographySmall>

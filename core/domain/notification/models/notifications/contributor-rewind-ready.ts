@@ -9,6 +9,10 @@ export class ContributorRewindReady implements NotificationInterface {
     this.data = notification.data.contributorRewindReady;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

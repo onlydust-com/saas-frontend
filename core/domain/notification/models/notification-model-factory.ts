@@ -17,6 +17,7 @@ import { SponsorLeadFundsUnallocatedFromProgram } from "@/core/domain/notificati
 
 import { ContributorProjectApplicationRefused } from "./notifications/contributor-project-application-refused";
 import { ContributorProjectGoodFirstIssueCreated } from "./notifications/contributor-project-good-first-issue-created";
+import { ContributorPullRequestMerged } from "./notifications/contributor-pull-request-merged";
 import { GlobalBillingProfileVerificationClosed } from "./notifications/global-billing-profile-verification-closed";
 import { GlobalBillingProfileVerificationRejected } from "./notifications/global-billing-profile-verification-rejected";
 
@@ -61,6 +62,8 @@ export class NotificationFactory {
         return new SponsorLeadDepositRejected(notification);
       case "CONTRIBUTOR_REWIND_READY":
         return new ContributorRewindReady(notification);
+      case "CONTRIBUTOR_PULL_REQUEST_MERGED":
+        return new ContributorPullRequestMerged(notification);
     }
   }
 }

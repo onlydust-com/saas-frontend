@@ -11,6 +11,10 @@ export class MaintainerApplicationToReview implements NotificationInterface {
     this.data = notification.data.maintainerApplicationToReview;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

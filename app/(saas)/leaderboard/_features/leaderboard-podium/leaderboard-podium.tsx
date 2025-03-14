@@ -1,13 +1,14 @@
 "use client";
 
-import { Trophy } from "lucide-react";
+import { ArrowRight, Trophy } from "lucide-react";
 
 import { LeaderboardReactQueryAdapter } from "@/core/application/react-query-adapter/leaderboard";
+import { bootstrap } from "@/core/bootstrap";
 import { LeaderboardInterface } from "@/core/domain/leaderboard/models/leaderboard-model";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Card } from "@/shared/ui/card";
-import { TypographyH4, TypographyP } from "@/shared/ui/typography";
+import { TypographyH4, TypographyP, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
 interface PodiumPositionProps {
@@ -73,6 +74,7 @@ function PodiumPosition({ position, leader }: PodiumPositionProps) {
 }
 
 export function LeaderboardPodium() {
+  const dateKernelPort = bootstrap.getDateKernelPort();
   const { data: leaderboard } = LeaderboardReactQueryAdapter.client.useGetLeaderboard({
     queryParams: {
       fromRank: 1,
@@ -87,6 +89,26 @@ export function LeaderboardPodium() {
   return (
     <Card className="relative overflow-hidden p-8">
       <div className="absolute inset-0 bg-[radial-gradient(#dd7bbb_1px,transparent_1px)] opacity-5 [background-size:16px_16px]"></div>
+
+      <div className="mb-8 flex flex-col items-center gap-lg">
+        <TypographyH4>Meet Our Champions 🥇 🥈 🥉</TypographyH4>
+
+        <div className="flex items-center gap-lg">
+          <div className="flex flex-col">
+            <TypographySmall className="text-muted-foreground">
+              {dateKernelPort.format(new Date("2025-02-01"), "d MMM. yyyy")}
+            </TypographySmall>
+          </div>
+
+          <ArrowRight className="h-4 w-4 text-muted-foreground" />
+
+          <div className="flex flex-col text-right">
+            <TypographySmall className="text-muted-foreground">
+              {dateKernelPort.format(new Date("2025-04-30"), "d MMM. yyyy")}
+            </TypographySmall>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:items-end sm:justify-center">
         <div className="order-2 sm:order-1">
