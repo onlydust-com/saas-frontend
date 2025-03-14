@@ -54,3 +54,43 @@ export async function GET(request: NextRequest, context: { params: { formId: str
     });
   }
 }
+
+export async function POST(request: NextRequest, context: { params: { formId: string } }) {
+  const { formId } = context.params;
+
+  const body = await request.json();
+  console.log("body", body);
+
+  if (!formId) {
+    return new Response("formId is required.", {
+      status: 400,
+    });
+  }
+
+  try {
+    const url = new URL(`https://api.fillout.com/v1/api/forms/${formId}/submissions`);
+
+    const searchParams = request.nextUrl.searchParams;
+
+    searchParams.forEach((value, key) => {
+      url.searchParams.set(key, value);
+    });
+
+    await fetch(url.toString(), {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    return Response.json({ data: true });
+  } catch (error) {
+    console.error(error);
+
+    return new Response("Failed to fetch submissions.", {
+      status: 500,
+    });
+  }
+}

@@ -11,6 +11,10 @@ export class SponsorLeadDepositApproved implements NotificationInterface {
     this.data = notification.data.sponsorLeadDepositApproved;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

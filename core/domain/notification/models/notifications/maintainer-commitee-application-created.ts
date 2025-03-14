@@ -9,6 +9,10 @@ export class MaintainerCommitteeApplicationCreated implements NotificationInterf
     this.data = notification.data.maintainerCommitteeApplicationCreated;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

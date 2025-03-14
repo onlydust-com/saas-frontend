@@ -11,6 +11,10 @@ export class GlobalBillingProfileVerificationRejected implements NotificationInt
     this.data = notification.data.globalBillingProfileVerificationRejected;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

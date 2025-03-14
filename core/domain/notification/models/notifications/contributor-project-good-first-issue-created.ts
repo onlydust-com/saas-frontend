@@ -11,6 +11,10 @@ export class ContributorProjectGoodFirstIssueCreated implements NotificationInte
     this.data = notification.data.contributorProjectGoodFirstIssueCreated;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

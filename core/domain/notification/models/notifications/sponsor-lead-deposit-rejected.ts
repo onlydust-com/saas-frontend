@@ -11,6 +11,10 @@ export class SponsorLeadDepositRejected implements NotificationInterface {
     this.data = notification.data.sponsorLeadDepositRejected;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }
