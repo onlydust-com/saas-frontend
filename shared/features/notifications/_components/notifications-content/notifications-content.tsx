@@ -1,20 +1,31 @@
 import { CheckCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { NotificationReactQueryAdapter } from "@/core/application/react-query-adapter/notification";
+import { NotificationAction } from "@/core/domain/notification/models/notification.types";
 import { NotificationStatus } from "@/core/domain/notification/notification-constants";
 
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { useIsBreakpoint } from "@/shared/hooks/ui/use-is-breakpoint";
+import { ContributionData } from "@/shared/survey/pull-request-survey/use-pull-request-survey";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
-export function NotificationsContent({ onClose }: { onClose: () => void }) {
+export function NotificationsContent({
+  onClose,
+  openSurvey,
+}: {
+  onClose: () => void;
+  openSurvey: (contribution: ContributionData) => void;
+}) {
   const isSmBreakpoint = useIsBreakpoint("sm");
+  const { capture } = usePosthog();
   const router = useRouter();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -37,17 +48,36 @@ export function NotificationsContent({ onClose }: { onClose: () => void }) {
     readAllNotifications({});
   }
 
-  async function handleRead(notificationId: string, url?: string) {
+  async function handleRead(notificationId: string, options: { url?: string; action?: NotificationAction }) {
     await readNotifications({
       notifications: [{ id: notificationId, status: NotificationStatus.READ }],
     });
 
     onClose();
 
-    if (url) {
-      router.push(url);
+    if (options.url) {
+      router.push(options.url);
+    }
+
+    if (options.action) {
+      if (options.action.type === "PULL_REQUEST_MERGED") {
+        capture("pull_request_merged_notification_clicked");
+        openSurvey({
+          contributionId: options.action.contributionUuid,
+          projectId: options.action.projectId,
+          projectSlug: options.action.projectSlug,
+          issueNumber: options.action.number,
+          issueTitle: options.action.title,
+        });
+      }
     }
   }
+
+  useEffect(() => {
+    if (notifications.some(notification => notification?.getType() === "CONTRIBUTOR_PULL_REQUEST_MERGED")) {
+      capture("has_pull_request_merged_notification");
+    }
+  }, [notifications]);
 
   function renderContent() {
     if (isLoading) {
@@ -75,7 +105,9 @@ export function NotificationsContent({ onClose }: { onClose: () => void }) {
             notification ? (
               <Card
                 key={notification.getId()}
-                onClick={() => handleRead(notification.getId(), notification.getUrl())}
+                onClick={() =>
+                  handleRead(notification.getId(), { url: notification.getUrl(), action: notification.getAction?.() })
+                }
                 className="flex cursor-pointer items-center pl-4 transition-opacity hover:opacity-80"
               >
                 {notification.hasRead() ? null : (

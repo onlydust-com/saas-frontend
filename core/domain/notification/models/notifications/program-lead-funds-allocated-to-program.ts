@@ -11,6 +11,10 @@ export class ProgramLeadFundsAllocatedToProgram implements NotificationInterface
     this.data = notification.data.programLeadFundsAllocatedToProgram;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

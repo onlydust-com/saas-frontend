@@ -13,19 +13,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/shared/ui/breadcrumb";
-import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { SidebarTrigger } from "@/shared/ui/sidebar";
 import { Skeleton } from "@/shared/ui/skeleton";
 
-import { PullRequestSurvey } from "../../../survey/pull-request-survey/pull-request-survey";
-import { usePullRequestSurvey } from "../../../survey/pull-request-survey/use-pull-request-survey";
 import { RenderComponent } from "../../render-component/render-component";
 
 export function AppHeader() {
   const { breadcrumb } = useNavigation();
   const { isLoading } = useAuthContext();
-  const { isOpen, openSurvey, closeSurvey, handleSubmit } = usePullRequestSurvey();
 
   return (
     <header className="sticky top-0 z-[39] flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm">
@@ -72,17 +68,6 @@ export function AppHeader() {
                 <NotificationsPopover />
 
                 <AppUserMenu />
-                <Button onClick={openSurvey}>Give Feedback</Button>
-                <PullRequestSurvey
-                  isOpen={isOpen}
-                  onClose={closeSurvey}
-                  onSubmit={handleSubmit}
-                  issueNumber="500"
-                  issueTitle="Improve the performance of algorithm"
-                  projectId="123"
-                  projectSlug="project-slug"
-                  contributionId="456"
-                />
               </IsAuthenticated.Yes>
               <IsAuthenticated.No>
                 <SignInButton />

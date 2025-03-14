@@ -2,11 +2,14 @@ import { useState } from "react";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 
 interface FeedbackData {
   projectExperience: number;
   maintainerCollaboration: number;
   wouldRecommend: boolean;
+  whatCouldBeBetter?: string;
+  whatEnjoyed?: string;
 }
 
 const filloutId = process.env.NEXT_PUBLIC_OD_PULL_REQUEST_SURVEY_FORM_ID ?? "";
@@ -25,6 +28,14 @@ interface CreateSubmissionsBody {
       {
         id: "bFir"; // would recommend
         value: boolean;
+      },
+      {
+        id: "sSoX"; // what could be better
+        value: string | null;
+      },
+      {
+        id: "3v8P"; // what enjoyed
+        value: string | null;
       },
     ];
     urlParameters: [
@@ -73,22 +84,32 @@ const createSubmissions = async ({ body }: { body: CreateSubmissionsBody }) => {
   }
 };
 
+export interface ContributionData {
+  contributionId: string;
+  projectId: string;
+  projectSlug: string;
+  issueNumber: number;
+  issueTitle: string;
+}
+
 export function usePullRequestSurvey() {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthUser();
+  const { capture } = usePosthog();
+  const [contribution, setContribution] = useState<ContributionData | null>(null);
 
-  const openSurvey = () => setIsOpen(true);
-  const closeSurvey = () => setIsOpen(false);
+  const openSurvey = (contribution: ContributionData) => {
+    setContribution(contribution);
+    setIsOpen(true);
+  };
+  const closeSurvey = () => {
+    setIsOpen(false);
+    setContribution(null);
+  };
 
-  const handleSubmit = async (
-    feedback: FeedbackData,
-    contribution: {
-      contributionId: string;
-      projectId: string;
-      projectSlug: string;
-    }
-  ) => {
+  const handleSubmit = async (feedback: FeedbackData) => {
     if (!user || !contribution) return;
+
     await createSubmissions({
       body: {
         submissions: [
@@ -98,6 +119,8 @@ export function usePullRequestSurvey() {
               { id: "vqFJ", value: feedback.projectExperience },
               { id: "eJU7", value: feedback.maintainerCollaboration },
               { id: "bFir", value: feedback.wouldRecommend },
+              { id: "sSoX", value: feedback.whatCouldBeBetter ?? "" },
+              { id: "3v8P", value: feedback.whatEnjoyed ?? "" },
             ],
             urlParameters: [
               { id: "projectId", name: "projectId", value: contribution.projectId },
@@ -110,6 +133,14 @@ export function usePullRequestSurvey() {
         ],
       },
     });
+    capture("pull_request_survey_submitted", {
+      project_experience: feedback.projectExperience,
+      maintainer_collaboration: feedback.maintainerCollaboration,
+      would_recommend: feedback.wouldRecommend,
+      what_could_be_better: feedback.whatCouldBeBetter,
+      what_enjoyed: feedback.whatEnjoyed,
+    });
+
     closeSurvey();
   };
 
@@ -118,5 +149,6 @@ export function usePullRequestSurvey() {
     openSurvey,
     closeSurvey,
     handleSubmit,
+    contribution,
   };
 }

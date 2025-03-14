@@ -11,6 +11,10 @@ export class ContributorInvoiceRejected implements NotificationInterface {
     this.data = notification.data.contributorInvoiceRejected;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }

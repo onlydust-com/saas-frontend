@@ -76,7 +76,7 @@ export async function POST(request: NextRequest, context: { params: { formId: st
       url.searchParams.set(key, value);
     });
 
-    const response = await fetch(url.toString(), {
+    await fetch(url.toString(), {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.FILLOUT_API_KEY}`,
@@ -85,16 +85,7 @@ export async function POST(request: NextRequest, context: { params: { formId: st
       body: JSON.stringify(body),
     });
 
-    console.log("body 2", JSON.stringify(body));
-    console.log("response", response);
-
-    // get the error
-    const error = await response.json();
-    console.log("error", error, error?.message);
-
-    const data = await response.json();
-
-    return Response.json({ data: data.responses as Submission[] });
+    return Response.json({ data: true });
   } catch (error) {
     console.error(error);
 
@@ -103,22 +94,3 @@ export async function POST(request: NextRequest, context: { params: { formId: st
     });
   }
 }
-
-// const test = {
-//   submissions: [
-//     {
-//       questions: [
-//         { id: "vqFJ", value: 2 },
-//         { id: "eJU7", value: 1 },
-//         { id: "bFir", value: false },
-//       ],
-//       urlParameters: [
-//         { id: "projectId", name: "projectId", value: "123" },
-//         { id: "projectSlug", name: "projectSlug", value: "project-slug" },
-//         { id: "contributionId", name: "contributionId", value: "456" },
-//         { id: "githubUserId", name: "githubUserId", value: "96f512d9-ab4b-4cf2-adc2-ec2591d4e7f6" },
-//         { id: "githubLogin", name: "githubLogin", value: "alexbeno" },
-//       ],
-//     },
-//   ],
-// };

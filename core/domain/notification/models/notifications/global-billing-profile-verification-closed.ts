@@ -11,6 +11,10 @@ export class GlobalBillingProfileVerificationClosed implements NotificationInter
     this.data = notification.data.globalBillingProfileVerificationClosed;
   }
 
+  getType() {
+    return this.notification.type;
+  }
+
   getId() {
     return this.notification.id;
   }
