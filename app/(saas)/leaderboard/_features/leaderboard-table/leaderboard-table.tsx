@@ -22,8 +22,8 @@ import { ScoreDetailsPopover } from "../score-details-popover/score-details-popo
 export function LeaderboardTable() {
   const [pagination, setPagination] = useState({
     fromRank: 1,
-    toRank: 4,
-    pageSize: 4,
+    toRank: 5,
+    pageSize: 5,
   });
 
   const { user } = useAuthUser();

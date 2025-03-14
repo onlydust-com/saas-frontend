@@ -13,7 +13,7 @@ export class Leaderboard implements LeaderboardInterface {
   rank!: LeaderboardResponse["rank"];
   totalWorkScore!: LeaderboardResponse["totalWorkScore"];
   totalFidelityBonus!: LeaderboardResponse["totalFidelityBonus"];
-  totalProjectBonus!: LeaderboardResponse["totalProjectBonus"];
+  totalWorkScoreAffectedByProjectCoefficient!: LeaderboardResponse["totalWorkScoreAffectedByProjectCoefficient"];
   finalScore!: LeaderboardResponse["finalScore"];
   contributions!: LeaderboardResponse["contributions"];
   previousDayRank!: LeaderboardResponse["previousDayRank"];
