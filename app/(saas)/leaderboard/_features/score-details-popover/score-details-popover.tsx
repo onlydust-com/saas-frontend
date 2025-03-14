@@ -13,7 +13,7 @@ export function ScoreDetailsPopover({ row }: ScoreDetailsPopoverProps) {
     <Popover>
       <PopoverTrigger>
         <Badge variant="emphasis">
-          <TypographyH4>{row.finalScore > 0 ? row.finalScore : "0"}</TypographyH4>
+          <TypographyH4>{row.finalScore}</TypographyH4>
         </Badge>
       </PopoverTrigger>
       <PopoverContent className="max-w-[400px] p-4">
@@ -23,8 +23,10 @@ export function ScoreDetailsPopover({ row }: ScoreDetailsPopoverProps) {
             <Badge variant="outline">{row.totalWorkScore}</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <TypographySmall className="text-muted-foreground">Project Bonus</TypographySmall>
-            <Badge variant="outline">{row.totalProjectBonus}</Badge>
+            <TypographySmall className="text-muted-foreground">Project Coefficient</TypographySmall>
+            <Badge variant="outline">
+              x{(row.totalWorkScoreAffectedByProjectCoefficient / row.totalWorkScore).toFixed(2)}
+            </Badge>
           </div>
           <div className="flex items-center justify-between">
             <TypographySmall className="text-muted-foreground">Fidelity Bonus</TypographySmall>
