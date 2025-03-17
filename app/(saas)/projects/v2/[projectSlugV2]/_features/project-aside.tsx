@@ -1,83 +1,15 @@
 "use client";
 
-import { Github } from "lucide-react";
-
 import { ProjectCommunity } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-community";
+import { ProjectRepos } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-repos";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
-
-import { Separator } from "@/shared/ui/separator";
-import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectAvatar } from "../_components/project-aside-avatar";
 import { ProjectCategories } from "../_components/project-aside-categories";
 import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
 import { ProjectLanguages } from "../_components/project-aside-languages";
 import { ProjectMaintainers } from "../_components/project-aside-maintainers";
-
-function ProjectRepos({
-  repos,
-  isLoading,
-  isError,
-}: {
-  repos?: ProjectInterfaceV2["repos"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return (
-      <>
-        <Separator />
-
-        <section className="space-y-3">
-          <Skeleton className="h-7 w-full" />
-
-          <Skeleton className="h-[60px] w-full" />
-        </section>
-      </>
-    );
-  }
-
-  if (isError || !repos || repos.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <Separator />
-
-      <section className="space-y-3">
-        <TypographyH4>Repositories</TypographyH4>
-
-        <div className="space-y-3">
-          {repos.map(repo => (
-            <a
-              key={repo.id}
-              href={repo.htmlUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col gap-2 rounded-lg p-2.5 transition-colors hover:bg-muted/50"
-            >
-              <div className="flex items-center gap-1">
-                <Github className="size-4 text-muted-foreground" />
-
-                <TypographySmall className="line-clamp-1">
-                  {repo.owner}/{repo.name}
-                </TypographySmall>
-              </div>
-
-              {repo.description ? (
-                <TypographyMuted className="line-clamp-2 text-xs">{repo.description}</TypographyMuted>
-              ) : null}
-            </a>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
 
 export function ProjectAside({ projectSlug }: { projectSlug: string }) {
   const {
