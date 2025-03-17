@@ -5,10 +5,12 @@ import { Github } from "lucide-react";
 import Link from "next/link";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { bootstrap } from "@/core/bootstrap";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
@@ -42,6 +44,48 @@ function ProjectAvatar({
   );
 }
 
+function ProjectCommunity({
+  moreInfos,
+  isLoading,
+  isError,
+}: {
+  moreInfos?: ProjectInterfaceV2["moreInfos"];
+  isLoading: boolean;
+  isError: boolean;
+}) {
+  if (isLoading) {
+    return <Skeleton className="h-7 w-full" />;
+  }
+
+  if (isError || !moreInfos || moreInfos.length === 0) {
+    return null;
+  }
+
+  const socialKernelPort = bootstrap.getSocialKernelPort();
+  const urlKernelPort = bootstrap.getUrlKernelPort();
+
+  return (
+    <section className="space-y-3">
+      <TypographyH4>Community</TypographyH4>
+
+      <div className={"flex flex-wrap gap-2"}>
+        {moreInfos?.map(moreInfoItem => {
+          const { icon: Icon, label } = socialKernelPort.getSocialPlatformByUrl(moreInfoItem.url);
+
+          return (
+            <Button key={moreInfoItem.url} variant={"outline"} size={"sm"} asChild>
+              <a href={urlKernelPort.validateUrl(moreInfoItem.url)} target="_blank" rel="noreferrer noopener">
+                <Icon />
+                {moreInfoItem.value || label}
+              </a>
+            </Button>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function ProjectLanguages({
   languages,
   isLoading,
@@ -63,40 +107,44 @@ function ProjectLanguages({
     );
   }
 
-  if (isError || !languages) {
+  if (isError || !languages || languages.length === 0) {
     return null;
   }
 
   return (
-    <section className="space-y-3">
-      <TypographyH4>Languages</TypographyH4>
+    <>
+      <Separator />
 
-      <div className="space-y-3">
-        <div className="flex h-2 w-full overflow-hidden rounded-full bg-foreground">
-          {languages.map(lang => (
-            <div
-              key={lang.name}
-              className="h-full"
-              style={{
-                width: `${lang.percentage}%`,
-                backgroundColor: lang.color || "#9CA3AF",
-              }}
-            />
-          ))}
-        </div>
+      <section className="space-y-3">
+        <TypographyH4>Languages</TypographyH4>
 
-        <div className="flex flex-wrap gap-2">
-          {languages.map(lang => (
-            <div key={lang.name} className="flex items-center gap-1">
-              <div className="h-2 w-2 rounded-full" style={{ backgroundColor: lang.color }} />
-              <TypographyMuted>
-                {lang.name} {lang.percentage}%
-              </TypographyMuted>
-            </div>
-          ))}
+        <div className="space-y-3">
+          <div className="flex h-2 w-full overflow-hidden rounded-full bg-foreground">
+            {languages.map(lang => (
+              <div
+                key={lang.name}
+                className="h-full"
+                style={{
+                  width: `${lang.percentage}%`,
+                  backgroundColor: lang.color || "#9CA3AF",
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {languages.map(lang => (
+              <div key={lang.name} className="flex items-center gap-1">
+                <div className="h-2 w-2 rounded-full" style={{ backgroundColor: lang.color }} />
+                <TypographyMuted>
+                  {lang.name} {lang.percentage}%
+                </TypographyMuted>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -235,6 +283,8 @@ export function ProjectAside({ projectSlug }: { projectSlug: string }) {
   return (
     <aside className="space-y-4">
       <ProjectAvatar logoUrl={project?.logoUrl} name={project?.name} isLoading={isLoading} isError={isError} />
+
+      <ProjectCommunity moreInfos={project?.moreInfos} isLoading={isLoading} isError={isError} />
 
       <ProjectLanguages languages={project?.languages} isLoading={isLoading} isError={isError} />
 
