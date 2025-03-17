@@ -1,15 +1,12 @@
 "use client";
 
 import { Github } from "lucide-react";
-import Link from "next/link";
 
 import { ProjectCommunity } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-community";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Separator } from "@/shared/ui/separator";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
@@ -18,62 +15,7 @@ import { ProjectAvatar } from "../_components/project-aside-avatar";
 import { ProjectCategories } from "../_components/project-aside-categories";
 import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
 import { ProjectLanguages } from "../_components/project-aside-languages";
-
-function ProjectMaintainers({
-  maintainers,
-  isLoading,
-  isError,
-}: {
-  maintainers?: ProjectInterfaceV2["leads"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return (
-      <>
-        <Separator />
-
-        <section className="space-y-3">
-          <Skeleton className="h-7 w-full" />
-
-          <Skeleton className="h-8 w-1/2" />
-          <Skeleton className="h-8 w-1/2" />
-        </section>
-      </>
-    );
-  }
-
-  if (isError || !maintainers || maintainers.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <Separator />
-
-      <section className="space-y-3">
-        <TypographyH4>Maintainers</TypographyH4>
-
-        <div className="flex flex-col gap-3">
-          {maintainers.map(maintainer => (
-            <Link
-              key={maintainer.login}
-              href={NEXT_ROUTER.users.details.root(maintainer.login)}
-              className="flex items-center gap-2"
-            >
-              <Avatar className="size-8">
-                <AvatarImage src={maintainer.avatarUrl} alt={maintainer.login} />
-                <AvatarFallback>{maintainer.login.charAt(0)}</AvatarFallback>
-              </Avatar>
-
-              <TypographySmall>{maintainer.login}</TypographySmall>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
+import { ProjectMaintainers } from "../_components/project-aside-maintainers";
 
 function ProjectRepos({
   repos,
