@@ -10,59 +10,14 @@ import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectAvatar } from "../_components/project-aside-avatar";
+import { ProjectCategories } from "../_components/project-aside-categories";
 import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
 import { ProjectLanguages } from "../_components/project-aside-languages";
-
-function ProjectCategories({
-  categories,
-  isLoading,
-  isError,
-}: {
-  categories?: ProjectInterfaceV2["categories"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return (
-      <>
-        <Separator />
-
-        <section className="space-y-3">
-          <Skeleton className="h-7 w-full" />
-          <Skeleton className="h-8 w-1/2" />
-        </section>
-      </>
-    );
-  }
-
-  if (isError || !categories || categories.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <Separator />
-
-      <section className="space-y-3">
-        <TypographyH4>Categories</TypographyH4>
-
-        <div className="flex flex-wrap gap-2">
-          {categories.map(category => (
-            <Button key={category.name} variant={"outline"} size={"sm"} asChild>
-              <Link href={NEXT_ROUTER.categories.details.root(category.slug)}>{category.name}</Link>
-            </Button>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
 
 function ProjectMaintainers({
   maintainers,
