@@ -1,10 +1,10 @@
-import { ProjectAsideSection } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-section";
-
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
 import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
+
+import { ProjectAsideSection } from "./project-aside-section";
 
 export function ProjectCommunity({
   moreInfos,
