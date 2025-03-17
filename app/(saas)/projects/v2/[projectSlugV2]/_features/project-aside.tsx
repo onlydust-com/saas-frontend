@@ -209,6 +209,51 @@ function ProjectEcosystems({
   );
 }
 
+function ProjectCategories({
+  categories,
+  isLoading,
+  isError,
+}: {
+  categories?: ProjectInterfaceV2["categories"];
+  isLoading: boolean;
+  isError: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <>
+        <Separator />
+
+        <section className="space-y-3">
+          <Skeleton className="h-7 w-full" />
+          <Skeleton className="h-8 w-1/2" />
+        </section>
+      </>
+    );
+  }
+
+  if (isError || !categories || categories.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <Separator />
+
+      <section className="space-y-3">
+        <TypographyH4>Categories</TypographyH4>
+
+        <div className="flex flex-wrap gap-2">
+          {categories.map(category => (
+            <Button key={category.name} variant={"outline"} size={"sm"} asChild>
+              <Link href={NEXT_ROUTER.categories.details.root(category.slug)}>{category.name}</Link>
+            </Button>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
 function ProjectMaintainers({
   maintainers,
   isLoading,
@@ -350,6 +395,8 @@ export function ProjectAside({ projectSlug }: { projectSlug: string }) {
       <ProjectLanguages languages={project?.languages} isLoading={isLoading} isError={isError} />
 
       <ProjectEcosystems ecosystems={project?.ecosystems} isLoading={isLoading} isError={isError} />
+
+      <ProjectCategories categories={project?.categories} isLoading={isLoading} isError={isError} />
 
       <ProjectMaintainers maintainers={project?.leads} isLoading={isLoading} isError={isError} />
 
