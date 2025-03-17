@@ -16,59 +16,8 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
 import { ProjectAvatar } from "../_components/project-aside-avatar";
+import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
 import { ProjectLanguages } from "../_components/project-aside-languages";
-
-function ProjectEcosystems({
-  ecosystems,
-  isLoading,
-  isError,
-}: {
-  ecosystems?: ProjectInterfaceV2["ecosystems"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return (
-      <>
-        <Separator />
-
-        <section className="space-y-3">
-          <Skeleton className="h-7 w-full" />
-          <Skeleton className="h-8 w-1/2" />
-        </section>
-      </>
-    );
-  }
-
-  if (isError || !ecosystems || ecosystems.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <Separator />
-
-      <section className="space-y-3">
-        <TypographyH4>Ecosystems</TypographyH4>
-
-        <div className="flex flex-wrap gap-2">
-          {ecosystems.map(ecosystem => (
-            <Button key={ecosystem.name} variant={"outline"} size={"sm"} asChild>
-              <a href={ecosystem.url} target="_blank" rel="noreferrer noopener">
-                <Avatar className="size-4">
-                  <AvatarImage src={ecosystem.logoUrl} alt={ecosystem.name} />
-                  <AvatarFallback>{ecosystem.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-
-                {ecosystem.name}
-              </a>
-            </Button>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
 
 function ProjectCategories({
   categories,

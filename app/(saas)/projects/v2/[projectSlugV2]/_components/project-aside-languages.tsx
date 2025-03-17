@@ -16,7 +16,7 @@ export function ProjectLanguages({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton>
+      <ProjectAsideSection.Skeleton hasSeparator>
         <Skeleton className="h-2 w-full" />
 
         <Skeleton className="h-5 w-1/2" />

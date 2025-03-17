@@ -22,10 +22,13 @@ export function ProjectAsideSection({
   );
 }
 
-ProjectAsideSection.Skeleton = function ProjectAsideSectionSkeleton({ children }: PropsWithChildren) {
+ProjectAsideSection.Skeleton = function ProjectAsideSectionSkeleton({
+  children,
+  hasSeparator,
+}: PropsWithChildren<{ hasSeparator?: boolean }>) {
   return (
     <>
-      <Separator />
+      {hasSeparator && <Separator />}
 
       <section className="space-y-3">
         <Skeleton className="h-7 w-full" />
