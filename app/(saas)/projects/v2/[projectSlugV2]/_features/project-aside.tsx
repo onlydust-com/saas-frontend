@@ -54,7 +54,12 @@ function ProjectCommunity({
   isError: boolean;
 }) {
   if (isLoading) {
-    return <Skeleton className="h-7 w-full" />;
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-7 w-full" />
+        <Skeleton className="h-8 w-1/2" />
+      </div>
+    );
   }
 
   if (isError || !moreInfos || moreInfos.length === 0) {
@@ -97,13 +102,17 @@ function ProjectLanguages({
 }) {
   if (isLoading) {
     return (
-      <section className="space-y-3">
-        <Skeleton className="h-7 w-full" />
+      <>
+        <Separator />
 
-        <Skeleton className="h-2 w-full" />
+        <section className="space-y-3">
+          <Skeleton className="h-7 w-full" />
 
-        <Skeleton className="h-5 w-1/2" />
-      </section>
+          <Skeleton className="h-2 w-full" />
+
+          <Skeleton className="h-5 w-1/2" />
+        </section>
+      </>
     );
   }
 
@@ -142,6 +151,58 @@ function ProjectLanguages({
               </div>
             ))}
           </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function ProjectEcosystems({
+  ecosystems,
+  isLoading,
+  isError,
+}: {
+  ecosystems?: ProjectInterfaceV2["ecosystems"];
+  isLoading: boolean;
+  isError: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <>
+        <Separator />
+
+        <section className="space-y-3">
+          <Skeleton className="h-7 w-full" />
+          <Skeleton className="h-8 w-1/2" />
+        </section>
+      </>
+    );
+  }
+
+  if (isError || !ecosystems || ecosystems.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <Separator />
+
+      <section className="space-y-3">
+        <TypographyH4>Ecosystems</TypographyH4>
+
+        <div className="flex flex-wrap gap-2">
+          {ecosystems.map(ecosystem => (
+            <Button key={ecosystem.name} variant={"outline"} size={"sm"} asChild>
+              <a href={ecosystem.url} target="_blank" rel="noreferrer noopener">
+                <Avatar className="size-4">
+                  <AvatarImage src={ecosystem.logoUrl} alt={ecosystem.name} />
+                  <AvatarFallback>{ecosystem.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+
+                {ecosystem.name}
+              </a>
+            </Button>
+          ))}
         </div>
       </section>
     </>
@@ -287,6 +348,8 @@ export function ProjectAside({ projectSlug }: { projectSlug: string }) {
       <ProjectCommunity moreInfos={project?.moreInfos} isLoading={isLoading} isError={isError} />
 
       <ProjectLanguages languages={project?.languages} isLoading={isLoading} isError={isError} />
+
+      <ProjectEcosystems ecosystems={project?.ecosystems} isLoading={isLoading} isError={isError} />
 
       <ProjectMaintainers maintainers={project?.leads} isLoading={isLoading} isError={isError} />
 
