@@ -1,6 +1,7 @@
 "use client";
 
 import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
+import { Github } from "lucide-react";
 import Link from "next/link";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -110,12 +111,16 @@ function ProjectMaintainers({
 }) {
   if (isLoading) {
     return (
-      <section className="space-y-3">
-        <Skeleton className="h-7 w-full" />
+      <>
+        <Separator />
 
-        <Skeleton className="h-8 w-1/2" />
-        <Skeleton className="h-8 w-1/2" />
-      </section>
+        <section className="space-y-3">
+          <Skeleton className="h-7 w-full" />
+
+          <Skeleton className="h-8 w-1/2" />
+          <Skeleton className="h-8 w-1/2" />
+        </section>
+      </>
     );
   }
 
@@ -124,26 +129,92 @@ function ProjectMaintainers({
   }
 
   return (
-    <section className="space-y-3">
-      <TypographyH4>Maintainers</TypographyH4>
+    <>
+      <Separator />
 
-      <div className="flex flex-col gap-3">
-        {maintainers.map(maintainer => (
-          <Link
-            key={maintainer.login}
-            href={NEXT_ROUTER.users.details.root(maintainer.login)}
-            className="flex items-center gap-2"
-          >
-            <Avatar className="size-8">
-              <AvatarImage src={maintainer.avatarUrl} alt={maintainer.login} />
-              <AvatarFallback>{maintainer.login.charAt(0)}</AvatarFallback>
-            </Avatar>
+      <section className="space-y-3">
+        <TypographyH4>Maintainers</TypographyH4>
 
-            <TypographySmall>{maintainer.login}</TypographySmall>
-          </Link>
-        ))}
-      </div>
-    </section>
+        <div className="flex flex-col gap-3">
+          {maintainers.map(maintainer => (
+            <Link
+              key={maintainer.login}
+              href={NEXT_ROUTER.users.details.root(maintainer.login)}
+              className="flex items-center gap-2"
+            >
+              <Avatar className="size-8">
+                <AvatarImage src={maintainer.avatarUrl} alt={maintainer.login} />
+                <AvatarFallback>{maintainer.login.charAt(0)}</AvatarFallback>
+              </Avatar>
+
+              <TypographySmall>{maintainer.login}</TypographySmall>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function ProjectRepos({
+  repos,
+  isLoading,
+  isError,
+}: {
+  repos?: ProjectInterfaceV2["repos"];
+  isLoading: boolean;
+  isError: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <>
+        <Separator />
+
+        <section className="space-y-3">
+          <Skeleton className="h-7 w-full" />
+
+          <Skeleton className="h-[60px] w-full" />
+        </section>
+      </>
+    );
+  }
+
+  if (isError || !repos || repos.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <Separator />
+
+      <section className="space-y-3">
+        <TypographyH4>Repositories</TypographyH4>
+
+        <div className="space-y-3">
+          {repos.map(repo => (
+            <a
+              key={repo.id}
+              href={repo.htmlUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col gap-2 rounded-lg p-2.5 transition-colors hover:bg-muted/50"
+            >
+              <div className="flex items-center gap-1">
+                <Github className="size-4 text-muted-foreground" />
+
+                <TypographySmall className="line-clamp-1">
+                  {repo.owner}/{repo.name}
+                </TypographySmall>
+              </div>
+
+              {repo.description ? (
+                <TypographyMuted className="line-clamp-2 text-xs">{repo.description}</TypographyMuted>
+              ) : null}
+            </a>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -164,9 +235,12 @@ export function ProjectAside({ projectSlug }: { projectSlug: string }) {
   return (
     <aside className="space-y-4">
       <ProjectAvatar logoUrl={project?.logoUrl} name={project?.name} isLoading={isLoading} isError={isError} />
+
       <ProjectLanguages languages={project?.languages} isLoading={isLoading} isError={isError} />
-      <Separator />
+
       <ProjectMaintainers maintainers={project?.leads} isLoading={isLoading} isError={isError} />
+
+      <ProjectRepos repos={project?.repos} isLoading={isLoading} isError={isError} />
     </aside>
   );
 }
