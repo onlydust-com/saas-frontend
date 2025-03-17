@@ -1,11 +1,11 @@
 "use client";
 
-import onlydustLogoSpace from "@/public/images/logos/onlydust-logo-space.webp";
 import { Github } from "lucide-react";
 import Link from "next/link";
 
+import { ProjectCommunity } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-community";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
-import { bootstrap } from "@/core/bootstrap";
 import { ProjectInterfaceV2 } from "@/core/domain/project/models/project-model-v2";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -15,81 +15,7 @@ import { Separator } from "@/shared/ui/separator";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 
-function ProjectAvatar({
-  logoUrl,
-  name,
-  isLoading,
-  isError,
-}: {
-  logoUrl?: ProjectInterfaceV2["logoUrl"];
-  name?: ProjectInterfaceV2["name"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return <Skeleton className="aspect-square w-full" />;
-  }
-
-  if (isError || !logoUrl) {
-    return null;
-  }
-
-  return (
-    <Avatar className="h-auto w-full rounded-xl border-4 border-background">
-      <AvatarImage src={logoUrl} alt={name} className="aspect-square" />
-      <AvatarFallback>
-        <img className="aspect-square rounded-xl" src={onlydustLogoSpace?.src} alt={name} />
-      </AvatarFallback>
-    </Avatar>
-  );
-}
-
-function ProjectCommunity({
-  moreInfos,
-  isLoading,
-  isError,
-}: {
-  moreInfos?: ProjectInterfaceV2["moreInfos"];
-  isLoading: boolean;
-  isError: boolean;
-}) {
-  if (isLoading) {
-    return (
-      <div className="space-y-3">
-        <Skeleton className="h-7 w-full" />
-        <Skeleton className="h-8 w-1/2" />
-      </div>
-    );
-  }
-
-  if (isError || !moreInfos || moreInfos.length === 0) {
-    return null;
-  }
-
-  const socialKernelPort = bootstrap.getSocialKernelPort();
-  const urlKernelPort = bootstrap.getUrlKernelPort();
-
-  return (
-    <section className="space-y-3">
-      <TypographyH4>Community</TypographyH4>
-
-      <div className={"flex flex-wrap gap-2"}>
-        {moreInfos?.map(moreInfoItem => {
-          const { icon: Icon, label } = socialKernelPort.getSocialPlatformByUrl(moreInfoItem.url);
-
-          return (
-            <Button key={moreInfoItem.url} variant={"outline"} size={"sm"} asChild>
-              <a href={urlKernelPort.validateUrl(moreInfoItem.url)} target="_blank" rel="noreferrer noopener">
-                <Icon />
-                {moreInfoItem.value || label}
-              </a>
-            </Button>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
+import { ProjectAvatar } from "../_components/project-aside-avatar";
 
 function ProjectLanguages({
   languages,
