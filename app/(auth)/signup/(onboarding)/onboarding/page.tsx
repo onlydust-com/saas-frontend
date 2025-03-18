@@ -8,8 +8,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
-import { bootstrap } from "@/core/bootstrap";
 
+import { LanguagesFilter } from "@/shared/filters/languages-filter/languages-filter";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useAuthContext, withAuthenticated } from "@/shared/providers/auth-provider";
 import {
@@ -21,17 +21,11 @@ import {
 } from "@/shared/ui/breadcrumb";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { Checkbox } from "@/shared/ui/checkbox";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 const formSchema = z.object({
-  terms: z
-    .boolean()
-    .default(false)
-    .refine(data => data, {
-      message: "You must accept the terms & conditions to continue.",
-    }),
+  languages: z.array(z.string()),
 });
 
 function SignupLegalPage() {
@@ -98,41 +92,14 @@ function SignupLegalPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="terms"
+              name="languages"
               render={({ field }) => (
                 <div className="flex flex-col space-y-2">
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormItem className="flex flex-col justify-start gap-3">
+                    <FormLabel>Select your preferred languages</FormLabel>
                     <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={hasAcceptedLatestTermsAndConditions}
-                      />
+                      <LanguagesFilter onSelect={field.onChange} languagesIds={field.value} />
                     </FormControl>
-
-                    <div className="flex flex-col space-y-1">
-                      <FormLabel>I have read and accept terms & conditions</FormLabel>
-                      <FormDescription>
-                        I agree to the full{" "}
-                        <a
-                          href={bootstrap.getLegalKernelPort().getTermsAndConditionsUrl()}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline"
-                        >
-                          terms & conditions
-                        </a>{" "}
-                        & the{" "}
-                        <a
-                          href={bootstrap.getLegalKernelPort().getPrivacyPolicyUrl()}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline"
-                        >
-                          privacy policy
-                        </a>
-                      </FormDescription>
-                    </div>
                   </FormItem>
 
                   <FormMessage />
