@@ -1,15 +1,15 @@
 "use client";
 
-import { ProjectCommunity } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-community";
-import { ProjectRepos } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/project-aside-repos";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { ProjectAvatar } from "../_components/project-aside-avatar";
 import { ProjectCategories } from "../_components/project-aside-categories";
+import { ProjectCommunity } from "../_components/project-aside-community";
+import { ProjectContributors } from "../_components/project-aside-contributors";
 import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
 import { ProjectLanguages } from "../_components/project-aside-languages";
 import { ProjectMaintainers } from "../_components/project-aside-maintainers";
+import { ProjectRepos } from "../_components/project-aside-repos";
 
 export function ProjectAside({ projectSlug }: { projectSlug: string }) {
   const {
@@ -38,6 +38,8 @@ export function ProjectAside({ projectSlug }: { projectSlug: string }) {
       <ProjectCategories categories={project?.categories} isLoading={isLoading} isError={isError} />
 
       <ProjectMaintainers maintainers={project?.leads} isLoading={isLoading} isError={isError} />
+
+      <ProjectContributors projectIdOrSlug={projectSlug} />
 
       <ProjectRepos repos={project?.repos} isLoading={isLoading} isError={isError} />
     </aside>
