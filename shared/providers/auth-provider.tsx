@@ -120,6 +120,12 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           return;
         }
 
+        // add a condition on posthog AB/TEST
+        if (!user.hasCompletedOnboarding) {
+          router.push(NEXT_ROUTER.signup.onboarding.root);
+          return;
+        }
+
         redirectToApp();
       }
     }, [router, user]);
