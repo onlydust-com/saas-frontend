@@ -25,7 +25,7 @@ export default function ProjectDetailLayout({
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlugV2}>
       <PageContainer size="small">
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col gap-6 py-6 md:flex-row">
           <div className="flex-1 md:max-w-[200px] lg:max-w-[300px]">
             <ProjectAside projectSlug={params.projectSlugV2} />
           </div>
