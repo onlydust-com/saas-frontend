@@ -12,6 +12,8 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
+import { useFeatureFlagVariant } from "../hooks/feature-flag/feature-flag.hooks";
+
 interface AuthContext {
   isAuthenticated: boolean;
   redirectToSignup(): void;
@@ -112,6 +114,9 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
     const router = useRouter();
     const { redirectToApp } = useAuthContext();
     const { user } = useAuthUser();
+    const variantValue = useFeatureFlagVariant({
+      flagName: "onboarding-flag",
+    });
 
     useEffect(() => {
       if (user) {
@@ -120,8 +125,7 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           return;
         }
 
-        // add a condition on posthog AB/TEST
-        if (!user.hasCompletedOnboarding) {
+        if (!user.hasCompletedOnboarding && variantValue === "forcedOnboarding") {
           router.push(NEXT_ROUTER.signup.onboarding.root);
           return;
         }
