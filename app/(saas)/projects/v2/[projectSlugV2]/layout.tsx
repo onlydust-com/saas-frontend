@@ -25,12 +25,12 @@ export default function ProjectDetailLayout({
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlugV2}>
       <PageContainer size="small">
-        <div className="flex flex-col gap-6 py-6 md:flex-row">
-          <div className="flex-1 md:max-w-[200px] lg:max-w-[300px]">
+        <div className="flex w-full flex-col gap-6 py-6 md:flex-row">
+          <div className="flex-1 shrink-0 md:max-w-[200px] lg:max-w-[300px]">
             <ProjectAside projectSlug={params.projectSlugV2} />
           </div>
 
-          <div>{children}</div>
+          <div className="flex-1">{children}</div>
         </div>
 
         <ContributionsSidepanel />
