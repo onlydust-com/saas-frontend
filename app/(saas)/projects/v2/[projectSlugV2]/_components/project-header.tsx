@@ -43,7 +43,7 @@ export function ProjectHeader({
 
   return (
     <header className="flex w-full flex-col gap-2">
-      <div className="flex w-full items-center justify-between gap-1">
+      <div className="flex w-full items-center justify-between gap-3">
         {name ? <TypographyH2>{name}</TypographyH2> : <div />}
 
         <div className="flex items-center justify-end gap-3">
