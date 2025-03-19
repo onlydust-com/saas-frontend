@@ -25,7 +25,7 @@ export function ProjectAvatar({
   }
 
   return (
-    <Avatar className="h-auto w-full rounded-xl">
+    <Avatar className="mx-auto h-auto w-1/2 rounded-xl md:w-full">
       <AvatarImage src={logoUrl} alt={name} className="aspect-square" />
       <AvatarFallback>
         <img className="aspect-square rounded-xl" src={onlydustLogoSpace?.src} alt={name} />

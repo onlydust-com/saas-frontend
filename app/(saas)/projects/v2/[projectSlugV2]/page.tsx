@@ -66,7 +66,6 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
           project_id: project?.id,
           type: "full",
           issues: project?.availableIssueCount,
-          tab: "overview",
         }}
         paramsReady={Boolean(project)}
       />
