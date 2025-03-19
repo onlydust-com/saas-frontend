@@ -22,9 +22,9 @@ import { Textarea } from "@/shared/ui/textarea";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 const formSchema = z.object({
-  languages: z.array(z.string()),
-  project_maturity: z.array(z.string()),
-  domain_to_work_on: z.array(z.string()),
+  preferredLanguages: z.array(z.string()),
+  preferredProjectMaturity: z.array(z.string()),
+  preferredDomains: z.array(z.string()),
 });
 
 function SignupLegalPage() {
@@ -63,7 +63,7 @@ function SignupLegalPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 space-y-4">
             <FormField
               control={form.control}
-              name="languages"
+              name="preferredLanguages"
               render={({ field }) => (
                 <div className="flex flex-col space-y-2">
                   <FormItem className="flex flex-col justify-start gap-3">
@@ -79,7 +79,7 @@ function SignupLegalPage() {
             />
             <FormField
               control={form.control}
-              name="project_maturity"
+              name="preferredProjectMaturity"
               render={({ field }) => (
                 <div className="flex flex-col space-y-2">
                   <FormItem className="flex flex-col justify-start gap-3">
@@ -118,7 +118,7 @@ function SignupLegalPage() {
             />
             <FormField
               control={form.control}
-              name="domain_to_work_on"
+              name="preferredDomains"
               render={({ field }) => (
                 <div className="flex flex-col space-y-2">
                   <FormItem className="flex flex-col justify-start gap-3">
@@ -139,7 +139,7 @@ function SignupLegalPage() {
               <Button variant="outline" className="w-full">
                 Skip
               </Button>
-              <Button type="submit" className="w-full" loading={isPending}>
+              <Button type="submit" className="w-full">
                 Save preferences
               </Button>
             </div>
