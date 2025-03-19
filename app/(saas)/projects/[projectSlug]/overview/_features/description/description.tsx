@@ -7,6 +7,7 @@ import { Markdown } from "@/shared/features/markdown/markdown";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
@@ -111,3 +112,7 @@ export function Description({ description, projectId, isAiGenerated, title }: De
     </Card>
   );
 }
+
+Description.Skeleton = function DescriptionSkeleton() {
+  return <Skeleton className="h-[406px] w-full" />;
+};

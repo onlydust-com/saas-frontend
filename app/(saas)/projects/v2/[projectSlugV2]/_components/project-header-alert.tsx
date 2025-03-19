@@ -40,6 +40,10 @@ export function ProjectHeaderAlert({ projectId = "" }: { projectId?: string }) {
     }
   }
 
+  if (!projectId) {
+    return null;
+  }
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>

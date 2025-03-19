@@ -49,6 +49,10 @@ export function ProjectHeaderBookmark({ projectId = "", projectName }: { project
     (isBookMarked ? removeBookmark : addBookmark)({});
   }
 
+  if (!projectId || !projectName) {
+    return null;
+  }
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>

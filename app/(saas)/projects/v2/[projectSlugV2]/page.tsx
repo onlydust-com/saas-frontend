@@ -2,6 +2,7 @@
 
 import { Description } from "@/app/(saas)/projects/[projectSlug]/overview/_features/description/description";
 import { LatestNews } from "@/app/(saas)/projects/[projectSlug]/overview/_features/latest-news/latest-news";
+import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
@@ -24,6 +25,37 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
       enabled: Boolean(params.projectSlugV2),
     },
   });
+
+  function renderAiDescription() {
+    if (isLoading) {
+      return <Description.Skeleton />;
+    }
+
+    if (isError || !project?.id || !project?.overview) {
+      return null;
+    }
+
+    return (
+      <Description
+        description={project.overview}
+        projectId={project?.id}
+        title={"Overview by OnlyDust"}
+        isAiGenerated
+      />
+    );
+  }
+
+  function renderDescription() {
+    if (isLoading) {
+      return <Description.Skeleton />;
+    }
+
+    if (isError || !project?.id || !project?.longDescription) {
+      return null;
+    }
+
+    return <Description description={project.longDescription} projectId={project?.id} title={"Description"} />;
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -57,26 +89,21 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
         ]}
       />
 
-      <ProjectHeader id={project?.id} name={project?.name} shortDescription={project?.shortDescription} />
+      <ProjectHeader
+        id={project?.id}
+        name={project?.name}
+        shortDescription={project?.shortDescription}
+        isLoading={isLoading}
+        isError={isError}
+      />
 
-      {project?.id && (
-        <div className="col-span-full tablet:hidden">
-          <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />
-        </div>
-      )}
+      {project?.id && <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />}
 
-      {project?.overview ? (
-        <Description
-          description={project.overview}
-          projectId={project?.id}
-          title={"Overview by OnlyDust"}
-          isAiGenerated
-        />
-      ) : null}
+      {renderAiDescription()}
 
-      {project?.longDescription ? (
-        <Description description={project.longDescription} projectId={project?.id} title={"Description"} />
-      ) : null}
+      {renderDescription()}
+
+      <RecentActivity projectId={project?.id} />
     </div>
   );
 }
