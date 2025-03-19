@@ -1,5 +1,5 @@
 ---
-description: 
+description: Migrate features from our old design system to shadcn
 globs: 
 alwaysApply: false
 ---
