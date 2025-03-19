@@ -2,14 +2,14 @@
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { ProjectAvatar } from "../_components/project-aside-avatar";
-import { ProjectCategories } from "../_components/project-aside-categories";
-import { ProjectCommunity } from "../_components/project-aside-community";
-import { ProjectContributors } from "../_components/project-aside-contributors";
-import { ProjectEcosystems } from "../_components/project-aside-ecosystems";
-import { ProjectLanguages } from "../_components/project-aside-languages";
-import { ProjectMaintainers } from "../_components/project-aside-maintainers";
-import { ProjectRepos } from "../_components/project-aside-repos";
+import { ProjectAvatar } from "./project-aside-avatar";
+import { ProjectCategories } from "./project-aside-categories";
+import { ProjectCommunity } from "./project-aside-community";
+import { ProjectContributors } from "./project-aside-contributors";
+import { ProjectEcosystems } from "./project-aside-ecosystems";
+import { ProjectLanguages } from "./project-aside-languages";
+import { ProjectMaintainers } from "./project-aside-maintainers";
+import { ProjectRepos } from "./project-aside-repos";
 
 export function ProjectAside({ projectSlug }: { projectSlug: string }) {
   const {

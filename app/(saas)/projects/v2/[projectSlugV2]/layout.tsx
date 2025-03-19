@@ -6,7 +6,7 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
-import { ProjectAside } from "./_features/project-aside";
+import { ProjectAside } from "./_components/project-aside";
 
 export async function generateMetadata({ params }: { params: { projectSlug: string } }): Promise<Metadata> {
   const projectSlug = params.projectSlug;
