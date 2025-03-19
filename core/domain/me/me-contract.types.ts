@@ -250,3 +250,11 @@ export type GetMyApplicationsPortParams = HttpClientParameters<{
 }>;
 
 export type GetMyApplicationsPortResponse = HttpStorageResponse<MeApplicationsInterface>;
+
+/* ----------------------- POST MY ONBOARDING ANSWERS ----------------------- */
+
+export type PostMyOnboardingAnswersBody = components["schemas"]["OnboardingAnswers"];
+
+export type PostMyOnboardingAnswersPortParams = HttpClientParameters<object>;
+
+export type PostMyOnboardingAnswersPortResponse = HttpStorageResponse<never, PostMyOnboardingAnswersBody>;

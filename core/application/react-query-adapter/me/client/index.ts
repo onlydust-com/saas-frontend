@@ -20,3 +20,4 @@ export * from "./use-upload-profile-picture";
 export * from "./use-get-my-notifications-settings-for-project";
 export * from "./use-set-my-notifications-settings-for-project";
 export * from "./use-get-my-applications";
+export * from "./use-post-my-onboarding-anwsers";

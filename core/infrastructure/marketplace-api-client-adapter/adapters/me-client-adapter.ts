@@ -15,6 +15,7 @@ import {
   GetUpdateGithubProfileResponse,
   LogoutMeResponse,
   PostMyApplicationBody,
+  PostMyOnboardingAnswersBody,
   ReplaceMyProfileBody,
   SetMeBody,
   SetMyNotificationSettingsBody,
@@ -65,6 +66,7 @@ export class MeClientAdapter implements MeStoragePort {
     startChat: "me/reco/chats",
     continueChat: "me/reco/chats/:chatId",
     getMyApplications: "me/applications",
+    postMyOnboardingAnswers: "me/onboarding-answers",
   } as const;
 
   logoutMe = () => {
@@ -523,6 +525,25 @@ export class MeClientAdapter implements MeStoragePort {
 
       return new MeApplications(data);
     };
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  postMyOnboardingAnswers = () => {
+    const path = this.routes["postMyOnboardingAnswers"];
+    const method = "POST";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async (body: PostMyOnboardingAnswersBody) =>
+      this.client.request<never>({
+        path,
+        method,
+        tag,
+        body: JSON.stringify(body),
+      });
 
     return {
       request,

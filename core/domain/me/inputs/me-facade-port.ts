@@ -25,6 +25,8 @@ import {
   LogoutMeResponsePortResponse,
   PostMyApplicationPortParams,
   PostMyApplicationPortResponse,
+  PostMyOnboardingAnswersPortParams,
+  PostMyOnboardingAnswersPortResponse,
   RegisterToHackathonPortParams,
   RegisterToHackathonPortResponse,
   ReplaceMyProfilePortParams,
@@ -74,4 +76,5 @@ export interface MeFacadePort {
   startChat(params: StartChatPortParams): StartChatPortResponse;
   continueChat(params: ContinueChatPortParams): ContinueChatPortResponse;
   getMyApplications(params: GetMyApplicationsPortParams): GetMyApplicationsPortResponse;
+  postMyOnboardingAnswers(params: PostMyOnboardingAnswersPortParams): PostMyOnboardingAnswersPortResponse;
 }
