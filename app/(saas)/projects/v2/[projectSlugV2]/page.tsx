@@ -1,6 +1,5 @@
 "use client";
 
-import { Description } from "@/app/(saas)/projects/[projectSlug]/overview/_features/description/description";
 import { LatestNews } from "@/app/(saas)/projects/[projectSlug]/overview/_features/latest-news/latest-news";
 import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
 
@@ -10,6 +9,8 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
+import { ProjectAside } from "./_components/project-aside";
+import { ProjectDescription } from "./_components/project-description";
 import { ProjectHeader } from "./_components/project-header";
 
 export default function ProjectDetailPage({ params }: { params: { projectSlugV2: string } }) {
@@ -26,39 +27,8 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
     },
   });
 
-  function renderAiDescription() {
-    if (isLoading) {
-      return <Description.Skeleton />;
-    }
-
-    if (isError || !project?.id || !project?.overview) {
-      return null;
-    }
-
-    return (
-      <Description
-        description={project.overview}
-        projectId={project?.id}
-        title={"Overview by OnlyDust"}
-        isAiGenerated
-      />
-    );
-  }
-
-  function renderDescription() {
-    if (isLoading) {
-      return <Description.Skeleton />;
-    }
-
-    if (isError || !project?.id || !project?.longDescription) {
-      return null;
-    }
-
-    return <Description description={project.longDescription} projectId={project?.id} title={"Description"} />;
-  }
-
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex w-full flex-col gap-6 py-6 md:flex-row">
       <PosthogCaptureOnMount
         eventName={"project_viewed"}
         params={{
@@ -88,21 +58,42 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
         ]}
       />
 
-      <ProjectHeader
-        id={project?.id}
-        name={project?.name}
-        shortDescription={project?.shortDescription}
-        isLoading={isLoading}
-        isError={isError}
-      />
+      <div className="flex-1 shrink-0 md:max-w-[200px] lg:max-w-[300px]">
+        <ProjectAside projectSlug={params.projectSlugV2} />
+      </div>
 
-      {project?.id && <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />}
+      <div className="flex-1 overflow-auto">
+        <div className="flex flex-col gap-6">
+          <ProjectHeader
+            id={project?.id}
+            name={project?.name}
+            shortDescription={project?.shortDescription}
+            isLoading={isLoading}
+            isError={isError}
+          />
 
-      {renderAiDescription()}
+          {project?.id && <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />}
 
-      {renderDescription()}
+          <ProjectDescription
+            description={project?.overview}
+            projectId={project?.id}
+            title={"Overview by OnlyDust"}
+            isAiGenerated
+            isLoading={isLoading}
+            isError={isError}
+          />
 
-      <RecentActivity projectId={project?.id} />
+          <ProjectDescription
+            description={project?.longDescription}
+            projectId={project?.id}
+            title={"Description"}
+            isLoading={isLoading}
+            isError={isError}
+          />
+
+          <RecentActivity projectId={project?.id} />
+        </div>
+      </div>
     </div>
   );
 }

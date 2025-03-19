@@ -7,14 +7,27 @@ import { Markdown } from "@/shared/features/markdown/markdown";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
-import { DescriptionProps } from "./description.types";
-
 const MAX_HEIGHT = 320;
 
-export function Description({ description, projectId, isAiGenerated, title }: DescriptionProps) {
+export function ProjectDescription({
+  description,
+  projectId,
+  title,
+  isAiGenerated,
+  isLoading,
+  isError,
+}: {
+  description?: string;
+  projectId?: string;
+  title: string;
+  isAiGenerated?: boolean;
+  isLoading: boolean;
+  isError: boolean;
+}) {
   const [isVoted, setIsVoted] = useState(false);
   const descriptionRef = useRef<HTMLDivElement>(null);
   const [descriptionHeight, setDescriptionHeight] = useState(100000000);
@@ -28,8 +41,6 @@ export function Description({ description, projectId, isAiGenerated, title }: De
       setDescriptionHeight(descriptionRef.current.offsetHeight);
     }
   }, [description, descriptionRef]);
-
-  if (!description) return null;
 
   function handleClick() {
     const newValue = !isExpanded;
@@ -60,7 +71,13 @@ export function Description({ description, projectId, isAiGenerated, title }: De
     setIsVoted(true);
   }
 
-  if (!description) return null;
+  if (isLoading) {
+    return <Skeleton className="h-[406px] w-full" />;
+  }
+
+  if (isError || !projectId || !description) {
+    return null;
+  }
 
   return (
     <Card

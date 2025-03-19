@@ -6,8 +6,6 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 import { ContributionsSidepanel } from "@/shared/panels/contribution-sidepanel/contributions-sidepanel";
 import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
 
-import { ProjectAside } from "./_components/project-aside";
-
 export async function generateMetadata({ params }: { params: { projectSlug: string } }): Promise<Metadata> {
   const projectSlug = params.projectSlug;
 
@@ -25,13 +23,7 @@ export default function ProjectDetailLayout({
   return (
     <GithubPermissionsProvider projectSlug={params.projectSlugV2}>
       <PageContainer size="small">
-        <div className="flex w-full flex-col gap-6 py-6 md:flex-row">
-          <div className="flex-1 shrink-0 md:max-w-[200px] lg:max-w-[300px]">
-            <ProjectAside projectSlug={params.projectSlugV2} />
-          </div>
-
-          <div className="flex-1">{children}</div>
-        </div>
+        {children}
 
         <ContributionsSidepanel />
         <ContributorSidepanel />
