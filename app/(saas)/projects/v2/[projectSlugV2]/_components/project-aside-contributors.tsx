@@ -1,12 +1,11 @@
-import Link from "next/link";
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographySmall } from "@/shared/ui/typography";
+import { TypographyMuted } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 import { ProjectAsideSection } from "./project-aside-section";
 
@@ -21,6 +20,7 @@ export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: stri
   });
 
   const contributors = useMemo(() => data?.pages?.flatMap(page => page.contributors) ?? [], [data]);
+  const totalItemNumber = useMemo(() => data?.pages?.[0]?.totalItemNumber ?? 0, [data]);
 
   if (isLoading) {
     return (
@@ -36,23 +36,34 @@ export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: stri
   }
 
   return (
-    <ProjectAsideSection title="Maintainers" hasSeparator>
-      <div className="flex flex-col gap-3">
-        {contributors.map(contributor => (
-          <Link
+    <ProjectAsideSection title="Contributors" hasSeparator>
+      <div className="flex items-center">
+        {contributors.map((contributor, i) => (
+          <Avatar
             key={contributor.login}
-            href={NEXT_ROUTER.users.details.root(contributor.login)}
-            className="flex items-center gap-2"
+            className={cn("size-8", {
+              "-ml-2": i !== 0,
+            })}
           >
-            <Avatar className="size-8">
-              <AvatarImage src={contributor.avatarUrl} alt={contributor.login} />
-              <AvatarFallback>{contributor.login.charAt(0)}</AvatarFallback>
-            </Avatar>
-
-            <TypographySmall>{contributor.login}</TypographySmall>
-          </Link>
+            <AvatarImage src={contributor.avatarUrl} alt={contributor.login} />
+            <AvatarFallback>{contributor.login.charAt(0)}</AvatarFallback>
+          </Avatar>
         ))}
+
+        {totalItemNumber > 5 && (
+          <div className="relative -ml-2 flex size-8 items-center justify-center rounded-full bg-muted text-xs">
+            +{totalItemNumber - 5}
+          </div>
+        )}
       </div>
+
+      {contributors.length > 2 ? (
+        <TypographyMuted>
+          {contributors[0].login}, {contributors[1].login} and {totalItemNumber - 2} others
+        </TypographyMuted>
+      ) : (
+        <TypographyMuted>{contributors.map(contributor => contributor.login).join(", ")}</TypographyMuted>
+      )}
     </ProjectAsideSection>
   );
 }
