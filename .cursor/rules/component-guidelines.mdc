@@ -72,6 +72,10 @@ export function UserProfileCard({ user }) {
   );
 }
 ```
+## Best practices
+
+- When adding the `children` prop to a component, ALWAYS type it with `PropsWithChildren`, NOT with `ReactNode`.
+
 
 ## Related rules
 
