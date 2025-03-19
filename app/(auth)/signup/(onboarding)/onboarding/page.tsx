@@ -2,15 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BreadcrumbItem } from "@nextui-org/react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
-
 import { LanguagesFilter } from "@/shared/filters/languages-filter/languages-filter";
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { useAuthContext, withAuthenticated } from "@/shared/providers/auth-provider";
 import {
   Breadcrumb,
@@ -21,52 +16,28 @@ import {
 } from "@/shared/ui/breadcrumb";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
+import { Combobox } from "@/shared/ui/combobox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { Textarea } from "@/shared/ui/textarea";
 import { TypographyMuted } from "@/shared/ui/typography";
 
 const formSchema = z.object({
   languages: z.array(z.string()),
+  project_maturity: z.array(z.string()),
+  domain_to_work_on: z.array(z.string()),
 });
 
 function SignupLegalPage() {
-  const { user } = useAuthUser();
   const { redirectToApp } = useAuthContext();
-
-  const hasAcceptedLatestTermsAndConditions = user?.hasAcceptedLatestTermsAndConditions;
-
-  const { mutate: setMe, isPending } = MeReactQueryAdapter.client.useSetMe({
-    options: {
-      onSuccess: () => {
-        toast.success("Terms & conditions accepted");
-        redirectToApp();
-      },
-      onError: () => {
-        toast.error("Error accepting terms & conditions");
-      },
-    },
-  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      terms: false,
-    },
   });
 
-  useEffect(() => {
-    if (hasAcceptedLatestTermsAndConditions) {
-      form.setValue("terms", true);
-    }
-  }, [hasAcceptedLatestTermsAndConditions]);
-
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!hasAcceptedLatestTermsAndConditions) {
-      setMe({
-        hasAcceptedTermsAndConditions: values.terms,
-      });
-    } else {
-      redirectToApp();
-    }
+    console.log("values", values);
+
+    // redirectToApp();
   }
 
   return (
@@ -89,7 +60,7 @@ function SignupLegalPage() {
 
       <CardContent className="pt-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 space-y-4">
             <FormField
               control={form.control}
               name="languages"
@@ -98,7 +69,7 @@ function SignupLegalPage() {
                   <FormItem className="flex flex-col justify-start gap-3">
                     <FormLabel>Select your preferred languages</FormLabel>
                     <FormControl>
-                      <LanguagesFilter onSelect={field.onChange} languagesIds={field.value} />
+                      <LanguagesFilter fullWidth onSelect={field.onChange} languagesIds={field.value} />
                     </FormControl>
                   </FormItem>
 
@@ -106,9 +77,72 @@ function SignupLegalPage() {
                 </div>
               )}
             />
-            <Button type="submit" className="w-full" loading={isPending}>
-              Next step
-            </Button>
+            <FormField
+              control={form.control}
+              name="project_maturity"
+              render={({ field }) => (
+                <div className="flex flex-col space-y-2">
+                  <FormItem className="flex flex-col justify-start gap-3">
+                    <FormLabel>Do you prefer to work on</FormLabel>
+                    <FormControl>
+                      <Combobox
+                        fullWidth
+                        options={[
+                          {
+                            value: "popular",
+                            label: "Popular projects",
+                            keywords: ["popular"],
+                          },
+                          {
+                            value: "unknown",
+                            label: "Unknown projects",
+                            keywords: ["unknown"],
+                          },
+                          {
+                            value: "doesnt_matter",
+                            label: "Doesnt matter",
+                            keywords: ["doesnt_matter"],
+                          },
+                        ]}
+                        value={field.value}
+                        onChange={field.onChange}
+                        selectedLabel=""
+                        placeholder="Select your preferred project type"
+                      />
+                    </FormControl>
+                  </FormItem>
+
+                  <FormMessage />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="domain_to_work_on"
+              render={({ field }) => (
+                <div className="flex flex-col space-y-2">
+                  <FormItem className="flex flex-col justify-start gap-3">
+                    <FormLabel>Any domains you&apos;d like to work on ?</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g. AI, DeFi, fintech, gaming, education, security, real estate.."
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+
+                  <FormMessage />
+                </div>
+              )}
+            />
+            <div className="flex flex-row justify-between gap-4">
+              <Button variant="outline" className="w-full">
+                Skip
+              </Button>
+              <Button type="submit" className="w-full" loading={isPending}>
+                Save preferences
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
