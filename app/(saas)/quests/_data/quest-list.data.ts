@@ -233,17 +233,9 @@ export const QuestListData: QuestList[] = [
       links: [],
     },
     wantedProfiles: {
-      junior: {
-        provided: [],
-        wanted: 0,
-      },
       senior: {
         provided: [],
         wanted: 2,
-      },
-      expert: {
-        provided: [],
-        wanted: 0,
       },
     },
     requiredSkills: ["react native", "expo", "UI", "typescript"],
