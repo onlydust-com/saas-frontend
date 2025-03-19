@@ -20,25 +20,26 @@ This document describes the architecture patterns for the `/core` folder, follow
 
 ```
 /core
-├── domain/                         # Business logic, models, and interfaces
-│   └── resource-name/               # Organized by resource/entity
-│       ├── resource-contract.types.ts   # Type definitions
-│       ├── models/                 # Domain models
+├── domain/                               # Business logic, models, and interfaces
+│   └── resource-name/                    # Organized by resource/entity
+│       ├── resource-contract.types.ts    # Type definitions
+│       ├── models/                       # Domain models
 │       │   └── resource-model.ts
-│       ├── inputs/                 # Inbound ports (facades)
+│       ├── inputs/                       # Inbound ports (facades)
 │       │   └── resource-facade-port.ts
-│       └── outputs/                # Outbound ports (storage)
+│       └── outputs/                      # Outbound ports (storage)
 │           └── resource-storage-port.ts
-├── application/                    # Use cases and application-specific logic
-│   └── react-query-adapter/        # Adapters for React Query
+├── application/                          # Use cases and application-specific logic
+│   └── react-query-adapter/              # Adapters for React Query
 │       └── resource-name/
 │           └── client/
+│               ├── index.ts              # Group React Query hooks
 │               └── use-resource-action.ts
-├── infrastructure/                 # Implementations of domain interfaces
-│   └── adapter-name/               # Organized by external system
+├── infrastructure/                       # Implementations of domain interfaces
+│   └── marketplace-api-client-adapter/   # Organized by external system
 │       └── adapters/
-│           └── resource-adapter.ts  # Implements resource-storage-port
-└── kernel/                         # Cross-cutting concerns and utilities
+│           └── resource-adapter.ts       # Implements resource-storage-port
+└── kernel/                               # Cross-cutting concerns and utilities
     └── resource-name/
         └── resource-utils.ts
 ```
@@ -48,7 +49,7 @@ This document describes the architecture patterns for the `/core` folder, follow
 ```
 /core
 └── bootstrap/                      # Application initialization
-    ├── index.ts                    # Main bootstrap class
+    └── index.ts                    # Main bootstrap class
 ```
 
 ## Naming Conventions
@@ -58,62 +59,6 @@ This document describes the architecture patterns for the `/core` folder, follow
 - Outbound ports: `{resource}-storage-port.ts`
 - Type definitions: `{resource}-contract.types.ts`
 - Adapters: `{resource}-{adapter}-adapter.ts` 
-- React Query hooks: `use-{action}-{resource}.ts`
-# Core Folder Architecture
-
-This document describes the architecture patterns for the `/core` folder, following a clean hexagonal architecture (ports and adapters) pattern.
-
-## Key Concepts
-
-- **Domain**: Contains business logic, models, and interfaces for a specific resource or entity
-- **Model**: Represents core business entities and their behaviors
-- **Facade**: Inbound ports/interfaces that expose domain functionality
-- **Storage**: Outbound ports/interfaces for persistence and external services
-- **Adapter**: Implementations of ports (both inbound and outbound)
-- **Application**: Contains use cases and application-specific logic
-
-## Directory Structure
-
-```
-/core
-├── domain/                         # Business logic, models, and interfaces
-│   └── resource-name/               # Organized by resource/entity
-│       ├── resource-contract.types.ts   # Type definitions
-│       ├── models/                 # Domain models
-│       │   └── resource-model.ts
-│       ├── inputs/                 # Inbound ports (facades)
-│       │   └── resource-facade-port.ts
-│       └── outputs/                # Outbound ports (storage)
-│           └── resource-storage-port.ts
-├── application/                    # Use cases and application-specific logic
-│   └── react-query-adapter/        # Adapters for React Query
-│       └── resource-name/
-│           └── client/
-│               └── use-resource-action.ts
-├── infrastructure/                 # Implementations of domain interfaces
-│   └── adapter-name/               # Organized by external system
-│       └── adapters/
-│           └── resource-adapter.ts  # Implements resource-storage-port
-└── kernel/                         # Cross-cutting concerns and utilities
-    └── resource-name/
-        └── resource-utils.ts
-```
-
-## Bootstrap Pattern
-
-```
-/core
-└── bootstrap/                      # Application initialization
-    ├── index.ts                    # Main bootstrap class
-```
-
-## Naming Conventions
-
-- Domain models: `{resource}-model.ts`
-- Inbound ports: `{resource}-facade-port.ts`
-- Outbound ports: `{resource}-storage-port.ts`
-- Type definitions: `{resource}-contract.types.ts`
-- Adapters: `{resource}-{adapter}-adapter.ts`
 - React Query hooks: `use-{action}-{resource}.ts`
 
 
@@ -172,8 +117,6 @@ This document describes the architecture patterns for the `/core` folder, follow
    For example:
    ```
    export interface DepositFacadePort {
-      previewDeposit(p: PreviewDepositPortParams): PreviewDepositPortResponse;
-      updateDeposit(p: UpdateDepositPortParams): UpdateDepositPortResponse;
       getDeposit(p: GetDepositPortParams): GetDepositPortResponse;
    }
 
