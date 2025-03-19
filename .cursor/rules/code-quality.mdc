@@ -36,27 +36,27 @@ alwaysApply: true
 
 #### Do's
 
-- Use TypeScript interfaces for component props
-- Implement proper error boundaries
-- Use React Query for data fetching
-- Follow the domain-driven design structure
-- Use absolute imports (@/...) when importing files from a different root directory
+- DO Use TypeScript interfaces for component props
+- DO Implement proper error boundaries
+- DO Use React Query for data fetching
+- DO Follow the domain-driven design structure
+- DO Use absolute imports (@/...) when importing files from a different root directory
   - Example: `import { Button } from "@/shared/ui/button"` when in a directory other than `@/shared`
   - Example: `import { Button } from "./button"` when inside `@/shared`
-- Implement proper loading states
-- Write unit tests for utilities
-- Use proper type annotations
-- Follow the established file structure
+- DO Implement proper loading states
+- DO Write unit tests for utilities
+- DO Use proper type annotations
+- DO Follow the established file structure
 
 #### Don'ts
 
-- Don't use deprecated design system components
-- Don't implement new features without tests
-- Don't leave console.log statements
-- Don't use any type
-- Don't duplicate business logic
-- Don't skip error handling
-- Don't mix styling approaches
+- DON'T use deprecated design system components
+- DON'T implement new features without tests
+- DON'T leave console.log statements
+- DON'T use any type
+- DON'T duplicate business logic
+- DON'T skip error handling
+- DON'T mix styling approaches
 
 ### Performance Considerations
 
