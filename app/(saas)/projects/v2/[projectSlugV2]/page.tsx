@@ -12,6 +12,7 @@ import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture
 import { ProjectAside } from "./_components/project-aside";
 import { ProjectDescription } from "./_components/project-description";
 import { ProjectHeader } from "./_components/project-header";
+import { ProjectNews } from "./_components/project-news";
 
 export default function ProjectDetailPage({ params }: { params: { projectSlugV2: string } }) {
   const {
@@ -73,6 +74,8 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
           />
 
           {project?.id && <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />}
+
+          <ProjectNews projectId={project?.id} />
 
           <ProjectDescription
             description={project?.overview}
