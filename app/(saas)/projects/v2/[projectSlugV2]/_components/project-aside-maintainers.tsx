@@ -38,7 +38,7 @@ export function ProjectMaintainers({
           <Link
             key={maintainer.login}
             href={NEXT_ROUTER.users.details.root(maintainer.login)}
-            className="flex items-center gap-2"
+            className="flex w-fit items-center gap-2"
           >
             <Avatar className="size-8">
               <AvatarImage src={maintainer.avatarUrl} alt={maintainer.login} />
