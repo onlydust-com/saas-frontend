@@ -7,6 +7,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
+import { ProjectAsideContributorsModal } from "./project-aside-contributors-modal";
 import { ProjectAsideSection } from "./project-aside-section";
 
 export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: string }) {
@@ -37,25 +38,27 @@ export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: stri
 
   return (
     <ProjectAsideSection title="Contributors" hasSeparator>
-      <div className="flex items-center">
-        {contributors.map((contributor, i) => (
-          <Avatar
-            key={contributor.login}
-            className={cn("size-8", {
-              "-ml-2": i !== 0,
-            })}
-          >
-            <AvatarImage src={contributor.avatarUrl} alt={contributor.login} />
-            <AvatarFallback>{contributor.login.charAt(0)}</AvatarFallback>
-          </Avatar>
-        ))}
+      <ProjectAsideContributorsModal projectIdOrSlug={projectIdOrSlug}>
+        <div className="flex items-center">
+          {contributors.map((contributor, i) => (
+            <Avatar
+              key={contributor.login}
+              className={cn("size-8", {
+                "-ml-2": i !== 0,
+              })}
+            >
+              <AvatarImage src={contributor.avatarUrl} alt={contributor.login} />
+              <AvatarFallback>{contributor.login.charAt(0)}</AvatarFallback>
+            </Avatar>
+          ))}
 
-        {totalItemNumber > 5 && (
-          <div className="relative -ml-2 flex size-8 items-center justify-center rounded-full bg-muted text-xs">
-            +{totalItemNumber - 5}
-          </div>
-        )}
-      </div>
+          {totalItemNumber > 5 && (
+            <div className="relative -ml-2 flex size-8 items-center justify-center rounded-full bg-muted text-xs">
+              +{totalItemNumber - 5}
+            </div>
+          )}
+        </div>
+      </ProjectAsideContributorsModal>
 
       {contributors.length > 2 ? (
         <TypographyMuted>
