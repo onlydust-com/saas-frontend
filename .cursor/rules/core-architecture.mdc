@@ -1,6 +1,6 @@
 ---
-description: 
-globs: core/**/*.ts
+description: Creating or updating core domain logic, adapters and requests
+globs: 
 alwaysApply: false
 ---
 # Core Folder Architecture

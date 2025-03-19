@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Migration Guidelines
+
+### Migration Process
+
+1. Identify components that need migration
+2. Create a migration plan
+3. Implement changes incrementally
+4. Update documentation
+5. Remove deprecated code
+
+### Documentation Requirements
+
+- Document any components still using the design system
+- Include migration instructions
+- Track migration progress
+
+### Migration Example
+
+```typescript
+/**
+ * @component LegacyComponent
+ * @deprecated Use shadcn components instead
+ * @migration-status In Progress
+ * @migration-plan See docs/migration/legacy-component.md
+ */
+import { Button } from "@/design-system/atoms/button"; // ❌ Deprecated
+// TODO: Migrate to shadcn Button component
+```
