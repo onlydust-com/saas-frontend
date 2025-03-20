@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { GetStartedDialog } from "@/app/(auth)/signup/_features/get-started-dialog/get-started-dialog";
 import { PageBanner } from "@/app/(saas)/discover/_components/page-banner/page-banner";
 
 import { RecoReactQueryAdapter } from "@/core/application/react-query-adapter/reco";
@@ -30,6 +31,7 @@ export default function DiscoverPageV2() {
           },
         ]}
       />
+      <GetStartedDialog />
 
       <div className="flex flex-col gap-16 pt-4">
         <PageHeader />
