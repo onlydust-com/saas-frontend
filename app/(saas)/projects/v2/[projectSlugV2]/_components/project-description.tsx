@@ -11,7 +11,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
-const MAX_HEIGHT = 320;
+const MAX_HEIGHT = 300;
 
 export function ProjectDescription({
   description,

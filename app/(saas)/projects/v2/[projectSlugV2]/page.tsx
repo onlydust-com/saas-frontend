@@ -10,6 +10,7 @@ import { ProjectActivity } from "./_components/project-activity";
 import { ProjectAside } from "./_components/project-aside";
 import { ProjectDescription } from "./_components/project-description";
 import { ProjectHeader } from "./_components/project-header";
+import { ProjectIssues } from "./_components/project-issues";
 import { ProjectNews } from "./_components/project-news";
 
 export default function ProjectDetailPage({ params }: { params: { projectSlugV2: string } }) {
@@ -82,13 +83,7 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
             isError={isError}
           />
 
-          <ProjectDescription
-            description={project?.longDescription}
-            projectId={project?.id}
-            title={"Description"}
-            isLoading={isLoading}
-            isError={isError}
-          />
+          <ProjectIssues projectSlug={params.projectSlugV2} />
 
           <ProjectActivity projectSlug={params.projectSlugV2} projectId={project?.id} />
         </div>
