@@ -101,6 +101,8 @@ function Content({
 
   const { user } = useAuthUser();
 
+  const isAssigned = issue?.assignees?.some(assignee => assignee.githubUserId === user?.githubUserId) ?? false;
+
   const currentUserApplication = user?.pendingApplications?.find(application => application.issue?.id === issue?.id);
 
   const hasCurrentUserApplication = Boolean(currentUserApplication);
@@ -189,6 +191,10 @@ function Content({
   }
 
   const renderCta = () => {
+    if (isAssigned) {
+      return null;
+    }
+
     if (hasCurrentUserApplication) {
       return (
         <div className="flex gap-3">
