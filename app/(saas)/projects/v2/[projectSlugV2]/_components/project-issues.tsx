@@ -9,13 +9,13 @@ import { GithubLabelWithCountInterface } from "@/core/domain/github/models/githu
 import { HackathonListItemInterface } from "@/core/domain/hackathon/models/hackathon-list-item-model";
 import { GetProjectAvailableIssuesQueryParams } from "@/core/domain/project/project-contract.types";
 
-import { Badge } from "@/design-system/atoms/badge";
 import { CardIssue } from "@/design-system/molecules/cards/card-issue";
 
 import { EmptyState } from "@/shared/components/empty-state/empty-state";
-import { ShowMore } from "@/shared/components/show-more/show-more";
 import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
+import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
+import { ShowMore } from "@/shared/ui/show-more";
 import { TypographyH3 } from "@/shared/ui/typography";
 
 export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
@@ -52,6 +52,7 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
   const queryParams: Partial<GetProjectAvailableIssuesQueryParams> = {
     githubLabels: selectedLabels.map(label => label.name),
     hackathonId: selectedHackathons[0]?.id,
+    pageSize: 5,
   };
 
   const {
@@ -128,14 +129,14 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
         {labels.length || liveHackathons.length ? (
           <div className="flex flex-wrap gap-2">
             {labels?.map(label => (
-              <Badge
+              <Button
                 key={label.name}
-                size="md"
+                size="sm"
                 onClick={() => handleLabelClick(label)}
-                color={selectedLabels.some(l => l.name === label.name) ? "brand" : "grey"}
+                variant={selectedLabels.some(l => l.name === label.name) ? "default" : "secondary"}
               >
                 {label.name} ({label.count})
-              </Badge>
+              </Button>
             ))}
 
             {labels?.length > 0 && liveHackathons?.length > 0 ? (
@@ -143,14 +144,14 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
             ) : null}
 
             {liveHackathons?.map(hackathon => (
-              <Badge
+              <Button
                 key={hackathon.slug}
-                size="md"
+                size="sm"
                 onClick={() => handleHackathonClick(hackathon)}
-                color={selectedHackathons.some(h => h.id === hackathon.id) ? "brand" : "grey"}
+                variant={selectedHackathons.some(h => h.id === hackathon.id) ? "default" : "secondary"}
               >
                 {hackathon.title}
-              </Badge>
+              </Button>
             ))}
           </div>
         ) : null}
@@ -199,7 +200,13 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
             ))
           )}
 
-          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+          <ShowMore
+            hasNextPage={hasNextPage}
+            onNext={fetchNextPage}
+            loading={isFetchingNextPage}
+            buttonProps={{ variant: "secondary", size: "sm" }}
+            skip
+          />
         </div>
       </Card>
     </div>
