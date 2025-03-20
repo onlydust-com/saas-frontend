@@ -1,14 +1,12 @@
 "use client";
 
-import { LatestNews } from "@/app/(saas)/projects/[projectSlug]/overview/_features/latest-news/latest-news";
-import { RecentActivity } from "@/app/(saas)/projects/[projectSlug]/overview/_features/recent-activity/recent-activity";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
+import { ProjectActivity } from "./_components/project-activity";
 import { ProjectAside } from "./_components/project-aside";
 import { ProjectDescription } from "./_components/project-description";
 import { ProjectHeader } from "./_components/project-header";
@@ -73,8 +71,6 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
             isError={isError}
           />
 
-          {project?.id && <LatestNews projectId={project.id} className="w-full max-w-full border-border bg-card" />}
-
           <ProjectNews projectId={project?.id} />
 
           <ProjectDescription
@@ -94,7 +90,7 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
             isError={isError}
           />
 
-          <RecentActivity projectId={project?.id} />
+          <ProjectActivity projectSlug={params.projectSlugV2} projectId={project?.id} />
         </div>
       </div>
     </div>
