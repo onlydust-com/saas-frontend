@@ -3,14 +3,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BreadcrumbItem } from "@nextui-org/react";
 import { AlertCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { LanguagesFilter } from "@/shared/filters/languages-filter/languages-filter";
-import { useAuthContext, withAuthenticated, withOnboarding } from "@/shared/providers/auth-provider";
+import { withAuthenticated, withOnboarding } from "@/shared/providers/auth-provider";
 import { Alert, AlertDescription } from "@/shared/ui/alert";
 import {
   AlertDialog,
@@ -42,7 +44,7 @@ const formSchema = z.object({
 });
 
 function SignupOnboardingPage() {
-  const { redirectToApp } = useAuthContext();
+  const router = useRouter();
   const [isSkipDialogOpen, setIsSkipDialogOpen] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,6 +53,10 @@ function SignupOnboardingPage() {
 
   const { mutateAsync: postMyOnboardingAnswers, isPending } = MeReactQueryAdapter.client.usePostMyOnboardingAnswers({});
   const { mutateAsync: setMe, isPending: isPendingMe } = MeReactQueryAdapter.client.useSetMe({});
+
+  function redirectToDiscover() {
+    router.push(NEXT_ROUTER.discover.root);
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await postMyOnboardingAnswers({
@@ -64,7 +70,7 @@ function SignupOnboardingPage() {
       hasCompletedOnboarding: true,
     });
 
-    redirectToApp();
+    redirectToDiscover();
   }
 
   async function handleSkip() {
@@ -73,7 +79,7 @@ function SignupOnboardingPage() {
       hasCompletedOnboarding: true,
     });
 
-    redirectToApp();
+    redirectToDiscover();
   }
 
   return (
