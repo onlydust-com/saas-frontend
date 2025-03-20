@@ -93,7 +93,7 @@ export function SuccessfulApplications({ hackathonSlug }: { hackathonSlug: strin
     <div className="flex flex-col gap-6">
       <header>
         <TypographyH3>Successful applications</TypographyH3>
-        <CardDescription>You successfully applied to these issues, time to get to work!</CardDescription>
+        <CardDescription>You have been assigned to these issues, time to get to work!</CardDescription>
       </header>
 
       <div className="flex flex-col gap-4">{renderApplications()}</div>
