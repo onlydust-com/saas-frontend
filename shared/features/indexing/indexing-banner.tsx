@@ -23,7 +23,7 @@ export function IndexingBanner() {
     const message = INDEXING_MESSAGES[index];
 
     toast(message.text, {
-      duration: ROTATION_INTERVAL * 3,
+      duration: ROTATION_INTERVAL * INDEXING_MESSAGES.length - i,
       position: "bottom-center",
       className: "bg-purple-500 text-white",
       style: {
