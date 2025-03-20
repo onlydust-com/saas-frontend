@@ -285,7 +285,7 @@ function Content({
           <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} />
         ) : null}
 
-        {isHackathon ? (
+        {isHackathon && !isAssigned ? (
           <Card className="flex w-full flex-col gap-4 p-3">
             <div className="flex flex-col items-start gap-1">
               <TypographyH4>My applications limit</TypographyH4>
