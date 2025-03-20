@@ -5,6 +5,8 @@ import { BreadcrumbItem } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+
 import { LanguagesFilter } from "@/shared/filters/languages-filter/languages-filter";
 import { useAuthContext, withAuthenticated } from "@/shared/providers/auth-provider";
 import {
@@ -23,8 +25,8 @@ import { TypographyMuted } from "@/shared/ui/typography";
 
 const formSchema = z.object({
   preferredLanguages: z.array(z.string()),
-  preferredProjectMaturity: z.array(z.string()),
-  preferredDomains: z.array(z.string()),
+  preferredProjectMaturity: z.number(),
+  preferredDomains: z.string(),
 });
 
 function SignupLegalPage() {
@@ -34,8 +36,16 @@ function SignupLegalPage() {
     resolver: zodResolver(formSchema),
   });
 
+  const { mutate: postMyOnboardingAnswers, isPending } = MeReactQueryAdapter.client.usePostMyOnboardingAnswers({});
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("values", values);
+
+    postMyOnboardingAnswers({
+      preferredLanguages: values.preferredLanguages,
+      preferredProjectMaturity: values.preferredProjectMaturity,
+      preferredDomains: values.preferredDomains,
+    });
 
     // redirectToApp();
   }
@@ -87,25 +97,33 @@ function SignupLegalPage() {
                     <FormControl>
                       <Combobox
                         fullWidth
+                        selectionMode="single"
+                        closeOnSelect
                         options={[
                           {
-                            value: "popular",
-                            label: "Popular projects",
+                            value: "1",
+                            label: "Well established projects",
                             keywords: ["popular"],
                           },
                           {
-                            value: "unknown",
-                            label: "Unknown projects",
+                            value: "2",
+                            label: "Emerging projects",
                             keywords: ["unknown"],
                           },
                           {
-                            value: "doesnt_matter",
+                            value: "0",
                             label: "Doesnt matter",
                             keywords: ["doesnt_matter"],
                           },
                         ]}
-                        value={field.value}
-                        onChange={field.onChange}
+                        value={field.value ? [field.value?.toString()] : []}
+                        onChange={value => {
+                          if (value[0]) {
+                            field.onChange(parseInt(value[0]));
+                          } else {
+                            field.onChange(undefined);
+                          }
+                        }}
                         selectedLabel=""
                         placeholder="Select your preferred project type"
                       />

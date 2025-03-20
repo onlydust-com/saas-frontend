@@ -66,7 +66,7 @@ export class MeClientAdapter implements MeStoragePort {
     startChat: "me/reco/chats",
     continueChat: "me/reco/chats/:chatId",
     getMyApplications: "me/applications",
-    postMyOnboardingAnswers: "me/onboarding-answers",
+    postMyOnboardingAnswers: "me/onboarding/answers",
   } as const;
 
   logoutMe = () => {
@@ -534,7 +534,7 @@ export class MeClientAdapter implements MeStoragePort {
 
   postMyOnboardingAnswers = () => {
     const path = this.routes["postMyOnboardingAnswers"];
-    const method = "POST";
+    const method = "PUT";
     const tag = HttpClient.buildTag({ path });
 
     const request = async (body: PostMyOnboardingAnswersBody) =>
