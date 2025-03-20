@@ -168,3 +168,22 @@ export function SignInButton({ children }: PropsWithChildren) {
   const { redirectToSignup } = useAuthContext();
   return <Button onClick={redirectToSignup}>{children ?? "Sign in"}</Button>;
 }
+
+export function withOnboarding<P extends object>(Component: React.ComponentType<P>) {
+  return function WithOnboardingComponent(props: P) {
+    const router = useRouter();
+    const { redirectToApp } = useAuthContext();
+    const { user } = useAuthUser();
+
+    useEffect(() => {
+      if (user) {
+        if (user.hasCompletedOnboarding) {
+          redirectToApp();
+          return;
+        }
+      }
+    }, [router, user]);
+
+    return <Component {...props} />;
+  };
+}
