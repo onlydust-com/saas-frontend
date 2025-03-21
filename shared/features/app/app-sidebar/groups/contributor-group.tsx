@@ -60,7 +60,7 @@ export function ContributorGroup() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
-          {user ? (
+          {user && !isForcedOnboarding ? (
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Public Profile" isActive={isProfileRoute}>
                 <Link href={NEXT_ROUTER.users.details.root(user.login)}>

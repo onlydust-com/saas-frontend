@@ -12,6 +12,7 @@ import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.co
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useForcedOnboarding } from "@/shared/hooks/flags/use-forced-onboarding";
 import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
