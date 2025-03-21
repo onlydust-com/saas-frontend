@@ -11,6 +11,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { PageInner } from "@/shared/features/page/page-inner/page-inner";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel";
 
 import { IssueCard } from "./_components/issue-card/issue-card";
@@ -19,7 +20,13 @@ import { PageCarousel } from "./_components/page-carousel/page-carousel";
 import { PageHeader } from "./_features/page-header/page-header";
 
 export default function DiscoverPageV2() {
-  const { data: tailoredDiscoveries } = RecoReactQueryAdapter.client.useGetTailoredDiscoveries({});
+  const { user } = useAuthUser();
+
+  const { data: tailoredDiscoveries } = RecoReactQueryAdapter.client.useGetTailoredDiscoveries({
+    pathParams: {
+      contributorId: user?.githubUserId ?? undefined,
+    },
+  });
 
   return (
     <PageContainer size="full">
@@ -68,7 +75,12 @@ export default function DiscoverPageV2() {
                   ))}
 
                   {issues.map(issue => (
-                    <IssueSidepanel key={issue.uuid} projectId={issue.project?.id ?? ""} issueId={issue.uuid}>
+                    <IssueSidepanel
+                      key={issue.uuid}
+                      projectId={issue.project?.id ?? ""}
+                      // @ts-expect-error githubId is a string
+                      issueId={issue.githubId as number}
+                    >
                       <IssueCard
                         key={issue.uuid}
                         title={issue.githubTitle}
