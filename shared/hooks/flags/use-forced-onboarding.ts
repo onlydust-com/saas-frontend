@@ -11,7 +11,7 @@ export const useForcedOnboarding = (): null | true | false => {
     return null;
   }
 
-  if (!user?.hasCompletedOnboarding && variant === "forcedNewOnboarding" && user?.isNewContributor()) {
+  if (variant === "forcedNewOnboarding" && user?.isNewContributor()) {
     return true;
   }
 
