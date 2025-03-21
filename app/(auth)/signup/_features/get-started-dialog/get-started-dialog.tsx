@@ -81,7 +81,7 @@ export function GetStartedDialog({ defaultOpen = true }: GetStartedDialogProps) 
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[80%]">
+      <DialogContent className="max-h-[90vh] max-w-[95%] overflow-y-auto sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] 2xl:max-w-[70%]">
         <DialogHeader>
           <DialogTitle>
             <TypographyH2>Get Started with Our Platform</TypographyH2>
