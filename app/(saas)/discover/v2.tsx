@@ -67,6 +67,7 @@ export default function DiscoverPageV2() {
                         setRecommendedData({
                           for: project.slug,
                           data: {
+                            from: "project",
                             algoVersion: project.algoVersion,
                             recommendationRank: project.recommendationRank,
                             rawRecommendationScore: project.rawRecommendationScore,
@@ -124,6 +125,7 @@ export default function DiscoverPageV2() {
                           setRecommendedData({
                             for: issue.project?.slug ?? "",
                             data: {
+                              from: "discover",
                               algoVersion: issue.algoVersion,
                               recommendationRank: issue.recommendationRank,
                               rawRecommendationScore: issue.rawRecommendationScore,
