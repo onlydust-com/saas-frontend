@@ -125,7 +125,7 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           return;
         }
 
-        if (!user.hasCompletedOnboarding && variantValue === "forcedOnboarding") {
+        if (!user.hasCompletedOnboarding && variantValue === "forcedOnboarding" && user.isNewContributor()) {
           router.push(NEXT_ROUTER.signup.onboarding.root);
           return;
         }
