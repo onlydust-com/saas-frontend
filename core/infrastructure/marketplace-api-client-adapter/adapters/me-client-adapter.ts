@@ -5,6 +5,7 @@ import {
   ContinueChatResponse,
   GetMeResponse,
   GetMyApplicationsResponse,
+  GetMyGetStartedResponse,
   GetMyHackathonRegistrationResponse,
   GetMyNotificationSettingsForProjectResponse,
   GetMyNotificationSettingsResponse,
@@ -28,6 +29,7 @@ import {
 } from "@/core/domain/me/me-contract.types";
 import { MeApplications } from "@/core/domain/me/models/me-application";
 import { MeContributorProjects } from "@/core/domain/me/models/me-contributor-projects-model";
+import { MeGetStarted } from "@/core/domain/me/models/me-get-started-model";
 import { MeHackathonRegistration } from "@/core/domain/me/models/me-hackathon-registration-model";
 import { MeMaintainerProjects } from "@/core/domain/me/models/me-maintainer-projects-model";
 import { Me } from "@/core/domain/me/models/me-model";
@@ -67,6 +69,7 @@ export class MeClientAdapter implements MeStoragePort {
     continueChat: "me/reco/chats/:chatId",
     getMyApplications: "me/applications",
     postMyOnboardingAnswers: "me/onboarding/answers",
+    getMyGetStarted: "me/get-started",
   } as const;
 
   logoutMe = () => {
@@ -544,6 +547,27 @@ export class MeClientAdapter implements MeStoragePort {
         tag,
         body: JSON.stringify(body),
       });
+
+    return {
+      request,
+      tag,
+    };
+  };
+
+  getMyGetStarted = () => {
+    const path = this.routes["getMyGetStarted"];
+    const method = "GET";
+    const tag = HttpClient.buildTag({ path });
+
+    const request = async () => {
+      const data = await this.client.request<GetMyGetStartedResponse>({
+        path,
+        method,
+        tag,
+      });
+
+      return new MeGetStarted(data);
+    };
 
     return {
       request,

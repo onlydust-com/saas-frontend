@@ -16,6 +16,7 @@ import {
 } from "@/core/infrastructure/marketplace-api-client-adapter/http/http-client/http-client.types";
 
 import { MeApplicationsInterface } from "./models/me-application";
+import { MeGetStartedInterface } from "./models/me-get-started-model";
 
 /* --------------------------------- Logout me -------------------------------- */
 
@@ -258,3 +259,11 @@ export type PostMyOnboardingAnswersBody = components["schemas"]["OnboardingAnswe
 export type PostMyOnboardingAnswersPortParams = HttpClientParameters<object>;
 
 export type PostMyOnboardingAnswersPortResponse = HttpStorageResponse<never, PostMyOnboardingAnswersBody>;
+
+/* --------------------------------- Get my Get Started -------------------------------- */
+
+export type GetMyGetStartedResponse = components["schemas"]["GetStartedResponse"];
+
+export type GetMyGetStartedPortParams = HttpClientParameters<object>;
+
+export type GetMyGetStartedPortResponse = HttpStorageResponse<MeGetStartedInterface>;

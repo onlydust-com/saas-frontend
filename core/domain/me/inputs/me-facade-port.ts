@@ -5,6 +5,8 @@ import {
   GetMeResponsePortResponse,
   GetMyApplicationsPortParams,
   GetMyApplicationsPortResponse,
+  GetMyGetStartedPortParams,
+  GetMyGetStartedPortResponse,
   GetMyHackathonRegistrationPortParams,
   GetMyHackathonRegistrationPortResponse,
   GetMyNotificationSettingsForProjectPortParams,
@@ -77,4 +79,5 @@ export interface MeFacadePort {
   continueChat(params: ContinueChatPortParams): ContinueChatPortResponse;
   getMyApplications(params: GetMyApplicationsPortParams): GetMyApplicationsPortResponse;
   postMyOnboardingAnswers(params: PostMyOnboardingAnswersPortParams): PostMyOnboardingAnswersPortResponse;
+  getMyGetStarted(params: GetMyGetStartedPortParams): GetMyGetStartedPortResponse;
 }

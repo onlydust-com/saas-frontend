@@ -21,3 +21,4 @@ export * from "./use-get-my-notifications-settings-for-project";
 export * from "./use-set-my-notifications-settings-for-project";
 export * from "./use-get-my-applications";
 export * from "./use-post-my-onboarding-anwsers";
+export * from "./use-get-my-get-started";

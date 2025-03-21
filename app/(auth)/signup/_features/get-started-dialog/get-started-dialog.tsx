@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLocalStorage, useSessionStorage } from "react-use";
 
+import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
+
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Button } from "@/shared/ui/button";
 import { Card, CardFooter } from "@/shared/ui/card";
@@ -25,7 +27,16 @@ export function GetStartedDialog({ defaultOpen = true }: GetStartedDialogProps) 
   const [open, setOpen] = useState<boolean>(!hideDialog && !hideForSession && defaultOpen);
   const router = useRouter();
 
-  // TODO waiting for endpoint to get the completed steps
+  const { data: getStartedData } = MeReactQueryAdapter.client.useGetMyGetStarted({});
+
+  if (
+    !getStartedData ||
+    (getStartedData.hasAppliedToAnIssue &&
+      getStartedData.hasBeenAssignedToAnIssue &&
+      getStartedData.hasCompletedOneContribution)
+  ) {
+    return null;
+  }
 
   const steps = [
     {
@@ -33,21 +44,21 @@ export function GetStartedDialog({ defaultOpen = true }: GetStartedDialogProps) 
       description: "Explore issues recommended based on your skills and interests",
       image: step1,
       route: NEXT_ROUTER.discover.root,
-      completed: true,
+      completed: getStartedData?.hasAppliedToAnIssue,
     },
     {
       title: "Get assigned to an issue",
       description: "Apply for an issue and start your contribution journey",
       image: step2,
       route: NEXT_ROUTER.myDashboard.contributions.root,
-      completed: true,
+      completed: getStartedData?.hasBeenAssignedToAnIssue,
     },
     {
       title: "Complete your first contribution",
       description: "Contribute to projects and build your developer profile",
       image: step3,
       route: NEXT_ROUTER.myDashboard.projects.root,
-      completed: false,
+      completed: getStartedData?.hasCompletedOneContribution,
     },
   ];
 
