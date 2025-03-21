@@ -24,7 +24,7 @@ export default function DiscoverPageV2() {
   const { user } = useAuthUser();
   const { setRecommendedData } = useRecommendedState();
   const { data: tailoredDiscoveries } = RecoReactQueryAdapter.client.useGetTailoredDiscoveries({
-    pathParams: {
+    queryParams: {
       contributorId: user?.githubUserId ?? undefined,
     },
   });
