@@ -7,7 +7,6 @@ export const useForcedOnboarding = (): null | true | false => {
 
   const variant = useFeatureFlagVariantKey("onboarding-flag-v5");
 
-  return true;
   if (!user) {
     return null;
   }
