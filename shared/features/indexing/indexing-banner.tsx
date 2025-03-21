@@ -19,7 +19,7 @@ const INDEXING_MESSAGES: IndexingMessage[] = [
 const ROTATION_INTERVAL = 3500; // 3.5 seconds between each message
 const TOTAL_DURATION = ROTATION_INTERVAL * INDEXING_MESSAGES.length;
 
-function SafeIndexingBanner({ setHideDialog }: { setHideDialog: (hideDialog: boolean) => void }) {
+function SafeIndexingBanner() {
   const animationFrameRef = useRef<number>();
   const startTimeRef = useRef<number>(0);
   const lastMessageTimeRef = useRef<number>(0);
@@ -59,7 +59,7 @@ function SafeIndexingBanner({ setHideDialog }: { setHideDialog: (hideDialog: boo
         if (currentIndexRef.current < INDEXING_MESSAGES.length) {
           showNextMessage(currentIndexRef.current);
         } else {
-          setHideDialog(true);
+          localStorage.setItem("hide-indexing-banner", "true");
           return; // Stop animation when all messages are shown
         }
       }
@@ -83,12 +83,11 @@ function SafeIndexingBanner({ setHideDialog }: { setHideDialog: (hideDialog: boo
 }
 
 export function IndexingBanner() {
-  const [hideDialog, setHideDialog] = useLocalStorage("hide-indexing-banner", true);
   const isForcedOnboarding = useForcedOnboarding();
 
-  if (!isForcedOnboarding || hideDialog) {
+  if (!isForcedOnboarding || localStorage.getItem("hide-indexing-banner")) {
     return null;
   }
 
-  return <SafeIndexingBanner setHideDialog={setHideDialog} />;
+  return <SafeIndexingBanner />;
 }
