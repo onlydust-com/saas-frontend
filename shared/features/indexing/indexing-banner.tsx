@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useLocalStorage } from "react-use";
 import { toast } from "sonner";
 
 import { useForcedOnboarding } from "@/shared/hooks/flags/use-forced-onboarding";
