@@ -180,23 +180,27 @@ function Content({
 
     if (!applicationProjectId || !applicationIssueId) return;
 
-    const recommendedData = getForProject(issue?.project?.slug);
+    try {
+      const recommendedData = getForProject(issue?.project?.slug);
 
-    await createApplication({
-      projectId: applicationProjectId,
-      issueId: applicationIssueId,
-      githubComment: values.githubComment,
-    });
+      await createApplication({
+        projectId: applicationProjectId,
+        issueId: applicationIssueId,
+        githubComment: values.githubComment,
+      });
 
-    capture("issue_apply_from_saas", {
-      project_slug: issue?.project?.slug,
-      issue_id: issue?.id,
-      issue_number: issue?.number,
-      issue_title: issue?.title,
-      issue_url: issue?.htmlUrl,
-      is_recommended: Boolean(recommendedData),
-      ...(recommendedData || {}),
-    });
+      capture("issue_apply_from_saas", {
+        project_slug: issue?.project?.slug,
+        issue_id: issue?.id,
+        issue_number: issue?.number,
+        issue_title: issue?.title,
+        issue_url: issue?.htmlUrl,
+        is_recommended: Boolean(recommendedData),
+        ...(recommendedData || {}),
+      });
+    } catch {
+      //
+    }
   }
 
   function handleCancel() {
