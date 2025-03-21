@@ -1,23 +1,22 @@
-import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
-
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH2, TypographyP } from "@/shared/ui/typography";
 
-import { ProjectHeaderAlert } from "./project-header-alert";
-import { ProjectHeaderBookmark } from "./project-header-bookmark";
+import { ProjectActions, ProjectActionsSkeleton } from "./project-actions";
 
-export function ProjectHeader({
+export function ProjectTitle({
   id,
   name,
   shortDescription,
   isLoading,
   isError,
+  showActions,
 }: {
   id?: string;
   name?: string;
   shortDescription?: string;
   isLoading: boolean;
   isError: boolean;
+  showActions?: boolean;
 }) {
   if (isLoading) {
     return (
@@ -25,11 +24,7 @@ export function ProjectHeader({
         <div className="flex w-full items-center justify-between gap-1">
           <Skeleton className="h-9 w-1/4" />
 
-          <div className="flex items-center justify-end gap-3">
-            <Skeleton className="size-9" />
-            <Skeleton className="size-9" />
-            <Skeleton className="h-9 w-[132px]" />
-          </div>
+          <ProjectActionsSkeleton />
         </div>
 
         <Skeleton className="h-7 w-full" />
@@ -46,11 +41,9 @@ export function ProjectHeader({
       <div className="flex w-full flex-col-reverse gap-2 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-3">
         {name ? <TypographyH2>{name}</TypographyH2> : null}
 
-        <div className="flex items-center gap-3">
-          <ProjectHeaderAlert projectId={id} />
-          <ProjectHeaderBookmark projectId={id} projectName={name} />
-          <ContributeNow projectId={id} />
-        </div>
+        {showActions ? (
+          <ProjectActions projectId={id} projectName={name} isLoading={isLoading} isError={isError} />
+        ) : null}
       </div>
 
       {shortDescription ? <TypographyP className="text-muted-foreground">{shortDescription}</TypographyP> : null}

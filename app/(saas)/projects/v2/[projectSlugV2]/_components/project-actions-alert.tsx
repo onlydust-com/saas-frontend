@@ -10,7 +10,7 @@ import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { cn } from "@/shared/utils";
 
-export function ProjectHeaderAlert({ projectId = "" }: { projectId?: string }) {
+export function ProjectActionsAlert({ projectId = "" }: { projectId?: string }) {
   const { capture } = usePosthog();
   const { isAuthenticated } = useAuth0();
   const { data } = MeReactQueryAdapter.client.useGetMyNotificationsSettingsForProject({

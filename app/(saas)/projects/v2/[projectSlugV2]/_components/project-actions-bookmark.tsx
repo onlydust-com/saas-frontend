@@ -9,7 +9,7 @@ import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { cn } from "@/shared/utils";
 
-export function ProjectHeaderBookmark({ projectId = "", projectName }: { projectId?: string; projectName?: string }) {
+export function ProjectActionsBookmark({ projectId = "", projectName }: { projectId?: string; projectName?: string }) {
   const { capture } = usePosthog();
   const { data } = BookmarkReactQueryAdapter.client.useGetBookmarks({
     options: {

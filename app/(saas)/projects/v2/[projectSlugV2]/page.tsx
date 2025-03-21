@@ -1,24 +1,16 @@
 "use client";
 
+import { ViewDesktop } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/view-desktop";
+import { ViewMobile } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/view-mobile";
+
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
-import { ProjectActivity } from "./_components/project-activity";
-import { ProjectAside } from "./_components/project-aside";
-import { ProjectDescription } from "./_components/project-description";
-import { ProjectHeader } from "./_components/project-header";
-import { ProjectIssues } from "./_components/project-issues";
-import { ProjectNews } from "./_components/project-news";
-
 export default function ProjectDetailPage({ params }: { params: { projectSlugV2: string } }) {
-  const {
-    data: project,
-    isLoading,
-    isError,
-  } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
+  const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: params.projectSlugV2,
     },
@@ -28,7 +20,7 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
   });
 
   return (
-    <div className="flex w-full flex-col gap-6 py-6 md:flex-row">
+    <div className="py-6">
       <PosthogCaptureOnMount
         eventName={"project_viewed"}
         params={{
@@ -58,36 +50,9 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
         ]}
       />
 
-      <div className="flex-1 shrink-0 md:max-w-[200px] lg:max-w-[300px]">
-        <ProjectAside projectSlug={params.projectSlugV2} />
-      </div>
+      <ViewMobile projectSlug={params.projectSlugV2} />
 
-      <div className="flex-1 overflow-auto">
-        <div className="flex flex-col gap-6">
-          <ProjectHeader
-            id={project?.id}
-            name={project?.name}
-            shortDescription={project?.shortDescription}
-            isLoading={isLoading}
-            isError={isError}
-          />
-
-          <ProjectNews projectId={project?.id} />
-
-          <ProjectDescription
-            description={project?.overview}
-            projectId={project?.id}
-            title={"Overview by OnlyDust"}
-            isAiGenerated
-            isLoading={isLoading}
-            isError={isError}
-          />
-
-          <ProjectIssues projectSlug={params.projectSlugV2} />
-
-          <ProjectActivity projectSlug={params.projectSlugV2} projectId={project?.id} />
-        </div>
-      </div>
+      <ViewDesktop projectSlug={params.projectSlugV2} />
     </div>
   );
 }
