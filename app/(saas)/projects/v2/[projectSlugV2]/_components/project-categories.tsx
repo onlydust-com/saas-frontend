@@ -21,7 +21,7 @@ export function ProjectCategories({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-8 w-1/2" />
       </ProjectAsideSection.Skeleton>
     );
@@ -32,7 +32,7 @@ export function ProjectCategories({
   }
 
   return (
-    <ProjectAsideSection title="Categories" hasSeparator>
+    <ProjectAsideSection title="Categories">
       <div className="flex flex-wrap gap-2">
         {categories.map(category => (
           <Button key={category.name} variant={"outline"} size={"sm"} asChild>

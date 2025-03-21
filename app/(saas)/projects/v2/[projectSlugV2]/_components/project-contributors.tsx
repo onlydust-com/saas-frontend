@@ -7,8 +7,8 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
-import { ProjectAsideContributorsModal } from "./project-aside-contributors-modal";
 import { ProjectAsideSection } from "./project-aside-section";
+import { ProjectAsideContributorsModal } from "./project-contributors-modal";
 
 export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: string }) {
   const { data, isLoading, isError } = ProjectReactQueryAdapter.client.useGetProjectContributorsV2({
@@ -25,7 +25,7 @@ export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: stri
 
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-8 w-1/2" />
         <Skeleton className="h-8 w-1/2" />
       </ProjectAsideSection.Skeleton>
@@ -37,7 +37,7 @@ export function ProjectContributors({ projectIdOrSlug }: { projectIdOrSlug: stri
   }
 
   return (
-    <ProjectAsideSection title="Contributors" hasSeparator>
+    <ProjectAsideSection title="Contributors">
       <ProjectAsideContributorsModal projectIdOrSlug={projectIdOrSlug}>
         <div className="flex items-center">
           {contributors.map((contributor, i) => (

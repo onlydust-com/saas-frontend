@@ -4,17 +4,17 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 
 import { ProjectActions } from "./project-actions";
 import { ProjectActivity } from "./project-activity";
-import { ProjectAvatar } from "./project-aside-avatar";
-import { ProjectCategories } from "./project-aside-categories";
-import { ProjectCommunity } from "./project-aside-community";
-import { ProjectContributors } from "./project-aside-contributors";
-import { ProjectEcosystems } from "./project-aside-ecosystems";
-import { ProjectLanguages } from "./project-aside-languages";
-import { ProjectMaintainers } from "./project-aside-maintainers";
-import { ProjectRepos } from "./project-aside-repos";
+import { ProjectAvatar } from "./project-avatar";
+import { ProjectCategories } from "./project-categories";
+import { ProjectCommunity } from "./project-community";
+import { ProjectContributors } from "./project-contributors";
 import { ProjectDescription } from "./project-description";
+import { ProjectEcosystems } from "./project-ecosystems";
 import { ProjectIssues } from "./project-issues";
+import { ProjectLanguages } from "./project-languages";
+import { ProjectMaintainers } from "./project-maintainers";
 import { ProjectNews } from "./project-news";
+import { ProjectRepos } from "./project-repos";
 import { ProjectTitle } from "./project-title";
 
 export function ViewMobile({ projectSlug }: { projectSlug: string }) {

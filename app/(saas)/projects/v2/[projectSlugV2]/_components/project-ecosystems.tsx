@@ -17,7 +17,7 @@ export function ProjectEcosystems({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-8 w-1/2" />
       </ProjectAsideSection.Skeleton>
     );
@@ -28,7 +28,7 @@ export function ProjectEcosystems({
   }
 
   return (
-    <ProjectAsideSection title="Ecosystems" hasSeparator>
+    <ProjectAsideSection title="Ecosystems">
       <div className="flex flex-wrap gap-2">
         {ecosystems.map(ecosystem => (
           <Button key={ecosystem.name} variant={"outline"} size={"sm"} asChild>

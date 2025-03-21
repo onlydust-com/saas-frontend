@@ -20,7 +20,7 @@ export function ProjectMaintainers({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-8 w-1/2" />
         <Skeleton className="h-8 w-1/2" />
       </ProjectAsideSection.Skeleton>
@@ -32,7 +32,7 @@ export function ProjectMaintainers({
   }
 
   return (
-    <ProjectAsideSection title="Maintainers" hasSeparator>
+    <ProjectAsideSection title="Maintainers">
       <div className="flex flex-col gap-3">
         {maintainers.map(maintainer => (
           <Link

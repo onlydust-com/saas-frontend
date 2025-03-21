@@ -18,7 +18,7 @@ export function ProjectRepos({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-[60px] w-full" />
       </ProjectAsideSection.Skeleton>
     );
@@ -29,7 +29,7 @@ export function ProjectRepos({
   }
 
   return (
-    <ProjectAsideSection title="Repositories" hasSeparator>
+    <ProjectAsideSection title="Repositories">
       <div className="space-y-3">
         {repos.map(repo => (
           <a

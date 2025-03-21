@@ -16,7 +16,7 @@ export function ProjectLanguages({
 }) {
   if (isLoading) {
     return (
-      <ProjectAsideSection.Skeleton hasSeparator>
+      <ProjectAsideSection.Skeleton>
         <Skeleton className="h-2 w-full" />
 
         <Skeleton className="h-5 w-1/2" />
@@ -29,7 +29,7 @@ export function ProjectLanguages({
   }
 
   return (
-    <ProjectAsideSection title="Languages" hasSeparator>
+    <ProjectAsideSection title="Languages">
       <div className="space-y-3">
         <div className="flex h-2 w-full overflow-hidden rounded-full bg-foreground">
           {languages.map(lang => (
