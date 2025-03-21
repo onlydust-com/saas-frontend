@@ -167,7 +167,6 @@ async function promptName() {
   const { name, folder, path } = await defaultPromptName();
 
   /** variant default **/
-  /** stories default **/
 
   return { folder, name, path };
 }
