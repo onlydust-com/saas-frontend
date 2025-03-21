@@ -16,6 +16,7 @@ import { IssueSidepanel } from "@/shared/panels/issue-sidepanel/issue-sidepanel"
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { ShowMore } from "@/shared/ui/show-more";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH3 } from "@/shared/ui/typography";
 
 export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
@@ -57,6 +58,8 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
 
   const {
     data: issuesData,
+    isLoading,
+    isError,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
@@ -117,6 +120,14 @@ export function ProjectIssues({ projectSlug }: { projectSlug: string }) {
 
       return next;
     });
+  }
+
+  if (isLoading) {
+    return <Skeleton className="h-[406px] w-full" />;
+  }
+
+  if (isError) {
+    return null;
   }
 
   return (
