@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useLocalStorage } from "react-use";
 import { toast } from "sonner";
 
-import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+import { useForcedOnboarding } from "@/shared/hooks/flags/use-forced-onboarding";
 
 interface IndexingMessage {
   id: number;
@@ -18,7 +19,7 @@ const INDEXING_MESSAGES: IndexingMessage[] = [
 const ROTATION_INTERVAL = 3500; // 3.5 seconds between each message
 const TOTAL_DURATION = ROTATION_INTERVAL * INDEXING_MESSAGES.length;
 
-function SafeIndexingBanner() {
+function SafeIndexingBanner({ setHideDialog }: { setHideDialog: (hideDialog: boolean) => void }) {
   const animationFrameRef = useRef<number>();
   const startTimeRef = useRef<number>(0);
   const lastMessageTimeRef = useRef<number>(0);
@@ -58,6 +59,7 @@ function SafeIndexingBanner() {
         if (currentIndexRef.current < INDEXING_MESSAGES.length) {
           showNextMessage(currentIndexRef.current);
         } else {
+          setHideDialog(true);
           return; // Stop animation when all messages are shown
         }
       }
@@ -81,12 +83,12 @@ function SafeIndexingBanner() {
 }
 
 export function IndexingBanner() {
-  const { user } = useAuthUser();
+  const [hideDialog, setHideDialog] = useLocalStorage("hide-indexing-banner", true);
+  const isForcedOnboarding = useForcedOnboarding();
 
-  if (!user) {
+  if (!isForcedOnboarding || hideDialog) {
     return null;
   }
 
-  // if(user.)
-  return <SafeIndexingBanner />;
+  return <SafeIndexingBanner setHideDialog={setHideDialog} />;
 }
