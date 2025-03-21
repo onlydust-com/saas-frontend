@@ -48,7 +48,7 @@ export function GetStartedDialog({ defaultOpen = true }: GetStartedDialogProps) 
   const steps = [
     {
       title: "Apply for your first issue",
-      description: "Explore issues recommended based on your skills and interests",
+      description: "Explore recommended issues based on your skills and interests",
       image: step1,
       route: NEXT_ROUTER.discover.root,
       completed: getStartedData?.hasAppliedToAnIssue,
