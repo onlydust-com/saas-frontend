@@ -11,6 +11,7 @@ import { useLocalStorage, useSessionStorage } from "react-use";
 import { MeReactQueryAdapter } from "@/core/application/react-query-adapter/me";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardFooter } from "@/shared/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/shared/ui/dialog";
@@ -26,10 +27,16 @@ export function GetStartedDialog({ defaultOpen = true }: GetStartedDialogProps) 
   const [hideForSession, setHideForSession] = useSessionStorage("hide-get-started-session", false);
   const [open, setOpen] = useState<boolean>(!hideDialog && !hideForSession && defaultOpen);
   const router = useRouter();
+  const { user } = useAuthUser();
 
-  const { data: getStartedData } = MeReactQueryAdapter.client.useGetMyGetStarted({});
+  const { data: getStartedData } = MeReactQueryAdapter.client.useGetMyGetStarted({
+    options: {
+      enabled: Boolean(user),
+    },
+  });
 
   if (
+    !user ||
     !getStartedData ||
     (getStartedData.hasAppliedToAnIssue &&
       getStartedData.hasBeenAssignedToAnIssue &&
