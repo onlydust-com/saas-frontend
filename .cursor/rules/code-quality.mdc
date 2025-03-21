@@ -12,7 +12,6 @@ alwaysApply: true
 - Reject new code using design system components
 - Flag existing code for migration to shadcn/ui
 - Document exceptions with clear justification
-- Remove any related Storybook stories
 - Track migration progress in `migration-progress.md`
 
 #### Code Quality Checks
