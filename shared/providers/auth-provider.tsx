@@ -123,7 +123,7 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           return;
         }
 
-        if (isForcedOnboarding) {
+        if (isForcedOnboarding && !user.hasCompletedOnboarding) {
           router.push(NEXT_ROUTER.signup.onboarding.root);
           return;
         }
