@@ -68,19 +68,24 @@ export default function DiscoverPageV2() {
                   ))}
 
                   {issues.map(issue => (
-                    <IssueSidepanel key={issue.id} projectId={issue.project?.id ?? ""} issueId={issue.id}>
+                    <IssueSidepanel key={issue.uuid} projectId={issue.project?.id ?? ""} issueId={issue.uuid}>
                       <IssueCard
-                        key={issue.id}
-                        title={issue.title}
-                        languages={issue.languages}
+                        key={issue.uuid}
+                        title={issue.githubTitle}
+                        languages={
+                          issue.languages?.map(language => ({
+                            name: language.name,
+                            logoUrl: language.logoUrl,
+                          })) ?? []
+                        }
                         project={{
-                          logoUrl: "",
+                          logoUrl: issue.project?.logoUrl ?? "",
                           name: issue.repo.owner,
                           repo: issue.repo.name,
                         }}
-                        issue={{ number: issue.number, githubStatus: issue.status }}
+                        issue={{ number: issue.githubNumber, githubStatus: issue.githubStatus }}
                         createdAt={issue.createdAt}
-                        labels={issue.labels.map(label => label.name)}
+                        labels={issue.githubLabels?.map(label => label.name) ?? []}
                       />
                     </IssueSidepanel>
                   ))}
