@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
+import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
+
 interface IndexingMessage {
   id: number;
   text: string;
@@ -13,25 +15,30 @@ const INDEXING_MESSAGES: IndexingMessage[] = [
   { id: 4, text: "Almost there! Creating your dashboard..." },
 ];
 
-const ROTATION_INTERVAL = 10000 / 4; // 10 seconds
+const ROTATION_INTERVAL = 3500; // 3.5 seconds between each message
+const TOTAL_DURATION = ROTATION_INTERVAL * INDEXING_MESSAGES.length;
 
-export function IndexingBanner() {
-  const startTimeRef = useRef<number>(0);
+function SafeIndexingBanner() {
   const animationFrameRef = useRef<number>();
+  const startTimeRef = useRef<number>(0);
+  const lastMessageTimeRef = useRef<number>(0);
+  const currentIndexRef = useRef(0);
 
   const showNextMessage = useCallback((index: number) => {
     const message = INDEXING_MESSAGES[index];
 
     toast(message.text, {
-      duration: ROTATION_INTERVAL * INDEXING_MESSAGES.length - i,
-      position: "bottom-center",
+      duration: TOTAL_DURATION - index * ROTATION_INTERVAL,
+      position: "bottom-left",
       className: "bg-purple-500 text-white",
       style: {
-        backgroundColor: "oklch(0.291 0.149 302.717)",
-        color: "oklch(0.714 0.203 305.504)",
-        borderColor: "oklch(0.438 0.218 303.724)",
+        backgroundColor: "var(--info-bg)",
+        color: "var(--info-text)",
+        borderColor: "var(--info-border)",
       },
-      icon: <div className="h-4 w-4 animate-spin rounded-full border-2 border-purple-400 border-t-transparent" />,
+      icon: (
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--info-text)] border-t-transparent" />
+      ),
     });
   }, []);
 
@@ -39,18 +46,24 @@ export function IndexingBanner() {
     (timestamp: number) => {
       if (!startTimeRef.current) {
         startTimeRef.current = timestamp;
+        lastMessageTimeRef.current = timestamp;
+        showNextMessage(0);
       }
 
-      const elapsed = timestamp - startTimeRef.current;
-      const currentIndex = Math.floor(elapsed / ROTATION_INTERVAL);
+      const elapsed = timestamp - lastMessageTimeRef.current;
 
-      if (currentIndex < INDEXING_MESSAGES.length) {
-        if (elapsed % ROTATION_INTERVAL < 16) {
-          // Check if we're within one frame (assuming 60fps)
-          showNextMessage(currentIndex);
+      if (elapsed >= ROTATION_INTERVAL) {
+        currentIndexRef.current += 1;
+        lastMessageTimeRef.current = timestamp;
+
+        if (currentIndexRef.current < INDEXING_MESSAGES.length) {
+          showNextMessage(currentIndexRef.current);
+        } else {
+          return; // Stop animation when all messages are shown
         }
-        animationFrameRef.current = requestAnimationFrame(animate);
       }
+
+      animationFrameRef.current = requestAnimationFrame(animate);
     },
     [showNextMessage]
   );
@@ -66,4 +79,15 @@ export function IndexingBanner() {
   }, [animate]);
 
   return null;
+}
+
+export function IndexingBanner() {
+  const { user } = useAuthUser();
+
+  if (!user) {
+    return null;
+  }
+
+  // if(user.)
+  return <SafeIndexingBanner />;
 }
