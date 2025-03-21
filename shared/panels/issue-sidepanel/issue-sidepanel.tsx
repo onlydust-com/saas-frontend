@@ -198,7 +198,7 @@ function Content({
         issue_title: issue?.title,
         issue_url: issue?.htmlUrl,
         is_recommended: Boolean(recommendedData),
-        ...(recommendedData || {}),
+        ...(recommendedData?.data ? { recommended_data: recommendedData.data } : {}),
       });
     } catch {
       //
