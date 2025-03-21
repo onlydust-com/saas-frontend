@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { bootstrap } from "@/core/bootstrap";
@@ -15,7 +15,7 @@ import { TypographyH3, TypographyMuted, TypographySmall } from "@/shared/ui/typo
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function RecentActivity({ projectId = "" }: { projectId?: string }) {
+export function ProjectActivity({ projectSlug = "", projectId = "" }: { projectSlug?: string; projectId?: string }) {
   const dateKernel = bootstrap.getDateKernelPort();
   const { open } = useContributionsSidepanel();
   const { capture } = usePosthog();
@@ -25,45 +25,27 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
       pageSize: 10,
       sort: "UPDATED_AT",
       sortDirection: "DESC",
-      projectIds: [projectId],
+      projectSlugs: [projectSlug],
     },
     options: {
-      enabled: Boolean(projectId),
+      enabled: Boolean(projectSlug),
     },
   });
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
 
-  const renderContributions = useCallback(() => {
-    if (isLoading) {
-      return (
-        <ul className={"flex flex-col gap-3"}>
-          {Array.from({ length: 3 }).map((_, index) => (
-            <li key={index}>
-              <Skeleton className={"h-12 w-full"} />
-            </li>
-          ))}
-        </ul>
-      );
-    }
+  if (isLoading) {
+    return <Skeleton className={"h-[422px] w-full"} />;
+  }
 
-    if (isError) {
-      return (
-        <div className={"flex items-center justify-center py-10"}>
-          <TypographyMuted>Error loading recent activity</TypographyMuted>
-        </div>
-      );
-    }
+  if (isError || !contributions || contributions.length === 0) {
+    return null;
+  }
 
-    if (contributions.length === 0) {
-      return (
-        <div className={"flex items-center justify-center py-10"}>
-          <TypographyMuted>No recent activity found</TypographyMuted>
-        </div>
-      );
-    }
+  return (
+    <Card className={"flex flex-col gap-4 p-4"}>
+      <TypographyH3>Recent Activity</TypographyH3>
 
-    return (
       <ul className={"flex flex-col"}>
         {contributions.map(contribution => (
           <li key={contribution.id}>
@@ -95,14 +77,6 @@ export function RecentActivity({ projectId = "" }: { projectId?: string }) {
           </li>
         ))}
       </ul>
-    );
-  }, [contributions, isLoading, isError, dateKernel]);
-
-  return (
-    <Card className={"flex flex-col gap-4 p-4"}>
-      <TypographyH3>Recent Activity</TypographyH3>
-
-      {renderContributions()}
     </Card>
   );
 }
