@@ -30,7 +30,6 @@ function SafeIndexingBanner() {
     toast(message.text, {
       duration: TOTAL_DURATION - index * ROTATION_INTERVAL,
       position: "bottom-left",
-      className: "bg-purple-500 text-white",
       style: {
         backgroundColor: "var(--info-bg)",
         color: "var(--info-text)",
