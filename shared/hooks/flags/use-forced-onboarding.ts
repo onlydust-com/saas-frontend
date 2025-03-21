@@ -1,11 +1,11 @@
+import { useFeatureFlagVariantKey } from "posthog-js/react";
+
 import { useAuthUser } from "../auth/use-auth-user";
-import { useFeatureFlagVariant } from "../feature-flag/feature-flag.hooks";
 
 export const useForcedOnboarding = (): null | true | false => {
   const { user } = useAuthUser();
-  const variantValue = useFeatureFlagVariant({
-    flagName: "onboarding-flag-v3",
-  });
+
+  const variant = useFeatureFlagVariantKey("onboarding-flag-v3");
 
   return true;
 
@@ -13,7 +13,7 @@ export const useForcedOnboarding = (): null | true | false => {
     return null;
   }
 
-  if (!user.hasCompletedOnboarding && variantValue === "forcedOnboarding" && user.isNewContributor()) {
+  if (!user?.hasCompletedOnboarding && variant === "forcedOnboarding" && user?.isNewContributor()) {
     return true;
   }
 
