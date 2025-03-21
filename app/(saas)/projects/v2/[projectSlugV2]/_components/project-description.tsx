@@ -81,7 +81,7 @@ export function ProjectDescription({
 
   return (
     <Card
-      className={cn("overflow-hiddenp-4 relative flex flex-col gap-4 p-4", {
+      className={cn("relative flex flex-col gap-4 overflow-hidden p-4", {
         "bg-gradient-to-br from-purple-950 to-transparent to-20%": isAiGenerated,
       })}
     >
