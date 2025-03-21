@@ -4,7 +4,7 @@ import { useFeatureFlagVariant } from "../feature-flag/feature-flag.hooks";
 export const useForcedOnboarding = (): null | true | false => {
   const { user } = useAuthUser();
   const variantValue = useFeatureFlagVariant({
-    flagName: "onboarding-flag-v2",
+    flagName: "onboarding-flag-v3",
   });
 
   return true;
