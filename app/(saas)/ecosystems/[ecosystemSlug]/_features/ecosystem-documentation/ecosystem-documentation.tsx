@@ -1,9 +1,9 @@
 import { CornerDownLeft } from "lucide-react";
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -39,15 +39,15 @@ export function EcosystemDocumentation({ ecosystemSlug }: EcosystemDocumentation
     }
 
     return ecosystem?.documentations.map(documentation => (
-      <Card key={documentation.name} className="flex items-center justify-between gap-4 bg-muted p-6 hover:opacity-80">
-        <BaseLink href={documentation.url} target="_blank" className="flex flex-1 items-center justify-between">
+      <Link key={documentation.name} href={documentation.url} target="_blank">
+        <Card className="flex items-center justify-between gap-4 bg-muted p-6 hover:opacity-80">
           <div className="flex flex-col gap-2 overflow-hidden">
             <p className="truncate text-sm font-medium text-foreground">{documentation.name}</p>
             <p className="line-clamp-3 text-sm text-muted-foreground">{documentation.description}</p>
           </div>
           <CornerDownLeft className="h-4 w-4 shrink-0 text-muted-foreground" />
-        </BaseLink>
-      </Card>
+        </Card>
+      </Link>
     ));
   }, [isLoading, isError, ecosystem]);
 
