@@ -15,10 +15,7 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 
 import { useFilterColumns } from "./filter-columns/filter-columns.hooks";
 
-export type RewardsTableFilters = Omit<
-  NonNullable<GetProjectRewardsV2PortParams["queryParams"]>,
-  "pageSize" | "pageIndex"
->;
+type RewardsTableFilters = Omit<NonNullable<GetProjectRewardsV2PortParams["queryParams"]>, "pageSize" | "pageIndex">;
 
 export function RewardsTable({ params }: { params: { projectSlug: string } }) {
   const [filters, setFilters] = useState<RewardsTableFilters>({});

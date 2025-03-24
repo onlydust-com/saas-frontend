@@ -18,9 +18,6 @@ function EcosystemsPage() {
             {
               id: "root",
               label: "Ecosystems",
-              iconProps: {
-                component: Orbit,
-              },
             },
           ]}
         />
