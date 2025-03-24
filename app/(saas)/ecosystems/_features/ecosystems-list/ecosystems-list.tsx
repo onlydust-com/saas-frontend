@@ -10,8 +10,8 @@ import {
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
-import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
+import { ShowMore } from "@/shared/ui/show-more";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted } from "@/shared/ui/typography";
 
@@ -89,16 +89,7 @@ function Safe() {
 
         {hasNextPage ? (
           <div className="col-span-full">
-            <div className="flex justify-center">
-              <Button
-                variant="outline"
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                className="w-full max-w-sm"
-              >
-                {isFetchingNextPage ? "Loading more..." : "Load more"}
-              </Button>
-            </div>
+            <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} hasNextPage={hasNextPage} />
           </div>
         ) : null}
       </div>

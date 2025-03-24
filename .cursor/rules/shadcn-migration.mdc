@@ -183,12 +183,14 @@ function RoleSelector() {
 }
 
 
+
 // 4. Update cn helpers import
 // Before:
 import { cn } from "@/shared/helpers/cn";
 
 // After:
 import { cn } from "@/shared/utils";
+
 ```
 
 ## ABSOLUTE REQUIREMENTS FOR MIGRATION
@@ -269,6 +271,22 @@ import { Save } from "lucide-react"
   Save Changes
 </Button>
 ```
+
+
+#### ShowMore Replacement
+
+```tsx
+// BEFORE
+import { ShowMore } from "@/shared/components/show-more/show-more";
+
+<ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} />
+
+// AFTER
+import { ShowMore } from "@/shared/ui/show-more";
+
+<ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} hasNextPage={hasNextPage} />
+```
+
 
 #### Input Replacement
 
