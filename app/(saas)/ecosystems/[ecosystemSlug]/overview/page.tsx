@@ -5,8 +5,6 @@ import { useMemo } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
-import { Skeleton } from "@/design-system/atoms/skeleton";
-
 import { withClientOnly } from "@/shared/components/client-only/client-only";
 import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
@@ -14,6 +12,7 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { Translate } from "@/shared/translation/components/translate/translate";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 import { EcosystemStats } from "./_features/ecosystem-stats/ecosystem-stats";
 
@@ -34,7 +33,7 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
   const renderStats = useMemo(() => {
     if (isLoading)
       return (
-        <div className="p-xl">
+        <div className="p-6">
           <Skeleton className="h-20" />
         </div>
       );
@@ -49,7 +48,7 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
         mergedPullRequestsCount={ecosystem?.mergedPrCount}
       />
     );
-  }, [isLoading, isError]);
+  }, [isLoading, isError, ecosystem]);
 
   return (
     <ScrollView>
