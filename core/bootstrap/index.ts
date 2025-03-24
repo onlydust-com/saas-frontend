@@ -1,5 +1,4 @@
 import { ApplicationStoragePort } from "@/core/domain/application/outputs/application-storage-port";
-import { BannerStoragePort } from "@/core/domain/banner/outputs/banner-storage-port";
 import { BiStoragePort } from "@/core/domain/bi/outputs/bi-storage-port";
 import { BillingProfileStoragePort } from "@/core/domain/billing-profile/outputs/billing-profile-storage-port";
 import { ContributionStoragePort } from "@/core/domain/contribution/output/contribution-storage-port";
@@ -23,7 +22,6 @@ import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storag
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
 import { ProjectBannerClientAdapter } from "@/core/infrastructure/json-storage-client-adapter/adapters/project-banner-client-adapter";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
-import { BannerClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/banner-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { BillingProfileClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/billing-profile-client-adapter";
 import { ContributionClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/contribution-client-adapter";
@@ -84,8 +82,6 @@ export interface BootstrapConstructor {
   meStoragePortForServer: MeStoragePort;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
-  bannerStoragePortForClient: BannerStoragePort;
-  bannerStoragePortForServer: BannerStoragePort;
   programStoragePortForClient: ProgramStoragePort;
   programStoragePortForServer: ProgramStoragePort;
   projectStoragePortForClient: ProjectStoragePort;
@@ -156,8 +152,6 @@ export class Bootstrap {
   meStoragePortForServer: MeStoragePort;
   userStoragePortForClient: UserStoragePort;
   userStoragePortForServer: UserStoragePort;
-  bannerStoragePortForClient: BannerStoragePort;
-  bannerStoragePortForServer: BannerStoragePort;
   programStoragePortForClient: ProgramStoragePort;
   programStoragePortForServer: ProgramStoragePort;
   projectStoragePortForClient: ProjectStoragePort;
@@ -224,8 +218,6 @@ export class Bootstrap {
     this.meStoragePortForServer = constructor.meStoragePortForServer;
     this.userStoragePortForClient = constructor.userStoragePortForClient;
     this.userStoragePortForServer = constructor.userStoragePortForServer;
-    this.bannerStoragePortForClient = constructor.bannerStoragePortForClient;
-    this.bannerStoragePortForServer = constructor.bannerStoragePortForServer;
     this.programStoragePortForClient = constructor.programStoragePortForClient;
     this.programStoragePortForServer = constructor.programStoragePortForServer;
     this.projectStoragePortForClient = constructor.projectStoragePortForClient;
@@ -318,14 +310,6 @@ export class Bootstrap {
 
   getUserStoragePortForServer() {
     return this.userStoragePortForServer;
-  }
-
-  getBannerStoragePortForClient() {
-    return this.bannerStoragePortForClient;
-  }
-
-  getBannerStoragePortForServer() {
-    return this.bannerStoragePortForServer;
   }
 
   getProgramStoragePortForClient() {
@@ -575,8 +559,6 @@ export class Bootstrap {
         meStoragePortForServer: new MeClientAdapter(new FetchHttpClient()),
         userStoragePortForClient: new UserClientAdapter(new FetchHttpClient()),
         userStoragePortForServer: new UserClientAdapter(new FetchHttpClient()),
-        bannerStoragePortForClient: new BannerClientAdapter(new FetchHttpClient()),
-        bannerStoragePortForServer: new BannerClientAdapter(new FetchHttpClient()),
         programStoragePortForClient: new ProgramClientAdapter(new FetchHttpClient()),
         programStoragePortForServer: new ProgramClientAdapter(new FetchHttpClient()),
         projectStoragePortForClient: new ProjectClientAdapter(new FetchHttpClient()),

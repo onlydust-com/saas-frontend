@@ -1,7 +1,6 @@
 import { BootstrapConstructor } from "@/core/bootstrap/index";
 import { ProjectBannerClientAdapterMock } from "@/core/infrastructure/json-storage-client-adapter/mock-adapters/project-banner-client-adapter-mock";
 import { ApplicationClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/application-client-adapter-mock";
-import { BannerClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/banner-client-adapter-mock";
 import { BiClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/bi-client-adapter-mock";
 import { BillingProfileClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/billing-profile-client-adapter-mock";
 import { ContributionClientAdapterMock } from "@/core/infrastructure/marketplace-api-client-adapter/mock-adapters/contribution-client-adapter-mock";
@@ -44,8 +43,6 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   meStoragePortForServer: new MeClientAdapterMock(),
   userStoragePortForClient: new UserClientAdapterMock(),
   userStoragePortForServer: new UserClientAdapterMock(),
-  bannerStoragePortForClient: new BannerClientAdapterMock(),
-  bannerStoragePortForServer: new BannerClientAdapterMock(),
   programStoragePortForClient: new ProgramClientAdapterMock(),
   programStoragePortForServer: new ProgramClientAdapterMock(),
   projectStoragePortForClient: new ProjectClientAdapterMock(),
