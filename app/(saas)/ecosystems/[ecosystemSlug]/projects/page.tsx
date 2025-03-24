@@ -114,7 +114,7 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
           },
           {
             id: "projects",
-            label: <Translate token={"ecosystems:details.tabs.projects"} />,
+            label: "Projects",
           },
         ]}
       />

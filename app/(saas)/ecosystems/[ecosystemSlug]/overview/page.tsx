@@ -11,7 +11,6 @@ import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { Translate } from "@/shared/translation/components/translate/translate";
 import { Skeleton } from "@/shared/ui/skeleton";
 
 import { EcosystemStats } from "./_features/ecosystem-stats/ecosystem-stats";
@@ -68,7 +67,7 @@ function EcosystemOverviewPage({ params: { ecosystemSlug } }: { params: { ecosys
           },
           {
             id: "overview",
-            label: <Translate token={"ecosystems:details.tabs.overview"} />,
+            label: "Overview",
           },
         ]}
       />
