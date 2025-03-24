@@ -1,5 +1,4 @@
 import { CornerDownLeft, Folder, UserRound } from "lucide-react";
-import Link from "next/link";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
@@ -92,7 +91,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
 
                   return (
                     <Card key={link.url} className={"overflow-hidden"}>
-                      <Link href={link.url} className="block px-6 py-4">
+                      <a href={link.url} target="_blank" className="block px-6 py-4" rel="noreferrer">
                         <div className="relative z-[1] flex items-center gap-2">
                           <div className="flex flex-1 flex-col gap-6">
                             <p className="text-sm font-medium">{link.value}</p>
@@ -110,7 +109,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
 
                           <CornerDownLeft className="h-4 w-4 text-muted-foreground" />
                         </div>
-                      </Link>
+                      </a>
                     </Card>
                   );
                 })}
