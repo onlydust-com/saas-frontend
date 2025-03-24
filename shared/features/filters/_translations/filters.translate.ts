@@ -24,7 +24,6 @@ import enProjectRepo from "../project-repo-filter/project-repo-filter.en.json";
 import enRewardCount from "../reward-count-filter/reward-count-filter.en.json";
 import enRewarded from "../rewarded-filter/rewarded-filter.en.json";
 import enTotalRewardedAmount from "../total-rewarded-amount-filter/total-rewarded-amount.en.json";
-import enUserType from "../user-type-filter/user-type-filter.en.json";
 
 export const enFiltersTranslations = {
   filters: {
@@ -37,7 +36,6 @@ export const enFiltersTranslations = {
     currency: enCurrency,
     country: enCountry,
     category: enCategory,
-    userType: enUserType,
     contributionType: enContributionType,
     engagementStatuses: enEngagementStatuses,
     rewarded: enRewarded,
