@@ -32,5 +32,3 @@ export const ProjectCreation = () => {
     </CreateProjectProvider>
   );
 };
-
-export default ProjectCreation;
