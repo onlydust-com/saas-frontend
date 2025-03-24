@@ -25,7 +25,7 @@ import { UserClientAdapterMock } from "@/core/infrastructure/marketplace-api-cli
 import { DateAdapterMock } from "@/core/kernel/date/date-adapter-mock";
 import { FileAdapterMock } from "@/core/kernel/file/file-adapter-mock";
 import { IdAdapterMock } from "@/core/kernel/id/id-adapter-mock";
-import { LegalAdapter } from "@/core/kernel/legal/legal-adapter";
+import { LegalAdapterMock } from "@/core/kernel/legal/legal-adapter-mock";
 import { MoneyAdapterMock } from "@/core/kernel/money/money-adapter-mock";
 import { SocialAdapterMock } from "@/core/kernel/social/social-adapter-mock";
 import { StyleAdapterMock } from "@/core/kernel/style/style-adapter-mock";
@@ -94,7 +94,7 @@ export const bootstrapConstructorMock: BootstrapConstructor = {
   fileKernelPort: new FileAdapterMock(),
   urlKernelPort: UrlAdapterMock,
   idKernelPort: IdAdapterMock,
-  legalKernelPort: new LegalAdapter(),
+  legalKernelPort: new LegalAdapterMock(),
   markdownKernelPort: new MarkdownAdapterMock(),
   validationKernelPort: new ValidationAdapterMock(),
   styleKernelPort: StyleAdapterMock,
