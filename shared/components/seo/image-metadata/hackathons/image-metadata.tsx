@@ -3,26 +3,23 @@ import { ImageMetadataContent } from "../commons/content/content";
 import { HackathonImageMetadataProps } from "./image-metadata.types";
 
 export function HackathonImageMetadata({ name, description, imageUrl }: HackathonImageMetadataProps) {
-  const image = imageUrl || `${process.env.NEXT_PUBLIC_METADATA_ASSETS_S3_BUCKET}/project-placeholder.png`;
-  const _description =
-    description ||
-    "Contribute to innovative projects, refine your skills and create a lasting impact in the developer community.";
+  const image = `${process.env.NEXT_PUBLIC_METADATA_ASSETS_S3_BUCKET}/cards.png`;
+  const _description = description
+    ? `${description.slice(0, 160)}...`
+    : "Join the Open Source Week, refine your skills and create a lasting impact in the developer community.";
 
   return (
     <ImageMetadataBackground>
       <ImageMetadataContent title={`Join ${name} on OnlyDust`} description={_description} />
       <img
         src={image}
-        alt="project-logo"
-        width="300"
-        height="300"
+        alt="cards"
+        width="359"
+        height="600"
         style={{
           position: "absolute",
-          objectFit: "cover",
-          right: 30,
-          top: 160,
-          border: "24px solid #232338",
-          borderRadius: 100,
+          right: 0,
+          top: 0,
         }}
       />
     </ImageMetadataBackground>
