@@ -6,7 +6,6 @@ import { useCallback, useMemo } from "react";
 import { bootstrap } from "@/core/bootstrap";
 import { ProjectTag } from "@/core/domain/project/project.types";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Categories } from "@/shared/features/projects/categories/categories";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Badge } from "@/shared/ui/badge";
@@ -115,9 +114,9 @@ export function CardProject<T extends ElementType = "div">({
           <p className="text-sm">
             <strong>Retroactive Grants:</strong> If a project is eligible for grants, OnlyDust will reward valuable
             contributions monthly.{" "}
-            <BaseLink href="https://blog.onlydust.com/docs/faq-2/" className="underline">
+            <a href="https://blog.onlydust.com/docs/faq-2/" target="_blank" rel="noreferrer" className="underline">
               More info here
-            </BaseLink>
+            </a>
           </p>
         </TooltipContent>
       </Tooltip>

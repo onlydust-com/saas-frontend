@@ -17,7 +17,6 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { FilterButton } from "@/shared/features/filters/_components/filter-button/filter-button";
 import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-data/filter-data.context";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
-import { Translate } from "@/shared/translation/components/translate/translate";
 import { Input } from "@/shared/ui/input";
 import { Skeleton } from "@/shared/ui/skeleton";
 
@@ -144,9 +143,7 @@ function EcosystemProjectsPage({ params }: { params: { ecosystemSlug: string } }
           </div>
         </ScrollView>
         <div className="flex gap-4">
-          <p className="text-sm text-muted-foreground">
-            <Translate token="ecosystems:details.projects.projectsCount" />
-          </p>
+          <p className="text-sm text-muted-foreground">Projects</p>
           <p className="text-sm">{totalItemNumber}</p>
         </div>
       </div>
