@@ -2,10 +2,6 @@ import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { EcosystemCard } from "@/app/(saas)/ecosystems/_components/ecosystem-card/ecosystem-card";
-import {
-  EcosystemsContextProvider,
-  useEcosystemsContext,
-} from "@/app/(saas)/ecosystems/_features/ecosystems-filters/ecosystems-filters.context";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
@@ -15,14 +11,13 @@ import { ShowMore } from "@/shared/ui/show-more";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted } from "@/shared/ui/typography";
 
-function Safe() {
+export function EcosystemsList() {
   const [search, setSearch] = useState<string>();
   const [debouncedSearch, setDebouncedSearch] = useState<string>();
-  const { queryParams } = useEcosystemsContext();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     EcosystemReactQueryAdapter.client.useGetEcosystems({
-      queryParams: { ...queryParams, search: debouncedSearch },
+      queryParams: { search: debouncedSearch },
     });
 
   const ecosystems = useMemo(() => data?.pages.flatMap(({ ecosystems }) => ecosystems) ?? [], [data]);
@@ -81,7 +76,6 @@ function Safe() {
             }}
           />
         </div>
-        {/* <EcosystemsFilters /> */}
       </header>
 
       <div className="grid w-full grid-cols-1 gap-4 overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
@@ -94,13 +88,5 @@ function Safe() {
         ) : null}
       </div>
     </div>
-  );
-}
-
-export function EcosystemsList() {
-  return (
-    <EcosystemsContextProvider>
-      <Safe />
-    </EcosystemsContextProvider>
   );
 }
