@@ -1,8 +1,8 @@
-import { ImageMetadataBackground } from "../../commons/background/background";
-import { ImageMetadataContent } from "../../commons/content/content";
-import { ProjectImageMetadataProps } from "./image-metadata.types";
+import { ImageMetadataBackground } from "../commons/background/background";
+import { ImageMetadataContent } from "../commons/content/content";
+import { HackathonImageMetadataProps } from "./image-metadata.types";
 
-export function ProjectImageMetadata({ name, description, imageUrl }: ProjectImageMetadataProps) {
+export function HackathonImageMetadata({ name, description, imageUrl }: HackathonImageMetadataProps) {
   const image = imageUrl || `${process.env.NEXT_PUBLIC_METADATA_ASSETS_S3_BUCKET}/project-placeholder.png`;
   const _description =
     description ||
