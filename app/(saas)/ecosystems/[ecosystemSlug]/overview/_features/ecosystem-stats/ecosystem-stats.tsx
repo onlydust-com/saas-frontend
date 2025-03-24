@@ -1,8 +1,8 @@
 import { CircleDot, Folder, GitPullRequest, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Stat } from "@/shared/components/stat";
 import { useStatDiffFormatter } from "@/shared/hooks/stats/use-stat-diff-formatter";
-import { Stat } from "@/shared/ui/stat";
 
 import { EcosystemStatsProps } from "./ecosystem-stats.types";
 
