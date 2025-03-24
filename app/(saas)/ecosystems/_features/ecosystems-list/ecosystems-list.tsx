@@ -44,8 +44,8 @@ function Safe() {
 
     if (!ecosystems.length) {
       return (
-        <div className="col-span-full">
-          <div className="flex flex-col items-center gap-2 py-4">
+        <div className="col-span-full p-lg">
+          <div className="flex items-center justify-center py-10">
             <TypographyMuted>No ecosystems found</TypographyMuted>
           </div>
         </div>
