@@ -1,8 +1,8 @@
 import { CornerDownLeft, Folder, UserRound } from "lucide-react";
+import Link from "next/link";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { Languages } from "@/shared/features/projects/languages/languages";
 import { Metric } from "@/shared/features/projects/metric/metric";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
@@ -91,8 +91,8 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
                   }
 
                   return (
-                    <Card key={link.url} className={cn("overflow-hidden")}>
-                      <BaseLink href={link.url} className="block px-6 py-4">
+                    <Card key={link.url} className={"overflow-hidden"}>
+                      <Link href={link.url} className="block px-6 py-4">
                         <div className="relative z-[1] flex items-center gap-2">
                           <div className="flex flex-1 flex-col gap-6">
                             <p className="text-sm font-medium">{link.value}</p>
@@ -110,7 +110,7 @@ export function EcosystemSummary({ ecosystemSlug }: EcosystemSummaryProps) {
 
                           <CornerDownLeft className="h-4 w-4 text-muted-foreground" />
                         </div>
-                      </BaseLink>
+                      </Link>
                     </Card>
                   );
                 })}
