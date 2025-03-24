@@ -1,15 +1,43 @@
+import { useQuery } from "@tanstack/react-query";
 import { Calendar, Megaphone, Target } from "lucide-react";
 import { useEffect, useMemo } from "react";
 
-import { useGetOdNews } from "@/app/(saas)/projects/[projectSlug]/hooks/use-get-od-news";
+import { Submission } from "@/app/api/fillout/forms/[formId]/submissions/route";
 
 import { bootstrap } from "@/core/bootstrap";
+import { OdNewsModel } from "@/core/domain/fillout/models/od-news-model";
 
+import { NEXT_ROUTER } from "@/shared/constants/router";
 import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
+
+const filloutId = process.env.NEXT_PUBLIC_OD_NEWS_FORM_ID ?? "";
+
+const fetchSubmissions = async ({ queryParams }: { queryParams: Record<string, string> }): Promise<OdNewsModel[]> => {
+  const url = new URL(NEXT_ROUTER.api.fillout.forms.submissions.root(filloutId), window.location.origin);
+
+  Object.entries(queryParams).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
+
+  const response = await fetch(url.toString());
+
+  const data = await response.json();
+
+  return data?.data?.map((n: Submission) => new OdNewsModel(n)) ?? [];
+};
+
+function useGetOdNews({ projectId, limit = "10" }: { projectId?: string; limit?: string }) {
+  return useQuery({
+    queryKey: ["od-news", projectId, limit],
+    queryFn: () => fetchSubmissions({ queryParams: { search: projectId ?? "", limit, sort: "desc" } }),
+    staleTime: 5000,
+    enabled: Boolean(projectId),
+  });
+}
 
 export function ProjectNews({ projectId }: { projectId?: string }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
