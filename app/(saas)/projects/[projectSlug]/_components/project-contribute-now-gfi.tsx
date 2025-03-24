@@ -137,7 +137,7 @@ export function ProjectContributeNowGFI({
         <div>
           <Button variant={"outline"} asChild>
             <Link
-              href={`${NEXT_ROUTER.projects.details.root(projectId)}#issues`}
+              href={`${NEXT_ROUTER.projects.details.root(projectId)}`}
               onClick={() => capture(`${posthogPrefix}_view_all`, { projectId })}
             >
               View all issues

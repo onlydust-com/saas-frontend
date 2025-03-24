@@ -43,7 +43,7 @@ const nextConfig = {
       },
       {
         source: "/projects/:projectSlug/issues",
-        destination: "/projects/:projectSlug#issues",
+        destination: "/projects/:projectSlug",
         permanent: true,
       },
       {
