@@ -1,10 +1,10 @@
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { EcosystemReactQueryAdapter } from "@/core/application/react-query-adapter/ecosystem";
 import { bootstrap } from "@/core/bootstrap";
 
-import { BaseLink } from "@/shared/components/base-link/base-link";
 import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
@@ -71,7 +71,7 @@ export function EcosystemEvents({ ecosystemSlug }: EcosystemEventsProps) {
           const formattedDates = event.formatDisplayDates();
 
           return (
-            <BaseLink href={event.link} key={event.name}>
+            <Link href={event.link} key={event.name}>
               <div
                 className={cn("flex items-start gap-6 p-6", {
                   "opacity-50": event.isPast(),
@@ -99,7 +99,7 @@ export function EcosystemEvents({ ecosystemSlug }: EcosystemEventsProps) {
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 </div>
               </div>
-            </BaseLink>
+            </Link>
           );
         })
       ) : (
