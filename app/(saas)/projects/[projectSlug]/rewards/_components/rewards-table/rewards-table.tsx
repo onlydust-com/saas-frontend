@@ -15,7 +15,7 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 
 import { useFilterColumns } from "./filter-columns/filter-columns.hooks";
 
-export type RewardsTableFilters = Omit<
+type RewardsTableFilters = Omit<
   NonNullable<GetProjectRewardsV2PortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;

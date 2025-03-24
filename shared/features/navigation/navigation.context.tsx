@@ -10,7 +10,7 @@ interface NavigationContextInterface {
   breadcrumb: BreadcrumbsPort["items"] | undefined;
 }
 
-export const NavigationContext = createContext<NavigationContextInterface>({
+const NavigationContext = createContext<NavigationContextInterface>({
   setBreadcrumb: () => {},
   breadcrumb: [],
 });

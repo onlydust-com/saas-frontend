@@ -22,7 +22,7 @@ import { FilterDataProvider } from "@/shared/features/filters/_contexts/filter-d
 import { FilterColumns } from "./filter-columns/filter-columns/filter-columns";
 import { useFilterColumns } from "./filter-columns/filter-columns/filter-columns.hooks";
 
-export type ContributorsTableFilters = Omit<
+type ContributorsTableFilters = Omit<
   NonNullable<GetProjectContributorsV2PortParams["queryParams"]>,
   "pageSize" | "pageIndex"
 >;
