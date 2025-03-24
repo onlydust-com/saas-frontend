@@ -12,7 +12,6 @@ import { LanguageStoragePort } from "@/core/domain/language/outputs/language-sto
 import { MeStoragePort } from "@/core/domain/me/outputs/me-storage-port";
 import { NotificationStoragePort } from "@/core/domain/notification/outputs/notification-storage-port";
 import { ProgramStoragePort } from "@/core/domain/program/outputs/program-storage-port";
-import { ProjectBannerStoragePort } from "@/core/domain/project-banner/outputs/project-banner-storage-port";
 import { ProjectCategoryStoragePort } from "@/core/domain/project-category/outputs/project-category-storage-port";
 import { ProjectStoragePort } from "@/core/domain/project/outputs/project-storage-port";
 import { RecoStoragePort } from "@/core/domain/reco/output/reco-storage-port";
@@ -20,7 +19,6 @@ import { RewardStoragePort } from "@/core/domain/reward/outputs/reward-storage-p
 import { SearchStoragePort } from "@/core/domain/search/outputs/search-storage-port";
 import { SponsorStoragePort } from "@/core/domain/sponsor/outputs/sponsor-storage-port";
 import { UserStoragePort } from "@/core/domain/user/outputs/user-storage-port";
-import { ProjectBannerClientAdapter } from "@/core/infrastructure/json-storage-client-adapter/adapters/project-banner-client-adapter";
 import { ApplicationClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/application-client-adapter";
 import { BiClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/bi-client-adapter";
 import { BillingProfileClientAdapter } from "@/core/infrastructure/marketplace-api-client-adapter/adapters/billing-profile-client-adapter";
@@ -138,8 +136,6 @@ export interface BootstrapConstructor {
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
   searchStoragePortForServer: SearchStoragePort;
-  projectBannerStoragePortForClient: ProjectBannerStoragePort;
-  projectBannerStoragePortForServer: ProjectBannerStoragePort;
   leaderboardStoragePortForClient: LeaderboardStoragePort;
   leaderboardStoragePortForServer: LeaderboardStoragePort;
 }
@@ -208,8 +204,6 @@ export class Bootstrap {
   styleKernelPort: StyleFacadePort;
   searchStoragePortForClient: SearchStoragePort;
   searchStoragePortForServer: SearchStoragePort;
-  projectBannerStoragePortForClient: ProjectBannerStoragePort;
-  projectBannerStoragePortForServer: ProjectBannerStoragePort;
   leaderboardStoragePortForClient: LeaderboardStoragePort;
   leaderboardStoragePortForServer: LeaderboardStoragePort;
 
@@ -274,8 +268,6 @@ export class Bootstrap {
     this.styleKernelPort = constructor.styleKernelPort;
     this.searchStoragePortForClient = constructor.searchStoragePortForClient;
     this.searchStoragePortForServer = constructor.searchStoragePortForServer;
-    this.projectBannerStoragePortForClient = constructor.projectBannerStoragePortForClient;
-    this.projectBannerStoragePortForServer = constructor.projectBannerStoragePortForServer;
     this.leaderboardStoragePortForClient = constructor.leaderboardStoragePortForClient;
     this.leaderboardStoragePortForServer = constructor.leaderboardStoragePortForServer;
   }
@@ -536,14 +528,6 @@ export class Bootstrap {
     return this.searchStoragePortForServer;
   }
 
-  getProjectBannerStoragePortForClient() {
-    return this.projectBannerStoragePortForClient;
-  }
-
-  getProjectBannerStoragePortForServer() {
-    return this.projectBannerStoragePortForServer;
-  }
-
   getLeaderboardStoragePortForClient() {
     return this.leaderboardStoragePortForClient;
   }
@@ -615,8 +599,6 @@ export class Bootstrap {
         styleKernelPort: StyleAdapter,
         searchStoragePortForClient: new SearchClientAdapter(new FetchHttpClient()),
         searchStoragePortForServer: new SearchClientAdapter(new FetchHttpClient()),
-        projectBannerStoragePortForClient: new ProjectBannerClientAdapter(),
-        projectBannerStoragePortForServer: new ProjectBannerClientAdapter(),
         leaderboardStoragePortForClient: new LeaderboardClientAdapter(new FetchHttpClient()),
         leaderboardStoragePortForServer: new LeaderboardClientAdapter(new FetchHttpClient()),
       });
