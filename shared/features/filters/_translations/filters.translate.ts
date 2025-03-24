@@ -17,7 +17,6 @@ import enLanguage from "../language-filter/language-filter.en.json";
 import enLeadProject from "../lead-project-filter/lead-project-filter.en.json";
 import enOnboardedDevCount from "../onboarded-dev-count-filter/onboarded-dev-count-filter.en.json";
 import enPeriodDate from "../period-filter/period-filter.en.json";
-import enProgramEcosystem from "../program-ecosystem-filter/program-ecosystem-filter.en.json";
 import enProject from "../project-filter/project-filter.en.json";
 import enProjectRepo from "../project-repo-filter/project-repo-filter.en.json";
 import enRewardCount from "../reward-count-filter/reward-count-filter.en.json";
@@ -46,7 +45,6 @@ export const enFiltersTranslations = {
     averageRewardCount: enAverageRewardCount,
     budgetUsedCount: enBudgetUsedCount,
     onboardedDevCount: enOnboardedDevCount,
-    programEcosystem: enProgramEcosystem,
     ecosystem: enEcosystem,
     project: enProject,
     periodDate: enPeriodDate,
