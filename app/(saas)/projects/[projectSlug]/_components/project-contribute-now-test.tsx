@@ -6,7 +6,7 @@ import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 const CONTRIBUTOR_GUIDE_URL =
   "https://blog.onlydust.com/contributor-guide-how-to-contribute-to-an-open-source-project-without-available-issues/";
 
-export function TestApplication({ projectId }: { projectId?: string }) {
+export function ProjectContributeNowTest({ projectId }: { projectId?: string }) {
   const { capture } = usePosthog();
 
   return (

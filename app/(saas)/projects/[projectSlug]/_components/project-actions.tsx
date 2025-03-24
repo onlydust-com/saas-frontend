@@ -1,9 +1,8 @@
-import { ContributeNow } from "@/app/(saas)/projects/[projectSlug]/_features/contribute-now/contribute-now";
-
 import { Skeleton } from "@/shared/ui/skeleton";
 
 import { ProjectActionsAlert } from "./project-actions-alert";
 import { ProjectActionsBookmark } from "./project-actions-bookmark";
+import { ProjectContributeNow } from "./project-contribute-now";
 
 export function ProjectActions({
   projectId,
@@ -28,7 +27,7 @@ export function ProjectActions({
     <div className="flex items-center gap-3">
       <ProjectActionsAlert projectId={projectId} />
       <ProjectActionsBookmark projectId={projectId} projectName={projectName} />
-      <ContributeNow projectId={projectId} />
+      <ProjectContributeNow projectId={projectId} />
     </div>
   );
 }

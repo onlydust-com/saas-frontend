@@ -17,7 +17,7 @@ import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 
-export function HackathonInProgress({ projectId = "" }: { projectId?: string }) {
+export function ProjectContributeNowHackathon({ projectId = "" }: { projectId?: string }) {
   const { capture } = usePosthog();
   const { data, isLoading, isError } = HackathonReactQueryAdapter.client.useGetHackathons({});
 

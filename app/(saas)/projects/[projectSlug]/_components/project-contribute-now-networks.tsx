@@ -11,7 +11,7 @@ import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyH4, TypographyP } from "@/shared/ui/typography";
 
-export function JoinSocialNetworks({ projectId = "" }: { projectId?: string }) {
+export function ProjectContributeNowNetworks({ projectId = "" }: { projectId?: string }) {
   const socialKernelPort = bootstrap.getSocialKernelPort();
   const urlKernelPort = bootstrap.getUrlKernelPort();
 

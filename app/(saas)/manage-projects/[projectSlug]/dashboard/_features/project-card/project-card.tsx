@@ -9,7 +9,17 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TypographyH4, TypographyMuted, TypographySmall } from "@/shared/ui/typography";
 import { cn } from "@/shared/utils";
 
-import { ProjectCardProps } from "./project-card.types";
+type ProjectCardProps = {
+  name: string;
+  description: string;
+  slug: string;
+  logoUrl: string;
+  categories: string[];
+  languages: { name: string; logoUrl: string; percentage: number }[];
+  onClick?: () => void;
+  rank?: number;
+  className?: string;
+};
 
 export function ProjectCard({
   name,

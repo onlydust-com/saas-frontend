@@ -1,4 +1,4 @@
-import { CircleDot } from "lucide-react";
+import { ThumbsUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback, useMemo } from "react";
@@ -14,17 +14,31 @@ import { usePosthog } from "@/shared/tracking/posthog/use-posthog";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { TypographyH3, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { TypographyH3, TypographyH4, TypographyMuted, TypographyP, TypographySmall } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
+export function ProjectContributeNowGFI({
+  projectId = "",
+  size = "default",
+  hideWhenEmpty = false,
+  posthogPrefix = "project_overview_click_good_first_issue",
+}: {
+  projectId?: string;
+  size?: "default" | "small";
+  hideWhenEmpty?: boolean;
+  posthogPrefix?: string;
+}) {
   const dateKernel = bootstrap.getDateKernelPort();
+
   const { capture } = usePosthog();
 
-  const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectAvailableIssues({
+  const Title = size === "default" ? TypographyH3 : TypographyH4;
+
+  const { data, isLoading, isError, hasNextPage } = ProjectReactQueryAdapter.client.useGetProjectGoodFirstIssues({
     pathParams: {
-      projectIdOrSlug: projectId,
+      projectId,
     },
     queryParams: {
       pageSize: 3,
@@ -34,9 +48,9 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
     },
   });
 
-  const availableIssues = useMemo(() => data?.pages.flatMap(page => page.issues) ?? [], [data]);
+  const goodFirstIssues = useMemo(() => data?.pages.flatMap(page => page.issues) ?? [], [data]);
 
-  const renderAvailableIssues = useCallback(() => {
+  const renderGoodFirstIssues = useCallback(() => {
     if (isLoading) {
       return (
         <ul className={"flex flex-col gap-3"}>
@@ -52,27 +66,27 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
     if (isError) {
       return (
         <div className={"flex items-center justify-center py-10"}>
-          <TypographyMuted>Error loading available issues</TypographyMuted>
+          <TypographyMuted>Error loading Good First Issues</TypographyMuted>
         </div>
       );
     }
 
-    if (availableIssues.length === 0) {
+    if (goodFirstIssues.length === 0) {
       return (
         <div className={"flex items-center justify-center py-10"}>
-          <TypographyMuted>No available issues found</TypographyMuted>
+          <TypographyMuted>No good first issues found</TypographyMuted>
         </div>
       );
     }
 
     return (
       <ul className={"flex flex-col gap-3"}>
-        {availableIssues.map(issue => (
+        {goodFirstIssues.map(issue => (
           <li key={issue.id}>
             <IssueSidepanel key={issue.id} projectId={projectId} issueId={issue.id}>
               <button
                 onClick={() => {
-                  capture("project_overview_click_available_issue", { projectId, issueId: issue.id });
+                  capture(posthogPrefix, { projectId, issueId: issue.id });
                 }}
                 className={"w-full text-left transition-opacity hover:opacity-80"}
               >
@@ -95,25 +109,36 @@ export function AvailableIssues({ projectId = "" }: { projectId?: string }) {
         ))}
       </ul>
     );
-  }, [availableIssues, isLoading, isError, dateKernel]);
+  }, [goodFirstIssues, isLoading, isError, dateKernel]);
+
+  if (hideWhenEmpty && (goodFirstIssues.length === 0 || isError)) {
+    return null;
+  }
 
   return (
-    <Card className={"flex flex-col gap-4 bg-gradient-to-br from-purple-950 to-transparent to-50% p-4"}>
+    <Card
+      className={cn("flex flex-col bg-gradient-to-br from-green-950 to-transparent to-50%", {
+        "gap-4 p-4": size === "default",
+        "gap-3 p-3": size === "small",
+      })}
+    >
       <header className={"flex items-center gap-2"}>
-        <CircleDot className={"text-purple-700"} />
-        <TypographyH3>Available Issues</TypographyH3>
+        <ThumbsUp className={cn("text-green-700", { "size-5": size === "small" })} />
+        <Title>Good First Issues</Title>
       </header>
 
-      <TypographyP>This project&apos;s available issues, ready for contributions.</TypographyP>
+      <TypographyP className={cn({ "text-sm": size === "small" })}>
+        This project&apos;s Good First Issues, perfect for new contributors.
+      </TypographyP>
 
-      {renderAvailableIssues()}
+      {renderGoodFirstIssues()}
 
       {hasNextPage ? (
         <div>
           <Button variant={"outline"} asChild>
             <Link
-              href={NEXT_ROUTER.projects.details.issues.root(projectId)}
-              onClick={() => capture("project_overview_click_available_issue_view_all", { projectId })}
+              href={`${NEXT_ROUTER.projects.details.root(projectId)}`}
+              onClick={() => capture(`${posthogPrefix}_view_all`, { projectId })}
             >
               View all issues
             </Link>
