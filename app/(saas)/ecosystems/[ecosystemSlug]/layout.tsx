@@ -8,7 +8,6 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { Card } from "@/shared/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { cn } from "@/shared/utils";
 
 import { EcosystemDocumentation } from "./_features/ecosystem-documentation/ecosystem-documentation";
 import { EcosystemEvents } from "./_features/ecosystem-events/ecosystem-events";
@@ -51,7 +50,7 @@ export default function EcosystemLayout({
           <EcosystemDocumentation ecosystemSlug={params.ecosystemSlug} />
         </div>
 
-        <Card className={cn("flex flex-col overflow-hidden pb-xl tablet:h-full desktop:flex-1")}>
+        <Card className={"flex flex-col overflow-hidden pb-xl tablet:h-full desktop:flex-1"}>
           <div className={"flex w-full flex-row items-end justify-between gap-1 px-4 py-6"}>
             <Navigation params={params} />
           </div>
