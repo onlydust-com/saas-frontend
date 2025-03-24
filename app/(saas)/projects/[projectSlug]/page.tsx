@@ -1,21 +1,21 @@
 "use client";
 
-import { ViewDesktop } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/view-desktop";
-import { ViewMobile } from "@/app/(saas)/projects/v2/[projectSlugV2]/_components/view-mobile";
-
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PosthogCaptureOnMount } from "@/shared/tracking/posthog/posthog-capture-on-mount/posthog-capture-on-mount";
 
-export default function ProjectDetailPage({ params }: { params: { projectSlugV2: string } }) {
+import { ViewDesktop } from "./_components/view-desktop";
+import { ViewMobile } from "./_components/view-mobile";
+
+export default function ProjectDetailPage({ params }: { params: { projectSlug: string } }) {
   const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
-      projectIdOrSlug: params.projectSlugV2,
+      projectIdOrSlug: params.projectSlug,
     },
     options: {
-      enabled: Boolean(params.projectSlugV2),
+      enabled: Boolean(params.projectSlug),
     },
   });
 
@@ -50,9 +50,9 @@ export default function ProjectDetailPage({ params }: { params: { projectSlugV2:
         ]}
       />
 
-      <ViewMobile projectSlug={params.projectSlugV2} />
+      <ViewMobile projectSlug={params.projectSlug} />
 
-      <ViewDesktop projectSlug={params.projectSlugV2} />
+      <ViewDesktop projectSlug={params.projectSlug} />
     </div>
   );
 }
