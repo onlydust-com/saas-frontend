@@ -107,15 +107,18 @@ export function RewardsTable() {
           <FilterColumns selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </nav>
 
-        <Table
-          table={table}
-          header={{
-            headerGroups: table.getHeaderGroups(),
-          }}
-          rows={table.getRowModel().rows}
-        />
-        {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+        <div className={"overflow-x-auto"}>
+          <Table
+            table={table}
+            header={{
+              headerGroups: table.getHeaderGroups(),
+            }}
+            rows={table.getRowModel().rows}
+          />
+          {hasNextPage ? <ShowMore onNext={fetchNextPage} loading={isFetchingNextPage} /> : null}
+        </div>
       </div>
+
       <FilterData />
     </FilterDataProvider>
   );
