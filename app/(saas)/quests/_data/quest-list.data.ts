@@ -216,7 +216,6 @@ export const QuestListData: QuestList[] = [
     issues: [2866995946, 2866997140, 2866997973],
     maintainers: [19536159],
   },
-
   {
     id: "f8c47e9d-b3a5-4f16-8d92-3c7a1b94e5d0",
     bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
@@ -234,18 +233,46 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
+        provided: [169891780, 86140439],
         wanted: 2,
       },
     },
     requiredSkills: ["react native", "expo", "UI", "typescript"],
     startDate: "2025-03-20",
     endDate: "2025-04-03",
-    status: "application-open",
+    status: "started",
     issues: [
       2926956496, 2926953702, 2926950585, 2926948727, 2926944633, 2926943128, 2926941803, 2926940839, 2926939730,
       2926937458, 2926933443, 2926929902, 2926925029, 2926921661,
     ],
+    maintainers: [51526246],
+  },
+  {
+    id: "c9d2e8f1-a4b6-4c7d-9e3f-2b5a8c6d4e0f",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectId: "12f9a106-470e-4047-ada6-4befb442783b",
+    projectSlug: "gasless-gossip",
+    name: "Production level Nestjs foundational issues",
+    shortDescription:
+      "Ready to dive deep into the guts of production-grade NestJS? Gasless Gossip is calling two mid-level NestJS & Postgres builders to tackle 20 real-world, foundational issues. This is a 5-day sprint, where speed, precision, and clean architecture matter. You'll be pairing directly with the project maintainer and get full-on support throughout the quest. We're looking for one man and one woman, because inclusion isn't optional - it's how we build better. Think you've got the skills and the speed? Join us, build fast, build smart, and leave your mark.",
+    longDescription: {
+      title: "Production level Nestjs foundational issues",
+      description:
+        "Ready to dive deep into the guts of production-grade NestJS? Gasless Gossip is calling two mid-level NestJS & Postgres builders to tackle 20 real-world, foundational issues. This is a 5-day sprint, where speed, precision, and clean architecture matter. You'll be pairing directly with the project maintainer and get full-on support throughout the quest. We're looking for one man and one woman, because inclusion isn't optional - it's how we build better. Think you've got the skills and the speed? Join us, build fast, build smart, and leave your mark.",
+      warning: "Devs should be able to work along with the Maintainer and he will be available for them all the time.",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+    },
+    requiredSkills: ["Nestjs", "Postgres"],
+    startDate: "2025-03-25",
+    endDate: "2025-04-01",
+    status: "application-open",
+    issues: [],
     maintainers: [51526246],
   },
 ];
