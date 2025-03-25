@@ -1,6 +1,5 @@
-import { ProjectAutocompleteProps } from "@/shared/features/autocompletes/project-autocomplete/project-autocomplete.types";
 
-export interface ProjectFilterProps extends Pick<ProjectAutocompleteProps, "mine"> {
+export interface ProjectFilterProps {
   selectedProjects?: string[];
   onSelect?: (projects: string[]) => void;
 }

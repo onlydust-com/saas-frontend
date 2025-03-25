@@ -5,7 +5,7 @@ import { AccordionFilter } from "@/shared/features/filters/accordion-filter/acco
 
 import { ProjectFilterProps } from "./project-filter.types";
 
-export function ProjectFilter({ selectedProjects, onSelect, mine }: ProjectFilterProps) {
+export function ProjectFilter({ selectedProjects, onSelect }: ProjectFilterProps) {
   const { t } = useTranslation("features");
   return (
     <AccordionFilter
@@ -20,7 +20,6 @@ export function ProjectFilter({ selectedProjects, onSelect, mine }: ProjectFilte
         onSelect={onSelect}
         isMultiple={true}
         placeholder={t("filters.project.placeholder")}
-        mine={mine}
       />
     </AccordionFilter>
   );
