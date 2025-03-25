@@ -33,9 +33,9 @@ export async function generateMetadata({ params }: { params: { projectSlug: stri
 export default function ProjectDetailLayout({
   params,
   children,
-}: PropsWithChildren<{ params: { projectSlugV2: string } }>) {
+}: PropsWithChildren<{ params: { projectSlug: string } }>) {
   return (
-    <GithubPermissionsProvider projectSlug={params.projectSlugV2}>
+    <GithubPermissionsProvider projectSlug={params.projectSlug}>
       <PageContainer size="small">
         {children}
 
