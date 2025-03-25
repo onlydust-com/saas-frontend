@@ -8,7 +8,9 @@ export function Kanban({ children: _children }: KanbanProps) {
   return (
     <div className={"h-full w-full overflow-hidden"}>
       <ScrollView direction={"x"}>
-        <div className={"flex h-full flex-row items-start gap-lg"}>{children.map(child => child)}</div>
+        <div className={`grid h-full min-h-[500px] min-w-[1600px] grid-cols-${children.length} gap-lg`}>
+          {children.map(child => child)}
+        </div>
       </ScrollView>
     </div>
   );
