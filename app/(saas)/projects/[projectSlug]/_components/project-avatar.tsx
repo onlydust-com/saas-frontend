@@ -20,7 +20,7 @@ export function ProjectAvatar({
     return <Skeleton className="aspect-square w-full" />;
   }
 
-  if (isError || !logoUrl) {
+  if (isError) {
     return null;
   }
 
