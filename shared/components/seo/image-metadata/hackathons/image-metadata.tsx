@@ -10,7 +10,7 @@ export function HackathonImageMetadata({ name, description }: HackathonImageMeta
 
   return (
     <ImageMetadataBackground>
-      <ImageMetadataContent title={`Join ${name} on OnlyDust`} description={_description} />
+      <ImageMetadataContent title={`Join ${name || "Open Source Week"} on OnlyDust`} description={_description} />
       <img
         src={image}
         alt="cards"
