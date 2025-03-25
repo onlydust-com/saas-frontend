@@ -118,15 +118,24 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
 
     useEffect(() => {
       if (user) {
+        // TEST CODE
+        router.push(NEXT_ROUTER.signup.onboarding.information.root);
+        return;
+        // END TEST CODE
         if (!user.hasAcceptedLatestTermsAndConditions) {
           router.push(NEXT_ROUTER.signup.termsAndConditions.root);
           return;
         }
 
-        if (isForcedOnboarding && !user.hasCompletedOnboarding) {
-          router.push(NEXT_ROUTER.signup.onboarding.root);
+        if (!user.hasCompletedOnboarding) {
+          router.push(NEXT_ROUTER.signup.onboarding.information.root);
           return;
         }
+
+        // if (isForcedOnboarding && !user.hasCompletedOnboarding) {
+        //   router.push(NEXT_ROUTER.signup.onboarding.recommendation.root);
+        //   return;
+        // }
 
         redirectToApp();
       }
@@ -173,14 +182,14 @@ export function withOnboarding<P extends object>(Component: React.ComponentType<
     const { redirectToApp } = useAuthContext();
     const { user } = useAuthUser();
 
-    useEffect(() => {
-      if (user) {
-        if (user.hasCompletedOnboarding) {
-          redirectToApp();
-          return;
-        }
-      }
-    }, [router, user]);
+    // useEffect(() => {
+    //   if (user) {
+    //     if (user.hasCompletedOnboarding) {
+    //       redirectToApp();
+    //       return;
+    //     }
+    //   }
+    // }, [router, user]);
 
     return <Component {...props} />;
   };

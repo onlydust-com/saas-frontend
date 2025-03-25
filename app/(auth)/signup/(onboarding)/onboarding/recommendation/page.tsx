@@ -95,6 +95,10 @@ function SignupOnboardingPage() {
               <BreadcrumbItem>
                 <BreadcrumbPage>Onboarding</BreadcrumbPage>
               </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Recommendation</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
 
