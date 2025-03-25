@@ -2,7 +2,7 @@ import { ImageMetadataBackground } from "../commons/background/background";
 import { ImageMetadataContent } from "../commons/content/content";
 import { HackathonImageMetadataProps } from "./image-metadata.types";
 
-export function HackathonImageMetadata({ name, description, imageUrl }: HackathonImageMetadataProps) {
+export function HackathonImageMetadata({ name, description }: HackathonImageMetadataProps) {
   const image = `${process.env.NEXT_PUBLIC_METADATA_ASSETS_S3_BUCKET}/cards.png`;
   const _description = description
     ? `${description.slice(0, 160)}...`
