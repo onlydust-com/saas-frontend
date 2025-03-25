@@ -12,8 +12,6 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-import { useForcedOnboarding } from "../hooks/flags/use-forced-onboarding";
-
 interface AuthContext {
   isAuthenticated: boolean;
   redirectToSignup(): void;
@@ -114,14 +112,9 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
     const router = useRouter();
     const { redirectToApp } = useAuthContext();
     const { user } = useAuthUser();
-    const isForcedOnboarding = useForcedOnboarding();
 
     useEffect(() => {
       if (user) {
-        // TEST CODE
-        router.push(NEXT_ROUTER.signup.onboarding.information.root);
-        return;
-        // END TEST CODE
         if (!user.hasAcceptedLatestTermsAndConditions) {
           router.push(NEXT_ROUTER.signup.termsAndConditions.root);
           return;
@@ -131,12 +124,6 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           router.push(NEXT_ROUTER.signup.onboarding.information.root);
           return;
         }
-
-        // if (isForcedOnboarding && !user.hasCompletedOnboarding) {
-        //   router.push(NEXT_ROUTER.signup.onboarding.recommendation.root);
-        //   return;
-        // }
-
         redirectToApp();
       }
     }, [router, user]);
@@ -182,14 +169,14 @@ export function withOnboarding<P extends object>(Component: React.ComponentType<
     const { redirectToApp } = useAuthContext();
     const { user } = useAuthUser();
 
-    // useEffect(() => {
-    //   if (user) {
-    //     if (user.hasCompletedOnboarding) {
-    //       redirectToApp();
-    //       return;
-    //     }
-    //   }
-    // }, [router, user]);
+    useEffect(() => {
+      if (user) {
+        if (user.hasCompletedOnboarding) {
+          redirectToApp();
+          return;
+        }
+      }
+    }, [router, user]);
 
     return <Component {...props} />;
   };
