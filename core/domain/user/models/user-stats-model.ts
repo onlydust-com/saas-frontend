@@ -2,7 +2,7 @@ import { components } from "@/core/infrastructure/marketplace-api-client-adapter
 
 type UserStatsResponse = components["schemas"]["UserProfileStatsV2"];
 
-interface UserStatsInterface extends UserStatsResponse {}
+export interface UserStatsInterface extends UserStatsResponse {}
 
 export class UserStats implements UserStatsInterface {
   activity!: UserStatsResponse["activity"];

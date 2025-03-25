@@ -1,8 +1,7 @@
-import { createEndDate } from "@/app/(saas)/quests/[questId]/applications/[applicationId]/_utils/createEndDate";
-import { createStartDate } from "@/app/(saas)/quests/[questId]/applications/[applicationId]/_utils/createStartDate";
-import { createWeeks } from "@/app/(saas)/quests/[questId]/applications/[applicationId]/_utils/createWeeks";
-import { splitWeeksIntoSubArray } from "@/app/(saas)/quests/[questId]/applications/[applicationId]/_utils/splitWeeks";
-
+import { createEndDate } from "@/shared/components/seo/image-metadata/public-profile/_utils/createEndDate";
+import { createStartDate } from "@/shared/components/seo/image-metadata/public-profile/_utils/createStartDate";
+import { createWeeks } from "@/shared/components/seo/image-metadata/public-profile/_utils/createWeeks";
+import { splitWeeksIntoSubArray } from "@/shared/components/seo/image-metadata/public-profile/_utils/splitWeeks";
 import { ActivityGraphLevel } from "@/shared/components/seo/image-metadata/public-profile/image-metadata.types";
 
 import { ActivityHighlight } from "./activity-highlight";

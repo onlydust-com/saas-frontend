@@ -9,10 +9,10 @@ import {
   rankCategoryTranslationMapping,
 } from "@/shared/components/seo/image-metadata/public-profile/image-metadata.types";
 
-import { getDateFromWeekNumber } from "../../quests/[questId]/applications/[applicationId]/_utils/getDateFromWeekNumber";
-import { getLevelFromCount } from "../../quests/[questId]/applications/[applicationId]/_utils/getLevelFromCount";
-import { getLevelRange } from "../../quests/[questId]/applications/[applicationId]/_utils/getLevelRange";
-import { getWeekId } from "../../quests/[questId]/applications/[applicationId]/_utils/getWeekId";
+import { getDateFromWeekNumber } from "../../../../shared/components/seo/image-metadata/public-profile/_utils/getDateFromWeekNumber";
+import { getLevelFromCount } from "../../../../shared/components/seo/image-metadata/public-profile/_utils/getLevelFromCount";
+import { getLevelRange } from "../../../../shared/components/seo/image-metadata/public-profile/_utils/getLevelRange";
+import { getWeekId } from "../../../../shared/components/seo/image-metadata/public-profile/_utils/getWeekId";
 
 export default async function Image(props: { params: { userSlug: string } }) {
   try {
