@@ -7,7 +7,7 @@ import { HackathonImageMetadata } from "@/shared/components/seo/image-metadata/h
 export default async function Image(props: { params: { hackathonSlug: string } }) {
   try {
     const hackathonData = await fetch(
-      `https://${process.env.NEXT_PUBLIC_ONLYDUST_API_BASEPATH}/api/v1/hackathons/slug/${props.params.hackathonSlug}`
+      `https://${process.env.NEXT_PUBLIC_ONLYDUST_API_BASEPATH}/api/v2/hackathons/slug/${props.params.hackathonSlug}`
     ).then((res): Promise<HackathonInterface> => res.json());
 
     return Generator({
