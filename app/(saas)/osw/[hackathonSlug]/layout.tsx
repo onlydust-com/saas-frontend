@@ -15,15 +15,15 @@ import { PageContainer } from "@/shared/features/page/page-container/page-contai
 export async function generateMetadata({ params }: { params: { hackathonSlug: string } }): Promise<Metadata> {
   try {
     const hackathonData = await fetch(
-      `https://${process.env.NEXT_PUBLIC_ONLYDUST_API_BASEPATH}/api/v1/hackathons/slug/${params.hackathonSlug}`
+      `https://${process.env.NEXT_PUBLIC_ONLYDUST_API_BASEPATH}/api/v2/hackathons/slug/${params.hackathonSlug}`
     ).then(res => res.json());
 
     return {
       ...sharedMetadata,
-      title: `${hackathonData.title} - OnlyDust`,
+      title: `${hackathonData?.title} - OnlyDust`,
       openGraph: {
         ...sharedMetadata.openGraph,
-        title: `${hackathonData.title} - OnlyDust`,
+        title: `${hackathonData?.title} - OnlyDust`,
       },
       twitter: {
         ...sharedMetadata.twitter,
