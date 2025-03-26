@@ -1,8 +1,10 @@
-import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 
 import { ProjectTag } from "@/core/domain/project/project.types";
+
+import { useDeleteSearchParams } from "@/shared/hooks/router/use-delete-search-params";
+import { useUpdateMultipleSearchParams, useUpdateSearchParams } from "@/shared/hooks/router/use-update-search-params";
 
 import {
   BrowseProjectsContextFilter,
@@ -24,20 +26,21 @@ const BrowseProjectsContext = createContext<BrowseProjectsContextReturn>({
 });
 
 export function BrowseProjectsContextProvider({ children }: BrowseProjectsContextProviderProps) {
-  const searchParams = useSearchParams();
+  const { updateMultipleSearchParams, searchParams: getSearchParams } = useUpdateMultipleSearchParams();
+  const { deleteSearchParams } = useDeleteSearchParams();
   const [filters, setFilters] = useState<BrowseProjectsContextFilter>(DEFAULT_FILTER);
   const [queryParams, setQueryParams] = useState<BrowseProjectsContextQueryParams>({});
   const [debouncedQueryParams, setDebouncedQueryParams] = useState<BrowseProjectsContextQueryParams>(queryParams);
 
   useEffect(() => {
-    const sortByParam = searchParams.get("sortBy");
-    const tagsParam = searchParams.get("tags");
+    const sortByParam = getSearchParams.get("sortBy");
+    const tagsParam = getSearchParams.get("tags");
 
     setFilter({
       sortBy: sortByParam ?? undefined,
       tags: tagsParam ? (tagsParam.split(",") as ProjectTag[]) : [],
     });
-  }, [searchParams]);
+  }, [getSearchParams]);
 
   useDebounce(
     () => {
@@ -74,6 +77,18 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
     setFilters(DEFAULT_FILTER);
     handleQueryParams(DEFAULT_FILTER);
   }
+
+  useEffect(() => {
+    const queryParamsToSave: Record<string, string> = {};
+
+    Object.entries(debouncedQueryParams).forEach(([key, value]) => {
+      if (value) {
+        queryParamsToSave[key] = value;
+      }
+    });
+
+    updateMultipleSearchParams(queryParamsToSave.join("&"));
+  }, [debouncedQueryParams]);
 
   return (
     <BrowseProjectsContext.Provider
