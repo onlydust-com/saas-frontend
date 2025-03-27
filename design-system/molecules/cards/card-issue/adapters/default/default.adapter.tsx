@@ -15,7 +15,7 @@ import { AvatarGroup } from "@/design-system/molecules/avatar-group";
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { ScrollView } from "@/shared/components/scroll-view/scroll-view";
-import { cn } from "@/shared/helpers/cn";
+import { cn } from "@/shared/utils";
 
 import { CardIssuePort } from "../../card-issue.types";
 import { CardIssueDefaultVariants } from "./default.variants";
@@ -44,26 +44,19 @@ function GithubLabel({
     );
   }
 
-  function renderContent(clickable: boolean) {
-    return (
-      <div className={cn("flex flex-row items-center gap-1", clickable && "cursor-pointer")}>
-        {limitedLabels?.map(({ label, description, onClick }) =>
-          description ? (
-            <Tooltip key={label} content={description}>
-              {renderLabel({ label, description, onClick })}
-            </Tooltip>
-          ) : (
-            renderLabel({ label, description, onClick })
-          )
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="flex flex-row flex-wrap items-center gap-1">
+      {limitedLabels?.map(({ label, description, onClick }) =>
+        description ? (
+          <Tooltip key={label} content={description}>
+            {renderLabel({ label, description, onClick })}
+          </Tooltip>
+        ) : (
+          renderLabel({ label, description, onClick })
+        )
+      )}
 
-  if (limitedLabels?.length < githubLabels?.length) {
-    return (
-      <div className="flex flex-row items-center gap-1">
-        {renderContent(true)}
+      {limitedLabels?.length < githubLabels?.length ? (
         <Popover>
           <Popover.Trigger>
             {() => (
@@ -87,11 +80,9 @@ function GithubLabel({
             )}
           </Popover.Content>
         </Popover>
-      </div>
-    );
-  }
-
-  return renderContent(false);
+      ) : null}
+    </div>
+  );
 }
 
 export function CardIssueDefaultAdapter<C extends ElementType = "div">({
