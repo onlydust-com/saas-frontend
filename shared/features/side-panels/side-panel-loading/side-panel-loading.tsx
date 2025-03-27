@@ -6,7 +6,7 @@ import { SidePanelHeader } from "@/shared/features/side-panels/side-panel-header
 
 export function SidePanelLoading() {
   return (
-    <div className={"flex h-full flex-col gap-px"}>
+    <div className={"flex h-full flex-col"}>
       <SidePanelHeader
         title={{
           children: <Skeleton classNames={{ base: "h-8 w-64" }} />,
