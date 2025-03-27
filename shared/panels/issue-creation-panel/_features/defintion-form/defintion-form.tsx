@@ -63,21 +63,16 @@ function RepoField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }
   const repos = useMemo(() => {
     if (!project?.repos || !organizations) return [];
 
-    return project.repos
-      .map(repo => {
-        // Find the organization that contains this repo
-        const organization = organizations.find(org => org.repos.some(orgRepo => orgRepo.id === repo.id));
+    return project.repos.map(repo => {
+      // Find the organization that contains this repo
+      const organization = organizations.find(org => org.repos.some(orgRepo => orgRepo.id === repo.id));
 
-        return {
-          label: repo.name,
-          value: repo.id,
-          disabled: organization ? organization.isMissingPermissions() : true,
-        };
-      })
-      .filter(repo => {
-        // Only include repos that are found in organizations
-        return organizations.some(org => org.repos.some(orgRepo => orgRepo.id === repo.value));
-      });
+      return {
+        label: repo.name,
+        value: repo.id,
+        disabled: !organization || organization.isMissingPermissions(),
+      };
+    });
   }, [project?.repos, organizations]);
 
   return (
