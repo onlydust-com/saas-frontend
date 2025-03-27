@@ -163,6 +163,12 @@ export const NEXT_ROUTER = {
     },
     onboarding: {
       root: "/signup/onboarding",
+      information: {
+        root: "/signup/onboarding/information",
+      },
+      recommendation: {
+        root: "/signup/onboarding/recommendation",
+      },
     },
   },
   settings: {
