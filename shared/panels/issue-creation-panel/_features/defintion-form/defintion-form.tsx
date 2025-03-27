@@ -88,7 +88,10 @@ function RepoField({ form }: { form: UseFormReturn<z.infer<typeof formSchema>> }
         <FormItem className="w-full">
           <div className="flex flex-col space-y-1">
             <FormLabel>Repositories</FormLabel>
-            <FormDescription>Select the related project or repository.</FormDescription>
+            <FormDescription>
+              Select the related project or repository. Some repositories may be disabled if additional GitHub
+              permissions are needed. You can update your GitHub permissions by editing your project settings.
+            </FormDescription>
           </div>
           <FormControl>
             <Select
