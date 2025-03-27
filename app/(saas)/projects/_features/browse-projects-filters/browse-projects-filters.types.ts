@@ -35,4 +35,7 @@ export type BrowseProjectsContextReturn = {
 
 export interface BrowseProjectsContextProviderProps extends PropsWithChildren {}
 
-export type BrowseProjectsContextQueryParams = Omit<GetProjectsV2PortParams["queryParams"], "pageIndex" | "pageSize">;
+export type BrowseProjectsContextQueryParams = Omit<
+  NonNullable<GetProjectsV2PortParams["queryParams"]>,
+  "pageIndex" | "pageSize"
+>;

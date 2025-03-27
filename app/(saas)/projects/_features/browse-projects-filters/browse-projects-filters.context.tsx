@@ -4,7 +4,7 @@ import { useDebounce } from "react-use";
 import { ProjectTag } from "@/core/domain/project/project.types";
 
 import { useDeleteSearchParams } from "@/shared/hooks/router/use-delete-search-params";
-import { useUpdateMultipleSearchParams, useUpdateSearchParams } from "@/shared/hooks/router/use-update-search-params";
+import { useUpdateMultipleSearchParams } from "@/shared/hooks/router/use-update-search-params";
 
 import {
   BrowseProjectsContextFilter,
@@ -79,15 +79,16 @@ export function BrowseProjectsContextProvider({ children }: BrowseProjectsContex
   }
 
   useEffect(() => {
-    const queryParamsToSave: Record<string, string> = {};
+    const queryParamsToSave: Record<string, string> = {
+      ...(debouncedQueryParams.tags && { tags: debouncedQueryParams.tags.join(",") }),
+      ...(debouncedQueryParams.languageIds && { languageIds: debouncedQueryParams.languageIds.join(",") }),
+      ...(debouncedQueryParams.ecosystemIds && { ecosystemIds: debouncedQueryParams.ecosystemIds.join(",") }),
+      ...(debouncedQueryParams.categoryIds && { categoryIds: debouncedQueryParams.categoryIds.join(",") }),
+      ...(debouncedQueryParams.sortBy && { sortBy: debouncedQueryParams.sortBy }),
+      ...(debouncedQueryParams.search && { search: debouncedQueryParams.search }),
+    };
 
-    Object.entries(debouncedQueryParams).forEach(([key, value]) => {
-      if (value) {
-        queryParamsToSave[key] = value;
-      }
-    });
-
-    updateMultipleSearchParams(queryParamsToSave.join("&"));
+    updateMultipleSearchParams(queryParamsToSave);
   }, [debouncedQueryParams]);
 
   return (
