@@ -114,7 +114,7 @@ export function ProjectUpdateSidepanel() {
   return (
     <FormProvider {...form}>
       <Panel>
-        <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col gap-px"}>
+        <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col"}>
           <SidePanelHeader
             title={{
               translate: {

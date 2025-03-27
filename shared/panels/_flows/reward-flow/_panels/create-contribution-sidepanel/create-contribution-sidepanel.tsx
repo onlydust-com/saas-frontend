@@ -113,7 +113,7 @@ export function CreateContributionSidepanel() {
 
   return (
     <Panel>
-      <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col gap-px"}>
+      <form onSubmit={handleSubmit(onSubmit)} className={"flex h-full w-full flex-col"}>
         <SidePanelHeader
           canGoBack
           canClose
