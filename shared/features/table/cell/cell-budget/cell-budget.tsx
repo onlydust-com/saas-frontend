@@ -1,5 +1,3 @@
-import { useLayoutEffect, useRef } from "react";
-
 import { bootstrap } from "@/core/bootstrap";
 
 import { Popover } from "@/design-system/atoms/popover";
@@ -13,19 +11,10 @@ import { CellBudgetProps } from "./cell-budget.types";
 
 export function CellBudget({ totalUsdEquivalent: _totalUsdEquivalent, totalPerCurrency = [] }: CellBudgetProps) {
   const moneyKernelPort = bootstrap.getMoneyKernelPort();
-  const usdRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const totalUsdEquivalent = moneyKernelPort.format({
     amount: _totalUsdEquivalent,
     currency: moneyKernelPort.getCurrency("USD"),
   });
-
-  useLayoutEffect(() => {
-    if (usdRef?.current && containerRef?.current) {
-      const usdWidth = usdRef.current.offsetWidth;
-      containerRef.current.style.width = `${usdWidth}px`;
-    }
-  }, [usdRef, containerRef]);
 
   if (!totalPerCurrency?.length) {
     return <CellEmpty />;
@@ -36,13 +25,13 @@ export function CellBudget({ totalUsdEquivalent: _totalUsdEquivalent, totalPerCu
       <Popover.Trigger>
         {() => (
           <div>
-            <div className={"flex min-w-full cursor-pointer flex-col"} ref={containerRef}>
-              <div className={"w-fit"} ref={usdRef}>
+            <div className={"flex min-w-full cursor-pointer flex-col"}>
+              <div className={"w-fit"}>
                 <Typo size="sm" weight="medium" color="secondary" classNames={{ base: "whitespace-nowrap" }}>
                   {`~${totalUsdEquivalent.amount} ${totalUsdEquivalent.code}`}
                 </Typo>
               </div>
-              <Typo size={"xs"} color="tertiary" classNames={{ base: "line-clamp-1" }}>
+              <Typo size={"xs"} color="tertiary">
                 {totalPerCurrency?.map(total => total.currency.name).join(", ")}
               </Typo>
             </div>
