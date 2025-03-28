@@ -37,7 +37,7 @@ function Content() {
   const otherWorks = getOtherWorks(selectedGithubUserId);
   const { amount, budget } = getAmount(selectedGithubUserId);
   const amountNumber = Number(amount);
-  const isRewardingDisabled = amountNumber <= 0 || (budget && amountNumber > budget.amount);
+  const isRewardingDisabled = isNaN(amountNumber) || amountNumber <= 0 || (budget && amountNumber > budget.amount);
 
   const selectedContributionWithUuid = useMemo(
     () => selectedContributions?.filter(c => !!c.uuid),
