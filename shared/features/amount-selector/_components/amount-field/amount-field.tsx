@@ -33,21 +33,29 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
       // Only allow numbers and decimals
       value = value.replace(/[^\d.]/g, "");
 
+      // Strip leading zeros
       if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
         value = value.slice(1);
       }
 
+      // Limit the number of digits
       if (value.length > maximumSignificantDigits) {
         return;
       }
 
       const safeValue = value || "0";
 
+      // The input is not a number
+      if (isNaN(Number(safeValue))) {
+        return;
+      }
+
       if (isCurrencyFirst) {
         return onAmountChange(safeValue);
       }
 
       if (isConversionFirst) {
+        // parseFloat does not let the user input a number with a decimal point
         const amount = budget.usdConversionRate ? parseFloat(safeValue) / budget.usdConversionRate : 0;
         return onAmountChange(amount.toString());
       }
@@ -91,7 +99,6 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
 
     return {
       primary: {
-        // value: `${formattedCurrencyAmount.replaceAll(",", "") ?? 0}`,
         value: amount,
         currency: budget.currency.code,
       },
