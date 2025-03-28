@@ -1,27 +1,17 @@
-import { Typo } from "@/design-system/atoms/typo";
+import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { TypographyH3, TypographyMuted } from "@/shared/ui/typography";
 
 export default function ProjectRecommendationLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex h-full max-w-laptop flex-col gap-7xl px-4 py-4xl">
-      <div className="flex flex-col items-center gap-md">
-        <Typo
-          variant="heading"
-          size="xs"
-          weight="medium"
-          translate={{
-            token: "projectRecommendation:details.header.title",
-          }}
-        />
-        <Typo
-          color="secondary"
-          size="xs"
-          translate={{
-            token: "projectRecommendation:details.header.description",
-          }}
-        />
-      </div>
+    <PageContainer size="small" className="flex flex-col gap-7xl px-4 py-4xl">
+      <header className="flex flex-col items-center gap-md text-center">
+        <TypographyH3>Find Your Perfect Project</TypographyH3>
+        <TypographyMuted>
+          Answer a few questions to discover projects that match your interests and skills
+        </TypographyMuted>
+      </header>
 
       {children}
-    </div>
+    </PageContainer>
   );
 }
