@@ -9,7 +9,7 @@ export function KanbanColumn({ header, children, onNext, hasNextPage, isFetching
   return (
     <div
       className={
-        "flex h-[80vh] min-w-[70vw] flex-1 flex-col items-start justify-start gap-lg rounded-md border-1 border-border-primary bg-background-primary-alt py-xl tablet:h-full tablet:min-w-[287px]"
+        "flex min-h-[50vh] flex-1 flex-col items-start justify-start gap-lg rounded-md border-1 border-border-primary bg-background-primary-alt py-xl"
       }
     >
       <div className={"flex h-fit w-full flex-row items-center justify-between gap-xs px-xl"}>
