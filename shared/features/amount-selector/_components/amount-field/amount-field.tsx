@@ -99,7 +99,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
 
     return {
       primary: {
-        value: amount,
+        value: amount.length > maximumSignificantDigits ? amount.substring(0, maximumSignificantDigits) : amount,
         currency: budget.currency.code,
       },
       secondary: {
