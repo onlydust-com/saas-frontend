@@ -62,7 +62,7 @@ export default function HackathonsLayout({
             >
               <HackathonNavigation params={params} />
 
-              <div className={"w-1/3 p-xl"}>
+              <div className={"flex w-1/3 justify-end p-xl"}>
                 <AuthenticatedRegisterHackathon hackathonSlug={params.hackathonSlug} />
               </div>
             </div>

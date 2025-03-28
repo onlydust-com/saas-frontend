@@ -109,7 +109,7 @@ export function AuthenticatedRegisterHackathon({ hackathonSlug }: { hackathonSlu
         <RegisterHackathon hackathonSlug={hackathonSlug} />
       </IsAuthenticated.Yes>
       <IsAuthenticated.No>
-        <SignInButton>Registered</SignInButton>
+        <SignInButton>Sign in to register</SignInButton>
       </IsAuthenticated.No>
     </IsAuthenticated>
   );
