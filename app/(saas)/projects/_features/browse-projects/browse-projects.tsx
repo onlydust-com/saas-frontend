@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 import {
   BrowseProjectsContextProvider,
@@ -15,8 +15,6 @@ import {
 } from "@/design-system/molecules/cards/card-project-marketplace";
 
 import { BaseLink } from "@/shared/components/base-link/base-link";
-import { EmptyStateLite } from "@/shared/components/empty-state-lite/empty-state-lite";
-import { ErrorState } from "@/shared/components/error-state/error-state";
 import { ShowMore } from "@/shared/components/show-more/show-more";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { RenderComponent } from "@/shared/features/render-component/render-component";
@@ -26,57 +24,12 @@ import { BrowseProjectsFilters } from "../browse-projects-filters/browse-project
 function Safe() {
   const { queryParams } = useBrowseProjectsContext();
 
-  const { data, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     ProjectReactQueryAdapter.client.useGetProjectsV2({
       queryParams: { ...queryParams, pageSize: 16 },
     });
 
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
-
-  const renderProjects = useCallback(() => {
-    if (isLoading) {
-      return Array.from({ length: 8 }).map((_, index) => <CardProjectMarketplaceLoading key={index} />);
-    }
-
-    if (isError) {
-      return (
-        <div className="col-span-full py-40">
-          <ErrorState />
-        </div>
-      );
-    }
-
-    if (!projects.length) {
-      return (
-        <div className="col-span-full py-40">
-          <EmptyStateLite />
-        </div>
-      );
-    }
-
-    return projects.map(project => (
-      <CardProjectMarketplace
-        key={project.id}
-        as={BaseLink}
-        htmlProps={{
-          href: NEXT_ROUTER.projects.details.root(project.slug),
-        }}
-        name={project.name}
-        slug={project.slug}
-        description={project.shortDescription}
-        logoUrl={project.logoUrl}
-        contributorCount={project.contributorCount}
-        starCount={project.starCount}
-        forkCount={project.forkCount}
-        availableIssueCount={project.availableIssueCount}
-        goodFirstIssueCount={project.goodFirstIssueCount}
-        categories={project.categories}
-        languages={project.languages}
-        ecosystems={project.ecosystems}
-        tags={project.tags}
-      />
-    ));
-  }, [projects, isError, isLoading]);
 
   return (
     <section className={"flex flex-col"}>
