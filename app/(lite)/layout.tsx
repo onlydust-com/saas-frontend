@@ -10,6 +10,7 @@ import { SaasProviders } from "@/app/(saas)/saas-providers";
 import { AppHeader } from "@/shared/features/app/app-header/app-header";
 import { AppSidebar } from "@/shared/features/app/app-sidebar/app-sidebar";
 import { ImpersonationBanner } from "@/shared/features/impersonation/impersonation-banner";
+import { SidePanelsProvider } from "@/shared/features/side-panels/side-panels.context";
 import { SidebarInset } from "@/shared/ui/sidebar";
 
 export default function LiteLayout({ children }: PropsWithChildren) {
@@ -18,7 +19,7 @@ export default function LiteLayout({ children }: PropsWithChildren) {
       <AppSidebar />
       <SidebarInset>
         <AppHeader />
-        {children}
+        <SidePanelsProvider>{children}</SidePanelsProvider>
         <ImpersonationBanner />
       </SidebarInset>
     </SaasProviders>

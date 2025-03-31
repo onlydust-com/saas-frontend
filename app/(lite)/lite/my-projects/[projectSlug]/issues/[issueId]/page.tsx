@@ -12,6 +12,8 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
 import { ApplicationCard } from "@/shared/panels/contribution-sidepanel/_features/application-card/application-card";
+import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
+import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { TypographyH4, TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
@@ -62,11 +64,15 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
           <Applications contributionId={params.issueId} repoId={data.repo.id} />
         </TabsContent>
       </Tabs>
+
+      <ContributorSidepanel />
     </PageContainer>
   );
 }
 
 function Applications({ contributionId, repoId }: { contributionId: string; repoId: number }) {
+  const { open } = useContributorSidePanel();
+
   const { data } = IssueReactQueryAdapter.client.useGetIssueApplicants({
     pathParams: { contributionUuid: contributionId },
     queryParams: {
@@ -83,7 +89,11 @@ function Applications({ contributionId, repoId }: { contributionId: string; repo
     <div className="flex flex-col gap-3">
       {applicants.length > 0 ? (
         applicants.map(applicant => (
-          <Card key={applicant.applicationId} className="bg-stack">
+          <Card
+            key={applicant.applicationId}
+            className="bg-stack"
+            onClick={() => open({ githubId: applicant.contributor.githubUserId })}
+          >
             <ApplicationCard application={applicant} contributionId={contributionId} repoId={repoId} />
           </Card>
         ))
