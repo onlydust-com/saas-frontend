@@ -1,13 +1,17 @@
 "use client";
 
+import { Card } from "@nextui-org/react";
 import { ArrowLeft } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
+import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
 
 import { Markdown } from "@/shared/features/markdown/markdown";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { ApplicationCard } from "@/shared/panels/contribution-sidepanel/_features/application-card/application-card";
 import { Button } from "@/shared/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { TypographyH4, TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
@@ -53,8 +57,39 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
             <TypographyMuted>No description provided for this issue.</TypographyMuted>
           )}
         </TabsContent>
-        <TabsContent value="applications">Applications</TabsContent>
+
+        <TabsContent value="applications">
+          <Applications contributionId={params.issueId} repoId={data.repo.id} />
+        </TabsContent>
       </Tabs>
     </PageContainer>
+  );
+}
+
+function Applications({ contributionId, repoId }: { contributionId: string; repoId: number }) {
+  const { data } = IssueReactQueryAdapter.client.useGetIssueApplicants({
+    pathParams: { contributionUuid: contributionId },
+    queryParams: {
+      isIgnored: false,
+    },
+    options: {
+      enabled: !!contributionId,
+    },
+  });
+
+  const applicants = useMemo(() => data?.pages.flatMap(page => page.applicants) ?? [], [data]);
+
+  return (
+    <div className="flex flex-col gap-3">
+      {applicants.length > 0 ? (
+        applicants.map(applicant => (
+          <Card key={applicant.applicationId} className="bg-stack">
+            <ApplicationCard application={applicant} contributionId={contributionId} repoId={repoId} />
+          </Card>
+        ))
+      ) : (
+        <TypographyMuted>No applicants found.</TypographyMuted>
+      )}
+    </div>
   );
 }
