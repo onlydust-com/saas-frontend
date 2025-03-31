@@ -12,6 +12,7 @@ export interface MeProfileInterface extends MeProfileResponse {
   isMaintainer(): boolean;
   formatContact(channel: UserProfileContactChannel): UserProfileContact | undefined;
   getFormContactInfo(channel: UserProfileContactChannel): { contact: string; isPublic: boolean };
+  body: MeProfileResponse;
 }
 
 export class MeProfile implements MeProfileInterface {
@@ -28,9 +29,11 @@ export class MeProfile implements MeProfileInterface {
   location!: MeProfileResponse["location"];
   login!: MeProfileResponse["login"];
   website!: MeProfileResponse["website"];
+  body!: MeProfileResponse;
 
   constructor(props: MeProfileResponse) {
     Object.assign(this, props);
+    this.body = props;
   }
 
   hasContact(channel: UserProfileContactChannel) {

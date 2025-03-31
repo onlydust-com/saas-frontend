@@ -180,7 +180,7 @@ export function GlobalSearchProvider({ children }: PropsWithChildren) {
         languages: filters.languages,
         ecosystems: filters.ecosystems,
         categories: filters.categories,
-        type: filters.type,
+        type: filters.type ?? SearchRessourceType.PROJECT,
       }).toBody(),
     [inputValue, filters]
   );

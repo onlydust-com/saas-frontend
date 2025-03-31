@@ -12,8 +12,6 @@ import { Button } from "@/design-system/atoms/button/variants/button-default";
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { useAuthUser } from "@/shared/hooks/auth/use-auth-user";
 
-import { useForcedOnboarding } from "../hooks/flags/use-forced-onboarding";
-
 interface AuthContext {
   isAuthenticated: boolean;
   redirectToSignup(): void;
@@ -114,7 +112,6 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
     const router = useRouter();
     const { redirectToApp } = useAuthContext();
     const { user } = useAuthUser();
-    const isForcedOnboarding = useForcedOnboarding();
 
     useEffect(() => {
       if (user) {
@@ -123,11 +120,10 @@ export function withSignup<P extends object>(Component: React.ComponentType<P>) 
           return;
         }
 
-        if (isForcedOnboarding && !user.hasCompletedOnboarding) {
-          router.push(NEXT_ROUTER.signup.onboarding.root);
+        if (!user.hasCompletedOnboarding) {
+          router.push(NEXT_ROUTER.signup.onboarding.information.root);
           return;
         }
-
         redirectToApp();
       }
     }, [router, user]);

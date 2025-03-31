@@ -1,7 +1,6 @@
 "use client";
 
-import { Columns2, Search } from "lucide-react";
-import { X } from "lucide-react";
+import { Columns2, Search, X } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -75,7 +74,7 @@ export function TableColumnListDefaultAdapter({
               onChange={handleSearch}
             />
 
-            <Menu {...menuProps} items={menuItems} classNames={{ content: "max-h-none" }} />
+            <Menu {...menuProps} items={menuItems} classNames={{ content: "max-h-[50vh]" }} />
           </div>
         )}
       </Popover.Content>

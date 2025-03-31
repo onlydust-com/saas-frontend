@@ -109,7 +109,7 @@ export function EditProgramPanel() {
 
   return (
     <Panel>
-      <form onSubmit={handleSubmit(onUpdateProgram)} className={"flex h-full w-full flex-col gap-px"}>
+      <form onSubmit={handleSubmit(onUpdateProgram)} className={"flex h-full w-full flex-col"}>
         <SidePanelHeader
           title={{
             children: program?.name ?? "",

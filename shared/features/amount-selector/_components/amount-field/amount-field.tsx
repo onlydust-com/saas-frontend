@@ -27,33 +27,37 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
     if (!readOnly && onAmountChange) {
       let value = e.target.value;
 
-      // Only allow numbers and one dot
+      // Allow comma as decimal point
+      value = value.replace(",", ".");
+
+      // Only allow numbers and decimals
       value = value.replace(/[^\d.]/g, "");
 
-      // A single decimal is considered valid but will cause NaN errors
-      if (value === ".") {
-        return;
-      }
-
+      // Strip leading zeros
       if (value.length > 1 && value.startsWith("0") && !value.startsWith("0.")) {
         value = value.slice(1);
       }
 
+      // Limit the number of digits
       if (value.length > maximumSignificantDigits) {
         return;
       }
 
-      if (value.includes(".") && value.length > maximumSignificantDigits + 1) {
+      const safeValue = value || "0";
+
+      // The input is not a number
+      if (isNaN(Number(safeValue))) {
         return;
       }
 
       if (isCurrencyFirst) {
-        return onAmountChange(value || "0");
+        return onAmountChange(safeValue);
       }
 
       if (isConversionFirst) {
-        const amount = parseFloat(value || "0") / (budget.usdConversionRate ?? 0);
-        return onAmountChange(`${amount ?? 0}`);
+        // parseFloat does not let the user input a number with a decimal point
+        const amount = budget.usdConversionRate ? parseFloat(safeValue) / budget.usdConversionRate : 0;
+        return onAmountChange(amount.toString());
       }
     }
   }
@@ -68,10 +72,12 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
 
   const { primary, secondary } = useMemo(() => {
     const usdAmount = parseFloat(amount) * (budget.usdConversionRate ?? 0);
+
     const { amount: formattedUsdAmount } = format({
       amount: usdAmount,
       currency: getCurrency("USD"),
     });
+
     const { amount: formattedCurrencyAmount } = format({
       amount: parseFloat(amount),
       currency: budget.currency,
@@ -93,7 +99,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
 
     return {
       primary: {
-        value: `${formattedCurrencyAmount.replaceAll(",", "") ?? 0}`,
+        value: amount.length > maximumSignificantDigits ? amount.substring(0, maximumSignificantDigits) : amount,
         currency: budget.currency.code,
       },
       secondary: {
@@ -117,6 +123,7 @@ export function AmountField({ onAmountChange, amount, readOnly, isFilled, budget
       >
         <input
           ref={inputRef}
+          inputMode="numeric"
           type="text"
           style={{ width: inputWidth }}
           className={cn(

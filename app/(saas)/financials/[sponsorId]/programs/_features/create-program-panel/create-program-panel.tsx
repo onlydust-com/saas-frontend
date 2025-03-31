@@ -58,7 +58,7 @@ export function CreateProgramPanel() {
 
   return (
     <Panel>
-      <form onSubmit={handleSubmit(onCreateProgram)} className={"flex h-full w-full flex-col gap-px"}>
+      <form onSubmit={handleSubmit(onCreateProgram)} className={"flex h-full w-full flex-col"}>
         <SidePanelHeader
           title={{
             translate: { token: "financials:createProgramPanel.title" },

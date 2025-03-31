@@ -388,7 +388,7 @@ export function DepositSummarySidepanel() {
 
   return (
     <Panel>
-      <form className={"flex h-full flex-col gap-px"} onSubmit={handleSubmit(submitForm)}>
+      <form className={"flex h-full flex-col"} onSubmit={handleSubmit(submitForm)}>
         <SidePanelHeader
           title={{
             translate: { token: "panels:depositSummary.title" },

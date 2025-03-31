@@ -170,81 +170,79 @@ function Safe({ children, projectSlug }: PropsWithChildren<{ projectSlug: string
   }, [data]);
 
   return (
-    <>
+    <PageContent classNames={{ base: "flex flex-col gap-4" }}>
       {openAlert ? <GithubMissingPermissionsAlert onClose={handleCloseAlert} /> : null}
 
       <RepoIndexingAlert indexingComplete={data?.isIndexingCompleted() ?? true} />
 
-      <PageContent>
-        <div className="flex h-full flex-col gap-lg">
-          <header className="flex flex-col justify-between gap-8">
-            <PageHeader projectSlug={projectSlug} />
-            <div className="flex flex-col flex-wrap items-start justify-between gap-md border-b border-border tablet:flex-row tablet:items-center">
-              <Tabs
-                variant={"underline"}
-                searchParams={"data-view"}
-                tabs={[
-                  {
-                    id: Views.DASHBOARD,
-                    children: "Analytics",
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.dashboard.root(projectSlug),
-                    },
+      <div className="flex h-full flex-col gap-lg">
+        <header className="flex flex-col justify-between gap-8">
+          <PageHeader projectSlug={projectSlug} />
+          <div className="flex flex-col flex-wrap items-start justify-between gap-md border-b border-border tablet:flex-row tablet:items-center">
+            <Tabs
+              variant={"underline"}
+              searchParams={"data-view"}
+              tabs={[
+                {
+                  id: Views.DASHBOARD,
+                  children: "Analytics",
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.dashboard.root(projectSlug),
                   },
-                  {
-                    id: Views.CONTRIBUTIONS,
-                    children: <Translate token={"manageProjects:detail.views.contributions"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
-                    },
+                },
+                {
+                  id: Views.CONTRIBUTIONS,
+                  children: <Translate token={"manageProjects:detail.views.contributions"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.contributions.root(projectSlug),
                   },
-                  {
-                    id: Views.CONTRIBUTORS,
-                    children: <Translate token={"manageProjects:detail.views.contributors"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
-                    },
+                },
+                {
+                  id: Views.CONTRIBUTORS,
+                  children: <Translate token={"manageProjects:detail.views.contributors"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.contributors.root(projectSlug),
                   },
-                  {
-                    id: Views.FINANCIAL,
-                    children: <Translate token={"manageProjects:detail.views.financial"} />,
-                    as: BaseLink,
-                    htmlProps: {
-                      href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
-                    },
+                },
+                {
+                  id: Views.FINANCIAL,
+                  children: <Translate token={"manageProjects:detail.views.financial"} />,
+                  as: BaseLink,
+                  htmlProps: {
+                    href: NEXT_ROUTER.manageProjects.financial.root(projectSlug),
                   },
-                ]}
-                selectedId={selectedId}
-                classNames={{
-                  base: "border-none flex-1",
-                }}
-              />
-              <div className="mb-2 flex items-center gap-2">
-                {!!data && (
-                  <CreateNews project={data}>
-                    <ShadcnButton variant="outline">Create news</ShadcnButton>
-                  </CreateNews>
-                )}
-                {CreateIssueButton}
-                <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
-                  <ShadcnButton disabled={!canReward} onClick={() => openRewardFlow({ githubUserIds: [] })}>
-                    Reward a contributor
-                  </ShadcnButton>
-                </Tooltip>
-                {renderActions}
-              </div>
+                },
+              ]}
+              selectedId={selectedId}
+              classNames={{
+                base: "border-none flex-1",
+              }}
+            />
+            <div className="mb-2 flex items-center gap-2">
+              {!!data && (
+                <CreateNews project={data}>
+                  <ShadcnButton variant="outline">Create news</ShadcnButton>
+                </CreateNews>
+              )}
+              {CreateIssueButton}
+              <Tooltip enabled={!canReward} content={<Translate token="common:tooltip.disabledReward" />}>
+                <ShadcnButton disabled={!canReward} onClick={() => openRewardFlow({ githubUserIds: [] })}>
+                  Reward a contributor
+                </ShadcnButton>
+              </Tooltip>
+              {renderActions}
             </div>
-          </header>
+          </div>
+        </header>
 
-          {children}
-        </div>
-      </PageContent>
+        {children}
+      </div>
 
       <FinancialDetailSidepanel footer={renderUngrantButton()} />
-    </>
+    </PageContent>
   );
 }
 
