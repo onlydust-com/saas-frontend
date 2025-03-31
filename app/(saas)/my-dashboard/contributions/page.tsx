@@ -37,6 +37,7 @@ function MyDashboardContributionsPage() {
     sort: "UPDATED_AT",
     sortDirection: "DESC",
     dataSource: "ONLYDUST",
+    showLinkedIssues: false,
     ...filters,
   };
 
