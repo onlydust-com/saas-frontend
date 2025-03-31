@@ -1,6 +1,7 @@
 "use client";
 
 import { GitFork, Star, UserRound } from "lucide-react";
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
@@ -33,7 +34,7 @@ function Metrics({ stars, forks, contributors }: { stars: number; forks: number;
   );
 }
 
-export default function MyProjects() {
+export default function MyProjectsPage() {
   const { user } = useAuthUser();
 
   const projectIds = useMemo(() => user?.projectsLed?.map(project => project.id) ?? [], [user]);
@@ -45,29 +46,35 @@ export default function MyProjects() {
   const projects = useMemo(() => data?.pages.flatMap(({ projects }) => projects) ?? [], [data]);
 
   return (
-    <PageContainer size="small" className="flex flex-col gap-6 py-6">
+    <PageContainer size="small" className="flex flex-col gap-4 py-6">
       <header>
         <TypographyH3>My Projects</TypographyH3>
       </header>
 
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3">
         {projects.map(project => (
-          <Card key={project.id} className={"flex flex-col gap-4 bg-stack p-4"}>
-            <CardTitle className="flex w-full flex-row items-center justify-start gap-2">
-              <Avatar className="size-12 rounded-xl">
-                <AvatarImage src={project.logoUrl} />
-                <AvatarFallback className="rounded-xl">{project.name.charAt(0)}</AvatarFallback>
-              </Avatar>
+          <Link key={project.id} href={`/lite/my-projects/${project.slug}`}>
+            <Card className={"flex flex-col gap-4 bg-stack p-4"}>
+              <CardTitle className="flex w-full flex-row items-center justify-start gap-2">
+                <Avatar className="size-12 rounded-xl">
+                  <AvatarImage src={project.logoUrl} />
+                  <AvatarFallback className="rounded-xl">{project.name.charAt(0)}</AvatarFallback>
+                </Avatar>
 
-              <div className="flex flex-col gap-1">
-                <div className="line-clamp-1 flex-1">
-                  <TypographyH4>{project.name}</TypographyH4>
+                <div className="flex flex-col gap-1">
+                  <div className="line-clamp-1 flex-1">
+                    <TypographyH4>{project.name}</TypographyH4>
+                  </div>
+
+                  <Metrics
+                    stars={project.starCount}
+                    forks={project.forkCount}
+                    contributors={project.contributorCount}
+                  />
                 </div>
-
-                <Metrics stars={project.starCount} forks={project.forkCount} contributors={project.contributorCount} />
-              </div>
-            </CardTitle>
-          </Card>
+              </CardTitle>
+            </Card>
+          </Link>
         ))}
       </section>
     </PageContainer>
