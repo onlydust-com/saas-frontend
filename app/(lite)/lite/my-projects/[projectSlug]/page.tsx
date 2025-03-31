@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
@@ -69,7 +70,7 @@ function PendingApplications({ projectSlug }: { projectSlug: string }) {
   return (
     <div className="flex flex-col gap-3">
       {contributions?.map(contribution => (
-        <div key={contribution.githubId}>
+        <Link key={contribution.id} href={`/lite/my-projects/${projectSlug}/issues/${contribution.id}`}>
           <Card
             classNames={{
               base: "bg-stack",
@@ -84,7 +85,7 @@ function PendingApplications({ projectSlug }: { projectSlug: string }) {
             githubLabels={contribution.githubLabels}
             githubHtmlUrl={contribution.githubHtmlUrl}
           />
-        </div>
+        </Link>
       ))}
     </div>
   );
@@ -111,7 +112,7 @@ function Issues({ projectSlug }: { projectSlug: string }) {
   return (
     <div className="flex flex-col gap-3">
       {contributions?.map(contribution => (
-        <div key={contribution.githubId}>
+        <Link key={contribution.id} href={`/lite/my-projects/${projectSlug}/issues/${contribution.id}`}>
           <Card
             classNames={{
               base: "bg-stack",
@@ -126,7 +127,7 @@ function Issues({ projectSlug }: { projectSlug: string }) {
             githubLabels={contribution.githubLabels}
             githubHtmlUrl={contribution.githubHtmlUrl}
           />
-        </div>
+        </Link>
       ))}
     </div>
   );
