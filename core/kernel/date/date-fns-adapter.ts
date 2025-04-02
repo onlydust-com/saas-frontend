@@ -238,4 +238,8 @@ export class DateFnsAdapter implements DateFacadePort {
   endOfWeek(date: Date): Date {
     return DateFns.endOfWeek(date, { weekStartsOn: 1 });
   }
+
+  differenceInDays(dateLeft: Date, dateRight: Date): number {
+    return DateFns.differenceInDays(dateLeft, dateRight);
+  }
 }

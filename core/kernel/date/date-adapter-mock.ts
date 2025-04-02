@@ -45,4 +45,5 @@ export const DateAdapterMock: DateFacadePort = {
   isAfter: (_dateLeft: Date, _dateRight: Date) => false,
   addHours: (_date: Date, _hours: number) => new Date(),
   subHours: (_date: Date, _hours: number) => new Date(),
+  differenceInDays: (_dateLeft: Date, _dateRight: Date) => 0,
 };
