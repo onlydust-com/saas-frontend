@@ -1,7 +1,9 @@
 import { ArrowDown, ArrowRight, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo } from "react";
 
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
@@ -11,8 +13,10 @@ import { Card } from "@/shared/ui/card";
 import { Progress } from "@/shared/ui/progress";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
-export function AssignIssuePanel({ contributorId }: { contributorId: number }) {
-  const { data, isLoading, isError } = BiReactQueryAdapter.client.useGetBiContributors({
+const Emoji = dynamic(() => import("react-emoji-render"));
+
+export function AssignIssuePanel({ contributorId, applicationId }: { contributorId: number; applicationId: string }) {
+  const { data } = BiReactQueryAdapter.client.useGetBiContributors({
     queryParams: {
       contributorIds: [contributorId],
     },
@@ -21,8 +25,22 @@ export function AssignIssuePanel({ contributorId }: { contributorId: number }) {
     },
   });
 
+  const { data: application } = ApplicationReactQueryAdapter.client.useGetApplicationById({
+    pathParams: { applicationId: applicationId },
+    options: {
+      enabled: Boolean(applicationId),
+    },
+  });
+
   const bi = useMemo(() => data?.pages[0]?.contributors[0], [data]);
-  const contributor = bi?.contributor;
+
+  // TODO: Add loading state
+
+  if (!application || !bi) {
+    return null;
+  }
+
+  const contributor = bi.contributor;
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -61,32 +79,31 @@ export function AssignIssuePanel({ contributorId }: { contributorId: number }) {
       </Card> */}
 
         {/* Contributor Profile */}
-        <div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Avatar className="size-10">
-                <AvatarImage src={contributor?.avatarUrl} />
-                <AvatarFallback>{contributor?.login.charAt(0)}</AvatarFallback>
-              </Avatar>
 
-              <div>
-                <TypographyP>{contributor?.login}</TypographyP>
-                <TypographyMuted>{bi?.rank.getTitle().wording}</TypographyMuted>
-              </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Avatar className="size-10">
+              <AvatarImage src={contributor?.avatarUrl} />
+              <AvatarFallback>{contributor?.login.charAt(0)}</AvatarFallback>
+            </Avatar>
+
+            <div>
+              <TypographyP>{contributor?.login}</TypographyP>
+              <TypographyMuted>{bi?.rank.getTitle().wording}</TypographyMuted>
             </div>
-
-            <TypographyH4 className="text-purple-500">4th</TypographyH4>
           </div>
 
-          <div>languages</div>
-          <div>ecosystems</div>
+          <TypographyH4 className="text-purple-500">4th</TypographyH4>
         </div>
 
         {/* Github Comment */}
-        <div className="mx-4 mb-4 mt-2">
-          <h4 className="mb-1 font-medium">Github comment</h4>
-          <div className="text-sm text-muted-foreground">Can I take this one?</div>
-        </div>
+        <Card className="flex flex-col p-3">
+          <TypographyP>Github comment</TypographyP>
+
+          <TypographyMuted>
+            <Emoji>{application.githubComment}</Emoji>
+          </TypographyMuted>
+        </Card>
 
         {/* Metrics Overview */}
         <div className="mb-2 px-4">

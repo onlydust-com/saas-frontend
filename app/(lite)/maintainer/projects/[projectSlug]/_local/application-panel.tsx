@@ -8,7 +8,11 @@ import { useIsMobile } from "@/shared/hooks/use-mobile";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/shared/ui/drawer";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
 
-export function ApplicationPanel({ children, contributorId }: PropsWithChildren<{ contributorId?: number }>) {
+export function ApplicationPanel({
+  children,
+  contributorId,
+  applicationId,
+}: PropsWithChildren<{ contributorId: number; applicationId: string }>) {
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -16,7 +20,9 @@ export function ApplicationPanel({ children, contributorId }: PropsWithChildren<
       <Drawer>
         <DrawerTrigger asChild>{children}</DrawerTrigger>
 
-        <DrawerContent>{contributorId ? <AssignIssuePanel contributorId={contributorId} /> : null}</DrawerContent>
+        <DrawerContent>
+          <AssignIssuePanel contributorId={contributorId} applicationId={applicationId} />
+        </DrawerContent>
       </Drawer>
     );
   }
@@ -26,7 +32,7 @@ export function ApplicationPanel({ children, contributorId }: PropsWithChildren<
       <SheetTrigger asChild>{children}</SheetTrigger>
 
       <SheetContent showCloseButton={false} className="p-0">
-        {contributorId ? <AssignIssuePanel contributorId={contributorId} /> : null}
+        <AssignIssuePanel contributorId={contributorId} applicationId={applicationId} />
       </SheetContent>
     </Sheet>
   );
