@@ -20,9 +20,9 @@ import { Card } from "@/shared/ui/card";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/shared/ui/dropdown-menu";
 import { Input } from "@/shared/ui/input";
+import { ShowMore } from "@/shared/ui/show-more";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
-import { ShowMore } from "@/shared/ui/show-more";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
@@ -57,11 +57,11 @@ export function Issues() {
         projectSlugs: [projectSlug],
         search: debouncedSearchTerm || undefined,
         sortDirection,
-    },
-    options: {
-      enabled: Boolean(projectSlug),
-    },
-  });
+      },
+      options: {
+        enabled: Boolean(projectSlug),
+      },
+    });
 
   const statusOptions = useMemo(
     () => [
@@ -99,9 +99,9 @@ export function Issues() {
     if (isLoading) {
       return (
         <section className="flex flex-col gap-4">
-          <Skeleton className="h-[90px] w-full" />
-          <Skeleton className="h-[90px] w-full" />
-          <Skeleton className="h-[90px] w-full" />
+          <Skeleton className="h-[153px] w-full" />
+          <Skeleton className="h-[153px] w-full" />
+          <Skeleton className="h-[153px] w-full" />
         </section>
       );
     }
