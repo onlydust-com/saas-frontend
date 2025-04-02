@@ -1,3 +1,4 @@
+import { ApplicationListItemInterface } from "@/core/domain/application/model/application-list-item-model";
 import { components, operations } from "@/core/infrastructure/marketplace-api-client-adapter/__generated/api";
 import {
   HttpClientParameters,
@@ -41,3 +42,19 @@ type DeleteApplicationPathParams = operations["withdrawProjectApplication"]["par
 export type DeleteApplicationPortParams = HttpClientParameters<{ PathParams: DeleteApplicationPathParams }>;
 
 export type DeleteApplicationPortResponse = HttpStorageResponse;
+
+/* ----------------------------- Get applications ---------------------------- */
+
+export type GetApplicationsResponse = components["schemas"]["ProjectApplicationPageResponse"];
+
+export type GetApplicationsModel = Omit<GetApplicationsResponse, "applications"> & {
+  applications: ApplicationListItemInterface[];
+};
+
+type GetApplicationsQueryParams = operations["getProjectsApplications"]["parameters"]["query"];
+
+export type GetApplicationsPortParams = HttpClientParameters<{
+  QueryParams: GetApplicationsQueryParams;
+}>;
+
+export type GetApplicationsPortResponse = HttpStorageResponse<GetApplicationsResponse>;

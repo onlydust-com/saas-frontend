@@ -22,6 +22,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from "@/shared/ui/input";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { ShowMore } from "@/shared/ui/show-more";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
@@ -49,12 +50,13 @@ export function Issues() {
     [searchTerm]
   );
 
-  const { data, isLoading, isError } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      statuses: selectedStatuses,
-      projectSlugs: [projectSlug],
-      search: debouncedSearchTerm || undefined,
-      sortDirection,
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    ContributionReactQueryAdapter.client.useGetContributions({
+      queryParams: {
+        statuses: selectedStatuses,
+        projectSlugs: [projectSlug],
+        search: debouncedSearchTerm || undefined,
+        sortDirection,
     },
     options: {
       enabled: Boolean(projectSlug),
@@ -208,6 +210,8 @@ export function Issues() {
       </div>
 
       {renderContributions()}
+
+      <ShowMore hasNextPage={hasNextPage} onNext={fetchNextPage} loading={isFetchingNextPage} />
     </section>
   );
 }

@@ -63,7 +63,7 @@ export default function MyProjectDetailPage({ params }: { params: { projectSlug:
           </TabsList>
 
           <TabsContent value="applications">
-            <Applications />
+            <Applications projectId={project.id} />
           </TabsContent>
 
           <TabsContent value="issues">

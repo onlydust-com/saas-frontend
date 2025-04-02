@@ -1,34 +1,30 @@
 "use client";
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { Card } from "@nextui-org/react";
 import { useCallback, useMemo } from "react";
 
-import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
+import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 
-import { CardContributionKanban as Card } from "@/design-system/molecules/cards/card-contribution-kanban";
-
+import { CardHeader, CardTitle } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
+import { ShowMore } from "@/shared/ui/show-more";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
 
-export function Applications() {
-  const { projectSlug } = useParams<{ projectSlug: string }>();
+export function Applications({ projectId }: { projectId: string }) {
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    ApplicationReactQueryAdapter.client.useGetApplications({
+      queryParams: {
+        projectId,
+      },
+      options: {
+        enabled: Boolean(projectId),
+      },
+    });
 
-  const { data, isLoading, isError } = ContributionReactQueryAdapter.client.useGetContributions({
-    queryParams: {
-      statuses: [ContributionActivityStatus.NOT_ASSIGNED],
-      projectSlugs: [projectSlug],
-    },
-    options: {
-      enabled: Boolean(projectSlug),
-    },
-  });
+  const applications = useMemo(() => data?.pages.flatMap(page => page.applications) ?? [], [data]);
 
-  const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
-
-  const renderContributions = useCallback(() => {
+  const renderApplications = useCallback(() => {
     if (isLoading) {
       return (
         <section className="flex flex-col gap-4">
@@ -43,37 +39,31 @@ export function Applications() {
       return <TypographyMuted className="py-16 text-center">Error loading applications</TypographyMuted>;
     }
 
-    if (contributions.length === 0) {
+    if (applications.length === 0) {
       return <TypographyMuted className="py-16 text-center">No applications found</TypographyMuted>;
     }
 
-    return contributions?.map(contribution => (
-      <Link key={contribution.id} href={`/lite/my-projects/${projectSlug}/issues/${contribution.id}`}>
-        <Card
-          type={contribution.type}
-          githubTitle={contribution.githubTitle}
-          githubStatus={contribution.githubStatus}
-          githubNumber={contribution.githubNumber}
-          lastUpdatedAt={contribution.lastUpdatedAt}
-          applicants={contribution.applicants}
-          linkedIssues={contribution.linkedIssues}
-          githubLabels={contribution.githubLabels}
-          githubHtmlUrl={contribution.githubHtmlUrl}
-        />
-      </Link>
+    return applications?.map(application => (
+      <Card key={application.id}>
+        <CardHeader>
+          <CardTitle>{application.id}</CardTitle>
+        </CardHeader>
+      </Card>
     ));
-  }, [contributions, isLoading, isError, projectSlug]);
+  }, [applications, isLoading, isError]);
 
   return (
     <section className="flex flex-col gap-4 pt-4">
       <div>
-        <TypographyLarge>Latest applications ({contributions.length})</TypographyLarge>
+        <TypographyLarge>Latest applications ({applications.length})</TypographyLarge>
         <TypographyMuted>Recent applicant submissions to review.</TypographyMuted>
       </div>
 
       <Input placeholder="Search applications" />
 
-      {renderContributions()}
+      {renderApplications()}
+
+      <ShowMore hasNextPage={hasNextPage} onNext={fetchNextPage} loading={isFetchingNextPage} />
     </section>
   );
 }
