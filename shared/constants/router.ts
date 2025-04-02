@@ -216,6 +216,14 @@ export const NEXT_ROUTER = {
   leaderboard: {
     root: "/leaderboard",
   },
+  maintainer: {
+    projects: {
+      root: "/maintainer/projects",
+      details: {
+        root: (projectSlug: string) => `/maintainer/projects/${projectSlug}`,
+      },
+    },
+  },
   api: {
     fillout: {
       forms: {
