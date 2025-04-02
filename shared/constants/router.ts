@@ -221,6 +221,11 @@ export const NEXT_ROUTER = {
       root: "/maintainer/projects",
       details: {
         root: (projectSlug: string) => `/maintainer/projects/${projectSlug}`,
+        issues: {
+          details: {
+            root: (projectSlug: string, issueId: string) => `/maintainer/projects/${projectSlug}/issues/${issueId}`,
+          },
+        },
       },
     },
   },

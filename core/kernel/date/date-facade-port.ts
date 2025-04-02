@@ -70,4 +70,5 @@ export interface DateFacadePort {
   formatInTimeZone: (date: Date, timeZone: string, pattern: string, options?: { locale: Locale }) => string;
   addHours: (date: Date, hours: number) => Date;
   subHours: (date: Date, hours: number) => Date;
+  differenceInDays: (dateLeft: Date, dateRight: Date) => number;
 }

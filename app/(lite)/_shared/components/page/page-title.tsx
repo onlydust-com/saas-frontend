@@ -1,5 +1,7 @@
-import { TypographyH2 } from "@/shared/ui/typography";
+import { PropsWithChildren } from "react";
 
-export function PageTitle({ title }: { title: string }) {
-  return <TypographyH2>{title}</TypographyH2>;
+import { TypographyH3 } from "@/shared/ui/typography";
+
+export function PageTitle({ children }: PropsWithChildren) {
+  return <TypographyH3>{children}</TypographyH3>;
 }
