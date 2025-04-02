@@ -6,6 +6,7 @@
   /*COLORS*/
 
   :root {
+    /* START OLD DS */
     /*********** PRIMTIVE COLORS ***************/
     /* WHITE */
 
@@ -310,6 +311,8 @@
     --radius-4xl: var(--_sizes-6);
     --radius-full: 999px;
 
+    /* END OLD DS */
+
     /* SHADCN ROOT */
 
     --background: 240 10% 3.9%;
@@ -421,7 +424,7 @@
 
   :root.dark {
     /** DARK MODE **/
-
+ 		/* START OLD DS */
     /* TYPOGRAPHY */
     --typography-primary: var(--shadcn-foreground);
     --typography-primary_on-brand: var(--shadcn-foreground);
@@ -909,6 +912,8 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     */
+
+		 /* START OLD DS */
   }
 
   @layer components {

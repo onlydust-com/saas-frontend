@@ -21,7 +21,7 @@ const config: Config = withTV({
     "./shared/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusPreset],
+  presets: [ShadowPreset, RingsPreset, GradientsPreset, SizePreset, SpacingPreset, RadiusPreset], // OLD DS
   theme: {
     extend: {
       fontFamily: {
@@ -29,7 +29,7 @@ const config: Config = withTV({
         sans: ["var(--font-geist)"],
       },
       colors: {
-        ...COLORS,
+        ...COLORS, // OLD DS
         glass: {
           white: "rgba(255, 255, 255, 0.03)",
           "white-gradient":
