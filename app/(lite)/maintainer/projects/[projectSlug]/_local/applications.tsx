@@ -62,7 +62,7 @@ export function Applications() {
         />
       </Link>
     ));
-  }, [contributions]);
+  }, [contributions, isLoading, isError, projectSlug]);
 
   return (
     <section className="flex flex-col gap-4 pt-4">

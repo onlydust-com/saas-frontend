@@ -3,7 +3,8 @@
 import { Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useDebounce } from "react-use";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ContributionActivityStatus } from "@/core/domain/contribution/models/contribution.types";
@@ -15,6 +16,16 @@ import { TypographyMuted } from "@/shared/ui/typography";
 
 export function Issues() {
   const { projectSlug } = useParams<{ projectSlug: string }>();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  useDebounce(
+    () => {
+      setDebouncedSearchTerm(searchTerm);
+    },
+    300,
+    [searchTerm]
+  );
 
   const { data, isLoading, isError } = ContributionReactQueryAdapter.client.useGetContributions({
     queryParams: {
@@ -25,6 +36,7 @@ export function Issues() {
         ContributionActivityStatus.ARCHIVED,
       ],
       projectSlugs: [projectSlug],
+      search: debouncedSearchTerm || undefined,
     },
     options: {
       enabled: Boolean(projectSlug),
@@ -32,6 +44,10 @@ export function Issues() {
   });
 
   const contributions = useMemo(() => data?.pages.flatMap(page => page.contributions) ?? [], [data]);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  }, []);
 
   const renderContributions = useCallback(() => {
     if (isLoading) {
@@ -67,11 +83,11 @@ export function Issues() {
         />
       </Link>
     ));
-  }, [contributions]);
+  }, [contributions, isError, isLoading, projectSlug]);
 
   return (
     <section className="flex flex-col gap-4 pt-4">
-      <Input placeholder="Search issues" />
+      <Input placeholder="Search issues" value={searchTerm} onChange={handleSearchChange} />
 
       {renderContributions()}
     </section>
