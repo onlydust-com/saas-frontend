@@ -1,7 +1,8 @@
 "use client";
 
-import { Github } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 import { PageBack } from "@/app/(lite)/_shared/components/page/page-back";
 import { PageHeader } from "@/app/(lite)/_shared/components/page/page-header";
@@ -13,10 +14,13 @@ import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
+import { Markdown } from "@/shared/features/markdown/markdown";
 import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
-import { TypographyMuted } from "@/shared/ui/typography";
+import { Card } from "@/shared/ui/card";
+import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
 import { Applicants } from "./_local/applicants";
 
@@ -95,7 +99,50 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
           </Emoji>
         </PageHeader>
 
-        <Applicants />
+        {issue.contributors.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            <div>
+              <TypographyP>Assignees</TypographyP>
+              <TypographyMuted>Designated contributors responsible for the issue.</TypographyMuted>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {issue.contributors.map(contributor => (
+                <Link href={NEXT_ROUTER.users.details.root(contributor.login)} key={contributor.githubUserId}>
+                  <Card className="flex items-center justify-between gap-3 p-3">
+                    <div className="flex items-center gap-2">
+                      <Avatar className="size-10">
+                        <AvatarImage src={contributor.avatarUrl} />
+                        <AvatarFallback>{contributor.login.charAt(0)}</AvatarFallback>
+                      </Avatar>
+
+                      <TypographyP>{contributor.login}</TypographyP>
+                    </div>
+
+                    <Button variant="secondary" size="sm">
+                      View
+                      <ArrowRight />
+                    </Button>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            {issue.githubBody ? (
+              <div>
+                <TypographyP>Description</TypographyP>
+
+                <div className="text-muted-foreground">
+                  <Emoji>
+                    <Markdown content={issue.githubBody} />
+                  </Emoji>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <Applicants />
+        )}
       </div>
     </PageContainer>
   );
