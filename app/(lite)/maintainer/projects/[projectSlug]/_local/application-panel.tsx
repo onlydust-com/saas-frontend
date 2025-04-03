@@ -23,7 +23,7 @@ export function ApplicationPanel({
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerTrigger asChild>{children}</DrawerTrigger>
 
-        <DrawerContent>
+        <DrawerContent className="h-full max-h-[95dvh]">
           <AssignIssuePanel
             contributorId={contributorId}
             applicationId={applicationId}

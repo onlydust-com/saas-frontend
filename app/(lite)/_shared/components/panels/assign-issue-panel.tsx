@@ -241,7 +241,7 @@ export function AssignIssuePanel({
       </div>
 
       {/* Assign Button */}
-      <footer className="p-4">
+      <footer className="border-t p-4">
         <Button className="w-full" onClick={() => assign({})} loading={isAssigning}>
           Assign
         </Button>
