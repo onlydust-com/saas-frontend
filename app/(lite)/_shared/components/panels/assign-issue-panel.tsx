@@ -1,7 +1,7 @@
-import { ArrowDown, ArrowRight, ChevronDown, ChevronUp, ExternalLink, Folder, HandCoins } from "lucide-react";
+import { ExternalLink, Folder, HandCoins } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useMemo } from "react";
+import { toast } from "sonner";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
@@ -10,14 +10,20 @@ import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
-import { Progress } from "@/shared/ui/progress";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
-import { dataFocusVisibleClasses } from "@nextui-org/react";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
-export function AssignIssuePanel({ contributorId, applicationId }: { contributorId: number; applicationId: string }) {
-  const { data } = BiReactQueryAdapter.client.useGetBiContributorById({
+export function AssignIssuePanel({
+  contributorId,
+  applicationId,
+  onSuccess,
+}: {
+  contributorId: number;
+  applicationId: string;
+  onSuccess?: () => void;
+}) {
+  const { data: bi } = BiReactQueryAdapter.client.useGetBiContributorById({
     pathParams: { contributorIdOrLogin: contributorId.toString() },
     options: {
       enabled: Boolean(contributorId),
@@ -31,13 +37,26 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
     },
   });
 
-  // TODO: Add loading state
+  const { mutate: assign, isPending: isAssigning } = ApplicationReactQueryAdapter.client.useAcceptApplication({
+    pathParams: {
+      applicationId,
+    },
+    options: {
+      onSuccess: () => {
+        toast.success(`${contributor?.login} was assigned to issue #${application?.issue.number}`);
+        onSuccess?.();
+      },
+      onError: () => {
+        toast.error(`Failed to assign ${contributor?.login} to issue #${application?.issue.number}`);
+      },
+    },
+  });
 
-  if (!application || !data) {
+  if (!application || !bi) {
     return null;
   }
 
-  const contributor = data?.contributor;
+  const contributor = bi.contributor;
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -50,17 +69,17 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
           </Button>
         </Link>
 
-        <div className="flex gap-1">
+        {/* <div className="flex gap-1">
           <Button variant="outline" size="icon">
             <ChevronUp />
           </Button>
           <Button variant="outline" size="icon">
             <ChevronDown />
           </Button>
-        </div>
+        </div> */}
       </header>
 
-      <div className="flex flex-col gap-8 p-4">
+      <div className="flex flex-1 flex-col gap-8 overflow-auto p-4">
         {/* Contribution Item */}
         {/* <Card className="mx-4 my-4 border-none bg-card/20 p-3">
         <div className="mb-2 flex items-center gap-2">
@@ -85,11 +104,11 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
 
             <div>
               <TypographyP>{contributor?.login}</TypographyP>
-              <TypographyMuted>{data?.rank.getTitle().wording}</TypographyMuted>
+              <TypographyMuted>{bi.rank.getTitle().wording}</TypographyMuted>
             </div>
           </div>
 
-          <TypographyH4 className="text-purple-500">{data?.rank.getRank()}</TypographyH4>
+          <TypographyH4 className="text-purple-500">{bi.rank.getRank()}</TypographyH4>
         </section>
 
         {/* Github Comment */}
@@ -113,34 +132,34 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
               <div className="flex size-8 items-center justify-center rounded-lg bg-lime-600/10">
                 <HandCoins className="size-4 text-lime-600" />
               </div>
-              <span>{Intl.NumberFormat().format(data?.rewardCount.value ?? 0)} rewards</span>
+              <span>{Intl.NumberFormat().format(bi.rewardCount.value ?? 0)} rewards</span>
             </Card>
 
             <Card className="flex items-center gap-2 p-2">
               <div className="flex size-8 items-center justify-center rounded-lg bg-pink-600/10">
                 <Folder className="size-4 text-pink-600" />
               </div>
-              <span>{Intl.NumberFormat().format(data?.projects.length ?? 0)} projects</span>
+              <span>{Intl.NumberFormat().format(bi.projects.length ?? 0)} projects</span>
             </Card>
 
             <Card className="flex items-center gap-2 p-2">
               <div className="flex size-8 items-center justify-center rounded-lg bg-cyan-600/10">
                 <Folder className="size-4 text-cyan-600" />
               </div>
-              <span>{Intl.NumberFormat().format(data?.inProgressIssueCount ?? 0)} issues in progress</span>
+              <span>{Intl.NumberFormat().format(bi.inProgressIssueCount ?? 0)} issues in progress</span>
             </Card>
 
             <Card className="flex items-center gap-2 p-2">
               <div className="flex size-8 items-center justify-center rounded-lg bg-purple-600/10">
                 <Folder className="size-4 text-purple-600" />
               </div>
-              <span>{Intl.NumberFormat().format(data?.prCount.value ?? 0)} merged PRs</span>
+              <span>{Intl.NumberFormat().format(bi.prCount.value ?? 0)} merged PRs</span>
             </Card>
           </div>
         </section>
 
         {/* Completed Issues */}
-        <div className="mb-2 px-4">
+        {/* <div className="mb-2 px-4">
           <h3 className="mb-1 font-medium">Completed issues</h3>
           <p className="text-sm text-muted-foreground">Completion ratio: issues resolved vs. assigned.</p>
 
@@ -162,29 +181,36 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
               <span>-5 issues (-50%)</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Key Projects */}
-        <div className="mt-2 px-4">
-          <h3 className="mb-2 text-sm text-muted-foreground">Key projects with contributions.</h3>
+        <section className="flex flex-col gap-4">
+          <div>
+            <TypographyP>Contributed projects</TypographyP>
+            <TypographyMuted>Key projects with contributions.</TypographyMuted>
+          </div>
 
-          {[1, 2, 3].map(i => (
-            <Card key={i} className="mb-2 flex items-center gap-3 border-none p-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-green-900">
-                <div className="h-5 w-5 bg-amber-500" />
-              </div>
-              <span className="text-muted-foreground">Kakarot is a provable EVM</span>
-            </Card>
+          {bi.projects.slice(0, 5).map(project => (
+            <Link key={project.id} href={NEXT_ROUTER.maintainer.projects.details.root(project.slug)}>
+              <Card className={"flex w-full items-center gap-4 p-3"}>
+                <Avatar className="size-10 rounded-xl">
+                  <AvatarImage src={project.logoUrl} />
+                  <AvatarFallback className="rounded-xl">{project.name[0]}</AvatarFallback>
+                </Avatar>
+
+                <TypographyH4 className="line-clamp-1">{project.name}</TypographyH4>
+              </Card>
+            </Link>
           ))}
-        </div>
-
-        {/* Assign Button */}
-        <div className="mt-auto p-4">
-          <Button className="w-full" size="lg">
-            Assign
-          </Button>
-        </div>
+        </section>
       </div>
+
+      {/* Assign Button */}
+      <footer className="p-4">
+        <Button className="w-full" onClick={() => assign({})} loading={isAssigning}>
+          Assign
+        </Button>
+      </footer>
     </div>
   );
 }

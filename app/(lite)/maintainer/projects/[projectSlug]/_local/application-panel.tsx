@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 
 import { AssignIssuePanel } from "@/app/(lite)/_shared/components/panels/assign-issue-panel";
 
@@ -14,25 +14,37 @@ export function ApplicationPanel({
   applicationId,
 }: PropsWithChildren<{ contributorId: number; applicationId: string }>) {
   const isMobile = useIsMobile();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   if (isMobile) {
     return (
-      <Drawer>
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerTrigger asChild>{children}</DrawerTrigger>
 
         <DrawerContent>
-          <AssignIssuePanel contributorId={contributorId} applicationId={applicationId} />
+          <AssignIssuePanel
+            contributorId={contributorId}
+            applicationId={applicationId}
+            onSuccess={() => setIsDrawerOpen(false)}
+          />
         </DrawerContent>
       </Drawer>
     );
   }
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
+    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+      <SheetTrigger asChild className="cursor-pointer">
+        {children}
+      </SheetTrigger>
 
       <SheetContent showCloseButton={false} className="p-0">
-        <AssignIssuePanel contributorId={contributorId} applicationId={applicationId} />
+        <AssignIssuePanel
+          contributorId={contributorId}
+          applicationId={applicationId}
+          onSuccess={() => setIsSheetOpen(false)}
+        />
       </SheetContent>
     </Sheet>
   );
