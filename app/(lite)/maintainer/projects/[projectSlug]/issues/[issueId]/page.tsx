@@ -1,105 +1,94 @@
 "use client";
 
-import { Card } from "@nextui-org/react";
-import { ArrowLeft } from "lucide-react";
+import { Github } from "lucide-react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { useMemo } from "react";
+
+import { PageBack } from "@/app/(lite)/_shared/components/page/page-back";
+import { PageHeader } from "@/app/(lite)/_shared/components/page/page-header";
+import { PageTitle } from "@/app/(lite)/_shared/components/page/page-title";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
-import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
+import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
 
-import { Markdown } from "@/shared/features/markdown/markdown";
+import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
+
+import { NEXT_ROUTER } from "@/shared/constants/router";
+import { NavigationBreadcrumb } from "@/shared/features/navigation/navigation.context";
 import { PageContainer } from "@/shared/features/page/page-container/page-container";
-import { ApplicationCard } from "@/shared/panels/contribution-sidepanel/_features/application-card/application-card";
-import { ContributorSidepanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel";
-import { useContributorSidePanel } from "@/shared/panels/contributor-sidepanel/contributor-sidepanel.hooks";
 import { Button } from "@/shared/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { TypographyH4, TypographyLarge, TypographyMuted } from "@/shared/ui/typography";
+import { TypographyMuted } from "@/shared/ui/typography";
+
+import { Applicants } from "./_local/applicants";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
 export default function IssueDetailPage({ params }: { params: { projectSlug: string; issueId: string } }) {
-  const { data } = ContributionReactQueryAdapter.client.useGetContributionById({
+  const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
+    pathParams: {
+      projectIdOrSlug: params.projectSlug,
+    },
+    options: {
+      enabled: Boolean(params.projectSlug),
+    },
+  });
+
+  const { data: issue } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid: params.issueId },
     options: { enabled: Boolean(params.issueId) },
   });
 
-  if (!data) return null;
+  if (!project || !issue) return null;
 
   return (
     <PageContainer size="small" className="flex flex-col gap-4 py-6">
-      <header className="flex items-center gap-4">
-        <Button variant="secondary" size="icon" asChild>
-          <Link href={`/lite/my-projects/${params.projectSlug}`}>
-            <ArrowLeft />
-          </Link>
-        </Button>
+      <NavigationBreadcrumb
+        breadcrumb={[
+          {
+            label: "Maintainer",
+          },
+          {
+            label: "Projects",
+            href: NEXT_ROUTER.maintainer.projects.root,
+          },
+          {
+            label: project.name,
+            href: NEXT_ROUTER.maintainer.projects.details.root(project.slug),
+          },
+          {
+            label: `Issue #${issue.githubNumber}`,
+          },
+        ]}
+      />
 
-        <TypographyH4>Issue #{data.githubNumber}</TypographyH4>
-      </header>
+      <div className="flex flex-col gap-6">
+        <PageHeader>
+          <PageBack href={NEXT_ROUTER.maintainer.projects.details.root(project.slug)}>{project.name}</PageBack>
 
-      <Tabs defaultValue="overview">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="applications">Applications</TabsTrigger>
-        </TabsList>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <ContributionBadge type={issue.type} githubStatus={issue.githubStatus} number={issue.githubNumber} />
 
-        <TabsContent value="overview" className="flex flex-col gap-4">
+              <PageTitle>
+                <span className="text-muted-foreground">{project.name} / </span>
+                Issue #{issue.githubNumber}
+              </PageTitle>
+            </div>
+
+            <Button variant="outline" asChild>
+              <a href={issue.githubHtmlUrl} target="_blank" rel="noopener noreferrer">
+                <Github />
+                See on Github
+              </a>
+            </Button>
+          </div>
+
           <Emoji>
-            <TypographyLarge>{data.githubTitle}</TypographyLarge>
+            <TypographyMuted>{issue.githubTitle}</TypographyMuted>
           </Emoji>
+        </PageHeader>
 
-          {data.githubBody ? (
-            <Emoji>
-              <Markdown content={data.githubBody} />
-            </Emoji>
-          ) : (
-            <TypographyMuted>No description provided for this issue.</TypographyMuted>
-          )}
-        </TabsContent>
-
-        <TabsContent value="applications">
-          <Applications contributionId={params.issueId} repoId={data.repo.id} />
-        </TabsContent>
-      </Tabs>
-
-      <ContributorSidepanel />
+        <Applicants contributionId={params.issueId} />
+      </div>
     </PageContainer>
-  );
-}
-
-function Applications({ contributionId, repoId }: { contributionId: string; repoId: number }) {
-  const { open } = useContributorSidePanel();
-
-  const { data } = IssueReactQueryAdapter.client.useGetIssueApplicants({
-    pathParams: { contributionUuid: contributionId },
-    queryParams: {
-      isIgnored: false,
-    },
-    options: {
-      enabled: !!contributionId,
-    },
-  });
-
-  const applicants = useMemo(() => data?.pages.flatMap(page => page.applicants) ?? [], [data]);
-
-  return (
-    <div className="flex flex-col gap-3">
-      {applicants.length > 0 ? (
-        applicants.map(applicant => (
-          <Card
-            key={applicant.applicationId}
-            className="bg-stack"
-            onClick={() => open({ githubId: applicant.contributor.githubUserId })}
-          >
-            <ApplicationCard application={applicant} contributionId={contributionId} repoId={repoId} />
-          </Card>
-        ))
-      ) : (
-        <TypographyMuted>No applicants found.</TypographyMuted>
-      )}
-    </div>
   );
 }
