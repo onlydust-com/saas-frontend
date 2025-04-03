@@ -87,7 +87,7 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
           </Emoji>
         </PageHeader>
 
-        <Applicants contributionId={params.issueId} />
+        <Applicants />
       </div>
     </PageContainer>
   );

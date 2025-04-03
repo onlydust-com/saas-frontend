@@ -21,12 +21,12 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function AssignIssuePanel({
   contributorId,
-  applicationId,
+  applicationId = "",
   issueId = 0,
   onSuccess,
 }: {
   contributorId: number;
-  applicationId: string;
+  applicationId?: string;
   issueId?: number;
   onSuccess?: () => void;
 }) {
@@ -40,7 +40,7 @@ export function AssignIssuePanel({
   });
 
   const { data: application } = ApplicationReactQueryAdapter.client.useGetApplicationById({
-    pathParams: { applicationId: applicationId },
+    pathParams: { applicationId },
     options: {
       enabled: Boolean(applicationId),
     },

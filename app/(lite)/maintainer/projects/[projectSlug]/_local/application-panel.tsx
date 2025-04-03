@@ -13,7 +13,7 @@ export function ApplicationPanel({
   contributorId,
   applicationId,
   issueId,
-}: PropsWithChildren<{ contributorId: number; applicationId: string; issueId?: number }>) {
+}: PropsWithChildren<{ contributorId: number; applicationId?: string; issueId?: number }>) {
   const isMobile = useIsMobile();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
