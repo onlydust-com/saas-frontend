@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { cn } from "@/shared/utils";
 
 export function ApplicantCard({
   avatarUrl,
@@ -13,17 +14,20 @@ export function ApplicantCard({
   rank,
   appliedAt,
   languages,
+  className,
+  ...props
 }: {
   avatarUrl: string;
   login: string;
   rank?: string;
   appliedAt?: string;
   languages?: { id: string; name: string; logoUrl: string }[];
+  className?: string;
 }) {
   const dateKernelPort = bootstrap.getDateKernelPort();
 
   return (
-    <Card className="flex flex-col gap-3 p-3">
+    <Card className={cn("flex flex-col gap-3 p-3", className)} {...props}>
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2">
           <Avatar className="size-10">
