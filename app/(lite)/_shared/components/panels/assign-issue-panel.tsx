@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowRight, ChevronDown, ChevronUp, ExternalLink, Folder, HandCoins } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -12,14 +12,13 @@ import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Progress } from "@/shared/ui/progress";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
+import { dataFocusVisibleClasses } from "@nextui-org/react";
 
 const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function AssignIssuePanel({ contributorId, applicationId }: { contributorId: number; applicationId: string }) {
-  const { data } = BiReactQueryAdapter.client.useGetBiContributors({
-    queryParams: {
-      contributorIds: [contributorId],
-    },
+  const { data } = BiReactQueryAdapter.client.useGetBiContributorById({
+    pathParams: { contributorIdOrLogin: contributorId.toString() },
     options: {
       enabled: Boolean(contributorId),
     },
@@ -32,15 +31,13 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
     },
   });
 
-  const bi = useMemo(() => data?.pages[0]?.contributors[0], [data]);
-
   // TODO: Add loading state
 
-  if (!application || !bi) {
+  if (!application || !data) {
     return null;
   }
 
-  const contributor = bi.contributor;
+  const contributor = data?.contributor;
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -63,7 +60,7 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
         </div>
       </header>
 
-      <div className="flex flex-col gap-6 p-4">
+      <div className="flex flex-col gap-8 p-4">
         {/* Contribution Item */}
         {/* <Card className="mx-4 my-4 border-none bg-card/20 p-3">
         <div className="mb-2 flex items-center gap-2">
@@ -79,8 +76,7 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
       </Card> */}
 
         {/* Contributor Profile */}
-
-        <div className="flex items-center justify-between">
+        <section className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="size-10">
               <AvatarImage src={contributor?.avatarUrl} />
@@ -89,12 +85,12 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
 
             <div>
               <TypographyP>{contributor?.login}</TypographyP>
-              <TypographyMuted>{bi?.rank.getTitle().wording}</TypographyMuted>
+              <TypographyMuted>{data?.rank.getTitle().wording}</TypographyMuted>
             </div>
           </div>
 
-          <TypographyH4 className="text-purple-500">4th</TypographyH4>
-        </div>
+          <TypographyH4 className="text-purple-500">{data?.rank.getRank()}</TypographyH4>
+        </section>
 
         {/* Github Comment */}
         <Card className="flex flex-col p-3">
@@ -106,37 +102,42 @@ export function AssignIssuePanel({ contributorId, applicationId }: { contributor
         </Card>
 
         {/* Metrics Overview */}
-        <div className="mb-2 px-4">
-          <h3 className="mb-1 font-medium">Metrics overview</h3>
-          <p className="text-sm text-muted-foreground">Performance metrics at a glance.</p>
+        <section className="flex flex-col gap-4">
+          <div>
+            <TypographyP>Metrics overview</TypographyP>
+            <TypographyMuted>Performance metrics at a glance.</TypographyMuted>
+          </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <Card className="flex items-center gap-2 border-none bg-card/20 p-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500/20">
-                <div className="h-3 w-3 rounded-full bg-green-500" />
+          <div className="grid grid-cols-2 gap-3">
+            <Card className="flex items-center gap-2 p-2">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-lime-600/10">
+                <HandCoins className="size-4 text-lime-600" />
               </div>
-              <span>6 rewards</span>
+              <span>{Intl.NumberFormat().format(data?.rewardCount.value ?? 0)} rewards</span>
             </Card>
-            <Card className="flex items-center gap-2 border-none bg-card/20 p-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-500/20">
-                <div className="h-3 w-3 rounded-full bg-pink-500" />
+
+            <Card className="flex items-center gap-2 p-2">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-pink-600/10">
+                <Folder className="size-4 text-pink-600" />
               </div>
-              <span>11 projects</span>
+              <span>{Intl.NumberFormat().format(data?.projects.length ?? 0)} projects</span>
             </Card>
-            <Card className="flex items-center gap-2 border-none bg-card/20 p-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/20">
-                <div className="h-3 w-3 rounded-full bg-blue-500" />
+
+            <Card className="flex items-center gap-2 p-2">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-cyan-600/10">
+                <Folder className="size-4 text-cyan-600" />
               </div>
-              <span>1 issue in progress</span>
+              <span>{Intl.NumberFormat().format(data?.inProgressIssueCount ?? 0)} issues in progress</span>
             </Card>
-            <Card className="flex items-center gap-2 border-none bg-card/20 p-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-500/20">
-                <div className="h-3 w-3 rounded-full bg-purple-500" />
+
+            <Card className="flex items-center gap-2 p-2">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-purple-600/10">
+                <Folder className="size-4 text-purple-600" />
               </div>
-              <span>13 merged PRs</span>
+              <span>{Intl.NumberFormat().format(data?.prCount.value ?? 0)} merged PRs</span>
             </Card>
           </div>
-        </div>
+        </section>
 
         {/* Completed Issues */}
         <div className="mb-2 px-4">
