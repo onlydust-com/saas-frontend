@@ -69,17 +69,25 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
               <ContributionBadge type={issue.type} githubStatus={issue.githubStatus} number={issue.githubNumber} />
 
               <PageTitle>
-                <span className="text-muted-foreground">{project.name} / </span>
+                <span className="hidden text-muted-foreground md:inline">{project.name} / </span>
                 Issue #{issue.githubNumber}
               </PageTitle>
             </div>
 
-            <Button variant="outline" asChild>
-              <a href={issue.githubHtmlUrl} target="_blank" rel="noopener noreferrer">
-                <Github />
-                See on Github
-              </a>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="icon" className="md:hidden" asChild>
+                <a href={issue.githubHtmlUrl} target="_blank" rel="noopener noreferrer">
+                  <Github />
+                </a>
+              </Button>
+
+              <Button variant="outline" className="hidden md:flex" asChild>
+                <a href={issue.githubHtmlUrl} target="_blank" rel="noopener noreferrer">
+                  <Github />
+                  See on Github
+                </a>
+              </Button>
+            </div>
           </div>
 
           <Emoji>
