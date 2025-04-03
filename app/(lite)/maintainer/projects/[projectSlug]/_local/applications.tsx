@@ -16,6 +16,8 @@ import { ShowMore } from "@/shared/ui/show-more";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyLarge, TypographyMuted, TypographyP } from "@/shared/ui/typography";
 
+import { ApplicationPanel } from "./application-panel";
+
 const Emoji = dynamic(() => import("react-emoji-render"));
 
 export function Applications({ projectId }: { projectId: string }) {
@@ -70,31 +72,38 @@ export function Applications({ projectId }: { projectId: string }) {
     }
 
     return applications?.map(application => (
-      <Card key={application.id} className="flex flex-col gap-3 p-3">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <Avatar className="size-10">
-              <AvatarImage src={application.applicant.avatarUrl} />
-              <AvatarFallback>{application.applicant.login.charAt(0)}</AvatarFallback>
-            </Avatar>
+      <ApplicationPanel
+        key={application.id}
+        contributorId={application.applicant.githubUserId}
+        applicationId={application.id}
+        issueId={application.issue.id}
+      >
+        <Card className="flex flex-col gap-3 p-3">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-2">
+              <Avatar className="size-10">
+                <AvatarImage src={application.applicant.avatarUrl} />
+                <AvatarFallback>{application.applicant.login.charAt(0)}</AvatarFallback>
+              </Avatar>
 
-            <div>
-              <TypographyP>{application.applicant.login}</TypographyP>
-              <TypographyMuted>{application.applicantRank.getTitle().wording}</TypographyMuted>
+              <div>
+                <TypographyP>{application.applicant.login}</TypographyP>
+                <TypographyMuted>{application.applicantRank.getTitle().wording}</TypographyMuted>
+              </div>
             </div>
+
+            <TypographyMuted>{dateKernelPort.formatDistanceToNow(new Date(application.receivedAt))}</TypographyMuted>
           </div>
 
-          <TypographyMuted>{dateKernelPort.formatDistanceToNow(new Date(application.receivedAt))}</TypographyMuted>
-        </div>
+          <div className="flex items-center gap-2">
+            <ContributionBadge type="ISSUE" githubStatus={application.issue.status} number={application.issue.number} />
 
-        <div className="flex items-center gap-2">
-          <ContributionBadge type="ISSUE" githubStatus={application.issue.status} number={application.issue.number} />
-
-          <TypographyMuted className="line-clamp-1">
-            <Emoji>{application.issue.title}</Emoji>
-          </TypographyMuted>
-        </div>
-      </Card>
+            <TypographyMuted className="line-clamp-1">
+              <Emoji>{application.issue.title}</Emoji>
+            </TypographyMuted>
+          </div>
+        </Card>
+      </ApplicationPanel>
     ));
   }, [applications, isLoading, isError]);
 

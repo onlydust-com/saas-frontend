@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   UseMutationFacadeParams,
@@ -21,12 +21,21 @@ export function useAcceptApplication({
   }
 > = {}) {
   const applicationStoragePort = bootstrap.getApplicationStoragePortForClient();
+  const queryClient = useQueryClient();
 
   return useMutation(
     useMutationAdapter({
       ...applicationStoragePort.acceptApplication({ pathParams }),
       options: {
         ...options,
+        onSuccess: async (data, variables, context) => {
+          await queryClient.invalidateQueries({
+            queryKey: applicationStoragePort.getApplications({}).tag,
+            exact: false,
+          });
+
+          options?.onSuccess?.(data, variables, context);
+        },
       },
     })
   );
