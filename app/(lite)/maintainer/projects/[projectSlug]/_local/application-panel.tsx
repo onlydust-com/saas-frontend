@@ -12,7 +12,8 @@ export function ApplicationPanel({
   children,
   contributorId,
   applicationId,
-}: PropsWithChildren<{ contributorId: number; applicationId: string }>) {
+  issueId,
+}: PropsWithChildren<{ contributorId: number; applicationId: string; issueId?: number }>) {
   const isMobile = useIsMobile();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -26,6 +27,7 @@ export function ApplicationPanel({
           <AssignIssuePanel
             contributorId={contributorId}
             applicationId={applicationId}
+            issueId={issueId}
             onSuccess={() => setIsDrawerOpen(false)}
           />
         </DrawerContent>
@@ -43,6 +45,7 @@ export function ApplicationPanel({
         <AssignIssuePanel
           contributorId={contributorId}
           applicationId={applicationId}
+          issueId={issueId}
           onSuccess={() => setIsSheetOpen(false)}
         />
       </SheetContent>

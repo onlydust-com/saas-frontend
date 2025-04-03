@@ -72,7 +72,12 @@ export function Applications({ projectId }: { projectId: string }) {
     }
 
     return applications?.map(application => (
-      <ApplicationPanel key={application.id} contributorId={application.applicant.githubUserId} applicationId={application.id}>
+      <ApplicationPanel
+        key={application.id}
+        contributorId={application.applicant.githubUserId}
+        applicationId={application.id}
+        issueId={application.issue.id}
+      >
         <Card className="flex flex-col gap-3 p-3">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">

@@ -5,9 +5,14 @@ import { toast } from "sonner";
 
 import { ApplicationReactQueryAdapter } from "@/core/application/react-query-adapter/application";
 import { BiReactQueryAdapter } from "@/core/application/react-query-adapter/bi";
+import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/issue";
+import { bootstrap } from "@/core/bootstrap";
+
+import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
 import { NEXT_ROUTER } from "@/shared/constants/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { TypographyH4, TypographyMuted, TypographyP } from "@/shared/ui/typography";
@@ -17,12 +22,16 @@ const Emoji = dynamic(() => import("react-emoji-render"));
 export function AssignIssuePanel({
   contributorId,
   applicationId,
+  issueId = 0,
   onSuccess,
 }: {
   contributorId: number;
   applicationId: string;
+  issueId?: number;
   onSuccess?: () => void;
 }) {
+  const dateKernelPort = bootstrap.getDateKernelPort();
+
   const { data: bi } = BiReactQueryAdapter.client.useGetBiContributorById({
     pathParams: { contributorIdOrLogin: contributorId.toString() },
     options: {
@@ -35,6 +44,11 @@ export function AssignIssuePanel({
     options: {
       enabled: Boolean(applicationId),
     },
+  });
+
+  const { data: issue } = IssueReactQueryAdapter.client.useGetIssue({
+    pathParams: { issueId },
+    options: { enabled: Boolean(issueId) },
   });
 
   const { mutate: assign, isPending: isAssigning } = ApplicationReactQueryAdapter.client.useAcceptApplication({
@@ -81,18 +95,39 @@ export function AssignIssuePanel({
 
       <div className="flex flex-1 flex-col gap-8 overflow-auto p-4">
         {/* Contribution Item */}
-        {/* <Card className="mx-4 my-4 border-none bg-card/20 p-3">
-        <div className="mb-2 flex items-center gap-2">
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500/20">
-            <div className="h-2.5 w-2.5 rounded-full bg-green-500" />
-          </div>
-          <span className="font-medium">Improve the performance of algorithm</span>
-        </div>
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>vercel/next.js</span>
-          <span>10 days ago</span>
-        </div>
-      </Card> */}
+        {issue ? (
+          <Card className="flex items-start gap-2 p-3">
+            <ContributionBadge type="ISSUE" githubStatus={issue.status} number={issue.number} />
+
+            <div className="flex flex-1 flex-col gap-2">
+              <header className="flex items-start justify-between gap-2">
+                <div>
+                  <TypographyMuted>
+                    {issue.repo.owner}/{issue.repo.name}
+                  </TypographyMuted>
+
+                  <TypographyP className="line-clamp-1">
+                    <Emoji>{issue.title}</Emoji>
+                  </TypographyP>
+                </div>
+
+                <TypographyMuted>
+                  {dateKernelPort.differenceInDays(new Date(), new Date(issue.createdAt))}d
+                </TypographyMuted>
+              </header>
+
+              {issue.labels?.length ? (
+                <div className="flex flex-wrap gap-2">
+                  {issue.labels.map(label => (
+                    <Badge key={label.name} variant="secondary">
+                      {label.name}
+                    </Badge>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </Card>
+        ) : null}
 
         {/* Contributor Profile */}
         <section className="flex items-center justify-between">
