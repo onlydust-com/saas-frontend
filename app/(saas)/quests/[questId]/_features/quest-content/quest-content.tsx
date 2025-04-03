@@ -53,6 +53,7 @@ export function QuestContent({ questId }: QuestContentProps) {
           </Badge>
           {status === "application-open" && <Badge variant="warning">Waiting for applications</Badge>}
           {status === "started" && <Badge variant="success">Started</Badge>}
+          {status === "finished" && <Badge variant="secondary">Finished</Badge>}
         </div>
 
         <div className="flex w-full flex-col gap-2">

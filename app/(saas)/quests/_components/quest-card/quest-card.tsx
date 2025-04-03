@@ -50,6 +50,7 @@ export function QuestCard({
           </Badge>
           {status === "application-open" && <Badge variant="warning">Waiting for applications</Badge>}
           {status === "started" && <Badge variant="success">Started</Badge>}
+          {status === "finished" && <Badge variant="secondary">Finished</Badge>}
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">

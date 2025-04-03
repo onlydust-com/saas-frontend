@@ -13,4 +13,6 @@ export class ApplicationClientAdapterMock implements ApplicationStoragePort {
   getApplicationById = mockHttpStorageResponse<ApplicationStoragePort["getApplicationById"]>;
 
   deleteApplication = mockHttpStorageResponse<ApplicationStoragePort["deleteApplication"]>;
+
+  getApplications = mockHttpStorageResponse<ApplicationStoragePort["getApplications"]>;
 }
