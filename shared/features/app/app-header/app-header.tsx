@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Fragment } from "react";
 
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
@@ -40,7 +41,9 @@ export function AppHeader() {
                   {index === breadcrumb.length - 1 ? (
                     <BreadcrumbPage>{item.label}</BreadcrumbPage>
                   ) : item.href ? (
-                    <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                    <BreadcrumbLink asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </BreadcrumbLink>
                   ) : (
                     item.label
                   )}

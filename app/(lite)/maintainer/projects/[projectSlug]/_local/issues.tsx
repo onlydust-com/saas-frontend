@@ -35,6 +35,7 @@ export function Issues() {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedStatuses, setSelectedStatuses] = useState<ContributionActivityStatusUnion[]>([
+    "NOT_ASSIGNED",
     "IN_PROGRESS",
     "TO_REVIEW",
     "DONE",
@@ -65,6 +66,7 @@ export function Issues() {
 
   const statusOptions = useMemo(
     () => [
+      { value: "NOT_ASSIGNED" as ContributionActivityStatusUnion, label: "Not Assigned" },
       { value: "IN_PROGRESS" as ContributionActivityStatusUnion, label: "In Progress" },
       { value: "TO_REVIEW" as ContributionActivityStatusUnion, label: "To Review" },
       { value: "DONE" as ContributionActivityStatusUnion, label: "Done" },
