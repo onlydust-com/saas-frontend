@@ -11,7 +11,7 @@ import { IssueReactQueryAdapter } from "@/core/application/react-query-adapter/i
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TypographyMuted } from "@/shared/ui/typography";
 
-export function Applicants() {
+export function Applicants({ onSuccess }: { onSuccess?: () => void }) {
   const { issueId } = useParams<{ issueId: string }>();
 
   const { data, isLoading, isError } = IssueReactQueryAdapter.client.useGetIssueApplicants({
@@ -51,6 +51,7 @@ export function Applicants() {
           key={applicant.applicationId}
           contributorId={applicant.contributor.githubUserId}
           applicationId={applicant.applicationId}
+          onSuccess={onSuccess}
         >
           <ApplicantCard
             avatarUrl={applicant.contributor.avatarUrl}

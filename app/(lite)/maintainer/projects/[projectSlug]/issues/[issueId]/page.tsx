@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { ArrowRight, Github } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import { PageTitle } from "@/app/(lite)/_shared/components/page/page-title";
 
 import { ContributionReactQueryAdapter } from "@/core/application/react-query-adapter/contribution";
 import { ProjectReactQueryAdapter } from "@/core/application/react-query-adapter/project";
+import { bootstrap } from "@/core/bootstrap";
 
 import { ContributionBadge } from "@/design-system/molecules/contribution-badge";
 
@@ -27,6 +29,9 @@ import { Applicants } from "./_local/applicants";
 const Emoji = dynamic(() => import("react-emoji-render"));
 
 export default function IssueDetailPage({ params }: { params: { projectSlug: string; issueId: string } }) {
+  const contributionStoragePort = bootstrap.getContributionStoragePortForClient();
+  const queryClient = useQueryClient();
+
   const { data: project } = ProjectReactQueryAdapter.client.useGetProjectBySlugOrId({
     pathParams: {
       projectIdOrSlug: params.projectSlug,
@@ -36,7 +41,7 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
     },
   });
 
-  const { data: issue } = ContributionReactQueryAdapter.client.useGetContributionById({
+  const { data: issue, refetch: refetchIssue } = ContributionReactQueryAdapter.client.useGetContributionById({
     pathParams: { contributionUuid: params.issueId },
     options: { enabled: Boolean(params.issueId) },
   });
@@ -141,7 +146,21 @@ export default function IssueDetailPage({ params }: { params: { projectSlug: str
             ) : null}
           </div>
         ) : (
-          <Applicants />
+          <Applicants
+            onSuccess={() => {
+              queryClient.invalidateQueries({
+                queryKey: contributionStoragePort.getContributionsById({
+                  pathParams: { contributionUuid: params.issueId },
+                }).tag,
+                exact: false,
+              });
+
+              // Give time for the backend to update the issue
+              setTimeout(() => {
+                refetchIssue();
+              }, 2000);
+            }}
+          />
         )}
       </div>
     </PageContainer>

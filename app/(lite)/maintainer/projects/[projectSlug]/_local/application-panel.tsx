@@ -13,7 +13,13 @@ export function ApplicationPanel({
   contributorId,
   applicationId,
   issueId,
-}: PropsWithChildren<{ contributorId: number; applicationId?: string; issueId?: number }>) {
+  onSuccess,
+}: PropsWithChildren<{
+  contributorId: number;
+  applicationId?: string;
+  issueId?: number;
+  onSuccess?: () => void;
+}>) {
   const isMobile = useIsMobile();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -28,7 +34,10 @@ export function ApplicationPanel({
             contributorId={contributorId}
             applicationId={applicationId}
             issueId={issueId}
-            onSuccess={() => setIsDrawerOpen(false)}
+            onSuccess={() => {
+              setIsDrawerOpen(false);
+              onSuccess?.();
+            }}
           />
         </DrawerContent>
       </Drawer>
@@ -46,7 +55,10 @@ export function ApplicationPanel({
           contributorId={contributorId}
           applicationId={applicationId}
           issueId={issueId}
-          onSuccess={() => setIsSheetOpen(false)}
+          onSuccess={() => {
+            setIsSheetOpen(false);
+            onSuccess?.();
+          }}
         />
       </SheetContent>
     </Sheet>
