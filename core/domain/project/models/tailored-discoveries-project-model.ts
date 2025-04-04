@@ -36,6 +36,7 @@ export class TailoredDiscoveriesProject implements TailoredDiscoveriesProjectInt
   ecosystemReason!: TailoredDiscoveriesProjectResponse["ecosystemReason"];
   domainReason!: TailoredDiscoveriesProjectResponse["domainReason"];
   popularityReason!: TailoredDiscoveriesProjectResponse["popularityReason"];
+  isProject!: TailoredDiscoveriesProjectResponse["isProject"];
 
   constructor(props: TailoredDiscoveriesProjectResponse) {
     Object.assign(this, props);

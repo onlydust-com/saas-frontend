@@ -223,7 +223,7 @@ export type GetProjectsV2PortParams = HttpClientParameters<{ QueryParams: GetPro
 
 /* ------------------------------ Get Project By Slug or ID V2 ------------------------------ */
 
-export type GetProjectBySlugOrIdV2Response = components["schemas"]["ProjectResponseV2"];
+export type GetProjectBySlugOrIdV2Response = components["schemas"]["ProjectOrRepoResponseV2"];
 
 export type GetProjectBySlugOrIdV2PortResponse = HttpStorageResponse<ProjectInterfaceV2>;
 
