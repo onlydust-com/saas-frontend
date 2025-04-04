@@ -280,6 +280,85 @@ export const QuestListData: QuestList[] = [
     ],
     maintainers: [51526246],
   },
+  {
+    id: "b5e9a2d1-f8c7-4e3a-9b5d-2f1e8c7d6b4a",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectId: "ed69beff-183c-4df2-afa3-22d4b4e6b44a",
+    projectSlug: "lyricflip",
+    name: "Full LMS backend with Nestjs",
+    shortDescription:
+      "Build a complete Learning Management System backend using NestJS and Postgres for LyricsFlip's music school platform.",
+    longDescription: {
+      title: "Full LMS backend with Nestjs",
+      description:
+        "LyricsFlip is leveling up. The vision? Evolve into a full-blown music school - and this ODQuest is the kickoff. Starting April 10, you'll join a 60-day build sprint to architect and ship a complete LMS backend using NestJS + Postgres. Real structure. Real logic. Real production-readiness.",
+      requirements: [
+        "Build a scalable NestJS backend architecture",
+        "Implement robust database schema with Postgres",
+        "Create comprehensive API endpoints for course management",
+        "Develop user authentication and authorization system",
+        "Implement file upload and management for course materials",
+        "Create progress tracking and assessment features",
+        "Build reporting and analytics functionality",
+        "Ensure proper testing and documentation",
+      ],
+      warning:
+        "You'll be working directly with the project maintainer who will be fully available throughout the quest.",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+    },
+    requiredSkills: ["nestjs", "postgres", "typescript", "backend"],
+    startDate: "2025-04-10",
+    endDate: "2025-06-09",
+    status: "started",
+    issues: [],
+    maintainers: [51526246],
+  },
+  {
+    id: "a7d1c9b3-e5f2-4d8a-b6c9-1e3f2d8a4b7c",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectId: "ed69beff-183c-4df2-afa3-22d4b4e6b44a",
+    projectSlug: "lyricflip",
+    name: "Full LMS Frontend with Nextjs",
+    shortDescription:
+      "Build a modern, intuitive Learning Management System frontend using Next.js and modern UI frameworks for LyricsFlip's music school platform.",
+    longDescription: {
+      title: "Full LMS Frontend with Nextjs",
+      description:
+        "The LyricsFlip vision is growing - into a full-scale music school, and we're kicking it off on April 10 with a 60-day ODQuest to deliver a slick, intuitive, production-grade LMS frontend in Next.js. We're pulling in two mid-level frontend devs with serious Next.js skills - builders who know how to move fast without breaking things (or design systems). You'll be working directly with the project maintainer, who's got your back every step of the way. If clean UI, smart flows, and frontend finesse are your thing - this is your stage.",
+      requirements: [
+        "Build responsive and accessible UI components using Next.js and Tailwind",
+        "Implement user authentication and authorization flows",
+        "Create course browsing and enrollment interfaces",
+        "Develop interactive lesson and content viewing components",
+        "Build progress tracking and assessment interfaces",
+        "Implement user profile and dashboard features",
+        "Create admin interfaces for course management",
+        "Ensure proper testing and documentation",
+        "Optimize performance and loading states",
+      ],
+      warning:
+        "Direct collaboration with the project maintainer throughout the quest is expected for maintaining design consistency and code quality.",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+    },
+    requiredSkills: ["nextjs", "typescript", "tailwind", "react"],
+    startDate: "2025-04-10",
+    endDate: "2025-06-09",
+    status: "started",
+    issues: [],
+    maintainers: [51526246],
+  },
 ];
 
 // https://api.github.com/repos/Trustless-Work/Trustless-Work-Smart-Escrow/issues/41
