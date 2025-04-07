@@ -36,7 +36,6 @@ export function RewardsTable() {
     search: debouncedSearch,
     ...filters,
     ...sortingParams,
-    recipientIds: githubUserId ? [githubUserId] : undefined,
     includeBillingProfileAdministrated: true,
   };
 
