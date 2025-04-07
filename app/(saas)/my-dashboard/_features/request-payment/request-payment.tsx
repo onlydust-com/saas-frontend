@@ -17,8 +17,10 @@ export function RequestPayment() {
 
   const { data: rewardsData } = RewardReactQueryAdapter.client.useGetRewards({
     queryParams: {
-      recipientIds: githubUserId ? [githubUserId] : undefined,
       statuses: ["PENDING_REQUEST"],
+      includeAsRecipient: true,
+      includeProjectLeds: false,
+      includeBillingProfileAdministrated: true,
     },
     options: {
       enabled: Boolean(githubUserId),
