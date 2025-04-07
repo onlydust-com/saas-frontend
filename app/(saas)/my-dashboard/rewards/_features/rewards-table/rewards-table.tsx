@@ -37,6 +37,8 @@ export function RewardsTable() {
     ...filters,
     ...sortingParams,
     includeBillingProfileAdministrated: true,
+    includeAsRecipient: true,
+    includeProjectLeds: false,
   };
 
   const {
