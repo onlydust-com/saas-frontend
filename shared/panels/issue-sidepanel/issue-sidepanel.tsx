@@ -34,6 +34,7 @@ import { Metrics } from "./_components/metrics/metrics";
 import { Summary } from "./_components/summary/summay";
 import { issueFromContribution, prefillLabel } from "./_utils/utils";
 import { IssueSidepanelFormSchema, issueSidepanelzodSchema } from "./issue-sidepanel.types";
+import { is } from "date-fns/locale";
 
 export function IssueSidepanel({
   children,
@@ -110,23 +111,25 @@ export function IssueSidepanel({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
 
-      <SheetContent className="h-full" showCloseButton={false}>
+      <SheetContent className="flex h-full flex-col p-0" showCloseButton={false}>
         <AnimatePresence>
           {open && (
             <>
-              <Header
-                issueNumber={issue.number}
-                issueStatus={issue.status}
-                issueTitle={issue.title}
-                githubUrl={issue.htmlUrl}
-                createdAt={issue.createdAt}
-                author={issue.author}
-                onClose={() => setOpen(false)}
-                onPrevious={handlePrevious}
-                onNext={handleNext}
-                hasPrevious={currentIssueIndex > 0}
-                hasNext={currentIssueIndex < issues.length - 1}
-              />
+              <div className="px-6 py-4">
+                <Header
+                  issueNumber={issue.number}
+                  issueStatus={issue.status}
+                  issueTitle={issue.title}
+                  githubUrl={issue.htmlUrl}
+                  createdAt={issue.createdAt}
+                  author={issue.author}
+                  onClose={() => setOpen(false)}
+                  onPrevious={handlePrevious}
+                  onNext={handleNext}
+                  hasPrevious={currentIssueIndex > 0}
+                  hasNext={currentIssueIndex < issues.length - 1}
+                />
+              </div>
               <Content projectId={projectId} issue={issue} contribution={contribution} onClose={() => setOpen(false)} />
             </>
           )}
@@ -326,18 +329,18 @@ function Content({
   };
 
   return (
-    <Form {...form}>
-      <motion.form
-        key="issue-sidepanel-form"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onSubmit={form.handleSubmit((values: IssueSidepanelFormSchema) =>
-          handlePermissions(() => handleCreate(values))
-        )}
-        className="flex h-full flex-col gap-4"
-      >
-        <div className="flex flex-1 flex-col gap-4 overflow-auto">
+    <motion.form
+      key="issue-sidepanel-form"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onSubmit={form.handleSubmit((values: IssueSidepanelFormSchema) =>
+        handlePermissions(() => handleCreate(values))
+      )}
+      className="flex h-full flex-col"
+    >
+      <div className="flex-1 overflow-y-auto px-6">
+        <div className="flex flex-col gap-4 pb-4">
           <Metrics applicantsCount={issue.applicants.length} commentsCount={issue.commentCount} />
 
           <Summary
@@ -347,25 +350,29 @@ function Content({
           />
 
           {isHackathon ? <ApplyIssueGuideline /> : null}
+
+          {canApply || hasCurrentUserApplication ? (
+            <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} />
+          ) : null}
+
+          {isHackathon && !isAssigned ? (
+            <Card className="flex w-full flex-col gap-4 p-3">
+              <div className="flex flex-col items-start gap-1">
+                <TypographyH4>My applications limit</TypographyH4>
+                <CardDescription>You can apply to 10 issues at a time.</CardDescription>
+              </div>
+
+              <ApplyCounter />
+            </Card>
+          ) : null}
         </div>
+      </div>
 
-        {canApply || hasCurrentUserApplication ? (
-          <GithubComment hasCurrentUserApplication={hasCurrentUserApplication} />
-        ) : null}
-
-        {isHackathon && !isAssigned ? (
-          <Card className="flex w-full flex-col gap-4 p-3">
-            <div className="flex flex-col items-start gap-1">
-              <TypographyH4>My applications limit</TypographyH4>
-              <CardDescription>You can apply to 10 issues at a time.</CardDescription>
-            </div>
-
-            <ApplyCounter />
-          </Card>
-        ) : null}
-
-        <footer className="flex w-full items-center justify-between">{renderCta()}</footer>
-      </motion.form>
-    </Form>
+      <footer className="sticky bottom-0 border-t bg-background px-6 py-4">
+        <div className="flex w-full items-center justify-between">
+          {renderCta()}
+        </div>
+      </footer>
+    </motion.form>
   );
 }
