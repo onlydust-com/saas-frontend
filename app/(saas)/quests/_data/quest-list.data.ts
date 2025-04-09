@@ -308,14 +308,14 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
+        provided: [83363896, 63783380],
         wanted: 2,
       },
     },
     requiredSkills: ["nestjs", "postgres", "typescript", "backend"],
     startDate: "2025-04-10",
     endDate: "2025-06-09",
-    status: "application-open",
+    status: "started",
     issues: [],
     maintainers: [51526246],
   },
@@ -348,14 +348,14 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
+        provided: [44169294, 45628811],
         wanted: 2,
       },
     },
     requiredSkills: ["nextjs", "typescript", "tailwind", "react"],
     startDate: "2025-04-10",
     endDate: "2025-06-09",
-    status: "application-open",
+    status: "started",
     issues: [],
     maintainers: [51526246],
   },
