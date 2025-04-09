@@ -359,6 +359,43 @@ export const QuestListData: QuestList[] = [
     issues: [],
     maintainers: [51526246],
   },
+  {
+    id: "b2e4c8f6-a9d3-4e7b-8c5a-2f9d6b4e1a3c",
+    bannerUrl: "https://pbs.twimg.com/profile_banners/1658760144077877250/1690476363/1500x500",
+    projectId: "6baa7479-de8e-4388-a2d8-567b8c29e24b",
+    projectSlug: "timelycapsule",
+    name: "TimelyCapsule Mobile App v1",
+    shortDescription:
+      "Build the first version of TimelyCapsule Mobile, a cross-platform app for time capsule creation and delivery using React Native.",
+    longDescription: {
+      title: "Build TimelyCapsule Mobile v1",
+      description:
+        "TimelyCapsule is a digital time capsule platform where users can create messages, memories, or media to be sent to themselves or others in the future. With the backend (NestJS) and API ready, this quest focuses on bringing the experience to mobile platforms through a React Native implementation.",
+      requirements: [
+        "Implement user onboarding flow with smooth animations",
+        "Create intuitive capsule creation interface",
+        "Build delivery scheduling system with date/time picker",
+        "Develop capsule viewing experience for received messages",
+        "Implement smooth transitions and micro-interactions",
+        "Ensure cross-platform compatibility (iOS and Android)",
+        "Integrate with existing backend API",
+        "Implement proper error handling and loading states",
+      ],
+      warning:
+        "Contributors should be comfortable with React Native and have experience with mobile UI/UX best practices.",
+      links: [],
+    },
+    wantedProfiles: {
+      senior: {
+        provided: [],
+        wanted: 2,
+      },
+    },
+    requiredSkills: ["react native", "typescript", "mobile development", "UI/UX"],
+    startDate: "2025-04-01",
+    endDate: "2025-05-06",
+    status: "application-open",
+    issues: [],
+    maintainers: [40478490],
+  },
 ];
-
-// https://api.github.com/repos/Trustless-Work/Trustless-Work-Smart-Escrow/issues/41
