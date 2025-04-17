@@ -387,14 +387,14 @@ export const QuestListData: QuestList[] = [
     },
     wantedProfiles: {
       senior: {
-        provided: [],
-        wanted: 2,
+        provided: [52901501, 38398043, 103938678],
+        wanted: 3,
       },
     },
     requiredSkills: ["react native", "typescript", "mobile development", "UI/UX"],
     startDate: "2025-04-01",
     endDate: "2025-05-06",
-    status: "application-open",
+    status: "started",
     issues: [],
     maintainers: [40478490],
   },
