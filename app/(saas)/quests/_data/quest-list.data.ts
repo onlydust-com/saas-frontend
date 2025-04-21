@@ -370,7 +370,7 @@ export const QuestListData: QuestList[] = [
     longDescription: {
       title: "Build TimelyCapsule Mobile v1",
       description:
-        "TimelyCapsule is a digital time capsule platform where users can create messages, memories, or media to be sent to themselves or others in the future. With the backend (NestJS) and API ready, this quest focuses on bringing the experience to mobile platforms through a React Native implementation.",
+        "TimelyCapsule is a digital time capsule platform where users can create messages, memories, or media to be sent to themselves or others in the future. This quest focuses on bringing the experience to mobile platforms through a React Native implementation.",
       requirements: [
         "Implement user onboarding flow with smooth animations",
         "Create intuitive capsule creation interface",
@@ -378,7 +378,7 @@ export const QuestListData: QuestList[] = [
         "Develop capsule viewing experience for received messages",
         "Implement smooth transitions and micro-interactions",
         "Ensure cross-platform compatibility (iOS and Android)",
-        "Integrate with existing backend API",
+        "Build the mobile API",
         "Implement proper error handling and loading states",
       ],
       warning:
