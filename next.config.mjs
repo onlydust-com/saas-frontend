@@ -8,7 +8,7 @@ const nextConfig = {
       // HOME
       {
         source: "/",
-        destination: "/discover",
+        destination: "/my-dashboard/rewards",
         permanent: true,
       },
       // DATA
@@ -32,7 +32,7 @@ const nextConfig = {
       // MY DASHBOARD
       {
         source: "/my-dashboard",
-        destination: "/my-dashboard/contributions",
+        destination: "/my-dashboard/rewards",
         permanent: true,
       },
       // PROJECTS
