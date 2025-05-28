@@ -7,21 +7,15 @@ import "remixicon/fonts/remixicon.css";
 
 import { SaasProviders } from "@/app/(saas)/saas-providers";
 
-import { AppHeader } from "@/shared/features/app/app-header/app-header";
-import { AppSidebar } from "@/shared/features/app/app-sidebar/app-sidebar";
-import { ImpersonationBanner } from "@/shared/features/impersonation/impersonation-banner";
-import { IndexingBanner } from "@/shared/features/indexing/indexing-banner";
+import { AppMigrationBanner } from "@/shared/features/app-migration-banner/app-migration-banner";
 import { SidebarInset } from "@/shared/ui/sidebar";
 
 export default function SaasLayout({ children }: PropsWithChildren) {
   return (
     <SaasProviders>
-      <AppSidebar />
       <SidebarInset>
-        <AppHeader />
+        <AppMigrationBanner />
         {children}
-        <ImpersonationBanner />
-        <IndexingBanner />
       </SidebarInset>
     </SaasProviders>
   );
