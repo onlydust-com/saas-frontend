@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import { AppUserMenu } from "@/shared/features/app/app-user-menu/app-user-menu";
-import { GlobalSearch } from "@/shared/features/global-search/global-search";
 import { useNavigation } from "@/shared/features/navigation/navigation.context";
 import { NotificationsPopover } from "@/shared/features/notifications/notifications-popover";
 import { useForcedOnboarding } from "@/shared/hooks/flags/use-forced-onboarding";
@@ -67,8 +66,6 @@ export function AppHeader() {
           <div className={"flex flex-1 flex-row items-center justify-end gap-3"}>
             <IsAuthenticated>
               <IsAuthenticated.Yes>
-                {!isForcedOnboarding && <GlobalSearch />}
-
                 <NotificationsPopover />
 
                 <AppUserMenu />
