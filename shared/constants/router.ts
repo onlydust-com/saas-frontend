@@ -1,7 +1,7 @@
 export const NEXT_ROUTER = {
   notFound: "/not-found",
   home: {
-    root: "/",
+    root: "/my-dashboard/rewards",
   },
   programs: {
     root: "/programs",
