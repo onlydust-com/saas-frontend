@@ -1,4 +1,4 @@
-import { ChevronRight, SquarePlus } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 
@@ -39,7 +39,6 @@ export function MaintainerGroup() {
   const { state } = useSidebar();
   const { user } = useAuthUser();
   const isMaintainerRoute = useMatchPath(NEXT_ROUTER.manageProjects.root, { exact: false });
-  const isProjectCreateRoute = useMatchPath(NEXT_ROUTER.createProject.root, { exact: false });
   const projects = useMemo(() => user?.projectsLed ?? [], [user]);
   const visibleProjects = useMemo(() => projects.slice(0, MAX_PROJECTS), [projects]);
   const canSeeAll = useMemo(() => projects.length > MAX_PROJECTS, [projects.length]);
@@ -77,15 +76,6 @@ export function MaintainerGroup() {
     <SidebarGroup>
       <SidebarGroupLabel>Maintainer</SidebarGroupLabel>
       <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton isActive={isProjectCreateRoute} asChild tooltip="Submit a project">
-            <Link href={NEXT_ROUTER.createProject.root}>
-              <SquarePlus />
-              <span>Submit a project</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-
         {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
             <SidebarMenuItem>
