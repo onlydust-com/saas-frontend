@@ -79,12 +79,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={loading || disabled}
         {...props}
       >
-        {loading ? (
-          <Loader2
-            aria-label="Loading"
-            className={loadingVariants({ variant })}
-          />
-        ) : null}
+        {loading ? <Loader2 aria-label="Loading" className={loadingVariants({ variant })} /> : null}
         <Slottable>{children}</Slottable>
       </Comp>
     );
