@@ -88,6 +88,7 @@ export function CreateContributionSidepanel() {
     handleSubmit,
     control,
     reset,
+    getValues,
     formState: { isValid },
   } = form;
 
@@ -107,8 +108,13 @@ export function CreateContributionSidepanel() {
     handleAddContribution(response);
   }
 
+  // TODO: Quick fix for this : https://onlydust.slack.com/archives/C0306RTHCUX/p1747383180455669
   useEffect(() => {
-    reset({ githubRepoId: selectItems[0]?.id });
+    const currentValues = getValues();
+    reset({
+      ...currentValues,
+      githubRepoId: selectItems[0]?.id ?? currentValues.githubRepoId,
+    });
   }, [selectItems]);
 
   return (

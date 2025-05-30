@@ -28,7 +28,9 @@ export const DatePickerNextUiAdapter = forwardRef(function InputNextUiAdapter(
     setFormattedValue(parseAbsolute(value?.toISOString(), DEFAULT_TZ));
   }, [value]);
 
-  function handleChange(value: DateValue) {
+  function handleChange(value: DateValue | null) {
+    if (!value) return;
+
     onChange?.(value.toDate(DEFAULT_TZ));
   }
 
