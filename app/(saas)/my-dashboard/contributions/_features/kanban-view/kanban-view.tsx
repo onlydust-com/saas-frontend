@@ -86,6 +86,16 @@ function Column({
           showProject
         />
       ))}
+
+      {/* 🟢 NEW IMPLEMENTATION: Renders placeholder block if there are 0 active contributions */}
+      {!isPending && contributions.length === 0 && (
+        <div className="flex flex-col items-center justify-center p-6 text-center border border-dashed rounded-md opacity-60 min-h-[140px]">
+          <p className="text-sm font-medium">
+            <Translate token={"myDashboard:detail.kanban.emptyPlaceholder"} />
+          </p>
+        </div>
+      )}
+
       {isPending && (
         <>
           <Skeleton classNames={{ base: "h-[160px] w-full" }} />
